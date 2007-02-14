@@ -697,7 +697,6 @@ under the License.
         </iterate>
         <field-to-result field-name="hasPermission"/>
         <field-to-result field-name="failMessage"/>
-                
     </simple-method>
     
     <simple-method method-name="duplicateProductCategory" short-description="Duplicate a ProductCategory">
@@ -811,4 +810,32 @@ under the License.
         <find-by-primary-key entity-name="ProductCategoryAttribute" map-name="lookupPKMap" value-name="ProductCategoryAttributeInstance"/>
         <remove-value value-name="ProductCategoryAttributeInstance"/>
     </simple-method>
+    
+
+    <!-- ProductCategoryLink Create/Update/Delete"-->
+    <simple-method method-name="createProductCategoryLink" short-description="create a ProductCategoryLink">
+        <make-value entity-name="ProductCategoryLink" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field-name="parameters.linkSeqId">
+            <make-next-seq-id value-name="newEntity" seq-field-name="linkSeqId"/> <!-- this finds the next sub-sequence ID -->
+            <set from-field="linkSeqId" field="newEntity.linkSeqId"/>
+        </if-empty>    
+        <if-empty field-name="newEntity.fromDate">
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
+        </if-empty>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>  
+    </simple-method>   
+    
+    <simple-method method-name="updateProductCategoryLink" short-description="update a ProductCategoryLink">
+        <entity-one entity-name="ProductCategoryLink" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteProductCategoryLink" short-description="delete a ProductCategoryLink">        
+        <entity-one entity-name="ProductCategoryLink" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+        
 </simple-methods>

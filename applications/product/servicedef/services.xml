@@ -24,7 +24,9 @@ under the License.
     <vendor>OFBiz</vendor>
     <version>1.0</version>
 
+    <!-- ======================================== -->
     <!-- Product Services -->
+    <!-- ======================================== -->
     <service name="interfaceProduct" default-entity-name="Product" engine="interface" location="" invoke="">
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="createdDate"/>
@@ -286,7 +288,201 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
+    <!-- Product content services -->
+    <service name="createProductContent" default-entity-name="ProductContent" engine="simple"
+        location="org/ofbiz/product/product/ProductContentServices.xml" invoke="createProductContent" auth="true">
+        <description>Add Content To Product</description>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true" />
+        <!--<override name="contentId" optional="true" mode="INOUT" />-->
+    </service>
+    <service name="updateProductContent" default-entity-name="ProductContent" engine="simple"
+        location="org/ofbiz/product/product/ProductContentServices.xml" invoke="updateProductContent" auth="true">
+        <description>Update Content To Product</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeProductContent" default-entity-name="ProductContent" engine="simple"
+        location="org/ofbiz/product/product/ProductContentServices.xml" invoke="removeProductContent" auth="true">
+        <description>Remove Content From Product</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="createEmailContentForProduct" default-entity-name="ProductContent" engine="simple"
+        location="org/ofbiz/product/product/ProductContentServices.xml" invoke="createEmailContentForProduct" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes mode="IN" entity-name="Content" optional="true"/>
+        <attribute name="subject" type="String" mode="IN" optional="false"/>
+        <attribute name="plainBody" type="String" mode="IN" optional="false"/>
+        <attribute name="htmlBody" type="String" mode="IN" optional="true"/>
+        <override name="contentId" optional="true" mode="INOUT"/>
+    </service>
+    <service name="updateEmailContentForProduct" default-entity-name="ProductContent" engine="simple"
+        location="org/ofbiz/product/product/ProductContentServices.xml" invoke="updateEmailContentForProduct" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="subjectDataResourceId" type="String" mode="IN" optional="true"/>
+        <attribute name="subject" type="String" mode="IN" optional="true"/>
+        <attribute name="plainBodyDataResourceId" type="String" mode="IN" optional="true"/>
+        <attribute name="plainBody" type="String" mode="IN" optional="true"/>
+        <attribute name="htmlBodyDataResourceId" type="String" mode="IN" optional="true"/>
+        <attribute name="htmlBody" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="createDownloadContentForProduct" default-entity-name="ProductContent" engine="simple"
+        location="org/ofbiz/product/product/ProductContentServices.xml" invoke="createDownloadContentForProduct" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes mode="IN" entity-name="Content" optional="true"/>
+        <attribute name="file" type="String" mode="IN" optional="false"/>
+        <override name="contentId" optional="true"/>
+    </service>
+    <service name="updateDownloadContentForProduct" default-entity-name="ProductContent" engine="simple"
+        location="org/ofbiz/product/product/ProductContentServices.xml" invoke="updateDownloadContentForProduct" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes mode="IN" entity-name="Content" optional="true"/>
+        <attribute name="fileDataResourceId" type="String" mode="IN" optional="true"/>
+        <attribute name="file" type="String" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="createSimpleTextContentForProduct" default-entity-name="ProductContent" engine="simple"
+        location="org/ofbiz/product/product/ProductContentServices.xml" invoke="createSimpleTextContentForProduct" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="text" type="String" mode="IN" optional="false"/>
+        <override name="contentId" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updateSimpleTextContentForProduct" default-entity-name="ProductContent" engine="simple"
+        location="org/ofbiz/product/product/ProductContentServices.xml" invoke="updateSimpleTextContentForProduct" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes mode="IN" entity-name="Content" optional="true"/>
+        <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
+        <attribute name="text" type="String" mode="IN" optional="true"/>
+    </service>
+    
+    <!-- SupplierProduct Services -->
+    <service name="createSupplierProduct" default-entity-name="SupplierProduct" engine="simple"
+        location="org/ofbiz/product/supplier/SupplierProductServices.xml" invoke="createSupplierProduct" auth="true">
+        <description>Create a new SupplierProduct record</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="CATALOG" action="_CREATE"/>
+        </required-permissions>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="supplierProductId" optional="false"/>
+        <override name="lastPrice" optional="false"/>
+    </service>
+    <service name="updateSupplierProduct" default-entity-name="SupplierProduct" engine="simple"
+        location="org/ofbiz/product/supplier/SupplierProductServices.xml" invoke="updateSupplierProduct" auth="true">
+        <description>Update a SupplierProduct record</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="CATALOG" action="_UPDATE"/>
+        </required-permissions>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="removeSupplierProduct" default-entity-name="SupplierProduct" engine="simple"
+        location="org/ofbiz/product/supplier/SupplierProductServices.xml" invoke="removeSupplierProduct" auth="true">
+        <description>Remove a SupplierProduct record</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="CATALOG" action="_DELETE"/>
+        </required-permissions>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <!-- supplier product feature services -->
+    <service name="createSupplierProductFeature" default-entity-name="SupplierProductFeature" engine="simple"
+        location="org/ofbiz/product/supplier/SupplierProductServices.xml" invoke="createSupplierProductFeature" auth="true">
+        <description>Create a new SupplierProductFeature record</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="CATALOG" action="_CREATE"/>
+        </required-permissions>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateSupplierProductFeature" default-entity-name="SupplierProductFeature" engine="simple"
+        location="org/ofbiz/product/supplier/SupplierProductServices.xml" invoke="updateSupplierProductFeature" auth="true">
+        <description>Update a SupplierProduct record</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="CATALOG" action="_UPDATE"/>
+        </required-permissions>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="removeSupplierProductFeature" default-entity-name="SupplierProductFeature" engine="simple"
+        location="org/ofbiz/product/supplier/SupplierProductServices.xml" invoke="removeSupplierProductFeature" auth="true">
+        <description>Remove a SupplierProduct record</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="CATALOG" action="_DELETE"/>
+        </required-permissions>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    <service name="getSupplierProductFeatures" engine="simple"
+        location="org/ofbiz/product/supplier/SupplierProductServices.xml" invoke="getSupplierProductFeatures">
+        <description>Finds a list of SupplierProductFeature entities based on the productFeatureId.
+            If a partyId is given, only product feature information for that supplier party is returned.</description>
+        <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierProductFeatures" type="java.util.List" mode="OUT" optional="false"/>
+    </service>
+    
+    <service name="createProductMaint" default-entity-name="ProductMaint" engine="simple"
+        location="org/ofbiz/product/product/ProductServices.xml" invoke="createProductMaint" auth="true">
+        <description>Create a ProductMaint</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="productMaintSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->        
+    </service>
+    <service name="updateProductMaint" default-entity-name="ProductMaint" engine="simple"
+        location="org/ofbiz/product/product/ProductServices.xml" invoke="updateProductMaint" auth="true">
+        <description>Update a ProductMaint</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductMaint" default-entity-name="ProductMaint" engine="simple"
+        location="org/ofbiz/product/product/ProductServices.xml" invoke="deleteProductMaint" auth="true">
+        <description>Delete a ProductMaint</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="createProductMeter" default-entity-name="ProductMeter" engine="simple"
+        location="org/ofbiz/product/product/ProductServices.xml" invoke="createProductMeter" auth="true">
+        <description>Create a ProductMeter</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductMeter" default-entity-name="ProductMeter" engine="simple"
+        location="org/ofbiz/product/product/ProductServices.xml" invoke="updateProductMeter" auth="true">
+        <description>Update a ProductMeter</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductMeter" default-entity-name="ProductMeter" engine="simple"
+        location="org/ofbiz/product/product/ProductServices.xml" invoke="deleteProductMeter" auth="true">
+        <description>Delete a ProductMeter</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="createCommunicationEventProduct" engine="simple"
+        location="org/ofbiz/product/communication/CommunicationEventServices.xml" invoke="createCommunicationEventProduct" auth="true">
+        <description>Create a Communication Event Product</description>
+        <auto-attributes entity-name="CommunicationEventProduct" include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="removeCommunicationEventProduct" engine="simple"
+        location="org/ofbiz/product/communication/CommunicationEventServices.xml" invoke="removeCommunicationEventProduct" auth="true">
+        <description>Remove a Communication Event Product</description>
+        <auto-attributes entity-name="CommunicationEventProduct" include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ======================================== -->
     <!-- Product Catalog Services -->
+    <!-- ======================================== -->
     <service name="createProdCatalog" default-entity-name="ProdCatalog" engine="simple"
                 location="org/ofbiz/product/catalog/CatalogServices.xml" invoke="createProdCatalog" auth="true">
         <description>Create a ProdCatalog</description>
@@ -346,7 +542,9 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
+    <!-- ======================================== -->
     <!-- Product Category Services -->
+    <!-- ======================================== -->
     <service name="createProductCategory" default-entity-name="ProductCategory" engine="simple"
                 location="org/ofbiz/product/category/CategoryServices.xml" invoke="createProductCategory" auth="true">
         <description>Create an ProductCategory</description>
@@ -523,6 +721,33 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     
+    <!-- Product Category Link Services --> 
+    <service name="createProductCategoryLink" default-entity-name="ProductCategoryLink" engine="simple"
+            location="org/ofbiz/product/category/CategoryServices.xml" 
+            invoke="createProductCategoryLink" auth="true">
+        <description>Create a ProductCategoryLink</description>
+        <permission-service service-name="checkCategoryRelatedPermissionService" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true" />        
+        <override name="linkSeqId" optional="true" />        
+    </service>
+    <service name="updateProductCategoryLink" default-entity-name="ProductCategoryLink" engine="simple"
+            location="org/ofbiz/product/category/CategoryServices.xml" 
+            invoke="updateProductCategoryLink" auth="true">
+        <description>Update a ProductCategoryLink</description>
+        <permission-service service-name="checkCategoryRelatedPermissionService" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductCategoryLink" default-entity-name="ProductCategoryLink" engine="simple"
+            location="org/ofbiz/product/category/CategoryServices.xml" 
+            invoke="deleteProductCategoryLink" auth="true">
+        <description>Delete a ProductCategoryLink</description>
+        <permission-service service-name="checkCategoryRelatedPermissionService" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    
     <service name="duplicateCategoryEntities" engine="simple"
                 location="org/ofbiz/product/category/CategoryServices.xml" invoke="duplicateCategoryEntities" auth="true">
         <description>Duplicates a named entity from one productCategoryId to another</description>
@@ -532,86 +757,6 @@ under the License.
         <attribute name="validDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
 
-
-    <!-- Product content services -->
-    <service name="createProductContent" default-entity-name="ProductContent" engine="simple"
-                location="org/ofbiz/product/product/ProductContentServices.xml" invoke="createProductContent" auth="true">
-        <description>Add Content To Product</description>
-        <auto-attributes include="pk" mode="INOUT" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
-        <override name="fromDate" optional="true" />
-        <!--<override name="contentId" optional="true" mode="INOUT" />-->
-    </service>
-    <service name="updateProductContent" default-entity-name="ProductContent" engine="simple"
-                location="org/ofbiz/product/product/ProductContentServices.xml" invoke="updateProductContent" auth="true">
-        <description>Update Content To Product</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="removeProductContent" default-entity-name="ProductContent" engine="simple"
-                location="org/ofbiz/product/product/ProductContentServices.xml" invoke="removeProductContent" auth="true">
-        <description>Remove Content From Product</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="createEmailContentForProduct" default-entity-name="ProductContent" engine="simple"
-            location="org/ofbiz/product/product/ProductContentServices.xml" invoke="createEmailContentForProduct" auth="true">
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <auto-attributes mode="IN" entity-name="Content" optional="true"/>
-        <attribute name="subject" type="String" mode="IN" optional="false"/>
-        <attribute name="plainBody" type="String" mode="IN" optional="false"/>
-        <attribute name="htmlBody" type="String" mode="IN" optional="true"/>
-        <override name="contentId" optional="true" mode="INOUT"/>
-    </service>
-    <service name="updateEmailContentForProduct" default-entity-name="ProductContent" engine="simple"
-            location="org/ofbiz/product/product/ProductContentServices.xml" invoke="updateEmailContentForProduct" auth="true">
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
-        <attribute name="subjectDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="subject" type="String" mode="IN" optional="true"/>
-        <attribute name="plainBodyDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="plainBody" type="String" mode="IN" optional="true"/>
-        <attribute name="htmlBodyDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="htmlBody" type="String" mode="IN" optional="true"/>
-    </service>
-    <service name="createDownloadContentForProduct" default-entity-name="ProductContent" engine="simple"
-            location="org/ofbiz/product/product/ProductContentServices.xml" invoke="createDownloadContentForProduct" auth="true">
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <auto-attributes mode="IN" entity-name="Content" optional="true"/>
-        <attribute name="file" type="String" mode="IN" optional="false"/>
-        <override name="contentId" optional="true"/>
-    </service>
-    <service name="updateDownloadContentForProduct" default-entity-name="ProductContent" engine="simple"
-            location="org/ofbiz/product/product/ProductContentServices.xml" invoke="updateDownloadContentForProduct" auth="true">
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <auto-attributes mode="IN" entity-name="Content" optional="true"/>
-        <attribute name="fileDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="file" type="String" mode="IN" optional="true"/>
-    </service>
-
-    <service name="createSimpleTextContentForProduct" default-entity-name="ProductContent" engine="simple"
-            location="org/ofbiz/product/product/ProductContentServices.xml" invoke="createSimpleTextContentForProduct" auth="true">
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="false"/>
-        <override name="contentId" optional="true"/>
-        <override name="fromDate" optional="true"/>
-    </service>
-    <service name="updateSimpleTextContentForProduct" default-entity-name="ProductContent" engine="simple"
-            location="org/ofbiz/product/product/ProductContentServices.xml" invoke="updateSimpleTextContentForProduct" auth="true">
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <auto-attributes mode="IN" entity-name="Content" optional="true"/>
-        <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="true"/>
-    </service>
 
     <!-- Category content services -->
     <service name="createCategoryContent" default-entity-name="ProductCategoryContent" engine="simple"
@@ -667,72 +812,6 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <!-- SupplierProduct Services -->
-    <service name="createSupplierProduct" default-entity-name="SupplierProduct" engine="simple"
-            location="org/ofbiz/product/supplier/SupplierProductServices.xml" invoke="createSupplierProduct" auth="true">
-        <description>Create a new SupplierProduct record</description>
-        <required-permissions join-type="AND">
-            <check-permission permission="CATALOG" action="_CREATE"/>
-        </required-permissions>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <override name="supplierProductId" optional="false"/>
-        <override name="lastPrice" optional="false"/>
-    </service>
-    <service name="updateSupplierProduct" default-entity-name="SupplierProduct" engine="simple"
-            location="org/ofbiz/product/supplier/SupplierProductServices.xml" invoke="updateSupplierProduct" auth="true">
-        <description>Update a SupplierProduct record</description>
-        <required-permissions join-type="AND">
-            <check-permission permission="CATALOG" action="_UPDATE"/>
-        </required-permissions>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
-    </service>
-    <service name="removeSupplierProduct" default-entity-name="SupplierProduct" engine="simple"
-            location="org/ofbiz/product/supplier/SupplierProductServices.xml" invoke="removeSupplierProduct" auth="true">
-        <description>Remove a SupplierProduct record</description>
-        <required-permissions join-type="AND">
-            <check-permission permission="CATALOG" action="_DELETE"/>
-        </required-permissions>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-    </service>
-
-    <!-- supplier product feature services -->
-    <service name="createSupplierProductFeature" default-entity-name="SupplierProductFeature" engine="simple"
-            location="org/ofbiz/product/supplier/SupplierProductServices.xml" invoke="createSupplierProductFeature" auth="true">
-        <description>Create a new SupplierProductFeature record</description>
-        <required-permissions join-type="AND">
-            <check-permission permission="CATALOG" action="_CREATE"/>
-        </required-permissions>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
-    </service>
-    <service name="updateSupplierProductFeature" default-entity-name="SupplierProductFeature" engine="simple"
-            location="org/ofbiz/product/supplier/SupplierProductServices.xml" invoke="updateSupplierProductFeature" auth="true">
-        <description>Update a SupplierProduct record</description>
-        <required-permissions join-type="AND">
-            <check-permission permission="CATALOG" action="_UPDATE"/>
-        </required-permissions>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
-    </service>
-    <service name="removeSupplierProductFeature" default-entity-name="SupplierProductFeature" engine="simple"
-            location="org/ofbiz/product/supplier/SupplierProductServices.xml" invoke="removeSupplierProductFeature" auth="true">
-        <description>Remove a SupplierProduct record</description>
-        <required-permissions join-type="AND">
-            <check-permission permission="CATALOG" action="_DELETE"/>
-        </required-permissions>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-    </service>
-    <service name="getSupplierProductFeatures" engine="simple"
-            location="org/ofbiz/product/supplier/SupplierProductServices.xml" invoke="getSupplierProductFeatures">
-        <description>Finds a list of SupplierProductFeature entities based on the productFeatureId.
-        If a partyId is given, only product feature information for that supplier party is returned.</description>
-        <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="supplierProductFeatures" type="java.util.List" mode="OUT" optional="false"/>
-    </service>
-    
     <!-- Customer driven (customers are suppliers) digital download product services -->
     <service name="createCustomerDigitalDownloadProduct" auth="true" engine="simple"
         location="org/ofbiz/product/product/CustomerDigitalDownloadServices.xml" invoke="createCustomerDigitalDownloadProduct">
@@ -949,57 +1028,16 @@ under the License.
         </description>
         <attribute type="String" mode="IN" name="inventoryItemId" optional="false"/>
     </service>
-    <service name="createProductMaint" default-entity-name="ProductMaint" engine="simple"
-                location="org/ofbiz/product/product/ProductServices.xml" invoke="createProductMaint" auth="true">
-        <description>Create a ProductMaint</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="productMaintSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->        
-    </service>
-    <service name="updateProductMaint" default-entity-name="ProductMaint" engine="simple"
-                location="org/ofbiz/product/product/ProductServices.xml" invoke="updateProductMaint" auth="true">
-        <description>Update a ProductMaint</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="deleteProductMaint" default-entity-name="ProductMaint" engine="simple"
-                location="org/ofbiz/product/product/ProductServices.xml" invoke="deleteProductMaint" auth="true">
-        <description>Delete a ProductMaint</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-    </service>
-    <service name="createProductMeter" default-entity-name="ProductMeter" engine="simple"
-                location="org/ofbiz/product/product/ProductServices.xml" invoke="createProductMeter" auth="true">
-        <description>Create a ProductMeter</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="updateProductMeter" default-entity-name="ProductMeter" engine="simple"
-                location="org/ofbiz/product/product/ProductServices.xml" invoke="updateProductMeter" auth="true">
-        <description>Update a ProductMeter</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="deleteProductMeter" default-entity-name="ProductMeter" engine="simple"
-                location="org/ofbiz/product/product/ProductServices.xml" invoke="deleteProductMeter" auth="true">
-        <description>Delete a ProductMeter</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-    </service>
-    <service name="createCommunicationEventProduct" engine="simple"
-            location="org/ofbiz/product/communication/CommunicationEventServices.xml" invoke="createCommunicationEventProduct" auth="true">
-        <description>Create a Communication Event Product</description>
-        <auto-attributes entity-name="CommunicationEventProduct" include="pk" mode="IN" optional="false"/>
-    </service>
-    <service name="removeCommunicationEventProduct" engine="simple"
-            location="org/ofbiz/product/communication/CommunicationEventServices.xml" invoke="removeCommunicationEventProduct" auth="true">
-        <description>Remove a Communication Event Product</description>
-        <auto-attributes entity-name="CommunicationEventProduct" include="pk" mode="IN" optional="false"/>
-    </service>
     
     <!-- Permission Services -->    
+    <service name="productGenericPermission" engine="simple"
+        location="org/ofbiz/product/product/ProductServices.xml" invoke="productGenericPermission">
+        <implements service="permissionInterface"/>
+    </service>
     <service name="checkCategoryRelatedPermissionService" engine="simple"
              location="org/ofbiz/product/category/CategoryServices.xml" invoke="checkCategoryRelatedPermissionService">
         <implements service="permissionInterface"/>
-         <attribute type="String" mode="IN" name="productCategoryId" optional="true"/>
-         <attribute type="List" mode="IN" name="categories" optional="true"/>
+        <attribute type="String" mode="IN" name="productCategoryId" optional="true"/>
+        <attribute type="List" mode="IN" name="categories" optional="true"/>
     </service>
 </services>

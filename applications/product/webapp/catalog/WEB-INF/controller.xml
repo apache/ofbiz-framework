@@ -720,6 +720,30 @@ under the License.
         <response name="error" type="view" value="EditCategoryAttributes"/>
     </request-map>
 
+    <!-- ================ Product Category Link Requests ================= -->
+    <request-map uri="EditProductCategoryLinks">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductCategoryLinks"/>
+    </request-map>
+    <request-map uri="createProductCategoryLink">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createProductCategoryLink"/>
+        <response name="success" type="view" value="EditProductCategoryLinks"/>
+        <response name="error" type="view" value="EditProductCategoryLinks"/>
+    </request-map>
+    <request-map uri="updateProductCategoryLink">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateProductCategoryLink"/>
+        <response name="success" type="view" value="EditProductCategoryLinks"/>
+        <response name="error" type="view" value="EditProductCategoryLinks"/>
+    </request-map>
+    <request-map uri="deleteProductCategoryLink">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteProductCategoryLink"/>
+        <response name="success" type="view" value="EditProductCategoryLinks"/>
+        <response name="error" type="view" value="EditProductCategoryLinks"/>
+    </request-map>
+    
     <!-- ================ Product Keyword Requests ================= -->
     <request-map uri="EditProductKeyword">
         <security https="true" auth="true"/>
@@ -2283,6 +2307,7 @@ under the License.
     <view-map name="EditCategoryProdCatalogs" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#EditCategoryProdCatalogs"/>
     <view-map name="EditCategoryFeatureCats" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#EditCategoryFeatureCats"/>
     <view-map name="EditCategoryParties" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#EditCategoryParties"/>
+    <view-map name="EditProductCategoryLinks" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#EditProductCategoryLinks"/>
 
     <view-map name="createProductInCategoryStart" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#createProductInCategoryStart"/>
     <view-map name="createProductInCategoryCheckExisting" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#createProductInCategoryCheckExisting"/>

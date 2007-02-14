@@ -30,4 +30,6 @@ under the License.
         <a href="<@ofbizUrl>EditCategoryFeatureCats?productCategoryId=${productCategoryId}</@ofbizUrl>" class="${selectedClassMap.EditCategoryFeatureCats?default(unselectedClassName)}">${uiLabelMap.ProductFeatureCats}</a>
         <a href="<@ofbizUrl>EditCategoryParties?productCategoryId=${productCategoryId}</@ofbizUrl>" class="${selectedClassMap.EditCategoryParties?default(unselectedClassName)}">${uiLabelMap.PartyParties}</a>
         <a href="<@ofbizUrl>EditCategoryAttributes?productCategoryId=${productCategoryId}</@ofbizUrl>" class="${selectedClassMap.EditCategoryAttributes?default(unselectedClassName)}">${uiLabelMap.ProductAttributes}</a>
+        <a href="<@ofbizUrl>EditProductCategoryLinks?productCategoryId=${productCategoryId}</@ofbizUrl>" class="${selectedClassMap.EditProductCategoryLinks?default(unselectedClassName)}">${uiLabelMap.ProductCategoryLinks}</a>
     </div>
+    
