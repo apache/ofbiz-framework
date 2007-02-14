@@ -21,17 +21,33 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="genericBasePermissionCheck" short-description="Basic Permission check">
+        <!-- allow primary permission to be set form outside methods or direct to the service -->
+        <if-empty field-name="primaryPermission">
+            <set field="primaryPermission" from-field="parameters.primaryPermission"/>
+        </if-empty>
+        <if-empty field-name="primaryPermission">
+            <add-error><fail-property resource="CommonUiLabels" property="CommonPermissionPrimaryPermissionMissing"/></add-error>
+        </if-empty>
+
+        <!-- allow alt permission to be set form outside methods or direct to the service -->
+        <if-empty field-name="altPermission">
+            <set field="altPermission" from-field="parameters.altPermission"/>
+        </if-empty>
+        <!-- altPermission is not a required field; no need to addError -->
+
         <!-- allow mainAction to be set from outside methods -->
         <if-empty field-name="mainAction">
             <set field="mainAction" from-field="parameters.mainAction"/>
         </if-empty>
-
         <if-empty field-name="mainAction">
             <add-error><fail-property resource="CommonUiLabels" property="CommonPermissionMainActionAttributeMissing"/></add-error>
         </if-empty>
-        <log level="verbose" message="Checking for ${primaryPermission}_${mainAction}"/>
-        <log level="verbose" message="Checking for ${altPermission}_${mainAction}"/>
+
+        <log level="info" message="Checking for ${primaryPermission}_${mainAction}"/>
+        <log level="info" message="Checking for ${altPermission}_${mainAction}"/>
         <check-errors/>
+
+        <!-- check permission -->
         <if>
             <condition>
                 <or>
