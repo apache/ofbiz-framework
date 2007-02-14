@@ -129,6 +129,21 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="RunService">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleRunService"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/scheduleJob.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="runService" location="component://webtools/webapp/webtools/service/ServiceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="setServiceParameters">
         <section>
             <actions>
@@ -143,6 +158,44 @@ under the License.
                         <label style="head1">${uiLabelMap.WebtoolsMessage12}</label>
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/service/setServiceParameter.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="setSyncServiceParameters">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleScheduleJob"/>
+                <set field="headerItem" value="services"/>
+                <set field="tabButtonItem" value="ScheduleJob"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/scheduleJob.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webtools/webapp/webtools/service/setServiceParameter.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ServiceResult">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleScheduleJob"/>
+                <set field="headerItem" value="services"/>
+                <set field="tabButtonItem" value="ScheduleJob"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/serviceResult.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webtools/webapp/webtools/service/serviceResult.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
