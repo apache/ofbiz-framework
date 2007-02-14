@@ -65,8 +65,8 @@ public class RequestHandler implements Serializable {
         RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
         if (rh == null) {
             rh = new RequestHandler();
-            rh.init(servletContext);
             servletContext.setAttribute("_REQUEST_HANDLER_", rh);
+            rh.init(servletContext);            
         }
         return rh;
     }
