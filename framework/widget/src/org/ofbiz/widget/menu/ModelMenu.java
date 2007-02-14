@@ -691,7 +691,7 @@ public class ModelMenu {
     }
 
     /**
-     * @param boolean
+     * @param val
      */
     public void setDefaultHideIfSelected(Boolean val) {
         this.defaultHideIfSelected = val;

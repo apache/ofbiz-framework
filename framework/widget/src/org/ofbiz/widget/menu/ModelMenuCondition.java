@@ -42,6 +42,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entityext.permission.EntityPermissionChecker;
 import org.ofbiz.minilang.operation.BaseCompare;
 import org.ofbiz.security.Security;
+import org.ofbiz.service.*;
 import org.w3c.dom.Element;
 
 /**
@@ -118,6 +119,8 @@ public class ModelMenuCondition {
             return new Or(modelMenuItem, conditionElement);
         } else if ("not".equals(conditionElement.getNodeName())) {
             return new Not(modelMenuItem, conditionElement);
+        } else if ("if-service-permission".equals(conditionElement.getNodeName())) {
+            return new IfServicePermission(modelMenuItem, conditionElement);
         } else if ("if-has-permission".equals(conditionElement.getNodeName())) {
             return new IfHasPermission(modelMenuItem, conditionElement);
         } else if ("if-validate-method".equals(conditionElement.getNodeName())) {
@@ -219,7 +222,78 @@ public class ModelMenuCondition {
             return !this.subCondition.eval(context);
         }
     }
-    
+
+        public static class IfServicePermission extends MenuCondition {
+        protected FlexibleStringExpander serviceExdr;
+        protected FlexibleStringExpander actionExdr;
+        protected FlexibleStringExpander resExdr;
+
+        public IfServicePermission(ModelMenuItem modelMenuItem, Element condElement) {
+            super(modelMenuItem, condElement);
+            this.serviceExdr = new FlexibleStringExpander(condElement.getAttribute("service-name"));
+            this.actionExdr = new FlexibleStringExpander(condElement.getAttribute("main-action"));
+            this.resExdr = new FlexibleStringExpander(condElement.getAttribute("resource-description"));            
+        }
+
+        public boolean eval(Map context) {
+            // if no user is logged in, treat as if the user does not have permission
+            GenericValue userLogin = (GenericValue) context.get("userLogin");
+            if (userLogin != null) {
+                String serviceName = serviceExdr.expandString(context);
+                String mainAction = actionExdr.expandString(context);
+                String resource = resExdr.expandString(context);
+                if (resource == null) {
+                    resource = serviceName;
+                }
+
+                if (serviceName == null) {
+                    Debug.logWarning("No permission service-name specified!", module);
+                    return false;
+                }
+
+                // get the service objects
+                LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
+                DispatchContext dctx = dispatcher.getDispatchContext();
+
+                // get the service
+                ModelService permService;
+                try {
+                    permService = dctx.getModelService(serviceName);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    return false;
+                }
+
+                if (permService != null) {
+                    // build the context
+                    Map svcCtx = permService.makeValid(context, ModelService.IN_PARAM);
+                    svcCtx.put("resourceDescription", resource);
+                    if (UtilValidate.isNotEmpty(mainAction)) {
+                        svcCtx.put("mainAction", mainAction);
+                    }
+
+                    // invoke the service
+                    Map resp;
+                    try {
+                        resp = dispatcher.runSync(permService.name,  svcCtx, 300, true);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        return false;
+                    }
+                    if (ServiceUtil.isError(resp) || ServiceUtil.isFailure(resp)) {
+                        Debug.logError(ServiceUtil.getErrorMessage(resp), module);
+                        return false;
+                    }
+                    Boolean hasPermission = (Boolean) resp.get("hasPermission");
+                    if (hasPermission != null) {
+                        return hasPermission.booleanValue();
+                    }
+                }
+            }
+            return false;
+        }
+    }
+
     public static class IfHasPermission extends MenuCondition {
         protected FlexibleStringExpander permissionExdr;
         protected FlexibleStringExpander actionExdr;
