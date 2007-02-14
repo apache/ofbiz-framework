@@ -51,6 +51,7 @@ under the License.
 
     <entity entity-name="DataSource"
             package-name="org.ofbiz.common.datasource"
+            default-resource-name="CommonEntityLabels"
             title="Data Source Entity">
       <field name="dataSourceId" type="id-ne"></field>
       <field name="dataSourceTypeId" type="id"></field>
