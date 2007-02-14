@@ -53,9 +53,9 @@ under the License.
 <div id="ecom-header">
     <div id="left">
         <#if sessionAttributes.overrideLogo?exists>
-            <img src="${sessionAttributes.overrideLogo}" alt="Logo"/>
+            <img src="<@ofbizContentUrl>${sessionAttributes.overrideLogo}</@ofbizContentUrl>" alt="Logo"/>
         <#elseif catalogHeaderLogo?exists>
-            <img src="${catalogHeaderLogo}" alt="Logo"/>
+            <img src="<@ofbizContentUrl>${catalogHeaderLogo}</@ofbizContentUrl>" alt="Logo"/>
         <#elseif (productStore.headerLogo)?has_content>
             <img src="<@ofbizContentUrl>${productStore.headerLogo}</@ofbizContentUrl>" alt="Logo"/>
         </#if>

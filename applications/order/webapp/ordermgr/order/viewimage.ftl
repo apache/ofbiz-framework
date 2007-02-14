@@ -17,4 +17,4 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#assign imageUrl = wrapper.get("${orderContentTypeId}")>
-<image src="${imageUrl}"/>
+<image src="<@ofbizContentUrl>${imageUrl}</@ofbizContentUrl>"/>
