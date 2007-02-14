@@ -83,10 +83,10 @@ function insertImageName(type,nameValue) {
       </select>
     </td>
   </tr>
-   <tr>
+  <tr>
     <td width="26%" align="right"><div class="tabletext">${uiLabelMap.ProductName}</div></td>
     <td>&nbsp;</td>
-    <td width="74%"><input type="text" <#if productCategory?has_content>value="${productCategory.categoryName?if_exists}"</#if> name="categoryName" size="60" maxlength="60" class="inputBox"/></td>
+    <td width="74%"><input type="text" value="${(productCategory.categoryName)?if_exists}" name="categoryName" size="60" maxlength="60" class="inputBox"/></td>
   </tr>
   <tr>
     <td width="26%" align="right"><div class="tabletext">${uiLabelMap.ProductDescription}</div></td>
