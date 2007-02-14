@@ -578,6 +578,7 @@ under the License.
     <service name="safeAddProductToCategory" default-entity-name="ProductCategoryMember" engine="simple"
                 location="org/ofbiz/product/category/CategoryServices.xml" invoke="addProductToCategory" auth="true">
         <description>Add Product To Category</description>
+        <permission-service service-name="checkCategoryRelatedPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
