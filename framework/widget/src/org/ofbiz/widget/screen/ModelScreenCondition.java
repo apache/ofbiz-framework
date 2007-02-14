@@ -211,8 +211,7 @@ public class ModelScreenCondition implements Serializable {
             super(modelScreen, condElement);
             this.serviceExdr = new FlexibleStringExpander(condElement.getAttribute("service-name"));
             this.actionExdr = new FlexibleStringExpander(condElement.getAttribute("main-action"));
-            this.resExdr = new FlexibleStringExpander(condElement.getAttribute("resource-description"));
-            Debug.logInfo("IfServicePermission running: " + condElement.getAttribute("service-name"), module);
+            this.resExdr = new FlexibleStringExpander(condElement.getAttribute("resource-description"));            
         }
 
         public boolean eval(Map context) {

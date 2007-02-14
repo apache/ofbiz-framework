@@ -118,10 +118,8 @@ public class ModelMenuItem {
                 position = Integer.valueOf(positionStr);
             }
         } catch (Exception e) {
-            Debug.logError(
-                e,
-                "Could not convert position attribute of the field element to an integer: [" + positionStr + "], using the default of the menu renderer",
-                module);
+            Debug.logError(e, "Could not convert position attribute of the field element to an integer: [" +
+                    positionStr + "], using the default of the menu renderer", module);
         }
 
         this.setAssociatedContentId( fieldElement.getAttribute("associated-content-id"));
@@ -150,6 +148,7 @@ public class ModelMenuItem {
                 throw new RuntimeException(errMsg);
             }
         }
+
         Element linkElement = UtilXml.firstChildElement(fieldElement, "link");
         //if (Debug.infoOn()) Debug.logInfo("in ModelMenuItem, linkElement:" + linkElement, module);
         if (linkElement != null) {
@@ -516,7 +515,7 @@ public class ModelMenuItem {
     }
 
     /**
-     * @param boolean
+     * @param val
      */
     public void setHideIfSelected(Boolean val) {
         this.hideIfSelected = val;
@@ -541,7 +540,7 @@ public class ModelMenuItem {
     }
 
     /**
-     * @param boolean
+     * @param val
      */
     public void setHasPermission(Boolean val) {
         this.hasPermission = val;
@@ -555,16 +554,15 @@ public class ModelMenuItem {
     }
 
     public void dump(StringBuffer buffer ) {
-        buffer.append("ModelMenuItem:" 
-            + "\n     title=" + this.title
-            + "\n     name=" + this.name
-            + "\n     entityName=" + this.entityName
-            + "\n     titleStyle=" + this.titleStyle
-            + "\n     widgetStyle=" + this.widgetStyle
-            + "\n     tooltipStyle=" + this.tooltipStyle
-            + "\n     selectedStyle=" + this.selectedStyle
-            + "\n\n");
-     
+        buffer.append("ModelMenuItem:" + "\n     title=")
+                .append(this.title).append("\n     name=")
+                .append(this.name).append("\n     entityName=")
+                .append(this.entityName).append("\n     titleStyle=")
+                .append(this.titleStyle).append("\n     widgetStyle=")
+                .append(this.widgetStyle).append("\n     tooltipStyle=")
+                .append(this.tooltipStyle).append("\n     selectedStyle=")
+                .append(this.selectedStyle)
+                .append("\n\n");
     }
 
     public Link getLink() {
@@ -572,253 +570,259 @@ public class ModelMenuItem {
     }
     
     public boolean isSelected(Map context) {
-
         String currentMenuItemName = modelMenu.getSelectedMenuItemContextFieldName(context);
-        if (currentMenuItemName != null && currentMenuItemName.equals(this.name)) 
-            return true;
-        else
-            return false;
+        return currentMenuItemName != null && currentMenuItemName.equals(this.name);
     }
 
+    public static class Link {
 
+        protected ModelMenuItem linkMenuItem;
+        protected FlexibleStringExpander textExdr;
+        protected FlexibleStringExpander idExdr;
+        protected FlexibleStringExpander styleExdr;
+        protected FlexibleStringExpander targetExdr;
+        protected FlexibleStringExpander targetWindowExdr;
+        protected FlexibleStringExpander prefixExdr;
+        protected FlexibleStringExpander nameExdr;
+        protected Image image;
+        protected String urlMode = "intra-app";
+        protected boolean fullPath = false;
+        protected boolean secure = false;
+        protected boolean encode = false;
 
+        public Link(Element linkElement, ModelMenuItem parentMenuItem) {
 
-        public static class Link {
-
-            protected ModelMenuItem linkMenuItem;
-            protected FlexibleStringExpander textExdr;
-            protected FlexibleStringExpander idExdr;
-            protected FlexibleStringExpander styleExdr;
-            protected FlexibleStringExpander targetExdr;
-            protected FlexibleStringExpander targetWindowExdr;
-            protected FlexibleStringExpander prefixExdr;
-            protected FlexibleStringExpander nameExdr;
-            protected Image image;
-            protected String urlMode = "intra-app";
-            protected boolean fullPath = false;
-            protected boolean secure = false;
-            protected boolean encode = false;
-            
-            public Link( Element linkElement, ModelMenuItem parentMenuItem) {
-    
-                this.linkMenuItem = parentMenuItem;
-                setText(linkElement.getAttribute("text"));
-                setId(linkElement.getAttribute("id"));
-                setStyle(linkElement.getAttribute("style"));
-                setTarget(linkElement.getAttribute("target"));
-                setTargetWindow(linkElement.getAttribute("target-window"));
-                setPrefix(linkElement.getAttribute("prefix"));
-                setUrlMode(linkElement.getAttribute("url-mode"));
-                setFullPath(linkElement.getAttribute("full-path"));
-                setSecure(linkElement.getAttribute("secure"));
-                setEncode(linkElement.getAttribute("encode"));
-                setName(linkElement.getAttribute("name"));
-                Element imageElement = UtilXml.firstChildElement(linkElement, "image");
-                if (imageElement != null) {
-                    this.image = new Image(imageElement);
-                }
-    
-            }
-    
-            public void renderLinkString(StringBuffer buffer, Map context, MenuStringRenderer menuStringRenderer) {
-                menuStringRenderer.renderLink(buffer, context, this);
-            }
-            
-            public String getText(Map context) {
-                String txt =  this.textExdr.expandString(context);
-                if (UtilValidate.isEmpty(txt))
-                    txt = linkMenuItem.getTitle(context);
-                return txt;
-            }
-            
-            public String getId(Map context) {
-                return this.idExdr.expandString(context);
-            }
-            
-            public String getStyle(Map context) {
-                String style = this.styleExdr.expandString(context);
-                if (UtilValidate.isEmpty(style)) {
-                	style = this.linkMenuItem.getWidgetStyle();
-                }
-                return style;
-            }
-            
-            public String getName(Map context) {
-                return this.nameExdr.expandString(context);
-            }
-        
-            public String getTarget(Map context) {
-                return this.targetExdr.expandString(context);
-            }
-            
-            public String getTargetWindow(Map context) {
-                return this.targetWindowExdr.expandString(context);
-            }
-            
-            public String getUrlMode() {
-                return this.urlMode;
-            }
-            
-            public String getPrefix(Map context) {
-                return this.prefixExdr.expandString(context);
-            }
-            
-            public boolean getFullPath() {
-                return this.fullPath;
-            }
-            
-            public boolean getSecure() {
-                return this.secure;
-            }
-            
-            public boolean getEncode() {
-                return this.encode;
-            }
-            
-            public Image getImage() {
-                return this.image;
+            this.linkMenuItem = parentMenuItem;
+            setText(linkElement.getAttribute("text"));
+            setId(linkElement.getAttribute("id"));
+            setStyle(linkElement.getAttribute("style"));
+            setTarget(linkElement.getAttribute("target"));
+            setTargetWindow(linkElement.getAttribute("target-window"));
+            setPrefix(linkElement.getAttribute("prefix"));
+            setUrlMode(linkElement.getAttribute("url-mode"));
+            setFullPath(linkElement.getAttribute("full-path"));
+            setSecure(linkElement.getAttribute("secure"));
+            setEncode(linkElement.getAttribute("encode"));
+            setName(linkElement.getAttribute("name"));
+            Element imageElement = UtilXml.firstChildElement(linkElement, "image");
+            if (imageElement != null) {
+                this.image = new Image(imageElement);
             }
 
-            public void setText( String val ) {
-                String textAttr = UtilFormatOut.checkNull(val);
-                this.textExdr = new FlexibleStringExpander(textAttr);
-            }
-            public void setId( String val ) {
-                this.idExdr = new FlexibleStringExpander(val);
-            }
-            public void setStyle( String val ) {
-                this.styleExdr = new FlexibleStringExpander(val);
-            }
-            public void setTarget( String val ) {
-                this.targetExdr = new FlexibleStringExpander(val);
-            }
-            public void setTargetWindow( String val ) {
-                this.targetWindowExdr = new FlexibleStringExpander(val);
-            }
-            public void setPrefix( String val ) {
-                this.prefixExdr = new FlexibleStringExpander(val);
-            }
-            public void setUrlMode( String val ) {
-                if (UtilValidate.isNotEmpty(val))
-                    this.urlMode = val;
-            }
-            public void setName( String val ) {
-                this.nameExdr = new FlexibleStringExpander(val);
-            }
-            public void setFullPath( String val ) {
-                String sFullPath = val;
-                if (sFullPath != null && sFullPath.equalsIgnoreCase("true"))
-                    this.fullPath = true;
-                else
-                    this.fullPath = false;
-            }
-
-            public void setSecure( String val ) {
-                String sSecure = val;
-                if (sSecure != null && sSecure.equalsIgnoreCase("true"))
-                    this.secure = true;
-                else
-                    this.secure = false;
-            }
-
-            public void setEncode( String val ) {
-                String sEncode = val;
-                if (sEncode != null && sEncode.equalsIgnoreCase("true"))
-                    this.encode = true;
-                else
-                    this.encode = false;
-            }
-            public void setImage( Image img ) {
-                this.image = img;
-            }
-            
-            public ModelMenuItem getLinkMenuItem() {
-            	return linkMenuItem;
-            }
-                
         }
 
-        public static class Image {
-
-            protected FlexibleStringExpander srcExdr;
-            protected FlexibleStringExpander idExdr;
-            protected FlexibleStringExpander styleExdr;
-            protected FlexibleStringExpander widthExdr;
-            protected FlexibleStringExpander heightExdr;
-            protected FlexibleStringExpander borderExdr;
-            protected String urlMode;
-            
-            public Image( Element imageElement) {
-    
-                setSrc(imageElement.getAttribute("src"));
-                setId(imageElement.getAttribute("id"));
-                setStyle(imageElement.getAttribute("style"));
-                setWidth(imageElement.getAttribute("width"));
-                setHeight(imageElement.getAttribute("height"));
-                setBorder(UtilFormatOut.checkEmpty(imageElement.getAttribute("border"), "0"));
-                setUrlMode(UtilFormatOut.checkEmpty(imageElement.getAttribute("url-mode"), "content"));
-    
-            }
-    
-            public void renderImageString(StringBuffer buffer, Map context, MenuStringRenderer menuStringRenderer) {
-                menuStringRenderer.renderImage(buffer, context, this);
-            }
-            
-            public String getSrc(Map context) {
-                return this.srcExdr.expandString(context);
-            }
-            
-            public String getId(Map context) {
-                return this.idExdr.expandString(context);
-            }
-            
-            public String getStyle(Map context) {
-                return this.styleExdr.expandString(context);
-            }
-
-            public String getWidth(Map context) {
-                return this.widthExdr.expandString(context);
-            }
-
-            public String getHeight(Map context) {
-                return this.heightExdr.expandString(context);
-            }
-
-            public String getBorder(Map context) {
-                return this.borderExdr.expandString(context);
-            }
-            
-            public String getUrlMode() {
-                return this.urlMode;
-            }
-            
-            public void setSrc( String val ) {
-                String textAttr = UtilFormatOut.checkNull(val);
-                this.srcExdr = new FlexibleStringExpander(textAttr);
-            }
-            public void setId( String val ) {
-                this.idExdr = new FlexibleStringExpander(val);
-            }
-            public void setStyle( String val ) {
-                this.styleExdr = new FlexibleStringExpander(val);
-            }
-            public void setWidth( String val ) {
-                this.widthExdr = new FlexibleStringExpander(val);
-            }
-            public void setHeight( String val ) {
-                this.heightExdr = new FlexibleStringExpander(val);
-            }
-            public void setBorder( String val ) {
-                this.borderExdr = new FlexibleStringExpander(val);
-            }
-            public void setUrlMode( String val ) {
-                if (UtilValidate.isEmpty(val))
-                    this.urlMode = "content";
-                else
-                    this.urlMode = val;
-            }
-                
+        public void renderLinkString(StringBuffer buffer, Map context, MenuStringRenderer menuStringRenderer) {
+            menuStringRenderer.renderLink(buffer, context, this);
         }
 
-    
+        public String getText(Map context) {
+            String txt = this.textExdr.expandString(context);
+            if (UtilValidate.isEmpty(txt))
+                txt = linkMenuItem.getTitle(context);
+            return txt;
+        }
+
+        public String getId(Map context) {
+            return this.idExdr.expandString(context);
+        }
+
+        public String getStyle(Map context) {
+            String style = this.styleExdr.expandString(context);
+            if (UtilValidate.isEmpty(style)) {
+                style = this.linkMenuItem.getWidgetStyle();
+            }
+            return style;
+        }
+
+        public String getName(Map context) {
+            return this.nameExdr.expandString(context);
+        }
+
+        public String getTarget(Map context) {
+            return this.targetExdr.expandString(context);
+        }
+
+        public String getTargetWindow(Map context) {
+            return this.targetWindowExdr.expandString(context);
+        }
+
+        public String getUrlMode() {
+            return this.urlMode;
+        }
+
+        public String getPrefix(Map context) {
+            return this.prefixExdr.expandString(context);
+        }
+
+        public boolean getFullPath() {
+            return this.fullPath;
+        }
+
+        public boolean getSecure() {
+            return this.secure;
+        }
+
+        public boolean getEncode() {
+            return this.encode;
+        }
+
+        public Image getImage() {
+            return this.image;
+        }
+
+        public void setText(String val) {
+            String textAttr = UtilFormatOut.checkNull(val);
+            this.textExdr = new FlexibleStringExpander(textAttr);
+        }
+
+        public void setId(String val) {
+            this.idExdr = new FlexibleStringExpander(val);
+        }
+
+        public void setStyle(String val) {
+            this.styleExdr = new FlexibleStringExpander(val);
+        }
+
+        public void setTarget(String val) {
+            this.targetExdr = new FlexibleStringExpander(val);
+        }
+
+        public void setTargetWindow(String val) {
+            this.targetWindowExdr = new FlexibleStringExpander(val);
+        }
+
+        public void setPrefix(String val) {
+            this.prefixExdr = new FlexibleStringExpander(val);
+        }
+
+        public void setUrlMode(String val) {
+            if (UtilValidate.isNotEmpty(val))
+                this.urlMode = val;
+        }
+
+        public void setName(String val) {
+            this.nameExdr = new FlexibleStringExpander(val);
+        }
+
+        public void setFullPath(String val) {
+            String sFullPath = val;
+            if (sFullPath != null && sFullPath.equalsIgnoreCase("true"))
+                this.fullPath = true;
+            else
+                this.fullPath = false;
+        }
+
+        public void setSecure(String val) {
+            String sSecure = val;
+            if (sSecure != null && sSecure.equalsIgnoreCase("true"))
+                this.secure = true;
+            else
+                this.secure = false;
+        }
+
+        public void setEncode(String val) {
+            String sEncode = val;
+            if (sEncode != null && sEncode.equalsIgnoreCase("true"))
+                this.encode = true;
+            else
+                this.encode = false;
+        }
+
+        public void setImage(Image img) {
+            this.image = img;
+        }
+
+        public ModelMenuItem getLinkMenuItem() {
+            return linkMenuItem;
+        }
+
+    }
+
+    public static class Image {
+
+        protected FlexibleStringExpander srcExdr;
+        protected FlexibleStringExpander idExdr;
+        protected FlexibleStringExpander styleExdr;
+        protected FlexibleStringExpander widthExdr;
+        protected FlexibleStringExpander heightExdr;
+        protected FlexibleStringExpander borderExdr;
+        protected String urlMode;
+
+        public Image(Element imageElement) {
+
+            setSrc(imageElement.getAttribute("src"));
+            setId(imageElement.getAttribute("id"));
+            setStyle(imageElement.getAttribute("style"));
+            setWidth(imageElement.getAttribute("width"));
+            setHeight(imageElement.getAttribute("height"));
+            setBorder(UtilFormatOut.checkEmpty(imageElement.getAttribute("border"), "0"));
+            setUrlMode(UtilFormatOut.checkEmpty(imageElement.getAttribute("url-mode"), "content"));
+
+        }
+
+        public void renderImageString(StringBuffer buffer, Map context, MenuStringRenderer menuStringRenderer) {
+            menuStringRenderer.renderImage(buffer, context, this);
+        }
+
+        public String getSrc(Map context) {
+            return this.srcExdr.expandString(context);
+        }
+
+        public String getId(Map context) {
+            return this.idExdr.expandString(context);
+        }
+
+        public String getStyle(Map context) {
+            return this.styleExdr.expandString(context);
+        }
+
+        public String getWidth(Map context) {
+            return this.widthExdr.expandString(context);
+        }
+
+        public String getHeight(Map context) {
+            return this.heightExdr.expandString(context);
+        }
+
+        public String getBorder(Map context) {
+            return this.borderExdr.expandString(context);
+        }
+
+        public String getUrlMode() {
+            return this.urlMode;
+        }
+
+        public void setSrc(String val) {
+            String textAttr = UtilFormatOut.checkNull(val);
+            this.srcExdr = new FlexibleStringExpander(textAttr);
+        }
+
+        public void setId(String val) {
+            this.idExdr = new FlexibleStringExpander(val);
+        }
+
+        public void setStyle(String val) {
+            this.styleExdr = new FlexibleStringExpander(val);
+        }
+
+        public void setWidth(String val) {
+            this.widthExdr = new FlexibleStringExpander(val);
+        }
+
+        public void setHeight(String val) {
+            this.heightExdr = new FlexibleStringExpander(val);
+        }
+
+        public void setBorder(String val) {
+            this.borderExdr = new FlexibleStringExpander(val);
+        }
+
+        public void setUrlMode(String val) {
+            if (UtilValidate.isEmpty(val))
+                this.urlMode = "content";
+            else
+                this.urlMode = val;
+        }
+
+    }
 }
