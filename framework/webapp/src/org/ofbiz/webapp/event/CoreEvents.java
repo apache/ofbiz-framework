@@ -23,13 +23,20 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
@@ -37,6 +44,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
@@ -397,19 +405,106 @@ public class CoreEvents {
             request.setAttribute("_ERROR_MESSAGE_", errorBuf.toString());
             return "error";
         }
-                      
+                
+        Map syncServiceResult = null;
         // schedule service
         try {
-            dispatcher.schedule(jobName, poolName, serviceName, serviceContext, startTime, frequency, interval, count, endTime, maxRetry);
+            if(null!=request.getParameter("_RUN_SYNC_") && request.getParameter("_RUN_SYNC_").equals("Y")){
+                syncServiceResult = dispatcher.runSync(serviceName, serviceContext);
+            }else{
+                dispatcher.schedule(jobName, poolName, serviceName, serviceContext, startTime, frequency, interval, count, endTime, maxRetry);
+            }
         } catch (GenericServiceException e) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.service_dispatcher_exception", locale);
             request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + e.getMessage());
             return "error";
         }
-
+        
         String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.service_scheduled", locale);
         request.setAttribute("_EVENT_MESSAGE_", errMsg);
+        if(null!=syncServiceResult){
+            request.getSession().setAttribute("_RUN_SYNC_RESULT_", syncServiceResult);
+            return "sync_success";
+        }
         return "success";
+    }
+    
+    public static String saveServiceResultsToSession(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        Locale locale = UtilHttp.getLocale(request);
+        Map syncServiceResult = (Map)session.getAttribute("_RUN_SYNC_RESULT_");
+        if(null==syncServiceResult){
+            String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.no_fields_in_session", locale);
+            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg);
+            return "error";
+        }
+        
+        if(null!=request.getParameter("_CLEAR_PREVIOUS_PARAMS_") && request.getParameter("_CLEAR_PREVIOUS_PARAMS_").equalsIgnoreCase("on"))
+            session.removeAttribute("_SAVED_SYNC_RESULT_");
+        
+        Map serviceFieldsToSave = request.getParameterMap();
+        Map savedFields = FastMap.newInstance();
+        Set keys = serviceFieldsToSave.keySet();
+        Iterator keysItr = keys.iterator();
+        
+        while(keysItr.hasNext()){
+            String key = (String)keysItr.next();
+            if(null!=serviceFieldsToSave.get(key) && request.getParameter(key).equalsIgnoreCase("on") && !key.equals("_CLEAR_PREVIOUS_PARAMS_")){
+                String[] servicePath = key.split("\\|\\|");
+                String partialKey = servicePath[servicePath.length-1];
+                savedFields.put(partialKey, getObjectFromServicePath(key ,syncServiceResult));
+            }
+        }
+        if(null!=session.getAttribute("_SAVED_SYNC_RESULT_")){
+            Map savedSyncResult = (Map)session.getAttribute("_SAVED_SYNC_RESULT_");
+            savedSyncResult.putAll(savedFields);
+            savedFields = savedSyncResult; 
+        }
+        session.setAttribute("_SAVED_SYNC_RESULT_", savedFields);
+        return "success";
+    }
+    
+    //Tries to return a map, if Object is one of HashMap, GenericEntity, List
+    public static Object getObjectFromServicePath(String servicePath, Map serviceResult){
+        String[] sp = servicePath.split("\\|\\|");
+        Object servicePathObject = null;
+        Map servicePathMap = null;
+        for(int i=0;i<sp.length;i++){
+            String servicePathEntry = sp[i];
+            if(null==servicePathMap){
+                servicePathObject = serviceResult.get(servicePathEntry);
+            }else{
+                servicePathObject = servicePathMap.get(servicePathEntry);
+            }
+            servicePathMap = null;
+            
+            if(servicePathObject instanceof HashMap){
+                servicePathMap = (HashMap)servicePathObject;
+            }else if(servicePathObject instanceof GenericEntity){
+                GenericEntity servicePathEntity = (GenericEntity)servicePathObject;
+                Set servicePathEntitySet = servicePathEntity.keySet();
+                Iterator spesItr = servicePathEntitySet.iterator();
+                servicePathMap = FastMap.newInstance();
+                while(spesItr.hasNext()){
+                    String spesKey = (String)spesItr.next();
+                    servicePathMap.put(spesKey, servicePathEntity.get(spesKey));
+                }
+            }else if(servicePathObject instanceof Collection){
+                Collection servicePathColl = (Collection)servicePathObject;
+                Iterator splItr = servicePathColl.iterator();
+                int count=0;
+                servicePathMap = FastMap.newInstance();
+                while(splItr.hasNext()){
+                    servicePathMap.put("_"+count+"_", splItr.next());
+                    count++;
+                }
+            }
+        }
+        if(null==servicePathMap){
+            return servicePathObject;
+        }else{
+            return servicePathMap;
+        }
     }
 
     public static ServiceEventHandler seh = new ServiceEventHandler();

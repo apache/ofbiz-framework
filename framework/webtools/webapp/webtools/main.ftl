@@ -89,6 +89,7 @@ under the License.
                 <ul>
                   <li><a href="<@ofbizUrl>/availableServices</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsServiceReference}</a>
                   <li><a href="<@ofbizUrl>/scheduleJob</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleScheduleJob}</a>
+                  <li><a href="<@ofbizUrl>/runService</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleRunService}</a>
                   <li><a href="<@ofbizUrl>/jobList</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleJobList}</a>
                   <li><a href="<@ofbizUrl>/threadList</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleThreadList}</a>
                   <li><a href="<@ofbizUrl>/serviceList</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsServiceLog}</a>

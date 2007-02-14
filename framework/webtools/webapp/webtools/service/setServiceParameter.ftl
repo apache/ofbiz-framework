@@ -28,7 +28,7 @@ under the License.
       <tr>
         <td align="right"><div class="tabletext">${serviceParameter.name} (${serviceParameter.type})</div></td>
         <td>
-          <input type="text" class="inputBox" size="20" name="${serviceParameter.name}"/>
+          <input type="text" class="inputBox" size="20" name="${serviceParameter.name}" value="${serviceParameter.value?if_exists}" />
           <span class="tabletext"><#if serviceParameter.optional == "N">(required)<#else>(optional)</#if></span>
         </td>
       </tr>

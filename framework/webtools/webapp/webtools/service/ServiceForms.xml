@@ -44,4 +44,11 @@ under the License.
         <field name="SERVICE_MAXRETRY" title="${uiLabelMap.WebtoolsMaxRetry}" tooltip="${uiLabelMap.WebtoolsMessage10}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field> 
     </form>
+
+    <form name="runService" type="single" target="setSyncServiceParameters" title="" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <field name="SERVICE_NAME" title="${uiLabelMap.WebtoolsService}"><text/></field>
+        <field name="POOL_NAME" title="${uiLabelMap.WebtoolsPool}"><text/></field>
+        <field name="_RUN_SYNC_"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field> 
+    </form>
 </forms>
