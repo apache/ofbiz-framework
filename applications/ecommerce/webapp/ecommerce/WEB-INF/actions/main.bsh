@@ -21,5 +21,13 @@ import org.ofbiz.product.catalog.*;
 
 catalogId = CatalogWorker.getCurrentCatalogId(request);
 promoCat = CatalogWorker.getCatalogPromotionsCategoryId(request, catalogId);
-request.setAttribute("productCategoryId", promoCat);
+productCategoryId = session.getAttribute("productCategoryId");
+if (productCategoryId == null) {
+    request.setAttribute("productCategoryId", promoCat);    
+}
+else {
+    request.setAttribute("productCategoryId", productCategoryId);    
+}
+
+
 

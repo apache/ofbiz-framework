@@ -36,6 +36,10 @@ requestParams = UtilHttp.getParameterMap(request);
 detailScreen = "productdetail";
 productId = requestParams.get("product_id");
 
+if(productId != null) {
+    session.setAttribute("productId",productId);
+}
+
 // get the product entity
 if (productId != null) {
     product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
