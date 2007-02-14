@@ -21,6 +21,55 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
 
+    <!-- base content CRUD services -->
+    <simple-method method-name="createContent" short-description="Create a Content Record">
+        <make-value value-name="content" entity-name="Content"/>
+        <set-nonpk-fields value-name="content" map-name="parameters"/>
+        <set-pk-fields value-name="content" map-name="parameters"/>
+
+        <if-empty field-name="content.contentId">
+            <sequenced-id-to-env sequence-name="Content" env-name="contentId"/>
+            <set field="content.contentId" from-field="contentId"/>
+        </if-empty>
+
+        <if-empty field-name="content.statusId">
+            <!-- get the first status item -->
+            <entity-and entity-name="StatusItem" list-name="contentStatus">
+                <field-map field-name="statusTypeId" value="CONTENT_STATUS"/>
+                <order-by field-name="sequenceId"/>
+            </entity-and>
+            <first-from-list entry-name="statusItem" list-name="contentStatus"/>
+            <set field="content.statusId" from-field="statusItem.statusId"/>
+        </if-empty>
+
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <set field="content.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
+        <set field="content.createdByUserLogin" from-field="userLogin.userLoginId"/>
+        <set field="content.lastModifiedDate" from-field="nowTimestamp"/>
+        <set field="content.createdDate" from-field="nowTimestamp"/>
+
+        <create-value value-name="content"/>
+        <field-to-result field-name="content.contentId" result-name="contentId"/>
+    </simple-method>
+    <simple-method method-name="updateContent" short-description="Update a Content Record">
+        <entity-one entity-name="Content" value-name="content" auto-field-map="true"/>
+        <set-nonpk-fields value-name="content"/>
+
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <set field="content.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
+        <set field="content.lastModifiedDate" from-field="nowTimestamp"/>
+
+        <store-value value-name="content"/>
+        <field-to-result field-name="content.contentId" result-name="contentId"/>
+    </simple-method>
+    <simple-method method-name="deleteContent" short-description="Delete a Content Record">
+        <make-value entity-name="Content" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="Content" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- other content services -->
     <simple-method method-name="setContentStatus" short-description="Set The Content Status">
     
         <entity-one entity-name="Content" value-name="content"/>
@@ -113,19 +162,6 @@ under the License.
         
     </simple-method>
 
-
-
-    <!-- Methods for Content -->
-    <simple-method method-name="deleteContent" short-description="Delete a Content">
-        <check-permission permission="CONTENTMGR" action="_DELETE"><fail-message message="Security Error: to run updateContent you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/></check-permission>
-        <check-errors/>
-
-        <make-value entity-name="Content" value-name="lookupKeyValue"/>
-        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="Content" map-name="lookupKeyValue" value-name="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
-    </simple-method>
-    
     <!-- Methods for ContentAssoc -->
     <simple-method login-required="true" method-name="assocContent" short-description="Associate Content" >
         <log level="always" message="assocContent, parameters:${parameters}"/>
