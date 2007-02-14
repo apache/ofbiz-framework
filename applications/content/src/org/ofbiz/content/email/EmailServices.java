@@ -821,6 +821,7 @@ public class EmailServices {
             Set emailAddressesFrom = new TreeSet();
             Set emailAddressesTo = new TreeSet();
             Set emailAddressesCC = new TreeSet();
+            Set emailAddressesBCC = new TreeSet();
             for (int x = 0 ; x < addressesFrom.length ; x++) {
                 emailAddressesFrom.add(((InternetAddress) addressesFrom[x]).getAddress());
             }
@@ -830,13 +831,18 @@ public class EmailServices {
             for (int x = 0 ; x < addressesCC.length ; x++) {
                 emailAddressesCC.add(((InternetAddress) addressesCC[x]).getAddress());
             }
+            for (int x = 0 ; x < addressesBCC.length ; x++) {
+                emailAddressesBCC.add(((InternetAddress) addressesBCC[x]).getAddress());
+            }
             String fromString = StringUtil.join(UtilMisc.toList(emailAddressesFrom), ",");
             String toString = StringUtil.join(UtilMisc.toList(emailAddressesTo), ",");
             String ccString = StringUtil.join(UtilMisc.toList(emailAddressesCC), ",");
+            String bccString = StringUtil.join(UtilMisc.toList(emailAddressesBCC), ",");
             
             if (UtilValidate.isNotEmpty(toString)) commEventMap.put("toString", toString);
             if (UtilValidate.isNotEmpty(ccString)) commEventMap.put("ccString", ccString);
             if (UtilValidate.isNotEmpty(ccString)) commEventMap.put("fromString", fromString);
+            if (UtilValidate.isNotEmpty(bccString)) commEventMap.put("bccString", bccString);
 
             // store from/to parties, but when not found make a note of the email to/from address in the workEffort Note Section.
             String commNote = "";
