@@ -79,9 +79,8 @@ text-align: center;
 }
 
 .rightjustify {
+padding-left: 5px;
 display: inline;
-position: relative;
-text-align: right;
 }
 
 .blogheader {
@@ -125,7 +124,7 @@ border: 0.1em solid #999999;
 color: white;
 background: #000099;
 padding: 4px;
-height: 12px;
+height: 13px;
 }
 
 .blogwrapper {

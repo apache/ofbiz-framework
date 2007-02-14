@@ -59,6 +59,9 @@
             <widgets>
                 <container style="bloghr">
                     <label text="${caContent.contentName} - ${caContent.description}" style="blogtitle"/>
+                    <link target="ViewBlogRss?caContentId=${caContent.contentId}&amp;ownerContentId=${caContent.contentId}&amp;mainLinkReq=MainBlog&amp;entryLinkReq=ViewBlog" target-window="_blank">
+                        <image src="/images/feed-icon-14x14.png" id="feedIcon" style="rightjustify" height="12px"/>
+                    </link>
                 </container>
             </widgets>
             <fail-widgets>

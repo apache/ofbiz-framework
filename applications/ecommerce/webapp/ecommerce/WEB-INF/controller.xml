@@ -30,6 +30,7 @@ under the License.
     <handler name="service" type="request" class="org.ofbiz.webapp.event.ServiceEventHandler"/>
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
     <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
+    <handler name="rome" type="request" class="org.ofbiz.webapp.event.RomeEventHandler"/>
 
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
@@ -1224,6 +1225,13 @@ under the License.
     <request-map uri="ViewBlog">
         <security https="false" auth="false"/>
         <response name="success" type="view" value="ViewBlog"/>
+    </request-map>
+
+    <request-map uri="ViewBlogRss">
+        <security https="false" auth="false"/>
+        <event type="rome" invoke="generateBlogRssFeed"/>
+        <response name="success" type="none"/>
+        <response name="error" type="view" value="error"/>
     </request-map>
 
     <request-map uri="ViewResponse">
