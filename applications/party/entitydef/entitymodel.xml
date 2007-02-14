@@ -513,6 +513,7 @@ under the License.
       <field name="fromString" type="very-long"></field>
       <field name="toString" type="very-long"></field>
       <field name="ccString" type="very-long"></field>
+      <field name="bccString" type="very-long"></field>
       <prim-key field="communicationEventId"/>
       <relation type="one" fk-name="COM_EVNT_TYPE" rel-entity-name="CommunicationEventType">
         <key-map field-name="communicationEventTypeId"/>
