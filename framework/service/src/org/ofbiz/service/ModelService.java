@@ -45,8 +45,6 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.collections.OrderedSet;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.security.Security;
 import org.ofbiz.service.group.GroupModel;
 import org.ofbiz.service.group.GroupServiceModel;
 import org.ofbiz.service.group.ServiceGroupReader;
@@ -167,7 +165,7 @@ public class ModelService implements Serializable {
         this.export = model.export;
         this.validate = model.validate;
         this.useTransaction = model.useTransaction || true;
-        this.requireNewTransaction = model.requireNewTransaction || false;
+        this.requireNewTransaction = model.requireNewTransaction;
         this.transactionTimeout = model.transactionTimeout;
         this.implServices = model.implServices;
         this.overrideParameters = model.overrideParameters;
@@ -355,21 +353,19 @@ public class ModelService implements Serializable {
         requiredTest.putAll(test);
 
         List requiredButNull = FastList.newInstance();
-        if (requiredTest != null) {
-            List keyList = FastList.newInstance();
-            keyList.addAll(requiredTest.keySet());
-            Iterator t = keyList.iterator();
+        List keyList = FastList.newInstance();
+        keyList.addAll(requiredTest.keySet());
+        Iterator t = keyList.iterator();
 
-            while (t.hasNext()) {
-                Object key = t.next();
-                Object value = requiredTest.get(key);
+        while (t.hasNext()) {
+            Object key = t.next();
+            Object value = requiredTest.get(key);
 
-                if (!requiredInfo.containsKey(key)) {
-                    requiredTest.remove(key);
-                    optionalTest.put(key, value);
-                } else if (value == null) {
-                    requiredButNull.add(key);
-                }
+            if (!requiredInfo.containsKey(key)) {
+                requiredTest.remove(key);
+                optionalTest.put(key, value);
+            } else if (value == null) {
+                requiredButNull.add(key);
             }
         }
 
@@ -542,6 +538,7 @@ public class ModelService implements Serializable {
         try {
             validatorClass = ObjectType.loadClass(vali.getClassName());
         } catch (ClassNotFoundException e) {
+            Debug.logWarning(e, module);            
         }
 
         if (validatorClass == null) {
@@ -562,6 +559,7 @@ public class ModelService implements Serializable {
             try {
                 validatorMethod = validatorClass.getMethod(vali.getMethodName(), stringParam);
             } catch (NoSuchMethodException e2) {
+                Debug.logWarning(e2, module);
             }
         }
 
@@ -572,7 +570,7 @@ public class ModelService implements Serializable {
         Object[] params;
         if (!foundObjectParam) {
             // convert to string
-            String converted = null;
+            String converted;
             try {
                 converted = (String) ObjectType.simpleTypeConvert(testValue, "String", null, null);
             } catch (GeneralException e) {
@@ -585,7 +583,7 @@ public class ModelService implements Serializable {
         }
 
         // run the validator
-        Boolean resultBool = Boolean.FALSE;
+        Boolean resultBool;
         try {
             resultBool = (Boolean) validatorMethod.invoke(null, params);
         } catch (ClassCastException e) {
@@ -621,8 +619,8 @@ public class ModelService implements Serializable {
             ModelParam param = (ModelParam) i.next();
 
             if (param.mode.equals("INOUT") || param.mode.equals(mode)) {
-                if (optional || (!optional && !param.optional)) {
-                    if (internal || (!internal && !param.internal)) {
+                if (optional || !param.optional) {
+                    if (internal || !param.internal) {
                         names.add(param.name);
                     }
                 }
@@ -749,10 +747,7 @@ public class ModelService implements Serializable {
     }
 
     public boolean containsPermissions() {
-        if (this.permissionGroups != null && this.permissionGroups.size() > 0) {
-            return true;
-        }
-        return false;
+        return (this.permissionGroups != null && this.permissionGroups.size() > 0);
     }
 
     /**
@@ -811,7 +806,8 @@ public class ModelService implements Serializable {
             }
         } else {
             Map result = ServiceUtil.returnSuccess();
-            result.put("hasPermission", Boolean.TRUE);
+            result.put("hasPermission", Boolean.FALSE);
+            result.put("failMessage", "No ModelService found; no service name specified!");
             return result;
         }
     }
