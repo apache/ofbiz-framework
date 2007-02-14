@@ -232,9 +232,11 @@ public class OrderListState {
         EntityCondition statusConditionsList = new EntityConditionList(statusConditions,  EntityOperator.OR);
         EntityCondition typeConditionsList = new EntityConditionList(typeConditions, EntityOperator.OR);
         EntityCondition filterConditionsList = new EntityConditionList(filterConditions, EntityOperator.OR);
-        if ((typeConditions.size() > 0) && (statusConditions.size() > 0) && (filterConditions.size() > 0)) {
+        if ((typeConditions.size() > 0) && (statusConditions.size() > 0)) {
             allConditions.add(statusConditionsList);
             allConditions.add(typeConditionsList);
+        }
+        if (filterConditions.size() > 0) {
             allConditions.add(filterConditionsList);
         }
 
