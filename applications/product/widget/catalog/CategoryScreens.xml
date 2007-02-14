@@ -387,4 +387,30 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <!-- ProductCategoryLinks Screen -->
+    <screen name="EditProductCategoryLinks">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductCategoryLink"/>
+                <set field="headerItem" value="category"/>
+                <set field="tabButtonItem" value="EditProductCategoryLinks"/>
+                <set field="labelTitleProperty" value="ProductCategoryLinks"/>
+
+                <set field="productCategoryId" from-field="parameters.productCategoryId"/>
+                <set field="linkSeqId" from-field="parameters.linkSeqId"/>
+                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
+                <entity-one entity-name="ProductCategoryLink" value-name="productCategoryLink"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCategoryDecorator">
+                    <decorator-section name="body">
+                        <include-form name="ListProductCategoryLinks" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                        <include-form name="AddProductCategoryLink" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
 </screens>

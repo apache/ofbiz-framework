@@ -119,4 +119,63 @@ under the License.
         <field use-when="content == null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field use-when="content != null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    
+    <!-- ProductCategoryLink Forms-->
+    <form name="ListProductCategoryLinks" type="list"  list-name="productCategoryLinks"  target="updateProductCategoryLink"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" separate-columns="true">
+        <actions>
+            <entity-condition entity-name="ProductCategoryLink">
+                <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
+                <order-by field-name="sequenceNum"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateProductCategoryLink"/>
+        
+        <field name="productCategoryId"><hidden/></field>
+        <field name="linkSeqId" widget-style="tabletext"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" widget-style="tabletext"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field name="titleText"><text size="20" maxlength="250"/></field>
+        <field name="comments"><text size="20" maxlength="250"/></field>
+        <field name="sequenceNum" title="${uiLabelMap.CommonSequence}"><text maxlength="5" size="5"/></field>
+        <field name="linkTypeEnumId"><ignored/></field>
+        <field name="detailText"><ignored/></field>
+        <field name="linkInfo"><ignored/></field>
+        <field name="detailSubScreen"><ignored/></field>
+        <field name="imageUrl"><ignored/></field>        
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteProductCategoryLink?productCategoryId=${productCategoryId}&amp;linkSeqId=${linkSeqId}&amp;fromDate=${fromDate}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="AddProductCategoryLink" type="single" target="createProductCategoryLink" title="" default-map-name="productCategoryLink"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="productCategoryLink != null" target="updateProductCategoryLink"/>
+        <auto-fields-service service-name="createProductCategoryLink"/>
+        <field name="productCategoryId"><hidden/></field>
+        <field name="linkSeqId" use-when="productCategoryLink==null"><ignored/></field>
+        <field name="linkSeqId" use-when="productCategoryLink!=null" widget-style="tabletext"><display/></field>
+        <field use-when="productCategoryLink != null" name="fromDate" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field use-when="productCategoryLink == null" name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field name="sequenceNum" title="${uiLabelMap.CommonSequence}"><text maxlength="5" size="5"/></field>
+        <field name="imageUrl" tooltip="example: /images/categories/linkOne/100.jpg"><text size="60" maxlength="255"/></field>        
+        <field name="linkTypeEnumId" title="${uiLabelMap.ProductLinkTypeEnumId}">
+            <drop-down allow-empty = "false">
+                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                    <entity-constraint name="enumId" operator="equals" value="PCLT_SEARCH_PARAM"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                    <entity-constraint name="enumId" operator="equals" value="PCLT_ABS_URL"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="detailSubScreen" tooltip="example: component://ecommerce/widget/CatalogScreens.xml#categorydetail"><text size="60" maxlength="255"/></field>
+        <field name="submitButton" use-when="productCategoryLink==null" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="productCategoryLink!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="clearFormButton" title="" use-when="productCategoryLink!=null" widget-style="buttontext"><hyperlink target="EditProductCategoryLinks?productCategoryId=${productCategoryId}" target-type="intra-app" description="Clear Form"/></field>
+    </form>
 </forms>

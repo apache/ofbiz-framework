@@ -481,52 +481,6 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
-    <!-- a method to centralize product security code, meant to be called in-line with
-        call-simple-method, and the checkAction and callingMethodName attributes should be in the method context -->
-    <simple-method method-name="checkProductRelatedPermission" short-description="Check Product Related Permission">
-        <if-empty field-name="callingMethodName">
-            <set value="this operation" field="callingMethodName"/>
-        </if-empty>
-        <if-empty field-name="checkAction">
-            <set value="UPDATE" field="checkAction"/>
-        </if-empty>
-
-        <!-- find all role-categories that this product is a member of -->
-        <if>
-            <condition>
-                <not><if-has-permission permission="CATALOG" action="_${checkAction}"/></not>
-            </condition>
-            <then>
-                <set from-field="parameters.productId" field="lookupRoleCategoriesMap.productId"/>
-                <set from-field="userLogin.partyId" field="lookupRoleCategoriesMap.partyId"/>
-                <set value="LTD_ADMIN" field="lookupRoleCategoriesMap.roleTypeId"/>
-                <find-by-and entity-name="ProductCategoryMemberAndRole" map-name="lookupRoleCategoriesMap" list-name="roleCategories"/>
-                <filter-list-by-date list-name="roleCategories" valid-date-name="nowTimestamp"/>
-                <filter-list-by-date list-name="roleCategories" valid-date-name="nowTimestamp" from-field-name="roleFromDate" thru-field-name="roleThruDate"/>
-            </then>
-        </if>
-        <if>
-            <condition>
-                <not>
-                    <or>
-                        <if-has-permission permission="CATALOG" action="_${checkAction}"/>
-                        <and>
-                            <if-has-permission permission="CATALOG_ROLE" action="_${checkAction}"/>
-                            <not><if-empty field-name="roleCategories"/></not>
-                        </and>
-                        <and>
-                            <not><if-empty field-name="alternatePermissionRoot"/></not>
-                            <if-has-permission permission="${alternatePermissionRoot}" action="_${checkAction}"/>
-                        </and>
-                    </or>
-                </not>
-            </condition>
-            <then>
-                <add-error><fail-message message="Security Error: to run ${callingMethodName} you must have the CATALOG_${checkAction} or CATALOG_ADMIN permission or have the CATALOG_ROLE_${checkAction} permission and be associated with a category containing this product."/></add-error>
-            </then>
-        </if>
-    </simple-method>
-
     <simple-method method-name="createProductReview" short-description="Create a ProductReview">
         <make-value value-name="newEntity" entity-name="ProductReview"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -562,9 +516,11 @@ under the License.
         <call-simple-method method-name="updateProductWithReviewRatingAvg"/>
     </simple-method>
     <simple-method method-name="updateProductReview" short-description="Update ProductReview">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductReview you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <set value="updateProductReview" field="callingMethodName"/>
+        <set value="UPDATE" field="checkAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
-
+        
         <make-value value-name="lookupPKMap" entity-name="ProductReview"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
@@ -716,9 +672,9 @@ under the License.
 
     <!-- for managing product to product associations -->
     <simple-method method-name="createProductAssoc" short-description="Create an association between two products"> 
-        <check-permission permission="CATALOG" action="_CREATE">
-            <fail-message message="Security Error: to create a product association requires the CATALOG_CREATE or CATALOG_ADMIN permission"/>
-        </check-permission>
+        <set value="createProductAssoc" field="callingMethodName"/>
+        <set value="CREATE" field="checkAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
 
         <make-value value-name="newEntity" entity-name="ProductAssoc"/>
@@ -728,11 +684,11 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductAssoc" short-description="Update an association between two products">
-        <check-permission permission="CATALOG" action="_UPDATE">
-            <fail-message message="Security Error: to update a product association requires the CATALOG_UPDATE or CATALOG_ADMIN permission"/>
-        </check-permission>
+        <set value="updateProductAssoc" field="callingMethodName"/>
+        <set value="UPDATE" field="checkAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
-
+        
         <make-value value-name="lookupPKMap" entity-name="ProductAssoc"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductAssoc" map-name="lookupPKMap" value-name="productAssocInstance"/>
@@ -740,11 +696,11 @@ under the License.
         <store-value value-name="productAssocInstance"/>
     </simple-method>
     <simple-method method-name="deleteProductAssoc" short-description="Delete an association between two products">
-        <check-permission permission="CATALOG" action="_DELETE">
-            <fail-message message="Security Error: to delete a product association requires the CATALOG_DELETE or CATALOG_ADMIN permission"/>
-        </check-permission>
+        <set value="deleteProductAssoc" field="callingMethodName"/>
+        <set value="DELETE" field="checkAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
-
+        
         <make-value value-name="lookupPKMap" entity-name="ProductAssoc"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductAssoc" map-name="lookupPKMap" value-name="productAssocInstance"/>
@@ -753,11 +709,11 @@ under the License.
 
     <!-- Create/Update/Delete Product Maint Record -->
     <simple-method method-name="createProductMaint" short-description="Create an Product Maintenance">
-        <check-permission permission="CATALOG" action="_CREATE">
-            <alt-permission permission="CATALOG_ROLE" action="_CREATE"/>
-            <fail-message message="Security Error: to run createProductMaint you must have the CATALOG_CREATE or CATALOG_ADMIN permission, or the limited CATALOG_ROLE_CREATE permission"/>
-        </check-permission>        
+        <set value="createProductMaint" field="callingMethodName"/>
+        <set value="CREATE" field="checkAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
+        
         <make-value value-name="newEntity" entity-name="ProductMaint"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
@@ -766,54 +722,122 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductMaint" short-description="Update an existing Product Maintenance">
-        <check-permission permission="CATALOG" action="_UPDATE">
-            <alt-permission permission="CATALOG_ROLE" action="_UPDATE"/>
-            <fail-message message="Security Error: to run updateProductMaint you must have the CATALOG_UPDATE or CATALOG_ADMIN permission, or the limited CATALOG_ROLE_UPDATE permission"/>
-        </check-permission>        
+        <set value="updateProductMaint" field="callingMethodName"/>
+        <set value="UPDATE" field="checkAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
+
         <entity-one entity-name="ProductMaint" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductMaint" short-description="Delete Product Maint from PRODUCT_MAINT">
-        <check-permission permission="CATALOG" action="_DELETE">
-            <alt-permission permission="CATALOG_ROLE" action="_DELETE"/>
-            <fail-message message="Security Error: to run deleteProductMaint you must have the CATALOG_DELETE or CATALOG_ADMIN permission, or the limited CATALOG_ROLE_UPDATE permission"/>
-        </check-permission>        
+        <set value="deleteProductMaint" field="callingMethodName"/>
+        <set value="DELETE" field="checkAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
+
         <entity-one entity-name="ProductMaint" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <!-- Create/Update/Delete Product Meter Record -->
     <simple-method method-name="createProductMeter" short-description="Create an Product Meter">
-        <check-permission permission="CATALOG" action="_CREATE">
-            <alt-permission permission="CATALOG_ROLE" action="_CREATE"/>
-            <fail-message message="Security Error: to run createProductMeter you must have the CATALOG_CREATE or CATALOG_ADMIN permission, or the limited CATALOG_ROLE_CREATE permission"/>
-        </check-permission>        
+        <set value="createProductMeter" field="callingMethodName"/>
+        <set value="CREATE" field="checkAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
+
         <make-value value-name="newEntity" entity-name="ProductMeter"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductMeter" short-description="Update an existing Product Meter">
-        <check-permission permission="CATALOG" action="_UPDATE">
-            <alt-permission permission="CATALOG_ROLE" action="_UPDATE"/>
-            <fail-message message="Security Error: to run updateProductMeter you must have the CATALOG_UPDATE or CATALOG_ADMIN permission, or the limited CATALOG_ROLE_UPDATE permission"/>
-        </check-permission>        
+        <set value="updateProductMeter" field="callingMethodName"/>
+        <set value="UPDATE" field="checkAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
+
         <entity-one entity-name="ProductMeter" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductMeter" short-description="Delete an existing Product Meter">
-        <check-permission permission="CATALOG" action="_DELETE">
-            <alt-permission permission="CATALOG_ROLE" action="_DELETE"/>
-            <fail-message message="Security Error: to run deleteProductMeter you must have the CATALOG_DELETE or CATALOG_ADMIN permission, or the limited CATALOG_ROLE_UPDATE permission"/>
-        </check-permission>        
+        <set value="deleteProductMeter" field="callingMethodName"/>
+        <set value="DELETE" field="checkAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
+        
         <entity-one entity-name="ProductMeter" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
+    <!-- a method to centralize product security code, meant to be called in-line with
+        call-simple-method, and the checkAction and callingMethodName attributes should be in the method context -->
+    <simple-method method-name="checkProductRelatedPermission" short-description="Check Product Related Permission">
+        <if-empty field-name="callingMethodName">
+            <set value="this operation" field="callingMethodName"/>
+        </if-empty>
+        <if-empty field-name="checkAction">
+            <set value="UPDATE" field="checkAction"/>
+        </if-empty>
+        
+        <!-- find all role-categories that this product is a member of -->
+        <if>
+            <condition>
+                <not><if-has-permission permission="CATALOG" action="_${checkAction}"/></not>
+            </condition>
+            <then>
+                <set from-field="parameters.productId" field="lookupRoleCategoriesMap.productId"/>
+                <set from-field="userLogin.partyId" field="lookupRoleCategoriesMap.partyId"/>
+                <set value="LTD_ADMIN" field="lookupRoleCategoriesMap.roleTypeId"/>
+                <find-by-and entity-name="ProductCategoryMemberAndRole" map-name="lookupRoleCategoriesMap" list-name="roleCategories"/>
+                <filter-list-by-date list-name="roleCategories" valid-date-name="nowTimestamp"/>
+                <filter-list-by-date list-name="roleCategories" valid-date-name="nowTimestamp" from-field-name="roleFromDate" thru-field-name="roleThruDate"/>
+            </then>
+        </if>
+        <if>
+            <condition>
+                <not>
+                    <or>
+                        <if-has-permission permission="CATALOG" action="_${checkAction}"/>
+                        <and>
+                            <if-has-permission permission="CATALOG_ROLE" action="_${checkAction}"/>
+                            <not><if-empty field-name="roleCategories"/></not>
+                        </and>
+                        <and>
+                            <not><if-empty field-name="alternatePermissionRoot"/></not>
+                            <if-has-permission permission="${alternatePermissionRoot}" action="_${checkAction}"/>
+                        </and>
+                    </or>
+                </not>
+            </condition>
+            <then>
+                <add-error><fail-message message="Security Error: to run ${callingMethodName} you must have the CATALOG_${checkAction} or CATALOG_ADMIN permission or have the CATALOG_ROLE_${checkAction} permission and be associated with a category containing this product."/></add-error>
+            </then>
+        </if>
+    </simple-method>
+    <simple-method method-name="productGenericPermission" short-description="Main permission logic">
+        <set field="mainAction" from-field="parameters.mainAction"/>
+        <if-empty field-name="mainAction">
+            <add-error><fail-message message="In the permission-service element for the productGenericPermission service the main-action attribute was missing but is required"/></add-error>
+            <check-errors/>
+        </if-empty>
+
+        <set field="callingMethodName" from-field="parameters.resourceDescription"/>
+        <set field="checkAction" from-field="parameters.mainAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission"/>
+        
+        <if-empty field-name="error_list">
+            <set field="hasPermission" type="Boolean" value="true"/>
+            <field-to-result field-name="hasPermission"/>
+
+            <else>
+                <property-to-field resource="ProductUiLabels" property="ProductPermissionError" field-name="failMessage"/>
+                <set field="hasPermission" type="Boolean" value="false"/>
+                <field-to-result field-name="hasPermission"/>
+                <field-to-result field-name="failMessage"/>
+            </else>
+        </if-empty>
+    </simple-method>
 </simple-methods>
