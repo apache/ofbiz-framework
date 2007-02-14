@@ -33,8 +33,8 @@ under the License.
         <div class="screenlet-header">
             <div class="boxhead">${uiLabelMap.CommonRegistered}</div>
         </div>
-        <div class="screenlet-body" style="text-align: center;">
-          <form method="post" action="<@ofbizUrl>login${previousParams}</@ofbizUrl>" name="loginform">
+        <div class="screenlet-body" style="text-align: center;">          
+          <form method="post" action="<@ofbizUrl>login${previousParams?if_exists}?category_id=${productCategoryId?if_exists}&product_id=${productId?if_exists}</@ofbizUrl>" name="loginform">           
               <div class="tabletext">
                   ${uiLabelMap.CommonUsername}:&nbsp;
                   <input type="text" class="inputBox" name="USERNAME" value="<#if requestParameters.USERNAME?has_content>${requestParameters.USERNAME}<#elseif autoUserLogin?has_content>${autoUserLogin.userLoginId}</#if>" size="20"/>

@@ -29,11 +29,17 @@ import org.ofbiz.product.catalog.*;
 detailScreen = "categorydetail";
 catalogName = CatalogWorker.getCatalogName(request);
 delegator = request.getAttribute("delegator");
+
 productCategoryId = request.getAttribute("productCategoryId");
 if (productCategoryId == null) {
     productCategoryId = parameters.get("category_id");
 }
+
 context.put("productCategoryId", productCategoryId);
+
+if (productCategoryId != null) {
+    session.setAttribute("productCategoryId",productCategoryId);
+}
 
 category = delegator.findByPrimaryKeyCache("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId));
 if (category != null) {
