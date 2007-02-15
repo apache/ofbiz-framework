@@ -21,10 +21,12 @@ under the License.
 <#escape x as x?xml>
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
-<#macro pickInfoDetail pickQuantity picklistBinInfoList product facilityLocation facilityLocationInfo>
+<#-- It is important to set defaults for facilityLocation and facilityLocationInfo in case the picklisted item has no location defined in facility.
+  Because these defaults are scalars, we must then use the ?is_hash check directive as well before trying to access them --> 
+<#macro pickInfoDetail pickQuantity picklistBinInfoList product facilityLocation="" facilityLocationInfo="">
     <fo:table-row>
         <fo:table-cell padding="2pt" background-color="${rowColor}">
-            <#if facilityLocation?has_content>
+            <#if (facilityLocation?has_content) && (facilityLocation?is_hash)>
                 <fo:block>${facilityLocation.areaId?if_exists}-${facilityLocation.aisleId?if_exists}-${facilityLocation.sectionId?if_exists}-${facilityLocation.levelId?if_exists}-${facilityLocation.positionId?if_exists}</fo:block>
             <#else>
                 <fo:block>[${uiLabelMap.ProductNoLocation}]</fo:block>
@@ -36,7 +38,7 @@ under the License.
             <#else>
                 <fo:block> </fo:block>
             </#if>
-            <#if (facilityLocationInfo.message)?has_content>
+            <#if (facilityLocationInfo?has_content) && (facilityLocationInfo?is_hash) && (facilityLocationInfo.message)?has_content>
                 <fo:block>${facilityLocationInfo.message?if_exists}</fo:block>
             </#if>
         </fo:table-cell>
