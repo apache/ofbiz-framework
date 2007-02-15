@@ -205,13 +205,15 @@ public class ModelScreenCondition implements Serializable {
     public static class IfServicePermission extends ScreenCondition {
         protected FlexibleStringExpander serviceExdr;
         protected FlexibleStringExpander actionExdr;
+        protected FlexibleStringExpander ctxMapExdr;
         protected FlexibleStringExpander resExdr;
 
         public IfServicePermission(ModelScreen modelScreen, Element condElement) {
             super(modelScreen, condElement);
             this.serviceExdr = new FlexibleStringExpander(condElement.getAttribute("service-name"));
             this.actionExdr = new FlexibleStringExpander(condElement.getAttribute("main-action"));
-            this.resExdr = new FlexibleStringExpander(condElement.getAttribute("resource-description"));            
+            this.ctxMapExdr = new FlexibleStringExpander(condElement.getAttribute("context-map"));
+            this.resExdr = new FlexibleStringExpander(condElement.getAttribute("resource-description"));
         }
 
         public boolean eval(Map context) {
@@ -220,14 +222,27 @@ public class ModelScreenCondition implements Serializable {
             if (userLogin != null) {
                 String serviceName = serviceExdr.expandString(context);
                 String mainAction = actionExdr.expandString(context);
+                String contextMap = ctxMapExdr.expandString(context);
                 String resource = resExdr.expandString(context);
-                if (resource == null) {
+                if (UtilValidate.isEmpty(resource)) {
                     resource = serviceName;
                 }
                 
-                if (serviceName == null) {
+                if (UtilValidate.isEmpty(serviceName)) {
                     Debug.logWarning("No permission service-name specified!", module);
                     return false;
+                }
+
+                Map serviceContext;
+                Object internalSvcMap = context.get(contextMap);
+                if (internalSvcMap != null && (internalSvcMap instanceof Map)) {
+                    serviceContext = (Map) internalSvcMap;
+
+                    // copy the required internal fields
+                    serviceContext.put("userLogin", context.get("userLogin"));
+                    serviceContext.put("locale", context.get("locale"));
+                } else {
+                    serviceContext = context;
                 }
 
                 // get the service objects
@@ -245,7 +260,7 @@ public class ModelScreenCondition implements Serializable {
 
                 if (permService != null) {
                     // build the context
-                    Map svcCtx = permService.makeValid(context, ModelService.IN_PARAM);
+                    Map svcCtx = permService.makeValid(serviceContext, ModelService.IN_PARAM);
                     svcCtx.put("resourceDescription", resource);
                     if (UtilValidate.isNotEmpty(mainAction)) {
                         svcCtx.put("mainAction", mainAction);
