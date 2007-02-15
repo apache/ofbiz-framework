@@ -31,6 +31,17 @@ under the License.
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CONTENTMGR_VIEW"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="CONTENTMGR_VIEW"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="CONTENTMGR_ADMIN"/>
+
+    <!-- Content ROLE security -->
+    <SecurityPermission description="Limited View operations in the Content Manager." permissionId="CONTENTMGR_ROLE_VIEW"/>
+    <SecurityPermission description="Limited Create operations in the Content Manager." permissionId="CONTENTMGR_ROLE_CREATE"/>
+    <SecurityPermission description="Limited Update operations in the Content Manager." permissionId="CONTENTMGR_ROLE_UPDATE"/>
+    <SecurityPermission description="Limited Delete operations in the Content Manager." permissionId="CONTENTMGR_ROLE_DELETE"/>
+    <SecurityGroup groupId="CONTENT_USER" description="Content user group; all limited content permissions."/>
+    <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_VIEW"/>
+    <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_CREATE"/>
+    <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_UPDATE"/>
+    <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_DELETE"/>
     
     <!-- Control Applet security -->
     <SecurityPermission description="Send to the Control Applet." permissionId="SEND_CONTROL_APPLET"/>
