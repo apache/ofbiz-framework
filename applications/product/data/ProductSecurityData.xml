@@ -42,21 +42,24 @@ under the License.
     <SecurityGroup description="Catalog Admin group, has all catalog permissions." groupId="CATALOGADMIN"/>
     <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="CATALOG_ADMIN"/>
     <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="OFBTOOLS_VIEW"/>
-    <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
-    <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="CATALOG_PURCHASE_ALLOW"/>
+
+    <SecurityGroup description="Catalog Admin View and Purchase Allow Products" groupId="CATALOGADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_PURCHASE_ALLOW"/>
     
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="CATALOG_ADMIN"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="CATALOG_PRICE_MAINT"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="CATALOG_PURCHASE_ALLOW"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_PURCHASE_ALLOW"/>
+
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_CREATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_DELETE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_UPDATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_VIEW"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_PRICE_MAINT"/>
-
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_PURCHASE_ALLOW"/>
+    
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="CATALOG_VIEW"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="CATALOG_ADMIN"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="CATALOG_PRICE_MAINT"/>

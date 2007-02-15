@@ -187,7 +187,6 @@ under the License.
         <response name="error" type="view" value="EditCategory"/>
     </request-map>
 
-
     <!-- ================ Category Rollup Requests ================= -->
     <request-map uri="EditCategoryRollup">
         <security https="true" auth="true"/>
@@ -403,6 +402,54 @@ under the License.
         <event type="service" path="" invoke="removeCategoryContent"/>
         <response name="success" type="view" value="EditCategoryContent"/>
         <response name="error" type="view" value="EditCategoryContent"/>
+    </request-map>
+    
+    <!-- ================ Product Category Attribute Requests ================= -->
+    <request-map uri="EditCategoryAttributes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditCategoryAttributes"/>
+    </request-map>
+    <request-map uri="createProductCategoryAttribute">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createProductCategoryAttribute"/>
+        <response name="success" type="view" value="EditCategoryAttributes"/>
+        <response name="error" type="view" value="EditCategoryAttributes"/>
+    </request-map>
+    <request-map uri="updateProductCategoryAttribute">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateProductCategoryAttribute"/>
+        <response name="success" type="view" value="EditCategoryAttributes"/>
+        <response name="error" type="view" value="EditCategoryAttributes"/>
+    </request-map>
+    <request-map uri="deleteProductCategoryAttribute">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteProductCategoryAttribute"/>
+        <response name="success" type="view" value="EditCategoryAttributes"/>
+        <response name="error" type="view" value="EditCategoryAttributes"/>
+    </request-map>
+    
+    <!-- ================ Product Category Link Requests ================= -->
+    <request-map uri="EditProductCategoryLinks">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductCategoryLinks"/>
+    </request-map>
+    <request-map uri="createProductCategoryLink">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createProductCategoryLink"/>
+        <response name="success" type="view" value="EditProductCategoryLinks"/>
+        <response name="error" type="view" value="EditProductCategoryLinks"/>
+    </request-map>
+    <request-map uri="updateProductCategoryLink">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateProductCategoryLink"/>
+        <response name="success" type="view" value="EditProductCategoryLinks"/>
+        <response name="error" type="view" value="EditProductCategoryLinks"/>
+    </request-map>
+    <request-map uri="deleteProductCategoryLink">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteProductCategoryLink"/>
+        <response name="success" type="view" value="EditProductCategoryLinks"/>
+        <response name="error" type="view" value="EditProductCategoryLinks"/>
     </request-map>
     
     <!-- ================ Product Requests ================= -->
@@ -696,54 +743,6 @@ under the License.
         <response name="error" type="view" value="EditProductCategories"/>
     </request-map>
 
-    <!-- ================ Product Category Attribute Requests ================= -->
-    <request-map uri="EditCategoryAttributes">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditCategoryAttributes"/>
-    </request-map>
-    <request-map uri="createProductCategoryAttribute">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createProductCategoryAttribute"/>
-        <response name="success" type="view" value="EditCategoryAttributes"/>
-        <response name="error" type="view" value="EditCategoryAttributes"/>
-    </request-map>
-    <request-map uri="updateProductCategoryAttribute">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateProductCategoryAttribute"/>
-        <response name="success" type="view" value="EditCategoryAttributes"/>
-        <response name="error" type="view" value="EditCategoryAttributes"/>
-    </request-map>
-    <request-map uri="deleteProductCategoryAttribute">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteProductCategoryAttribute"/>
-        <response name="success" type="view" value="EditCategoryAttributes"/>
-        <response name="error" type="view" value="EditCategoryAttributes"/>
-    </request-map>
-
-    <!-- ================ Product Category Link Requests ================= -->
-    <request-map uri="EditProductCategoryLinks">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditProductCategoryLinks"/>
-    </request-map>
-    <request-map uri="createProductCategoryLink">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createProductCategoryLink"/>
-        <response name="success" type="view" value="EditProductCategoryLinks"/>
-        <response name="error" type="view" value="EditProductCategoryLinks"/>
-    </request-map>
-    <request-map uri="updateProductCategoryLink">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateProductCategoryLink"/>
-        <response name="success" type="view" value="EditProductCategoryLinks"/>
-        <response name="error" type="view" value="EditProductCategoryLinks"/>
-    </request-map>
-    <request-map uri="deleteProductCategoryLink">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteProductCategoryLink"/>
-        <response name="success" type="view" value="EditProductCategoryLinks"/>
-        <response name="error" type="view" value="EditProductCategoryLinks"/>
-    </request-map>
-    
     <!-- ================ Product Keyword Requests ================= -->
     <request-map uri="EditProductKeyword">
         <security https="true" auth="true"/>
