@@ -578,7 +578,7 @@ under the License.
     <service name="safeAddProductToCategory" default-entity-name="ProductCategoryMember" engine="simple"
                 location="org/ofbiz/product/category/CategoryServices.xml" invoke="addProductToCategory" auth="true">
         <description>Add Product To Category</description>
-        <permission-service service-name="checkCategoryRelatedPermissionService" main-action="CREATE"/>
+        <permission-service service-name="checkCategoryPermissionWithViewPurchaseAllow" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
@@ -586,7 +586,7 @@ under the License.
     <service name="addProductToCategories" default-entity-name="ProductCategoryMember" engine="simple"
                 location="org/ofbiz/product/category/CategoryServices.xml" invoke="addProductToCategories" auth="true">
         <description>Add Product To Multiple Categories</description>
-        <permission-service service-name="checkCategoryRelatedPermissionService" main-action="CREATE"/>
+        <permission-service service-name="checkCategoryPermissionWithViewPurchaseAllow" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false">
             <exclude field-name="productCategoryId"/>
         </auto-attributes>
@@ -597,7 +597,7 @@ under the License.
     <service name="addProductToCategory" default-entity-name="ProductCategoryMember" engine="simple"
                 location="org/ofbiz/product/category/CategoryServices.xml" invoke="addProductToCategory" auth="true">
         <description>Add Product To Category</description>
-        <permission-service service-name="checkCategoryRelatedPermissionService" main-action="CREATE"/>
+        <permission-service service-name="checkCategoryPermissionWithViewPurchaseAllow" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
@@ -605,14 +605,14 @@ under the License.
     <service name="updateProductToCategory" default-entity-name="ProductCategoryMember" engine="simple"
                 location="org/ofbiz/product/category/CategoryServices.xml" invoke="updateProductToCategory" auth="true">
         <description>Add Product To Category</description>
-        <permission-service service-name="checkCategoryRelatedPermissionService" main-action="UPDATE"/>
+        <permission-service service-name="checkCategoryPermissionWithViewPurchaseAllow" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeProductFromCategory" default-entity-name="ProductCategoryMember" engine="simple"
                 location="org/ofbiz/product/category/CategoryServices.xml" invoke="removeProductFromCategory" auth="true">
         <description>Remove Product From Category</description>
-        <permission-service service-name="checkCategoryRelatedPermissionService" main-action="DELETE"/>
+        <permission-service service-name="checkCategoryPermissionWithViewPurchaseAllow" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -727,7 +727,7 @@ under the License.
             location="org/ofbiz/product/category/CategoryServices.xml" 
             invoke="createProductCategoryLink" auth="true">
         <description>Create a ProductCategoryLink</description>
-        <permission-service service-name="checkCategoryRelatedPermissionService" main-action="CREATE"/>
+        <permission-service service-name="productCategoryGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true" />        
@@ -737,7 +737,7 @@ under the License.
             location="org/ofbiz/product/category/CategoryServices.xml" 
             invoke="updateProductCategoryLink" auth="true">
         <description>Update a ProductCategoryLink</description>
-        <permission-service service-name="checkCategoryRelatedPermissionService" main-action="UPDATE"/>
+        <permission-service service-name="productCategoryGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
@@ -745,7 +745,7 @@ under the License.
             location="org/ofbiz/product/category/CategoryServices.xml" 
             invoke="deleteProductCategoryLink" auth="true">
         <description>Delete a ProductCategoryLink</description>
-        <permission-service service-name="checkCategoryRelatedPermissionService" main-action="DELETE"/>
+        <permission-service service-name="productCategoryGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     
@@ -1035,10 +1035,13 @@ under the License.
         location="org/ofbiz/product/product/ProductServices.xml" invoke="productGenericPermission">
         <implements service="permissionInterface"/>
     </service>
-    <service name="checkCategoryRelatedPermissionService" engine="simple"
-             location="org/ofbiz/product/category/CategoryServices.xml" invoke="checkCategoryRelatedPermissionService">
+    <service name="productCategoryGenericPermission" engine="simple"
+        location="org/ofbiz/product/category/CategoryServices.xml" invoke="productCategoryGenericPermission">
+        <implements service="permissionInterface"/>
+    </service>
+    <service name="checkCategoryPermissionWithViewPurchaseAllow" engine="simple"
+        location="org/ofbiz/product/category/CategoryServices.xml" invoke="checkCategoryPermissionWithViewPurchaseAllow">
         <implements service="permissionInterface"/>
         <attribute type="String" mode="IN" name="productCategoryId" optional="true"/>
-        <attribute type="List" mode="IN" name="categories" optional="true"/>
     </service>
 </services>
