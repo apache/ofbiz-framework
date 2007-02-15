@@ -175,7 +175,7 @@ public class ShoppingCartEvents {
             itemType = (String) paramMap.remove("add_item_type");
         }
 
-        if (productId == null) {
+        if (UtilValidate.isEmpty(productId)) {
             // before returning error; check make sure we aren't adding a special item type
             if (UtilValidate.isEmpty(itemType)) {
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource, "cart.addToCart.noProductInfoPassed", locale));
