@@ -763,19 +763,22 @@ public class ServiceDispatcher {
         if (UtilValidate.isNotEmpty(origService.permissionServiceName)) {
             Map permResp = origService.evalPermission(dctx, context);            
             Boolean hasPermission = (Boolean) permResp.get("hasPermission");
+            if (hasPermission == null) {
+                throw new ServiceAuthException("ERROR: the permission-service did not return a result. Not running the service [" + origService.name + "]");
+            }
             if (hasPermission.booleanValue()) {
                 context.putAll(permResp);
                 context = origService.makeValid(context, ModelService.IN_PARAM);
             } else {
                 String message = (String) permResp.get("failMessage");
                 if (UtilValidate.isEmpty(message)) {
-                    message = "You do not have permission to invoke this service";
+                    message = "You do not have permission to invoke the service [" + origService.name + "]";
                 }
                 throw new ServiceAuthException(message);
             }
         } else {
             if (!origService.evalPermissions(dctx, context)) {
-                throw new ServiceAuthException("You do not have permission to invoke this service");
+                throw new ServiceAuthException("You do not have permission to invoke the service [" + origService.name + "]");
             }
         }
 
