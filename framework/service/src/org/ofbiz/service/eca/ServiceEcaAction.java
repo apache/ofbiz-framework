@@ -43,9 +43,10 @@ public class ServiceEcaAction implements java.io.Serializable {
     protected String resultMapName = null;
     protected String runAsUser = null;
 
+    protected boolean newTransaction = false;
     protected boolean resultToContext = true;
     protected boolean ignoreFailure = false;
-    protected boolean ignoreError = false;
+    protected boolean ignoreError = false;    
     protected boolean persist = false;
 
     protected ServiceEcaAction() {}
@@ -59,6 +60,7 @@ public class ServiceEcaAction implements java.io.Serializable {
         
         // default is true, so anything but false is true
         this.resultToContext = !"false".equals(action.getAttribute("result-to-context"));
+        this.newTransaction = !"false".equals(action.getAttribute("new-transaction"));
         this.ignoreFailure = !"false".equals(action.getAttribute("ignore-failure"));
         this.ignoreError = !"false".equals(action.getAttribute("ignore-error"));
         this.persist = "true".equals(action.getAttribute("persist"));
@@ -94,7 +96,10 @@ public class ServiceEcaAction implements java.io.Serializable {
         } else {
             // standard ECA
             if (serviceMode.equals("sync")) {
-                actionResult = dispatcher.runSync(serviceName, actionContext);
+                if (newTransaction)
+                    actionResult = dispatcher.runSync(serviceName, actionContext, -1, true);
+                else
+                    actionResult = dispatcher.runSync(serviceName, actionContext);
             } else if (serviceMode.equals("async")) {
                 dispatcher.runAsync(serviceName, actionContext, persist);
             }

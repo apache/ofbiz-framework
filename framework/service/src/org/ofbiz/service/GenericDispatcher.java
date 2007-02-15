@@ -121,7 +121,9 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         // clone the model service for updates
         ModelService cloned = new ModelService(service);
         cloned.requireNewTransaction = requireNewTransaction;
-        cloned.transactionTimeout = transactionTimeout;
+        if (transactionTimeout != -1) {
+            cloned.transactionTimeout = transactionTimeout;
+        }
         return dispatcher.runSync(this.name, cloned, context);
     }
 
@@ -141,7 +143,9 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         // clone the model service for updates
         ModelService cloned = new ModelService(service);
         cloned.requireNewTransaction = requireNewTransaction;
-        cloned.transactionTimeout = transactionTimeout;
+        if (transactionTimeout != -1) {
+            cloned.transactionTimeout = transactionTimeout;
+        }
         dispatcher.runSyncIgnore(this.name, cloned, context);
     }
 
@@ -153,7 +157,9 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         // clone the model service for updates
         ModelService cloned = new ModelService(service);
         cloned.requireNewTransaction = requireNewTransaction;
-        cloned.transactionTimeout = transactionTimeout;
+        if (transactionTimeout != -1) {
+            cloned.transactionTimeout = transactionTimeout;
+        }
         dispatcher.runAsync(this.name, cloned, context, requester, persist);
     }
 
