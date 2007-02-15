@@ -22,11 +22,10 @@ package org.ofbiz.service.eca;
 import org.w3c.dom.Element;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.model.ModelUtil;
 
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 /**
  * ServiceEcaSetField
@@ -49,9 +48,21 @@ public class ServiceEcaSetField {
 
     public void eval(Map context) {
         if (fieldName != null) {
+            // try to expand the envName
+            if (UtilValidate.isEmpty(value)) {
+                if (UtilValidate.isNotEmpty(envName) && envName.startsWith("${")) {
+                    FlexibleStringExpander exp = new FlexibleStringExpander(envName);
+                    String s = exp.expandString(context);
+                    if (UtilValidate.isNotEmpty(s)) {
+                        value = s;
+                    }
+                    Debug.log("Expanded String: " + s, module);
+                }
+            }
+
             // process the context changes
             if (UtilValidate.isNotEmpty(value)) {
-                context.put(fieldName, this.format(value, context));
+                context.put(fieldName, this.format(value, context));            
             } else if (UtilValidate.isNotEmpty(envName) && context.get(envName) != null) {
                 context.put(fieldName, this.format((String) context.get(envName), context));
             }
@@ -59,7 +70,7 @@ public class ServiceEcaSetField {
     }
 
     protected Object format(String s, Map c) {
-        if (UtilValidate.isEmpty(s)) {            
+        if (UtilValidate.isEmpty(s) || UtilValidate.isEmpty(format)) {            
             return s;
         }
 
