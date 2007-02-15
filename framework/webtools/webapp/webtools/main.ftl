@@ -17,126 +17,114 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-  <tr>
-    <td width="100%">
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
-        <tr>
-          <td align="left" width="90%" >
-            <div class="boxhead">&nbsp;${uiLabelMap.WebtoolsMainPage}</div>
-          </td>
-          <td align="right" width="10%"><div class="lightbuttontextdisabled">${delegator.getDelegatorName()}</div></td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td width="100%">
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
-        <tr>
-          <td>
-            <#if !userLogin?has_content>
-              <div class="tabletext">${uiLabelMap.WebtoolsMessage14}.</div>
-              <br/>
-            </#if>
-            <div class="tabletext">${uiLabelMap.WebtoolsTitle1} ${uiLabelMap.WebtoolsTitle2} ${uiLabelMap.WebtoolsTitle3} ${uiLabelMap.WebtoolsTitle4} ${uiLabelMap.WebtoolsTitle5} ${uiLabelMap.WebtoolsTitle6}.</div>
-            <br/>
-            <div class="tabletext">${uiLabelMap.WebtoolsMessage13}.</div>
-            <#if userLogin?has_content>
-            <ul>
-                <li><div class="tabletext">${uiLabelMap.WebtoolsCacheDebugTools}</div>
-                <ul>
-                    <li><a href="<@ofbizUrl>/FindUtilCache</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsCacheMaintenance}</a>
-                    <li><a href="<@ofbizUrl>/LogConfiguration</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsAdjustDebuggingLevels}</a>
-                    <li><a href="<@ofbizUrl>/ViewComponents</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsViewComponents}</a>
-                </ul>
-              <#if security.hasPermission("ENTITY_MAINT", session)>
-                <li><div class="tabletext">${uiLabelMap.WebtoolsEntityEngineTools}</div>
-                <ul>
-                  <li><a href="<@ofbizUrl>/entitymaint</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsEntityDataMaintenance}</a>
-                  <li><a href="<@ofbizUrl>/view/entityref</@ofbizUrl>" class="linktext" target="_blank">${uiLabelMap.WebtoolsEntityReference}</a>&nbsp;<a href="<@ofbizUrl>/view/entityref?forstatic=true</@ofbizUrl>" class="linktext" target="_blank">[${uiLabelMap.WebtoolsEntityReferenceStaticVersion}]</a>
-                  <li><a href="<@ofbizUrl>/EntitySQLProcessor</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleEntitySQLProcessor}</a>
-                  <li><a href="<@ofbizUrl>/EntitySyncStatus</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsEntitySyncStatus}</a>
-                  <li><a href="<@ofbizUrl>/view/ModelInduceFromDb</@ofbizUrl>" target="_blank" class="linktext">${uiLabelMap.WebtoolsInduceModelXMLFromDatabase}</a><br/>
-                  <li><a href="<@ofbizUrl>/view/checkdb</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsCheckUpdateDatabase}</a>
+<!-- begin main.ftl -->
+<#-- TODO: Remove embedded style during UI refactor -->
+<style type="text/css">
+.webToolList {
+list-style-type: none;
+padding: 1em;
+}
+.webToolList li {
+padding: 0 1em 0 1em;
+}
+.webToolList h3 {
+padding: 1em 1em 0 0;
+}
+.webToolList li a {
+text-decoration: none;
+}
+.webToolList li a:hover {
+text-decoration: underline;
+}
+</style>
 
-                  <!-- want to leave these out because they are only working so-so, and cause people more problems that they solve, IMHO
-                  <ul>
-                    <li><a href="<@ofbizUrl>/view/EditEntity</@ofbizUrl>" class="linktext" target="_blank">Edit Entity Definitions</a>
-                    <li><a href="<@ofbizUrl>/ModelWriter</@ofbizUrl>" class="linktext" target="_blank">Generate Entity Model XML (all in one)</a>
-                    <li><a href="<@ofbizUrl>/ModelWriter?savetofile=true</@ofbizUrl>" target="_blank" class="linktext">Save Entity Model XML to Files</a><br/>
-                  -->
-                  <!-- not working right now anyway
-                    <li><a href="<@ofbizUrl>/ModelGroupWriter</@ofbizUrl>" target="_blank" class="linktext">Generate Entity Group XML</a><br/>
-                    <li><a href="<@ofbizUrl>/ModelGroupWriter?savetofile=true</@ofbizUrl>" target="_blank" class="linktext">Save Entity Group XML to File</a><br/>
-                  </ul>
-                  -->
-                  <!--
-                  <li><a href="<@ofbizUrl>/view/tablesMySql</@ofbizUrl>" class="linktext">MySQL Table Creation SQL</a>
-                  <li><a href="<@ofbizUrl>/view/dataMySql</@ofbizUrl>" class="linktext">MySQL Auto Data SQL</a>
-                  -->
-                </ul>
-                <li><div class="tabletext">${uiLabelMap.WebtoolsEntityXMLTools}</div>
-                <ul>
-                  <li><a href="<@ofbizUrl>/xmldsdump</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleEntityExport}</a>
-                  <li><a href="<@ofbizUrl>/EntityExportAll</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleEntityExportAll}</a>
-                  <li><a href="<@ofbizUrl>/EntityImport</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleEntityImport}</a>
-                  <li><a href="<@ofbizUrl>/EntityImportDir</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleEntityImportDir}</a>
-                </ul>
-              </#if>
-              <#if security.hasPermission("SERVICE_MAINT", session)>
-                <li><div class="tabletext">${uiLabelMap.WebtoolsServiceEngineTools}</div>
-                <ul>
-                  <li><a href="<@ofbizUrl>/availableServices</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsServiceReference}</a>
-                  <li><a href="<@ofbizUrl>/scheduleJob</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleScheduleJob}</a>
-                  <li><a href="<@ofbizUrl>/runService</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleRunService}</a>
-                  <li><a href="<@ofbizUrl>/jobList</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleJobList}</a>
-                  <li><a href="<@ofbizUrl>/threadList</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleThreadList}</a>
-                  <li><a href="<@ofbizUrl>/serviceList</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsServiceLog}</a>
-                </ul>
-              </#if>
-              <#if security.hasPermission("WORKFLOW_MAINT", session)>
-                <li><div class="tabletext">${uiLabelMap.WebtoolsWorkflowEngineTools}</div>
-                <ul>
-                  <li><a href="<@ofbizUrl>/workflowMonitor</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsWorkflowMonitor}</a>
-                  <li><a href="<@ofbizUrl>/readxpdl</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsReadXPDLFile}</a>
-                </ul>
-              </#if>
-              <#if security.hasPermission("DATAFILE_MAINT", session)>
-                <li><div class="tabletext">${uiLabelMap.WebtoolsDataFileTools}</div>
-                <ul>
-                  <li><a href="<@ofbizUrl>/viewdatafile</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsWorkWithDataFiles}</a>
-                </ul>
-              </#if>
-                <li><div class="tabletext">${uiLabelMap.WebtoolsMiscSetupTools}</div>
-                <ul>
-                  <#if security.hasPermission("PERIOD_MAINT", session)>
-                    <li><a href="<@ofbizUrl>/EditCustomTimePeriod</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsEditCustomTimePeriods}</a>
-                  </#if>
-                  <#if security.hasPermission("ENUM_STATUS_MAINT", session)>
-                  <!--
-                    <li><a href="<@ofbizUrl>/EditEnumerationTypes</@ofbizUrl>" class="linktext">Edit Enumerations</a>
-                    <li><a href="<@ofbizUrl>/EditStatusTypes</@ofbizUrl>" class="linktext">Edit Status Options</a>
-                  -->
-                  </#if>
-                </ul>
-                <li><div class="tabletext">${uiLabelMap.WebtoolsPerformanceTests}</div>
-                <ul>
-                  <li><a href="<@ofbizUrl>/EntityPerformanceTest</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsEntityEngine}</a>
-                </ul>
-              <#if security.hasPermission("SERVER_STATS_VIEW", session)>
-                <li><div class="tabletext">${uiLabelMap.WebtoolsServerHitStatisticsTools}</div>
-                <ul>
-                  <li><a href="<@ofbizUrl>/StatsSinceStart</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsStatsSinceServerStart}</a>
-                </ul>
-              </#if>
-            </ul>
-            </#if>
-
-            <div class="tabletext">${uiLabelMap.WebtoolsNote1}</div>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
+<div class="screenlet">
+  <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
+    <tr>
+      <td><div class='boxhead'>${uiLabelMap.WebtoolsMainPage}</div></td>
+      <td align='right' class="lightbuttontextdisabled">${delegator.getDelegatorName()}</td>
+    </tr>
+  </table>
+  <div class="screenlet-body">
+    <#if !userLogin?has_content>
+      <div>${uiLabelMap.WebtoolsMessage14}.</div>
+      <br />
+    </#if>
+    <div>${uiLabelMap.WebtoolsTitle1} ${uiLabelMap.WebtoolsTitle2} ${uiLabelMap.WebtoolsTitle3} ${uiLabelMap.WebtoolsTitle4} ${uiLabelMap.WebtoolsTitle5} ${uiLabelMap.WebtoolsTitle6}.
+      <br /><br />
+      ${uiLabelMap.WebtoolsMessage13}.
+    </div>
+    <#if userLogin?has_content>
+      <ul class="webToolList">
+        <li><h3>${uiLabelMap.WebtoolsCacheDebugTools}</h3></li>
+        <li><a href="<@ofbizUrl>/FindUtilCache</@ofbizUrl>">${uiLabelMap.WebtoolsCacheMaintenance}</a></li>
+        <li><a href="<@ofbizUrl>/LogConfiguration</@ofbizUrl>">${uiLabelMap.WebtoolsAdjustDebuggingLevels}</a></li>
+        <li><a href="<@ofbizUrl>/ViewComponents</@ofbizUrl>">${uiLabelMap.WebtoolsViewComponents}</a></li>
+        <#if security.hasPermission("ENTITY_MAINT", session)>
+          <li><h3>${uiLabelMap.WebtoolsEntityEngineTools}</h3></li>
+          <li><a href="<@ofbizUrl>/entitymaint</@ofbizUrl>">${uiLabelMap.WebtoolsEntityDataMaintenance}</a></li>
+          <li><a href="<@ofbizUrl>/view/entityref</@ofbizUrl>" target="_blank">${uiLabelMap.WebtoolsEntityReference}</a>&nbsp;<a href="<@ofbizUrl>/view/entityref?forstatic=true</@ofbizUrl>" target="_blank">[${uiLabelMap.WebtoolsEntityReferenceStaticVersion}]</a></li>
+          <li><a href="<@ofbizUrl>/EntitySQLProcessor</@ofbizUrl>">${uiLabelMap.PageTitleEntitySQLProcessor}</a></li>
+          <li><a href="<@ofbizUrl>/EntitySyncStatus</@ofbizUrl>">${uiLabelMap.WebtoolsEntitySyncStatus}</a></li>
+          <li><a href="<@ofbizUrl>/view/ModelInduceFromDb</@ofbizUrl>" target="_blank">${uiLabelMap.WebtoolsInduceModelXMLFromDatabase}</a></li>
+          <li><a href="<@ofbizUrl>/view/checkdb</@ofbizUrl>">${uiLabelMap.WebtoolsCheckUpdateDatabase}</a></li>
+          <#-- want to leave these out because they are only working so-so, and cause people more problems that they solve, IMHO
+            <li><a href="<@ofbizUrl>/view/EditEntity</@ofbizUrl>"  target="_blank">Edit Entity Definitions</a></li>
+            <li><a href="<@ofbizUrl>/ModelWriter</@ofbizUrl>" target="_blank">Generate Entity Model XML (all in one)</a></li>
+            <li><a href="<@ofbizUrl>/ModelWriter?savetofile=true</@ofbizUrl>" target="_blank">Save Entity Model XML to Files</a></li>
+          -->
+          <#-- not working right now anyway
+            <li><a href="<@ofbizUrl>/ModelGroupWriter</@ofbizUrl>" target="_blank">Generate Entity Group XML</a></li>
+            <li><a href="<@ofbizUrl>/ModelGroupWriter?savetofile=true</@ofbizUrl>" target="_blank">Save Entity Group XML to File</a></li>
+          -->
+          <#--
+            <li><a href="<@ofbizUrl>/view/tablesMySql</@ofbizUrl>">MySQL Table Creation SQL</a></li>
+            <li><a href="<@ofbizUrl>/view/dataMySql</@ofbizUrl>">MySQL Auto Data SQL</a></li>
+          -->
+          <li><h3>${uiLabelMap.WebtoolsEntityXMLTools}</h3></li>
+          <li><a href="<@ofbizUrl>/xmldsdump</@ofbizUrl>">${uiLabelMap.PageTitleEntityExport}</a></li>
+          <li><a href="<@ofbizUrl>/EntityExportAll</@ofbizUrl>">${uiLabelMap.PageTitleEntityExportAll}</a></li>
+          <li><a href="<@ofbizUrl>/EntityImport</@ofbizUrl>">${uiLabelMap.PageTitleEntityImport}</a></li>
+          <li><a href="<@ofbizUrl>/EntityImportDir</@ofbizUrl>">${uiLabelMap.PageTitleEntityImportDir}</a></li>
+        </#if>
+        <#if security.hasPermission("SERVICE_MAINT", session)>
+          <li><h3>${uiLabelMap.WebtoolsServiceEngineTools}</h3></li>
+          <li><a href="<@ofbizUrl>/availableServices</@ofbizUrl>">${uiLabelMap.WebtoolsServiceReference}</a></li>
+          <li><a href="<@ofbizUrl>/scheduleJob</@ofbizUrl>">${uiLabelMap.PageTitleScheduleJob}</a></li>
+          <li><a href="<@ofbizUrl>/runService</@ofbizUrl>">${uiLabelMap.PageTitleRunService}</a></li>
+          <li><a href="<@ofbizUrl>/jobList</@ofbizUrl>">${uiLabelMap.PageTitleJobList}</a></li>
+          <li><a href="<@ofbizUrl>/threadList</@ofbizUrl>">${uiLabelMap.PageTitleThreadList}</a></li>
+          <li><a href="<@ofbizUrl>/serviceList</@ofbizUrl>">${uiLabelMap.WebtoolsServiceLog}</a></li>
+        </#if>
+        <#if security.hasPermission("WORKFLOW_MAINT", session)>
+          <li><h3>${uiLabelMap.WebtoolsWorkflowEngineTools}</h3></li>
+          <li><a href="<@ofbizUrl>/workflowMonitor</@ofbizUrl>">${uiLabelMap.WebtoolsWorkflowMonitor}</a></li>
+          <li><a href="<@ofbizUrl>/readxpdl</@ofbizUrl>">${uiLabelMap.WebtoolsReadXPDLFile}</a></li>
+        </#if>
+        <#if security.hasPermission("DATAFILE_MAINT", session)>
+          <li><h3>${uiLabelMap.WebtoolsDataFileTools}</h3></li>
+          <li><a href="<@ofbizUrl>/viewdatafile</@ofbizUrl>">${uiLabelMap.WebtoolsWorkWithDataFiles}</a></li>
+        </#if>
+        <li><h3>${uiLabelMap.WebtoolsMiscSetupTools}</h3></li>
+        <#if security.hasPermission("PERIOD_MAINT", session)>
+          <li><a href="<@ofbizUrl>/EditCustomTimePeriod</@ofbizUrl>">${uiLabelMap.WebtoolsEditCustomTimePeriods}</a></li>
+        </#if>
+        <#if security.hasPermission("ENUM_STATUS_MAINT", session)>
+          <#--
+          <li><a href="<@ofbizUrl>/EditEnumerationTypes</@ofbizUrl>">Edit Enumerations</a></li>
+          <li><a href="<@ofbizUrl>/EditStatusTypes</@ofbizUrl>">Edit Status Options</a></li>
+          -->
+        </#if>
+        <li><h3>${uiLabelMap.WebtoolsPerformanceTests}</h3></li>
+        <li><a href="<@ofbizUrl>/EntityPerformanceTest</@ofbizUrl>">${uiLabelMap.WebtoolsEntityEngine}</a></li>
+        <#if security.hasPermission("SERVER_STATS_VIEW", session)>
+          <li><h3>${uiLabelMap.WebtoolsServerHitStatisticsTools}</h3></li>
+          <li><a href="<@ofbizUrl>/StatsSinceStart</@ofbizUrl>">${uiLabelMap.WebtoolsStatsSinceServerStart}</a></li>
+        </#if>
+      </ul>
+    </#if>
+    <br />
+    <div>${uiLabelMap.WebtoolsNote1}</div>
+  </div>
+</div>
+<!-- end main.ftl -->
