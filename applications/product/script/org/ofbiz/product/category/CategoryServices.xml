@@ -775,7 +775,6 @@ under the License.
         <call-service service-name="productCategoryGenericPermission" in-map-name="productCategoryGenericPermissionMap">
             <results-to-map map-name="genericResult"/>
         </call-service>
-        <log level="info" message="checkCategoryPermissionWithViewPurchaseAllow genericResult: ${genericResult}"/>
         <if-compare field-name="genericResult.hasPermission" operator="equals" value="false" type="Boolean">
             <field-to-result field-name="genericResult.hasPermission" result-name="hasPermission"/>
             <field-to-result field-name="genericResult.failMessage" map-name="failMessage"/>
@@ -783,7 +782,6 @@ under the License.
         </if-compare>
         
         <!-- if the generic permission test passed, carry on -->
-        <log level="info" message="checkCategoryPermissionWithViewPurchaseAllow got here 1; parameters.productCategoryId=${parameters.productCategoryId}"/>
         
         <!--  Set up for a call to checkCategoryRelatedPermission below, but callingMethodName is needed sooner -->
         <set field="callingMethodName" from-field="parameters.resourceDescription" default-value="this operation"/>
@@ -803,8 +801,6 @@ under the License.
             <entity-one entity-name="ProdCatalog" value-name="prodCatalog" auto-field-map="false">
                 <field-map field-name="prodCatalogId" env-name="prodCatalogCategory.prodCatalogId"/>
             </entity-one>
-            <log level="info" message="checkCategoryPermissionWithViewPurchaseAllow prodCatalogCategory: ${prodCatalogCategory}"/>
-            <log level="info" message="checkCategoryPermissionWithViewPurchaseAllow prodCatalog: ${prodCatalog}"/>
             <if>
                 <condition>
                     <and>
