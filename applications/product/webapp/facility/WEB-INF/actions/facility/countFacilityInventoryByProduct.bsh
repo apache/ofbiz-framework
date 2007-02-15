@@ -17,6 +17,11 @@
  * under the License.
  */
 
+// This script can be used for testing right now but it should not be used for production because
+// it does not work for marketing packages and more importantly, if there is a new product without any
+// inventory items, it will not show up on the inventory report even if it had a ProductFacility record.
+// These problems need to be addressed before this can be used in production.
+
 // This script counts the inventory in the facility using a complex and
 // pretty efficient dynamic view entity.
 // However, since the quantities are not computed using the inventory

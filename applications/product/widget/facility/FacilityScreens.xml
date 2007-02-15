@@ -197,8 +197,9 @@ under the License.
                 <set field="productsSoldThruTimestamp" from-field="parameters.productsSoldThruTimestamp"/>
                 <set field="internalName" from-field="parameters.internalName"/>
                 <set field="productId" from-field="parameters.productId"/>
-   
-                <script location="component://product/webapp/facility/WEB-INF/actions/facility/countFacilityInventoryByProduct.bsh"/>
+
+                <!-- do not use the countFacilityInventoryByProduct.bsh script unless the issues mentioned in it are correctly addressed -->
+                <script location="component://product/webapp/facility/WEB-INF/actions/facility/ViewFacilityInventoryByProduct.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
