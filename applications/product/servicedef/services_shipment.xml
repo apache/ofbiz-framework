@@ -420,6 +420,7 @@ under the License.
         <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
         <attribute name="handlingInstructions" type="String" mode="IN" optional="true"/>
         <attribute name="pickerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="additionalShippingCharge" type="Double" mode="IN" optional="true"/>
         <attribute name="forceComplete" type="Boolean" mode="IN" optional="true"/>
         <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
     </service>

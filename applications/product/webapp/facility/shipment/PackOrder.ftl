@@ -265,6 +265,14 @@ under the License.
           <table border='0' cellpadding='2' cellspacing='0' width="100%">
             <tr>
               <td>
+                <div class="tableheadtext">${uiLabelMap.ProductAdditionalShippingCharge}</div>
+                <div>
+                  <input type="text" class="inputBox" name="additionalShippingCharge" value="${packingSession.getAdditionalShippingCharge()?if_exists}" size="10"/>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
                 <div class="tableheadtext">${uiLabelMap.ProductHandlingInstructions}:</div>
                 <div>
                   <textarea name="handlingInstructions" class="inputBox" rows="2" cols="30">${packingSession.getHandlingInstructions()?if_exists}</textarea>
