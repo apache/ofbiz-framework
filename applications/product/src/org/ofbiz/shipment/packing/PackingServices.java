@@ -205,8 +205,10 @@ public class PackingServices {
         // set the instructions -- will clear out previous if now null
         String instructions = (String) context.get("handlingInstructions");
         String pickerPartyId = (String) context.get("pickerPartyId");
+        Double additionalShippingCharge = (Double) context.get("additionalShippingCharge");
         session.setHandlingInstructions(instructions);
         session.setPickerPartyId(pickerPartyId);
+        session.setAdditionalShippingCharge(additionalShippingCharge);
 
         Boolean force = (Boolean) context.get("forceComplete");
         if (force == null) {

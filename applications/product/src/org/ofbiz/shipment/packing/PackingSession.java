@@ -57,6 +57,7 @@ public class PackingSession implements java.io.Serializable {
     protected String facilityId = null;
     protected String shipmentId = null;
     protected String instructions = null;
+    protected Double additionalShippingCharge;
     protected List packEvents = null;
     protected List packLines = null;
     protected int packageSeq = -1;
@@ -663,6 +664,7 @@ public class PackingSession implements java.io.Serializable {
         newShipment.put("statusId", "SHIPMENT_INPUT");
         newShipment.put("handlingInstructions", instructions);
         newShipment.put("picklistBinId", picklistBinId);
+        newShipment.put("additionalShippingCharge", additionalShippingCharge);
         newShipment.put("userLogin", userLogin);
         Debug.log("Creating new shipment with context: " + newShipment, module);
         Map newShipResp = this.getDispatcher().runSync("createShipment", newShipment);
@@ -760,5 +762,13 @@ public class PackingSession implements java.io.Serializable {
                 }
             }
         }
+    }
+
+    public Double getAdditionalShippingCharge() {
+        return additionalShippingCharge;
+    }
+
+    public void setAdditionalShippingCharge(Double additionalShippingCharge) {
+        this.additionalShippingCharge = additionalShippingCharge;
     }
 }
