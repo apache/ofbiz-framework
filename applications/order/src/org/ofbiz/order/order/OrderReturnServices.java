@@ -890,11 +890,6 @@ public class OrderReturnServices {
                     }
                 }
 
-                if (prefSplitMap == null || prefSplitMap.size() == 0) {
-                    Debug.logError("We didn't find any possible payment prefs to use for RTN: " + returnId + " ORD: " + orderId, module);
-                    return ServiceUtil.returnError("Unable to refund order #" + orderId + "; there are no available payment preferences.");                     
-                }
-
                 // Keep a decreasing total of the amount remaining to refund
                 BigDecimal amountLeftToRefund = new BigDecimal(orderTotal.doubleValue()).setScale(decimals, rounding);
 
@@ -1035,6 +1030,24 @@ public class OrderReturnServices {
                             amountLeftToRefund = amountLeftToRefund.subtract(amountToRefund);
                         }
                     }                    
+                }
+
+                // OFBIZ-459:  Create a "filler" payment and return item response by hand for the remaining amount, note that this won't be applied to the invoice
+                if (amountLeftToRefund.compareTo(ZERO) == 1) {
+                    try {
+                        Map input = UtilMisc.toMap("userLogin", userLogin, "amount", new Double(amountLeftToRefund.doubleValue()), "statusId", "PMNT_NOT_PAID");
+                        input.put("partyIdTo", returnHeader.get("fromPartyId"));
+                        input.put("partyIdFrom", returnHeader.get("toPartyId"));
+                        input.put("paymentTypeId", "CUSTOMER_REFUND");
+                        Map results = dispatcher.runSync("createPayment", input);
+                        if (ServiceUtil.isError(results)) return results;
+
+                        input = UtilMisc.toMap("userLogin", userLogin, "paymentId", results.get("paymentId"), "responseAmount", new Double(amountLeftToRefund.doubleValue()));
+                        results = dispatcher.runSync("createReturnItemResponse", input);
+                        if (ServiceUtil.isError(results)) return results;
+                    } catch (GenericServiceException e) {
+                        return ServiceUtil.returnError(e.getMessage());
+                    }
                 }
             }
         }
