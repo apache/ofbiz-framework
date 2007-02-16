@@ -68,7 +68,7 @@ public class ModelServiceReader implements Serializable {
     protected DispatchContext dctx = null;
 
     public static ModelServiceReader getModelServiceReader(URL readerURL, DispatchContext dctx) {
-        ModelServiceReader reader = null;
+        ModelServiceReader reader;
 
         // if ( readersUrl.containsKey(readerURL) ) <-- this is unnecessary as it will return null below if not found
         reader = (ModelServiceReader) readersUrl.get(readerURL);
@@ -87,7 +87,7 @@ public class ModelServiceReader implements Serializable {
     }
 
     public static ModelServiceReader getModelServiceReader(ResourceHandler handler, DispatchContext dctx) {
-        ModelServiceReader reader = null;
+        ModelServiceReader reader;
 
         reader = (ModelServiceReader) readersLoader.get(handler);
         if (reader == null) { // don't want to block here
@@ -131,7 +131,7 @@ public class ModelServiceReader implements Serializable {
 
                     UtilTimer utilTimer = new UtilTimer();
 
-                    Document document = null;
+                    Document document;
 
                     if (this.isFromURL) {
                         // utilTimer.timerString("Before getDocument in file " + readerURL);
@@ -170,7 +170,7 @@ public class ModelServiceReader implements Serializable {
                             utilTimer.timerString("Before start of service loop in file " + readerURL);
                         } else {
                             utilTimer.timerString("Before start of service loop in " + handler);
-                        }                        ;
+                        }
 
                         do {
                             if (curChild.getNodeType() == Node.ELEMENT_NODE && "service".equals(curChild.getNodeName())) {
@@ -321,20 +321,12 @@ public class ModelServiceReader implements Serializable {
                        
         service.description = getCDATADef(serviceElement, "description");
         service.nameSpace = getCDATADef(serviceElement, "namespace");  
-
-        // check or an internal group
-        List group = UtilXml.childElementList(serviceElement, "group");
-        if (group != null && group.size() > 0) {
-            Element groupElement = (Element) group.get(0);
-            groupElement.setAttribute("name", "_" + service.name + ".group");
-            service.internalGroup = new GroupModel(groupElement);
-            service.invoke = service.internalGroup.getGroupName();
-        }
-
+        
         // contruct the context
         service.contextInfo = FastMap.newInstance();
         this.createPermission(serviceElement, service);
         this.createPermGroups(serviceElement, service);
+        this.createGroupDefs(serviceElement, service);
         this.createImplDefs(serviceElement, service);
         this.createAutoAttrDefs(serviceElement, service);
         this.createAttrDefs(serviceElement, service);
@@ -366,7 +358,7 @@ public class ModelServiceReader implements Serializable {
         if (e != null) {
             model.permissionServiceName = e.getAttribute("service-name");
             model.permissionMainAction = e.getAttribute("main-action");
-            model.permissionResourceDescription = e.getAttribute("resource-description");
+            model.permissionResourceDesc = e.getAttribute("resource-description");
             model.auth = true; // auth is always required when permissions are set
         }
     }
@@ -416,6 +408,17 @@ public class ModelServiceReader implements Serializable {
         }
     }
 
+    protected void createGroupDefs(Element baseElement, ModelService service) {
+        List group = UtilXml.childElementList(baseElement, "group");
+        if (group != null && group.size() > 0) {
+            Element groupElement = (Element) group.get(0);
+            groupElement.setAttribute("name", "_" + service.name + ".group");
+            service.internalGroup = new GroupModel(groupElement);
+            service.invoke = service.internalGroup.getGroupName();
+            Debug.logWarning("Created INTERNAL GROUP model [" + service.internalGroup + "]", module);
+        }
+    }
+    
     protected void createImplDefs(Element baseElement, ModelService service) {
         List implElements = UtilXml.childElementList(baseElement, "implements");
         Iterator implIter = implElements.iterator();
@@ -539,7 +542,10 @@ public class ModelServiceReader implements Serializable {
             // default value
             String defValue = attribute.getAttribute("default-value");
             if (UtilValidate.isNotEmpty(defValue)) {
-                param.defaultValue = this.convertDefaultValue(service.name, param.name, param.type, defValue);
+                param.defaultValue = defValue;
+                if (param.type != null) {
+                    param.defaultValueObj = service.convertDefaultValue(service.name, param.name, param.type, defValue);
+                }
                 param.optional = true;
             }
             
@@ -559,7 +565,7 @@ public class ModelServiceReader implements Serializable {
         }
 
         // Add the default optional parameters
-        ModelParam def = null;
+        ModelParam def;
 
         // responseMessage
         def = new ModelParam();
@@ -629,7 +635,7 @@ public class ModelServiceReader implements Serializable {
             ModelParam param = service.getParam(name);
             boolean directToParams = true;
             if (param == null) {
-                if (service.implServices.size() > 0 && !service.inheritedParameters) {                
+                if (!service.inheritedParameters && (service.implServices.size() > 0 || "group".equals(service.engineName))) {                 
                     // create a temp def to place in the ModelService
                     // this will get read when we read implemented services 
                     directToParams = false;               
@@ -669,7 +675,10 @@ public class ModelServiceReader implements Serializable {
                 // default value
                 String defValue = attribute.getAttribute("default-value");
                 if (UtilValidate.isNotEmpty(defValue)) {
-                    param.defaultValue = this.convertDefaultValue(service.name, param.name, param.type, defValue);
+                    param.defaultValue = defValue;
+                    if (param.type != null) {
+                        param.defaultValueObj = service.convertDefaultValue(service.name, param.name, param.type, defValue);
+                    }                    
                     param.optional = true;
                 }
 
@@ -733,17 +742,5 @@ public class ModelServiceReader implements Serializable {
         }
 
         return document;
-    }
-
-    protected Object convertDefaultValue(String serviceName, String name, String type, String value) {
-        Object converted;
-        try {
-            converted = ObjectType.simpleTypeConvert(value, type, null, null, false);
-        } catch (Exception e) {
-            Debug.logWarning("Service [" + serviceName + "] attribute [" + name + "] default value could not be converted to type [" + type + "]", module);
-            return value;
-        }
-
-        return converted;
     }
 }

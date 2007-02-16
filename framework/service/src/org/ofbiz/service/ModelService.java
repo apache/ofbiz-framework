@@ -128,7 +128,7 @@ public class ModelService implements Serializable {
     public String permissionMainAction;
     
     /** Permission service resource-description */
-    public String permissionResourceDescription;
+    public String permissionResourceDesc;
     
     /** Set of services this service implements */
     public Set implServices = new ListOrderedSet();
@@ -167,9 +167,14 @@ public class ModelService implements Serializable {
         this.useTransaction = model.useTransaction || true;
         this.requireNewTransaction = model.requireNewTransaction;
         this.transactionTimeout = model.transactionTimeout;
+        this.maxRetry = model.maxRetry;
+        this.permissionServiceName = model.permissionServiceName;
+        this.permissionMainAction = model.permissionMainAction;
+        this.permissionResourceDesc = model.permissionResourceDesc;
         this.implServices = model.implServices;
         this.overrideParameters = model.overrideParameters;
         this.inheritedParameters = model.inheritedParameters();
+        this.internalGroup = model.internalGroup;
 
         List modelParamList = model.getModelParamList();
         Iterator i = modelParamList.iterator();
@@ -775,11 +780,12 @@ public class ModelService implements Serializable {
                 if (UtilValidate.isNotEmpty(this.permissionMainAction)) {
                     ctx.put("mainAction", this.permissionMainAction);
                 }
-                if (UtilValidate.isNotEmpty(this.permissionResourceDescription)) {
-                    ctx.put("resourceDescription", this.permissionResourceDescription);
+                if (UtilValidate.isNotEmpty(this.permissionResourceDesc)) {
+                    ctx.put("resourceDescription", this.permissionResourceDesc);
                 } else if (thisService != null) {
                     ctx.put("resourceDescription", thisService.name);
                 }
+                
                 LocalDispatcher dispatcher = dctx.getDispatcher();
                 Map resp;
                 try {
@@ -963,20 +969,30 @@ public class ModelService implements Serializable {
 
                     if (existingParam != null) {
                         // now re-write the parameters
-                        if (overrideParam.type != null && overrideParam.type.length() > 0) {
+                        if (UtilValidate.isNotEmpty(overrideParam.type)) {
                             existingParam.type = overrideParam.type;
                         }
-                        if (overrideParam.mode != null && overrideParam.mode.length() > 0) {
+                        if (UtilValidate.isNotEmpty(overrideParam.mode)) {
                             existingParam.mode = overrideParam.mode;
                         }
-                        if (overrideParam.entityName != null && overrideParam.entityName.length() > 0) {
+                        if (UtilValidate.isNotEmpty(overrideParam.entityName)) {
                             existingParam.entityName = overrideParam.entityName;
                         }
-                        if (overrideParam.fieldName != null && overrideParam.fieldName.length() > 0) {
+                        if (UtilValidate.isNotEmpty(overrideParam.fieldName)) {
                             existingParam.fieldName = overrideParam.fieldName;
                         }
-                        if (overrideParam.formLabel != null && overrideParam.formLabel.length() > 0) {
+                        if (UtilValidate.isNotEmpty(overrideParam.formLabel)) {
                             existingParam.formLabel = overrideParam.formLabel;
+                        }
+                        if (overrideParam.defaultValue != null) {
+                            existingParam.defaultValue = overrideParam.defaultValue;
+                            existingParam.optional = true;
+                            if (overrideParam.defaultValueObj == null) {
+                                existingParam.defaultValueObj = this.convertDefaultValue(this.name, overrideParam.name,
+                                        existingParam.type, overrideParam.defaultValue);
+                            } else {
+                                existingParam.defaultValueObj = overrideParam.defaultValueObj;
+                            }
                         }
                         if (overrideParam.overrideFormDisplay) {
                             existingParam.formDisplay = overrideParam.formDisplay;
@@ -994,6 +1010,18 @@ public class ModelService implements Serializable {
             // set the flag so we don't do this again
             this.inheritedParameters = true;
         }
+    }
+
+    protected Object convertDefaultValue(String serviceName, String name, String type, String value) {
+        Object converted;
+        try {
+            converted = ObjectType.simpleTypeConvert(value, type, null, null, false);
+        } catch (Exception e) {
+            Debug.logWarning("Service [" + serviceName + "] attribute [" + name + "] default value could not be converted to type [" + type + "]", module);
+            return value;
+        }
+
+        return converted;
     }
 
     public Document toWSDL(String locationURI) throws WSDLException {
