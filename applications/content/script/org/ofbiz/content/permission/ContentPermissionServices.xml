@@ -28,6 +28,22 @@
         <set field="primaryPermission" value="CONTENTMGR"/>
         <call-simple-method method-name="genericBasePermissionCheck" xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
 
+        <!-- here we can use contentIdTo to check parent(s) ownership -->
+        <if>
+            <condition>
+                <and>
+                    <if-empty field-name="parameters.ownerContentId"/>
+                    <not>
+                        <if-empty field-name="parameters.contentIdTo"/>
+                    </not>
+                </and>
+            </condition>
+            <then>
+                <set field="ownerContentId" from-field="parameters.contentIdTo"/>
+            </then>
+        </if>
+
+        <!-- mainAction based call outs -->
         <if>
             <condition>
                 <not>
@@ -49,6 +65,10 @@
                             <if-compare field-name="parameters.mainAction" value="CREATE" operator="equals"/>
                         </condition>
                         <then>
+                            <!-- setup default operation -->
+                            <if-empty field-name="parameters.contentOperationId">
+                                <set field="contentOperationId" value="CONTENT_CREATE"/>
+                            </if-empty>
                             <call-simple-method method-name="createContentPermission"/>
                         </then>
                     </else-if>
@@ -58,13 +78,23 @@
                             <if-compare field-name="parameters.mainAction" value="UPDATE" operator="equals"/>
                         </condition>
                         <then>
+                            <!-- setup default operation -->
+                            <if-empty field-name="parameters.contentOperationId">
+                                <set field="contentOperationId" value="CONTENT_UPDATE"/> 
+                            </if-empty>
                             <call-simple-method method-name="updateContentPermission"/>
                         </then>
                     </else-if>
                     <!-- all other actions use main base check -->
                 </if>
             </then>
+            <else>
+                <log level="always" message="Admin permission found: ${primaryPermission}_${mainAction}"/>
+            </else>
         </if>
+
+        <log level="always" message="Permission service [${mainAction} / ${parameters.contentId}] completed; returning hasPermission = ${hasPermission}"/>
+        <field-to-result field-name="hasPermission"/>
     </simple-method>
 
     <simple-method method-name="viewContentPermission" short-description="Check user can view content">
@@ -140,6 +170,8 @@
                 <if-compare field-name="hasPermission" value="true" type="Boolean" operator="equals"/>
             </condition>
             <then>
+                <log level="verbose" message="Found necessary ROLE permission: ${primaryPermission}_${mainAction} :: ${contentOperationId}"/>
+                
                 <!-- if an operation is passed, check the operation security -->
                 <if>
                     <condition>
@@ -147,7 +179,8 @@
                             <if-empty field-name="contentOperationId"/>
                         </not>
                     </condition>
-                    <then>                                                
+                    <then>
+                        <set field="checkContentId" from-field="ownerContentId"/> 
                         <call-simple-method method-name="checkContentOperationSecurity"/>
                     </then>
 
@@ -160,7 +193,9 @@
                                 </not>
                             </condition>
                             <then>
+                                <log level="verbose" message="No operation found; but ownerContentId [${ownerContentId}] was; checking ownership"/>
                                 <set field="checkContentId" from-field="ownerContentId"/>
+                                <log level="verbose" message="Checking Parent Ownership [${checkContentId}]"/>
                                 <call-simple-method method-name="checkContentOwnership"/>
                                 <if>
                                     <condition>
@@ -190,6 +225,7 @@
                                                     </condition>
                                                     <then>
                                                         <set field="checkContentId" from-field="currentContent.ownerContentId"/>
+                                                        <log level="verbose" message="Checking Parent(s) Ownership [${checkContentId}]"/>
                                                         <call-simple-method method-name="checkContentOwnership"/>
                                                     </then>
 
@@ -201,6 +237,9 @@
                                             </then>
                                         </while>
                                     </then>
+                                    <else>
+                                        <log level="verbose" message="Permission set to TRUE; granting access"/>
+                                    </else>
                                 </if>
                             </then>
                         </if>
@@ -220,17 +259,12 @@
         </if-empty>
 
         <!-- contentId is required for update checking -->
-        <if>
-            <condition>
-                <and>
-                    <if-empty field-name="parameters.contentId"/>
-                    <if-empty field-name="contentId"/>
-                </and>
-            </condition>
-            <then>
-                <add-error><fail-message message="Content Permission Service UPDATE requires a contentId!"/></add-error>
-            </then>
-        </if>
+        <if-empty field-name="contentId">
+            <set field="contentId" from-field="parameters.contentId"/>
+        </if-empty>
+        <if-empty field-name="contentId">
+            <add-error><fail-message message="Content Permission Service UPDATE requires a contentId!"/></add-error>
+        </if-empty>
         <check-errors/>
 
         <!-- ownerContentId can be set from a calling method -->
@@ -254,6 +288,17 @@
                 <if-compare field-name="hasPermission" value="true" type="Boolean" operator="equals"/>
             </condition>
             <then>
+                <log level="verbose" message="Found necessary ROLE permission: ${primaryPermission}_${mainAction}"/>
+
+                <!-- obtain the current content record -->
+                <entity-one entity-name="Content" value-name="thisContent">
+                    <field-map field-name="contentId"/>
+                </entity-one>
+                <if-empty field-name="thisContent">
+                    <add-error><fail-message message="Content record not found for ID [${contentId}]"/></add-error>
+                    <check-errors/>
+                </if-empty>
+
                 <!-- check the operation -->
                 <if>
                     <condition>
@@ -262,11 +307,24 @@
                         </not>
                     </condition>
                     <then>
+                        <log level="verbose" message="Checking content operation for UPDATE: ${contentOperationId}"/>
+                        <set field="checkContentId" from-field="contentId"/>
                         <call-simple-method method-name="checkContentOperationSecurity"/>
                     </then>
+                </if>
 
-                    <!-- if no operation is passed; check ownership for permission -->
-                    <else>
+                <!-- check if there was no operation; or if the operation check failed -->
+                <if>
+                    <condition>
+                        <or>
+                            <if-empty field-name="contentOperationId"/>
+                            <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals"/>
+                        </or>
+                    </condition>
+
+                    <!-- if no valid operation is passed; check ownership for permission -->
+                    <then>
+                        <log level="verbose" message="No valid operation for UPDATE; checking ownership instead!"/>
                         <set field="checkContentId" from-field="contentId"/>
                         <call-simple-method method-name="checkContentOwnership"/>
 
@@ -274,13 +332,14 @@
                         <if>
                             <condition>
                                 <and>
-                                    <if-compare field-name="hasPermission" value="true" type="Boolean" operator="equals"/>
                                     <not>
                                         <if-empty field-name="ownerContentId"/>
                                     </not>
+                                    <if-compare-field field-name="ownerContentId" operator="not-equals" to-field-name="ownerContentId" map-name="thisContent"/>
                                 </and>
                             </condition>
                             <then>
+                                <log level="verbose" message="Updating content ownership; need to verify permision on parent(s)"/>
                                 <set field="checkContentId" from-field="ownerContentId"/>
                                 <call-simple-method method-name="checkContentOwnership"/>
                                 <if>
@@ -325,7 +384,7 @@
                                 </if>
                             </then>
                         </if>
-                    </else>
+                    </then>
                 </if>
             </then>
         </if>
@@ -334,12 +393,16 @@
 
     <!-- method to check operation security -->
     <simple-method method-name="checkContentOperationSecurity" short-description="Checks for Operation defined security">
+        <!-- resetting the permission flag -->
         <set field="hasPermission" type="Boolean" value="false"/>
 
         <if-empty field-name="contentOperationId">
             <add-error><fail-message message="Required field 'contentOperationId' is missing in simple method call [checkContentOperationSecurity]"/></add-error>
         </if-empty>
 
+        <if-empty field-name="contentPurposeTypeId">
+            <set field="contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
+        </if-empty>
         <if-empty field-name="contentPurposeTypeId">
             <set field="contentPurposeTypeId" value="_NA_"/>
         </if-empty>
@@ -350,18 +413,21 @@
             </if-not-empty>
         </if-empty>
 
-        <entity-and entity-name="ContentPurposeOperation" list-name="operations">
-            <field-map field-name="contentPurposeTypeId"/>
-            <field-map field-name="contentOperationId"/>
-        </entity-and>
-        <if-empty field-name="operations">
-            <if-compare field-name="contentPurposeTypeId" value="_NA_" operator="not-equals">
-                <entity-and entity-name="ContentPurposeOperation" list-name="operations">
-                    <field-map field-name="contentPurposeTypeId" value="_NA_"/>
-                    <field-map field-name="contentOperationId"/>
-                </entity-and>
-            </if-compare>
-        </if-empty>
+        <!-- check both the purpose and the _NA_ purpose -->
+        <entity-condition entity-name="ContentPurposeOperation" list-name="operations">
+            <condition-list combine="and">
+                <condition-list combine="or">
+                    <condition-expr field-name="contentPurposeTypeId" operator="equals" env-name="contentPurposeTypeId"/>
+                    <condition-expr field-name="contentPurposeTypeId" operator="equals" value="_NA_"/>
+                </condition-list>
+                <condition-expr field-name="contentOperationId" operator="equals" env-name="contentOperationId"/>
+            </condition-list>
+            <order-by field-name="contentPurposeTypeId"/>
+        </entity-condition>
+
+        <!-- place holder for the content ID -->
+        <set field="toCheckContentId" from-field="checkContentId"/>
+        <log level="verbose" message="[${checkContentId}] Found Operations [${contentPurposeTypeId}/${contentOperationId}] :: ${operations}"/>
 
         <if>
             <condition>
@@ -369,6 +435,7 @@
             </condition>
             <!-- there are no ContentPurposeOperation entries for this operation/purpose; default is approve permission -->
             <then>
+                <log level="verbose" message="No operations found; permission granted!"/>
                 <set field="hasPermission" type="Boolean" value="true"/>
             </then>
             <!-- there are requirements to test -->
@@ -378,6 +445,23 @@
 
                 <!-- check each operation security -->
                 <iterate entry-name="operation" list-name="operations">
+                    <!-- reset the checkContentId if needed -->
+                    <if>
+                        <condition>
+                            <and>
+                                <if-empty field-name="checkContentId"/>
+                                <not>
+                                    <if-empty field-name="toCheckContentId"/>
+                                </not>
+                            </and>
+                        </condition>
+                        <then>
+                            <set field="checkContentId" from-field="toCheckContentId"/>
+                        </then>
+                    </if>
+
+                    <log level="verbose" message="Testing OPERATION: ${operation}"/>
+
                     <!-- check statusId -->
                     <if>
                         <condition>
@@ -395,9 +479,56 @@
                             <!-- first check passed; now we test for the role membership(s) -->
                             <iterate entry-name="thisPartyId" list-name="partyIdList">
                                 <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals">
-                                    <set field="roleTypeId" from-field="operation.roleTypeId"/>
-                                    <set field="partyId" from-field="thisPartyId"/>
+                                    <set field="checkRoleTypeId" from-field="operation.roleTypeId"/>
+                                    <set field="checkPartyId" from-field="thisPartyId"/>
                                     <call-simple-method method-name="checkContentRoleSecurity"/>
+
+                                    <!-- check the parent(s) for permission -->
+                                    <if>
+                                        <condition>
+                                            <and>
+                                                <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals"/>
+                                                <not>
+                                                    <if-empty field-name="checkContentId"/>
+                                                </not>
+                                            </and>
+                                        </condition>
+                                        <then>
+                                            <log level="verbose" message="Starting loop; checking operation: ${operation.contentOperationId}"/>
+                                            <while>
+                                                <condition>
+                                                    <!-- iterate until either we have permission or there are no more parents -->
+                                                    <and>
+                                                        <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals"/>
+                                                        <not>
+                                                            <if-empty field-name="checkContentId"/>
+                                                        </not>
+                                                    </and>
+                                                </condition>
+                                                <then>
+                                                    <entity-one entity-name="Content" value-name="currentContent">
+                                                        <field-map field-name="contentId" env-name="checkContentId"/>
+                                                    </entity-one>
+                                                    <if>
+                                                        <condition>
+                                                            <not>
+                                                                <if-empty field-name="currentContent.ownerContentId"/>
+                                                            </not>
+                                                        </condition>
+                                                        <then>
+                                                            <set field="checkContentId" from-field="currentContent.ownerContentId"/>
+                                                            <call-simple-method method-name="checkContentRoleSecurity"/>
+                                                        </then>
+
+                                                        <!-- no parent record found; time to stop recursion -->
+                                                        <else>
+                                                            <clear-field field-name="checkContentId"/>
+                                                        </else>
+                                                    </if>
+                                                </then>
+                                            </while>
+                                        </then>
+                                    </if>
                                 </if-compare>
                             </iterate>
                         </then>
@@ -409,6 +540,7 @@
 
     <!-- method to check content ownership -->
     <simple-method method-name="checkContentOwnership" short-description="Checks the ownership of a content record">
+        <!-- resetting the permission flag -->
         <set field="hasPermission" type="Boolean" value="false"/>
 
         <if-empty field-name="checkContentId">
@@ -419,65 +551,106 @@
         </if-empty>
         <check-errors/>
 
+        <!-- get all the associated parties (this user + all group memberships) -->
         <call-simple-method method-name="findAllAssociatedPartyIds"/>
-        <set field="roleTypeId" value="OWNER"/>
-        <iterate entry-name="thisPartyId" list-name="partyIdList">
-            <if-compare field-name="hasPermission" value="true" type="Boolean" operator="not-equals">
-                <set field="partyId" from-field="thisPartyId"/>
-                <call-simple-method method-name="checkContentRoleSecurity"/>
-            </if-compare>
+
+        <!-- ownership role -->
+        <set field="checkRoleTypeId" value="OWNER"/>
+
+        <!-- check to see if any of the parties are owner of the content -->
+        <iterate entry-name="thisPartyId" list-name="partyIdList">            
+            <if>
+                <condition>
+                    <not>
+                        <if-compare field-name="hasPermission" value="true" operator="equals"/>
+                    </not>
+                </condition>
+                <then>
+                    <log level="verbose" message="Checking to see if party [${thisPartyId}] has ownership of ${checkContentId} :: ${hasPermission}"/>
+                    <set field="checkPartyId" from-field="thisPartyId"/>
+                    <call-simple-method method-name="checkContentRoleSecurity"/>
+                </then>
+                <else>
+                    <log level="verbose" message="Field hasPermission is TRUE [${hasPermission}] did not test!"/>
+                </else>
+            </if>            
         </iterate>
     </simple-method>
 
     <!-- method the check Content Role associations -->
-    <simple-method method-name="checkContentRoleSecurity" short-description="Check user has Ownership of the content">
+    <simple-method method-name="checkContentRoleSecurity" short-description="Check users role associations with Content">
+        <!-- resetting the permission flag -->
         <set field="hasPermission" type="Boolean" value="false"/>
+        <log level="verbose" message="checkContentRoleSecurity: just reset hasPermission value to false!"/>
         
         <!-- setting the env field contentId is required for this simple method -->
         <if-empty field-name="checkContentId">
             <add-error><fail-message message="Required field 'checkContentId' is missing in simple method call [checkContentRoleSecurity]"/></add-error>
         </if-empty>
-        <if-empty field-name="partyId">
-            <add-error><fail-message message="Required field 'partyId' is missing in simple method call [checkContentRoleSecurity]"/></add-error>
+        <if-empty field-name="checkPartyId">
+            <add-error><fail-message message="Required field 'checkPartyId' is missing in simple method call [checkContentRoleSecurity]"/></add-error>
         </if-empty>
         <check-errors/>
 
+        <log level="verbose" message="About to test of checkRoleTypeId is empty... ${checkRoleTypeId}"/>
+
         <if>
             <condition>
-                <not>
-                    <if-empty field-name="roleTypeId"/>
-                </not>
+                <and>
+                    <not>
+                        <if-empty field-name="checkRoleTypeId"/>
+                    </not>
+                    <if-compare field-name="checkRoleTypeId" value="_NA_" operator="equals"/>
+                </and>
             </condition>
             <then>
-                <!-- looking up a specific role -->
-                <entity-and entity-name="ContentRole" list-name="foundRoles">
-                    <field-map field-name="contentId" env-name="checkContentId"/>
-                    <field-map field-name="roleTypeId" env-name="roleTypeId"/>
-                    <field-map field-name="partyId" env-name="partyId"/>
-                </entity-and>
+                <!-- _NA_ role means anyone (logged in) has permission -->
+                <set field="hasPermission" type="Boolean" value="true"/>
             </then>
+
+            <!-- not _NA_ so do the actual role check -->
             <else>
-                <!-- looking up any role -->
-                <entity-and entity-name="ContentRole" list-name="foundRoles">
-                    <field-map field-name="contentId" env-name="checkContentId"/>
-                    <field-map field-name="partyId" env-name="partyId"/>
-                </entity-and>
+                <if>
+                    <condition>
+                        <not>
+                            <if-empty field-name="checkRoleTypeId"/>
+                        </not>
+                    </condition>
+                    <then>
+                        <log level="verbose" message="Doing lookup with roleTypeId : ${checkRoleTypeId}"/>
+                        <!-- looking up a specific role -->
+                        <entity-and entity-name="ContentRole" list-name="foundRoles">
+                            <field-map field-name="contentId" env-name="checkContentId"/>
+                            <field-map field-name="roleTypeId" env-name="checkRoleTypeId"/>
+                            <field-map field-name="partyId" env-name="checkPartyId"/>
+                        </entity-and>
+                    </then>
+                    <else>
+                        <log level="verbose" message="Doing lookup without roleTypeId"/>
+                        <!-- looking up any role -->
+                        <entity-and entity-name="ContentRole" list-name="foundRoles">
+                            <field-map field-name="contentId" env-name="checkContentId"/>
+                            <field-map field-name="partyId" env-name="checkPartyId"/>
+                        </entity-and>
+                    </else>
+                </if>
+
+                <log level="verbose" message="Checking for ContentRole: [party] - ${checkPartyId} [role] - ${checkRoleTypeId} [content] - ${checkContentId} :: ${foundRoles}"/>
+
+                <!-- the return should contain some entry if the user is a member -->
+                <if>
+                    <condition>
+                        <not>
+                            <if-empty field-name="foundRoles"/>
+                        </not>
+                    </condition>
+                    <then>
+                        <set field="hasPermission" type="Boolean" value="true"/>
+                    </then>
+                </if>
             </else>
         </if>
 
-        <!-- the return should contain some entry if the user is a member -->
-        <if>
-            <condition>
-                <not>
-                    <if-empty field-name="foundRoles"/>
-                </not>
-            </condition>
-            <then>
-                <set field="hasPermission" type="Boolean" value="true"/>
-            </then>
-        </if>
-
-        <field-to-result field-name="hasPermission"/>
     </simple-method>
 
     <!-- method to get user's party associations -->
@@ -487,6 +660,7 @@
         <call-service service-name="getRelatedParties" include-user-login="true" in-map-name="lookupMap">
             <result-to-field result-name="relatedPartyIdList" field-name="partyIdList"/>
         </call-service>
+        <log level="verbose" message="Got list of associated parties: ${partyIdList}"/>
     </simple-method>
 
     <!-- method to get content associations -->
