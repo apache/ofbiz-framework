@@ -36,6 +36,18 @@ requestParams = UtilHttp.getParameterMap(request);
 detailScreen = "productdetail";
 productId = requestParams.get("product_id");
 
+if (productId != null) {
+    previousParams = session.getAttribute("_PREVIOUS_PARAMS_"); 
+    if (previousParams != null && previousParams.length() > 0) {
+        previousParams = UtilHttp.stripNamedParamsFromQueryString(previousParams, UtilMisc.toList("product_id"));
+        previousParams = previousParams + "&product_id=" + productId;
+    } else {
+        previousParams = "product_id=" + productId;
+    }
+    session.setAttribute("_PREVIOUS_PARAMS_", previousParams);    // for login
+    context.put("previousParams", previousParams);
+}    
+
 // get the product entity
 if (productId != null) {
     product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
