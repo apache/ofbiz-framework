@@ -318,6 +318,7 @@ under the License.
       <field name="thruDate" type="date-time"></field>
       <field name="termValue" type="currency-amount"></field>
       <field name="termDays" type="numeric"></field>
+      <field name="description" type="description"></field>
       <prim-key field="agreementTermId"/>
       <relation type="one" fk-name="AGRMNT_TERM_TTYP" rel-entity-name="TermType">
         <key-map field-name="termTypeId"/>

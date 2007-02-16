@@ -55,20 +55,22 @@ under the License.
                 <td align="left" valign="top" width="80%">
                    <table>
                      <tr>
-                       <td width="33%"><div class="tabletext"><b>${uiLabelMap.OrderOrderTermType}</b></div></td>
-                       <td width="33%"><div class="tabletext"><b>${uiLabelMap.OrderOrderTermValue}</b></div></td>
-                       <td width="33%"><div class="tabletext"><b>${uiLabelMap.OrderOrderTermDays}</b></div></td>
+                       <td width="35%"><div class="tabletext"><b>${uiLabelMap.OrderOrderTermType}</b></div></td>
+                       <td width="10%"><div class="tabletext"><b>${uiLabelMap.OrderOrderTermValue}</b></div></td>
+                       <td width="10%"><div class="tabletext"><b>${uiLabelMap.OrderOrderTermDays}</b></div></td>
+                       <td width="45%"><div class="tabletext"><b>${uiLabelMap.CommonDescription}</b></div></td>
                      </tr>
-                     <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+                     <tr><td colspan="4"><hr class="sepbar"/></td></tr>
                      <#assign index=0/>
                      <#list orderTerms as orderTerm>
                        <tr>
-                         <td width="33%"><div class="tabletext">${orderTerm.getRelatedOne("TermType").get("description",locale)}</div></td>
-                         <td width="33%"><div class="tabletext">${orderTerm.termValue?default("")}</div></td>
-                         <td width="33%"><div class="tabletext">${orderTerm.termDays?default("")}</div></td>
+                         <td width="35%"><div class="tabletext">${orderTerm.getRelatedOne("TermType").get("description",locale)}</div></td>
+                         <td width="10%"><div class="tabletext">${orderTerm.termValue?default("")}</div></td>
+                         <td width="10%"><div class="tabletext">${orderTerm.termDays?default("")}</div></td>
+                         <td width="45%"><div class="tabletext">${orderTerm.description?default("")}</div></td>
                        </tr>
                        <#if orderTerms.size()&lt;index>
-                         <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+                         <tr><td colspan="4"><hr class="sepbar"/></td></tr>
                        </#if>
                        <#assign index=index+1/>
                      </#list>

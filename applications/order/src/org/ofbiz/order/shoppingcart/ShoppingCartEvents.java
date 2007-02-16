@@ -933,6 +933,7 @@ public class ShoppingCartEvents {
         String termValue = request.getParameter("termValue");
         String termDays = request.getParameter("termDays");
         String termIndex = request.getParameter("termIndex");
+        String description = request.getParameter("description");
         Locale locale = UtilHttp.getLocale(request);
 
         Double dTermValue = null;
@@ -966,7 +967,7 @@ public class ShoppingCartEvents {
             cartHelper.removeOrderTerm(Integer.parseInt(termIndex));
         }
 
-        Map result = cartHelper.addOrderTerm(termTypeId, dTermValue, lTermDays);
+        Map result = cartHelper.addOrderTerm(termTypeId, dTermValue, lTermDays, description);
         if (ServiceUtil.isError(result)) {
             request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(result));
             return "error";
