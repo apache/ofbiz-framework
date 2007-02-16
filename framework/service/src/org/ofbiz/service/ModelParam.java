@@ -63,7 +63,8 @@ public class ModelParam implements Serializable {
     public List validators;
 
     /** Default value */
-    public Object defaultValue;
+    public String defaultValue;    
+    public Object defaultValueObj;
 
     /** Is this Parameter required or optional? Default to false, or required */
     public boolean optional = false;
