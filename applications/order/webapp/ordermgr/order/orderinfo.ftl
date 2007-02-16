@@ -22,6 +22,10 @@ under the License.
         <div class="boxlink">
             <#if currentStatus.statusId == "ORDER_CREATED" || currentStatus.statusId == "ORDER_PROCESSING">
                 <div class="tabletext"><a href="<@ofbizUrl>changeOrderItemStatus?statusId=ITEM_APPROVED&amp;${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderApproveOrder}</a></div>
+            <#elseif currentStatus.statusId == "ORDER_APPROVED">
+                <div class="tabletext"><a href="<@ofbizUrl>changeOrderStatus/orderview?statusId=ORDER_HOLD&amp;${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderHold}</a></div>
+            <#elseif currentStatus.statusId == "ORDER_HOLD">
+                <div class="tabletext"><a href="<@ofbizUrl>changeOrderItemStatus?statusId=ITEM_APPROVED&amp;${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderApproveOrder}</a></div>
             </#if>
             <#if setOrderCompleteOption>
                   <div class="tabletext"><a href="<@ofbizUrl>changeOrderStatus?orderId=${orderId}&statusId=ORDER_COMPLETED</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCompleteOrder}</a></div>
