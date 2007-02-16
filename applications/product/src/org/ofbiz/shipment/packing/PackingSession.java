@@ -551,6 +551,7 @@ public class PackingSession implements java.io.Serializable {
         this.picklistBinId = null;
         this.primaryOrderId = null;
         this.primaryShipGrp = null;
+        this.additionalShippingCharge = null;
         this.packageSeq = 1;
         this.status = 1;
         this.runEvents(PackingEvent.EVENT_CODE_CLEAR);
