@@ -25,6 +25,7 @@
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.product.catalog.*;
+import org.ofbiz.product.category.CategoryWorker;
 
 detailScreen = "categorydetail";
 catalogName = CatalogWorker.getCatalogName(request);
@@ -34,6 +35,19 @@ if (productCategoryId == null) {
     productCategoryId = parameters.get("category_id");
 }
 context.put("productCategoryId", productCategoryId);
+
+if (productCategoryId != null) {
+    session.setAttribute("productCategoryId",productCategoryId);// for language change
+    previousParams = session.getAttribute("_PREVIOUS_PARAMS_");
+    if (previousParams != null && previousParams.length() > 0) {
+        previousParams = UtilHttp.stripNamedParamsFromQueryString(previousParams, UtilMisc.toList("category_id"));
+        previousParams = previousParams + "&category_id=" + productCategoryId;
+    } else {
+        previousParams = "category_id=" + productCategoryId;
+    }
+    session.setAttribute("_PREVIOUS_PARAMS_", previousParams);    // for login
+    context.put("previousParams", previousParams);
+}    
 
 category = delegator.findByPrimaryKeyCache("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId));
 if (category != null) {
