@@ -25,18 +25,20 @@ under the License.
     <div class="screenlet-body">
      <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="60%" align="left"><div class="tabletext"><b>${uiLabelMap.OrderOrderTermType}</b></div></td>
-        <td width="20%" align="center"><div class="tabletext"><b>${uiLabelMap.OrderOrderTermValue}</b></div></td>
-        <td width="20%" align="center"><div class="tabletext"><b>${uiLabelMap.OrderOrderTermDays}</b></div></td>
+        <td width="35%" align="left"><div class="tabletext"><b>${uiLabelMap.OrderOrderTermType}</b></div></td>
+        <td width="15%" align="center"><div class="tabletext"><b>${uiLabelMap.OrderOrderTermValue}</b></div></td>
+        <td width="15%" align="center"><div class="tabletext"><b>${uiLabelMap.OrderOrderTermDays}</b></div></td>
+        <td width="35%" align="center"><div class="tabletext"><b>${uiLabelMap.CommonDescription}</b></div></td>
       </tr>
-      <tr><td colspan="3"><hr class='sepbar'></td></tr>
+      <tr><td colspan="4"><hr class='sepbar'></td></tr>
       <#list orderTerms as orderTerm>
           <tr>
-            <td width="60%" align="left"><div class="tabletext">${orderTerm.getRelatedOne("TermType").get("description", locale)}</div></td>
-            <td width="20%" align="center"><div class="tabletext">${orderTerm.termValue?default("")}</div></td>
-            <td width="20%" align="center"><div class="tabletext">${orderTerm.termDays?default("")}</div></td>
+            <td width="35%" align="left"><div class="tabletext">${orderTerm.getRelatedOne("TermType").get("description", locale)}</div></td>
+            <td width="15%" align="center"><div class="tabletext">${orderTerm.termValue?default("")}</div></td>
+            <td width="15%" align="center"><div class="tabletext">${orderTerm.termDays?default("")}</div></td>
+            <td width="35%" align="center"><div class="tabletext">${orderTerm.description?default("")}</div></td>
           </tr>
-          <tr><td colspan="3">&nbsp;</td></tr>
+          <tr><td colspan="4">&nbsp;</td></tr>
       </#list>
      </table>
     </div>

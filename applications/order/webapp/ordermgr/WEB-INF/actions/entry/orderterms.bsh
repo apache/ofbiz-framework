@@ -42,5 +42,6 @@ if (createNew != null && createNew.equals("Y") && termIndex != null && (!termInd
        context.put("termTypeId",orderTerm.getString("termTypeId"));
        context.put("termValue",orderTerm.get("termValue"));
        context.put("termDays",orderTerm.get("termDays"));
+       context.put("description",orderTerm.get("description"));
     }
 }

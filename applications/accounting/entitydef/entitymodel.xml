@@ -956,6 +956,7 @@ under the License.
       <field name="invoiceItemSeqId" type="id"></field>
       <field name="termValue" type="currency-amount"></field>
       <field name="termDays" type="numeric"></field>
+      <field name="description" type="description"></field>
       <field name="uomId" type="id"></field>
       <prim-key field="invoiceTermId"/>
       <relation type="one" fk-name="INVCE_TRM_TRM" rel-entity-name="TermType">

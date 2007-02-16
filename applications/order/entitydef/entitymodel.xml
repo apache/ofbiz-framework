@@ -1073,6 +1073,7 @@ under the License.
       <field name="orderItemSeqId" type="id-ne"></field>
       <field name="termValue" type="currency-amount"></field>
       <field name="termDays" type="numeric"></field>
+      <field name="description" type="description"></field>
       <field name="uomId" type="id"></field>
       <prim-key field="termTypeId"/>
       <prim-key field="orderId"/>

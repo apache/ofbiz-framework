@@ -28,7 +28,7 @@ under the License.
             <input type="hidden" name="finalizeMode" value="term"/>
              <table width="100%" border="0" cellpadding="1" cellspacing="0">
                <tr>
-                <td colspan="4">
+                <td colspan="5">
                   <a href="<@ofbizUrl>setOrderTerm?createNew=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCreateNew}</a>
                 </td>
                </tr>
@@ -36,15 +36,17 @@ under the License.
                 <td><div class="tabletext"><b>${uiLabelMap.OrderOrderTermType}</b></div></td>
                 <td><div class="tabletext"><b>${uiLabelMap.OrderOrderTermValue}</b></div></td>
                 <td><div class="tabletext"><b>${uiLabelMap.OrderOrderTermDays}</b></div></td>
+                <td><div class="tabletext"><b>${uiLabelMap.CommonDescription}</b></div></td>
                 <td align="right">&nbsp;</td>
                </tr>
-               <tr><td colspan="4"><hr class='sepbar'></td></tr>
+               <tr><td colspan="5"><hr class='sepbar'></td></tr>
                 <#assign index=0>
                 <#list orderTerms as orderTerm>
                   <tr>
                   <td><div class="tabletext">${orderTerm.getRelatedOne("TermType").get("description",locale)}</div></td>
                   <td><div class="tabletext">${orderTerm.termValue?default("")}</div></td>
                   <td><div class="tabletext">${orderTerm.termDays?default("")}</div></td>
+                  <td><div class="tabletext">${orderTerm.description?default("")}</div></td>
                   <td align="right">
                     <a href="<@ofbizUrl>setOrderTerm?termIndex=${index}&createNew=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonUpdate}</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -52,7 +54,7 @@ under the License.
                   </td>
                   </tr>
                   <#if orderTerms.size()&lt;index >
-                    <tr><td colspan="4"><hr class='sepbar'></td></tr>
+                    <tr><td colspan="5"><hr class='sepbar'></td></tr>
                   </#if>
                   <#assign index=index+1>
                 </#list>
@@ -103,6 +105,15 @@ under the License.
                     <td width="5">&nbsp;</td>
                     <td width="74%">
                       <input type="text" class="inputBox" size="30" maxlength="60" name="termDays" value="${termDays?if_exists}"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="26%" align="right" valign="top">
+                       <div class="tabletext">${uiLabelMap.CommonDescription}</div>
+                    </td>
+                    <td width="5">&nbsp;</td>
+                    <td width="74%">
+                      <input type="text" class="inputBox" size="30" maxlength="255" name="description" value="${description?if_exists}"/>
                     </td>
                   </tr>
                   <tr><td colspan="3" align="middle"><input type="submit" class="smallSubmit" value="${uiLabelMap.CommonAdd}"/></td></tr>

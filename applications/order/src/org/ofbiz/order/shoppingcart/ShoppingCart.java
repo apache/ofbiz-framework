@@ -2459,10 +2459,16 @@ public class ShoppingCart implements Serializable {
 
     /** Add an orderTerm to the order */
     public int addOrderTerm(String termTypeId,Double termValue,Long termDays) {
+        return addOrderTerm(termTypeId, termValue, termDays, null);
+    }
+    
+    /** Add an orderTerm to the order */
+    public int addOrderTerm(String termTypeId,Double termValue,Long termDays, String description) {
         GenericValue orderTerm = GenericValue.create(delegator.getModelEntity("OrderTerm"));
         orderTerm.put("termTypeId", termTypeId);
         orderTerm.put("termValue", termValue);
         orderTerm.put("termDays", termDays);
+        orderTerm.put("description", description);
         return addOrderTerm(orderTerm);
     }
 
