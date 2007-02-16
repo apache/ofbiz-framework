@@ -59,7 +59,7 @@ under the License.
           <td width="25%">
             <input type="text" class="inputBox" name="orderId" size="20" maxlength="20" value="${orderId?if_exists}"/>
             <span class="tabletext">/</span>
-            <input type="text" class="inputBox" name="shipGroupSeqId" size="6" maxlength="6" value="${shipGroupSeqId?if_exists}"/
+            <input type="text" class="inputBox" name="shipGroupSeqId" size="6" maxlength="6" value="${shipGroupSeqId?default("00001")}"/>
           </td>
           <td><div class="tabletext">${uiLabelMap.ProductHideGrid}:&nbsp;<input type="checkbox" name="hideGrid" value="Y" <#if (hideGrid == "Y")>checked=""</#if>></div></td>
           <td><div class='tabletext'>&nbsp;</div></td>
