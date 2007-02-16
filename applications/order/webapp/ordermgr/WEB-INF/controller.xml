@@ -548,6 +548,13 @@ under the License.
         <response name="error" type="view" value="keywordsearch"/>
     </request-map>
 
+    <request-map uri="addCategoryDefaults">
+        <security https="false" auth="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addCategoryDefaults"/>
+        <response name="success" type="view" value="showcart"/>
+        <response name="error" type="view" value="showcart"/>
+    </request-map>
+
     <request-map uri="BulkAddProducts">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="bulkAddProducts"/>
