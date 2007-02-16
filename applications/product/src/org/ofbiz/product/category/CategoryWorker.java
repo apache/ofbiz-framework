@@ -126,7 +126,7 @@ public class CategoryWorker {
 
         if (requestId.equals(""))
             return;
-        if (Debug.infoOn()) Debug.logInfo("[CatalogHelper.getRelatedCategories] RequestID: " + requestId, module);
+        if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.getRelatedCategories] RequestID: " + requestId, module);
         getRelatedCategories(request, attributeName, requestId, limitView);
     }
 
@@ -156,7 +156,7 @@ public class CategoryWorker {
     public static List getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView, boolean excludeEmpty) {
         List categories = FastList.newInstance();
 
-        if (Debug.verboseOn()) Debug.logVerbose("[CatalogHelper.getRelatedCategories] ParentID: " + parentId, module);
+        if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.getRelatedCategories] ParentID: " + parentId, module);
 
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         List rollups = null;
@@ -268,7 +268,7 @@ public class CategoryWorker {
         Map requestParameters = UtilHttp.getParameterMap((HttpServletRequest) request);
         String previousCategory = (String) requestParameters.get("pcategory");
 
-        if (Debug.verboseOn()) Debug.logVerbose("[CatalogHelper.setTrail] Start: previousCategory=" + previousCategory +
+        if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.setTrail] Start: previousCategory=" + previousCategory +
                 " currentCategory=" + currentCategory, module);
 
         // if there is no current category, just return and do nothing to that the last settings will stay
@@ -292,7 +292,7 @@ public class CategoryWorker {
                     for (int i = crumb.size() - 1; i > cindex; i--) {
                         String deadCat = (String) crumb.remove(i);
 
-                        if (Debug.infoOn()) Debug.logInfo("[CatalogHelper.setTrail] Removed after current category index: " + i +
+                        if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] Removed after current category index: " + i +
                                 " catname: " + deadCat, module);
                     }
                 }
@@ -304,13 +304,13 @@ public class CategoryWorker {
                 if (UtilValidate.isNotEmpty(previousCategory)) {
                     crumb.add(previousCategory);
                 }
-                if (Debug.infoOn()) Debug.logInfo("[CatalogHelper.setTrail] Starting new list, added TOP and previousCategory: " + previousCategory, module);
+                if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] Starting new list, added TOP and previousCategory: " + previousCategory, module);
             }
         }
 
         if (!crumb.contains(previousCategory)) {
             // previous category was NOT in the list, ERROR, start over
-            if (Debug.infoOn()) Debug.logInfo("[CatalogHelper.setTrail] ERROR: previousCategory (" + previousCategory +
+            if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] ERROR: previousCategory (" + previousCategory +
                     ") was not in the crumb list, position is lost, starting over with TOP", module);
             crumb.clear();
             crumb.add("TOP");
@@ -325,7 +325,7 @@ public class CategoryWorker {
                 for (int i = crumb.size() - 1; i > index; i--) {
                     String deadCat = (String) crumb.remove(i);
 
-                    if (Debug.infoOn()) Debug.logInfo("[CatalogHelper.setTrail] Removed after previous category index: " + i +
+                    if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] Removed after previous category index: " + i +
                             " catname: " + deadCat, module);
                 }
             }
@@ -333,7 +333,7 @@ public class CategoryWorker {
 
         // add the current category to the end of the list
         crumb.add(currentCategory);
-        if (Debug.verboseOn()) Debug.logVerbose("[CatalogHelper.setTrail] Continuing list: Added currentCategory: " + currentCategory, module);
+        if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.setTrail] Continuing list: Added currentCategory: " + currentCategory, module);
         setTrail(request, crumb);
     }
 
@@ -449,7 +449,7 @@ public class CategoryWorker {
             catContentWrappers.put(productCategoryId, catContentWrapper);
             List subCat = FastList.newInstance();
             subCat = getRelatedCategoriesRet(request, "subCatList", productCategoryId, true);
-            if(subCat != null) {            	
+            if(subCat != null) {                
                 getCategoryContentWrappers(catContentWrappers, subCat, request );
             }    
         }
