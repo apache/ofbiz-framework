@@ -68,6 +68,7 @@ public class OrderListState {
         map.put("viewcreated", "ORDER_CREATED");
         map.put("viewprocessing", "ORDER_PROCESSING");
         map.put("viewsent", "ORDER_SENT");
+        map.put("viewhold", "ORDER_HOLD");
         parameterToOrderStatusId = map;
 
         map = FastMap.newInstance();
