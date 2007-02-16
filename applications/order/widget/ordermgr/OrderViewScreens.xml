@@ -56,9 +56,6 @@ under the License.
                         <platform-specific>
                             <html><html-template location="component://order/webapp/ordermgr/order/transitions.ftl"/></html>
                         </platform-specific>
-                        <container>
-                            <link target="loadCartFromOrder?orderId=${parameters.orderId}&amp;finalizeMode=init" text="${uiLabelMap.OrderCreateOrder}" style="buttontext"/>
-                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -29,7 +29,8 @@ under the License.
                         <#--
                         <a href="<@ofbizUrl>cancelOrderItem?${paramString}</@ofbizUrl>" class="submenutext">${uiLabelMap.OrderCancelAllItems}</a>
                         -->
-                        <a href="<@ofbizUrl>editOrderItems?${paramString}</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderEditItems}</a>
+                        <a href="<@ofbizUrl>editOrderItems?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderEditItems}</a>
+                        <a href="<@ofbizUrl>loadCartFromOrder?${paramString}&finalizeMode=init</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateAsNewOrder}</a>
                       </#if>
                       <#if returnableItems?has_content>
                         <a href="<@ofbizUrl>quickreturn?orderId=${orderId}&amp;party_id=${partyId?if_exists}&amp;returnHeaderTypeId=${returnHeaderTypeId}</@ofbizUrl>"  class="submenutextright">${uiLabelMap.OrderCreateReturn}</a>
