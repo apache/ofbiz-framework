@@ -131,7 +131,7 @@ public class UspsServices {
         }
 
         // create the request document
-        Document requestDocument = createUspsRequestDocument("RateRequest");
+        Document requestDocument = createUspsRequestDocument("RateV2Request");
 
         // TODO: 70 lb max is valid for Express, Priority and Parcel only - handle other methods
         double maxWeight = 70;
@@ -177,7 +177,7 @@ public class UspsServices {
         // send the request
         Document responseDocument = null;
         try {
-            responseDocument = sendUspsRequest("Rate", requestDocument);
+            responseDocument = sendUspsRequest("RateV2", requestDocument);
         } catch (UspsRequestException e) {
             Debug.log(e, module);
             return ServiceUtil.returnError("Error sending request for USPS Domestic Rate Calculation service: " + e.getMessage());
@@ -192,7 +192,8 @@ public class UspsServices {
         for (Iterator i = rates.iterator(); i.hasNext();) {
             Element packageElement = (Element) i.next();
             try {
-                double packageAmount = Double.parseDouble(UtilXml.childElementValue(packageElement, "Postage"));
+                Element postageElement = UtilXml.firstChildElement(packageElement, "Postage");
+                double packageAmount = Double.parseDouble(UtilXml.childElementValue(postageElement, "Rate"));
                 estimateAmount += packageAmount;
             } catch (NumberFormatException e) {
                 Debug.log(e, module);
