@@ -92,6 +92,7 @@ under the License.
         <attribute name="subscriptionResourceId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="useRoleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="useTimeUomId" type="String" mode="IN" optional="false"/>
         <attribute name="useTime" type="Integer" mode="IN" optional="false"/>
@@ -104,6 +105,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="orderCreatedDate" type="Timestamp" mode="IN" optional="true" />
         <attribute name="quantity" type="Integer" mode="IN" optional="false"/>
     </service>
