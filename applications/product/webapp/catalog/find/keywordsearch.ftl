@@ -184,4 +184,12 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
   <input type="submit" value="${uiLabelMap.ProductRemoveFeature}" class="smallSubmit"><br/>
 </form>
 </div>
+<hr class="sepbar"/>
+<div class="tabletext">
+<form method="post" action="<@ofbizUrl>searchExportProductList</@ofbizUrl>" name="searchRemoveFeature">
+  <b>${uiLabelMap.ProductSearchExportProductList}:</b>
+  <input type="hidden" name="clearSearch" value="N">
+  <input type="submit" value="${uiLabelMap.ProductSearchExport}" class="smallSubmit"><br/>
+</form>
+</div>
 </#if>

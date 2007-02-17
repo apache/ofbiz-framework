@@ -19,6 +19,8 @@
 package org.ofbiz.product.product;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -40,6 +42,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.product.ProductSearch.ProductSearchContext;
 import org.ofbiz.product.product.ProductSearch.ResultSortOrder;
 
@@ -208,6 +211,7 @@ public class ProductSearchEvents {
            try {
 
                GenericValue searchResultView = null;
+               List searchResultList = new ArrayList();
                int numAdded = 0;
                while ((searchResultView = (GenericValue) eli.next()) != null) {
                    String productId = searchResultView.getString("productId");
@@ -378,6 +382,62 @@ public class ProductSearchEvents {
             return "error";
         }
 
+        return "success";
+    }
+
+    /**  Formats the results of a search to the screen as a tab-delimited output
+     *@param request The HTTPRequest object for the current request
+     *@param response The HTTPResponse object for the current request
+     *@return String specifying the exit status of this event
+     */
+    public static String searchExportProductList(HttpServletRequest request, HttpServletResponse response) {
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        String errMsg = null;
+        List productExportList = new ArrayList();
+
+        EntityListIterator eli = getProductSearchResults(request);
+        if (eli == null) {
+            errMsg = UtilProperties.getMessage(resource,"productsearchevents.no_results_found_probably_error_constraints", UtilHttp.getLocale(request));
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
+        }
+
+        try {
+            boolean beganTransaction = TransactionUtil.begin();
+            try {
+
+                GenericValue searchResultView = null;
+                while ((searchResultView = (GenericValue) eli.next()) != null) {
+                    Map productMap = new HashMap();
+                    String productId = searchResultView.getString("productId");
+                    productMap.put("productId", productId);
+                    List productCategoriesRaw = delegator.findByAnd("ProductCategoryAndMember", UtilMisc.toMap("productId", productId));
+                    List productCategories = EntityUtil.filterByDate(productCategoriesRaw);
+                    productMap.put("productCategories", productCategories);
+                    List productFeaturesRaw = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId) );
+                    List productFeatures = EntityUtil.filterByDate(productFeaturesRaw);
+                    productMap.put("productFeatures", productFeatures);
+                    productExportList.add(productMap);
+                }
+                eli.close();
+                TransactionUtil.commit(beganTransaction);
+            } catch (GenericEntityException e) {
+                Map messageMap = UtilMisc.toMap("errSearchResult", e.toString());
+                errMsg = UtilProperties.getMessage(resource,"productsearchevents.error_getting_search_results", messageMap, UtilHttp.getLocale(request));
+                Debug.logError(e, errMsg, module);
+                request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                TransactionUtil.rollback(beganTransaction, errMsg, e);
+                return "error";
+            }
+        } catch (GenericTransactionException e) {
+            Map messageMap = UtilMisc.toMap("errSearchResult", e.toString());
+            errMsg = UtilProperties.getMessage(resource,"productsearchevents.error_getting_search_results", messageMap, UtilHttp.getLocale(request));
+            Debug.logError(e, errMsg, module);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
+        }
+
+        request.setAttribute("productExportList", productExportList);
         return "success";
     }
 

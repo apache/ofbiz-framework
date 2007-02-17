@@ -147,6 +147,12 @@ under the License.
         <response name="success" type="view" value="keywordsearch"/>
         <response name="error" type="view" value="keywordsearch"/>
     </request-map>
+    <request-map uri="searchExportProductList">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.product.product.ProductSearchEvents" invoke="searchExportProductList"/>
+        <response name="success" type="view" value="exportproducts"/>
+        <response name="error" type="view" value="exportproducts"/>
+    </request-map>
 
     <request-map uri="FindProductById">
         <security https="true" auth="true"/>
@@ -2295,6 +2301,7 @@ under the License.
 
     <view-map name="advancedsearch" type="screen" page="component://product/widget/catalog/FindScreens.xml#advancedsearch"/>
     <view-map name="keywordsearch" type="screen" page="component://product/widget/catalog/FindScreens.xml#keywordsearch"/>
+    <view-map name="exportproducts" type="screen" page="component://product/widget/catalog/FindScreens.xml#exportproducts"/>
     <view-map name="FindProductById" type="screen" page="component://product/widget/catalog/FindScreens.xml#FindProductById"/>
 
     <view-map name="EditCategory" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#EditCategory"/>
