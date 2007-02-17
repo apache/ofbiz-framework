@@ -80,6 +80,7 @@ public class SubscriptionServices {
             newSubscription.set("roleTypeId", roleTypeId);
             newSubscription.set("productId", context.get("productId"));
             newSubscription.set("orderId", context.get("orderId"));
+            newSubscription.set("orderItemSeqId", context.get("orderItemSeqId"));
         } else {
             newSubscription = lastSubscription;
         }
@@ -250,6 +251,7 @@ public class SubscriptionServices {
                 if (productSubscriptionResourceListFiltered.size() > 0) {
                     context.put("productId", productId);
                     context.put("orderId", orderId);
+                    context.put("orderItemSeqId", orderItem.get("orderItemSeqId"));
                     context.put("quantity", new Integer(qty.intValue()));
                     Map ctx = dctx.getModelService("processExtendSubscriptionByProduct").makeValid(context, ModelService.IN_PARAM);
                     Map thisResult = dispatcher.runSync("processExtendSubscriptionByProduct", ctx);
