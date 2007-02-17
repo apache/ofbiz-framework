@@ -163,8 +163,13 @@ public class UspsServices {
             UtilXml.addChildElementValue(packageElement, "ZipDestination", destinationZip.substring(0,5), requestDocument);
 
             double weightPounds = Math.floor(packageWeight);
+            // for Parcel post, the weight must be at least 1 lb
+            if ("PARCEL".equals(serviceCode.toUpperCase()) && (weightPounds < 1.0)) {
+                weightPounds = 1.0;
+                packageWeight = 0.0;
+            }
             double weightOunces = Math.ceil(packageWeight * 16 % 16);
-            DecimalFormat df = new DecimalFormat("#");
+            DecimalFormat df = new DecimalFormat("#");  // USPS only accepts whole numbers like 1 and not 1.0
             UtilXml.addChildElementValue(packageElement, "Pounds", df.format(weightPounds), requestDocument);
             UtilXml.addChildElementValue(packageElement, "Ounces", df.format(weightOunces), requestDocument);
 
