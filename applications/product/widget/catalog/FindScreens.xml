@@ -90,6 +90,19 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="exportproducts">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleProductExport"/>
+                <set field="productExportList" from-field="parameters.productExportList"/>
+            </actions>
+            <widgets>
+                         <platform-specific>
+                              <html><html-template location="component://product/webapp/catalog/find/exportproducts.ftl"/></html>
+                         </platform-specific>
+            </widgets>
+        </section>
+    </screen>
 
     <screen name="FindProductById">
         <section>
