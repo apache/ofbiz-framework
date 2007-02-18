@@ -17,12 +17,16 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+
     <simple-method method-name="genCompDocInstance" short-description="Create CompDoc">
         <entity-one entity-name="Content" value-name="rootTemplateContent">
             <field-map field-name="contentId" env-name="parameters.instanceOfContentId"/>
         </entity-one>
         <log message="genCompDocInstance> rootTemplateContent: ${rootTemplateContent}" level="info"/>
+
         <!--  if not passed in, get latest template contentRevisionSeqId from db -->
         <if-empty field-name="parameters.contentRevisionSeqId">
             <entity-condition entity-name="ContentRevision" list-name="contentRevisionList">
@@ -42,24 +46,24 @@ under the License.
             </else>
         </if-empty>
         <log message="genCompDocInstance> contentRevisionSeqId: ${contentRevisionSeqId}" level="info"/>
-        
+
         <make-value entity-name="Content" value-name="rootInstanceContent"/>
         <if-empty field-name="parameters.rootInstanceContentId">
             <sequenced-id-to-env sequence-name="Content" env-name="rootInstanceContent.contentId"/>
             <log level="info" message="genCompDocInstance 2> rootInstanceContent: ${rootInstanceContent}"/>
-        <else>
-            <!--  check to see if it already exists, error if so -->
-            <entity-one entity-name="Content" value-name="existingContent">
-                <field-map field-name="contentId" env-name="parameters.rootInstanceContentId"/>
-            </entity-one>
-            <if-not-empty field-name="existingContent">
-                <add-error>
-                    <fail-message message="Instance compdoc Content for ${parameters.rootInstanceContentId} already exists"/>
-                </add-error>
-                <check-errors/>
-            </if-not-empty>
-            <set from-field="parameters.rootInstanceContentId" field="rootInstanceContent.contentId"/>
-        </else>
+            <else>
+                <!--  check to see if it already exists, error if so -->
+                <entity-one entity-name="Content" value-name="existingContent">
+                    <field-map field-name="contentId" env-name="parameters.rootInstanceContentId"/>
+                </entity-one>
+                <if-not-empty field-name="existingContent">
+                    <add-error>
+                        <fail-message message="Instance compdoc Content for ${parameters.rootInstanceContentId} already exists"/>
+                    </add-error>
+                    <check-errors/>
+                </if-not-empty>
+                <set from-field="parameters.rootInstanceContentId" field="rootInstanceContent.contentId"/>
+            </else>
         </if-empty>
 
         <!--  populate fields -->
@@ -72,7 +76,7 @@ under the License.
         <set from-field="rootInstanceContent.lastModifiedByUserLogin" field="parameters.userLogin.userLoginId"/>
         <set value="COMPDOC_INSTANCE" field="rootInstanceContent.contentTypeId"/>
         <create-value value-name="rootInstanceContent"/>
-        
+
         <log message="genCompDocInstance 3> rootInstanceContent: ${rootInstanceContent}" level="info"/>
         <field-to-result result-name="contentId" field-name="rootInstanceContent.contentId"/>
         <set from-field="parameters.instanceOfContentId" field="parentTemplateContentId"/>
@@ -99,6 +103,7 @@ under the License.
         </call-service>
             -->
     </simple-method>
+
     <simple-method method-name="genInstanceChildCompDocs" short-description="Create CompDoc">
         <set from-field="parentTemplateContentId" field="thisTemplateContentId"/>
         <set from-field="parentInstanceContentId" field="thisInstanceContentId"/>
@@ -115,6 +120,7 @@ under the License.
             </condition-list>
         </entity-condition>
         <log message="genInstanceChildCompDocs 1> contentAssocList: ${contentAssocList}" level="info"/>
+
         <iterate list-name="contentAssocList" entry-name="templateContentAssoc">
             <clone-value value-name="templateContent" new-value-name="instanceContent"/>
 
@@ -134,6 +140,7 @@ under the License.
             <call-simple-method method-name="genInstanceChildCompDocs"/>
         </iterate>
     </simple-method>
+
     <simple-method method-name="persistCompDoc" short-description="Create CompDoc">
         <!--  create the compdoc Content entity -->
         <set-service-fields service-name="persistContentAndAssoc" map-name="parameters" to-map-name="persistMap"/>
@@ -183,6 +190,7 @@ under the License.
                 </else>
             </if>
         </if-not-empty>
+
         <set from-field="parameters.userLogin" field="persistMap.userLogin"/>
         <log level="info" message="persistMap : ${persistMap}"/>
         <call-service service-name="persistContentAndAssoc" in-map-name="persistMap">
@@ -192,6 +200,7 @@ under the License.
         <iterate-map map-name="pResults" key-name="key" value-name="val">
             <field-to-result field-name="val" result-name="${key}"/>
         </iterate-map>
+
         <log level="info" message="pResults : ${pResults}"/>
         <if-not-empty field-name="pResults.contentIdTo">
             <set from-field="pResults.contentIdTo" field="resequenceMap.contentIdTo"/>
@@ -199,6 +208,7 @@ under the License.
             <set value="10" field="resequenceMap.seqInc" type="Integer"/>
             <call-service service-name="resequence" in-map-name="resequenceMap"/>
         </if-not-empty>
+
         <if>
             <condition>
                 <or>
@@ -223,6 +233,7 @@ under the License.
                 <set from-field="pResults.contentId" field="revisionMap.contentId"/>
             </then>
         </if>
+
         <set field="revisionMap.contentId" from-field="parameters.rootContentId" default-value="${pResults.caContentIdTo}"/>
         <set field="revisionMap.contentId" from-field="revisionMap.contentId" default-value="${pResults.contentId}"/>
         <set field="revisionMap.itemContentId" from-field="pResults.contentId"/>
@@ -232,6 +243,7 @@ under the License.
             <result-to-result result-name="contentRevisionSeqId"/>
             <result-to-field result-name="contentRevisionSeqId"/>
         </call-service>
+
         <if>
             <condition>
                 <or>
@@ -247,17 +259,21 @@ under the License.
             </then>
         </if>
     </simple-method>
+
     <simple-method method-name="persistCompDocContent" short-description="Persist a CompDoc DataResource and data">
         <entity-one entity-name="Content" value-name="content" use-cache="false"/>
         <set from-field="content.dataResourceId" field="oldDataResourceId"/>
+
         <log level="info" message="persistCompDocContent(0).content : ${content}"/>
         <set-service-fields service-name="persistDataResourceAndData" map-name="parameters" to-map-name="persistMap"/>
         <clear-field field-name="persistMap.dataResourceId"/>
         <clear-field field-name="persistMap.drDataResourceId"/>
+
         <log level="info" message="persistCompDocContent(0.2).persistMap : ${persistMap}"/>
         <call-service service-name="persistDataResourceAndData" in-map-name="persistMap">
             <result-to-field result-name="dataResourceId" field-name="newDataResourceId"/>
         </call-service>
+
         <log level="info" message="persistCompDocContent(1).newDataResourceId : ${newDataResourceId}"/>
         <set from-field="newDataResourceId" field="content.dataResourceId"/>
         <store-value value-name="content"/>
@@ -266,6 +282,7 @@ under the License.
         <set from-field="parameters.userLogin" field="revisionMap.userLogin"/>
         <set from-field="oldDataResourceId" field="revisionMap.oldDataResourceId"/>
         <set from-field="newDataResourceId" field="revisionMap.newDataResourceId"/>
+
         <log level="info" message="persistCompDocContent(2).revisionMap : ${revisionMap}"/>
         <call-service service-name="persistContentRevisionAndItem" in-map-name="revisionMap">
             <result-to-result result-name="contentRevisionSeqId"/>
@@ -273,6 +290,7 @@ under the License.
         </call-service>
         <log level="info" message="persistCompDocContent(3).contentRevisionSeqId : ${contentRevisionSeqId}"/>
     </simple-method>
+
     <simple-method method-name="persistCompDocPdf2Survey" short-description="Upload/save PDF, create Survey, populate Content">
         <set field="pdfMap.contentTypeId" value="TEMPLATE"/>
         <set field="pdfMap.dataResourceTypeId" value="IMAGE_OBJECT"/>
@@ -282,15 +300,18 @@ under the License.
         <set field="pdfMap._imageData_contentType" from-field="parameters._imageData_contentType"/>
         <set field="pdfMap._imageData_fileName" from-field="parameters._imageData_fileName"/>
         <set field="pdfMap.contentName" from-field="parameters.pdfName"/>
+
         <log level="info" message="persistCompDocPdf2Survey(1).pdfMap : ${pdfMap}"/>
         <call-service service-name="persistContentAndAssoc" in-map-name="pdfMap">
             <result-to-field result-name="contentId" field-name="acroFormContentId"/>
         </call-service>
+
         <log level="info" message="persistCompDocPdf2Survey(2).acroFormContentId : ${acroFormContentId}"/>
         <set field="acroMap.contentId" from-field="acroFormContentId"/>
         <call-service service-name="buildSurveyFromPdf" in-map-name="acroMap">
             <result-to-field result-name="surveyId" field-name="surveyId"/>
         </call-service>
+
         <log level="info" message="persistCompDocPdf2Survey(3).surveyId : ${surveyId}"/>
         <set-service-fields service-name="persistCompDocContent" map-name="parameters" to-map-name="persistMap"/>
         <set field="persistMap.relatedDetailId" from-field="surveyId"/>
@@ -298,14 +319,13 @@ under the License.
         <clear-field field-name="persistMap._imageData_contentType"/>
         <clear-field field-name="persistMap._imageData_fileName"/>
         <clear-field field-name="persistMap.imageData"/>
+
         <log level="info" message="persistCompDocPdf2Survey(4)persistMap : ${persistMap}"/>
-        <call-service service-name="persistCompDocContent" in-map-name="persistMap"> </call-service>
+        <call-service service-name="persistCompDocContent" in-map-name="persistMap"></call-service>
     </simple-method>
 
-    <!-- =============== =============== =============== -->
-    <!-- =============== Revision Services =============== -->
-    <!-- =============== =============== =============== -->
-    
+    <!-- =============== =============== =============== --><!-- =============== Revision Services =============== --><!-- =============== =============== =============== -->
+
     <!-- Methods for ContentRevision -->
     <simple-method method-name="createContentRevision" short-description="Create ContentRevision">
         <check-permission action="_CREATE" permission="CONTENTMGR">
@@ -460,11 +480,9 @@ under the License.
             <field-to-result field-name="dataResource" result-name="dataResource"/>
         </if-not-empty>
     </simple-method>
-    
-    <!-- =============== =============== =============== -->
-    <!-- =============== Approval Services =============== -->
-    <!-- =============== =============== =============== -->
-    
+
+    <!-- =============== =============== =============== --><!-- =============== Approval Services =============== --><!-- =============== =============== =============== -->
+
     <!-- Methods for ContentApproval -->
     <simple-method method-name="createContentApproval" short-description="Create ContentApproval">
         <log level="always" message="got into createContentApproval(4)"/>
@@ -504,7 +522,7 @@ under the License.
         <find-by-primary-key entity-name="ContentApproval" map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
-    
+
     <simple-method method-name="getApprovalsWithPermissions" short-description="Get ContentApprovals for approval process">
         <!--  this seems like an awkward way to get the previous ContentApproval entities, but
               if you are not sure what previous contentRevisionSeqId is, then it is necessary to ask.
@@ -647,8 +665,7 @@ under the License.
                     <result-to-field field-name="finalApprovalStatusId" result-name="approvalStatusId"/>
                     <result-to-field field-name="contentApprovalList" result-name="contentApprovalList"/>
                 </call-service>
-                <!--  determine status of previous approvals -->
-                <!-- finalApprovalStatusId is the applicable status from previous approvals -->
+                <!--  determine status of previous approvals --><!-- finalApprovalStatusId is the applicable status from previous approvals -->
                 <log level="info" message="cloneContentApprovals(2)- finalApprovalStatusId : ${finalApprovalStatusId} "/>
                 <log level="info" message="cloneContentApprovals(2b)- contentApprovalList : ${contentApprovalList} "/>
                 <!--  conditionally set the contentApprovalId status of each entity -->
@@ -799,7 +816,7 @@ under the License.
         <set from-field="rootContentId" field="context3.contentId"/>
         <set from-field="contentRevisionSeqId" field="context3.contentRevisionSeqId"/>
         <log level="info" message="got into prepForApproval(3)- context3: ${context3}"/>
-        <call-service service-name="cloneInstanceContentApprovals" in-map-name="context3"> </call-service>
+        <call-service service-name="cloneInstanceContentApprovals" in-map-name="context3"></call-service>
     </simple-method>
     <simple-method method-name="getFinalApprovalStatus" short-description="Check to see if any open approval conditions exist">
         <!-- iterate thru most recent ContentApproval list and determine its ending status -->
