@@ -764,7 +764,7 @@ public class ServiceDispatcher {
             Map permResp = origService.evalPermission(dctx, context);            
             Boolean hasPermission = (Boolean) permResp.get("hasPermission");
             if (hasPermission == null) {
-                throw new ServiceAuthException("ERROR: the permission-service did not return a result. Not running the service [" + origService.name + "]");
+                throw new ServiceAuthException("ERROR: the permission-service [" + origService.permissionServiceName + "] did not return a result. Not running the service [" + origService.name + "]");
             }
             if (hasPermission.booleanValue()) {
                 context.putAll(permResp);
