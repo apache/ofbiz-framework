@@ -782,6 +782,7 @@ under the License.
         </if-compare>
         
         <!-- if the generic permission test passed, carry on -->
+        <set field="hasPermission" type="Boolean" value="true"/>
         
         <!--  Set up for a call to checkCategoryRelatedPermission below, but callingMethodName is needed sooner -->
         <set field="callingMethodName" from-field="parameters.resourceDescription" default-value="this operation"/>
