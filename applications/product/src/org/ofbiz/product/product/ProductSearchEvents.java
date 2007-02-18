@@ -411,6 +411,11 @@ public class ProductSearchEvents {
                     Map productMap = new HashMap();
                     String productId = searchResultView.getString("productId");
                     productMap.put("productId", productId);
+                    
+                    List productFeaturesCustomRaw = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureTypeId", "HAZMAT") );
+                    List productFeaturesCustom = EntityUtil.filterByDate(productFeaturesCustomRaw);
+                    productMap.put("productFeatureCustom", EntityUtil.getFirst(productFeaturesCustom));
+                    
                     List productCategoriesRaw = delegator.findByAnd("ProductCategoryAndMember", UtilMisc.toMap("productId", productId));
                     List productCategories = EntityUtil.filterByDate(productCategoriesRaw);
                     productMap.put("productCategories", productCategories);
