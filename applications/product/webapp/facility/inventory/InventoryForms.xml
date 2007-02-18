@@ -48,6 +48,18 @@ under the License.
         <field name="varianceReasonId"><display description="${varianceReason.description}"/></field>
     </form>    
 
+    <form name="ViewInventoryItemShipmentReceipts" type="list"
+        target="" title="" list-name="shipmentReceiptList"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <actions>
+            <entity-and entity-name="ShipmentReceipt" list-name="shipmentReceiptList">
+                <field-map field-name="inventoryItemId"/>
+            </entity-and>
+        </actions>
+        <auto-fields-entity entity-name="ShipmentReceipt" map-name="shipmentReceipt" default-field-type="display"/>
+        <field name="inventoryItemId"><hidden/></field>
+    </form>    
+    
     <form name="ListInventoryItemDetail" type="list"
         target="" title="" list-name="inventoryItemDetails"
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">

@@ -18,10 +18,10 @@ under the License.
 -->
 
 <div class="head1">${uiLabelMap.ProductEditInventoryItemWithId} [${inventoryItemId?if_exists}]</div>
-<a href="<@ofbizUrl>EditInventoryItem<#if facilityId?exists>?facilityId=${facilityId}</#if></@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductNewInventoryItem}]</a>
+<a href="<@ofbizUrl>EditInventoryItem<#if facilityId?exists>?facilityId=${facilityId}</#if></@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewInventoryItem}</a>
 <#if inventoryItemId?exists>
-    <a href="<@ofbizUrl>TransferInventoryItem?inventoryItemId=${inventoryItemId}<#if facilityId?exists>&facilityId=${facilityId}</#if></@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductTransferItem}]</a>
-    <a href="<@ofbizUrl>ViewInventoryItemDetail?inventoryItemId=${inventoryItemId}<#if facilityId?exists>&facilityId=${facilityId}</#if></@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductInventoryDetails}]</a>
+    <a href="<@ofbizUrl>TransferInventoryItem?inventoryItemId=${inventoryItemId}<#if facilityId?exists>&facilityId=${facilityId}</#if></@ofbizUrl>" class="buttontext">${uiLabelMap.ProductTransferItem}</a>
+    <a href="<@ofbizUrl>ViewInventoryItemDetail?inventoryItemId=${inventoryItemId}<#if facilityId?exists>&facilityId=${facilityId}</#if></@ofbizUrl>" class="buttontext">${uiLabelMap.ProductInventoryDetails}</a>
 </#if>
 
 <#if inventoryItem?exists>
@@ -66,7 +66,7 @@ under the License.
         <td>
             <input type="text" name="productId" value="${inventoryItemData.productId?if_exists}" size="20" maxlength="20" class="inputBox">
             <#if (inventoryItem.productId)?has_content>
-                <a href="/catalog/control/EditProduct?productId=${inventoryItem.productId}&externalLoginKey=${externalLoginKey?if_exists}" class="buttontext">[${uiLabelMap.CommonEdit}&nbsp;${uiLabelMap.ProductProduct}&nbsp;${inventoryItem.productId}]</a>
+                <a href="/catalog/control/EditProduct?productId=${inventoryItem.productId}&externalLoginKey=${externalLoginKey?if_exists}" class="buttontext">${uiLabelMap.CommonEdit}&nbsp;${uiLabelMap.ProductProduct}&nbsp;${inventoryItem.productId}</a>
             <#else>
                 <a href="javascript:call_fieldlookup2(document.inventoryItemForm.productId,'LookupProduct');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"/></a>
             </#if>
@@ -142,7 +142,7 @@ under the License.
               </#list>
             </select>
             <#if (inventoryItem.facilityId)?has_content>
-                <a href="<@ofbizUrl>EditFacility?facilityId=${inventoryItem.facilityId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductEditFacility} ${inventoryItem.facilityId}]</a>
+                <a href="<@ofbizUrl>EditFacility?facilityId=${inventoryItem.facilityId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductEditFacility} [${inventoryItem.facilityId}]</a>
             </#if>
             <br/>
             <span class="tabletext">${uiLabelMap.ProductOrEnterContainerId} :</span>
@@ -169,7 +169,7 @@ under the License.
                     <img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
                 </a>
             </span>
-            &nbsp;<a href="<@ofbizUrl>FindFacilityLocation?facilityId=${facilityId?if_exists}&inventoryItemId=${inventoryItemId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductFindLocation}]</a>
+            &nbsp;<a href="<@ofbizUrl>FindFacilityLocation?facilityId=${facilityId?if_exists}&inventoryItemId=${inventoryItemId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductFindLocation}</a>
           <#else>
             <input type="text" size="20" maxsize="20" name="locationSeqId" value="${locationSeqId?if_exists}" class="inputBox">
             <span class="tabletext">
@@ -224,7 +224,7 @@ under the License.
       <tr>
         <td align="right"><div class="tabletext">${uiLabelMap.ProductSerialAtpQoh}</div></td>
         <td>&nbsp;</td>
-        <td><div class="tabletext" style="color: red;">${uiLabelMap.ProductErrorType} [${inventoryItem.inventoryItemTypeId?if_exists}] ${uiLabelMap.ProductUnknownSpecifyType} .</div></td>
+        <td><div class="tabletext" style="color: red;">${uiLabelMap.ProductErrorType} [${inventoryItem.inventoryItemTypeId?if_exists}] ${uiLabelMap.ProductUnknownSpecifyType}.</div></td>
       </tr>
     </#if>
   <tr>

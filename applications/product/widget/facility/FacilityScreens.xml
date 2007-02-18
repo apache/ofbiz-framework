@@ -494,18 +494,21 @@ under the License.
                     </condition-list>
                     <order-by field-name="inventoryItemDetailSeqId DESC"/>
                 </entity-condition>
-
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <label style="head1">${uiLabelMap.ProductInventoryDetails} ${uiLabelMap.CommonFor} ${inventoryItemId}</label>
+                            <label style="head1">${uiLabelMap.ProductInventoryDetails} ${uiLabelMap.CommonFor} [${inventoryItemId}]</label>
                          </container>
                         <container>
                             <link target="EditInventoryItem?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}" text="${uiLabelMap.CommonView} ${uiLabelMap.ProductInventoryItem} ${inventoryItemId}" style="buttontext"/>
                         </container>
                         <include-form name="ListInventoryItemDetail" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
+                        <container>
+                            <label style="head1">Shipment Receipts for [${inventoryItemId}]</label>
+                        </container>
+                        <include-form name="ViewInventoryItemShipmentReceipts" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
