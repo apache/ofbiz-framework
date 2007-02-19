@@ -108,7 +108,7 @@ function insertImageName(type,nameValue) {
         <td width="20%" align="right" valign="top"><div class="tabletext"><b>${uiLabelMap.ProductLongDescription}</b></div></td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
-            <textarea class="textAreaBox" name="longDescription" cols="60" rows="7">${(product.longDescription)?if_exists}</textarea>
+            <textarea class="textAreaBox dojo-ResizableTextArea" name="longDescription" cols="60" rows="7">${(product.longDescription)?if_exists}</textarea>
         </td>
     </tr>        
     <tr>
