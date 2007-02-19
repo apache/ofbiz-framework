@@ -43,11 +43,11 @@ under the License.
           </td>
           <td class="tabletext">
           <b>${uiLabelMap.CommonSubmitted}:</b>
-          <input type="radio" name="statusId_o_${row}" value="BLOG_SUBMITTED" checked/>
+          <input type="radio" name="statusId_o_${row}" value="CTNT_IN_PROGRESS" checked/>
           </td>
           <td class="tabletext">
           <b>${uiLabelMap.CommonPublish}:</b>
-          <input type="radio" name="statusId_o_${row}" value="BLOG_PUBLISHED"/>
+          <input type="radio" name="statusId_o_${row}" value="CTNT_PUBLISHED"/>
           </td>
         </tr>
           <input type="hidden" name="contentId_o_${row}" value="${content.contentId}"/>

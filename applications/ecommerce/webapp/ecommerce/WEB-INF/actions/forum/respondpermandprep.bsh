@@ -64,7 +64,7 @@ if (UtilValidate.isEmpty(pubPt)) {
 
 contentToValue = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentIdTo));
 contentToPurposeList = contentToValue.getRelatedCache("ContentPurpose");
-currentValue = delegator.makeValue("Content", UtilMisc.toMap("contentTypeId", "DOCUMENT", "statusId", "BLOG_PUBLISHED", "privilegeEnumId", "_00_"));
+currentValue = delegator.makeValue("Content", UtilMisc.toMap("contentTypeId", "DOCUMENT", "statusId", "CTNT_PUBLISHED", "privilegeEnumId", "_00_"));
 
 if (contentToPurposeList.contains("RESPONSE")) {
     ownerContentId = contentToValue.get("ownerContentId");
@@ -116,7 +116,7 @@ if (UtilValidate.isEmpty(permissionStatus) || !permissionStatus.equals("granted"
 pubContentValue = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", pubPt));
 if (pubContentValue != null) {
     mapIn.put("currentContent", pubContentValue);
-    mapIn.put("statusId", "BLOG_PUBLISHED");
+    mapIn.put("statusId", "CTNT_PUBLISHED");
 }
 //org.ofbiz.base.util.Debug.logInfo("in permprep(2), mapIn:" + mapIn, null);
 result = dispatcher.runSync("checkContentPermission", mapIn);

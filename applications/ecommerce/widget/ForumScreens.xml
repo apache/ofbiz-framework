@@ -196,7 +196,7 @@ under the License.
                 <set field="targetOperation" value="CONTENT_UPDATE"/>
                 <set field="contentTypeId" value="DOCUMENT"/>
                 <set field="contentPurposeTypeId" value="ARTICLE"/>
-                <set field="statusId" value="BLOG_PUBLISHED"/>
+                <set field="statusId" value="CTNT_PUBLISHED"/>
 
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/nodetrailprep.bsh"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/permprep.bsh"/>
@@ -244,7 +244,7 @@ under the License.
                 <set field="entityOperation" value="_VIEW"/>
                 <set field="targetOperation" value="CONTENT_VIEW"/>
                 <set field="contentPurposeTypeId" value="RESPONSE"/>
-                <set field="statusId" value="BLOG_PUBLISHED"/>
+                <set field="statusId" value="CTNT_PUBLISHED"/>
 
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/currentvalprep.bsh"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/permprep.bsh"/>
@@ -293,7 +293,7 @@ under the License.
                 <set field="requiredRoles" value="BLOG_AUTHOR|BLOG_EDITOR|BLOG_ADMIN|BLOG_PUBLISHER"/>
                 <set field="contentPurposeTypeId" value="RESPONSE"/>
                 <set field="contentAssocTypeId" value="RESPONSE"/>
-                <set field="statusId" value="BLOG_PUBLISHED"/>
+                <set field="statusId" value="CTNT_PUBLISHED"/>
                 
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/currentvalprep.bsh"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/htmlareaprep.bsh"/>
@@ -334,7 +334,7 @@ under the License.
                 <set field="targetOperation" value="CONTENT_UPDATE"/>
                 <set field="requiredRoles" value="BLOG_AUTHOR|BLOG_EDITOR|BLOG_ADMIN|BLOG_PUBLISHER"/>
                 <set field="contentPurposeTypeId" value="ARTICLE"/>
-                <set field="statusId" value="BLOG_PUBLISHED"/>
+                <set field="statusId" value="CTNT_PUBLISHED"/>
                 
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/currentvalprep.bsh"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/permprep.bsh"/>
@@ -381,7 +381,7 @@ under the License.
                 <set field="requiredRoles" value="OWNER|BLOG_AUTHOR|BLOG_EDITOR|BLOG_ADMIN|BLOG_PUBLISHER"/>
                 <set field="contentPurposeTypeId" value="ARTICLE"/>
                 <set field="contentAssocTypeId" value="SUB_CONTENT"/>
-                <set field="statusId" value="BLOG_PUBLISHED"/>
+                <set field="statusId" value="CTNT_PUBLISHED"/>
 
                 <set field="mainMenuDefFile" value="/AgepsMenus.xml"/>
                 <set field="mainMenuName" value="main"/>
@@ -434,7 +434,7 @@ under the License.
                 <set field="requiredRoles" value="OWNER|BLOG_AUTHOR|BLOG_EDITOR|BLOG_ADMIN|BLOG_PUBLISHER"/>
                 <set field="contentPurposeTypeId" value="ARTICLE"/>
                 <set field="contentAssocTypeId" value="SUB_CONTENT"/>
-                <set field="statusId" value="BLOG_PUBLISHED"/>
+                <set field="statusId" value="CTNT_PUBLISHED"/>
 
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/currentvalprep.bsh"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/permprep.bsh"/>

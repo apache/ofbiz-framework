@@ -38,7 +38,7 @@ under the License.
     <property name="entityOperation">_VIEW</property>    
     <property name="targetOperation">CONTENT_VIEW</property>    
     <property name="contentPurposeTypeId">RESPONSE</property>    
-    <property name="statusId">BLOG_PUBLISHED</property>    
+    <property name="statusId">CTNT_PUBLISHED</property>    
     <property name="permissionType">complex</property>    
     <page-action name="/includes/currentvalprep.bsh"/>
     <page-action name="/includes/permprep.bsh"/>

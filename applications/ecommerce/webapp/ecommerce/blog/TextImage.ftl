@@ -89,7 +89,7 @@
         </td>
         <td>&nbsp;</td>
         <td width="60%" align="left"
-        <textarea class="textAreaBox" class="inputBox" name="mainData" cols="60" rows="24">${textData?if_exists}</textarea>
+        <textarea class="textAreaBox" class="inputBox" name="textData" cols="60" rows="24">${textData?if_exists}</textarea>
         </td>
         <td width="10%" align="right">
         <span class="treeHeader"> </span>
@@ -108,7 +108,7 @@
         <td width="60%" align="left">
             <div class="inputBox">Existing file name:  <#if imageContent?has_content && imageContent.drObjectInfo?has_content>${imageContent.drObjectInfo}</#if></div>
             <br/>
-            <input type="file" class="inputBox" name="imageData" size="25"/>
+            <input type="file" class="inputBox" name="uploadedFile" size="25"/>
             <#--
             Force: <input type="checkbox" value="true" name="forceElectronicText"/>
             -->

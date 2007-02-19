@@ -26,14 +26,9 @@ under the License.
 
     <DataSource dataSourceId="BLOG_SITE" dataSourceTypeId="WEBSITE_ENTRY" description="Blog Site"/>
 
-    <PartyRole partyId="BLOG_USERS" roleTypeId="PERMISSION_GROUP"/>
-    <PartyRole partyId="BLOG_USERS" roleTypeId="BLOG_USER"/>
-    <PartyRole partyId="BLOG_EDITORS" roleTypeId="PERMISSION_GROUP"/>
-    <PartyRole partyId="BLOG_EDITORS" roleTypeId="BLOG_EDITOR"/>
-    <PartyRole partyId="BLOG_AUTHORS" roleTypeId="PERMISSION_GROUP"/>
-    <PartyRole partyId="BLOG_AUTHORS" roleTypeId="BLOG_AUTHOR"/>
-    <PartyRole partyId="BLOG_ADMINS" roleTypeId="PERMISSION_GROUP"/>
-    <PartyRole partyId="BLOG_ADMINS" roleTypeId="BLOG_ADMIN"/>
-    <PartyRole partyId="BLOG_PUBLISHERS" roleTypeId="PERMISSION_GROUP"/>
-    <PartyRole partyId="BLOG_PUBLISHERS" roleTypeId="BLOG_ADMIN"/>
+    <PartyRole partyId="BLOG_USERS" roleTypeId="CONTENT_USER"/>
+    <PartyRole partyId="BLOG_EDITORS" roleTypeId="CONTENT_EDITOR"/>
+    <PartyRole partyId="BLOG_AUTHORS" roleTypeId="CONTENT_AUTHOR"/>
+    <PartyRole partyId="BLOG_ADMINS" roleTypeId="CONTENT_ADMIN"/>
+    <PartyRole partyId="BLOG_PUBLISHERS" roleTypeId="CONTENT_ADMIN"/>
 </entity-engine-xml>

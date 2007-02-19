@@ -77,7 +77,7 @@
         </field>
     </form>
 
-    <form name="AddBlogResponse" target="persistBlogResponse" title="" type="single" default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="AddBlogResponse" target="createBlogResponse" title="" type="single" default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="ContentAssocDataResourceViewTo" default-field-type="hidden" map-name="rsp"/>
         <field name="contentName" title="Short title" entry-name="contentName" map-name="rsp">
             <text size="40"/>
@@ -85,7 +85,19 @@
         <field name="description" title="Description (250 chars max)" map-name="rsp">
             <textarea cols="40" rows="6"/>
         </field>
-        <field name="contentId" entry-name="contentId" map-name="rsp">
+        <field name="textData" title="Response" map-name="rsp" widget-style="inputBox dojo-ResizableTextArea">
+            <textarea cols="60" rows="12"/>
+        </field>
+        <field name="statusId">
+            <radio no-current-selected-key="CTNT_INITIAL_DRAFT">
+                <option key="CTNT_PUBLISHED" description="POST"/>
+                <option key="CTNT_INITIAL_DRAFT" description="PREVIEW"/>
+            </radio>
+        </field>
+        <field name="submitButton" title="Submit" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="blogContentId" entry-name="blogContentId" map-name="rsp">
             <hidden/>
         </field>
         <field name="articleContentId" entry-name="articleContentId" map-name="rsp">
@@ -94,40 +106,26 @@
         <field name="ownerContentId" entry-name="ownerContentId" map-name="rsp">
             <hidden/>
         </field>
-        <field name="caContentId" entry-name="caContentId" map-name="rsp">
+        <field name="contentIdFrom" entry-name="contentIdFrom" map-name="rsp">
             <hidden/>
         </field>
-        <!--
-        <field name="contentContentId" entry-name="caContentIdTo" map-name="rsp">
-          <hidden/>
-        </field>
-            -->
         <field name="contentTypeId" entry-name="contentTypeId" map-name="rsp">
             <hidden/>
         </field>
-        <field name="drDataResourceTypeId" entry-name="drDataResourceTypeId" map-name="rsp">
+        <field name="contentAssocTypeId" entry-name="contentAssocTypeId" map-name="rsp">
             <hidden/>
         </field>
-        <field name="caContentAssocTypeId" entry-name="caContentAssocTypeId" map-name="rsp">
+        <field name="dataResourceTypeId" entry-name="dataResourceTypeId" map-name="rsp">
             <hidden/>
         </field>
-        <field name="textData" title="Response" map-name="rsp">
-            <textarea cols="60" rows="12"/>
+        <field name="contentPurposeTypeId" entry-name="contentPurposeTypeId" map-name="rsp">
+            <hidden/>
         </field>
-        <field name="statusId">
-            <radio no-current-selected-key="BLOG_DRAFT">
-                <option key="BLOG_PUBLISHED" description="POST"/>
-                <option key="BLOG_DRAFT" description="PREVIEW"/>
-            </radio>
+        <field name="contentOperationId" entry-name="contentOperationId" map-name="rsp">
+            <hidden/>
         </field>
-        <field name="submitButton" title="Submit" widget-style="smallSubmit">
-            <submit button-type="button"/>
-        </field>
-        <field name="deactivateExisting">
-            <hidden value="false"/>
-        </field>
-        <field name="contentPurposeString">
-            <hidden value="RESPONSE"/>
+        <field name="partyId" entry-name="partyId" map-name="userLogin">
+            <hidden/>
         </field>
         <sort-order>
             <sort-field name="contentName"/>
@@ -138,7 +136,7 @@
         </sort-order>
     </form>
 
-    <form name="EditBlogResponse" target="persistBlogResponse" title="" type="single" default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="EditBlogResponse" target="updateBlogResponse" title="" type="single" default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="Content" default-field-type="hidden" map-name="content"/>
         <auto-fields-entity entity-name="DataResource" default-field-type="hidden" map-name="dataResource"/>
         <field name="contentName" title="Short title" entry-name="contentName" map-name="rsp">
@@ -153,23 +151,29 @@
         <field name="articleContentId" entry-name="articleContentId" map-name="rsp">
             <hidden/>
         </field>
-        <field name="textData" title="Response" map-name="electronicText">
+        <field name="textData" title="Response" map-name="electronicText" widget-style="inputBox dojo-ResizableTextArea">
             <textarea cols="60" rows="12"/>
         </field>
         <field name="statusId">
-            <radio no-current-selected-key="BLOG_DRAFT">
-                <option key="BLOG_PUBLISHED" description="POST"/>
-                <option key="BLOG_DRAFT" description="PREVIEW"/>
+            <radio no-current-selected-key="CTNT_INITIAL_DRAFT">
+                <option key="CTNT_PUBLISHED" description="POST"/>
+                <option key="CTNT_INITIAL_DRAFT" description="PREVIEW"/>
             </radio>
         </field>
         <field name="submitButton" title="Submit" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-        <field name="deactivateExisting">
-            <hidden value="true"/>
+        <field name="blogContentId" entry-name="blogContentId" map-name="rsp">
+            <hidden/>
         </field>
-        <field name="contentPurposeString">
-            <hidden value="RESPONSE"/>
+        <field name="contentPurposeTypeId" entry-name="contentPurposeTypeId" map-name="rsp">
+            <hidden/>
+        </field>
+        <field name="contentOperationId" entry-name="contentOperationId" map-name="rsp">
+            <hidden/>
+        </field>
+        <field name="partyId" entry-name="partyId" map-name="userLogin">
+            <hidden/>
         </field>
         <sort-order>
             <sort-field name="contentId"/>
@@ -181,191 +185,100 @@
         </sort-order>
     </form>
 
-    <form name="EditBlogAll" target="persistBlogAll" title="" type="upload" default-title-style="treeHeader" skip-end="true" default-tooltip-style="tabletext" default-widget-style="inputBox">
-        <field name="contentIdStart" map-name="view">
-            <hidden/>
-        </field>
-        <field name="caContentId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="caContentIdTo" map-name="view">
-            <hidden/>
-        </field>
-        <field name="caContentAssocTypeId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="caFromDate" map-name="view">
-            <hidden/>
-        </field>
-        <field name="caThruDate" map-name="view">
-            <hidden/>
-        </field>
-        <field name="caContentAssocPredicateId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="caDataSourceId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="caSequenceNum" map-name="view">
-            <hidden/>
-        </field>
-        <field name="caMapKey" map-name="view">
-            <hidden/>
-        </field>
-        <field name="caUpperCoordinate" map-name="view">
-            <hidden/>
-        </field>
-        <field name="caLeftCoordinate" map-name="view">
-            <hidden/>
-        </field>
-        <field name="caCreatedDate" map-name="view">
-            <hidden/>
-        </field>
-        <field name="caCreatedByUserLogin" map-name="view">
-            <hidden/>
-        </field>
-        <field name="caLastModifiedDate" map-name="view">
-            <hidden/>
-        </field>
-        <field name="caLastModifiedByUserLogin" map-name="view">
-            <hidden/>
-        </field>
-        <field name="contentTypeId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="ownerContentId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="instanceOfContentId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="dataResourceId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="templateDataResourceId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="dataSourceId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="privilegeEnumId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="serviceName" map-name="view">
-            <hidden/>
-        </field>
-        <field name="localeString" map-name="view">
-            <hidden/>
-        </field>
-        <field name="mimeTypeId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="characterSetId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="childLeafCount" map-name="view">
-            <hidden/>
-        </field>
-        <field name="childBranchCount" map-name="view">
-            <hidden/>
-        </field>
-        <field name="createdDate" map-name="view">
-            <hidden/>
-        </field>
-        <field name="createdByUserLogin" map-name="view">
-            <hidden/>
-        </field>
-        <field name="lastModifiedDate" map-name="view">
-            <hidden/>
-        </field>
-        <field name="lastModifiedByUserLogin" map-name="view">
-            <hidden/>
-        </field>
-        <field name="drDataResourceId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="drDataResourceTypeId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="drDataTemplateTypeId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="drDataCategoryId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="drDataSourceId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="drStatusId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="drDataResourceName" map-name="view">
-            <hidden/>
-        </field>
-        <field name="drLocaleString" map-name="view">
-            <hidden/>
-        </field>
-        <field name="drMimeTypeId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="drCharacterSetId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="drObjectInfo" map-name="view">
-            <hidden/>
-        </field>
-        <field name="drRelatedDetailId" map-name="view">
-            <hidden/>
-        </field>
-        <field name="drIsPublic" map-name="view">
-            <hidden/>
-        </field>
-        <field name="drCreatedDate" map-name="view">
-            <hidden/>
-        </field>
-        <field name="drCreatedByUserLogin" map-name="view">
-            <hidden/>
-        </field>
-        <field name="drLastModifiedDate" map-name="view">
-            <hidden/>
-        </field>
-        <field name="drLastModifiedByUserLogin" map-name="view">
-            <hidden/>
-        </field>
-        <field name="deactivateExisting" map-name="view">
-            <hidden/>
-        </field>
-        <field name="contentPurposeString" map-name="view">
-            <hidden/>
-        </field>
-        <field name="contentName" title="Short title" map-name="view">
+    <form name="CreateArticle" target="createBlogArticle" title="" type="upload" default-title-style="treeHeader" skip-end="true" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <field name="contentName" title="Short title">
             <text size="40"/>
         </field>
-        <field name="description" title="Slightly longer title (250 chars max)" map-name="view">
+        <field name="description" title="Slightly longer title (250 chars max)">
             <textarea cols="40" rows="2"/>
         </field>
-        <field name="contentId" title="Blog ID" map-name="parameters" use-when="contentId!=null">
-            <display/>
-        </field>
-        <field name="summaryData" title="Summary" entry-name="textData" map-name="summaryText">
+        <field name="summaryData" title="Summary" widget-style="inputBox dojo-ResizableTextArea">
             <textarea cols="60" rows="4"/>
         </field>
-        <!--
-        <field name="textData" title="Article" map-name="electronicText">
+        <field name="textData" title="Article" widget-style="inputBox dojo-ResizableTextArea">
             <textarea cols="60" rows="12"/>
         </field>
-            -->
-        <field name="statusId">
-            <radio no-current-selected-key="BLOG_DRAFT">
-                <option key="BLOG_PUBLISHED" description="POST"/>
-                <option key="BLOG_DRAFT" description="PREVIEW"/>
-            </radio>
+        <field name="uploadedFile" title="Image">
+            <file size="25"/>
         </field>
-        <field name="deactivateExisting">
-            <hidden value="false"/>
+        <field name="dataResourceId" title="Template">
+            <drop-down allow-empty="true">                
+                <option key="BLOG_TPL_TOPLEFT" description="Top Left"/>
+                <option key="BLOG_TPL_TOPCENTER" description="Top Center"/>
+            </drop-down>
+        </field>
+        <field name="statusId" title="Status">
+            <drop-down no-current-selected-key="CTNT_INITIAL_DRAFT">
+                <option key="CTNT_PUBLISHED" description="Publish"/>
+                <option key="CTNT_INITIAL_DRAFT" description="Preview"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="Submit" widget-style="smallSubmit">
+            <submit button-type="button"/>
         </field>
         <field name="contentPurposeString">
             <hidden value="ARTICLE"/>
+        </field>
+        <field name="contentAssocTypeId">
+            <hidden value="PUBLISH_LINK"/>
+        </field>
+        <field name="blogContentId" entry-name="blogContentId">
+            <hidden/>
+        </field>
+        <field name="contentIdFrom" entry-name="blogContentId">
+            <hidden/>
+        </field>
+        <sort-order>            
+            <sort-field name="contentName"/>
+            <sort-field name="description"/>
+            <sort-field name="summaryData"/>
+            <sort-field name="textData"/>
+            <sort-field name="uploadedFile"/>
+            <sort-field name="dataResourceId"/> 
+            <sort-field name="statusId"/>
+            <sort-field name="submitButton"/>
+        </sort-order>
+    </form>
+
+    <form name="EditArticle" target="updateBlogArticle" title="" type="upload" default-title-style="treeHeader" skip-end="true" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <field name="contentId" entry-name="articleContentId" title="Blog ID" use-when="contentId!=null||contentId==&quot;&quot;">
+            <display/>
+        </field>
+        <field name="contentName" title="Short title" map-name="content">
+            <text size="40"/>
+        </field>
+        <field name="description" title="Slightly longer title (250 chars max)" map-name="content">
+            <textarea cols="40" rows="2"/>
+        </field>
+        <field name="summaryData" title="Summary" map-name="summaryText" entry-name="textData" widget-style="inputBox dojo-ResizableTextArea">
+            <textarea cols="60" rows="4"/>
+        </field>
+        <field name="textData" title="Article" map-name="mainText" widget-style="inputBox dojo-ResizableTextArea">
+            <textarea cols="60" rows="12"/>
+        </field>
+        <field name="uploadedFile" title="Image">
+            <file size="25"/>
+        </field>
+        <field name="dataResourceId" title="Template" map-name="content">
+            <drop-down allow-empty="true">
+                <option key="BLOG_TPL_TOPLEFT" description="Top Left"/>
+                <option key="BLOG_TPL_TOPCENTER" description="Top Center"/>
+            </drop-down>
+        </field>
+        <field name="statusId" title="Status" map-name="content">
+            <drop-down no-current-selected-key="CTNT_INITIAL_DRAFT">
+                <option key="CTNT_PUBLISHED" description="Publish"/>
+                <option key="CTNT_INITIAL_DRAFT" description="Preview"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="Submit" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="contentPurposeString">
+            <hidden value="ARTICLE"/>
+        </field>
+        <field name="blogContentId" entry-name="blogContentId">
+            <hidden/>
         </field>
         <sort-order>
             <sort-field name="contentId"/>
@@ -373,6 +286,8 @@
             <sort-field name="description"/>
             <sort-field name="summaryData"/>
             <sort-field name="textData"/>
+            <sort-field name="uploadedFile"/>
+            <sort-field name="dataResourceId"/>
             <sort-field name="statusId"/>
             <sort-field name="submitButton"/>
         </sort-order>

@@ -40,9 +40,9 @@ function win_cancel() {
     <td align="right">Posted Msg Default Status:</td>
     <td align="left">
       <select name="statusId">
-        <option value="BLOG_DRAFT">Draft - not attached to any site</option>
-        <option value="BLOG_SUBMITTED">Submitted - but must be approve (moderated)</option>
-        <option value="BLOG_PUBLISHED">Publish immediately</option>
+        <option value="CTNT_IN_PROGRESS">Draft - not attached to any site</option>
+        <option value="CTNT_FINAL_DRAFT">Final Draft - but must be approve (moderated)</option>
+        <option value="CTNT_PUBLISHED">Publish immediately</option>
       </select>
     </td>
   </tr>

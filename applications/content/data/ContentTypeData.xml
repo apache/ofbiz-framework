@@ -19,6 +19,13 @@ under the License.
 -->
 <entity-engine-xml>
     <RoleType description="Logged In" hasTable="N"  parentTypeId="" roleTypeId="LOGGEDIN"/>
+    <RoleType roleTypeId="CONTENT" hasTable="N" description="Content Member"/>
+    <RoleType roleTypeId="CONTENT_ADMIN" parentTypeId="CONTENT" hasTable="N" description="Content Administrator"/>
+    <RoleType roleTypeId="CONTENT_PUBLISHER" parentTypeId="CONTENT" hasTable="N" description="Content Publisher"/>
+    <RoleType roleTypeId="CONTENT_EDITOR" parentTypeId="CONTENT" hasTable="N" description="Content Editor"/>
+    <RoleType roleTypeId="CONTENT_AUTHOR" parentTypeId="CONTENT" hasTable="N" description="Content Author"/>
+    <RoleType roleTypeId="CONTENT_USER" parentTypeId="CONTENT" hasTable="N" description="Content User"/>
+    <RoleType roleTypeId="CONTENT_GUEST" parentTypeId="CONTENT" hasTable="N" description="Content Guest"/>
 
     <ContentAssocType contentAssocTypeId="TEMPLATE_MEMBER" description="Template Member"/>
     <ContentAssocType contentAssocTypeId="STRUCTURE_DEF" description="Document Structure Definition"/>
