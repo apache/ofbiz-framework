@@ -107,7 +107,7 @@ div.bigIcon {
 }
 
 .EditorToolbarDomNode select {
-	font-size: 14px;
+	/* font-size: 14px; */
 }
  
 .dojoE2TBIcon_Sep { width: 5px; min-width: 5px; max-width: 5px; background-position: 0px 0px}
