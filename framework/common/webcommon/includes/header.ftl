@@ -29,10 +29,15 @@ under the License.
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>${layoutSettings.companyName}: <#if (page.titleProperty)?has_content>${uiLabelMap[page.titleProperty]}<#else>${(page.title)?if_exists}</#if></title>
-    <link rel="shortcut icon" href="<@ofbizContentUrl>/images/ofbiz.ico</@ofbizContentUrl>" />    
-    <script language="javascript" src="<@ofbizContentUrl>/images/calendar1.js</@ofbizContentUrl>" type="text/javascript"></script>
-    <script language="javascript" src="<@ofbizContentUrl>/images/selectall.js</@ofbizContentUrl>" type="text/javascript"></script>
-    <script language="javascript" src="<@ofbizContentUrl>/images/fieldlookup.js</@ofbizContentUrl>" type="text/javascript"></script>
+    <#if layoutSettings.shortcutIcon?has_content>
+      <link rel="shortcut icon" href="<@ofbizContentUrl>${layoutSettings.shortcutIcon}</@ofbizContentUrl>" />    
+    </#if>
+    <#if layoutSettings.javaScripts?has_content>
+        <#--layoutSettings.javaScripts is a list of java scripts. -->
+        <#list layoutSettings.javaScripts as javaScript>
+            <script language="javascript" src="<@ofbizContentUrl>${javaScript}</@ofbizContentUrl>" type="text/javascript"></script>
+        </#list>
+    </#if>
     <#if layoutSettings.styleSheets?has_content>
         <#--layoutSettings.styleSheets is a list of style sheets. So, you can have a user-specified "main" style sheet, AND a component style sheet.-->
         <#list layoutSettings.styleSheets as styleSheet>
