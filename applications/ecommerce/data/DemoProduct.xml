@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-    
-    http://www.apache.org/licenses/LICENSE-2.0
-    
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
 -->
 
 <entity-engine-xml>
@@ -149,7 +149,18 @@
         sequenceNum="1" prodCatalogCategoryTypeId="PCCT_BROWSE_ROOT"/>
     <ProdCatalogCategory prodCatalogId="TestCatalog" productCategoryId="TSTLTDADMIN" fromDate="2001-05-13 12:00:00.0"
         sequenceNum="1" prodCatalogCategoryTypeId="PCCT_ADMIN_ALLW"/>
-
+    
+    <ProductCategoryLink productCategoryId="100" linkSeqId="01" fromDate="2001-05-13 12:00:00.0" 
+        titleText="See LGPL Gizmos" detailText="The LGPL license may be more restrictive than you would like, but we think you will like the gizmo anyway!"
+        imageUrl="/images/products/small/handshake_01.png"
+        sequenceNum="2" linkTypeEnumId="PCLT_SEARCH_PARAM" 
+        linkInfo="SEARCH_CATEGORY_ID1=100&amp;SEARCH_SUB_CATEGORIES1=Y&amp;SEARCH_FEAT1=8000&amp;sortOrder=SortKeywordRelevancy&amp;sortAscending=N"/>
+    <ProductCategoryLink productCategoryId="100" linkSeqId="02" fromDate="2001-05-13 12:00:00.0" 
+        titleText="Go To Google" detailText="If you cannot find the gizmo you want here, try it on Google."
+        imageUrl="http://www.google.com/intl/en_ALL/images/logo.gif"
+        sequenceNum="1" linkTypeEnumId="PCLT_ABS_URL" 
+        linkInfo="http://www.google.com/"/>
+    
     <Product productId="GZ-1000" productTypeId="FINISHED_GOOD" primaryProductCategoryId="101" productName="Tiny Gizmo" internalName="Tiny Gizmo" description="The smallest gizmo in town." longDescription="This gizmo is very small and runs on solar power." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <Product productId="GZ-1001" productTypeId="FINISHED_GOOD" primaryProductCategoryId="101" productName="Nan Gizmo" internalName="Nan Gizmo" description="Indian style Nan gizmo" taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <Product productId="GZ-1004" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Rainbow Gizmo" internalName="Rainbow Gizmo" description="The only multi-colored gizmo" longDescription="This is the original multi-colored gizmo, only available from OFBiz!" taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
