@@ -322,7 +322,7 @@ under the License.
         <field name="sequenceNum" type="numeric"><description>This field is used to sort the links. The linkSeqId field is not used because it is part of the primary key and cannot be changed.</description></field>
         <field name="titleText" type="description"></field>
         <field name="detailText" type="very-long"></field>
-        <field name="imageUrl" type="description"></field>
+        <field name="imageUrl" type="url"></field>
         <field name="linkTypeEnumId" type="id"></field>
         <field name="linkInfo" type="long-varchar"></field>
         <field name="detailSubScreen" type="long-varchar"><description>This is optional. If not specified a default should be used by the category detail template.</description></field>

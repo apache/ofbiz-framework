@@ -19,10 +19,10 @@ under the License.
 
 <div class="head1">${uiLabelMap.ProductSearchProducts}, <span class="head2">${uiLabelMap.ProductSearchFor}:</span></div>
 <#list searchConstraintStrings as searchConstraintString>
-    <div class="tabletext">&nbsp;<a href="<@ofbizUrl>keywordsearch?removeConstraint=${searchConstraintString_index}&clearSearch=N</@ofbizUrl>" class="buttontext">[X]</a>&nbsp;${searchConstraintString}</div>
+    <div class="tabletext">&nbsp;<a href="<@ofbizUrl>keywordsearch?removeConstraint=${searchConstraintString_index}&clearSearch=N</@ofbizUrl>" class="buttontext">X</a>&nbsp;${searchConstraintString}</div>
 </#list>
 <div class="tabletext">${uiLabelMap.CommonSortedBy}: ${searchSortOrderString}</div>
-<div class="tabletext"><a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${(requestParameters.SEARCH_CATEGORY_ID)?if_exists}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonRefine} ${uiLabelMap.CommonSearch}]</a></div>
+<div class="tabletext"><a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${(requestParameters.SEARCH_CATEGORY_ID)?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefine} ${uiLabelMap.CommonSearch}</a></div>
 
 <#if !productIds?has_content>
   <br/><div class="head2">&nbsp;${uiLabelMap.ProductNoResultsFound}.</div>
@@ -34,13 +34,13 @@ under the License.
       <td align="right">
         <b>
         <#if 0 < viewIndex?int>
-          <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex-1}/~VIEW_SIZE=${viewSize}/~clearSearch=N</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonPrevious}]</a> |
+          <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex-1}/~VIEW_SIZE=${viewSize}/~clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
         </#if>
         <#if 0 < listSize?int>
           <span class="tabletext">${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
         </#if>
         <#if highIndex?int < listSize?int>
-          | <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex+1}/~VIEW_SIZE=${viewSize}/~clearSearch=N</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonNext}]</a>
+          | <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex+1}/~VIEW_SIZE=${viewSize}/~clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
         </#if>
         </b>
       </td>
@@ -175,7 +175,6 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
 </div>
 
 <hr class="sepbar"/>
-
 <div class="tabletext">
 <form method="post" action="<@ofbizUrl>searchRemoveFeature</@ofbizUrl>" name="searchRemoveFeature">
   <b>${uiLabelMap.ProductRemoveFeatureFromResults}:</b><br/>
@@ -184,6 +183,17 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
   <input type="submit" value="${uiLabelMap.ProductRemoveFeature}" class="smallSubmit"><br/>
 </form>
 </div>
+
+<hr class="sepbar"/>
+<div class="tabletext">
+<form method="post" action="" name="searchShowParams">
+  <#assign searchParams = Static["org.ofbiz.product.product.ProductSearchSession"].makeSearchParametersString(session)>
+  <b>Plain Search Parameters:</b><input type="text" size="60" name="searchParameters" value="${searchParams}" class="inputBox">
+  <b>HTML Search Parameters:</b><input type="text" size="60" name="searchParameters" value="${searchParams?html}" class="inputBox">
+  <input type="hidden" name="clearSearch" value="N">
+</form>
+</div>
+
 <hr class="sepbar"/>
 <div class="tabletext">
 <form method="post" action="<@ofbizUrl>searchExportProductList</@ofbizUrl>" name="searchRemoveFeature">

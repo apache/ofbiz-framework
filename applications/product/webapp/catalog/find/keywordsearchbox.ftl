@@ -49,8 +49,7 @@ under the License.
               <div class="tabletext">${uiLabelMap.ProductKeywords}: <input type="text" class="inputBox" name="SEARCH_STRING" size="20" maxlength="50" value="${requestParameters.SEARCH_STRING?if_exists}"/></div>
               <div class="tabletext">
                 ${uiLabelMap.ProductCategoryId}:
-                <input type="text" class="inputBox" name="SEARCH_CATEGORY_ID" size="18" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/>
-                <a href="javascript:call_fieldlookup2(document.keywordsearchform.SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+                <input type="text" class="inputBox" name="SEARCH_CATEGORY_ID" size="15" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/><a href="javascript:call_fieldlookup2(document.keywordsearchform.SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
               </div>
               <div class="tabletext">
                 ${uiLabelMap.CommonNoContains}<input type="checkbox" name="SEARCH_CONTAINS" value="N" <#if requestParameters.SEARCH_CONTAINS?if_exists == "N">checked="checked"</#if>/>
@@ -64,8 +63,7 @@ under the License.
             <form name="advancedsearchform" method="post" action="<@ofbizUrl>advancedsearch</@ofbizUrl>" style="margin: 0;">
               <div class="tabletext">
                 ${uiLabelMap.ProductCategoryId}:
-                <input type="text" class="inputBox" name="SEARCH_CATEGORY_ID" size="18" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/>
-                <a href="javascript:call_fieldlookup2(document.advancedsearchform.SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+                <input type="text" class="inputBox" name="SEARCH_CATEGORY_ID" size="15" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/><a href="javascript:call_fieldlookup2(document.advancedsearchform.SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
               </div>
               <div class="tabletext">
                 <a href="javascript:document.advancedsearchform.submit()" class="buttontext">${uiLabelMap.ProductAdvancedSearch}</a>
