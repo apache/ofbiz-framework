@@ -31,6 +31,7 @@ under the License.
                 <xs:element minOccurs="0" ref="postprocessor"/>
                 <xs:element minOccurs="0" ref="after-login"/>
                 <xs:element minOccurs="0" ref="before-logout"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="default-request"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="request-map"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="view-map"/>
             </xs:sequence>
@@ -108,6 +109,14 @@ under the License.
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:element name="default-request">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.default-request"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.default-request">
+        <xs:attribute type="xs:string" name="request-uri" use="required"/>        
+    </xs:attributeGroup>
     <xs:element name="request-map">
         <xs:complexType>
             <xs:sequence>

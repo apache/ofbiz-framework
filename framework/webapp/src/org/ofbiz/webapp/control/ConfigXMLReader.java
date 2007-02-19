@@ -67,6 +67,7 @@ public class ConfigXMLReader {
         public Map handlerMap = FastMap.newInstance();
         public Map requestMap = FastMap.newInstance();
         public Map viewMap = FastMap.newInstance();
+        public String defaultRequest = null;
 
         public ControllerConfig(URL url) {
             this.url = url;
@@ -77,6 +78,7 @@ public class ConfigXMLReader {
                 this.handlerMap = loadHandlerMap(rootElement, url);
                 this.requestMap = loadRequestMap(rootElement, url);
                 this.viewMap = loadViewMap(rootElement, url);
+                this.defaultRequest = loadDefaultRequest(rootElement, url);
             }
         }
     }
@@ -136,7 +138,7 @@ public class ConfigXMLReader {
 
     /** Loads the XML file and returns the root element */
     public static Element loadDocument(URL location) {
-        Document document = null;
+        Document document;
         try {
             document = UtilXml.readXmlDocument(location, true);
             Element rootElement = document.getDocumentElement();
@@ -250,15 +252,14 @@ public class ConfigXMLReader {
         /* Debugging */
         if (Debug.verboseOn()) {
             Debug.logVerbose("-------- Request Mappings --------", module);
-            FastMap debugMap = map;
-            Set debugSet = debugMap.keySet();
+            //FastMap debugMap = map;
+            Set debugSet = map.keySet();
             Iterator i = debugSet.iterator();
 
             while (i.hasNext()) {
                 Object o = i.next();
                 String request = (String) o;
-                FastMap thisURI = (FastMap) debugMap.get(o);
-
+                Map thisURI = (Map) map.get(o);
 
                 StringBuffer verboseMessageBuffer = new StringBuffer();
 
@@ -268,7 +269,7 @@ public class ConfigXMLReader {
                     String name = (String) lo;
                     String value = (String) thisURI.get(lo);
 
-                    verboseMessageBuffer.append("[" + name + "=>" + value + "]");
+                    verboseMessageBuffer.append("[").append(name).append("=>").append(value).append("]");
                 }
                 Debug.logVerbose(request + " :: " + verboseMessageBuffer.toString(), module);
             }
@@ -345,14 +346,14 @@ public class ConfigXMLReader {
         /* Debugging */
         if (Debug.verboseOn()) {
             Debug.logVerbose("-------- View Mappings --------", module);
-            FastMap debugMap = map;
-            Set debugSet = debugMap.keySet();
+            //FastMap debugMap = map;
+            Set debugSet = map.keySet();
             Iterator i = debugSet.iterator();
     
             while (i.hasNext()) {
                 Object o = i.next();
                 String request = (String) o;
-                FastMap thisURI = (FastMap) debugMap.get(o);
+                Map thisURI = (Map) map.get(o);
     
                 StringBuffer verboseMessageBuffer = new StringBuffer();
     
@@ -362,7 +363,7 @@ public class ConfigXMLReader {
                     String name = (String) lo;
                     String value = (String) thisURI.get(lo);
     
-                    verboseMessageBuffer.append("[" + name + "=>" + value + "]");
+                    verboseMessageBuffer.append("[").append(name).append("=>").append(value).append("]");
                 }
                 Debug.logVerbose(request + " :: " + verboseMessageBuffer.toString(), module);
             }
@@ -546,6 +547,27 @@ public class ConfigXMLReader {
         double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
         if (Debug.infoOn()) Debug.logInfo("ConfigMap Created: (" + map.size() + ") records in " + totalSeconds + "s", module);
         return map;
+    }
+
+    /** Gets the default-request from the configuration */
+    public static String getDefaultRequest(URL xml) {
+        ControllerConfig controllerConfig = getControllerConfig(xml);
+        return controllerConfig != null ? controllerConfig.defaultRequest : null;
+    }
+
+    public static String loadDefaultRequest(Element root, URL xml) {
+        if (root == null) {
+            root = loadDocument(xml);
+        }
+        if (root == null) {
+            return null;
+        }
+
+        Element e = UtilXml.firstChildElement(root, "default-request");
+        if (e != null) {
+            return e.getAttribute("request-uri");
+        }
+        return null;
     }
 
     /** Gets a FastMap of handler mappings. */

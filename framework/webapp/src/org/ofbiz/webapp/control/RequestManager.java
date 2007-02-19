@@ -64,7 +64,7 @@ public class RequestManager implements Serializable {
     /** Gets the class name of the named handler */
     public String getHandlerClass(String name, int type) {
         Map map = getHandlerMap();
-        Map hMap = null;
+        Map hMap;
 
         if (type == 1) {
             hMap = (Map) map.get("view");
@@ -81,7 +81,7 @@ public class RequestManager implements Serializable {
 
     public List getHandlerKeys(int type) {
         Map map = getHandlerMap();
-        Map hMap = null;
+        Map hMap;
 
         if (type == 1) {
             hMap = (Map) map.get("view");
@@ -160,8 +160,7 @@ public class RequestManager implements Serializable {
         Map uri = getRequestMapMap(uriStr);
 
         if (uri != null) {
-            String EVENT_GLOBAL_TRANSACTION = "global-transaction";
-            return new Boolean((String) uri.get(ConfigXMLReader.EVENT_GLOBAL_TRANSACTION)).booleanValue();
+            return Boolean.valueOf((String) uri.get(ConfigXMLReader.EVENT_GLOBAL_TRANSACTION)).booleanValue();
         } else {
             if (Debug.verboseOn()) {
                 Debug.logWarning("[RequestManager.getEventGlobalTransaction] Global-transaction of event for request \"" +
@@ -268,7 +267,7 @@ public class RequestManager implements Serializable {
 
     /** Gets the default error page from the configMap or static site default */
     public String getDefaultErrorPage() {
-        String errorPage = null;
+        String errorPage;
         errorPage = (String) ConfigXMLReader.getConfigMap(configFileUrl).get(ConfigXMLReader.DEFAULT_ERROR_PAGE);
         //Debug.logInfo("For DefaultErrorPage got errorPage: " + errorPage, module);
         if (errorPage != null) return errorPage;
@@ -282,10 +281,7 @@ public class RequestManager implements Serializable {
             String value = (String) uri.get(ConfigXMLReader.SECURITY_AUTH);
 
             //if (Debug.verboseOn()) Debug.logVerbose("Require Auth: " + value, module);
-            if ("true".equalsIgnoreCase(value))
-                return true;
-            else
-                return false;
+            return "true".equalsIgnoreCase(value);
         } else
             return false;
     }
@@ -297,10 +293,7 @@ public class RequestManager implements Serializable {
             String value = (String) uri.get(ConfigXMLReader.SECURITY_HTTPS);
 
             //if (Debug.verboseOn()) Debug.logVerbose("Requires HTTPS: " + value, module);
-            if ("true".equalsIgnoreCase(value))
-                return true;
-            else
-                return false;
+            return "true".equalsIgnoreCase(value);
         } else
             return false;
     }
@@ -312,10 +305,7 @@ public class RequestManager implements Serializable {
             String value = (String) uri.get(ConfigXMLReader.SECURITY_EXTVIEW);
 
             //if (Debug.verboseOn()) Debug.logVerbose("Allow External View: " + value, module);
-            if ("false".equalsIgnoreCase(value))
-                return false;
-            else
-                return true;
+            return !"false".equalsIgnoreCase(value);
         } else
             return true;
     }
@@ -327,36 +317,32 @@ public class RequestManager implements Serializable {
             String value = (String) uri.get(ConfigXMLReader.SECURITY_DIRECT);
 
             //if (Debug.verboseOn()) Debug.logVerbose("Allow Direct Request: " + value, module);
-            if ("false".equalsIgnoreCase(value))
-                return false;
-            else
-                return true;
+            return !"false".equalsIgnoreCase(value);
         } else
             return false;
     }
 
+    public String getDefaultRequest() {
+        return ConfigXMLReader.getDefaultRequest(configFileUrl);
+    }
+
     public Collection getFirstVisitEvents() {
-        Collection c = (Collection) ConfigXMLReader.getConfigMap(configFileUrl).get(ConfigXMLReader.FIRSTVISIT);
-        return c;
+        return (Collection) ConfigXMLReader.getConfigMap(configFileUrl).get(ConfigXMLReader.FIRSTVISIT);
     }
 
     public Collection getPreProcessor() {
-        Collection c = (Collection) ConfigXMLReader.getConfigMap(configFileUrl).get(ConfigXMLReader.PREPROCESSOR);
-        return c;
+        return (Collection) ConfigXMLReader.getConfigMap(configFileUrl).get(ConfigXMLReader.PREPROCESSOR);
     }
 
     public Collection getPostProcessor() {
-        Collection c = (Collection) ConfigXMLReader.getConfigMap(configFileUrl).get(ConfigXMLReader.POSTPROCESSOR);
-        return c;
+        return (Collection) ConfigXMLReader.getConfigMap(configFileUrl).get(ConfigXMLReader.POSTPROCESSOR);
     }
 
     public List getAfterLoginEventList() {
-        List lst = (List) ConfigXMLReader.getConfigMap(configFileUrl).get("after-login");
-        return lst;
+        return (List) ConfigXMLReader.getConfigMap(configFileUrl).get("after-login");
     }
 
     public List getBeforeLogoutEventList() {
-        List lst = (List) ConfigXMLReader.getConfigMap(configFileUrl).get("before-logout");
-        return lst;
+        return (List) ConfigXMLReader.getConfigMap(configFileUrl).get("before-logout");        
     }
 }
