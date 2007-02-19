@@ -24,7 +24,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -77,7 +76,8 @@ public class ProductSearchSession {
 
         /** Basic copy constructor */
         public ProductSearchOptions(ProductSearchOptions productSearchOptions) {
-            this.constraintList = new LinkedList(productSearchOptions.constraintList);
+            this.constraintList = FastList.newInstance();
+            this.constraintList.addAll(productSearchOptions.constraintList);
             this.resultSortOrder = productSearchOptions.resultSortOrder;
             this.viewIndex = productSearchOptions.viewIndex;
             this.viewSize = productSearchOptions.viewSize;
@@ -196,7 +196,7 @@ public class ProductSearchSession {
     public static List getSearchOptionsHistoryList(HttpSession session) {
         List optionsHistoryList = (List) session.getAttribute("_PRODUCT_SEARCH_OPTIONS_HISTORY_"); 
         if (optionsHistoryList == null) {
-            optionsHistoryList = new LinkedList();
+            optionsHistoryList = FastList.newInstance();
             session.setAttribute("_PRODUCT_SEARCH_OPTIONS_HISTORY_", optionsHistoryList);
         }
         return optionsHistoryList;
@@ -426,25 +426,18 @@ public class ProductSearchSession {
             searchAddConstraint(new ProductSearch.CategoryConstraint(searchCategoryId, !"N".equals(searchSubCategories)), session);
             constraintsChanged = true;
         }
-        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_CATEGORY_ID2"))) {
-            String searchCategoryId = (String) parameters.get("SEARCH_CATEGORY_ID2");
-            String searchSubCategories = (String) parameters.get("SEARCH_SUB_CATEGORIES2");
-            searchAddConstraint(new ProductSearch.CategoryConstraint(searchCategoryId, !"N".equals(searchSubCategories)), session);
-            constraintsChanged = true;
+        
+        for (int catNum = 1; catNum < 10; catNum++) {
+            if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_CATEGORY_ID" + catNum))) {
+                String searchCategoryId = (String) parameters.get("SEARCH_CATEGORY_ID" + catNum);
+                String searchSubCategories = (String) parameters.get("SEARCH_SUB_CATEGORIES" + catNum);
+                searchAddConstraint(new ProductSearch.CategoryConstraint(searchCategoryId, !"N".equals(searchSubCategories)), session);
+                constraintsChanged = true;
+            }
         }
-        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_CATEGORY_ID3"))) {
-            String searchCategoryId = (String) parameters.get("SEARCH_CATEGORY_ID3");
-            String searchSubCategories = (String) parameters.get("SEARCH_SUB_CATEGORIES3");
-            searchAddConstraint(new ProductSearch.CategoryConstraint(searchCategoryId, !"N".equals(searchSubCategories)), session);
-            constraintsChanged = true;
-        }
-
 
         // if there is any category selected try to use catalog and add a constraint for it
-        if (UtilValidate.isEmpty((String) parameters.get("SEARCH_CATEGORY_ID"))  &&
-            UtilValidate.isEmpty((String) parameters.get("SEARCH_CATEGORY_ID2")) &&
-            UtilValidate.isEmpty((String) parameters.get("SEARCH_CATEGORY_ID3"))) {    
-            
+        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_CATALOG_ID"))) {    
             String searchCatalogId = (String) parameters.get("SEARCH_CATALOG_ID");
             if (searchCatalogId != null && !searchCatalogId.equalsIgnoreCase("")) {
                 List categories = CategoryWorker.getRelatedCategoriesRet(request, "topLevelList", CatalogWorker.getCatalogTopCategoryId(request, searchCatalogId), true);
@@ -462,21 +455,16 @@ public class ProductSearchSession {
             searchAddConstraint(new ProductSearch.KeywordConstraint(keywordString, anyPrefixSuffix, anyPrefixSuffix, null, "AND".equals(searchOperator)), session);
             constraintsChanged = true;
         }
-        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_STRING2"))) {
-            String keywordString = (String) parameters.get("SEARCH_STRING2");
-            String searchOperator = (String) parameters.get("SEARCH_OPERATOR2");
-            // defaults to true/Y, ie anything but N is true/Y
-            boolean anyPrefixSuffix = !"N".equals((String) parameters.get("SEARCH_ANYPRESUF2"));
-            searchAddConstraint(new ProductSearch.KeywordConstraint(keywordString, anyPrefixSuffix, anyPrefixSuffix, null, "AND".equals(searchOperator)), session);
-            constraintsChanged = true;
-        }
-        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_STRING3"))) {
-            String keywordString = (String) parameters.get("SEARCH_STRING3");
-            String searchOperator = (String) parameters.get("SEARCH_OPERATOR3");
-            // defaults to true/Y, ie anything but N is true/Y
-            boolean anyPrefixSuffix = !"N".equals((String) parameters.get("SEARCH_ANYPRESUF3"));
-            searchAddConstraint(new ProductSearch.KeywordConstraint(keywordString, anyPrefixSuffix, anyPrefixSuffix, null, "AND".equals(searchOperator)), session);
-            constraintsChanged = true;
+
+        for (int kwNum = 1; kwNum < 10; kwNum++) {
+            if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_STRING" + kwNum))) {
+                String keywordString = (String) parameters.get("SEARCH_STRING" + kwNum);
+                String searchOperator = (String) parameters.get("SEARCH_OPERATOR" + kwNum);
+                // defaults to true/Y, ie anything but N is true/Y
+                boolean anyPrefixSuffix = !"N".equals((String) parameters.get("SEARCH_ANYPRESUF" + kwNum));
+                searchAddConstraint(new ProductSearch.KeywordConstraint(keywordString, anyPrefixSuffix, anyPrefixSuffix, null, "AND".equals(searchOperator)), session);
+                constraintsChanged = true;
+            }
         }
 
         // if features were specified by ID add a constraint for each
@@ -629,5 +617,100 @@ public class ProductSearchSession {
         result.put("searchSortOrderString", searchSortOrderString);
 
         return result;
+    }
+    
+    public static String makeSearchParametersString(HttpSession session) {
+        return makeSearchParametersString(getProductSearchOptions(session));
+    }
+    public static String makeSearchParametersString(ProductSearchOptions productSearchOptions) {
+        StringBuffer searchParamString = new StringBuffer();
+
+        List constraintList = productSearchOptions.getConstraintList();
+        Iterator constraintIter = constraintList.iterator();
+        int categoriesCount = 0;
+        int featuresCount = 0;
+        int keywordsCount = 0;
+        boolean isNotFirst = false;
+        while (constraintIter.hasNext()) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) constraintIter.next();
+            if (psc instanceof ProductSearch.CategoryConstraint) {
+                ProductSearch.CategoryConstraint cc = (ProductSearch.CategoryConstraint) psc;
+                categoriesCount++;
+                if (isNotFirst) {
+                    searchParamString.append("&amp;");
+                } else {
+                    isNotFirst = true;
+                }
+                searchParamString.append("SEARCH_CATEGORY_ID");
+                searchParamString.append(categoriesCount);
+                searchParamString.append("=");
+                searchParamString.append(cc.productCategoryId);
+                searchParamString.append("&amp;SEARCH_SUB_CATEGORIES");
+                searchParamString.append(categoriesCount);
+                searchParamString.append("=");
+                searchParamString.append(cc.includeSubCategories ? "Y" : "N");
+            } else if (psc instanceof ProductSearch.FeatureConstraint) {
+                ProductSearch.FeatureConstraint fc = (ProductSearch.FeatureConstraint) psc;
+                featuresCount++;
+                if (isNotFirst) {
+                    searchParamString.append("&amp;");
+                } else {
+                    isNotFirst = true;
+                }
+                searchParamString.append("SEARCH_FEAT");
+                searchParamString.append(featuresCount);
+                searchParamString.append("=");
+                searchParamString.append(fc.productFeatureId);
+            /* No way to specify parameters for these right now, so table until later
+            } else if (psc instanceof ProductSearch.FeatureSetConstraint) {
+                ProductSearch.FeatureSetConstraint fsc = (ProductSearch.FeatureSetConstraint) psc;
+             */   
+            } else if (psc instanceof ProductSearch.KeywordConstraint) {
+                ProductSearch.KeywordConstraint kc = (ProductSearch.KeywordConstraint) psc;
+                keywordsCount++;
+                if (isNotFirst) {
+                    searchParamString.append("&amp;");
+                } else {
+                    isNotFirst = true;
+                }
+                searchParamString.append("SEARCH_STRING");
+                searchParamString.append(keywordsCount);
+                searchParamString.append("=");
+                searchParamString.append(UtilHttp.encodeBlanks(kc.keywordsString));
+                searchParamString.append("&amp;SEARCH_OPERATOR");
+                searchParamString.append(keywordsCount);
+                searchParamString.append("=");
+                searchParamString.append(kc.isAnd ? "AND" : "OR");
+                searchParamString.append("&amp;SEARCH_ANYPRESUF");
+                searchParamString.append(keywordsCount);
+                searchParamString.append("=");
+                searchParamString.append(kc.anyPrefix | kc.anySuffix ? "Y" : "N");
+                
+            /* No way to specify parameters for these right now, so table until later
+            } else if (psc instanceof ProductSearch.ListPriceRangeConstraint) {
+                ProductSearch.ListPriceRangeConstraint lprc = (ProductSearch.ListPriceRangeConstraint) psc;
+             */   
+            }
+        }
+        
+        ResultSortOrder resultSortOrder = productSearchOptions.getResultSortOrder();
+        if (resultSortOrder != null) {
+            if (resultSortOrder instanceof ProductSearch.SortKeywordRelevancy) {
+                //ProductSearch.SortKeywordRelevancy skr = (ProductSearch.SortKeywordRelevancy) resultSortOrder;
+                searchParamString.append("&amp;sortOrder=SortKeywordRelevancy");
+            } else if (resultSortOrder instanceof ProductSearch.SortProductField) {
+                ProductSearch.SortProductField spf = (ProductSearch.SortProductField) resultSortOrder;
+                searchParamString.append("&amp;sortOrder=SortProductField:");
+                searchParamString.append(spf.fieldName);
+            } else if (resultSortOrder instanceof ProductSearch.SortProductPrice) {
+                ProductSearch.SortProductPrice spp = (ProductSearch.SortProductPrice) resultSortOrder;
+                searchParamString.append("&amp;sortOrder=SortProductPrice:");
+                searchParamString.append(spp.productPriceTypeId);
+            }
+            searchParamString.append("&amp;sortAscending=");
+            searchParamString.append(resultSortOrder.isAscending() ? "Y" : "N");
+        }
+
+        return searchParamString.toString();
     }
 }
