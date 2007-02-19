@@ -48,6 +48,15 @@ under the License.
   </#if>
 </#if>
 
+<#if productCategoryLinkScreen?has_content && productCategoryLinks?has_content>
+    <div class="productcategorylink-container">        
+        <#list productCategoryLinks as productCategoryLink>
+            ${setRequestAttribute("productCategoryLink",productCategoryLink)}
+            ${screens.render(productCategoryLinkScreen)}
+        </#list>
+    </div>
+</#if>
+
 <#if productCategoryMembers?has_content>
     <div class="product-prevnext">
       <#-- Start Page Select Drop-Down -->

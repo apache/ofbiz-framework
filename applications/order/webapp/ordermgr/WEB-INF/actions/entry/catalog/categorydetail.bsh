@@ -73,7 +73,7 @@ if (catResult != null) {
 }
 
 // set this as a last viewed
-categoryId = request.getAttribute("productCategoryId");
+categoryId = parameters.get("productCategoryId");
 int LAST_VIEWED_TO_KEEP = 10; // modify this to change the number of last viewed to keep
 lastViewedCategories = session.getAttribute("lastViewedCategories");
 if (lastViewedCategories == null) {
