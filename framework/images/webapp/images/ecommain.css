@@ -866,6 +866,30 @@ color: red;
 text-align: right;
 }
 
+.productcategorylink-container {
+position: relative;
+margin-top: 10px;
+margin-bottom: 5px;
+border-top: #999 solid 1px;
+}
+
+.productcategorylink {
+position: relative;
+padding: 5px;
+border-bottom: #999 solid 1px;
+height: 60px;
+}
+
+.productcategorylink .smallimage {
+float: left;
+/* position: absolute; top: 5px; left: 5px; */
+margin: 0px 5px 5px 0px;
+}
+.productcategorylink .smallimage img {
+border: #CCC solid 1px;
+height: 50px;
+}
+
 .productsummary-container {
 position: relative;
 margin-top: 10px;
