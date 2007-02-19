@@ -95,6 +95,7 @@ under the License.
                 <!-- The default (global) stylesheet is added to the list of stylesheets to the first position -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
                 <!-- The default (global) java scripts -->
+                <set field="layoutSettings.javaScripts[]" value="/images/dojo/dojo.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/calendar1.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
