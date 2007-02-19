@@ -81,6 +81,8 @@ public class ControlServlet extends HttpServlet {
      * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestHandler requestHandler = this.getRequestHandler(); 
+        
         // setup DEFAULT chararcter encoding and content type, this will be overridden in the RequestHandler for view rendering
         String charset = getServletContext().getInitParameter("charset");
         if (charset == null || charset.length() == 0) charset = request.getCharacterEncoding();
@@ -168,6 +170,8 @@ public class ControlServlet extends HttpServlet {
             Debug.logError("[ControlServlet] ERROR: security not found in ServletContext", module);
         }
         request.setAttribute("security", security);
+        
+        request.setAttribute("_REQUEST_HANDLER_", requestHandler);
 
         // display details on the servlet objects
         if (Debug.verboseOn()) {
@@ -182,16 +186,16 @@ public class ControlServlet extends HttpServlet {
         String errorPage = null;
         try {
             // the ServerHitBin call for the event is done inside the doRequest method
-            getRequestHandler().doRequest(request, response, null, userLogin, delegator);
+            requestHandler.doRequest(request, response, null, userLogin, delegator);
         } catch (RequestHandlerException e) {
             Throwable throwable = e.getNested() != null ? e.getNested() : e;
             Debug.logError(throwable, "Error in request handler: ", module);
             request.setAttribute("_ERROR_MESSAGE_", throwable.toString());
-            errorPage = getRequestHandler().getDefaultErrorPage(request);
+            errorPage = requestHandler.getDefaultErrorPage(request);
         } catch (Exception e) {
             Debug.logError(e, "Error in request handler: ", module);
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
-            errorPage = getRequestHandler().getDefaultErrorPage(request);
+            errorPage = requestHandler.getDefaultErrorPage(request);
         }
 
         // Forward to the JSP
