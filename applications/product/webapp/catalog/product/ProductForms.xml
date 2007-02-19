@@ -513,7 +513,7 @@ under the License.
         <field name="localeString" title="${uiLabelMap.ProductLocaleString}" map-name="content"><text size="40"/></field>
         <field use-when="contentId == null" name="contentId"><ignored/></field>
         <field use-when="contentId != null" name="contentId" tooltip="${uiLabelMap.ProductNotModificationRecrationProductContentAssociation}" map-name="productContentData" ><display/></field>
-        <field name="text" title="${uiLabelMap.ProductText}*" map-name="textData" widget-style="textAreaBox" ><textarea cols="80" rows="20"/></field>
+        <field name="text" title="${uiLabelMap.ProductText}*" map-name="textData" widget-style="textAreaBox dojo-ResizableTextArea" ><textarea cols="80" rows="20"/></field>
         <field name="textDataResourceId" title="${uiLabelMap.ProductTextDataResourceId}" map-name="textData"><hidden/></field>
         <field name="useTime"><hidden/></field>
         <field name="useTimeUomId"><hidden/></field>
