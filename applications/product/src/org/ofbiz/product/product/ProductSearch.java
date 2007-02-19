@@ -55,6 +55,7 @@ import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.party.party.PartyHelper;
+import org.ofbiz.product.category.CategoryContentWrapper;
 
 
 /**
@@ -631,7 +632,11 @@ public class ProductSearch {
             StringBuffer ppBuf = new StringBuffer();            
             ppBuf.append(UtilProperties.getMessage(resource, "ProductCategory", locale)+": ");
             if (productCategory != null) {
-                ppBuf.append(productCategory.getString("description"));
+                String catInfo = CategoryContentWrapper.getProductCategoryContentAsText(productCategory, "CATEGORY_NAME", locale);
+                if (UtilValidate.isEmpty(catInfo)) {
+                    catInfo = CategoryContentWrapper.getProductCategoryContentAsText(productCategory, "DESCRIPTION", locale);
+                }
+                ppBuf.append(catInfo);
             }
             if (productCategory == null || detailed) {
                 ppBuf.append(" [");
