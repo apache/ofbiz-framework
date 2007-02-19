@@ -68,7 +68,7 @@ if (UtilValidate.isNotEmpty(forumId)) {
     exprList.add(thruExpr2);
     //contentAssocTypeExpr = new EntityExpr("caContentAssocTypeId", EntityOperator.EQUALS, "RESPONSE");
     //exprList.add(contentAssocTypeExpr);
-    statusIdExpr = new EntityExpr("statusId", EntityOperator.EQUALS, "BLOG_SUBMITTED");
+    statusIdExpr = new EntityExpr("statusId", EntityOperator.EQUALS, "CTNT_IN_PROGRESS");
     exprList.add(statusIdExpr);
     contentIdToExpr = new EntityExpr("caContentIdTo", EntityOperator.EQUALS, forumId);
     exprList.add(contentIdToExpr);

@@ -37,21 +37,79 @@ under the License.
         <action service="storeEmailAsCommunication" mode="sync"/>
     </eca>
 
-    <!-- create content events -->
-    <eca service="createContent" event="commit">
+    <!-- create data resource ecas -->
+    <eca service="createDataResource" event="commit">
         <condition field-name="partyId" operator="is-not-empty"/>
         <condition field-name="roleTypeId" operator="is-not-empty"/>
-        <action service="createContentRole" mode="sync"/>
+        <action service="createDataResourceRole" mode="sync" runAsUser="system"/>
+    </eca>
+    <eca service="createDataResource" event="commit">
+        <condition field-name="partyId" operator="is-not-empty"/>
+        <condition field-name="roleTypeId" operator="is-empty"/>
+        <set field-name="roleTypeId" value="OWNER"/>
+        <action service="createDataResourceRole" mode="sync" runAsUser="system"/>
+    </eca>
+    <eca service="createDataResource" event="commit">
+        <condition field-name="partyId" operator="is-empty"/>
+        <condition field-name="roleTypeId" operator="is-empty"/>
+        <condition field-name="userLogin" operator="is-not-empty"/>
+        <set field-name="partyId" env-name="${userLogin.partyId}"/>
+        <set field-name="roleTypeId" value="OWNER"/>
+        <action service="createDataResourceRole" mode="sync" runAsUser="system"/>
     </eca>
 
-    <eca service="createTextContent" event="invoke">
-        <action service="createDataResource" mode="sync"/>
-        <action service="createContent" mode="sync"/>
+    <!-- other data resource; needs dataResourceId -->
+    <eca service="createOtherDataResource" event="in-validate">
+        <condition field-name="dataResourceId" operator="is-empty"/>
+        <set field-name="dataResourceTypeId" value="OTHER_OBJECT"/>
+        <action service="createDataResource" mode="sync" result-to-context="true"/>
+    </eca>
+    
+    <!-- electronic text; needs dataResourceId -->
+    <eca service="createElectronicText" event="in-validate">
+        <condition field-name="dataResourceId" operator="is-empty"/>
+        <set field-name="dataResourceTypeId" value="ELECTRONIC_TEXT"/>
+        <action service="createDataResource" mode="sync" result-to-context="true"/>
     </eca>
 
-    <eca service="updateTextContent" event="invoke">
-        <action service="updateDataResource" mode="sync"/>
-        <action service="updateContent" mode="sync"/>
+    <!-- create content ecas -->
+    <eca service="createContent" event="commit">
+        <condition field-name="partyId" operator="is-not-empty"/>
+        <condition field-name="roleTypeId" operator="is-not-empty"/>        
+        <action service="createContentRole" mode="sync" runAsUser="system"/>
+    </eca>
+    <eca service="createContent" event="commit">
+        <condition field-name="partyId" operator="is-not-empty"/>
+        <condition field-name="roleTypeId" operator="is-empty"/>
+        <set field-name="roleTypeId" value="OWNER"/>
+        <action service="createContentRole" mode="sync" runAsUser="system"/>
+    </eca>
+    <eca service="createContent" event="commit">
+        <condition field-name="partyId" operator="is-empty"/>
+        <condition field-name="roleTypeId" operator="is-empty"/>
+        <condition field-name="userLogin" operator="is-not-empty"/>
+        <set field-name="partyId" env-name="${userLogin.partyId}"/>
+        <set field-name="roleTypeId" value="OWNER"/>
+        <action service="createContentRole" mode="sync" runAsUser="system"/>
+    </eca>
+
+    <eca service="createContent" event="commit">
+        <condition field-name="contentAssocTypeId" operator="is-not-empty"/>
+        <condition field-name="contentIdTo" operator="is-not-empty"/>
+        <action service="createContentAssoc" mode="sync" runAsUser="system"/>
+    </eca>
+    <eca service="createContent" event="commit">
+        <condition field-name="contentAssocTypeId" operator="is-not-empty"/>
+        <condition field-name="contentIdFrom" operator="is-not-empty"/>
+        <action service="createContentAssoc" mode="sync" runAsUser="system"/>
+    </eca>
+
+    <!-- content assoc services -->
+    <eca service="createContentAssoc" event="in-validate">
+        <action service="checkContentAssocIds" mode="sync"/>
+    </eca>
+    <eca service="updateContentAssoc" event="in-validate">
+        <action service="checkContentAssocIds" mode="sync"/>
     </eca>
 
 </service-eca>

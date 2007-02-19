@@ -89,7 +89,8 @@ public class ContentPermissionServices {
      * associated with the ownerContent entity.
      */
     public static Map checkContentPermission(DispatchContext dctx, Map context) {
-
+        Debug.logWarning(new Exception(), "This service has been depricated in favor of [genericContentPermission]", module);
+        
         Security security = dctx.getSecurity();
         GenericDelegator delegator = dctx.getDelegator();
         String statusId = (String) context.get("statusId");

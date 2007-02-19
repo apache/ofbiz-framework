@@ -169,15 +169,15 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
           </td>
           <td class="tabletext">
           <b>submitted:</b>
-          <input type="radio" name="statusId_o_${row}" value="BLOG_SUBMITTED" checked/>
+          <input type="radio" name="statusId_o_${row}" value="CTNT_FINAL_DRAFT" checked/>
           </td>
           <td class="tabletext">
           <b>publish:</b>
-          <input type="radio" name="statusId_o_${row}" value="BLOG_PUBLISHED"/>
+          <input type="radio" name="statusId_o_${row}" value="CTNT_PUBLISHED"/>
           </td>
           <td class="tabletext">
           <b>reject:</b>
-          <input type="radio" name="statusId_o_${row}" value="BLOG_REJECTED"/>
+          <input type="radio" name="statusId_o_${row}" value="CTNT_DEACTIVATED"/>
           </td>
         </tr>
           <input type="hidden" name="contentId_o_${row}" value="${content.contentId}"/>

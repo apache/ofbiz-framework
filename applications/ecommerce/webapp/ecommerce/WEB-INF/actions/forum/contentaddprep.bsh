@@ -84,14 +84,14 @@ singleWrapper.putInContext("contentPurpose", contentPurpose);
 singleWrapper.putInContext("forumId", contentIdTo);
 
 forumContent = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentIdTo));
-statusId = "BLOG_PUBLISHED";
+statusId = "CTNT_PUBLISHED";
 if (forumContent != null) {
     statusId = forumContent.getString("statusId");
     if (UtilValidate.isEmpty(statusId)) {
         statusId = page.get("statusId");
     }
     if (UtilValidate.isEmpty(statusId)) {
-        statusId = "BLOG_PUBLISHED";
+        statusId = "CTNT_PUBLISHED";
     }
 }
 singleWrapper.putInContext("statusId", statusId);

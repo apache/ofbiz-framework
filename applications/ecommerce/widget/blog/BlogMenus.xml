@@ -22,7 +22,7 @@
     <menu name="view_edit" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="all" orientation="horizontal" menu-width="100%" default-tooltip-style="tabletext" default-widget-style="tabButton" menu-container-style="blogmenuwrapper" title="" type="simple">
         <menu-item name="view" title="View">
             <!--<link  text="View" target="ViewBlog?articleContentId=${blog.contentId}&amp;ownerContentId=${blog.ownerContentId}" style="tabButton" />-->
-            <link text="View" target="ViewBlog?articleContentId=${blog.contentId}&amp;caContentId=${blog.contentIdStart}&amp;caContentIdTo=${blog.caContentIdTo}&amp;contentId=${blog.contentId}&amp;caContentAssocTypeId=${blog.caContentAssocTypeId}&amp;caFromDate=${blog.caFromDate}&amp;drDataResourceId=${blog.dataResourceId}" style="buttontext" url-mode="inter-app"/>
+            <link text="View" target="ViewArticle?articleContentId=${blog.contentId}&amp;blogContentId=${blog.contentIdStart}" style="buttontext" url-mode="inter-app"/>
         </menu-item>
         <menu-item name="edit" title="Edit">
             <condition>
@@ -31,7 +31,7 @@
                     <if-entity-permission entity-id="${blog.contentId}" entity-name="Content" target-operation="CONTENT_UPDATE"/>
                 </or>
             </condition>
-            <link text="Edit" target="EditBlog?caContentId=${blog.contentIdStart}&amp;caContentIdTo=${blog.caContentIdTo}&amp;contentId=${blog.contentId}&amp;caContentAssocTypeId=${blog.caContentAssocTypeId}&amp;caFromDate=${blog.caFromDate}&amp;drDataResourceId=${blog.dataResourceId}" style="buttontext" url-mode="inter-app"/>
+            <link text="Edit" target="EditArticle?articleContentId=${blog.contentId}&amp;blogContentId=${blog.contentIdStart}" style="buttontext" url-mode="inter-app"/>
         </menu-item>                
     </menu>
 </menus>

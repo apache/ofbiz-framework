@@ -506,7 +506,7 @@ under the License.
             <ignored />
         </field>
         <field name="statusId" >
-            <hidden value="BLOG_PUBLISHED"/>
+            <hidden value="CTNT_PUBLISHED"/>
         </field>
         <field name="contentAssocTypeId" >
             <hidden value="RESPONSE"/>
@@ -563,7 +563,7 @@ under the License.
             <ignored />
         </field>
         <field name="statusId" >
-            <hidden value="BLOG_PUBLISHED"/>
+            <hidden value="CTNT_PUBLISHED"/>
         </field>
         <field name="contentAssocTypeId" >
             <hidden value="RESPONSE"/>

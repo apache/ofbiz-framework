@@ -310,7 +310,7 @@ public class ContentManagementEvents {
                         if (!statusIdUpdated) {
                             try {
                                 GenericValue targContent = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", targContentId));
-                                targContent.set("statusId", "BLOG_PUBLISHED");
+                                targContent.set("statusId", "CTNT_PUBLISHED");
                                 targContent.store();
                                 statusIdUpdated = true;
                             } catch(GenericEntityException e) {

@@ -36,7 +36,7 @@ under the License.
     viewIndex=viewIdx
     viewSize=viewSz
     contentAssocTypeId="PUBLISH_LINK"
-    pickWhen="purposes.contains(\"ARTICLE\") && \"BLOG_PUBLISHED\".equals(content.get(\"statusId\"))"
+    pickWhen="purposes.contains(\"ARTICLE\") && \"CTNT_PUBLISHED\".equals(content.get(\"statusId\"))"
     returnAfterPickWhen="purposes.contains(\"ARTICLE\")"
     followWhen="contentAssocTypeId != null && contentAssocTypeId.equals(\"never follow\")"
 >
@@ -102,19 +102,19 @@ under the License.
 <#if pageTargOp?has_content>
     <#assign targOp=pageTargOp/>
 </#if>
-<@checkPermission mode="equals" entityOperation="_CREATE" subContentId=contentDept statusId="BLOG_PUBLISHED" targetOperation=targOp contentPurposeList="ARTICLE" quickCheckContentId=contentIdx>
+<@checkPermission mode="equals" entityOperation="_CREATE" subContentId=contentDept statusId="CTNT_PUBLISHED" targetOperation=targOp contentPurposeList="ARTICLE" quickCheckContentId=contentIdx>
 <tr><td align="right">
 <a class="tabButton" style="height:14pt;" href="<@ofbizUrl>createforumarticle?forumId=${contentIdx?if_exists}&nodeTrailCsv=${contentIdx?if_exists}</@ofbizUrl>" >${uiLabelMap.ProductNewArticle}</a>
 </td></tr>
 </@checkPermission>
-<@checkPermission mode="not-equals" entityOperation="_CREATE" subContentId=contentDept statusId="BLOG_PUBLISHED" targetOperation=targOp contentPurposeList="ARTICLE" quickCheckContentId=contentIdx>
+<@checkPermission mode="not-equals" entityOperation="_CREATE" subContentId=contentDept statusId="CTNT_PUBLISHED" targetOperation=targOp contentPurposeList="ARTICLE" quickCheckContentId=contentIdx>
 <tr><td class="tabletext" align="right">
 ${uiLabelMap.EcommerceLoggedToPost}
 </td></tr>
 </@checkPermission>
 </table>
 <#--
-<@checkPermission mode="not-equals" entityOperation="_CREATE" subContentId=contentIdx statusId="BLOG_PUBLISHED" targetOperation="HAS_USER_ROLE" contentPurposeList="ARTICLE">
+<@checkPermission mode="not-equals" entityOperation="_CREATE" subContentId=contentIdx statusId="CTNT_PUBLISHED" targetOperation="HAS_USER_ROLE" contentPurposeList="ARTICLE">
             ${permissionErrorMsg?if_exists}
 </@checkPermission>
 -->

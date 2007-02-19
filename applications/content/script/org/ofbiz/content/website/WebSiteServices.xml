@@ -20,26 +20,23 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
-    <simple-method method-name="createWebSite" short-description="Create an WebSite">
-        <check-permission permission="CATALOG" action="_CREATE">
-        	<alt-permission permission="CONTENTMGR" action="_CREATE"/>
-        	<fail-message message="Security Error: to run createWebSite you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
 
+    <!-- WebSite Services -->
+    <simple-method method-name="createWebSite" short-description="Create a WebSite">
         <make-value value-name="newEntity" entity-name="WebSite"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         
         <create-value value-name="newEntity"/>
     </simple-method>
-    <simple-method method-name="updateWebSite" short-description="Update an WebSite">
-        <check-permission permission="CATALOG" action="_UPDATE">
-        	<alt-permission permission="CONTENTMGR" action="_UPDATE"/>
-        	<fail-message message="Security Error: to run updateWebSite you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
-
+    <simple-method method-name="updateWebSite" short-description="Update a WebSite">
+        <make-value value-name="lookupKeyValue" entity-name="WebSite"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="WebSite" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeWebSite" short-description="Remove a WebSite">
         <make-value value-name="lookupKeyValue" entity-name="WebSite"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key entity-name="WebSite" map-name="lookupKeyValue" value-name="lookedUpValue"/>
@@ -47,14 +44,8 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
 
-    <!-- Party and WebSite services -->
-    <simple-method method-name="addWebSiteRole" short-description="Add WebSite Role">
-        <check-permission permission="CONTENTMGR" action="_CREATE">
-        	<alt-permission permission="PARTYMGR" action="_CREATE"/>
-        	<fail-message message="Security Error: to run addWebSiteRole you must have the CONTENT_CREATE or CONTENT_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
-
+    <!-- WebSite Role Services -->
+    <simple-method method-name="createWebSiteRole" short-description="Create WebSite Role">
         <make-value value-name="newEntity" entity-name="WebSiteRole"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -67,12 +58,6 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateWebSiteRole" short-description="Update WebSite Role">
-        <check-permission permission="CONTENTMGR" action="_UPDATE">
-        	<alt-permission permission="PARTYMGR" action="_UPDATE"/>
-        	<fail-message message="Security Error: to run updateWebSiteRole you must have the CONTENT_UPDATE or CONTENT_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-name="lookupPKMap" entity-name="WebSiteRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="WebSiteRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
@@ -80,12 +65,6 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeWebSiteRole" short-description="Remove WebSite Role">
-        <check-permission permission="CONTENTMGR" action="_DELETE">
-        	<alt-permission permission="PARTYMGR" action="_DELETE"/>
-        	<fail-message message="Security Error: to run removeWebSiteRole you must have the CONTENT_DELETE or CONTENT_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-name="lookupPKMap" entity-name="WebSiteRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="WebSiteRole" map-name="lookupPKMap" value-name="lookedUpValue"/>

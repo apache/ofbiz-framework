@@ -23,257 +23,234 @@ under the License.
     <description>Content Component Services</description>
     <vendor>OFBiz</vendor>
 
-    <!--ContentType services.-->
-    <service name="createContentType" engine="simple" default-entity-name="ContentType"
-        location="org/ofbiz/content/content/ContentServices.xml"
-        invoke="createContentType" auth="true">
+    <!-- ContentType services -->
+    <service name="createContentType" engine="simple" default-entity-name="ContentType" auth="true"
+            location="org/ofbiz/content/content/ContentServices.xml" invoke="createContentType">
         <description>Create a ContentType</description>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateContentType" engine="simple" default-entity-name="ContentType"
-        location="org/ofbiz/content/content/ContentServices.xml" invoke="updateContentType" auth="true">
+    <service name="updateContentType" engine="simple" default-entity-name="ContentType" auth="true"
+            location="org/ofbiz/content/content/ContentServices.xml" invoke="updateContentType">
         <description>Update a ContentType</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeContentType" engine="simple" default-entity-name="ContentType"
-        location="org/ofbiz/content/content/ContentServices.xml" invoke="removeContentType" auth="true">
+    <service name="removeContentType" engine="simple" default-entity-name="ContentType" auth="true"
+            location="org/ofbiz/content/content/ContentServices.xml" invoke="removeContentType" >
         <description>Remove ContentType</description>
+        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <!--ContentAssocType services.-->
-    <service name="createContentAssocType" engine="simple" default-entity-name="ContentAssocType"
-        location="org/ofbiz/content/content/ContentServices.xml"
-        invoke="createContentAssocType" auth="true">
+    <!-- ContentAssocType services -->
+    <service name="createContentAssocType" engine="simple" default-entity-name="ContentAssocType" auth="true"
+            location="org/ofbiz/content/content/ContentServices.xml" invoke="createContentAssocType">
         <description>Create a ContentAssocType</description>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateContentAssocType" engine="simple" default-entity-name="ContentAssocType"
-        location="org/ofbiz/content/content/ContentServices.xml"
-        invoke="updateContentAssocType" auth="true">
+    <service name="updateContentAssocType" engine="simple" default-entity-name="ContentAssocType" auth="true"
+            location="org/ofbiz/content/content/ContentServices.xml" invoke="updateContentAssocType">
         <description>Update a ContentAssocType</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeContentAssocType" engine="simple" default-entity-name="ContentAssocType"
-        invoke="removeContentAssocType"
-        location="org/ofbiz/content/content/ContentServices.xml" auth="true">
+    <service name="removeContentAssocType" engine="simple" default-entity-name="ContentAssocType" auth="true"
+            location="org/ofbiz/content/content/ContentServices.xml" invoke="removeContentAssocType">
         <description>Remove ContentAssocType</description>
+        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <!--ContentTypeAttr services.-->
-    <service name="createContentTypeAttr" engine="simple" invoke="createContentTypeAttr"
-        location="org/ofbiz/content/content/ContentServices.xml"
-        default-entity-name="ContentTypeAttr" auth="true">
+    <!-- ContentTypeAttr services -->
+    <service name="createContentTypeAttr" engine="simple" default-entity-name="ContentTypeAttr" auth="true"
+            location="org/ofbiz/content/content/ContentServices.xml" invoke="createContentTypeAttr">
         <description>Create a ContentTypeAttr</description>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeContentTypeAttr" engine="simple" invoke="removeContentTypeAttr"
-        location="org/ofbiz/content/content/ContentServices.xml" auth="true">
+    <service name="removeContentTypeAttr" engine="simple" auth="true"
+            location="org/ofbiz/content/content/ContentServices.xml" invoke="removeContentTypeAttr">
         <description>Remove ContentTypeAttr</description>
+        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes entity-name="ContentTypeAttr" include="pk" mode="IN" optional="false"/>
     </service>
 
     <!--ContentAssocPredicate services.-->
-    <service name="createContentAssocPredicate" engine="simple"
-        location="org/ofbiz/content/content/ContentServices.xml"
-        invoke="createContentAssocPredicate"
-        default-entity-name="ContentAssocPredicate" auth="true">
+    <service name="createContentAssocPredicate" engine="simple" default-entity-name="ContentAssocPredicate" auth="true"
+            location="org/ofbiz/content/content/ContentServices.xml" invoke="createContentAssocPredicate">
         <description>Create a ContentAssocPredicate</description>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateContentAssocPredicate" engine="simple"
-        location="org/ofbiz/content/content/ContentServices.xml"
-        invoke="updateContentAssocPredicate"
-        default-entity-name="ContentAssocPredicate" auth="true">
+    <service name="updateContentAssocPredicate" engine="simple" default-entity-name="ContentAssocPredicate" auth="true"
+            location="org/ofbiz/content/content/ContentServices.xml" invoke="updateContentAssocPredicate">
         <description>Update a ContentAssocPredicate</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeContentAssocPredicate" engine="simple"
-        location="org/ofbiz/content/content/ContentServices.xml"
-        invoke="removeContentAssocPredicate"
-        default-entity-name="ContentAssocPredicate" auth="true">
+    <service name="removeContentAssocPredicate" engine="simple" default-entity-name="ContentAssocPredicate" auth="true"
+        location="org/ofbiz/content/content/ContentServices.xml" invoke="removeContentAssocPredicate">
         <description>Remove ContentAssocPredicate</description>
+        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes entity-name="ContentAssocPredicate" include="pk" mode="IN" optional="false"/>
     </service>
 
-    <!--ContentPurposeType services.-->
-    <service name="createContentPurposeType" engine="simple" default-entity-name="ContentPurposeType"
-        location="org/ofbiz/content/content/ContentServices.xml"
-        invoke="createContentPurposeType"
-        auth="true">
+    <!-- ContentPurposeType services -->
+    <service name="createContentPurposeType" engine="simple" default-entity-name="ContentPurposeType" auth="true"
+            location="org/ofbiz/content/content/ContentServices.xml" invoke="createContentPurposeType">
         <description>Create a ContentPurposeType</description>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateContentPurposeType" engine="simple" default-entity-name="ContentPurposeType"
-        location="org/ofbiz/content/content/ContentServices.xml"
-        invoke="updateContentPurposeType"
-        auth="true">
+    <service name="updateContentPurposeType" engine="simple" default-entity-name="ContentPurposeType" auth="true"
+            location="org/ofbiz/content/content/ContentServices.xml" invoke="updateContentPurposeType">
         <description>Update a ContentPurposeType</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeContentPurposeType" engine="simple" default-entity-name="ContentPurposeType"
-        location="org/ofbiz/content/content/ContentServices.xml"
-        invoke="removeContentPurposeType" auth="true">
+    <service name="removeContentPurposeType" engine="simple" default-entity-name="ContentPurposeType" auth="true"
+            location="org/ofbiz/content/content/ContentServices.xml" invoke="removeContentPurposeType">
         <description>Remove ContentPurposeType</description>
+        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <!--CharacterSet services.-->
-    <service name="createCharacterSet" engine="simple"
-        location="org/ofbiz/content/data/DataServices.xml"
-        invoke="createCharacterSet"
-        default-entity-name="CharacterSet" auth="true">
+    <!-- CharacterSet services -->
+    <service name="createCharacterSet" engine="simple" default-entity-name="CharacterSet" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="createCharacterSet">
         <description>Create a CharacterSet</description>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateCharacterSet" engine="simple"
-        location="org/ofbiz/content/data/DataServices.xml"
-        invoke="updateCharacterSet"
-        default-entity-name="CharacterSet" auth="true">
+    <service name="updateCharacterSet" engine="simple" default-entity-name="CharacterSet" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="updateCharacterSet">
         <description>Update a CharacterSet</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeCharacterSet" engine="simple"
-        location="org/ofbiz/content/data/DataServices.xml"
-        invoke="removeCharacterSet"
-        default-entity-name="CharacterSet" auth="true">
+    <service name="removeCharacterSet" engine="simple" default-entity-name="CharacterSet" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="removeCharacterSet">
         <description>Remove CharacterSet</description>
+        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <!--DataResourceType services.-->
-    <service name="createDataResourceType" engine="simple"
-        location="org/ofbiz/content/data/DataServices.xml"
-        invoke="createDataResourceType"
-        default-entity-name="DataResourceType" auth="true">
+    <!-- DataResourceType services -->
+    <service name="createDataResourceType" engine="simple" default-entity-name="DataResourceType" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="createDataResourceType">
         <description>Create a DataResourceType</description>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateDataResourceType" engine="simple"
-        location="org/ofbiz/content/data/DataServices.xml"
-        invoke="updateDataResourceType"
-        default-entity-name="DataResourceType" auth="true">
+    <service name="updateDataResourceType" engine="simple" default-entity-name="DataResourceType" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="updateDataResourceType">
         <description>Update a DataResourceType</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeDataResourceType" engine="simple"
-        location="org/ofbiz/content/data/DataServices.xml"
-        invoke="removeDataResourceType"
-        default-entity-name="DataResourceType" auth="true">
+    <service name="removeDataResourceType" engine="simple" default-entity-name="DataResourceType" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="removeDataResourceType">
         <description>Remove DataResourceType</description>
+        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!--DataResourceTypeAttr services.-->
-    <service name="createDataResourceTypeAttr" engine="simple"
-        location="org/ofbiz/content/data/DataServices.xml"
-        invoke="createDataResourceTypeAttr"
-        default-entity-name="DataResourceTypeAttr" auth="true">
+    <service name="createDataResourceTypeAttr" engine="simple" default-entity-name="DataResourceTypeAttr" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="createDataResourceTypeAttr">
         <description>Create a DataResourceTypeAttr</description>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateDataResourceTypeAttr" engine="simple"
-        location="org/ofbiz/content/data/DataServices.xml"
-        invoke="updateDataResourceTypeAttr"
-        default-entity-name="DataResourceTypeAttr" auth="true">
+    <service name="updateDataResourceTypeAttr" engine="simple" default-entity-name="DataResourceTypeAttr" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="updateDataResourceTypeAttr">
         <description>Update a DataResourceTypeAttr</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeDataResourceTypeAttr" engine="simple"
-        location="org/ofbiz/content/data/DataServices.xml"
-        invoke="removeDataResourceTypeAttr"
-        default-entity-name="DataResourceTypeAttr" auth="true">
+    <service name="removeDataResourceTypeAttr" engine="simple" default-entity-name="DataResourceTypeAttr" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="removeDataResourceTypeAttr">
         <description>Remove DataResourceTypeAttr</description>
+        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <!--FileExtension services.-->
-    <service name="createFileExtension" engine="simple"
-        location="org/ofbiz/content/data/DataServices.xml"
-        invoke="createFileExtension"
-        default-entity-name="FileExtension" auth="true">
+    <!-- FileExtension services -->
+    <service name="createFileExtension" engine="simple" default-entity-name="FileExtension" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="createFileExtension">
         <description>Create a FileExtension</description>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateFileExtension" engine="simple"
-        location="org/ofbiz/content/data/DataServices.xml"
-        invoke="updateFileExtension"
-        default-entity-name="FileExtension" auth="true">
+    <service name="updateFileExtension" engine="simple" default-entity-name="FileExtension" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="updateFileExtension">
         <description>Update a FileExtension</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeFileExtension" engine="simple"
-        location="org/ofbiz/content/data/DataServices.xml"
-        invoke="removeFileExtension"
-        default-entity-name="FileExtension" auth="true">
+    <service name="removeFileExtension" engine="simple" default-entity-name="FileExtension" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="removeFileExtension">
         <description>Remove FileExtension</description>
+        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <!--MetaDataPredicate services.-->
-    <service name="createMetaDataPredicate" engine="simple"
-        location="org/ofbiz/content/data/DataServices.xml"
-        invoke="createMetaDataPredicate"
-        default-entity-name="MetaDataPredicate" auth="true">
+    <!-- MetaDataPredicate services -->
+    <service name="createMetaDataPredicate" engine="simple" default-entity-name="MetaDataPredicate" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="createMetaDataPredicate">
         <description>Create a MetaDataPredicate</description>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateMetaDataPredicate" engine="simple"
-        location="org/ofbiz/content/data/DataServices.xml"
-        invoke="updateMetaDataPredicate"
-        default-entity-name="MetaDataPredicate" auth="true">
+    <service name="updateMetaDataPredicate" engine="simple" default-entity-name="MetaDataPredicate" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="updateMetaDataPredicate">
         <description>Update a MetaDataPredicate</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeMetaDataPredicate" engine="simple"
-        location="org/ofbiz/content/data/DataServices.xml"
-        invoke="removeMetaDataPredicate"
-        default-entity-name="MetaDataPredicate" auth="true">
+    <service name="removeMetaDataPredicate" engine="simple" default-entity-name="MetaDataPredicate" auth="true"
+        location="org/ofbiz/content/data/DataServices.xml" invoke="removeMetaDataPredicate">
         <description>Remove MetaDataPredicate</description>
+        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <!--MimeType services.-->
-    <service name="createMimeType" engine="simple"
-        location="org/ofbiz/content/data/DataServices.xml"
-        invoke="createMimeType"
-        default-entity-name="MimeType" auth="true">
+    <!-- MimeType services -->
+    <service name="createMimeType" engine="simple" default-entity-name="MimeType" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="createMimeType">
         <description>Create a MimeType</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateMimeType" engine="simple"
-        location="org/ofbiz/content/data/DataServices.xml"
-        invoke="updateMimeType"
-        default-entity-name="MimeType" auth="true">
+    <service name="updateMimeType" engine="simple" default-entity-name="MimeType" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="updateMimeType">
         <description>Update a MimeType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeMimeType" engine="simple"
-        location="org/ofbiz/content/data/DataServices.xml"
-        invoke="removeMimeType"
-        default-entity-name="MimeType" auth="true">
+    <service name="removeMimeType" engine="simple" default-entity-name="MimeType" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="removeMimeType">
         <description>Remove MimeType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>

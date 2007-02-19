@@ -51,27 +51,27 @@ public class BlogRssServices {
 
     public static Map generateBlogRssFeed(DispatchContext dctx, Map context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        String caContentId = (String) context.get("caContentId");
+        String contentId = (String) context.get("blogContentId");
         String entryLink = (String) context.get("entryLink");
         String feedType = (String) context.get("feedType");
         Locale locale = (Locale) context.get("locale");
 
         // create the main link
         String mainLink = (String) context.get("mainLink");
-        mainLink = mainLink + "?caContentId=" + caContentId + "&ownerContentId=" + caContentId;
+        mainLink = mainLink + "?blogContentId=" + contentId;
 
         GenericDelegator delegator = dctx.getDelegator();
 
         // get the main blog content
         GenericValue content = null;
         try {
-            content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", caContentId));
+            content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
 
         if (content == null) {
-            return ServiceUtil.returnError("Not able to generate RSS feed for content: " + caContentId);
+            return ServiceUtil.returnError("Not able to generate RSS feed for content: " + contentId);
         }
 
         // create the feed
@@ -81,7 +81,7 @@ public class BlogRssServices {
 
         feed.setTitle(content.getString("contentName"));
         feed.setDescription(content.getString("description"));
-        feed.setEntries(generateEntryList(delegator, caContentId, entryLink, locale, userLogin));
+        feed.setEntries(generateEntryList(delegator, contentId, entryLink, locale, userLogin));
 
         Map resp = ServiceUtil.returnSuccess();
         resp.put("wireFeed", feed.createWireFeed());
@@ -95,7 +95,7 @@ public class BlogRssServices {
         List exprs = FastList.newInstance();
         exprs.add(new EntityExpr("contentIdStart", EntityOperator.EQUALS, contentId));
         exprs.add(new EntityExpr("caContentAssocTypeId", EntityOperator.EQUALS, "PUBLISH_LINK"));
-        exprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, "BLOG_PUBLISHED"));
+        exprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, "CTNT_PUBLISHED"));
 
         List contentRecs = null;
         try {
@@ -117,7 +117,7 @@ public class BlogRssServices {
                     Debug.logError(e, module);
                 }
                 if (sub != null) {
-                    String thisLink = entryLink + "?articleContentId=" + v.getString("contentId") + "&ownerContentId=" + contentId;
+                    String thisLink = entryLink + "?articleContentId=" + v.getString("contentId") + "&blogContentId=" + contentId;
                     SyndContent desc = new SyndContentImpl();
                     desc.setType("text/plain");
                     desc.setValue(sub);
@@ -126,9 +126,8 @@ public class BlogRssServices {
                     entry.setTitle(v.getString("contentName"));
                     entry.setPublishedDate(v.getTimestamp("createdDate"));
                     entry.setDescription(desc);
-                    entry.setLink(thisLink);                    
-                    // TODO: set author(s)
-
+                    entry.setLink(thisLink);
+                    entry.setAuthor((v.getString("createdByUserLogin")));                    
                     entries.add(entry);
                 }
             }

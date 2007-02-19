@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+  http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
--->
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+  -->
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/site-conf.xsd">
@@ -1222,9 +1222,9 @@ under the License.
         <response name="success" type="view" value="MainBlog"/>
     </request-map>
 
-    <request-map uri="ViewBlog">
+    <request-map uri="ViewArticle">
         <security https="false" auth="false"/>
-        <response name="success" type="view" value="ViewBlog"/>
+        <response name="success" type="view" value="ViewArticle"/>
     </request-map>
 
     <request-map uri="ViewBlogRss">
@@ -1244,9 +1244,13 @@ under the License.
         <response name="success" type="view" value="LatestResponses"/>
     </request-map>
 
-    <request-map uri="EditBlog">
-        <security https="false" auth="true"/>
-        <response name="success" type="view" value="EditBlog"/>
+    <request-map uri="NewArticle">
+        <security auth="true"/>
+        <response name="success" type="view" value="NewArticle"/>
+    </request-map>
+    <request-map uri="EditArticle">
+        <security auth="true"/>
+        <response name="success" type="view" value="EditArticle"/>
     </request-map>
 
     <request-map uri="EditBlogImage">
@@ -1264,9 +1268,9 @@ under the License.
         <response name="success" type="view" value="RespondBlog"/>
     </request-map>
 
-    <request-map uri="persistBlogAll">
+    <request-map uri="createBlogArticle">
         <security https="false" auth="true"/>
-        <event type="service" path="" invoke="persistBlogAll"/>
+        <event type="service" invoke="postBlogEntry"/>
         <response name="success" type="view" value="EditBlog"/>
         <response name="error" type="view" value="EditBlog"/>
     </request-map>
@@ -1291,10 +1295,16 @@ under the License.
         <response name="success" type="view" value="EditBlog"/>
         <response name="error" type="view" value="EditBlog"/>
     </request-map>
-
-    <request-map uri="persistBlogResponse">
+    
+    <request-map uri="createBlogResponse">
         <security https="false" auth="true"/>
-        <event type="service" path="" invoke="persistContentAndAssoc"/>
+        <event type="service" invoke="createTextContent"/>
+        <response name="success" type="view" value="ViewResponse"/>
+        <response name="error" type="view" value="ViewResponse"/>
+    </request-map>
+    <request-map uri="updateBlogResponse">
+        <security https="false" auth="true"/>
+        <event type="service" invoke="updateTextContent"/>
         <response name="success" type="view" value="ViewResponse"/>
         <response name="error" type="view" value="ViewResponse"/>
     </request-map>
@@ -1611,8 +1621,9 @@ under the License.
 
     <!-- Blog Views -->
     <view-map name="MainBlog" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#MainBlog"/>
-    <view-map name="ViewBlog" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#ViewBlog"/>
-    <view-map name="EditBlog" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlog"/>
+    <view-map name="ViewArticle" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#ViewArticle"/>
+    <view-map name="NewArticle" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#NewArticle"/>
+    <view-map name="EditArticle" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditArticle"/>
     <view-map name="ViewResponse" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#ViewResponse"/>
     <view-map name="RespondBlog" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#RespondBlog"/>
     <view-map name="EditBlogText" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogText"/>

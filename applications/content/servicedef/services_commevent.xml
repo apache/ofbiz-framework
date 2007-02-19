@@ -23,7 +23,6 @@ under the License.
     <description>Content Component Services</description>
     <vendor>OFBiz</vendor>
 
-
 	<!--
 		This service must do two things:
 		
@@ -35,7 +34,7 @@ under the License.
 		
 		Second, it must create a CommunicationEventContent record.
 			The fromData should be defaulted if not passed in.
-		-->
+    -->
     <service name="createCommContentDataResource" engine="simple"
                 location="org/ofbiz/content/content/ContentServices.xml" invoke="createCommContentDataResource" auth="true">
         <description>Create CommunicationEvent and Content</description>

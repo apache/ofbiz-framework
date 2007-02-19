@@ -1028,14 +1028,10 @@ public class ContentServices {
         
         Map result = new HashMap();
         GenericValue content = (GenericValue)context.get("content");
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
-        Security security = dctx.getSecurity();
-        if (!security.hasEntityPermission("CONTENTMGR", "_ADMIN", userLogin)) {
-            return ServiceUtil.returnError("Permission denied.");
-        }
+        GenericValue userLogin = (GenericValue)context.get("userLogin");        
         
         try {
-            content.put("statusId", "BLOG_PUBLISHED");
+            content.put("statusId", "CTNT_PUBLISHED");
             content.store(); 
         } catch(GenericEntityException e) {
             Debug.logError(e.getMessage(), module);
