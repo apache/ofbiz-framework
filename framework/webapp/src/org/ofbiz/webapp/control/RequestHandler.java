@@ -85,11 +85,11 @@ public class RequestHandler implements Serializable {
     }
 
     public void doRequest(HttpServletRequest request, HttpServletResponse response, String chain,
-                          GenericValue userLogin, GenericDelegator delegator) throws RequestHandlerException {
+            GenericValue userLogin, GenericDelegator delegator) throws RequestHandlerException {
 
-        String eventType = null;
-        String eventPath = null;
-        String eventMethod = null;
+        String eventType;
+        String eventPath;
+        String eventMethod;
 
         // workaraound if we are in the root webapp
         String cname = UtilHttp.getApplicationName(request);
@@ -116,8 +116,13 @@ public class RequestHandler implements Serializable {
             if (Debug.infoOn()) Debug.logInfo("[RequestHandler]: Chain in place: requestUri=" + requestUri + " nextView=" + nextView + " sessionId=" + UtilHttp.getSessionId(request), module);
         } else {
             // Check to make sure we are allowed to access this request directly. (Also checks if this request is defined.)
+            // If the request cannot be called, or is not defined, check and see if there is a default-request we an process
             if (!requestManager.allowDirectRequest(requestUri)) {
-                throw new RequestHandlerException("Unknown request [" + requestUri + "]; this request does not exist or cannot be called directly.");
+                if (!requestManager.allowDirectRequest(requestManager.getDefaultRequest())) {
+                    throw new RequestHandlerException("Unknown request [" + requestUri + "]; this request does not exist or cannot be called directly.");
+                } else {
+                    requestUri = requestManager.getDefaultRequest();
+                }
             }
 
             // Check if we SHOULD be secure and are not. If we are posting let it pass to not lose data. (too late now anyway)
@@ -209,7 +214,7 @@ public class RequestHandler implements Serializable {
             String checkLoginType = requestManager.getEventType("checkLogin");
             String checkLoginPath = requestManager.getEventPath("checkLogin");
             String checkLoginMethod = requestManager.getEventMethod("checkLogin");
-            String checkLoginReturnString = null;
+            String checkLoginReturnString;
 
             try {
                 checkLoginReturnString = this.runEvent(request, response, checkLoginType,
@@ -220,10 +225,7 @@ public class RequestHandler implements Serializable {
             if (!"success".equalsIgnoreCase(checkLoginReturnString)) {
                 // previous URL already saved by event, so just do as the return says...
                 eventReturnString = checkLoginReturnString;
-                eventType = checkLoginType;
-                eventPath = checkLoginPath;
-                eventMethod = checkLoginMethod;
-                requestUri = "checkLogin";
+                requestUri = "checkLogin";                            
             }
         }
 
@@ -290,7 +292,7 @@ public class RequestHandler implements Serializable {
 
         // restore previous redirected request's attribute, so redirected page can display previous request's error msg etc.
         String preReqAttStr = (String) request.getSession().getAttribute("_REQ_ATTR_MAP_");
-        Map preRequestMap = null;
+        Map preRequestMap;
         if(preReqAttStr!=null){
             request.getSession().removeAttribute("_REQ_ATTR_MAP_");
             byte [] reqAttrMapBytes = StringUtil.fromHexString(preReqAttStr);
@@ -338,8 +340,6 @@ public class RequestHandler implements Serializable {
             Debug.logInfo("[RequestHandler.doRequest]: Response is a chained request." + " sessionId=" + UtilHttp.getSessionId(request), module);
             nextView = nextView.substring(8);
             doRequest(request, response, nextView, userLogin, delegator);
-            return; // this just to be safe; not really needed
-
         } else { // handle views
             // first invoke the post-processor events.
             Collection postProcEvents = requestManager.getPostProcessor();
@@ -404,7 +404,7 @@ public class RequestHandler implements Serializable {
 
     /** Find the event handler and invoke an event. */
     public String runEvent(HttpServletRequest request, HttpServletResponse response, String type,
-                           String path, String method) throws EventHandlerException {
+            String path, String method) throws EventHandlerException {
         EventHandler eventHandler = eventFactory.getEventHandler(type);
         return eventHandler.invoke(path, method, request, response);
     }
@@ -550,7 +550,7 @@ public class RequestHandler implements Serializable {
 
         String viewType = requestManager.getViewType(view);
         String tempView = requestManager.getViewPage(view);
-        String nextPage = null;
+        String nextPage;
 
         if (tempView == null) {
             if (!allowExtView) {
@@ -682,7 +682,7 @@ public class RequestHandler implements Serializable {
         Boolean enableHttps = null;
 
         // load the properties from the website entity
-        GenericValue webSite = null;
+        GenericValue webSite;
         if (webSiteId != null) {
             try {
                 webSite = delegator.findByPrimaryKeyCache("WebSite", UtilMisc.toMap("webSiteId", webSiteId));
@@ -712,7 +712,7 @@ public class RequestHandler implements Serializable {
             httpServer = UtilProperties.getPropertyValue("url.properties", "force.http.host");
         }
         if (enableHttps == null) {
-            enableHttps = new Boolean(UtilProperties.propertyValueEqualsIgnoreCase("url.properties", "port.https.enabled", "Y"));
+            enableHttps = Boolean.valueOf(UtilProperties.propertyValueEqualsIgnoreCase("url.properties", "port.https.enabled", "Y"));
         }
 
         // create the path the the control servlet
@@ -747,7 +747,7 @@ public class RequestHandler implements Serializable {
                 newURL.append("http://");
                 newURL.append(server);
                 if (!httpPort.equals("80")) {
-                    newURL.append(":" + httpPort);
+                    newURL.append(":").append(httpPort);
                 }
 
                 didFullStandard = true;
@@ -762,7 +762,7 @@ public class RequestHandler implements Serializable {
         }
         newURL.append(url);
 
-        String encodedUrl = null;
+        String encodedUrl;
         if (encode) {
             boolean forceManualJsessionid = false;
 
