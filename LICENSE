@@ -435,7 +435,7 @@ ofbiz/trunk/framework/entity/lib/jdbc/hsqldb.jar
 ofbiz/trunk/specialpurpose/pos/lib/looks-2.0.2.jar
 ofbiz/trunk/framework/webapp/lib/MinML2.jar
 ofbiz/trunk/framework/base/lib/javolution.jar
-ofbiz/trunk/framework/images/webapp/images/dojo.js
+ofbiz/trunk/framework/images/webapp/images/dojo/*
 =========================================================================
 The BSD License
 
