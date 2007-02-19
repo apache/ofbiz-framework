@@ -26,6 +26,7 @@ under the License.
     <script language="javascript" src="<@ofbizContentUrl>/images/selectall.js</@ofbizContentUrl>" type="text/javascript"></script>
     <script language="javascript" src="<@ofbizContentUrl>/images/calendar1.js</@ofbizContentUrl>" type="text/javascript"></script>
     <script language="javascript" src="<@ofbizContentUrl>/images/fieldlookup.js</@ofbizContentUrl>" type="text/javascript"></script>
+    <script language="javascript" src="<@ofbizContentUrl>/images/dojo/dojo.js</@ofbizContentUrl>" type="text/javascript"></script>
     <link rel="stylesheet" href="<@ofbizContentUrl>${(productStore.styleSheet)?default("/images/ecommain.css")}</@ofbizContentUrl>" type="text/css"/>
     <link rel='stylesheet' href='<@ofbizContentUrl>/ecommerce/images/blog.css</@ofbizContentUrl>' type='text/css'>
     ${layoutSettings?if_exists.extraHead?if_exists}
@@ -46,6 +47,9 @@ under the License.
         <meta name="keywords" content="${metaKeywords}"/>
     </#if>
 
+    <script type="text/javascript">
+        dojo.require("dojo.widget.*");    
+    </script>    
 </head>
 
 <body>
