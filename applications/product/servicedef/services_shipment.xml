@@ -383,6 +383,7 @@ under the License.
         <attribute name="qtyInfo" type="Map" string-map-prefix="qty_" mode="IN" optional="true"/>
         <attribute name="pkgInfo" type="Map" string-map-prefix="pkg_" mode="IN" optional="true"/>
         <attribute name="selInfo" type="Map" string-map-prefix="sel_" mode="IN" optional="true"/>
+        <attribute name="wgtInfo" type="Map" string-map-prefix="wgt_" mode="IN" optional="true"/>
     </service>
 
     <service name="setNextPackageSeq" engine="java"

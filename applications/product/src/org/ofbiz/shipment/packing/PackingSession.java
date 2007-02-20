@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.math.BigDecimal;
 
 import javolution.util.FastMap;
 import javolution.util.FastList;
@@ -42,6 +43,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.product.product.ProductWorker;
+import org.ofbiz.order.order.OrderReadHelper;
 
 public class PackingSession implements java.io.Serializable {
 
@@ -91,7 +93,7 @@ public class PackingSession implements java.io.Serializable {
         this(dispatcher, userLogin, null, null, null, null);
     }
 
-    public void addOrIncreaseLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, double quantity, int packageSeqId, boolean update) throws GeneralException {
+    public void addOrIncreaseLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, double quantity, int packageSeqId, double weight, boolean update) throws GeneralException {
         // reset the session if we just completed
         if (status == 0) {
             throw new GeneralException("Packing session has been completed; be sure to CLEAR before packing a new order! [000]");
@@ -132,7 +134,7 @@ public class PackingSession implements java.io.Serializable {
         if (reservations.size() == 1) {
             GenericValue res = EntityUtil.getFirst(reservations);
             int checkCode = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, quantity, packageSeqId, update);
-            this.createPackLineItem(checkCode, res, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, packageSeqId);
+            this.createPackLineItem(checkCode, res, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, weight, packageSeqId);
         } else {
             // more than one reservation found
             Map toCreateMap = FastMap.newInstance();
@@ -166,7 +168,7 @@ public class PackingSession implements java.io.Serializable {
                 while (x.hasNext()) {
                     GenericValue res = (GenericValue) x.next();
                     Double qty = (Double) toCreateMap.get(res);
-                    this.createPackLineItem(2, res, orderId, orderItemSeqId, shipGroupSeqId, productId, qty.doubleValue(), packageSeqId);
+                    this.createPackLineItem(2, res, orderId, orderItemSeqId, shipGroupSeqId, productId, qty.doubleValue(), weight, packageSeqId);
                 }
             } else {
                 throw new GeneralException("Not enough inventory reservation available; cannot pack the item! [103]");
@@ -178,11 +180,11 @@ public class PackingSession implements java.io.Serializable {
     }
 
     public void addOrIncreaseLine(String orderId, String orderItemSeqId, String shipGroupSeqId, double quantity, int packageSeqId) throws GeneralException {
-        this.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, null, quantity, packageSeqId, false);
+        this.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, null, quantity, packageSeqId, 0, false);
     }
 
     public void addOrIncreaseLine(String productId, double quantity, int packageSeqId) throws GeneralException {
-        this.addOrIncreaseLine(null, null, null, productId, quantity, packageSeqId, false);
+        this.addOrIncreaseLine(null, null, null, productId, quantity, packageSeqId, 0, false);
     }
 
     public PackingSessionLine findLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String inventoryItemId, int packageSeq) {
@@ -201,7 +203,7 @@ public class PackingSession implements java.io.Serializable {
         return null;
     }
 
-    protected void createPackLineItem(int checkCode, GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, double quantity, int packageSeqId) throws GeneralException {
+    protected void createPackLineItem(int checkCode, GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, double quantity, double weight, int packageSeqId) throws GeneralException {
         // process the result; add new item if necessary
         switch(checkCode) {
             case 0:
@@ -213,7 +215,7 @@ public class PackingSession implements java.io.Serializable {
             case 2:
                 // need to create a new item
                 String invItemId = res.getString("inventoryItemId");
-                packLines.add(new PackingSessionLine(orderId, orderItemSeqId, shipGroupSeqId, productId, invItemId, quantity, packageSeqId));
+                packLines.add(new PackingSessionLine(orderId, orderItemSeqId, shipGroupSeqId, productId, invItemId, quantity, weight, packageSeqId));
                 break;
         }
 
@@ -772,4 +774,90 @@ public class PackingSession implements java.io.Serializable {
     public void setAdditionalShippingCharge(Double additionalShippingCharge) {
         this.additionalShippingCharge = additionalShippingCharge;
     }
+    
+    public double getTotalWeight(int packageSeq) {
+        double total = 0.0;
+        List lines = this.getLines();
+        Iterator i = lines.iterator();
+        while (i.hasNext()) {
+            PackingSessionLine line = (PackingSessionLine) i.next();
+            if (packageSeq == -1 || packageSeq == line.getPackageSeq()) {
+                total += line.getWeight();
+            }
+        }
+        return total;
+    }
+
+    public Double getShipmentCostEstimate(GenericValue orderItemShipGroup, String productStoreId, List shippableItemInfo, Double shippableTotal, Double shippableWeight, Double shippableQuantity) {
+        return getShipmentCostEstimate(orderItemShipGroup.getString("contactMechId"), orderItemShipGroup.getString("shipmentMethodTypeId"),
+                                       orderItemShipGroup.getString("carrierPartyId"), orderItemShipGroup.getString("carrierRoleTypeId"), 
+                                       productStoreId, shippableItemInfo, shippableTotal, shippableWeight, shippableQuantity);
+    }
+    
+    public Double getShipmentCostEstimate(GenericValue orderItemShipGroup, String productStoreId) {
+        return getShipmentCostEstimate(orderItemShipGroup.getString("contactMechId"), orderItemShipGroup.getString("shipmentMethodTypeId"),
+                                       orderItemShipGroup.getString("carrierPartyId"), orderItemShipGroup.getString("carrierRoleTypeId"), 
+                                       productStoreId, null, null, null, null);
+    }
+    
+    public Double getShipmentCostEstimate(String shippingContactMechId, String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String productStoreId, List shippableItemInfo, Double shippableTotal, Double shippableWeight, Double shippableQuantity) {
+
+        Double shipmentCostEstimate = null;
+        Map serviceResult = null;
+        try {
+            Map serviceContext = FastMap.newInstance();
+            serviceContext.put("shippingContactMechId", shippingContactMechId);
+            serviceContext.put("shipmentMethodTypeId", shipmentMethodTypeId);
+            serviceContext.put("carrierPartyId", carrierPartyId);
+            serviceContext.put("carrierRoleTypeId", carrierRoleTypeId);
+            serviceContext.put("productStoreId", productStoreId);
+    
+            if (UtilValidate.isEmpty(shippableItemInfo)) {
+                shippableItemInfo = FastList.newInstance();
+                Iterator lit = getLines().iterator();
+                while (lit.hasNext()) {
+                    PackingSessionLine line = (PackingSessionLine) lit.next();
+                    List oiasgas = getDelegator().findByAnd("OrderItemAndShipGroupAssoc", UtilMisc.toMap("orderId", line.getOrderId(), "orderItemSeqId", line.getOrderItemSeqId(), "shipGroupSeqId", line.getShipGroupSeqId()));
+                    shippableItemInfo.addAll(oiasgas);
+                }
+            }
+            serviceContext.put("shippableItemInfo", shippableItemInfo);
+
+            if (UtilValidate.isEmpty(shippableWeight)) {
+                shippableWeight = new Double(getTotalWeight(-1));
+            }
+            serviceContext.put("shippableWeight", shippableWeight);
+
+            if (UtilValidate.isEmpty(shippableQuantity)) {
+                shippableQuantity = new Double(getPackedQuantity(-1));
+            }
+            serviceContext.put("shippableQuantity", shippableQuantity);
+
+            if (UtilValidate.isEmpty(shippableTotal)) {
+                shippableTotal = new Double(0);
+                Iterator lit = getLines().iterator();
+                while (lit.hasNext()) {
+                    PackingSessionLine line = (PackingSessionLine) lit.next();
+                    GenericValue orderItem = getDelegator().findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", line.getOrderId(), "orderItemSeqId", line.getOrderItemSeqId()));
+                    BigDecimal orderItemTotal = OrderReadHelper.getOrderItemSubTotalBd(orderItem, null, false, false);
+                    shippableTotal = new Double(shippableTotal.doubleValue() + orderItemTotal.doubleValue());                    
+                }
+            }
+            serviceContext.put("shippableTotal", shippableTotal);
+    
+            serviceResult = getDispatcher().runSync("calcShipmentCostEstimate", serviceContext);
+        } catch( GenericEntityException e ) {
+            e.printStackTrace();
+        } catch( GenericServiceException e ) {
+            e.printStackTrace();
+        }
+        
+        if (! UtilValidate.isEmpty(serviceResult.get("shippingEstimateAmount"))) {
+            shipmentCostEstimate = (Double) serviceResult.get("shippingEstimateAmount");
+        }
+        
+        return shipmentCostEstimate;
+        
+    }
+   
 }

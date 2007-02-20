@@ -126,6 +126,11 @@ under the License.
                 </#if>
                 ${orderItemShipGroup.shipmentMethodTypeId?default("??")}
               </div>
+              <div>&nbsp;</div>
+              <div class="tableheadtext">${uiLabelMap.ProductEstimatedShipCostForShipGroup}:</div>
+              <#if shipmentCostEstimateForShipGroup?exists>
+                  <div class="tabletext"><@ofbizCurrency amount=shipmentCostEstimateForShipGroup isoCode=orderReadHelper.getCurrency()?if_exists/></div>
+              </#if>
             </td>
             <td>&nbsp;&nbsp;</td>
             <td valign="top">
@@ -199,10 +204,11 @@ under the License.
               <td align="right"><div class="tableheadtext">${uiLabelMap.ProductPackedQty}</td>
               <td>&nbsp;</td>
               <td align="center"><div class="tableheadtext">${uiLabelMap.ProductPackQty}</td>
+              <td align="center"><div class="tableheadtext">${uiLabelMap.ProductPackedWeight}&nbsp;(${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval})</td>
               <td align="center"><div class="tableheadtext">${uiLabelMap.ProductPackage}</td>
             </tr>
             <tr>
-              <td colspan="10">
+              <td colspan="11">
                 <hr class="sepbar"/>
               </td>
             </tr>
@@ -228,6 +234,9 @@ under the License.
                   <input type="text" class="inputBox" size="7" name="qty_${orderItem.orderItemSeqId}" value="${inputQty}">
                 </td>
                 <td align="center">
+                  <input type="text" class="inputBox" size="7" name="wgt_${orderItem.orderItemSeqId}" value="">
+                </td>
+                <td align="center">
                   <select name="pkg_${orderItem.orderItemSeqId}">
                     <option value="1">${uiLabelMap.ProductPackage} 1</option>
                     <option value="2">${uiLabelMap.ProductPackage} 2</option>
@@ -239,9 +248,9 @@ under the License.
                 <input type="hidden" name="prd_${orderItem.orderItemSeqId}" value="${orderItem.productId?if_exists}">
               </tr>
             </#list>
-            <tr><td colspan="10">&nbsp;</td></tr>
+            <tr><td colspan="11">&nbsp;</td></tr>
             <tr>
-              <td colspan="10" align="right">
+              <td colspan="11" align="right">
                 <input type="submit" value="${uiLabelMap.ProductPackItem}">
                 &nbsp;
                 <input type="button" value="${uiLabelMap.CommonClear}" onclick="javascript:document.clearPackForm.submit();"/>
@@ -274,6 +283,14 @@ under the License.
                 <div class="tableheadtext">${uiLabelMap.ProductAdditionalShippingCharge}:</div>
                 <div>
                   <input type="text" class="inputBox" name="additionalShippingCharge" value="${packingSession.getAdditionalShippingCharge()?if_exists}" size="20"/>
+                  <br/>
+                  <#if packingSession.getLines()?exists && packingSession.getLines()?has_content>
+                    <#assign packedShipmentCostEstimate = packingSession.getShipmentCostEstimate(orderItemShipGroup, orderReadHelper.getProductStoreId())/>
+                    ${uiLabelMap.ProductEstimatedShipCostPackages}:
+                    <#if packedShipmentCostEstimate?exists>
+                        <@ofbizCurrency amount=packedShipmentCostEstimate isoCode=orderReadHelper.getCurrency()?if_exists/>
+                    </#if>
+                  </#if>
                 </div>
               </td>
               <td align="right">
@@ -303,11 +320,12 @@ under the License.
             <td><div class="tableheadtext">${uiLabelMap.ProductDescription}</td>
             <td><div class="tableheadtext">${uiLabelMap.ProductInventoryItem} #</td>
             <td align="right"><div class="tableheadtext">${uiLabelMap.ProductPackedQty}</td>
+            <td align="right"><div class="tableheadtext">${uiLabelMap.ProductPackedWeight}&nbsp;(${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval})</td>
             <td align="right"><div class="tableheadtext">${uiLabelMap.ProductPackage} #</td>
             <td>&nbsp;</td>
           </tr>
           <tr>
-            <td colspan="7">
+            <td colspan="8">
               <hr class="sepbar"/>
             </td>
           </tr>
@@ -319,6 +337,7 @@ under the License.
               <td><div class="tabletext">${(orderItem.itemDescription)?default("[N/A]")}</td>
               <td><div class="tabletext">${line.getInventoryItemId()}</td>
               <td align="right"><div class="tabletext">${line.getQuantity()}</td>
+              <td align="right"><div class="tabletext">${line.getWeight()}</td>
               <td align="right"><div class="tabletext">${line.getPackageSeq()}</td>
               <td align="right"><a href="<@ofbizUrl>ClearPackLine?facilityId=${facilityId}&orderId=${line.getOrderId()}&orderItemSeqId=${line.getOrderItemSeqId()}&shipGroupSeqId=${line.getShipGroupSeqId()}&inventoryItemId=${line.getInventoryItemId()}&packageSeqId=${line.getPackageSeq()}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClear}</a></td>
             </tr>
