@@ -127,6 +127,32 @@ under the License.
             </fail-widgets>
         </section>
     </screen>
+    <screen name="EntityImportReaders">
+        <section>
+            <condition>
+                <if-has-permission permission="ENTITY_MAINT"/>
+            </condition>
+            <actions>
+                <set field="title" value="XML Import"/>
+                <set field="titleProperty" value="PageTitleEntityImportReaders"/>
+                <set field="parameters.TRANSACTION_TIMEOUT" value="7200"/>
+                
+                <set field="messages" from-field="parameters.messages"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webtools/webapp/webtools/entity/EntityImportReaders.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+            <fail-widgets>
+                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+            </fail-widgets>
+        </section>
+    </screen>
     <screen name="EntityMaint">
         <section>
             <condition>
