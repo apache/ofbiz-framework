@@ -62,6 +62,18 @@ under the License.
         <attribute name="filePause" type="Long" mode="IN" optional="true"/>
         <attribute name="messages" type="List" mode="OUT" optional="false"/>
     </service>
+    <service name="entityImportReaders" engine="java"
+        location="org.ofbiz.webtools.WebToolsServices" invoke="entityImportReaders" auth="true" use-transaction="false">
+        <description>Imports an entity xml file or text string</description>
+        <attribute name="readers" type="String" mode="IN" optional="true"/>
+        <attribute name="overrideDelegator" type="String" mode="IN" optional="true"/>
+        <attribute name="overrideGroup" type="String" mode="IN" optional="true"/>
+        <attribute name="mostlyInserts" type="String" mode="IN" optional="true"/>
+        <attribute name="maintainTimeStamps" type="String" mode="IN" optional="true"/>
+        <attribute name="createDummyFks" type="String" mode="IN" optional="true"/>
+        <attribute name="txTimeout" type="Integer" mode="IN" optional="true"/>
+        <attribute name="messages" type="List" mode="OUT" optional="false"/>
+    </service>
     <service name="entityExportAll" engine="java"
             location="org.ofbiz.webtools.WebToolsServices" invoke="entityExportAll" auth="true" use-transaction="false">
         <description>Exports all entities into xml files</description>

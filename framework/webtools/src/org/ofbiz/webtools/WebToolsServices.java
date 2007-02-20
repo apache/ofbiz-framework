@@ -18,8 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.webtools;
 
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,13 +42,19 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.net.MalformedURLException;
 
+import javolution.util.FastList;
+
+import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityDataLoader;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntitySaxReader;
 import org.ofbiz.entity.model.ModelReader;
@@ -290,6 +298,101 @@ public class WebToolsServices {
         return resp;
     }
 
+    public static Map entityImportReaders(DispatchContext dctx, Map context) {
+        String readers = (String) context.get("readers");
+        String overrideDelegator = (String) context.get("overrideDelegator");
+        String overrideGroup = (String) context.get("overrideGroup");
+        boolean useDummyFks = "true".equals((String) context.get("createDummyFks"));
+        boolean maintainTxs = "true".equals((String) context.get("maintainTimeStamps"));
+        boolean tryInserts = "true".equals((String) context.get("mostlyInserts"));
+
+        Integer txTimeoutInt = (Integer) context.get("txTimeout");
+        int txTimeout = txTimeoutInt != null ? txTimeoutInt.intValue() : -1;
+
+        List messages = FastList.newInstance();
+
+        // parse the pass in list of readers to use
+        List readerNames = null;
+        if (UtilValidate.isNotEmpty(readers) && !"none".equalsIgnoreCase(readers)) {
+            if (readers.indexOf(",") == -1) {
+                readerNames = FastList.newInstance();
+                readerNames.add(readers);
+            } else {
+                readerNames = StringUtil.split(readers, ",");
+            }
+        }
+
+        String groupNameToUse = overrideGroup != null ? overrideGroup : "org.ofbiz";
+        GenericDelegator delegator = UtilValidate.isNotEmpty(overrideDelegator) ? GenericDelegator.getGenericDelegator(overrideDelegator) : dctx.getDelegator();
+
+        String helperName = delegator.getGroupHelperName(groupNameToUse);
+        if (helperName == null) {
+            return ServiceUtil.returnError("Unable to locate the datasource helper for the group [" + groupNameToUse + "]");
+        }
+
+        // get the reader name URLs first
+        List urlList = null;
+        if (readerNames != null) {
+            urlList = EntityDataLoader.getUrlList(helperName, readerNames);
+        } else if (!"none".equalsIgnoreCase(readers)) {
+            urlList = EntityDataLoader.getUrlList(helperName);
+        }
+
+        // need a list if it is empty
+        if (urlList == null) {
+            urlList = FastList.newInstance();
+        }
+
+        // process the list of files
+        NumberFormat changedFormat = NumberFormat.getIntegerInstance();
+        changedFormat.setMinimumIntegerDigits(5);
+        changedFormat.setGroupingUsed(false);
+        
+        List errorMessages = new LinkedList();
+        List infoMessages = new LinkedList();
+        int totalRowsChanged = 0;
+        if (urlList != null && urlList.size() > 0) {
+            messages.add("=-=-=-=-=-=-= Doing a data load with the following files:");
+            Iterator urlIter = urlList.iterator();
+            while (urlIter.hasNext()) {
+                URL dataUrl = (URL) urlIter.next();
+                messages.add(dataUrl.toExternalForm());
+            }
+
+            messages.add("=-=-=-=-=-=-= Starting the data load...");
+
+            urlIter = urlList.iterator();
+            while (urlIter.hasNext()) {
+                URL dataUrl = (URL) urlIter.next();
+                try {
+                    int rowsChanged = EntityDataLoader.loadData(dataUrl, helperName, delegator, errorMessages, txTimeout, useDummyFks, maintainTxs, tryInserts);
+                    totalRowsChanged += rowsChanged;
+                    infoMessages.add(changedFormat.format(rowsChanged) + " of " + changedFormat.format(totalRowsChanged) + " from " + dataUrl.toExternalForm());
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, "Error loading data file: " + dataUrl.toExternalForm(), module);
+                }
+            }
+        } else {
+            messages.add("=-=-=-=-=-=-= No data load files found.");
+        }
+
+        if (infoMessages.size() > 0) {
+            messages.add("=-=-=-=-=-=-= Here is a summary of the data load:");
+            messages.addAll(infoMessages);
+        }
+        
+        if (errorMessages.size() > 0) {
+            messages.add("=-=-=-=-=-=-= The following errors occured in the data load:");
+            messages.addAll(errorMessages);
+        }
+
+        messages.add("=-=-=-=-=-=-= Finished the data load with " + totalRowsChanged + " rows changed.");
+        
+        Map resultMap = ServiceUtil.returnSuccess();
+        resultMap.put("messages", messages);
+        return resultMap;
+    }
+    
     public static Map parseEntityXmlFile(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
 
@@ -416,5 +519,4 @@ public class WebToolsServices {
         Map resp = UtilMisc.toMap("results", results);
         return resp;
     }
-
 }

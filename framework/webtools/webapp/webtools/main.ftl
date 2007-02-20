@@ -86,6 +86,7 @@ text-decoration: underline;
           <li><a href="<@ofbizUrl>/EntityExportAll</@ofbizUrl>">${uiLabelMap.PageTitleEntityExportAll}</a></li>
           <li><a href="<@ofbizUrl>/EntityImport</@ofbizUrl>">${uiLabelMap.PageTitleEntityImport}</a></li>
           <li><a href="<@ofbizUrl>/EntityImportDir</@ofbizUrl>">${uiLabelMap.PageTitleEntityImportDir}</a></li>
+          <li><a href="<@ofbizUrl>/EntityImportReaders</@ofbizUrl>">${uiLabelMap.PageTitleEntityImportReaders}</a></li>
         </#if>
         <#if security.hasPermission("SERVICE_MAINT", session)>
           <li><h3>${uiLabelMap.WebtoolsServiceEngineTools}</h3></li>
