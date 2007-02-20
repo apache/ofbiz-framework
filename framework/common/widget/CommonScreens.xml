@@ -189,6 +189,12 @@ under the License.
                 <!-- The default (global) stylesheet -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
             </actions>
+                <!-- The default (global) java scripts -->
+                <set field="layoutSettings.javaScripts[]" value="/images/calendar1.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
+                <!-- The default (global) shortcut icon -->
+                <set field="layoutSettings.shortcutIcon" value="/images/ofbiz.ico" global="true"/>
             <widgets>
                 <!-- render header -->
                 <platform-specific><html><html-template location="component://common/webcommon/includes/simple.ftl"/></html></platform-specific>

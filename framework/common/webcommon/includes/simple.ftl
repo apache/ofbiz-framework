@@ -22,9 +22,12 @@ under the License.
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>${layoutSettings.companyName}: <#if (page.titleProperty)?has_content>${uiLabelMap[page.titleProperty]}<#else>${(page.title)?if_exists}</#if></title>
-    <script language="javascript" src="<@ofbizContentUrl>/images/calendar1.js</@ofbizContentUrl>" type="text/javascript"></script>
-    <script language="javascript" src="<@ofbizContentUrl>/images/selectall.js</@ofbizContentUrl>" type="text/javascript"></script>
-    <script language="javascript" src="<@ofbizContentUrl>/images/fieldlookup.js</@ofbizContentUrl>" type="text/javascript"></script>
+    <#if layoutSettings.javaScripts?has_content>
+        <#--layoutSettings.javaScripts is a list of java scripts. -->
+        <#list layoutSettings.javaScripts as javaScript>
+            <script language="javascript" src="<@ofbizContentUrl>${javaScript}</@ofbizContentUrl>" type="text/javascript"></script>
+        </#list>
+    </#if>
     <#if layoutSettings.styleSheets?has_content>
         <#--layoutSettings.styleSheets is a list of style sheets. So, you can have a user-specified "main" style sheet, AND a component style sheet.-->
         <#list layoutSettings.styleSheets as styleSheet>
@@ -36,6 +39,7 @@ under the License.
     ${layoutSettings.extraHead?if_exists}
 </head>
 
+<#-- TODO: create a corresponding style in the main style sheet, eliminate embedded style -->
 <body style="background-color: WHITE;">
 <form name="printPage">
 <input type="button" value="${uiLabelMap.CommonPrint}" onClick="window.print()" class="smallSubmit"/>
