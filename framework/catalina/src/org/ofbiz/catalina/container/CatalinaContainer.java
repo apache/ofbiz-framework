@@ -367,8 +367,8 @@ public class CatalinaContainer implements Container {
         String mcb = ContainerConfig.getPropertyValue(clusterProps, "mcast-bind-addr", null);
         String mca = ContainerConfig.getPropertyValue(clusterProps, "mcast-addr", null);
         int mcp = ContainerConfig.getPropertyValue(clusterProps, "mcast-port", -1);
-        int mcd = ContainerConfig.getPropertyValue(clusterProps, "mcast-freq", 500);
-        int mcf = ContainerConfig.getPropertyValue(clusterProps, "mcast-drop-time", 3000);
+        int mcf = ContainerConfig.getPropertyValue(clusterProps, "mcast-freq", 500);
+        int mcd = ContainerConfig.getPropertyValue(clusterProps, "mcast-drop-time", 3000);
 
         if (mca == null || mcp == -1) {
             throw new ContainerException("Cluster configuration requires mcast-addr and mcast-port properties");
