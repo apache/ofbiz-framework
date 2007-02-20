@@ -104,6 +104,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="PartyAndPerson" />
     <entity-group group="org.ofbiz" entity="PartyAndUserLogin" />
     <entity-group group="org.ofbiz" entity="PartyAndUserLoginAndPerson" />
+    <entity-group group="org.ofbiz" entity="UserLoginAndPartyDetails" />
     <entity-group group="org.ofbiz" entity="PartyAttribute" />
     <entity-group group="org.ofbiz" entity="PartyClassification" />
     <entity-group group="org.ofbiz" entity="PartyClassificationGroup" />

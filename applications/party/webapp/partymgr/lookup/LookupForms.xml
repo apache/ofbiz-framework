@@ -124,6 +124,39 @@ under the License.
         <field name="lastName" title="${uiLabelMap.PartyName}"><display description="${firstName} ${middleName} ${lastName} ${groupName}"/></field>
     </form>
     
+    <form name="lookupUserLoginAndPartyDetails" default-title-style="tableheadtext"
+            default-tooltip-style="tabletext" default-widget-style="inputBox"
+            target="LookupUserLoginAndPartyDetails" paginate-target="LookupUserLoginAndPartyDetails"
+            title="" type="single">
+        <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}"><text-find/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
+        <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
+        <field name="middleName" title="${uiLabelMap.PartyMiddleName}"><text-find/></field>
+        <field name="lastName" title="${uiLabelMap.PartyLastName}"><text-find/></field>
+        <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
+        <field name="createdDate" title="${uiLabelMap.PartyCreatedDate}"><date-find/></field>
+        <field name="noConditionFind"><hidden value="Y"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="listLookupUserLoginAndPartyDetails" default-title-style="tableheadtext"
+            default-tooltip-style="tabletext" default-widget-style="tabletext"
+            list-name="listIt" target="" paginate-target="LookupUserLoginAndPartyDetails" title="" type="list">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="requestParameters"/>
+                <field-map field-name="entityName" env-name="entityName"/>
+            </service>
+        </actions>
+        <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${userLoginId}" target="javascript:set_value('${userLoginId}', '${userLoginId}', '${parameters.webSitePublishPoint}')"/>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+            <display description="${partyId}"/>
+        </field>
+        <field name="lastName" title="${uiLabelMap.PartyName}"><display description="${firstName} ${middleName} ${lastName}"/></field>
+		<field name="groupName" title="${uiLabelMap.PartyGroupName}"><display description="${groupName}"/></field>
+    </form>
+    
     <form name="lookupPartyGroup" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" target="LookupPartyGroup" 
         title="" type="single">
         <!--<auto-fields-entity entity-name="PartyGroup" default-field-type="find"/>-->

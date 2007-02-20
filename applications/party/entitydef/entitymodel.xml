@@ -1416,6 +1416,42 @@ under the License.
         <key-map field-name="userLoginId"/>
       </relation>
     </view-entity>
+    <view-entity entity-name="UserLoginAndPartyDetails"
+            package-name="org.ofbiz.party.party"
+            title="UserLogin, Party, Person and PartyGroup">
+      <member-entity entity-alias="ULN" entity-name="UserLogin"/>
+      <member-entity entity-alias="PTY" entity-name="Party"/>
+      <member-entity entity-alias="PER" entity-name="Person"/>
+      <member-entity entity-alias="PTYGRP" entity-name="PartyGroup"/>
+      <alias entity-alias="PTY" name="partyId"/>
+      <alias entity-alias="PTY" name="partyTypeId"/>
+      <alias entity-alias="PTY" name="createdDate"/>
+      <alias entity-alias="PTYGRP" name="groupName"/>
+      <alias entity-alias="ULN" name="userLoginId"/>
+      <alias entity-alias="ULN" name="currentPassword"/>
+      <alias entity-alias="ULN" name="passwordHint"/>
+      <alias entity-alias="ULN" name="enabled"/>
+      <alias entity-alias="ULN" name="disabledDateTime"/>
+      <alias entity-alias="ULN" name="successiveFailedLogins"/>
+      <alias entity-alias="PER" name="lastName"/>
+      <alias entity-alias="PER" name="middleName"/>
+      <alias entity-alias="PER" name="firstName"/>
+      <view-link entity-alias="ULN" rel-entity-alias="PTY" rel-optional="true">
+        <key-map field-name="partyId"/>
+      </view-link>
+      <view-link entity-alias="ULN" rel-entity-alias="PER" rel-optional="true">
+        <key-map field-name="partyId"/>
+      </view-link>
+      <view-link entity-alias="ULN" rel-entity-alias="PTYGRP" rel-optional="true">
+        <key-map field-name="partyId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="UserLogin">
+        <key-map field-name="userLoginId"/>
+      </relation>
+    </view-entity>
     <entity entity-name="PartyAttribute"
             package-name="org.ofbiz.party.party"
             title="Party Attribute Entity">

@@ -119,7 +119,7 @@ under the License.
         <auto-fields-service service-name="addUserLoginToSecurityGroup"/>
         
         <field name="groupId"><hidden/></field>
-        <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}"><lookup target-form-name="LookupPartyAndUserLoginAndPerson" size="30"></lookup></field>
+        <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}"><lookup target-form-name="LookupUserLoginAndPartyDetails" size="30"></lookup></field>
         
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
