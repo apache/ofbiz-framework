@@ -280,7 +280,7 @@ under the License.
                <#else> <#-- PURCHASE_ORDER -->
                  <#assign facilities = facilitiesForShipGroup.get(shipGroup.shipGroupSeqId)>
                  <#if facilities?has_content>
-                 <form action="/facility/control/quickShipPurchaseOrder" method="POST">
+                 <form action="/facility/control/quickShipPurchaseOrder?externalLoginKey=${externalLoginKey}" method="POST">
                    <input type="hidden" name="initialSelected" value="Y"/>
                    <input type="hidden" name="orderId" value="${orderId}"/>
                    <#-- destination form (/facility/control/ReceiveInventory) wants purchaseOrderId instead of orderId, so we set it here as a workaround -->
