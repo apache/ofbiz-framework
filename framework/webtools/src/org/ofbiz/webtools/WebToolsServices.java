@@ -48,6 +48,7 @@ import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilDateTime;
@@ -60,6 +61,7 @@ import org.ofbiz.entity.util.EntitySaxReader;
 import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelViewEntity;
+import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
@@ -78,8 +80,13 @@ public class WebToolsServices {
     public static final String module = WebToolsServices.class.getName();
 
     public static Map entityImport(DispatchContext dctx, Map context) {
-        LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Security security = dctx.getSecurity();
+        if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage("WebtoolsUiLabels", "WebtoolsPermissionError", (Locale) context.get("locale")));
+        }
+
+        LocalDispatcher dispatcher = dctx.getDispatcher();
 
         List messages = new ArrayList();
 
@@ -196,8 +203,13 @@ public class WebToolsServices {
     }
 
     public static Map entityImportDir(DispatchContext dctx, Map context) {
-        LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Security security = dctx.getSecurity();
+        if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage("WebtoolsUiLabels", "WebtoolsPermissionError", (Locale) context.get("locale")));
+        }
+
+        LocalDispatcher dispatcher = dctx.getDispatcher();
 
         List messages = new ArrayList();
 
@@ -299,6 +311,12 @@ public class WebToolsServices {
     }
 
     public static Map entityImportReaders(DispatchContext dctx, Map context) {
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Security security = dctx.getSecurity();
+        if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage("WebtoolsUiLabels", "WebtoolsPermissionError", (Locale) context.get("locale")));
+        }
+
         String readers = (String) context.get("readers");
         String overrideDelegator = (String) context.get("overrideDelegator");
         String overrideGroup = (String) context.get("overrideGroup");
@@ -394,6 +412,12 @@ public class WebToolsServices {
     }
     
     public static Map parseEntityXmlFile(DispatchContext dctx, Map context) {
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Security security = dctx.getSecurity();
+        if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage("WebtoolsUiLabels", "WebtoolsPermissionError", (Locale) context.get("locale")));
+        }
+
         GenericDelegator delegator = dctx.getDelegator();
 
         URL url = (URL)context.get("url");
@@ -430,6 +454,12 @@ public class WebToolsServices {
     }
 
     public static Map entityExportAll(DispatchContext dctx, Map context) {
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Security security = dctx.getSecurity();
+        if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage("WebtoolsUiLabels", "WebtoolsPermissionError", (Locale) context.get("locale")));
+        }
+
         GenericDelegator delegator = dctx.getDelegator();
 
         String outpath = (String)context.get("outpath"); // mandatory
