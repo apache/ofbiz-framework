@@ -41,15 +41,17 @@ public class PackingSessionLine implements java.io.Serializable {
     protected String inventoryItemId = null;
     protected String shipmentItemSeqId = null;
     protected double quantity = 0;
+    protected double weight = 0;
     protected int packageSeq = 0;
 
-    public PackingSessionLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, double quantity, int packageSeq) {
+    public PackingSessionLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, double quantity, double weight, int packageSeq) {
         this.orderId = orderId;
         this.orderItemSeqId = orderItemSeqId;
         this.shipGroupSeqId = shipGroupSeqId;
         this.inventoryItemId = inventoryItemId;
         this.productId = productId;
         this.quantity = quantity;
+        this.weight = weight;
         this.packageSeq = packageSeq;
     }
 
@@ -91,6 +93,18 @@ public class PackingSessionLine implements java.io.Serializable {
 
     public void addQuantity(double quantity) {
         this.quantity += quantity;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void addWeight(double weight) {
+        this.weight += weight;
     }
 
     public int getPackageSeq() {

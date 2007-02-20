@@ -37,6 +37,7 @@ public class PackingServices {
         String orderId = (String) context.get("orderId");
         String productId = (String) context.get("productId");
         Double quantity = (Double) context.get("quantity");
+        Double weight = (Double) context.get("weight");
         Integer packageSeq = (Integer) context.get("packageSeq");
 
         // set the instructions -- will clear out previous if now null
@@ -54,7 +55,7 @@ public class PackingServices {
         Debug.log("Pack input [" + productId + "] @ [" + quantity + "]", module);
         
         try {
-            session.addOrIncreaseLine(orderId, null, shipGroupSeqId, productId, quantity.doubleValue(), packageSeq.intValue(), false);
+            session.addOrIncreaseLine(orderId, null, shipGroupSeqId, productId, quantity.doubleValue(), packageSeq.intValue(), weight.doubleValue(), false);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -84,6 +85,7 @@ public class PackingServices {
         Map prdInfo = (Map) context.get("prdInfo");
         Map qtyInfo = (Map) context.get("qtyInfo");
         Map pkgInfo = (Map) context.get("pkgInfo");
+        Map wgtInfo = (Map) context.get("wgtInfo");
 
         if (selInfo != null) {
             Iterator i = selInfo.keySet().iterator();
@@ -95,15 +97,17 @@ public class PackingServices {
                     prdStr = null;
                 }
 
-                // base package/quantity strings
+                // base package/quantity/weight strings
                 String pkgStr = (String) pkgInfo.get(orderItemSeqId);
                 String qtyStr = (String) qtyInfo.get(orderItemSeqId);
+                String wgtStr = (String) wgtInfo.get(orderItemSeqId);
 
-                Debug.log("Item: " + orderItemSeqId + " / Product: " + prdStr + " / Quantity: " + qtyStr + " /  Package: " + pkgStr, module);
+                Debug.log("Item: " + orderItemSeqId + " / Product: " + prdStr + " / Quantity: " + qtyStr + " /  Package: " + pkgStr + " / Weight: " + wgtStr, module);
 
                 // array place holders
                 String[] quantities;
                 String[] packages;
+                String[] weights;
 
                 // process the package array
                 if (pkgStr.indexOf(",") != -1) {
@@ -130,19 +134,25 @@ public class PackingServices {
                 } else {
                     quantities = new String[] { qtyStr };
                 }
+                
+                // process the weight array
+                if (UtilValidate.isEmpty(wgtStr)) wgtStr = "0";
+                weights = new String[] { wgtStr };
 
                 for (int p = 0; p < packages.length; p++) {
                     double quantity;
                     int packageSeq;
+                    double weightSeq;
                     try {
                         quantity = Double.parseDouble(quantities[p]);
                         packageSeq = Integer.parseInt(packages[p]);
+                        weightSeq = Double.parseDouble(weights[p]);
                     } catch (Exception e) {
                         return ServiceUtil.returnError(e.getMessage());
                     }
 
                     try {
-                        session.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, prdStr, quantity, packageSeq, updateQuantity.booleanValue());
+                        session.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, prdStr, quantity, packageSeq, weightSeq, updateQuantity.booleanValue());
                     } catch (GeneralException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());

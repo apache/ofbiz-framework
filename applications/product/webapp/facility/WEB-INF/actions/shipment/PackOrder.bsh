@@ -86,11 +86,22 @@ if (UtilValidate.isNotEmpty(orderId)) {
         context.put("orderId", orderId);
         context.put("orderHeader", orderHeader);
         context.put("orderReadHelper", orh);
-        context.put("orderItemShipGroup", orh.getOrderItemShipGroup(shipGroupSeqId));
+        orderItemShipGroup = orh.getOrderItemShipGroup(shipGroupSeqId);
+        context.put("orderItemShipGroup", orderItemShipGroup);
 
         if ("ORDER_APPROVED".equals(orderHeader.getString("statusId"))) {
             if (UtilValidate.isNotEmpty(shipGroupSeqId)) {
-                context.put("itemInfos", orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId));
+
+                // Generate the shipment cost estimate for the ship group
+                productStoreId = orh.getProductStoreId();
+                shippableItemInfo = orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId);
+                shippableTotal = new Double(orh.getShippableTotalBd(shipGroupSeqId).doubleValue());
+                shippableWeight = new Double(orh.getShippableWeightBd(shipGroupSeqId).doubleValue());
+                shippableQuantity = new Double(orh.getShippableQuantityBd(shipGroupSeqId).doubleValue());
+                shipmentCostEstimate = packSession.getShipmentCostEstimate(orderItemShipGroup, productStoreId, shippableItemInfo, shippableTotal, shippableWeight, shippableQuantity);                
+                context.put("shipmentCostEstimateForShipGroup", shipmentCostEstimate);
+
+                context.put("itemInfos", shippableItemInfo);
             } else {
                 request.setAttribute("errorMessageList", UtilMisc.toList("No ship group sequence ID. Cannot process."));
             }
@@ -102,3 +113,12 @@ if (UtilValidate.isNotEmpty(orderId)) {
     }
 }
 
+// Try to get the defaultWeightUomId first from the facility, then from the shipment properties, and finally defaulting to kilos
+defaultWeightUomId = null; 
+if (! UtilValidate.isEmpty(facility)) {
+    defaultWeightUomId = facility.getString("defaultWeightUomId");
+}
+if (UtilValidate.isEmpty(defaultWeightUomId)) {
+    defaultWeightUomId = UtilProperties.getPropertyValue("shipment.properties", "shipment.default.weight.uom", "WT_kg");
+}
+context.put("defaultWeightUomId", defaultWeightUomId);
