@@ -1,0 +1,152 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+  -->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Content Component WebSite Services</description>
+    <vendor>OFBiz</vendor>
+
+    <!-- WebSite Services -->
+    <service name="createWebSite" default-entity-name="WebSite" engine="simple" auth="true"
+            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="createWebSite">
+        <description>Create a WebSite</description>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="siteName" optional="false"/>
+    </service>
+    <service name="updateWebSite" default-entity-name="WebSite" engine="simple" auth="true"
+            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="updateWebSite">
+        <description>Update a WebSite</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateWebSite" default-entity-name="WebSite" engine="simple" auth="true"
+            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="updateWebSite">
+        <description>Remove a WebSite</description>
+        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- WebSite Content Services -->
+    <service name="createWebSiteContent" default-entity-name="WebSiteContent" engine="simple" auth="true"
+            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="createWebSiteContent">
+        <description>Create a WebSite Content</description>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateWebSiteContent" default-entity-name="WebSiteContent" engine="simple" auth="true"
+            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="updateWebSiteContent">
+        <description>Update a WebSite Content</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeWebSiteContent" default-entity-name="WebSiteContent" engine="simple" auth="true"
+            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="removeWebSiteContent">
+        <description>Remove a WebSite Content</description>
+        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- WebSite ContentType Services -->
+    <service name="createWebSiteContentType" default-entity-name="WebSiteContentType" engine="simple" auth="true"
+            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="createWebSiteContentType">
+        <description>Create a WebSite ContentType</description>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateWebSiteContentType" default-entity-name="WebSiteContentType" engine="simple" auth="true"
+            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="updateWebSiteContentType">
+        <description>Update a WebSite ContentType</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeWebSiteContentType" default-entity-name="WebSiteContentType" engine="simple" auth="true"
+            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="removeWebSiteContentType">
+        <description>Remove a WebSite ContentType</description>
+        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- WebSite Path Alias Services -->
+    <service name="createWebSitePathAlias" default-entity-name="WebSitePathAlias" engine="simple" auth="true"
+            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="createWebSitePathAlias">
+        <description>Create a WebSite Path Alias</description>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
+        <auto-attributes include="all" mode="IN" optional="false"/>
+    </service>
+    <service name="udpateWebSitePathAlias" default-entity-name="WebSitePathAlias" engine="simple" auth="true"
+            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="updateWebSitePathAlias">
+        <description>Update a WebSite Path Alias</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
+        <auto-attributes include="all" mode="IN" optional="false"/>
+    </service>
+    <service name="removeWebSitePathAlias" default-entity-name="WebSitePathAlias" engine="simple" auth="true"
+            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="removeWebSitePathAlias">
+        <description>Remove a WebSite Path Alias</description>
+        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="getWebSitePathAlias" default-entity-name="WebSitePathAlias" engine="simple" auth="true"
+            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="getWebSitePathAlias">
+        <description>Get a WebSite Path Alias</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes mode="OUT" include="nonpk" optional="false"/>
+    </service>
+
+    <!-- WebSiteRole services -->
+    <service name="webSiteRoleInterface" engine="interface">
+        <description>WebSite Role Interface</description>
+        <auto-attributes entity-name="WebSiteRole" include="all" mode="IN" optional="false"/>
+        <override name="thruDate" optional="true"/>
+        <override name="sequenceNum" optional="true"/>
+    </service>
+
+    <service name="addWebSiteRole" engine="simple" auth="true"
+            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="createWebSiteRole">
+        <description>Add WebSite Role; NOTE: This service is being deprecated in favor of createWebSiteRole</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
+        <implements service="webSiteRoleInterface"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="createWebSiteRole" engine="simple" auth="true"
+            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="createWebSiteRole">
+        <description>Add WebSite Role</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
+        <implements service="webSiteRoleInterface"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updateWebSiteRole" engine="simple" auth="true"
+            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="updateWebSiteRole">
+        <description>Add WebSite Role</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
+        <implements service="webSiteRoleInterface"/>
+    </service>
+    <service name="removeWebSiteRole" engine="simple" auth="true"
+            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="removeWebSiteRole">
+        <description>Remove WebSite Role</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
+        <auto-attributes entity-name="WebSiteRole" include="pk" mode="IN" optional="false"/>
+    </service>
+</services>

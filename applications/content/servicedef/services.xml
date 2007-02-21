@@ -31,64 +31,6 @@
         <attribute name="_uploadedFile_contentType" type="String" mode="IN" optional="false"/>
     </service>
 
-    <!-- WebSite Services -->
-    <service name="createWebSite" default-entity-name="WebSite" engine="simple" auth="true"
-            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="createWebSite">
-        <description>Create a WebSite</description>
-        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="siteName" optional="false"/>
-    </service>
-    <service name="updateWebSite" default-entity-name="WebSite" engine="simple" auth="true"
-            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="updateWebSite">
-        <description>Update a WebSite</description>
-        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="updateWebSite" default-entity-name="WebSite" engine="simple" auth="true"
-            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="updateWebSite">
-        <description>Remove a WebSite</description>
-        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-    </service>
-
-    <!-- WebSiteRole services -->
-    <service name="webSiteRoleInterface" engine="interface">
-        <description>WebSite Role Interface</description>
-        <auto-attributes entity-name="WebSiteRole" include="all" mode="IN" optional="false"/>
-        <override name="thruDate" optional="true"/>
-        <override name="sequenceNum" optional="true"/>
-    </service>
-
-    <service name="addWebSiteRole" engine="simple" auth="true"
-            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="createWebSiteRole">
-        <description>Add WebSite Role; NOTE: This service is being deprecated in favor of createWebSiteRole</description>
-        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
-        <implements service="webSiteRoleInterface"/>
-        <override name="fromDate" optional="true"/>
-    </service>
-    <service name="createWebSiteRole" engine="simple" auth="true"
-            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="createWebSiteRole">
-        <description>Add WebSite Role</description>
-        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
-        <implements service="webSiteRoleInterface"/>
-        <override name="fromDate" optional="true"/>
-    </service>
-    <service name="updateWebSiteRole" engine="simple" auth="true"
-            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="updateWebSiteRole">
-        <description>Add WebSite Role</description>
-        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
-        <implements service="webSiteRoleInterface"/>
-    </service>
-    <service name="removeWebSiteRole" engine="simple" auth="true"
-            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="removeWebSiteRole">
-        <description>Remove WebSite Role</description>
-        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
-        <auto-attributes entity-name="WebSiteRole" include="pk" mode="IN" optional="false"/>
-    </service>
-
     <!-- Content services? -->
     <service name="getPublicForumMessage" engine="simple" default-entity-name="Content" auth="false"
             location="org/ofbiz/content/content/ContentServices.xml" invoke="getPublicForumMessage">
