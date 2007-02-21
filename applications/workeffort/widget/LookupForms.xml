@@ -88,6 +88,48 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
+    <form name="lookupWorkEffortShort" target="LookupWorkEffortShort" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}"><text-find/></field>
+        <field name="workEffortParentId"><text-find/></field>
+        <field name="workEffortName"><text-find/></field>
+        <field name="workEffortTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="WorkEffortType" key-field-name="workEffortTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="workEffortPurposeTypeId" >
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[General] ${description}">
+                    <entity-constraint name="statusTypeId" value="CALENDAR_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[Task] ${description}">
+                    <entity-constraint name="statusTypeId" value="TASK_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[Event] ${description}">
+                    <entity-constraint name="statusTypeId" value="EVENT_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="workEffortParentId"><lookup target-form-name="LookupWorkEffort"/></field>
+        <field name="facilityId"><lookup target-form-name="LookupFacility"/></field>
+        <field name="fixedAssetId"><lookup target-form-name="LookupFixedAsset"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
+    </form>
     <form name="listLookupWorkEffort" list-name="listIt" target="" paginate-target="LookupWorkEffort" title="" type="list"
         default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <actions>
