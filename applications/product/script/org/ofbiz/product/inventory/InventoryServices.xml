@@ -590,11 +590,28 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateInventoryTransfer" short-description="Update an Inventory Transfer">
-        <check-permission permission="FACILITY" action="_UPDATE"><fail-message message="Security Error: to run updateInventoryTransfer you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/></check-permission>
+        <check-permission permission="FACILITY" action="_UPDATE">
+            <fail-message message="Security Error: to run updateInventoryTransfer you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
+        </check-permission>
         <check-errors/>
 
         <set from-field="parameters.inventoryTransferId" field="lookupPKMap.inventoryTransferId"/>
         <find-by-primary-key entity-name="InventoryTransfer" map-name="lookupPKMap" value-name="inventoryTransfer"/>
+
+        <if-not-empty field-name="parameters.statusId">
+            <if-compare-field field-name="parameters.statusId" operator="not-equals" to-field-name="inventoryTransfer.statusId">
+                <!-- make sure a StatusValidChange record exists, if not return error -->
+                <entity-one entity-name="StatusValidChange" value-name="checkStatusValidChange" auto-field-map="false">
+                    <field-map env-name="inventoryTransfer.statusId" field-name="statusId"/>
+                    <field-map env-name="parameters.statusId" field-name="statusIdTo"/>
+                </entity-one>
+                <if-empty field-name="checkStatusValidChange">
+                    <set value="ERROR: Changing the status from ${inventoryTransfer.statusId} to ${parameters.statusId} is not allowed." field="error_list[]"/>
+                </if-empty>
+                <check-errors/>
+            </if-compare-field>
+        </if-not-empty>
+
         <set-nonpk-fields map-name="parameters" value-name="inventoryTransfer"/>
         <store-value value-name="inventoryTransfer"/>
     </simple-method>
