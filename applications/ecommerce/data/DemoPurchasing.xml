@@ -191,9 +191,10 @@ under the License.
     -->
     <AgreementTerm agreementTermId="1000" termTypeId="FIN_PAYMENT_TERM" agreementId="AGR_TEST" termDays="30"/>
     <AgreementTerm agreementTermId="1001" termTypeId="FIN_PAYMENT_DISC" agreementId="AGR_TEST" termDays="10" termValue="2"/> <!-- a 2% discount for paying within 10 days -->
+    <!--
     <AgreementTerm agreementTermId="1003" termTypeId="PURCH_VENDOR_ID" agreementId="AGR_TEST" description="OPEN-001"/> 
     <AgreementTerm agreementTermId="1004" termTypeId="PURCH_FREIGHT" agreementId="AGR_TEST" description="Ship via Open Express"/>
-
+    -->
     <!-- A final note: if we use Agreement and AgreementTerm in this way we can store 'party terms' without the need of a new PartyTerm entity -->
 
     <!-- an example of agreements with multiple payment terms -->
