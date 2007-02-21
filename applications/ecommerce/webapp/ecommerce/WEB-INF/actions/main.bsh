@@ -30,6 +30,9 @@ request.setAttribute("productCategoryId", promoCat);
  * The whole thing should be re-thought, and should preferably NOT use a custom session variable or try to go through the main page.
  *
  * NOTE: see section commented out in category.bsh for the other part of this.
+ * 
+ * NOTE JLR 20070221 this should be done using the same method than in add to cart. I will do it like that and remove all this after.
+ *
 productCategoryId = session.getAttribute("productCategoryId");
 if (productCategoryId == null) {
     request.setAttribute("productCategoryId", promoCat);    
