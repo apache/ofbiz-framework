@@ -2351,7 +2351,9 @@ under the License.
             title="Payment and Application View Entity">
       <member-entity entity-alias="PY" entity-name="Payment"/>
       <member-entity entity-alias="PA" entity-name="PaymentApplication"/>
-      <alias-all entity-alias="PY"/>
+      <alias-all entity-alias="PY">
+        <exclude field="overrideGlAccountId"/><!-- already existing in PaymentApplication -->
+      </alias-all>
       <alias-all entity-alias="PA"/>
       <view-link entity-alias="PY" rel-entity-alias="PA">
         <key-map field-name="paymentId"/>
