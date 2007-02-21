@@ -43,7 +43,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.product.product.ProductWorker;
-import org.ofbiz.order.order.OrderReadHelper;
+// import org.ofbiz.order.order.OrderReadHelper; at this pont the order is not yet compiled see other change at line 842 to make this source compile
 
 public class PackingSession implements java.io.Serializable {
 
@@ -839,8 +839,8 @@ public class PackingSession implements java.io.Serializable {
                 while (lit.hasNext()) {
                     PackingSessionLine line = (PackingSessionLine) lit.next();
                     GenericValue orderItem = getDelegator().findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", line.getOrderId(), "orderItemSeqId", line.getOrderItemSeqId()));
-                    BigDecimal orderItemTotal = OrderReadHelper.getOrderItemSubTotalBd(orderItem, null, false, false);
-                    shippableTotal = new Double(shippableTotal.doubleValue() + orderItemTotal.doubleValue());                    
+//                    BigDecimal orderItemTotal = OrderReadHelper.getOrderItemSubTotalBd(orderItem, null, false, false);
+//                    shippableTotal = new Double(shippableTotal.doubleValue() + orderItemTotal.doubleValue());                    
                 }
             }
             serviceContext.put("shippableTotal", shippableTotal);
