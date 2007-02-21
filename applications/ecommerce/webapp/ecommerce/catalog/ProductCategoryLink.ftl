@@ -29,9 +29,7 @@ under the License.
     </#if>
     <div class="productcategorylink">
       <#if productCategoryLink.imageUrl?has_content>
-        <div class="smallimage">
-          <a href="${linkUrl}"><img src="<@ofbizContentUrl>${productCategoryLink.imageUrl}</@ofbizContentUrl>" alt="${productCategoryLink.titleText?default("Link Image")}"/></a>
-        </div>
+        <div class="smallimage"><a href="${linkUrl}"><img src="<@ofbizContentUrl>${productCategoryLink.imageUrl}</@ofbizContentUrl>" alt="${productCategoryLink.titleText?default("Link Image")}"/></a></div>
       </#if>
       <#if productCategoryLink.titleText?has_content>
         <a href="${linkUrl}" class="linktext">${productCategoryLink.titleText}</a>
