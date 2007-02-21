@@ -203,7 +203,8 @@ public class RequestHandler implements Serializable {
         }
 
         if (Debug.infoOn()) Debug.logInfo("[Processing Request]: " + requestUri + " sessionId=" + UtilHttp.getSessionId(request), module);
-
+        request.setAttribute("thisRequestUri", requestUri); // store the actual request URI
+        
         String eventReturnString = null;
 
         // Perform security check.
@@ -293,7 +294,7 @@ public class RequestHandler implements Serializable {
         // restore previous redirected request's attribute, so redirected page can display previous request's error msg etc.
         String preReqAttStr = (String) request.getSession().getAttribute("_REQ_ATTR_MAP_");
         Map preRequestMap;
-        if(preReqAttStr!=null){
+        if (preReqAttStr != null) {
             request.getSession().removeAttribute("_REQ_ATTR_MAP_");
             byte [] reqAttrMapBytes = StringUtil.fromHexString(preReqAttStr);
             preRequestMap = (java.util.Map)org.ofbiz.base.util.UtilObject.getObject(reqAttrMapBytes);
