@@ -203,7 +203,7 @@ under the License.
                 <set field="productCategoryLinkScreen" value="component://ecommerce/widget/CatalogScreens.xml#ProductCategoryLink"/>
 
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/categorydetail.bsh"/>
-                <entity-and entity-name="ProductCategoryLink" list-name="productCategoryLinks">
+                <entity-and entity-name="ProductCategoryLink" list-name="productCategoryLinks" use-cache="true" filter-by-date="true">
                     <field-map field-name="productCategoryId" env-name="parameters.productCategoryId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
