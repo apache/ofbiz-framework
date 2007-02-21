@@ -28,6 +28,9 @@ import org.ofbiz.service.*;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.category.CategoryContentWrapper;
 
+productCategoryId = request.getAttribute("productCategoryId");
+context.put("productCategoryId", productCategoryId);
+
 viewSize = parameters.get("VIEW_SIZE");
 viewIndex = parameters.get("VIEW_INDEX");
 currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
@@ -61,7 +64,6 @@ if (context.get("orderByFields") != null) {
 catResult = dispatcher.runSync("getProductCategoryAndLimitedMembers", andMap);
 
 productCategory = catResult.get("productCategory");
-context.put("productCategoryId", request.getAttribute("productCategoryId"));
 if (catResult != null) {
     context.put("productCategoryMembers", catResult.get("productCategoryMembers"));
     context.put("productCategory", productCategory);
@@ -73,15 +75,15 @@ if (catResult != null) {
 }
 
 // set this as a last viewed
-categoryId = parameters.get("productCategoryId");
+// DEJ20070220: WHY is this done this way? why not use the existing CategoryWorker stuff?
 int LAST_VIEWED_TO_KEEP = 10; // modify this to change the number of last viewed to keep
 lastViewedCategories = session.getAttribute("lastViewedCategories");
 if (lastViewedCategories == null) {
     lastViewedCategories = new LinkedList();
     session.setAttribute("lastViewedCategories", lastViewedCategories);
 }
-lastViewedCategories.remove(categoryId);
-lastViewedCategories.add(0, categoryId);
+lastViewedCategories.remove(productCategoryId);
+lastViewedCategories.add(0, productCategoryId);
 while (lastViewedCategories.size() > LAST_VIEWED_TO_KEEP) {
     lastViewedCategories.remove(lastViewedCategories.size() - 1);
 }
