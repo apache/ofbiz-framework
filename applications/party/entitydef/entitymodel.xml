@@ -564,7 +564,9 @@ under the License.
     title="Communication Event And Role View Entity">
     <member-entity entity-alias="SC" entity-name="SubscriptionCommEvent"/>
     <member-entity entity-alias="SU" entity-name="Subscription"/>
-    <alias-all entity-alias="SC"/>
+    <alias-all entity-alias="SC">
+      <exclude field="communicationEventId"/>
+    </alias-all>
     <alias-all entity-alias="SU"/>
     <view-link entity-alias="SC" rel-entity-alias="SU">
       <key-map field-name="subscriptionId"/>
