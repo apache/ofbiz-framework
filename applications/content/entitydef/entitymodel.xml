@@ -32,16 +32,20 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
+  <!--  - org.ofbiz.content.commevent -->
+  <!--  - org.ofbiz.content.compdoc -->
   <!--  - org.ofbiz.content.content -->
   <!--  - org.ofbiz.content.data -->
   <!--  - org.ofbiz.content.document -->
   <!--  - org.ofbiz.content.preference -->
   <!--  - org.ofbiz.content.survey -->
+  <!--  - org.ofbiz.content.website -->
   <!-- ========================================================= -->
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.content.commevent -->
   <!-- ========================================================= -->
+
    <entity entity-name="CommEventContentAssoc"
             package-name="org.ofbiz.content.commevent"
             title="CommunicationEvent Content Association Entity">
@@ -72,6 +76,107 @@ under the License.
       <prim-key field="commContentAssocTypeId"/>
     </entity>
 
+    <!-- ========================================================= -->
+  <!-- org.ofbiz.content.compdoc -->
+  <!-- ========================================================= -->
+
+    <view-entity entity-name="AssocRevisionItemView"
+                package-name="org.ofbiz.content.compdoc"
+                title="Latest Revision Children">
+      <member-entity entity-alias="CRI" entity-name="ContentRevisionItem"/>
+      <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
+      <alias entity-alias="CA" name="contentId" group-by="true"/>
+      <alias entity-alias="CA" name="contentIdTo" group-by="true"/>
+      <alias entity-alias="CA" name="contentAssocTypeId" group-by="true"/>
+      <alias entity-alias="CA" name="thruDate" group-by="true"/>
+      <alias entity-alias="CA" name="fromDate" group-by="true"/>
+      <alias entity-alias="CA" name="sequenceNum" group-by="true"/>
+      <alias entity-alias="CRI" name="rootRevisionContentId" field="contentId" group-by="true"/>
+      <alias entity-alias="CRI" name="itemContentId" group-by="true"/>
+      <alias entity-alias="CRI" name="contentRevisionSeqId" group-by="false"/>
+      <alias entity-alias="CRI" name="maxRevisionSeqId" field="contentRevisionSeqId" function="max"/>
+      <view-link entity-alias="CA" rel-entity-alias="CRI">
+        <key-map field-name="contentId" rel-field-name="itemContentId"/>
+      </view-link>
+    </view-entity>
+    <view-entity entity-name="ContentAssocRevisionItemView"
+                package-name="org.ofbiz.content.compdoc"
+                title="Latest Revision Children">
+      <member-entity entity-alias="C" entity-name="Content"/>
+      <member-entity entity-alias="CRI" entity-name="ContentRevisionItem"/>
+      <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
+      <alias entity-alias="C" name="instanceOfContentId" group-by="true"/>
+      <alias entity-alias="C" name="dataResourceId" group-by="true"/>
+      <alias entity-alias="CA" name="contentId" group-by="true"/>
+      <alias entity-alias="CA" name="contentIdTo" group-by="true"/>
+      <alias entity-alias="CA" name="contentAssocTypeId" group-by="true"/>
+      <alias entity-alias="CA" name="thruDate" group-by="true"/>
+      <alias entity-alias="CA" name="fromDate" group-by="true"/>
+      <alias entity-alias="CA" name="sequenceNum" group-by="true"/>
+      <alias entity-alias="CRI" name="rootRevisionContentId" field="contentId" group-by="true"/>
+      <alias entity-alias="CRI" name="itemContentId" group-by="true"/>
+      <alias entity-alias="CRI" name="contentRevisionSeqId" group-by="false"/>
+      <alias entity-alias="CRI" name="maxRevisionSeqId" field="contentRevisionSeqId" function="max"/>
+      <view-link entity-alias="C" rel-entity-alias="CA">
+        <key-map field-name="contentId" rel-field-name="contentId"/>
+      </view-link>
+      <view-link entity-alias="CA" rel-entity-alias="CRI">
+        <key-map field-name="contentId" rel-field-name="itemContentId"/>
+      </view-link>
+    </view-entity>
+    <view-entity entity-name="MaxRevisionItemView"
+                package-name="org.ofbiz.content.compdoc"
+                title="Latest Revision Children">
+      <member-entity entity-alias="CRI" entity-name="ContentRevisionItem"/>
+      <alias entity-alias="CRI" name="rootRevisionContentId" field="contentId" group-by="true"/>
+      <alias entity-alias="CRI" name="itemContentId" group-by="true"/>
+      <alias entity-alias="CRI" name="contentRevisionSeqId" group-by="false"/>
+      <alias entity-alias="CRI" name="maxRevisionSeqId" field="contentRevisionSeqId" function="max"/>
+    </view-entity>
+    <view-entity entity-name="MaxContentApprovalView"
+                package-name="org.ofbiz.content.compdoc"
+                title="Latest ContentApproval">
+      <member-entity entity-alias="C" entity-name="Content"/>
+      <member-entity entity-alias="CA" entity-name="ContentApproval"/>
+      <alias entity-alias="C" name="contentTypeId"  group-by="true"/>
+      <alias entity-alias="CA" name="contentId"  group-by="true"/>
+      <alias entity-alias="CA" name="partyId"  group-by="true"/>
+      <alias entity-alias="CA" name="roleTypeId" group-by="true"/>
+      <alias entity-alias="CA" name="sequenceNum" group-by="false"/>
+      <alias entity-alias="CA" name="contentRevisionSeqId" group-by="false"/>
+      <alias entity-alias="CA" name="maxContentRevisionSeqId" field="contentRevisionSeqId" function="max"/>
+      <view-link entity-alias="C" rel-entity-alias="CA">
+        <key-map field-name="contentId" rel-field-name="contentId"/>
+      </view-link>
+    </view-entity>
+    <view-entity entity-name="ContentAssocOptViewFrom"
+                package-name="org.ofbiz.content.content"
+                title="Main Assoc To">
+      <member-entity entity-alias="CO" entity-name="Content"/>
+      <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
+      <alias-all entity-alias="CO"/>
+      <alias-all entity-alias="CA" prefix="ca"/>
+      <alias entity-alias="CA" name="contentIdStart" field="contentIdTo"/>
+      <view-link entity-alias="CA" rel-entity-alias="CO" rel-optional="true">
+        <key-map field-name="contentIdTo" rel-field-name="contentId" />
+      </view-link>
+    </view-entity>
+    <!--
+    <view-entity entity-name="ContentRevisionItemAndContentApprovalView"
+                package-name="org.ofbiz.content.content"
+                title="ContentRevisionItem and ContentApproval">
+      <member-entity entity-alias="CRI" entity-name="ContentRevisionItem"/>
+      <member-entity entity-alias="CA" entity-name="ContentApproval"/>
+      <alias-all entity-alias="CRI" />
+      <alias entity-alias="CA" name="caContentId" field="contentId" group-by="true" />
+      <alias entity-alias="CA" name="caContentRevisionSeqId" name="contentRevisionSeqId" group-by="true"/>
+      <alias entity-alias="CA" name="approvalCount" field="contentId" function="count"/>
+      <view-link entity-alias="CRI" rel-entity-alias="CA" rel-optional="true">
+        <key-map field-name="contentId"/>
+        <key-map field-name="contentRevisionSeqId"/>
+      </view-link>
+    </view-entity>
+    -->
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.content.content -->
@@ -676,30 +781,6 @@ under the License.
         <key-map field-name="contentId" rel-field-name="contentIdTo"/>
       </relation>
     </view-entity>
-    <entity entity-name="WebSitePublishPoint"
-        package-name="org.ofbiz.content.content"
-        title="Web Site Publish Point">
-        <field name="contentId" type="id-ne"></field>
-        <field name="templateTitle" type="long-varchar"></field>
-        <field name="styleSheetFile" type="long-varchar"></field>
-        <field name="logo" type="long-varchar"></field>
-        <field name="medallionLogo" type="long-varchar"></field>
-        <field name="lineLogo" type="long-varchar"></field>
-        <field name="leftBarId" type="id"></field>
-        <field name="rightBarId" type="id"></field>
-        <field name="contentDept" type="id"></field>
-        <field name="aboutContentId" type="id"></field>
-        <prim-key field="contentId"/>
-        <relation type="one" fk-name="WBSTPP_CONTENT" rel-entity-name="Content">
-            <key-map field-name="contentId" />
-        </relation>
-    </entity>
-    <extend-entity entity-name="WebPage">
-        <field name="contentId" type="id-ne"></field>
-        <relation type="one" fk-name="WEB_PAGE_CONTENT" rel-entity-name="Content">
-            <key-map field-name="contentId"/>
-        </relation>
-    </extend-entity>
     
   <!-- ========================================================= -->
   <!-- org.ofbiz.content.data -->
@@ -1421,104 +1502,77 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.content.compdoc -->
+  <!-- org.ofbiz.content.website -->
   <!-- ========================================================= -->
-    
-    <view-entity entity-name="AssocRevisionItemView"
-                package-name="org.ofbiz.content.compdoc"
-                title="Latest Revision Children">
-      <member-entity entity-alias="CRI" entity-name="ContentRevisionItem"/>
-      <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
-      <alias entity-alias="CA" name="contentId" group-by="true"/>
-      <alias entity-alias="CA" name="contentIdTo" group-by="true"/>
-      <alias entity-alias="CA" name="contentAssocTypeId" group-by="true"/>
-      <alias entity-alias="CA" name="thruDate" group-by="true"/>
-      <alias entity-alias="CA" name="fromDate" group-by="true"/>
-      <alias entity-alias="CA" name="sequenceNum" group-by="true"/>
-      <alias entity-alias="CRI" name="rootRevisionContentId" field="contentId" group-by="true"/>
-      <alias entity-alias="CRI" name="itemContentId" group-by="true"/>
-      <alias entity-alias="CRI" name="contentRevisionSeqId" group-by="false"/>
-      <alias entity-alias="CRI" name="maxRevisionSeqId" field="contentRevisionSeqId" function="max"/>
-      <view-link entity-alias="CA" rel-entity-alias="CRI">
-        <key-map field-name="contentId" rel-field-name="itemContentId"/>
-      </view-link>
-    </view-entity>
-    <view-entity entity-name="ContentAssocRevisionItemView"
-                package-name="org.ofbiz.content.compdoc"
-                title="Latest Revision Children">
-      <member-entity entity-alias="C" entity-name="Content"/>
-      <member-entity entity-alias="CRI" entity-name="ContentRevisionItem"/>
-      <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
-      <alias entity-alias="C" name="instanceOfContentId" group-by="true"/>
-      <alias entity-alias="C" name="dataResourceId" group-by="true"/>
-      <alias entity-alias="CA" name="contentId" group-by="true"/>
-      <alias entity-alias="CA" name="contentIdTo" group-by="true"/>
-      <alias entity-alias="CA" name="contentAssocTypeId" group-by="true"/>
-      <alias entity-alias="CA" name="thruDate" group-by="true"/>
-      <alias entity-alias="CA" name="fromDate" group-by="true"/>
-      <alias entity-alias="CA" name="sequenceNum" group-by="true"/>
-      <alias entity-alias="CRI" name="rootRevisionContentId" field="contentId" group-by="true"/>
-      <alias entity-alias="CRI" name="itemContentId" group-by="true"/>
-      <alias entity-alias="CRI" name="contentRevisionSeqId" group-by="false"/>
-      <alias entity-alias="CRI" name="maxRevisionSeqId" field="contentRevisionSeqId" function="max"/>
-      <view-link entity-alias="C" rel-entity-alias="CA">
-        <key-map field-name="contentId" rel-field-name="contentId"/>
-      </view-link>
-      <view-link entity-alias="CA" rel-entity-alias="CRI">
-        <key-map field-name="contentId" rel-field-name="itemContentId"/>
-      </view-link>
-    </view-entity>
-    <view-entity entity-name="MaxRevisionItemView"
-                package-name="org.ofbiz.content.compdoc"
-                title="Latest Revision Children">
-      <member-entity entity-alias="CRI" entity-name="ContentRevisionItem"/>
-      <alias entity-alias="CRI" name="rootRevisionContentId" field="contentId" group-by="true"/>
-      <alias entity-alias="CRI" name="itemContentId" group-by="true"/>
-      <alias entity-alias="CRI" name="contentRevisionSeqId" group-by="false"/>
-      <alias entity-alias="CRI" name="maxRevisionSeqId" field="contentRevisionSeqId" function="max"/>
-    </view-entity>
-    <view-entity entity-name="MaxContentApprovalView"
-                package-name="org.ofbiz.content.compdoc"
-                title="Latest ContentApproval">
-      <member-entity entity-alias="C" entity-name="Content"/>
-      <member-entity entity-alias="CA" entity-name="ContentApproval"/>
-      <alias entity-alias="C" name="contentTypeId"  group-by="true"/>
-      <alias entity-alias="CA" name="contentId"  group-by="true"/>
-      <alias entity-alias="CA" name="partyId"  group-by="true"/>
-      <alias entity-alias="CA" name="roleTypeId" group-by="true"/>
-      <alias entity-alias="CA" name="sequenceNum" group-by="false"/>
-      <alias entity-alias="CA" name="contentRevisionSeqId" group-by="false"/>
-      <alias entity-alias="CA" name="maxContentRevisionSeqId" field="contentRevisionSeqId" function="max"/>
-      <view-link entity-alias="C" rel-entity-alias="CA">
-        <key-map field-name="contentId" rel-field-name="contentId"/>
-      </view-link>
-    </view-entity>
-    <view-entity entity-name="ContentAssocOptViewFrom"
-                package-name="org.ofbiz.content.content"
-                title="Main Assoc To">
-      <member-entity entity-alias="CO" entity-name="Content"/>
-      <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
-      <alias-all entity-alias="CO"/>
-      <alias-all entity-alias="CA" prefix="ca"/>
-      <alias entity-alias="CA" name="contentIdStart" field="contentIdTo"/>
-      <view-link entity-alias="CA" rel-entity-alias="CO" rel-optional="true">
-        <key-map field-name="contentIdTo" rel-field-name="contentId" />
-      </view-link>
-    </view-entity>
-<!--     
-    <view-entity entity-name="ContentRevisionItemAndContentApprovalView"
-                package-name="org.ofbiz.content.content"
-                title="ContentRevisionItem and ContentApproval">
-      <member-entity entity-alias="CRI" entity-name="ContentRevisionItem"/>
-      <member-entity entity-alias="CA" entity-name="ContentApproval"/>
-      <alias-all entity-alias="CRI" />
-      <alias entity-alias="CA" name="caContentId" field="contentId" group-by="true" />
-      <alias entity-alias="CA" name="caContentRevisionSeqId" name="contentRevisionSeqId" group-by="true"/>
-      <alias entity-alias="CA" name="approvalCount" field="contentId" function="count"/>
-      <view-link entity-alias="CRI" rel-entity-alias="CA" rel-optional="true">
-        <key-map field-name="contentId"/>
-        <key-map field-name="contentRevisionSeqId"/>
-      </view-link>
-    </view-entity>
--->
+
+    <extend-entity entity-name="WebPage">
+        <field name="contentId" type="id-ne"></field>
+        <relation type="one" fk-name="WEB_PAGE_CONTENT" rel-entity-name="Content">
+            <key-map field-name="contentId"/>
+        </relation>
+    </extend-entity>
+    <entity entity-name="WebSiteContent"
+        package-name="org.ofbiz.content.website"
+        title="Web Site Content Associations">
+        <field name="webSiteId" type="id-ne"></field>
+        <field name="contentId" type="id-ne"></field>
+        <field name="webSiteContentTypeId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="webSiteId"/>
+        <prim-key field="contentId"/>
+        <prim-key field="webSiteContentTypeId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="WSCTNT_WEBSITE" rel-entity-name="WebSite">
+            <key-map field-name="webSiteId"/>
+        </relation>
+        <relation type="one" fk-name="WSCTNT_CONTENT" rel-entity-name="Content">
+            <key-map field-name="contentId"/>
+        </relation>
+        <relation type="one" fk-name="WSCTNT_WSCTTYPE" rel-entity-name="WebSiteContentType">
+            <key-map field-name="webSiteContentTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="WebSiteContentType"
+        package-name="org.ofbiz.content.website"
+        title="Web Site Content Type">
+        <field name="webSiteContentTypeId" type="id-ne"></field>
+        <field name="description" type="description"></field>
+        <field name="parentTypeId" type="id-ne"></field>
+        <field name="hasTable" type="indicator"></field>
+        <prim-key field="webSiteContentTypeId"/>
+        <relation type="one" fk-name="WSCT_TYPE_PARENT" title="Parent" rel-entity-name="WebSiteContentType">
+            <key-map field-name="parentTypeId" rel-field-name="webSiteContentTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="WebSitePathAlias"
+        package-name="org.ofbiz.content.website"
+        title="Web Site Path Alias">
+        <field name="webSiteId" type="id-ne"></field>
+        <field name="pathAlias" type="id-vlong"></field>
+        <field name="aliasTo" type="long-varchar"></field>
+        <prim-key field="webSiteId"/>
+        <prim-key field="pathAlias"/>
+        <relation type="one" fk-name="WSPATH_WEBSITE" rel-entity-name="WebSite">
+            <key-map field-name="webSiteId"/>
+        </relation>
+    </entity>
+    <entity entity-name="WebSitePublishPoint"
+        package-name="org.ofbiz.content.website"
+        title="Web Site Publish Point">
+        <field name="contentId" type="id-ne"></field>
+        <field name="templateTitle" type="long-varchar"></field>
+        <field name="styleSheetFile" type="long-varchar"></field>
+        <field name="logo" type="long-varchar"></field>
+        <field name="medallionLogo" type="long-varchar"></field>
+        <field name="lineLogo" type="long-varchar"></field>
+        <field name="leftBarId" type="id"></field>
+        <field name="rightBarId" type="id"></field>
+        <field name="contentDept" type="id"></field>
+        <field name="aboutContentId" type="id"></field>
+        <prim-key field="contentId"/>
+        <relation type="one" fk-name="WBSTPP_CONTENT" rel-entity-name="Content">
+            <key-map field-name="contentId" />
+        </relation>
+    </entity>
 </entitymodel>

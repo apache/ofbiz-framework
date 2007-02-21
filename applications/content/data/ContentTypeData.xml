@@ -223,6 +223,11 @@ under the License.
     <SubscriptionType description="Other" hasTable="N" parentTypeId="" subscriptionTypeId="OTHER_SUBSCR"/>
     <SubscriptionType description="Product Info" hasTable="N" parentTypeId="" subscriptionTypeId="PRODUCT_INFO_SUBSCR"/>
 
+    <!-- website data -->
+    <WebSiteContentType webSiteContentTypeId="PUBLISH_POINT" description="Publish Point (one)" hasTable="N" parentTypeId=""/>
+    <WebSiteContentType webSiteContentTypeId="META_DATA" description="HTML Meta Data (many)" hasTable="N" parentTypeId=""/>
+
+    <!-- survey data -->
     <SurveyApplType surveyApplTypeId="CART_ADD" description="Add-To Cart"/>
     <SurveyApplType surveyApplTypeId="CHECK_OUT" description="Check-Out"/>
     <SurveyApplType surveyApplTypeId="GENERAL_POLL" description="General Poll"/>
