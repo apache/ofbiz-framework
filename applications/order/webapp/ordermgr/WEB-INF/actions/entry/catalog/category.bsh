@@ -29,13 +29,16 @@ import org.ofbiz.product.category.CategoryWorker;
 
 detailScreen = "categorydetail";
 catalogName = CatalogWorker.getCatalogName(request);
-delegator = request.getAttribute("delegator");
+
 productCategoryId = request.getAttribute("productCategoryId");
 if (productCategoryId == null) {
     productCategoryId = parameters.get("category_id");
 }
 context.put("productCategoryId", productCategoryId);
 
+/* NOTE DEJ20070220: this is a weird way to do this and caused unacceptable side effects as described in the related
+ * comment in the main.bsh file
+ *
 if (productCategoryId != null) {
     session.setAttribute("productCategoryId",productCategoryId);// for language change
     previousParams = session.getAttribute("_PREVIOUS_PARAMS_");
@@ -47,7 +50,8 @@ if (productCategoryId != null) {
     }
     session.setAttribute("_PREVIOUS_PARAMS_", previousParams);    // for login
     context.put("previousParams", previousParams);
-}    
+}
+ */    
 
 category = delegator.findByPrimaryKeyCache("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId));
 if (category != null) {
