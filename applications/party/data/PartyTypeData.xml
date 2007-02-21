@@ -341,5 +341,10 @@ under the License.
     <TermType description="Incoterm Delivered Duty Unpaid" parentTypeId="INCO_TERM" termTypeId="DDU"/>
     <TermType description="Incoterm Delivered Duty Paid" parentTypeId="INCO_TERM" termTypeId="DDP"/>
 
+    <TermType description="Purchasing" parentTypeId="" hasTable="" termTypeId="PURCHASING"/>
+    <TermType description="Vendor Customer ID" parentTypeId="PURCHASING" termTypeId="PURCH_VENDOR_ID"/>
+    <TermType description="Preferred Freight" parentTypeId="PURCHASING" termTypeId="PURCH_FREIGHT"/>
+    
     <TermType description="Other" hasTable="N" parentTypeId="" termTypeId="OTHER_TERM"/>
+
 </entity-engine-xml>
