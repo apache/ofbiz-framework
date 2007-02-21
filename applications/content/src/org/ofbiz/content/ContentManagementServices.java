@@ -1312,7 +1312,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     }
 
     public static Map findSubNodes(DispatchContext dctx, Map context) throws GenericServiceException{
-        Map results = null;
+        Map results = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
         String contentIdTo = (String)context.get("contentId");
         List condList = new ArrayList();
