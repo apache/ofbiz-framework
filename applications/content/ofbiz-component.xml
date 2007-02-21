@@ -47,6 +47,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_email.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_survey.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_commevent.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_website.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
     <webapp name="content"
         title="Content"
