@@ -53,7 +53,6 @@ under the License.
             <fileset dir="../../framework/common/build/lib" includes="*.jar"/>
             <fileset dir="../content/lib" includes="*.jar"/>
             <fileset dir="../content/build/lib" includes="*.jar"/>
-            <fileset dir="../order/build/lib" includes="*.jar"/>
             <fileset dir="../party/build/lib" includes="*.jar"/>
         </path>
     </target>
