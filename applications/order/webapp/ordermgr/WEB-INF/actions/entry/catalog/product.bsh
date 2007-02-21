@@ -36,6 +36,9 @@ requestParams = UtilHttp.getParameterMap(request);
 detailScreen = "productdetail";
 productId = requestParams.get("product_id");
 
+/*
+ * NOTE JLR 20070221 this should be done using the same method than in add to cart. I will do it like that and remove all this after.
+ *
 if (productId != null) {
     previousParams = session.getAttribute("_PREVIOUS_PARAMS_"); 
     if (previousParams != null && previousParams.length() > 0) {
@@ -46,7 +49,7 @@ if (productId != null) {
     }
     session.setAttribute("_PREVIOUS_PARAMS_", previousParams);    // for login
     context.put("previousParams", previousParams);
-}    
+}*/    
 
 // get the product entity
 if (productId != null) {
