@@ -536,12 +536,23 @@ public abstract class ModelScreenWidget implements Serializable {
         }
 
         public void renderWidgetString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) throws GeneralException {
-            SectionsRenderer sections = (SectionsRenderer) context.get("sections");
-            // for now if sections is null, just log a warning; may be permissible to make the screen for flexible
-            if (sections == null) {
-                Debug.logWarning("In decorator-section-include could not find sections object in the context, not rendering section with name [" + this.name + "]", module);
+            Map preRenderedContent = (Map) context.get("preRenderedContent");
+            if (preRenderedContent != null && preRenderedContent.containsKey(this.name)) {
+                try {
+                    writer.write((String) preRenderedContent.get(this.name));
+                } catch (IOException e) {
+                    String errMsg = "Error rendering pre-rendered content in screen named [" + this.modelScreen.getName() + "]: " + e.toString();
+                    Debug.logError(e, errMsg, module);
+                    throw new RuntimeException(errMsg);
+                }
             } else {
-                sections.render(this.name);
+                SectionsRenderer sections = (SectionsRenderer) context.get("sections");
+                // for now if sections is null, just log a warning; may be permissible to make the screen for flexible
+                if (sections == null) {
+                    Debug.logWarning("In decorator-section-include could not find sections object in the context, not rendering section with name [" + this.name + "]", module);
+                } else {
+                    sections.render(this.name);
+                }
             }
         }
 
