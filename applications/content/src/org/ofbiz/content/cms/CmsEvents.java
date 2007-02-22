@@ -19,20 +19,31 @@
 
 package org.ofbiz.content.cms;
 
-import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.collections.MapStack;
+import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.widget.screen.ScreenRenderer;
+import org.ofbiz.widget.html.HtmlFormRenderer;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Locale;
+import java.util.Iterator;
+
 
 /**
  * CmsEvents
@@ -41,8 +52,9 @@ public class CmsEvents {
 
     public static final String module = CmsEvents.class.getName();
 
-    public static String cms(HttpServletRequest request, HttpServletResponse response) {       
+    public static String cms(HttpServletRequest request, HttpServletResponse response) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        ServletContext servletContext = request.getSession().getServletContext();
         HttpSession session = request.getSession();
 
         String webSiteId = (String) session.getAttribute("webSiteId");
@@ -65,12 +77,16 @@ public class CmsEvents {
             actualRequest = "";
         }
 
+        // place holder for the content id
+        String contentId = null;
+        String mapKey = null;
+
         String pathInfo = request.getPathInfo();
         if (targetRequest.equals(actualRequest)) {
             // was called directly -- path info is everything after the request
             String[] pathParsed = pathInfo.split("/", 3);
             if (pathParsed != null && pathParsed.length > 2) {
-                pathInfo = "/" + pathParsed[2];
+                pathInfo = pathParsed[2];
             } else {
                 pathInfo = null;
             }
@@ -78,6 +94,14 @@ public class CmsEvents {
 
         // check for path alias first
         if (pathInfo != null) {
+            // clean up the pathinfo for parsing
+            pathInfo = pathInfo.trim();
+            if (pathInfo.startsWith("/")) {
+                pathInfo = pathInfo.substring(1);
+            }
+            if (pathInfo.endsWith("/")) {
+                pathInfo = pathInfo.substring(0, pathInfo.length() - 1);
+            }                        
             Debug.log("Path INFO for Alias: " + pathInfo, module);
             
             GenericValue pathAlias = null;
@@ -88,7 +112,9 @@ public class CmsEvents {
             }
             if (pathAlias != null) {
                 String alias = pathAlias.getString("aliasTo");
-                if (UtilValidate.isNotEmpty(alias)) {
+                contentId = pathAlias.getString("contentId");
+                mapKey = pathAlias.getString("mapKey");
+                if (contentId == null && UtilValidate.isNotEmpty(alias)) {
                     if (!alias.startsWith("/")) {
                        alias = "/" + alias;
                     }
@@ -107,12 +133,137 @@ public class CmsEvents {
                     return null; // null to not process any views
                 }
             }
+
+            // process through CMS -- using the mapKey (for now)
+            GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+            Timestamp fromDate = UtilDateTime.nowTimestamp();
+            Locale locale = UtilHttp.getLocale(request);
+
+            // get the contentId/mapKey from URL
+            if (contentId == null) {
+                Debug.log("Current PathInfo: " + pathInfo, module);
+                if (pathInfo.indexOf("/") != -1) {
+                    String[] pathSplit = pathInfo.split("/");
+                    Debug.log("Split pathinfo: " + pathSplit.length, module);
+                    if (pathSplit != null && pathSplit.length > 0) {
+                        contentId = pathSplit[0];
+                        if (pathSplit.length > 1) {
+                            mapKey = pathSplit[1];
+                        }
+                    }
+                } else {
+                    contentId = pathInfo;
+                }
+            }
+
+            // verify the request content is associated with the current website
+            boolean websiteOk;
+            try {
+                websiteOk = verifyContentToWebSite(delegator, webSiteId, contentId);
+            } catch (GeneralException e) {
+                Debug.logError(e, module);
+                throw new GeneralRuntimeException(e.getMessage(), e);
+            }
+
+            if (websiteOk) {
+                // create the template map
+                MapStack templateMap = MapStack.create();
+                ScreenRenderer.populateContextForRequest(templateMap, null, request, response, servletContext);
+                templateMap.put("formStringRenderer", new HtmlFormRenderer(request, response));
+
+                Writer writer;
+                try {
+                    // use UtilJ2eeCompat to get this setup properly
+                    boolean useOutputStreamNotWriter = false;
+                    if (servletContext != null) {
+                        useOutputStreamNotWriter = UtilJ2eeCompat.useOutputStreamNotWriter(servletContext);
+                    }
+                    if (useOutputStreamNotWriter) {
+                        ServletOutputStream ros = response.getOutputStream();
+                        writer = new OutputStreamWriter(ros, "UTF-8");
+                    } else {
+                        writer = response.getWriter();
+                    }
+
+                    // render
+                    if (UtilValidate.isEmpty(mapKey)) {
+                        ContentWorker.renderContentAsTextCache(delegator, contentId, writer, templateMap, null, locale, "text/html");
+                    } else {
+                        ContentWorker.renderSubContentAsTextCache(delegator, contentId, writer, mapKey, null, templateMap,
+                            locale, "text/html", userLogin, fromDate, Boolean.FALSE);
+                    }
+
+                } catch (IOException e) {
+                    throw new GeneralRuntimeException("Error in the response writer/output stream: " + e.toString(), e);
+                } catch (GeneralException e) {
+                    throw new GeneralRuntimeException("Error rendering content: " + e.toString(), e);
+                }
+
+                return null;
+            } else {
+                Debug.log("No website [" + webSiteId + "] publish point found for contentId: " + contentId, module);
+            }
         }
 
-        // process through CMS
-        // TODO: implement me!
-
         // throw an unknown request error
-        throw new RuntimeException("Unknown request; this request does not exist or cannot be called directly.");
+        throw new GeneralRuntimeException("Unknown request; this request does not exist or cannot be called directly.");
+    }
+
+    protected static boolean verifyContentToWebSite(GenericDelegator delegator, String webSiteId, String contentId) throws GeneralException {
+        // first check the top level publish point
+        // get the root content id
+        List publishPoints = null;
+        try {
+            publishPoints = delegator.findByAndCache("WebSiteContent",
+                    UtilMisc.toMap("webSiteId", webSiteId, "contentId", contentId, "webSiteContentTypeId", "PUBLISH_POINT"),
+                    UtilMisc.toList("-fromDate"));
+        } catch (GenericEntityException e) {
+            throw e;
+        }
+
+        publishPoints = EntityUtil.filterByDate(publishPoints);
+        if (publishPoints == null || publishPoints.size() == 0) {
+            List topLevel = delegator.findByAndCache("WebSiteContent",
+                UtilMisc.toMap("webSiteId", webSiteId, "webSiteContentTypeId", "PUBLISH_POINT"),
+                    UtilMisc.toList("-fromDate"));
+            topLevel = EntityUtil.filterByDate(topLevel);
+            if (topLevel != null) {
+                Iterator i = topLevel.iterator();
+                while (i.hasNext()) {
+                    GenericValue point = (GenericValue) i.next();
+                    if (verifySubContent(delegator, contentId, point.getString("contentId"))) {
+                        return true;
+                    }
+                }
+            }
+        } else {
+            Debug.log("Found publish points: " + publishPoints, module);
+            return true;
+        }
+
+        return false;
+    }
+
+    protected static boolean verifySubContent(GenericDelegator delegator, String contentId, String contentIdFrom) throws GeneralException {
+        List contentAssoc = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom, "contentIdTo", contentId));
+        contentAssoc = EntityUtil.filterByDate(contentAssoc);
+        if (contentAssoc == null || contentAssoc.size() == 0) {
+            List assocs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom));
+            assocs = EntityUtil.filterByDate(assocs);
+            if (assocs != null) {
+                Iterator i = assocs.iterator();
+                while (i.hasNext()) {
+                    GenericValue assoc = (GenericValue) i.next();
+                    if (verifySubContent(delegator, contentId, assoc.getString("contentIdTo"))) {
+                        return true;
+                    }
+                }
+            }
+        } else {
+            Debug.log("Found assocs: " + contentAssoc, module);
+            return true;
+        }
+
+        return false;
     }
 }

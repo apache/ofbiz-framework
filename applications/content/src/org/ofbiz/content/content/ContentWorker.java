@@ -1081,6 +1081,9 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             templateRoot = new HashMap();
         }
 
+        // hold on to the mapKey
+        templateRoot.put("mapKey", mapKey);
+        
         //templateRoot.put("contentId", contentIdSub);
         //templateRoot.put("subContentId", null);
 
