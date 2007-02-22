@@ -1193,6 +1193,16 @@ margin-right: 1em;
 /* alt: position: absolute; top: 0px; left: 0px; */
 width: 22em;
 }
+
+.left-border {
+float: left;
+margin-right: 1em;
+width: 22em;
+border-right: 0.5px dotted #ccc;
+background-color: #eee;
+height: 100%;  
+}
+
 #column-container .right {
 float: right;
 margin-left: 1em;
@@ -1222,6 +1232,10 @@ width: 30em;
 background-color: #CCCCCC;
 border: #000000 solid 0.2em;
 overflow: auto;
+}
+
+DIV.widget-container {
+margin-bottom: 2em;
 }
 
 
