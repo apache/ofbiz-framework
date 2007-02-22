@@ -64,7 +64,12 @@ under the License.
         <set field-name="dataResourceTypeId" value="OTHER_OBJECT"/>
         <action service="createDataResource" mode="sync" result-to-context="true"/>
     </eca>
-    
+
+    <!-- dataresource role ecas -->
+    <eca service="createDataResourceRole" event="invoke">
+        <action service="ensurePartyRole" mode="sync" runAsUser="system"/>
+    </eca>
+
     <!-- electronic text; needs dataResourceId -->
     <eca service="createElectronicText" event="in-validate">
         <condition field-name="dataResourceId" operator="is-empty"/>
@@ -102,6 +107,25 @@ under the License.
         <condition field-name="contentAssocTypeId" operator="is-not-empty"/>
         <condition field-name="contentIdFrom" operator="is-not-empty"/>
         <action service="createContentAssoc" mode="sync" runAsUser="system"/>
+    </eca>
+
+    <!-- content role ecas -->
+    <eca service="createContentRole" event="invoke">
+        <action service="ensurePartyRole" mode="sync" runAsUser="system"/>
+    </eca>
+
+    <!-- update content ecas -->
+    <eca service="updateContent" event="commit">
+        <condition field-name="contentAssocTypeId" operator="is-not-empty"/>
+        <condition field-name="contentIdTo" operator="is-not-empty"/>
+        <condition field-name="fromDate" operator="is-not-empty"/>
+        <action service="updateContentAssoc" mode="sync" runAsUser="system"/>
+    </eca>
+    <eca service="updateContent" event="commit">
+        <condition field-name="contentAssocTypeId" operator="is-not-empty"/>
+        <condition field-name="contentIdFrom" operator="is-not-empty"/>
+        <condition field-name="fromDate" operator="is-not-empty"/>
+        <action service="updateContentAssoc" mode="sync" runAsUser="system"/>
     </eca>
 
     <!-- content assoc services -->
