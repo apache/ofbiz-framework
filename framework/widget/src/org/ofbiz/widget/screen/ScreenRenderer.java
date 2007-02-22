@@ -111,9 +111,13 @@ public class ScreenRenderer {
     }
 
     public void populateBasicContext(Map parameters, GenericDelegator delegator, LocalDispatcher dispatcher, Security security, Locale locale, GenericValue userLogin) {
+        populateBasicContext(context, this, parameters, delegator, dispatcher, security, locale, userLogin);
+    }
+
+    public static void populateBasicContext(MapStack context, ScreenRenderer screens, Map parameters, GenericDelegator delegator, LocalDispatcher dispatcher, Security security, Locale locale, GenericValue userLogin) {
         // ========== setup values that should always be in a screen context
         // include an object to more easily render screens
-        context.put("screens", this);
+        context.put("screens", screens);
 
         // make a reference for high level variables, a global context
         context.put("globalContext", context.standAloneStack());
@@ -141,6 +145,10 @@ public class ScreenRenderer {
      * @param servletContext
      */
     public void populateContextForRequest(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) {
+        populateContextForRequest(context, this, request, response, servletContext);
+    }
+
+    public static void populateContextForRequest(MapStack context, ScreenRenderer screens, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) {
         HttpSession session = request.getSession();
 
         // attribute names to skip for session and application attributes; these are all handled as special cases, duplicating results and causing undesired messages
@@ -215,7 +223,7 @@ public class ScreenRenderer {
 
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         
-        this.populateBasicContext(parameterMap, (GenericDelegator) request.getAttribute("delegator"), 
+        populateBasicContext(context, screens, parameterMap, (GenericDelegator) request.getAttribute("delegator"),
                 (LocalDispatcher) request.getAttribute("dispatcher"), (Security) request.getAttribute("security"), 
                 UtilHttp.getLocale(request), userLogin);
 
@@ -324,9 +332,9 @@ public class ScreenRenderer {
     public Map getContext() {
     	return context;
     }
-    
+
     public void populateContextForService(DispatchContext dctx, Map serviceContext) {
-        this.populateBasicContext(serviceContext, dctx.getDelegator(), dctx.getDispatcher(), dctx.getSecurity(), 
+        this.populateBasicContext(serviceContext, dctx.getDelegator(), dctx.getDispatcher(), dctx.getSecurity(),
                 (Locale) serviceContext.get("locale"), (GenericValue) serviceContext.get("userLogin"));
     }
 }
