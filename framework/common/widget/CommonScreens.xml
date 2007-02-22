@@ -127,7 +127,7 @@ under the License.
                             <!-- by default will render left-bar only if leftbarScreen value not empty -->
                             <include-screen name="${leftbarScreenName}" location="${leftbarScreenLocation}"/>
 
-                            <container style="${MainColumnStyle}">
+                            <container id="content-main-section" style="${MainColumnStyle}">
                                 <!-- render messages -->
                                 <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
                                 <decorator-section-include name="body"/>
