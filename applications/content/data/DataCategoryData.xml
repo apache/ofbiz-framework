@@ -34,4 +34,5 @@ under the License.
     <DataCategory dataCategoryId="TECH_SOFT_JAVA" parentCategoryId="TECH_SOFT" categoryName="Java"/>
     <DataCategory dataCategoryId="TECH_HARD" parentCategoryId="TECHNOLOGY" categoryName="Hardware"/>
     <DataCategory dataCategoryId="TECH_SERV" parentCategoryId="TECHNOLOGY" categoryName="Service"/>
+    <DataCategory dataCategoryId="TEMPLATE" parentCategoryId="ROOT" categoryName="Template"/>
 </entity-engine-xml>
