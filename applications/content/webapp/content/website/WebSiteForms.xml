@@ -20,7 +20,9 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="EditWebSite" type="single" 
+
+    <!-- WebSite Forms -->
+    <form name="EditWebSite" type="single"
         target="updateWebSite" title="" default-map-name="webSite"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         
@@ -49,10 +51,72 @@ under the License.
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="AddWebSiteRole" type="single" 
-        target="addWebSiteRole" title=""
+    <form name="ListWebSites" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        target="" title="" type="list" list-name="webSites" paginate-target="FindWebSite" paginate="true">
+        <field name="webSiteId" title="${uiLabelMap.CommonId}" widget-style="buttontext">
+            <hyperlink description="${webSiteId}" target="EditWebSite?webSiteId=${webSiteId}" also-hidden="false"/>
+        </field>
+        <field name="siteName" title="${uiLabelMap.CommonName}"><display/></field>
+    </form>
+
+    <!-- WebSite Content Forms -->
+    <form name="ListWebSiteContent" type="list" list-name="webSiteContent" target="UpdateWebSiteContent" paginate-target="ListWebSiteContent" paginate="true">
+        <auto-fields-service service-name="updateWebSiteRole"/>
+        <field name="sequenceNum"><hidden/></field>
+        <field name="roleTypeId"><hidden/></field>
+        <field name="partyId"><hidden/></field>
+        
+        <field name="webSiteId" title="WebSite ID"><display also-hidden="true"/></field>
+        <!--
+        <field name="contentId" title="Content ID" widget-style="linktext">
+            <hyperlink description="${contentId}" target="EditContent?contentId=${contentId}" also-hidden="true"/>
+        </field>
+        -->
+        <field name="contentId" title="Content">                                        
+            <display-entity entity-name="Content" description="${contentName}" key-field-name="contentId">
+                <sub-hyperlink target="EditContent?contentId=${contentId}" description=" [${contentId}]" link-style="linktext"/>
+            </display-entity>
+
+        </field>
+        <field name="webSiteContentTypeId" title="Type">
+            <display-entity entity-name="WebSiteContentType"/>            
+        </field>
+        <field name="fromDate" title="From Date"><display/></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="RemoveWebSiteContent?webSiteId=${webSiteId}&amp;contentId=${contentId}&amp;webSiteContentTypeId=${webSiteContentTypeId}&amp;fromDate=${fromDate}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+        <sort-order>
+            <sort-field name="webSiteId"/>
+            <sort-field name="contentId"/>
+            <sort-field name="webSiteContentTypeId"/>
+            <sort-field name="fromDate"/>
+            <sort-field name="thruDate"/>
+            <sort-field name="submitButton"/>
+            <sort-field name="deleteLink"/>
+        </sort-order>
+    </form>
+    <form name="CreateWebSiteContent" type="single" target="CreateWebSiteContent" title="" default-map-name="webSite"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="createWebSiteContent"/>
+        <field name="webSiteId" map-name="webSite"><display also-hidden="true"/></field>
+        <field name="webSiteContentTypeId" widget-style="selectBox">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="WebSiteContentType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- WebSite Role Forms -->
+    <form name="CreateWebSiteRole" type="single"
+        target="createWebSiteRole" title=""
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
-        <auto-fields-service service-name="addWebSiteRole"/>
+        <auto-fields-service service-name="createWebSiteRole"/>
         <field name="webSiteId" map-name="webSite"><hidden/></field>
         <field name="roleTypeId" widget-style="selectBox">
             <drop-down no-current-selected-key="_NA_">
@@ -83,12 +147,5 @@ under the License.
             <hyperlink target="removeWebSiteRole?webSiteId=${webSiteRole.webSiteId}&amp;partyId=${webSiteRole.partyId}&amp;roleTypeId=${webSiteRole.roleTypeId}&amp;fromDate=${webSiteRole.fromDate}"
                 description="[Delete]" also-hidden="false"/>
         </field>
-    </form>
-    <form name="ListWebSites" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        target="" title="" type="list" list-name="webSites" paginate-target="FindWebSite" paginate="true">
-        <field name="webSiteId" title="${uiLabelMap.CommonId}" widget-style="buttontext">
-            <hyperlink description="${webSiteId}" target="EditWebSite?webSiteId=${webSiteId}" also-hidden="false"/>
-        </field>
-        <field name="siteName" title="${uiLabelMap.CommonName}"><display/></field>
     </form>
 </forms>
