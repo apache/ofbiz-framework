@@ -69,6 +69,7 @@ import org.xml.sax.SAXException;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import javolution.util.FastMap;
 
 //import com.clarkware.profiler.Profiler;
 
@@ -619,21 +620,26 @@ public class DataResourceWorker {
                 }
             } else if ("SCREEN_COMBINED".equals(dataTemplateTypeId)) {
                 try {
-                    Map context = MapStack.create(templateRoot);
-                    ScreenStringRenderer screenStringRenderer = null;
-                    ScreenRenderer screenRenderer = (ScreenRenderer)context.get("screens");
-                     if (screenRenderer != null) {
-                         screenStringRenderer = screenRenderer.getScreenStringRenderer();
-                     } else {
-                         if (screenStringRenderer == null) {
-                             screenStringRenderer = new HtmlScreenRenderer();
-                         }
-                     }
+                    MapStack context = MapStack.create(templateRoot);
+                    context.put("locale", locale);
+                    
+                    // prepare the map for preRenderedContent
+                    Map prc = FastMap.newInstance();
+                    String mapKey = (String) context.get("mapKey");
+                    String textData = (String) context.get("textData");
+                    prc.put("body", textData);
+                    context.put("preRenderedContent", prc);
 
-                    String combinedName = (String)dataResource.get("objectInfo");
+                    ScreenRenderer screens = (ScreenRenderer) context.get("screens");
+                    if (screens == null) {
+                        screens = new ScreenRenderer(out, context, new HtmlScreenRenderer());
+                        screens.getContext().put("screens", screens);
+                    }
+
+                    ScreenStringRenderer renderer = screens.getScreenStringRenderer();
+                    String combinedName = (String) dataResource.get("objectInfo");
                     ModelScreen modelScreen = ScreenFactory.getScreenFromLocation(combinedName);
-                    modelScreen.renderScreenString(out, context, screenStringRenderer);
-
+                    modelScreen.renderScreenString(out, context, renderer);
                 } catch (SAXException e) {
                     throw new GeneralException("Error rendering Screen template", e);
                 } catch(ParserConfigurationException e3) {
