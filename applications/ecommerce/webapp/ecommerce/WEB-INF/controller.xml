@@ -71,6 +71,9 @@
         <event type="java" path="org.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="saveCartToAutoSaveList"/>
     </after-login>
 
+    <!-- default request; call into CMS -->
+    <default-request request-uri="cms"/>
+
     <!-- Security Mappings -->
     <request-map uri="checkLogin" edit="false">
         <description>Verify a user is logged in.</description>
@@ -100,6 +103,12 @@
     <!-- End of Security Mappings -->
 
     <!-- Request Mappings -->
+    <request-map uri="cms">
+        <event type="java" path="org.ofbiz.content.cms.CmsEvents" invoke="cms"/>
+        <response name="success" type="none"/>
+        <response name="error" type="view" value="error"/>
+    </request-map>
+    
     <request-map uri="setdistributor">
         <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.ecommerce.misc.ThirdPartyEvents" invoke="setAssociationId"/>
