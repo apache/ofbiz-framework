@@ -23,7 +23,9 @@ under the License.
 <#if webSite?has_content>
     <div class='tabContainer'>
         <a href="<@ofbizUrl>EditWebSite?webSiteId=${webSite.webSiteId}</@ofbizUrl>" class="${selectedClassMap.EditWebSite?default(unselectedClassName)}">${uiLabelMap.ContentWebSite}</a>
-        <a href="<@ofbizUrl>EditWebSiteParties?webSiteId=${webSite.webSiteId}</@ofbizUrl>" class="${selectedClassMap.EditWebSiteParties?default(unselectedClassName)}">${uiLabelMap.PartyParties}</a> 
+        <a href="<@ofbizUrl>ListWebSiteContent?webSiteId=${webSite.webSiteId}</@ofbizUrl>" class="${selectedClassMap.ListWebSiteContent?default(unselectedClassName)}">Content</a>
+        <a href="<@ofbizUrl>EditWebSiteParties?webSiteId=${webSite.webSiteId}</@ofbizUrl>" class="${selectedClassMap.EditWebSiteParties?default(unselectedClassName)}">${uiLabelMap.PartyParties}</a>
+         <a href="<@ofbizUrl>WebSiteCms?webSiteId=${webSite.webSiteId}</@ofbizUrl>" class="${selectedClassMap.WebSiteCMS?default(unselectedClassName)}">CMS</a>
     </div>
     <div><span class="head1">${uiLabelMap.ContentWebSite}&nbsp;</span><span class="head2"><#if (webSite.siteName)?has_content>"${webSite.siteName}"</#if> [${uiLabelMap.CommonId}:${webSite.webSiteId}]</span></div>
 </#if>

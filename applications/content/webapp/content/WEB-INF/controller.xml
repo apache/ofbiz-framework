@@ -26,6 +26,7 @@ under the License.
     
     <handler name="java" type="request" class="org.ofbiz.webapp.event.JavaEventHandler"/>
     <handler name="soap" type="request" class="org.ofbiz.webapp.event.SOAPEventHandler"/>
+    <handler name="json" type="request" class="org.ofbiz.webapp.event.JSONServiceEventHandler"/>
     <handler name="service" type="request" class="org.ofbiz.webapp.event.ServiceEventHandler"/>
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/> 
     <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
@@ -71,6 +72,7 @@ under the License.
 
     <!-- Request Mappings -->
     <request-map uri="view"><security https="false" auth="false"/><response name="success" type="view" value="main"/></request-map>
+    <request-map uri="views"><security https="true" auth="false"/><response name="success" type="view" value="main"/></request-map>
     
     <request-map uri="chain">
         <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
@@ -221,15 +223,39 @@ under the License.
         <response name="success" type="view" value="EditWebSite"/>
         <response name="error" type="view" value="EditWebSite"/>
     </request-map>
-    
+
+    <!-- ================ WebSite Content Requests ================= -->
+    <request-map uri="ListWebSiteContent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="WebSiteContent"/>
+    </request-map>
+    <request-map uri="CreateWebSiteContent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWebSiteContent"/>
+        <response name="success" type="view" value="WebSiteContent"/>
+        <response name="error" type="view" value="WebSiteContent"/>
+    </request-map>
+    <request-map uri="UpdateWebSiteContent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWebSiteContent"/>
+        <response name="success" type="view" value="WebSiteContent"/>
+        <response name="error" type="view" value="WebSiteContent"/>
+    </request-map>
+    <request-map uri="RemoveWebSiteContent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeWebSiteContent"/>
+        <response name="success" type="view" value="WebSiteContent"/>
+        <response name="error" type="view" value="WebSiteContent"/>
+    </request-map>
+
     <!-- ================ WebSite Parties Requests ================= -->
     <request-map uri="EditWebSiteParties">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditWebSiteParties"/>
     </request-map>
-    <request-map uri="addWebSiteRole">
+    <request-map uri="createWebSiteRole">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="addWebSiteRole"/>
+        <event type="service" path="" invoke="createWebSiteRole"/>
         <response name="success" type="view" value="EditWebSiteParties"/>
         <response name="error" type="view" value="EditWebSiteParties"/>
     </request-map>
@@ -244,6 +270,42 @@ under the License.
         <event type="service" path="" invoke="removeWebSiteRole"/>
         <response name="success" type="view" value="EditWebSiteParties"/>
         <response name="error" type="view" value="EditWebSiteParties"/>
+    </request-map>
+
+    <!-- ================ WebSite CMS Requests ================= -->
+    <request-map uri="WebSiteCms">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="WebSiteCMS"/>
+    </request-map>
+    <request-map uri="createTextContentCms">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createTextContent"/>
+        <response name="success" type="request-redirect" value="WebSiteCms"/>
+        <response name="error" type="view" value="WebSiteCMS"/>
+    </request-map>
+    <request-map uri="updateTextContentCms">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateTextContent"/>
+        <response name="success" type="request-redirect" value="WebSiteCms"/>
+        <response name="error" type="view" value="WebSiteCMS"/>
+    </request-map>
+    <request-map uri="updateTextContentCms">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateTextContent"/>
+        <response name="success" type="request-redirect" value="WebSiteCms"/>
+        <response name="error" type="view" value="WebSiteCMS"/>
+    </request-map>
+    <request-map uri="createWebSitePathAliasJson">
+        <security https="true" auth="true"/>
+        <event type="json" invoke="createWebSitePathAlias"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
+    </request-map>
+    <request-map uri="removeWebSitePathAliasJson">
+        <security https="true" auth="true"/>
+        <event type="json" invoke="removeWebSitePathAlias"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
     </request-map>
 
     <!-- ================ ContentType Requests ================= -->
@@ -683,20 +745,10 @@ under the License.
         <response name="success" type="view" value="EditContent"/>
         <response name="error" type="view" value="AddContent"/>
     </request-map>
-    <!--request-map uri="AddContent">
-        <security auth="true" https="true"/>
-        <response name="success" type="view" value="AddContent"/>
-    </request-map-->
     <request-map uri="editContent">
         <security auth="true" https="true"/>
-        <!--
-        <event invoke="org/ofbiz/content/mruadd.bsh" path="" type="bsf" />
-        <event invoke="org/ofbiz/content/clearCurrentContent.bsh" path="" type="bsf" />
-        <response name="success" type="request" value="gotoContentP2"/>
-        -->
         <response name="success" type="view" value="EditContent"/>
     </request-map>
-
 
     <!-- Content Assoc requests -->
     <request-map uri="EditContentAssoc">
@@ -1577,6 +1629,12 @@ under the License.
     
     <view-map name="FindWebSite" page="component://content/widget/WebSiteScreens.xml#FindWebSite" type="screen"/>
     <view-map name="EditWebSite" page="component://content/widget/WebSiteScreens.xml#EditWebSite" type="screen"/>
+    <view-map name="WebSiteContent" page="component://content/widget/WebSiteScreens.xml#WebSiteContent" type="screen"/>
+    <view-map name="WebSiteCMS" page="component://content/widget/WebSiteScreens.xml#WebSiteCMS" type="screen"/>
+    <view-map name="WebSiteCMSContent" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSContent" type="screen"/>
+    <view-map name="WebSiteCMSEditor" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSEditor" type="screen"/>
+    <view-map name="WebSiteCMSPathAlias" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSPathAlias" type="screen"/>
+    <view-map name="WebSiteCMSNav" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSNav" type="screen"/>
     <view-map name="EditWebSiteParties" page="component://content/widget/WebSiteScreens.xml#EditWebSiteParties" type="screen"/>
     
     <view-map name="EditContentPurpose" page="component://content/widget/content/ContentScreens.xml#EditContentPurpose" type="screen"/>
