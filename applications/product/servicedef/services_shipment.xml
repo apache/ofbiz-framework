@@ -149,6 +149,14 @@ under the License.
         </description>
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="quickDropShipOrder" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="quickDropShipOrder" auth="true">
+        <description>Creates a drop shipment for a ship group and calls updateShipment twice in succession to set 
+            shipment status to PURCH_SHIP_SHIPPED and then to PURCH_SHIP_RECEIVED</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
+    </service> 
 
     <!-- ShipmentItem Services -->
     <service name="createShipmentItem" default-entity-name="ShipmentItem" engine="simple"

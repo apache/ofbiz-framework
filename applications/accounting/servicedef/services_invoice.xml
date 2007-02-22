@@ -215,6 +215,15 @@ under the License.
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
         <attribute name="invoicesCreated" type="List" mode="OUT" optional="true"/>
     </service>
+    <service name="createSalesInvoicesFromDropShipment" engine="java"
+        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="createSalesInvoicesFromDropShipment">
+        <description>
+            Create sales invoice(s) from a drop shipment by wrapping a call to 
+            createInvoicesFromShipments with the createSalesInvoicesForDropShipments parameter
+        </description>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoicesCreated" type="List" mode="OUT" optional="true"/>
+    </service>
     <service name="createInvoicesFromShipments" engine="java"
         location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="createInvoicesFromShipments">
         <description>
@@ -222,9 +231,12 @@ under the License.
             All the order items associated with the shipments will be selected and
             one invoice for each order will be created (each invoice could contain
             items shipped in different shipments).
+            If the shipments are drop shipments, the type of invoices (purchase or sales) created
+            will be controlled by the createSalesInvoicesForDropShipments parameter (purchase by default). 
             invoicesCreated = List of invoiceIds which were created by this service
         </description>
         <attribute name="shipmentIds" type="List" mode="IN" optional="false"/>
+        <attribute name="createSalesInvoicesForDropShipments" type="Boolean" mode="IN" optional="true"/>
         <attribute name="invoicesCreated" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="createInvoicesFromReturnShipment" engine="java"

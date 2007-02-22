@@ -36,6 +36,22 @@ under the License.
         <action service="balanceItemIssuancesForShipment" mode="sync"/>
         <action service="createInvoicesFromShipment" mode="sync"/>
     </eca>
+    
+    <!-- if new statusId of a DROP_SHIPMENT is PURCH_SHIP_SHIPPED, create purchase invoice -->
+    <eca service="updateShipment" event="commit">
+        <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
+        <condition field-name="statusId" operator="equals" value="PURCH_SHIP_SHIPPED"/>
+        <condition field-name="shipmentTypeId" operator="equals" value="DROP_SHIPMENT"/>
+        <action service="createInvoicesFromShipment" mode="sync"/>
+    </eca>
+
+    <!-- if new statusId of a DROP_SHIPMENT is PURCH_SHIP_RECEIVED, create sales invoice -->
+    <eca service="updateShipment" event="commit">
+        <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
+        <condition field-name="statusId" operator="equals" value="PURCH_SHIP_RECEIVED"/>
+        <condition field-name="shipmentTypeId" operator="equals" value="DROP_SHIPMENT"/>
+        <action service="createSalesInvoicesFromDropShipment" mode="sync"/>
+    </eca>
 
     <!-- if new statusId of a SALES_RETURN is PURCH_SHIP_RECEIVED, create a return invoice.
          Note that PURCH_SHIP_RECEIVED now means any received shipment. We determine the
