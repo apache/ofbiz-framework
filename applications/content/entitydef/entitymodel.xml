@@ -1551,10 +1551,15 @@ under the License.
         <field name="webSiteId" type="id-ne"></field>
         <field name="pathAlias" type="id-vlong"></field>
         <field name="aliasTo" type="long-varchar"></field>
+        <field name="contentId" type="id"></field>
+        <field name="mapKey" type="name"></field>
         <prim-key field="webSiteId"/>
         <prim-key field="pathAlias"/>
         <relation type="one" fk-name="WSPATH_WEBSITE" rel-entity-name="WebSite">
             <key-map field-name="webSiteId"/>
+        </relation>
+        <relation type="one" fk-name="WSPATH_CONTENT" rel-entity-name="Content">
+            <key-map field-name="contentId"/>
         </relation>
     </entity>
     <entity entity-name="WebSitePublishPoint"
