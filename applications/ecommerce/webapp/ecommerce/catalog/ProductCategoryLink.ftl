@@ -31,7 +31,7 @@ under the License.
     <#elseif productCategoryLink.linkTypeEnumId == "PCLT_ABS_URL">
       <#assign linkUrl = productCategoryLink.linkInfo?if_exists/>
     <#elseif productCategoryLink.linkTypeEnumId == "PCLT_CAT_ID">
-      <#assign linkUrl = requestAttributes._REQUEST_HANDLER_.makeLink(request, response, "category?category_id=" + productCategoryLink.linkInfo)/>
+      <#assign linkUrl = requestAttributes._REQUEST_HANDLER_.makeLink(request, response, "category/~category_id=" + productCategoryLink.linkInfo) + "/~pcategory=" + productCategoryId/>
       <#assign linkProductCategory = delegator.findByPrimaryKeyCache("ProductCategory", Static["org.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", productCategoryLink.linkInfo))/>
       <#assign linkCategoryContentWrapper = Static["org.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(linkProductCategory, request)/>
       <#assign titleText = productCategoryLink.titleText?default(linkCategoryContentWrapper.get("CATEGORY_NAME"))?if_exists/>
