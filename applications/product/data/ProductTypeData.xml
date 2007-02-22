@@ -112,6 +112,7 @@
     <EnumerationType description="Product Category Link Type" enumTypeId="PCAT_LINK_TYPE" hasTable="N" parentTypeId=""/>
     <Enumeration description="Search Parameters" enumCode="SEARCH_PARAM" enumId="PCLT_SEARCH_PARAM" sequenceId="01" enumTypeId="PCAT_LINK_TYPE"/>
     <Enumeration description="Absolute URL" enumCode="ABS_URL" enumId="PCLT_ABS_URL" sequenceId="02" enumTypeId="PCAT_LINK_TYPE"/>
+    <Enumeration description="Category ID" enumCode="CAT_ID" enumId="PCLT_CAT_ID" sequenceId="03" enumTypeId="PCAT_LINK_TYPE"/>
     
     <FacilityType description="Building" facilityTypeId="BUILDING" hasTable="N" parentTypeId=""/>
     <FacilityType description="Floor" facilityTypeId="FLOOR" hasTable="N" parentTypeId=""/>
