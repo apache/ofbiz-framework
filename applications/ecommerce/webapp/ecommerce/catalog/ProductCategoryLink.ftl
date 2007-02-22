@@ -22,7 +22,6 @@ under the License.
 <#if productCategoryLink.detailSubScreen?has_content>
     ${screens.render(productCategoryLink.detailSubScreen)}
 <#else>
-    <#assign isCategoryIdLink = false/>
     <#assign titleText = productCategoryLink.titleText?if_exists/>
     <#assign imageUrl = productCategoryLink.imageUrl?if_exists/>
     <#assign detailText = productCategoryLink.detailText?if_exists/>
@@ -31,9 +30,8 @@ under the License.
       <#assign linkUrl = requestAttributes._REQUEST_HANDLER_.makeLink(request, response, "keywordsearch?" + productCategoryLink.linkInfo)/>
     <#elseif productCategoryLink.linkTypeEnumId == "PCLT_ABS_URL">
       <#assign linkUrl = productCategoryLink.linkInfo?if_exists/>
-    <#elseif productCategoryLink.linkTypeEnumId == "PCLT_ABS_URL">
+    <#elseif productCategoryLink.linkTypeEnumId == "PCLT_CAT_ID">
       <#assign linkUrl = requestAttributes._REQUEST_HANDLER_.makeLink(request, response, "category?category_id=" + productCategoryLink.linkInfo)/>
-      <#assign isCategoryIdLink = true/>
       <#assign linkProductCategory = delegator.findByPrimaryKeyCache("ProductCategory", Static["org.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", productCategoryLink.linkInfo))/>
       <#assign linkCategoryContentWrapper = Static["org.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(linkProductCategory, request)/>
       <#assign titleText = productCategoryLink.titleText?default(linkCategoryContentWrapper.get("CATEGORY_NAME"))?if_exists/>
