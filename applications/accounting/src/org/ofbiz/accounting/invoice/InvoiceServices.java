@@ -50,6 +50,7 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.service.DispatchContext;
@@ -473,6 +474,9 @@ public class InvoiceServices {
                     invoiceItemSeqNum++;
                     invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
 
+                    // Get the original order item from the DB, in case the quantity has been overridden
+                    GenericValue originalOrderItem = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.getString("orderItemSeqId")));
+
                     // create the item adjustment as line items
                     List itemAdjustments = OrderReadHelper.getOrderItemAdjustmentList(orderItem, orh.getAdjustments());
                     Iterator itemAdjIter = itemAdjustments.iterator();
@@ -500,7 +504,7 @@ public class InvoiceServices {
                         if (adj.get("amount") != null) { 
                             // pro-rate the amount
                             // set decimals = 100 means we don't round this intermediate value, which is very important
-                            amount = adj.getBigDecimal("amount").divide(orderItem.getBigDecimal("quantity"), 100, rounding);
+                            amount = adj.getBigDecimal("amount").divide(originalOrderItem.getBigDecimal("quantity"), 100, rounding);
                             amount = amount.multiply(billingQuantity);
                             amount = amount.setScale(decimals, rounding);
                         }
@@ -510,7 +514,7 @@ public class InvoiceServices {
                             BigDecimal percent = adj.getBigDecimal("sourcePercentage");
                             percent = percent.divide(new BigDecimal(100), 100, rounding);
                             amount = billingAmount.multiply(percent); 
-                            amount = amount.divide(orderItem.getBigDecimal("quantity"), 100, rounding);
+                            amount = amount.divide(originalOrderItem.getBigDecimal("quantity"), 100, rounding);
                             amount = amount.multiply(billingQuantity);
                             amount = amount.setScale(decimals, rounding);
                         }
@@ -989,14 +993,36 @@ public class InvoiceServices {
         return response;
     }
     
+    public static Map createSalesInvoicesFromDropShipment(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        String shipmentId = (String) context.get("shipmentId");
+        Locale locale = (Locale) context.get("locale");
+
+        Map serviceContext = UtilMisc.toMap("shipmentIds", UtilMisc.toList(shipmentId), "createSalesInvoicesForDropShipments", Boolean.TRUE, "userLogin", context.get("userLogin"));
+
+        Map serviceResult;
+        try {
+            serviceResult = dispatcher.runSync("createInvoicesFromShipments", serviceContext);
+        } catch (GenericServiceException e) {
+            String errorMessage = UtilProperties.getMessage(resource, "AccountingTroubleCallingCreateInvoicesFromShipmentService", UtilMisc.toMap("shipmentId", shipmentId), locale);
+            Debug.logError(e, errorMessage, module);
+            return ServiceUtil.returnError(errorMessage);
+        }
+        
+        return serviceResult;
+    }
+        
     public static Map createInvoicesFromShipments(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         List shipmentIds = (List) context.get("shipmentIds");
         Locale locale = (Locale) context.get("locale");
+        Boolean createSalesInvoicesForDropShipments = (Boolean) context.get("createSalesInvoicesForDropShipments");
+        if (UtilValidate.isEmpty(createSalesInvoicesForDropShipments)) createSalesInvoicesForDropShipments = Boolean.FALSE;
 
         boolean salesShipmentFound = false;
         boolean purchaseShipmentFound = false;
+        boolean dropShipmentFound = false;
         
         List invoicesCreated = new ArrayList();
 
@@ -1007,10 +1033,12 @@ public class InvoiceServices {
                 GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", tmpShipmentId));
                 if ((shipment.getString("shipmentTypeId") != null) && (shipment.getString("shipmentTypeId").equals("PURCHASE_SHIPMENT"))) {
                     purchaseShipmentFound = true;
+                } else if ((shipment.getString("shipmentTypeId") != null) && (shipment.getString("shipmentTypeId").equals("DROP_SHIPMENT"))) {
+                    dropShipmentFound = true;
                 } else {
                     salesShipmentFound = true;
                 }
-                if (purchaseShipmentFound && salesShipmentFound) {
+                if (purchaseShipmentFound && salesShipmentFound && dropShipmentFound) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingShipmentsOfDifferentTypes",UtilMisc.toMap("tmpShipmentId",tmpShipmentId,"shipmentTypeId",shipment.getString("shipmentTypeId")),locale));
                 }
             } catch (GenericEntityException e) {
@@ -1022,12 +1050,33 @@ public class InvoiceServices {
         EntityCondition shipmentIdsCond = new EntityExpr("shipmentId", EntityOperator.IN, shipmentIds);
         // check the status of the shipment
 
-        // get the items of the shipment.  They can come from ItemIssuance if the shipment were from a sales order or ShipmentReceipt
-        // if it were a purchase order
+        // get the items of the shipment.  They can come from ItemIssuance if the shipment were from a sales order, ShipmentReceipt
+        // if it were a purchase order or from the order items of the (possibly linked) orders if the shipment is a drop shipment
         List items = null;
+        List orderItemAssocs = null;
         try {
             if (purchaseShipmentFound) {
                 items = delegator.findByCondition("ShipmentReceipt", shipmentIdsCond, null, UtilMisc.toList("shipmentId"));
+            } else if (dropShipmentFound) {
+
+                List shipments = delegator.findByCondition("Shipment", shipmentIdsCond, null, null);
+                
+                // Get the list of purchase order IDs related to the shipments
+                List purchaseOrderIds = EntityUtil.getFieldListFromEntityList(shipments, "primaryOrderId", true);
+    
+                if (createSalesInvoicesForDropShipments.booleanValue()) {
+                
+                    // If a sales invoice is being created for a drop shipment, we have to reference the original sales order items
+                    // Get the list of the linked orderIds (original sales orders)
+                    orderItemAssocs = delegator.findByCondition("OrderItemAssoc", new EntityExpr("toOrderId", EntityOperator.IN, purchaseOrderIds), null, null);
+    
+                    // Get only the order items which are indirectly related to the purchase order - this limits the list to the drop ship group(s)
+                    items = EntityUtil.getRelated("FromOrderItem", orderItemAssocs);
+                } else {
+
+                    // If it's a purchase invoice being created, the order items for that purchase orders can be used directly
+                    items = delegator.findByCondition("OrderItem", new EntityExpr("orderId", EntityOperator.IN, purchaseOrderIds), null, null);
+                }
             } else {
                 items = delegator.findByCondition("ItemIssuance", shipmentIdsCond, null, UtilMisc.toList("shipmentId"));
             }
@@ -1055,7 +1104,13 @@ public class InvoiceServices {
 
             // check and make sure we haven't already billed for this issuance or shipment receipt
             Map billFields = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId);
-            if (item.getEntityName().equals("ItemIssuance")) {
+            if (dropShipmentFound) {
+
+                // Drop shipments have neither issuances nor receipts, so this check is meaningless
+                itemsByOrder.add(item);
+                shippedOrderItems.put(orderId, itemsByOrder);
+                continue;
+            } else if (item.getEntityName().equals("ItemIssuance")) {
                 billFields.put("itemIssuanceId", item.get("itemIssuanceId"));
             } else if (item.getEntityName().equals("ShipmentReceipt")) {
                 billFields.put("shipmentReceiptId", item.getString("receiptId"));
@@ -1098,6 +1153,7 @@ public class InvoiceServices {
             while (billIt.hasNext()) {
                 GenericValue issue = (GenericValue) billIt.next();
                 BigDecimal issueQty = ZERO;
+
                 if (issue.getEntityName().equals("ShipmentReceipt")) {
                     issueQty = issue.getBigDecimal("quantityAccepted");
                 } else {
@@ -1109,8 +1165,22 @@ public class InvoiceServices {
                     Map lookup = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", issue.get("orderItemSeqId"));
                     GenericValue orderItem = null;
                     List billed = null;
+                    BigDecimal orderedQty = null;
                     try {
-                        orderItem = issue.getRelatedOne("OrderItem");
+                        orderItem = issue.getEntityName().equals("OrderItem") ? issue : issue.getRelatedOne("OrderItem");
+
+                        // total ordered
+                        orderedQty = orderItem.getBigDecimal("quantity");
+
+                        if (dropShipmentFound && createSalesInvoicesForDropShipments.booleanValue()) {
+                            
+                            // Override the issueQty with the quantity from the purchase order item
+                            GenericValue orderItemAssoc = EntityUtil.getFirst(EntityUtil.filterByAnd(orderItemAssocs, UtilMisc.toMap("orderId", issue.getString("orderId"), "orderItemSeqId", issue.getString("orderItemSeqId"))));
+                            GenericValue purchaseOrderItem = orderItemAssoc.getRelatedOne("ToOrderItem");
+                            orderItem.set("quantity", purchaseOrderItem.getDouble("quantity"));
+                            issueQty = purchaseOrderItem.getBigDecimal("quantity");
+                        }
+
                         billed = delegator.findByAnd("OrderItemBilling", lookup);
                     } catch (GenericEntityException e) {
                         String errMsg = UtilProperties.getMessage(resource, "AccountingProblemGettingOrderItemOrderItemBilling",UtilMisc.toMap("lookup",lookup), locale);
@@ -1118,8 +1188,6 @@ public class InvoiceServices {
                         return ServiceUtil.returnError(errMsg);
                     }
 
-                    // total ordered
-                    BigDecimal orderedQty = orderItem.getBigDecimal("quantity");
 
                     // add up the already billed total
                     if (billed != null && billed.size() > 0) {
@@ -1165,10 +1233,43 @@ public class InvoiceServices {
             if (productStore.getString("prorateShipping").equals("N")) {
     
                 // Get the set of filtered shipments
-                List invoiceableShipmentIds = EntityUtil.getFieldListFromEntityList(toBillItems, "shipmentId", true);
                 List invoiceableShipments = null;
                 try {
-                    invoiceableShipments = delegator.findByCondition("Shipment", new EntityExpr("shipmentId", EntityOperator.IN, invoiceableShipmentIds), null, null);
+                    if (dropShipmentFound) {
+                        
+                        List invoiceablePrimaryOrderIds = null;
+                        if (createSalesInvoicesForDropShipments.booleanValue()) {
+                        
+                            // If a sales invoice is being created for the drop shipment, we need to reference back to the original purchase order IDs
+
+                            // Get the IDs for orders which have billable items
+                            List invoiceableLinkedOrderIds = EntityUtil.getFieldListFromEntityList(toBillItems, "orderId", true);
+
+                            // Get back the IDs of the purchase orders - this will be a list of the purchase order items which are billable by virtue of not having been
+                            //  invoiced in a previous sales invoice
+                            List reverseOrderItemAssocs = EntityUtil.filterByCondition(orderItemAssocs, new EntityExpr("orderId", EntityOperator.IN, invoiceableLinkedOrderIds));
+                            invoiceablePrimaryOrderIds = EntityUtil.getFieldListFromEntityList(reverseOrderItemAssocs, "toOrderId", true);
+                            
+                        } else {
+        
+                            // If a purchase order is being created for a drop shipment, the purchase order IDs can be used directly
+                            invoiceablePrimaryOrderIds = EntityUtil.getFieldListFromEntityList(toBillItems, "orderId", true);
+
+                        }
+
+                        // Get the list of shipments which are associated with the filtered purchase orders
+                        if (! UtilValidate.isEmpty(invoiceablePrimaryOrderIds)) {
+                            List invoiceableShipmentConds = UtilMisc.toList(
+                                    new EntityExpr("primaryOrderId", EntityOperator.IN, invoiceablePrimaryOrderIds),
+                                    new EntityExpr("shipmentId", EntityOperator.IN, shipmentIds));
+                            invoiceableShipments = delegator.findByCondition("Shipment", new EntityConditionList(invoiceableShipmentConds, EntityOperator.AND), null, null);
+                        }
+                    } else {
+                        List invoiceableShipmentIds = EntityUtil.getFieldListFromEntityList(toBillItems, "shipmentId", true);
+                        if (! UtilValidate.isEmpty(invoiceableShipmentIds)) {
+                            invoiceableShipments = delegator.findByCondition("Shipment", new EntityExpr("shipmentId", EntityOperator.IN, invoiceableShipmentIds), null, null);
+                        }
+                    }
                 } catch( GenericEntityException e ) {
                     String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingCreateInvoicesFromShipmentsService", locale);
                     Debug.logError(e, errMsg, module);
@@ -1178,13 +1279,15 @@ public class InvoiceServices {
                 // Total the additional shipping charges for the shipments
                 Map additionalShippingCharges = new HashMap();
                 BigDecimal totalAdditionalShippingCharges = ZERO;
-                Iterator isit = invoiceableShipments.iterator();
-                while(isit.hasNext()) {
-                    GenericValue shipment = (GenericValue) isit.next();
-                    if (shipment.get("additionalShippingCharge") == null) continue;
-                    BigDecimal shipmentAdditionalShippingCharges = shipment.getBigDecimal("additionalShippingCharge").setScale(decimals, rounding);
-                    additionalShippingCharges.put(shipment, shipmentAdditionalShippingCharges);
-                    totalAdditionalShippingCharges = totalAdditionalShippingCharges.add(shipmentAdditionalShippingCharges);
+                if (! UtilValidate.isEmpty(invoiceableShipments)) {
+                    Iterator isit = invoiceableShipments.iterator();
+                    while(isit.hasNext()) {
+                        GenericValue shipment = (GenericValue) isit.next();
+                        if (shipment.get("additionalShippingCharge") == null) continue;
+                        BigDecimal shipmentAdditionalShippingCharges = shipment.getBigDecimal("additionalShippingCharge").setScale(decimals, rounding);
+                        additionalShippingCharges.put(shipment, shipmentAdditionalShippingCharges);
+                        totalAdditionalShippingCharges = totalAdditionalShippingCharges.add(shipmentAdditionalShippingCharges);
+                    }
                 }
                 
                 // If the additional shipping charges are greater than zero, process them

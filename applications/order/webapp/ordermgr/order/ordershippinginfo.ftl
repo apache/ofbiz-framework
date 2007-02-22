@@ -332,6 +332,7 @@ under the License.
                    </form>
                    </div>
                <#else>
+                   <div class="tabletext"><a href="<@ofbizUrl>quickDropShipOrder?orderId=${orderId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;externalLoginKey=${externalLoginKey}</@ofbizUrl>" class="buttontext" target="_blank">${uiLabelMap.ProductShipmentQuickComplete}</a></div>
                    <div class="tabletext"><a href="/facility/control/createShipment?primaryOrderId=${orderId}&amp;primaryShipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;shipmentTypeId=DROP_SHIPMENT&amp;statusId=PURCH_SHIP_CREATED&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.OrderNewDropShipmentForShipGroup} [${shipGroup.shipGroupSeqId}]</a></div>
                </#if>
              </#if>

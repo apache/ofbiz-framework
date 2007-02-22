@@ -1168,6 +1168,25 @@ under the License.
         <check-errors/>
     </simple-method>
 
+    <simple-method method-name="quickDropShipOrder" short-description="Create and complete a drop shipment for a ship group">
+        <set from-field="parameters.orderId" field="shipmentContext.primaryOrderId"/>
+        <set from-field="parameters.shipGroupSeqId" field="shipmentContext.primaryShipGroupSeqId"/>
+        <set value="PURCH_SHIP_CREATED" field="shipmentContext.statusId"/>
+        <set value="DROP_SHIPMENT" field="shipmentContext.shipmentTypeId"/>
+        <call-service service-name="createShipment" in-map-name="shipmentContext">
+            <result-to-field result-name="shipmentId" field-name="shipmentId"/>
+        </call-service>
+        <check-errors/>
+        <set from-field="shipmentId" field="updateShipmentContext.shipmentId"/>
+        <set value="PURCH_SHIP_SHIPPED" field="updateShipmentContext.statusId"/>
+        <call-service service-name="updateShipment" in-map-name="updateShipmentContext"/>
+        <check-errors/>
+        <set value="PURCH_SHIP_RECEIVED" field="updateShipmentContext.statusId"/>
+        <call-service service-name="updateShipment" in-map-name="updateShipmentContext"/>
+        <check-errors/>
+        <field-to-result field-name="shipmentId" result-name="shipmentId"/>
+    </simple-method>
+        
     <simple-method method-name="quickShipPurchaseOrder" short-description="Quick ships an entire purchase order to a facility">
         <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
         <call-simple-method method-name="getOrderItemShipGroupLists"/>
