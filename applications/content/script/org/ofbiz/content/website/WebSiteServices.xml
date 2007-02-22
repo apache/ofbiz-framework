@@ -65,7 +65,7 @@ under the License.
     <simple-method method-name="removeWebSiteContent" short-description="Remove WebSite Content">
         <make-value value-name="lookupPKMap" entity-name="WebSiteContent"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="WebSiteContentType" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="WebSiteContent" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 

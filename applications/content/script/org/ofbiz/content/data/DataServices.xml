@@ -68,6 +68,7 @@ under the License.
         <set field="lookedUpValue.lastModifiedDate" from-field="nowTimestamp"/>
 
         <store-value value-name="lookedUpValue"/>
+        <field-to-result field-name="dataResourceId" map-name="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="deleteDataResource" short-description="Delete a Data Resource">        

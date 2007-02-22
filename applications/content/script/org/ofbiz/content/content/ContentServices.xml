@@ -91,7 +91,7 @@
     </simple-method>
     <simple-method method-name="updateContentAssoc" short-description="Update a ContentAssoc Record">
         <entity-one entity-name="ContentAssoc" value-name="assoc" auto-field-map="true"/>
-        <set-nonpk-fields value-name="assoc"/>
+        <set-nonpk-fields value-name="assoc" map-name="parameters"/>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <set field="content.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>

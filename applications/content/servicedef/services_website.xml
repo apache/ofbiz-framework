@@ -52,6 +52,7 @@
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
     </service>
     <service name="updateWebSiteContent" default-entity-name="WebSiteContent" engine="simple" auth="true"
             location="org/ofbiz/content/website/WebSiteServices.xml" invoke="updateWebSiteContent">
