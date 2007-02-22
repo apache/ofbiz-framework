@@ -22,22 +22,34 @@ under the License.
 <#if productCategoryLink.detailSubScreen?has_content>
     ${screens.render(productCategoryLink.detailSubScreen)}
 <#else>
+    <#assign isCategoryIdLink = false/>
+    <#assign titleText = productCategoryLink.titleText?if_exists/>
+    <#assign imageUrl = productCategoryLink.imageUrl?if_exists/>
+    <#assign detailText = productCategoryLink.detailText?if_exists/>
+    
     <#if productCategoryLink.linkTypeEnumId == "PCLT_SEARCH_PARAM">
       <#assign linkUrl = requestAttributes._REQUEST_HANDLER_.makeLink(request, response, "keywordsearch?" + productCategoryLink.linkInfo)/>
     <#elseif productCategoryLink.linkTypeEnumId == "PCLT_ABS_URL">
       <#assign linkUrl = productCategoryLink.linkInfo?if_exists/>
     <#elseif productCategoryLink.linkTypeEnumId == "PCLT_ABS_URL">
       <#assign linkUrl = requestAttributes._REQUEST_HANDLER_.makeLink(request, response, "category?category_id=" + productCategoryLink.linkInfo)/>
+      <#assign isCategoryIdLink = true/>
+      <#assign linkProductCategory = delegator.findByPrimaryKeyCache("ProductCategory", Static["org.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", productCategoryLink.linkInfo))/>
+      <#assign linkCategoryContentWrapper = Static["org.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(linkProductCategory, request)/>
+      <#assign titleText = productCategoryLink.titleText?default(linkCategoryContentWrapper.get("CATEGORY_NAME"))?if_exists/>
+      <#assign imageUrl = productCategoryLink.imageUrl?default(linkCategoryContentWrapper.get("CATEGORY_IMAGE_URL"))?if_exists/>
+      <#assign detailText = productCategoryLink.detailText?default(linkCategoryContentWrapper.get("DESCRIPTION"))?if_exists/>
     </#if>
+    
     <div class="productcategorylink">
-      <#if productCategoryLink.imageUrl?has_content>
-        <div class="smallimage"><a href="${linkUrl}"><img src="<@ofbizContentUrl>${productCategoryLink.imageUrl}</@ofbizContentUrl>" alt="${productCategoryLink.titleText?default("Link Image")}"/></a></div>
+      <#if imageUrl?has_content>
+        <div class="smallimage"><a href="${linkUrl}"><img src="<@ofbizContentUrl>${imageUrl}</@ofbizContentUrl>" alt="${titleText?default("Link Image")}"/></a></div>
       </#if>
-      <#if productCategoryLink.titleText?has_content>
-        <a href="${linkUrl}" class="linktext">${productCategoryLink.titleText}</a>
+      <#if titleText?has_content>
+        <a href="${linkUrl}" class="linktext">${titleText}</a>
       </#if>
-      <#if productCategoryLink.detailText?has_content>
-        <div class="tabletext">${productCategoryLink.detailText}</div>
+      <#if detailText?has_content>
+        <div class="tabletext">${detailText}</div>
       </#if>
     </div>
 </#if>
