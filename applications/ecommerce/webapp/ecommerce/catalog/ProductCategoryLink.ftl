@@ -26,6 +26,8 @@ under the License.
       <#assign linkUrl = requestAttributes._REQUEST_HANDLER_.makeLink(request, response, "keywordsearch?" + productCategoryLink.linkInfo)/>
     <#elseif productCategoryLink.linkTypeEnumId == "PCLT_ABS_URL">
       <#assign linkUrl = productCategoryLink.linkInfo?if_exists/>
+    <#elseif productCategoryLink.linkTypeEnumId == "PCLT_ABS_URL">
+      <#assign linkUrl = requestAttributes._REQUEST_HANDLER_.makeLink(request, response, "category?category_id=" + productCategoryLink.linkInfo)/>
     </#if>
     <div class="productcategorylink">
       <#if productCategoryLink.imageUrl?has_content>
