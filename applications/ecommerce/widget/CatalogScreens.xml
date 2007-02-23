@@ -217,6 +217,7 @@ under the License.
     <screen name="ProductCategoryLink">
         <section>
             <actions>
+                <!-- TODO/NOTE DEJ20070223: for some reason this isn't working, doing an assign within the FTL file which does work: <set field="productCategoryLink" from-field="requestAttributes.productCategoryLink"/> -->
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/catalog/ProductCategoryLink.ftl"/></html></platform-specific>
