@@ -35,6 +35,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilValidate;
 
 public class PickListServices {
 
@@ -97,17 +98,20 @@ public class PickListServices {
             throw e;
         }
 
-        if (items != null) {
+        if (!UtilValidate.isEmpty(items)) {
             Iterator i = items.iterator();
-            GenericValue v = (GenericValue) i.next();
-            String itemStatus = v.getString("itemStatusId");
-            if (itemStatus != null) {
-                if (!"PICKITEM_COMPLETED".equals(itemStatus)) {
-                    return false;
+            while (i.hasNext()) {
+                GenericValue v = (GenericValue) i.next();
+                String itemStatus = v.getString("itemStatusId");
+                if (itemStatus != null) {
+                    if (!"PICKITEM_COMPLETED".equals(itemStatus)) {
+                        return false;
+                    }
                 }
             }
+            return true;
         }
 
-        return true;
+        return false;
     }
 }
