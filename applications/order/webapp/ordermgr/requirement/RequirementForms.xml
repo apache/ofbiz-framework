@@ -23,6 +23,7 @@ under the License.
     <form name="FindRequirements" type="single" 
             target="FindRequirements" title=""
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="hideSearch"><hidden value="Y"/></field>
         <field name="requirementId"><text-find/></field>
         <field name="requirementTypeId">
