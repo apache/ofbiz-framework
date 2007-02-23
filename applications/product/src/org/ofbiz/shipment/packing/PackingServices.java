@@ -24,6 +24,7 @@ import java.util.Map;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
@@ -208,6 +209,26 @@ public class PackingServices {
         return ServiceUtil.returnSuccess();
     }
 
+    public static Map calcPackSessionAdditionalShippingCharge(DispatchContext dctx, Map context) {
+        PackingSession session = (PackingSession) context.get("packingSession");
+        Map packageWeights = (Map) context.get("packageWeights");
+        String weightUomId = (String) context.get("weightUomId");
+        String shippingContactMechId = (String) context.get("shippingContactMechId");
+        String shipmentMethodTypeId = (String) context.get("shipmentMethodTypeId");
+        String carrierPartyId = (String) context.get("carrierPartyId");
+        String carrierRoleTypeId = (String) context.get("carrierRoleTypeId");
+        String productStoreId = (String) context.get("productStoreId");
+        
+        double shippableWeight = setSessionPackageWeights(session, packageWeights);
+        Double estimatedShipCost = session.getShipmentCostEstimate(shippingContactMechId, shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId, productStoreId, null, null, new Double(shippableWeight), null);
+        session.setAdditionalShippingCharge(estimatedShipCost);
+        session.setWeightUomId(weightUomId);
+
+        Map result = ServiceUtil.returnSuccess();
+        result.put("additionalShippingCharge", estimatedShipCost);
+        return result;
+    }
+
 
     public static Map completePack(DispatchContext dctx, Map context) {
         PackingSession session = (PackingSession) context.get("packingSession");
@@ -216,9 +237,13 @@ public class PackingServices {
         String instructions = (String) context.get("handlingInstructions");
         String pickerPartyId = (String) context.get("pickerPartyId");
         Double additionalShippingCharge = (Double) context.get("additionalShippingCharge");
+        Map packageWeights = (Map) context.get("packageWeights");
+        String weightUomId = (String) context.get("weightUomId");
         session.setHandlingInstructions(instructions);
         session.setPickerPartyId(pickerPartyId);
         session.setAdditionalShippingCharge(additionalShippingCharge);
+        session.setWeightUomId(weightUomId);
+        setSessionPackageWeights(session, packageWeights);
 
         Boolean force = (Boolean) context.get("forceComplete");
         if (force == null) {
@@ -242,5 +267,24 @@ public class PackingServices {
         
         resp.put("shipmentId", shipmentId);
         return resp;
+    }
+
+    private static double setSessionPackageWeights(PackingSession session, Map packageWeights) {
+        double shippableWeight = 0;
+        if (! UtilValidate.isEmpty(packageWeights)) {
+            Iterator pwit = packageWeights.keySet().iterator();
+            while (pwit.hasNext()) {
+                String packageSeqId = (String) pwit.next();
+                String packageWeightStr = (String) packageWeights.get(packageSeqId);
+                if (UtilValidate.isNotEmpty(packageWeightStr)) {
+                    double packageWeight = UtilMisc.toDouble(packageWeights.get(packageSeqId));
+                    session.setPackageWeight(Integer.parseInt(packageSeqId), new Double(packageWeight));
+                    shippableWeight += packageWeight;
+                } else {
+                    session.setPackageWeight(Integer.parseInt(packageSeqId), null);
+                }
+            }
+        }
+        return shippableWeight;
     }
 }

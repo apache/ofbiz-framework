@@ -401,6 +401,20 @@ under the License.
         <attribute name="nextPackageSeq" type="Integer" mode="OUT" optional="false"/>
     </service>
 
+    <service name="calcPackSessionAdditionalShippingCharge" engine="java"
+            location="org.ofbiz.shipment.packing.PackingServices" invoke="calcPackSessionAdditionalShippingCharge" auth="true">
+        <description>Totals package weights and calls the calcShipmentCostEstimate via the PackingSession</description>
+        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="packageWeights" type="Map" string-map-prefix="packageWeight_" mode="IN" optional="true"/>
+        <attribute name="weightUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingContactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentMethodTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="carrierPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="carrierRoleTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="additionalShippingCharge" type="Double" mode="OUT" optional="false"/>
+    </service>
+
     <service name="clearPackAll" engine="java"
             location="org.ofbiz.shipment.packing.PackingServices" invoke="clearPackAll" auth="true">
         <description>Clear the current packing session</description>
@@ -431,6 +445,8 @@ under the License.
         <attribute name="pickerPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="additionalShippingCharge" type="Double" mode="IN" optional="true"/>
         <attribute name="forceComplete" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="packageWeights" type="Map" string-map-prefix="packageWeight_" mode="IN" optional="true"/>
+        <attribute name="weightUomId" type="String" mode="IN" optional="true"/>
         <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
     </service>
 

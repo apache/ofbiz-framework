@@ -18,12 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.shipment.packing;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.math.BigDecimal;
+import java.util.*;
 
 import javolution.util.FastMap;
 import javolution.util.FastList;
@@ -43,7 +38,6 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.product.product.ProductWorker;
-// import org.ofbiz.order.order.OrderReadHelper; at this pont the order is not yet compiled see other change at line 842 to make this source compile
 
 public class PackingSession implements java.io.Serializable {
 
@@ -59,7 +53,9 @@ public class PackingSession implements java.io.Serializable {
     protected String facilityId = null;
     protected String shipmentId = null;
     protected String instructions = null;
-    protected Double additionalShippingCharge;
+    protected String weightUomId = null;
+    protected Double additionalShippingCharge = null;
+    protected Map packageWeights = null;
     protected List packEvents = null;
     protected List packLines = null;
     protected int packageSeq = -1;
@@ -83,6 +79,7 @@ public class PackingSession implements java.io.Serializable {
         this.packLines = new ArrayList();
         this.packEvents = new ArrayList();
         this.packageSeq = 1;
+        this.packageWeights = new HashMap();
     }
 
     public PackingSession(LocalDispatcher dispatcher, GenericValue userLogin, String facilityId) {
@@ -219,6 +216,9 @@ public class PackingSession implements java.io.Serializable {
                 break;
         }
 
+        // Add the line weight to the package weight
+        if (weight > 0) this.addToPackageWeight(packageSeqId, new Double(weight));
+        
         // update the package sequence
         if (packageSeqId > packageSeq) {
             this.packageSeq = packageSeqId;
@@ -554,6 +554,8 @@ public class PackingSession implements java.io.Serializable {
         this.primaryOrderId = null;
         this.primaryShipGrp = null;
         this.additionalShippingCharge = null;
+        if (this.packageWeights != null) this.packageWeights.clear();
+        this.weightUomId = null;
         this.packageSeq = 1;
         this.status = 1;
         this.runEvents(PackingEvent.EVENT_CODE_CLEAR);
@@ -580,6 +582,8 @@ public class PackingSession implements java.io.Serializable {
         this.issueItemsToShipment();
         // assign items to packages
         this.applyItemsToPackages();
+        // update ShipmentRouteSegments with total weight and weightUomId
+        this.updateShipmentRouteSegments();
         // set the shipment to packed
         this.setShipmentToPacked();
         // set role on picklist
@@ -715,6 +719,8 @@ public class PackingSession implements java.io.Serializable {
             pkgCtx.put("shipmentId", shipmentId);
             pkgCtx.put("shipmentPackageSeqId", shipmentPackageSeqId);
             //pkgCtx.put("shipmentBoxTypeId", "");
+            pkgCtx.put("weight", getPackageWeight(i+1));
+            pkgCtx.put("weightUomId", getWeightUomId());
             pkgCtx.put("userLogin", userLogin);
             Map newPkgResp = this.getDispatcher().runSync("createShipmentPackage", pkgCtx);
 
@@ -733,6 +739,21 @@ public class PackingSession implements java.io.Serializable {
         }
     }
 
+    protected void updateShipmentRouteSegments() throws GeneralException {
+        Double shipmentWeight = new Double(getTotalWeight());
+        if (shipmentWeight.doubleValue() <= 0) return;
+        List shipmentRouteSegments = getDelegator().findByAnd("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", this.getShipmentId()));
+        if (! UtilValidate.isEmpty(shipmentRouteSegments)) {
+            Iterator srit = shipmentRouteSegments.iterator();
+            while (srit.hasNext()) {
+                GenericValue shipmentRouteSegment = (GenericValue) srit.next();
+                shipmentRouteSegment.set("billingWeight", shipmentWeight);
+                shipmentRouteSegment.set("billingWeightUomId", getWeightUomId());
+            }
+            getDelegator().storeAll(shipmentRouteSegments);
+        }
+    }
+ 
     protected void setShipmentToPacked() throws GeneralException {
         Map packedCtx = UtilMisc.toMap("shipmentId", shipmentId, "statusId", "SHIPMENT_PACKED", "userLogin", userLogin);
         Map packedResp = this.getDispatcher().runSync("updateShipment", packedCtx);
@@ -775,14 +796,12 @@ public class PackingSession implements java.io.Serializable {
         this.additionalShippingCharge = additionalShippingCharge;
     }
     
-    public double getTotalWeight(int packageSeq) {
+    public double getTotalWeight() {
         double total = 0.0;
-        List lines = this.getLines();
-        Iterator i = lines.iterator();
-        while (i.hasNext()) {
-            PackingSessionLine line = (PackingSessionLine) i.next();
-            if (packageSeq == -1 || packageSeq == line.getPackageSeq()) {
-                total += line.getWeight();
+        for (int i = 0; i < packageSeq; i++) {
+            Double packageWeight = getPackageWeight(i);
+            if (! UtilValidate.isEmpty(packageWeight)) {
+                total += packageWeight.doubleValue();
             }
         }
         return total;
@@ -824,7 +843,7 @@ public class PackingSession implements java.io.Serializable {
             serviceContext.put("shippableItemInfo", shippableItemInfo);
 
             if (UtilValidate.isEmpty(shippableWeight)) {
-                shippableWeight = new Double(getTotalWeight(-1));
+                shippableWeight = new Double(getTotalWeight());
             }
             serviceContext.put("shippableWeight", shippableWeight);
 
@@ -835,21 +854,14 @@ public class PackingSession implements java.io.Serializable {
 
             if (UtilValidate.isEmpty(shippableTotal)) {
                 shippableTotal = new Double(0);
-                Iterator lit = getLines().iterator();
-                while (lit.hasNext()) {
-                    PackingSessionLine line = (PackingSessionLine) lit.next();
-                    GenericValue orderItem = getDelegator().findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", line.getOrderId(), "orderItemSeqId", line.getOrderItemSeqId()));
-//                    BigDecimal orderItemTotal = OrderReadHelper.getOrderItemSubTotalBd(orderItem, null, false, false);
-//                    shippableTotal = new Double(shippableTotal.doubleValue() + orderItemTotal.doubleValue());                    
-                }
             }
             serviceContext.put("shippableTotal", shippableTotal);
     
             serviceResult = getDispatcher().runSync("calcShipmentCostEstimate", serviceContext);
         } catch( GenericEntityException e ) {
-            e.printStackTrace();
+            Debug.logError(e, module);
         } catch( GenericServiceException e ) {
-            e.printStackTrace();
+            Debug.logError(e, module);
         }
         
         if (! UtilValidate.isEmpty(serviceResult.get("shippingEstimateAmount"))) {
@@ -860,4 +872,45 @@ public class PackingSession implements java.io.Serializable {
         
     }
    
+    public String getWeightUomId() {
+        return weightUomId;
+    }
+
+    public void setWeightUomId(String weightUomId) {
+        this.weightUomId = weightUomId;
+    }
+    
+    public List getPackageSeqIds() {
+        Set packageSeqIds = new TreeSet();
+        if (! UtilValidate.isEmpty(this.getLines())) {
+            Iterator lit = this.getLines().iterator();
+            while (lit.hasNext()) {
+                PackingSessionLine line = (PackingSessionLine) lit.next();
+                packageSeqIds.add(new Integer(line.getPackageSeq()));
+            }
+        }
+        return new ArrayList(packageSeqIds);
+    }
+    
+    public void setPackageWeight(int packageSeqId, Double packageWeight) {
+        packageWeights.put(new Integer(packageSeqId), packageWeight);
+    }
+    
+    public Double getPackageWeight(int packageSeqId) {
+        if (this.packageWeights == null) return null;
+        Double packageWeight = null;
+        Object p = packageWeights.get(new Integer(packageSeqId));
+        if (p != null) {
+            packageWeight = (Double) p;
+        }
+        return packageWeight;
+    }
+    
+    public void addToPackageWeight(int packageSeqId, Double weight) {
+        if (UtilValidate.isEmpty(weight)) return;
+        Double packageWeight = getPackageWeight(packageSeqId);
+        Double newPackageWeight = UtilValidate.isEmpty(packageWeight) ? weight : new Double(weight.doubleValue() + packageWeight.doubleValue());
+        setPackageWeight(packageSeqId, newPackageWeight);
+    }
+    
 }

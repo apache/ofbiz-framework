@@ -632,6 +632,12 @@ under the License.
         <response name="success" type="view" value="PackOrder"/>
         <response name="error" type="view" value="PackOrder"/>
     </request-map>
+    <request-map uri="calcPackSessionAdditionalShippingCharge">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="calcPackSessionAdditionalShippingCharge"/>
+        <response name="success" type="view" value="PackOrder"/>
+        <response name="error" type="view" value="PackOrder"/>
+    </request-map>
     <request-map uri="CompletePack">
         <security https="true" auth="true"/>
         <event type="service" invoke="completePack"/>
