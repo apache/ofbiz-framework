@@ -175,13 +175,18 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditWebSiteCMS"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <entity-one entity-name="WebSite" value-name="webSite"/>
-
+                
                 <script location="component://content/webapp/content/WEB-INF/actions/website/WebSitePublishPoint.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWebSiteDecorator">
                     <decorator-section name="body">
                         <section>
+                            <condition>
+                                <not>
+                                    <if-empty field-name="contentRoot"/>
+                                </not>                                
+                            </condition>
                             <widgets>                                                                
                                 <container id="cmsnav" style="left-border">
                                     <include-screen name="WebSiteCMSNav"/>
@@ -193,6 +198,11 @@ under the License.
                                     <include-screen name="WebSiteCMSEditor"/>                                    
                                 </container>                                                                
                             </widgets>
+                            <fail-widgets>
+                                <container id="norender" style="tableheadtext">
+                                    <label text="There is no Content PUBLISH_POINT for this WebSite!"/>
+                                </container>
+                            </fail-widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
