@@ -51,7 +51,7 @@ if (limitViewObj != null) {
 context.put("limitView", limitView);
 
 // get the product category & members
-andMap = UtilMisc.toMap("productCategoryId", request.getAttribute("productCategoryId"), 
+andMap = UtilMisc.toMap("productCategoryId", productCategoryId, 
         "viewIndexString", viewIndex, "viewSizeString", viewSize, 
         "defaultViewSize", defaultViewSize, "limitView", limitView);
 andMap.put("prodCatalogId", currentCatalogId);
