@@ -387,4 +387,27 @@ under the License.
         </calculate>
         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
     </simple-method>
+
+    <simple-method method-name="returnInventoryItemIssuedToFixedAssetMaint" short-description="Return the InventoryItem Issued To FixedAssetMaint">
+        <entity-one entity-name="ItemIssuance" value-name="itemIssuance"/>
+        <set field="oldQuantity" from-field="itemIssuance.quantity"/>
+        <!-- Update the ItemIssuance -->
+        <set value="0" field="itemIssuanceUpdate.quantity" type="Double" />
+        <set from-field="parameters.itemIssuanceId" field="itemIssuanceUpdate.itemIssuanceId"/>
+        <call-service service-name="updateItemIssuance" in-map-name="itemIssuanceUpdate"/>
+        <!-- Increment InventoryItem quantityOnHand AND availableToPromise since there was no reservation -->
+        <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
+        <set from-field="itemIssuance.inventoryItemId" field="createDetailMap.inventoryItemId"/>
+        <set from-field="itemIssuance.fixedAssetId" field="createDetailMap.fixedAssetId"/>
+        <set from-field="itemIssuance.maintHistSeqId" field="createDetailMap.maintHistSeqId"/>
+        <set from-field="itemIssuance.itemIssuanceId" field="createDetailMap.itemIssuanceId"/>
+        <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
+            <calcop field-name="oldQuantity" operator="add"/>
+        </calculate>
+        <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
+            <calcop field-name="oldQuantity" operator="add"/>
+        </calculate>
+        <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+    </simple-method>
+    
 </simple-methods>

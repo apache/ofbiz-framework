@@ -363,6 +363,11 @@ under the License.
         <attribute name="quantity" type="Double" mode="IN" optional="false"/>
         <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
     </service>
+    <service name="returnInventoryItemIssuedToFixedAssetMaint" engine="simple"
+        location="org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="returnInventoryItemIssuedToFixedAssetMaint" auth="true">
+        <description>Return InventoryItem Issued to a FixedAssetMaint - for conversion to use as supples/parts</description>
+        <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
+    </service>
     
     <!-- Pack Order Services -->
     <service name="packSingleItem" engine="java"

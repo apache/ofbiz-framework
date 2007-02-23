@@ -33,7 +33,10 @@
                 <!-- The two default (global) stylesheets are added to the list
                      of stylesheets to the first and second position -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
-                <set field="layoutSettings.styleSheets[+1]" value="/images/tabstyles.css" global="true"/>
+                <!-- The default (global) java scripts -->
+                <set field="layoutSettings.javaScripts[]" value="/images/calendar1.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
 
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.AssetMaintCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.AssetMaintCompanySubtitle" global="true"/>

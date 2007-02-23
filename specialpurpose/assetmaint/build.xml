@@ -84,7 +84,6 @@
     <!-- ================================================================== -->
 
     <target name="classes" depends="prepare,classpath">
-        <!-- TODO: uncomment once there is actually a src directory
         <javac debug="on" source="1.4" deprecation="on" destdir="${build.dir}/classes">
             <classpath>
                 <path refid="local.class.path"/>
@@ -94,7 +93,6 @@
         <copy todir="${build.dir}/classes">
             <fileset dir="${src.dir}" includes="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
         </copy>
-        -->
     </target>
 
     <target name="jar" depends="classes">

@@ -212,23 +212,33 @@
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="AddItemIssuence"  target="issueInventoryItemToFixedAssetMaint" title="PageTitleFixedAssetMaintItemIssuence" default-map-name="newIssuenceTtem" type="single"
+    <form name="AddItemIssuance"  target="issueInventoryItemToFixedAssetMaint" title="PageTitleFixedAssetMaintItemIssuance" default-map-name="newIssuanceItem" type="single"
             default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <field name="facilityId">
+            <drop-down>
+                <entity-options description="${description}" entity-name="Facility">
+                    <entity-constraint name="facilityTypeId" value="WAREHOUSE"/>
+                    <entity-order-by field-name="facilityId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="productId" title="Part Id*" required-field="true"><lookup target-form-name="LookupPartsProduct"/></field>
         <field name="quantity" position="1" title="${uiLabelMap.CommonQuantity}*"><text size="10"/></field>
         <field name="maintHistSeqId"><hidden/></field>
         <field name="fixedAssetId"><hidden/></field>
-        <field name="facilityId"><hidden value="WebStoreWarehouse" /></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListItemIssuence"  title="PageTitleFixedAssetMaintItemIssuence" type="list"  list-name="itemIssuenceList"
-        default-title-style="viewOneTR1" default-tooltip-style="tabletext" default-widget-style="tabletext" header-row-style="boxtop"
-        default-table-style="boxoutside" even-row-style="viewManyTR2" odd-row-style="viewManyTR1" separate-columns="true" >
+    <form name="ListItemIssuance"  title="PageTitleFixedAssetMaintItemIssuance" type="list"  list-name="itemIssuanceList"
+        default-title-style="boxhead" default-tooltip-style="tabletext" default-widget-style="tabletext" default-table-style="boxoutside" 
+        header-row-style="boxtop" even-row-style="viewManyTR2" odd-row-style="viewManyTR1">
         <field name="productId" title="Part Id"><display/></field>
         <field name="quantity" position="1" title="${uiLabelMap.CommonQuantity}"><display/></field>
         <field name="productName" position="1" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="comments" position="1" title="${uiLabelMap.CommonComments}"><display/></field>
         <field name="description" position="1" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="returnPart" title="" widget-style="linktext">
+            <hyperlink description="${uiLabelMap.CommonReturn}" target="returnPartIssuedToFixedAssetMaint?itemIssuanceId=${itemIssuanceId}&amp;fixedAssetId=${fixedAssetId}&amp;maintHistSeqId=${maintHistSeqId}"/>
+        </field>
     </form>
 </forms>

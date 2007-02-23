@@ -136,16 +136,22 @@
         <response name="success" type="view" value="EditWorkEfforts"/>
         <response name="error" type="view" value="EditWorkEfforts"/>
     </request-map>
-    <request-map uri="EditItemIssuences">
+    <request-map uri="EditItemIssuances">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditItemIssuences"/>
-        <response name="error" type="view" value="EditItemIssuences"/>
+        <response name="success" type="view" value="EditItemIssuances"/>
+        <response name="error" type="view" value="EditItemIssuances"/>
     </request-map>
     <request-map uri="issueInventoryItemToFixedAssetMaint">
         <security https="true" auth="true"/>
-        <event type="service" invoke="issueInventoryItemToFixedAssetMaint"/>
-        <response name="success" type="view" value="EditItemIssuences"/>
-        <response name="error" type="view" value="EditItemIssuences"/>
+        <event type="service" invoke="addPartFixedAssetMaint"/>
+        <response name="success" type="view" value="EditItemIssuances"/>
+        <response name="error" type="view" value="EditItemIssuances"/>
+    </request-map>
+    <request-map uri="returnPartIssuedToFixedAssetMaint">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="returnInventoryItemIssuedToFixedAssetMaint"/>
+        <response name="success" type="view" value="EditItemIssuances"/>
+        <response name="error" type="view" value="EditItemIssuances"/>
     </request-map>
 
    <!-- ================ Lookup Requests ================= -->
@@ -185,7 +191,7 @@
     <view-map name="EditWorkEfforts" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEfforts"/>
     <view-map name="EditWorkEffortTimeEntries" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEffortTimeEntries"/>
     <view-map name="EditWorkEffortNotes" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEffortNotes"/>
-    <view-map name="EditItemIssuences" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditItemIssuences"/>
+    <view-map name="EditItemIssuances" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditItemIssuances"/>
 
 
     <!-- Lookup request mappings -->
