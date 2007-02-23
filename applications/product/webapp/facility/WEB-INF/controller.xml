@@ -576,6 +576,18 @@ under the License.
         <response name="success" type="view" value="PicklistManage"/>
         <response name="error" type="view" value="PicklistManage"/>
     </request-map>
+    <request-map uri="deletePicklistBin">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deletePicklistBin"/>
+        <response name="success" type="view" value="PicklistManage"/>
+        <response name="error" type="view" value="PicklistManage"/>
+    </request-map>
+    <request-map uri="deletePicklistItem">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deletePicklistItem"/>
+        <response name="success" type="view" value="PicklistManage"/>
+        <response name="error" type="view" value="PicklistManage"/>
+    </request-map>
 
     <request-map uri="PicklistReport.pdf">
         <security https="true" auth="true"/>

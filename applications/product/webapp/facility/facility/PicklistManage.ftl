@@ -98,6 +98,7 @@ under the License.
                             <b>${uiLabelMap.ProductBinNum}</b> ${picklistBinInfo.picklistBin.binLocationNumber}&nbsp;(${picklistBinInfo.picklistBin.picklistBinId})
                             <#if picklistBinInfo.primaryOrderHeader?exists><b>${uiLabelMap.ProductPrimaryOrderId}</b> ${picklistBinInfo.primaryOrderHeader.orderId}</#if>
                             <#if picklistBinInfo.primaryOrderItemShipGroup?exists><b>${uiLabelMap.ProductPrimaryShipGroupSeqId}</b> ${picklistBinInfo.primaryOrderItemShipGroup.shipGroupSeqId}</#if>
+                            <#if !picklistBinInfo.picklistItemInfoList?has_content><a href="<@ofbizUrl>deletePicklistBin?picklistBinId=${picklistBinInfo.picklistBin.picklistBinId}&amp;facilityId=${facilityId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a></#if>
                         </div>
                         <div class="tabletext" style="margin-left: 30px;">
                             <b>${uiLabelMap.CommonUpdate} ${uiLabelMap.ProductBinNum}:</b>
@@ -125,6 +126,7 @@ under the License.
                                 <b>${uiLabelMap.ProductInventoryItem}</b> ${inventoryItemAndLocation.inventoryItemId}
                                 <b>${uiLabelMap.ProductLocation}</b> ${inventoryItemAndLocation.areaId?if_exists}-${inventoryItemAndLocation.aisleId?if_exists}-${inventoryItemAndLocation.sectionId?if_exists}-${inventoryItemAndLocation.levelId?if_exists}-${inventoryItemAndLocation.positionId?if_exists}
                                 <b>${uiLabelMap.ProductQuantity}</b> ${picklistItem.quantity}<#-- of ${picklistItemInfo.orderItem.quantity}-->
+                                <#if !picklistItemInfo.itemIssuanceList?has_content><a href="<@ofbizUrl>deletePicklistItem?picklistBinId=${picklistItemInfo.picklistItem.picklistBinId}&amp;orderId=${picklistItemInfo.picklistItem.orderId}&amp;orderItemSeqId=${picklistItemInfo.picklistItem.orderItemSeqId}&amp;shipGroupSeqId=${picklistItemInfo.picklistItem.shipGroupSeqId}&amp;inventoryItemId=${picklistItemInfo.picklistItem.inventoryItemId}&amp;facilityId=${facilityId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a></#if>
                             </div>
                             <#-- picklistItem.orderItemShipGrpInvRes (do we want to display any of this info?) -->
                             <#-- picklistItemInfo.itemIssuanceList -->
