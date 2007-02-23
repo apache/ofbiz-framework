@@ -64,11 +64,6 @@
       <tr>
         <td align="right" colspan="2">
             <div id="cmseditor" style="margin: 0; border: 1px solid black;">
-                <#--
-                <div id="cmseditor" dojoType="Editor2" minHeight="300px" style="border: 1px solid black;">
-                    ${(dataText.textData)?if_exists}
-                </div>
-                -->
             </div>
         </td>
       </tr>
@@ -80,5 +75,3 @@
       </tr>
     </table>
 </div>
-
-<#--<textarea id="raw" cols="80" rows="40">${(dataText.textData)?if_exists}</textarea>-->

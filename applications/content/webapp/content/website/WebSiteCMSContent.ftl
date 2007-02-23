@@ -27,9 +27,8 @@
 
 <!-- cms menu bar -->
 <div id="cmsmenu" style="margin-bottom: 8px;">
-    <#if (content?has_content)>
-        <a href="javascript:void(0);" onclick="javascript:callEditor();" class="tabButton">New Content</a>
-        <a href="javascript:void(0);" onclick="javascript:callEditor(true, '${content.contentId}');" class="tabButton">New SubContent</a>
+    <#if (content?has_content)>        
+        <a href="javascript:void(0);" onclick="javascript:callEditor(true, '${content.contentId}');" class="tabButton">New Content</a>
         <a href="javascript:void(0);" onclick="javascript:callPathAlias('${content.contentId}');" class="tabButton">New PathAlias</a>
     </#if>
 </div>
@@ -42,7 +41,7 @@
 
 <form name="cmsform" method="post" action="<@ofbizUrl>${formAction}</@ofbizUrl>" style="margin: 0;">
     <#if (content?has_content)>
-        <input type="hidden" name="dataResourceId" value="${dataText.dataResourceId}"/>        
+        <input type="hidden" name="dataResourceId" value="${(dataText.dataResourceId)?if_exists}"/>        
         <input type="hidden" name="mimeTypeId" value="${content.mimeTypeId?default(mimeTypeId)}"/>
         <input type="hidden" name="contentId" value="${content.contentId}"/>
 

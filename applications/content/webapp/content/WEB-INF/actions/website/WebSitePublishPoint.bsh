@@ -26,15 +26,19 @@ Map lookupMap = UtilMisc.toMap("webSiteId", webSiteId, "webSiteContentTypeId", "
 List webSiteContents = delegator.findByAnd("WebSiteContent", lookupMap, UtilMisc.toList("-fromDate"));
 webSiteContents = EntityUtil.filterByDate(webSiteContents);
 webSiteContent = EntityUtil.getFirst(webSiteContents);
-content = webSiteContent.getRelatedOne("Content");
-contentRoot = content.getString("contentId");
 
-publishPoint = delegator.findByPrimaryKey("WebSitePublishPoint", UtilMisc.toMap("contentId", contentRoot));
+if (webSiteContent != null) {
+    content = webSiteContent.getRelatedOne("Content");
+    contentRoot = content.getString("contentId");
 
-context.put("contentRoot", contentRoot);
-context.put("content", content);
-context.put("publishPoint", publishPoint);
+    publishPoint = delegator.findByPrimaryKey("WebSitePublishPoint", UtilMisc.toMap("contentId", contentRoot));
 
-// get all subsite content for the publish point
-List subsites = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentRoot, "contentAssocTypeId", "SUBSITE"));
-context.put("subsites", subsites);
+    context.put("contentRoot", contentRoot);
+    context.put("content", content);
+    context.put("publishPoint", publishPoint);
+    Debug.log("CnRt: " + contentRoot + " -- PP: " + publishPoint);
+
+    // get all subsite content for the publish point
+    List subsites = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentRoot, "contentAssocTypeId", "SUBSITE"));
+    context.put("subsites", subsites);
+}

@@ -27,8 +27,8 @@
     dojo.require("dojo.io.*");
 
     var treeSelected = false;
-    var contentRoot = '${contentRoot}';
-	var webSiteId = '${webSiteId}';        
+    var contentRoot = '${contentRoot?if_exists}';
+	var webSiteId = '${webSiteId?if_exists}';        
     var editorUrl = '<@ofbizUrl>/views/WebSiteCMSContent</@ofbizUrl>';
     var aliasUrl = '<@ofbizUrl>/views/WebSiteCMSPathAlias</@ofbizUrl>';
         
@@ -146,11 +146,6 @@
                 var editPage = dojo.byId('cmscontent');
                 editPage.innerHTML = data;
 
-                //dojo.byId("raw").value = data;
-
-                // make sure the editor is displayed
-                //dojo.html.show("editorcontainer");
-
                 // load the data
                 var cmsdata = dojo.byId("cmsdata");
 
@@ -224,25 +219,11 @@
 </#macro>
 
 <div class="tableheadtext">
-    Website Content
-    <#-- &nbsp;<a href="javascript:void(0);" onclick="javascript:callEditor();" class="buttontext">New Content</a>  -->
+    Website Content    
 </div>
 <dojo:TreeSelector widgetId="webCmsTreeSelector" eventNames="select:webCmsNodeSelected"></dojo:TreeSelector>
 <div dojoType="Tree" widgetId="webCmsTree" selector="webCmsTreeSelector" toggler="fade" toggleDuration="500">
     <#if (subsites?has_content)>
         <@fillTree assocList = subsites/>
     </#if>
-    
-    <#--
-    <#list subsites as subsite>
-        <#assign thisContent = subsite.getRelatedOne("ToContent")/>
-        <div dojoType="TreeNode" title="${thisContent.contentName?default(subsite.contentIdTo)}" widgetId="${subsite.contentIdTo}"
-                object="${subsite.contentId}|${subsite.contentAssocTypeId}|${subsite.fromDate}">
-            <#assign assocs = thisContent.getRelated("ContentAssoc")?if_exists/>
-            <#if (assocs?has_content)>
-
-            </#if>
-        </div>
-    </#list>
-    -->
 </div>
