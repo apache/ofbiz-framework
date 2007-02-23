@@ -160,6 +160,8 @@ under the License.
         imageUrl="http://www.google.com/intl/en_ALL/images/logo.gif"
         sequenceNum="1" linkTypeEnumId="PCLT_ABS_URL" 
         linkInfo="http://www.google.com/"/>
+    <ProductCategoryLink productCategoryId="100" linkSeqId="03" fromDate="2001-05-13 12:00:00.0" 
+        sequenceNum="3" linkTypeEnumId="PCLT_CAT_ID" linkInfo="101"/>
     
     <Product productId="GZ-1000" productTypeId="FINISHED_GOOD" primaryProductCategoryId="101" productName="Tiny Gizmo" internalName="Tiny Gizmo" description="The smallest gizmo in town." longDescription="This gizmo is very small and runs on solar power." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <Product productId="GZ-1001" productTypeId="FINISHED_GOOD" primaryProductCategoryId="101" productName="Nan Gizmo" internalName="Nan Gizmo" description="Indian style Nan gizmo" taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
