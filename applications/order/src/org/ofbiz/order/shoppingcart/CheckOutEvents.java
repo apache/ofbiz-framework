@@ -425,7 +425,7 @@ public class CheckOutEvents {
     private static void calcTax(HttpServletRequest request) throws GeneralException {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
+        ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
 
         //Calculate and add the tax adjustments
@@ -439,6 +439,28 @@ public class CheckOutEvents {
             return false;
         }
         return productStore.getBoolean("explodeOrderItems").booleanValue();
+    }
+    
+    public static String checkShipmentNeeded(HttpServletRequest request, HttpServletResponse response) {
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
+        GenericValue productStore = null;
+        try {
+            productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", cart.getProductStoreId()));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error getting ProductStore: " + e.toString(), module);
+        }
+        
+        Debug.logInfo("checkShipmentNeeded: reqShipAddrForDigItems=" + productStore.getString("reqShipAddrForDigItems"), module);
+        if (productStore != null && "N".equals(productStore.getString("reqShipAddrForDigItems"))) {
+            Debug.logInfo("checkShipmentNeeded: cart.containOnlyDigitalGoods()=" + cart.containOnlyDigitalGoods(), module);
+            // don't require shipping for all digital items
+            if (cart.containOnlyDigitalGoods()) {
+                return "shipmentNotNeeded";
+            }
+        }
+        
+        return "shipmentNeeded";
     }
 
     // Event wrapper for processPayment.
@@ -971,6 +993,5 @@ public class CheckOutEvents {
         } else {
             return null;
         }
-
     }
 }

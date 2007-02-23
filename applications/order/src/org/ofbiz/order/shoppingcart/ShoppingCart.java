@@ -698,12 +698,10 @@ public class ShoppingCart implements Serializable {
     // ============== WorkEffort related methods ===============
     public boolean containAnyWorkEffortCartItems() {
         // Check for existing cart item.
-        for (int i = 0; i < this.cartLines.size();) {
+        for (int i = 0; i < this.cartLines.size(); i++) {
             ShoppingCartItem cartItem = (ShoppingCartItem) cartLines.get(i);
             if (cartItem.getItemType().equals("RENTAL_ORDER_ITEM")) {  // create workeffort items?
                 return true;
-            } else {
-                i++;
             }
         }
         return false;
@@ -711,12 +709,32 @@ public class ShoppingCart implements Serializable {
 
     public boolean containAllWorkEffortCartItems() {
         // Check for existing cart item.
-        for (int i = 0; i < this.cartLines.size();) {
+        for (int i = 0; i < this.cartLines.size(); i++) {
             ShoppingCartItem cartItem = (ShoppingCartItem) cartLines.get(i);
             if (!cartItem.getItemType().equals("RENTAL_ORDER_ITEM")) { // not a item to create workefforts?
                 return false;
-            } else {
-                i++;
+            }
+        }
+        return true;
+    }
+    
+    /** 
+     * Check to see if the cart contains only Digital Goods, ie no Finished Goods and no Finished/Digital Goods, et cetera. 
+     * This is determined by making sure no Product has a type where ProductType.isPhysical!=N. 
+     */
+    public boolean containOnlyDigitalGoods() {
+        for (int i = 0; i < this.cartLines.size(); i++) {
+            ShoppingCartItem cartItem = (ShoppingCartItem) cartLines.get(i);
+            GenericValue product = cartItem.getProduct();
+            try {
+                GenericValue productType = product.getRelatedOneCache("ProductType");
+                if (productType == null || !"N".equals(productType.getString("isPhysical"))) {
+                    return false;
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error looking up ProductType: " + e.toString(), module);
+                // consider this not a digital good if we don't have "proof"
+                return false;
             }
         }
         return true;

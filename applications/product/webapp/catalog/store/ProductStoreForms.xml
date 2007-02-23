@@ -68,6 +68,10 @@
         <field name="autoInvoiceDigitalItems" widget-style="selectBox">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
+        <field name="reqShipAddrForDigItems" widget-style="selectBox">
+            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
+        
         <field name="isDemoStore" widget-style="selectBox">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
