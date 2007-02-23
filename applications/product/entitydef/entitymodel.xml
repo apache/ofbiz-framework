@@ -3131,7 +3131,8 @@ under the License.
       <field name="headerRightBackground" type="url"></field>
       <field name="usePrimaryEmailUsername" type="indicator"></field>
       <field name="requireCustomerRole" type="indicator"></field>
-      <field name="autoInvoiceDigitalItems" type="indicator"></field>
+      <field name="autoInvoiceDigitalItems" type="indicator"><description>Default Y. Invoice digital items when order is placed rather than waiting for completing order items (though shipment/fulfillment).</description></field>
+      <field name="reqShipAddrForDigItems" type="indicator"><description>Default Y. Require Shipping Address for Digital Items? Note this only has an effect if there are ONLY digital goods in the cart.</description></field>
       <field name="showCheckoutGiftOptions" type="indicator"></field>
       <field name="selectPaymentTypePerItem" type="indicator"></field>
       <field name="showPricesWithVatTax" type="indicator"></field>

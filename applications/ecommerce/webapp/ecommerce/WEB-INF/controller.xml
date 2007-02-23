@@ -312,7 +312,16 @@
     <request-map uri="processCustomerSettings">
         <security https="true" auth="false"/>
         <event type="simple" path="org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="processCustomerSettings"/>
-        <response name="success" type="request" value="setShipping"/>
+        <response name="success" type="request" value="anonCheckShipmentNeeded"/>
+        <response name="error" type="view" value="custsetting"/>
+    </request-map>
+    
+    <request-map uri="anonCheckShipmentNeeded">
+        <security direct-request="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="checkShipmentNeeded"/>
+        <response name="shipmentNeeded" type="request" value="setShipping"/>
+        <!-- NOTE: it seems like setTaxBeforePayment would be the best here, but without an address it doesn't work -->
+        <response name="shipmentNotNeeded" type="request" value="setPaymentOption"/>
         <response name="error" type="view" value="custsetting"/>
     </request-map>
 

@@ -95,12 +95,12 @@ if (cart != null) {
 
 if(parameters.get("useShipAddr") == null){
     if (cart != null && postalAddress !=null){
-    postalAddress = context.get("postalAddress");
-    shippingContactMechId = cart.getShippingContactMechId();
-    contactMechId = postalAddress.get("contactMechId");
-       if(shippingContactMechId.equals(contactMechId)){
-           context.put("useShipAddr","Y");
-       } 
+        postalAddress = context.get("postalAddress");
+        shippingContactMechId = cart.getShippingContactMechId();
+        contactMechId = postalAddress.get("contactMechId");
+        if(shippingContactMechId != null && shippingContactMechId.equals(contactMechId)){
+            context.put("useShipAddr","Y");
+        } 
     }
 }else{
     context.put("useShipAddr",parameters.get("useShipAddr"));    
