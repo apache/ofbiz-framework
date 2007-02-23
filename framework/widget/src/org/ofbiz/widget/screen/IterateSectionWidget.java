@@ -90,14 +90,14 @@ public class IterateSectionWidget extends ModelScreenWidget {
     public void renderWidgetString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) throws GeneralException {
     
         boolean isEntrySet = false;
-            if (!(context instanceof MapStack)) {
-                context = MapStack.create(context);
-            }
-            
-            MapStack contextMs = (MapStack) context;
-            contextMs.push();
+        if (!(context instanceof MapStack)) {
+            context = MapStack.create(context);
+        }
+        
+        MapStack contextMs = (MapStack) context;
+        contextMs.push();
 
-            // create a standAloneStack, basically a "save point" for this SectionsRenderer, and make a new "screens" object just for it so it is isolated and doesn't follow the stack down
+        // create a standAloneStack, basically a "save point" for this SectionsRenderer, and make a new "screens" object just for it so it is isolated and doesn't follow the stack down
         String entryName = this.entryNameExdr.expandString(context);
         String keyName = this.keyNameExdr.expandString(context);
         Object obj = listNameExdr.get(context);
