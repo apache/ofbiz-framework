@@ -280,7 +280,7 @@ under the License.
     <request-map uri="createTextContentCms">
         <security https="true" auth="true"/>
         <event type="service" invoke="createTextContent"/>
-        <response name="success" type="request-redirect" value="WebSiteCms"/>
+        <response name="success" type="view" value="WebSiteCMS"/>
         <response name="error" type="view" value="WebSiteCMS"/>
     </request-map>
     <request-map uri="updateTextContentCms">
@@ -292,7 +292,7 @@ under the License.
     <request-map uri="updateTextContentCms">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateTextContent"/>
-        <response name="success" type="request-redirect" value="WebSiteCms"/>
+        <response name="success" type="view" value="WebSiteCMS"/>
         <response name="error" type="view" value="WebSiteCMS"/>
     </request-map>
     <request-map uri="createWebSitePathAliasJson">
