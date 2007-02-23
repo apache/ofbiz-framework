@@ -59,7 +59,6 @@ function fieldLookup2(obj_target, obj_target2) {
     // passing methods
     this.popup    = lookup_popup1;
     this.popup2    = lookup_popup2;
-
     // validate input parameters
     if (!obj_target)
         return lookup_error("Error calling the field lookup: no target control specified");
@@ -86,10 +85,12 @@ function lookup_popup1 (view_name, form_name, viewWidth, viewheight) {
 }
 function lookup_popup2 (view_name) {
     var argString = "";
-    if (this.args.length > 2) {
-        for(var i=2; i < this.args.length; i++) {
-            argString += "&parm" + (i-2) + "=" + this.args[i];
-        }
+    if (this.args != null) {
+	    if (this.args.length > 2) {
+	        for(var i=2; i < this.args.length; i++) {
+	            argString += "&parm" + (i-2) + "=" + this.args[i];
+	        }
+	    }
     }
     var sep = "?";
     if (view_name.indexOf("?") >= 0) {
@@ -103,3 +104,4 @@ function lookup_error (str_message) {
 	alert (str_message);
 	return null;
 }
+
