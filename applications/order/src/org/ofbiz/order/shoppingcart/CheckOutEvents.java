@@ -656,22 +656,6 @@ public class CheckOutEvents {
 
         // ====================================================================================
         if (mode != null && (mode.equals("ship") || mode.equals("options"))) {
-            String internalNote = request.getParameter("internalNote");
-            String publicNote = request.getParameter("note");
-            String correspondingPoId = request.getParameter("corresponding_po_id");
-            if (UtilValidate.isNotEmpty(internalNote)) {
-                cart.getInternalOrderNotes().clear();
-                cart.addInternalOrderNote(internalNote);
-            }
-            if (UtilValidate.isNotEmpty(publicNote)) {
-                cart.getOrderNotes().clear();
-                cart.addOrderNote(publicNote);
-            }
-            if (UtilValidate.isNotEmpty(correspondingPoId)) {
-                cart.setPoNumber(correspondingPoId);
-            } else {
-                cart.setPoNumber(null);
-            }
             Map callResult = ServiceUtil.returnSuccess();
             List errorMessages = new ArrayList();
             Map errorMaps = new HashMap();
