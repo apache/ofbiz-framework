@@ -190,25 +190,27 @@
         </section>
     </screen>
 
-    <screen name="EditItemIssuences">
+    <screen name="EditItemIssuances">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleListItemIssuence"/>
-                <set field="tabButtonItem" value="EditItemIssuences"/>
-                <set field="labelTitleProperty" value="PageTitleListItemIssuence"/>
+                <set field="titleProperty" value="PageTitleListItemIssuance"/>
+                <set field="tabButtonItem" value="EditItemIssuances"/>
+                <set field="labelTitleProperty" value="PageTitleListItemIssuance"/>
 
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
                 <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
-                <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
+                <entity-condition list-name="itemIssuanceList" entity-name="ProductInventoryItemAndItemIssuance">
+                    <condition-expr field-name="quantity" operator="greater" value="0"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleListItemIssuence}</label></container>
-                        <include-form name="ListItemIssuence" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
-                        <container><label style="head1">${uiLabelMap.PageTitleAddItemIssuence}</label></container>
-                        <include-form name="AddItemIssuence" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
+                        <container><label style="head1">${uiLabelMap.PageTitleListItemIssuance}</label></container>
+                        <include-form name="ListItemIssuance" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
+                        <container><label style="head1">${uiLabelMap.PageTitleAddItemIssuance}</label></container>
+                        <include-form name="AddItemIssuance" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

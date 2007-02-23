@@ -63,8 +63,8 @@
         <menu-item name="EditWorkEffortNotes" title="${uiLabelMap.WorkEffortNotes}">
             <link target="EditWorkEffortNotes?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}&amp;workEffortId=${fixedAssetMaint.scheduleWorkEffortId}"/>
         </menu-item>
-        <menu-item name="EditItemIssuences" title="${uiLabelMap.FixedAssetMaintItemIssuence}">
-            <link target="EditItemIssuences?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
+        <menu-item name="EditItemIssuances" title="${uiLabelMap.FixedAssetMaintItemIssuance}">
+            <link target="EditItemIssuances?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
         </menu-item>
     </menu>  
     
