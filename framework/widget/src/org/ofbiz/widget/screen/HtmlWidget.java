@@ -137,7 +137,7 @@ public class HtmlWidget extends ModelScreenWidget {
 
             // create a standAloneStack, basically a "save point" for this SectionsRenderer, and make a new "screens" object just for it so it is isolated and doesn't follow the stack down
             MapStack standAloneStack = contextMs.standAloneChildStack();
-            standAloneStack.put("screens", new ScreenRenderer(writer, contextMs, screenStringRenderer));
+            standAloneStack.put("screens", new ScreenRenderer(writer, standAloneStack, screenStringRenderer));
             SectionsRenderer sections = new SectionsRenderer(this.sectionMap, standAloneStack, writer, screenStringRenderer);
             
             // put the sectionMap in the context, make sure it is in the sub-scope, ie after calling push on the MapStack
