@@ -348,7 +348,7 @@ under the License.
             </drop-down>
         </field>
         <field name="prepare" title="${uiLabelMap.OrderPrepareOrder}" widget-style="buttontext">
-            <submit description="${uiLabelMap.OrderPrepareOrder}"/>
+            <submit button-type="button"/>
         </field>
     </form>
 </forms>
