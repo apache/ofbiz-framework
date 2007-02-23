@@ -57,6 +57,7 @@
         <input type="hidden" name="mimeTypeId" value="${mimeTypeId}"/>
     </#if>
     <input type="hidden" name="webSiteId" value="${webSiteId}"/>
+    <input type="hidden" name="dataResourceName" value=""/>
               
     <table>
       <#if (content?has_content)>
@@ -90,8 +91,8 @@
                 <#if (dataResource?has_content)>
                     <#if (dataResource.dataTemplateTypeId?has_content)>
                         <#assign thisType = dataResource.getRelatedOne("DataTemplateType")?if_exists/>
-                        <option type="${thisType.dataTemplateTypeId}">${thisType.description}</option>
-                        <option type="${thisType.dataTemplateTypeId}">----</option>
+                        <option value="${thisType.dataTemplateTypeId}">${thisType.description}</option>
+                        <option value="${thisType.dataTemplateTypeId}">----</option>
                     </#if>
                 </#if>
                 <#list templateTypes as type>
