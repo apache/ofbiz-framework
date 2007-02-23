@@ -95,6 +95,7 @@ public class ConfigXMLReader {
     public static final String INCLUDE = "include";
     public static final String INCLUDE_LOCATION = "location";
 
+    public static final String DEFAULT_REQUEST = "default-request";
     public static final String REQUEST_MAPPING = "request-map";
     public static final String REQUEST_URI = "uri";
     public static final String REQUEST_EDIT = "edit";
@@ -563,11 +564,28 @@ public class ConfigXMLReader {
             return null;
         }
 
+        // holder for the default-request
+        String defaultRequest = null;
+
+        List includeElementList = UtilXml.childElementList(root, INCLUDE);
+        Iterator includeElementIter = includeElementList.iterator();
+        while (includeElementIter.hasNext()) {
+            Element includeElement = (Element) includeElementIter.next();
+            String includeLocation = includeElement.getAttribute(INCLUDE_LOCATION);
+            if ((includeLocation != null) && (includeLocation.length() > 0)) {
+                try {
+                    defaultRequest = loadDefaultRequest(null, FlexibleLocation.resolveLocation(includeLocation));
+                } catch (MalformedURLException mue) {
+                    Debug.logError(mue, "Error processing include at [" + includeLocation + "]:" + mue.toString(), module);
+                }
+            }
+        }
+
         Element e = UtilXml.firstChildElement(root, "default-request");
         if (e != null) {
-            return e.getAttribute("request-uri");
+            defaultRequest = e.getAttribute("request-uri");
         }
-        return null;
+        return defaultRequest;
     }
 
     /** Gets a FastMap of handler mappings. */
