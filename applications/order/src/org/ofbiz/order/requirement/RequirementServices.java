@@ -156,6 +156,7 @@ public class RequirementServices {
                 }
 
                 // keep a running total of distinct products and quantity to order
+                if (requirement.getDouble("quantity") == null) requirement.put("quantity", new Double("1")); // default quantity = 1
                 quantity += requirement.getDouble("quantity").doubleValue();
                 products.add(productId);
 
