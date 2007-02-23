@@ -27,10 +27,14 @@
             alert("Cannot locate editor widget!");
         }
 
-        // submit the form
         var form = document.cmsform;
+
+        // set the data resource name
+        form.dataResourceName.value = form.contentName.value;        
+        
+        // submit the form
         if (form != null) {
-        /*
+        /*  not using ajax right now; maybe later
             var url = form.action;
             var bindArgs = {
                 url: url,
