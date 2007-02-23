@@ -17,8 +17,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if requestAttributes.productCategoryLink?has_content>
-<#assign productCategoryLink = requestAttributes.productCategoryLink>
+<#assign productCategoryLink = requestAttributes.productCategoryLink?if_exists/>
+<#if productCategoryLink?has_content>
 <#if productCategoryLink.detailSubScreen?has_content>
     ${screens.render(productCategoryLink.detailSubScreen)}
 <#else>
