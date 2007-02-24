@@ -2505,7 +2505,7 @@ under the License.
       <relation type="one" fk-name="SHLIST_VSTR" rel-entity-name="Visitor">
         <key-map field-name="visitorId"/>
       </relation>
-      <relation type="one" fk-name="SHLIST_PSSM" rel-entity-name="ProductStoreShipmentMeth">
+      <relation type="many" fk-name="SHLIST_PSSM" rel-entity-name="ProductStoreShipmentMeth">
         <key-map field-name="productStoreId"/>
         <key-map field-name="shipmentMethodTypeId"/>
         <key-map field-name="carrierPartyId" rel-field-name="partyId"/>

@@ -501,6 +501,7 @@ function setAssocFields(select) {
         <#list storeShipMethods as meth>
           <#assign idx = idx + 1>
           <form name="methUpdate${idx}" method="post" action="<@ofbizUrl>storeUpdateShipMeth</@ofbizUrl>">
+            <input type="hidden" name="productStoreShipMethId" value="${meth.productStoreShipMethId}">
             <input type="hidden" name="shipmentMethodTypeId" value="${meth.shipmentMethodTypeId}">
             <input type="hidden" name="partyId" value="${meth.partyId}">
             <input type="hidden" name="roleTypeId" value="${meth.roleTypeId}">
@@ -529,7 +530,7 @@ function setAssocFields(select) {
               <td width='1' align="right">
                 <span style="white-space: nowrap;">
                   <a href="javascript:document.methUpdate${idx}.submit();" class="buttontext">[${uiLabelMap.CommonUpdate}]</a>
-                  <a href="<@ofbizUrl>storeRemoveShipMeth?viewProductStoreId=${productStoreId}&productStoreId=${meth.productStoreId}&newShipMethod=Y&shipmentMethodTypeId=${meth.shipmentMethodTypeId}&partyId=${meth.partyId}&roleTypeId=${meth.roleTypeId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonRemove}]</a>
+                  <a href="<@ofbizUrl>storeRemoveShipMeth?viewProductStoreId=${productStoreId}&amp;productStoreId=${meth.productStoreId}&amp;newShipMethod=Y&amp;productStoreShipMethId=${meth.productStoreShipMethId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonRemove}]</a>
                 </span>
               </td>
             </tr>
