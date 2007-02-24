@@ -19,7 +19,6 @@
 package org.ofbiz.manufacturing.routing;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import org.ofbiz.base.util.UtilMisc;

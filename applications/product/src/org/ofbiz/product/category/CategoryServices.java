@@ -19,8 +19,6 @@
 package org.ofbiz.product.category;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -44,7 +42,6 @@ import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 
 /**

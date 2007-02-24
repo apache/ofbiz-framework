@@ -29,7 +29,6 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Element;
-import javolution.util.FastMap;
 
 /**
  * ServiceEcaRule

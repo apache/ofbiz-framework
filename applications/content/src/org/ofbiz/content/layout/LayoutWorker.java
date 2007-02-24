@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.service.ServiceUtil;
 

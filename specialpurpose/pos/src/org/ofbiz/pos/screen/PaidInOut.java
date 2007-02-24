@@ -21,12 +21,10 @@ package org.ofbiz.pos.screen;
 import java.util.ResourceBundle;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ListSelectionModel;
 
 import net.xoetrope.swing.XButton;
 import net.xoetrope.swing.XDialog;
@@ -35,7 +33,6 @@ import net.xoetrope.swing.XLabel;
 import net.xoetrope.swing.XComboBox;
 import net.xoetrope.xui.XPage;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.pos.PosTransaction;

@@ -40,7 +40,6 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericValue;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateTransformModel;

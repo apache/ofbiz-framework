@@ -18,9 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.service;
 
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.security.Security;
-
 import java.util.List;
 import java.util.Iterator;
 import java.util.LinkedList;
