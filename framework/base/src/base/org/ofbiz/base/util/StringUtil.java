@@ -358,7 +358,7 @@ public class StringUtil {
 	
 	int origLength = numberString.length();
 	long number = Long.parseLong(numberString);
-	return padNumberString(new Long(number + addAmount).toString(), origLength);
+        return padNumberString(Long.toString(number + addAmount), origLength);
     }
     
     public static String padNumberString(String numberString, int targetMinLength) {

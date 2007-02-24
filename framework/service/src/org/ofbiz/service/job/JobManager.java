@@ -397,7 +397,7 @@ public class JobManager {
 
         // set the persisted fields
         if (UtilValidate.isEmpty(jobName)) {
-            jobName = new Long((new Date().getTime())).toString();
+            jobName = Long.toString((new Date().getTime()));
         }
         String jobId = delegator.getNextSeqId("JobSandbox");
         Map jFields = UtilMisc.toMap("jobId", jobId, "jobName", jobName, "runTime", new java.sql.Timestamp(startTime),
