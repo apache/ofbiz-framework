@@ -99,8 +99,7 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
 
                 // Create the job info
                 String jobId = dispatcher.getDelegator().getNextSeqId("JobSandbox");
-                String jobName = new Long((new Date().getTime())).toString();
-
+                String jobName = Long.toString((new Date().getTime()));
 
                 Map jFields = UtilMisc.toMap("jobId", jobId, "jobName", jobName, "runTime", UtilDateTime.nowTimestamp());
                 jFields.put("poolId", ServiceConfigUtil.getSendPool());
@@ -131,7 +130,7 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
                 Debug.logInfo("Persisted job queued : " + jobV.getString("jobName"), module);
             }
         } else {
-            String name = new Long(new Date().getTime()).toString();
+            String name = Long.toString(new Date().getTime());
             String jobId = modelService.name + "." + name;
             job = new GenericServiceJob(dctx, jobId, name, modelService.name, context, requester);
             try {
