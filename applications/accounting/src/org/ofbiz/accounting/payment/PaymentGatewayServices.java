@@ -1753,7 +1753,7 @@ public class PaymentGatewayServices {
                 Debug.logError(e, "Problems getting OrderHeader; cannot re-auth the payment", module);
             }
 
-            if (amount != null && (double) amount.doubleValue() == new Double(0.00).doubleValue()) {
+            if (amount != null && amount.doubleValue() == new Double(0.00).doubleValue()) {
                 amount = paymentPreference.getDouble("maxAmount");
                 Debug.log("resetting payment amount from 0.00 to correctMax amount", module);
             }

@@ -2340,7 +2340,7 @@ public class ProductionRunServices {
                                  "userLogin", userLogin);
             resultService = dispatcher.runSync("getProductCost", serviceContext);
             Double packageCost = (Double)resultService.get("productCost");
-            Double inventoryItemCost = (Double)inventoryItem.getDouble("unitCost");
+            Double inventoryItemCost = inventoryItem.getDouble("unitCost");
             Double costCoefficient = null;
             if (packageCost == null || packageCost.doubleValue() == 0 || inventoryItemCost == null) {
                 // if the actual cost of the item (marketing package) that we are decomposing is not available, or
