@@ -85,6 +85,11 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderLabel(Writer writer, Map context, ModelScreenWidget.Label label) throws IOException {
+        String labelText = label.getText(context);
+        if (UtilValidate.isEmpty(labelText)) {
+            // nothing to render
+            return;
+        }
         // open tag
         String style = label.getStyle(context);
         String id = label.getId(context);
@@ -104,13 +109,13 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
             writer.write(">");
             
             // the text
-            writer.write(label.getText(context));
+            writer.write(labelText);
             
             // close tag
                writer.write("</span>");
             
         } else {
-            writer.write(label.getText(context));
+            writer.write(labelText);
         }
         
         appendWhitespace(writer);
