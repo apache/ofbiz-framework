@@ -46,7 +46,6 @@ import org.ofbiz.manufacturing.bom.BOMTree;
 import org.ofbiz.manufacturing.techdata.TechDataServices;
 import org.ofbiz.product.config.ProductConfigWrapper;
 import org.ofbiz.product.config.ProductConfigWrapper.ConfigOption;
-import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;

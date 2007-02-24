@@ -32,7 +32,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.security.Security;
 
 /** Helper class containing static method useful when dealing
  * with product's bills of materials.

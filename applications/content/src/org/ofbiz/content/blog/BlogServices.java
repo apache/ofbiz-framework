@@ -22,7 +22,6 @@ package org.ofbiz.content.blog;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;

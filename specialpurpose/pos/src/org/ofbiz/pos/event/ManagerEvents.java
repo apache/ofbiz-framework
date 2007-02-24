@@ -38,7 +38,6 @@ import org.ofbiz.pos.device.DeviceLoader;
 import org.ofbiz.pos.device.impl.Receipt;
 import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.pos.screen.PaidInOut;
-import org.ofbiz.pos.screen.SaveSale;
 import org.ofbiz.pos.PosTransaction;
 import org.ofbiz.pos.adaptor.SyncCallbackAdaptor;
 import org.ofbiz.pos.component.Input;

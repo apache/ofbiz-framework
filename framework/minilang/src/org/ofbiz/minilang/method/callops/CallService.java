@@ -36,7 +36,6 @@ import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
-import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.w3c.dom.Element;
 
