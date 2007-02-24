@@ -29,9 +29,6 @@ under the License.
       <widgets>
         <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
           <decorator-section name="body">
-              <container>
-                  <link target="LogView" text="${uiLabelMap.WebtoolsViewLog}" style="buttontext"/>
-              </container>
               <container style="boxoutside">
                 <container style="boxtop">
                   <label style="boxhead">${uiLabelMap.WebtoolsDebuggingLevelFormDescription}</label>
@@ -79,7 +76,6 @@ under the License.
                 <label style="head1">${uiLabelMap.WebtoolsViewLog}</label>
             </container>
             <container>
-                <link target="LogConfiguration" text="${uiLabelMap.WebtoolsAdjustDebuggingLevels}" style="buttontext"/>
                 <link target="LogView" text="${uiLabelMap.CommonRefresh}" style="buttontext"/>
             </container>
             <container>
