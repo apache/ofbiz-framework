@@ -210,7 +210,7 @@ under the License.
 
         <make-value value-name="newEntity" entity-name="ProductStoreShipmentMeth"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <sequenced-id-to-env sequence-name="ProductStoreShipmentMeth" env-name="newEntity.productStoreShipMethId"/>
 
         <create-value value-name="newEntity"/>
     </simple-method>

@@ -170,20 +170,27 @@ public class ProductStoreWorker {
         return storePayment;
     }
 
-    public static GenericValue getProductStoreShipmentMethod(GenericDelegator delegator, String productStoreId,
+    public static List getProductStoreShipmentMethods(GenericDelegator delegator, String productStoreId,
                                                              String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId) {
         // check for an external service call
         Map storeFields = UtilMisc.toMap("productStoreId", productStoreId, "shipmentMethodTypeId", shipmentMethodTypeId,
                 "partyId", carrierPartyId, "roleTypeId", carrierRoleTypeId);
 
-        GenericValue storeShipMeth = null;
+        List storeShipMethods = null;
         try {
-            storeShipMeth = delegator.findByPrimaryKeyCache("ProductStoreShipmentMeth", storeFields);
+            storeShipMethods = delegator.findByAndCache("ProductStoreShipmentMeth", storeFields);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
 
-        return storeShipMeth;
+        return storeShipMethods;
+    }
+
+    public static GenericValue getProductStoreShipmentMethod(GenericDelegator delegator, String productStoreId,
+                                                             String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId) {
+        // TODO: selecting the first record is a far from optimal solution but, since the productStoreShipmentMethod
+        //       is currently used to get the service name to get the online estimate, this should not be a huge deal for now.
+        return EntityUtil.getFirst(getProductStoreShipmentMethods(delegator, productStoreId, shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId));
     }
 
     public static List getAvailableStoreShippingMethods(GenericDelegator delegator, String productStoreId, GenericValue shippingAddress, List itemSizes, Map featureIdMap, double weight, double orderTotal) {

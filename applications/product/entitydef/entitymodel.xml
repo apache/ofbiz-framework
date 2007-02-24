@@ -3521,6 +3521,7 @@ under the License.
     <entity entity-name="ProductStoreShipmentMeth"
             package-name="org.ofbiz.product.store"
             title="Product Store Carrier Shipment Method Entity">
+      <field name="productStoreShipMethId" type="id-ne"></field>
       <field name="productStoreId" type="id-ne"></field>
       <field name="shipmentMethodTypeId" type="id-ne"></field>
       <field name="partyId" type="id-ne"></field>
@@ -3544,10 +3545,7 @@ under the License.
       <field name="serviceName" type="long-varchar"></field>
       <field name="configProps" type="long-varchar"></field>
       <field name="sequenceNumber" type="numeric"></field>
-      <prim-key field="productStoreId"/>
-      <prim-key field="shipmentMethodTypeId"/>
-      <prim-key field="partyId"/>
-      <prim-key field="roleTypeId"/>
+      <prim-key field="productStoreShipMethId"/>
       <relation type="one-nofk" rel-entity-name="Party">
         <key-map field-name="companyPartyId" rel-field-name="partyId"/>
       </relation>
@@ -3563,6 +3561,7 @@ under the License.
             title="Product Store Carrier And Shipment Method Type View Entity">
       <member-entity entity-alias="PSSM" entity-name="ProductStoreShipmentMeth"/>
       <member-entity entity-alias="SM" entity-name="ShipmentMethodType"/>
+      <alias entity-alias="PSSM" name="productStoreShipMethId"/>
       <alias entity-alias="PSSM" name="productStoreId"/>
       <alias entity-alias="PSSM" name="shipmentMethodTypeId"/>
       <alias entity-alias="PSSM" name="partyId"/>
