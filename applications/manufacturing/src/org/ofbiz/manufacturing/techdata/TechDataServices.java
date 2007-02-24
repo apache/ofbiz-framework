@@ -265,7 +265,7 @@ public class TechDataServices {
         }
         // TODO read TechDataCalendarExcDay to manage execption day
         Calendar cDateTrav =  Calendar.getInstance();
-        cDateTrav.setTime((Date) dateFrom);
+        cDateTrav.setTime(dateFrom);
         Map position = dayStartCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
         int moveDay = ((Integer) position.get("moveDay")).intValue();
         if (moveDay != 0) return 0;
@@ -298,7 +298,7 @@ public class TechDataServices {
         }
         // TODO read TechDataCalendarExcDay to manage execption day
         Calendar cDateTrav =  Calendar.getInstance();
-        cDateTrav.setTime((Date) dateFrom);
+        cDateTrav.setTime(dateFrom);
         Map position = dayStartCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
         Time startTime = (Time) position.get("startTime");
         int moveDay = ((Integer) position.get("moveDay")).intValue();
@@ -309,7 +309,7 @@ public class TechDataServices {
         }
         else {
             dateTo = UtilDateTime.getNextDayStart(dateTo);
-            cDateTrav.setTime((Date) dateTo);
+            cDateTrav.setTime(dateTo);
             position = dayStartCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
             startTime = (Time) position.get("startTime");
             moveDay = ((Integer) position.get("moveDay")).intValue();
@@ -420,7 +420,7 @@ public class TechDataServices {
         }
         // TODO read TechDataCalendarExcDay to manage execption day
         Calendar cDateTrav =  Calendar.getInstance();
-        cDateTrav.setTime((Date) dateFrom);
+        cDateTrav.setTime(dateFrom);
         Map position = dayEndCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
         int moveDay = ((Integer) position.get("moveDay")).intValue();
         if (moveDay != 0) return 0;
@@ -452,7 +452,7 @@ public class TechDataServices {
         }
         // TODO read TechDataCalendarExcDay to manage execption day
         Calendar cDateTrav =  Calendar.getInstance();
-        cDateTrav.setTime((Date) dateFrom);
+        cDateTrav.setTime(dateFrom);
         Map position = dayEndCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
         Time startTime = (Time) position.get("startTime");
         int moveDay = ((Integer) position.get("moveDay")).intValue();
@@ -464,7 +464,7 @@ public class TechDataServices {
         }
         else {
             dateTo = UtilDateTime.getDayStart(dateTo, -1);
-            cDateTrav.setTime((Date) dateTo);
+            cDateTrav.setTime(dateTo);
             position = dayEndCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
             startTime = (Time) position.get("startTime");
             moveDay = ((Integer) position.get("moveDay")).intValue();

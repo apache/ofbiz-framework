@@ -545,7 +545,7 @@ public class AIMPaymentServices {
             results.put("captureRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
             results.put("cvCode", ar.getResponseField(AuthorizeResponse.CID_RESPONSE_CODE));
             results.put("avsCode", ar.getResponseField(AuthorizeResponse.AVS_RESULT_CODE));
-            results.put("processAmount", new Double((String)ar.getResponseField(AuthorizeResponse.AMOUNT)));
+            results.put("processAmount", new Double(ar.getResponseField(AuthorizeResponse.AMOUNT)));
         } else {
             results.put("authCode", ar.getResponseCode());
             results.put("processAmount", new Double("0.00"));
