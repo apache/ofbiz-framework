@@ -218,7 +218,7 @@ under the License.
         <auto-fields-service service-name="createPartyRate"/>
         <field name="partyId"><hidden/></field>
         <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
-            <drop-down allow-empty="false">
+            <drop-down no-current-selected-key="STANDARD" allow-empty="false">
                 <entity-options entity-name="RateType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>

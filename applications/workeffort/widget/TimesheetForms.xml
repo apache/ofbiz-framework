@@ -51,7 +51,7 @@ under the License.
         <field name="timesheetId" map-name="currentTimesheet"><hidden/></field>
         <field name="partyId" map-name="userLogin"><hidden/></field>
         <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}" widget-style="selectBox">
-            <drop-down>
+            <drop-down no-current-selected-key="STANDARD" >
                 <entity-options entity-name="RateType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -223,7 +223,7 @@ under the License.
         
         <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
         <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}" widget-style="selectBox">
-            <drop-down>
+            <drop-down no-current-selected-key="STANDARD">
                 <entity-options entity-name="RateType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
