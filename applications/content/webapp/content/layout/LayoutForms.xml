@@ -21,11 +21,8 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     <!-- LayoutFind forms -->
-    <form name="findLayout" 
-        default-title-style="tableheadtext"
-        default-entity-name="Content"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="FindLayout" title="" type="single">
+    <form name="findLayout" default-entity-name="Content" target="FindLayout" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <!--<auto-fields-entity entity-name="Content" default-field-type="find" />-->
         <field name="contentTypeId">
             <hidden value="DOCUMENT"/>
@@ -57,14 +54,8 @@ under the License.
     </form>
 
     <!-- LayoutEdit forms -->
-    <form name="EditLayout" 
-        default-title-style="tableheadtext"
-        default-entity-name="SubContentDataResourceView"
-        default-tooltip-style="tabletext" default-widget-style="tabletext"
-        default-map-name="currentValue"
-        extends="LayoutSubContentMaster"
-        target="updateLayoutSubContent"
-        title="" type="single">
+    <form name="EditLayout" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="updateLayoutSubContent" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <field name="contentId" >
             <display/>
         </field>
@@ -112,14 +103,8 @@ under the License.
                 target="cloneLayout?contentId=${currentValue.contentId}"/>
         </field>
     </form>
-    <form name="AddLayout" 
-        default-title-style="tableheadtext"
-        default-entity-name="SubContentDataResourceView"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        default-map-name="currentValue"
-        extends="LayoutSubContentMaster"
-        target="createLayoutSubContent"
-        title="" type="single">
+    <form name="AddLayout" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="createLayoutSubContent" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="contentId" >
             <text/>
         </field>
@@ -162,11 +147,9 @@ under the License.
         </field>
     </form>
 
-    <form name="listFindLayout" 
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext"
-        default-entity-name="ContentDataResourceView"
-        list-name="listIt" target="" paginate-target="FindLayout" title="" type="list">
+    <form name="listFindLayout" default-entity-name="ContentDataResourceView" title="" type="list" list-name="listIt" target=""
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="FindLayout">
       	<actions>
             <set field="requestParameters.contentTypeId" value="DOCUMENT"/>
       	    <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
@@ -190,11 +173,9 @@ under the License.
         -->
     </form>
 
-    <form name="listListLayout" 
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext"
-        default-entity-name="ContentAssocDataResourceViewFrom"
-        list-name="layoutList" target="" paginate-target="FindLayout" title="" type="list">
+    <form name="listListLayout" default-entity-name="ContentAssocDataResourceViewFrom" list-name="layoutList" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="FindLayout">
         <field name="contentId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${contentId}" target="EditLayout?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}"/>
         </field>
@@ -206,12 +187,8 @@ under the License.
         </field>
     </form>
 
-    <form name="LayoutSubContentMaster" 
-        default-title-style="tableheadtext"
-        default-entity-name="SubContentDataResourceView"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        default-map-name="currentValue"
-        title="" type="single">
+    <form name="LayoutSubContentMaster" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
             
         <field name="contentId" position="1" >
         </field>
@@ -245,14 +222,9 @@ under the License.
     </form>
 
 
-    <form name="EditLayoutHtml" 
-        default-title-style="tableheadtext"
-        default-entity-name="SubContentDataResourceView"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        default-map-name="currentValue"
-        extends="LayoutSubContentMaster"
-        target="updateLayoutHtml"
-        title="" type="single">
+    <form name="EditLayoutHtml" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="updateLayoutHtml" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        
         <alt-target use-when="currentValue==null" target="createLayoutHtml"/>
         <field name="drDataResourceTypeId" >
             <display description="ELECTRONIC_TEXT"/>
@@ -280,14 +252,8 @@ under the License.
         </field>
     </form>
 
-    <form name="EditLayoutText" 
-        default-title-style="tableheadtext"
-        default-entity-name="SubContentDataResourceView"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        default-map-name="currentValue"
-        extends="LayoutSubContentMaster"
-        target="updateLayoutText"
-        title="" type="single">
+    <form name="EditLayoutText" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="updateLayoutText" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <alt-target use-when="currentValue==null" target="createLayoutText"/>
         <field name="drDataResourceTypeId" >
             <display description="ELECTRONIC_TEXT"/>
@@ -315,14 +281,8 @@ under the License.
         </field>
     </form>
 
-    <form name="EditLayoutImage" 
-        default-title-style="tableheadtext"
-        default-entity-name="SubContentDataResourceView"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        default-map-name="currentValue"
-        extends="LayoutSubContentMaster"
-        target="updateLayoutImage"
-        title="" type="upload">
+    <form name="EditLayoutImage" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="updateLayoutImage" title="" type="upload"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="drDataResourceTypeId" >
             <display description="IMAGE_OBJECT"/>
         </field>
@@ -356,14 +316,9 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="AddLayoutImage" 
-        default-title-style="tableheadtext"
-        default-entity-name="SubContentDataResourceView"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        default-map-name="currentValue"
-        extends="LayoutSubContentMaster"
-        target="createLayoutImage"
-        title="" type="upload">
+    <form name="AddLayoutImage" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="createLayoutImage" title="" type="upload"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        
         <field name="drDataResourceTypeId" >
             <hidden value="IMAGE_OBJECT"/>
         </field>
@@ -389,14 +344,8 @@ under the License.
         </field>
     </form>
 
-    <form name="EditLayoutUrl" 
-        default-title-style="tableheadtext"
-        default-entity-name="SubContentDataResourceView"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        default-map-name="currentValue"
-        extends="LayoutSubContentMaster"
-        target="updateLayoutUrl"
-        title="" type="single">
+    <form name="EditLayoutUrl" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="updateLayoutUrl" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <alt-target use-when="currentValue==null" target="createLayoutUrl"/>
         <field name="drDataResourceTypeId" >
             <display description="URL_RESOURCE"/>
@@ -423,11 +372,9 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListRelatedLayouts" 
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="display"
-        default-entity-name="ContentDataResourceViewTo"
-        list-name="entityList" target="" paginate-target="FindLayout" title="" type="list">
+    <form name="ListRelatedLayouts" default-entity-name="ContentDataResourceViewTo" list-name="entityList" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="display"
+        paginate-target="FindLayout">
         <field name="contentId" title="Edit" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${contentId}" target="EditLayout?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}"/>
         </field>
@@ -436,14 +383,8 @@ under the License.
         <field name="drObjectInfo" title="Template File"><display/></field>
     </form>
 
-    <form name="EditLayoutSubContent" 
-        default-title-style="tableheadtext"
-        default-entity-name="SubContentDataResourceView"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        default-map-name="currentValue"
-        extends="LayoutSubContentMaster"
-        target="updateLayoutSubContent"
-        title="" type="single">
+    <form name="EditLayoutSubContent" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="updateLayoutSubContent" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <alt-target use-when="currentValue==null" target="createLayoutSubContent"/>
         <field name="contentIdToDisplay" >
            <ignored/>

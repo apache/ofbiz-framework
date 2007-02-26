@@ -38,7 +38,7 @@ under the License.
         </field>
     </form>
     <form name="AddWorkEffortQuote" target="createWorkEffortQuote" title="" type="single"
-            default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="workEffortId"><hidden/></field>
         <field name="quoteId"><lookup target-form-name="LookupQuote"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -65,9 +65,8 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortQuoteItem?workEffortId=${workEffortId}&amp;quoteId=${quoteId}&amp;quoteItemSeqId=${quoteItemSeqId}"/>
         </field>
     </form>
-    <form name="AddWorkEffortQuoteItem" 
-            default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" 
-            target="createWorkEffortQuoteItem" title="" type="single">
+    <form name="AddWorkEffortQuoteItem" target="createWorkEffortQuoteItem" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="workEffortId"><hidden/></field>
         <field name="quoteId"><lookup target-form-name="LookupQuote"/></field>
         <field name="quoteItemSeqId"><lookup target-form-name="LookupQuoteItem" target-parameter="quoteId"/></field>

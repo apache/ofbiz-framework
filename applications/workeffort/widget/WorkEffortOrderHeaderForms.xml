@@ -39,7 +39,7 @@ under the License.
         <field name="deleteLink" title="" widget-style="buttontext"><hyperlink target="deleteWorkEffortOrderHeader?workEffortId=${workEffortId}&amp;orderId=${orderId}" also-hidden="false" description="${uiLabelMap.CommonDelete}"/></field>
     </form>
     <form name="AddWorkEffortOrderHeader" target="createWorkEffortOrderHeader" title="" type="single"
-            default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="workEffortId"><hidden/></field>
         <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>
        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="buttontext"><submit button-type="text-link"/></field>

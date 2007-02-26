@@ -27,8 +27,7 @@ under the License.
         <field name="forumGroupDescription" entry-name="description" parameter-name="description"><text/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="text-link"/></field>
     </form>
-    <form name="AddForumGroup" type="single" 
-        target="createForumGroup" title="" default-map-name="forumGroup"
+    <form name="AddForumGroup" type="single" target="createForumGroup" title="" default-map-name="forumGroup"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <field name="forumGroupName" parameter-name="contentName"><text/></field>
         <field name="forumGroupDescription" parameter-name="description"><text/></field>
@@ -64,16 +63,15 @@ under the License.
         <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="ForumGroupPurposes" type="list" list-name="forumPurposes" target="deleteForumGroupPurpose"
-        default-title-style="tableheadtext" default-widget-style="tabletext" separate-columns="true">
+    <form name="ForumGroupPurposes" type="list" list-name="forumPurposes" target="deleteForumGroupPurpose"  separate-columns="true"
+        default-title-style="tableheadtext" default-widget-style="tabletext">
         <auto-fields-entity entity-name="ContentPurpose" default-field-type="edit"/>
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="contentId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="contentPurposeTypeId"><display-entity entity-name="ContentPurposeType" description="${description}"/></field>
         <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="AddForumGroupPurpose" type="single" 
-        target="createForumGroupPurpose" title=""
+    <form name="AddForumGroupPurpose" type="single" target="createForumGroupPurpose" title=""
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-entity entity-name="ContentPurpose" default-field-type="edit"/>
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>

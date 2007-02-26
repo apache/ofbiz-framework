@@ -60,7 +60,8 @@ under the License.
         <field name="comments"><text size="60" maxlength="255"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="EditWorkEffortPartyAssign" default-map-name="workEffortPartyAssignment" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" target="updateWorkEffortPartyAssign" title="" type="single">
+    <form name="EditWorkEffortPartyAssign" default-map-name="workEffortPartyAssignment" target="updateWorkEffortPartyAssign" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <alt-target target="createWorkEffortPartyAssign" use-when="workEffortPartyAssignment==null"/>
         <field name="workEffortId"><hidden/></field>
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>

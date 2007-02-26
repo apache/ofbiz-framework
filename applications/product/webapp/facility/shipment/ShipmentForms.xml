@@ -20,9 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="EditShipment" type="single" 
-            target="updateShipment" title="" default-map-name="shipment"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditShipment" type="single" target="updateShipment" title="" default-map-name="shipment"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         
         <alt-target use-when="shipment==null" target="createShipment"/>
         
@@ -127,9 +126,8 @@ under the License.
     <!-- Shipment Plan Forms -->
     <!-- ******************* -->
     <!-- List for Shipment Plan -->
-    <form name="listShipmentPlan" type="list" 
-            target="" title="" list-name="shipmentPlan"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="listShipmentPlan" type="list" target="" title="" list-name="shipmentPlan"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="shipmentItemSeqId" title="${uiLabelMap.ProductShipmentItemSeqId}"><display/></field>
         <field name="orderId" title="${uiLabelMap.ProductOrderId}"><display/></field>
         <field name="orderItemSeqId" title="${uiLabelMap.ProductOrderItem}"><display/></field>
@@ -157,9 +155,8 @@ under the License.
         </field>
     </form>
     <!-- Add entries to Shipment Plan -->
-    <form name="addToShipmentPlan" type="multi" 
-            target="addToShipmentPlan" title="" list-name="shipmentPlan"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="addToShipmentPlan" type="multi" target="addToShipmentPlan" title="" list-name="shipmentPlan"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="shipmentId"><hidden/></field>
         <field name="orderId"><hidden/></field>
         <field name="orderItemSeqId"><hidden/></field>
@@ -183,8 +180,8 @@ under the License.
     </form>
     
     <!-- Search by Order Id -->
-    <form name="findOrderItems" type="single" 
-        target="EditShipmentPlan" title="" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="findOrderItems" type="single" target="EditShipmentPlan" title="" 
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <field name="action"><hidden value="search"/></field>
         <field name="shipmentId"><hidden/></field>
         <field name="orderId" title="${uiLabelMap.ProductOrderId}">
@@ -194,8 +191,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="shipmentPlanToOrderItems" type="single" 
-        target="AddItemsFromOrder" title="" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="shipmentPlanToOrderItems" type="single" target="AddItemsFromOrder" title="" 
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <field name="selectFromShipmentPlan"><hidden value="true"/></field>
         <field name="shipmentId"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.ProductShipmentPlanToOrderItems}" widget-style="smallSubmit">

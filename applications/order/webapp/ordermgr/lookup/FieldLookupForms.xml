@@ -60,8 +60,9 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupOrderHeader" paginate-target="LookupOrderHeader" title="" type="list" list-name="listIt"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+    <form name="listLookupOrderHeader" title="" type="list" list-name="listIt"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="LookupOrderHeader" >
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -115,8 +116,9 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupOrderHeaderAndShipInfo" list-name="listIt" paginate-target="LookupOrderHeaderAndShipInfo" title="" type="list" 
-        default-title-style="tableheadtext"  default-tooltip-style="tabletext" default-widget-style="tabletext">
+    <form name="listLookupOrderHeaderAndShipInfo" list-name="listIt" title="" type="list" 
+        default-title-style="tableheadtext"  default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="LookupOrderHeaderAndShipInfo">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -222,8 +224,9 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupCustRequest" list-name="listIt" paginate-target="LookupCustRequest" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+    <form name="listLookupCustRequest" list-name="listIt" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="LookupCustRequest">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -265,8 +268,9 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupCustRequestItem" list-name="listIt" paginate-target="LookupCustRequestItem" title="" type="list"
-        default-title-style="tableheadtext"  default-tooltip-style="tabletext" default-widget-style="tabletext">
+    <form name="listLookupCustRequestItem" list-name="listIt" title="" type="list"
+        default-title-style="tableheadtext"  default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="LookupCustRequestItem" >
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -323,8 +327,9 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupQuote" list-name="listIt" paginate-target="LookupQuote" title="" type="list"
-        default-title-style="tableheadtext"  default-tooltip-style="tabletext" default-widget-style="tabletext">
+    <form name="listLookupQuote" list-name="listIt" title="" type="list"
+        default-title-style="tableheadtext"  default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="LookupQuote">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -388,8 +393,9 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupQuoteItem" list-name="listIt" paginate-target="LookupQuoteItem" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+    <form name="listLookupQuoteItem" list-name="listIt" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="LookupQuoteItem">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -428,9 +434,8 @@ under the License.
         <field name="custRequestItemSeqId"><hidden/></field>
     </form>
    
-    <form name="lookupRequirement" 
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="LookupRequirement" title="" type="single">
+    <form name="lookupRequirement" target="LookupRequirement" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="Requirement" default-field-type="find"/>
         <field name="requirementId"><text-find/></field>
         <field name="requirementTypeId">
@@ -456,8 +461,9 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupRequirement" list-name="listIt" paginate-target="LookupRequirement" title="" type="list" 
-        default-title-style="tableheadtext"  default-tooltip-style="tabletext" default-widget-style="tabletext">
+    <form name="listLookupRequirement" list-name="listIt" title="" type="list" 
+        default-title-style="tableheadtext"  default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="LookupRequirement">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -492,8 +498,9 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupShoppingList" list-name="listIt" paginate-target="LookupShoppingList" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+    <form name="listLookupShoppingList" list-name="listIt" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="LookupShoppingList">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>

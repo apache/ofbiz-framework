@@ -21,22 +21,15 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     <!-- DataResourceType forms -->
-    <form
-        name="AddDataResourceType" 
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="addDataResourceType" title="" type="single">
+    <form name="AddDataResourceType" target="addDataResourceType" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createDataResourceType"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
-    <form
-        name="UpdateDataResourceType"
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        list-name="contentList" 
-        target="updateDataResourceType" title="" type="list">
+    <form name="UpdateDataResourceType" list-name="contentList" target="updateDataResourceType" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
           <entity-condition entity-name="DataResourceType" use-cache="false"/>
         </actions>
@@ -53,12 +46,8 @@ under the License.
     </form>
     
     <!-- DataResourceTypeAttr forms -->
-    <form
-        name="AddDataResourceTypeAttr" 
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="addDataResourceTypeAttr"
-        title="" type="single">
+    <form name="AddDataResourceTypeAttr" target="addDataResourceTypeAttr" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createDataResourceTypeAttr"/>
         <field entity-name="DataResource" name="dataResourceTypeId">
             <drop-down allow-empty="false">
@@ -70,12 +59,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form
-        name="UpdateDataResourceTypeAttr"
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext"
-        list-name="contentList" 
-        target="updateDataResourceTypeAttr" title="" type="list">
+    <form name="UpdateDataResourceTypeAttr" list-name="contentList" target="updateDataResourceTypeAttr" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <actions>
           <entity-condition entity-name="DataResourceTypeAttr" use-cache="false"/>
         </actions>
@@ -92,22 +77,15 @@ under the License.
     </form>
     
     <!-- CharacterSet forms -->
-    <form
-        name="AddCharacterSet" 
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="addCharacterSet" title="" type="single">
+    <form name="AddCharacterSet" target="addCharacterSet" title="" type="single" 
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createCharacterSet"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
-    <form
-        name="UpdateCharacterSet"
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        list-name="contentList" 
-        target="updateCharacterSet" title="" type="list">
+    <form name="UpdateCharacterSet" list-name="contentList" target="updateCharacterSet" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
           <entity-condition entity-name="CharacterSet" use-cache="false"/>
         </actions>
@@ -124,11 +102,8 @@ under the License.
     </form>
     
     <!-- DataCategory forms -->
-    <form
-        name="AddDataCategory" 
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="addDataCategory" title="" type="single">
+    <form name="AddDataCategory" target="addDataCategory" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createDataCategory"/>
         <field name="parentCategoryId">
             <drop-down allow-empty="true">
@@ -141,12 +116,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form
-        name="UpdateDataCategory"
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        list-name="dataCategoryList" 
-        target="updateDataCategory" title="" type="list">
+    <form name="UpdateDataCategory" list-name="dataCategoryList" target="updateDataCategory" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="updateDataCategory"/>
         <field name="dataCategoryId" widget-style="tabletext">
             <display/>
@@ -167,11 +138,8 @@ under the License.
     </form>
     
     <!-- FileExtension forms -->
-    <form
-        name="AddFileExtension" 
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="addFileExtension" title="" type="single">
+    <form name="AddFileExtension" target="addFileExtension" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createFileExtension"/>
         <field name="mimeTypeId" title="" >
             <drop-down allow-empty="false">
@@ -183,12 +151,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form
-        name="UpdateFileExtension"
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        list-name="contentList" 
-        target="updateFileExtension" title="" type="list">
+    <form name="UpdateFileExtension" list-name="contentList" target="updateFileExtension" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
           <entity-condition entity-name="FileExtension" use-cache="false"/>
         </actions>
@@ -211,22 +175,15 @@ under the License.
     </form>
     
     <!-- MetaDataPredicate forms -->
-    <form
-        name="AddMetaDataPredicate" 
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="addMetaDataPredicate" title="" type="single">
+    <form name="AddMetaDataPredicate" target="addMetaDataPredicate" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createMetaDataPredicate"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
-    <form
-        name="UpdateMetaDataPredicate"
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        list-name="contentList" 
-        target="updateMetaDataPredicate" title="" type="list">
+    <form name="UpdateMetaDataPredicate" list-name="contentList" target="updateMetaDataPredicate" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
           <entity-condition entity-name="MetaDataPredicate" use-cache="false"/>
         </actions>
@@ -243,22 +200,15 @@ under the License.
     </form>
     
     <!-- MimeType forms -->
-    <form
-        name="AddMimeType" 
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="addMimeType" title="" type="single">
+    <form name="AddMimeType" target="addMimeType" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createMimeType"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
-    <form
-        name="UpdateMimeType"
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        list-name="contentList" 
-        target="updateMimeType" title="" type="list">
+    <form name="UpdateMimeType" list-name="contentList" target="updateMimeType" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
           <entity-condition entity-name="MimeType" use-cache="false"/>
         </actions>

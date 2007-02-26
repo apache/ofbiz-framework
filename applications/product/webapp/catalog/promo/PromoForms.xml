@@ -20,9 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="EditProductPromo" type="single"
-            target="updateProductPromo" title="" default-map-name="productPromo"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditProductPromo" type="single" target="updateProductPromo" title="" default-map-name="productPromo"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
 
         <alt-target use-when="productPromo==null" target="createProductPromo"/>
         <auto-fields-service service-name="updateProductPromo" map-name=""/>
@@ -52,9 +51,8 @@ under the License.
             <display description="[${productPromo.createdByUserLogin}] ${uiLabelMap.CommonOn} ${productPromo.createdDate}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditProductPromoCode" type="single"
-            target="updateProductPromoCode" title="" default-map-name="productPromoCode"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditProductPromoCode" type="single" target="updateProductPromoCode" title="" default-map-name="productPromoCode"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
 
         <alt-target use-when="productPromoCode==null" target="createProductPromoCode"/>
         <auto-fields-service service-name="updateProductPromoCode" map-name=""/>

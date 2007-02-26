@@ -20,10 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="EditContactList" type="single" 
-            target="updateContactList" title="" 
-            default-map-name="contactList"
-            default-title-style="tableheadtext" default-widget-style="selectBox" default-tooltip-style="tabletext">
+    <form name="EditContactList" type="single" target="updateContactList" title="" default-map-name="contactList" 
+        default-title-style="tableheadtext" default-widget-style="selectBox" default-tooltip-style="tabletext">
         <alt-target use-when="contactList==null" target="createContactList"/>
         
         <field use-when="contactList!=null" name="contactListId" title="${uiLabelMap.ContactListContactListId}" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
@@ -82,9 +80,8 @@ under the License.
         <!-- <field name="cancelLink" title="" widget-style="buttontext"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}" target-type="inter-app"/></field> -->
     </form>
 
-    <form name="FindContactLists" default-title-style="tableheadtext"
-            default-tooltip-style="tabletext" default-widget-style="inputBox"
-            target="ListContactLists" title="" type="single">
+    <form name="FindContactLists" target="ListContactLists" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="contactListId" title="${uiLabelMap.ContactListContactListId}"><text size="20" maxlength="20"/></field>
         <field name="contactListName" title="${uiLabelMap.ContactListContactListName}"><text-find/></field>
@@ -112,9 +109,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit/></field>
     </form>
 
-    <form name="ListContactLists" default-title-style="tableheadtext"
-            default-tooltip-style="tabletext" default-widget-style="tabletext"
-            target="ListContactLists" title="" type="list" list-name="listIt">
+    <form name="ListContactLists" target="ListContactLists" title="" type="list" list-name="listIt"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -139,9 +135,8 @@ under the License.
         -->
     </form>
     
-    <form name="EditContactListParty" type="single" 
-            target="updateContactListParty" title="" default-map-name="contactListParty"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditContactListParty" type="single" target="updateContactListParty" title="" default-map-name="contactListParty"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="contactListParty==null" target="createContactListParty"/>
         
         <field name="contactListId"><hidden/></field>
@@ -166,9 +161,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
      </form>
         
-    <form name="FindContactListParties" type="single" 
-            target="ListContactListParties" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="FindContactListParties" type="single" target="ListContactListParties" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         
         <field name="contactListId" title="${uiLabelMap.ContactListContactListId}"><text-find/></field>
         <field name="partyId" title="${uiLabelMap.ContactListPartyId}"><lookup target-form-name="LookupPartyName"/></field>
@@ -189,9 +183,9 @@ under the License.
         
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="ListContactListParties" type="list" 
-            title="" list-name="listIt" paginate-target="ListContactListParties"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListContactListParties" type="list"  title="" list-name="listIt" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="ListContactListParties">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -214,7 +208,8 @@ under the License.
         </field>
     </form>
 
-    <form name="EditContactListCommEvent" default-map-name="communicationEvent" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" target="updateContactListCommEvent" title="" type="single">
+    <form name="EditContactListCommEvent" default-map-name="communicationEvent"  target="updateContactListCommEvent" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <alt-target target="createContactListCommEvent" use-when="communicationEvent==null"/>
         <field name="communicationEventId" use-when="communicationEvent!=null" title="${uiLabelMap.ContactListCommEventId}"><display/></field>
         <field name="communicationEventTypeId" title="${uiLabelMap.ContactListCommEventTypeId}">
@@ -317,8 +312,9 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-find/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="ListContactListCommEvents" list-name="listIt" title="" type="list" paginate-target="ListContactListCommEvents"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+    <form name="ListContactListCommEvents" list-name="listIt" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="ListContactListCommEvents">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -344,7 +340,8 @@ under the License.
         <field map-name="subjectMap" name="subject" title="${uiLabelMap.PartyCommEventSubject}"><text size="30"/></field>
     </form>
     
-    <form name="LookupContactList" default-map-name="contactList" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" target="LookupContactList" title="" type="single">
+    <form name="LookupContactList" default-map-name="contactList" target="LookupContactList" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="contactListId" title="${uiLabelMap.ContactListContactListId}"><text-find/></field>
         <field name="contactListName" title="${uiLabelMap.ContactListContactListName}"><text-find/></field>
         <field name="contactListTypeId" title="${uiLabelMap.ContactListContactListTypeId}">
@@ -370,7 +367,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="ListLookupContactList" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" target="" title="" type="list">
+    <form name="ListLookupContactList" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map env-name="parameters" field-name="inputFields"/>
@@ -386,7 +384,8 @@ under the License.
         <field name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}"><display-entity description="${campaignName}" entity-name="MarketingCampaign"/></field>
     </form>
     
-    <form name="LookupCommEvent"  default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" target="LookupCommEvent" title="" type="single">
+    <form name="LookupCommEvent"  target="LookupCommEvent" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="communicationEventId" title="${uiLabelMap.ContactListCommEventId}"><text-find/></field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><lookup target-form-name="LookupPartyName"/></field>
@@ -413,7 +412,8 @@ under the License.
         <field map-name="subjectMap" name="subject" title="${uiLabelMap.PartyCommEventSubject}"><text-find/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
-    <form name="ListLookupCommEvent" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" target="" title="" type="list">
+    <form name="ListLookupCommEvent" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map env-name="parameters" field-name="inputFields"/>
@@ -437,9 +437,8 @@ under the License.
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
     </form>
-    <form name="ListPreferredContactMech" default-title-style="tableheadtext"
-            default-tooltip-style="tabletext" default-widget-style="tabletext"
-            target="" title="" type="list">
+    <form name="ListPreferredContactMech" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <actions>
             <entity-and entity-name="PartyAndContactMech">
                 <field-map field-name="partyId"/>

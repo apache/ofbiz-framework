@@ -47,9 +47,8 @@ under the License.
         <field name="paymentRefNum"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListPayments" type="list" separate-columns="true" default-entity-name="Payment"
-          default-title-style="tableheadtext" list-name="listIt"
-        default-widget-style="tabletext" default-tooltip-style="tabletext"
+    <form name="ListPayments" type="list" separate-columns="true" default-entity-name="Payment" list-name="listIt"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
         paginate-target="/findPayments" paginate="true">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
@@ -77,8 +76,7 @@ under the License.
         <field name="amountToApply"><display also-hidden="false" type="currency" currency="${currencyUomId}"/></field>
     </form>
 
-    <form name="EditPayment" type="single"
-        target="updatePayment" default-map-name="payment"
+    <form name="EditPayment" type="single" target="updatePayment" default-map-name="payment"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="payment==null" target="createPayment"/>
         <field name="paymentId"><hidden/></field>
@@ -138,9 +136,8 @@ under the License.
         <field position="1" use-when="payment!=null" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="editPaymentApplicationsInv" default-title-style="tableheadtext" default-entity-name="PaymentApplication"
-        default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="paymentApplicationsInv"
-        target="updatePaymentApplication"  type="list" separate-columns="false">
+    <form name="editPaymentApplicationsInv" default-entity-name="PaymentApplication" list-name="paymentApplicationsInv" target="updatePaymentApplication" type="list" separate-columns="false"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId"><lookup target-form-name="LookupInvoice"></lookup></field>
@@ -159,9 +156,8 @@ under the License.
                 target="removePaymentApplication?paymentApplicationId=${paymentApplicationId}&amp;paymentId=${paymentId}"/>
         </field>
     </form>
-    <form name="editPaymentApplicationsPay" default-title-style="tableheadtext" default-entity-name="PaymentApplication"
-        default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="paymentApplicationsPay"
-        target="updatePaymentApplication" type="list" separate-columns="false">
+    <form name="editPaymentApplicationsPay" default-entity-name="PaymentApplication" list-name="paymentApplicationsPay" target="updatePaymentApplication" type="list" separate-columns="false"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" >
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
         <field name="toPaymentId"><lookup target-form-name="LookupPayment"></lookup></field>
@@ -172,9 +168,8 @@ under the License.
                 target="removePaymentApplication?paymentApplicationId=${paymentApplicationId}&amp;paymentId=${paymentId}"/>
         </field>
     </form>
-    <form name="editPaymentApplicationsBil" default-title-style="tableheadtext" default-entity-name="PaymentApplication"
-        default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="paymentApplicationsBil"
-        target="updatePaymentApplication"  type="list" separate-columns="false">
+    <form name="editPaymentApplicationsBil" default-entity-name="PaymentApplication" list-name="paymentApplicationsBil" target="updatePaymentApplication"  type="list" separate-columns="false"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
         <field name="billingAccountId"><lookup target-form-name="LookupBillingAccount"/></field>
@@ -185,9 +180,8 @@ under the License.
                 target="removePaymentApplication?paymentApplicationId=${paymentApplicationId}&amp;paymentId=${paymentId}"/>
         </field>
     </form>
-    <form name="editPaymentApplicationsTax" default-title-style="tableheadtext" default-entity-name="PaymentApplication"
-        default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="paymentApplicationsTax"
-        target="updatePaymentApplication"  type="list" separate-columns="false">
+    <form name="editPaymentApplicationsTax" default-entity-name="PaymentApplication" list-name="paymentApplicationsTax" target="updatePaymentApplication"  type="list" separate-columns="false"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
         <field name="taxAuthGeoId">
@@ -222,8 +216,7 @@ under the License.
         </field>
     </form>
 
-    <form name="listPaymentsNotApplied" type="list" list-name="payments"
-        target="updatePaymentApplication" title="" 
+    <form name="listPaymentsNotApplied" type="list" list-name="payments" target="updatePaymentApplication" title=""
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="paymentId"><hidden/></field>
         <field name="toPaymentId" widget-style="buttontext"><hyperlink target="paymentOverview?paymentId=${toPaymentId}" description="[${toPaymentId}]"/></field>

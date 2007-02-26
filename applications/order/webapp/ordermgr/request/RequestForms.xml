@@ -20,9 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="FindRequests" default-title-style="tableheadtext"
-            default-tooltip-style="tabletext" default-widget-style="inputBox"
-            target="FindRequest" title="" type="single" default-map-name="parameters">
+    <form name="FindRequests" target="FindRequest" title="" type="single" default-map-name="parameters"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="CustRequest" default-field-type="find"/>
         <field name="custRequestTypeId">
             <drop-down allow-empty="true">
@@ -66,9 +65,9 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/></field>
     </form>
 
-    <form name="ListRequests" type="list" use-row-submit="true" list-name="listIt"
-            title="" paginate-target="FindRequest"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListRequests" type="list" use-row-submit="true" list-name="listIt" title="" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="FindRequest">
       	<actions>
           <!--<set field="entityName" value="CustRequestAndRole"/>-->
           <set field="entityName" value="CustRequest"/>
@@ -88,9 +87,9 @@ under the License.
             <display-entity also-hidden="false" entity-name="StatusItem"/>
         </field>
     </form>
-    <form name="ListRequestItems" type="list" use-row-submit="true" 
-            title="" list-name="custRequestItems" paginate-target="requestitems"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListRequestItems" type="list" use-row-submit="true"  title="" list-name="custRequestItems"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="requestitems">
         <auto-fields-entity entity-name="CustRequestItem" default-field-type="display"/>
         <field name="sequenceNum"></field>
         <field name="custRequestId"><hidden/></field>
@@ -107,9 +106,9 @@ under the License.
         </field>
     </form>
 
-    <form name="ListRequestQuoteItems" type="list" use-row-submit="true" 
-            title="" list-name="quotes" paginate-target="RequestItemQuotes"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListRequestQuoteItems" type="list" use-row-submit="true"  title="" list-name="quotes" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="RequestItemQuotes">
         <auto-fields-entity entity-name="QuoteItem" default-field-type="display"/>
         <field name="quoteId" widget-style="buttontext">
             <hyperlink description="${quoteItemSeqId}" target="EditQuoteItemForRequest?custRequestId=${custRequestId}&amp;custRequestItemSeqId=${custRequestItemSeqId}&amp;quoteId=${quoteId}&amp;quoteItemSeqId=${quoteItemSeqId}"/>
@@ -127,9 +126,8 @@ under the License.
         <field name="custRequestItemSeqId"><hidden/></field>
     </form>
 
-    <form name="EditCustRequest" type="single"
-            target="updaterequest" title="Request" default-map-name="custRequest"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditCustRequest" type="single" target="updaterequest" title="Request" default-map-name="custRequest"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="custRequest==null" target="createrequest"/>
         <auto-fields-service service-name="updateCustRequest" default-field-type="edit"/>
         <field name="custRequestId"><hidden/></field>
@@ -206,9 +204,8 @@ under the License.
         <field name="lastModifiedByUserLogin"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="EditCustRequestItem" type="single"
-            target="updaterequestitem" title="" default-map-name="custRequestItem"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditCustRequestItem" type="single" target="updaterequestitem" title="" default-map-name="custRequestItem"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="custRequestItem==null" target="createrequestitem"/>
         <auto-fields-entity entity-name="CustRequestItem" default-field-type="edit"/>
         <field name="custRequestId"><hidden/></field>
@@ -250,9 +247,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="EditQuoteItemForRequest" type="single"
-            target="updateQuoteItemForRequest" title="" default-map-name="quoteItem"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditQuoteItemForRequest" type="single" target="updateQuoteItemForRequest" title="" default-map-name="quoteItem"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="quoteItem==null" target="createQuoteItemForRequest"/>
         <auto-fields-entity entity-name="QuoteItem" default-field-type="edit"/>
         <field name="quoteId"><display/></field>
@@ -290,14 +286,13 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="CreateQuoteAndQuoteItemForRequest" type="single" extends="EditQuoteItemForRequest"
-            target="createQuoteAndQuoteItemForRequest" title="" default-map-name="quoteItem"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="CreateQuoteAndQuoteItemForRequest" type="single" extends="EditQuoteItemForRequest" target="createQuoteAndQuoteItemForRequest" title="" default-map-name="quoteItem"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
     </form>
 
-    <form name="ListRequestItemNotes" type="list" use-row-submit="true" 
-            title="" list-name="notes" paginate-target="RequestItemNotes"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListRequestItemNotes" type="list" use-row-submit="true"  title="" list-name="notes" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="RequestItemNotes">
         <auto-fields-entity entity-name="CustRequestItemNoteView" default-field-type="display"/>
         <field name="noteId"><hidden/></field>
         <field name="noteName"><hidden/></field>
@@ -306,16 +301,15 @@ under the License.
         <field name="firstName"><hidden/></field>
         <field name="lastName"><hidden/></field>
     </form>
-    <form name="ListRequestItemWorkEffortReq" type="list" use-row-submit="true" 
-            title="" list-name="requirements" paginate-target="RequestItemRequirements"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListRequestItemWorkEffortReq" type="list" use-row-submit="true"  title="" list-name="requirements"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="RequestItemRequirements">
         <auto-fields-entity entity-name="Requirement" default-field-type="display"/>
         <field name="requirementId"><hidden/></field>
     </form>
     
-    <form name="EditRequestItemNote" type="single"
-            target="createrequestitemnote" title="" default-map-name="quoteItem"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditRequestItemNote" type="single" target="createrequestitemnote" title="" default-map-name="quoteItem"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <field name="custRequestId"><hidden/></field>
         <field name="custRequestItemSeqId"><hidden/></field>
         <field name="note"><textarea/></field>
@@ -324,9 +318,9 @@ under the License.
         </field>
     </form>
 
-    <form name="ListRequestRoles" type="list" use-row-submit="true" 
-            title="" list-name="custRequestRoles" paginate-target="RequestRoles"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListRequestRoles" type="list" use-row-submit="true" title="" list-name="custRequestRoles" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="RequestRoles">
         <auto-fields-entity entity-name="CustRequestRole" default-field-type="display"/>
         <field name="custRequestId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
@@ -343,9 +337,8 @@ under the License.
         </field>
     </form>
 
-    <form name="EditRequestRole" type="single"
-            target="createrequestrole" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditRequestRole" type="single" target="createrequestrole" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <field name="custRequestId"><hidden/></field>
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
@@ -358,9 +351,9 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListRequestItemRequirements" type="list"
-            title="" list-name="custRequestRequirements" paginate-target="RequestItemRequirements"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListRequestItemRequirements" type="list" title="" list-name="custRequestRequirements"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="RequestItemRequirements">
         <auto-fields-entity entity-name="Requirement" default-field-type="display"/>
         <field name="requirementId" widget-style="buttontext">
             <hyperlink description="${requirementId}" target="EditRequirement?requirementId=${requirementId}"/>

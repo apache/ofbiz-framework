@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     <form name="ListCostComponentCalc" type="list" title="" list-name="allCostComponentCalcs"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <auto-fields-entity entity-name="CostComponentCalc" default-field-type="display"/>
         <field name="costComponentCalcId" widget-style="buttontext">
             <hyperlink target="EditCostCalcs?costComponentCalcId=${costComponentCalcId}" description="${costComponentCalcId}" also-hidden="false"/>
@@ -43,7 +43,7 @@ under the License.
         </field>
     </form>
     <form name="EditCostComponentCalc" type="single" target="updateCostComponentCalc" title="" default-map-name="costComponentCalc"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="costComponentCalc==null" target="createCostComponentCalc"/>
         <auto-fields-entity entity-name="CostComponentCalc" default-field-type="edit"/>
         <field name="costComponentCalcId"><display/></field>

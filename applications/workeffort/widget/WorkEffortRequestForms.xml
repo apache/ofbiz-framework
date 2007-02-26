@@ -37,7 +37,7 @@ under the License.
         </field>
     </form>
     <form name="AddWorkEffortRequest" target="createWorkEffortRequest" title="" type="single"
-            default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="workEffortId"><hidden/></field>
         <field name="custRequestId"><lookup target-form-name="LookupCustRequest"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext">
@@ -64,7 +64,7 @@ under the License.
         </field>
     </form>
     <form name="AddWorkEffortRequestItem" target="createWorkEffortRequestItem" title="" type="single"
-            default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="workEffortId"><hidden/></field>
         <field name="custRequestId"><lookup target-form-name="LookupCustRequest"/></field>
         <field name="custRequestItemSeqId"><lookup target-form-name="LookupCustRequestItem" target-parameter="custRequestId"/></field>

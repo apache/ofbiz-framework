@@ -20,9 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="UpdateDeliveryScheduleInformation" type="single" target="updateOrderDeliverySchedule" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" 
-            default-tooltip-style="tabletext" default-map-name="schedule">
+    <form name="UpdateDeliveryScheduleInformation" type="single" target="updateOrderDeliverySchedule" title="" default-map-name="schedule"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="schedule==null" target="createOrderDeliverySchedule"/>
         <auto-fields-service service-name="updateOrderDeliverySchedule"/>
         <field name="orderId"><hidden/></field>

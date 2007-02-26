@@ -21,9 +21,8 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     
-    <form name="EditGlJournalEntry" type="single"
-            target="createGlJournalEntry" title="" default-map-name="journal"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditGlJournalEntry" type="single" target="createGlJournalEntry" title="" default-map-name="journal"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}" widget-style="selectBox">
             <drop-down>
                 <entity-options entity-name="AcctgTransType" description="${description}">
@@ -82,9 +81,9 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListGlAccountOrganization" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext"
-        list-name="listIt" target="" paginate-target="/ListGlAccountOrganization" title="" type="list">
+    <form name="ListGlAccountOrganization" list-name="listIt" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="/ListGlAccountOrganization">
         <actions>
             <set field="entityName" value="GlAccountOrganization"/>
             <set field="noConditionFind" value="Y"/> 
@@ -101,9 +100,8 @@ under the License.
 
     <!-- Displays the form for assigning accounts to a party or company -->
     <!-- TODO: Localize field names --> 
-    <form name="AssignGlAccount" type="single"
-            target="createGlAccountOrganization" title="" default-map-name="account"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="AssignGlAccount" type="single" target="createGlAccountOrganization" title="" default-map-name="account"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
 
         <!-- field name="glAccountId" title="Edit" widget-style="buttontext" -->
 
@@ -127,9 +125,9 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.AccountingCreateAssignment}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListGlAccount" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext" default-entity-name="GlAccount"
-        list-name="listIt" target="" paginate-target="/FindGlobalGlAccount" title="" type="list">
+    <form name="ListGlAccount" list-name="listIt" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" default-entity-name="GlAccount"
+        paginate-target="/FindGlobalGlAccount">
         <actions>
             <set field="entityName" value="GlAccount"/>
             <set field="noConditionFind" value="Y"/> 
@@ -156,7 +154,7 @@ under the License.
     </form>
 
     <form name="EditGlAccount" type="single" target="updateGlAccount" title="" default-map-name="glAccount"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="glAccount==null" target="createGlAccount"/>
         <auto-fields-service service-name="updateGlAccount" map-name=""/>
         
@@ -230,7 +228,7 @@ under the License.
     </form>
 
     <form name="GlAccountsNavForm" type="single" target="" title="GL Accounts" default-map-name="journal"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="" title="">
             <hyperlink also-hidden="false" description="[Back to Admin]" target="AdminMain?organizationPartyId=${organizationPartyId}"/>
         </field>

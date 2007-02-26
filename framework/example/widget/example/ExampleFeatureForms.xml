@@ -20,8 +20,9 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="ListExampleFeatures" type="list"  list-name="examples" paginate-target="FindExampleFeature"
-             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListExampleFeatures" type="list"  list-name="examples"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="FindExampleFeature">
         <actions>
             <entity-condition entity-name="ExampleFeature">
                 <order-by field-name="description"/>
@@ -33,9 +34,8 @@ under the License.
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
     </form>
-    <form name="EditExampleFeature" type="single" 
-            target="updateExampleFeature" title="" default-map-name="example"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditExampleFeature" type="single" target="updateExampleFeature" title="" default-map-name="example"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" env-name="example.statusId"/>
@@ -62,7 +62,7 @@ under the License.
 
     <!-- ExampleFeatureAppl -->
     <form name="ListExampleFeatureAppls" type="list"  list-name="exampleFeatureAppls"  target="feature_updateExampleFeatureAppl"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <actions>
             <entity-condition entity-name="ExampleFeatureAppl">
                 <condition-expr field-name="exampleFeatureId" env-name="exampleFeatureId"/>
@@ -92,9 +92,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddExampleFeatureAppl" type="single" 
-            target="feature_createExampleFeatureAppl" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="AddExampleFeatureAppl" type="single" target="feature_createExampleFeatureAppl" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createExampleFeatureAppl"/>
         
         <field name="exampleId" title="${uiLabelMap.ExampleExample}">
@@ -115,9 +114,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="LookupFindExampleFeature" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="LookupExampleFeature" title="" type="single">
+    <form name="LookupFindExampleFeature" target="LookupExampleFeature" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="ExampleFeature" default-field-type="find"/>
         <field name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}"/> <!-- <text-find/> -->
         <field name="featureSourceEnumId" title="${uiLabelMap.ExampleFeatureSource}">
@@ -131,8 +129,9 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"/>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="LookupListExampleFeature" list-name="listIt" paginate-target="LookupExampleFeature" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+    <form name="LookupListExampleFeature" list-name="listIt" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="LookupExampleFeature">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>

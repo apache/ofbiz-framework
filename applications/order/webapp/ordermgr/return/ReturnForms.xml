@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="EditReturn" type="single" target="updateReturnHeader" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditReturn" type="single" target="updateReturnHeader" 
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="returnHeader==null" target="createReturnHeader"/>
         <auto-fields-service service-name="updateReturnHeader"/>
         <field use-when="returnHeader!=null" name="returnId" tooltip="This cannot be changed without re-creating the Return."><display/></field>
@@ -50,7 +51,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="ReturnItems" type="multi" list-name="orderItems" target="createReturnItem" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="ReturnItems" type="multi" list-name="orderItems" target="createReturnItem" 
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createReturnItem"/>
         <field name="itemDescription"><display/></field>
         <field name="returnId"><hidden/></field>
@@ -60,7 +62,7 @@ under the License.
     </form>
 
     <form name="FindReturns" type="single"  target="findreturn" title=""
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="returnId" title="${uiLabelMap.OrderReturnId}"><text-find/></field>
         <field name="fromPartyId" title="${uiLabelMap.OrderReturnFromParty}">
             <lookup target-form-name="LookupPartyName"/>
@@ -84,9 +86,9 @@ under the License.
         </field>
     </form>
 
-    <form name="ListReturns" type="list"  target="findreturn" title=""
-                list-name="listIt" paginate-target="findreturn"
-                default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListReturns" type="list"  target="findreturn" title="" list-name="listIt"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="findreturn">
         <actions>
             <service service-name="performFind"  result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="requestParameters"/>

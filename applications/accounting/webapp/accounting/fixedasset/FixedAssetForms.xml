@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     <!-- list all assets in a tabular format -->
     <form name="ListFixedAssets" type="list"  list-name="fixedAssets" 
-         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
 
         <field name="fixedAssetId" widget-style="linktext">
             <hyperlink also-hidden="false" description="${fixedAssetId}" target="EditFixedAsset?fixedAssetId=${fixedAssetId}"/>
@@ -39,9 +39,8 @@ under the License.
     </form>
     
     <!-- create and update a fixed asset -->
-    <form name="EditFixedAsset" type="single" 
-            target="updateFixedAsset" title="" default-map-name="fixedAsset"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditFixedAsset" type="single" target="updateFixedAsset" title="" default-map-name="fixedAsset"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="fixedAsset==null" target="createFixedAsset"/>
         <auto-fields-service service-name="updateFixedAsset" map-name="fixedAsset"/>
  
@@ -98,7 +97,7 @@ under the License.
     </form>
 
     <form name="ListFixedAssetProducts" type="list"  list-name="fixedAssetProducts"  target="updateFixedAssetProduct"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
 
         <field name="productId" title="${uiLabelMap.AccountingProduct}" widget-style="tabletext"><display-entity entity-name="Product" description="${description}[${productId}]"/></field>
         <field name="fixedAssetProductTypeId" title="${uiLabelMap.AccountingFixedAssetProductType}" widget-style="tabletext"><display-entity entity-name="FixedAssetProductType"/></field>
@@ -113,9 +112,8 @@ under the License.
     </form>
 
     <!-- create and update a product on a fixed asset -->
-    <form name="AddFixedAssetProduct" type="single" 
-            target="addFixedAssetProduct" title="" default-map-name="fixedAssetProduct"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="AddFixedAssetProduct" type="single" target="addFixedAssetProduct" title="" default-map-name="fixedAssetProduct"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         
         <auto-fields-service service-name="addFixedAssetProduct" map-name="fixedAssetProduct"/>
 
@@ -141,7 +139,7 @@ under the License.
 
     <!-- list availability/occupation period on a fixed asset -->
     <form name="listFixedAssetCalendar" type="list"  default-required-field-style="calendar" list-name="weeks"  target="updateFixedAssetProductCalendar"
-            default-title-style="calendarHeader" default-title-area-style="calendarHeader" default-widget-style="calendarContent" default-tooltip-style="tabletext">
+        default-title-style="calendarHeader" default-title-area-style="calendarHeader" default-widget-style="calendarContent" default-tooltip-style="tabletext">
 
         <field name="week" title="${uiLabelMap.Common${month}} ${year}" widget-area-style="calendarWeek" widget-style="calendarWeek"><display description="${uiLabelMap.CommonWeek} ${week}"/></field>
         <field name="Monday" title="" widget-style="calendarDayNumber"><display/></field>
@@ -160,9 +158,8 @@ under the License.
         <field name="SundayData" title="${uiLabelMap.CommonSunday}"><display/></field>
     </form>
     <!-- update the availability on a date basis of a fixed asset -->
-    <form name="updateFixedAssetCalendar" type="single" 
-            target="updateFixedAssetCalendar" title="Update the fixed Asset calendar" default-map-name="fixedAssetCalendar"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="updateFixedAssetCalendar" type="single"  target="updateFixedAssetCalendar" title="Update the fixed Asset calendar" default-map-name="fixedAssetCalendar"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         
         <auto-fields-service service-name="updateFixedAssetCalendar" map-name="parameters"/>
 
@@ -170,8 +167,9 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListFixedAssetStdCosts" list-name="fixedAssetStdCosts" type="list" target="updateFixedAssetStdCost" paginate-target="EditFixedAssetStdCosts" 
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"  title="" >
+    <form name="ListFixedAssetStdCosts" list-name="fixedAssetStdCosts" type="list" target="updateFixedAssetStdCost" title=""
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="EditFixedAssetStdCosts">
         <actions>
             <entity-condition entity-name="FixedAssetStdCost">
                 <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
@@ -197,9 +195,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="EditFixedAssetStdCost" type="single"
-            target="createFixedAssetStdCost" title="" default-map-name="fixedAssetStdCost"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditFixedAssetStdCost" type="single" target="createFixedAssetStdCost" title="" default-map-name="fixedAssetStdCost"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createFixedAssetStdCost" default-field-type="edit"/>
         <field name="fixedAssetId"><hidden/></field>
         <field name="fixedAssetStdCostTypeId" title="${uiLabelMap.AccountingFixedAssetStdCostTypeId}">
@@ -221,7 +218,7 @@ under the License.
     
     <!-- list all assets in a tabular format -->
     <form name="ListFixedAssets" type="list"  list-name="fixedAssets" 
-         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
 
         <field name="fixedAssetId" widget-style="linktext">
             <hyperlink also-hidden="false" description="${fixedAssetId}" target="EditFixedAsset?fixedAssetId=${fixedAssetId}"/>
@@ -238,8 +235,8 @@ under the License.
     </form>
     
     <!-- List all fixed asset idents  -->
-    <form name="ListFixedAssetIdents" type="list"  list-name="fixedAssetIdents" target="updateFixedAssetIdent"
-         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="ListFixedAssetIdents" type="list" list-name="fixedAssetIdents" target="updateFixedAssetIdent"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <actions>
             <entity-condition entity-name="FixedAssetIdent">
                 <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
@@ -259,9 +256,8 @@ under the License.
     </form>
     
     <!-- create a fixed asset Idents-->
-    <form name="AddFixedAssetIdent" type="single" 
-            target="createFixedAssetIdent" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="AddFixedAssetIdent" type="single" target="createFixedAssetIdent" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createFixedAssetIdent" /> 
         <field name="fixedAssetId"><hidden/></field>
         <field name="fixedAssetIdentTypeId" title="${uiLabelMap.AccountingFixedAssetIdentType}">
@@ -276,8 +272,8 @@ under the License.
     </form>
 
     <!-- List all fixed asset Registration  -->
-    <form name="ListFixedAssetRegistrations" type="list"  list-name="fixedAssetRegistrations" target="updateFixedAssetRegistration"
-         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="ListFixedAssetRegistrations" type="list" list-name="fixedAssetRegistrations" target="updateFixedAssetRegistration"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <actions>
             <entity-condition entity-name="FixedAssetRegistration">
                 <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
@@ -298,7 +294,7 @@ under the License.
     </form>
     <!-- create a fixed asset Registration-->
     <form name="AddFixedAssetRegistration" type="single" target="createFixedAssetRegistration" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createFixedAssetRegistration" /> 
         <field name="fixedAssetId"><hidden/></field>
         <field name="licenseNumber" title="${uiLabelMap.AccountingFixedAssetLicenseNumber}"><text size="20"/></field>
@@ -308,7 +304,7 @@ under the License.
     </form>
     <!-- list all Fixed Asset Maintenance-->
     <form name="ListFixedAssetMaints" type="list" list-name="fixedAssetMaints" 
-         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <actions>
             <entity-condition entity-name="FixedAssetMaint">
                 <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
@@ -326,9 +322,8 @@ under the License.
         <field name="intervalUomId" title="${uiLabelMap.AccountingFixedAssetMaintIntervalUom}"><display/></field>                
         <field name="intervalMeterTypeId" title="${uiLabelMap.AccountingFixedAssetMaintIntervalMeterType}"><display/></field>                                
     </form>
-    <form name="EditFixedAssetMaint" type="single" default-map-name="fixedAssetMaint"
-            target="updateFixedAssetMaint" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditFixedAssetMaint" type="single" default-map-name="fixedAssetMaint" target="updateFixedAssetMaint" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="fixedAssetMaint==null" target="createFixedAssetMaint"/>
         <auto-fields-service service-name="updateFixedAssetMaint"/>
         <field name="fixedAssetId"><hidden/></field>
@@ -389,7 +384,7 @@ under the License.
 
     <!-- List all fixed asset Maintenance Meter  -->
     <form name="ListFixedAssetMaintMeters" type="list"  list-name="fixedAssetMaintMeters" target="updateFixedAssetMaintMeter"
-         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <actions>
             <entity-condition entity-name="FixedAssetMaintMeter">
                 <condition-list combine="and">
@@ -413,9 +408,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <!-- create a fixed asset MaintMeter-->
-    <form name="AddFixedAssetMaintMeter" type="single" 
-            target="createFixedAssetMaintMeter" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="AddFixedAssetMaintMeter" type="single" target="createFixedAssetMaintMeter" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createFixedAssetMaintMeter" /> 
         <field name="fixedAssetId"><hidden/></field>
         <field name="maintHistSeqId"><hidden/></field>
@@ -430,8 +424,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <!-- List all fixed asset Maintenance Order  -->
-    <form name="ListFixedAssetMaintOrders" type="list"  list-name="fixedAssetMaintOrders" target="updateFixedAssetMaintOrder"
-         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="ListFixedAssetMaintOrders" type="list" list-name="fixedAssetMaintOrders" target="updateFixedAssetMaintOrder"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <actions>
             <entity-condition entity-name="FixedAssetMaintOrder" list-name="fixedAssetMaintOrders">
                 <condition-list combine="and">
@@ -453,9 +447,8 @@ under the License.
         </field>
     </form>
     <!-- create and update a Order on a fixed asset -->
-    <form name="AddFixedAssetMaintOrder" type="single" 
-            target="createFixedAssetMaintOrder" title="" default-map-name="fixedAssetMaintOrder"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">        
+    <form name="AddFixedAssetMaintOrder" type="single" target="createFixedAssetMaintOrder" title="" default-map-name="fixedAssetMaintOrder"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">        
         <auto-fields-service service-name="createFixedAssetMaintOrder" map-name="fixedAssetMaintOrder"/>
         <field name="fixedAssetId"><hidden/></field>
         <field name="maintHistSeqId"><hidden/></field>

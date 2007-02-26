@@ -20,9 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="CreatePhysicalInventoryAndVariance" type="single" 
-            target="createPhysicalInventoryAndVariance" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="CreatePhysicalInventoryAndVariance" type="single" target="createPhysicalInventoryAndVariance" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createPhysicalInventoryAndVariance"/>
         <field name="physicalInventoryId"><ignored/></field>
         <field name="physicalInventoryDate"><ignored/></field>
@@ -39,17 +38,15 @@ under the License.
         <field name="comments"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ViewPhysicalInventoryAndVariance" type="list"
-            target="" title="" list-name="physicalInventoryAndVarianceDatas"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ViewPhysicalInventoryAndVariance" type="list" target="" title="" list-name="physicalInventoryAndVarianceDatas"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <auto-fields-entity entity-name="PhysicalInventoryAndVariance" map-name="physicalInventoryAndVariance" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field>
         <field name="partyId"><display description="${person.firstName} ${person.lastName} ${partyGroup.groupName} [${physicalInventoryAndVariance.partyId}]"/></field>
         <field name="varianceReasonId"><display description="${varianceReason.description}"/></field>
     </form>    
 
-    <form name="ViewInventoryItemShipmentReceipts" type="list"
-        target="" title="" list-name="shipmentReceiptList"
+    <form name="ViewInventoryItemShipmentReceipts" type="list" target="" title="" list-name="shipmentReceiptList"
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <actions>
             <entity-and entity-name="ShipmentReceipt" list-name="shipmentReceiptList">
@@ -60,8 +57,7 @@ under the License.
         <field name="inventoryItemId"><hidden/></field>
     </form>    
     
-    <form name="ListInventoryItemDetail" type="list"
-        target="" title="" list-name="inventoryItemDetails"
+    <form name="ListInventoryItemDetail" type="list" target="" title="" list-name="inventoryItemDetails"
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <auto-fields-entity entity-name="InventoryItemDetail" map-name="inventoryItemDetail" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field> <!-- this field is redundant -->

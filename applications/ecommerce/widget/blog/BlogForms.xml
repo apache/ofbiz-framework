@@ -19,7 +19,8 @@
   -->
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="findBlogContent" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" default-entity-name="ContentAssocDataResourceViewFrom" target="CMSContentFind" title="" type="single">
+    <form name="findBlogContent" default-entity-name="ContentAssocDataResourceViewFrom" target="CMSContentFind" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="caContentIdTo" title="Publish-to content">
             <drop-down>
                 <option key="OFBIZBLOGROOT" description="Blogs"/>
@@ -55,7 +56,9 @@
         </field>
     </form>
 
-    <form name="listFindBlogContent" type="list" target="" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" paginate-target="/CMSContentFind" view-size="20">
+    <form name="listFindBlogContent" type="list" target=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" 
+        paginate-target="/CMSContentFind" view-size="20">
         <actions>
             <service service-name="performFind" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="requestParameters"/>
@@ -77,7 +80,8 @@
         </field>
     </form>
 
-    <form name="AddBlogResponse" target="createBlogResponse" title="" type="single" default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="AddBlogResponse" target="createBlogResponse" title="" type="single" 
+        default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="ContentAssocDataResourceViewTo" default-field-type="hidden" map-name="rsp"/>
         <field name="contentName" title="Short title" entry-name="contentName" map-name="rsp">
             <text size="40"/>
@@ -136,7 +140,8 @@
         </sort-order>
     </form>
 
-    <form name="EditBlogResponse" target="updateBlogResponse" title="" type="single" default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="EditBlogResponse" target="updateBlogResponse" title="" type="single" 
+        default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="Content" default-field-type="hidden" map-name="content"/>
         <auto-fields-entity entity-name="DataResource" default-field-type="hidden" map-name="dataResource"/>
         <field name="contentName" title="Short title" entry-name="contentName" map-name="rsp">
@@ -185,7 +190,8 @@
         </sort-order>
     </form>
 
-    <form name="CreateArticle" target="createBlogArticle" title="" type="upload" default-title-style="treeHeader" skip-end="true" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="CreateArticle" target="createBlogArticle" title="" type="upload" skip-end="true" 
+        default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="contentName" title="Short title">
             <text size="40"/>
         </field>
@@ -240,7 +246,8 @@
         </sort-order>
     </form>
 
-    <form name="EditArticle" target="updateBlogArticle" title="" type="upload" default-title-style="treeHeader" skip-end="true" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="EditArticle" target="updateBlogArticle" title="" type="upload" skip-end="true" 
+        default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="contentId" entry-name="articleContentId" title="Blog ID" use-when="contentId!=null||contentId==&quot;&quot;">
             <display/>
         </field>
@@ -293,13 +300,15 @@
         </sort-order>
     </form>
 
-    <form name="editFormSubmit" target="" title="" type="single" default-title-style="treeHeader" skip-start="true" skip-end="true" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="editFormSubmit" target="" title="" type="single" skip-start="true" skip-end="true" 
+        default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="submitButton" title="Submit" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
 
-    <form name="editFormEnd" target="" title="" type="single" default-title-style="treeHeader" skip-start="true" default-tooltip-style="tabletext" default-widget-style="inputBox">        
+    <form name="editFormEnd" target="" title="" type="single" skip-start="true" 
+        default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">        
     </form>
 
 </forms>

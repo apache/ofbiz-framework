@@ -209,7 +209,8 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="ListLookupWorkEffort" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" target="" title="" list-name="listIt" type="list">
+    <form name="ListLookupWorkEffort" target="" title="" list-name="listIt" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -225,9 +226,8 @@ under the License.
         <field name="marketingCampaignId"><display-entity description="${campaignName}" entity-name="MarketingCampaign"/></field>
     </form>
 
-    <form name="AddWorkEffortAndAssoc" extends="EditWorkEffort" default-map-name="workEffort" 
-            default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox"  
-            target="createWorkEffortAndAssoc" title="" type="single">
+    <form name="AddWorkEffortAndAssoc" extends="EditWorkEffort" default-map-name="workEffort" target="createWorkEffortAndAssoc" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="workEffortId"><hidden value=""/></field>
         <field name="workEffortIdFrom" widget-style="tabletext"><display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName} [${workEffortId}]"/></field>
         <field name="workEffortIdTo"><lookup target-form-name="LookupWorkEffort"/></field>
@@ -255,8 +255,8 @@ under the License.
         </sort-order>
     </form>
 
-    <form name="AddWorkEffortAssoc" default-title-style="tableheadtext" default-tooltip-style="tabletext" 
-        default-widget-style="inputBox" target="createWorkEffortAssoc" title="" type="single">
+    <form name="AddWorkEffortAssoc" target="createWorkEffortAssoc" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="workEffortIdFrom" widget-style="tabletext"><display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName} [${workEffortId}]"/></field>
         <field name="workEffortIdTo"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="workEffortAssocTypeId">
@@ -327,7 +327,8 @@ under the License.
         </sort-order>
     </form>
   
-    <form name="ListWorkEfforts" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" target="ListWorkEfforts" title="" type="list" list-name="listIt">
+    <form name="ListWorkEfforts" target="ListWorkEfforts" title="" type="list" list-name="listIt"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -354,7 +355,8 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffort?workEffortId=${workEffortId}"/>
         </field>
     </form>
-    <form name="WorkEffortTreeLine"  hide-header="true" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" target="ListWorkEfforts" title="" type="list" list-name="listIt">
+    <form name="WorkEffortTreeLine"  hide-header="true" target="ListWorkEfforts" title="" type="list" list-name="listIt"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortName} [${workEffortId}]" target="EditWorkEffort?workEffortId=${workEffortId}"/>
         </field>
@@ -368,7 +370,8 @@ under the License.
         </field>
     </form>
   
-    <form name="EditWorkEffortParty" default-map-name="workEffortParty" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" target="updateWorkEffortParty" title="" type="single">
+    <form name="EditWorkEffortParty" default-map-name="workEffortParty" target="updateWorkEffortParty" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <alt-target target="createWorkEffortParty" use-when="workEffortParty==null"/>
         <field name="workEffortId"><hidden/></field>
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
@@ -385,7 +388,8 @@ under the License.
         <field name="preferredContactMechId"><lookup target-form-name="LookupPreferredContactMech" target-parameter="partyId"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="FindWorkEffortParties" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" target="ListWorkEffortParties" title="" type="single">
+    <form name="FindWorkEffortParties" target="ListWorkEffortParties" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="workEffortId"><text-find/></field>
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="fromDate"><date-find/></field>
@@ -399,7 +403,8 @@ under the License.
         <field name="preferredContactMechId"><lookup target-form-name="LookupPreferredContactMech" target-parameter="partyId"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form  name="ListWorkEffortParties" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" list-name="listIt" title="" type="list">
+    <form  name="ListWorkEffortParties" list-name="listIt" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map env-name="parameters" field-name="inputFields"/>
@@ -416,7 +421,8 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditWorkEffortParty?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}"/>
         </field>
     </form>
-    <form name="EditWorkEffortCommEvent" default-map-name="workEffortCommEvent" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" target="updateWorkEffortCommEvent" title="" type="single">
+    <form name="EditWorkEffortCommEvent" default-map-name="workEffortCommEvent"  target="updateWorkEffortCommEvent" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <alt-target target="createWorkEffortCommEvent" use-when="communicationEvent==null"/>
         <field name="communicationEventId" use-when="communicationEvent!=null"><display/></field>
         <field name="communicationEventTypeId">
@@ -502,14 +508,16 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
         <field name="cancelLink" title="" widget-style="buttontext"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
-    <form name="FindWorkEffortCommEvents" default-map-name="workEffortCommEvent" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" target="ListWorkEffortCommEvents" title="" type="single">
+    <form name="FindWorkEffortCommEvents" default-map-name="workEffortCommEvent" target="ListWorkEffortCommEvents" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="workEffortId"><hidden/></field>
         <field name="commEventId"><lookup target-form-name="LookupCommEvent"/></field>
         <field name="fromDate"><date-find/></field>
         <field name="thruDate"><date-find/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="ListWorkEffortCommEvents" default-map-name="workEffortCommEvent" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" title="" list-name="listIt" type="list">
+    <form name="ListWorkEffortCommEvents" default-map-name="workEffortCommEvent" title="" list-name="listIt" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map env-name="requestParameters" field-name="inputFields"/>
@@ -543,7 +551,8 @@ under the License.
         <field map-name="subjectMap" name="subject"><text size="30"/></field>
     </form>
 
-    <form  name="ListPreferredContactMech" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" target="" title="" type="list">
+    <form  name="ListPreferredContactMech" default-widget-style="tabletext" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext">
         <actions>
             <entity-and entity-name="PartyAndContactMech">
                 <field-map field-name="partyId"/>
@@ -554,7 +563,8 @@ under the License.
         </field>
         <field name="contactMechTypeId"><display-entity entity-name="ContactMechType"/></field>
     </form>
-    <form name="LookupCommEvent"  default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" target="LookupCommEvent" title="" type="single">
+    <form name="LookupCommEvent" target="LookupCommEvent" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="communicationEventId" title="${uiLabelMap.WorkEffortCommEventId}"><text-find/></field>
         <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyIdTo" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}"><lookup target-form-name="LookupPartyName"/></field>
@@ -585,7 +595,8 @@ under the License.
         <field map-name="subjectMap" name="subject"><text-find/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
-    <form name="ListLookupCommEvent" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" target="" title="" list-name="listIt" type="list">
+    <form name="ListLookupCommEvent" target="" title="" list-name="listIt" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map env-name="parameters" field-name="inputFields"/>
@@ -772,9 +783,8 @@ under the License.
     </form>
 
     <!-- WorkEffortContent forms -->
-    <form name="AddWorkEffortContent" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="createWorkEffortContent" title="" type="single">
+    <form name="AddWorkEffortContent" target="createWorkEffortContent" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createWorkEffortContent"/>
         <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
         <field name="contentId">
@@ -790,7 +800,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListWorkEffortContents" type="list" target="updateWorkEffortContent" list-name="workEffortContents" 
-         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <actions>
             <entity-and entity-name="WorkEffortContent" use-cache="true" list-name="workEffortContents">
                 <field-map env-name="workEffortId" field-name="workEffortId" />
@@ -812,9 +822,8 @@ under the License.
     </form>
 
     <!-- WorkEffort Good Standard forms -->
-    <form name="AddWorkEffortGoodStandard" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="createWorkEffortGoodStandard" title="" type="single">
+    <form name="AddWorkEffortGoodStandard" target="createWorkEffortGoodStandard" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createWorkEffortGoodStandard"/>
         <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
         <field name="productId">
@@ -838,7 +847,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListWorkEffortGoodStandards" type="list" target="updateWorkEffortGoodStandard" list-name="workEffortGoodStandards" 
-         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <actions>
             <entity-and entity-name="WorkEffortGoodStandard" use-cache="true" list-name="workEffortGoodStandards">
                 <field-map env-name="workEffortId" field-name="workEffortId" />
@@ -868,9 +877,8 @@ under the License.
     </form>
     
     <!-- WorkEffort Reviews -->
-    <form name="AddWorkEffortReview" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="createWorkEffortReview" title="" type="single">
+    <form name="AddWorkEffortReview" target="createWorkEffortReview" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createWorkEffortReview"/>
         <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
         <field name="userLoginId">
@@ -888,8 +896,8 @@ under the License.
         <field name="reviewText"><textarea rows="5" cols="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListWorkEffortReviews" type="list" target="updateWorkEffortReview" list-name="productWorkEfforts" 
-         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" separate-columns="true">
+    <form name="ListWorkEffortReviews" type="list" target="updateWorkEffortReview" list-name="productWorkEfforts"  separate-columns="true"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <actions>
             <entity-and entity-name="WorkEffortReview" use-cache="true" list-name="workEffortReviews">
                 <field-map env-name="workEffortId" field-name="workEffortId" />
@@ -917,9 +925,8 @@ under the License.
         </field>
     </form>
         <!-- WorkEffortKeyword forms -->
-    <form name="AddWorkEffortKeyword" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="createWorkEffortKeyword" title="" type="single">
+    <form name="AddWorkEffortKeyword" target="createWorkEffortKeyword" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createWorkEffortKeyword"/>
         <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
         <field name="keyword" title="${uiLabelMap.WorkEffortKeyword}*"><text size="10"/></field>
@@ -927,7 +934,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListWorkEffortKeywords" type="list" target="" list-name="listWorkEffortKeywords" 
-         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <actions>
             <entity-and entity-name="WorkEffortKeyword" use-cache="true" list-name="workEffortkeywords">
                 <field-map env-name="workEffortId" field-name="workEffortId" />

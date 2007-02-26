@@ -19,8 +19,8 @@ under the License.
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
   
-    <form name="ListQuoteWorkEfforts" separate-columns="true" default-title-style="tableheadtext" default-tooltip-style="tabletext" 
-        default-widget-style="tabletext" target="ListQuoteWorkEfforts" title="" type="list" >
+    <form name="ListQuoteWorkEfforts" separate-columns="true" title="" type="list"  target="ListQuoteWorkEfforts" 
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <actions>
             <entity-and entity-name="QuoteWorkEffortView">
                 <field-map field-name="quoteId"/>
@@ -41,11 +41,9 @@ under the License.
         </field>
     </form>
   
-    <form name="AddQuoteWorkEffort" 
-            default-title-style="tableheadtext" default-tooltip-style="tabletext" 
-            default-widget-style="inputBox" 
-            extends="EditWorkEffort" extends-resource="component://workeffort/widget/WorkEffortForms.xml"
-            target="createQuoteWorkEffort" title="" type="single">
+    <form name="AddQuoteWorkEffort" extends="EditWorkEffort" extends-resource="component://workeffort/widget/WorkEffortForms.xml" target="createQuoteWorkEffort" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+            
         <field name="quoteId" map-name="parameters"><display/></field>
         <field name="workEffortId" use-when="workEffort==null&amp;&amp;workEffortId!=null">
             <lookup target-form-name="/workeffort/control/LookupWorkEffort"/>
@@ -61,11 +59,8 @@ under the License.
         </sort-order>
     </form>
     
-    <form name="EditQuoteWorkEffort" 
-            default-title-style="tableheadtext" default-tooltip-style="tabletext" 
-            default-widget-style="inputBox" 
-            extends="EditWorkEffort" extends-resource="component://workeffort/widget/WorkEffortForms.xml"
-            target="updateQuoteWorkEffort" title="" type="single">
+    <form name="EditQuoteWorkEffort" target="updateQuoteWorkEffort" title="" type="single" extends="EditWorkEffort" extends-resource="component://workeffort/widget/WorkEffortForms.xml"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext"  default-widget-style="inputBox">
         <actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" env-name="quote.statusId"/>
