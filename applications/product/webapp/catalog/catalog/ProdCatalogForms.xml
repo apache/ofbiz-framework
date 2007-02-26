@@ -20,9 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="EditProdCatalog" type="single" 
-            target="updateProdCatalog" title="" default-map-name="prodCatalog"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditProdCatalog" type="single" target="updateProdCatalog" title="" default-map-name="prodCatalog"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         
         <alt-target use-when="prodCatalog==null" target="createProdCatalog"/>
         
@@ -53,9 +52,8 @@ under the License.
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="AddProdCatalogToParty" type="single" 
-            target="addProdCatalogToParty" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="AddProdCatalogToParty" type="single" target="addProdCatalogToParty" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="addProdCatalogToParty"/>
         <field name="prodCatalogId" map-name="prodCatalog"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"></lookup></field>
@@ -68,8 +66,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateProdCatalogToParty" type="list" 
-        target="updateProdCatalogToParty" title="" list-name="prodCatalogRoleList"
+    <form name="UpdateProdCatalogToParty" type="list" target="updateProdCatalogToParty" title="" list-name="prodCatalogRoleList"
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <auto-fields-service service-name="updateProdCatalogToParty"/>
         <field name="prodCatalogId"><hidden/></field>
@@ -88,9 +85,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="CreateProductStoreCatalog" type="single" 
-            target="createProdCatalogStore" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="CreateProductStoreCatalog" type="single" target="createProdCatalogStore" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createProductStoreCatalog"/>
         <field name="prodCatalogId" map-name="prodCatalog"><hidden/></field>
         <field name="productStoreId" title="${uiLabelMap.ProductStore}" widget-style="selectBox">
@@ -102,9 +98,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateProductStoreCatalog" type="list"
-            target="updateProdCatalogStore" title="" list-name="productStoreCatalogList"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="UpdateProductStoreCatalog" type="list" target="updateProdCatalogStore" title="" list-name="productStoreCatalogList"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="updateProductStoreCatalog"/>
         <field name="prodCatalogId"><hidden/></field>
         <field name="productStoreId" title="${uiLabelMap.ProductStoreId}">
@@ -120,9 +115,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditProdCatalogCategories" type="list"
-            target="updateProductCategoryToProdCatalog" title="" list-name="prodCatalogCategories"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="EditProdCatalogCategories" type="list" target="updateProductCategoryToProdCatalog" title="" list-name="prodCatalogCategories"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <auto-fields-service service-name="updateProductCategoryToProdCatalog"/>
         <field name="prodCatalogId"><hidden/></field>
         <field name="productCategoryId" title="${uiLabelMap.ProductCategoryId}">
@@ -144,9 +138,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="addProductCategoryToProdCatalog" type="single" 
-            target="addProductCategoryToProdCatalog" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="addProductCategoryToProdCatalog" type="single" target="addProductCategoryToProdCatalog" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="addProductCategoryToProdCatalog"/>
         <field name="prodCatalogId"><hidden/></field>
         <field name="productCategoryId" title="${uiLabelMap.ProductCategoryId}"><lookup target-form-name="LookupProductCategory"></lookup></field>

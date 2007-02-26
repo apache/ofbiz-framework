@@ -20,9 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="EditProductConfigItem" type="single" 
-            target="updateProductConfigItem" title="" default-map-name="configItem"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditProductConfigItem" type="single" target="updateProductConfigItem" title="" default-map-name="configItem"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         
         <alt-target use-when="configItem==null" target="createProductConfigItem"/>
         
@@ -41,8 +40,7 @@ under the License.
        
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="EditConfigOption" type="list" 
-        target="updateProductConfigOption" title="" list-name="configOptionList" list-entry-name="configOption"
+    <form name="EditConfigOption" type="list" target="updateProductConfigOption" title="" list-name="configOptionList" list-entry-name="configOption"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         
         <auto-fields-service service-name="updateProductConfigOption" map-name="configOption"/>
@@ -50,8 +48,7 @@ under the License.
         <field name="configItemId"><hidden/></field>
         <field name="submitButton" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="CreateConfigOption" type="single" 
-        target="createProductConfigOption" title="" default-map-name="configOption"
+    <form name="CreateConfigOption" type="single" target="createProductConfigOption" title="" default-map-name="configOption"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="configOption!=null" target="updateProductConfigOption"/>
         <auto-fields-service service-name="createProductConfigOption"/>
@@ -62,8 +59,7 @@ under the License.
         <field use-when="configOption!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="CreateProductConfigProduct" type="single"
-        target="createProductConfigProduct" title="" default-map-name="productConfigProduct"
+    <form name="CreateProductConfigProduct" type="single" target="createProductConfigProduct" title="" default-map-name="productConfigProduct"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="productConfigProduct!=null" target="updateProductConfigProduct"/>
         <auto-fields-service service-name="createProductConfigProduct"/>
@@ -79,9 +75,8 @@ under the License.
     </form>
     
     <!-- ProdConfItemContent -->
-    <form name="AddProductConfigItemContentAssoc" type="single"
-            target="addContentToProductConfigItem" title="Add ProdConfItemContent (select Content Id, enter From Date):"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="AddProductConfigItemContentAssoc" type="single" target="addContentToProductConfigItem" title="Add ProdConfItemContent (select Content Id, enter From Date):"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-entity entity-name="ProdConfItemContent"/>
         <field name="configItemId" title="${uiLabelMap.ProductConfigItemId}" map-name="productConfigItem"><hidden/></field>
         <field name="contentId" title="${uiLabelMap.ProductContentId}" ></field>
@@ -96,9 +91,8 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="PrepareAddProductConfigItemContentAssoc" type="single"
-            target="prepareAddContentToProductConfigItem" title="Add ProdConfItemContent (select Content Id, enter From Date):"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="PrepareAddProductConfigItemContentAssoc" type="single" target="prepareAddContentToProductConfigItem" title="Add ProdConfItemContent (select Content Id, enter From Date):"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-entity entity-name="ProdConfItemContent"/>
         <field name="contentId"><ignored/></field>
         <field name="fromDate"><ignored/></field>
@@ -114,9 +108,8 @@ under the License.
         <!-- <field name="description"><text size="40"/></field> -->
         <field name="submitButton" title="${uiLabelMap.ProductPrepareCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateProductConfigItemContentAssoc" type="list"
-            target="updateContentToProductConfigItem" title="" list-name="productContentDatas"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="UpdateProductConfigItemContentAssoc" type="list" target="updateContentToProductConfigItem" title="" list-name="productContentDatas"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <!-- each entry in the list will be a Map with the entries: productContent and content -->
         <auto-fields-service service-name="updateProductConfigItemContent" map-name="productContent"/>
         <field name="configItemId"><hidden/></field>
@@ -137,9 +130,8 @@ under the License.
                 description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditProductConfigItemContentSimpleText" type="single"
-            target="updateSimpleTextContentForProductConfigItem" title="Update Simple Text Content for Product"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditProductConfigItemContentSimpleText" type="single" target="updateSimpleTextContentForProductConfigItem" title="Update Simple Text Content for Product"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="contentId==null" target="createSimpleTextContentForProductConfigItem"/>
         <auto-fields-entity entity-name="ProdConfItemContent" map-name="productContentData"/>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}" ></field>

@@ -20,9 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="FindRequirements" type="single" 
-            target="FindRequirements" title=""
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="FindRequirements" type="single" target="FindRequirements" title=""
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="hideSearch"><hidden value="Y"/></field>
         <field name="requirementId"><text-find/></field>
@@ -54,9 +53,9 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListRequirements" type="list" use-row-submit="true" 
-            target="" title="" list-name="listIt" paginate-target="FindRequirements"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListRequirements" type="list" use-row-submit="true"  target="" title="" list-name="listIt"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="FindRequirements">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="requestParameters"/>
@@ -88,9 +87,8 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteRequirement?requirementId=${requirementId}"/>
         </field>
     </form>
-    <form name="EditRequirement" type="single"
-            target="updateRequirement" title="" default-map-name="requirement"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditRequirement" type="single" target="updateRequirement" title="" default-map-name="requirement"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="requirement==null" target="createRequirement"/>
         <auto-fields-service service-name="updateRequirement" default-field-type="edit"/>
         <field name="requirementId"><hidden/></field>
@@ -120,9 +118,9 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListRequirementCustRequests" type="list"
-            title="" list-name="requirementCustRequests" paginate-target="ListRequirementCustRequests"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListRequirementCustRequests" type="list" title="" list-name="requirementCustRequests" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="ListRequirementCustRequests">
         <auto-fields-entity entity-name="RequirementCustRequest" default-field-type="display"/>
         <field name="requirementId"><hidden/></field>
         <field name="custRequestId" widget-style="buttontext">
@@ -134,18 +132,18 @@ under the License.
     </form>
 
     <!-- lists the orders associated with a requirement -->
-    <form name="ListRequirementOrders" type="list"
-            title="" list-name="orderRequirements" paginate-target="ListRequirementOrders"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListRequirementOrders" type="list" title="" list-name="orderRequirements"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="ListRequirementOrders">
         <auto-fields-entity entity-name="OrderRequirementCommitment" default-field-type="display"/>
         <field name="orderId" widget-style="buttontext">
             <hyperlink description="${orderId}" target-type="inter-app" target="/ordermgr/control/orderview?orderId=${orderId}"/>
         </field>
     </form>
     <!-- lists the roles associated with a requirement -->
-    <form name="ListRequirementRoles" type="list"
-            title="" list-name="requirementRoles" paginate-target="ListRequirementRoles"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListRequirementRoles" type="list" title="" list-name="requirementRoles"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="ListRequirementRoles">
         <auto-fields-entity entity-name="RequirementRole" default-field-type="display"/>
         <field name="requirementId"><hidden/></field>
         <field name="editLink" widget-style="buttontext" title="${uiLabelMap.CommonEdit}">
@@ -155,9 +153,8 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeRequirementRole?requirementId=${requirementId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}"/>
         </field>
     </form>
-    <form name="EditRequirementRole" type="single"
-            target="updateRequirementRole" title="" default-map-name="requirementRole"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditRequirementRole" type="single" target="updateRequirementRole" title="" default-map-name="requirementRole"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="requirementRole==null" target="createRequirementRole"/>
         <field name="requirementId"><hidden/></field>
         <field name="partyId" use-when="requirementRole!=null"><display/></field>
@@ -175,9 +172,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="FindNotApprovedRequirements" type="single" 
-            target="ApproveRequirements" title=""
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="FindNotApprovedRequirements" type="single" target="ApproveRequirements" title=""
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="hideSearch"><hidden value="Y"/></field>
         <field name="requirementId"><text-find/></field>
         <field name="requirementTypeId">
@@ -200,9 +196,9 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ApproveRequirements" type="multi" use-row-submit="true" 
-            target="approveRequirements" title="" list-name="listIt" paginate-target="ApproveRequirements"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ApproveRequirements" type="multi" use-row-submit="true" target="approveRequirements" title="" list-name="listIt"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="ApproveRequirements">
         <actions>
             <set field="entityName" value="Requirement"/>
             <set field="requestParameters.statusId" value="REQ_CREATED"/>
@@ -229,8 +225,8 @@ under the License.
           <submit/>
         </field>
     </form>
-    <form name="FindApprovedProductRequirements" type="single" target="ApprovedProductRequirements" title="" default-title-style="tableheadtext" default-widget-style="tabletext"
-        default-tooltip-style="tabletext">
+    <form name="FindApprovedProductRequirements" type="single" target="ApprovedProductRequirements" title="" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="showList"><hidden value="Y"/></field>
         <field name="requirementId"><text-find/></field>
         <field name="billToCustomerPartyId">
@@ -259,7 +255,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ApprovedProductRequirementsList" type="list" title="" list-name="requirementsForSupplier"
-        paginate-target="RequirementsForSupplier" default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="RequirementsForSupplier">
         <actions>
             <service service-name="prepareFind" result-map-name="resultConditions">
                 <field-map field-name="inputFields" env-name="requestParameters"/>
@@ -294,7 +291,8 @@ under the License.
         <field name="comments"><display/></field>
     </form>
     <form name="ApprovedProductRequirements" type="multi" use-row-submit="true" target="quickPurchaseOrderEntry" title="" list-name="requirementsForSupplier"
-        paginate-target="RequirementsForSupplier" default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="RequirementsForSupplier">
         <field name="billToCustomerPartyId"><hidden value="${parameters.billToCustomerPartyId}"/></field>
         <field name="supplierPartyId"><hidden value="${parameters.partyId}"/></field>
         <field name="requirementId" widget-style="buttontext">
@@ -331,8 +329,8 @@ under the License.
         <field name="distinctProductCount"><display/></field>
         <field name="quantityTotal"><display/></field>
     </form>
-    <form name="ApprovedProductRequirementsByVendor" type="list" use-row-submit="true" list-name="requirements" target="ApprovedProductRequirements"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" separate-columns="true"
+    <form name="ApprovedProductRequirementsByVendor" type="list" use-row-submit="true" list-name="requirements" target="ApprovedProductRequirements" separate-columns="true"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
         paginate-target="ApprovedProductRequirementsByVendor">
         <field name="partyId">
             <display description="${bsh: org.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, false);}"/>

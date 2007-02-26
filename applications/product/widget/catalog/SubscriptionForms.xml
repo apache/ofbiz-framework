@@ -69,8 +69,9 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListFindSubscription" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" 
-        target="" type="list" list-name="listIt" paginate-target="FindSubscription" paginate="true">
+    <form name="ListFindSubscription" target="" type="list" list-name="listIt"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="FindSubscription" paginate="true">
         <actions>
             <service service-name="performFind" result-map-list-name="listIt" result-map-name="performFindResult">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -124,7 +125,7 @@ under the License.
         </field>
     </form>
     <form name="EditSubscription" type="single" target="updateSubscription" default-map-name="subscription"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="subscription==null" target="createSubscription"/>
         <auto-fields-service service-name="updateSubscription"/>
  
@@ -206,8 +207,9 @@ under the License.
     </form>
 
     <!-- SubscriptionResource Forms -->
-    <form name="ListSubscriptionResources" type="list" list-name="examples" paginate-target="FindSubscriptionResource"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListSubscriptionResources" type="list" list-name="examples" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="FindSubscriptionResource">
         <actions>
             <entity-condition entity-name="SubscriptionResource">
                 <order-by field-name="description"/>
@@ -293,8 +295,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="AddSubscriptionResourceProduct" type="single" 
-        target="createProductSubscriptionResourceSr" title=""
+    <form name="AddSubscriptionResourceProduct" type="single" target="createProductSubscriptionResourceSr" title=""
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createProductSubscriptionResource"/>
         
@@ -334,7 +335,7 @@ under the License.
     
     <!-- Subscription Communication Event  -->
     <form name="listSubscriptionCommEvent" type="list"  list-name="subscriptionCommEvent"  target="ListSubscriptionCommEvent"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <actions>
             <entity-condition entity-name="SubscriptionAndCommEvent">
                 <condition-expr field-name="subscriptionId" env-name="subscriptionId"/>
@@ -364,7 +365,7 @@ under the License.
         </field>
     </form>
     <form name="createSubscriptionCommEvent" type="single" target="createSubscriptionCommEvent" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createSubscriptionCommEvent"/>
         <field name="subscriptionId"><hidden value="${parameters.subscriptionId}"/></field>
         <field name="communicationEventId">

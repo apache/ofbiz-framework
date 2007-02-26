@@ -20,8 +20,9 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="ListExamples" type="list" list-name="examples" paginate-target="FindExample"
-             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListExamples" type="list" list-name="examples"
+         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+         paginate-target="FindExample">
         <actions>
             <entity-condition entity-name="Example">
                 <order-by field-name="description"/>
@@ -37,7 +38,7 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
     </form>
     <form name="EditExample" type="single" target="updateExample" title="" default-map-name="example"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" env-name="example.statusId"/>
@@ -80,7 +81,7 @@ under the License.
 
     <!-- ExampleItem -->
     <form name="ListExampleItems" type="list"  list-name="exampleItems"  target="updateExampleItem"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <actions>
             <entity-condition entity-name="ExampleItem">
                 <condition-expr field-name="exampleId" env-name="exampleId"/>
@@ -107,9 +108,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="AddExampleItem" type="single" 
-            target="createExampleItem" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="AddExampleItem" type="single" target="createExampleItem" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createExampleItem"/>
 
         <field name="exampleId"><hidden/></field>
@@ -127,7 +127,7 @@ under the License.
     
     <!-- ExampleFeatureAppl -->
     <form name="ListExampleFeatureAppls" type="list"  list-name="exampleFeatureAppls"  target="example_updateExampleFeatureAppl"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <actions>
             <entity-condition entity-name="ExampleFeatureAppl">
                 <condition-expr field-name="exampleId" env-name="exampleId"/>
@@ -157,9 +157,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddExampleFeatureAppl" type="single" 
-            target="example_createExampleFeatureAppl" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="AddExampleFeatureAppl" type="single" target="example_createExampleFeatureAppl" title=""            
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createExampleFeatureAppl"/>
         
         <field name="exampleId"><hidden/></field>

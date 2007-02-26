@@ -21,16 +21,15 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
         
-    <form name="ListCompanies" type="list" title="Internal Organizations" default-widget-style="linktext"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" list-name="parties">
+    <form name="ListCompanies" type="list" title="Internal Organizations" list-name="parties"
+        default-title-style="tableheadtext" default-widget-style="linktext" default-tooltip-style="tabletext">
         <field name="partyId" title="${uiLabelMap.AccountingCompanies}" widget-style="tabletext"><display-entity entity-name="PartyGroup" description="${groupName}"/></field>
         <field name="admin" title="${uiLabelMap.AccountingAdmin}"><hyperlink target="AdminMain?organizationPartyId=${partyId}" description="${uiLabelMap.AccountingAdmin}"/></field>
         <field name="accounts" title="${uiLabelMap.AccountingAccounts}"><hyperlink target="ListGlAccountOrganization?organizationPartyId=${partyId}" description="${uiLabelMap.AccountingAccounts}"/></field>
     </form>
     
-    <form name="PartyAcctgPreference" type="single" target="createPartyAcctgPreference"
-        default-map-name="partyAcctgPreference" default-service-name="createPartyAcctgPreference"
-        default-widget-style="tabletext" default-title-style="tableheadtext">
+    <form name="PartyAcctgPreference" type="single" target="createPartyAcctgPreference" default-service-name="createPartyAcctgPreference" default-map-name="partyAcctgPreference"  
+        default-title-style="tableheadtext" default-widget-style="tabletext">
         <auto-fields-service service-name="createPartyAcctgPreference"/>
         <field name="organizationPartyId"><hidden value="${parameters.organizationPartyId}"/></field>
         <!-- the partyId is always displayed -->
@@ -152,8 +151,8 @@ under the License.
         <field name="lastInvoiceRestartDate"><display/></field>
     </form>
     
-    <form name="ListUnpostedAcctgTrans" type="list" title="Unposted Accounting Transactions" default-widget-style="tabletext"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" list-name="transactions">
+    <form name="ListUnpostedAcctgTrans" type="list" title="Unposted Accounting Transactions" list-name="transactions"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="acctgTransId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${acctgTransId}" target="ListAcctgTransEntries?acctgTransId=${acctgTransId}"/> 
         </field>                
@@ -176,8 +175,8 @@ under the License.
     
      
     <!-- forms for managing FX rates -->
-    <form name="ListConversions" type="list" default-widget-style="tabletext"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" list-name="conversions">
+    <form name="ListConversions" type="list" list-name="conversions"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="uomId" title="${uiLabelMap.CommonFrom} ${uiLabelMap.CommonCurrency}"><display/></field>
         <field name="uomIdTo" title="${uiLabelMap.CommonTo} ${uiLabelMap.CommonCurrency}"><display/></field>
         <field name="conversionFactor"><display/></field>
@@ -185,9 +184,8 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThru}"><display/></field>
     </form>
     
-    <form name="updateFXConversion" type="single" target="updateFXConversion"
-        default-service-name="updateFXConversion"
-        default-widget-style="tabletext" default-title-style="tableheadtext">
+    <form name="updateFXConversion" type="single" target="updateFXConversion" default-service-name="updateFXConversion"
+        default-title-style="tableheadtext" default-widget-style="tabletext">
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="uomId" title="${uiLabelMap.CommonFrom} ${uiLabelMap.CommonCurrency}">
             <drop-down no-current-selected-key="USD">
@@ -210,8 +208,8 @@ under the License.
     </form>
 
     <!-- forms for Sales invoice Itemtypes to GLAccount number -->
-    <form name="ListSalInvoiceItemTypeGlAssignments" type="list" default-widget-style="tabletext"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" list-name="invoiceItemTypes" >
+    <form name="ListSalInvoiceItemTypeGlAssignments" type="list" list-name="invoiceItemTypes"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" >
         <actions>
             <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/listInvoiceItemTypesGlAccount.bsh"/>
         </actions>
@@ -224,7 +222,7 @@ under the License.
         <field name="remove" title=""><hyperlink target="removeSalInvoiceItemTypeGlAssignment?organizationPartyId=${organizationPartyId}&amp;invoiceItemTypeId=${invoiceItemTypeId}" description="${remove}"/></field>
     </form>
     <form name="AddSalInvoiceItemTypeGlAssignment" type="single" target="addSalInvoiceItemTypeGlAssignment"
-        default-widget-style="tabletext" default-title-style="tableheadtext">
+        default-title-style="tableheadtext" default-widget-style="tabletext">
         <auto-fields-service service-name="addInvoiceItemTypeGlAssignment"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="invoiceItemTypeId">
@@ -249,8 +247,8 @@ under the License.
     </form>
     
     <!-- forms for Purchase invoice Itemtypes to GLAccount number -->
-    <form name="ListPurInvoiceItemTypeGlAssignments" type="list" default-widget-style="tabletext"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" list-name="purinvoiceItemTypes" default-map-name="iTypes" >
+    <form name="ListPurInvoiceItemTypeGlAssignments" type="list" list-name="purinvoiceItemTypes" default-map-name="iTypes"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <actions>
             <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/listPurInvoiceItemTypesGlAccount.bsh"/>
         </actions>
@@ -263,7 +261,7 @@ under the License.
         <field name="remove" title=""><hyperlink target="removePurInvoiceItemTypeGlAssignment?organizationPartyId=${organizationPartyId}&amp;invoiceItemTypeId=${invoiceItemTypeId}" description="${remove}"/></field>
     </form>
     <form name="AddPurInvoiceItemTypeGlAssignment" type="single" target="addPurInvoiceItemTypeGlAssignment"
-        default-widget-style="tabletext" default-title-style="tableheadtext">
+        default-title-style="tableheadtext" default-widget-style="tabletext">
         <auto-fields-service service-name="addInvoiceItemTypeGlAssignment"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="invoiceItemTypeId" title="Purchase invoice Item Type">
@@ -288,8 +286,8 @@ under the License.
     </form>
     
     <!-- forms for payment types to GLAccount type -->
-    <form name="ListPaymentTypeGlAssignments" type="list" default-widget-style="tabletext"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext">
+    <form name="ListPaymentTypeGlAssignments" type="list" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <actions>
             <entity-condition entity-name="PaymentGlAccountTypeMap">
                 <condition-expr field-name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
@@ -304,7 +302,7 @@ under the License.
     </form>
     
     <form name="AddPaymentTypeGlAssignment" type="single" target="addPaymentTypeGlAssignment"
-        default-widget-style="tabletext" default-title-style="tableheadtext">
+        default-title-style="tableheadtext" default-widget-style="tabletext">
         <auto-fields-service service-name="addPaymentTypeGlAssignment"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="paymentTypeId" title="Payment type">
@@ -325,8 +323,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
     <!-- forms for payment method Type to GLAccounts -->
-    <form name="ListPaymentMethodTypeGlAssignments" type="list" default-widget-style="tabletext"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext">
+    <form name="ListPaymentMethodTypeGlAssignments" type="list" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <actions>
             <entity-condition entity-name="PaymentMethodTypeGlAccount">
                 <condition-expr field-name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
@@ -341,7 +339,7 @@ under the License.
     </form>
     
     <form name="AddPaymentMethodTypeGlAssignment" type="single" target="addPaymentMethodTypeGlAssignment"
-        default-widget-style="tabletext" default-title-style="tableheadtext">
+        default-title-style="tableheadtext" default-widget-style="tabletext">
         <auto-fields-service service-name="addPaymentMethodTypeGlAssignment"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="paymentMethodTypeId" title="Payment method type">
@@ -363,8 +361,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
 
-    <form name="ListChecksToPrint" type="multi" list-name="payments" target="printChecks" 
-        default-widget-style="tabletext" default-title-style="tableheadtext" separate-columns="true">
+    <form name="ListChecksToPrint" type="multi" list-name="payments" target="printChecks" separate-columns="true"
+        default-title-style="tableheadtext" default-widget-style="tabletext">
         <field name="paymentId">
             <hyperlink target="paymentOverview?paymentId=${paymentId}" description="${paymentId}"/>
         </field>
@@ -378,9 +376,8 @@ under the License.
             <submit/>
         </field>
     </form>
-    <form name="ListChecksToSend" type="multi" use-row-submit="true" list-name="payments"  
-        target="quickSendPayment?organizationPartyId=${organizationPartyId}" 
-        default-widget-style="tabletext" default-title-style="tableheadtext" separate-columns="true">
+    <form name="ListChecksToSend" type="multi" use-row-submit="true" list-name="payments" target="quickSendPayment?organizationPartyId=${organizationPartyId}" separate-columns="true"
+        default-title-style="tableheadtext" default-widget-style="tabletext">
         <field name="paymentId"><hidden/></field>
         <field name="paymentId">
             <hyperlink target="paymentOverview?paymentId=${paymentId}" description="${paymentId}"/>

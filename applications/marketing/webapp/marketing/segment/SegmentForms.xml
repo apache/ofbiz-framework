@@ -21,9 +21,9 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
 
-    <form name="FindSegmentGroup" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext"
-        list-name="listIt" target="" paginate-target="FindSegmentGroup" title="" type="list">
+    <form name="FindSegmentGroup" list-name="listIt" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="FindSegmentGroup">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -42,9 +42,8 @@ under the License.
         </field>
     </form>
 
-    <form name="EditSegmentGroup" type="single" 
-            target="updateSegmentGroup" title="" default-map-name="segmentGroup"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditSegmentGroup" type="single" target="updateSegmentGroup" title="" default-map-name="segmentGroup"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="segmentGroup==null" target="createSegmentGroup"/>
         
         <field use-when="segmentGroup!=null" name="segmentGroupId" title="${uiLabelMap.SegmentGroupSegmentGroupId}" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
@@ -71,9 +70,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
 
-    <form name="AddSegmentGroupClass" type="single" 
-            target="createSegmentGroupClassification" title="" default-map-name="segmentGroupClass"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="AddSegmentGroupClass" type="single" target="createSegmentGroupClassification" title="" default-map-name="segmentGroupClass"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createSegmentGroupClassification"/>
         
         <field name="segmentGroupId"><hidden/></field>
@@ -83,9 +81,9 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="listSegmentGroupClass" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext"
-        list-name="segmentGroupClassList" target="" paginate-target="listSegmentGroupClass" title="" type="list">
+    <form name="listSegmentGroupClass" list-name="segmentGroupClassList" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="listSegmentGroupClass">
         <actions>
             <entity-and entity-name="SegmentGroupClassification">
                 <field-map field-name="segmentGroupId"/>
@@ -99,9 +97,8 @@ under the License.
         </field>
     </form>
     
-    <form name="AddSegmentGroupGeo" type="single" 
-            target="createSegmentGroupGeo" title="" default-map-name="segmentGroupGeo"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="AddSegmentGroupGeo" type="single" target="createSegmentGroupGeo" title="" default-map-name="segmentGroupGeo"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createSegmentGroupGeo"/>
         
         <field name="segmentGroupId"><hidden/></field>
@@ -109,9 +106,9 @@ under the License.
         <field name="geoId" title="${uiLabelMap.SegmentGroupGeoId}"><lookup target-form-name="LookupGeo"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="listSegmentGroupGeo" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext"
-        list-name="segmentGroupGeos" target="" paginate-target="listSegmentGroupGeo" title="" type="list">
+    <form name="listSegmentGroupGeo" list-name="segmentGroupGeos" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="listSegmentGroupGeo">
         <actions>
             <entity-and entity-name="SegmentGroupGeo">
                 <field-map field-name="segmentGroupId"/>
@@ -125,9 +122,8 @@ under the License.
         </field>
     </form>
 
-    <form name="AddSegmentGroupRole" type="single" 
-            target="createSegmentGroupRole" title="" default-map-name="segmentGroupRole"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="AddSegmentGroupRole" type="single" target="createSegmentGroupRole" title="" default-map-name="segmentGroupRole"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createSegmentGroupRole"/>
         
         <field name="segmentGroupId"><hidden/></field>
@@ -142,9 +138,9 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="listSegmentGroupRole" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext"
-        list-name="listIt" target="" paginate-target="listSegmentGroupRole" title="" type="list">
+    <form name="listSegmentGroupRole" list-name="listIt" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="listSegmentGroupRole">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>

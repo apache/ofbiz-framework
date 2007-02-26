@@ -20,17 +20,14 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="CreateProductCategoryAttribute" type="single"
-            target="createProductCategoryAttribute" title=""
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="CreateProductCategoryAttribute" type="single" target="createProductCategoryAttribute" title=""
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createProductCategoryAttribute" default-field-type="edit"/>
         <field name="productCategoryId"><display/></field>
         <field name="submitForm" title="${uiLabelMap.CommonCreate}"><submit/></field>
     </form>
-    <form name="EditProductCategoryAttributes" type="list"
-            target="updateProductCategoryAttribute" title=""
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
-            list-name="categoryAttributes">
+    <form name="EditProductCategoryAttributes" type="list" target="updateProductCategoryAttribute" title="" list-name="categoryAttributes"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <auto-fields-service service-name="updateProductCategoryAttribute" default-field-type="display"/>
         <field name="productCategoryId"><hidden/></field>
         <field name="attrValue"><text size="60"/></field>
@@ -42,8 +39,7 @@ under the License.
     </form>
 
     <!-- Product Category Content Forms  -->
-    <form name="AddCategoryContentAssoc" type="single"
-        target="addContentToCategory" title="${uiLabelMap.ProductAddProductCategoryContentFromDate}"
+    <form name="AddCategoryContentAssoc" type="single" target="addContentToCategory" title="${uiLabelMap.ProductAddProductCategoryContentFromDate}"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-entity entity-name="ProductCategoryContent"/>
         <field name="productCategoryId" map-name="productCategory"><hidden/></field>
@@ -56,8 +52,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="PrepareAddCategoryContentAssoc" type="single"
-        target="prepareAddContentToCategory" title="${uiLabelMap.ProductAddProductCategoryContentFromDate}"
+    <form name="PrepareAddCategoryContentAssoc" type="single" target="prepareAddContentToCategory" title="${uiLabelMap.ProductAddProductCategoryContentFromDate}"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <field name="productId"><hidden/></field>
         <field name="productCategoryId" map-name="productCategory"><hidden/></field>
@@ -71,8 +66,7 @@ under the License.
         <!-- <field name="description"><text size="40"/></field> -->
         <field name="submitButton" title="${uiLabelMap.ProductPrepareCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateCategoryContentAssoc" type="list"
-        target="updateContentToCategory" title="" list-name="productCategoryContentList"
+    <form name="UpdateCategoryContentAssoc" type="list" target="updateContentToCategory" title="" list-name="productCategoryContentList"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <field name="productCategoryId"><hidden/></field>
         <field name="contentId" title="${uiLabelMap.ProductContent}" widget-style="tabletext">
@@ -98,8 +92,7 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditCategoryContentSimpleText" type="single" default-map-name="categoryContent"
-        target="updateSimpleTextContentForCategory" title="${uiLabelMap.ProductUpdateSimpleTextContentCategory}"
+    <form name="EditCategoryContentSimpleText" type="single" default-map-name="categoryContent" target="updateSimpleTextContentForCategory" title="${uiLabelMap.ProductUpdateSimpleTextContentCategory}"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="content==null" target="createSimpleTextContentForCategory"/>
         <auto-fields-entity entity-name="ProductCategoryContent"/>
@@ -121,8 +114,8 @@ under the License.
     </form>
     
     <!-- ProductCategoryLink Forms-->
-    <form name="ListProductCategoryLinks" type="list"  list-name="productCategoryLinks"  target="updateProductCategoryLink"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" separate-columns="true">
+    <form name="ListProductCategoryLinks" type="list"  list-name="productCategoryLinks"  target="updateProductCategoryLink" separate-columns="true"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <actions>
             <entity-condition entity-name="ProductCategoryLink">
                 <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
@@ -150,7 +143,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="AddProductCategoryLink" type="single" target="createProductCategoryLink" title="" default-map-name="productCategoryLink"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="productCategoryLink != null" target="updateProductCategoryLink"/>
         <auto-fields-service service-name="createProductCategoryLink"/>
         <field name="productCategoryId"><hidden/></field>

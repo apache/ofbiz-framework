@@ -19,8 +19,9 @@ under the License.
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
 
-    <form name="ListMyTimesheets" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" 
-        target="" title="" type="list" paginate-target="MyTimesheets" paginate="true" list-name="timesheets">
+    <form name="ListMyTimesheets" target="" title="" type="list" list-name="timesheets"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" 
+        paginate-target="MyTimesheets" paginate="true">
         <actions>
             <entity-and entity-name="Timesheet" list-name="timesheets">
                 <field-map field-name="partyId" env-name="userLogin.partyId"/>
@@ -34,8 +35,9 @@ under the License.
         <field name="partyId"><hidden/></field>
         <field name="clientPartyId"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>
     </form>
-    <form name="ListMyRates" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" 
-        target="" title="" type="list" paginate="false" list-name="partyRates">
+    <form name="ListMyRates" target="" title="" type="list" list-name="partyRates"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" 
+        paginate="false">
         <actions>
             <entity-and entity-name="PartyRate" list-name="partyRates">
                 <field-map field-name="partyId" env-name="userLogin.partyId"/>
@@ -46,8 +48,8 @@ under the License.
         <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}"><display-entity entity-name="RateType"/></field>
         <field name="partyId"><hidden/></field>
     </form>
-    <form name="QuickCreateTimeEntry" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" 
-        target="createQuickTimeEntry" title="" type="single">
+    <form name="QuickCreateTimeEntry" target="createQuickTimeEntry" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <field name="timesheetId" map-name="currentTimesheet"><hidden/></field>
         <field name="partyId" map-name="userLogin"><hidden/></field>
         <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}" widget-style="selectBox">
@@ -72,8 +74,9 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListFindTimesheet" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" 
-        target="" title="" type="list" list-name="listIt" paginate-target="FindTimesheet" paginate="true">
+    <form name="ListFindTimesheet" target="" title="" type="list" list-name="listIt"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" 
+        paginate-target="FindTimesheet" paginate="true">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map field-name="inputFields" env-name="parameters"/>

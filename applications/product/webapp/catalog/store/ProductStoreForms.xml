@@ -20,8 +20,7 @@
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="EditProductStore" type="single"
-        target="updateProductStore" title="" default-map-name="productStore"
+    <form name="EditProductStore" type="single" target="updateProductStore" title="" default-map-name="productStore"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
 
         <alt-target use-when="productStore==null" target="createProductStore"/>
@@ -223,8 +222,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="CreateProductStoreCatalog" type="single"
-        target="createProductStoreCatalog" title=""
+    <form name="CreateProductStoreCatalog" type="single" target="createProductStoreCatalog" title=""
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createProductStoreCatalog"/>
         <field name="productStoreId" map-name="productStore"><hidden/></field>
@@ -237,8 +235,7 @@
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateProductStoreCatalog" type="list"
-        target="updateProductStoreCatalog" title="" list-name="productStoreCatalogs"
+    <form name="UpdateProductStoreCatalog" type="list" target="updateProductStoreCatalog" title="" list-name="productStoreCatalogs"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="updateProductStoreCatalog"/>
         <field name="productStoreId"><hidden/></field>
@@ -256,8 +253,7 @@
         </field>
     </form>
 
-    <form name="createProductStoreEmail" type="single"
-        target="createProductStoreEmail" title=""
+    <form name="createProductStoreEmail" type="single" target="createProductStoreEmail" title=""
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createProductStoreEmailSetting"/>
         <field name="productStoreId" map-name="productStore"><hidden/></field>
@@ -275,8 +271,7 @@
         <field name="fromAddress" title="${uiLabelMap.CommonFromAddress}"></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="updateProductStoreEmail" type="list"
-        target="updateProductStoreEmail" title="" list-name="productStoreEmailSettings"
+    <form name="updateProductStoreEmail" type="list" target="updateProductStoreEmail" title="" list-name="productStoreEmailSettings"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="updateProductStoreEmailSetting"/>
         <field name="productStoreId"><hidden/></field>
@@ -294,8 +289,7 @@
         </field>
     </form>
 
-    <form name="CreateproductStorekeywordOvrdForm" type="single"
-        target="createProductStoreKeywordOvrd" title=""
+    <form name="CreateproductStorekeywordOvrdForm" type="single" target="createProductStoreKeywordOvrd" title=""
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createProductStoreKeywordOvrd"/>
         <field name="productStoreId" map-name="productStore"><hidden/></field>
@@ -309,8 +303,7 @@
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateproductStorekeywordOvrdForm" type="list"
-        target="updateProductStoreKeywordOvrd" title="" list-name="productStorekeywordOvrdList"
+    <form name="UpdateproductStorekeywordOvrdForm" type="list" target="updateProductStoreKeywordOvrd" title="" list-name="productStorekeywordOvrdList"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="updateProductStoreKeywordOvrd"/>
         <field name="productStoreId"><hidden/></field>
@@ -330,9 +323,9 @@
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="ViewProductStoreSegments" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext"
-        target="" paginate-target="" title="" type="list">
+    <form name="ViewProductStoreSegments" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="">
         <actions>
             <entity-and entity-name="SegmentGroup">
                 <field-map field-name="productStoreId"/>
@@ -349,9 +342,9 @@
         </field>
     </form>
     <!-- QuantityBreak forms -->
-    <form name="ListQuantityBreaks" default-title-style="tableheadtext"
-            default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="quantityBreaks"
-            target="" paginate-target="ListQuantityBreaks" title="" type="list">
+    <form name="ListQuantityBreaks" target="" title="" type="list"  list-name="quantityBreaks"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="ListQuantityBreaks">
         <auto-fields-entity entity-name="QuantityBreak" default-field-type="display"/>
         <field name="quantityBreakId" widget-style="buttontext">
             <hyperlink target="EditQuantityBreak?quantityBreakId=${quantityBreakId}" description="${quantityBreakId}" also-hidden="false"/>
@@ -362,7 +355,7 @@
         </field>
     </form>
     <form name="EditQuantityBreak" type="single" target="createQuantityBreak" title="" default-map-name="quantityBreak"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="quantityBreak!=null" target="updateQuantityBreak"/>
         <auto-fields-entity entity-name="QuantityBreak" default-field-type="edit"/>
         <field name="quantityBreakId"><hidden/></field>

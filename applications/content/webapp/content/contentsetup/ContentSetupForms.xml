@@ -21,22 +21,15 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     <!-- ContentType forms -->
-    <form 
-        name="AddContentType" 
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="addContentType" title="" type="single">
+    <form name="AddContentType" target="addContentType" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createContentType"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
-    <form 
-        name="UpdateContentType"
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        list-name="contentList" 
-        target="updateContentType" title="" type="list">
+    <form name="UpdateContentType" list-name="contentList" target="updateContentType" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
           <entity-condition entity-name="ContentType" use-cache="false"/>
         </actions>
@@ -53,11 +46,8 @@ under the License.
     </form>
     
     <!-- ContentTypeAttr forms -->
-    <form
-        name="AddContentTypeAttr" 
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="addContentTypeAttr" title="" type="single">
+    <form name="AddContentTypeAttr" target="addContentTypeAttr" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createContentTypeAttr"/>
         <field entity-name="ContentType" name="contentTypeId">
             <drop-down allow-empty="false">
@@ -69,12 +59,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form
-        name="UpdateContentTypeAttr"
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext"
-        list-name="contentList" 
-        target="updateContentTypeAttr" title="" type="list">
+    <form name="UpdateContentTypeAttr" list-name="contentList" target="updateContentTypeAttr" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <actions>
         <entity-condition entity-name="ContentTypeAttr" use-cache="false"/>
         </actions>
@@ -91,22 +77,15 @@ under the License.
     </form>
     
     <!-- ContentAssocType forms -->
-    <form
-        name="AddContentAssocType" 
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="addContentAssocType" title="" type="single">
+    <form name="AddContentAssocType" target="addContentAssocType" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createContentAssocType"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
-    <form
-        name="UpdateContentAssocType"
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        list-name="contentList" 
-        target="updateContentAssocType" title="" type="list">
+    <form name="UpdateContentAssocType" list-name="contentList" target="updateContentAssocType" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
             <entity-condition entity-name="ContentAssocType" use-cache="false"/>
         </actions>
@@ -123,22 +102,15 @@ under the License.
     </form>
     
     <!-- ContentPurposeType forms -->
-    <form
-        name="AddContentPurposeType" 
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="addContentPurposeType" title="" type="single">
+    <form name="AddContentPurposeType" target="addContentPurposeType" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createContentPurposeType"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
-    <form
-        name="UpdateContentPurposeType"
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        list-name="contentList" 
-        target="updateContentPurposeType" title="" type="list">
+    <form name="UpdateContentPurposeType" list-name="contentList" target="updateContentPurposeType" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
             <entity-condition entity-name="ContentPurposeType" use-cache="false"/>
         </actions>
@@ -155,22 +127,15 @@ under the License.
     </form>
     
     <!-- ContentAssocPredicate forms -->
-   <form name="AddContentAssocPredicate"
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="addContentAssocPredicate"
-        title="" type="single">
+   <form name="AddContentAssocPredicate" target="addContentAssocPredicate" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createContentAssocPredicate"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
-    <form
-        name="UpdateContentAssocPredicate"
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        list-name="contentList" 
-        target="updateContentAssocPredicate" title="" type="list">
+    <form name="UpdateContentAssocPredicate" list-name="contentList" target="updateContentAssocPredicate" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
             <entity-condition entity-name="ContentAssocPredicate" use-cache="false"/>
         </actions>
@@ -187,22 +152,15 @@ under the License.
     </form>
     
     <!-- ContentOperation forms -->
-    <form
-        name="AddContentOperation" 
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="addContentOperation" title="" type="single">
+    <form name="AddContentOperation" target="addContentOperation" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createContentOperation"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
-    <form
-        name="UpdateContentOperation"
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        list-name="contentList" 
-        target="updateContentOperation" title="" type="list">
+    <form name="UpdateContentOperation" list-name="contentList" target="updateContentOperation" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
             <entity-condition entity-name="ContentOperation" use-cache="false"/>
         </actions>
@@ -218,11 +176,8 @@ under the License.
         </field>
     </form>
     <!-- ContentPurposeOperation forms -->
-    <form
-        name="AddContentPurposeOperation" 
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="addContentPurposeOperation" title="" type="single">
+    <form name="AddContentPurposeOperation" target="addContentPurposeOperation" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createContentPurposeOperation"/>
         <field name="contentPurposeTypeId">
             <drop-down allow-empty="true">
@@ -246,12 +201,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form
-        name="UpdateContentPurposeOperation"
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext"
-        list-name="contentList" 
-        target="" title="" type="list">
+    <form name="UpdateContentPurposeOperation" target="" title="" type="list" list-name="contentList"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <actions>
             <entity-and entity-name="ContentPurposeOperation" use-cache="false"/>
         </actions>

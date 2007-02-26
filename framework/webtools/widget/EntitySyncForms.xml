@@ -20,8 +20,9 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="EntitySyncStatus" type="list" list-name="entitySyncList" target="" paginate-target="EntitySyncStatus" view-size="20"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="EntitySyncStatus" type="list" list-name="entitySyncList" target=""
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="EntitySyncStatus" view-size="20">
         <actions>
             <entity-condition entity-name="EntitySync" list-name="entitySyncList" use-cache="false">
                 <!-- No conditions, is a find all -->
@@ -49,7 +50,8 @@ under the License.
         </field>
     </form>
 
-    <form name="EntitySyncLoadOffline" type="single" target="loadOfflineEntitySyncData" title="" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EntitySyncLoadOffline" type="single" target="loadOfflineEntitySyncData" title="" 
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="loadOfflineEntitySyncData"/>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field> 
     </form>

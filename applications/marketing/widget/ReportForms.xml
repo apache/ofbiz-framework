@@ -21,8 +21,8 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
 
-    <form name="TrackingCodeReportOptions" type="single" target="TrackingCodeReport"
-        title="${uiLabelMap.MarketingTrackingCodeReportTitle}" default-title-style="tableheadtext">
+    <form name="TrackingCodeReportOptions" type="single" target="TrackingCodeReport" title="${uiLabelMap.MarketingTrackingCodeReportTitle}" 
+        default-title-style="tableheadtext">
         <field name="fromDate" title="${uiLabelMap.CommonFromDate} (${uiLabelMap.CommonDate}&gt;=)">
             <date-time type="timestamp"/>
         </field>
@@ -43,8 +43,8 @@ under the License.
         </field>
     </form>
 
-    <form name="MarketingCampaignOptions" type="single" target="MarketingCampaignReport"
-        title="Marketing Campaign Report" default-title-style="tableheadtext">
+    <form name="MarketingCampaignOptions" type="single" target="MarketingCampaignReport" title="Marketing Campaign Report" 
+        default-title-style="tableheadtext">
         <field name="fromDate" title="${uiLabelMap.CommonFromDate} (${uiLabelMap.CommonDate}&gt;=)">
             <date-time type="timestamp"/>
         </field>
@@ -65,10 +65,9 @@ under the License.
         </field>
     </form>
 
-    <form name="TrackingCodeReport" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-area-style="tabletextright"
-        list-name="trackingCodeVisitAndOrders" target="" paginate-target="TrackingCodeReport"
-        title="${uiLabelMap.TrackingCodeReportTitle}" type="list">
+    <form name="TrackingCodeReport" list-name="trackingCodeVisitAndOrders" target="" title="${uiLabelMap.TrackingCodeReportTitle}" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-area-style="tabletextright"
+        paginate-target="TrackingCodeReport">
         <field name="trackingCodeId"  widget-area-style="tabletext" title="${uiLabelMap.TrackingCode}">
             <display-entity entity-name="TrackingCode" key-field-name="trackingCodeId" description="${description} [${trackingCodeId}]"/>
         </field>
@@ -78,10 +77,9 @@ under the License.
         <field name="conversionRate" title="${uiLabelMap.MarketingConversionRate}"><display/></field>
     </form>
 
-   <form name="MarketCampaignReport" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-area-style="tabletextright"
-        list-name="marketingCampaignVisitAndOrders" target="" paginate-target="MarketCampaignReport"
-        title="${uiLabelMap.MarketingCampaignReportTitle}" type="list">
+   <form name="MarketCampaignReport" title="${uiLabelMap.MarketingCampaignReportTitle}" type="list" list-name="marketingCampaignVisitAndOrders" target="" 
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-area-style="tabletextright"
+        paginate-target="MarketCampaignReport">
         <field name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignName}" widget-area-style="tabletext">
             <display-entity entity-name="MarketingCampaign" key-field-name="marketingCampaignId" description="${campaignName} [${marketingCampaignId}]"/>
         </field>

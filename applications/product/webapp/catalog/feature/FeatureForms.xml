@@ -20,9 +20,8 @@
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="EditProductFeature" type="single" 
-            target="updateProductFeature" title="" default-map-name="productFeature"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditProductFeature" type="single" target="updateProductFeature" title="" default-map-name="productFeature"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         
         <alt-target use-when="productFeature==null" target="createProductFeature"/>
         
@@ -64,10 +63,8 @@
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="CreateSupplierProductFeature" type="single"
-            target="createSupplierProductFeature" title=""
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
-            default-map-name="productFeature">
+    <form name="CreateSupplierProductFeature" type="single" target="createSupplierProductFeature" title="" default-map-name="productFeature"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createSupplierProductFeature" default-field-type="edit"/>
         <field name="partyId" title="${uiLabelMap.ProductSuppliers}">
             <drop-down allow-empty="false">
@@ -87,10 +84,8 @@
         <field name="productFeatureId" ><hidden/></field>
         <field name="submitForm" title="${uiLabelMap.CommonCreate}"><submit/></field>
     </form>
-    <form name="EditSupplierProductFeatures" type="list"
-            target="updateSupplierProductFeature" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext"
-            list-name="supplierProductFeatures">
+    <form name="EditSupplierProductFeatures" type="list" target="updateSupplierProductFeature" title="" list-name="supplierProductFeatures"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="updateSupplierProductFeature" default-field-type="display"/>
         <field name="productFeatureId"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.ProductSuppliers}" widget-style="tabletext">
@@ -111,9 +106,9 @@
         </field>
     </form>
 
-    <form name="ListFeatureTypes" default-title-style="tableheadtext"
-            default-tooltip-style="tabletext" default-widget-style="tabletext"
-            list-name="featureTypes" target="" paginate-target="EditFeatureTypes" title="" type="list">
+    <form name="ListFeatureTypes" list-name="featureTypes" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="EditFeatureTypes">
         <auto-fields-entity entity-name="ProductFeatureType" default-field-type="display"/>
         <field name="productFeatureTypeId"><hidden/></field>
         <field name="parentTypeId"><hidden/></field>
@@ -125,9 +120,8 @@
             <hyperlink target="removeProductFeatureType?productFeatureTypeId=${productFeatureTypeId}" description="${uiLabelMap.CommonDelete}"/>
         </field>
     </form>
-    <form name="EditFeatureType" type="single" 
-            target="updateProductFeatureType" title="" default-map-name="productFeatureType"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditFeatureType" type="single" target="updateProductFeatureType" title="" default-map-name="productFeatureType"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="productFeatureType==null" target="createProductFeatureType"/>
         <auto-fields-entity entity-name="ProductFeatureType"/>
         <field use-when="productFeatureType!=null" name="productFeatureTypeId" title="${uiLabelMap.ProductFeatureType}"><display/></field>
@@ -142,9 +136,8 @@
         <field name="hasTable"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListFeatureGroupAppls" type="multi" use-row-submit="false"
-            list-name="productFeatureGroupAndAppls" target="UpdateProductFeatureGroupAppl?productFeatureGroupId=${productFeatureGroupId}"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" title="">
+    <form name="ListFeatureGroupAppls" type="multi" use-row-submit="false" list-name="productFeatureGroupAndAppls" target="UpdateProductFeatureGroupAppl?productFeatureGroupId=${productFeatureGroupId}" title=""
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="productFeatureGroupId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="productFeatureId" title="${uiLabelMap.CommonId}"><display/></field>
@@ -163,18 +156,16 @@
             <submit/>
         </field>
     </form>
-    <form name="QuickApplyFeatureToGroup" type="single" 
-            target="CreateProductFeatureGroupAppl"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" title="">
+    <form name="QuickApplyFeatureToGroup" type="single" target="CreateProductFeatureGroupAppl" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <field name="productFeatureGroupId"><hidden/></field>
         <field name="productFeatureId" title="${uiLabelMap.ProductFeatureId}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ApplyFeatureCategoryToGroup" type="single"
-            target="EditFeatureGroupAppls"
-            default-widget-style="inputBox" default-tooltip-style="tabletext" title="" default-title-style="tableheadtext">
+    <form name="ApplyFeatureCategoryToGroup" type="single" target="EditFeatureGroupAppls"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" title="">
         <field name="productFeatureGroupId"><hidden/></field>
         <field name="productFeatureCategoryId">
             <drop-down>
@@ -185,9 +176,8 @@
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ApplyFeaturesFromCategoryToGroup" type="multi" use-row-submit="true"
-            list-name="productFeatures" target="ApplyFeaturesFromCategoryToGroup?productFeatureGroupId=${productFeatureGroupId}"
-            default-widget-style="tabletext" default-title-style="tableheadtext" default-tooltip-style="tabletext" title="">
+    <form name="ApplyFeaturesFromCategoryToGroup" type="multi" use-row-submit="true" list-name="productFeatures" target="ApplyFeaturesFromCategoryToGroup?productFeatureGroupId=${productFeatureGroupId}" title=""
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <field name="productFeatureGroupId"><hidden/></field>
         <field name="productFeatureId" title="${uiLabelMap.CommonId}"><display/></field>
         <field name="productFeatureTypeId" title="${uiLabelMap.CommonType}">

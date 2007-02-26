@@ -21,9 +21,8 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     <!-- Invoice forms -->
-    <form name="FindInvoices" type="single" 
-            target="findInvoices" title="Find and list invoices"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="FindInvoices" type="single" target="findInvoices" title="Find and list invoices"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="hideSearch"><hidden value="Y"/></field>
         <field name="invoiceId"><text-find default-option="contains" ignore-case="true"/></field>
@@ -46,10 +45,9 @@ under the License.
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
         
-    <form name="ListInvoices" type="list" separate-columns="true" 
-        title="Invoice List"  default-title-style="tableheadtext" list-name="listIt" target=""
-        default-widget-style="tabletext" default-tooltip-style="tabletext"
-        paginate-target="findInvoices" default-entity-name="Invoice">
+    <form name="ListInvoices" type="list" separate-columns="true" title="Invoice List" list-name="listIt" target="" default-entity-name="Invoice"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="findInvoices">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -90,9 +88,8 @@ under the License.
         <field name="amountToApply" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
-    <form name="invoiceHeader" type="single" title="Invoice header information"
-        default-title-style="tableheadtext" default-widget-style="tabletext" 
-        default-tooltip-style="tabletext" default-map-name="invoice">
+    <form name="invoiceHeader" type="single" title="Invoice header information" default-map-name="invoice"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" >
         <actions>
             <set field="total" value="${bsh:
                 import java.text.NumberFormat;
@@ -124,9 +121,9 @@ under the License.
         <field name="currencyUomId"><hidden/></field>
     </form>
 
-    <form name="invoiceItems" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="invoiceItems"
-        target="" paginate-target="invoiceOverview" title="" type="list" separate-columns="true">
+    <form name="invoiceItems" list-name="invoiceItems" target="" title="" type="list" separate-columns="true"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="invoiceOverview">
         <row-actions>
             <set field="total" value="${bsh:
                 import java.text.NumberFormat;
@@ -150,9 +147,9 @@ under the License.
         <field name="uomId"><hidden/></field>
     </form>
     
-    <form name="invoiceRoles" type="list" use-row-submit="true" 
-        title="" list-name="invoiceRoles" paginate-target="invoiceRoles"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="invoiceRoles" type="list" use-row-submit="true" title="" list-name="invoiceRoles" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="invoiceRoles">
         <!--auto-fields-entity entity-name="InvoiceRole" default-field-type="display"/-->
         <field name="invoiceId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
@@ -168,9 +165,8 @@ under the License.
         <field name="datetimePerformed"><display/></field>
     </form>
 
-    <form name="ListInvoiceApplications" type="list"  list-name="invoiceApplications" default-entity-name="invoiceItem" use-row-submit="true"
-        target="updatePaymentApplication" title="Apply payments to invoices" default-title-style="tableheadtext" separate-columns="false"
-        default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListInvoiceApplications" type="list"  list-name="invoiceApplications" default-entity-name="invoiceItem" use-row-submit="true" target="updatePaymentApplication" title="Apply payments to invoices" separate-columns="false"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="invoiceItemSeqId"><display/></field>
         <field name="productId"><display/></field>
         <field name="description"><display/></field>
@@ -193,8 +189,7 @@ under the License.
         <field name="paymentId"><hidden/></field>
     </form>
     
-    <form name="EditInvoice" type="single"
-        target="updateInvoice" title="Edit Invoice Header" default-map-name="invoice"
+    <form name="EditInvoice" type="single" target="updateInvoice" title="Edit Invoice Header" default-map-name="invoice"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="invoice==null" target="createInvoice"/>
         <field name="invoiceId"><hidden/></field>
@@ -239,9 +234,9 @@ under the License.
         </field>
     </form>
     
-   <form name="EditInvoiceItems" type="list"  list-name="invoiceItems" default-entity-name="InvoiceItem"
-        target="updateInvoiceItem" title="Edit Invoice Items" default-title-style="tableheadtext" paginate-target="listInvoiceItems"
-        default-widget-style="inputBox" default-tooltip-style="tabletext">
+   <form name="EditInvoiceItems" type="list"  list-name="invoiceItems" default-entity-name="InvoiceItem" target="updateInvoiceItem" title="Edit Invoice Items" 
+       default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext"
+       paginate-target="listInvoiceItems">
        <row-actions>
            <set field="total" value="${bsh:
                import java.text.NumberFormat;
@@ -270,8 +265,7 @@ under the License.
        </field>
     </form>
 
-    <form name="EditInvoiceItem" type="single"
-        target="updateInvoiceItem" title="" default-map-name="invoiceItem" default-entity-name="invoiceItem"
+    <form name="EditInvoiceItem" type="single" target="updateInvoiceItem" title="" default-map-name="invoiceItem" default-entity-name="invoiceItem"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="invoiceItem==null" target="createInvoiceItem"/>
         <field name="invoiceId"><hidden/></field>
@@ -313,17 +307,16 @@ under the License.
         </field>
     </form>
     
-    <form name="ListInvoiceStatus" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="invoiceStatus"
-        target="" paginate-target="ListInvoiceStatus" title="" type="list">
+    <form name="ListInvoiceStatus" list-name="invoiceStatus" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="ListInvoiceStatus">
         <field name="invoiceId"><hidden/></field>
         <field name="statusDate"><display description="${bsh:statusDate.toString().substring(0,10)}"/></field>
         <field name="statusId" widget-style="tabletext"><display-entity entity-name="StatusItem" description="${description}"/></field>
     </form>
     
-    <form name="EditInvoiceApplications" type="list"  list-name="invoiceApplications" default-entity-name="invoiceItem" use-row-submit="true"
-        target="updateInvoiceApplication" title="Apply payments to invoices" default-title-style="tableheadtext" separate-columns="false"
-        default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="EditInvoiceApplications" type="list"  list-name="invoiceApplications" default-entity-name="invoiceItem" use-row-submit="true" target="updateInvoiceApplication" title="Apply payments to invoices" separate-columns="false"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="statusId"><hidden/></field>
         <field name="paymentApplicationId"><hidden/></field>
         <field name="invoiceItemSeqId"><display/></field>
@@ -341,8 +334,7 @@ under the License.
         </field>
     </form>
         
-    <form name="AddPayment" type="single"
-        target="updateInvoiceApplication" title=""
+    <form name="AddPayment" type="single" target="updateInvoiceApplication" title=""
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <field name="invoiceId"><hidden/></field>
         <field name="paymentId"><lookup target-form-name="LookupPayment"/></field>
@@ -353,8 +345,7 @@ under the License.
         </field>
     </form>
 
-    <form name="ListPaymentsNotApplied" type="list" list-name="payments"
-        target="updateInvoiceApplication" title=""
+    <form name="ListPaymentsNotApplied" type="list" list-name="payments" target="updateInvoiceApplication" title=""
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="invoiceId"><hidden/></field>
         <field name="paymentId" widget-style="buttontext"><hyperlink target="paymentOverview?paymentId=${paymentId}" description="[${paymentId}]"/></field>
@@ -367,9 +358,9 @@ under the License.
         </field>
     </form>
     
-    <form name="ListInvoiceRoles" type="list" use-row-submit="true" 
-        title="" list-name="invoiceRoles" paginate-target="invoiceRoles"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListInvoiceRoles" type="list" use-row-submit="true" title="" list-name="invoiceRoles" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="invoiceRoles">
         <!--auto-fields-entity entity-name="InvoiceRole" default-field-type="display"/-->
         <field name="invoiceId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">

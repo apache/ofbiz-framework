@@ -20,9 +20,9 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="ListFacilityInventoryItems" type="list" 
-            target="" title="" list-name="inventoryItems" paginate-target="EditFacilityInventoryItems"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListFacilityInventoryItems" type="list"  target="" title="" list-name="inventoryItems" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="EditFacilityInventoryItems">
         <field name="inventoryItemId" widget-style="buttontext">
             <hyperlink target="EditInventoryItem?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}" description="${inventoryItemId}"/>
         </field>
@@ -51,9 +51,8 @@ under the License.
             <hyperlink target="TransferInventoryItem?facilityId=${facilityId}&amp;inventoryItemId=${inventoryItemId}" description="${uiLabelMap.ProductTransfer}"/>
         </field>
     </form>
-    <form name="FindFacilityInventoryByProduct" type="single" 
-            target="${facilityInventoryByProductScreen}" title="" 
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="FindFacilityInventoryByProduct" type="single" target="${facilityInventoryByProductScreen}" title="" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="facilityId"><hidden/></field>
         <field name="action"><hidden value="SEARCH"/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}" widget-style="inputBox">
@@ -90,9 +89,9 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListFacilityInventoryByProduct" type="list" target="" title="" override-list-size="${overrideListSize}"
-            list-name="inventoryByProduct" paginate-target="${facilityInventoryByProductScreen}"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListFacilityInventoryByProduct" type="list" target="" title="" list-name="inventoryByProduct" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="${facilityInventoryByProductScreen}" override-list-size="${overrideListSize}">
         <field name="items" title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
             <hyperlink target="EditFacilityInventoryItems?productId=${productId}&amp;facilityId=${facilityId}" description="${productId}"/>     
         </field>
@@ -112,7 +111,7 @@ under the License.
     </form>
 
     <form name="SearchInventoryItemsParams" type="single" target="SearchInventoryItems"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="facilityId"><text/></field>
         <field name="manufacturerPartyId"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
@@ -120,7 +119,7 @@ under the License.
         </field>
     </form>
     <form name="SearchInventoryItemsResults" type="list" list-name="listIt"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <actions>
            <service service-name="performFind" result-map-name="results" result-map-list-name="listIt">
                <field-map field-name="inputFields" env-name="parameters"/>
@@ -135,7 +134,7 @@ under the License.
 
     <!-- multi-form for list of packages ready to be weighted and scheduled for shipment -->
     <form name="SchedulingList" type="multi" use-row-submit="true" list-name="shipmentRouteSegments" title="${uiLabelMap.PageTitlePackageShipmentScheduling}" target="BatchScheduleShipmentRouteSegments?facilityId=${facilityId}"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" separate-columns="true">
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" separate-columns="true">
         <field name="shipmentId" title="${uiLabelMap.ProductShipmentId}">
             <hyperlink target="ViewShipment?shipmentId=${shipmentId}" description="${shipmentId}"/>
         </field>
@@ -170,8 +169,8 @@ under the License.
 
     <!-- multi-form to print confirmed shipping labels and to mark shipment route segments as accepted 
          (to see how this dual-action multi form works, see batchPrintMarkAsAccepted.ftl) -->
-    <form name="Labels" type="multi" use-row-submit="true" list-name="shipmentPackageRouteSegments" title="" target="BatchPrintShippingLabels"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" separate-columns="true">
+    <form name="Labels" type="multi" use-row-submit="true" list-name="shipmentPackageRouteSegments" title="" target="BatchPrintShippingLabels" separate-columns="true"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="shipmentId" title="${uiLabelMap.ProductShipmentId}">
             <hyperlink target="ViewShipment?shipmentId=${shipmentId}" description="${shipmentId}"/>
         </field>
@@ -197,9 +196,8 @@ under the License.
         </field>
     </form>
 
-    <form name="FindPhysicalInventory" type="single" 
-            target="FindFacilityPhysicalInventory" title="" 
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="FindPhysicalInventory" type="single" target="FindFacilityPhysicalInventory" title="" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="facilityId"><hidden/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}" widget-style="inputBox">
             <text/>
@@ -211,8 +209,7 @@ under the License.
             <submit/>
         </field>
     </form>
-    <form name="ListPhysicalInventory" type="multi" list-name="physicalInventory" target="createPhysicalVariances?facilityId=${parameters.facilityId}&amp;productId=${parameters.productId}&amp;internalName=${parameters.internalName}"
-        use-row-submit="true"
+    <form name="ListPhysicalInventory" type="multi" list-name="physicalInventory" target="createPhysicalVariances?facilityId=${parameters.facilityId}&amp;productId=${parameters.productId}&amp;internalName=${parameters.internalName}" use-row-submit="true"
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" separate-columns="true">
         <field name="inventoryItemId" widget-style="buttontext">
             <hyperlink description="${inventoryItemId}" target="EditInventoryItem?inventoryItemId=${inventoryItemId}"/>

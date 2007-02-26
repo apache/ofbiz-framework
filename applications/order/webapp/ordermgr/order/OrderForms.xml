@@ -21,8 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     <form name="EditOrderHeader" type="single" target="updateOrderHeader" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" 
-            default-tooltip-style="tabletext" >
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" >
         <actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" env-name="orderHeader.statusId"/>
@@ -81,8 +80,7 @@ under the License.
         <field name="submitButton" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListOrderHeaders" type="single" target="" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" 
-            default-tooltip-style="tabletext" >
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" >
         <actions>
             <entity-and entity-name="OrderHeader">
                 <field-map field-name="orderId"/>
@@ -95,9 +93,9 @@ under the License.
         <field name="statusId"> <display-entity entity-name="StatusItem"/> </field>
         <field name="productStoreId"> <display-entity entity-name="ProductStore"/> </field>
     </form>
-    <form name="ListOrderTerms" type="list" list-name="orderTerms"
-            target="updateOrderTerm" paginate-target="ListOrderTerms" title=""
-            default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+    <form name="ListOrderTerms" type="list" list-name="orderTerms" target="updateOrderTerm" title=""
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="ListOrderTerms">
         <auto-fields-entity entity-name="OrderTerm" default-field-type="edit"/>
         <field name="termTypeId"><display-entity also-hidden="true" entity-name="TermType"/></field>
         <field name="orderId"><hidden/></field>
@@ -108,7 +106,7 @@ under the License.
         </field>
     </form>
     <form name="AddOrderTerm" type="single" target="createOrderTerm" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-entity entity-name="OrderTerm" default-field-type="edit"/>
         <field name="orderId"><hidden value="${parameters.orderId}"/></field>
         <field name="termTypeId">

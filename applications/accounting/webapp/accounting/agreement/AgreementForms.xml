@@ -20,9 +20,8 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
 
-    <form name="FindAgreements" default-title-style="tableheadtext"
-            default-tooltip-style="tabletext" default-widget-style="inputBox"
-            target="FindAgreement" title="" type="single">
+    <form name="FindAgreements" target="FindAgreement" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="Agreement" default-field-type="find"/>
         <field name="productId" title="${uiLabelMap.AccountingProductId}">
             <lookup target-form-name="LookupProduct"/>
@@ -50,9 +49,9 @@ under the License.
         </field>
     </form>
 
-    <form name="ListAgreements" default-title-style="tableheadtext"
-            default-tooltip-style="tabletext" default-widget-style="tabletext"
-            list-name="listIt" target="" paginate-target="FindAgreement" title="" type="list">
+    <form name="ListAgreements" list-name="listIt" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="FindAgreement">
         <actions>
           <set field="entityName" value="Agreement"/>
           <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
@@ -78,9 +77,8 @@ under the License.
         </field>
     </form>
 
-    <form name="EditAgreement" type="single"
-            target="updateAgreement" title="" default-map-name="agreement"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditAgreement" type="single" target="updateAgreement" title="" default-map-name="agreement"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="agreement==null" target="createAgreement"/>
         <auto-fields-entity entity-name="Agreement" default-field-type="edit"/>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><display/></field>
@@ -114,9 +112,9 @@ under the License.
         </field>
     </form>
 
-    <form name="ListAgreementItems" default-title-style="tableheadtext"
-            default-tooltip-style="tabletext" default-widget-style="tabletext"
-            list-name="agreementItems" target="" paginate-target="ListAgreementItems" title="" type="list">
+    <form name="ListAgreementItems" list-name="agreementItems" target=""  title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="ListAgreementItems">
         <auto-fields-entity entity-name="AgreementItem" default-field-type="display"/>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
         <field name="agreementItemSeqId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
@@ -130,9 +128,8 @@ under the License.
         </field>
     </form>
 
-    <form name="EditAgreementItem" type="single"
-            target="updateAgreementItem" title="" default-map-name="agreementItem"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditAgreementItem" type="single" target="updateAgreementItem" title="" default-map-name="agreementItem"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="agreementItem==null" target="createAgreementItem"/>
         <auto-fields-entity entity-name="AgreementItem" default-field-type="edit"/>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
@@ -154,9 +151,9 @@ under the License.
         </field>
     </form>
 
-    <form name="ListAgreementItemTerms" default-title-style="tableheadtext"
-            default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="agreementTerms"
-            target="" paginate-target="ListAgreementItemTerms" title="" type="list">
+    <form name="ListAgreementItemTerms" target="" title="" type="list" list-name="agreementTerms"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="ListAgreementItemTerms">
         <auto-fields-entity entity-name="AgreementTerm" default-field-type="display"/>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
         <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
@@ -173,9 +170,9 @@ under the License.
             <hyperlink target="removeAgreementItemTerm?agreementTermId=${agreementTermId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}" description="[${uiLabelMap.CommonRemove}]" also-hidden="false"/>
         </field>
     </form>
-    <form name="ListAgreementTerms" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="agreementTerms"
-        target="updateAgreementTerm" paginate-target="ListAgreementTerms" title="" type="list">
+    <form name="ListAgreementTerms" target="updateAgreementTerm" list-name="agreementTerms"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="ListAgreementTerms" title="" type="list">
         <actions>
             <entity-condition entity-name="AgreementTerm">
                 <condition-list>
@@ -203,9 +200,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="AddAgreementTerm" type="single"
-            target="createAgreementTerm" title="" default-map-name="agreementTerm"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="AddAgreementTerm" type="single" target="createAgreementTerm" title="" default-map-name="agreementTerm"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-entity entity-name="AgreementTerm" default-field-type="edit"/>
         <field name="agreementTermId" title="${uiLabelMap.AccountingAgreementTermId}"><hidden/></field>
         <field name="termTypeId" title="${uiLabelMap.AccountingTermTypeId}">
@@ -226,9 +222,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="EditAgreementItemTerm" type="single"
-            target="updateAgreementItemTerm" title="" default-map-name="agreementTerm"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditAgreementItemTerm" type="single" target="updateAgreementItemTerm" title="" default-map-name="agreementTerm"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="agreementTerm==null" target="createAgreementItemTerm"/>
         <auto-fields-entity entity-name="AgreementTerm" default-field-type="edit"/>
         <field name="agreementTermId" title="${uiLabelMap.AccountingAgreementTermId}"><display/></field>
@@ -250,9 +245,9 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListAgreementItemProducts" default-title-style="tableheadtext"
-            default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="agreementProducts"
-            target="" paginate-target="ListAgreementItemProducts" title="" type="list">
+    <form name="ListAgreementItemProducts" list-name="agreementProducts" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="ListAgreementItemProducts">
         <auto-fields-entity entity-name="AgreementProductAppl" default-field-type="display"/>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
         <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
@@ -267,9 +262,8 @@ under the License.
             <hyperlink target="removeAgreementItemProduct?productId=${productId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}" description="[${uiLabelMap.CommonRemove}]" also-hidden="false"/>
         </field>
     </form>
-    <form name="ViewAgreementInfoForReport" type="single"
-            title="" default-map-name="agreement"
-            default-title-style="tableheadtext">
+    <form name="ViewAgreementInfoForReport" type="single" title="" default-map-name="agreement"
+        default-title-style="tableheadtext">
         <field name="agreementId"><text/></field>
         <field name="partyIdFrom"><text/></field>
         <field name="partyIdTo">
@@ -279,24 +273,21 @@ under the License.
         <field name="thruDate"><display/></field>
         <field name="description"><display/></field>
     </form>
-    <form name="ViewAgreementItemInfoForReport" type="single"
-            title="" default-map-name="agreementItem"
-            default-title-style="tableheadtext">
+    <form name="ViewAgreementItemInfoForReport" type="single" title="" default-map-name="agreementItem"
+        default-title-style="tableheadtext">
         <field name="agreementItemSeqId"><display/></field>
         <field name="currencyUomId"><display/></field>
     </form>
-    <form name="ListAgreementItemProductsForReport" default-title-style="tableheadtext"
-            default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="agreementProducts"
-            target="" title="" type="list">
+    <form name="ListAgreementItemProductsForReport" list-name="agreementProducts" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <field name="productId" title-area-style="tableheadmedium"><display/></field>
         <field name="internalName" entry-name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
         <field name="price" title-area-style="tableheadmedium" widget-area-style="tabletextright"><display/></field>
     </form>
-    <form name="EditAgreementItemProduct" type="single"
-            target="updateAgreementItemProduct" title="" default-map-name="agreementProductAppl"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditAgreementItemProduct" type="single" target="updateAgreementItemProduct" title="" default-map-name="agreementProductAppl"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="agreementProductAppl==null" target="createAgreementItemProduct"/>
         <auto-fields-entity entity-name="AgreementProductAppl" default-field-type="edit"/>
         <field name="agreementId"><hidden/></field>
@@ -310,9 +301,9 @@ under the License.
         </field>
     </form>
 
-    <form name="ListAgreementPromoAppls" default-title-style="tableheadtext"
-            default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="agreementPromoAppls"
-            target="" paginate-target="ListAgreementPromoAppls" title="" type="list">
+    <form name="ListAgreementPromoAppls" list-name="agreementPromoAppls" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="ListAgreementPromoAppls">
         <auto-fields-entity entity-name="AgreementPromoAppl" default-field-type="display"/>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
         <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
@@ -326,9 +317,8 @@ under the License.
             <hyperlink target="removeAgreementPromoAppl?productPromoId=${productPromoId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditAgreementPromoAppl" type="single"
-            target="updateAgreementPromoAppl" title="" default-map-name="agreementPromoAppl"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditAgreementPromoAppl" type="single" target="updateAgreementPromoAppl" title="" default-map-name="agreementPromoAppl"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="agreementPromoAppl==null" target="createAgreementPromoAppl"/>
         <auto-fields-entity entity-name="AgreementPromoAppl" default-field-type="edit"/>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
@@ -348,9 +338,9 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListAgreementItemParties" default-title-style="tableheadtext"
-            default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="agreementParties"
-            target="" paginate-target="ListAgreementItemParties" title="" type="list">
+    <form name="ListAgreementItemParties" list-name="agreementParties" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="ListAgreementItemParties">
         <auto-fields-entity entity-name="AgreementPartyApplic" default-field-type="display"/>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
         <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
@@ -364,9 +354,8 @@ under the License.
             <hyperlink target="removeAgreementItemParty?partyId=${partyId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}" description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditAgreementItemParty" type="single"
-            target="updateAgreementItemParty" title="" default-map-name="agreementPartyApplic"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditAgreementItemParty" type="single" target="updateAgreementItemParty" title="" default-map-name="agreementPartyApplic"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="agreementPartyApplic==null" target="createAgreementItemParty"/>
         <auto-fields-entity entity-name="AgreementPartyApplic" default-field-type="edit"/>
         <field name="agreementId"><hidden/></field>
@@ -379,9 +368,9 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListAgreementGeographicalApplic" default-title-style="tableheadtext"
-            default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="agreementGeographicalApplics"
-            target="" paginate-target="ListAgreementGeographicalApplic" title="" type="list">
+    <form name="ListAgreementGeographicalApplic" target="" title="" type="list" list-name="agreementGeographicalApplics"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="ListAgreementGeographicalApplic">
         <auto-fields-entity entity-name="AgreementGeographicalApplic" default-field-type="display"/>
         <field name="agreementId"><hidden/></field>
         <field name="agreementItemSeqId"><hidden/></field>
@@ -392,9 +381,8 @@ under the License.
             <hyperlink target="removeAgreementGeographicalApplic?geoId=${geoId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}" description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditAgreementGeographicalApplic" type="single"
-            target="updateAgreementGeographicalApplic" title="" default-map-name="agreementGeographicalApplic"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditAgreementGeographicalApplic" type="single" target="updateAgreementGeographicalApplic" title="" default-map-name="agreementGeographicalApplic"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="agreementGeographicalApplic==null" target="createAgreementGeographicalApplic"/>
         <auto-fields-entity entity-name="AgreementGeographicalApplic" default-field-type="edit"/>
         <field name="agreementId"><hidden/></field>

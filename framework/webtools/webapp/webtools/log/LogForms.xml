@@ -21,7 +21,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
         
   <form name="LevelSwitch" type="single" target="AdjustDebugLevels" default-map-name="activeDebugLevel"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
     <field name="fatal" title="${uiLabelMap.WebtoolsFatalLogLevel}" tooltip="${uiLabelMap.WebtoolsFatalLogLevelTooltip}"><check/></field>
     <field name="error" title="${uiLabelMap.WebtoolsErrorLogLevel}" tooltip="${uiLabelMap.WebtoolsErrorLogLevelTooltip}"><check/></field>
     <field name="warning" title="${uiLabelMap.WebtoolsWarningLogLevel}" tooltip="${uiLabelMap.WebtoolsWarningLogLevelTooltip}"><check/></field>
@@ -33,7 +33,7 @@ under the License.
   </form>
   
   <form name="AddLogger" type="single" default-map-name="defaultLogger" target="AddLogger"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
     <field name="name" title="${uiLabelMap.WebtoolsLoggerName}"><text size="50"/></field>
     <field name="level" title="${uiLabelMap.WebtoolsLoggerLevel}">
         <drop-down>
@@ -51,8 +51,9 @@ under the License.
     <field name="submit" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit/></field>
   </form>
   
-  <form name="LoggerList" type="multi" target="UpdateLogger" list-name="loggerList" paginate="false" separate-columns="true"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+  <form name="LoggerList" type="multi" target="UpdateLogger" list-name="loggerList" separate-columns="true"
+    default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+    paginate="false">
     <field name="name" title="${uiLabelMap.WebtoolsLoggerName}"><display/></field>
     <field name="level" title="${uiLabelMap.WebtoolsLoggerLevel}" widget-style="selectBox">
         <drop-down>

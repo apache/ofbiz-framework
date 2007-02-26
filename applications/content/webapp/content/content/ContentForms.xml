@@ -21,9 +21,8 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     
-    <form name="FindContent" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="findContent" title="" type="single">
+    <form name="FindContent" target="findContent" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <!--auto-fields-entity entity-name="Content" default-field-type="find" /-->
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="contentId"><text-find default-option="contains" ignore-case="true"/></field>
@@ -67,9 +66,9 @@ under the License.
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="ListContent" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext"
-        list-name="listIt" target="" paginate-target="findContent" title="" type="list">
+    <form name="ListContent" list-name="listIt" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        paginate-target="findContent">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -92,11 +91,12 @@ under the License.
         <field name="createdByUserLogin"><display-entity also-hidden="false" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}"/></field>
     </form>
 
-    <form name="LookupContent"  default-tooltip-style="tabletext" extends="FindContent"
-        target="LookupContent" title="" type="single">
+    <form name="LookupContent" target="LookupContent" title="" type="single" extends="FindContent"
+        default-tooltip-style="tabletext">
     </form>
-    <form name="ListLookupContent" extends="ListContent" paginate-target="LookupContent" default-widget-style="tabletext" 
-        type="list" list-name="listIt">
+    <form name="ListLookupContent" extends="ListContent" type="list" list-name="listIt"
+        default-widget-style="tabletext"
+        paginate-target="LookupContent">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -110,9 +110,8 @@ under the License.
         <field name="createdByUserLogin"><ignored/></field>
     </form>
     
-    <form name="EditContent" target="updateContent" title="" type="single"
-        default-title-style="tableheadtext" default-map-name="currentValue"
-        default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="EditContent" target="updateContent" title="" type="single" default-map-name="currentValue"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" env-name="currentValue.statusId"/>
@@ -215,9 +214,8 @@ under the License.
     
     
     <!-- Content Lookup forms -->
-    <form name="mruLookupContent" default-entity-name="Content"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="display"
-        list-name="mruList" target="" title="" type="list">
+    <form name="mruLookupContent" default-entity-name="Content" list-name="mruList" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="display">
         
         <field name="contentId" title="Id" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${contentId}" target="javascript:set_value('${contentId}')"/>
@@ -226,9 +224,8 @@ under the License.
         <field name="description" title="Description" widget-style="buttontext"><display/></field>
     </form>
     <!-- ContentAssoc forms -->
-    <form name="EditContentAssoc" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="updateContentAssoc" title="" type="single">
+    <form name="EditContentAssoc" target="updateContentAssoc" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
             <entity-one entity-name="ContentAssoc" use-cache="true">
                 <field-map env-name="contentId" field-name="contentId" />
@@ -244,9 +241,8 @@ under the License.
         <field name="fromDate" title="" widget-style="buttontext"><display/></field>
         <field name="submitButton" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="AddContentAssoc" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="createContentAssoc" title="" type="single">
+    <form name="AddContentAssoc" target="createContentAssoc" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createContentAssoc"/>
         <field name="contentId" title="" widget-style="buttontext"><display description="${contentId}"/></field>
         <field name="contentIdTo" title="" widget-style="buttontext" map-name="currentValue">
@@ -270,9 +266,8 @@ under the License.
         <field name="lastModifiedDate"><hidden/></field>
         <field name="lastModifiedByUserLogin"><hidden/></field>
     </form>
-    <form name="ListContentAssocFrom" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="" title="Assoc From this Content" type="list">
+    <form name="ListContentAssocFrom" target="" title="Assoc From this Content" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
             <entity-and entity-name="ContentAssoc" use-cache="true">
                 <field-map env-name="contentId" field-name="contentId" />
@@ -292,9 +287,8 @@ under the License.
             <hyperlink also-hidden="false" description="[Edit]" target="EditContentAssoc?contentId=${contentId}&amp;contentIdTo=${contentIdTo}&amp;contentAssocTypeId=${contentAssocTypeId}&amp;fromDate=${fromDate}"/>
         </field>
     </form>
-    <form name="ListContentAssocTo" default-entity-name="Content"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="EditContentAssoc" title="Assoc To this Content" type="list">
+    <form name="ListContentAssocTo" target="EditContentAssoc" title="Assoc To this Content" type="list" default-entity-name="Content" 
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
             <entity-and entity-name="ContentAssoc" use-cache="true">
                 <field-map env-name="contentId" field-name="contentIdTo" />
@@ -317,9 +311,8 @@ under the License.
     
     
     <!-- ContentRole forms -->
-    <form name="AddContentRole" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="addContentRole" title="" type="single">
+    <form name="AddContentRole" target="addContentRole" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createContentRole"/>
         <field name="contentId" title="" widget-style="buttontext" > 
             <lookup target-form-name="LookupContent" />
@@ -336,15 +329,13 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="EditContentRole" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="Edit${contentRoleTarget}ContentRole" title="" type="single">
+    <form name="EditContentRole" target="Edit${contentRoleTarget}ContentRole" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createContentRole"/>
         <field name="submitButton" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListContentRole" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="update${contentRoleTarget}ContentRole" title="" type="list">
+    <form name="ListContentRole" target="update${contentRoleTarget}ContentRole" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
             <entity-and entity-name="ContentRole" use-cache="true">
                 <field-map env-name="contentId" field-name="contentId" />
@@ -362,10 +353,8 @@ under the License.
     </form>
     
     <!-- ContentPurpose forms -->
-    <form name="AddContentPurpose" 
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="addContentPurpose" title="" type="single">
+    <form name="AddContentPurpose" target="addContentPurpose" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createContentPurpose"/>
         <field name="contentId" title="" widget-style="buttontext" ><lookup target-form-name="LookupContent"/></field>
         <field name="contentPurposeTypeId">
@@ -375,9 +364,8 @@ under the License.
         </field>
         <field name="submitButton" title="Add" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListContentPurpose" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="updateContentPurpose" title="" type="list">
+    <form name="ListContentPurpose" target="updateContentPurpose" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
             <entity-and entity-name="ContentPurpose" use-cache="true">
                 <field-map env-name="contentId" field-name="contentId" />
@@ -391,17 +379,16 @@ under the License.
     </form>
     
     <!-- ContentAttribute forms -->
-    <form name="AddContentAttribute" default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="addContentAttribute" title="" type="single">
+    <form name="AddContentAttribute" target="addContentAttribute" title="" type="single"
+        default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createContentAttribute"/>
         <field name="contentId" title="" widget-style="buttontext" > 
             <lookup target-form-name="LookupContent" />
         </field>
         <field name="submitButton" title="Add" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox"
-        name="ListContentAttribute"
-        target="updateContentAttribute" title="" type="list">
+    <form name="ListContentAttribute" target="updateContentAttribute" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
             <entity-and entity-name="ContentAttribute" use-cache="true">
                 <field-map env-name="contentId" field-name="contentId" />
@@ -416,9 +403,8 @@ under the License.
     </form>
     
     <!-- ContentMetaData forms -->
-    <form name="AddContentMetaData" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="addContentMetaData" title="" type="single">
+    <form name="AddContentMetaData" target="addContentMetaData" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-service service-name="createContentMetaData"/>
         <field name="contentId" title="" widget-style="buttontext" > 
             <lookup target-form-name="LookupContent" />
@@ -430,9 +416,8 @@ under the License.
         </field>
         <field name="submitButton" title="Add" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListContentMetaData" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="updateContentMetaData" title="" type="list">
+    <form name="ListContentMetaData" target="updateContentMetaData" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <actions>
             <entity-and entity-name="ContentMetaData" use-cache="true">
                 <field-map env-name="contentId" field-name="contentId" />
@@ -448,18 +433,16 @@ under the License.
     </form>
     
     <!-- Person Lookup forms -->
-    <form name="mruLookupPerson"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="display"
-        list-name="mruList" target="" title="" type="list">
+    <form name="mruLookupPerson" list-name="mruList" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="display">
         <field name="partyId" title="" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
         </field>
         <field name="firstName" title="" widget-style="buttontext"> <display/> </field>
         <field name="lastName" title="" widget-style="buttontext"> <display/> </field>
     </form>
-    <form name="mruLookupPartyAndUserLoginAndPerson" 
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="display"
-        list-name="mruList" target="" title="" type="list">
+    <form name="mruLookupPartyAndUserLoginAndPerson" list-name="mruList" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="display">
         <field name="partyId" title="" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}', '${userLoginId}')"/>
         </field>
