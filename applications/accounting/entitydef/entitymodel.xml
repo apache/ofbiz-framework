@@ -1028,6 +1028,7 @@ under the License.
       <field name="transactionDate" type="date-time"></field>
       <field name="isPosted" type="indicator"></field>
       <field name="postedDate" type="date-time"></field>
+      <field name="scheduledPostingDate" type="date-time"></field>
       <field name="glJournalId" type="id"></field>
       <field name="glFiscalTypeId" type="id"></field>
       <field name="voucherRef" type="short-varchar"></field>
