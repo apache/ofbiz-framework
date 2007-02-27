@@ -61,6 +61,7 @@ under the License.
         <field name="brandName" title="${uiLabelMap.ProductBrandName}" ><text size="30" maxlength="60"/></field>
         <field name="manufacturerPartyId" title="${uiLabelMap.ProductOemPartyId}" ><text size="20" maxlength="20"/></field>
         <field name="comments" title="${uiLabelMap.CommonComments}"><text size="60" maxlength="250"/></field>
+        <field name="chargeShipping" title="ProductRequireShipping"><text/></field>
 
         <field position="1" name="introductionDate" title="${uiLabelMap.CommonIntroductionDate}" red-when="after-now"><date-time/></field>
         <field position="2" name="salesDiscontinuationDate" title="${uiLabelMap.ProductSalesThruDate}" red-when="before-now"><date-time/></field>
@@ -548,9 +549,15 @@ under the License.
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}"/>
         </field>
         <field name="availableFromDate" use-when="supplierProduct==null">
-            <date-time/>
+            <date-time default-value="${bsh: org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
         </field>
         <field name="availableFromDate" use-when="supplierProduct!=null" widget-style="tabletext">
+            <display/>
+        </field>
+        <field name="minimumOrderQuantity" use-when="supplierProduct==null">
+            <text default-value="0" size="5"/>
+        </field>
+        <field name="minimumOrderQuantity" use-when="supplierProduct!=null" widget-style="tabletext">
             <display/>
         </field>
         <field name="quantityUomId" title="${uiLabelMap.ProductQuantityUomId}">
