@@ -33,7 +33,7 @@ under the License.
                       </#if>
                       <a href="<@ofbizUrl>loadCartFromOrder?${paramString}&finalizeMode=init</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateAsNewOrder}</a>
                       <#if returnableItems?has_content>
-                        <a href="<@ofbizUrl>quickreturn?orderId=${orderId}&amp;party_id=${partyId?if_exists}&amp;returnHeaderTypeId=${returnHeaderTypeId}</@ofbizUrl>"  class="submenutextright">${uiLabelMap.OrderCreateReturn}</a>
+                        <a href="<@ofbizUrl>quickreturn?orderId=${orderId}&amp;party_id=${partyId?if_exists}&amp;returnHeaderTypeId=${returnHeaderTypeId}</@ofbizUrl>"  class="buttontext">${uiLabelMap.OrderCreateReturn}</a>
                       </#if>
                     </div>
                 </#if>
