@@ -383,12 +383,34 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
+    <!-- Methods for ImageDataResource -->
+    <simple-method method-name="createImageDataResource" short-description="Create Image Data Resource">
+        <make-value entity-name="ImageDataResource" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateImageDataResource" short-description="Update Image Data Resource">
+        <make-value entity-name="ImageDataResource" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ImageDataResource" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeImageDataResource" short-description="Remove Image Data Resource">
+        <make-value entity-name="ImageDataResource" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ImageDataResource" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
     <!-- Methods for OtherDataResource -->
     <simple-method method-name="createOtherDataResource" short-description="Create Other Data Resource">
         <make-value entity-name="OtherDataResource" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
+        <log level="always" message="created new OtherDataResource: ${newEntity}"/>
     </simple-method>
     <simple-method method-name="updateOtherDataResource" short-description="Update Other Data Resource">
         <make-value entity-name="OtherDataResource" value-name="lookupKeyValue"/>
@@ -453,4 +475,142 @@ under the License.
         <log level="always" message="parameters:${parameters}"/>
     </simple-method>
 
+    <!-- Determines which type of uploaded file this is and calls the proper method -->
+    <simple-method method-name="attachUploadToDataResource" short-description="Attach an uploaded file to a data resource">
+        <if-empty field-name="parameters.dataResourceTypeId">
+            <!-- create default behavior -->
+            <if>
+                <condition>
+                    <not>
+                        <if-empty field-name="parameters._uploadedFile_contentType"/>
+                    </not>
+                </condition>
+                <then>
+                    <if>
+                        <condition>
+                            <if-regexp field-name="parameters._uploadedFile_contentType" expr="image.*"/>
+                        </condition>
+                        <then>
+                            <set field="parameters.dataResourceTypeId" value="IMAGE_OBJECT"/>
+                        </then>
+                        <else>
+                            <set field="parameters.dataResourceTypeId" value="OTHER_OBJECT"/>    
+                        </else>
+                    </if>
+                </then>
+                <else>
+                    <set field="parameters.dataResourceTypeId" value="OTHER_OBJECT"/>
+                </else>
+            </if>
+        </if-empty>
+
+        <if-compare field-name="parameters.dataResourceTypeId" value="LOCAL_FILE" operator="equals">
+            <call-simple-method method-name="saveLocalFileDateResource"/>
+            <return/>
+        </if-compare>
+
+        <if-compare field-name="parameters.dataResourceTypeId" value="IMAGE_OBJECT" operator="equals">
+            <call-simple-method method-name="saveImageObjectDateResource"/>
+            <return/>
+        </if-compare>
+
+        <if-compare field-name="parameters.dataResourceTypeId" value="OTHER_OBJECT" operator="equals">
+            <call-simple-method method-name="saveOtherObjectDateResource"/>
+            <return/>
+        </if-compare>
+
+        <add-error><fail-message message="Data type [${dataResourceTypeId} is not yet supported!"/></add-error>
+        <check-errors/>
+    </simple-method>
+
+    <!-- save LOCAL_FILE data -->
+    <simple-method method-name="saveLocalFileDateResource" short-description="Attach an uploaded file to a data resource as LOCAL_FILE">
+        <entity-one entity-name="DataResource" value-name="dataResource">
+            <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
+        </entity-one>
+        <if-empty field-name="dataResource">
+            <add-error><fail-message message="No data resource found for ID: [$parameters.dataResourceId}]"/></add-error>
+        </if-empty>
+        <if-empty field-name="_uploadedFile_fileName" map-name="parameters">
+            <add-error><fail-message message="No uploaded content found in context"/></add-error>
+        </if-empty>
+        <check-errors/>
+
+        <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getDataResourceContentUploadPath" ret-field-name="uploadPath"/>
+        <log level="info" message="[attachLocalFileToDataResource] - Found Subdir : ${uploadPath}"/>
+
+        <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
+        <find-by-and entity-name="FileExtension" map-name="extenLookup" list-name="extensions"/>
+        <first-from-list entry-name="extension" list-name="extensions"/>
+
+        <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
+        <set from-field="parameters._uploadedFile_contentType" field="dataResource.mimeTypeId"/>
+        <set value="${uploadPath}/${dataResource.dataResourceId}" field="dataResource.objectInfo"/>
+        <if-not-empty field-name="extension">
+            <set value="${uploadPath}/${dataResource.dataResourceId}.${extension.fileExtensionId}" field="dataResource.objectInfo"/>
+        </if-not-empty>
+        <set value="LOCAL_FILE" field="dataResource.dataResourceTypeId"/>
+        <store-value value-name="dataResource"/>
+
+        <set-service-fields service-name="createAnonFile" map-name="dataResource" to-map-name="fileCtx"/>
+        <set from-field="parameters.uploadedFile" field="fileCtx.binData"/>
+        <set from-field="dataResource" field="fileCtx.dataResource"/>
+        <call-service service-name="createAnonFile" in-map-name="fileCtx" include-user-login="true"/>
+
+        <field-to-result field-name="dataResourceId" map-name="dataResource"/>
+    </simple-method>
+
+    <!-- save OTHER_OBJECT data -->
+    <simple-method method-name="saveOtherObjectDateResource" short-description="Attach an uploaded file to a data resource as OTHER_OBJECT">
+        <entity-one entity-name="DataResource" value-name="dataResource">
+            <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
+        </entity-one>
+        <if-empty field-name="dataResource">
+            <add-error><fail-message message="No data resource found for ID: [$parameters.dataResourceId}]"/></add-error>
+        </if-empty>
+        <if-empty field-name="_uploadedFile_fileName" map-name="parameters">
+            <add-error><fail-message message="No uploaded content found in context"/></add-error>
+        </if-empty>
+        <check-errors/>
+
+        <!-- update the data resource with file data -->
+        <set from-field="parameters.dataResourceTypeId" field="dataResource.dataResourceTypeId"/>
+        <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
+        <set from-field="parameters._uploadedFile_contentType" field="dataResource.mimeTypeId"/>
+        <store-value value-name="dataResource"/>
+
+        <!-- fields serviceName and fileField are required to be set by calling method -->
+        <set-service-fields service-name="createOtherDataResource" map-name="dataResource" to-map-name="serviceContext"/>
+        <set from-field="parameters.uploadedFile" field="serviceContext.dataResourceContent"/>
+        <call-service service-name="createOtherDataResource" in-map-name="serviceContext"/>
+
+        <field-to-result field-name="dataResourceId" map-name="dataResource"/>
+    </simple-method>
+
+    <!-- save IMAGE_OBJECT data -->
+    <simple-method method-name="saveImageObjectDateResource" short-description="Attach an uploaded file to a data resource as IMAGE_OBJECT">
+        <entity-one entity-name="DataResource" value-name="dataResource">
+            <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
+        </entity-one>
+        <if-empty field-name="dataResource">
+            <add-error><fail-message message="No data resource found for ID: [$parameters.dataResourceId}]"/></add-error>
+        </if-empty>
+        <if-empty field-name="_uploadedFile_fileName" map-name="parameters">
+            <add-error><fail-message message="No uploaded content found in context"/></add-error>
+        </if-empty>
+        <check-errors/>
+
+        <!-- update the data resource with file data -->
+        <set from-field="parameters.dataResourceTypeId" field="dataResource.dataResourceTypeId"/>
+        <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
+        <set from-field="parameters._uploadedFile_contentType" field="dataResource.mimeTypeId"/>
+        <store-value value-name="dataResource"/>
+
+        <!-- fields serviceName and fileField are required to be set by calling method -->
+        <set-service-fields service-name="createImageDataResource" map-name="dataResource" to-map-name="serviceContext"/>
+        <set from-field="parameters.uploadedFile" field="serviceContext.imageData"/>
+        <call-service service-name="createImageDataResource" in-map-name="serviceContext"/>
+
+        <field-to-result field-name="dataResourceId" map-name="dataResource"/>
+    </simple-method>
 </simple-methods>

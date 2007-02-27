@@ -1,0 +1,203 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+  -->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Content Component Data Services</description>
+    <vendor>OFBiz</vendor>
+
+    <!-- DataResource services -->
+    <service name="createDataResource" default-entity-name="DataResource" engine="simple"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="createDataResource" auth="true">
+        <description>Create a DataResource</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="dataResourceId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="targetOperationList" type="List" mode="IN" optional="true"/>
+        <attribute name="contentPurposeList" type="List" mode="IN" optional="true" />
+        <attribute name="skipPermissionCheck" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="dataResourceId" type="String" mode="OUT" optional="false"/>
+        <attribute name="dataResource" type="GenericValue" mode="OUT" optional="true"/>
+    </service>
+    <service name="updateDataResource" engine="simple" default-entity-name="DataResource" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="updateDataResource">
+        <description>Update a DataResource</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="dataResourceId" type="String" mode="IN" optional="false"/>
+        <attribute name="targetOperationList" type="List" mode="IN" optional="true"/>
+        <attribute name="contentPurposeList" type="List" mode="IN" optional="true"/>
+        <attribute name="skipPermissionCheck" type="String" mode="IN" optional="true"/>
+        <attribute name="dataResourceId" type="String" mode="OUT" optional="false"/>
+        <attribute name="dataResource" type="GenericValue" mode="OUT" optional="true"/>
+    </service>
+    <service name="removeDataResource" engine="simple" default-entity-name="DataResource" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="deleteDataResource">
+        <description>Remove DataResource</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="targetOperationList" type="List" mode="IN" optional="true"/>
+        <attribute name="contentPurposeList" type="List" mode="IN" optional="true"/>
+        <attribute name="skipPermissionCheck" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <!-- generic create data text service; looks at the type id to determine if ELECTRONIC_TEXT is necessary -->
+    <service name="createDataText" engine="route" auth="true">
+        <description>Uses ECA to decide if we should call createElectronicText or just createDataResource (SHORT_TEXT)</description>
+        <implements service="createElectronicText"/>
+    </service>
+    <service name="updateDataText" engine="route" auth="true">
+        <description>Uses ECA to decide if we should call updateElectronicText or just updateDataResource (SHORT_TEXT)</description>
+        <implements service="updateElectronicText"/>
+    </service>
+
+    <!-- these should be deprecated in favor of the ECA style triggers on the base service -->
+    <service name="createDataResourceAndText" engine="java" default-entity-name="DataResource" auth="true"
+            location="org.ofbiz.content.data.DataServices" invoke="createDataResourceAndText">
+        <description>Create a DataResource and, possibly, ElectronicText or ImageDataResource</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="textData" mode="IN" optional="true" type="String"/>
+        <attribute name="targetOperationList" type="List" mode="IN" optional="true"/>
+        <attribute name="contentPurposeList" type="List" mode="IN" optional="true"/>
+        <attribute name="skipPermissionCheck" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="updateDataResourceAndText" engine="java" default-entity-name="DataResource" auth="true"
+            location="org.ofbiz.content.data.DataServices" invoke="updateDataResourceAndText">
+        <description>Create a DataResource and, possibly, ElectronicText or ImageDataResource</description>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="textData" mode="IN" type="String" optional="true"/>
+        <attribute name="targetOperationList" type="List" mode="IN" optional="true"/>
+        <attribute name="contentPurposeList" type="List" mode="IN" optional="true"/>
+        <attribute name="skipPermissionCheck" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <!-- ElectronicText services -->
+    <service name="createElectronicText" default-entity-name="ElectronicText" engine="simple"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="createElectronicText" auth="true">
+        <description>Create a ElectronicText</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
+        <implements service="createDataResource"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="dataResourceTypeId" default-value="ELECTRONIC_TEXT"/>
+    </service>
+    <service name="updateElectronicText" default-entity-name="ElectronicText" engine="simple"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="updateElectronicText" auth="true">
+        <description>Update a ElectronicText</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="contentId" mode="INOUT" optional="true" type="String"/><!-- to optionaly know where this text is belonging to -->
+    </service>
+    <service name="removeElectronicText" default-entity-name="ElectronicText" engine="simple"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="removeElectronicText" auth="true">
+        <description>Remove ElectronicText</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="getElectronicText" engine="simple"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="getElectronicText" default-entity-name="ElectronicText" auth="false" >
+        <description>Get a ElectronicText: Can pass either content value object or contentId</description>
+        <attribute mode="IN" name="contentId" optional="true" type="String"/>
+        <attribute mode="IN" name="content" optional="true" type="GenericValue"/>
+        <attribute mode="OUT" name="dataResourceId" optional="true" type="String"/>
+        <attribute mode="OUT" name="textData" optional="false" type="String"/>
+    </service>
+
+    <!-- Image Data Resource services -->
+    <service name="createImageDataResource" engine="simple" default-entity-name="ImageDataResource" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="createImageDataResource">
+        <description>Create an ImageDataResource</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateImageDataResource" engine="simple" default-entity-name="ImageDataResource" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="updateImageDataResource">
+        <description>Update an ImageDataResource</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeImageDataResource" engine="simple" default-entity-name="ImageDataResource" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="removeImageDataResource">
+        <description>Remove an ImageDataResource</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Other Data Resource services -->
+    <service name="createOtherDataResource" engine="simple" default-entity-name="OtherDataResource" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="createOtherDataResource">
+        <description>Create an OtherDataResource</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateOtherDataResource" engine="simple" default-entity-name="OtherDataResource" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="updateOtherDataResource">
+        <description>Update an OtherDataResource</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeOtherDataResource" engine="simple" default-entity-name="OtherDataResource" auth="true"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="removeOtherDataResource">
+        <description>Remove an OtherDataResource</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- File services -->
+    <service name="createFile" engine="java"
+            location="org.ofbiz.content.data.DataServices" invoke="createFile" auth="true">
+        <description>Create a File</description>
+        <implements service="createDataResource"/>
+        <attribute mode="IN" name="dataResource" optional="true" type="GenericValue"/>
+        <attribute mode="IN" name="binData" optional="true" type="org.ofbiz.entity.util.ByteWrapper"/>
+        <attribute mode="IN" name="textData" optional="true" type="String"/>
+        <attribute mode="IN" name="rootDir" optional="true" type="String"/>
+        <attribute mode="IN" name="dataResourceTypeId" optional="true" type="String"/>
+        <attribute mode="IN" name="objectInfo" optional="true" type="String"/>
+    </service>
+    <service name="createAnonFile" engine="java"
+            location="org.ofbiz.content.data.DataServices" invoke="createFileNoPerm" auth="false">
+        <description>Create a File No Permission Required</description>
+        <implements service="createFile"/>
+    </service>
+    <service name="updateFile" engine="java"
+            location="org.ofbiz.content.data.DataServices" invoke="updateFile" auth="true">
+        <description>Update a File</description>
+        <attribute mode="IN" name="dataResource" optional="true" type="GenericValue"/>
+        <attribute mode="IN" name="binData" optional="true" type="org.ofbiz.entity.util.ByteWrapper"/>
+        <attribute mode="IN" name="textData" optional="true" type="String"/>
+        <attribute mode="IN" name="rootDir" optional="true" type="String"/>
+        <attribute mode="IN" name="dataResourceTypeId" optional="true" type="String"/>
+        <attribute mode="IN" name="objectInfo" optional="true" type="String"/>
+    </service>
+    <service name="removeFile" engine="simple"
+            location="org/ofbiz/content/data/DataServices.xml" invoke="removeFile" auth="true">
+        <description>Remove File</description>
+        <attribute mode="IN" name="rootDir" optional="true" type="String"/>
+    </service>    
+</services>

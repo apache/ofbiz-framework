@@ -43,7 +43,9 @@ under the License.
     <entity-resource type="data" reader-name="demo" loader="main" location="data/CompDocData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/ForumDemoData.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_content.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_contenttypes.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_data.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_email.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_survey.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_commevent.xml"/>

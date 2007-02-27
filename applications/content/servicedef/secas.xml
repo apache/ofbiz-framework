@@ -70,11 +70,34 @@ under the License.
         <action service="ensurePartyRole" mode="sync" runAsUser="system"/>
     </eca>
 
+    <!-- create/update data text service is a route; determine which path to follow -->
+    <eca service="createDataText" event="invoke">
+        <condition field-name="dataResourceTypeId" operator="equals" value="ELECTRONIC_TEXT"/>
+        <set field-name="dataResourceTypeId" value="ELECTRONIC_TEXT"/>
+        <action service="createElectronicText" mode="sync"/>
+    </eca>
+    <eca service="createDataText" event="invoke">
+        <condition field-name="dataResourceTypeId" operator="not-equals" value="ELECTRONIC_TEXT"/>
+        <set field-name="dataResourceTypeId" value="SHORT_TEXT"/>
+        <action service="createDataResource" mode="sync"/>
+    </eca>
+    <eca service="updateDataText" event="invoke">
+        <condition field-name="dataResourceTypeId" operator="equals" value="ELECTRONIC_TEXT"/>
+        <action service="updateElectronicText" mode="sync"/>
+    </eca>
+    <eca service="updateDataText" event="invoke">
+        <condition field-name="dataResourceTypeId" operator="not-equals" value="ELECTRONIC_TEXT"/>
+        <action service="updateDataResource" mode="sync"/>
+    </eca>
+
     <!-- electronic text; needs dataResourceId -->
     <eca service="createElectronicText" event="in-validate">
         <condition field-name="dataResourceId" operator="is-empty"/>
         <set field-name="dataResourceTypeId" value="ELECTRONIC_TEXT"/>
         <action service="createDataResource" mode="sync" result-to-context="true"/>
+    </eca>
+    <eca service="updateElectronicText" event="invoke">
+        <action service="updateDataResource" mode="sync" result-to-context="true"/>
     </eca>
 
     <!-- create content ecas -->
