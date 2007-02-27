@@ -71,6 +71,7 @@ under the License.
   <!-- org.ofbiz.content.data -->
   <!-- ========================================================= -->
 
+    <entity-group group="org.ofbiz" entity="AudioDataResource" />
     <entity-group group="org.ofbiz" entity="CharacterSet" />
     <entity-group group="org.ofbiz" entity="DataCategory" />
     <entity-group group="org.ofbiz" entity="DataResource" />
@@ -88,6 +89,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="MetaDataPredicate" />
     <entity-group group="org.ofbiz" entity="MimeType" />
     <entity-group group="org.ofbiz" entity="OtherDataResource" />
+    <entity-group group="org.ofbiz" entity="VideoDataResource" />
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.content.document -->

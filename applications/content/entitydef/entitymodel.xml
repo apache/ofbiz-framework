@@ -786,6 +786,16 @@ under the License.
   <!-- org.ofbiz.content.data -->
   <!-- ========================================================= -->
 
+    <entity entity-name="AudioDataResource"
+            package-name="org.ofbiz.content.data"
+            title="Other Data Object Entity">
+      <field name="dataResourceId" type="id-ne"></field>
+      <field name="audioData" type="blob"></field>
+      <prim-key field="dataResourceId"/>
+      <relation type="one" fk-name="DATA_REC_AUDIO" rel-entity-name="DataResource">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+    </entity>
     <entity entity-name="CharacterSet"
             package-name="org.ofbiz.content.data"
             title="Character Set Entity">
@@ -1075,6 +1085,16 @@ under the License.
       <field name="dataResourceContent" type="blob"></field>
       <prim-key field="dataResourceId"/>
       <relation type="one" fk-name="DATA_REC_OTHER" rel-entity-name="DataResource">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+    </entity>
+    <entity entity-name="VideoDataResource"
+            package-name="org.ofbiz.content.data"
+            title="Other Data Object Entity">
+      <field name="dataResourceId" type="id-ne"></field>
+      <field name="videoData" type="blob"></field>
+      <prim-key field="dataResourceId"/>
+      <relation type="one" fk-name="DATA_REC_VIDEO" rel-entity-name="DataResource">
         <key-map field-name="dataResourceId"/>
       </relation>
     </entity>
