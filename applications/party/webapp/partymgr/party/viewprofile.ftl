@@ -639,7 +639,7 @@ under the License.
         </table>
         <div>&nbsp;</div>
         <hr class="sepbar"/>
-        <div align="left" class="head3"><b><u>${uiLabelMap.PartyAttachContent}</u></b>
+        <div align="left"><b><u>${uiLabelMap.PartyAttachContent}</u></b>
           <div>&nbsp;</div>
           <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>uploadPartyContent</@ofbizUrl>" style="margin: 0;">
             <input type="hidden" name="dataCategoryId" value="PERSONAL"/>
@@ -647,13 +647,13 @@ under the License.
             <input type="hidden" name="statusId" value="CTNT_PUBLISHED"/>
             <input type="hidden" name="partyId" value="${partyId}"/>
             <input type="file" name="uploadedFile" size="20" class="inputBox"/>
-            <select name="contentPurposeEnumId" class="selectBox">
+            <select name="contentPurposeEnumId" class="inputBox">
                 <option value="">Select Purpose</option>
                 <#list contentPurposes as contentPurpose>
                     <option value="${contentPurpose.enumId}">${contentPurpose.description?default(contentPurpose.enumId)}</option>                  
                 </#list>
             </select>
-            <select name="roleTypeId" class="selectBox">
+            <select name="roleTypeId" class="inputBox">
                 <option value="">Select Role</option>
                 <#list roles as role>
                     <option value="${role.roleTypeId}">${role.description?default(role.roleTypeId)}</option>
