@@ -21,18 +21,7 @@ package org.ofbiz.order.shoppingcart;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -3612,6 +3601,164 @@ public class ShoppingCart implements Serializable {
         return result;
     }
 
+    public Map getShipGroupsBySupplier(String supplierPartyId) {
+        Map shipGroups = new TreeMap();
+        for (int i = 0; i < this.shipInfo.size(); i++) {
+            CartShipInfo csi = (CartShipInfo) shipInfo.get(i);
+            if ((csi.supplierPartyId == null && supplierPartyId == null) ||
+                (UtilValidate.isNotEmpty(csi.supplierPartyId) && csi.supplierPartyId.equals(supplierPartyId))) {
+                shipGroups.put(new Integer(i), csi);
+            }
+        }
+        return shipGroups;
+    }
+
+    /**
+     * Examine each item of each ship group and create new ship groups if the item should be drop shipped
+     * @param dispatcher
+     * @throws CartItemModifyException
+     */
+    public void createDropShipGroups(LocalDispatcher dispatcher) throws CartItemModifyException {
+
+        // Retrieve the facilityId from the cart's productStoreId because ShoppingCart.setFacilityId() doesn't seem to be used anywhere
+        String facilityId = null;
+        if (UtilValidate.isNotEmpty(this.getProductStoreId())) {
+            try {
+                GenericValue productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", this.getProductStoreId()));
+                facilityId = productStore.getString("inventoryFacilityId");
+            } catch (Exception e) {
+                Debug.logError(UtilProperties.getMessage(resource_error,"OrderProblemGettingProductStoreRecords", locale) + e.getMessage(), module);
+                return;
+            }
+        }
+        
+        List shipGroups = getShipGroups();
+        if (shipGroups == null) return;
+
+        // Intermediate structure supplierPartyId -> { ShoppingCartItem = { originalShipGroupIndex = dropShipQuantity } } to collect drop-shippable items
+        Map dropShipItems = new HashMap();
+        
+        for (int shipGroupIndex = 0; shipGroupIndex < shipGroups.size(); shipGroupIndex++) {
+            
+            CartShipInfo shipInfo = (CartShipInfo) shipGroups.get(shipGroupIndex);
+            
+            // Ignore ship groups that are already drop shipped
+            String shipGroupSupplierPartyId = shipInfo.getSupplierPartyId();
+            if (UtilValidate.isNotEmpty(shipGroupSupplierPartyId)) continue;
+
+            // Ignore empty ship groups
+            Set shipItems = shipInfo.getShipItems();
+            if (UtilValidate.isEmpty(shipItems)) continue;
+
+            Iterator siit = shipItems.iterator();
+            while (siit.hasNext()) {
+                
+                ShoppingCartItem cartItem = (ShoppingCartItem) siit.next();
+
+                double itemQuantity = cartItem.getQuantity();
+                double dropShipQuantity = 0;
+
+                GenericValue product = cartItem.getProduct();
+                String productId = product.getString("productId");
+                String requirementMethodEnumId = product.getString("requirementMethodEnumId");
+
+                if ("PRODRQM_DS".equals(requirementMethodEnumId)) {
+                    
+                    // Drop ship the full quantity if the product is marked drop-ship only
+                    dropShipQuantity = itemQuantity;
+                    
+                } else if ("PRODRQM_DSATP".equals(requirementMethodEnumId)) {
+                    
+                    // Drop ship the quantity not available in inventory if the product is marked drop-ship on low inventory
+                    try {
+
+                        // Get ATP for the product
+                        Map getProductInventoryAvailableResult = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", productId, "facilityId", facilityId));
+                        double availableToPromise = ((Double) getProductInventoryAvailableResult.get("availableToPromiseTotal")).doubleValue();
+
+                        if (itemQuantity <= availableToPromise) {
+                            dropShipQuantity = 0;
+                        } else {
+                            dropShipQuantity = itemQuantity - availableToPromise;
+                        }
+
+                    } catch (Exception e) {
+                        Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderRunServiceGetInventoryAvailableByFacilityError", locale) + e.getMessage(), module);
+                    }
+                } else {
+                    
+                    // Don't drop ship anything if the product isn't so marked
+                    dropShipQuantity = 0;
+                }
+
+                if (dropShipQuantity <= 0) continue;
+                
+                // Find a supplier for the product
+                String supplierPartyId = null;
+                try {
+                    Map getSuppliersForProductResult = dispatcher.runSync("getSuppliersForProduct", UtilMisc.toMap("productId", productId, "quantity", new Double(dropShipQuantity), "canDropShip", "Y", "currencyUomId", getCurrency()));
+                    List supplierProducts = (List) getSuppliersForProductResult.get("supplierProducts");
+                    
+                    // Order suppliers by supplierPrefOrderId so that preferred suppliers are used first
+                    supplierProducts = EntityUtil.orderBy(supplierProducts, UtilMisc.toList("supplierPrefOrderId"));
+                    GenericValue supplierProduct = EntityUtil.getFirst(supplierProducts);
+                    if (! UtilValidate.isEmpty(supplierProduct)) {
+                        supplierPartyId = supplierProduct.getString("partyId");
+                    }
+                } catch (Exception e) {
+                    Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderRunServiceGetSuppliersForProductError", locale) + e.getMessage(), module);
+                }
+                
+                // Leave the items untouched if we couldn't find a supplier
+                if (UtilValidate.isEmpty(supplierPartyId)) continue;
+                
+                if (! dropShipItems.containsKey(supplierPartyId)) dropShipItems.put(supplierPartyId, new HashMap());
+                Map supplierCartItems = (Map) dropShipItems.get(supplierPartyId);
+
+                if (! supplierCartItems.containsKey(cartItem)) supplierCartItems.put(cartItem, new HashMap());
+                Map cartItemGroupQuantities = (Map) supplierCartItems.get(cartItem);
+
+                cartItemGroupQuantities.put(new Integer(shipGroupIndex), new Double(dropShipQuantity));
+            }
+        }
+
+        // Reassign the drop-shippable item quantities to new or existing drop-ship groups
+        Iterator dsit = dropShipItems.keySet().iterator();
+        while (dsit.hasNext()) {
+            String supplierPartyId = (String) dsit.next();
+
+            CartShipInfo shipInfo = null;
+            int newShipGroupIndex = -1 ;
+            
+            // Attempt to get the first ship group for the supplierPartyId
+            TreeMap supplierShipGroups = (TreeMap) this.getShipGroupsBySupplier(supplierPartyId);
+            if (! UtilValidate.isEmpty(supplierShipGroups)) {
+                newShipGroupIndex = ((Integer) supplierShipGroups.firstKey()).intValue();
+                shipInfo = (CartShipInfo) supplierShipGroups.get(supplierShipGroups.firstKey());
+            }
+            if (newShipGroupIndex == -1) {
+                newShipGroupIndex = addShipInfo();
+                shipInfo = (CartShipInfo) this.shipInfo.get(newShipGroupIndex);
+            }
+            shipInfo.supplierPartyId = supplierPartyId;
+
+            Map supplierCartItems = (Map) dropShipItems.get(supplierPartyId);
+            Iterator itit = supplierCartItems.keySet().iterator();
+            while (itit.hasNext()) {
+
+                ShoppingCartItem cartItem = (ShoppingCartItem) itit.next();
+                Map cartItemGroupQuantities = (Map) supplierCartItems.get(cartItem);
+                Iterator cigit = cartItemGroupQuantities.keySet().iterator();
+                while (cigit.hasNext()) {
+
+                    Integer previousShipGroupIndex = (Integer) cigit.next();
+                    double dropShipQuantity = ((Double) cartItemGroupQuantities.get(previousShipGroupIndex)).doubleValue();
+                    positionItemToGroup(cartItem, dropShipQuantity, previousShipGroupIndex.intValue(), newShipGroupIndex, true);
+                }
+            }
+        }
+    }
+    
     static class BasePriceOrderComparator implements Comparator, Serializable {
         private boolean ascending = false;
 

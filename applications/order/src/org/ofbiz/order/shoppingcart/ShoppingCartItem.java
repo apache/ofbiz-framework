@@ -928,6 +928,11 @@ public class ShoppingCartItem implements java.io.Serializable {
         // set the item ship group
         if (resetShipGroup) {
             cart.clearItemShipInfo(this);
+
+            /*
+
+            // Deprecated in favour of ShoppingCart.createDropShipGroups(), called during checkout
+
             int shipGroupIndex = -1;
             if ("PURCHASE_ORDER".equals(cart.getOrderType())) {
                 shipGroupIndex = 0;
@@ -963,7 +968,6 @@ public class ShoppingCartItem implements java.io.Serializable {
                         Debug.logWarning("Error calling getSuppliersForProduct service, result is: " + supplierProductsResult, module);
                     }
                 }
-                // TODO: implement auto drop-ship on low qoh
 
                 if (shipGroupIndex == -1) {
                     List shipGroups = cart.getShipGroups();
@@ -981,6 +985,8 @@ public class ShoppingCartItem implements java.io.Serializable {
                 }
             }
             cart.setItemShipGroupQty(this, quantity, shipGroupIndex);
+            */
+            cart.setItemShipGroupQty(this, quantity, 0);
         }
     }
 

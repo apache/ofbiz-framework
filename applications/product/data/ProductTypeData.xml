@@ -412,7 +412,7 @@
     <!-- PRODRQM_DS: a drop ship group is created to trigger automatic creation of a purchase order (drop shipment) every time a sales order is created-->
     <Enumeration description="Drop-ship only" enumCode="DROPS" enumId="PRODRQM_DS" sequenceId="06" enumTypeId="PROD_REQ_METHOD"/>
     <!-- PRODRQM_DSQOH: auto drop ship on low quantity on hand -->
-    <Enumeration description="Auto drop-ship on low quantity" enumCode="DROPS_QOH" enumId="PRODRQM_DSQOH" sequenceId="07" enumTypeId="PROD_REQ_METHOD"/>
+    <Enumeration description="Auto drop-ship on low quantity" enumCode="DROPS_ATP" enumId="PRODRQM_DSATP" sequenceId="07" enumTypeId="PROD_REQ_METHOD"/>
 
     <!-- inventory item status -->
     <StatusType description="Inventory Item" hasTable="N" parentTypeId="" statusTypeId="INVENTORY_ITEM_STTS"/>

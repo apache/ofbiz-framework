@@ -630,6 +630,15 @@ public class CheckOutEvents {
             }
         }
 
+        // Reassign items requiring drop-shipping to new or existing drop-ship groups
+        if ("init".equals(mode) || "default".equals(mode)) {
+            try {
+                cart.createDropShipGroups(dispatcher);
+            } catch (CartItemModifyException e) {
+                Debug.logError(e, module);
+            }
+        }
+        
         // set the customer info
         if (mode != null && mode.equals("default")) {
             cart.setDefaultCheckoutOptions(dispatcher);
