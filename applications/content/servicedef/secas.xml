@@ -74,20 +74,20 @@ under the License.
     <eca service="createDataText" event="invoke">
         <condition field-name="dataResourceTypeId" operator="equals" value="ELECTRONIC_TEXT"/>
         <set field-name="dataResourceTypeId" value="ELECTRONIC_TEXT"/>
-        <action service="createElectronicText" mode="sync"/>
+        <action service="createElectronicText" mode="sync" result-to-context="true"/>
     </eca>
     <eca service="createDataText" event="invoke">
         <condition field-name="dataResourceTypeId" operator="not-equals" value="ELECTRONIC_TEXT"/>
         <set field-name="dataResourceTypeId" value="SHORT_TEXT"/>
-        <action service="createDataResource" mode="sync"/>
+        <action service="createDataResource" mode="sync" result-to-context="true"/>
     </eca>
     <eca service="updateDataText" event="invoke">
         <condition field-name="dataResourceTypeId" operator="equals" value="ELECTRONIC_TEXT"/>
-        <action service="updateElectronicText" mode="sync"/>
+        <action service="updateElectronicText" mode="sync" result-to-context="true"/>
     </eca>
     <eca service="updateDataText" event="invoke">
         <condition field-name="dataResourceTypeId" operator="not-equals" value="ELECTRONIC_TEXT"/>
-        <action service="updateDataResource" mode="sync"/>
+        <action service="updateDataResource" mode="sync" result-to-context="true"/>
     </eca>
 
     <!-- electronic text; needs dataResourceId -->
