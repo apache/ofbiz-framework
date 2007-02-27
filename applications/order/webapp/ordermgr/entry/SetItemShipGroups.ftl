@@ -34,7 +34,7 @@ under the License.
               <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
               <tr>
                 <td colspan="2">
-                    <div class="head1">${uiLabelMap.OrderShipGroup} # ${currIndex}<#if supplier?has_content> - ${supplier.groupName?default(supplier.partyId)}</#if></div>
+                    <div class="head1">${uiLabelMap.OrderShipGroup} # ${currIndex}<#if supplier?has_content> - ${uiLabelMap.OrderDropShipped} - ${supplier.groupName?default(supplier.partyId)}</#if></div>
                 </td>
               </tr>
               <tr>
@@ -45,10 +45,10 @@ under the License.
                     <div class="tableheadtext">${uiLabelMap.CommonQuantity}</div>
                 </td>
                 <td>
-                    <div class="tableheadtext">&nbsp;</div>
+                    <div class="tableheadtext">${uiLabelMap.ProductMoveQuantity}</div>
                 </td>
                 <td>
-                    <div class="tableheadtext">${uiLabelMap.CommonTo}</div>
+                    <div class="tableheadtext">${uiLabelMap.OrderShipGroupTo}</div>
                 </td>
               </tr>
 
@@ -89,6 +89,7 @@ under the License.
               </#list>
               <#if (rowCount > 0)>
               <tr>
+                <td colspan="3">&nbsp;</td>
                 <td>
                 <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonSubmit}"/>
                 </td>
