@@ -30,14 +30,14 @@ import org.ofbiz.service.ServiceDispatcher;
  * RouteEngine.java
  */
 public class RouteEngine implements GenericEngine {
-    
+
     public RouteEngine(ServiceDispatcher dispatcher) { }
 
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */    
     public Map runSync(String localName, ModelService modelService, Map context) throws GenericServiceException {
-        return new HashMap();
+        return modelService.makeValid(context, ModelService.OUT_PARAM);        
     }
 
     /**
