@@ -548,9 +548,10 @@ public class UtilHttp {
      * @param response HttpServletResponse object to get OutputStream from
      * @param bytes Byte array of content to stream
      * @param contentType The content type to pass to the browser
+     * @param fileName the fileName to tell the browser we are downloading
      * @throws IOException
      */
-    public static void streamContentToBrowser(HttpServletResponse response, byte[] bytes, String contentType) throws IOException {
+    public static void streamContentToBrowser(HttpServletResponse response, byte[] bytes, String contentType, String fileName) throws IOException {
         // tell the browser not the cache
         setResponseBrowserProxyNoCache(response);
 
@@ -558,6 +559,9 @@ public class UtilHttp {
         response.setContentLength(bytes.length);
         if (contentType != null) {
             response.setContentType(contentType);
+        }
+        if (fileName != null) {
+            response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
         }
 
         // create the streams
@@ -581,6 +585,10 @@ public class UtilHttp {
         out.close();
     }
 
+    public static void streamContentToBrowser(HttpServletResponse response, byte[] bytes, String contentType) throws IOException {
+        streamContentToBrowser(response, bytes, contentType, null);
+    }
+
     /**
      * Streams content from InputStream to the ServletOutputStream
      * This method will close the ServletOutputStream when finished
@@ -592,7 +600,7 @@ public class UtilHttp {
      * @param contentType The content type to pass to the browser
      * @throws IOException
      */
-    public static void streamContentToBrowser(HttpServletResponse response, InputStream in, int length, String contentType) throws IOException {
+    public static void streamContentToBrowser(HttpServletResponse response, InputStream in, int length, String contentType, String fileName) throws IOException {
         // tell the browser not the cache
         setResponseBrowserProxyNoCache(response);
 
@@ -600,6 +608,9 @@ public class UtilHttp {
         response.setContentLength(length);
         if (contentType != null) {
             response.setContentType(contentType);
+        }
+        if (fileName != null) {
+            response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
         }
 
         // stream the content
@@ -614,6 +625,10 @@ public class UtilHttp {
         // close the servlet output stream
         out.flush();
         out.close();
+    }
+
+    public static void streamContentToBrowser(HttpServletResponse response, InputStream in, int length, String contentType) throws IOException {
+        streamContentToBrowser(response, in, length, contentType, null);
     }
 
     /**
