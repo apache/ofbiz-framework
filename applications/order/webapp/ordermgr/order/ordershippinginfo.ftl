@@ -61,8 +61,9 @@ under the License.
                 </tr>
                 </#if>
                 
-                <#if shipGroup.shipmentMethodTypeId?has_content>
-                <tr>
+                <#-- the setting of shipping method is only supported for sales orders at this time --> 
+                <#if orderHeader.orderTypeId == "SALES_ORDER" && shipGroup.shipmentMethodTypeId?has_content>
+                  <tr>
                     <td align="right" valign="top" width="15%">
                         <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonMethod}</b></div>
                     </td>
