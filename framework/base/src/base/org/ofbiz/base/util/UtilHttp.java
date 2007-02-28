@@ -782,8 +782,8 @@ public class UtilHttp {
      * suffix is the composite field, such as the hour of the meeting. The
      * result would be meetingDate_${COMPOSITE_DELIMITER}_hour.
      * 
-     * @param paramName
-     * @param compositeName
+     * @param prefix
+     * @param suffix
      * @return
      */
     public static String makeCompositeParam(String prefix, String suffix) {
