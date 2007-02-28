@@ -66,7 +66,7 @@
         <attribute name="contentId" type="String" mode="OUT" optional="false"/>
     </service>
 
-    <service name="uploadFileToDataResource" engine="simple" transaction-timeout="300"
+    <service name="attachUploadToDataResource" engine="simple" transaction-timeout="300"
              location="org/ofbiz/content/data/DataServices.xml" invoke="attachUploadToDataResource">
         <description>Accepts uploaded content and attaches to an existing data resource</description>
         <!-- uses createContent internally; additonal permission(s) not necessary -->
@@ -79,8 +79,17 @@
         <!-- uses createContent internally; additonal permission(s) not necessary -->
         <group>
             <invoke name="createDataResource" parameters="preserve" result-to-context="true"/>
-            <invoke name="uploadFileToDataResource" parameters="preserve" result-to-context="true"/>
+            <invoke name="attachUploadToDataResource" parameters="preserve" result-to-context="true"/>
             <invoke name="createContentFromDataResource"/>
+        </group>
+    </service>
+
+    <service name="updateContentAndUploadedFile" engine="group" transaction-timeout="300">
+        <description>Accepts file upload, updates DataResource and Content records.</description>
+        <group>
+            <invoke name="updateDataResource" parameters="preserve" result-to-context="true"/>
+            <invoke name="attachUploadToDataResource" parameters="preserve" result-to-context="true"/>
+            <invoke name="updateContent"/>
         </group>
     </service>
 

@@ -77,8 +77,21 @@ under the License.
         <action service="createElectronicText" mode="sync" result-to-context="true"/>
     </eca>
     <eca service="createDataText" event="invoke">
-        <condition field-name="dataResourceTypeId" operator="not-equals" value="ELECTRONIC_TEXT"/>
+        <condition field-name="dataResourceTypeId" operator="is-empty"/>
+        <condition field-name="textData" operator="is-not-empty"/> 
+        <set field-name="dataResourceTypeId" value="ELECTRONIC_TEXT"/>
+        <action service="createElectronicText" mode="sync" result-to-context="true"/>
+    </eca>
+    <eca service="createDataText" event="invoke">
+        <condition field-name="dataResourceTypeId" operator="is-empty"/>
+        <condition field-name="textData" operator="is-empty"/>
         <set field-name="dataResourceTypeId" value="SHORT_TEXT"/>
+        <action service="createDataResource" mode="sync" result-to-context="true"/>
+    </eca>
+    <eca service="createDataText" event="invoke">
+        <condition field-name="dataResourceTypeId" operator="not-equals" value="ELECTRONIC_TEXT"/>
+        <condition field-name="dataResourceTypeId" operator="is-not-empty"/>
+        <condition field-name="textData" operator="is-empty"/>
         <action service="createDataResource" mode="sync" result-to-context="true"/>
     </eca>
     <eca service="updateDataText" event="invoke">
