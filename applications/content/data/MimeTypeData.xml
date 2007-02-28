@@ -38,6 +38,7 @@ under the License.
     <MimeType mimeTypeId="application/zip" description="ZIP Data"/>
     <MimeType mimeTypeId="application/pdf" description="Adobe Portable Document Format (PDF)"/>
     <MimeType mimeTypeId="application/msword" description="Microsoft Word"/>
+    <MimeType mimeTypeId="application/x-shockwave-flash" description="Shockwave Flash Movie"/>
     <MimeType mimeTypeId="application/x-zip-compressed" description="ZIP compressed file"/>
     <MimeType mimeTypeId="application/vnd.oasis.opendocument.text" description="OpenOffice OpenDocument Text"/>
     <MimeType mimeTypeId="application/vnd.ofbiz.survey" description="Survey"/>
@@ -48,6 +49,8 @@ under the License.
     <!-- audio mime types -->
     <MimeType mimeTypeId="audio/basic" description="Basic Audio"/>
     <MimeType mimeTypeId="audio/mpeg" description="MPEG Audio"/>
+    <MimeType mimeTypeId="audio/x-ms-wax" description="WAX Audio"/>
+    <MimeType mimeTypeId="audio/x-ms-wma" description="WMA Audio"/>
 
     <!-- image mime types -->
     <MimeType mimeTypeId="image/jpeg" description="JPEG/JPG Image"/>
@@ -90,9 +93,22 @@ under the License.
     <MimeType mimeTypeId="text/xml" description="XML Text"/>
 
     <!-- video mime types -->
+    <MimeType mimeTypeId="video/avi" description="AVI Video"/>
     <MimeType mimeTypeId="video/mpeg" description="MPEG/MPG Video"/>
     <MimeType mimeTypeId="video/quicktime" description="Quicktime Video"/>
+    <MimeType mimeTypeId="video/x-ms-asf" description="ASF Video"/>
+    <MimeType mimeTypeId="video/x-flv" descripton="Flash Streaming Video"/>
+    <MimeType mimeTypeId="video/x-ms-wvx" description="WVX Video"/>
+    <MimeType mimeTypeId="video/x-ms-wm" description="WM Video"/>
+    <MimeType mimeTypeId="video/x-ms-wmv" description="WMV Video"/>
+    <MimeType mimeTypeId="video/x-ms-wmx" description="WMX Video"/>
 
+    <FileExtension fileExtensionId="asf" mimeTypeId="video/x-ms-asf"/>
+    <FileExtension fileExtensionId="asx" mimeTypeId="video/x-ms-asf"/>
+    <FileExtension fileExtensionId="avi" mimeTypeId="video/avi"/>
+    <FileExtension fileExtensionId="css" mimeTypeId="text/css"/>
+    <FileExtension fileExtensionId="flv" mimeTypeId="video/x-flv"/>
+    <FileExtension fileExtensionId="jpg" mimeTypeId="image/jpeg"/>
     <FileExtension fileExtensionId="jpg" mimeTypeId="image/jpeg"/>
     <FileExtension fileExtensionId="jpeg" mimeTypeId="image/jpeg"/>
     <FileExtension fileExtensionId="tif" mimeTypeId="image/tiff"/>
@@ -102,16 +118,22 @@ under the License.
     <FileExtension fileExtensionId="mpg" mimeTypeId="video/mpeg"/>
     <FileExtension fileExtensionId="mpeg" mimeTypeId="video/mpeg"/>
     <FileExtension fileExtensionId="mov" mimeTypeId="video/quicktime"/>
-    <FileExtension fileExtensionId="qt" mimeTypeId="video/quicktime"/>
+    <FileExtension fileExtensionId="pdf" mimeTypeId="application/pdf"/>
     <FileExtension fileExtensionId="ps" mimeTypeId="application/postscript"/>
+    <FileExtension fileExtensionId="qt" mimeTypeId="video/quicktime"/>
     <FileExtension fileExtensionId="rtf" mimeTypeId="text/rtf"/>
+    <FileExtension fileExtensionId="swf" mimeTypeId="application/x-shockwave-flash"/>
     <FileExtension fileExtensionId="txt" mimeTypeId="text/plain"/>
-    <FileExtension fileExtensionId="css" mimeTypeId="text/css"/>
     <FileExtension fileExtensionId="html" mimeTypeId="text/html"/>
     <FileExtension fileExtensionId="xml" mimeTypeId="text/xml"/>
     <FileExtension fileExtensionId="vrml" mimeTypeId="model/vrml"/>
     <FileExtension fileExtensionId="doc" mimeTypeId="application/msword"/>
     <FileExtension fileExtensionId="odt" mimeTypeId="application/vnd.oasis.opendocument.text"/>
+    <FileExtension fileExtensionId="wvx" mimeTypeId="video/x-ms-wvx"/>
+    <FileExtension fileExtensionId="wm" mimeTypeId="video/x-ms-wm"/>
+    <FileExtension fileExtensionId="wmv" mimeTypeId="video/x-ms-wmv"/>
+    <FileExtension fileExtensionId="wmx" mimeTypeId="video/x-ms-wmx"/>
+    <FileExtension fileExtensionId="zip" mimeTypeId="application/zip"/>
 
     <!-- Registered MIME Types:
     MEDIA TYPES
