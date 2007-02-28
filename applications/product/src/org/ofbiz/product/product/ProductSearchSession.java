@@ -511,6 +511,31 @@ public class ProductSearchSession {
             searchAddConstraint(new ProductSearch.ListPriceRangeConstraint(listPriceLow, listPriceHigh, listPriceCurrency), session);
             constraintsChanged = true;
         }
+        if (UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_RANGE"))) {
+            String listPriceRangeStr = (String) parameters.get("LIST_PRICE_RANGE");
+            String listPriceLowStr = listPriceRangeStr.substring(0, listPriceRangeStr.indexOf("_")); 
+            String listPriceHighStr = listPriceRangeStr.substring(listPriceRangeStr.indexOf("_") + 1); 
+
+            Double listPriceLow = null;
+            Double listPriceHigh = null;
+            String listPriceCurrency = UtilHttp.getCurrencyUom(request);
+            if (UtilValidate.isNotEmpty(listPriceLowStr)) {
+                try {
+                    listPriceLow = Double.valueOf(listPriceLowStr);
+                } catch (NumberFormatException e) {
+                    Debug.logError("Error parsing low part of LIST_PRICE_RANGE parameter [" + listPriceLowStr + "]: " + e.toString(), module);
+                }
+            }
+            if (UtilValidate.isNotEmpty(listPriceHighStr)) {
+                try {
+                    listPriceHigh = Double.valueOf(listPriceHighStr);
+                } catch (NumberFormatException e) {
+                    Debug.logError("Error parsing high part of LIST_PRICE_RANGE parameter [" + listPriceHighStr + "]: " + e.toString(), module);
+                }
+            }
+            searchAddConstraint(new ProductSearch.ListPriceRangeConstraint(listPriceLow, listPriceHigh, listPriceCurrency), session);
+            constraintsChanged = true;
+        }
         
         // check the ProductStore to see if we should add the ExcludeVariantsConstraint
         if (productStore != null && !"N".equals(productStore.getString("prodSearchExcludeVariants"))) {
