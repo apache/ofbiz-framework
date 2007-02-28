@@ -401,6 +401,7 @@ public class ProductSearchSession {
         }
         HttpSession session = request.getSession();
         boolean constraintsChanged = false;
+        GenericValue productStore = ProductStoreWorker.getProductStore(request);
         
         // clear search? by default yes, but if the clearSearch parameter is N then don't
         String clearSearchString = (String) parameters.get("clearSearch");
@@ -488,8 +489,30 @@ public class ProductSearchSession {
             constraintsChanged = true;
         }
         
+        // add a list price range to the search
+        if (UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_LOW")) || UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_HIGH"))) {
+            Double listPriceLow = null;
+            Double listPriceHigh = null;
+            String listPriceCurrency = UtilHttp.getCurrencyUom(request);
+            if (UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_LOW"))) {
+                try {
+                    listPriceLow = Double.valueOf((String) parameters.get("LIST_PRICE_LOW"));
+                } catch (NumberFormatException e) {
+                    Debug.logError("Error parsing LIST_PRICE_LOW parameter [" + (String) parameters.get("LIST_PRICE_LOW") + "]: " + e.toString(), module);
+                }
+            }
+            if (UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_HIGH"))) {
+                try {
+                    listPriceHigh = Double.valueOf((String) parameters.get("LIST_PRICE_HIGH"));
+                } catch (NumberFormatException e) {
+                    Debug.logError("Error parsing LIST_PRICE_HIGH parameter [" + (String) parameters.get("LIST_PRICE_HIGH") + "]: " + e.toString(), module);
+                }
+            }
+            searchAddConstraint(new ProductSearch.ListPriceRangeConstraint(listPriceLow, listPriceHigh, listPriceCurrency), session);
+            constraintsChanged = true;
+        }
+        
         // check the ProductStore to see if we should add the ExcludeVariantsConstraint
-        GenericValue productStore = ProductStoreWorker.getProductStore(request);
         if (productStore != null && !"N".equals(productStore.getString("prodSearchExcludeVariants"))) {
             searchAddConstraint(new ProductSearch.ExcludeVariantsConstraint(), session);
             // not consider this a change for now, shouldn't change often: constraintsChanged = true;
