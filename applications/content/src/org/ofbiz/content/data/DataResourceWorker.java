@@ -625,9 +625,12 @@ public class DataResourceWorker {
                     
                     // prepare the map for preRenderedContent
                     Map prc = FastMap.newInstance();
-                    String mapKey = (String) context.get("mapKey");
                     String textData = (String) context.get("textData");
-                    prc.put("body", textData);
+                    String mapKey = (String) context.get("mapKey");
+                    if (mapKey != null) {
+                        prc.put(mapKey, textData);
+                    }
+                    prc.put("body", textData); // used for default screen defs
                     context.put("preRenderedContent", prc);
 
                     ScreenRenderer screens = (ScreenRenderer) context.get("screens");

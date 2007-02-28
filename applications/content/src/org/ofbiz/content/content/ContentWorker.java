@@ -61,6 +61,7 @@ import org.xml.sax.SAXException;
 
 import bsh.EvalError;
 import freemarker.ext.dom.NodeModel;
+import javolution.util.FastMap;
 //import com.clarkware.profiler.Profiler;
 
 /**
@@ -1235,7 +1236,25 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         }
 
         if (templateContext == null) {
-            templateContext = new HashMap();
+            templateContext = FastMap.newInstance();
+        }
+
+        // render all sub-content; place in template context under mapKey name
+        List subContent = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId,
+                "contentAssocTypeId", "SUB_CONTENT"), UtilMisc.toList("-fromDate"));
+        subContent = EntityUtil.filterByDate(subContent);
+        
+        if (subContent != null && subContent.size() > 0) {
+            Iterator i = subContent.iterator();
+            while (i.hasNext()) {
+                GenericValue contentAssoc = (GenericValue) i.next();
+                String contentIdTo = contentAssoc.getString("contentIdTo");
+                String key = contentAssoc.getString("mapKey");
+                String textData = ContentWorker.renderContentAsTextCache(delegator, contentIdTo, FastMap.newInstance(), null, locale, mimeTypeId);
+                if (UtilValidate.isNotEmpty(textData)) {
+                    templateContext.put(key, textData);
+                }                
+            }
         }
 
         // TODO: what should we REALLY do here? looks like there is no decision between Java and Service style error handling...
