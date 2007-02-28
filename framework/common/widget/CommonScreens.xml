@@ -128,8 +128,10 @@ under the License.
                             <include-screen name="${leftbarScreenName}" location="${leftbarScreenLocation}"/>
 
                             <container id="content-main-section" style="${MainColumnStyle}">
-                                <!-- render messages -->
-                                <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
+                                <container id="content-messages">
+                                    <!-- render messages -->
+                                    <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
+                                </container>
                                 <decorator-section-include name="body"/>
                             </container>
                             <container style="endcolumns"><label text="&amp;nbsp;"/></container>
