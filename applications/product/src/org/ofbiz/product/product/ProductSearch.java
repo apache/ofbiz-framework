@@ -1004,20 +1004,74 @@ public class ProductSearch {
         public static final String constraintName = "ListPriceRange";
         protected Double lowPrice;
         protected Double highPrice;
+        protected String currencyUomId;
 
-        public ListPriceRangeConstraint(Double lowPrice, Double highPrice) {
+        public ListPriceRangeConstraint(Double lowPrice, Double highPrice, String currencyUomId) {
             this.lowPrice = lowPrice;
             this.highPrice = highPrice;
+            this.currencyUomId = UtilValidate.isNotEmpty(currencyUomId) ? currencyUomId : "USD";
         }
 
         public void addConstraint(ProductSearchContext productSearchContext) {
-            // TODO: implement ListPriceRangeConstraint makeEntityCondition
+            // make index based values and increment
+            String entityAlias = "PP" + productSearchContext.index;
+            String prefix = "pp" + productSearchContext.index;
+            productSearchContext.index++;
+
+            productSearchContext.dynamicViewEntity.addMemberEntity(entityAlias, "ProductPrice");
+            
+            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductPriceTypeId", "productPriceTypeId", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductPricePurposeId", "productPricePurposeId", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "CurrencyUomId", "currencyUomId", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductStoreGroupId", "productStoreGroupId", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "Price", "price", null, null, null, null);
+
+            productSearchContext.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+            
+            productSearchContext.entityConditionList.add(new EntityExpr(prefix + "ProductPriceTypeId", EntityOperator.EQUALS, "LIST_PRICE"));
+            productSearchContext.entityConditionList.add(new EntityExpr(prefix + "ProductPricePurposeId", EntityOperator.EQUALS, "PURCHASE"));
+            productSearchContext.entityConditionList.add(new EntityExpr(prefix + "CurrencyUomId", EntityOperator.EQUALS, currencyUomId));
+            productSearchContext.entityConditionList.add(new EntityExpr(prefix + "ProductStoreGroupId", EntityOperator.EQUALS, "_NA_"));
+            productSearchContext.entityConditionList.add(new EntityExpr(new EntityExpr(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(prefix + "ThruDate", EntityOperator.GREATER_THAN, productSearchContext.nowTimestamp)));
+            productSearchContext.entityConditionList.add(new EntityExpr(prefix + "FromDate", EntityOperator.LESS_THAN, productSearchContext.nowTimestamp));
+            if (this.lowPrice != null) {
+                productSearchContext.entityConditionList.add(new EntityExpr(prefix + "Price", EntityOperator.GREATER_THAN_EQUAL_TO, this.lowPrice));
+            }
+            if (this.highPrice != null) {
+                productSearchContext.entityConditionList.add(new EntityExpr(prefix + "Price", EntityOperator.LESS_THAN_EQUAL_TO, this.highPrice));
+            }
+
+            // add in productSearchConstraint, don't worry about the productSearchResultId or constraintSeqId, those will be fill in later
+            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", 
+                    UtilMisc.toMap("constraintName", constraintName, "infoString", "low [" + this.lowPrice + "] high [" + this.highPrice + "] currency [" + this.currencyUomId + "]")));
         }
 
-        /** pretty print for log messages and even UI stuff */
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
-            // TODO: implement the pretty print for log messages and even UI stuff
-            return null;
+            if (this.lowPrice == null && this.highPrice == null) {
+                // dummy constraint, no values
+                return null;
+            }
+            StringBuffer msgBuf = new StringBuffer();
+            msgBuf.append(UtilProperties.getMessage(resource, "ListPriceRange", locale));
+            msgBuf.append(": ");
+            
+            // NOTE: at this point we know that only one or none are null
+            if (this.lowPrice == null) {
+                msgBuf.append(UtilProperties.getMessage(resource, "CommonLessThan", locale));
+                msgBuf.append(" ");
+                msgBuf.append(this.highPrice);
+            } else if (this.highPrice == null) {
+                msgBuf.append(UtilProperties.getMessage(resource, "CommonMoreThan", locale));
+                msgBuf.append(" ");
+                msgBuf.append(this.lowPrice);
+            } else {
+                msgBuf.append(this.lowPrice);
+                msgBuf.append(" - ");
+                msgBuf.append(this.highPrice);
+            }
+            return msgBuf.toString();
         }
 
         public boolean equals(Object obj) {
