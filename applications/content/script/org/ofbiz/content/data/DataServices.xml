@@ -516,9 +516,9 @@ under the License.
         <log level="always" message="result:${result}"/>
         <log level="always" message="parameters:${parameters}"/>
     </simple-method>
-
-    <!-- Determines which type of uploaded file this is and calls the proper method -->
+    
     <simple-method method-name="attachUploadToDataResource" short-description="Attach an uploaded file to a data resource">
+        <set field="isUpdate" value="false"/>
         <if-empty field-name="parameters.dataResourceTypeId">
             <!-- create default behavior -->
             <if>
@@ -568,21 +568,45 @@ under the License.
         </if-compare>
 
         <if-compare field-name="parameters.dataResourceTypeId" value="IMAGE_OBJECT" operator="equals">
+            <entity-one entity-name="ImageDataResource" value-name="dataResObj">
+                <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
+            </entity-one>
+            <if-not-empty field-name="dataResObj">
+                <set field="isUpdate" value="true"/>
+            </if-not-empty>
             <call-simple-method method-name="saveImageObjectDateResource"/>
             <return/>
         </if-compare>
 
         <if-compare field-name="parameters.dataResourceTypeId" value="VIDEO_OBJECT" operator="equals">
-            <call-simple-method method-name="saveImageObjectDateResource"/>
+            <entity-one entity-name="VideoDataResource" value-name="dataResObj">
+                <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
+            </entity-one>
+            <if-not-empty field-name="dataResObj">
+                <set field="isUpdate" value="true"/>
+            </if-not-empty>
+            <call-simple-method method-name="saveVideoObjectDateResource"/>
             <return/>
         </if-compare>
 
         <if-compare field-name="parameters.dataResourceTypeId" value="AUDIO_OBJECT" operator="equals">
-            <call-simple-method method-name="saveImageObjectDateResource"/>
+            <entity-one entity-name="AudioDataResource" value-name="dataResObj">
+                <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
+            </entity-one>
+            <if-not-empty field-name="dataResObj">
+                <set field="isUpdate" value="true"/>
+            </if-not-empty>
+            <call-simple-method method-name="saveAudioObjectDateResource"/>
             <return/>
         </if-compare>
 
         <if-compare field-name="parameters.dataResourceTypeId" value="OTHER_OBJECT" operator="equals">
+            <entity-one entity-name="OtherDataResource" value-name="dataResObj">
+                <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
+            </entity-one>
+            <if-not-empty field-name="dataResObj">
+                <set field="isUpdate" value="true"/>
+            </if-not-empty>
             <call-simple-method method-name="saveOtherObjectDateResource"/>
             <return/>
         </if-compare>
@@ -649,8 +673,14 @@ under the License.
 
         <!-- fields serviceName and fileField are required to be set by calling method -->
         <set-service-fields service-name="createOtherDataResource" map-name="dataResource" to-map-name="serviceContext"/>
-        <set from-field="parameters.uploadedFile" field="serviceContext.dataResourceContent"/>
-        <call-service service-name="createOtherDataResource" in-map-name="serviceContext"/>
+        <set from-field="parameters.uploadedFile" field="serviceContext.dataResourceContent"/>        
+
+        <if-compare field-name="isUpdate" value="true" operator="equals">
+            <call-service service-name="updateOtherDataResource" in-map-name="serviceContext"/>
+            <else>
+                <call-service service-name="createOtherDataResource" in-map-name="serviceContext"/>
+            </else>
+        </if-compare>
 
         <field-to-result field-name="dataResourceId" map-name="dataResource"/>
     </simple-method>
@@ -676,8 +706,14 @@ under the License.
 
         <!-- fields serviceName and fileField are required to be set by calling method -->
         <set-service-fields service-name="createImageDataResource" map-name="dataResource" to-map-name="serviceContext"/>
-        <set from-field="parameters.uploadedFile" field="serviceContext.imageData"/>
-        <call-service service-name="createImageDataResource" in-map-name="serviceContext"/>
+        <set from-field="parameters.uploadedFile" field="serviceContext.imageData"/>        
+
+        <if-compare field-name="isUpdate" value="true" operator="equals">
+            <call-service service-name="updateImageDataResource" in-map-name="serviceContext"/>
+            <else>
+                <call-service service-name="createImageDataResource" in-map-name="serviceContext"/>
+            </else>
+        </if-compare>
 
         <field-to-result field-name="dataResourceId" map-name="dataResource"/>
     </simple-method>
@@ -704,7 +740,13 @@ under the License.
         <!-- fields serviceName and fileField are required to be set by calling method -->
         <set-service-fields service-name="createVideoDataResource" map-name="dataResource" to-map-name="serviceContext"/>
         <set from-field="parameters.uploadedFile" field="serviceContext.videoData"/>
-        <call-service service-name="createVideoDataResource" in-map-name="serviceContext"/>
+
+        <if-compare field-name="isUpdate" value="true" operator="equals">
+            <call-service service-name="updateVideoDataResource" in-map-name="serviceContext"/>
+            <else>
+                <call-service service-name="createVideoDataResource" in-map-name="serviceContext"/>
+            </else>
+        </if-compare>
 
         <field-to-result field-name="dataResourceId" map-name="dataResource"/>
     </simple-method>
@@ -731,7 +773,13 @@ under the License.
         <!-- fields serviceName and fileField are required to be set by calling method -->
         <set-service-fields service-name="createAudioDataResource" map-name="dataResource" to-map-name="serviceContext"/>
         <set from-field="parameters.uploadedFile" field="serviceContext.audioData"/>
-        <call-service service-name="createAudioDataResource" in-map-name="serviceContext"/>
+
+        <if-compare field-name="isUpdate" value="true" operator="equals">
+            <call-service service-name="updateAudioDataResource" in-map-name="serviceContext"/>
+            <else>
+                <call-service service-name="createAudioDataResource" in-map-name="serviceContext"/>
+            </else>
+        </if-compare>
 
         <field-to-result field-name="dataResourceId" map-name="dataResource"/>
     </simple-method>
