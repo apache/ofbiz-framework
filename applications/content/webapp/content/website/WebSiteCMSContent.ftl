@@ -231,7 +231,7 @@
           <tr>
             <td><div class="tableheadtext">Is Public</div></td>
             <td>
-                <select name="statusId" class="selectBox">
+                <select name="isPublic" class="selectBox">
                     <#if (dataResource?has_content)>
                         <#if (dataResource.isPublic?has_content)>
                             <option>${dataResource.isPublic}</option>
