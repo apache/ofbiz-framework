@@ -2,6 +2,8 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="framework/testtools/src"/>
+	<classpathentry kind="src" path="specialpurpose/hhfacility/src"/>
+	<classpathentry kind="src" path="specialpurpose/assetmaint/src"/>
 	<classpathentry kind="src" path="specialpurpose/pos/src"/>
 	<classpathentry kind="src" path="framework/base/src/base"/>
 	<classpathentry kind="src" path="framework/base/src/start"/>
