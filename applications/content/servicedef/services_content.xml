@@ -72,6 +72,7 @@
         <!-- uses createContent internally; additonal permission(s) not necessary -->
         <implements service="uploadFileInterface"/>
         <attribute name="dataResourceId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="mimeTypeId" type="String" mode="INOUT" optional="false"/>
     </service>
 
     <service name="createContentFromUploadedFile" engine="group" transaction-timeout="300">

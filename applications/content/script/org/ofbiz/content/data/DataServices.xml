@@ -650,6 +650,7 @@ under the License.
         <call-service service-name="createAnonFile" in-map-name="fileCtx" include-user-login="true"/>
 
         <field-to-result field-name="dataResourceId" map-name="dataResource"/>
+        <field-to-result field-name="mimeTypeId" map-name="dataResource"/>
     </simple-method>
 
     <!-- save OTHER_OBJECT data -->
@@ -683,6 +684,7 @@ under the License.
         </if-compare>
 
         <field-to-result field-name="dataResourceId" map-name="dataResource"/>
+        <field-to-result field-name="mimeTypeId" map-name="dataResource"/>
     </simple-method>
 
     <!-- save IMAGE_OBJECT data -->
@@ -716,6 +718,7 @@ under the License.
         </if-compare>
 
         <field-to-result field-name="dataResourceId" map-name="dataResource"/>
+        <field-to-result field-name="mimeTypeId" map-name="dataResource"/>
     </simple-method>
 
     <!-- save VIDEO_OBJECT data -->
@@ -749,6 +752,7 @@ under the License.
         </if-compare>
 
         <field-to-result field-name="dataResourceId" map-name="dataResource"/>
+        <field-to-result field-name="mimeTypeId" map-name="dataResource"/>
     </simple-method>
 
     <!-- save AUDIO_OBJECT data -->
@@ -782,5 +786,6 @@ under the License.
         </if-compare>
 
         <field-to-result field-name="dataResourceId" map-name="dataResource"/>
+        <field-to-result field-name="mimeTypeId" map-name="dataResource"/>
     </simple-method>
 </simple-methods>
