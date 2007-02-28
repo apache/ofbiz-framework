@@ -97,7 +97,7 @@ under the License.
     <MimeType mimeTypeId="video/mpeg" description="MPEG/MPG Video"/>
     <MimeType mimeTypeId="video/quicktime" description="Quicktime Video"/>
     <MimeType mimeTypeId="video/x-ms-asf" description="ASF Video"/>
-    <MimeType mimeTypeId="video/x-flv" descripton="Flash Streaming Video"/>
+    <MimeType mimeTypeId="video/x-flv" description="Flash Streaming Video"/>
     <MimeType mimeTypeId="video/x-ms-wvx" description="WVX Video"/>
     <MimeType mimeTypeId="video/x-ms-wm" description="WM Video"/>
     <MimeType mimeTypeId="video/x-ms-wmv" description="WMV Video"/>
