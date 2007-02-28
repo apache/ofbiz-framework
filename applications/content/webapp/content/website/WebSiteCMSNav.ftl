@@ -31,6 +31,7 @@
 	var webSiteId = '${webSiteId?if_exists}';        
     var editorUrl = '<@ofbizUrl>/views/WebSiteCMSContent</@ofbizUrl>';
     var aliasUrl = '<@ofbizUrl>/views/WebSiteCMSPathAlias</@ofbizUrl>';
+    var metaUrl = '<@ofbizUrl>/views/WebSiteCMSMetaInfo</@ofbizUrl>';
         
     dojo.addOnLoad(function() {
 		dojo.event.topic.subscribe("webCmsNodeSelected",
@@ -39,9 +40,49 @@
                 callEditor(false, message.node.widgetId, message.node.object);
 			 }
 		);
+		dojo.event.topic.subscribe("newLong/engage",
+            function (menuItem) {
+                var node = menuItem.getTreeNode();
+                callEditor(true, node.widgetId, '', 'ELECTRONIC_TEXT');
+            }
+        );
+        dojo.event.topic.subscribe("newShort/engage",
+            function (menuItem) {
+                var node = menuItem.getTreeNode();
+                callEditor(true, node.widgetId, '', 'SHORT_TEXT');
+            }
+        );
+        dojo.event.topic.subscribe("newImage/engage",
+            function (menuItem) {
+                var node = menuItem.getTreeNode();
+                callEditor(true, node.widgetId, '', 'IMAGE_OBJECT');
+            }
+        );
+        dojo.event.topic.subscribe("newVideo/engage",
+            function (menuItem) {
+                var node = menuItem.getTreeNode();
+                callEditor(true, node.widgetId, '', 'VIDEO_OBJECT');
+            }
+        );
+        dojo.event.topic.subscribe("newAudio/engage",
+            function (menuItem) {
+                var node = menuItem.getTreeNode();
+                callEditor(true, node.widgetId, '', 'AUDIO_OBJECT');
+            }
+        );
+        dojo.event.topic.subscribe("newObject/engage",
+            function (menuItem) {
+                var node = menuItem.getTreeNode();
+                callEditor(true, node.widgetId, '', 'OTHER_OBJECT');
+            }
+        );
 
 		var cmsdata = dojo.byId("cmsdata");
-		createEditor(cmsdata.value);		
+		if (cmsdata) {
+		    createEditor(cmsdata.value);
+		} else {
+		    createEditor();
+        }
         //alert("On load called!");
 	});
 
@@ -57,13 +98,51 @@
         // get the editor tag
         var editorNode = dojo.byId("cmseditor");        
 
-        if (text) {
-            editorNode.innerHTML = text;
+        if (editorNode) {
+            if (text) {
+                editorNode.innerHTML = text;
+            }
+
+            // create the widget
+            dojo.widget.createWidget("Editor2", { id: 'w_editor', minHeight: '300px',
+                    htmlEditing: true }, editorNode);
+        }
+    }
+
+    function callMetaInfo(contentId) {
+        var ctx = new Array();
+        ctx['contentId'] = contentId;
+        ctx['webSiteId'] = webSiteId;
+
+        // deselect the tree
+        var tree = dojo.widget.byId("webCmsTreeSelector");
+        if (tree && treeSelected) {
+            tree.deselect();
+            treeSelected = false;
         }
 
-        // create the widget
-        dojo.widget.createWidget("Editor2", { id: 'w_editor', minHeight: '300px',
-                htmlEditing: true }, editorNode);
+        // destroy the editor
+        var editor = dojo.widget.byId("w_editor");
+        if (editor) {
+            editor.destroy(true);
+        }
+        //dojo.html.hide("editorcontainer");
+
+        // get the meta-info screen
+        var bindArgs = {
+            url: metaUrl,
+            method: 'POST',
+            mimetype: 'text/html',
+            content: ctx,
+            error: function(type, data, evt) {
+                alert("An error occured loading content! : " + data);
+            },
+            load: function(type, data, evt) {
+                var innerPage = dojo.byId('cmscontent');
+                innerPage.innerHTML = data;                
+            }
+        };
+        dojo.io.bind(bindArgs);
     }
 
     function callPathAlias(contentId) {
@@ -83,7 +162,7 @@
         if (editor) {
             editor.destroy(true);
         }
-        dojo.html.hide("editorcontainer");
+        //dojo.html.hide("editorcontainer");
 
         // get the alias screen
         var bindArgs = {
@@ -102,7 +181,7 @@
         dojo.io.bind(bindArgs);
     }
 
-	function callEditor(sub, contentId, objstr) {
+	function callEditor(sub, contentId, objstr, dataResourceTypeId) {
 	    var ctx = new Array();
 	    if (objstr != null && objstr.length > 0) {
 	        var obj = objstr.split("|");
@@ -115,12 +194,19 @@
         ctx['webSiteId'] = webSiteId;
 
         if (sub && contentId) {
+            if (dataResourceTypeId) {
+                ctx['dataResourceTypeId'] = dataResourceTypeId;
+            }
+
             ctx['contentIdFrom'] = contentId;
             ctx['contentAssocTypeId'] = 'SUB_CONTENT';
 
             // deselect the tree
             var tree = dojo.widget.byId("webCmsTreeSelector");
-            tree.deselect();
+            if (tree && treeSelected) {
+                tree.deselect();
+                treeSelected = false;
+            }
         } else {
             if (contentId != null && contentId.length > 0) {
                 ctx['contentId'] = contentId;
@@ -133,7 +219,7 @@
                 }
             }
         }
-
+                
         var bindArgs = {
             url: editorUrl,
             method: 'POST',
@@ -150,10 +236,32 @@
                 var cmsdata = dojo.byId("cmsdata");
 
                 // create the editor
-                createEditor(cmsdata.value);                                
+                if (cmsdata) {
+                    createEditor(cmsdata.value);
+                } else {
+                    createEditor();
+                }
             }
         };
         dojo.io.bind(bindArgs);        
+    }
+
+    function saveMetaInfo(form) {
+        // save title
+        document.cmsmeta_title.objectInfo.value = form.title.value;
+        ajaxSubmitForm(document.cmsmeta_title);
+
+        // save title property
+        document.cmsmeta_titleProperty.objectInfo.value = form.titleProperty.value;
+        ajaxSubmitForm(document.cmsmeta_titleProperty);
+
+        // save meta-description
+        document.cmsmeta_metaDescription.objectInfo.value = form.metaDescription.value;
+        ajaxSubmitForm(document.cmsmeta_metaDescription);
+
+        // save meta-keywords
+        document.cmsmeta_metaKeywords.objectInfo.value = form.metaKeywords.value;
+        ajaxSubmitForm(document.cmsmeta_metaKeywords);
     }
 
     function pathSave(contentId) {
@@ -199,8 +307,33 @@
             }
         };
         dojo.io.bind(bindArgs);
-    }    
+    }
+
+    function ajaxSubmitForm(form) {
+        if (form != null) {
+            var url = form.action;
+            var bindArgs = {
+                url: url,
+                method: "POST",
+                mimetype: "text/json",
+                formNode: form,
+                error: function(type, data, evt) {
+                    alert("An error occurred submitting form.");
+                },
+                load: function(type, data, evt) {                    
+                }
+            };
+            dojo.io.bind(bindArgs);
+        }
+    }
 </script>
+
+<style>
+.dojoContextMenu {
+	background-color: #ccc;
+	font-size: 10px;
+}
+</style>
 
 <#-- looping macro -->
 <#macro fillTree assocList>
@@ -218,11 +351,25 @@
   </#if>
 </#macro>
 
+<dl dojoType="TreeContextMenu" id="webCmsContextMenu" style="font-size: 1em; color: #ccc;">
+    <dt dojoType="TreeMenuItem" id="newLong" caption="New Long Text"/>
+    <dt dojoType="TreeMenuItem" id="newShort" caption="New Short Text"/>
+    <dt dojoType="TreeMenuItem" id="newImage" caption="New Image"/>
+    <dt dojoType="TreeMenuItem" id="newVideo" caption="New Video"/>
+    <dt dojoType="TreeMenuItem" id="newAudio" caption="New Audio"/>
+    <dt dojoType="TreeMenuItem" id="newObject" caption="New Object"/>
+</dl>
+
 <div class="tableheadtext">
-    Website Content    
+    Website Content
 </div>
+<div class="tabletext">
+  *Right click to add sub-content
+</div>
+<div>&nbsp;</div>
+
 <dojo:TreeSelector widgetId="webCmsTreeSelector" eventNames="select:webCmsNodeSelected"></dojo:TreeSelector>
-<div dojoType="Tree" widgetId="webCmsTree" selector="webCmsTreeSelector" toggler="fade" toggleDuration="500">
+<div dojoType="Tree" menu="webCmsContextMenu" widgetId="webCmsTree" selector="webCmsTreeSelector" toggler="fade" toggleDuration="500">
     <#if (subsites?has_content)>
         <@fillTree assocList = subsites/>
     </#if>

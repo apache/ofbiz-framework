@@ -195,7 +195,6 @@ under the License.
                                     <container id="cmscontent">
                                         <include-screen name="WebSiteCMSContent"/>
                                     </container>
-                                    <include-screen name="WebSiteCMSEditor"/>                                    
                                 </container>                                                                
                             </widgets>
                             <fail-widgets>
@@ -232,7 +231,8 @@ under the License.
         <section>
             <actions>
                 <set field="contentAssocTypeId" from-field="parameters.contentAssocTypeId"/>
-                <set field="contentIdFrom" from-field="parameters.contentIdFrom"/> 
+                <set field="dataResourceTypeId" from-field="parameters.dataResourceTypeId"/> 
+                <set field="contentIdFrom" from-field="parameters.contentIdFrom"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <set field="contentId" from-field="parameters.contentId"/>
                 <set field="mimeTypeId" value="text/html"/>
@@ -258,7 +258,7 @@ under the License.
                     <field-map field-name="statusTypeId" value="CONTENT_STATUS"/>
                     <order-by field-name="sequenceId"/>
                 </entity-and>
-                <entity-condition entity-name="DataTemplateType" list-name="templateTypes"/> 
+                <entity-condition entity-name="DataTemplateType" list-name="templateTypes"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -295,7 +295,26 @@ under the License.
         </section>
     </screen>
 
-   <screen name="WebSiteCMSPathAlias">
+    <screen name="WebSiteCMSMetaInfo">
+        <section>
+            <actions>
+                <set field="webSiteId" from-field="parameters.webSiteId"/>
+                <set field="contentId" from-field="parameters.contentId"/>
+                <entity-one entity-name="Content" value-name="content"/>
+
+                <script location="component://content/webapp/content/WEB-INF/actions/website/WebSiteCMSMetaInfo.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://content/webapp/content/website/WebSiteCMSMeta.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="WebSiteCMSPathAlias">
         <section>
             <actions>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
