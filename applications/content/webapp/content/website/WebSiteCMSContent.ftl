@@ -52,8 +52,8 @@
 <div id="cmsmenu" style="margin-bottom: 8px;">
     <#if (content?has_content)>        
         <a href="javascript:void(0);" onclick="javascript:callEditor(true, '${content.contentId}', '', 'ELECTRONIC_TEXT');" class="tabButton">Quick Sub-Content</a>
-        <a href="javascript:void(0);" onclick="javascript:callPathAlias('${content.contentId}');" class="tabButton">New PathAlias</a>
-        <a href="javascript:void(0);" onclick="javascript:callMetaInfo('${content.contentId}');" class="tabButton">Meta Data</a>
+        <a href="javascript:void(0);" onclick="javascript:callPathAlias('${content.contentId}');" class="tabButton">Path Alias</a>
+        <a href="javascript:void(0);" onclick="javascript:callMetaInfo('${content.contentId}');" class="tabButton">Meta Tags</a>
     </#if>
 </div>
 
@@ -225,6 +225,23 @@
                     <#list statuses as status>
                         <option value="${status.statusId}">${status.description}</option>
                     </#list>
+                </select>
+            </td>
+          </tr>
+          <tr>
+            <td><div class="tableheadtext">Is Public</div></td>
+            <td>
+                <select name="statusId" class="selectBox">
+                    <#if (dataResource?has_content)>
+                        <#if (dataResource.isPublic?has_content)>
+                            <option>${dataResource.isPublic}</option>
+                            <option value="${dataResource.isPublic}">----</option>
+                        <#else>
+                            <option></option>
+                        </#if>
+                    </#if>
+                    <option>Y</option>
+                    <option>N</option>
                 </select>
             </td>
           </tr>

@@ -157,9 +157,7 @@ under the License.
                 <entity-options description="${description}" entity-name="CharacterSet" key-field-name="characterSetId"/>
             </drop-down>
         </field>
-        <field name="isPublic" >
-            <check />
-        </field>
+        
         <field name="createButton" title="${uiLabelMap.CommonCreate}" use-when="currentValue==null" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" use-when="currentValue!=null" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
