@@ -347,7 +347,7 @@ ${virtualJavaScript?if_exists}
       <#if disFeatureList?exists && 0 < disFeatureList.size()>
       <p>&nbsp;</p>
         <#list disFeatureList as currentFeature>
-            <#assign disFeatureType = currentFeature.getRelatedOne("ProductFeatureType")/>
+            <#assign disFeatureType = currentFeature.getRelatedOneCache("ProductFeatureType")/>
             <div class="tabletext">
                 <#if disFeatureType.description?exists>${disFeatureType.description}<#else>${currentFeature.productFeatureTypeId}</#if>:&nbsp;${currentFeature.description}
             </div>
