@@ -16,7 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 --%>
-<!doctype HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <%@ include file="/includes/envsetup.jsp" %>
 <%@ taglib uri='ofbizTags' prefix='ofbiz' %>
 <%@ taglib uri='regions' prefix='region' %>
