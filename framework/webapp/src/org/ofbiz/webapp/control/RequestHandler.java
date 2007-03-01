@@ -508,6 +508,7 @@ public class RequestHandler implements Serializable {
             }
         }
         if (reqAttrMap.size() > 0) {
+            reqAttrMap.remove("_REQUEST_HANDLER_");  // RequestHandler is not serializable and must be removed first.  See http://issues.apache.org/jira/browse/OFBIZ-750
             byte[] reqAttrMapBytes = UtilObject.getBytes(reqAttrMap);
             if (reqAttrMapBytes != null) {
                 req.getSession().setAttribute("_REQ_ATTR_MAP_", StringUtil.toHexString(reqAttrMapBytes));
