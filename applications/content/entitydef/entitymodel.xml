@@ -829,8 +829,7 @@ under the License.
       <field name="statusId" type="id"></field>
       <field name="dataResourceName" type="name"></field>
       <field name="localeString" type="very-short"></field>
-      <field name="mimeTypeId" type="id-long"></field>
-      <field name="mimeTypeTemplateId" type="id"></field>
+      <field name="mimeTypeId" type="id-long"></field>      
       <field name="characterSetId" type="id-long"></field>
       <field name="objectInfo" type="long-varchar"></field>
       <field name="relatedDetailId" type="id"><description>Depending on the dataResourceTypeId this can point to other entities, like: Survey, SurveyResponse, etc.</description></field>
