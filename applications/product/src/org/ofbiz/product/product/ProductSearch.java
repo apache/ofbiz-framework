@@ -1178,6 +1178,34 @@ public class ProductSearch {
         }
     }
 
+    public static class AvailabilityDateConstraint extends ProductSearchConstraint {
+        public static final String constraintName = "AvailabilityDate";
+
+        public AvailabilityDateConstraint() {
+        }
+
+        public void addConstraint(ProductSearchContext productSearchContext) {
+            productSearchContext.dynamicViewEntity.addAlias("PROD", "prodIntroductionDate", "introductionDate", null, null, null, null);
+            productSearchContext.entityConditionList.add(new EntityExpr(new EntityExpr("prodIntroductionDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("prodIntroductionDate", EntityOperator.LESS_THAN_EQUAL_TO, productSearchContext.nowTimestamp)));
+            productSearchContext.dynamicViewEntity.addAlias("PROD", "prodSalesDiscontinuationDate", "salesDiscontinuationDate", null, null, null, null);
+            productSearchContext.entityConditionList.add(new EntityExpr(new EntityExpr("prodSalesDiscontinuationDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("prodSalesDiscontinuationDate", EntityOperator.GREATER_THAN, productSearchContext.nowTimestamp)));
+            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", "")));
+        }
+
+        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+            return UtilProperties.getMessage(resource, "ProductFilterByAvailabilityDates", locale);
+        }
+
+        public boolean equals(Object obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof AvailabilityDateConstraint) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
     // ======================================================================
     // Result Sort Classes
     // ======================================================================

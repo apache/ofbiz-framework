@@ -543,6 +543,11 @@ public class ProductSearchSession {
             // not consider this a change for now, shouldn't change often: constraintsChanged = true;
         }
 
+        if ("true".equalsIgnoreCase((String) parameters.get("AVAILABILITY_FILTER"))) {
+            searchAddConstraint(new ProductSearch.AvailabilityDateConstraint(), session);
+            constraintsChanged = true;
+        }
+
         String prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
         String viewProductCategoryId = CatalogWorker.getCatalogViewAllowCategoryId(delegator, prodCatalogId);
         if (UtilValidate.isNotEmpty(viewProductCategoryId)) {
