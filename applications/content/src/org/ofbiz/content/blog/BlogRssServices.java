@@ -89,8 +89,6 @@ public class BlogRssServices {
     }
 
     public static List generateEntryList(GenericDelegator delegator, String contentId, String entryLink, Locale locale, GenericValue userLogin) {
-        Timestamp fromDate = UtilDateTime.nowTimestamp();
-
         List entries = FastList.newInstance();
         List exprs = FastList.newInstance();
         exprs.add(new EntityExpr("contentIdStart", EntityOperator.EQUALS, contentId));
@@ -110,7 +108,7 @@ public class BlogRssServices {
                 GenericValue v = (GenericValue) i.next();
                 String sub = null;
                 try {
-                    sub = ContentWorker.renderSubContentAsTextCache(delegator, v.getString("contentId"), mapKey, null, new HashMap(), locale, mimeTypeId, userLogin, fromDate);
+                    sub = ContentWorker.renderSubContentAsText(delegator, v.getString("contentId"), mapKey, new HashMap(), locale, mimeTypeId, true);
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
                 } catch (IOException e) {

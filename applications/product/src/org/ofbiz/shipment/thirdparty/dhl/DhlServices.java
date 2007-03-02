@@ -247,7 +247,7 @@ public class DhlServices {
             inContext.put("postalCode", shipToAddress.getString("postalCode"));
         }
         try {
-            Map tmpResult = ContentWorker.renderContentAsText(delegator, templateName, outWriter, inContext, null, locale, "text/plain");
+            ContentWorker.renderContentAsText(delegator, templateName, outWriter, inContext, locale, "text/plain", false);
         } catch (Exception e) {
             Debug.logError(e, "Cannot get DHL Estimate: Failed to render DHL XML Request.", module);
             return ServiceUtil.returnError("Cannot get DHL Estimate: Failed to render DHL XML Request.");
@@ -725,7 +725,7 @@ public class DhlServices {
             inContext.put("shipperReference", shipment.getString("primaryOrderId") + "-" + shipment.getString("primaryShipGroupSeqId"));
             
             try {
-                Map tmpResult = ContentWorker.renderContentAsText(delegator, templateName, outWriter, inContext, null, locale, "text/plain");
+                ContentWorker.renderContentAsText(delegator, templateName, outWriter, inContext, locale, "text/plain", false);
             } catch (Exception e) {
                 Debug.logError(e, "Cannot confirm DHL shipment: Failed to render DHL XML Request.", module);
                 return ServiceUtil.returnError("Cannot confirm DHL shipment: Failed to render DHL XML Request.");

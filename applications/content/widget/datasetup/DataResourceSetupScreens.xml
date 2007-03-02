@@ -122,6 +122,23 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditMimeTypeHtmlTemplate">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditMimeTypeHtmlTemplate"/>
+                <set field="headerItem" value="DataResourceSetupMenu"/>
+                <set field="tabButtonItem" to-scope="user" value="EditMimeTypeHtmlTemplate"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="UpdateMimeTypeHtmlTemplate" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                        <include-form name="CreateMimeTypeHtmlTemplate" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="EditDataCategory">
         <section>
             <actions>

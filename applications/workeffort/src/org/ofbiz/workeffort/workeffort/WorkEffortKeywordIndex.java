@@ -137,7 +137,7 @@ public class WorkEffortKeywordIndex {
     public static void addWeightedDataResourceString(GenericValue dataResource, int weight, List strings, GenericDelegator delegator, GenericValue workEffort) {
         Map workEffortCtx = UtilMisc.toMap("workEffort", workEffort);
         try {
-            String contentText = DataResourceWorker.renderDataResourceAsText(delegator, dataResource.getString("dataResourceId"), workEffortCtx, dataResource, null, null);
+            String contentText = DataResourceWorker.renderDataResourceAsText(delegator, dataResource.getString("dataResourceId"), workEffortCtx, null, null, false);
             for (int i = 0; i < weight; i++) {
                 strings.add(contentText);
             }

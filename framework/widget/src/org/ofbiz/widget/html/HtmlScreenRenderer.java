@@ -42,6 +42,7 @@ import org.ofbiz.webapp.taglib.ContentUrlTag;
 import org.ofbiz.widget.WidgetContentWorker;
 import org.ofbiz.widget.screen.ModelScreenWidget;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
+import javolution.util.FastMap;
 
 /**
  * Widget Library - HTML Form Renderer implementation
@@ -290,12 +291,16 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
         String renderedContent = null;
         GenericDelegator delegator = (GenericDelegator) context.get("delegator");
 
+        // make a new map for content rendering; so our current map does not get clobbered
+        Map contentContext = FastMap.newInstance();
+        contentContext.putAll(context);
+
         if (Debug.verboseOn()) Debug.logVerbose("expandedContentId:" + expandedContentId, module);
         
         try {
             if (UtilValidate.isNotEmpty(expandedContentId)) {
                 if (WidgetContentWorker.contentWorker != null) {
-                    renderedContent = WidgetContentWorker.contentWorker.renderContentAsTextCacheExt(delegator, expandedContentId, context, null, locale, mimeTypeId);
+                    renderedContent = WidgetContentWorker.contentWorker.renderContentAsTextExt(delegator, expandedContentId, contentContext, locale, mimeTypeId, true);
                 } else {
                     Debug.logError("Not rendering content, not ContentWorker found.", module);
                 }
@@ -304,7 +309,7 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
                 String editRequest = content.getEditRequest(context);
                 if (UtilValidate.isNotEmpty(editRequest)) {
                     if (WidgetContentWorker.contentWorker != null) {
-                        WidgetContentWorker.contentWorker.renderContentAsTextCacheExt(delegator, "NOCONTENTFOUND", writer, context, null, locale, mimeTypeId);
+                        WidgetContentWorker.contentWorker.renderContentAsTextExt(delegator, "NOCONTENTFOUND", writer, contentContext, locale, mimeTypeId, true);
                     } else {
                         Debug.logError("Not rendering content, not ContentWorker found.", module);
                     }
@@ -403,24 +408,19 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
 
     public void renderSubContentBody(Writer writer, Map context, ModelScreenWidget.SubContent content) throws IOException {
             Locale locale = Locale.getDefault();
-            //Boolean nullThruDatesOnly = new Boolean(false);
             String mimeTypeId = "text/html";
             String expandedContentId = content.getContentId(context);
             String expandedMapKey = content.getMapKey(context);
             String renderedContent = null;
             GenericDelegator delegator = (GenericDelegator) context.get("delegator");
-            Timestamp fromDate = UtilDateTime.nowTimestamp();
-            HttpServletRequest request = (HttpServletRequest) context.get("request");
-            GenericValue userLogin = null;
-            if (request != null) {
-                HttpSession session = request.getSession();
-                userLogin = (GenericValue) session.getAttribute("userLogin");
-            }
-            
-            //Debug.logInfo("expandedContentId=" + expandedContentId + ", expandedAssocName=" + expandedAssocName, module);
+
+            // create a new map for the content rendering; so our current context does not get overwritten!
+            Map contentContext = FastMap.newInstance();
+            contentContext.putAll(context);
+
             try {
                 if (WidgetContentWorker.contentWorker != null) {
-                    renderedContent = WidgetContentWorker.contentWorker.renderSubContentAsTextCacheExt(delegator, expandedContentId, expandedMapKey, null, context, locale, mimeTypeId, userLogin, fromDate);
+                    renderedContent = WidgetContentWorker.contentWorker.renderSubContentAsTextExt(delegator, expandedContentId, expandedMapKey, contentContext, locale, mimeTypeId, true);
                     //Debug.logInfo("renderedContent=" + renderedContent, module);
                 } else {
                     Debug.logError("Not rendering content, not ContentWorker found.", module);
@@ -429,7 +429,7 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
                     String editRequest = content.getEditRequest(context);
                     if (UtilValidate.isNotEmpty(editRequest)) {
                         if (WidgetContentWorker.contentWorker != null) {
-                            WidgetContentWorker.contentWorker.renderContentAsTextCacheExt(delegator, "NOCONTENTFOUND", writer, context, null, locale, mimeTypeId);
+                            WidgetContentWorker.contentWorker.renderContentAsTextExt(delegator, "NOCONTENTFOUND", writer, contentContext, locale, mimeTypeId, true);
                         } else {
                             Debug.logError("Not rendering content, ContentWorker not found.", module);
                         }

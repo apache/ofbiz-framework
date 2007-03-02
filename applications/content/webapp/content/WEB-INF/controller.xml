@@ -749,6 +749,30 @@ under the License.
         <response name="error" type="view" value="EditMimeType"/>
     </request-map>
 
+    <!-- ================ MimeTypeHtmlTemplate Requests ================= -->
+    <request-map uri="EditMimeTypeHtmlTemplate">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="EditMimeTypeHtmlTemplate"/>
+    </request-map>
+    <request-map uri="createMimeTypeHtmlTemplate">
+        <security auth="true" https="true"/>
+        <event invoke="createMimeTypeHtmlTemplate" path="" type="service"/>
+        <response name="success" type="view" value="EditMimeTypeHtmlTemplate"/>
+        <response name="error" type="view" value="EditMimeTypeHtmlTemplate"/>
+    </request-map>
+    <request-map uri="updateMimeTypeHtmlTemplate">
+        <security auth="true" https="true"/>
+        <event invoke="updateMimeTypeHtmlTemplate" path="" type="service"/>
+        <response name="success" type="view" value="EditMimeTypeHtmlTemplate"/>
+        <response name="error" type="view" value="EditMimeTypeHtmlTemplate"/>
+    </request-map>
+    <request-map uri="removeMimeTypeHtmlTemplate">
+        <security auth="true" https="true"/>
+        <event invoke="removeMimeTypeHtmlTemplate" path="" type="service"/>
+        <response name="success" type="view" value="EditMimeTypeHtmlTemplate"/>
+        <response name="error" type="view" value="EditMimeTypeHtmlTemplate"/>
+    </request-map>
+
     <!-- ================ Redirect Content Requests ================= -->
     <request-map uri="findContent">
         <security auth="true" https="true"/>
@@ -863,6 +887,11 @@ under the License.
         <event type="java" path="org.ofbiz.content.data.DataEvents" invoke="serveImage"/>
         <response name="success" type="none"/>
         <response name="error" type="view" value="main"/>
+    </request-map>
+    <request-map uri="stream">       
+        <event type="java" path="org.ofbiz.content.data.DataEvents" invoke="serveObjectData"/>
+        <response name="success" type="none"/>
+        <response name="error" type="view" value="error"/>
     </request-map>
 
     <!-- ================ ContentOperation Requests ================= -->
@@ -1709,6 +1738,7 @@ under the License.
     <view-map name="EditCharacterSet" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditCharacterSet" type="screen"/>
     <view-map name="EditFileExtension" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditFileExtension" type="screen"/>
     <view-map name="EditMimeType" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditMimeType" type="screen"/>
+    <view-map name="EditMimeTypeHtmlTemplate" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditMimeTypeHtmlTemplate" type="screen"/>
 
     <view-map name="ListLayout" page="component://content/widget/layout/LayoutScreens.xml#ListLayout" type="screen"/>
     <view-map name="FindLayout" page="component://content/widget/layout/LayoutScreens.xml#FindLayout" type="screen"/>

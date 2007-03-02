@@ -171,12 +171,15 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                 }
 
                 if (thisView != null) {
-                    try {
-                        ContentWorker.renderContentAsTextCache(delegator, null, out, templateRoot, thisView, locale, mimeTypeId);
-                        //if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, after renderContentAsTextCache:", module);
-                    } catch (GeneralException e) {
-                        Debug.logError(e, "Error rendering content", module);
-                        throw new IOException("Error rendering thisView:" + thisView + " msg:" + e.toString());
+                    String contentId = thisView.getString("contentId");
+                    if (contentId != null) {
+                        try {
+                            ContentWorker.renderContentAsText(delegator, contentId, out, templateRoot, locale, mimeTypeId, true);
+                            //if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, after renderContentAsTextCache:", module);
+                        } catch (GeneralException e) {
+                            Debug.logError(e, "Error rendering content", module);
+                            throw new IOException("Error rendering thisView:" + thisView + " msg:" + e.toString());
+                        }
                     }
                 }
                 if (UtilValidate.isNotEmpty(editRequestName)) {

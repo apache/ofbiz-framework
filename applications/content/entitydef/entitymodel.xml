@@ -830,6 +830,7 @@ under the License.
       <field name="dataResourceName" type="name"></field>
       <field name="localeString" type="very-short"></field>
       <field name="mimeTypeId" type="id-long"></field>
+      <field name="mimeTypeTemplateId" type="id"></field>
       <field name="characterSetId" type="id-long"></field>
       <field name="objectInfo" type="long-varchar"></field>
       <field name="relatedDetailId" type="id"><description>Depending on the dataResourceTypeId this can point to other entities, like: Survey, SurveyResponse, etc.</description></field>
@@ -841,6 +842,9 @@ under the License.
       <prim-key field="dataResourceId"/>
       <relation type="one" fk-name="DTRSRC_STATUS" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="DATA_REC_TO_MIMTPL" title="MimeTmpl" rel-entity-name="DataResource">
+        <key-map field-name="mimeTypeTemplateId" rel-field-name="dataResourceId"/>
       </relation>
       <relation type="one" fk-name="DATA_REC_TO_TYPE" rel-entity-name="DataResourceType">
         <key-map field-name="dataResourceTypeId"/>
@@ -1077,6 +1081,17 @@ under the License.
       <field name="mimeTypeId" type="id-long-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="mimeTypeId"/>
+    </entity>
+    <entity entity-name="MimeTypeHtmlTemplate"
+            package-name="org.ofbiz.content.data"
+            default-resource-name="ContentEntityLabels"
+            title="Mime Text Template Entity">
+      <field name="mimeTypeId" type="id-long-ne"></field>
+      <field name="templateLocation" type="long-varchar"></field>
+      <prim-key field="mimeTypeId"/>
+      <relation type="one" fk-name="MIMETYPE_TPL_MT" rel-entity-name="MimeType">
+          <key-map field-name="mimeTypeId"/>
+      </relation>      
     </entity>
     <entity entity-name="OtherDataResource"
             package-name="org.ofbiz.content.data"

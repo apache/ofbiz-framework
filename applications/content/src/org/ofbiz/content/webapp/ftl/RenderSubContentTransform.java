@@ -133,13 +133,18 @@ public class RenderSubContentTransform implements TemplateTransformModel {
                 if (subContentDataResourceView != null) {
                 }
                 try {
-                    Map results = ContentWorker.renderSubContentAsText(delegator, contentId, out, mapKey, subContentId, subContentDataResourceView, templateRoot, locale, mimeTypeId, userLogin, fromDate);
+                    if (subContentId != null) {
+                        ContentWorker.renderContentAsText(delegator, subContentId, out, templateRoot, locale, mimeTypeId, false);
+                    } else {
+                        ContentWorker.renderSubContentAsText(delegator, contentId, out, mapKey, templateRoot, locale, mimeTypeId, false);
+                    }
+                    //Map results = ContentWorker.renderSubContentAsText(delegator, contentId, out, mapKey, subContentId, subContentDataResourceView, templateRoot, locale, mimeTypeId, userLogin, fromDate);
                 } catch (GeneralException e) {
                     Debug.logError(e, "Error rendering content", module);
                     throw new IOException("Error rendering content" + e.toString());
                 }
 
-                Map resultCtx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
+                //Map resultCtx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
                 templateContext.put("mapKey", null);
                 templateContext.put("subContentId", null);
                 templateContext.put("subDataResourceTypeId", null);

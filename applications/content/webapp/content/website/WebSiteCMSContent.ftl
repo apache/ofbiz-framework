@@ -19,6 +19,7 @@
 
 <script type="text/javascript">
     function cmsSave() {
+        var simpleFormAction = '<@ofbizUrl>/updateContentCms</@ofbizUrl>';
         var editor = dojo.widget.byId("w_editor");
         if (editor) {
             var cmsdata = dojo.byId("cmsdata");
@@ -30,6 +31,15 @@
 
         // set the data resource name
         form.dataResourceName.value = form.contentName.value;
+
+        // check to see if we need to change the form action
+        var isUpload = form.elements['isUploadObject'];
+        if (isUpload && isUpload.value == 'Y') {
+            var uploadValue = form.elements['uploadedFile'].value;
+            if (uploadValue == null || uploadValue == "") {
+                form.action = simpleFormAction;
+            }            
+        }
 
         // submit the form
         if (form != null) {
@@ -259,8 +269,16 @@
           <#if (dataResourceTypeId == 'IMAGE_OBJECT' || dataResourceTypeId == 'OTHER_OBJECT' ||
                 dataResourceTypeId == 'VIDEO_OBJECT' || dataResourceTypeId == 'AUDIO_OBJECT')>
             <tr>
+              <td colspan="2" align="right">
+                <#if ((content.contentId)?has_content)>
+                    <@renderContentAsText contentId="${content.contentId}" ignoreTemplate="true"/>
+                </#if>                
+              </td>
+            </tr>
+            <tr>
               <td><div class="tableheadtext">Upload</div></td>
               <td>
+                <input type="hidden" name="isUploadObject" value="Y"/>
                 <input type="file" name="uploadedFile" class="inputBox" size="30"/>
               </td>
             </tr>

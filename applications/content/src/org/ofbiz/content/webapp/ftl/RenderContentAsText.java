@@ -175,7 +175,7 @@ public class RenderContentAsText implements TemplateTransformModel {
                 FreeMarkerWorker.saveContextValues(templateRoot, saveKeyNames, savedValues);
                 //if (thisView != null) {
                     try {
-                        String txt = ContentWorker.renderContentAsTextCache(delegator, thisContentId, templateRoot, null, locale, mimeTypeId);
+                        String txt = ContentWorker.renderContentAsText(delegator, thisContentId, templateRoot, locale, mimeTypeId, true);
                         if ("true".equals(xmlEscape)) {
                             txt = UtilFormatOut.encodeXmlValue(txt);
                         }

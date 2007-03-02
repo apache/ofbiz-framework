@@ -303,7 +303,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             Map inContext = FastMap.newInstance();
             inContext.put("workEffort", workEffort);
             inContext.put("workEffortContent", workEffortContent);
-            ContentWorker.renderContentAsText(delegator, workEffortContent.getString("contentId"), outWriter, inContext, null, locale, mimeTypeId);
+            ContentWorker.renderContentAsText(delegator, workEffortContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
         }
     }
 
@@ -320,7 +320,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
                 Map inContext = FastMap.newInstance();
                 inContext.put("workEffort", workEffort);
                 inContext.put("workEffortContent", workEffortContent);
-                ContentWorker.renderContentAsText(delegator, workEffortContent.getString("contentId"), outWriter, inContext, null, locale, mimeTypeId);
+                ContentWorker.renderContentAsText(delegator, workEffortContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
                 contentList.add(outWriter.toString());
             }
         }

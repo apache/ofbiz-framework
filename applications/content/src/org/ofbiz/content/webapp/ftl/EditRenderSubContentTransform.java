@@ -190,7 +190,7 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
                         templateRoot.put("context", templateContext);
                         
                         try {
-                            ContentWorker.renderContentAsText(delegator, wrapTemplateId, out, templateRoot, null, locale, mimeTypeId);
+                            ContentWorker.renderContentAsText(delegator, wrapTemplateId, out, templateRoot, locale, mimeTypeId, false);
                         } catch (IOException e) {
                             Debug.logError(e, "Error rendering content" + e.getMessage(), module);
                             throw new IOException("Error rendering content" + e.toString());

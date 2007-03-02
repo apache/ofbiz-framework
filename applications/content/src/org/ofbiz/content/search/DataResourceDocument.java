@@ -72,7 +72,7 @@ public class DataResourceDocument {
         
         StringWriter outWriter = new StringWriter();
 	  	try {
-	  	    DataResourceWorker.writeDataResourceTextCache(dataResource, mimeTypeId, locale, context, delegator, outWriter);
+	  	    DataResourceWorker.writeDataResourceText(dataResource, mimeTypeId, locale, context, delegator, outWriter, true);
 	  	} catch(GeneralException e) {
 	  		Debug.logError(e, module);
 	  	} catch(IOException e) {

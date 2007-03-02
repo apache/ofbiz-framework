@@ -886,7 +886,7 @@ public class ContentServices {
         }
 
         try {
-            results = ContentWorker.renderSubContentAsTextCache(delegator, contentId, outWriter, mapKey, subContentDataResourceView, templateContext, locale, mimeTypeId, userLogin, fromDate);
+            ContentWorker.renderSubContentAsText(delegator, contentId, outWriter, mapKey, templateContext, locale, mimeTypeId, true);
             out.write(outWriter.toString());
             results.put("textData", outWriter.toString());
         } catch (GeneralException e) {
@@ -931,8 +931,12 @@ public class ContentServices {
 
         Writer outWriter = new StringWriter();
         GenericValue view = (GenericValue)context.get("subContentDataResourceView");
+        if (view != null && view.containsKey("contentId")) {
+            contentId = view.getString("contentId");
+        }
+
         try {
-            Map thisResults = ContentWorker.renderContentAsTextCache(delegator, contentId, outWriter, templateContext, view, locale, mimeTypeId);
+            ContentWorker.renderContentAsText(delegator, contentId, outWriter, templateContext, locale, mimeTypeId, true);
             out.write(outWriter.toString());
             results.put("textData", outWriter.toString());
         } catch (GeneralException e) {

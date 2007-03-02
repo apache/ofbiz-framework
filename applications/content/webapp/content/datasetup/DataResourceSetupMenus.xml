@@ -51,5 +51,8 @@ under the License.
         <menu-item name="EditMimeType" title="${uiLabelMap.ContentMimeType}" >
             <link target="EditMimeType" target-window="_top" style="tabButton" />
         </menu-item>
+        <menu-item name="EditMimeTypeHtmlTemplate" title="${uiLabelMap.ContentMimeTypeHtmlTemplate}" >
+            <link target="EditMimeTypeHtmlTemplate" target-window="_top" style="tabButton" />
+        </menu-item>
     </menu>
 </menus>

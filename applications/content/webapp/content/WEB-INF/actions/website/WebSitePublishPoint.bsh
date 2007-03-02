@@ -38,7 +38,7 @@ if (webSiteContent != null) {
     context.put("publishPoint", publishPoint);
     Debug.log("CnRt: " + contentRoot + " -- PP: " + publishPoint);
 
-    // get all subsite content for the publish point
-    List subsites = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentRoot, "contentAssocTypeId", "SUBSITE"));
+    // get all sub content for the publish point
+    List subsites = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentRoot));
     context.put("subsites", subsites);
 }

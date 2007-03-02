@@ -163,7 +163,7 @@ public class ProductContentWrapper implements ContentWrapper {
             Map inContext = new HashMap();
             inContext.put("product", product);
             inContext.put("productContent", productContent);
-            ContentWorker.renderContentAsText(delegator, productContent.getString("contentId"), outWriter, inContext, null, locale, mimeTypeId);
+            ContentWorker.renderContentAsText(delegator, productContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
         }
     }
 }

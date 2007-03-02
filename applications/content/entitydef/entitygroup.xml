@@ -88,6 +88,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="ImageDataResource" />
     <entity-group group="org.ofbiz" entity="MetaDataPredicate" />
     <entity-group group="org.ofbiz" entity="MimeType" />
+    <entity-group group="org.ofbiz" entity="MimeTypeHtmlTemplate" />
     <entity-group group="org.ofbiz" entity="OtherDataResource" />
     <entity-group group="org.ofbiz" entity="VideoDataResource" />
 

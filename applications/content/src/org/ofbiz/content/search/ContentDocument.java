@@ -52,7 +52,7 @@ public class ContentDocument {
 	public static Document Document(String id, GenericDelegator delegator) throws InterruptedException  {
 	  	
 		Document doc = null;
-		GenericValue content = null;
+		GenericValue content;
 	  	try {
 	  		content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId",id));
 	  	} catch(GenericEntityException e) {
@@ -67,7 +67,7 @@ public class ContentDocument {
 	
 	public static Document Document(GenericValue content, Map context)
 			throws InterruptedException {
-		Document doc = null;
+		Document doc;
 		// make a new, empty document
 		doc = new Document();
 		String contentId = content.getString("contentId");
@@ -118,7 +118,7 @@ public class ContentDocument {
 		// module);
 		String dataResourceId = content.getString("dataResourceId");
 		//Debug.logInfo("in ContentDocument, dataResourceId:" + dataResourceId, module);
-		GenericValue dataResource = null;
+		GenericValue dataResource;
 		try {
 			dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
 		} catch (GenericEntityException e) {
@@ -143,9 +143,9 @@ public class ContentDocument {
 		if (UtilValidate.isNotEmpty(currentLocaleString)) {
 			locale = UtilMisc.parseLocale(currentLocaleString);
 		}
-		String text = null;
+		String text;
 		try {
-			text = ContentWorker.renderContentAsTextCache(delegator, contentId, context, content, locale, mimeTypeId);
+			text = ContentWorker.renderContentAsText(delegator, contentId, context, locale, mimeTypeId, true);
 		} catch (GeneralException e) {
 			Debug.logError(e, module);
 			List badIndexList = (List) context.get("badIndexList");
@@ -165,7 +165,7 @@ public class ContentDocument {
 			//Debug.logInfo("in ContentDocument, field:" + field.stringValue(), module);
 			doc.add(field);
 		}
-		List featureDataResourceList = null;
+		List featureDataResourceList;
 		try {
 			featureDataResourceList = content.getRelatedCache("ProductFeatureDataResource");
 		} catch (GenericEntityException e) {

@@ -276,7 +276,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
                         locale = Locale.getDefault();
                     String mimeTypeId = (String) templateCtx.get("mimeTypeId");
                     try {
-                        ContentWorker.renderContentAsText(delegator, wrapTemplateId, out, templateRoot, null, locale, mimeTypeId);
+                        ContentWorker.renderContentAsText(delegator, wrapTemplateId, out, templateRoot, locale, mimeTypeId, true);
                     } catch (GeneralException e) {
                         Debug.logError(e, "Error rendering content", module);
                         throw new IOException("Error rendering content" + e.toString());

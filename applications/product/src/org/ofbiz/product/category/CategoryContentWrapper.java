@@ -141,7 +141,7 @@ public class CategoryContentWrapper implements ContentWrapper {
             Map inContext = new HashMap();
             inContext.put("productCategory", productCategory);
             inContext.put("categoryContent", categoryContent);
-            ContentWorker.renderContentAsText(delegator, categoryContent.getString("contentId"), outWriter, inContext, null, locale, mimeTypeId);
+            ContentWorker.renderContentAsText(delegator, categoryContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
         }
     }
 }

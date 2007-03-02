@@ -187,10 +187,12 @@ public class CmsEvents {
 
                     // render
                     if (UtilValidate.isEmpty(mapKey)) {
-                        ContentWorker.renderContentAsTextCache(delegator, contentId, writer, templateMap, null, locale, "text/html");
+                        ContentWorker.renderContentAsText(delegator, contentId, writer, templateMap, locale, "text/html", true);
+                        //ContentWorker.renderContentAsTextCache(delegator, contentId, writer, templateMap, null, locale, "text/html");
                     } else {
-                        ContentWorker.renderSubContentAsTextCache(delegator, contentId, writer, mapKey, null, templateMap,
-                            locale, "text/html", userLogin, fromDate, Boolean.FALSE);
+                        ContentWorker.renderSubContentAsText(delegator, contentId, writer, mapKey, templateMap, locale, "text/html", true);
+                        //ContentWorker.renderSubContentAsTextCache(delegator, contentId, writer, mapKey, null, templateMap, locale, "text/html", userLogin, fromDate, Boolean.FALSE);
+
                     }
 
                 } catch (IOException e) {

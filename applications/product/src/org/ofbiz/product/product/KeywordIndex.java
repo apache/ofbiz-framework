@@ -198,7 +198,7 @@ public class KeywordIndex {
     public static void addWeightedDataResourceString(GenericValue drView, int weight, List strings, GenericDelegator delegator, GenericValue product) {
         Map drContext = UtilMisc.toMap("product", product);
         try {
-            String contentText = DataResourceWorker.renderDataResourceAsText(delegator, drView.getString("dataResourceId"), drContext, drView, null, null);
+            String contentText = DataResourceWorker.renderDataResourceAsText(delegator, drView.getString("dataResourceId"), drContext, null, null, false);
             for (int i = 0; i < weight; i++) {
                 strings.add(contentText);
             }
