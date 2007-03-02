@@ -320,7 +320,7 @@ public class ShipmentServices {
         }
 
         if (estimateList.size() < 1) {
-            return ServiceUtil.returnError("No shipping estimate found");
+            return ServiceUtil.returnError("No shipping estimate found for carrier [" + carrierPartyId + "] and shipment method type [" + shipmentMethodTypeId +"]");
         }
 
         // make the shippable item size/feature objects
