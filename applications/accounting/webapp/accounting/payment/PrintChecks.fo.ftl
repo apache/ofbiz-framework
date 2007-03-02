@@ -51,7 +51,14 @@ by hand from a real template using a ruler.
 
         <#-- the check: note that the format is fairly precise -->
 
-        <fo:table height="8.85cm">
+        <#-- this seems to be the only way to force a fixed height in fop -->
+        <fo:table table-layout="fixed">
+          <fo:table-column column-width="100%"/>
+          <fo:table-body>
+          <fo:table-row height="8.85cm">
+          <fo:table-cell>
+          
+        <fo:table table-layout="fixed">
           <fo:table-column column-width="17.7cm"/>
           <fo:table-column/>
           <fo:table-body>
@@ -81,9 +88,21 @@ by hand from a real template using a ruler.
           </fo:table-body>
         </fo:table>
 
+        </fo:table-cell>
+        </fo:table-row>
+        </fo:table-body>
+        </fo:table>
+
         <#-- payment applications (twice: both blocks are exactly the same) -->
 
-        <fo:table height="9.3cm" margin="10pt">
+        <#-- this seems to be the only way to force a fixed height in fop -->
+        <fo:table table-layout="fixed">
+          <fo:table-column column-width="100%"/>
+          <fo:table-body>
+          <fo:table-row height="9.3cm">
+          <fo:table-cell>
+ 
+        <fo:table height="9.3cm" table-layout="fixed" margin-left="5pt" margin-right="5pt">
           <fo:table-column/>
           <fo:table-column/>
           <fo:table-column/>
@@ -162,9 +181,22 @@ by hand from a real template using a ruler.
           </fo:table-body>
         </fo:table>
 
+        </fo:table-cell>
+        </fo:table-row>
+        </fo:table-body>
+        </fo:table>
+
+
         <#-- copy of above -->
 
-        <fo:table height="9.3cm" margin="10pt">
+        <#-- this seems to be the only way to force a fixed height in fop -->
+        <fo:table table-layout="fixed">
+          <fo:table-column column-width="100%"/>
+          <fo:table-body>
+          <fo:table-row height="9.3cm">
+          <fo:table-cell>
+ 
+        <fo:table height="9.3cm" table-layout="fixed" margin-left="5pt" margin-right="5pt">
           <fo:table-column/>
           <fo:table-column/>
           <fo:table-column/>
@@ -240,6 +272,11 @@ by hand from a real template using a ruler.
               </fo:table-cell>
             </fo:table-row>
           </fo:table-body>
+        </fo:table>
+
+        </fo:table-cell>
+        </fo:table-row>
+        </fo:table-body>
         </fo:table>
 
       </fo:block>
