@@ -223,4 +223,35 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeMimeType?mimeTypeId=${mimeTypeId}"/>
         </field>
     </form>
+
+    <!-- MimeTypeHtmlTemplate Froms -->
+    <form name="CreateMimeTypeHtmlTemplate" target="createMimeTypeHtmlTemplate" title="" type="single"
+          default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-service service-name="createMimeTypeHtmlTemplate"/>
+        <field name="mimeTypeId" widget-style="tabletext">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="MimeType" description="${description}" key-field-name="mimeTypeId"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <form name="UpdateMimeTypeHtmlTemplate" target="updateMimeTypeHtmlTemplate" title="" type="list" paginate="true" paginate-size-field="25"
+          default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" list-name="contentList">
+        <actions>
+          <entity-condition entity-name="MimeTypeHtmlTemplate" use-cache="false"/>
+        </actions>
+        <auto-fields-service service-name="updateMimeTypeHtmlTemplate"/>
+        <field name="mimeTypeId" widget-style="tabletext">
+            <hyperlink target-type="intra-app" target="editMimeType?mimeTypeId=${mimeTypeId}" description="${mimeTypeId}"/>                
+        </field>        
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeMimeTypeHtmlTemplate?mimeTypeId=${mimeTypeId}&amp;dataResourceId=${dataResourceId}&amp;fromDate=${fromDate}"/>
+        </field>
+    </form>
 </forms>

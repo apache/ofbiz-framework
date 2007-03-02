@@ -471,7 +471,7 @@ public class DataServices {
 
         GenericValue view = (GenericValue) context.get("subContentDataResourceView");
         Writer outWriter = new StringWriter();
-        DataResourceWorker.renderDataResourceAsTextCache(delegator, dataResourceId, outWriter, templateContext, view, locale, mimeTypeId);
+        DataResourceWorker.renderDataResourceAsText(delegator, dataResourceId, outWriter, templateContext, locale, mimeTypeId, true);
         try {
             out.write(outWriter.toString());
             results.put("textData", outWriter.toString());

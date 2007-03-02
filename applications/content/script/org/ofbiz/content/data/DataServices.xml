@@ -355,6 +355,27 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
+    <!-- Methods for MimeTypeHtmlTemplate -->
+    <simple-method method-name="createMimeTypeHtmlTemplate" short-description="Create MimeTypeHtmlTemplate">
+        <make-value entity-name="MimeTypeHtmlTemplate" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateMimeTypeHtmlTemplate" short-description="Update MimeTypeHtmlTemplate">
+        <make-value entity-name="MimeTypeHtmlTemplate" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="MimeTypeHtmlTemplate" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeMimeTypeHtmlTemplate" short-description="Remove MimeTypeHtmlTemplate">
+        <make-value entity-name="MimeTypeHtmlTemplate" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="MimeTypeHtmlTemplate" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
     <!-- Methods for ElectronicText -->
     <simple-method method-name="createElectronicText" short-description="Create Electronic Text">
         <make-value entity-name="ElectronicText" value-name="newEntity"/>
@@ -623,9 +644,31 @@ under the License.
         <if-empty field-name="dataResource">
             <add-error><fail-message message="No data resource found for ID: [$parameters.dataResourceId}]"/></add-error>
         </if-empty>
-        <if-empty field-name="_uploadedFile_fileName" map-name="parameters">
-            <add-error><fail-message message="No uploaded content found in context"/></add-error>
-        </if-empty>
+        <if>
+            <condition>
+                <if-empty field-name="_uploadedFile_fileName" map-name="parameters"/>
+            </condition>
+            <then>
+                <if>
+                    <condition>
+                        <or>
+                            <if-empty field-name="isUpdate"/>
+                            <if-compare field-name="isUpdate" value="Y" operator="not-equals"/>
+                        </or>
+                    </condition>
+                    <then>
+                        <add-error><fail-message message="No uploaded content found in context"/></add-error>
+                    </then>
+                    <else>
+                        <!-- if not upload is found on an update; its okay, don't do anything just return -->
+                        <field-to-result field-name="dataResourceId" map-name="dataResource"/>
+                        <field-to-result field-name="mimeTypeId" map-name="dataResource"/>
+                        <return/>
+                    </else>
+                </if>
+
+            </then>
+        </if>
         <check-errors/>
 
         <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getDataResourceContentUploadPath" ret-field-name="uploadPath"/>
@@ -661,9 +704,31 @@ under the License.
         <if-empty field-name="dataResource">
             <add-error><fail-message message="No data resource found for ID: [$parameters.dataResourceId}]"/></add-error>
         </if-empty>
-        <if-empty field-name="_uploadedFile_fileName" map-name="parameters">
-            <add-error><fail-message message="No uploaded content found in context"/></add-error>
-        </if-empty>
+        <if>
+            <condition>
+                <if-empty field-name="_uploadedFile_fileName" map-name="parameters"/>
+            </condition>
+            <then>
+                <if>
+                    <condition>
+                        <or>
+                            <if-empty field-name="isUpdate"/>
+                            <if-compare field-name="isUpdate" value="Y" operator="not-equals"/>
+                        </or>
+                    </condition>
+                    <then>
+                        <add-error><fail-message message="No uploaded content found in context"/></add-error>
+                    </then>
+                    <else>
+                        <!-- if not upload is found on an update; its okay, don't do anything just return -->
+                        <field-to-result field-name="dataResourceId" map-name="dataResource"/>
+                        <field-to-result field-name="mimeTypeId" map-name="dataResource"/>
+                        <return/>
+                    </else>
+                </if>
+
+            </then>
+        </if>
         <check-errors/>
 
         <!-- update the data resource with file data -->
@@ -695,9 +760,31 @@ under the License.
         <if-empty field-name="dataResource">
             <add-error><fail-message message="No data resource found for ID: [$parameters.dataResourceId}]"/></add-error>
         </if-empty>
-        <if-empty field-name="_uploadedFile_fileName" map-name="parameters">
-            <add-error><fail-message message="No uploaded content found in context"/></add-error>
-        </if-empty>
+        <if>
+            <condition>
+                <if-empty field-name="_uploadedFile_fileName" map-name="parameters"/>
+            </condition>
+            <then>
+                <if>
+                    <condition>
+                        <or>
+                            <if-empty field-name="isUpdate"/>
+                            <if-compare field-name="isUpdate" value="Y" operator="not-equals"/>
+                        </or>
+                    </condition>
+                    <then>
+                        <add-error><fail-message message="No uploaded content found in context"/></add-error>
+                    </then>
+                    <else>
+                        <!-- if not upload is found on an update; its okay, don't do anything just return -->
+                        <field-to-result field-name="dataResourceId" map-name="dataResource"/>
+                        <field-to-result field-name="mimeTypeId" map-name="dataResource"/>
+                        <return/>
+                    </else>
+                </if>
+
+            </then>
+        </if>
         <check-errors/>
 
         <!-- update the data resource with file data -->
@@ -729,9 +816,31 @@ under the License.
         <if-empty field-name="dataResource">
             <add-error><fail-message message="No data resource found for ID: [$parameters.dataResourceId}]"/></add-error>
         </if-empty>
-        <if-empty field-name="_uploadedFile_fileName" map-name="parameters">
-            <add-error><fail-message message="No uploaded content found in context"/></add-error>
-        </if-empty>
+        <if>
+            <condition>
+                <if-empty field-name="_uploadedFile_fileName" map-name="parameters"/>
+            </condition>
+            <then>
+                <if>
+                    <condition>
+                        <or>
+                            <if-empty field-name="isUpdate"/>
+                            <if-compare field-name="isUpdate" value="Y" operator="not-equals"/>
+                        </or>
+                    </condition>
+                    <then>
+                        <add-error><fail-message message="No uploaded content found in context"/></add-error>
+                    </then>
+                    <else>
+                        <!-- if not upload is found on an update; its okay, don't do anything just return -->
+                        <field-to-result field-name="dataResourceId" map-name="dataResource"/>
+                        <field-to-result field-name="mimeTypeId" map-name="dataResource"/>
+                        <return/>
+                    </else>
+                </if>
+
+            </then>
+        </if>
         <check-errors/>
 
         <!-- update the data resource with file data -->
@@ -763,9 +872,31 @@ under the License.
         <if-empty field-name="dataResource">
             <add-error><fail-message message="No data resource found for ID: [$parameters.dataResourceId}]"/></add-error>
         </if-empty>
-        <if-empty field-name="_uploadedFile_fileName" map-name="parameters">
-            <add-error><fail-message message="No uploaded content found in context"/></add-error>
-        </if-empty>
+        <if>
+            <condition>
+                <if-empty field-name="_uploadedFile_fileName" map-name="parameters"/>
+            </condition>
+            <then>
+                <if>
+                    <condition>
+                        <or>
+                            <if-empty field-name="isUpdate"/>
+                            <if-compare field-name="isUpdate" value="Y" operator="not-equals"/>
+                        </or>
+                    </condition>
+                    <then>
+                        <add-error><fail-message message="No uploaded content found in context"/></add-error>
+                    </then>
+                    <else>
+                        <!-- if not upload is found on an update; its okay, don't do anything just return -->
+                        <field-to-result field-name="dataResourceId" map-name="dataResource"/>
+                        <field-to-result field-name="mimeTypeId" map-name="dataResource"/>
+                        <return/>
+                    </else>
+                </if>
+
+            </then>
+        </if>
         <check-errors/>
 
         <!-- update the data resource with file data -->

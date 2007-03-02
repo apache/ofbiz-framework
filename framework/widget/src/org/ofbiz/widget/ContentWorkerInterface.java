@@ -35,27 +35,15 @@ import org.ofbiz.entity.GenericValue;
  */
 public interface ContentWorkerInterface {
 
+    // helper methods
     public GenericValue getCurrentContentExt(GenericDelegator delegator, List trail, GenericValue userLogin, Map ctx, Boolean nullThruDatesOnly, String contentAssocPredicateId)  throws GeneralException;
-
-    public Map renderSubContentAsTextExt(GenericDelegator delegator, String contentId, Writer out, String mapKey, String subContentId, GenericValue subContentDataResourceView, 
-            Map templateContext, Locale locale, String mimeTypeId, GenericValue userLogin, Timestamp fromDate) throws GeneralException, IOException;
-
-    public String renderSubContentAsTextCacheExt(GenericDelegator delegator, String contentId,  String mapKey,  GenericValue subContentDataResourceView, 
-            Map templateRoot, Locale locale, String mimeTypeId, GenericValue userLogin, Timestamp fromDate) throws GeneralException, IOException;
-
-    public Map renderSubContentAsTextCacheExt(GenericDelegator delegator, String contentId, Writer out, String mapKey,  GenericValue subContentDataResourceView, 
-            Map templateRoot, Locale locale, String mimeTypeId, GenericValue userLogin, Timestamp fromDate) throws GeneralException, IOException;
-
-    public Map renderSubContentAsTextCacheExt(GenericDelegator delegator, String contentId, Writer out, String mapKey,  GenericValue subContentDataResourceView, 
-            Map templateRoot, Locale locale, String mimeTypeId, GenericValue userLogin, Timestamp fromDate, Boolean nullThruDatesOnly) throws GeneralException, IOException;
-
-    public Map renderContentAsTextExt(GenericDelegator delegator, String contentId, Writer out, Map templateContext, GenericValue view, Locale locale, String mimeTypeId) throws GeneralException, IOException;
-
-    public String renderContentAsTextCacheExt(GenericDelegator delegator, String contentId,  Map templateContext, GenericValue view, Locale locale, String mimeTypeId) throws GeneralException, IOException;
-
-    public Map renderContentAsTextCacheExt(GenericDelegator delegator, String contentId, Writer out, Map templateContext, GenericValue view, Locale locale, String mimeTypeId) throws GeneralException, IOException;
-
+    public GenericValue getWebSitePublishPointExt(GenericDelegator delegator, String contentId, boolean ignoreCache) throws GenericEntityException;
     public String getMimeTypeIdExt(GenericDelegator delegator, GenericValue view, Map ctx);
 
-    public GenericValue getWebSitePublishPointExt(GenericDelegator delegator, String contentId, boolean ignoreCache) throws GenericEntityException;
+    // new rendering methods
+    public void renderContentAsTextExt(GenericDelegator delegator, String contentId, Writer out, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException;
+    public String renderContentAsTextExt(GenericDelegator delegator, String contentId, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException;
+
+    public void renderSubContentAsTextExt(GenericDelegator delegator, String contentId, Writer out, String mapKey, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException;
+    public String renderSubContentAsTextExt(GenericDelegator delegator, String contentId, String mapKey, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException;            
 }

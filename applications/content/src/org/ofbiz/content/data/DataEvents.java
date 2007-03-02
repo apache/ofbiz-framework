@@ -20,6 +20,7 @@ package org.ofbiz.content.data;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -42,6 +43,7 @@ import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
 
 /**
  * DataEvents Class
@@ -55,7 +57,172 @@ public class DataEvents {
         return DataResourceWorker.uploadAndStoreImage(request, "dataResourceId", "imageData");
     }
 
+    /** Streams any binary content data to the browser */
+    public static String serveObjectData(HttpServletRequest request, HttpServletResponse response) {
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        HttpSession session = request.getSession();
+
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        String userAgent = request.getHeader("User-Agent");
+        String contentId = request.getParameter("contentId");
+        if (UtilValidate.isEmpty(contentId)) {
+            String errorMsg = "Required parameter contentId not found!";
+            Debug.logError(errorMsg, module);
+            request.setAttribute("_ERROR_MESSAGE_", errorMsg);
+            return "error";
+        }
+
+        // get the permission service required for streaming data; default is always the genericContentPermission
+        String permissionService = UtilProperties.getPropertyValue("content.properties", "stream.permission.service", "genericContentPermission");
+
+        // get the content record
+        GenericValue content;
+        try {
+            content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+            return "error";
+        }
+
+        // make sure content exists
+        if (content == null) {
+            String errorMsg = "No content found for Content ID: " + contentId;
+            Debug.logError(errorMsg, module);
+            request.setAttribute("_ERROR_MESSAGE_", errorMsg);
+            return "error";
+        }
+
+        // make sure there is a DataResource for this content
+        String dataResourceId = content.getString("dataResourceId");
+        if (UtilValidate.isEmpty(dataResourceId)) {
+            String errorMsg = "No Data Resource found for Content ID: " + contentId;
+            Debug.logError(errorMsg, module);
+            request.setAttribute("_ERROR_MESSAGE_", errorMsg);
+            return "error";
+        }
+
+        // get the data resource
+        GenericValue dataResource;
+        try {
+            dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+            return "error";
+        }
+
+        // make sure the data resource exists
+        if (dataResource == null) {
+            String errorMsg = "No Data Resource found for ID: " + dataResourceId;
+            Debug.logError(errorMsg, module);
+            request.setAttribute("_ERROR_MESSAGE_", errorMsg);
+            return "error";
+        }
+
+        // see if data resource is public or not
+        String isPublic = dataResource.getString("isPublic");
+        if (UtilValidate.isEmpty(isPublic)) {
+            isPublic = "N";
+        }
+
+        // not public check security
+        if (!"Y".equalsIgnoreCase(isPublic)) {
+            // do security check
+            Map permSvcCtx = UtilMisc.toMap("userLogin", userLogin, "mainAction", "VIEW", "contentId", contentId);
+            Map permSvcResp;
+            try {
+                permSvcResp = dispatcher.runSync(permissionService, permSvcCtx);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, module);
+                request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+                return "error";
+            }
+            if (ServiceUtil.isError(permSvcResp)) {
+                String errorMsg = ServiceUtil.getErrorMessage(permSvcResp);
+                Debug.logError(errorMsg, module);
+                request.setAttribute("_ERROR_MESSAGE_", errorMsg);
+                return "error";
+            }
+
+            // no service errors; now check the actual response
+            Boolean hasPermission = (Boolean) permSvcResp.get("hasPermission");
+            if (!hasPermission.booleanValue()) {
+                String errorMsg = (String) permSvcResp.get("failMessage");
+                Debug.logError(errorMsg, module);
+                request.setAttribute("_ERROR_MESSAGE_", errorMsg);
+                return "error";
+            }
+        }
+
+        // get objects needed for data processing
+        String contextRoot = (String) request.getAttribute("_CONTEXT_ROOT_");
+        String webSiteId = (String) session.getAttribute("webSiteId");
+        String dataName = dataResource.getString("dataResourceName");
+        Locale locale = UtilHttp.getLocale(request);
+
+        // get the mime type
+        String mimeType = DataResourceWorker.getMimeType(dataResource);
+
+        // hack for IE and mime types
+        if (userAgent.indexOf("MSIE") > -1) {
+            Debug.log("Found MSIE changing mime type from - " + mimeType, module);
+            mimeType = "application/octet-stream";
+        }
+
+        // for local resources; use HTTPS if we are requested via HTTPS
+        String https = "false";
+        String protocol = request.getProtocol();
+        if ("https".equalsIgnoreCase(protocol)) {
+            https = "true";
+        }
+
+        // get the data resource stream and conent length
+        Map resourceData;
+        try {
+            resourceData = DataResourceWorker.getDataResourceStream(dataResource, https, webSiteId, locale, contextRoot, false);
+        } catch (IOException e) {
+            Debug.logError(e, "Error getting DataResource stream", module);
+            request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+            return "error";
+        } catch (GeneralException e) {
+            Debug.logError(e, "Error getting DataResource stream", module);
+            request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+            return "error";
+        }
+
+        // get the stream data
+        InputStream stream = null;
+        Long length = null;
+
+        if (resourceData != null) {
+            stream = (InputStream) resourceData.get("stream");
+            length = (Long) resourceData.get("length");
+        }
+        Debug.log("Got resource data stream: " + length + " bytes", module);
+        
+        // stream the content to the browser
+        if (stream != null && length != null) {
+            try {
+                UtilHttp.streamContentToBrowser(response, stream, length.intValue(), mimeType, dataName);
+            } catch (IOException e) {
+                Debug.logError(e, "Unable to write content to browser", module);
+                request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+                return "error";
+            }
+        } else {
+            String errorMsg = "No data is available.";
+            Debug.logError(errorMsg, module);
+            request.setAttribute("_ERROR_MESSAGE_", errorMsg);
+            return "error";
+        }
+
+        return "success";
+    }
+
     /** Streams ImageDataResource data to the output. */
+    // TODO: remove this method in favor of serveObjectData
     public static String serveImage(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         ServletContext application = session.getServletContext();

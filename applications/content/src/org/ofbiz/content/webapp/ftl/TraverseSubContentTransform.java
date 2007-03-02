@@ -249,7 +249,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                     if (locale == null)
                         locale = Locale.getDefault();
                     try {
-                        ContentWorker.renderContentAsText(delegator, wrapTemplateId, out, templateRoot, null, locale, mimeTypeId);
+                        ContentWorker.renderContentAsText(delegator, wrapTemplateId, out, templateRoot, locale, mimeTypeId, false);
                     } catch (GeneralException e) {
                         Debug.logError(e, "Error rendering content", module);
                         throw new IOException("Error rendering content" + e.toString());

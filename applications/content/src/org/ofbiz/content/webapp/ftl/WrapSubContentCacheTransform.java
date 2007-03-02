@@ -169,7 +169,7 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
                     Locale locale = null;
                     try {
                         //if (Debug.infoOn()) Debug.logInfo("in Edit(0), before calling renderContentAsText ." , module);
-                        ContentWorker.renderContentAsTextCache(delegator, wrapTemplateId, out, templateRoot, null, locale, mimeTypeId);
+                        ContentWorker.renderContentAsText(delegator, wrapTemplateId, out, templateRoot, locale, mimeTypeId, true);
                         //if (Debug.infoOn()) Debug.logInfo("in Edit(0), after calling renderContentAsText ." , module);
                     } catch (IOException e) {
                         Debug.logError(e, "Error rendering content" + e.getMessage(), module);

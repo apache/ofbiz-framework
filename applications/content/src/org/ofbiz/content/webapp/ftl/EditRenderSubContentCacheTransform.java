@@ -160,7 +160,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
                         Locale locale = null;
                         try {
                            //if (Debug.infoOn()) Debug.logInfo("in Edit(0), before calling renderContentAsTextCache, wrapTemplateId: ." + wrapTemplateId , module);
-                            ContentWorker.renderContentAsTextCache(delegator, wrapTemplateId, out, templateRoot, null, locale, mimeTypeId);
+                            ContentWorker.renderContentAsText(delegator, wrapTemplateId, out, templateRoot, locale, mimeTypeId, true);
                            //if (Debug.infoOn()) Debug.logInfo("in Edit(0), after calling renderContentAsTextCache, wrapTemplateId: ." + wrapTemplateId , module);
                         } catch (IOException e) {
                             Debug.logError(e, "Error rendering content" + e.getMessage(), module);
