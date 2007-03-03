@@ -41,7 +41,6 @@
                 <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <set field="activeApp" value="workeffort" global="true"/>
-                <set field="applicationTitle" from-field="uiLabelMap.WorkEffortWorkEffortManagerApplication" global="true"/>
                 <set field="applicationMenuName" value="WorkEffortAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://workeffort/widget/WorkEffortMenus.xml" global="true"/>
             </actions>

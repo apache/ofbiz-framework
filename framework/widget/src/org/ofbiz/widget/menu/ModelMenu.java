@@ -50,7 +50,8 @@ public class ModelMenu {
     protected String name;
     protected String type;
     protected String target;
-    protected String title;
+    protected String id;
+    protected FlexibleStringExpander title;
     protected String tooltip;
     protected String defaultEntityName;
     protected String defaultTitleStyle;
@@ -139,6 +140,7 @@ public class ModelMenu {
             if (parent != null) {
                 this.type = parent.type;
                 this.target = parent.target;
+                this.id = parent.id;
                 this.title = parent.title;
                 this.tooltip = parent.tooltip;
                 this.tooltip = parent.tooltip;
@@ -171,8 +173,10 @@ public class ModelMenu {
             this.type = menuElement.getAttribute("type");
         if (this.target == null || menuElement.hasAttribute("target"))
             this.target = menuElement.getAttribute("target");
+        if (this.id == null || menuElement.hasAttribute("id"))
+            this.id = menuElement.getAttribute("id");
         if (this.title == null || menuElement.hasAttribute("title"))
-            this.title = menuElement.getAttribute("title");
+            this.setTitle(menuElement.getAttribute("title"));
         if (this.tooltip == null || menuElement.hasAttribute("tooltip"))
             this.tooltip = menuElement.getAttribute("tooltip");
         if (this.defaultEntityName == null || menuElement.hasAttribute("default-entity-name"))
@@ -448,12 +452,18 @@ public class ModelMenu {
         return this.name;
     }
 
+    /**
+     * @return
+     */
+    public String getId() {
+        return this.id;
+    }
 
     /**
      * @return
      */
-    public String getTitle() {
-        return this.title;
+    public String getTitle(Map context) {
+        return title.expandString(context);
     }
 
     /**
@@ -547,8 +557,15 @@ public class ModelMenu {
     /**
      * @param string
      */
+    public void setId(String string) {
+        this.id = string;
+    }
+
+    /**
+     * @param string
+     */
     public void setTitle(String string) {
-        this.title = string;
+        this.title = new FlexibleStringExpander(string);
     }
 
     /**
@@ -725,6 +742,7 @@ public class ModelMenu {
             + "\n name=" + this.name
             + "\n type=" + this.type
             + "\n target=" + this.target
+            + "\n id=" + this.id
             + "\n title=" + this.title
             + "\n tooltip=" + this.tooltip
             + "\n defaultEntityName=" + this.defaultEntityName

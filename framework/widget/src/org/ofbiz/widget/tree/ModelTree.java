@@ -435,6 +435,7 @@ public class ModelTree {
                     if (link != null) {
                         link.renderLinkString(writer, context, treeStringRenderer);
                     }
+                    treeStringRenderer.renderLastElement(writer, context, this);
                     Boolean processChildren = (Boolean) context .get("processChildren");
                     //if (Debug.infoOn()) Debug.logInfo(" processChildren:" + processChildren, module);
                     if (processChildren.booleanValue()) {
@@ -642,6 +643,10 @@ public class ModelTree {
             return isFollowTrail;
         }
     
+        public boolean isRootNode() {
+            return name.equals(modelTree.getRootNodeName());
+        }
+        
         public boolean showPeers(int currentDepth) {
             int trailSize = 0;
             List trail = modelTree.getTrailList();

@@ -34,7 +34,7 @@ under the License.
                 <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <set field="activeApp" value="marketing" global="true"/>
-                <set field="applicationTitle" from-field="uiLabelMap.MarketingManagerApplication" global="true"/>
+<!--                <set field="applicationTitle" from-field="uiLabelMap.MarketingManagerApplication" global="true"/> -->
                 <set field="applicationMenuName" value="MarketingAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://marketing/widget/MarketingMenus.xml" global="true"/>
             </actions>

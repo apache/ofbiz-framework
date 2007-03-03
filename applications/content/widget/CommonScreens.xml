@@ -35,7 +35,6 @@ under the License.
                 <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <set field="activeApp" value="contentmgr" global="true"/>
-                <set field="applicationTitle" from-field="uiLabelMap.ContentContentManagerApplication" global="true"/>
                 <set field="applicationMenuName" value="ContentAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://content/widget/content/ContentMenus.xml" global="true"/>
             </actions>

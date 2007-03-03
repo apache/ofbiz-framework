@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
-    <menu name="MarketingAppBar" default-menu-item-name="main" default-selected-style="headerButtonLeftSelected" 
-        default-title-style="tabButton" default-tooltip-style="tabletext" default-widget-style="headerButtonLeft" 
-        default-align-style="col" menu-container-style="row" fill-style="col-fill" orientation="horizontal" type="simple">
+    <menu name="MarketingAppBar" default-menu-item-name="main" default-selected-style="selected" 
+        id="app-navigation" default-tooltip-style="tooltip"  
+        type="simple" title="${uiLabelMap.MarketingManagerApplication}">
         <menu-item name="main" title="${uiLabelMap.MarketingMainPage}"><link target="main"/></menu-item>
         <menu-item name="DataSource" title="${uiLabelMap.DataSource}"><link target="FindDataSource"/></menu-item>
         <menu-item name="Campaign" title="${uiLabelMap.MarketingCampaign}"><link target="FindMarketingCampaign"/></menu-item>
@@ -28,15 +28,15 @@ under the License.
         <menu-item name="Segment" title="${uiLabelMap.Segment}"><link target="FindSegmentGroup"/></menu-item>
         <menu-item name="ContactList" title="${uiLabelMap.ContactList}"><link target="FindContactLists"/></menu-item>
 
-        <menu-item name="Logout" title="Logout" align-style="col-right" widget-style="headerButtonRight" selected-style="headerButtonRightSelected">
+        <menu-item name="Logout" title="Logout" align-style="col-right" selected-style="selected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
             <link target="logout"/>
         </menu-item>
-        <menu-item name="Login" title="Login" align-style="col-right" widget-style="headerButtonRight" selected-style="headerButtonRightSelected">
+        <menu-item name="Login" title="Login" align-style="col-right" selected-style="selected">
             <condition><if-empty field-name="userLogin"/></condition>
             <link target="${checkLoginUrl}"/>
         </menu-item>
-        <menu-item name="Reports" title="${uiLabelMap.MarketingReports}" align-style="col-right" widget-style="headerButtonRight"><link target="MarketingReport"/></menu-item>
+        <menu-item name="Reports" title="${uiLabelMap.MarketingReports}" align-style="col-right"><link target="MarketingReport"/></menu-item>
 
     </menu>
 </menus>

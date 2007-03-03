@@ -66,6 +66,9 @@ public class ModelForm {
     protected String type;
     protected FlexibleStringExpander target;
     protected String targetType;
+    protected String containerId;
+    protected String containerStyle;
+    protected String focusFieldName;
     protected String title;
     protected String tooltip;
     protected String listName;
@@ -213,6 +216,9 @@ public class ModelForm {
             if (parent != null) {
                 this.type = parent.type;
                 this.target = parent.target;
+                this.containerId = parent.containerId;
+                this.containerStyle = parent.containerStyle;
+                this.focusFieldName = parent.focusFieldName;
                 this.title = parent.title;
                 this.tooltip = parent.tooltip;
                 this.listName = parent.listName;
@@ -262,6 +268,15 @@ public class ModelForm {
         }
         if (this.targetWindowExdr == null || formElement.hasAttribute("target-window")) {
             setTargetWindow(formElement.getAttribute("target-window"));
+        }
+        if (this.containerId == null || formElement.hasAttribute("id")) {
+            this.containerId = formElement.getAttribute("id");
+        }
+        if (this.containerStyle == null || formElement.hasAttribute("style")) {
+            this.containerStyle = formElement.getAttribute("style");
+        }
+        if (this.focusFieldName == null || formElement.hasAttribute("focus-field-name")) {
+            this.focusFieldName = formElement.getAttribute("focus-field-name");
         }
         if (this.title == null || formElement.hasAttribute("title")) {
             this.title = formElement.getAttribute("title");
@@ -644,7 +659,7 @@ public class ModelForm {
      *   value of the name attribute)
      * @param formStringRenderer An implementation of the FormStringRenderer
      *   interface that is responsible for the actual text generation for
-     *   different form elements; implementing you own makes it possible to
+     *   different form elements; implementing your own makes it possible to
      *   use the same form definitions for many types of form UIs
      */
     public void renderFormString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
@@ -1556,6 +1571,27 @@ public class ModelForm {
     /**
      * @return
      */
+    public String getContainerId() {
+        return this.containerId;
+    }
+
+    /**
+     * @return
+     */
+    public String getContainerStyle() {
+        return this.containerStyle;
+    }
+
+    /**
+     * @return
+     */
+    public String getfocusFieldName() {
+        return this.focusFieldName;
+    }
+
+    /**
+     * @return
+     */
     public String getTitle() {
         return this.title;
     }
@@ -1718,6 +1754,20 @@ public class ModelForm {
      */
     public void setTarget(String string) {
         this.target = new FlexibleStringExpander(string);
+    }
+
+    /**
+     * @param string
+     */
+    public void setContainerId(String string) {
+        this.containerId = string;
+    }
+
+    /**
+     * @param string
+     */
+    public void setfocusFieldName(String string) {
+        this.focusFieldName = string;
     }
 
     /**
