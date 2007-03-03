@@ -21,9 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
 
-    <form name="lookupPartyName" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="LookupPartyName" title="" type="single">
+    <form name="lookupPartyName" target="LookupPartyName" type="single">
         <!--<auto-fields-entity entity-name="PartyNameView" default-field-type="find" />-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
         <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
@@ -35,10 +33,11 @@ under the License.
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><text-find/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupPartyName" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        list-name="listIt" paginate-target="LookupPartyName" title="" type="list">
+
+    <form name="listLookupPartyName" type="list" list-name="listIt" 
+        paginate-target="LookupPartyName">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -47,7 +46,7 @@ under the License.
             </service>
         </actions>
         <!--<auto-fields-entity entity-name="PartyNameView" default-field-type="display"/>-->
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}"  widget-style="buttontext">
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"  widget-style="smallSubmit">
             <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
         </field>
         <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}"> 
@@ -59,19 +58,17 @@ under the License.
     </form>
     
     <!-- Person Lookup forms -->
-    <form name="lookupPerson" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="LookupPerson" title="" type="single">
+    <form name="lookupPerson" type="single" target="LookupPerson">
         <!--<auto-fields-entity entity-name="Person" default-field-type="find" />-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupPerson" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext"
-        list-name="listIt" target="" paginate-target="LookupPerson" title="" type="list">
+
+    <form name="listLookupPerson" type="list" list-name="listIt"
+        paginate-target="LookupPerson">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="requestParameters"/>
@@ -79,7 +76,7 @@ under the License.
             </service>
         </actions>
         <!--<auto-fields-entity entity-name="Person" default-field-type="display"/>-->
-        <field name="partyId"  widget-style="buttontext" title="${uiLabelMap.PartyPartyId}">
+        <field name="partyId"  widget-style="smallSubmit" title="${uiLabelMap.PartyPartyId}">
             <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
         </field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><display/></field>
@@ -90,10 +87,8 @@ under the License.
         <field name="nickname" title="${uiLabelMap.PartyNickname}"><display/></field>
     </form>
     
-    <form name="lookupPartyAndUserLoginAndPerson" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="LookupPartyAndUserLoginAndPerson" paginate-target="LookupPartyAndUserLoginAndPerson"
-        title="" type="single">
+    <form name="lookupPartyAndUserLoginAndPerson" type="single" target="LookupPartyAndUserLoginAndPerson" 
+        paginate-target="LookupPartyAndUserLoginAndPerson">
         <!--<auto-fields-entity entity-name="PartyAndUserLoginAndPerson" default-field-type="find" />-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
         <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}"><text-find/></field>
@@ -103,11 +98,11 @@ under the License.
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
         <field name="createdDate" title="${uiLabelMap.PartyCreatedDate}"><date-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupPartyAndUserLoginAndPerson" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext"
-        list-name="listIt" target="" paginate-target="LookupPartyAndUserLoginAndPerson" title="" type="list">
+
+    <form name="listLookupPartyAndUserLoginAndPerson" type="list" list-name="listIt"
+        paginate-target="LookupPartyAndUserLoginAndPerson">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="requestParameters"/>
@@ -118,16 +113,14 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display description="${partyId}"/>
         </field>
-        <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}" widget-style="buttontext">
+        <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" target-type="plain" description="${userLoginId}" target="javascript:set_value('${userLoginId}', '${userLoginId}', '${parameters.webSitePublishPoint}')"/>
         </field>
         <field name="lastName" title="${uiLabelMap.PartyName}"><display description="${firstName} ${middleName} ${lastName} ${groupName}"/></field>
     </form>
     
-    <form name="lookupUserLoginAndPartyDetails" default-title-style="tableheadtext"
-            default-tooltip-style="tabletext" default-widget-style="inputBox"
-            target="LookupUserLoginAndPartyDetails" paginate-target="LookupUserLoginAndPartyDetails"
-            title="" type="single">
+    <form name="lookupUserLoginAndPartyDetails" type="single" target="LookupUserLoginAndPartyDetails"
+        paginate-target="LookupUserLoginAndPartyDetails">
         <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}"><text-find/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
@@ -136,18 +129,18 @@ under the License.
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
         <field name="createdDate" title="${uiLabelMap.PartyCreatedDate}"><date-find/></field>
         <field name="noConditionFind"><hidden value="Y"/></field> 
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupUserLoginAndPartyDetails" default-title-style="tableheadtext"
-            default-tooltip-style="tabletext" default-widget-style="tabletext"
-            list-name="listIt" target="" paginate-target="LookupUserLoginAndPartyDetails" title="" type="list">
+
+    <form name="listLookupUserLoginAndPartyDetails" type="list" list-name="listIt"
+        paginate-target="LookupUserLoginAndPartyDetails">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="requestParameters"/>
                 <field-map field-name="entityName" env-name="entityName"/>
             </service>
         </actions>
-        <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}" widget-style="buttontext">
+        <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" target-type="plain" description="${userLoginId}" target="javascript:set_value('${userLoginId}', '${userLoginId}', '${parameters.webSitePublishPoint}')"/>
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
@@ -157,17 +150,17 @@ under the License.
 		<field name="groupName" title="${uiLabelMap.PartyGroupName}"><display description="${groupName}"/></field>
     </form>
     
-    <form name="lookupPartyGroup" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" target="LookupPartyGroup" 
-        title="" type="single">
+    <form name="lookupPartyGroup" type="single" target="LookupPartyGroup">
         <!--<auto-fields-entity entity-name="PartyGroup" default-field-type="find"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
-        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupPartyGroup" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        list-name="listIt" paginate-target="LookupPartyGroup" title="" type="list">
-          <actions>
+
+    <form name="listLookupPartyGroup" type="list" list-name="listIt"
+        paginate-target="LookupPartyGroup">
+        <actions>
           <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
             <field-map field-name="inputFields" env-name="requestParameters"/>
             <field-map field-name="entityName" env-name="entityName"/>
@@ -177,13 +170,12 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><display/></field>
         <field name="comments" title="${uiLabelMap.PartyComments}"><display/></field>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}" widget-style="buttontext">
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
         </field>
     </form>
 
-    <form name="LookupPartyClassificationGroup" target="LookupPartyClassificationGroup" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="LookupPartyClassificationGroup" type="single" target="LookupPartyClassificationGroup">
         <auto-fields-entity entity-name="PartyClassificationGroup" default-field-type="find"/>
         <field name="partyClassificationTypeId">
             <drop-down allow-empty="true">
@@ -193,10 +185,10 @@ under the License.
             </drop-down>
         </field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupPartyClassificationGroup" list-name="listIt" target="" paginate-target="" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="display">
+
+    <form name="listLookupPartyClassificationGroup" type="list" list-name="listIt">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -205,7 +197,7 @@ under the License.
             </service>
         </actions>
         
-        <field name="partyClassificationGroupId" title="" widget-style="buttontext">
+        <field name="partyClassificationGroupId" title="" widget-style="smallSubmit">
             <hyperlink also-hidden="false" target-type="plain" description="${partyClassificationGroupId}" target="javascript:set_value('${partyClassificationGroupId}')"/>
         </field>
         <field name="partyClassificationTypeId"><display/></field>
@@ -213,7 +205,7 @@ under the License.
         <field name="description"><display/></field>
     </form>
 
-    <form name="LookupCommEvent"  default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" target="LookupCommEvent" title="" type="single">
+    <form name="LookupCommEvent" type="single" target="LookupCommEvent">
         <field name="communicationEventId" title="${uiLabelMap.ContactListCommEventId}"><text-find/></field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><lookup target-form-name="LookupPartyName"/></field>
@@ -253,14 +245,15 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
-    <form name="ListLookupCommEvent" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" target="" title="" list-name="listIt" type="list">
+
+    <form name="ListLookupCommEvent" type="list" list-name="listIt">
         <actions>
             <service service-name="performFind" result-map-list-name="listIt" result-map-name="result">
                 <field-map field-name="inputFields" env-name="parameters"/>
                 <field-map field-name="entityName" value="CommunicationEvent"/>
             </service>
         </actions>
-        <field name="communicationEventId" title="${uiLabelMap.ContactListCommEventId}" widget-style="buttontext">
+        <field name="communicationEventId" title="${uiLabelMap.ContactListCommEventId}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${communicationEventId}" target="javascript:set_value('${communicationEventId}')" target-type="plain"/>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}">

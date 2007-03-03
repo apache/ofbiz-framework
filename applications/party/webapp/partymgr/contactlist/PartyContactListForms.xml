@@ -18,22 +18,22 @@ specific language governing permissions and limitations
 under the License.
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="ListPartyContactLists" target="updateContactListParty" separate-columns="false"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        title="" type="list">
+
+    <form name="ListPartyContactLists" type="list" target="updateContactListParty"
+        separate-columns="false">
         <actions>
             <entity-and entity-name="ContactListParty">
                 <field-map field-name="partyId"/>
             </entity-and>
         </actions>
         <field name="partyId"><hidden/></field>
-        <field name="contactListId"  widget-style="tabletext" title="${uiLabelMap.PartyContactList}">
+        <field name="contactListId" title="${uiLabelMap.PartyContactList}">
             <display-entity entity-name="ContactList" description="${contactListName}">
-                <sub-hyperlink target="/marketing/control/EditContactList?contactListId=${contactListId}" description="${contactListId}" target-type="inter-app" link-style="buttontext"/>
+                <sub-hyperlink target="/marketing/control/EditContactList?contactListId=${contactListId}" description="${contactListId}" target-type="inter-app" link-style="smallSubmit"/>
             </display-entity>
         </field>
         <field name="fromDate"><display/></field>
-        <field name="statusHistory" widget-style="selectBox">
+        <field name="statusHistory">
             <drop-down>
                 <option key="" description="-- ${uiLabelMap.CommonStatusHistory} --"/>
                 <entity-options entity-name="ContactListPartyAndStatus" key-field-name="statusId" description="${statusDate} ${description} [${uiLabelMap.CommonBy}: ${setByUserLoginId}] [${uiLabelMap.FormFieldTitle_optInVerifyCode}: ${optInVerifyCode}]">
@@ -44,8 +44,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="thruDate" widget-style="inputBox"><date-time/></field>
-        <field name="statusId" widget-style="selectBox">
+        <field name="thruDate"><date-time/></field>
+        <field name="statusId">
             <drop-down>
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" operator="equals" value="CONTACTLST_PARTY"/>
@@ -53,7 +53,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="optInVerifyCode" widget-style="inputBox"><text size="10"/></field>
+        <field name="optInVerifyCode"><text size="10"/></field>
         <field name="preferredContactMechId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="PartyAndContactMech" key-field-name="contactMechId" description="[${contactMechId}] [${infoString}] [${tnCountryCode}-${tnAreaCode}-${tnContactNumber}] [${paAddress1}, ${paAddress2}, ${paCity}, ${paStateProvinceGeoId}, ${paPostalCode}, ${paPostalCodeExt} ${paCountryGeoId}]">
@@ -62,12 +62,10 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
-        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
     </form>
-    <form name="AddPartyContactList" type="single" 
-            target="createContactListParty" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+
+    <form name="AddPartyContactList" type="single" target="createContactListParty" >
         <field name="contactListId"><lookup target-form-name="LookupContactList"/></field>
         <field name="partyId"><hidden/></field>
         <field name="fromDate"><date-time/></field>
@@ -88,17 +86,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
-        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
     </form>
-    <form name="ListLookupContactList" type="list" 
-            target="LookupContactList" title="" default-map-name="contactList"
-            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+
+    <form name="ListLookupContactList" type="list" target="LookupContactList" default-map-name="contactList">
         <actions>
             <entity-condition entity-name="ContactList"/>
         </actions>
-        
-        <field name="contactListId"  widget-style="buttontext">
+        <field name="contactListId"  widget-style="smallSubmit">
             <hyperlink also-hidden="false" target-type="plain" description="${contactListId}" target="javascript:set_value('${contactListId}')"/>
         </field>
         <field name="contactListName"><display/></field>
@@ -106,4 +101,5 @@ under the License.
         <field name="contactMechTypeId" title="${uiLabelMap.PartyContactMechType}"><display-entity description="${description}" entity-name="ContactMechType"/></field>
         <field name="marketingCampaignId"><display-entity entity-name="MarketingCampaign" description="${campaignName}"/></field>
     </form>
+
 </forms>

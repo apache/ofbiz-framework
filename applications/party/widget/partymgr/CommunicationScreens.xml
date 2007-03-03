@@ -49,7 +49,7 @@ under the License.
                                 </section>
                                 <include-menu location="component://party/webapp/partymgr/communication/CommMenus.xml" name="CommFindTabBar"/>
                                 <container><label style="head1" text="${uiLabelMap.PartyPendingCommunicationEvents}"/></container>
-                                <container><link style="buttontext" target="viewCommunicationEvent?partyId=${partyId}" text="${uiLabelMap.PartyNewCommunication}"/></container>
+                                <container><link style="smallSubmit" target="viewCommunicationEvent?partyId=${partyId}" text="${uiLabelMap.PartyNewCommunication}"/></container>
                                 <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="listPendingCommEvents"/>
                             </widgets>
                             <fail-widgets>
@@ -85,7 +85,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <container><label style="head1" text="${uiLabelMap.PartyFoundCommunicationEvents}"/></container>
-                                <container><link style="buttontext" target="EditCommunicationEvent?partyId=${partyId}" text="${uiLabelMap.PartyNewCommunication}"/></container>
+                                <container><link style="smallSubmit" target="EditCommunicationEvent?partyId=${partyId}" text="${uiLabelMap.PartyNewCommunication}"/></container>
                                 <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListPartyCommEvents"/>
                             </widgets>
                             <fail-widgets>
@@ -129,9 +129,9 @@ under the License.
                                     </widgets>
                                 </section>
                                 <container><label style="head1" text="${uiLabelMap.PartyFoundCommunicationEvents}"/></container>
-                                <container>
-                                    <link style="buttontext" target="EditCommunicationEvent" text="${uiLabelMap.PartyNewCommunication}"/>
-                                    <link style="buttontext" target="FindCommunicationEvents" text="${uiLabelMap.PartyNewFind}"/>
+                                <container style="button-bar">
+                                    <link style="smallSubmit" target="EditCommunicationEvent" text="${uiLabelMap.PartyNewCommunication}"/>
+                                    <link style="smallSubmit" target="FindCommunicationEvents" text="${uiLabelMap.PartyNewFind}"/>
                                 </container>
                                 <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListLookupCommEvents"/>
                             </widgets>
@@ -172,7 +172,7 @@ under the License.
                                     </widgets>
                                 </section>
                                 <container><label style="head1" text="${uiLabelMap.PartyFindCommunicationEvents}"/></container>
-                                <container><link style="buttontext" target="EditCommunicationEvent" text="${uiLabelMap.PartyNewCommunication}"/></container>
+                                <container><link style="smallSubmit" target="EditCommunicationEvent" text="${uiLabelMap.PartyNewCommunication}"/></container>
                                 <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="findCommEvents"/>
                             </widgets>
                             <fail-widgets>
@@ -286,8 +286,8 @@ under the License.
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link style="buttontext" target="EditCommunicationEvent?partyId=${partyId}&amp;partyIdFrom=${partyId}" text="${uiLabelMap.PartyNewCommunication}"/>
-                                            <link style="buttontext" target="EditCommunicationEvent?partyId=${partyId}&amp;partyIdTo=${partyId}" text="${uiLabelMap.PartyReply}"/>
+                                            <link style="smallSubmit" target="EditCommunicationEvent?partyId=${partyId}&amp;partyIdFrom=${partyId}" text="${uiLabelMap.PartyNewCommunication}"/>
+                                            <link style="smallSubmit" target="EditCommunicationEvent?partyId=${partyId}&amp;partyIdTo=${partyId}" text="${uiLabelMap.PartyReply}"/>
                                         </container>
                                     </widgets>
                                 </section>
@@ -412,7 +412,7 @@ under the License.
                                 <if-compare field-name="okayToUpdate" operator="equals" type="Boolean" value="true"/>
                             </condition>
                             <widgets>
-                                <container><link style="buttontext" target="AddCommEventWorkEffort?communicationEventId=${communicationEventId}&amp;partyId=${partyId}" text="${uiLabelMap.PartyNewCommWorkEffort}"/></container>
+                                <container><link style="smallSubmit" target="AddCommEventWorkEffort?communicationEventId=${communicationEventId}&amp;partyId=${partyId}" text="${uiLabelMap.PartyNewCommWorkEffort}"/></container>
                             </widgets>
                         </section>
                         <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListCommWorkEfforts"/>
@@ -490,7 +490,7 @@ under the License.
                                         <if-compare field-name="okayToUpdate" operator="equals" type="Boolean" value="true"/>
                                     </condition>
                                     <widgets>
-                                        <container><link style="buttontext" target="AddCommContent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}" text="${uiLabelMap.PartyAddCommContent}"/></container>
+                                        <container><link style="smallSubmit" target="AddCommContent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}" text="${uiLabelMap.PartyAddCommContent}"/></container>
                                     </widgets>
                                 </section>
                                 <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="listCommContent"/>

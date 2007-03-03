@@ -17,37 +17,34 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if (requestAttributes.uiLabelMap)?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
-<#if (requestAttributes.security)?exists><#assign security = requestAttributes.security></#if>
-<#if (requestAttributes.userLogin)?exists><#assign userLogin = requestAttributes.userLogin></#if>
-<#if (requestAttributes.checkLoginUrl)?exists><#assign checkLoginUrl = requestAttributes.checkLoginUrl></#if>
+<#assign selected = headerItem?default("void")>
 
-<#assign unselectedLeftClassName = "headerButtonLeft">
-<#assign unselectedRightClassName = "headerButtonRight">
-<#assign selectedLeftClassMap = {(page.headerItem)?default("void") : "headerButtonLeftSelected"}>
-<#assign selectedRightClassMap = {(page.headerItem)?default("void") : "headerButtonRightSelected"}>
-
-<div class="apptitle">&nbsp;${uiLabelMap.PartyManagerApplication}&nbsp;</div>
-<div class="row">
-  <div class="col"><a href="<@ofbizUrl>main</@ofbizUrl>" class="${selectedLeftClassMap.main?default(unselectedLeftClassName)}">${uiLabelMap.CommonMain}</a></div>
-  <div class="col"><a href="<@ofbizUrl>findparty</@ofbizUrl>" class="${selectedLeftClassMap.find?default(unselectedLeftClassName)}">${uiLabelMap.CommonFind}</a></div>
-  <#if security.hasEntityPermission("PARTYMGR", "_CREATE", session)>
-    <div class="col"><a href="<@ofbizUrl>createnew</@ofbizUrl>" class="${selectedLeftClassMap.create?default(unselectedLeftClassName)}">${uiLabelMap.CommonCreate}</a></div>
-  </#if>
-  <#if security.hasEntityPermission("PARTYMGR", "_UPDATE", session)>
-    <div class="col"><a href="<@ofbizUrl>linkparty</@ofbizUrl>" class="${selectedLeftClassMap.link?default(unselectedLeftClassName)}">${uiLabelMap.PartyLink}</a></div>
-  </#if>
-  <div class="col"><a href="<@ofbizUrl>FindCommunicationEvents</@ofbizUrl>" class="${selectedLeftClassMap.comm?default(unselectedLeftClassName)}">${uiLabelMap.PartyCommunications}</a></div>
-  <div class="col"><a href="<@ofbizUrl>showvisits</@ofbizUrl>" class="${selectedLeftClassMap.visits?default(unselectedLeftClassName)}">${uiLabelMap.PartyVisits}</a></div>
-  <div class="col"><a href="<@ofbizUrl>showclassgroups</@ofbizUrl>" class="${selectedLeftClassMap.classification?default(unselectedLeftClassName)}">${uiLabelMap.PartyClassifications}</a></div>
-  <#if security.hasEntityPermission("SECURITY", "_VIEW", session)>
-    <div class="col"><a href="<@ofbizUrl>FindSecurityGroup</@ofbizUrl>" class="${selectedLeftClassMap.security?default(unselectedLeftClassName)}">${uiLabelMap.CommonSecurity}</a></div>
-  </#if>
-  <#if userLogin?has_content>
-    <div class="col-right"><a href="<@ofbizUrl>logout</@ofbizUrl>" class="${unselectedRightClassName}">${uiLabelMap.CommonLogout}</a></div>
-  <#else>
-    <div class="col-right"><a href='<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>' class='${selectedRightClassMap.login?default(unselectedRightClassName)}'>${uiLabelMap.CommonLogin}</a></div>
-  </#if>
-  <div class="col-right"><a href="<@ofbizUrl>addressMatchMap</@ofbizUrl>" class="${selectedLeftClassMap.addrmap?default(unselectedLeftClassName)}">${uiLabelMap.PageTitleAddressMatchMap}</a></div>
-  <div class="col-fill">&nbsp;</div>
+<!-- begin appHeader.ftl -->
+<div id="app-navigation">
+  <h2>${uiLabelMap.PartyManagerApplication}</h2>
+  <ul>
+    <li<#if selected == "main"> class="selected"</#if>><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.CommonMain}</a></li>
+    <li<#if selected == "find"> class="selected"</#if>><a href="<@ofbizUrl>findparty</@ofbizUrl>">${uiLabelMap.CommonFind}</a></li>
+    <#if security.hasEntityPermission("PARTYMGR", "_CREATE", session)>
+      <li<#if selected == "create"> class="selected"</#if>><a href="<@ofbizUrl>createnew</@ofbizUrl>">${uiLabelMap.CommonCreate}</a></li>
+    </#if>
+    <#if security.hasEntityPermission("PARTYMGR", "_UPDATE", session)>
+      <li<#if selected == "link"> class="selected"</#if>><a href="<@ofbizUrl>linkparty</@ofbizUrl>">${uiLabelMap.PartyLink}</a></li>
+    </#if>
+    <li<#if selected == "comm"> class="selected"</#if>><a href="<@ofbizUrl>FindCommunicationEvents</@ofbizUrl>">${uiLabelMap.PartyCommunications}</a></li>
+    <li<#if selected == "visits"> class="selected"</#if>><a href="<@ofbizUrl>showvisits</@ofbizUrl>">${uiLabelMap.PartyVisits}</a></li>
+    <li<#if selected == "classification"> class="selected"</#if>><a href="<@ofbizUrl>showclassgroups</@ofbizUrl>">${uiLabelMap.PartyClassifications}</a></li>
+    <#if security.hasEntityPermission("SECURITY", "_VIEW", session)>
+      <li<#if selected == "security"> class="selected"</#if>><a href="<@ofbizUrl>FindSecurityGroup</@ofbizUrl>">${uiLabelMap.CommonSecurity}</a></li>
+    </#if>
+  </ul>
+  <ul class="opposed">
+    <#if userLogin?has_content>
+      <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
+    <#else>
+      <li><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
+    </#if>
+    <li<#if selected == "addrmap"> class="selected"</#if>><a href="<@ofbizUrl>addressMatchMap</@ofbizUrl>">${uiLabelMap.PageTitleAddressMatchMap}</a></li>
+  </ul>
+  <br class="clear" />
 </div>

@@ -325,7 +325,7 @@ under the License.
                                     <label style="head3">${uiLabelMap.PartyMsgContactNotBelongToYou}</label>
                                 </container>
                                 <container>
-                                    <link target="authview/${donePage}" text="[${uiLabelMap.CommonBack}]" style="buttontext"/>
+                                    <link target="authview/${donePage}" text="[${uiLabelMap.CommonBack}]" style="smallSubmit"/>
                                 </container>
                             </fail-widgets>
                         </section>
@@ -538,11 +538,7 @@ under the License.
                                         <label style="boxhead" text="${uiLabelMap.PartyCreateNewParty}"/>
                                     </container>
                                     <container style="screenlet-body">
-                                        <container><link target="editpartygroup?create_new=Y" style="buttontextbig" text="[*] ${uiLabelMap.PartyCreateNewPartyGroup}"></link></container>
-                                        <container><link target="editperson?create_new=Y" style="buttontextbig" text="[*] ${uiLabelMap.PartyCreateNewPerson}"></link></container>
-                                        <container><link target="NewCustomer" style="buttontextbig" text="[*] ${uiLabelMap.PartyCreateNewCustomer}"></link></container>
-                                        <container><link target="NewProspect" style="buttontextbig" text="[*] ${uiLabelMap.PartyCreateNewProspect}"></link></container>
-                                        <container><link target="NewEmployee" style="buttontextbig" text="[*] ${uiLabelMap.PartyCreateNewEmployee}"></link></container>
+                                        <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="create-new-party"/>
                                     </container>
                                 </container>
                             </widgets>
@@ -704,7 +700,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><link target="EditPartyContents?partyId=${partyId}" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>                    
+                        <container><link target="EditPartyContents?partyId=${partyId}" text="${uiLabelMap.CommonCreateNew}" style="smallSubmit"/></container>                    
                         <container><label style="head1" text="${uiLabelMap.PageTitleListContent}"/></container>                        
                         <include-form name="ListPartyContents" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                         <label style="head1">${uiLabelMap.PageTitleAddPartyContent}</label>                        

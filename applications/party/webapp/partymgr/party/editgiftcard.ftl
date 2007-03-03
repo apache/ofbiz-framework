@@ -17,38 +17,38 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<!-- begin editgiftcard.ftl -->
     <#if !giftCard?exists>
-      <p class="head1">${uiLabelMap.AccountingCreateNewGiftCard}</p>
+      <h1>${uiLabelMap.AccountingCreateNewGiftCard}</h1>
       <form method="post" action="<@ofbizUrl>createGiftCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editgiftcardform" style="margin: 0;">
     <#else>
-      <p class="head1">${uiLabelMap.AccountingEditGiftCard}</p>
+      <h1>${uiLabelMap.AccountingEditGiftCard}</h1>
       <form method="post" action="<@ofbizUrl>updateGiftCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editgiftcardform" style="margin: 0;">
         <input type="hidden" name="paymentMethodId" value="${paymentMethodId}">
     </#if>
 
     <input type="hidden" name="partyId" value="${partyId}"/>
-    &nbsp;<a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonCancelDone}]</a>
-    &nbsp;<a href="javascript:document.editgiftcardform.submit()" class="buttontext">[${uiLabelMap.CommonSave}]</a>
+    <div class="button-bar">
+      <a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
+      <a href="javascript:document.editgiftcardform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
+    </div>
 
-    <table width="90%" border="0" cellpadding="2" cellspacing="0">
+    <table class="basic-table" cellspacing="0">
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingCardNumber}</div></td>
-      <td width="5">&nbsp;</td>
-      <td width="74%">
-        <input type="text" class="inputBox" size="20" maxlength="60" name="cardNumber" value="${giftCardData.cardNumber?if_exists}">
+      <td class="label">${uiLabelMap.AccountingCardNumber}</td>
+      <td>
+        <input type="text" size="20" maxlength="60" name="cardNumber" value="${giftCardData.cardNumber?if_exists}">
       </td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingPinNumber}</div></td>
-      <td width="5">&nbsp;</td>
-      <td width="74%">
-        <input type="text" class="inputBox" size="10" maxlength="60" name="pinNumber" value="${giftCardData.pinNumber?if_exists}">
+      <td class="label">${uiLabelMap.AccountingPinNumber}</td>
+      <td>
+        <input type="text" size="10" maxlength="60" name="pinNumber" value="${giftCardData.pinNumber?if_exists}">
       </td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonExpireDate}</div></td>
-      <td width="5">&nbsp;</td>
-      <td width="74%">
+      <td class="label">${uiLabelMap.CommonExpireDate}</td>
+      <td>
         <#assign expMonth = "">
         <#assign expYear = "">
         <#if giftCardData?exists && giftCardData.expireDate?exists>
@@ -58,7 +58,7 @@ under the License.
             <#assign expYear = expDate.substring(expDate.indexOf("/")+1)>
           </#if>
         </#if>
-        <select name="expMonth" class="selectBox" onchange="javascript:makeExpDate();">
+        <select name="expMonth" onchange="javascript:makeExpDate();">
           <#if giftCardData?has_content && expMonth?has_content>
             <#assign ccExprMonth = expMonth>
           <#else>
@@ -69,7 +69,7 @@ under the License.
           </#if>
           ${screens.render("component://common/widget/CommonScreens.xml#ccmonths")}
         </select>
-        <select name="expYear" class="selectBox" onchange="javascript:makeExpDate();">
+        <select name="expYear" onchange="javascript:makeExpDate();">
           <#if giftCard?has_content && expYear?has_content>
             <#assign ccExprYear = expYear>
           <#else>
@@ -83,14 +83,16 @@ under the License.
       </td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonDescription}</div></td>
-      <td width="5">&nbsp;</td>
-      <td width="74%">
-        <input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${paymentMethodData.description?if_exists}">
+      <td class="label">${uiLabelMap.CommonDescription}</td>
+      <td>
+        <input type="text" size="30" maxlength="60" name="description" value="${paymentMethodData.description?if_exists}">
       </td>
     </tr>
   </table>
   </form>
 
-  &nbsp;<a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonCancelDone}]</a>
-  &nbsp;<a href="javascript:document.editgiftcardform.submit()" class="buttontext">[${uiLabelMap.CommonSave}]</a>
+  <div class="button-bar">
+    <a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
+    <a href="javascript:document.editgiftcardform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
+  </div>
+<!-- end editgiftcard.ftl -->

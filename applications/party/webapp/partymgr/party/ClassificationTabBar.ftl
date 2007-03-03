@@ -17,20 +17,19 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if (requestAttributes.uiLabelMap)?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
-
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
-
+<!-- begin SecurityGroupTabBar.ftl -->
 <#if security.hasEntityPermission("PARTYMGR", "_VIEW", session)>
-<#-- Main Heading -->
-<#if partyClassificationGroup?has_content>
-<div class="tabContainer">
-    <a href="<@ofbizUrl>EditPartyClassificationGroup?partyClassificationGroupId=${partyClassificationGroup.partyClassificationGroupId}</@ofbizUrl>" class="${selectedClassMap.EditPartyClassificationGroup?default(unselectedClassName)}">${uiLabelMap.PartyClassificationGroups}</a>
-    <a href="<@ofbizUrl>EditPartyClassificationGroupParties?partyClassificationGroupId=${partyClassificationGroup.partyClassificationGroupId}</@ofbizUrl>" class="${selectedClassMap.EditPartyClassificationGroupParties?default(unselectedClassName)}">${uiLabelMap.Parties}</a>
-</div>
-</#if>
-
+  <#-- Main Heading -->
+  <#if partyClassificationGroup?has_content>
+    <#assign selected = page.tabButtonItem?default("void")>
+    <div class="button-bar button-style-1">
+      <ul>
+        <li<#if selected == "EditPartyClassificationGroup"> class="selected"</#if>><a href="<@ofbizUrl>EditPartyClassificationGroup?partyClassificationGroupId=${partyClassificationGroup.partyClassificationGroupId}</@ofbizUrl>">${uiLabelMap.PartyClassificationGroups}</a></li>
+        <li<#if selected == "EditPartyClassificationGroupParties"> class="selected"</#if>><a href="<@ofbizUrl>EditPartyClassificationGroupParties?partyClassificationGroupId=${partyClassificationGroup.partyClassificationGroupId}</@ofbizUrl>">${uiLabelMap.Parties}</a></li>
+      </ul>
+      <br class="clear" />
+    </div>
+  </#if>
 <#else>
-  <div class="head2">${uiLabelMap.PartyMgrViewPermissionError}</div>
+  <h2">${uiLabelMap.PartyMgrViewPermissionError}</h2>
 </#if>

@@ -35,6 +35,9 @@ under the License.
                 <set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>
                 <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
+                <!-- TODO: Use transform to specify component URI -->
+                <set field="layoutSettings.javaScripts[]" value="/partymgr/static/partymgr.js" global="true"/>
+                <set field="layoutSettings.styleSheets[]" value="/partymgr/static/partymgr.css" global="true"/>
                 <set field="activeApp" value="partymgr" global="true"/>
                 <set field="appheaderTemplate" value="component://party/webapp/partymgr/includes/appheader.ftl" global="true"/>
             </actions>
@@ -66,32 +69,32 @@ under the License.
                                     <widgets>
                                         <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileTabBar"/>
                                         
-                                        <container>
+                                        <container style="button-bar button-style-2">
                                             <link target="/accounting/control/FindBillingAccount?partyId=${partyId}" url-mode="inter-app" 
-                                                text="${uiLabelMap.AccountingBillingAccount}" style="buttontext"/>
+                                                text="${uiLabelMap.AccountingBillingAccount}"/>
                                             <section>
                                                 <condition><if-has-permission permission="ORDERMGR" action="_VIEW"/></condition>
                                                 <widgets>
                                                     <link target="/ordermgr/control/findorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}&amp;externalLoginKey=${externalLoginKey}" url-mode="inter-app" 
-                                                        text="${uiLabelMap.OrderOrders}" style="buttontext"/>
+                                                        text="${uiLabelMap.OrderOrders}"/>
                                                     <link target="/ordermgr/control/FindRequest?lookupFlag=Y&amp;fromPartyId=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app" 
-                                                        text="${uiLabelMap.PartyPartyRequests}" style="buttontext"/>
+                                                        text="${uiLabelMap.PartyPartyRequests}"/>
                                                 </widgets>
                                             </section>
                                             <section>
                                                 <condition><if-has-permission permission="ORDERMGR" action="_CREATE"/></condition>
                                                 <widgets>
                                                     <link target="/ordermgr/control/checkinits?partyId=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app" 
-                                                        text="${uiLabelMap.OrderNewOrder}" style="buttontext"/>
+                                                        text="${uiLabelMap.OrderNewOrder}"/>
                                                 </widgets>
                                             </section>
                                             <section>
                                                 <condition><if-has-permission permission="ACCOUNTING" action="_VIEW"/></condition>
                                                 <widgets>
                                                     <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdTo=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app" 
-                                                        text="${uiLabelMap.AccountingPaymentsSent}" style="buttontext"/>
+                                                        text="${uiLabelMap.AccountingPaymentsSent}"/>
                                                     <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdFrom=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app" 
-                                                        text="${uiLabelMap.AccountingPaymentsReceived}" style="buttontext"/>
+                                                        text="${uiLabelMap.AccountingPaymentsReceived}"/>
                                                 </widgets>
                                             </section>
                                         </container>
@@ -153,8 +156,8 @@ under the License.
                                 <container>
                                     <label style="head1" text="${uiLabelMap.${labelTitleProperty}} [${groupId}]"/>
                                 </container>
-                                <container>
-                                    <link target="EditSecurityGroup" style="buttontext" text="[${uiLabelMap.PartyNewSecurityGroup}]"/>
+                                <container style="button-bar">
+                                    <link target="EditSecurityGroup" style="smallSubmit" text="${uiLabelMap.PartyNewSecurityGroup}"/>
                                 </container>
                                 
                                 <decorator-section-include name="body"/>
@@ -207,30 +210,30 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileTabBar"/>
-                                        <container>
+                                        <container style="button-bar button-style-2">
                                             <link target="/accounting/control/FindBillingAccount?partyId=${partyId}" url-mode="inter-app" 
-                                                text="${uiLabelMap.AccountingBillingAccount}" style="buttontext"/>
+                                                text="${uiLabelMap.AccountingBillingAccount}"/>
                                             <section>
                                                 <condition><if-has-permission permission="ORDERMGR" action="_VIEW"/></condition>
                                                 <widgets>
                                                     <link target="/ordermgr/control/findorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}" url-mode="inter-app" 
-                                                        text="${uiLabelMap.OrderOrders}" style="buttontext"/>
+                                                        text="${uiLabelMap.OrderOrders}"/>
                                                 </widgets>
                                             </section>
                                             <section>
                                                 <condition><if-has-permission permission="ORDERMGR" action="_CREATE"/></condition>
                                                 <widgets>
                                                     <link target="/ordermgr/control/checkinits?partyId=${partyId}" url-mode="inter-app" 
-                                                        text="${uiLabelMap.OrderNewOrder}" style="buttontext"/>
+                                                        text="${uiLabelMap.OrderNewOrder}"/>
                                                 </widgets>
                                             </section>
                                             <section>
                                                 <condition><if-has-permission permission="ACCOUNTING" action="_VIEW"/></condition>
                                                 <widgets>
                                                     <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdTo=${partyId}" url-mode="inter-app" 
-                                                        text="${uiLabelMap.AccountingPaymentsSent}" style="buttontext"/>
+                                                        text="${uiLabelMap.AccountingPaymentsSent}"/>
                                                     <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdFrom=${partyId}" url-mode="inter-app" 
-                                                        text="${uiLabelMap.AccountingPaymentsReceived}" style="buttontext"/>
+                                                        text="${uiLabelMap.AccountingPaymentsReceived}"/>
                                                 </widgets>
                                             </section>
                                         </container>
