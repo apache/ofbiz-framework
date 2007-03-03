@@ -1597,6 +1597,7 @@ public class InvoiceServices {
             input.put("partyIdFrom", returnHeader.get("fromPartyId"));
             input.put("currencyUomId", returnHeader.get("currencyUomId"));
             input.put("invoiceDate", UtilDateTime.nowTimestamp());
+            input.put("description", "Return Invoice for Customer Return #" + returnId); 
             input.put("billingAccountId", returnHeader.get("billingAccountId"));
             input.put("userLogin", userLogin);
 
@@ -1675,6 +1676,11 @@ public class InvoiceServices {
                 List adjustments = returnItem.getRelatedCache("ReturnAdjustment");
                 for (Iterator adjIter = adjustments.iterator(); adjIter.hasNext(); ) {
                     GenericValue adjustment = (GenericValue) adjIter.next();
+
+                    if (adjustment.get("amount") == null) {
+                         Debug.logWarning("Return adjustment [" + adjustment.get("returnAdjustmentId") + "] has null amount and will be skipped", module);
+                         continue;
+                    }
 
                     // determine invoice item type from the return item type
                     invoiceItemTypeId = getInvoiceItemType(delegator, adjustment.getString("returnAdjustmentTypeId"), null, "CUST_RTN_INVOICE", null);
