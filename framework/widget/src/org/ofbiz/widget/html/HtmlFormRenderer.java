@@ -103,16 +103,16 @@ public class HtmlFormRenderer implements FormStringRenderer {
         // render the tooltip, in other methods too
         String tooltip = modelFormField.getTooltip(context);
         if (UtilValidate.isNotEmpty(tooltip)) {
-            buffer.append("<span");
+            buffer.append("<span class=\"");
             String tooltipStyle = modelFormField.getTooltipStyle();
             if (UtilValidate.isNotEmpty(tooltipStyle)) {
-                buffer.append(" class=\"");
                 buffer.append(tooltipStyle);
-                buffer.append("\"");
+            } else {
+                buffer.append("tooltip");
             }
-            buffer.append("> -[");
+            buffer.append("\">");
             buffer.append(tooltip);
-            buffer.append("]- </span>");
+            buffer.append("</span>");
         }
     }
 
@@ -128,28 +128,44 @@ public class HtmlFormRenderer implements FormStringRenderer {
         }
     }
     
+    public void appendClassNames(StringBuffer buffer, Map context, ModelFormField modelFormField) {
+        String className = modelFormField.getWidgetStyle();
+        if (UtilValidate.isNotEmpty(className) || modelFormField.shouldBeRed(context)) {
+            buffer.append(" class=\"");
+            buffer.append(className);
+            // add a style of red if redWhen is true
+            if (modelFormField.shouldBeRed(context)) {
+                buffer.append(" alert");
+            }
+            buffer.append('"');
+        }
+    }
+    
     /* (non-Javadoc)
      * @see org.ofbiz.widget.form.FormStringRenderer#renderDisplayField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.DisplayField)
      */
     public void renderDisplayField(StringBuffer buffer, Map context, DisplayField displayField) {
         ModelFormField modelFormField = displayField.getModelFormField();
 
-        buffer.append("<span");
+        StringBuffer str = new StringBuffer();
 
-        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
-            buffer.append(" class=\"");
-            buffer.append(modelFormField.getWidgetStyle());
-            buffer.append("\"");
+        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle()) || modelFormField.shouldBeRed(context)) {
+            str.append("<span class=\"");
+            str.append(modelFormField.getWidgetStyle());
+            // add a style of red if this is a date/time field and redWhen is true
+            if (modelFormField.shouldBeRed(context)) {
+                str.append(" alert");
+            }
+            str.append("\">");
         }
 
-        // add a style of red if this is a date/time field and redWhen is true
-        if (modelFormField.shouldBeRed(context)) {
-            buffer.append(" style=\"color: red;\"");
+        if (str.length() > 0) {
+            buffer.append(str);
         }
-
-        buffer.append(">");
         buffer.append(displayField.getDescription(context));
-        buffer.append("</span>");
+        if (str.length() > 0) {
+            buffer.append("</span>");
+        }
 
         if (displayField instanceof DisplayEntityField) {
             this.makeHyperlinkString(buffer, ((DisplayEntityField) displayField).getSubHyperlink(), context);
@@ -157,7 +173,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         
         this.appendTooltip(buffer, context, modelFormField);
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -173,7 +189,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
             hyperlinkField.getDescription(context),
             hyperlinkField.getTargetWindow(context));
         this.appendTooltip(buffer, context, modelFormField);
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     public void makeHyperlinkString(StringBuffer buffer, ModelFormField.SubHyperlink subHyperlink, Map context) {
@@ -205,17 +221,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append("<input type=\"text\"");
 
-        String className = modelFormField.getWidgetStyle();
-        if (UtilValidate.isNotEmpty(className)) {
-            buffer.append(" class=\"");
-            buffer.append(className);
-            buffer.append('"');
-        }
-
-        // add a style of red if this is a date/time field and redWhen is true
-        if (modelFormField.shouldBeRed(context)) {
-            buffer.append(" style=\"color: red;\"");
-        }
+        appendClassNames(buffer, context, modelFormField);
 
         buffer.append(" name=\"");
         buffer.append(modelFormField.getParameterName(context));
@@ -264,7 +270,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         this.appendTooltip(buffer, context, modelFormField);
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -275,14 +281,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append("<textarea");
 
-        String className = modelFormField.getWidgetStyle();
-        if (UtilValidate.isNotEmpty(className)) {
-            buffer.append(" class=\"");
-            buffer.append(className);
-            buffer.append('"');
-        } else {
-            buffer.append(" class=\"textAreaBox\"");
-        }
+        appendClassNames(buffer, context, modelFormField);
 
         buffer.append(" name=\"");
         buffer.append(modelFormField.getParameterName(context));
@@ -338,7 +337,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         this.appendTooltip(buffer, context, modelFormField);
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -360,17 +359,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append("<input type=\"text\"");
 
-        String className = modelFormField.getWidgetStyle();
-        if (UtilValidate.isNotEmpty(className)) {
-            buffer.append(" class=\"");
-            buffer.append(className);
-            buffer.append('"');
-        }
-
-        // add a style of red if this is a date/time field and redWhen is true
-        if (modelFormField.shouldBeRed(context)) {
-            buffer.append(" style=\"color: red;\"");
-        }
+        appendClassNames(buffer, context, modelFormField);
 
         buffer.append(" name=\"");
         if ("time-dropdown".equals(dateTimeField.getInputMethod())) {
@@ -405,8 +394,9 @@ public class HtmlFormRenderer implements FormStringRenderer {
         
         String value = modelFormField.getEntry(context, dateTimeField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
-            if(value.length() > maxlength)
+            if(value.length() > maxlength) {
                 value = value.substring(0, maxlength);
+            }
             buffer.append(" value=\"");
             buffer.append(value);
             buffer.append('"');
@@ -443,9 +433,9 @@ public class HtmlFormRenderer implements FormStringRenderer {
             }
             buffer.append(modelFormField.getModelForm().getCurrentFormName(context));
             buffer.append('.');
-            if ("time-dropdown".equals(dateTimeField.getInputMethod()))
+            if ("time-dropdown".equals(dateTimeField.getInputMethod())) {
                 buffer.append(UtilHttp.makeCompositeParam(paramName, "date"));
-            else {
+            } else {
                 buffer.append(paramName);
             }
             buffer.append(",'");
@@ -463,6 +453,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         
         // if we have an input method of time-dropdown, then render two dropdowns
         if ("time-dropdown".equals(dateTimeField.getInputMethod())) {       		
+            String className = modelFormField.getWidgetStyle();
             String classString = (className != null ? " class=\"" + className + "\" " : "");
             boolean isTwelveHour = "12".equals(dateTimeField.getClock());
 
@@ -535,7 +526,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         this.appendTooltip(buffer, context, modelFormField);
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -550,12 +541,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append("<select");
 
-        String className = modelFormField.getWidgetStyle();
-        if (UtilValidate.isNotEmpty(className)) {
-            buffer.append(" class=\"");
-            buffer.append(className);
-            buffer.append('"');
-        }
+        appendClassNames(buffer, context, modelFormField);
 
         buffer.append(" name=\"");
         buffer.append(modelFormField.getParameterName(context));
@@ -578,8 +564,6 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append(".");
             buffer.append(otherFieldName);
             buffer.append(")\" "); 
-            /*
-            */
         }
 
 
@@ -692,7 +676,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         this.appendTooltip(buffer, context, modelFormField);
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -705,19 +689,9 @@ public class HtmlFormRenderer implements FormStringRenderer {
         // never used: ModelForm modelForm = modelFormField.getModelForm();
         String currentValue = modelFormField.getEntry(context);
         
-        buffer.append("<span");
-        
-        String className = modelFormField.getWidgetStyle();
-        if (UtilValidate.isNotEmpty(className)) {
-            buffer.append(" class=\"");
-            buffer.append(className);
-            buffer.append('"');
-        }
-        buffer.append(">");
+        buffer.append("<input type=\"checkbox\"");
 
-        buffer.append("<input type=\"");
-        buffer.append("checkbox");
-        buffer.append('"');
+        appendClassNames(buffer, context, modelFormField);
 
         // if current value should be selected in the list, select it
         if ("Y".equals(currentValue) || "T".equals(currentValue)) {
@@ -729,11 +703,9 @@ public class HtmlFormRenderer implements FormStringRenderer {
         buffer.append(" value=\"Y\"/>");
         // any description by it?
 
-        buffer.append("</span>");
-
         this.appendTooltip(buffer, context, modelFormField);
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -751,19 +723,13 @@ public class HtmlFormRenderer implements FormStringRenderer {
         Iterator optionValueIter = allOptionValues.iterator();
         while (optionValueIter.hasNext()) {
             ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
-            String className = modelFormField.getWidgetStyle();
+
             buffer.append("<div");
-            if (UtilValidate.isNotEmpty(className)) {
-                buffer.append(" class=\"");
-                buffer.append(className);
-                buffer.append('"');
-            }
-            buffer.append(">");
 
-            buffer.append("<input type=\"");
-            buffer.append("radio");
-            buffer.append('"');
+            appendClassNames(buffer, context, modelFormField);
 
+            buffer.append("><input type=\"radio\"");
+            
             // if current value should be selected in the list, select it
             String noCurrentSelectedKey = radioField.getNoCurrentSelectedKey(context);
             if (UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey())) {
@@ -794,7 +760,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         this.appendTooltip(buffer, context, modelFormField);
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -810,12 +776,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         if ("text-link".equals(submitField.getButtonType())) {
             buffer.append("<a");
 
-            String className = modelFormField.getWidgetStyle();
-            if (UtilValidate.isNotEmpty(className)) {
-                buffer.append(" class=\"");
-                buffer.append(className);
-                buffer.append('"');
-            }
+            appendClassNames(buffer, context, modelFormField);
 
             buffer.append(" href=\"javascript:document.");
             buffer.append(modelForm.getCurrentFormName(context));
@@ -827,12 +788,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         } else if ("image".equals(submitField.getButtonType())) {
             buffer.append("<input type=\"image\"");
 
-            String className = modelFormField.getWidgetStyle();
-            if (UtilValidate.isNotEmpty(className)) {
-                buffer.append(" class=\"");
-                buffer.append(className);
-                buffer.append('"');
-            }
+            appendClassNames(buffer, context, modelFormField);
 
             buffer.append(" name=\"");
             buffer.append(modelFormField.getParameterName(context));
@@ -867,12 +823,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
             buffer.append("<input type=\"submit\"");
 
-            String className = modelFormField.getWidgetStyle();
-            if (UtilValidate.isNotEmpty(className)) {
-                buffer.append(" class=\"");
-                buffer.append(className);
-                buffer.append('"');
-            }
+            appendClassNames(buffer, context, modelFormField);
 
             buffer.append(" name=\"");
             buffer.append(modelFormField.getParameterName(context));
@@ -904,7 +855,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         this.appendTooltip(buffer, context, modelFormField);
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -915,12 +866,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append("<input type=\"reset\"");
 
-        String className = modelFormField.getWidgetStyle();
-        if (UtilValidate.isNotEmpty(className)) {
-            buffer.append(" class=\"");
-            buffer.append(className);
-            buffer.append('"');
-        }
+        appendClassNames(buffer, context, modelFormField);
 
         buffer.append(" name=\"");
         buffer.append(modelFormField.getParameterName(context));
@@ -937,7 +883,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         this.appendTooltip(buffer, context, modelFormField);
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -964,7 +910,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append("/>");
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -982,17 +928,17 @@ public class HtmlFormRenderer implements FormStringRenderer {
         String titleText = UtilHttp.encodeAmpersands(tempTitleText);
         
         if (UtilValidate.isNotEmpty(titleText)) {
-            buffer.append("<span");
             if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-                buffer.append(" class=\"");
+                buffer.append("<span class=\"");
                 buffer.append(modelFormField.getTitleStyle());
-                buffer.append("\"");
+                buffer.append("\">");
             }
-            buffer.append(">");
             renderHyperlinkTitle(buffer, context, modelFormField, titleText);         
-            buffer.append("</span>");
+            if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
+                buffer.append("</span>");
+            }
 
-            this.appendWhitespace(buffer);
+            //this.appendWhitespace(buffer);
         }
     }
 
@@ -1002,7 +948,6 @@ public class HtmlFormRenderer implements FormStringRenderer {
     public void renderSingleFormFieldTitle(StringBuffer buffer, Map context, ModelFormField modelFormField) {
         boolean requiredField = modelFormField.getRequiredField();
         if (requiredField) {
-            buffer.append("<span");
             
             String requiredStyle = modelFormField.getRequiredFieldStyle();
             if (UtilValidate.isEmpty(requiredStyle)) {
@@ -1010,15 +955,16 @@ public class HtmlFormRenderer implements FormStringRenderer {
             }
             
             if (UtilValidate.isNotEmpty(requiredStyle)) {
-                buffer.append(" class=\"");
+                buffer.append("<span class=\"");
                 buffer.append(requiredStyle);
-                buffer.append("\"");
+                buffer.append("\">");
             }
-            buffer.append(">");
             renderHyperlinkTitle(buffer, context, modelFormField, modelFormField.getTitle(context)); 
-            buffer.append("</span>");
+            if (UtilValidate.isNotEmpty(requiredStyle)) {
+                buffer.append("</span>");
+            }
 
-            this.appendWhitespace(buffer);
+            //this.appendWhitespace(buffer);
         } else {
             renderFieldTitle(buffer, context, modelFormField);
         }
@@ -1028,6 +974,8 @@ public class HtmlFormRenderer implements FormStringRenderer {
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
     public void renderFormOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
+        buffer.append("<!-- begin form widget -->");
+        this.appendWhitespace(buffer);
         buffer.append("<form method=\"post\" ");
         String targ = modelForm.getTarget(context);
         String targetType = modelForm.getTargetType();
@@ -1052,9 +1000,25 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append("\"");
         }
 
+        String containerId =  modelForm.getContainerId();
+        if (UtilValidate.isNotEmpty(containerId)) {
+            buffer.append(" id=\"");
+            buffer.append(containerId);
+            buffer.append("\"");
+        }
+
+        buffer.append(" class=\"");
+        String containerStyle =  modelForm.getContainerStyle();
+        if (UtilValidate.isNotEmpty(containerStyle)) {
+            buffer.append(containerStyle);
+        } else {
+            buffer.append("basic-form");
+        }
+        buffer.append("\"");
+
         buffer.append(" name=\"");
         buffer.append(modelForm.getCurrentFormName(context));
-        buffer.append("\" style=\"margin: 0;\">");
+        buffer.append("\">");
 
         this.appendWhitespace(buffer);
     }
@@ -1064,6 +1028,22 @@ public class HtmlFormRenderer implements FormStringRenderer {
      */
     public void renderFormClose(StringBuffer buffer, Map context, ModelForm modelForm) {
         buffer.append("</form>");
+        String focusFieldName = modelForm.getfocusFieldName();
+        if (UtilValidate.isNotEmpty(focusFieldName)) {
+            this.appendWhitespace(buffer);
+            buffer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
+            this.appendWhitespace(buffer);
+            buffer.append("<!--//");
+            this.appendWhitespace(buffer);
+            buffer.append("document." + modelForm.getCurrentFormName(context) + ".");
+            buffer.append(focusFieldName + ".focus();");
+            this.appendWhitespace(buffer);
+            buffer.append("//-->");
+            this.appendWhitespace(buffer);
+            buffer.append("</script>");
+        }
+        this.appendWhitespace(buffer);
+        buffer.append("<!-- end form widget -->");
 
         this.appendWhitespace(buffer);
     }
@@ -1106,20 +1086,24 @@ public class HtmlFormRenderer implements FormStringRenderer {
             
         }
         buffer.append("</form>");
+        this.appendWhitespace(buffer);
+        buffer.append("<!-- end form widget -->");
 
         this.appendWhitespace(buffer);
     }
 
     public void renderFormatListWrapperOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
 
+        buffer.append("<!-- begin form widget -->");
+        this.appendWhitespace(buffer);
          if(UtilValidate.isNotEmpty(modelForm.getDefaultTableStyle())) {
-             buffer.append("<table");
+             buffer.append(" <table");
              buffer.append(" class=\"");
              buffer.append(modelForm.getDefaultTableStyle());
              buffer.append("\"");
-             buffer.append(">");
+             buffer.append("cellspacing=\"0\">");
          } else {
-             buffer.append("<table border=\"1\" cellpadding=\"2\" cellspacing=\"0\" class=\"calendarTable\">");
+             buffer.append(" <table cellspacing=\"0\" class=\"basic-table dark-grid\">");
              // DEJ 20050101 removed the width=\"100%\", doesn't look very good with CSS float: left based side "columns"
          }
 
@@ -1127,7 +1111,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
     }
 
     public void renderFormatListWrapperClose(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("</table>");
+        buffer.append(" </table>");
 
         this.appendWhitespace(buffer);
         String queryString = null;
@@ -1143,20 +1127,23 @@ public class HtmlFormRenderer implements FormStringRenderer {
         }
         context.put("_QBESTRING_", queryString);
         this.renderNextPrev(buffer, context, modelForm);
+        buffer.append("<!-- end form widget -->");
+        this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
     public void renderFormatHeaderRowOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("<tr");
+        buffer.append("  <tr");
         String headerStyle = modelForm.getHeaderRowStyle();
+        buffer.append(" class=\"");
         if (UtilValidate.isNotEmpty(headerStyle)) {
-            buffer.append(" class=\"");
             buffer.append(headerStyle);
-            buffer.append("\"");
+        } else {
+            buffer.append("header-row");
         }
-        buffer.append(">");
+        buffer.append("\">");
         this.appendWhitespace(buffer);
     }
 
@@ -1164,7 +1151,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowClose(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
     public void renderFormatHeaderRowClose(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("</tr>");
+        buffer.append("  </tr>");
 
         this.appendWhitespace(buffer);
     }
@@ -1173,7 +1160,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowCellOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm, org.ofbiz.widget.form.ModelFormField)
      */
     public void renderFormatHeaderRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField) {
-        buffer.append("<td");
+        buffer.append("   <td");
         String areaStyle = modelFormField.getTitleAreaStyle();
         if (UtilValidate.isNotEmpty(areaStyle)) {
             buffer.append(" class=\"");
@@ -1181,7 +1168,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append("\"");
         }
         buffer.append(">");
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -1193,7 +1180,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
     }
 
     public void renderFormatHeaderRowFormCellOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("<td align=\"center\"");
+        buffer.append("   <td");
         String areaStyle = modelForm.getFormTitleAreaStyle();
         if (UtilValidate.isNotEmpty(areaStyle)) {
             buffer.append(" class=\"");
@@ -1201,7 +1188,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append("\"");
         }
         buffer.append(">");
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -1216,21 +1203,21 @@ public class HtmlFormRenderer implements FormStringRenderer {
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowFormCellTitleSeparator(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm, boolean)
      */
     public void renderFormatHeaderRowFormCellTitleSeparator(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, boolean isLast) {
-        buffer.append("<span");
         
         String titleStyle = modelFormField.getTitleStyle();
         if (UtilValidate.isNotEmpty(titleStyle)) {
-            buffer.append(" class=\"");
+            buffer.append("<span class=\"");
             buffer.append(titleStyle);
-            buffer.append("\"");
+            buffer.append("\">");
         }
-        buffer.append(">");
         if (isLast) {
             buffer.append(" - ");
         } else {
             buffer.append(" - ");
         }
-        buffer.append("</span>");
+        if (UtilValidate.isNotEmpty(titleStyle)) {
+            buffer.append("</span>");
+        }
     }
 
     /* (non-Javadoc)
@@ -1239,7 +1226,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
     public void renderFormatItemRowOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
         Integer itemIndex = (Integer)context.get("itemIndex"); 
         
-        buffer.append("<tr");
+        buffer.append("  <tr");
         if (itemIndex!=null) {
             
             if (itemIndex.intValue()%2==0) {
@@ -1266,7 +1253,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatItemRowClose(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
     public void renderFormatItemRowClose(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("</tr>");
+        buffer.append("  </tr>");
 
         this.appendWhitespace(buffer);
     }
@@ -1275,7 +1262,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatItemRowCellOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm, org.ofbiz.widget.form.ModelFormField)
      */
     public void renderFormatItemRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField) {
-        buffer.append("<td");
+        buffer.append("   <td");
         String areaStyle = modelFormField.getWidgetAreaStyle();
         if (UtilValidate.isNotEmpty(areaStyle)) {
             buffer.append(" class=\"");
@@ -1283,7 +1270,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append("\"");
         }
         buffer.append(">");
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -1298,7 +1285,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatItemRowFormCellOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
     public void renderFormatItemRowFormCellOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("<td align=\"center\"");
+        buffer.append("   <td");
         String areaStyle = modelForm.getFormWidgetAreaStyle();
         if (UtilValidate.isNotEmpty(areaStyle)) {
             buffer.append(" class=\"");
@@ -1306,7 +1293,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append("\"");
         }
         buffer.append(">");
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -1318,13 +1305,13 @@ public class HtmlFormRenderer implements FormStringRenderer {
     }
 
     public void renderFormatSingleWrapperOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("<table border=\"0\" cellpadding=\"2\" cellspacing=\"0\">");
+        buffer.append(" <table cellspacing=\"0\">");
 
         this.appendWhitespace(buffer);
     }
 
     public void renderFormatSingleWrapperClose(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("</table>");
+        buffer.append(" </table>");
 
         this.appendWhitespace(buffer);
     }
@@ -1333,7 +1320,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
     public void renderFormatFieldRowOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("<tr>");
+        buffer.append("  <tr>");
 
         this.appendWhitespace(buffer);
     }
@@ -1342,7 +1329,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowClose(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
     public void renderFormatFieldRowClose(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("</tr>");
+        buffer.append("  </tr>");
 
         this.appendWhitespace(buffer);
     }
@@ -1351,15 +1338,17 @@ public class HtmlFormRenderer implements FormStringRenderer {
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowTitleCellOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField)
      */
     public void renderFormatFieldRowTitleCellOpen(StringBuffer buffer, Map context, ModelFormField modelFormField) {
-        buffer.append("<td width=\"20%\" align=\"right\"");
+        buffer.append("   <td");
         String areaStyle = modelFormField.getTitleAreaStyle();
         if (UtilValidate.isNotEmpty(areaStyle)) {
             buffer.append(" class=\"");
             buffer.append(areaStyle);
             buffer.append("\"");
+        } else {
+            buffer.append(" class=\"label\"");
         }
         buffer.append(">");
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -1374,22 +1363,24 @@ public class HtmlFormRenderer implements FormStringRenderer {
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowSpacerCell(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField)
      */
     public void renderFormatFieldRowSpacerCell(StringBuffer buffer, Map context, ModelFormField modelFormField) {
-        buffer.append("<td>&nbsp;</td>");
+        // Embedded styling - bad idea
+        //buffer.append("<td>&nbsp;</td>");
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowWidgetCellOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField, int)
      */
     public void renderFormatFieldRowWidgetCellOpen(StringBuffer buffer, Map context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) {
-        buffer.append("<td width=\"");
-        if (nextPositionInRow != null || modelFormField.getPosition() > 1) {
-            buffer.append("30");
-        } else {
-            buffer.append("80");
-        }
-        buffer.append("%\" align=\"left\"");
+//        buffer.append("<td width=\"");
+//        if (nextPositionInRow != null || modelFormField.getPosition() > 1) {
+//            buffer.append("30");
+//        } else {
+//            buffer.append("80");
+//        }
+//        buffer.append("%\"");
+        buffer.append("   <td");
         if (positionSpan > 0) {
             buffer.append(" colspan=\"");
             // do a span of 1 for this column, plus 3 columns for each spanned 
@@ -1405,7 +1396,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         }
         buffer.append(">");
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -1447,17 +1438,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         
         buffer.append("<input type=\"text\"");
 
-        String className = modelFormField.getWidgetStyle();
-        if (UtilValidate.isNotEmpty(className)) {
-            buffer.append(" class=\"");
-            buffer.append(className);
-            buffer.append('"');
-        }
-
-        // add a style of red if this is a date/time field and redWhen is true
-        if (modelFormField.shouldBeRed(context)) {
-            buffer.append(" style=\"color: red;\"");
-        }
+        appendClassNames(buffer, context, modelFormField);
 
         buffer.append(" name=\"");
         buffer.append(modelFormField.getParameterName(context));
@@ -1483,24 +1464,24 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append("/>");
 
-        buffer.append(" <span");
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-            buffer.append(" class=\"");
+            buffer.append(" <span class=\"");
             buffer.append(modelFormField.getTitleStyle());
-            buffer.append('"');
+            buffer.append("\">");
         }
-        buffer.append('>');
 
         buffer.append(" <input type=\"checkbox\" name=\"");
         buffer.append(modelFormField.getParameterName(context));
         buffer.append("_ic\" value=\"Y\"" + (ignCase ? " checked=\"checked\"" : "") + "/>");
         buffer.append(ignoreCase);
         
-        buffer.append("</span>");
+        if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
+            buffer.append("</span>");
+        }
 
         this.appendTooltip(buffer, context, modelFormField);
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -1519,17 +1500,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append("<input type=\"text\"");
 
-        String className = modelFormField.getWidgetStyle();
-        if (UtilValidate.isNotEmpty(className)) {
-            buffer.append(" class=\"");
-            buffer.append(className);
-            buffer.append('"');
-        }
-
-        // add a style of red if this is a date/time field and redWhen is true
-        if (modelFormField.shouldBeRed(context)) {
-            buffer.append(" style=\"color: red;\"");
-        }
+        appendClassNames(buffer, context, modelFormField);
 
         buffer.append(" name=\"");
         buffer.append(modelFormField.getParameterName(context));
@@ -1555,9 +1526,8 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append("/>");
 
-        buffer.append(" <span");
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-            buffer.append(" class=\"");
+            buffer.append(" <span class=\"");
             buffer.append(modelFormField.getTitleStyle());
             buffer.append('"');
         }
@@ -1577,17 +1547,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append("<input type=\"text\"");
 
-        className = modelFormField.getWidgetStyle();
-        if (UtilValidate.isNotEmpty(className)) {
-            buffer.append(" class=\"");
-            buffer.append(className);
-            buffer.append('"');
-        }
-
-        // add a style of red if this is a date/time field and redWhen is true
-        if (modelFormField.shouldBeRed(context)) {
-            buffer.append(" style=\"color: red;\"");
-        }
+        appendClassNames(buffer, context, modelFormField);
 
         buffer.append(" name=\"");
         buffer.append(modelFormField.getParameterName(context));
@@ -1612,13 +1572,11 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append("/>");
 
-        buffer.append(" <span");
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-            buffer.append(" class=\"");
+            buffer.append(" <span class=\"");
             buffer.append(modelFormField.getTitleStyle());
-            buffer.append('"');
+            buffer.append("\">");
         }
-        buffer.append('>');
 
         buffer.append(" <select name=\"");
         buffer.append(modelFormField.getParameterName(context));
@@ -1627,11 +1585,13 @@ public class HtmlFormRenderer implements FormStringRenderer {
         buffer.append("<option value=\"lessThanEqualTo\">" + opLessThanEquals + "</option>");
         buffer.append("</select>");
 
-        buffer.append("</span>");
+        if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
+            buffer.append("</span>");
+        }
 
         this.appendTooltip(buffer, context, modelFormField);
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -1659,17 +1619,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append("<input type=\"text\"");
 
-        String className = modelFormField.getWidgetStyle();
-        if (UtilValidate.isNotEmpty(className)) {
-            buffer.append(" class=\"");
-            buffer.append(className);
-            buffer.append('"');
-        }
-
-        // add a style of red if this is a date/time field and redWhen is true
-        if (modelFormField.shouldBeRed(context)) {
-            buffer.append(" style=\"color: red;\"");
-        }
+        appendClassNames(buffer, context, modelFormField);
 
         buffer.append(" name=\"");
         buffer.append(modelFormField.getParameterName(context));
@@ -1700,8 +1650,9 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         String value = modelFormField.getEntry(context, dateFindField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
-            if(value.length() > maxlength)
+            if (value.length() > maxlength) {
                 value = value.substring(0, maxlength);
+            }
             buffer.append(" value=\"");
             buffer.append(value);
             buffer.append('"');
@@ -1745,13 +1696,11 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append("\"/></a>");
         }
 
-        buffer.append(" <span");
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-            buffer.append(" class=\"");
+            buffer.append(" <span class=\"");
             buffer.append(modelFormField.getTitleStyle());
-            buffer.append('"');
+            buffer.append("\">");
         }
-        buffer.append('>');
 
         buffer.append(" <select name=\"");
         buffer.append(modelFormField.getParameterName(context));
@@ -1762,22 +1711,15 @@ public class HtmlFormRenderer implements FormStringRenderer {
         buffer.append("<option value=\"greaterThan\">" + opGreaterThan + "</option>");
         buffer.append("</select>");
 
-        buffer.append(" </span>");
+        if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
+            buffer.append(" </span>");
+        }
 
         buffer.append(" <br/> ");
 
         buffer.append("<input type=\"text\"");
-        className = modelFormField.getWidgetStyle();
-        if (UtilValidate.isNotEmpty(className)) {
-            buffer.append(" class=\"");
-            buffer.append(className);
-            buffer.append('"');
-        }
 
-        // add a style of red if this is a date/time field and redWhen is true
-        if (modelFormField.shouldBeRed(context)) {
-            buffer.append(" style=\"color: red;\"");
-        }
+        appendClassNames(buffer, context, modelFormField);
 
         buffer.append(" name=\"");
         buffer.append(modelFormField.getParameterName(context));
@@ -1789,8 +1731,9 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         value = modelFormField.getEntry(context);
         if (UtilValidate.isNotEmpty(value)) {
-            if(value.length() > maxlength)
+            if (value.length() > maxlength) {
                 value = value.substring(0, maxlength);
+            }
             buffer.append(" value=\"");
             buffer.append(value);
             buffer.append('"');
@@ -1829,13 +1772,11 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append("\"/></a>");
         }
 
-        buffer.append(" <span");
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-            buffer.append(" class=\"");
+            buffer.append(" <span class=\"");
             buffer.append(modelFormField.getTitleStyle());
-            buffer.append('"');
+            buffer.append("\">");
         }
-        buffer.append('>');
 
         buffer.append(" <select name=\"");
         buffer.append(modelFormField.getParameterName(context));
@@ -1846,11 +1787,13 @@ public class HtmlFormRenderer implements FormStringRenderer {
         buffer.append("<option value=\"empty\">" + opIsEmpty + "</option>");
         buffer.append("</select>");
 
-        buffer.append("</span>");
+        if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
+            buffer.append("</span>");
+        }
 
         this.appendTooltip(buffer, context, modelFormField);
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -1861,17 +1804,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append("<input type=\"text\"");
 
-        String className = modelFormField.getWidgetStyle();
-        if (UtilValidate.isNotEmpty(className)) {
-            buffer.append(" class=\"");
-            buffer.append(className);
-            buffer.append('"');
-        }
-
-        // add a style of red if this is a date/time field and redWhen is true
-        if (modelFormField.shouldBeRed(context)) {
-            buffer.append(" style=\"color: red;\"");
-        }
+        appendClassNames(buffer, context, modelFormField);
 
         buffer.append(" name=\"");
         buffer.append(modelFormField.getParameterName(context));
@@ -1937,7 +1870,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         this.makeHyperlinkString(buffer, lookupField.getSubHyperlink(), context);
         this.appendTooltip(buffer, context, modelFormField);
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     public void renderNextPrev(StringBuffer buffer, Map context, ModelForm modelForm) {
@@ -1988,7 +1921,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         String paginateAnchor = modelForm.getPaginateTargetAnchor();
         if (paginateAnchor != null) anchor = "#" + paginateAnchor;
 
-        buffer.append("<table border=\"0\" cellpadding=\"2\">\n");
+        buffer.append(" <table border=\"0\" cellpadding=\"2\">\n");
         buffer.append("  <tr>\n");
         buffer.append("    <td align=\"right\">\n");
         buffer.append("      <b>\n");
@@ -2023,9 +1956,9 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         }
         buffer.append("      </b>\n");
-        buffer.append("    </td>\n");
+        buffer.append("   </td>\n");
         buffer.append("  </tr>\n");
-        buffer.append("</table>\n");
+        buffer.append(" </table>\n");
 
         this.appendWhitespace(buffer);
     }
@@ -2038,17 +1971,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append("<input type=\"file\"");
 
-        String className = modelFormField.getWidgetStyle();
-        if (UtilValidate.isNotEmpty(className)) {
-            buffer.append(" class=\"");
-            buffer.append(className);
-            buffer.append('"');
-        }
-
-        // add a style of red if this is a date/time field and redWhen is true
-        if (modelFormField.shouldBeRed(context)) {
-            buffer.append(" style=\"color: red;\"");
-        }
+        appendClassNames(buffer, context, modelFormField);
 
         buffer.append(" name=\"");
         buffer.append(modelFormField.getParameterName(context));
@@ -2078,7 +2001,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         this.appendTooltip(buffer, context, modelFormField);
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -2089,17 +2012,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append("<input type=\"password\"");
 
-        String className = modelFormField.getWidgetStyle();
-        if (UtilValidate.isNotEmpty(className)) {
-            buffer.append(" class=\"");
-            buffer.append(className);
-            buffer.append('"');
-        }
-
-        // add a style of red if this is a date/time field and redWhen is true
-        if (modelFormField.shouldBeRed(context)) {
-            buffer.append(" style=\"color: red;\"");
-        }
+        appendClassNames(buffer, context, modelFormField);
 
         buffer.append(" name=\"");
         buffer.append(modelFormField.getParameterName(context));
@@ -2138,7 +2051,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         this.appendTooltip(buffer, context, modelFormField);
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -2192,7 +2105,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         this.appendTooltip(buffer, context, modelFormField);
 
-        this.appendWhitespace(buffer);
+        //this.appendWhitespace(buffer);
     }
     
     public void renderFieldGroupOpen(StringBuffer buffer, Map context, ModelForm.FieldGroup fieldGroup) {
@@ -2212,8 +2125,9 @@ public class HtmlFormRenderer implements FormStringRenderer {
         }
     }
      
+    // TODO: Remove embedded styling
     public void renderBanner(StringBuffer buffer, Map context, ModelForm.Banner banner) {
-        buffer.append("<table width=\"100%\"><tr>");
+        buffer.append(" <table width=\"100%\">  <tr>");
         String style = banner.getStyle(context);
         String leftStyle = banner.getLeftTextStyle(context);
         if (UtilValidate.isEmpty(leftStyle)) leftStyle = style;
@@ -2222,7 +2136,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         
         String leftText = banner.getLeftText(context);
         if (UtilValidate.isNotEmpty(leftText)) {
-            buffer.append("<td align=\"left\">");
+            buffer.append("   <td align=\"left\">");
             if (UtilValidate.isNotEmpty(leftStyle)) {
                buffer.append("<div");
                buffer.append(" class=\"");
@@ -2239,7 +2153,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         
         String text = banner.getText(context);
         if (UtilValidate.isNotEmpty(text)) {
-            buffer.append("<td align=\"center\">");
+            buffer.append("   <td align=\"center\">");
             if (UtilValidate.isNotEmpty(style)) {
                buffer.append("<div");
                buffer.append(" class=\"");
@@ -2256,7 +2170,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         
         String rightText = banner.getRightText(context);
         if (UtilValidate.isNotEmpty(rightText)) {
-            buffer.append("<td align=\"right\">");
+            buffer.append("   <td align=\"right\">");
             if (UtilValidate.isNotEmpty(rightStyle)) {
                buffer.append("<div");
                buffer.append(" class=\"");
@@ -2270,7 +2184,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
             }
             buffer.append("</td>");
         }
-        buffer.append("</tr></table>");
+        buffer.append("</tr> </table>");
     }
     
     /**

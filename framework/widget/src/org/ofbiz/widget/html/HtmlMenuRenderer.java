@@ -87,9 +87,9 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
         // make and append the link
         String s = rh.makeLink(this.request, this.response, location);
-            if (s.indexOf("null") >= 0) {
-                //if (Debug.infoOn()) Debug.logInfo("in appendOfbizUrl(3), url: " + s, "");
-            }
+        if (s.indexOf("null") >= 0) {
+            //if (Debug.infoOn()) Debug.logInfo("in appendOfbizUrl(3), url: " + s, "");
+        }
         buffer.append(s);
     }
 
@@ -106,7 +106,7 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
             if (ctx == null) {
                 throw new RuntimeException("ctx is null. buffer=" + buffer.toString() + " location:" + location);
             }
-                //if (Debug.infoOn()) Debug.logInfo("in appendContentUrl, ctx is NOT null(2)", "");
+            //if (Debug.infoOn()) Debug.logInfo("in appendContentUrl, ctx is NOT null(2)", "");
             this.request.setAttribute("servletContext", ctx);
         }
         GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
@@ -118,19 +118,19 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
     }
 
     public void appendTooltip(StringBuffer buffer, Map context, ModelMenuItem modelMenuItem) {
-        // render the tooltip, in other methods too
+        // render the tooltip
         String tooltip = modelMenuItem.getTooltip(context);
         if (UtilValidate.isNotEmpty(tooltip)) {
-            buffer.append("<span");
+            buffer.append("<span class=\"");
             String tooltipStyle = modelMenuItem.getTooltipStyle();
             if (UtilValidate.isNotEmpty(tooltipStyle)) {
-                buffer.append(" class=\"");
                 buffer.append(tooltipStyle);
-                buffer.append("\"");
+            } else {
+                buffer.append("tooltip");
             }
-            buffer.append("> -[");
+            buffer.append("\"");
             buffer.append(tooltip);
-            buffer.append("]- </span>");
+            buffer.append("</span>");
         }
     }
 
@@ -154,17 +154,32 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
         if (hideThisItem)
             return;
 
-
-        String style = menuItem.getAlignStyle();
-        if (UtilValidate.isNotEmpty(style)) {
-            String orientation = menuItem.getModelMenu().getOrientation();
-            if (orientation.equalsIgnoreCase("vertical")) style += "-vert";
-            String align = menuItem.getAlign();
-            if (align.equalsIgnoreCase("right")) style += "-right";
-            
-            buffer.append("<div class=\"" + style + "\">");
+        String style = null;
+        
+        if (menuItem.isSelected(context)) {
+            style = menuItem.getSelectedStyle();
+            if (UtilValidate.isEmpty(style)) {
+                style = "selected";
+            }
         }
         
+        if (menuItem.getDisabled()) {
+            style = menuItem.getDisabledTitleStyle();
+        }
+        
+        buffer.append("  <li");
+        String alignStyle = menuItem.getAlignStyle();
+        if (UtilValidate.isNotEmpty(style) || UtilValidate.isNotEmpty(alignStyle)) {
+            buffer.append(" class=\"");
+            if (UtilValidate.isNotEmpty(style)) {
+                buffer.append(style + " ");
+            }
+            if (UtilValidate.isNotEmpty(alignStyle)) {
+                buffer.append(alignStyle);
+            }
+            buffer.append("\"");
+        }
+        buffer.append(">");
         
         Link link = menuItem.getLink();
         //if (Debug.infoOn()) Debug.logInfo("in HtmlMenuRendererImage, link(0):" + link,"");
@@ -172,10 +187,7 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
             renderLink(buffer, context, link);
         } 
 
-        if (UtilValidate.isNotEmpty(style)) {
-            // only render the close tag if we rendered the open
-            buffer.append("</div>");
-        }
+        buffer.append("</li>");
         
         this.appendWhitespace(buffer);
     }
@@ -198,13 +210,13 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
         return disabled;
     }
 
-
+/*
     public String buildDivStr(ModelMenuItem menuItem, Map context) {
         String divStr = "";
         divStr =  menuItem.getTitle(context);
         return divStr;
     }
-
+*/
     public void renderMenuOpen(StringBuffer buffer, Map context, ModelMenu modelMenu) {
 
         if (!userLoginIdHasChanged) {
@@ -212,13 +224,32 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
         }
 
             //Debug.logInfo("in HtmlMenuRenderer, userLoginIdHasChanged:" + userLoginIdHasChanged,"");
-        String menuWidth = modelMenu.getMenuWidth();
-        String menuContainerStyle = modelMenu.getMenuContainerStyle(context);
-        String widthStr = "";
-        if (UtilValidate.isNotEmpty(menuWidth)) {
-            widthStr = " style=\"width:" + menuWidth + ";\"";
+        buffer.append("<!-- begin menu widget -->");
+        this.appendWhitespace(buffer);
+        buffer.append("<div");
+        String menuId = modelMenu.getId();
+        if (UtilValidate.isNotEmpty(menuId)) {
+            buffer.append(" id=\"" + menuId + "\"");
+        } else {
+            // TODO: Remove else after UI refactor - allow both id and style
+            String menuContainerStyle = modelMenu.getMenuContainerStyle(context);
+            if (UtilValidate.isNotEmpty(menuContainerStyle)) {
+                buffer.append(" class=\"" + menuContainerStyle + "\"");
+            }
         }
-        buffer.append("<div class=\"" + menuContainerStyle + "\"" + widthStr + ">");
+        String menuWidth = modelMenu.getMenuWidth();
+        // TODO: Eliminate embedded styling after refactor
+        if (UtilValidate.isNotEmpty(menuWidth)) {
+            buffer.append(" style=\"width:" + menuWidth + ";\"");
+        }
+        buffer.append(">");
+        String menuTitle = modelMenu.getTitle(context);
+        if (UtilValidate.isNotEmpty(menuTitle)) {
+            this.appendWhitespace(buffer);
+            buffer.append(" <h2>" + menuTitle + "</h2>");
+        }
+        this.appendWhitespace(buffer);
+        buffer.append(" <ul>");
         
         this.appendWhitespace(buffer);
     }
@@ -227,13 +258,18 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
      * @see org.ofbiz.widget.menu.MenuStringRenderer#renderMenuClose(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.menu.ModelMenu)
      */
     public void renderMenuClose(StringBuffer buffer, Map context, ModelMenu modelMenu) {
-    	
-    	String fillStyle = modelMenu.getFillStyle();
-    	if (UtilValidate.isNotEmpty(fillStyle)) {
-    		buffer.append("<div class=\"" + fillStyle + "\">&nbsp;</div>");
-    	}
+        String fillStyle = modelMenu.getFillStyle();
+        if (UtilValidate.isNotEmpty(fillStyle)) {
+            buffer.append("<div class=\"" + fillStyle + "\">&nbsp;</div>");
+        }
         //String menuContainerStyle = modelMenu.getMenuContainerStyle(context);
+        buffer.append(" </ul>");
+        this.appendWhitespace(buffer);
+        buffer.append(" <br class=\"clear\" />");
+        this.appendWhitespace(buffer);
         buffer.append("</div>");
+        this.appendWhitespace(buffer);
+        buffer.append("<!-- end menu widget -->");
         this.appendWhitespace(buffer);
         
         userLoginIdHasChanged = userLoginIdHasChanged(); 
@@ -281,21 +317,16 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
     }
 
     public boolean isHideIfSelected( ModelMenuItem menuItem) {
-
         ModelMenu menu = menuItem.getModelMenu();
         String currentMenuItemName = menu.getCurrentMenuItemName();
         String currentItemName = menuItem.getName();
         Boolean hideIfSelected = menuItem.getHideIfSelected();
             //Debug.logInfo("in HtmlMenuRenderer, currentMenuItemName:" + currentMenuItemName + " currentItemName:" + currentItemName + " hideIfSelected:" + hideIfSelected,"");
-        if (hideIfSelected != null && hideIfSelected.booleanValue() && currentMenuItemName != null && currentMenuItemName.equals(currentItemName)) 
-            return true;
-        else
-            return false;
+        return (hideIfSelected != null && hideIfSelected.booleanValue() && currentMenuItemName != null && currentMenuItemName.equals(currentItemName));
     }
 
 
     public boolean userLoginIdHasChanged() {
-
         boolean hasChanged = false;
         GenericValue userLogin = (GenericValue)request.getSession().getAttribute("userLogin");
         userLoginIdAtPermGrant = getUserLoginIdAtPermGrant();
@@ -327,7 +358,6 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
 
 
     public String getTitle(ModelMenuItem menuItem, Map context) {
-
         String title = null;
         title = menuItem.getTitle(context);
         return title;
@@ -344,6 +374,7 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
         }
         
         ModelMenuItem menuItem = link.getLinkMenuItem();
+/*
         boolean isSelected = menuItem.isSelected(context);
         
         String style = null;
@@ -367,6 +398,7 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
             buffer.append(style);
             buffer.append("\"");
         }
+*/
         String name = link.getName(context);
         if (UtilValidate.isNotEmpty(name)) {
             buffer.append(" name=\"");

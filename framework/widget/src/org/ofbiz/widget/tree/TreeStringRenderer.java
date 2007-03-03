@@ -34,5 +34,6 @@ public interface TreeStringRenderer {
     public void renderLabel(Writer writer, Map context, ModelTree.ModelNode.Label label) throws IOException;
     public void renderLink(Writer writer, Map context, ModelTree.ModelNode.Link link) throws IOException;
     public void renderImage(Writer writer, Map context, ModelTree.ModelNode.Image image) throws IOException;
+    public void renderLastElement(Writer writer, Map context, ModelTree.ModelNode node) throws IOException;
     public ScreenStringRenderer getScreenStringRenderer( Map context);
 }

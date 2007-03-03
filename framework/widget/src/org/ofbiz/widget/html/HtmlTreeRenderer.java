@@ -39,7 +39,7 @@ import org.ofbiz.widget.tree.TreeStringRenderer;
 
 
 /**
- * Widget Library - HTML Form Renderer implementation
+ * Widget Library - HTML Tree Renderer implementation
  */
 public class HtmlTreeRenderer implements TreeStringRenderer {
 
@@ -49,11 +49,11 @@ public class HtmlTreeRenderer implements TreeStringRenderer {
     public HtmlTreeRenderer() {}
     
     public static String buildPathString(ModelTree modelTree, int depth) {
-    	StringBuffer buf = new StringBuffer();
+        StringBuffer buf = new StringBuffer();
         for (int i=1; i <= depth; i++) {
             int idx = modelTree.getNodeIndexAtDepth(i);
-       		buf.append(".");
-        	buf.append(Integer.toString(idx + 1));
+            buf.append(".");
+            buf.append(Integer.toString(idx + 1));
         }
         return buf.toString();
     }
@@ -67,23 +67,24 @@ public class HtmlTreeRenderer implements TreeStringRenderer {
         context.put("staticNodeTrailPiped", staticNodeTrailPiped);
         context.put("nodePathString", pathString);
         context.put("depth", Integer.toString(depth));
-        String style = node.getWrapStyle(context);
-        if (UtilValidate.isNotEmpty(style)) {
-        	writer.write("<div");
-            writer.write(" class=\"");
-            writer.write(style);
-            writer.write("\"");
-            writer.write(">");
+        if (node.isRootNode()) {
+            appendWhitespace(writer);
+            writer.write("<!-- begin tree widget -->");
+            appendWhitespace(writer);
+            writer.write("<ul class=\"basic-tree\">");
+        } else {
+            appendWhitespace(writer);
+            writer.write(" <li>");
         }
 
         String pkName = node.getPkName();
         String entityId = null;
         String entryName = node.getEntryName();
-    	if (UtilValidate.isNotEmpty(entryName)) {
-    		Map map = (Map)context.get(entryName);
+        if (UtilValidate.isNotEmpty(entryName)) {
+            Map map = (Map)context.get(entryName);
             entityId = (String)map.get(pkName);
         } else {
-			entityId = (String) context.get(pkName);
+            entityId = (String) context.get(pkName);
         }
         boolean hasChildren = node.hasChildren(context);
             //Debug.logInfo("HtmlTreeExpandCollapseRenderer, hasChildren(1):" + hasChildren, module);
@@ -101,40 +102,43 @@ public class HtmlTreeRenderer implements TreeStringRenderer {
             ModelTree.ModelNode.Image expandCollapseImage = new ModelTree.ModelNode.Image();
             expandCollapseImage.setBorder("0");
             ModelTree.ModelNode.Link expandCollapseLink = new ModelTree.ModelNode.Link();
-            String expandCollapseStyle = UtilFormatOut.checkEmpty(node.getExpandCollapseStyle(), "expandcollapse");
-            expandCollapseLink.setStyle(expandCollapseStyle);
-            expandCollapseLink.setImage(expandCollapseImage);
             //String currentNodeTrailCsv = (String)context.get("currentNodeTrailCsv");
     
             int openDepth = node.getModelTree().getOpenDepth();
             if (depth >= openDepth && (targetEntityId == null || !targetEntityId.equals(entityId))) {
                 // Not on the trail
                 if( node.showPeers(depth)) {
-                	context.put("processChildren", Boolean.FALSE);
-                	//expandCollapseLink.setText("&nbsp;+&nbsp;");
-                	currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
-                	context.put("currentNodeTrailPiped", currentNodeTrailPiped);
-                	//context.put("currentNodeTrailCsv", currentNodeTrailCsv);
-                	expandCollapseImage.setSrc("/images/expand.gif");
-                	String target = node.getModelTree().getExpandCollapseRequest(context);
-                	String trailName = node.getModelTree().getTrailName(context);
-                    if (target.indexOf("?") < 0)  target += "?";
-                    else target += "&";
-                	target += trailName + "=" + currentNodeTrailPiped;
+                    context.put("processChildren", Boolean.FALSE);
+                    //expandCollapseLink.setText("&nbsp;+&nbsp;");
+                    currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
+                    context.put("currentNodeTrailPiped", currentNodeTrailPiped);
+                    //context.put("currentNodeTrailCsv", currentNodeTrailCsv);
+                    expandCollapseLink.setStyle("collapsed");
+                    expandCollapseLink.setText("&nbsp;");
+                    String target = node.getModelTree().getExpandCollapseRequest(context);
+                    String trailName = node.getModelTree().getTrailName(context);
+                    if (target.indexOf("?") < 0) {
+                        target += "?";
+                    } else {
+                        target += "&";
+                    }
+                    target += trailName + "=" + currentNodeTrailPiped;
                     target += "#" + staticNodeTrailPiped;
-                	//expandCollapseLink.setTarget("/ViewOutline?docRootContentId=${docRootContentId}&targetNodeTrailCsv=${currentNodeTrailCsv}");
-                	expandCollapseLink.setTarget(target);
+                    //expandCollapseLink.setTarget("/ViewOutline?docRootContentId=${docRootContentId}&targetNodeTrailCsv=${currentNodeTrailCsv}");
+                    expandCollapseLink.setTarget(target);
                 }
             } else {
                 context.put("processChildren", Boolean.TRUE);
                 //expandCollapseLink.setText("&nbsp;-&nbsp;");
                 String lastContentId = (String)currentNodeTrail.remove(currentNodeTrail.size() - 1);
                 currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
-                if (currentNodeTrailPiped == null)
+                if (currentNodeTrailPiped == null) {
                     currentNodeTrailPiped = "";
+                }
                 context.put("currentNodeTrailPiped", currentNodeTrailPiped);
                 //context.put("currentNodeTrailCsv", currentNodeTrailCsv);
-                expandCollapseImage.setSrc("/images/collapse.gif");
+                expandCollapseLink.setStyle("expanded");
+                expandCollapseLink.setText("&nbsp;");
                 String target = node.getModelTree().getExpandCollapseRequest(context);
                 String trailName = node.getModelTree().getTrailName(context);
                 if (target.indexOf("?") < 0)  target += "?";
@@ -145,25 +149,47 @@ public class HtmlTreeRenderer implements TreeStringRenderer {
                 // add it so it can be remove in renderNodeEnd
                 currentNodeTrail.add(lastContentId);
                 currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
-                if (currentNodeTrailPiped == null)
+                if (currentNodeTrailPiped == null) {
                     currentNodeTrailPiped = "";
+                }
                 context.put("currentNodeTrailPiped", currentNodeTrailPiped);
             }
             renderLink( writer, context, expandCollapseLink);
         } else if (!hasChildren){
-                writer.write(" ");
+                //writer.write(" ");
                 context.put("processChildren", Boolean.FALSE);
                 //currentNodeTrail.add(contentId);
         }
     }
 
     public void renderNodeEnd(Writer writer, Map context, ModelTree.ModelNode node) throws IOException {
-        String style = node.getWrapStyle(context);
-        if (UtilValidate.isNotEmpty(style)) {
-        writer.write("</div>");
+        if (node.isRootNode()) {
+            appendWhitespace(writer);
+            writer.write("</ul>");
+            appendWhitespace(writer);
+            writer.write("<!-- end tree widget -->");
+            appendWhitespace(writer);
+        }
+        else {
+            Boolean processChildren = (Boolean) context.get("processChildren");
+            if (processChildren.booleanValue()) {
+                appendWhitespace(writer);
+                writer.write("</ul>");
+            }
+            writer.write("</li>");
         }
     }
 
+    public void renderLastElement(Writer writer, Map context, ModelTree.ModelNode node) throws IOException {
+        if (!node.isRootNode()) {
+            Boolean processChildren = (Boolean) context.get("processChildren");
+            if (processChildren.booleanValue()) {
+                appendWhitespace(writer);
+                writer.write("<ul class=\"basic-tree\">");
+            }
+        }
+    }
+    
     public void renderLabel(Writer writer, Map context, ModelTree.ModelNode.Label label) throws IOException {
         // open tag
         writer.write("<span");
@@ -268,7 +294,7 @@ public class HtmlTreeRenderer implements TreeStringRenderer {
         // close tag
         writer.write("</a>");
         
-        appendWhitespace(writer);
+//        appendWhitespace(writer);
     }
 
     public void renderImage(Writer writer, Map context, ModelTree.ModelNode.Image image) throws IOException {
