@@ -133,6 +133,15 @@ public class UtilDateTime {
     }
 
     /**
+     * Returns currentTimeMillis as String
+     * 
+     * @return String(currentTimeMillis)
+     */
+    public static String nowAsString() {
+        return Long.toString(System.currentTimeMillis());
+    }
+
+    /**
      * Return a string formatted as yyyyMMddHHmmss
      *
      * @return String formatted for right now

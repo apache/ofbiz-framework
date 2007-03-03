@@ -2547,8 +2547,7 @@ public class PaymentGatewayServices {
         if (processAmount == null)
             result.put("authResult", null);
 
-        long nowTime = new Date().getTime();
-        String refNum = new Long(nowTime).toString();
+        String refNum = UtilDateTime.nowAsString();
 
         result.put("processAmount", context.get("processAmount"));
         result.put("authRefNum", refNum);
@@ -2577,8 +2576,7 @@ public class PaymentGatewayServices {
         if (processAmount == null)
             result.put("authResult", null);
 
-        long nowTime = new Date().getTime();
-        String refNum = new Long(nowTime).toString();
+        String refNum = UtilDateTime.nowAsString();
 
         result.put("processAmount", context.get("processAmount"));
         result.put("authRefNum", refNum);
@@ -2599,13 +2597,14 @@ public class PaymentGatewayServices {
      */
     public static Map alwaysApproveProcessor(DispatchContext dctx, Map context) {
         Map result = new HashMap();
-        long nowTime = new Date().getTime();
         Debug.logInfo("Test Processor Approving Credit Card", module);
+
+        String refNum = UtilDateTime.nowAsString();
 
         result.put("authResult", Boolean.TRUE);
         result.put("processAmount", context.get("processAmount"));
-        result.put("authRefNum", new Long(nowTime).toString());
-        result.put("authAltRefNum", new Long(nowTime).toString());
+        result.put("authRefNum", refNum);
+        result.put("authAltRefNum", refNum);
         result.put("authCode", "100");
         result.put("authFlag", "A");
         result.put("authMessage", "This is a test processor; no payments were captured or authorized.");
@@ -2614,8 +2613,7 @@ public class PaymentGatewayServices {
 
     public static Map alwaysApproveWithCapture(DispatchContext dctx, Map context) {
         Map result = new HashMap();
-        long nowTime = new Date().getTime();
-        String refNum = new Long(nowTime).toString();
+        String refNum = UtilDateTime.nowAsString();
         Debug.logInfo("Test Processor Approving Credit Card with Capture", module);
 
         result.put("authResult", Boolean.TRUE);
@@ -2639,13 +2637,14 @@ public class PaymentGatewayServices {
     public static Map alwaysDeclineProcessor(DispatchContext dctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
         Double processAmount = (Double) context.get("processAmount");
-        long nowTime = new Date().getTime();
         Debug.logInfo("Test Processor Declining Credit Card", module);
+
+        String refNum = UtilDateTime.nowAsString();
 
         result.put("authResult", Boolean.FALSE);
         result.put("processAmount", processAmount);
-        result.put("authRefNum", new Long(nowTime).toString());
-        result.put("authAltRefNum", new Long(nowTime).toString());
+        result.put("authRefNum", refNum);
+        result.put("authAltRefNum", refNum);
         result.put("authFlag", "D");
         result.put("authMessage", "This is a test processor; no payments were captured or authorized");
         return result;
@@ -2657,14 +2656,15 @@ public class PaymentGatewayServices {
     public static Map alwaysNsfProcessor(DispatchContext dctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
         Double processAmount = (Double) context.get("processAmount");
-        long nowTime = new Date().getTime();
         Debug.logInfo("Test Processor NSF Credit Card", module);
+
+        String refNum = UtilDateTime.nowAsString();
 
         result.put("authResult", Boolean.FALSE);
         result.put("resultNsf", Boolean.TRUE);
         result.put("processAmount", processAmount);
-        result.put("authRefNum", new Long(nowTime).toString());
-        result.put("authAltRefNum", new Long(nowTime).toString());
+        result.put("authRefNum", refNum);
+        result.put("authAltRefNum", refNum);
         result.put("authFlag", "N");
         result.put("authMessage", "This is a test processor; no payments were captured or authorized");
         return result;
@@ -2676,14 +2676,15 @@ public class PaymentGatewayServices {
     public static Map alwaysBadExpireProcessor(DispatchContext dctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
         Double processAmount = (Double) context.get("processAmount");
-        long nowTime = new Date().getTime();
         Debug.logInfo("Test Processor Bad Expire Date Credit Card", module);
+
+        String refNum = UtilDateTime.nowAsString();
 
         result.put("authResult", Boolean.FALSE);
         result.put("resultBadExpire", Boolean.TRUE);
         result.put("processAmount", processAmount);
-        result.put("authRefNum", new Long(nowTime).toString());
-        result.put("authAltRefNum", new Long(nowTime).toString());
+        result.put("authRefNum", refNum);
+        result.put("authAltRefNum", refNum);
         result.put("authFlag", "E");
         result.put("authMessage", "This is a test processor; no payments were captured or authorized");
         return result;
@@ -2711,14 +2712,15 @@ public class PaymentGatewayServices {
     public static Map alwaysBadCardNumberProcessor(DispatchContext dctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
         Double processAmount = (Double) context.get("processAmount");
-        long nowTime = new Date().getTime();
         Debug.logInfo("Test Processor Bad Card Number Credit Card", module);
+
+        String refNum = UtilDateTime.nowAsString();
 
         result.put("authResult", Boolean.FALSE);
         result.put("resultBadCardNumber", Boolean.TRUE);
         result.put("processAmount", processAmount);
-        result.put("authRefNum", new Long(nowTime).toString());
-        result.put("authAltRefNum", new Long(nowTime).toString());
+        result.put("authRefNum", refNum);
+        result.put("authAltRefNum", refNum);
         result.put("authFlag", "N");
         result.put("authMessage", "This is a test processor; no payments were captured or authorized");
         return result;
@@ -2733,12 +2735,13 @@ public class PaymentGatewayServices {
 
     public static Map testRelease(DispatchContext dctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
-        long nowTime = new Date().getTime();
+
+        String refNum = UtilDateTime.nowAsString();
 
         result.put("releaseResult", Boolean.TRUE);
         result.put("releaseAmount", context.get("releaseAmount"));
-        result.put("releaseRefNum", new Long(nowTime).toString());
-        result.put("releaseAltRefNum", new Long(nowTime).toString());
+        result.put("releaseRefNum", refNum);
+        result.put("releaseAltRefNum", refNum);
         result.put("releaseFlag", "U");
         result.put("releaseMessage", "This is a test release; no authorizations exist");
         return result;
@@ -2747,19 +2750,20 @@ public class PaymentGatewayServices {
     /**
      * Test capture service (returns true)
      */
-     public static Map testCapture(DispatchContext dctx, Map context) {
-         Map result = ServiceUtil.returnSuccess();
-         long nowTime = new Date().getTime();
-            Debug.logInfo("Test Capture Process", module);
+    public static Map testCapture(DispatchContext dctx, Map context) {
+        Map result = ServiceUtil.returnSuccess();
+        Debug.logInfo("Test Capture Process", module);
 
-         result.put("captureResult", Boolean.TRUE);
-         result.put("captureAmount", context.get("captureAmount"));
-         result.put("captureRefNum", new Long(nowTime).toString());
-         result.put("captureAltRefNum", new Long(nowTime).toString());
-         result.put("captureFlag", "C");
-         result.put("captureMessage", "This is a test capture; no money was transferred");
-         return result;
-     }
+        String refNum = UtilDateTime.nowAsString();
+
+        result.put("captureResult", Boolean.TRUE);
+        result.put("captureAmount", context.get("captureAmount"));
+        result.put("captureRefNum", refNum);
+        result.put("captureAltRefNum", refNum);
+        result.put("captureFlag", "C");
+        result.put("captureMessage", "This is a test capture; no money was transferred");
+        return result;
+    }
 
     public static Map testCaptureWithReAuth(DispatchContext dctx, Map context) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
@@ -2777,9 +2781,8 @@ public class PaymentGatewayServices {
         Timestamp nowStamp = UtilDateTime.nowTimestamp();
 
         Map result = ServiceUtil.returnSuccess();
-        long nowTime = new Date().getTime();
         result.put("captureAmount", context.get("captureAmount"));
-        result.put("captureRefNum", new Long(nowTime).toString());
+        result.put("captureRefNum", UtilDateTime.nowAsString());
 
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(txStamp.getTime());
@@ -2803,12 +2806,11 @@ public class PaymentGatewayServices {
      */
     public static Map testRefund(DispatchContext dctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
-        long nowTime = new Date().getTime();
         Debug.logInfo("Test Refund Process", module);
 
         result.put("refundResult", Boolean.TRUE);
         result.put("refundAmount", context.get("refundAmount"));
-        result.put("refundRefNum", new Long(nowTime).toString());
+        result.put("refundRefNum", UtilDateTime.nowAsString());
         result.put("refundFlag", "R");
         result.put("refundMessage", "This is a test refund; no money was transferred");
         return result;
@@ -2816,12 +2818,11 @@ public class PaymentGatewayServices {
 
     public static Map testRefundFailure(DispatchContext dctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
-        long nowTime = new Date().getTime();
         Debug.logInfo("Test Refund Process", module);
 
         result.put("refundResult", Boolean.FALSE);
         result.put("refundAmount", context.get("refundAmount"));
-        result.put("refundRefNum", new Long(nowTime).toString());
+        result.put("refundRefNum", UtilDateTime.nowAsString());
         result.put("refundFlag", "R");
         result.put("refundMessage", "This is a test refund failure; no money was transferred");
         return result;
