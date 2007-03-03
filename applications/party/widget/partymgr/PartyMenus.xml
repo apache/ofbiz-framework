@@ -19,9 +19,9 @@ under the License.
 -->
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
-    <menu name="ProfileTabBar" default-menu-item-name="viewprofile" default-selected-style="tabButtonSelected" 
-        default-title-style="tabButton" default-tooltip-style="tabletext" default-widget-style="tabButton" 
-        orientation="horizontal" type="simple">
+
+    <menu name="ProfileTabBar" default-menu-item-name="viewprofile" default-selected-style="selected"
+        type="simple" menu-container-style="button-bar button-style-1">
         <menu-item name="viewprofile" title="${uiLabelMap.PartyProfile}">
             <link target="viewprofile?partyId=${partyId}"/>
         </menu-item>
@@ -62,4 +62,23 @@ under the License.
             <link target="EditPartyContents?partyId=${partyId}"/>
         </menu-item>
     </menu>
+
+    <menu name="create-new-party" type="simple" menu-container-style="head1">
+        <menu-item name="create-party-group" title="${uiLabelMap.PartyCreateNewPartyGroup}">
+            <link target="editpartygroup?create_new=Y"/>
+        </menu-item>
+        <menu-item name="create-person" title="${uiLabelMap.PartyCreateNewPerson}">
+            <link target="editperson?create_new=Y"/>
+        </menu-item>
+        <menu-item name="create-customer" title="${uiLabelMap.PartyCreateNewCustomer}">
+            <link target="NewCustomer"/>
+        </menu-item>
+        <menu-item name="create-prospect" title="${uiLabelMap.PartyCreateNewProspect}">
+            <link target="NewProspect"/>
+        </menu-item>
+        <menu-item name="create-employee" title="${uiLabelMap.PartyCreateNewEmployee}" >
+            <link target="NewEmployee"/>
+        </menu-item>
+    </menu>
+
 </menus>

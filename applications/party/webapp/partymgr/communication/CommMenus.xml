@@ -18,9 +18,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
-    <menu name="CommEventTabBar" default-menu-item-name="viewprofile" default-selected-style="tabButtonSelected" 
-            default-title-style="tabButton" default-tooltip-style="tabletext" default-widget-style="tabButton" 
-            orientation="horizontal" type="simple"  selected-menuitem-context-field-name="subTabButtonItem">
+    <menu name="CommEventTabBar" default-menu-item-name="viewprofile" menu-container-style="button-bar button-style-1"
+        type="simple" selected-menuitem-context-field-name="subTabButtonItem">
         <menu-item name="CommunicationEvent" title="${uiLabelMap.PartyCommEvent}">
             <link target="EditCommunicationEvent?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
         </menu-item>
@@ -42,8 +41,7 @@ under the License.
         </menu-item>
         -->
     </menu>
-    <menu name="CommFindTabBar" default-menu-item-name="find" default-selected-style="tabButtonSelected" default-title-style="tabButton" 
-            default-tooltip-style="tabletext" default-widget-style="tabButton" orientation="horizontal" type="simple">
+    <menu name="CommFindTabBar" default-menu-item-name="find" type="simple">
         <menu-item name="find" title="${uiLabelMap.CommonFind}">
             <link target="findCommunications?partyId=${partyId}&amp;communicationEventId=${communicationEventId}" url-mode="intra-app"/>
         </menu-item>

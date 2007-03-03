@@ -18,114 +18,83 @@ under the License.
 -->
 
 <#-- Party Roles -->
+<!-- begin viewroles.ftl -->
 <br/>
-<TABLE border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-  <TR>
-    <TD width="100%">
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
-        <tr>
-          <td valign="middle" align="left">
-            <div class="boxhead">${uiLabelMap.PartyMemberRoles}</div>
-          </td>
-        </tr>
-      </table>
-    </TD>
-    </form>
-  </TR>
-  <TR>
-    <TD width="100%">
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
-        <tr>
-          <td>
-            <#if partyRoles?has_content>
-            <table width="100%" border="0" cellpadding="1">
-              <#list partyRoles as userRole>
-              <tr>
-                <td align="right" valign="top" width="10%" nowrap><div class="tabletext"><b>${uiLabelMap.PartyRole}</b></div></td>
-                <td width="5">&nbsp;</td>
-                <td align="left" valign="top" width="70%"><div class="tabletext">${userRole.get("description",locale)} [${userRole.roleTypeId}]</div></td>
-                <#if hasDeletePermission>
-                <td align="right" valign="top" width="20%">
-                  <a href="<@ofbizUrl>deleterole?partyId=${partyId}&roleTypeId=${userRole.roleTypeId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>&nbsp;
-                </td>
-                </#if>
-              </tr>
-              </#list>
-            </table>
+<div id="partyRoles" class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>${uiLabelMap.PartyMemberRoles}</h3>
+  </div>
+  <div class="screenlet-body">
+    <table cellspacing="0" class="basic-table">
+      <#if partyRoles?has_content>
+        <#list partyRoles as userRole>
+          <tr>
+            <td class="label">${uiLabelMap.PartyRole}</td>
+            <td>${userRole.get("description",locale)} [${userRole.roleTypeId}]</td>
+            <#if hasDeletePermission>
+              <td class="button-col align-float">
+                <a href="<@ofbizUrl>deleterole?partyId=${partyId}&roleTypeId=${userRole.roleTypeId}</@ofbizUrl>">${uiLabelMap.CommonRemove}</a>&nbsp;
+              </td>
             <#else>
-              <div class="tabletext">${uiLabelMap.PartyNoPartyRolesFound}</div>
+              <td>&nbsp;</td>
             </#if>
-          </td>
-        </tr>
-      </table>
-    </TD>
-  </TR>
-  <#if hasUpdatePermission>
-  <TR>
-    <TD width="100%"><hr class="sepbar"></TD>
-  </TR>
-  <TR>
-    <TD width="100%" >
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
-        <form name="addPartyRole" method="post" action="<@ofbizUrl>addrole/viewroles</@ofbizUrl>">
-        <input type="hidden" name="partyId" value="${partyId}">
+          </tr>
+        </#list>
+      <#else>
+        ${uiLabelMap.PartyNoPartyRolesFound}
+      </#if>
+      <#if hasUpdatePermission>
+        <tr><td colspan="3"><hr class="sepbar"></td></tr>
         <tr>
-          <td align="right" width="75%"><span class="tabletext">&nbsp;${uiLabelMap.PartyAddToRole}:&nbsp;</span></td>
-          <td>
-            <select name="roleTypeId" class="selectBox">
-              <#list roles as role>
-                <option value="${role.roleTypeId}">${role.get("description",locale)}</option>
-              </#list>
-            </select>
+          <td class="label">
+            ${uiLabelMap.PartyAddToRole}
           </td>
           <td>
-            <a href="javascript:document.addPartyRole.submit()" class="buttontext">${uiLabelMap.CommonAdd}</a>&nbsp;&nbsp;
+            <form name="addPartyRole" method="post" action="<@ofbizUrl>addrole/viewroles</@ofbizUrl>">
+              <input type="hidden" name="partyId" value="${partyId}"/>
+              <select name="roleTypeId">
+                <#list roles as role>
+                  <option value="${role.roleTypeId}">${role.get("description",locale)}</option>
+                </#list>
+              </select>
+              <a href="javascript:document.addPartyRole.submit()" class="smallSubmit">${uiLabelMap.CommonAdd}</a>
+            </form>
           </td>
+          <td>&nbsp;</td>
         </tr>
-        </form>
-      </table>
-    </TD>
-  </TR>
-  </#if>
-</TABLE>
+      </#if>
+    </table>
+  </div>
+</div>
 
 <#-- Add role type -->
 <#if hasCreatePermission>
 <br/>
-<TABLE border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-  <TR>
-    <TD width="100%">
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
+<div id="newRoleType" class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>${uiLabelMap.PartyNewRoleType}</h3>
+  </div>
+  <div class="screenlet-body">
+    <form method="post" action="<@ofbizUrl>createroletype</@ofbizUrl>" name="createroleform">
+      <input type='hidden' name='party_id' value='${partyId}'>
+      <input type='hidden' name='partyId' value='${partyId}'>
+      <table cellspacing="0" class="basic-table">
         <tr>
-          <td valign="middle" align="left">
-            <div class="boxhead">${uiLabelMap.PartyNewRoleType}</div>
+          <td class="label">${uiLabelMap.PartyRoleTypeId}</td>
+          <td>
+            <input type="text" name="roleTypeId" size="20" class="required"><span class="tooltip">${uiLabelMap.CommonRequired}</span>
+          </td>
+        <tr>
+          <td class="label">${uiLabelMap.CommonDescription}</td>
+          <td>
+            <input type="text" name="description" size="30" class="required"><span class="tooltip">${uiLabelMap.CommonRequired}</span>
           </td>
         </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td><a href="javascript:document.createroleform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a></td>
       </table>
-    </TD>
     </form>
-  </TR>
-  <TR>
-    <TD width="100%">
-      <table width="100%" border="0" cellspacing="1" cellpadding="1" class="boxbottom">
-        <form method="post" action="<@ofbizUrl>createroletype</@ofbizUrl>" name="createroleform">
-        <input type='hidden' name='party_id' value='${partyId}'>
-        <input type='hidden' name='partyId' value='${partyId}'>
-        <tr>
-          <td width="16%"><div class="tabletext">${uiLabelMap.PartyRoleTypeId}</div></td>
-          <td width="84%">
-            <input type="text" name="roleTypeId" size="20" class="inputBox">*
-          </td>
-        <tr>
-          <td width="16%"><div class="tabletext">${uiLabelMap.CommonDescription}</div></td>
-          <td width="84%">
-            <input type="text" name="description" size="30" class="inputBox">*
-            &nbsp;&nbsp;<a href="javascript:document.createroleform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
-          </td>
-        </tr>
-        </form>
-      </table>
-    </TD>
-  </TR>
-</TABLE>
+  </div>
+</div>
 </#if>

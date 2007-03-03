@@ -17,176 +17,135 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script language="JavaScript" type="text/javascript">
-function lookupParty(click) {
-    partyIdValue = document.lookupparty.partyId.value;
-    userLoginIdValue = document.lookupparty.userlogin_id.value;
-    if (partyIdValue.length > 1 || userLoginIdValue.length > 1) {
-        document.lookupparty.action = "<@ofbizUrl>viewprofile</@ofbizUrl>";
-    } else {
-        document.lookupparty.action = "<@ofbizUrl>findparty</@ofbizUrl>";
-    }
-
-    if (click) {
-        document.lookupparty.submit();
-    }
-    return true;
-}
-function refreshInfo() {
-    document.lookupparty.lookupFlag.value = "N";
-    document.lookupparty.hideFields.value = "N";
-    document.lookupparty.submit();
-}
-</script>
-
 <#assign extInfo = parameters.extInfo?default("N")>
-<div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxlink">
-            <div class="tabletext">
-              <#if parameters.hideFields?default("N") == "Y">
-                <a href="<@ofbizUrl>findparty?hideFields=N${paramList}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonShowLookupFields}</a>
-              <#else>
-                <#if partyList?exists><a href="<@ofbizUrl>findparty?hideFields=Y${paramList}</@ofbizUrl>" class="submenutext">${uiLabelMap.CommonHideFields}</a></#if>
-                <a href="javascript:document.lookupparty.submit();" class="submenutextright">${uiLabelMap.PartyLookupParty}</a>
-              </#if>
-            </div>
-        </div>
-        <div class="boxhead">&nbsp;${uiLabelMap.PartyFindParty}</div>
-    </div>
+
+<!-- begin findParty.ftl -->
+<div id="findPartyParameters" class="screenlet">
+  <div class="screenlet-title-bar">
+    <ul>
+      <h3>${uiLabelMap.PartyFindParty}</h3>
+      <#if parameters.hideFields?default("N") == "Y">
+        <li><a href="<@ofbizUrl>findparty?hideFields=N${paramList}</@ofbizUrl>">${uiLabelMap.CommonShowLookupFields}</a></li>
+      <#else>
+        <#if partyList?exists><li><a href="<@ofbizUrl>findparty?hideFields=Y${paramList}</@ofbizUrl>">${uiLabelMap.CommonHideFields}</a></li></#if>
+        <li><a href="javascript:document.lookupparty.submit();">${uiLabelMap.PartyLookupParty}</a></li>
+      </#if>
+    </ul>
+	<br class="clear" />
+  </div>
   <#if parameters.hideFields?default("N") != "Y">
     <div class="screenlet-body">
-      <form method="post" name="lookupparty" action="<@ofbizUrl>findparty</@ofbizUrl>" onsubmit="javascript:lookupParty();">
-          <input type="hidden" name="lookupFlag" value="Y"/>
-          <input type="hidden" name="hideFields" value="Y"/>
-          <table border="0" cellspacing="0" cellpadding="2">
+      <form method="post" name="lookupparty" action="<@ofbizUrl>findparty</@ofbizUrl>" class="basic-form" onsubmit="javascript:lookupParty('<@ofbizUrl>viewprofile</@ofbizUrl>');">
+        <input type="hidden" name="lookupFlag" value="Y"/>
+        <input type="hidden" name="hideFields" value="Y"/>
+        <table cellspacing="0">
+          <tr>
+            <td class="label">${uiLabelMap.PartyContactInformation} :</td>
+            <td>
+              <input type="radio" name="extInfo" value="N" onclick="javascript:refreshInfo();" <#if extInfo == "N">checked="checked"</#if>/>${uiLabelMap.CommonNone}&nbsp;
+              <input type="radio" name="extInfo" value="P" onclick="javascript:refreshInfo();" <#if extInfo == "P">checked="checked"</#if>/>${uiLabelMap.PartyPostal}&nbsp;
+              <input type="radio" name="extInfo" value="T" onclick="javascript:refreshInfo();" <#if extInfo == "T">checked="checked"</#if>/>${uiLabelMap.PartyTelecom}&nbsp;
+              <input type="radio" name="extInfo" value="O" onclick="javascript:refreshInfo();" <#if extInfo == "O">checked="checked"</#if>/>${uiLabelMap.CommonOther}&nbsp;
+            </td>
+          </tr>
+          <tr>
+            <td class="label">${uiLabelMap.PartyPartyId} :</td>
+            <td><input type="text" name="partyId" value="${parameters.partyId?if_exists}"/></td>
+          </tr>
+          <tr>
+            <td class="label">${uiLabelMap.PartyUserLogin} :</td>
+            <td><input type="text" name="userLoginId" value="${parameters.userLoginId?if_exists}"/></td>
+          </tr>
+          <tr>
+            <td class="label"><${uiLabelMap.PartyLastName} :</td>
+            <td><input type="text" name="lastName" value="${parameters.lastName?if_exists}"/></td>
+          </tr>
+          <tr>
+            <td class="label">${uiLabelMap.PartyFirstName} :</td>
+            <td><input type="text" name="firstName" value="${parameters.firstName?if_exists}"/></td>
+          </tr>
+          <tr>
+            <td class="label">${uiLabelMap.PartyPartyGroupName} :</td>
+            <td><input type="text" name="groupName" value="${parameters.groupName?if_exists}"/></td>
+          </tr>
+          <tr>
+            <td class="label">${uiLabelMap.PartyRoleType} :</td>
+            <td>
+              <select name="roleTypeId">
+                <#if currentRole?has_content>
+                  <option value="${currentRole.roleTypeId}">${currentRole.get("description",locale)}</option>
+                  <option value="${currentRole.roleTypeId}">---</option>
+                </#if>
+                <option value="ANY">${uiLabelMap.CommonAnyRoleType}</option>
+                <#list roleTypes as roleType>
+                  <option value="${roleType.roleTypeId}">${roleType.get("description",locale)}</option>
+                </#list>
+              </select>
+            </td>
+          </tr>
+          <#if extInfo == "P">
+            <tr><td colspan="3"><hr class="sepbar"/></td></tr>
             <tr>
-              <td width="25%" align="right" nowrap><div class="tableheadtext">${uiLabelMap.PartyContactInformation} :</div></td>
-              <td width="5%">&nbsp;</td>
-              <td nowrap>
-                <div class="tabletext">
-                  <input type="radio" name="extInfo" value="N" onclick="javascript:refreshInfo();" <#if extInfo == "N">checked="checked"</#if>/>${uiLabelMap.CommonNone}&nbsp;
-                  <input type="radio" name="extInfo" value="P" onclick="javascript:refreshInfo();" <#if extInfo == "P">checked="checked"</#if>/>${uiLabelMap.PartyPostal}&nbsp;
-                  <input type="radio" name="extInfo" value="T" onclick="javascript:refreshInfo();" <#if extInfo == "T">checked="checked"</#if>/>${uiLabelMap.PartyTelecom}&nbsp;
-                  <input type="radio" name="extInfo" value="O" onclick="javascript:refreshInfo();" <#if extInfo == "O">checked="checked"</#if>/>${uiLabelMap.CommonOther}&nbsp;
-                </div>
-              </td>
+              <td class="label">${uiLabelMap.CommonAddress1} :</td>
+              <td><input type="text" name="address1" value="${parameters.address1?if_exists}"/></td>
             </tr>
             <tr>
-              <td width="25%" align="right"><div class="tableheadtext">${uiLabelMap.PartyPartyId} :</div></td>
-              <td width="5%">&nbsp;</td>
-              <td><input type="text" class="inputBox" name="partyId" value="${parameters.partyId?if_exists}"/></td>
+              <td class="label">${uiLabelMap.CommonAddress2} :</td>
+              <td><input type="text" name="address2" value="${parameters.address2?if_exists}"/></td>
             </tr>
             <tr>
-              <td width="25%" align="right"><div class="tableheadtext">${uiLabelMap.PartyUserLogin} :</div></td>
-              <td width="5%">&nbsp;</td>
-              <td><input type="text" class="inputBox" name="userLoginId" value="${parameters.userLoginId?if_exists}"/></td>
+              <td class="label">${uiLabelMap.CommonCity} :</td>
+              <td><input type="text" name="city" value="${parameters.city?if_exists}"/></td>
             </tr>
             <tr>
-              <td width="25%" align="right"><div class="tableheadtext">${uiLabelMap.PartyLastName} :</div></td>
-              <td width="5%">&nbsp;</td>
-              <td><input type="text" class="inputBox" name="lastName" value="${parameters.lastName?if_exists}"/></td>
-            </tr>
-            <tr>
-              <td width="25%" align="right"><div class="tableheadtext">${uiLabelMap.PartyFirstName} :</div></td>
-              <td width="5%">&nbsp;</td>
-              <td><input type="text" class="inputBox" name="firstName" value="${parameters.firstName?if_exists}"/></td>
-            </tr>
-            <tr>
-              <td width="25%" align="right"><div class="tableheadtext">${uiLabelMap.PartyPartyGroupName} :</div></td>
-              <td width="5%">&nbsp;</td>
-              <td><input type="text" class="inputBox" name="groupName" value="${parameters.groupName?if_exists}"/></td>
-            </tr>
-            <tr>
-              <td width="25%" align="right"><div class="tableheadtext">${uiLabelMap.PartyRoleType} :</div></td>
-              <td width="5%">&nbsp;</td>
+              <td class="label">${uiLabelMap.CommonStateProvince} :</td>
               <td>
-                <select name="roleTypeId" class="selectBox">
-                  <#if currentRole?has_content>
-                    <option value="${currentRole.roleTypeId}">${currentRole.get("description",locale)}</option>
-                    <option value="${currentRole.roleTypeId}">---</option>
+                <select name="stateProvinceGeoId">
+                  <#if currentStateGeo?has_content>
+                    <option value="${currentStateGeo.geoId}">${currentStateGeo.geoName?default(currentStateGeo.geoId)}</option>
+                    <option value="${currentStateGeo.geoId}">---</option>
                   </#if>
-                  <option value="ANY">${uiLabelMap.CommonAnyRoleType}</option>
-                  <#list roleTypes as roleType>
-                    <option value="${roleType.roleTypeId}">${roleType.get("description",locale)}</option>
-                  </#list>
+                  <option value="ANY">${uiLabelMap.CommonAnyStateProvince}</option>
+                  ${screens.render("component://common/widget/CommonScreens.xml#states")}
                 </select>
               </td>
             </tr>
-            <#if extInfo == "P">
-              <tr><td colspan="3"><hr class="sepbar"/></td></tr>
-              <tr>
-                <td width="25%" align="right"><div class="tableheadtext">${uiLabelMap.CommonAddress1} :</div></td>
-                <td width="5%">&nbsp;</td>
-                <td><input type="text" class="inputBox" name="address1" value="${parameters.address1?if_exists}"/></td>
-              </tr>
-              <tr>
-                <td width="25%" align="right"><div class="tableheadtext">${uiLabelMap.CommonAddress2} :</div></td>
-                <td width="5%">&nbsp;</td>
-                <td><input type="text" class="inputBox" name="address2" value="${parameters.address2?if_exists}"/></td>
-              </tr>
-              <tr>
-                <td width="25%" align="right"><div class="tableheadtext">${uiLabelMap.CommonCity} :</div></td>
-                <td width="5%">&nbsp;</td>
-                <td><input type="text" class="inputBox" name="city" value="${parameters.city?if_exists}"/></td>
-              </tr>
-              <tr>
-                <td width="25%" align="right"><div class="tableheadtext">${uiLabelMap.CommonStateProvince} :</div></td>
-                <td width="5%">&nbsp;</td>
-                <td>
-                  <select name="stateProvinceGeoId" class="selectBox">
-                    <#if currentStateGeo?has_content>
-                      <option value="${currentStateGeo.geoId}">${currentStateGeo.geoName?default(currentStateGeo.geoId)}</option>
-                      <option value="${currentStateGeo.geoId}">---</option>
-                    </#if>
-                    <option value="ANY">${uiLabelMap.CommonAnyStateProvince}</option>
-                    ${screens.render("component://common/widget/CommonScreens.xml#states")}
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td width="25%" align="right"><div class="tableheadtext">${uiLabelMap.PartyPostalCode} :</div></td>
-                <td width="5%">&nbsp;</td>
-                <td><input type="text" class="inputBox" name="postalCode" value="${parameters.postalCode?if_exists}"/></td>
-              </tr>
-            </#if>
-            <#if extInfo == "T">
-              <tr><td colspan="3"><hr class="sepbar"/></td></tr>
-              <tr>
-                <td width="25%" align="right"><div class="tableheadtext">${uiLabelMap.PartyCountryCode} :</div></td>
-                <td width="5%">&nbsp;</td>
-                <td><input type="text" class="inputBox" name="countryCode" value="${parameters.countryCode?if_exists}"/></td>
-              </tr>
-              <tr>
-                <td width="25%" align="right"><div class="tableheadtext">${uiLabelMap.PartyAreaCode} :</div></td>
-                <td width="5%">&nbsp;</td>
-                <td><input type="text" class="inputBox" name="areaCode" value="${parameters.areaCode?if_exists}"/></td>
-              </tr>
-              <tr>
-                <td width="25%" align="right"><div class="tableheadtext">${uiLabelMap.PartyContactNumber} :</div></td>
-                <td width="5%">&nbsp;</td>
-                <td><input type="text" class="inputBox" name="contactNumber" value="${parameters.contactNumber?if_exists}"/></td>
-              </tr>
-            </#if>
-            <#if extInfo == "O">
-              <tr><td colspan="3"><hr class="sepbar"/></td></tr>
-              <tr>
-                <td width="25%" align="right"><div class="tableheadtext">${uiLabelMap.PartyContactInfoList} :</div></td>
-                <td width="5%">&nbsp;</td>
-                <td><input type="text" class="inputBox" name="infoString" value="${parameters.infoString?if_exists}"/></td>
-              </tr>
-            </#if>
+            <tr>
+              <td class="label">${uiLabelMap.PartyPostalCode} :</td>
+              <td><input type="text" name="postalCode" value="${parameters.postalCode?if_exists}"/></td>
+            </tr>
+          </#if>
+          <#if extInfo == "T">
             <tr><td colspan="3"><hr class="sepbar"/></td></tr>
             <tr>
-              <td colspan="3" align="center">
-                <div class="tabletext">
-                  <a href="javascript:document.lookupparty.submit();" class="buttontext">${uiLabelMap.PartyLookupParty}</a>
-                  <a href="<@ofbizUrl>findparty?showAll=Y&amp;hideFields=Y&amp;lookupFlag=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonShowAllRecords}</a>
-                </div>
-              </td>
+              <td class="label">${uiLabelMap.PartyCountryCode} :</td>
+              <td><input type="text" name="countryCode" value="${parameters.countryCode?if_exists}"/></td>
             </tr>
-          </table>
-          <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onClick="javascript:document.lookupparty.submit();"/>
+            <tr>
+              <td class="label">${uiLabelMap.PartyAreaCode} :</td>
+              <td><input type="text" name="areaCode" value="${parameters.areaCode?if_exists}"/></td>
+            </tr>
+            <tr>
+              <td class="label">${uiLabelMap.PartyContactNumber} :</td>
+              <td><input type="text" name="contactNumber" value="${parameters.contactNumber?if_exists}"/></td>
+            </tr>
+          </#if>
+          <#if extInfo == "O">
+            <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+            <tr>
+              <td class="label">${uiLabelMap.PartyContactInfoList} :</td>
+              <td><input type="text" name="infoString" value="${parameters.infoString?if_exists}"/></td>
+            </tr>
+          </#if>
+          <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>
+              <input type="submit" value="${uiLabelMap.PartyLookupParty}" onClick="javascript:document.lookupparty.submit();"/>
+              <a href="<@ofbizUrl>findparty?showAll=Y&amp;hideFields=Y&amp;lookupFlag=Y</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonShowAllRecords}</a>
+            </td>
+          </tr>
+        </table>
       </form>
     </div>
   </#if>
@@ -199,133 +158,113 @@ function refreshInfo() {
     //-->
   </script>
 </#if>
-  <#if partyList?exists>
-    <br/>
-    <table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-      <tr>
-        <td width="100%">
-          <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
-            <tr>
-              <td width="50%"><div class="boxhead">${uiLabelMap.PartyPartiesFound}</div></td>
-              <td width="50%">
-                 <div class="boxhead" align="right">
-                  <#if (partyListSize > 0)>
-                    <#if (viewIndex > 0)>
-                      <a href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}&amp;hideFields=${parameters.hideFields?default("N")}${paramList}</@ofbizUrl>" class="submenutext">${uiLabelMap.CommonPrevious}</a>
-                    <#else>
-                      <span class="submenutextdisabled">${uiLabelMap.CommonPrevious}</span>
-                    </#if>
-                    <span class="submenutextinfo">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${partyListSize}</span>
-                    <#if (partyListSize > highIndex)>
-                      <a href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}&amp;hideFields=${parameters.hideFields?default("N")}${paramList}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonNext}</a>
-                    <#else>
-                      <span class="submenutextrightdisabled">${uiLabelMap.CommonNext}</span>
-                    </#if>
-                  </#if>
-                  &nbsp;
-                </div>
-              </td>
-            </tr>
-          </table>
-
-          <table width="100%" border="0" cellpadding="0" cellspacing="0">
-            <tr>
-              <td><div class="tableheadtext">${uiLabelMap.PartyPartyId}</div></td>
-              <td><div class="tableheadtext">${uiLabelMap.PartyUserLogin}</div></td>
-              <td><div class="tableheadtext">${uiLabelMap.PartyName}</div></td>
-              <#if extInfo?default("") == "P">
-                <td><div class="tableheadtext">${uiLabelMap.PartyPostalCode}</div></td>
-              </#if>
-              <#if extInfo?default("") == "T">
-                <td><div class="tableheadtext">${uiLabelMap.PartyAreaCode}</div></td>
-              </#if>
-              <td><div class="tableheadtext">${uiLabelMap.PartyType}</div></td>
-              <td>&nbsp;</td>
-            </tr>
-            <tr><td colspan="6"><hr class="sepbar"/></td></tr>
-            <#if partyList?has_content>
-              <#assign rowClass = "viewManyTR2">
-              <#list partyList as partyRow>
-                <#assign partyType = partyRow.getRelatedOne("PartyType")?if_exists>
-                <tr class="${rowClass}">
-                  <td><a href="<@ofbizUrl>viewprofile?partyId=${partyRow.partyId}</@ofbizUrl>" class="linktext">${partyRow.partyId}</a></td>
-                  <td>
-                    <div class="tabletext">
-                      <#if partyRow.containsKey("userLoginId")>
-                        ${partyRow.userLoginId?default("N/A")}
-                      <#else>
-                        <#assign userLogins = partyRow.getRelated("UserLogin")>
-                        <#if (userLogins.size() > 0)>
-                          <#if (userLogins.size() > 1)>
-                            (${uiLabelMap.CommonMany})
-                          <#else>
-                            <#assign userLogin = userLogins.get(0)>
-                            ${userLogin.userLoginId}
-                          </#if>
-                        <#else>
-                          (${uiLabelMap.CommonNone})
-                        </#if>
-                      </#if>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="tabletext">
-                      <#if partyRow.lastName?has_content>
-                          ${partyRow.lastName}<#if partyRow.firstName?has_content>, ${partyRow.firstName}</#if>
-                      <#elseif partyRow.groupName?has_content>
-                          ${partyRow.groupName}
-                      <#else>
-                          <#assign partyName = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(partyRow, true)>
-                          <#if partyName?has_content>
-                              ${partyName}
-                          <#else>
-                              (${uiLabelMap.PartyNoNameFound})
-                          </#if>
-                      </#if>
-                    </div>
-                  </td>
-                  <#if extInfo?default("") == "P">
-                    <td><div class="tabletext">${partyRow.postalCode?if_exists}</div></td>
-                  </#if>
-                  <#if extInfo?default("") == "T">
-                    <td><div class="tabletext">${partyRow.areaCode?if_exists}</div></td>
-                  </#if>
-                  <td><div class="tabletext"><#if partyType.description?exists>${partyType.get("description", locale)}<#else>???</#if></div></td>
-                  <td align="right">
-                    <!-- this is all on one line so that no break will be inserted -->
-                    <div class="tabletext"><span style="white-space: nowrap;">
-                      <a href="<@ofbizUrl>viewprofile?partyId=${partyRow.partyId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a>&nbsp;
-                      <#if security.hasRolePermission("ORDERMGR", "_VIEW", "", "", session)>
-                        <a href="/ordermgr/control/findorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyRow.partyId + externalKeyParam}" class="buttontext">${uiLabelMap.OrderOrders}</a>&nbsp;
-                      </#if>
-                      <#if security.hasEntityPermission("ORDERMGR", "_CREATE", session)>
-                        <a href="/ordermgr/control/checkinits?partyId=${partyRow.partyId + externalKeyParam}" class="buttontext">${uiLabelMap.OrderNewOrder}</a>&nbsp;
-                      </#if>
-                    </span></div>
-                  </td>
-                </tr>
-                <#-- toggle the row color -->
-                <#if rowClass == "viewManyTR2">
-                  <#assign rowClass = "viewManyTR1">
-                <#else>
-                  <#assign rowClass = "viewManyTR2">
-                </#if>
-              </#list>
+<#if partyList?exists>
+  <br/>
+  <div id="findPartyResults" class="screenlet">
+    <div class="screenlet-title-bar">
+      <ul>
+        <h3>${uiLabelMap.PartyPartiesFound}</h3>
+          <#if (partyListSize > 0)>
+            <#if (partyListSize > highIndex)>
+              <li><a class="nav-next" href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}&amp;hideFields=${parameters.hideFields?default("N")}${paramList}</@ofbizUrl>">${uiLabelMap.CommonNext}</a></li>
             <#else>
-              <tr>
-                <td colspan="5">
-                  <span class="head3">${uiLabelMap.PartyNoPartiesFound}</span>
-                  &nbsp;&nbsp;<a href="<@ofbizUrl>createnew</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCreateNew}</a>
-                </td>
-              </tr>
+              <li class="disabled">${uiLabelMap.CommonNext}</li>
             </#if>
-            <#if lookupErrorMessage?exists>
-              <tr>
-                <td colspan="5"><div class="head3">${lookupErrorMessage}</div></td>
-              </tr>
+            <li>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${partyListSize}</li>
+            <#if (viewIndex > 0)>
+              <li><a class="nav-previous" href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}&amp;hideFields=${parameters.hideFields?default("N")}${paramList}</@ofbizUrl>">${uiLabelMap.CommonPrevious}</a></li>
+            <#else>
+              <li class="disabled">${uiLabelMap.CommonPrevious}</li>
             </#if>
-          </table>
-        </td>
-      </tr>
-    </table>
-  </#if>
+          </#if>
+      </ul>
+      <br class="clear" />
+    </div>
+    <#if partyList?has_content>
+      <table class="basic-table" cellspacing="0">
+        <tr class="header-row">
+          <td>${uiLabelMap.PartyPartyId}</td>
+          <td>${uiLabelMap.PartyUserLogin}</td>
+          <td>${uiLabelMap.PartyName}</td>
+          <#if extInfo?default("") == "P">
+            <td>${uiLabelMap.PartyPostalCode}</td>
+          </#if>
+          <#if extInfo?default("") == "T">
+            <td>${uiLabelMap.PartyAreaCode}</td>
+          </#if>
+          <td>${uiLabelMap.PartyType}</td>
+          <td>&nbsp;</td>
+        </tr>
+        <#assign rowClass = "2">
+        <#list partyList as partyRow>
+          <#assign partyType = partyRow.getRelatedOne("PartyType")?if_exists>
+          <tr<#if rowClass == "1"> class="alternate-row"</#if>>
+            <td><a href="<@ofbizUrl>viewprofile?partyId=${partyRow.partyId}</@ofbizUrl>">${partyRow.partyId}</a></td>
+            <td>
+              <#if partyRow.containsKey("userLoginId")>
+                ${partyRow.userLoginId?default("N/A")}
+              <#else>
+                <#assign userLogins = partyRow.getRelated("UserLogin")>
+                <#if (userLogins.size() > 0)>
+                  <#if (userLogins.size() > 1)>
+                    (${uiLabelMap.CommonMany})
+                  <#else>
+                  <#assign userLogin = userLogins.get(0)>
+                    ${userLogin.userLoginId}
+                  </#if>
+                <#else>
+                  (${uiLabelMap.CommonNone})
+                </#if>
+              </#if>
+            </td>
+            <td>
+              <#if partyRow.lastName?has_content>
+                ${partyRow.lastName}<#if partyRow.firstName?has_content>, ${partyRow.firstName}</#if>
+              <#elseif partyRow.groupName?has_content>
+                ${partyRow.groupName}
+              <#else>
+                <#assign partyName = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(partyRow, true)>
+                <#if partyName?has_content>
+                  ${partyName}
+                <#else>
+                  (${uiLabelMap.PartyNoNameFound})
+                </#if>
+              </#if>
+            </td>
+            <#if extInfo?default("") == "P">
+              <td>${partyRow.postalCode?if_exists}</td>
+            </#if>
+            <#if extInfo?default("") == "T">
+              <td>${partyRow.areaCode?if_exists}</td>
+            </#if>
+            <td><#if partyType.description?exists>${partyType.get("description", locale)}<#else>???</#if></td>
+            <td class="button-col align-float">
+              <a href="<@ofbizUrl>viewprofile?partyId=${partyRow.partyId}</@ofbizUrl>">${uiLabelMap.CommonDetails}</a>
+              <#if security.hasRolePermission("ORDERMGR", "_VIEW", "", "", session)>
+                <a href="/ordermgr/control/findorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyRow.partyId + externalKeyParam}">${uiLabelMap.OrderOrders}</a>
+              </#if>
+              <#if security.hasEntityPermission("ORDERMGR", "_CREATE", session)>
+                <a href="/ordermgr/control/checkinits?partyId=${partyRow.partyId + externalKeyParam}">${uiLabelMap.OrderNewOrder}</a>
+              </#if>
+            </td>
+          </tr>
+          <#-- toggle the row color -->
+          <#if rowClass == "2">
+            <#assign rowClass = "1">
+          <#else>
+            <#assign rowClass = "2">
+          </#if>
+        </#list>
+      </table>
+    <#else>
+      <div class="screenlet-body">
+        <span class="head3">${uiLabelMap.PartyNoPartiesFound}</span>
+        <a href="<@ofbizUrl>createnew</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCreateNew}</a>
+      </div>
+    </#if>
+    <#if lookupErrorMessage?exists>
+      <div><h3>${lookupErrorMessage}</h3></div>
+    </#if>
+  </div>
+</#if>
+<!-- end findParty.ftl -->

@@ -17,12 +17,16 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-  <#assign unselectedClassName = "tabButton">
-  <#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
-  <#if groupId?has_content>
-    <div class='tabContainer'>        
-      <a href="<@ofbizUrl>EditSecurityGroup?groupId=${groupId}</@ofbizUrl>" class="${selectedClassMap.EditSecurityGroup?default(unselectedClassName)}">${uiLabelMap.PartySecurityGroups}</a>
-	  <a href="<@ofbizUrl>EditSecurityGroupPermissions?groupId=${groupId}</@ofbizUrl>" class="${selectedClassMap.EditSecurityGroupPermissions?default(unselectedClassName)}">${uiLabelMap.PartyPermissions}</a>
-	  <a href="<@ofbizUrl>EditSecurityGroupUserLogins?groupId=${groupId}</@ofbizUrl>" class="${selectedClassMap.EditSecurityGroupUserLogins?default(unselectedClassName)}">${uiLabelMap.PartyUserLogins}</a>  
-    </div>
-  </#if>
+<#if groupId?has_content>
+<!-- begin SecurityGroupTabBar.ftl -->
+  <#assign selected = page.tabButtonItem?default("void")>
+  <div class="button-bar button-style-1">
+    <ul>
+      <li<#if selected == "EditSecurityGroup"> class="selected"</#if>><a href="<@ofbizUrl>EditSecurityGroup?groupId=${groupId}</@ofbizUrl>">${uiLabelMap.PartySecurityGroups}</a></li>
+      <li<#if selected == "EditSecurityGroupPermissions"> class="selected"</#if>><a href="<@ofbizUrl>EditSecurityGroupPermissions?groupId=${groupId}</@ofbizUrl>">${uiLabelMap.PartyPermissions}</a></li>
+      <li<#if selected == "EditSecurityGroupUserLogins"> class="selected"</#if>><a href="<@ofbizUrl>EditSecurityGroupUserLogins?groupId=${groupId}</@ofbizUrl>">${uiLabelMap.PartyUserLogins}</a></li>
+      <br class="clear" />
+    </ul>
+  </div>
+<!-- end SecurityGroupTabBar.ftl -->
+</#if>

@@ -17,31 +17,31 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<!-- begin editcreditcard.ftl -->
     <#if !creditCard?exists>
-      <p class="head1">${uiLabelMap.AccountingAddNewCreditCard}</p>
+      <h1>${uiLabelMap.AccountingAddNewCreditCard}</h1>
       <form method="post" action="<@ofbizUrl>createCreditCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editcreditcardform" style="margin: 0;">
     <#else>
-      <p class="head1">${uiLabelMap.AccountingEditCreditCard}</p>
+      <h1>${uiLabelMap.AccountingEditCreditCard}</h1>
       <form method="post" action="<@ofbizUrl>updateCreditCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editcreditcardform" style="margin: 0;">
         <input type="hidden" name="paymentMethodId" value="${paymentMethodId}">
     </#if>
-  &nbsp;<a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonCancelDone}]</a>
-  &nbsp;<a href="javascript:document.editcreditcardform.submit()" class="buttontext">[${uiLabelMap.CommonSave}]</a>
-
+    <div class="button-bar">
+      <a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
+      <a href="javascript:document.editcreditcardform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
+    </div>
   <input type="hidden" name="partyId" value="${partyId}"/>
-  <table width="90%" border="0" cellpadding="2" cellspacing="0">
+  <table class="basic-table" cellspacing="0">
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingCompanyNameCard}</div></td>
-      <td width="5">&nbsp;</td>
-      <td width="74%">
-        <input type="text" class="inputBox" size="30" maxlength="60" name="companyNameOnCard" value="${creditCardData.companyNameOnCard?if_exists}">
+      <td class="label">${uiLabelMap.AccountingCompanyNameCard}</td>
+      <td>
+        <input type="text" size="30" maxlength="60" name="companyNameOnCard" value="${creditCardData.companyNameOnCard?if_exists}">
       </td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingPrefixCard}</div></td>
-      <td width="5">&nbsp;</td>
-      <td width="74%">
-        <select name="titleOnCard" class="selectBox">
+      <td class="label">${uiLabelMap.AccountingPrefixCard}</td>
+      <td>
+        <select name="titleOnCard">
           <option value="">${uiLabelMap.CommonSelectOne}</option>
           <option<#if (creditCardData.titleOnCard?default("") == "${uiLabelMap.CommonTitleMr}")> checked</#if>>${uiLabelMap.CommonTitleMr}</option>
           <option<#if (creditCardData.titleOnCard?default("") == "Mrs.")> checked</#if>>${uiLabelMap.CommonTitleMrs}</option>
@@ -51,31 +51,29 @@ under the License.
       </td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingFirstNameCard}</div></td>
-      <td width="5">&nbsp;</td>
-      <td width="74%">
-        <input type="text" class="inputBox" size="20" maxlength="60" name="firstNameOnCard" value="${(creditCardData.firstNameOnCard)?if_exists}">
-      *</td>
-    </tr>
-    <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingMiddleNameCard}</div></td>
-      <td width="5">&nbsp;</td>
-      <td width="74%">
-        <input type="text" class="inputBox" size="15" maxlength="60" name="middleNameOnCard" value="${(creditCardData.middleNameOnCard)?if_exists}">
+      <td class="label">${uiLabelMap.AccountingFirstNameCard}</td>
+      <td>
+        <input type="text" class="required" size="20" maxlength="60" name="firstNameOnCard" value="${(creditCardData.firstNameOnCard)?if_exists}">
+        <span class="tooltip">${uiLabelMap.CommonRequired}</span>
       </td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingLastNameCard}</div></td>
-      <td width="5">&nbsp;</td>
-      <td width="74%">
-        <input type="text" class="inputBox" size="20" maxlength="60" name="lastNameOnCard" value="${(creditCardData.lastNameOnCard)?if_exists}">
-      *</td>
+      <td class="label">${uiLabelMap.AccountingMiddleNameCard}</td>
+      <td>
+        <input type="text" size="15" maxlength="60" name="middleNameOnCard" value="${(creditCardData.middleNameOnCard)?if_exists}">
+      </td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingSuffixCard}</div></td>
-      <td width="5">&nbsp;</td>
-      <td width="74%">
-        <select name="suffixOnCard" class="selectBox">
+      <td class="label">${uiLabelMap.AccountingLastNameCard}</td>
+      <td>
+        <input type="text" class="required" size="20" maxlength="60" name="lastNameOnCard" value="${(creditCardData.lastNameOnCard)?if_exists}">
+        <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+      </td>
+    </tr>
+    <tr>
+      <td class="label">${uiLabelMap.AccountingSuffixCard}</td>
+      <td>
+        <select name="suffixOnCard">
           <option value="">${uiLabelMap.CommonSelectOne}</option>
           <option<#if (creditCardData.suffixOnCard?default("") == "Jr.")> checked</#if>>Jr.</option>
           <option<#if (creditCardData.suffixOnCard?default("") == "Sr.")> checked</#if>>Sr.</option>
@@ -87,22 +85,20 @@ under the License.
         </select>
       </td>
     </tr>
-
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingCardType}</div></td>
-      <td width="5">&nbsp;</td>
-      <td width="74%">
-        <select name="cardType" class="selectBox">
+      <td class="label">${uiLabelMap.AccountingCardType}</td>
+      <td>
+        <select name="cardType" class="required">
           <option>${creditCardData.cardType?if_exists}</option>
           <option></option>
           ${screens.render("component://common/widget/CommonScreens.xml#cctypes")}
         </select>
-      *</td>
+        <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+      </td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingCardNumber}</div></td>
-      <td width="5">&nbsp;</td>
-      <td width="74%">
+      <td class="label">${uiLabelMap.AccountingCardNumber}</td>
+      <td>
         <#if creditCardData?has_content>
           <#-- create a display version of the card where all but the last four digits are * -->
           <#assign cardNumberDisplay = "">
@@ -120,20 +116,19 @@ under the License.
             </#if>
           </#if>
         </#if>
-        <input type="text" class="inputBox" size="20" maxlength="30" name="cardNumber" onfocus="javascript:this.value = '';" value="${cardNumberDisplay?if_exists}">
-      *</td>
+        <input type="text" class="required" size="20" maxlength="30" name="cardNumber" onfocus="javascript:this.value = '';" value="${cardNumberDisplay?if_exists}">
+        <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+      </td>
     </tr>
     <#--<tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingCardSecurityCode}</div></td>
-      <td width="5">&nbsp;</td>
-      <td width="74%">
-        <input type="text" class="inputBox" size="5" maxlength="10" name="cardSecurityCode" value="${creditCardData.cardSecurityCode?if_exists}">
+      <td class="label">${uiLabelMap.AccountingCardSecurityCode}</td>
+      <td>
+        <input type="text" size="5" maxlength="10" name="cardSecurityCode" value="${creditCardData.cardSecurityCode?if_exists}">
       </td>
     </tr>-->
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingExpirationDate}</div></td>        
-      <td width="5">&nbsp;</td>
-      <td width="74%">
+      <td class="label">${uiLabelMap.AccountingExpirationDate}</td>        
+      <td>
         <#assign expMonth = "">
         <#assign expYear = "">
         <#if creditCard?exists>
@@ -143,73 +138,70 @@ under the License.
             <#assign expYear = expDate.substring(expDate.indexOf("/")+1)>
           </#if>
         </#if>
-        <select name="expMonth" class="selectBox">
+        <select name="expMonth" class="required">
           <option><#if tryEntity>${expMonth?if_exists}<#else>${requestParameters.expMonth?if_exists}</#if></option>
           ${screens.render("component://common/widget/CommonScreens.xml#ccmonths")}
         </select>
-        <select name="expYear" class="selectBox">
+        <select name="expYear" class="required">
           <option><#if tryEntity>${expYear?if_exists}<#else>${requestParameters.expYear?if_exists}</#if></option>
           ${screens.render("component://common/widget/CommonScreens.xml#ccyears")}
         </select>
-      *</td>
-    </tr>
-    <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonDescription}</div></td>
-      <td width="5">&nbsp;</td>
-      <td width="74%">
-        <input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${paymentMethodData.description?if_exists}">
+        <span class="tooltip">${uiLabelMap.CommonRequired}</span>
       </td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingBillingAddress}</div></td>
-      <td width="5">&nbsp;</td>
-      <td width="74%">
+      <td class="label">${uiLabelMap.CommonDescription}</td>
+      <td>
+        <input type="text" size="30" maxlength="60" name="description" value="${paymentMethodData.description?if_exists}">
+      </td>
+    </tr>
+    <tr>
+      <td class="label">${uiLabelMap.AccountingBillingAddress}</td>
+      <td>
         <#-- Removed because is confusing, can add but would have to come back here with all data populated as before...
-        <a href="<@ofbizUrl>editcontactmech</@ofbizUrl>" class="buttontext">
+        <a href="<@ofbizUrl>editcontactmech</@ofbizUrl>" class="smallSubmit">
           [Create New Address]</a>&nbsp;&nbsp;
         -->
-        <table width="100%" border="0" cellpadding="1">
+        <table cellspacing="0">
         <#assign hasCurrent = false>
         <#if curPostalAddress?has_content>
           <#assign hasCurrent = true>
           <tr>
-            <td align="right" valign="top" width="1%">
+            <td class="button-col">
               <input type="radio" name="contactMechId" value="${curContactMechId}" checked>
             </td>
-            <td align="left" valign="top" width="80%">
-              <div class="tabletext"><b>${uiLabelMap.PartyUseCurrentAddress}:</b></div>
+            <td>
+              <p><b>${uiLabelMap.PartyUseCurrentAddress}:</b></p>
               <#list curPartyContactMechPurposes as curPartyContactMechPurpose> 
                 <#assign curContactMechPurposeType = curPartyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
-                <div class="tabletext">
+                <p>
                   <b>${curContactMechPurposeType.get("description",locale)?if_exists}</b>
                   <#if curPartyContactMechPurpose.thruDate?exists>
                     (${uiLabelMap.CommonExpire}:${curPartyContactMechPurpose.thruDate.toString()})
                   </#if>
-                </div>
+                </p>
               </#list>
-              <div class="tabletext">
-                <#if curPostalAddress.toName?exists><b>${uiLabelMap.CommonTo}:</b> ${curPostalAddress.toName}<br/></#if>
-                <#if curPostalAddress.attnName?exists><b>${uiLabelMap.PartyAddrAttnName}:</b> ${curPostalAddress.attnName}<br/></#if>
-                ${curPostalAddress.address1?if_exists}<br/>
-                <#if curPostalAddress.address2?exists>${curPostalAddress.address2}<br/></#if>
-                ${curPostalAddress.city?if_exists}<#if curPostalAddress.stateProvinceGeoId?has_content>,&nbsp;${curPostalAddress.stateProvinceGeoId?if_exists}</#if>&nbsp;${curPostalAddress.postalCode?if_exists} 
-                <#if curPostalAddress.countryGeoId?exists><br/>${curPostalAddress.countryGeoId}</#if>
-              </div>
-              <div class="tabletext">(${uiLabelMap.CommonUpdated}:&nbsp;${(curPartyContactMech.fromDate.toString())?if_exists})</div>
-              <#if curPartyContactMech.thruDate?exists><div class="tabletext"><b>${uiLabelMap.CommonDelete}:&nbsp;${curPartyContactMech.thruDate.toString()}</b></div></#if>
+              <#if curPostalAddress.toName?exists><p><b>${uiLabelMap.CommonTo}:</b> ${curPostalAddress.toName}</p></#if>
+              <#if curPostalAddress.attnName?exists><p><b>${uiLabelMap.PartyAddrAttnName}:</b> ${curPostalAddress.attnName}</p></#if>
+              <#if curPostalAddress.address1?exists><p>${curPostalAddress.address1}</p></#if>
+              <#if curPostalAddress.address2?exists><p>${curPostalAddress.address2}</p></#if>
+              <p>${curPostalAddress.city?if_exists}<#if curPostalAddress.stateProvinceGeoId?has_content>,&nbsp;${curPostalAddress.stateProvinceGeoId?if_exists}</#if>&nbsp;${curPostalAddress.postalCode?if_exists}</p>
+              <#if curPostalAddress.countryGeoId?exists><p>${curPostalAddress.countryGeoId}</p></#if>
+              <p>(${uiLabelMap.CommonUpdated}:&nbsp;${(curPartyContactMech.fromDate.toString())?if_exists})</p>
+              <#if curPartyContactMech.thruDate?exists><p><b>${uiLabelMap.CommonDelete}:&nbsp;${curPartyContactMech.thruDate.toString()}</b></p></#if>
             </td>
           </tr>
         <#else>
            <#-- <tr>
             <td align="left" valign="top" colspan="2">
-              <div class="tabletext">${uiLabelMap.PartyBillingAddressNotSelected}</div>
+              ${uiLabelMap.PartyBillingAddressNotSelected}
             </td>
           </tr> -->
         </#if>
           <#-- is confusing
           <tr>
             <td align="left" valign="top" colspan="2">
-              <div class="tabletext"><b>Select a New Billing Address:</b></div>
+              <b>Select a New Billing Address:</b>
             </td>
           </tr>
           -->
@@ -219,32 +211,30 @@ under the License.
             <#assign postalAddress = postalAddressInfo.postalAddress>
             <#assign partyContactMech = postalAddressInfo.partyContactMech>
             <tr>
-              <td align="right" valign="top" width="1%">
+              <td class="button-col">
                 <input type="radio" name="contactMechId" value="${contactMech.contactMechId}">
               </td>
-              <td align="left" valign="middle" width="80%">
+              <td>
                 <#list partyContactMechPurposes as partyContactMechPurpose>
-                    <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
-                    <div class="tabletext">
-                      <b>${contactMechPurposeType.get("description",locale)?if_exists}</b>
-                      <#if partyContactMechPurpose.thruDate?exists>(${uiLabelMap.CommonExpire}:${partyContactMechPurpose.thruDate})</#if>
-                    </div>
+                  <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
+                  <p>
+                    <b>${contactMechPurposeType.get("description",locale)?if_exists}</b>
+                    <#if partyContactMechPurpose.thruDate?exists>(${uiLabelMap.CommonExpire}:${partyContactMechPurpose.thruDate})</#if>
+                  </p>
                 </#list>
-                <div class="tabletext">
-                  <#if postalAddress.toName?exists><b>${uiLabelMap.CommonTo}:</b> ${postalAddress.toName}<br/></#if>
-                  <#if postalAddress.attnName?exists><b>${uiLabelMap.PartyAddrAttnName}:</b> ${postalAddress.attnName}<br/></#if>
-                  ${postalAddress.address1?if_exists}<br/>
-                  <#if postalAddress.address2?exists>${postalAddress.address2}<br/></#if>
-                  ${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>,&nbsp;${postalAddress.stateProvinceGeoId}</#if>&nbsp;${postalAddress.postalCode} 
-                  <#if postalAddress.countryGeoId?exists><br/>${postalAddress.countryGeoId}</#if>
-                </div>
-                <div class="tabletext">(${uiLabelMap.CommonUpdated}:&nbsp;${(partyContactMech.fromDate.toString())?if_exists})</div>
-                <#if partyContactMech.thruDate?exists><div class="tabletext"><b>${uiLabelMap.CommonDelete}:&nbsp;${partyContactMech.thruDate.toString()}</b></div></#if>
+                <#if postalAddress.toName?exists><p><b>${uiLabelMap.CommonTo}:</b> ${postalAddress.toName}</p></#if>
+                <#if postalAddress.attnName?exists><p><b>${uiLabelMap.PartyAddrAttnName}:</b> ${postalAddress.attnName}</p></#if>
+                <#if postalAddress.address1?exists><p>${postalAddress.address1}</p></#if>
+                <#if postalAddress.address2?exists><p>${postalAddress.address2}</p></#if>
+                <p>${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>,&nbsp;${postalAddress.stateProvinceGeoId}</#if>&nbsp;${postalAddress.postalCode}</p>
+                <#if postalAddress.countryGeoId?exists><p>${postalAddress.countryGeoId}</p></#if>
+                <p>(${uiLabelMap.CommonUpdated}:&nbsp;${(partyContactMech.fromDate.toString())?if_exists})</p>
+                <#if partyContactMech.thruDate?exists><p><b>${uiLabelMap.CommonDelete}:&nbsp;${partyContactMech.thruDate.toString()}</b></p></#if>
               </td>
             </tr>
           </#list>
           <#if !postalAddressInfos?has_content && !curContactMech?exists>
-              <tr><td colspan="2"><div class="tabletext">${uiLabelMap.PartyNoContactInformation}.</div></td></tr>
+              <tr><td colspan="2">${uiLabelMap.PartyNoContactInformation}.</td></tr>
           </#if>
           <#-- not yet supported in party manager
           <tr>
@@ -252,7 +242,7 @@ under the License.
               <input type="radio" name="contactMechId" value="_NEW_" <#if !hasCurrent>checked</#if>>
             </td>
             <td align="left" valign="middle" width="80%">
-              <span class="tabletext">${uiLabelMap.PartyCreateNewBillingAddress}.</span>
+              ${uiLabelMap.PartyCreateNewBillingAddress}.
             </td>
           </tr>
           -->
@@ -262,5 +252,9 @@ under the License.
   </table>
   </form>
 
-  &nbsp;<a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonCancelDone}]</a>
-  &nbsp;<a href="javascript:document.editcreditcardform.submit()" class="buttontext">[${uiLabelMap.CommonSave}]</a>
+  <div class="button-bar">
+    <a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
+    <a href="javascript:document.editcreditcardform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
+  </div>
+<!-- end editcreditcard.ftl -->
+

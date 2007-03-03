@@ -20,55 +20,48 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="ListSecurityGroups" type="list"  list-name="securityGroups" paginate-target="FindSecurityGroup"
-             default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+
+    <form name="ListSecurityGroups" type="list" list-name="securityGroups"
+        paginate-target="FindSecurityGroup">
         <actions>
             <entity-condition entity-name="SecurityGroup">
                 <order-by field-name="description"/>
             </entity-condition>
         </actions>
-        
-        <field name="groupId" title="${uiLabelMap.PartySecurityGroupId}" widget-style="buttontext">
+        <field name="groupId" title="${uiLabelMap.PartySecurityGroupId}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="[${groupId}]" target="EditSecurityGroup?groupId=${groupId}"/>
         </field>
-        <field name="description" title="${uiLabelMap.CommonDescription}" widget-style="tabletext"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
     </form>
-    <form name="EditSecurityGroup" type="single" 
-            target="updateSecurityGroup" title="" default-map-name="securityGroup"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+
+    <form name="EditSecurityGroup" type="single" target="updateSecurityGroup" default-map-name="securityGroup">
         <alt-target use-when="securityGroup==null" target="createSecurityGroup"/>
         <auto-fields-service service-name="updateSecurityGroup" map-name="securityGroup"/>
- 
         <field use-when="securityGroup!=null" name="groupId" title="${uiLabelMap.PartySecurityGroupId}"  tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="securityGroup==null&amp;&amp;groupId==null" name="groupId" title="${uiLabelMap.PartySecurityGroupId}"><text size="20" maxlength="20"/></field>
         <field use-when="securityGroup==null&amp;&amp;groupId!=null" name="groupId" title="${uiLabelMap.PartySecurityGroupId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${groupId}]"><text size="20" maxlength="20"/></field>
-
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 
     <!-- SecurityGroupPermission -->
-    <form name="ListSecurityGroupPermissions" type="list"  list-name="securityGroupPermissions"  target=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="ListSecurityGroupPermissions" type="list" list-name="securityGroupPermissions">
         <actions>
             <entity-condition entity-name="SecurityGroupPermission">
                 <condition-expr field-name="groupId" env-name="groupId"/>
                 <order-by field-name="permissionId"/>
             </entity-condition>
         </actions>
-        
         <field name="groupId"><hidden/></field>
-        <field name="permissionId" title="${uiLabelMap.PartyPermissionId}" widget-style="tabletext"><display-entity entity-name="SecurityPermission" description="[${permissionId}] ${description}"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="permissionId" title="${uiLabelMap.PartyPermissionId}"><display-entity entity-name="SecurityPermission" description="[${permissionId}] ${description}"/></field>
+        <field name="deleteLink" title="" widget-style="smallSubmit">
             <hyperlink target="removeSecurityPermissionFromSecurityGroup?permissionId=${permissionId}&amp;groupId=${groupId}"
-                description="[${uiLabelMap.CommonRemove}]" also-hidden="false"/>
+                description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddSecurityGroupPermission" type="single" 
-            target="addSecurityPermissionToSecurityGroup" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
-        <auto-fields-service service-name="addSecurityPermissionToSecurityGroup"/>
 
+    <form name="AddSecurityGroupPermission" type="single" target="addSecurityPermissionToSecurityGroup">
+        <auto-fields-service service-name="addSecurityPermissionToSecurityGroup"/>
         <field name="groupId"><hidden/></field>
         <field name="permissionId" title="${uiLabelMap.PartyPermissionId}">
             <drop-down allow-empty="false">
@@ -77,51 +70,44 @@ under the License.
                 </entity-options> 
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-    <form name="AddSecurityGroupPermissionManual" type="single" 
-        target="addSecurityPermissionToSecurityGroup" title=""
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+
+    <form name="AddSecurityGroupPermissionManual" type="single" target="addSecurityPermissionToSecurityGroup">
         <auto-fields-service service-name="addSecurityPermissionToSecurityGroup"/>
-        
         <field name="groupId"><hidden/></field>
         <field name="permissionId" title="${uiLabelMap.PartyPermissionId}"/>
-        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
     <!-- SecurityGroupUserLogin -->    
-    <form name="ListSecurityGroupUserLogins" type="list" list-name="userLoginSecurityGroups" target="updateUserLoginToSecurityGroup"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="ListSecurityGroupUserLogins" type="list" list-name="userLoginSecurityGroups" target="updateUserLoginToSecurityGroup">
         <actions>
             <entity-condition entity-name="UserLoginAndSecurityGroup">
                 <condition-expr field-name="groupId" env-name="groupId"/>
                 <order-by field-name="userLoginId"/>
             </entity-condition>
         </actions>
-        
         <field name="groupId"><hidden/></field>
-        <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}" widget-style="tabletext"><display/></field>
+        <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}"><display/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}" widget-style="inputBox"><date-time/></field>
-        <field name="partyId" title="${uiLabelMap.PartyParty}" widget-style="tabletext">
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field name="partyId" title="${uiLabelMap.PartyParty}">
             <display-entity entity-name="PartyNameView" also-hidden="false" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink target="viewprofile?partyId=${partyId}" description="[${partyId}]" link-style="buttontext"/>
+                <sub-hyperlink target="viewprofile?partyId=${partyId}" description="[${partyId}]" link-style="smallSubmit"/>
             </display-entity>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink description="[${uiLabelMap.CommonRemove}]" target="removeUserLoginFromSecurityGroup?userLoginId=${userLoginId}&amp;groupId=${groupId}&amp;fromDate=${fromDate}" also-hidden="false"/>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="smallSubmit">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeUserLoginFromSecurityGroup?userLoginId=${userLoginId}&amp;groupId=${groupId}&amp;fromDate=${fromDate}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddSecurityGroupUserLogin" type="single" 
-        target="addUserLoginToSecurityGroup" title=""
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+
+    <form name="AddSecurityGroupUserLogin" type="single" target="addUserLoginToSecurityGroup">
         <auto-fields-service service-name="addUserLoginToSecurityGroup"/>
-        
         <field name="groupId"><hidden/></field>
         <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}"><lookup target-form-name="LookupUserLoginAndPartyDetails" size="30"></lookup></field>
-        
-        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     
     <form name="ListUserLoginSecurityGroups" type="list" extends="ListSecurityGroupUserLogins"
@@ -132,25 +118,23 @@ under the License.
                 <order-by field-name="groupId"/>
             </entity-condition>
         </actions>
-
         <field name="partyId"><hidden value="${partyId}"/></field>
-        <field name="groupId" title="${uiLabelMap.CommonGroup}" widget-style="tabletext">
+        <field name="groupId" title="${uiLabelMap.CommonGroup}">
             <display-entity entity-name="SecurityGroup">
-                <sub-hyperlink target="EditSecurityGroup?groupId=${groupId}" description="[${groupId}]" link-style="buttontext"/>
+                <sub-hyperlink target="EditSecurityGroup?groupId=${groupId}" description="[${groupId}]" link-style="smallSubmit"/>
             </display-entity>
         </field>
         <field name="userLoginId"><hidden/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}" widget-style="inputBox"><date-time/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink description="[${uiLabelMap.CommonRemove}]" target="userLogin_removeUserLoginFromSecurityGroup?partyId=${partyId}&amp;userLoginId=${userLoginId}&amp;groupId=${groupId}&amp;fromDate=${fromDate}" also-hidden="false"/>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="smallSubmit">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="userLogin_removeUserLoginFromSecurityGroup?partyId=${partyId}&amp;userLoginId=${userLoginId}&amp;groupId=${groupId}&amp;fromDate=${fromDate}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddUserLoginSecurityGroup" type="single" target="userLogin_addUserLoginToSecurityGroup"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+
+    <form name="AddUserLoginSecurityGroup" type="single" target="userLogin_addUserLoginToSecurityGroup">
         <auto-fields-service service-name="addUserLoginToSecurityGroup"/>
-        
         <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="userLoginId"><hidden/></field>
         <field name="groupId" title="${uiLabelMap.CommonGroup}">
@@ -160,7 +144,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
-        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
+
 </forms>

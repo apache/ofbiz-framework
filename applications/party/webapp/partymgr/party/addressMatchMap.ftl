@@ -17,79 +17,72 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<br/>
-<TABLE border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-  <TR>
-    <TD width="100%">
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
+<!-- begin addressMatchMap.ftl -->
+<div id="address-match-map" class="screenlet">
+  <div class="screenlet-title-bar">
+    <ul>
+      <h3>${uiLabelMap.PageTitleAddressMatchMap}</h3>
+      <li><a href="<@ofbizUrl>findAddressMatch</@ofbizUrl>">${uiLabelMap.PageTitleFindMatches}</a></li>
+    </ul>
+    <br class="clear" />
+  </div>
+  <div class="screenlet-body">
+    <table class="basic-table" cellspacing="0">
+      <form name="addaddrmap" method="post" action="<@ofbizUrl>createAddressMatchMap</@ofbizUrl>">
         <tr>
-          <td valign="middle" align="left">
-            <div class="boxhead">${uiLabelMap.PageTitleAddressMatchMap}</div>
-          </td>
-          <td valign="middle" align="right">
-            <a href="<@ofbizUrl>findAddressMatch</@ofbizUrl>" class="submenutextright">${uiLabelMap.PageTitleFindMatches}</a>
+          <td class="label">${uiLabelMap.PartyAddressMatchKey}</td>
+          <td><input type="text" name="mapKey"/></td>
+        </tr>
+        <tr>
+          <td class="label">${uiLabelMap.PartyAddressMatchValue}</td>
+          <td><input type="text" name="mapValue"/></td>
+        </tr>
+        <tr>
+          <td class="label">${uiLabelMap.CommonSequence}</td>
+          <td><input type="text" size="5" name="sequenceNum" value="0"/></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><a href="javascript:document.addaddrmap.submit()" class="smallSubmit">${uiLabelMap.CommonCreate}</a></td>
+        </tr>
+      </form>
+      <tr><td colspan="2">&nbsp;</td></tr>
+      <form name="importaddrmap"method="post" enctype="multipart/form-data" action="<@ofbizUrl>importAddressMatchMapCsv</@ofbizUrl>">
+        <tr>
+          <td></td>
+          <td>
+            <input type="file" name="uploadedFile" size="14"/>
+            <input type="submit" value="${uiLabelMap.CommonUpload} CSV"/>
+            <p>${uiLabelMap.PartyAddressMatchMessage1}</p>
           </td>
         </tr>
-      </table>
-    </TD>
-  </TR>
-  <TR>
-    <TD width="100%" >
-      <center>
-      <table border="0" cellspacing="0" cellpadding="0" class="boxbottom">
-        <form name="addaddrmap" method="post" action="<@ofbizUrl>createAddressMatchMap</@ofbizUrl>">
-          <tr>
-            <td><span class="tabletext">&nbsp;${uiLabelMap.PartyAddressMatchKey}:&nbsp;</span></td>
-            <td><input type="text" class="inputBox" name="mapKey"></td>
-            <td><span class="tabletext">&nbsp;${uiLabelMap.PartyAddressMatchValue}:&nbsp;</span></td>
-            <td><input type="text" class="inputBox" name="mapValue"></td>
-            <td><span class="tabletext">&nbsp;${uiLabelMap.CommonSequence}:&nbsp;</span></td>
-            <td><input type="text" class="inputBox" size="5" name="sequenceNum" value="0"></td>
-            <td>
-              <a href="javascript:document.addaddrmap.submit()" class="buttontext">${uiLabelMap.CommonCreate}</a>&nbsp;&nbsp;
-            </td>
-          </tr>
-        </form>
-        <tr><td colspan="5">&nbsp;</td></tr>
-        <form name="importaddrmap"method="post" enctype="multipart/form-data" action="<@ofbizUrl>importAddressMatchMapCsv</@ofbizUrl>" style="margin: 0;">
-          <tr>
-            <td colspan="5" align="center">
-              <input type="file" name="uploadedFile" size="14" class="inputBox"/>
-              <input type="submit" value="${uiLabelMap.CommonUpload} CSV" class="smallSubmit"/>
-              <div class="tabletext">${uiLabelMap.PartyAddressMatchMessage1}</span>
-            </td>
-          </tr>
-        </form>
-        <tr><td colspan="5">&nbsp;</td></tr>
-        <#if addressMatchMaps?has_content>
-          <tr>
-            <td colspan="5">
-              <table border="0" cellspacing="5" cellpadding="5">
-                  <tr>
-                    <td><div class="tableheadtext">${uiLabelMap.PartyAddressMatchKey}</td>
-                    <td><div class="tableheadtext">=></td>
-                    <td><div class="tableheadtext">${uiLabelMap.PartyAddressMatchValue}</td>
-                    <td>&nbsp;</td>
-                    <td><a href="<@ofbizUrl>clearAddressMatchMap</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClear} ${uiLabelMap.CommonAll}</a></td>
-                  </tr>
-                  <tr><td colspan="5"><hr class="sepbar"/></td></tr>
-                <#list addressMatchMaps as map>
-                  <tr>
-                    <td><div class="tabletext">${map.mapKey}</td>
-                    <td><div class="tabletext">=></td>
-                    <td><div class="tabletext">${map.mapValue}</td>
-                    <td><div class="tabletext">[${map.sequenceNum?if_exists}]</td>
-                    <td><a href="<@ofbizUrl>removeAddressMatchMap?mapKey=${map.mapKey}&mapValue=${map.mapValue}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a></td>
-                  </tr>
-                </#list>
-              </table>
-            </td>
-          </tr>
-        </#if>
-      </table>
-      </center>
-    </TD>
-  </TR>
-
-</TABLE>
-
+      </form>
+      <#if addressMatchMaps?has_content>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr>
+          <td colspan="2">
+            <table class="basic-table dark-grid" cellspacing="0">
+              <tr class="header-row">
+                <td>${uiLabelMap.PartyAddressMatchKey}</td>
+                <td>=></td>
+                <td>${uiLabelMap.PartyAddressMatchValue}</td>
+                <td>${uiLabelMap.CommonSequence}</td>
+                <td class="button-col"><a href="<@ofbizUrl>clearAddressMatchMap</@ofbizUrl>">${uiLabelMap.CommonClear} ${uiLabelMap.CommonAll}</a></td>
+              </tr>
+              <#list addressMatchMaps as map>
+                <tr>
+                  <td>${map.mapKey}</td>
+                  <td>=></td>
+                  <td>${map.mapValue}</td>
+                  <td>${map.sequenceNum?if_exists}</td>
+                  <td class="button-col"><a href="<@ofbizUrl>removeAddressMatchMap?mapKey=${map.mapKey}&mapValue=${map.mapValue}</@ofbizUrl>">${uiLabelMap.CommonDelete}</a></td>
+                </tr>
+              </#list>
+            </table>
+          </td>
+        </tr>
+      </#if>
+    </table>
+  </div>
+</div>
+<!-- end addressMatchMap.ftl -->

@@ -42,8 +42,8 @@ under the License.
                                 <container>
                                     <label style="head1" text="${uiLabelMap.PartySecurityGroupsList}"/>
                                 </container>
-                                <container>
-                                    <link target="EditSecurityGroup" style="buttontext" text="[${uiLabelMap.PartyNewSecurityGroup}]"/>
+                                <container style="button-bar">
+                                    <link target="EditSecurityGroup" style="smallSubmit" text="${uiLabelMap.PartyNewSecurityGroup}"/>
                                 </container>
                                 <include-form name="ListSecurityGroups" location="component://party/widget/partymgr/SecurityForms.xml"/>
                             </widgets>

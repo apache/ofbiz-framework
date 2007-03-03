@@ -43,7 +43,7 @@ under the License.
               &nbsp;
             </#if>
             <#if (eventListSize > 0)>
-              <span class="tableheadtext">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${eventListSize}</span>
+              <span class="label">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${eventListSize}</span>
             </#if>
             <#if (eventListSize > highIndex)>
               <a href="<@ofbizUrl>${target}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex+1}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
