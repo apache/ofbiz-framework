@@ -519,7 +519,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindFacilityPhysicalInventory"/>
                 <set field="headerItem" value="facility"/>
-                <set field="tabButtonItem" value="FindFacilityPhysicalInventory"/>
+                <set field="tabButtonItem" value="PhysicalInventory"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/inventory/FindFacilityPhysicalInventory.bsh"/>
 
             </actions>
