@@ -254,7 +254,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         }
 
         String event = modelFormField.getEvent();
-        String action = modelFormField.getAction();
+        String action = modelFormField.getAction(context);
         if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
             buffer.append(" ");
             buffer.append(event);
@@ -538,7 +538,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         ModelForm modelForm = modelFormField.getModelForm();
 
         String event = modelFormField.getEvent();
-        String action = modelFormField.getAction();
+        String action = modelFormField.getAction(context);
 
         buffer.append("<select");
 
@@ -718,7 +718,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         List allOptionValues = radioField.getAllOptionValues(context, modelForm.getDelegator());
         String currentValue = modelFormField.getEntry(context);
         String event = modelFormField.getEvent();
-        String action = modelFormField.getAction();
+        String action = modelFormField.getAction(context);
 
         // list out all options according to the option list
         Iterator optionValueIter = allOptionValues.iterator();
@@ -807,7 +807,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append('"');
             
             event = modelFormField.getEvent();
-            action = modelFormField.getAction();
+            action = modelFormField.getAction(context);
             if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
                 buffer.append(" ");
                 buffer.append(event);
@@ -839,7 +839,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
             
             event = modelFormField.getEvent();
-            action = modelFormField.getAction();
+            action = modelFormField.getAction(context);
             if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
                 buffer.append(" ");
                 buffer.append(event);
@@ -2091,7 +2091,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         }
 
         String event = modelFormField.getEvent();
-        String action = modelFormField.getAction();
+        String action = modelFormField.getAction(context);
         if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
             buffer.append(" ");
             buffer.append(event);
