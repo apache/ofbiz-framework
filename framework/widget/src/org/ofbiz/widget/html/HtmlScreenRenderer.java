@@ -20,7 +20,6 @@ package org.ofbiz.widget.html;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.sql.Timestamp;
 import java.util.Locale;
 import java.util.Map;
 
@@ -31,7 +30,6 @@ import javax.servlet.http.HttpSession;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;

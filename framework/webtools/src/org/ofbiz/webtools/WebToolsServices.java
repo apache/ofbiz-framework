@@ -44,7 +44,6 @@ import java.net.MalformedURLException;
 
 import javolution.util.FastList;
 
-import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
