@@ -89,7 +89,7 @@ public class ModelFormField {
     protected Integer position = null;
     protected String redWhen;
     protected String event;
-    protected String action;
+    protected FlexibleStringExpander action;
     protected FlexibleStringExpander useWhen;
 
     protected FieldInfo fieldInfo = null;
@@ -126,7 +126,7 @@ public class ModelFormField {
         this.requiredFieldStyle = fieldElement.getAttribute("required-field-style");
         this.redWhen = fieldElement.getAttribute("red-when");
         this.event = fieldElement.getAttribute("event");
-        this.action = fieldElement.getAttribute("action");
+        this.setAction(fieldElement.hasAttribute("action")? fieldElement.getAttribute("action"): null);
         this.setUseWhen(fieldElement.getAttribute("use-when"));
         this.idName = fieldElement.getAttribute("id-name");
         String sepColumns = fieldElement.getAttribute("separate-column");
@@ -246,7 +246,7 @@ public class ModelFormField {
             this.redWhen = overrideFormField.redWhen;
         if (UtilValidate.isNotEmpty(overrideFormField.event))
             this.event = overrideFormField.event;
-        if (UtilValidate.isNotEmpty(overrideFormField.action))
+        if (overrideFormField.action != null && !overrideFormField.action.isEmpty())
             this.action = overrideFormField.action;
         if (overrideFormField.useWhen != null && !overrideFormField.useWhen.isEmpty())
             this.useWhen = overrideFormField.useWhen;
@@ -770,8 +770,12 @@ public class ModelFormField {
     /**
      * @return
      */
-    public String getAction() {
-        return action;
+    public String getAction(Map context) {
+        if (this.action != null && this.action.getOriginal() != null) {
+            return action.expandString(context);
+        } else {
+            return null;
+        }
     }
 
 /**
@@ -1181,7 +1185,7 @@ public class ModelFormField {
      * @param string
      */
     public void setAction(String string) {
-        action = string;
+        this.action = new FlexibleStringExpander(string);
     }
 
     /**
