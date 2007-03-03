@@ -97,7 +97,7 @@ public class ServiceMultiEventHandler implements EventHandler {
         }
 
         // we only support SYNC mode in this handler
-        if (mode != SYNC) {
+        if (!SYNC.equals(mode)) {
             throw new EventHandlerException("Async mode is not supported");
         }
 
