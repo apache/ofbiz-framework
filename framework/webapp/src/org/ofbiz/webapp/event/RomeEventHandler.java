@@ -20,7 +20,6 @@
 package org.ofbiz.webapp.event;
 
 import org.ofbiz.webapp.control.RequestHandler;
-import org.ofbiz.base.util.Debug;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;

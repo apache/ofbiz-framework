@@ -23,7 +23,6 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
@@ -35,7 +34,6 @@ import org.ofbiz.content.content.ContentWorker;
 import com.sun.syndication.feed.synd.*;
 
 import java.util.*;
-import java.sql.Timestamp;
 import java.io.IOException;
 
 import javolution.util.FastList;
