@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -230,7 +231,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         String value = modelFormField.getEntry(context, textField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
             buffer.append(" value=\"");
-            buffer.append(value);
+            buffer.append(UtilFormatOut.encodeXmlValue(value));
             buffer.append('"');
         }
 
