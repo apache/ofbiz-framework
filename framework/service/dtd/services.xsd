@@ -185,7 +185,8 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.implements">
         <xs:attribute type="xs:string" name="service" use="required"/>
-        <xs:attribute name="optional" default="true">
+        <xs:attribute name="optional" default="false">
+            <xs:annotation><xs:documentation>If set to true all attributes inherited will have be optional whether or not they were in the implemented service definition.</xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
