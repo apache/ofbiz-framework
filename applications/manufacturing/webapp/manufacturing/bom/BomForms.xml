@@ -20,8 +20,7 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="RunBomSimulation" type="single" target="runBomSimulation" title=""
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="RunBomSimulation" type="single" target="runBomSimulation" title="">
         <field name="lookupFlag"><hidden value="Y"/></field>
         <field name="productId">
             <lookup target-form-name="LookupProduct"/>
@@ -70,8 +69,7 @@ under the License.
         </field>
     </form>
         
-    <form name="ListProductManufacturingRules" type="list" target="UpdateProductManufacturingRule" title="" list-name="manufacturingRules"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListProductManufacturingRules" type="list" target="UpdateProductManufacturingRule" title="" list-name="manufacturingRules">
         <auto-fields-service service-name="updateProductManufacturingRule" map-name="manufacturingRule"/>
         <field name="ruleId"><display/></field>
         <field name="ruleSeqId"><display/></field>
@@ -93,8 +91,7 @@ under the License.
         </field>
     </form>
 
-    <form name="UpdateProductManufacturingRule" type="single" target="UpdateProductManufacturingRule" title=""
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="UpdateProductManufacturingRule" type="single" target="UpdateProductManufacturingRule" title="">
         <alt-target use-when="ruleId==null" target="AddProductManufacturingRule"/>
         <auto-fields-service service-name="updateProductManufacturingRule" map-name="manufacturingRule"/>
         <field name="ruleId"><display/></field>
