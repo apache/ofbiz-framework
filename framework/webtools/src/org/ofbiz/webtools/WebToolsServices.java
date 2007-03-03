@@ -232,12 +232,6 @@ public class WebToolsServices {
             long pauseLong = filePause != null ? filePause.longValue() : 0;
             File baseDir = new File(path);
 
-            Map parseEntityXmlFileArgs = UtilMisc.toMap("mostlyInserts", mostlyInserts, 
-                    "createDummyFks", createDummyFks,
-                    "maintainTimeStamps", maintainTimeStamps,
-                    "txTimeout", txTimeout,
-                    "userLogin", userLogin);
-            
             if (baseDir.isDirectory() && baseDir.canRead()) {
                 File[] fileArray = baseDir.listFiles();
                 FastList files = FastList.newInstance();
@@ -257,6 +251,12 @@ public class WebToolsServices {
                     unprocessedFiles = FastList.newInstance();
                     Iterator filesItr = files.iterator();
                     while (filesItr.hasNext()) {
+                        Map parseEntityXmlFileArgs = UtilMisc.toMap("mostlyInserts", mostlyInserts, 
+                                "createDummyFks", createDummyFks,
+                                "maintainTimeStamps", maintainTimeStamps,
+                                "txTimeout", txTimeout,
+                                "userLogin", userLogin);
+                        
                         File f = (File) filesItr.next();
                         try {
                             URL furl = f.toURI().toURL();
