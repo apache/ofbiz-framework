@@ -210,7 +210,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="runAsUser"/>
+        <xs:attribute type="xs:string" name="run-as-user"/>
         <xs:attribute type="xs:string" name="result-map-name"/>
         <xs:attribute name="new-transaction" default="false">
             <xs:simpleType>
