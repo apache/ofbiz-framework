@@ -1650,7 +1650,7 @@ under the License.
         <field name="partyInvitationId" type="id-ne"></field>
         <field name="partyIdTo" type="id-ne"></field>
         <prim-key field="partyInvitationId"/>
-        <prim-key field="partyGroupIdTo"/>
+        <prim-key field="partyIdTo"/>
         <relation type="one" title="To" rel-entity-name="PartyGroup">
             <key-map field-name="partyIdTo" rel-field-name="partyId"/>
         </relation>
