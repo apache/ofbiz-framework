@@ -30,6 +30,7 @@ import java.util.Map;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -97,7 +98,7 @@ public class BOMNode {
                                                        "productAssocTypeId", partBomTypeId),
                                             UtilMisc.toList("sequenceNum"));
         rows = EntityUtil.filterByDate(rows, inDate);
-        if ((rows == null || rows.size() == 0) && substitutedNode != null) {
+        if ((UtilValidate.isEmpty(rows)) && substitutedNode != null) {
             // If no child is found and this is a substituted node
             // we try to search for substituted node's children.
             rows = delegator.findByAnd("ProductAssoc", 
@@ -319,7 +320,7 @@ public class BOMNode {
                                                        "productAssocTypeId", partBomTypeId),
                                             UtilMisc.toList("sequenceNum"));
         rows = EntityUtil.filterByDate(rows, inDate);
-        if ((rows == null || rows.size() == 0) && substitutedNode != null) {
+        if ((UtilValidate.isEmpty(rows)) && substitutedNode != null) {
             // If no parent is found and this is a substituted node
             // we try to search for substituted node's parents.
             rows = delegator.findByAnd("ProductAssoc", 

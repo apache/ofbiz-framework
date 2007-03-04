@@ -706,8 +706,9 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
         GenericDelegator delegator = currentContent.getDelegator();
         List assocList = getAssociations(currentContent, linkDir, assocTypes, fromDate, thruDate);
-        if (assocList == null || assocList.size() == 0)
+        if (UtilValidate.isEmpty(assocList)) { 
             return assocList;
+        }
         if (Debug.infoOn()) Debug.logInfo("assocList:" + assocList.size() + " contentId:" + currentContent.getString("contentId"), "");
 
         List contentList = new ArrayList();
@@ -1060,14 +1061,14 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                 Map results = null;
                 results = ContentServicesComplex.getAssocAndContentAndDataResourceMethod(delegator, contentId, mapKey, "To", fromDate, null, null, null, assocTypes, null);
                 List entityList = (List) results.get("entityList");
-                if (entityList == null || entityList.size() == 0) {
+                if (UtilValidate.isEmpty(entityList)) {
                     //throw new IOException("No subcontent found.");
                 } else {
                     view = (GenericValue) entityList.get(0);
                 }
             } else {
                 List lst = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", subContentId));
-                if (lst == null || lst.size() == 0) {
+                if (UtilValidate.isEmpty(lst)) {
                     throw new IOException("No subContent found for subContentId=." + subContentId);
                 }
                 view = (GenericValue) lst.get(0);
@@ -1106,7 +1107,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             throw new RuntimeException(e.getMessage());
         }
         List entityList = (List) results.get("entityList");
-        if (entityList == null || entityList.size() == 0) {
+        if (UtilValidate.isEmpty(entityList)) {
             //throw new IOException("No subcontent found.");
         } else {
             view = (GenericValue) entityList.get(0);
@@ -1298,12 +1299,12 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         if (Debug.infoOn()) Debug.logInfo("in prepTargetOperationList, targetOperationString(0):" + targetOperationString, "");
         if (UtilValidate.isNotEmpty(targetOperationString) ) {
             List opsFromString = StringUtil.split(targetOperationString, "|");
-            if (targetOperationList == null || targetOperationList.size() == 0) {
+            if (UtilValidate.isEmpty(targetOperationList)) {
                 targetOperationList = new ArrayList();
             }
             targetOperationList.addAll(opsFromString);
         }
-        if (targetOperationList == null || targetOperationList.size() == 0) {
+        if (UtilValidate.isEmpty(targetOperationList)) {
             targetOperationList = new ArrayList();
             if (UtilValidate.isEmpty(md))
                 md ="_CREATE";
@@ -1326,12 +1327,12 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         if (Debug.infoOn()) Debug.logInfo("in prepContentPurposeList, contentPurposeString(0):" + contentPurposeString, "");
         if (UtilValidate.isNotEmpty(contentPurposeString) ) {
             List purposesFromString = StringUtil.split(contentPurposeString, "|");
-            if (contentPurposeList == null || contentPurposeList.size() == 0) {
+            if (UtilValidate.isEmpty(contentPurposeList)) {
                 contentPurposeList = new ArrayList();
             }
             contentPurposeList.addAll(purposesFromString);
         }
-        if (contentPurposeList == null || contentPurposeList.size() == 0) {
+        if (UtilValidate.isEmpty(contentPurposeList)) {
             contentPurposeList = new ArrayList();
         }
         if (Debug.infoOn()) Debug.logInfo("in prepContentPurposeList, contentPurposeList(0):" + contentPurposeList, "");

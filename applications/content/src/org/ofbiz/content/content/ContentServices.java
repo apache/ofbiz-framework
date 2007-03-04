@@ -153,7 +153,7 @@ public class ContentServices {
     
     private static void walkParentTree(Map nodeMap, List parentList) {
         List kids = (List)nodeMap.get("kids");
-        if (kids == null || kids.size() == 0) {
+        if (UtilValidate.isEmpty(kids)) {
             parentList.add(nodeMap.get("contentId"));
         } else {
             Iterator iter = kids.iterator();

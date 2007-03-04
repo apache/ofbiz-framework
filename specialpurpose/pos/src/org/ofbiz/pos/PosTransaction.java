@@ -514,7 +514,7 @@ public class PosTransaction implements Serializable {
         }
 
         final String externalCode = "PRDS_PAY_EXTERNAL";
-        if (values == null || values.size() == 0) {
+        if (UtilValidate.isEmpty(values)) {
             return NO_PAYMENT;
         } else {
             boolean isExternal = true;

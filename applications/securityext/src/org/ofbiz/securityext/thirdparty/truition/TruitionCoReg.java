@@ -203,10 +203,10 @@ public class TruitionCoReg {
                 // email address
                 String emailAddress = null;
                 Collection emCol = ContactHelper.getContactMech(party, "PRIMARY_EMAIL", "EMAIL_ADDRESS", false);
-                if (emCol == null || emCol.size() == 0) {
+                if (UtilValidate.isEmpty(emCol)) {
                     emCol = ContactHelper.getContactMech(party, null, "EMAIL_ADDRESS", false);
                 }
-                if (emCol != null && emCol.size() > 0) {
+                if (!UtilValidate.isEmpty(emCol)) {
                     GenericValue emVl = (GenericValue) emCol.iterator().next();
                     if (emVl != null) {
                         emailAddress = emVl.getString("infoString");
@@ -224,10 +224,10 @@ public class TruitionCoReg {
                 String zipCode = null;
                 String country = null;
                 Collection adCol = ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
-                if (adCol == null || adCol.size() == 0) {
+                if (UtilValidate.isEmpty(adCol)) {
                     adCol = ContactHelper.getContactMech(party, null, "POSTAL_ADDRESS", false);
                 }
-                if (adCol != null && adCol.size() > 0) {
+                if (!UtilValidate.isEmpty(adCol)) {
                     GenericValue adVl = (GenericValue) adCol.iterator().next();
                     if (adVl != null) {
                         GenericValue addr = null;
@@ -260,10 +260,10 @@ public class TruitionCoReg {
                 // phone number
                 String phoneNumber = null;
                 Collection phCol = ContactHelper.getContactMech(party, "PHONE_HOME", "TELECOM_NUMBER", false);
-                if (phCol == null || phCol.size() == 0) {
+                if (UtilValidate.isEmpty(phCol)) {
                     phCol = ContactHelper.getContactMech(party, null, "TELECOM_NUMBER", false);
                 }
-                if (phCol != null && phCol.size() > 0) {
+                if (!UtilValidate.isEmpty(phCol)) {
                     GenericValue phVl = (GenericValue) phCol.iterator().next();
                     if (phVl != null) {
                         GenericValue tele = null;
