@@ -40,57 +40,14 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="mainAccountingDecorator">
-        <section>
-            <actions>
-                <!-- base/top/specific map first, then more common map added for shared labels --> 
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="AccountingConfig" map-name="uiConfigMap" global="true"/>
-                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                
-                <set field="layoutSettings.companyName" from-field="uiLabelMap.AccountingCompanyName" global="true"/>
-                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.AccountingCompanySubtitle" global="true"/>
-                <set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>
-                <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
-                <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
-                <set field="activeApp" value="accounting" global="true"/>
-            </actions>
-            <widgets>
-                <!-- render header -->
-                <platform-specific><html><html-template location="component://common/webcommon/includes/header.ftl"/></html></platform-specific>
-                <!-- render appbar -->
-                <platform-specific><html><html-template location="component://common/webcommon/includes/appbar.ftl"/></html></platform-specific>
-                
-                <container style="centerarea">
-                    <!-- render appheader -->
-                    <platform-specific><html><html-template location="component://accounting/webapp/accounting/includes/appheader.ftl"/></html></platform-specific>
-                    
-                    <container style="contentarea">
-                        <!-- by default will render left-bar only if leftbarScreen value not empty -->
-                        <!-- include-screen name="${leftbarScreenName}" location="${leftbarScreenLocation}"/ -->
-                        
-                        <container style="column-main">
-                            <!-- render messages -->
-                            <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
-                            <decorator-section-include name="body"/>
-                        </container>
-                    </container>
-                </container>
-                
-                <!-- render footer -->
-                <platform-specific><html><html-template location="component://common/webcommon/includes/footer.ftl"/></html></platform-specific>
-            </widgets>
-        </section>
-    </screen>
-    
+
     <screen name="CommonInvoiceDecorator">
         <section>
             <actions>
                 <set field="headerItem" value="invoices"/>
             </actions>
             <widgets>
-                <decorator-screen name="mainAccountingDecorator">
+                <decorator-screen name="main-decorator">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for ACCOUNTING, _VIEW permission -->
@@ -119,7 +76,7 @@ under the License.
                 <set field="headerItem" value="payments"/>
             </actions>
             <widgets>
-                <decorator-screen name="mainAccountingDecorator">
+                <decorator-screen name="main-decorator">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for ACCOUNTING, _VIEW permission -->
@@ -259,7 +216,7 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
             </actions>
             <widgets>
-                <decorator-screen name="mainAccountingDecorator">
+                <decorator-screen name="main-decorator">
                     <decorator-section name="body">
                         <section>
                             <widgets>

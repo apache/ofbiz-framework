@@ -33,7 +33,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="mainAccountingDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="ListCompanies" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
                     </decorator-section>

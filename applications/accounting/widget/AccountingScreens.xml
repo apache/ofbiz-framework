@@ -203,7 +203,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="mainAccountingDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="column-left-wide">
                             <include-tree name="GlAccountTree" location="component://accounting/widget/AccountingTrees.xml" /> 
@@ -226,7 +226,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="mainAccountingDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="column-left-wide">
                             <include-tree name="GlAccountTree" location="component://accounting/widget/AccountingTrees.xml" /> 

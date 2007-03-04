@@ -30,7 +30,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
             </actions>
             <widgets>
-                <decorator-screen name="mainAccountingDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><link target="editPayment" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingPayment}" style="buttontext"/></container>
                         <container><label style="head1" text="${uiLabelMap.AccountingFindPayments}"/></container>
@@ -279,7 +279,7 @@ under the License.
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/manualTx.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="mainAccountingDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://accounting/webapp/accounting/payment/manualTx.ftl"/></html>

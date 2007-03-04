@@ -31,7 +31,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="30"/>
             </actions>
             <widgets>
-                <decorator-screen name="mainAccountingDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><link target="editInvoice" text="${uiLabelMap.AccountingCreateNewInvoice}" style="buttontext"/></container>                        
                         <container><label style="head1" text="${uiLabelMap.AccountingFindInvoices}"/></container>
