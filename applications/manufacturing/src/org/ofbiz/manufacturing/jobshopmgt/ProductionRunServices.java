@@ -208,7 +208,7 @@ public class ProductionRunServices {
         if (routing == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductRoutingNotExist", locale));
         }
-        if (routingTaskAssocs == null || routingTaskAssocs.size()==0) {
+        if (UtilValidate.isEmpty(routingTaskAssocs)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingRoutingHasNoRoutingTask", locale));
         }
 
@@ -943,7 +943,7 @@ public class ProductionRunServices {
         
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
         List tasks = productionRun.getProductionRunRoutingTasks();
-        if (tasks == null || tasks.size() == 0){
+        if (UtilValidate.isEmpty(tasks)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunTaskNotExists", locale));
         }
         
@@ -1012,7 +1012,7 @@ public class ProductionRunServices {
         
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
         List components = productionRun.getProductionRunComponents();
-        if (components == null || components.size() == 0){
+        if (UtilValidate.isEmpty(components)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunComponentNotExists", locale));
         }
         
