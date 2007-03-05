@@ -488,60 +488,60 @@ under the License.
         <make-value entity-name="InventoryItem" value-name="lookupPKMap"/>
         <set-pk-fields value-name="lookupPKMap" map-name="parameters"/>
         <find-by-primary-key entity-name="InventoryItem" map-name="lookupPKMap" value-name="inventoryItem"/>
+
+        <!-- find all items which have a negative ATP -->
+        <entity-condition entity-name="InventoryItem" list-name="inventoryItems">
+            <condition-list combine="and">
+                <condition-expr field-name="productId" operator="equals" env-name="inventoryItem.productId"/>
+                <condition-expr field-name="facilityId" operator="equals" env-name="inventoryItem.facilityId"/>
+                <condition-expr field-name="inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM"/>
+                <condition-list combine="or">
+                    <condition-expr field-name="availableToPromiseTotal" operator="equals" env-name="nullField"/>
+                    <condition-expr field-name="availableToPromiseTotal" operator="equals" value=""/>
+                    <condition-expr field-name="availableToPromiseTotal" operator="less" value="0"/>
+                </condition-list>
+            </condition-list>
+            <!-- TODO: order the list of inventory items in a useful way, since operations occur below based on the first item -->
+        </entity-condition>
+
         <if-compare field-name="inventoryItemTypeId" map-name="inventoryItem" operator="equals" value="NON_SERIAL_INV_ITEM">
-            <!-- now find all items related by product/facility -->
-            <set from-field="inventoryItem.facilityId" field="lookupMap.facilityId"/>
-            <set from-field="inventoryItem.productId" field="lookupMap.productId"/>
-            <set value="NON_SERIAL_INV_ITEM" field="lookupMap.inventoryItemTypeId"/>
-            <find-by-and entity-name="InventoryItem" map-name="lookupMap" list-name="inventoryItems"/>
-
-            <!-- find all items which have a negative ATP; find their current reservations -->
+            <!--  find their current reservations -->
             <iterate list-name="inventoryItems" entry-name="item">
-                <if>
-                    <condition>
-                        <or>
-                            <if-empty field-name="availableToPromiseTotal"/>
-                            <if-compare field-name="availableToPromiseTotal" map-name="item" operator="less" value="0" type="Double"/>
-                        </or>
-                    </condition>
-                    <then>
-                        <get-related value-name="item" relation-name="OrderItemShipGrpInvRes" list-name="relatedRes"/>
-                        <!--<list-to-list list-name="relatedRes" to-list-name="reservations"/>-->
+                <get-related value-name="item" relation-name="OrderItemShipGrpInvRes" list-name="relatedRes"/>
+                <!--<list-to-list list-name="relatedRes" to-list-name="reservations"/>-->
 
-                        <iterate list-name="relatedRes" entry-name="oneRelatedRes">
-                            <entity-condition entity-name="PicklistAndBinAndItem" list-name="picklistItemList">
-                                <condition-list combine="and">
-                                    <condition-expr field-name="orderId" env-name="oneRelatedRes.orderId"/>
-                                    <condition-expr field-name="shipGroupSeqId" env-name="oneRelatedRes.shipGroupSeqId"/>
-                                    <condition-expr field-name="orderItemSeqId" env-name="oneRelatedRes.orderItemSeqId"/>
-                                    <condition-expr field-name="inventoryItemId" env-name="oneRelatedRes.inventoryItemId"/>
-                                    <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
-                                </condition-list>
-                            </entity-condition>
+                <iterate list-name="relatedRes" entry-name="oneRelatedRes">
+                    <entity-condition entity-name="PicklistAndBinAndItem" list-name="picklistItemList">
+                        <condition-list combine="and">
+                            <condition-expr field-name="orderId" env-name="oneRelatedRes.orderId"/>
+                            <condition-expr field-name="shipGroupSeqId" env-name="oneRelatedRes.shipGroupSeqId"/>
+                            <condition-expr field-name="orderItemSeqId" env-name="oneRelatedRes.orderItemSeqId"/>
+                            <condition-expr field-name="inventoryItemId" env-name="oneRelatedRes.inventoryItemId"/>
+                            <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
+                        </condition-list>
+                    </entity-condition>
 
-                            <!-- only cancel/re-reserve when there are no picklists associated; this will prevent
-                                     orders appearing on duplicate pick lists -->
+                    <!-- only cancel/re-reserve when there are no picklists associated; this will prevent
+                             orders appearing on duplicate pick lists -->
 
-                            <if-empty field-name="picklistItemList">
-                                <log level="always" message="Order #${oneRelatedRes.orderId} was not found on any picklist for this item [${oneRelatedRes.inventoryItemId}]"/>                                                                   
-                                <if>
-                                    <condition>
-                                        <and>
-                                            <if-compare-field field-name="parameters.priorityOrderId" operator="equals" to-field-name="oneRelatedRes.orderId"/>
-                                            <if-compare-field field-name="parameters.priorityOrderItemSeqId" operator="equals" to-field-name="oneRelatedRes.orderItemSeqId"/>
-                                        </and>
-                                    </condition>
-                                    <then>
-                                        <field-to-list field-name="oneRelatedRes" list-name="privilegedReservations"/>
-                                    </then>
-                                    <else>
-                                        <field-to-list field-name="oneRelatedRes" list-name="reservations"/>
-                                    </else>
-                                </if>
-                            </if-empty>
-                        </iterate>
-                    </then>
-                </if>
+                    <if-empty field-name="picklistItemList">
+                        <log level="always" message="Order #${oneRelatedRes.orderId} was not found on any picklist for this item [${oneRelatedRes.inventoryItemId}]"/>                                                                   
+                        <if>
+                            <condition>
+                                <and>
+                                    <if-compare-field field-name="parameters.priorityOrderId" operator="equals" to-field-name="oneRelatedRes.orderId"/>
+                                    <if-compare-field field-name="parameters.priorityOrderItemSeqId" operator="equals" to-field-name="oneRelatedRes.orderItemSeqId"/>
+                                </and>
+                            </condition>
+                            <then>
+                                <field-to-list field-name="oneRelatedRes" list-name="privilegedReservations"/>
+                            </then>
+                            <else>
+                                <field-to-list field-name="oneRelatedRes" list-name="reservations"/>
+                            </else>
+                        </if>
+                    </if-empty>
+                </iterate>
             </iterate>
 
             <!-- sort the list by date -->
@@ -574,6 +574,70 @@ under the License.
                 <call-service service-name="reserveProductInventory" in-map-name="resMap"/>
                 <clear-field field-name="resMap"/>
             </iterate>
+            
+            <else>
+                <if-compare field-name="inventoryItemTypeId" map-name="inventoryItem" operator="equals" value="SERIALIZED_INV_ITEM">
+                    <now-timestamp-to-env env-name="nowTimestamp"/>
+                    
+                    <!-- Get the first non-serialized inventory item with a negative ATP -->
+                    <first-from-list entry-name="nonSerInvItem" list-name="inventoryItems"/>                    
+                    <if-not-empty field-name="nonSerInvItem">
+
+                        <!-- Change the serialized inventoryItem's status to promised -->
+                        <set field="inventoryItem.statusId" value="INV_PROMISED"/> 
+                        <store-value value-name="inventoryItem" do-cache-clear="true"/>
+                        <check-errors/>
+
+                        <!-- Update the first negative non-serialized inventoryItem's ATP and QOH values -->
+                        <calculate field-name="nonSerInvItem.availableToPromiseTotal" type="Double">
+                            <calcop operator="add" field-name="nonSerInvItem.availableToPromiseTotal">
+                                <calcop operator="get" field-name="inventoryItem.availableToPromiseTotal"/>
+                            </calcop>
+                        </calculate>
+                        <calculate field-name="nonSerInvItem.quantityOnHandTotal" type="Double">
+                            <calcop operator="add" field-name="nonSerInvItem.quantityOnHandTotal">
+                                <calcop operator="get" field-name="inventoryItem.quantityOnHandTotal"/>
+                            </calcop>
+                        </calculate>
+                        <store-value value-name="nonSerInvItem"/>
+                        <check-errors/>
+                        
+                        <get-related value-name="nonSerInvItem" relation-name="OrderItemShipGrpInvRes" list-name="nonSerInvRes"/>
+                        <!-- TODO: Order the list of reservations -->
+                        <first-from-list entry-name="inventoryReservation" list-name="nonSerInvRes"/>                    
+                        <if-not-empty field-name="inventoryReservation">
+        
+                            <!-- Make a new reservation for the serialized unit quantity for the order -->
+                            <make-value value-name="newReservation" entity-name="OrderItemShipGrpInvRes" map-name="inventoryReservation"/>
+                            <set from-field="inventoryItem.availableToPromiseTotal" field="newReservation.quantity"/>
+                            <set from-field="inventoryItem.inventoryItemId" field="newReservation.inventoryItemId"/>
+                            <create-value value-name="newReservation"/>
+                            <check-errors/>
+                            
+                            <!-- Reduce the previous reservation by 1 unit -->
+                            <calculate field-name="inventoryReservation.quantity" type="Double">
+                                <calcop operator="subtract" field-name="inventoryReservation.quantity">
+                                    <calcop operator="get" field-name="inventoryItem.availableToPromiseTotal"/>
+                                </calcop>
+                            </calculate>
+
+                            <!-- If the previous reservation quantity is now zero then cancel it, otherwise store it -->
+                            <if-compare field-name="inventoryReservation.quantity" value="0" operator="less-equals" type="Double">
+                                <set from-field="inventoryReservation.orderId" field="cancelOisgirMap.orderId"/>
+                                <set from-field="inventoryReservation.orderItemSeqId" field="cancelOisgirMap.orderItemSeqId"/>
+                                <set from-field="inventoryReservation.inventoryItemId" field="cancelOisgirMap.inventoryItemId"/>
+                                <set from-field="inventoryReservation.shipGroupSeqId" field="cancelOisgirMap.shipGroupSeqId"/>
+                                <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOisgirMap"/>
+                                <check-errors/>
+                                <else>
+                                    <store-value value-name="inventoryReservation"/>
+                                </else>
+                            </if-compare>
+                            <check-errors/>
+                        </if-not-empty>                    
+                    </if-not-empty>                    
+                </if-compare>
+            </else>
         </if-compare>
     </simple-method>
 

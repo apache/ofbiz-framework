@@ -107,11 +107,18 @@ under the License.
             <!-- update serialized items to AVAILABLE (only if this is not a return), which then triggers other SECA chains -->
             <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field-name="parameters.inventoryItemTypeId">
                 <if-compare value="INV_RETURNED" operator="not-equals" field-name="parameters.statusId">
-                    <clear-field field-name="serviceInMap"/>
-                    <set field="serviceInMap.inventoryItemId" from-field="parameters.inventoryItemId"/>
-                    <set field="serviceInMap.statusId" value="INV_AVAILABLE"/> <!-- XXX set to returned instead -->
-                    <call-service service-name="updateInventoryItem" in-map-name="serviceInMap"/>
-                    <check-errors/>
+                    <!-- Retrieve the new inventoryItem -->
+                    <set field="inventoryItemLookup.inventoryItemId" from-field="parameters.inventoryItemId"/>
+                    <find-by-primary-key entity-name="InventoryItem" map-name="inventoryItemLookup" value-name="inventoryItem"/>
+
+                    <!-- Don't reset the status if it's already set to INV_PROMISED downstream -->
+                    <if-compare value="INV_PROMISED" operator="not-equals" field-name="inventoryItem.statusId">
+                        <clear-field field-name="serviceInMap"/>
+                        <set field="serviceInMap.inventoryItemId" from-field="parameters.inventoryItemId"/>
+                        <set field="serviceInMap.statusId" value="INV_AVAILABLE"/> <!-- XXX set to returned instead -->
+                        <call-service service-name="updateInventoryItem" in-map-name="serviceInMap"/>
+                        <check-errors/>
+                    </if-compare>
                 </if-compare>
             </if-compare>
             <set value="Received ${parameters.quantityAccepted} of ${parameters.productId} in inventory item ${parameters.inventoryItemId}" field="successMessageList[]"/>
