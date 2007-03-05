@@ -1416,6 +1416,22 @@ public class UpsServices {
             return ServiceUtil.returnError("Unable to determine ship-to address");
         }
 
+        GenericValue originCountryGeo = null;
+        GenericValue destCountryGeo = null;
+        try {
+            originCountryGeo = shipFromAddress.getRelatedOne("CountryGeo");
+            destCountryGeo = shipToAddress.getRelatedOne("CountryGeo");
+        } catch( GenericEntityException e ) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        if (UtilValidate.isEmpty(originCountryGeo)) {
+            return ServiceUtil.returnError("Origin CountryGeo not found for ship-from address");
+        }
+        if (UtilValidate.isEmpty(destCountryGeo)) {
+            return ServiceUtil.returnError("Destination CountryGeo not found for ship-to address");
+        }
+
         // locate the service code
         String serviceCode = null;
         if (!"Shop".equals(upsRateInquireMode)) {
@@ -1461,11 +1477,13 @@ public class UpsServices {
         Element shipperElement = UtilXml.addChildElement(shipmentElement, "Shipper", rateRequestDoc);
         Element shipperAddrElement = UtilXml.addChildElement(shipperElement, "Address", rateRequestDoc);
         UtilXml.addChildElementValue(shipperAddrElement, "PostalCode", shipFromAddress.getString("postalCode"), rateRequestDoc);
+        UtilXml.addChildElementValue(shipperAddrElement, "CountryCode", originCountryGeo.getString("geoCode"), rateRequestDoc);
 
         // ship-to info - (sub of shipment)
         Element shiptoElement = UtilXml.addChildElement(shipmentElement, "ShipTo", rateRequestDoc);
         Element shiptoAddrElement = UtilXml.addChildElement(shiptoElement, "Address", rateRequestDoc);
         UtilXml.addChildElementValue(shiptoAddrElement, "PostalCode", shipToAddress.getString("postalCode"), rateRequestDoc);
+        UtilXml.addChildElementValue(shiptoAddrElement, "CountryCode", destCountryGeo.getString("geoCode"), rateRequestDoc);
 
         // requested service (code) - not used when in Shop mode
         if (serviceCode != null) {
