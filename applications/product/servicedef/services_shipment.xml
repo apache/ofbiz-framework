@@ -417,7 +417,7 @@ under the License.
         <attribute name="carrierPartyId" type="String" mode="IN" optional="false"/>
         <attribute name="carrierRoleTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
-        <attribute name="additionalShippingCharge" type="Double" mode="OUT" optional="false"/>
+        <attribute name="additionalShippingCharge" type="Double" mode="OUT" optional="true"/>
     </service>
 
     <service name="clearPackAll" engine="java"
