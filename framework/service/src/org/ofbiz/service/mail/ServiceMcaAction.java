@@ -25,6 +25,7 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericValue;
 
 import org.w3c.dom.Element;
@@ -43,7 +44,9 @@ public class ServiceMcaAction implements java.io.Serializable {
     protected ServiceMcaAction(Element action) {
         this.serviceName = action.getAttribute("service");
         this.serviceMode = action.getAttribute("mode");
-        this.runAsUser = action.getAttribute("runAsUser");
+        this.runAsUser = action.getAttribute("run-as-user");
+        // support the old, inconsistent attribute name
+        if (UtilValidate.isEmail(this.runAsUser)) this.runAsUser = action.getAttribute("runAsUser");
         this.persist = "true".equals(action.getAttribute("persist"));
     }
 
