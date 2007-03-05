@@ -31,6 +31,8 @@ under the License.
                 will return a Map of serviceCode -> rate</description>
         <implements service="calcShipmentEstimateInterface"/>
         <attribute name="upsRateInquireMode" type="String" mode="IN" optional="true"/>
+        <!-- Passing in a list of package weights will override the splitting of packages and calculation of package weights by item -->
+        <attribute name="packageWeights" type="List" mode="IN" optional="true"/>
         <attribute name="upsRateCodeMap" type="Map" mode="OUT" optional="false"/>
     </service>
 
@@ -68,6 +70,8 @@ under the License.
         <attribute name="carrierPartyId" type="String" mode="IN" optional="false"/>
         <attribute name="carrierRoleTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <!-- Passing in a list of package weights will override the splitting of packages and calculation of package weights by item -->
+        <attribute name="packageWeights" type="List" mode="IN" optional="true"/>
         <attribute name="shippableItemInfo" type="List" mode="IN" optional="false"/>
         <attribute name="shippableWeight" type="Double" mode="IN" optional="false"/>
         <attribute name="shippableQuantity" type="Double" mode="IN" optional="false"/>
