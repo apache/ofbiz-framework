@@ -762,10 +762,20 @@ public class ProductSearchSession {
                 searchParamString.append("=");
                 searchParamString.append(kc.anyPrefix | kc.anySuffix ? "Y" : "N");
                 
-            /* No way to specify parameters for these right now, so table until later
             } else if (psc instanceof ProductSearch.ListPriceRangeConstraint) {
                 ProductSearch.ListPriceRangeConstraint lprc = (ProductSearch.ListPriceRangeConstraint) psc;
-             */   
+                if (lprc.lowPrice != null || lprc.highPrice != null) {
+                    if (isNotFirst) {
+                        searchParamString.append("&amp;");
+                    } else {
+                        isNotFirst = true;
+                    }
+                    searchParamString.append("LIST_PRICE_RANGE");
+                    searchParamString.append("=");
+                    if (lprc.lowPrice != null) searchParamString.append(lprc.lowPrice);
+                    searchParamString.append("_");
+                    if (lprc.highPrice != null) searchParamString.append(lprc.highPrice);
+                }
             }
         }
         
