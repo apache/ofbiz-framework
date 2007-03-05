@@ -893,7 +893,11 @@ public class PackingSession implements java.io.Serializable {
     }
     
     public void setPackageWeight(int packageSeqId, Double packageWeight) {
-        packageWeights.put(new Integer(packageSeqId), packageWeight);
+        if (UtilValidate.isEmpty(packageWeight)) {
+            packageWeights.remove(new Integer(packageSeqId));
+        } else {
+            packageWeights.put(new Integer(packageSeqId), packageWeight);
+        }
     }
     
     public Double getPackageWeight(int packageSeqId) {
