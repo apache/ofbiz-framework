@@ -364,7 +364,7 @@ public class ProductSearchSession {
         ProductSearchOptions.setResultSortOrder(resultSortOrder, session);
     }
 
-    public static void searchAddFeatureIdConstraints(Collection featureIds, HttpServletRequest request) {
+    public static void searchAddFeatureIdConstraints(Collection featureIds, Boolean exclude, HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (featureIds == null || featureIds.size() == 0) {
             return;
@@ -372,7 +372,7 @@ public class ProductSearchSession {
         Iterator featureIdIter = featureIds.iterator();
         while (featureIdIter.hasNext()) {
             String productFeatureId = (String) featureIdIter.next();
-            searchAddConstraint(new FeatureConstraint(productFeatureId), session);
+            searchAddConstraint(new FeatureConstraint(productFeatureId, exclude), session);
         }
     }
 
@@ -424,7 +424,9 @@ public class ProductSearchSession {
         if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_CATEGORY_ID"))) {
             String searchCategoryId = (String) parameters.get("SEARCH_CATEGORY_ID");
             String searchSubCategories = (String) parameters.get("SEARCH_SUB_CATEGORIES");
-            searchAddConstraint(new ProductSearch.CategoryConstraint(searchCategoryId, !"N".equals(searchSubCategories)), session);
+            String searchCategoryExc = (String) parameters.get("SEARCH_CATEGORY_EXC");
+            Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : new Boolean(!"N".equals(searchCategoryExc));
+            searchAddConstraint(new ProductSearch.CategoryConstraint(searchCategoryId, !"N".equals(searchSubCategories), exclude), session);
             constraintsChanged = true;
         }
         
@@ -432,7 +434,9 @@ public class ProductSearchSession {
             if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_CATEGORY_ID" + catNum))) {
                 String searchCategoryId = (String) parameters.get("SEARCH_CATEGORY_ID" + catNum);
                 String searchSubCategories = (String) parameters.get("SEARCH_SUB_CATEGORIES" + catNum);
-                searchAddConstraint(new ProductSearch.CategoryConstraint(searchCategoryId, !"N".equals(searchSubCategories)), session);
+                String searchCategoryExc = (String) parameters.get("SEARCH_CATEGORY_EXC" + catNum);
+                Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : new Boolean(!"N".equals(searchCategoryExc));
+                searchAddConstraint(new ProductSearch.CategoryConstraint(searchCategoryId, !"N".equals(searchSubCategories), exclude), session);
                 constraintsChanged = true;
             }
         }
@@ -468,18 +472,25 @@ public class ProductSearchSession {
             }
         }
 
-        // if features were specified by ID add a constraint for each
-        List featureIdList = ParametricSearch.makeFeatureIdListFromPrefixed(parameters);
-        if (featureIdList.size() > 0) {
-            constraintsChanged = true;
-            searchAddFeatureIdConstraints(featureIdList, request);
+        Iterator parameterNameIter = parameters.keySet().iterator();
+        while (parameterNameIter.hasNext()) {
+            String parameterName = (String) parameterNameIter.next();
+            if (parameterName.startsWith("SEARCH_FEAT")) {
+                String productFeatureId = (String) parameters.get(parameterName);
+                if (productFeatureId != null && productFeatureId.length() > 0) {
+                    String paramNameExt = parameterName.substring("SEARCH_FEAT".length() + 1);
+                    String searchCategoryExc = (String) parameters.get("SEARCH_FEAT_EXC" + paramNameExt);
+                    Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : new Boolean(!"N".equals(searchCategoryExc));
+                    searchAddConstraint(new ProductSearch.FeatureConstraint(productFeatureId, exclude), session);
+                }
+            }
         }
 
         // if features were selected add a constraint for each
         Map featureIdByType = ParametricSearch.makeFeatureIdByTypeMap(parameters);
         if (featureIdByType.size() > 0) {
             constraintsChanged = true;
-            searchAddFeatureIdConstraints(featureIdByType.values(), request);
+            searchAddFeatureIdConstraints(featureIdByType.values(), null, request);
         }
 
         // add a supplier to the search
@@ -551,7 +562,7 @@ public class ProductSearchSession {
         String prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
         String viewProductCategoryId = CatalogWorker.getCatalogViewAllowCategoryId(delegator, prodCatalogId);
         if (UtilValidate.isNotEmpty(viewProductCategoryId)) {
-            ProductSearchConstraint viewAllowConstraint = new CategoryConstraint(viewProductCategoryId, true);
+            ProductSearchConstraint viewAllowConstraint = new CategoryConstraint(viewProductCategoryId, true, null);
             searchAddConstraint(viewAllowConstraint, session);
             // not consider this a change for now, shouldn't change often: constraintsChanged = true;
         }
@@ -702,6 +713,12 @@ public class ProductSearchSession {
                 searchParamString.append(categoriesCount);
                 searchParamString.append("=");
                 searchParamString.append(cc.includeSubCategories ? "Y" : "N");
+                if (cc.exclude != null) {
+                    searchParamString.append("&amp;SEARCH_CATEGORY_EXC");
+                    searchParamString.append(categoriesCount);
+                    searchParamString.append("=");
+                    searchParamString.append(cc.exclude.booleanValue() ? "Y" : "N");
+                }
             } else if (psc instanceof ProductSearch.FeatureConstraint) {
                 ProductSearch.FeatureConstraint fc = (ProductSearch.FeatureConstraint) psc;
                 featuresCount++;
@@ -714,6 +731,12 @@ public class ProductSearchSession {
                 searchParamString.append(featuresCount);
                 searchParamString.append("=");
                 searchParamString.append(fc.productFeatureId);
+                if (fc.exclude != null) {
+                    searchParamString.append("&amp;SEARCH_FEAT_EXC");
+                    searchParamString.append(categoriesCount);
+                    searchParamString.append("=");
+                    searchParamString.append(fc.exclude.booleanValue() ? "Y" : "N");
+                }
             /* No way to specify parameters for these right now, so table until later
             } else if (psc instanceof ProductSearch.FeatureSetConstraint) {
                 ProductSearch.FeatureSetConstraint fsc = (ProductSearch.FeatureSetConstraint) psc;
