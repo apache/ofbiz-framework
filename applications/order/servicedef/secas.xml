@@ -27,7 +27,7 @@ under the License.
     </eca>
     <eca service="storeOrder" event="return">
         <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
-        <action service="checkCreateDropShipPurchaseOrders" mode="sync" runAsUser="system"/>
+        <action service="checkCreateDropShipPurchaseOrders" mode="sync" run-as-user="system"/>
     </eca>
     <eca service="changeOrderItemStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="ITEM_CANCELLED"/>
@@ -245,16 +245,16 @@ under the License.
     <!-- Requirement / stock level -->
     <eca service="createItemIssuance" event="invoke">
         <condition field-name="quantity" value="0" operator="greater" type="Double"/>
-        <action service="checkCreateStockRequirementQoh" mode="sync" runAsUser="system"/>
+        <action service="checkCreateStockRequirementQoh" mode="sync" run-as-user="system"/>
     </eca>
     <eca service="updateItemIssuance" event="invoke">
         <condition field-name="quantity" value="0" operator="greater" type="Double"/>
-        <action service="checkCreateStockRequirementQoh" mode="sync" runAsUser="system"/>
+        <action service="checkCreateStockRequirementQoh" mode="sync" run-as-user="system"/>
     </eca>
     <eca service="reserveOrderItemInventory" event="commit">
         <condition field-name="quantity" value="0" operator="greater" type="Double"/>
-        <action service="createRequirementFromItemATP" mode="sync" runAsUser="system"/>
-        <action service="checkCreateStockRequirementAtp" mode="sync" runAsUser="system"/>
+        <action service="createRequirementFromItemATP" mode="sync" run-as-user="system"/>
+        <action service="checkCreateStockRequirementAtp" mode="sync" run-as-user="system"/>
     </eca>
     <!-- WorkEffort -->
     <eca service="createQuoteWorkEffort" event="invoke">
