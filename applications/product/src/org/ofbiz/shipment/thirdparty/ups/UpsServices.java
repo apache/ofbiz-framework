@@ -1348,6 +1348,7 @@ public class UpsServices {
         String shipmentMethodTypeId = (String) context.get("shipmentMethodTypeId");
         String shippingContactMechId = (String) context.get("shippingContactMechId");
 
+        List packageWeights = (List) context.get("packageWeights");
         List shippableItemInfo = (List) context.get("shippableItemInfo");
         Double shippableTotal = (Double) context.get("shippableTotal");
         Double shippableQuantity = (Double) context.get("shippableQuantity");
@@ -1481,7 +1482,16 @@ public class UpsServices {
             maxWeight = 99;
         }
 
-        splitEstimatePackages(rateRequestDoc, shipmentElement, shippableItemInfo, maxWeight);
+        // Passing in a list of package weights overrides the calculation of same via shippableItemInfo
+        if (UtilValidate.isEmpty(packageWeights)) {
+            splitEstimatePackages(rateRequestDoc, shipmentElement, shippableItemInfo, maxWeight);
+        } else {
+            Iterator i = packageWeights.iterator();
+            while (i.hasNext()) {
+                Double packageWeight = (Double) i.next();
+                addPackageElement(rateRequestDoc, shipmentElement, packageWeight.doubleValue());
+            }
+        }
 
         // service options
         UtilXml.addChildElement(shipmentElement, "ShipmentServiceOptions", rateRequestDoc);
@@ -1547,17 +1557,19 @@ public class UpsServices {
         Iterator i = packages.iterator();
         while (i.hasNext()) {
             Map packageMap = (Map) i.next();
-            double packageWeight = calcPackageWeight(packageMap, shippableItemInfo, 0);          
-
-            // package info
-            Element packageElement = UtilXml.addChildElement(shipmentElement, "Package", requestDoc);
-            Element packagingTypeElement = UtilXml.addChildElement(packageElement, "PackagingType", requestDoc);
-            UtilXml.addChildElementValue(packagingTypeElement, "Code", "00", requestDoc);
-            UtilXml.addChildElementValue(packagingTypeElement, "Description", "Unknown PackagingType", requestDoc);
-            UtilXml.addChildElementValue(packageElement, "Description", "Package Description", requestDoc);
-            Element packageWeightElement = UtilXml.addChildElement(packageElement, "PackageWeight", requestDoc);
-            UtilXml.addChildElementValue(packageWeightElement, "Weight", Double.toString(packageWeight), requestDoc);
+            double packageWeight = calcPackageWeight(packageMap, shippableItemInfo, 0);    
+            addPackageElement(requestDoc, shipmentElement, packageWeight);
         }
+    }
+            
+    private static void addPackageElement(Document requestDoc, Element shipmentElement, double packageWeight) {
+        Element packageElement = UtilXml.addChildElement(shipmentElement, "Package", requestDoc);
+        Element packagingTypeElement = UtilXml.addChildElement(packageElement, "PackagingType", requestDoc);
+        UtilXml.addChildElementValue(packagingTypeElement, "Code", "00", requestDoc);
+        UtilXml.addChildElementValue(packagingTypeElement, "Description", "Unknown PackagingType", requestDoc);
+        UtilXml.addChildElementValue(packageElement, "Description", "Package Description", requestDoc);
+        Element packageWeightElement = UtilXml.addChildElement(packageElement, "PackageWeight", requestDoc);
+        UtilXml.addChildElementValue(packageWeightElement, "Weight", Double.toString(packageWeight), requestDoc);
     }
 
     private static List getPackageSplit(List shippableItemInfo, double maxWeight) {
@@ -1844,6 +1856,7 @@ public class UpsServices {
        // String shippingContactMechId = (String) context.get("shippingContactMechId");
         String shippingPostalCode = (String) context.get("shippingPostalCode");
         String shippingCountryCode = (String) context.get("shippingCountryCode");
+        List packageWeights = (List) context.get("packageWeights");
         List shippableItemInfo = (List) context.get("shippableItemInfo");
         Double shippableTotal = (Double) context.get("shippableTotal");
         Double shippableQuantity = (Double) context.get("shippableQuantity");
@@ -1985,7 +1998,16 @@ public class UpsServices {
             maxWeight = 99;
         }
         
-        splitEstimatePackages(rateRequestDoc, shipmentElement, shippableItemInfo, maxWeight);
+        // Passing in a list of package weights overrides the calculation of same via shippableItemInfo
+        if (UtilValidate.isEmpty(packageWeights)) {
+            splitEstimatePackages(rateRequestDoc, shipmentElement, shippableItemInfo, maxWeight);
+        } else {
+            Iterator i = packageWeights.iterator();
+            while (i.hasNext()) {
+                Double packageWeight = (Double) i.next();
+                addPackageElement(rateRequestDoc, shipmentElement, packageWeight.doubleValue());
+            }
+        }
 
         // service options
         UtilXml.addChildElement(shipmentElement, "ShipmentServiceOptions", rateRequestDoc);
