@@ -842,9 +842,6 @@ under the License.
       <relation type="one" fk-name="DTRSRC_STATUS" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>
       </relation>
-      <relation type="one" fk-name="DATA_REC_TO_MIMTPL" title="MimeTmpl" rel-entity-name="DataResource">
-        <key-map field-name="mimeTypeTemplateId" rel-field-name="dataResourceId"/>
-      </relation>
       <relation type="one" fk-name="DATA_REC_TO_TYPE" rel-entity-name="DataResourceType">
         <key-map field-name="dataResourceTypeId"/>
       </relation>
