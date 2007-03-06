@@ -36,7 +36,8 @@ under the License.
   </form>
   <form method="post" action="<@ofbizUrl>entityImport</@ofbizUrl>">
     <div class="tabletext">${uiLabelMap.WebtoolsMessage4}:</div>
-    <textarea class="textAreaBox" rows="20" cols="85" name="fulltext">${fulltext?if_exists}</textarea>
+    <textarea class="textAreaBox" rows="20" cols="85" name="fulltext">${fulltext?default("<entity-engine-xml>
+</entity-engine-xml>")}</textarea>
     <br/><input type="submit" value="${uiLabelMap.WebtoolsImportText}"/>
   </form>
   <hr/>
