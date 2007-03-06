@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <UserLogin userLoginId="system" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" />
+    <UserLogin userLoginId="anonymous" currentPassword="anonymous" />
+    <UserLogin userLoginId="admin" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" partyId="admin" />
+</entity-engine-xml>
+

@@ -46,6 +46,8 @@ under the License.
     <service-resource type="group" loader="main" location="servicedef/groups.xml"/>
     -->
 
+    <test-suite loader="main" location="testdef/tests.xml"/>
+
     <!-- web applications; will be mounted when using the embedded Jetty container -->
     <webapp name="example"
         title="Example"
@@ -53,4 +55,5 @@ under the License.
         location="webapp/example"
         base-permission="OFBTOOLS"
         mount-point="/example"/>
+
 </ofbiz-component>
