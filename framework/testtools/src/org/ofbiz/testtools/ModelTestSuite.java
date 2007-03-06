@@ -92,6 +92,8 @@ public class ModelTestSuite {
                 }
             } else if ("service-test".equals(nodeName)) {
                 this.testList.add(new ServiceTest(caseName, this, childElement));
+            } else if ("entity-xml-assert".equals(nodeName)) {
+                this.testList.add(new EntityXmlAssertTest(caseName, this, childElement));
             } else if ("jython-test".equals(nodeName)) {
                 this.testList.add(new JythonTest(caseName, this, childElement));
             }
