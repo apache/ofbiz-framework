@@ -18,15 +18,19 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.entityops;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.util.EntityDataAssert;
 import org.ofbiz.entity.util.EntitySaxReader;
 import org.ofbiz.minilang.SimpleMethod;
@@ -34,6 +38,7 @@ import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 /**
  * Uses the delegator to find entity values by a primary key
@@ -93,7 +98,13 @@ public class EntityData extends MethodOperation {
 
         if ("assert".equals(mode)) {
             // load the XML file, read in one element at a time and check it against the database
-            EntityDataAssert.assertData(dataUrl, delegator, messages);
+            try {
+                EntityDataAssert.assertData(dataUrl, delegator, messages);
+            } catch (Exception e) {
+                String xmlError = "Error checking/asserting XML Resource \"" + dataUrl.toExternalForm() + "\"; Error was: " + e.getMessage();
+                //Debug.logError(e, xmlError, module);
+                messages.add(xmlError);
+            }
         } else {
             // again, default to load
             try {

@@ -18,15 +18,20 @@
  *******************************************************************************/
 package org.ofbiz.entity.util;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
+import org.xml.sax.SAXException;
 
 /**
  * Some utility routines for loading seed data.
@@ -36,7 +41,7 @@ public class EntityDataAssert {
 
     public static final String module = EntityDataAssert.class.getName();
 
-    public static int assertData(URL dataUrl, GenericDelegator delegator, List errorMessages) {
+    public static int assertData(URL dataUrl, GenericDelegator delegator, List errorMessages) throws GenericEntityException, SAXException, ParserConfigurationException, IOException {
         int rowsChecked = 0;
         
         if (dataUrl == null) {
@@ -86,10 +91,12 @@ public class EntityDataAssert {
                 
                 rowsChecked++;
             }
-        } catch (Exception e) {
+        } catch (GenericEntityException e) {
             String xmlError = "Error checking/asserting XML Resource \"" + dataUrl.toExternalForm() + "\"; Error was: " + e.getMessage();
-            errorMessages.add(xmlError);
             Debug.logError(e, xmlError, module);
+            // instead of adding this as a message, throw the real exception; then caller has more control
+            //errorMessages.add(xmlError);
+            throw e;
         }
 
         return rowsChecked;

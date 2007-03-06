@@ -64,7 +64,7 @@ public class FieldObject extends MethodObject {
 
         if (!mapAcsr.isEmpty()) {
             Map fromMap = (Map) mapAcsr.get(methodContext);
-           if (fromMap == null) {
+            if (fromMap == null) {
                 Debug.logWarning("Map not found with name " + mapAcsr + ", not getting Object value, returning null.", module);
                 return null;
             }
