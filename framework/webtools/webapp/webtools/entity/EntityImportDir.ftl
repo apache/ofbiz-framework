@@ -25,10 +25,10 @@ under the License.
   <form method="post" action="<@ofbizUrl>entityImportDir</@ofbizUrl>">
     <div class="tabletext">${uiLabelMap.WebtoolsAbsolutePath}:</div>
     <div><input type="text" class="inputBox" size="60" name="path" value="${path?if_exists}"/></div>
-    <div class="tabletext"><input type="checkbox" name="mostlyInserts" <#if mostlyInserts?exists>"checked"</#if>/>${uiLabelMap.WebtoolsMostlyInserts}</div>
-    <div class="tabletext"><input type="checkbox" name="maintainTimeStamps" <#if keepStamps?exists>"checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}</div>
-    <div class="tabletext"><input type="checkbox" name="createDummyFks" <#if createDummyFks?exists>"checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}</div>
-    <div class="tabletext"><input type="checkbox" name="deleteFiles" <#if (deleteFiles?exists || !path?has_content)>"checked"</#if>/>${uiLabelMap.WebtoolsDeleteFiles}</div>
+    <div class="tabletext"><input type="checkbox" name="mostlyInserts" <#if mostlyInserts?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsMostlyInserts}</div>
+    <div class="tabletext"><input type="checkbox" name="maintainTimeStamps" <#if keepStamps?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}</div>
+    <div class="tabletext"><input type="checkbox" name="createDummyFks" <#if createDummyFks?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}</div>
+    <div class="tabletext"><input type="checkbox" name="deleteFiles" <#if (deleteFiles?exists)>checked="checked"</#if>/>${uiLabelMap.WebtoolsDeleteFiles}</div>
     <div class="tabletext">${uiLabelMap.WebtoolsTimeoutSeconds}:<input type="text" size="6" value="${txTimeoutStr?default("7200")}" name="txTimeout"/></div>
     <div class="tabletext">${uiLabelMap.WebtoolsPause}:<input type="text" size="6" value="${filePauseStr?default("0")}" name="filePause"/></div>
     <div><input type="submit" value="${uiLabelMap.WebtoolsImportFile}"/></div>
