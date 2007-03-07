@@ -740,14 +740,18 @@ public class InvoiceServices {
                 }
             }
 
-            // should all be in place now, so set status to INVOICE_READY (unless it's a purchase invoice, which we sets to INVOICE_IN_PROCESS) 
-            String nextStatusId = "INVOICE_READY";
-            if (invoiceType.equals("PURCHASE_INVOICE")) {
-                nextStatusId = "INVOICE_IN_PROCESS";
-            }
-            Map setInvoiceStatusResult = dispatcher.runSync("setInvoiceStatus", UtilMisc.toMap("invoiceId", invoiceId, "statusId", nextStatusId, "userLogin", userLogin));
-            if (ServiceUtil.isError(setInvoiceStatusResult)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingInvoiceFromOrder",locale), null, null, setInvoiceStatusResult);
+            // Should all be in place now. Depending on the ProductStore.autoApproveInvoice setting, set status to INVOICE_READY (unless it's a purchase 
+            //  invoice, which we set to INVOICE_IN_PROCESS) 
+            boolean autoApproveInvoice = UtilValidate.isEmpty(productStore.get("autoApproveInvoice")) || "Y".equals(productStore.getString("autoApproveInvoice"));
+            if(autoApproveInvoice) {
+                String nextStatusId = "INVOICE_READY";
+                if (invoiceType.equals("PURCHASE_INVOICE")) {
+                    nextStatusId = "INVOICE_IN_PROCESS";
+                }
+                Map setInvoiceStatusResult = dispatcher.runSync("setInvoiceStatus", UtilMisc.toMap("invoiceId", invoiceId, "statusId", nextStatusId, "userLogin", userLogin));
+                if (ServiceUtil.isError(setInvoiceStatusResult)) {
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingInvoiceFromOrder",locale), null, null, setInvoiceStatusResult);
+                }
             }
 
             // check to see if we are all paid up
