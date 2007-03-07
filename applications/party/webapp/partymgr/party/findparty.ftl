@@ -57,7 +57,7 @@ under the License.
             <td><input type="text" name="userLoginId" value="${parameters.userLoginId?if_exists}"/></td>
           </tr>
           <tr>
-            <td class="label"><${uiLabelMap.PartyLastName} :</td>
+            <td class="label">${uiLabelMap.PartyLastName} :</td>
             <td><input type="text" name="lastName" value="${parameters.lastName?if_exists}"/></td>
           </tr>
           <tr>
