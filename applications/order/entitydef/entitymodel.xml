@@ -918,7 +918,13 @@ under the License.
       <field name="paymentMethodTypeId" type="id"></field>
       <field name="paymentMethodId" type="id"></field>
       <field name="finAccountId" type="id"><description>For paying with a fin account instead of payment method on file</description></field>
-      <field name="securityCode" type="long-varchar" encrypt="true"></field>
+      <field name="securityCode" type="long-varchar" encrypt="true">
+          <description>NOTE: THIS SHOULD NEVER BE PERSISTED OUTSIDE THE SCOPE OF A SINGLE TRANSACTION, 
+              TYPICALLY ONLY FOR AUTHORIZATION PURPOSES, SHOULD BE REMOVED IMMEDIATELY FOLLOWING USE; 
+              this is the 3 digit on back (for Visa, MC, etc) or 4 digit on front (Amex, etc) card 
+              verification code; also note that this field is longer than needed to accommodate encryption.
+          </description>
+      </field>
       <field name="presentFlag" type="indicator"></field>
       <field name="overflowFlag" type="indicator"></field>
       <field name="maxAmount" type="currency-amount"></field>
