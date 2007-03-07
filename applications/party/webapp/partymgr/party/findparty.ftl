@@ -186,11 +186,11 @@ under the License.
           <td>${uiLabelMap.PartyPartyId}</td>
           <td>${uiLabelMap.PartyUserLogin}</td>
           <td>${uiLabelMap.PartyName}</td>
-          <#if extInfo?default("") == "P">
-            <td>${uiLabelMap.PartyPostalCode}</td>
-          </#if>
           <#if extInfo?default("") == "P" >
             <td>${uiLabelMap.PartyCity}</td>
+          </#if>
+          <#if extInfo?default("") == "P">
+            <td>${uiLabelMap.PartyPostalCode}</td>
           </#if>
           <#if extInfo?default("") == "T">
             <td>${uiLabelMap.PartyAreaCode}</td>
