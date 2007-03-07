@@ -38,7 +38,6 @@ public class EntityXmlAssertTest extends TestCaseBase {
     public static final String module = ServiceTest.class.getName();
 
     protected String entityXmlUrlString;
-    protected int testCaseCount;
 
     /**
      * @param modelTestSuite
@@ -46,26 +45,22 @@ public class EntityXmlAssertTest extends TestCaseBase {
     public EntityXmlAssertTest(String caseName, ModelTestSuite modelTestSuite, Element mainElement) {
         super(caseName, modelTestSuite);
         this.entityXmlUrlString = mainElement.getAttribute("entity-xml-url");
-        this.testCaseCount = 0;
-        try {
-            URL entityXmlURL = FlexibleLocation.resolveLocation(entityXmlUrlString);
-            List checkValueList = modelTestSuite.getDelegator().readXmlDocument(entityXmlURL);
-            this.testCaseCount = checkValueList.size();
-        } catch (Exception e) {
-            Debug.logError(e, "Error getting test case count", module);
-        }
     }
 
     public int countTestCases() {
-        return this.testCaseCount;
+        int testCaseCount = 0;
+        try {
+            URL entityXmlURL = FlexibleLocation.resolveLocation(entityXmlUrlString);
+            List checkValueList = modelTestSuite.getDelegator().readXmlDocument(entityXmlURL);
+            testCaseCount = checkValueList.size();
+        } catch (Exception e) {
+            Debug.logError(e, "Error getting test case count", module);
+        }
+        return testCaseCount;
     }
 
     public void run(TestResult result) {
-
-        result.startTest(this);
-
         try {
-
             URL entityXmlURL = FlexibleLocation.resolveLocation(entityXmlUrlString);
             GenericDelegator delegator = modelTestSuite.getDelegator();
             List errorMessages = new ArrayList();
@@ -73,16 +68,14 @@ public class EntityXmlAssertTest extends TestCaseBase {
             EntityDataAssert.assertData(entityXmlURL, delegator, errorMessages);
 
             if (UtilValidate.isNotEmpty(errorMessages)) {
-                for (Iterator failureIterator = errorMessages.iterator(); failureIterator.hasNext();) {
+                Iterator failureIterator = errorMessages.iterator();
+                while (failureIterator.hasNext()) {
                     String failureMessage = (String) failureIterator.next();
                     result.addFailure(this, new AssertionFailedError(failureMessage));
                 }
             }
-
         } catch (Exception e) {
             result.addError(this, e);
         }
-
-        result.endTest(this);
     }
 }
