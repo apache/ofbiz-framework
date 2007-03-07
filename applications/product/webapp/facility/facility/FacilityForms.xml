@@ -31,7 +31,7 @@ under the License.
         <field name="ownerPartyId" title="${uiLabelMap.ProductFacilityOwner}"><display/></field>
         <field name="squareFootage" title="${uiLabelMap.ProductSqFt}"><display/></field>
         <field name="description"><display/></field>
-        <field name="editLink" widget-style="buttontext">
+        <field name="editLink" widget-style="buttontext" title="">
             <hyperlink target="EditFacility?facilityId=${facilityId}" description="${uiLabelMap.CommonEdit}"/>
         </field>
     </form>
