@@ -189,6 +189,9 @@ under the License.
           <#if extInfo?default("") == "P">
             <td>${uiLabelMap.PartyPostalCode}</td>
           </#if>
+          <#if extInfo?default("") == "P" >
+            <td>${uiLabelMap.PartyCity}</td>
+          </#if>
           <#if extInfo?default("") == "T">
             <td>${uiLabelMap.PartyAreaCode}</td>
           </#if>
@@ -231,20 +234,25 @@ under the License.
                 </#if>
               </#if>
             </td>
-            <#if extInfo?default("") == "P">
-              <td>${partyRow.postalCode?if_exists}</td>
-            </#if>
             <#if extInfo?default("") == "T">
               <td>${partyRow.areaCode?if_exists}</td>
             </#if>
+            <#if extInfo?default("") == "P" >
+               <td>${partyRow.city?if_exists}, ${partyRow.stateProvinceGeoId?if_exists}</td>
+            </#if>
+            <#if extInfo?default("") == "P">
+              <td>${partyRow.postalCode?if_exists}</td>
+            </#if>
             <td><#if partyType.description?exists>${partyType.get("description", locale)}<#else>???</#if></td>
-            <td class="button-col align-float">
+          <td class="button-col align-float">
               <a href="<@ofbizUrl>viewprofile?partyId=${partyRow.partyId}</@ofbizUrl>">${uiLabelMap.CommonDetails}</a>
               <#if security.hasRolePermission("ORDERMGR", "_VIEW", "", "", session)>
                 <a href="/ordermgr/control/findorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyRow.partyId + externalKeyParam}">${uiLabelMap.OrderOrders}</a>
+                <a href="/ordermgr/control/FindQuote?partyId=${partyRow.partyId + externalKeyParam}">${uiLabelMap.OrderOrderQuotes}</a>&nbsp;
               </#if>
               <#if security.hasEntityPermission("ORDERMGR", "_CREATE", session)>
                 <a href="/ordermgr/control/checkinits?partyId=${partyRow.partyId + externalKeyParam}">${uiLabelMap.OrderNewOrder}</a>
+                <a href="/ordermgr/control/EditQuote?partyId=${partyRow.partyId + externalKeyParam}">${uiLabelMap.OrderNewQuote}</a>&nbsp;
               </#if>
             </td>
           </tr>
