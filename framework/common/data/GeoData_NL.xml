@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
 -->
 
 <entity-engine-xml>
     
-	<Geo abbreviation="DR" geoCode="DR" geoId="NL-DR" geoName="Drenthe" geoTypeId="PROVINCE"/>
-	<Geo abbreviation="FL" geoCode="FL" geoId="NL-FL" geoName="Flevoland" geoTypeId="PROVINCE"/>
-	<Geo abbreviation="FR" geoCode="FR" geoId="NL-FR" geoName="Friesland" geoTypeId="PROVINCE"/>
-	<Geo abbreviation="GL" geoCode="GL" geoId="NL-GL" geoName="Gelderland" geoTypeId="PROVINCE"/>
-    <Geo abbreviation="GR" geoCode="GR" geoId="NL-GR" geoName="Groningen" geoTypeId="PROVINCE"/>
-    <Geo abbreviation="LB" geoCode="LB" geoId="NL-LB" geoName="Limburg" geoTypeId="PROVINCE"/>
-    <Geo abbreviation="NB" geoCode="NB" geoId="NL-NB" geoName="Noord-Brabant" geoTypeId="PROVINCE"/>
-    <Geo abbreviation="NH" geoCode="NH" geoId="NL-NH" geoName="Noord-Holland" geoTypeId="PROVINCE"/>
-    <Geo abbreviation="OV" geoCode="OV" geoId="NL-OV" geoName="Overijssel" geoTypeId="PROVINCE"/>
-    <Geo abbreviation="UT" geoCode="UT" geoId="NL-UT" geoName="Utrecht" geoTypeId="PROVINCE"/>
-    <Geo abbreviation="ZE" geoCode="ZE" geoId="NL-ZE" geoName="Zeeland" geoTypeId="PROVINCE"/>
-    <Geo abbreviation="ZH" geoCode="ZH" geoId="NL-ZH" geoName="Zuid-Holland" geoTypeId="PROVINCE"/>
-    <Geo abbreviation="ZL" geoCode="ZL" geoId="NL-ZL" geoName="Zeeland" geoTypeId="PROVINCE"/>
-
-
-    <GeoAssoc geoId="NLD" geoIdTo="NL-DR" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-FL" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-FR" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-GL" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-GR" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-LB" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-NB" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-NH" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-OV" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-UT" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-ZE" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-ZH" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-ZL" geoAssocTypeId="REGIONS" />
+    <Geo abbreviation="DR" geoCode="DR" geoId="NL-DR" geoName="Drenthe" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="FL" geoCode="FL" geoId="NL-FL" geoName="Flevoland" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="FR" geoCode="FR" geoId="NL-FR" geoName="Friesland" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="GL" geoCode="GL" geoId="NL-GL" geoName="Gelderland" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="GR" geoCode="GR" geoId="NL-GR" geoName="Groningen" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="LB" geoCode="LB" geoId="NL-LB" geoName="Limburg" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="NB" geoCode="NB" geoId="NL-NB" geoName="Noord-Brabant" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="NH" geoCode="NH" geoId="NL-NH" geoName="Noord-Holland" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="OV" geoCode="OV" geoId="NL-OV" geoName="Overijssel" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="UT" geoCode="UT" geoId="NL-UT" geoName="Utrecht" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="ZE" geoCode="ZE" geoId="NL-ZE" geoName="Zeeland" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="ZH" geoCode="ZH" geoId="NL-ZH" geoName="Zuid-Holland" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="ZL" geoCode="ZL" geoId="NL-ZL" geoName="Zeeland" geoTypeId="PROVINCE"/>
+    
+    
+    <GeoAssoc geoId="NLD" geoIdTo="NL-DR" geoAssocTypeId="REGIONS" />
+    <GeoAssoc geoId="NLD" geoIdTo="NL-FL" geoAssocTypeId="REGIONS" />
+    <GeoAssoc geoId="NLD" geoIdTo="NL-FR" geoAssocTypeId="REGIONS" />
+    <GeoAssoc geoId="NLD" geoIdTo="NL-GL" geoAssocTypeId="REGIONS" />
+    <GeoAssoc geoId="NLD" geoIdTo="NL-GR" geoAssocTypeId="REGIONS" />
+    <GeoAssoc geoId="NLD" geoIdTo="NL-LB" geoAssocTypeId="REGIONS" />
+    <GeoAssoc geoId="NLD" geoIdTo="NL-NB" geoAssocTypeId="REGIONS" />
+    <GeoAssoc geoId="NLD" geoIdTo="NL-NH" geoAssocTypeId="REGIONS" />
+    <GeoAssoc geoId="NLD" geoIdTo="NL-OV" geoAssocTypeId="REGIONS" />
+    <GeoAssoc geoId="NLD" geoIdTo="NL-UT" geoAssocTypeId="REGIONS" />
+    <GeoAssoc geoId="NLD" geoIdTo="NL-ZE" geoAssocTypeId="REGIONS" />
+    <GeoAssoc geoId="NLD" geoIdTo="NL-ZH" geoAssocTypeId="REGIONS" />
+    <GeoAssoc geoId="NLD" geoIdTo="NL-ZL" geoAssocTypeId="REGIONS" />
     
 </entity-engine-xml>
