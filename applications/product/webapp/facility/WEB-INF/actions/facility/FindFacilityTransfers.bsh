@@ -36,8 +36,9 @@ if (facility != null) context.put("facility", facility);
 boolean activeOnly = !"false".equals(request.getParameter("activeOnly"));
 context.put("activeOnly", activeOnly);
 
-boolean useValues = true;
-if (request.getAttribute("_ERROR_MESSAGE_") != null) useValues = false;
+// if the completeRequested was set, then we'll lookup only requested status
+boolean completeRequested = "true".equals(request.getParameter("completeRequested"));
+context.put("completeRequested", completeRequested);
 
 // get the 'to' this facility transfers
 List exprsTo = null;
@@ -45,6 +46,9 @@ if (activeOnly) {
     exprsTo = UtilMisc.toList(new EntityExpr("facilityIdTo", EntityOperator.EQUALS, facilityId), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "IXF_COMPLETE"), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "IXF_CANCELLED"));
 } else {
     exprsTo = UtilMisc.toList(new EntityExpr("facilityIdTo", EntityOperator.EQUALS, facilityId));
+}
+if (completeRequested) {
+    exprsTo = UtilMisc.toList(new EntityExpr("facilityIdTo", EntityOperator.EQUALS, facilityId), new EntityExpr("statusId", EntityOperator.EQUALS, "IXF_REQUESTED"));
 }
 List toTransfers = delegator.findByAnd("InventoryTransfer", exprsTo, UtilMisc.toList("sendDate"));
 if (toTransfers != null) context.put("toTransfers", toTransfers);
@@ -55,6 +59,9 @@ if (activeOnly) {
     exprsFrom = UtilMisc.toList(new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "IXF_COMPLETE"), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "IXF_CANCELLED"));
 } else {
     exprsFrom = UtilMisc.toList(new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId));
+}
+if (completeRequested) {
+    exprsFrom = UtilMisc.toList(new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId), new EntityExpr("statusId", EntityOperator.EQUALS, "IXF_REQUESTED"));
 }
 List fromTransfers = delegator.findByAnd("InventoryTransfer", exprsFrom, UtilMisc.toList("sendDate"));
 if (fromTransfers != null) context.put("fromTransfers", fromTransfers);

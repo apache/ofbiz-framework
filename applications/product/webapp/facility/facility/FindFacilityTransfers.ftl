@@ -24,6 +24,7 @@ under the License.
     <#else>
         <a href="<@ofbizUrl>FindFacilityTransfers?facilityId=${facilityId}&activeOnly=true</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductActiveOnly}]</a>
     </#if>
+    <a href="<@ofbizUrl>FindFacilityTransfers?facilityId=${facilityId}&completeRequested=true</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductCompleteRequestedTransfers}]</a>
     <a href="<@ofbizUrl>TransferInventoryItem?facilityId=${facilityId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductInventoryTransfer}]</a>
     
     <br/>
@@ -62,6 +63,9 @@ under the License.
     </#if>
     
     <#if (fromTransfers.size() > 0)>
+    <#if completeRequested>
+    <form name="CompleteRequested" method="post" action="CompleteRequestedTransfers?completeRequested=true&facilityId=${facility.facilityId}">
+    </#if>
         <br/>
         <div class="head1">${uiLabelMap.CommonFrom}:<span class="head2">&nbsp;<#if facility?exists>${(facility.facilityName)?if_exists}</#if> [${uiLabelMap.CommonId}:${facilityId?if_exists}]</span></div>
         <table border="1" cellpadding="2" cellspacing="0" width="100%">
@@ -71,7 +75,13 @@ under the License.
             <td><div class="tabletext"><b>${uiLabelMap.CommonTo}</b></div></td>
             <td><div class="tabletext"><b>${uiLabelMap.CommonSendDate}</b></div></td>
             <td><div class="tabletext"><b>${uiLabelMap.CommonStatus}</b></div></td>
-            <td>&nbsp;</td>
+            <td align="center">
+              <#if completeRequested>
+              <span class="tableheadtext">Select<br><input name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'CompleteRequested');" type="checkbox"></span>
+              <#else>
+              &nbsp;
+              </#if>
+            </td>
             </tr>
         
             <#list fromTransfers as transfer>
@@ -89,8 +99,28 @@ under the License.
                     <div class="tabletext">&nbsp;${(transferStatus.get("description",locale))?if_exists}</div>
                 </#if>
             </td>
-            <td align="center"><div class="tabletext"><a href="<@ofbizUrl>TransferInventoryItem?inventoryTransferId=${(transfer.inventoryTransferId)?if_exists}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonEdit}]</a></div></td>
+            <td align="center"><div class="tabletext">
+                <#if completeRequested>
+                <input type="hidden" name="inventoryTransferId_o_${transfer_index}" value="${transfer.inventoryTransferId}">
+                <input type="hidden" name="inventoryItemId_o_${transfer_index}" value="${transfer.inventoryItemId}">
+                <input type="hidden" name="statusId_o_${transfer_index}" value="IXF_COMPLETE">
+                <input name="_rowSubmit_o_${transfer_index}" value="Y" type="checkbox">
+                <#else>
+                <a href="<@ofbizUrl>TransferInventoryItem?inventoryTransferId=${(transfer.inventoryTransferId)?if_exists}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonEdit}]</a>
+                </#if>
+            </div></td>
             </tr>
+            <#assign rowCount = transfer_index + 1>
             </#list>
+            <#if completeRequested>
+            <tr><td colspan="6" align="right">
+                <input type="hidden" name="_rowCount" value="${rowCount}">
+                <input type="hidden" name="_useRowSubmit" value="Y"/>
+                <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonUpdate}"/>
+            </td></tr>
+            </#if>
         </table>
+      <#if completeRequested>
+      </form>
+      </#if>
     </#if>
