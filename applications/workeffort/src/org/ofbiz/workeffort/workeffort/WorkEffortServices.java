@@ -70,13 +70,13 @@ public class WorkEffortServices {
                                 new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"),
                                 new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED")),
                             UtilMisc.toList("priority"));
-                validWorkEfforts = delegator.findByAnd("WorkEffortAndPartyAssign",
+                validWorkEfforts.addAll(delegator.findByAnd("WorkEffortAndPartyAssign",
                         UtilMisc.toList(new EntityExpr("partyId", EntityOperator.EQUALS, userLogin.get("partyId")),
                             new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"),
                             new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CANCELLED "),
                             new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_COMPLETED"),
                             new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CLOSED")),
-                        UtilMisc.toList("createdDate DESC"));
+                        UtilMisc.toList("createdDate DESC")));
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
                 return ServiceUtil.returnError("Error finding desired WorkEffort records: " + e.toString());
