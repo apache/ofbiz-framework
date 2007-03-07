@@ -1921,7 +1921,6 @@ under the License.
       <field name="paymentMethodId" type="id-ne"></field>
       <field name="cardType" type="short-varchar"></field>
       <field name="cardNumber" type="credit-card-number" encrypt="true"></field>
-      <field name="cvvNumber" type="credit-card-number" encrypt="true"><description>NOTE: THIS SHOULD NEVER BE PERSISTED OUTSIDE THE SCOPE OF A SINGLE TRANSACTION, TYPICALLY ONLY FOR AUTHORIZATION PURPOSES, SHOULD BE REMOVED IMMEDIATELY FOLLOWING USE; this is the 3 digit on back (for Visa, MC, etc) or 4 digit on front (Amex, etc) card verification code; also note that this field is longer than needed to accommodate encryption.</description></field>
       <field name="validFromDate" type="credit-card-date"><description>Not common in some parts of the world.</description></field>
       <field name="expireDate" type="credit-card-date"></field>
       <field name="issueNumber" type="credit-card-date"><description>Single digit number on some Switch and Maestro cards</description></field>
