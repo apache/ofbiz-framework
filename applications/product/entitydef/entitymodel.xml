@@ -3148,6 +3148,7 @@ under the License.
       <field name="autoOrderCcTryLaterNsf" type="indicator"><description>For auto-orders if Credit Cards fails for NSF (Not Sufficient Funds) try again later?</description></field>
       <field name="autoOrderCcTryLaterMax" type="numeric"><description>For auto-orders if Credit Cards fails for NSF try again how many times?</description></field>
       <field name="storeCreditValidDays" type="numeric"><description>How many days that store credit is valid for. Null value implies no expiration.</description></field>
+      <field name="autoApproveInvoice" type="indicator"><description>If Y or empty, sales invoices created from orders will be marked ready.</description></field>
       <prim-key field="productStoreId"/>
       <relation type="one" fk-name="PROD_STR_PRSTRGP" title="Primary" rel-entity-name="ProductStoreGroup">
         <key-map field-name="primaryStoreGroupId" rel-field-name="productStoreGroupId"/>
