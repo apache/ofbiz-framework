@@ -119,6 +119,7 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="getInventoryAvailableByFacility" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
@@ -127,6 +128,7 @@ under the License.
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="getInventoryAvailableByLocation" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false">
@@ -136,6 +138,7 @@ under the License.
         <attribute name="locationSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="getInventoryAvailableByContainer" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
@@ -151,6 +154,7 @@ under the License.
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
         <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="getProductInventoryAvailableFromAssocProducts" engine="java"
              location="org.ofbiz.product.inventory.InventoryServices" invoke="getProductInventoryAvailableFromAssocProducts" auth="false" use-transaction="false">

@@ -206,9 +206,26 @@ if (product != null) {
     // get the days to ship
 
     facilityId = productStore.getString("inventoryFacilityId");
-    productFacility = delegator.findByPrimaryKeyCache("ProductFacility", UtilMisc.toMap("productId", productId, "facilityId", facilityId));
+    /*productFacility = delegator.findByPrimaryKeyCache("ProductFacility", UtilMisc.toMap("productId", productId, "facilityId", facilityId));    
     if (productFacility != null && productFacility.get("daysToShip") != null) {
         context.put("daysToShip", productFacility.get("daysToShip"));
+    }*/
+    
+    resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId",productId, "facilityId", facilityId, "useCache", false));
+    totalAvailableToPromise = resultOutput.get("availableToPromiseTotal");    
+    if(totalAvailableToPromise != null && totalAvailableToPromise.doubleValue() > 0) {
+        productFacility = delegator.findByPrimaryKeyCache("ProductFacility", UtilMisc.toMap("productId", productId, "facilityId", facilityId));
+        if (productFacility != null && productFacility.get("daysToShip") != null) {
+            context.put("daysToShip", productFacility.get("daysToShip"));
+        }    
+    } else {
+       supplierProducts=delegator.findByAndCache("SupplierProduct", UtilMisc.toMap("productId", productId),UtilMisc.toList("-availableFromDate"));
+       supplierProduct = EntityUtil.getFirst(supplierProducts);
+       if (supplierProduct != null && supplierProduct.get("standardLeadTimeDays") != null) {
+           Double standardLeadTimeDays = supplierProduct.get("standardLeadTimeDays");
+           double daysToShip = standardLeadTimeDays.doubleValue()+1;
+           context.put("daysToShip", new Double(daysToShip));
+       }
     }
 
     // get the product distinguishing features
