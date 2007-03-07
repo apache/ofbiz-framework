@@ -417,7 +417,12 @@ under the License.
         </if-compare>
 
         <!-- we might get away with a cache here since real serious errors will occur during the reservation service... but only if we need the speed -->
-        <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItems"/> <!-- use-cache="true" -->
+        <if-compare field-name="parameters.useCache" operator="equals" value="true" type="Boolean">
+            <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItems" use-cache="true"/>
+            <else>
+                <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItems" use-cache="false"/>
+            </else>
+        </if-compare>
         
         <set field="parameters.availableToPromiseTotal" value="0" type="Double"/>
         <set field="parameters.quantityOnHandTotal" value="0" type="Double"/>
