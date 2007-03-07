@@ -20,6 +20,21 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="FindFacility" type="list" list-name="facilities">
+        <field name="facilityId" widget-style="buttontext">
+            <hyperlink target="EditFacility?facilityId=${facilityId}" description="${facilityId}"/>
+        </field>
+        <field name="facilityName"><display/></field>
+        <field name="facilityTypeId" title="${uiLabelMap.ProductFacilityType}">
+            <display-entity entity-name="FacilityType" description="${description}"/>
+        </field>
+        <field name="ownerPartyId" title="${uiLabelMap.ProductFacilityOwner}"><display/></field>
+        <field name="squareFootage" title="${uiLabelMap.ProductSqFt}"><display/></field>
+        <field name="description"><display/></field>
+        <field name="editLink" widget-style="buttontext">
+            <hyperlink target="EditFacility?facilityId=${facilityId}" description="${uiLabelMap.CommonEdit}"/>
+        </field>
+    </form>
     <form name="ListFacilityInventoryItems" type="list"  target="" title="" list-name="inventoryItems" 
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
         paginate-target="EditFacilityInventoryItems">
