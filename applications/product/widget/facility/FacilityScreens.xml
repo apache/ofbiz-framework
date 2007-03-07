@@ -24,14 +24,16 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="facility"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/facility/FindFacility.bsh"/>
+                <entity-and list-name="facilities" entity-name="Facility"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/facility/FindFacility.ftl"/></html>
-                        </platform-specific>
+                        <label style="head1">${uiLabelMap.ProductFacilitiesList}</label>
+                        <container>
+                            <link style="buttontext" target="EditFacility" text="${uiLabelMap.ProductCreateNewFacility}"/>
+                        </container>
+                        <include-form name="FindFacility" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
