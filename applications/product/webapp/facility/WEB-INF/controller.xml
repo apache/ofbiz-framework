@@ -513,6 +513,12 @@ under the License.
         <response name="success" type="view" value="FindFacilityTransfers"/>
         <response name="error" type="view" value="FindFacilityTransfers"/>
     </request-map>
+    <request-map uri="CompleteRequestedTransfers">
+        <security https="true" auth="true"/>
+        <event type="service-multi" path="" invoke="updateInventoryTransfer"/>
+        <response name="success" type="view" value="FindFacilityTransfers"/>
+        <response name="error" type="view" value="FindFacilityTransfers"/>
+    </request-map>
 
     <!-- ================ Inventory Receive Requests ================= -->
     <request-map uri="ReceiveInventory">
