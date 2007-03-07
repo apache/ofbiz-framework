@@ -1209,6 +1209,8 @@ public class PartyServices {
                     }
 
                     fieldsToSelect.add("postalCode");
+                    fieldsToSelect.add("city");
+                    fieldsToSelect.add("stateProvinceGeoId");
                 }
 
                 // ----
