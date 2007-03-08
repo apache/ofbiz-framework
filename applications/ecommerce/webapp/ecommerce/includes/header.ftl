@@ -22,13 +22,21 @@ under the License.
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>${(productStore.storeName)?if_exists}: <#if page.title?has_content>${page.title}<#elseif page.titleProperty?has_content>${uiLabelMap.get(page.titleProperty)}</#if></title>
-    <link rel="shortcut icon" href="<@ofbizContentUrl>/images/ofbiz.ico</@ofbizContentUrl>" />    
-    <script language="javascript" src="<@ofbizContentUrl>/images/selectall.js</@ofbizContentUrl>" type="text/javascript"></script>
-    <script language="javascript" src="<@ofbizContentUrl>/images/calendar1.js</@ofbizContentUrl>" type="text/javascript"></script>
-    <script language="javascript" src="<@ofbizContentUrl>/images/fieldlookup.js</@ofbizContentUrl>" type="text/javascript"></script>
-    <script language="javascript" src="<@ofbizContentUrl>/images/dojo/dojo.js</@ofbizContentUrl>" type="text/javascript"></script>
-    <link rel="stylesheet" href="<@ofbizContentUrl>${(productStore.styleSheet)?default("/images/ecommain.css")}</@ofbizContentUrl>" type="text/css"/>
-    <link rel='stylesheet' href='<@ofbizContentUrl>/ecommerce/images/blog.css</@ofbizContentUrl>' type='text/css'>
+    <#if layoutSettings.shortcutIcon?has_content>
+      <link rel="shortcut icon" href="<@ofbizContentUrl>${layoutSettings.shortcutIcon}</@ofbizContentUrl>" />    
+    </#if>
+    <#if layoutSettings.javaScripts?has_content>
+        <#--layoutSettings.javaScripts is a list of java scripts. -->
+        <#list layoutSettings.javaScripts as javaScript>
+            <script language="javascript" src="<@ofbizContentUrl>${javaScript}</@ofbizContentUrl>" type="text/javascript"></script>
+        </#list>
+    </#if>
+    <#if layoutSettings.styleSheets?has_content>
+        <#--layoutSettings.styleSheets is a list of style sheets. So, you can have a user-specified "main" style sheet, AND a component style sheet.-->
+        <#list layoutSettings.styleSheets as styleSheet>
+            <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
+        </#list>
+    </#if>
     ${layoutSettings?if_exists.extraHead?if_exists}
 
     <#-- Append CSS for catalog -->
@@ -46,10 +54,12 @@ under the License.
     <#if metaKeywords?exists>
         <meta name="keywords" content="${metaKeywords}"/>
     </#if>
-
-    <script type="text/javascript">
-        dojo.require("dojo.widget.*");    
-    </script>    
+    
+    <#if requireDojo?exists>
+        <script type="text/javascript">
+          dojo.require("dojo.widget.*");    
+        </script>   
+    </#if>
 </head>
 
 <body>
