@@ -28,6 +28,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.model.ModelUtil;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.service.LocalDispatcher;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -48,17 +49,20 @@ public class PartyContentWrapper implements ContentWrapper {
 
     public static UtilCache workEffortContentCache = new UtilCache("workeffort.content.rendered", true);
 
+    protected LocalDispatcher dispatcher;
     protected GenericValue party;
     protected Locale locale;
     protected String mimeTypeId;
 
-    public PartyContentWrapper(GenericValue party, Locale locale, String mimeTypeId) {
+    public PartyContentWrapper(LocalDispatcher dispatcher, GenericValue party, Locale locale, String mimeTypeId) {
+        this.dispatcher = dispatcher;
         this.party = party;
         this.locale = locale;
         this.mimeTypeId = mimeTypeId;
     }
 
     public PartyContentWrapper(GenericValue party, HttpServletRequest request) {
+        this.dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         this.party = party;
         this.locale = UtilHttp.getLocale(request);
         this.mimeTypeId = "text/html";
@@ -66,7 +70,7 @@ public class PartyContentWrapper implements ContentWrapper {
 
     // interface implementation
     public String get(String contentTypeId, boolean useCache) {
-        return getPartyContentAsText(party, contentTypeId, locale, mimeTypeId, party.getDelegator(), useCache);
+        return getPartyContentAsText(party, contentTypeId, locale, mimeTypeId, party.getDelegator(), dispatcher, useCache);
     }
 
     public String get(String contentTypeId) {
@@ -84,7 +88,7 @@ public class PartyContentWrapper implements ContentWrapper {
     
     public List getList(String contentTypeId) {
         try {
-            return getPartyContentTextList(party, contentTypeId, locale, mimeTypeId, party.getDelegator());
+            return getPartyContentTextList(party, contentTypeId, locale, mimeTypeId, party.getDelegator(), dispatcher);
         } catch (Exception e) {
             Debug.logError(e, module);
             return null;
@@ -92,7 +96,7 @@ public class PartyContentWrapper implements ContentWrapper {
     }
 
     public String getContent(String contentId, boolean useCache) {
-        return getPartyContentAsText(party, contentId, null, locale, mimeTypeId, party.getDelegator(), useCache);
+        return getPartyContentAsText(party, contentId, null, locale, mimeTypeId, party.getDelegator(), dispatcher, useCache);
     }
 
     public String getContent(String contentId) {
@@ -101,20 +105,21 @@ public class PartyContentWrapper implements ContentWrapper {
 
     // static methods
     public static String getPartyContentAsText(GenericValue party, String partyContentId, HttpServletRequest request) {
-        return getPartyContentAsText(party, partyContentId, UtilHttp.getLocale(request), "text/html", party.getDelegator(), true);
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        return getPartyContentAsText(party, partyContentId, UtilHttp.getLocale(request), "text/html", party.getDelegator(), dispatcher, true);
     }
 
-    public static String getPartyContentAsText(GenericValue party, String partyContentId, Locale locale) {
-        return getPartyContentAsText(party, partyContentId, locale, null, null, true);
+    public static String getPartyContentAsText(GenericValue party, String partyContentId, Locale locale, LocalDispatcher dispatcher) {
+        return getPartyContentAsText(party, partyContentId, locale, null, null, dispatcher, true);
     }
 
     public static String getPartyContentAsText(GenericValue party, String partyContentTypeId,
-            Locale locale, String mimeTypeId, GenericDelegator delegator, boolean useCache) {
-        return getPartyContentAsText(party, null, partyContentTypeId, locale, mimeTypeId, delegator, useCache);
+            Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher, boolean useCache) {
+        return getPartyContentAsText(party, null, partyContentTypeId, locale, mimeTypeId, delegator, dispatcher, useCache);
     }
 
     public static String getPartyContentAsText(GenericValue party, String contentId, String partyContentTypeId,
-            Locale locale, String mimeTypeId, GenericDelegator delegator, boolean useCache) {
+            Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher, boolean useCache) {
         if (party == null) {
             return null;
         }
@@ -135,7 +140,7 @@ public class PartyContentWrapper implements ContentWrapper {
             }
 
             Writer outWriter = new StringWriter();
-            getPartyContentAsText(contentId, party.getString("partyId"), party, partyContentTypeId, locale, mimeTypeId, delegator, outWriter);
+            getPartyContentAsText(contentId, party.getString("partyId"), party, partyContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter);
 
             String outString = outWriter.toString();
             if (outString.length() > 0) {
@@ -158,7 +163,7 @@ public class PartyContentWrapper implements ContentWrapper {
         }
     }
 
-    public static void getPartyContentAsText(String contentId, String partyId, GenericValue party, String partyContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, Writer outWriter) throws GeneralException, IOException {
+    public static void getPartyContentAsText(String contentId, String partyId, GenericValue party, String partyContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher, Writer outWriter) throws GeneralException, IOException {
         if (partyId == null && party != null) {
             partyId = party.getString("partyId");
         }
@@ -221,11 +226,11 @@ public class PartyContentWrapper implements ContentWrapper {
             Map inContext = FastMap.newInstance();
             inContext.put("party", party);
             inContext.put("partyContent", partyContent);
-            ContentWorker.renderContentAsText(delegator, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
+            ContentWorker.renderContentAsText(dispatcher, delegator, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
         }
     }
 
-    public static List getPartyContentTextList(GenericValue party, String partyContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator) throws GeneralException, IOException {
+    public static List getPartyContentTextList(GenericValue party, String partyContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher) throws GeneralException, IOException {
         List partyContentList = delegator.findByAndCache("PartyContent", UtilMisc.toMap("partyId", party.getString("partyId"), "contentPurposeEnumId", partyContentTypeId), UtilMisc.toList("-fromDate"));
         partyContentList = EntityUtil.filterByDate(partyContentList);
 
@@ -238,7 +243,7 @@ public class PartyContentWrapper implements ContentWrapper {
                 Map inContext = FastMap.newInstance();
                 inContext.put("party", party);
                 inContext.put("partyContent", partyContent);
-                ContentWorker.renderContentAsText(delegator, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
+                ContentWorker.renderContentAsText(dispatcher, delegator, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
                 contentList.add(outWriter.toString());
             }
         }

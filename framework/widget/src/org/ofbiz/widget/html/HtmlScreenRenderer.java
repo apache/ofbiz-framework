@@ -40,6 +40,7 @@ import org.ofbiz.webapp.taglib.ContentUrlTag;
 import org.ofbiz.widget.WidgetContentWorker;
 import org.ofbiz.widget.screen.ModelScreenWidget;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
+import org.ofbiz.service.LocalDispatcher;
 import javolution.util.FastMap;
 
 /**
@@ -287,6 +288,7 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
         String mimeTypeId = "text/html";
         String expandedContentId = content.getContentId(context);
         String renderedContent = null;
+        LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
         GenericDelegator delegator = (GenericDelegator) context.get("delegator");
 
         // make a new map for content rendering; so our current map does not get clobbered
@@ -298,7 +300,7 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
         try {
             if (UtilValidate.isNotEmpty(expandedContentId)) {
                 if (WidgetContentWorker.contentWorker != null) {
-                    renderedContent = WidgetContentWorker.contentWorker.renderContentAsTextExt(delegator, expandedContentId, contentContext, locale, mimeTypeId, true);
+                    renderedContent = WidgetContentWorker.contentWorker.renderContentAsTextExt(dispatcher, delegator, expandedContentId, contentContext, locale, mimeTypeId, true);
                 } else {
                     Debug.logError("Not rendering content, not ContentWorker found.", module);
                 }
@@ -307,7 +309,7 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
                 String editRequest = content.getEditRequest(context);
                 if (UtilValidate.isNotEmpty(editRequest)) {
                     if (WidgetContentWorker.contentWorker != null) {
-                        WidgetContentWorker.contentWorker.renderContentAsTextExt(delegator, "NOCONTENTFOUND", writer, contentContext, locale, mimeTypeId, true);
+                        WidgetContentWorker.contentWorker.renderContentAsTextExt(dispatcher, delegator, "NOCONTENTFOUND", writer, contentContext, locale, mimeTypeId, true);
                     } else {
                         Debug.logError("Not rendering content, not ContentWorker found.", module);
                     }
@@ -410,6 +412,7 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
             String expandedContentId = content.getContentId(context);
             String expandedMapKey = content.getMapKey(context);
             String renderedContent = null;
+            LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
             GenericDelegator delegator = (GenericDelegator) context.get("delegator");
 
             // create a new map for the content rendering; so our current context does not get overwritten!
@@ -418,7 +421,7 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
 
             try {
                 if (WidgetContentWorker.contentWorker != null) {
-                    renderedContent = WidgetContentWorker.contentWorker.renderSubContentAsTextExt(delegator, expandedContentId, expandedMapKey, contentContext, locale, mimeTypeId, true);
+                    renderedContent = WidgetContentWorker.contentWorker.renderSubContentAsTextExt(dispatcher, delegator, expandedContentId, expandedMapKey, contentContext, locale, mimeTypeId, true);
                     //Debug.logInfo("renderedContent=" + renderedContent, module);
                 } else {
                     Debug.logError("Not rendering content, not ContentWorker found.", module);
@@ -427,7 +430,7 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
                     String editRequest = content.getEditRequest(context);
                     if (UtilValidate.isNotEmpty(editRequest)) {
                         if (WidgetContentWorker.contentWorker != null) {
-                            WidgetContentWorker.contentWorker.renderContentAsTextExt(delegator, "NOCONTENTFOUND", writer, contentContext, locale, mimeTypeId, true);
+                            WidgetContentWorker.contentWorker.renderContentAsTextExt(dispatcher, delegator, "NOCONTENTFOUND", writer, contentContext, locale, mimeTypeId, true);
                         } else {
                             Debug.logError("Not rendering content, ContentWorker not found.", module);
                         }

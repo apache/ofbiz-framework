@@ -80,7 +80,7 @@ public class DhlServices {
     /**
      * Opens a URL to DHL and makes a request.
      * 
-     * @param dhlService
+     * @param xmlString
      *            Name of the DHL service to invoke
      * @param xmlString
      *            XML message to send
@@ -247,7 +247,7 @@ public class DhlServices {
             inContext.put("postalCode", shipToAddress.getString("postalCode"));
         }
         try {
-            ContentWorker.renderContentAsText(delegator, templateName, outWriter, inContext, locale, "text/plain", false);
+            ContentWorker.renderContentAsText(dispatcher, delegator, templateName, outWriter, inContext, locale, "text/plain", false);
         } catch (Exception e) {
             Debug.logError(e, "Cannot get DHL Estimate: Failed to render DHL XML Request.", module);
             return ServiceUtil.returnError("Cannot get DHL Estimate: Failed to render DHL XML Request.");
@@ -725,7 +725,7 @@ public class DhlServices {
             inContext.put("shipperReference", shipment.getString("primaryOrderId") + "-" + shipment.getString("primaryShipGroupSeqId"));
             
             try {
-                ContentWorker.renderContentAsText(delegator, templateName, outWriter, inContext, locale, "text/plain", false);
+                ContentWorker.renderContentAsText(dispatcher, delegator, templateName, outWriter, inContext, locale, "text/plain", false);
             } catch (Exception e) {
                 Debug.logError(e, "Cannot confirm DHL shipment: Failed to render DHL XML Request.", module);
                 return ServiceUtil.returnError("Cannot confirm DHL shipment: Failed to render DHL XML Request.");

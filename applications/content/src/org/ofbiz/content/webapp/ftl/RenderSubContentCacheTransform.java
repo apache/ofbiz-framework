@@ -40,6 +40,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.widget.WidgetWorker;
+import org.ofbiz.service.LocalDispatcher;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateTransformModel;
@@ -60,6 +61,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
         final Environment env = Environment.getCurrentEnvironment();
         //final Map templateCtx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
         //final Map templateCtx = new HashMap();
+        final LocalDispatcher dispatcher = (LocalDispatcher) FreeMarkerWorker.getWrappedObject("dispatcher", env);
         final GenericDelegator delegator = (GenericDelegator) FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
         final HttpServletResponse response = (HttpServletResponse) FreeMarkerWorker.getWrappedObject("response", env);
@@ -174,7 +176,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                     String contentId = thisView.getString("contentId");
                     if (contentId != null) {
                         try {
-                            ContentWorker.renderContentAsText(delegator, contentId, out, templateRoot, locale, mimeTypeId, true);
+                            ContentWorker.renderContentAsText(dispatcher, delegator, contentId, out, templateRoot, locale, mimeTypeId, true);
                             //if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, after renderContentAsTextCache:", module);
                         } catch (GeneralException e) {
                             Debug.logError(e, "Error rendering content", module);

@@ -38,6 +38,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.webapp.ftl.LoopWriter;
+import org.ofbiz.service.LocalDispatcher;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateModelException;
@@ -96,7 +97,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
         final Locale locale = (Locale) FreeMarkerWorker.getWrappedObject("locale", env);
         final String mimeTypeId = getArg(args, "mimeTypeId", ctx);
 */
-        //final LocalDispatcher dispatcher = (LocalDispatcher) FreeMarkerWorker.getWrappedObject("dispatcher", env);
+        final LocalDispatcher dispatcher = (LocalDispatcher) FreeMarkerWorker.getWrappedObject("dispatcher", env);
         //final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
         GenericValue view = (GenericValue) FreeMarkerWorker.getWrappedObject("subContentDataResourceView", env);
         final Integer indent = (templateCtx.get("indent") == null) ? new Integer(0) : (Integer)templateCtx.get("indent");
@@ -249,7 +250,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                     if (locale == null)
                         locale = Locale.getDefault();
                     try {
-                        ContentWorker.renderContentAsText(delegator, wrapTemplateId, out, templateRoot, locale, mimeTypeId, false);
+                        ContentWorker.renderContentAsText(dispatcher, delegator, wrapTemplateId, out, templateRoot, locale, mimeTypeId, false);
                     } catch (GeneralException e) {
                         Debug.logError(e, "Error rendering content", module);
                         throw new IOException("Error rendering content" + e.toString());

@@ -27,7 +27,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
-
+import org.ofbiz.service.LocalDispatcher;
 
 
 /**
@@ -36,26 +36,28 @@ import org.ofbiz.service.ServiceUtil;
 public class SearchServices {
 
     public static final String module = SearchServices.class.getName();
-	
+
     public static Map indexTree(DispatchContext dctx, Map context) {
-
-        String siteId = (String)context.get("contentId");
-        String path = (String)context.get("path");
-        Map envContext = new HashMap();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
-  	if (Debug.infoOn()) Debug.logInfo("in indexTree, siteId:" + siteId, module);
-            List badIndexList = new ArrayList();
-            envContext.put("badIndexList", badIndexList);
-            envContext.put("goodIndexCount", new Integer(0));
 
-        Map results = null;
+        String siteId = (String) context.get("contentId");
+        String path = (String) context.get("path");
+        Map envContext = new HashMap();
+
+        if (Debug.infoOn()) Debug.logInfo("in indexTree, siteId:" + siteId, module);
+        List badIndexList = new ArrayList();
+        envContext.put("badIndexList", badIndexList);
+        envContext.put("goodIndexCount", new Integer(0));
+
+        Map results;
         try {
-            results = SearchWorker.indexTree(delegator, siteId, envContext, path);
+            results = SearchWorker.indexTree(dispatcher, delegator, siteId, envContext, path);
         } catch (Exception e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError("Error indexing tree: " + e.toString());
         }
-	  	if (Debug.infoOn()) Debug.logInfo("in indexTree, results:" + results, module);
+        if (Debug.infoOn()) Debug.logInfo("in indexTree, results:" + results, module);
         return results;
     }
 }

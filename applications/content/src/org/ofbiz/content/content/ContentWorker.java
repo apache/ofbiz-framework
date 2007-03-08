@@ -53,9 +53,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMapProcessor;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.service.*;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -85,39 +83,34 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     }
 
     // new rendering methods
-    public void renderContentAsTextExt(GenericDelegator delegator, String contentId, Writer out, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
-        renderContentAsText(delegator, contentId, out, templateContext, locale, mimeTypeId, cache);
+    public void renderContentAsTextExt(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Writer out, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
+        renderContentAsText(dispatcher, delegator, contentId, out, templateContext, locale, mimeTypeId, cache);
     }
 
-    public void renderSubContentAsTextExt(GenericDelegator delegator, String contentId, Writer out, String mapKey, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
-        renderSubContentAsText(delegator, contentId, out, mapKey, templateContext, locale, mimeTypeId, cache);
+    public void renderSubContentAsTextExt(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Writer out, String mapKey, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
+        renderSubContentAsText(dispatcher, delegator, contentId, out, mapKey, templateContext, locale, mimeTypeId, cache);
     }
 
-    public String renderSubContentAsTextExt(GenericDelegator delegator, String contentId, String mapKey, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
-        return renderSubContentAsText(delegator, contentId, mapKey, templateContext, locale, mimeTypeId, cache);
+    public String renderSubContentAsTextExt(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, String mapKey, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
+        return renderSubContentAsText(dispatcher, delegator, contentId, mapKey, templateContext, locale, mimeTypeId, cache);
     }
 
-    public String renderContentAsTextExt(GenericDelegator delegator, String contentId, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
-        return renderContentAsText(delegator, contentId, templateContext, locale, mimeTypeId, cache);
+    public String renderContentAsTextExt(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
+        return renderContentAsText(dispatcher, delegator, contentId, templateContext, locale, mimeTypeId, cache);
     }
 
     // -------------------------------------
     // Content rendering methods
     // -------------------------------------
 
-    public static String renderContentAsText(GenericDelegator delegator, String contentId, Map templateContext,
+    public static String renderContentAsText(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Map templateContext,
             Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
-        return renderContentAsText(delegator, contentId, templateContext, locale, mimeTypeId, true, cache);
-    }
-
-    public static String renderContentAsText(GenericDelegator delegator, String contentId, Map templateContext,
-            Locale locale, String mimeTypeId, boolean useTemplate, boolean cache) throws GeneralException, IOException {
         Writer writer = new StringWriter();
-        renderContentAsText(delegator, contentId, writer, templateContext, locale, mimeTypeId, cache);
+        renderContentAsText(dispatcher, delegator, contentId, writer, templateContext, locale, mimeTypeId, cache);
         return writer.toString();
     }
 
-    public static void renderContentAsText(GenericDelegator delegator, String contentId, Writer out,
+    public static void renderContentAsText(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Writer out,
             Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
         GenericValue content;
         if (cache) {
@@ -159,6 +152,28 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             }
         }
 
+        // if the content has a service attached run the service
+        String serviceName = content.getString("serviceName");
+        if (dispatcher != null && UtilValidate.isNotEmpty(serviceName)) {
+            DispatchContext dctx = dispatcher.getDispatchContext();
+            ModelService service = dctx.getModelService(serviceName);
+            if (service != null) {
+                Map serviceCtx = service.makeValid(templateContext, ModelService.IN_PARAM);
+                Map serviceRes;
+                try {
+                    serviceRes = dispatcher.runSync(serviceName, serviceCtx);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    throw e;
+                }
+                if (ServiceUtil.isError(serviceRes)) {
+                    throw new GeneralException(ServiceUtil.getErrorMessage(serviceRes));
+                } else {
+                    templateContext.putAll(serviceRes);
+                }
+            }
+        }
+
         // get the data resource info
         String templateDataResourceId = content.getString("templateDataResourceId");
         String dataResourceId = content.getString("dataResourceId");
@@ -182,7 +197,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                 GenericValue contentAssoc = (GenericValue) i.next();
                 String contentIdTo = contentAssoc.getString("contentIdTo");
                 String key = contentAssoc.getString("mapKey");
-                String textData = ContentWorker.renderContentAsText(delegator, contentIdTo, FastMap.newInstance(), locale, mimeTypeId, cache);
+                String textData = ContentWorker.renderContentAsText(dispatcher, delegator, contentIdTo, FastMap.newInstance(), locale, mimeTypeId, cache);
                 if (UtilValidate.isNotEmpty(textData)) {
                     templateContext.put(key, textData);
                 }
@@ -236,14 +251,14 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         }
     }
 
-    public static String renderSubContentAsText(GenericDelegator delegator, String contentId, String mapKey, Map templateContext,
+    public static String renderSubContentAsText(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, String mapKey, Map templateContext,
             Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
         Writer writer = new StringWriter();
-        renderSubContentAsText(delegator, contentId, writer, mapKey, templateContext, locale, mimeTypeId, cache);
+        renderSubContentAsText(dispatcher, delegator, contentId, writer, mapKey, templateContext, locale, mimeTypeId, cache);
         return writer.toString();
     }
 
-    public static void renderSubContentAsText(GenericDelegator delegator, String contentId, Writer out, String mapKey,
+    public static void renderSubContentAsText(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Writer out, String mapKey,
             Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
 
         // find the sub-content with matching mapKey
@@ -267,53 +282,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
         String subContentId = subContent.getString("contentIdTo");
         templateContext.put("mapKey", mapKey);
-        renderContentAsText(delegator, subContentId, out, templateContext, locale, mimeTypeId, cache);
-    }
-
-    /** @deprecated */
-    public static Map renderContentAsText(GenericDelegator delegator, String contentId, Writer out, Map templateContext,
-            GenericValue view, Locale locale, String mimeTypeId) throws GeneralException, IOException {
-        renderContentAsText(delegator, contentId, out, templateContext, locale, mimeTypeId, false);
-        return FastMap.newInstance();
-    }
-
-    /** @deprecated */
-    public static String renderContentAsTextCache(GenericDelegator delegator, String contentId,  Map templateContext, GenericValue view, Locale locale, String mimeTypeId) throws GeneralException, IOException {
-        return renderContentAsText(delegator, contentId, templateContext, locale, mimeTypeId, true);
-    }
-
-    /** @deprecated */
-    public static Map renderContentAsTextCache(GenericDelegator delegator, String contentId, Writer out, Map templateContext,
-            GenericValue view, Locale locale, String mimeTypeId) throws GeneralException, IOException {
-        renderContentAsText(delegator, contentId, out, templateContext, locale, mimeTypeId, true);
-        return FastMap.newInstance();
-    }
-
-    /** @deprecated */
-    public static Map renderSubContentAsText(GenericDelegator delegator, String contentId, Writer out, String mapKey, String subContentId, GenericValue subContentDataResourceView,
-            Map templateContext, Locale locale, String mimeTypeId, GenericValue userLogin, Timestamp fromDate) throws GeneralException, IOException {
-        renderSubContentAsText(delegator, contentId, out, mapKey, templateContext, locale, mimeTypeId, false);
-        return FastMap.newInstance();
-    }
-
-    /** @deprecated */
-    public static String renderSubContentAsTextCache(GenericDelegator delegator, String contentId,  String mapKey,  GenericValue subContentDataResourceView,
-            Map templateRoot, Locale locale, String mimeTypeId, GenericValue userLogin, Timestamp fromDate) throws GeneralException, IOException {
-        return renderSubContentAsText(delegator, contentId, mapKey, templateRoot, locale, mimeTypeId, true);
-    }
-
-    /** @deprecated */
-    public static Map renderSubContentAsTextCache(GenericDelegator delegator, String contentId, Writer out, String mapKey,  GenericValue subContentDataResourceView,
-            Map templateRoot, Locale locale, String mimeTypeId, GenericValue userLogin, Timestamp fromDate) throws GeneralException, IOException {
-        renderSubContentAsText(delegator, contentId, out, mapKey, templateRoot, locale, mimeTypeId, true);
-        return FastMap.newInstance();
-    }
-
-    /** @deprecated */
-    public static Map renderSubContentAsTextCache(GenericDelegator delegator, String contentId, Writer out, String mapKey, GenericValue subContentDataResourceView,
-            Map templateRoot, Locale locale, String mimeTypeId, GenericValue userLogin, Timestamp fromDate, Boolean nullThruDatesOnly) throws GeneralException, IOException {
-        renderSubContentAsText(delegator, contentId, out, mapKey, templateRoot, locale, mimeTypeId, true);
-        return FastMap.newInstance();
+        renderContentAsText(dispatcher, delegator, subContentId, out, templateContext, locale, mimeTypeId, cache);
     }
 
     public static GenericValue findAlternateLocaleContent(GenericDelegator delegator, GenericValue view, Locale locale) {
