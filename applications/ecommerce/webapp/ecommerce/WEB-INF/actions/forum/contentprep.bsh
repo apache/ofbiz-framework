@@ -102,7 +102,7 @@ if (currentValue != null) {
     subContentDataResourceView = ContentWorker.getSubContent(delegator, contentId, "ARTICLE", null, userLogin, assocTypes, fromDate);
     if (subContentDataResourceView != null) {
         out = new StringWriter();
-        ContentWorker.renderContentAsText(delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId);
+        ContentWorker.renderContentAsText(dispatcher, delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId, true);
         textData = out.toString();
         context.put("txtContentId", subContentDataResourceView.get("contentId"));
         context.put("txtDataResourceId", subContentDataResourceView.get("dataResourceId"));
@@ -115,7 +115,7 @@ if (currentValue != null) {
         }
     }
 
-    subContentDataResourceView = ContentWorker.getSubContent(delegator, contentId, "SUMMARY", null, userLogin, assocTypes, fromDate);
+    subContentDataResourceView = ContentWorker.getSubContent(dispatcher, delegator, contentId, "SUMMARY", null, userLogin, assocTypes, fromDate, true);
     if (subContentDataResourceView != null) {
         out = new StringWriter();
         ContentWorker.renderContentAsText(delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId);
@@ -131,7 +131,7 @@ if (currentValue != null) {
         }
     }
 
-    subContentDataResourceView = ContentWorker.getSubContent(delegator, contentId, "IMAGE", null, userLogin, assocTypes, fromDate);
+    subContentDataResourceView = ContentWorker.getSubContent(dispatcher, delegator, contentId, "IMAGE", null, userLogin, assocTypes, fromDate, true);
     if (subContentDataResourceView != null) {
         out = new StringWriter();
         ContentWorker.renderContentAsText(delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId);
