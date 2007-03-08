@@ -60,6 +60,8 @@ public class EntityXmlAssertTest extends TestCaseBase {
     }
 
     public void run(TestResult result) {
+        result.startTest(this);
+
         try {
             URL entityXmlURL = FlexibleLocation.resolveLocation(entityXmlUrlString);
             GenericDelegator delegator = modelTestSuite.getDelegator();
@@ -77,5 +79,7 @@ public class EntityXmlAssertTest extends TestCaseBase {
         } catch (Exception e) {
             result.addError(this, e);
         }
+        
+        result.endTest(this);
     }
 }

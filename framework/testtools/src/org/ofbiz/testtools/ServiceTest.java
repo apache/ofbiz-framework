@@ -52,7 +52,6 @@ public class ServiceTest extends TestCaseBase {
     }
 
     public void run(TestResult result) {
-
         result.startTest(this);
 
         LocalDispatcher dispatcher = modelTestSuite.getDispatcher();

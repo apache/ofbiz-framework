@@ -42,6 +42,8 @@ public class JythonTest extends TestCaseBase {
 
     public void run(TestResult result) {
         // TODO Auto-generated method stub
+        result.startTest(this);
         
+        result.endTest(this);
     }
 }
