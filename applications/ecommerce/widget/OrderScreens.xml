@@ -438,7 +438,10 @@ under the License.
     <screen name="quickAnonCheckoutDecorator">
         <section>
             <actions>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/quickAnonCheckoutLinks.bsh"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/dojo/dojo.js" global="true"/>
+                <set field="requireDojo" value="true"/>
+								
+				<script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/quickAnonCheckoutLinks.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
