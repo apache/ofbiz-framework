@@ -180,6 +180,11 @@ public class UtilValidate {
         return ObjectType.isEmpty(o);
     }
 
+    /** Check whether an object is NOT empty, will see if it is a String, Map, Collection, etc. */
+    public static boolean isNotEmpty(Object o) {
+        return !ObjectType.isEmpty(o);
+    }
+
     /** Check whether string s is empty. */
     public static boolean isEmpty(String s) {
         return ((s == null) || (s.length() == 0));
