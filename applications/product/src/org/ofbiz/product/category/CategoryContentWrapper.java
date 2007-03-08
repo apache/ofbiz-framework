@@ -41,6 +41,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelUtil;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.service.LocalDispatcher;
 
 /**
  * Category Content Worker: gets category content to display
@@ -48,7 +49,8 @@ import org.ofbiz.entity.util.EntityUtil;
 public class CategoryContentWrapper implements ContentWrapper {
     
     public static final String module = CategoryContentWrapper.class.getName();
-    
+
+    protected LocalDispatcher dispatcher;
     protected GenericValue productCategory;
     protected Locale locale;
     protected String mimeTypeId;
@@ -57,35 +59,38 @@ public class CategoryContentWrapper implements ContentWrapper {
         return new CategoryContentWrapper(productCategory, request);
     }
     
-    public CategoryContentWrapper(GenericValue productCategory, Locale locale, String mimeTypeId) {
+    public CategoryContentWrapper(LocalDispatcher dispatcher, GenericValue productCategory, Locale locale, String mimeTypeId) {
+        this.dispatcher = dispatcher;
         this.productCategory = productCategory;
         this.locale = locale;
         this.mimeTypeId = mimeTypeId;       
     }
     
     public CategoryContentWrapper(GenericValue productCategory, HttpServletRequest request) {
+        this.dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         this.productCategory = productCategory;
         this.locale = UtilHttp.getLocale(request);
         this.mimeTypeId = "text/html";
     }
     
     public String get(String prodCatContentTypeId) {
-        return getProductCategoryContentAsText(productCategory, prodCatContentTypeId, locale, mimeTypeId, productCategory.getDelegator());
+        return getProductCategoryContentAsText(productCategory, prodCatContentTypeId, locale, mimeTypeId, productCategory.getDelegator(), dispatcher);
     }
     
     public static String getProductCategoryContentAsText(GenericValue productCategory, String prodCatContentTypeId, HttpServletRequest request) {
-        return getProductCategoryContentAsText(productCategory, prodCatContentTypeId, UtilHttp.getLocale(request), "text/html", productCategory.getDelegator());
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        return getProductCategoryContentAsText(productCategory, prodCatContentTypeId, UtilHttp.getLocale(request), "text/html", productCategory.getDelegator(), dispatcher);
     }
 
-    public static String getProductCategoryContentAsText(GenericValue productCategory, String prodCatContentTypeId, Locale locale) {
-        return getProductCategoryContentAsText(productCategory, prodCatContentTypeId, locale, null, null);
+    public static String getProductCategoryContentAsText(GenericValue productCategory, String prodCatContentTypeId, Locale locale, LocalDispatcher dispatcher) {
+        return getProductCategoryContentAsText(productCategory, prodCatContentTypeId, locale, null, null, dispatcher);
     }
     
-    public static String getProductCategoryContentAsText(GenericValue productCategory, String prodCatContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator) {
+    public static String getProductCategoryContentAsText(GenericValue productCategory, String prodCatContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher) {
         String candidateFieldName = ModelUtil.dbNameToVarName(prodCatContentTypeId);
         try {
             Writer outWriter = new StringWriter();
-            getProductCategoryContentAsText(null, productCategory, prodCatContentTypeId, locale, mimeTypeId, delegator, outWriter);
+            getProductCategoryContentAsText(null, productCategory, prodCatContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter);
             String outString = outWriter.toString();
             if (outString.length() > 0) {
                 return outString;
@@ -101,7 +106,7 @@ public class CategoryContentWrapper implements ContentWrapper {
         }
     }
     
-    public static void getProductCategoryContentAsText(String productCategoryId, GenericValue productCategory, String prodCatContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, Writer outWriter) throws GeneralException, IOException {
+    public static void getProductCategoryContentAsText(String productCategoryId, GenericValue productCategory, String prodCatContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher, Writer outWriter) throws GeneralException, IOException {
         if (productCategoryId == null && productCategory != null) {
             productCategoryId = productCategory.getString("productCategoryId");
         }
@@ -141,7 +146,7 @@ public class CategoryContentWrapper implements ContentWrapper {
             Map inContext = new HashMap();
             inContext.put("productCategory", productCategory);
             inContext.put("categoryContent", categoryContent);
-            ContentWorker.renderContentAsText(delegator, categoryContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
+            ContentWorker.renderContentAsText(dispatcher, delegator, categoryContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
         }
     }
 }

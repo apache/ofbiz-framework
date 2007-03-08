@@ -28,6 +28,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.service.LocalDispatcher;
 
 /**
  * ContentWorkerInterface
@@ -40,9 +41,9 @@ public interface ContentWorkerInterface {
     public String getMimeTypeIdExt(GenericDelegator delegator, GenericValue view, Map ctx);
 
     // new rendering methods
-    public void renderContentAsTextExt(GenericDelegator delegator, String contentId, Writer out, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException;
-    public String renderContentAsTextExt(GenericDelegator delegator, String contentId, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException;
+    public void renderContentAsTextExt(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Writer out, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException;
+    public String renderContentAsTextExt(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException;
 
-    public void renderSubContentAsTextExt(GenericDelegator delegator, String contentId, Writer out, String mapKey, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException;
-    public String renderSubContentAsTextExt(GenericDelegator delegator, String contentId, String mapKey, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException;            
+    public void renderSubContentAsTextExt(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Writer out, String mapKey, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException;
+    public String renderSubContentAsTextExt(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, String mapKey, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException;            
 }

@@ -299,7 +299,7 @@ public class ProductWorker {
      *  Get the name to show to the customer for GWP alternative options.
      *  If the alternative is a variant, find the distinguishing features and show those instead of the name; if it is not a variant then show the PRODUCT_NAME content.
      */
-    public static String getGwpAlternativeOptionName(GenericDelegator delegator, String alternativeOptionProductId, Locale locale) {
+    public static String getGwpAlternativeOptionName(LocalDispatcher dispatcher, GenericDelegator delegator, String alternativeOptionProductId, Locale locale) {
         try {
             GenericValue alternativeOptionProduct = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", alternativeOptionProductId));
             if (alternativeOptionProduct != null) {
@@ -327,7 +327,7 @@ public class ProductWorker {
                 }
 
                 // got to here, default to PRODUCT_NAME
-                String alternativeProductName = ProductContentWrapper.getProductContentAsText(alternativeOptionProduct, "PRODUCT_NAME", locale);
+                String alternativeProductName = ProductContentWrapper.getProductContentAsText(alternativeOptionProduct, "PRODUCT_NAME", locale, dispatcher);
                 // Debug.logInfo("Using PRODUCT_NAME: " + alternativeProductName, module);
                 return alternativeProductName;
             }

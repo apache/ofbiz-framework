@@ -21,6 +21,7 @@ package org.ofbiz.content.blog;
 
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.Debug;
@@ -58,6 +59,7 @@ public class BlogRssServices {
         String mainLink = (String) context.get("mainLink");
         mainLink = mainLink + "?blogContentId=" + contentId;
 
+        LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
 
         // get the main blog content
@@ -79,14 +81,14 @@ public class BlogRssServices {
 
         feed.setTitle(content.getString("contentName"));
         feed.setDescription(content.getString("description"));
-        feed.setEntries(generateEntryList(delegator, contentId, entryLink, locale, userLogin));
+        feed.setEntries(generateEntryList(dispatcher, delegator, contentId, entryLink, locale, userLogin));
 
         Map resp = ServiceUtil.returnSuccess();
         resp.put("wireFeed", feed.createWireFeed());
         return resp;
     }
 
-    public static List generateEntryList(GenericDelegator delegator, String contentId, String entryLink, Locale locale, GenericValue userLogin) {
+    public static List generateEntryList(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, String entryLink, Locale locale, GenericValue userLogin) {
         List entries = FastList.newInstance();
         List exprs = FastList.newInstance();
         exprs.add(new EntityExpr("contentIdStart", EntityOperator.EQUALS, contentId));
@@ -106,7 +108,7 @@ public class BlogRssServices {
                 GenericValue v = (GenericValue) i.next();
                 String sub = null;
                 try {
-                    sub = ContentWorker.renderSubContentAsText(delegator, v.getString("contentId"), mapKey, new HashMap(), locale, mimeTypeId, true);
+                    sub = ContentWorker.renderSubContentAsText(dispatcher, delegator, v.getString("contentId"), mapKey, new HashMap(), locale, mimeTypeId, true);
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
                 } catch (IOException e) {

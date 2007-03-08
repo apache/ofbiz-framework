@@ -600,7 +600,7 @@ public class ProductPromoWorker {
                 if (UtilValidate.isEmpty((String) messageContext.get("partyId"))) messageContext.put("partyId", "any");
                 GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
                 if (product != null) {
-                    messageContext.put("productName", ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", locale));
+                    messageContext.put("productName", ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", locale, null));
                 }
                 
                 String msgProp = UtilProperties.getMessage("promotext", "action." + productPromoAction.getString("productPromoActionEnumId"), messageContext, locale);

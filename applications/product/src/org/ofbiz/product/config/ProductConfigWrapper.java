@@ -43,7 +43,8 @@ import org.ofbiz.service.LocalDispatcher;
 public class ProductConfigWrapper implements Serializable {
     
     public static final String module = ProductConfigWrapper.class.getName();
-    
+
+    protected LocalDispatcher dispatcher;
     protected GenericValue product = null; // the aggregated product
     protected double basePrice = 0.0;
     protected List questions = null; // ProductConfigs
@@ -70,6 +71,8 @@ public class ProductConfigWrapper implements Serializable {
         if (product == null || !product.getString("productTypeId").equals("AGGREGATED")) {
             throw new ProductConfigWrapperException("Product " + productId + " is not an AGGREGATED product.");
         }
+        this.dispatcher = dispatcher;
+        
         // get the base price
         Map priceContext = UtilMisc.toMap("product", product, "prodCatalogId", catalogId, "webSiteId", webSiteId, "productStoreId", productStoreId,
                                       "currencyUomId", currencyUomId, "autoUserLogin", autoUserLogin);
@@ -258,7 +261,7 @@ public class ProductConfigWrapper implements Serializable {
         }
 
         public void setContent(Locale locale, String mimeTypeId) {
-            content = new ProductConfigItemContentWrapper(configItem, locale, mimeTypeId);
+            content = new ProductConfigItemContentWrapper(dispatcher, configItem, locale, mimeTypeId);
         }
         
         public ProductConfigItemContentWrapper getContent() {

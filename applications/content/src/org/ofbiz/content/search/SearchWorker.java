@@ -34,6 +34,7 @@ import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.service.LocalDispatcher;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -50,7 +51,7 @@ public class SearchWorker {
 
 	public static final String module = SearchWorker.class.getName();
 
-        public static Map indexTree(GenericDelegator delegator, String siteId, Map context, String path) throws Exception {
+        public static Map indexTree(LocalDispatcher dispatcher, GenericDelegator delegator, String siteId, Map context, String path) throws Exception {
 
             Map results = new HashMap();
             GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", siteId));
@@ -72,10 +73,10 @@ public class SearchWorker {
                             contentIdList.add(subContent.getString("contentId")); 
                         }
         	  	//if (Debug.infoOn()) Debug.logInfo("in indexTree, contentIdList:" + contentIdList, module);
-                        indexContentList(contentIdList, delegator, context);
+                        indexContentList(contentIdList, delegator, dispatcher, context);
         
                         String subSiteId = siteContent.getString("contentId");
-                        indexTree(delegator, subSiteId, context, path);
+                        indexTree(dispatcher, delegator, subSiteId, context, path);
                     } else {
                         List badIndexList = (List)context.get("badIndexList");
                         badIndexList.add(siteContentId + " had no sub-entities.");
@@ -91,12 +92,12 @@ public class SearchWorker {
             return results;
         }
 	
-	public static void indexContentList(List idList, GenericDelegator delegator, Map context) throws Exception {
+	public static void indexContentList(List idList, GenericDelegator delegator, LocalDispatcher dispatcher, Map context) throws Exception {
 		String path = null;
-		indexContentList(delegator, context, idList, path);
+		indexContentList(dispatcher, delegator, context, idList, path);
 	}
 	
-	public static void indexContentList(GenericDelegator delegator, Map context, List idList, String path) throws Exception {
+	public static void indexContentList(LocalDispatcher dispatcher, GenericDelegator delegator, Map context, List idList, String path) throws Exception {
 		String indexAllPath = getIndexPath(path);
 		if (Debug.infoOn())
 			Debug.logInfo("in indexContent, indexAllPath:" + indexAllPath, module);
@@ -146,7 +147,7 @@ public class SearchWorker {
 		iter = contentList.iterator();
 		while (iter.hasNext()) {
 			content = (GenericValue) iter.next();
-			indexContent(delegator, context, content, writer);
+			indexContent(dispatcher, delegator, context, content, writer);
 		}
 		writer.optimize();
 		writer.close();
@@ -183,7 +184,7 @@ public class SearchWorker {
 
 	}
 
-	public static void indexContent(GenericDelegator delegator, Map context, GenericValue content, String path) throws Exception {
+	public static void indexContent(LocalDispatcher dispatcher, GenericDelegator delegator, Map context, GenericValue content, String path) throws Exception {
 		String indexAllPath = getIndexPath(path);
 		IndexWriter writer = null;
 		try {
@@ -194,13 +195,13 @@ public class SearchWorker {
 	                if (Debug.infoOn()) Debug.logInfo("Created new directory:" + indexAllPath, module);
 		}
 		
-		indexContent(delegator, context, content, writer);
-       	        writer.optimize();
-    	        writer.close();
+		indexContent(dispatcher, delegator, context, content, writer);
+       	writer.optimize();
+    	writer.close();
 	}
 	
-	public static void indexContent(GenericDelegator delegator, Map context, GenericValue content, IndexWriter writer) throws Exception {
-	    Document doc = ContentDocument.Document(content, context);
+	public static void indexContent(LocalDispatcher dispatcher, GenericDelegator delegator, Map context, GenericValue content, IndexWriter writer) throws Exception {
+	    Document doc = ContentDocument.Document(content, context, dispatcher);
 	    //if (Debug.infoOn()) Debug.logInfo("in indexContent, content:" + content, module);
             if (doc != null) {
                 writer.addDocument(doc);

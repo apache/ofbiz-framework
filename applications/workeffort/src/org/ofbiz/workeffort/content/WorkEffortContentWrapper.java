@@ -39,6 +39,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.cache.UtilCache;
+import org.ofbiz.service.LocalDispatcher;
 import javolution.util.FastMap;
 import javolution.util.FastList;
 
@@ -52,11 +53,13 @@ public class WorkEffortContentWrapper implements ContentWrapper {
     
     public static UtilCache workEffortContentCache = new UtilCache("workeffort.content.rendered", true);
 
+    protected LocalDispatcher dispatcher;
     protected GenericValue workEffort;
     protected Locale locale;
     protected String mimeTypeId;
 
-    public WorkEffortContentWrapper(GenericValue workEffort, Locale locale, String mimeTypeId) {
+    public WorkEffortContentWrapper(LocalDispatcher dispatcher, GenericValue workEffort, Locale locale, String mimeTypeId) {
+        this.dispatcher = dispatcher;
         this.workEffort = workEffort;
         this.locale = locale;
         this.mimeTypeId = mimeTypeId;
@@ -70,7 +73,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
 
     // interface implementation(s)
     public String get(String workEffortContentId, boolean useCache) {
-        return getWorkEffortContentAsText(workEffort, workEffortContentId, locale, mimeTypeId, workEffort.getDelegator(), useCache);
+        return getWorkEffortContentAsText(workEffort, workEffortContentId, locale, mimeTypeId, workEffort.getDelegator(), dispatcher, useCache);
     }
 
     /**
@@ -163,7 +166,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
     
     public List getList(String contentTypeId) {
         try {
-            return getWorkEffortContentTextList(workEffort, contentTypeId, locale, mimeTypeId, workEffort.getDelegator());
+            return getWorkEffortContentTextList(workEffort, contentTypeId, locale, mimeTypeId, workEffort.getDelegator(), dispatcher);
         } catch (Exception e) {
             Debug.logError(e, module);
             return null;
@@ -193,7 +196,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
     }
 
     public String getContent(String contentId, boolean useCache) {
-        return getWorkEffortContentAsText(workEffort, contentId, null, locale, mimeTypeId, workEffort.getDelegator(), useCache);
+        return getWorkEffortContentAsText(workEffort, contentId, null, locale, mimeTypeId, workEffort.getDelegator(), dispatcher, useCache);
     }
 
     public String getContent(String contentId) {
@@ -202,20 +205,21 @@ public class WorkEffortContentWrapper implements ContentWrapper {
 
     // static method helpers
      public static String getWorkEffortContentAsText(GenericValue workEffort, String workEffortContentTypeId, HttpServletRequest request) {
-        return getWorkEffortContentAsText(workEffort, workEffortContentTypeId, UtilHttp.getLocale(request), "text/html", workEffort.getDelegator(), true);
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        return getWorkEffortContentAsText(workEffort, workEffortContentTypeId, UtilHttp.getLocale(request), "text/html", workEffort.getDelegator(), dispatcher, true);
     }
 
-    public static String getWorkEffortContentAsText(GenericValue workEffort, String workEffortContentTypeId, Locale locale) {
-        return getWorkEffortContentAsText(workEffort, workEffortContentTypeId, locale, null, null, true);
+    public static String getWorkEffortContentAsText(GenericValue workEffort, String workEffortContentTypeId, Locale locale, LocalDispatcher dispatcher) {
+        return getWorkEffortContentAsText(workEffort, workEffortContentTypeId, locale, null, null, dispatcher, true);
     }
 
     public static String getWorkEffortContentAsText(GenericValue workEffort, String workEffortContentTypeId,
-            Locale locale, String mimeTypeId, GenericDelegator delegator, boolean useCache) {
-        return getWorkEffortContentAsText(workEffort, null, workEffortContentTypeId, locale, mimeTypeId, delegator, useCache);
+            Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher, boolean useCache) {
+        return getWorkEffortContentAsText(workEffort, null, workEffortContentTypeId, locale, mimeTypeId, delegator, dispatcher, useCache);
     }
 
     public static String getWorkEffortContentAsText(GenericValue workEffort, String contentId, String workEffortContentTypeId,
-            Locale locale, String mimeTypeId, GenericDelegator delegator, boolean useCache) {
+            Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher, boolean useCache) {
         if (workEffort == null) {
             return null;
         }
@@ -236,7 +240,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             }
 
             Writer outWriter = new StringWriter();
-            getWorkEffortContentAsText(contentId, null, workEffort, workEffortContentTypeId, locale, mimeTypeId, delegator, outWriter);
+            getWorkEffortContentAsText(contentId, null, workEffort, workEffortContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter);
             String outString = outWriter.toString();
             if (outString.length() > 0) {
                 if (workEffortContentCache != null) {
@@ -258,7 +262,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         }               
     }
 
-    public static void getWorkEffortContentAsText(String contentId, String workEffortId, GenericValue workEffort, String workEffortContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, Writer outWriter) throws GeneralException, IOException {   
+    public static void getWorkEffortContentAsText(String contentId, String workEffortId, GenericValue workEffort, String workEffortContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher, Writer outWriter) throws GeneralException, IOException {
         if (workEffortId == null && workEffort != null) {
             workEffortId = workEffort.getString("workEffortId");
         }
@@ -303,11 +307,11 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             Map inContext = FastMap.newInstance();
             inContext.put("workEffort", workEffort);
             inContext.put("workEffortContent", workEffortContent);
-            ContentWorker.renderContentAsText(delegator, workEffortContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
+            ContentWorker.renderContentAsText(dispatcher, delegator, workEffortContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
         }
     }
 
-    public static List getWorkEffortContentTextList(GenericValue workEffort, String workEffortContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator) throws GeneralException, IOException {
+    public static List getWorkEffortContentTextList(GenericValue workEffort, String workEffortContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher) throws GeneralException, IOException {
         List partyContentList = delegator.findByAndCache("WorkEffortContent", UtilMisc.toMap("workEffortId", workEffort.getString("partyId"), "workEffortContentTypeId", workEffortContentTypeId), UtilMisc.toList("-fromDate"));
         partyContentList = EntityUtil.filterByDate(partyContentList);
 
@@ -320,7 +324,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
                 Map inContext = FastMap.newInstance();
                 inContext.put("workEffort", workEffort);
                 inContext.put("workEffortContent", workEffortContent);
-                ContentWorker.renderContentAsText(delegator, workEffortContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
+                ContentWorker.renderContentAsText(dispatcher, delegator, workEffortContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
                 contentList.add(outWriter.toString());
             }
         }

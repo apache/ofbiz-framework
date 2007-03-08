@@ -40,6 +40,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.service.LocalDispatcher;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateTransformModel;
@@ -58,6 +59,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
         final Environment env = Environment.getCurrentEnvironment();
         //final Map templateCtx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
         //final Map templateCtx = new HashMap();
+        final LocalDispatcher dispatcher = (LocalDispatcher) FreeMarkerWorker.getWrappedObject("dispatcher", env);
         final GenericDelegator delegator = (GenericDelegator) FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
         final HttpServletResponse response = (HttpServletResponse) FreeMarkerWorker.getWrappedObject("response", env);
@@ -160,7 +162,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
 
                 FreeMarkerWorker.saveContextValues(templateRoot, saveKeyNames, savedValues);
                 try {
-                    String txt = ContentWorker.renderSubContentAsText(delegator, thisContentId, thisMapKey, templateRoot, locale, mimeTypeId, true);                    
+                    String txt = ContentWorker.renderSubContentAsText(dispatcher, delegator, thisContentId, thisMapKey, templateRoot, locale, mimeTypeId, true);                    
                     //String txt = ContentWorker.renderSubContentAsTextCache(delegator, thisContentId, thisMapKey, null, templateRoot, locale, mimeTypeId, null, fromDate);
                     if ("true".equals(xmlEscape)) {
                         txt = UtilFormatOut.encodeXmlValue(txt);

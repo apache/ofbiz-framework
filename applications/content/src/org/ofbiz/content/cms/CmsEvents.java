@@ -28,6 +28,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.ofbiz.widget.html.HtmlFormRenderer;
+import org.ofbiz.service.LocalDispatcher;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -54,6 +55,7 @@ public class CmsEvents {
 
     public static String cms(HttpServletRequest request, HttpServletResponse response) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ServletContext servletContext = request.getSession().getServletContext();
         HttpSession session = request.getSession();
 
@@ -187,12 +189,9 @@ public class CmsEvents {
 
                     // render
                     if (UtilValidate.isEmpty(mapKey)) {
-                        ContentWorker.renderContentAsText(delegator, contentId, writer, templateMap, locale, "text/html", true);
-                        //ContentWorker.renderContentAsTextCache(delegator, contentId, writer, templateMap, null, locale, "text/html");
+                        ContentWorker.renderContentAsText(dispatcher, delegator, contentId, writer, templateMap, locale, "text/html", true);
                     } else {
-                        ContentWorker.renderSubContentAsText(delegator, contentId, writer, mapKey, templateMap, locale, "text/html", true);
-                        //ContentWorker.renderSubContentAsTextCache(delegator, contentId, writer, mapKey, null, templateMap, locale, "text/html", userLogin, fromDate, Boolean.FALSE);
-
+                        ContentWorker.renderSubContentAsText(dispatcher, delegator, contentId, writer, mapKey, templateMap, locale, "text/html", true);                        
                     }
 
                 } catch (IOException e) {

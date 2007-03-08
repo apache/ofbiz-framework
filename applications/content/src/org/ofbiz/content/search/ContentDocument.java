@@ -36,6 +36,7 @@ import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.service.LocalDispatcher;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -49,7 +50,7 @@ public class ContentDocument {
     static char dirSep = System.getProperty("file.separator").charAt(0);
     public static final String module = ContentDocument.class.getName();
 	
-	public static Document Document(String id, GenericDelegator delegator) throws InterruptedException  {
+	public static Document Document(String id, GenericDelegator delegator, LocalDispatcher dispatcher) throws InterruptedException  {
 	  	
 		Document doc = null;
 		GenericValue content;
@@ -60,13 +61,13 @@ public class ContentDocument {
 	  		return doc;
 	  	}
 	  	
-                Map map = new HashMap();
-	  	doc = Document(content, map);
-                return doc;
+        Map map = new HashMap();
+	  	doc = Document(content, map, dispatcher);
+        return doc;
 	}
 	
-	public static Document Document(GenericValue content, Map context)
-			throws InterruptedException {
+	public static Document Document(GenericValue content, Map context, LocalDispatcher dispatcher) throws InterruptedException {
+
 		Document doc;
 		// make a new, empty document
 		doc = new Document();
@@ -102,7 +103,7 @@ public class ContentDocument {
 			// module);
 			doc.add(field);
 		}
-		boolean retVal = indexDataResource(content, doc, context);
+		boolean retVal = indexDataResource(content, doc, context, dispatcher);
 		//Debug.logInfo("in DataResourceDocument, context.badIndexList:" +
 		// context.get("badIndexList"), module);
 		if (!retVal)
@@ -110,9 +111,8 @@ public class ContentDocument {
 		return doc;
 	}
 
-	public static boolean indexDataResource(GenericValue content, Document doc,
-			Map context) {
-		GenericDelegator delegator = content.getDelegator();
+	public static boolean indexDataResource(GenericValue content, Document doc, Map context, LocalDispatcher dispatcher) {
+        GenericDelegator delegator = content.getDelegator();
 		String contentId = content.getString("contentId");
 		//Debug.logInfo("in ContentDocument, contentId:" + contentId,
 		// module);
@@ -145,7 +145,7 @@ public class ContentDocument {
 		}
 		String text;
 		try {
-			text = ContentWorker.renderContentAsText(delegator, contentId, context, locale, mimeTypeId, true);
+			text = ContentWorker.renderContentAsText(dispatcher, delegator, contentId, context, locale, mimeTypeId, true);
 		} catch (GeneralException e) {
 			Debug.logError(e, module);
 			List badIndexList = (List) context.get("badIndexList");

@@ -37,6 +37,7 @@ import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.service.LocalDispatcher;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateTransformModel;
@@ -79,6 +80,7 @@ public class RenderSubContentTransform implements TemplateTransformModel {
         final String throwExceptionOnError = getArg(args, "throwExceptionOnError", ctx);
         final Locale locale = (Locale) FreeMarkerWorker.getWrappedObject("locale", env);
         final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
+        final LocalDispatcher dispatcher = (LocalDispatcher) FreeMarkerWorker.getWrappedObject("dispatcher", env);
         final GenericDelegator delegator = (GenericDelegator) FreeMarkerWorker.getWrappedObject("delegator", env);
         final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
         GenericValue subContentDataResourceViewTemp = (GenericValue) FreeMarkerWorker.getWrappedObject("subContentDataResourceView", env);
@@ -134,9 +136,9 @@ public class RenderSubContentTransform implements TemplateTransformModel {
                 }
                 try {
                     if (subContentId != null) {
-                        ContentWorker.renderContentAsText(delegator, subContentId, out, templateRoot, locale, mimeTypeId, false);
+                        ContentWorker.renderContentAsText(dispatcher, delegator, subContentId, out, templateRoot, locale, mimeTypeId, false);
                     } else {
-                        ContentWorker.renderSubContentAsText(delegator, contentId, out, mapKey, templateRoot, locale, mimeTypeId, false);
+                        ContentWorker.renderSubContentAsText(dispatcher, delegator, contentId, out, mapKey, templateRoot, locale, mimeTypeId, false);
                     }
                     //Map results = ContentWorker.renderSubContentAsText(delegator, contentId, out, mapKey, subContentId, subContentDataResourceView, templateRoot, locale, mimeTypeId, userLogin, fromDate);
                 } catch (GeneralException e) {
