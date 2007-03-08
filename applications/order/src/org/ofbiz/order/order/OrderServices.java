@@ -3650,38 +3650,51 @@ public class OrderServices {
                         cart.setBillFromVendorPartyId(supplierPartyId);
                         cart.setOrderPartyId(supplierPartyId);
                         // Get the items associated to it and create po
-                        Iterator items = orh.getValidOrderItems(shipGroup.getString("shipGroupSeqId")).iterator();
-                        while (items.hasNext()) {
-                            GenericValue item = (GenericValue)items.next();
-                            try {
-                                int itemIndex = cart.addOrIncreaseItem(item.getString("productId"),
-                                                                       null, // amount
-                                                                       item.getDouble("quantity").doubleValue(),
-                                                                       null, null, null, // reserv
-                                                                       item.getTimestamp("shipBeforeDate"),
-                                                                       item.getTimestamp("shipAfterDate"),
-                                                                       null, null, null,
-                                                                       null, null, null,
-                                                                       null, dispatcher);
-                                ShoppingCartItem sci = cart.findCartItem(itemIndex);
-                                sci.setAssociatedOrderId(orderId);
-                                sci.setAssociatedOrderItemSeqId(item.getString("orderItemSeqId"));
-                                sci.setOrderItemAssocTypeId("DROP_SHIPMENT");
-                                // TODO: we should consider also the ship group in the association between sales and purchase orders
-                            } catch(Exception e) {
-                                ServiceUtil.returnError("The following error occurred creating drop shipments for order [" + orderId + "]: " + e.getMessage());
+                        List items = orh.getValidOrderItems(shipGroup.getString("shipGroupSeqId"));
+                        if (!UtilValidate.isEmpty(items)) {
+                            Iterator itemsIt = items.iterator();
+                            while (itemsIt.hasNext()) {
+                                GenericValue item = (GenericValue)itemsIt.next();
+                                try {
+                                    int itemIndex = cart.addOrIncreaseItem(item.getString("productId"),
+                                                                           null, // amount
+                                                                           item.getDouble("quantity").doubleValue(),
+                                                                           null, null, null, // reserv
+                                                                           item.getTimestamp("shipBeforeDate"),
+                                                                           item.getTimestamp("shipAfterDate"),
+                                                                           null, null, null,
+                                                                           null, null, null,
+                                                                           null, dispatcher);
+                                    ShoppingCartItem sci = cart.findCartItem(itemIndex);
+                                    sci.setAssociatedOrderId(orderId);
+                                    sci.setAssociatedOrderItemSeqId(item.getString("orderItemSeqId"));
+                                    sci.setOrderItemAssocTypeId("DROP_SHIPMENT");
+                                    // TODO: we should consider also the ship group in the association between sales and purchase orders
+                                } catch(Exception e) {
+                                    ServiceUtil.returnError("The following error occurred creating drop shipments for order [" + orderId + "]: " + e.getMessage());
+                                }
                             }
                         }
-                        // set checkout options
-                        cart.setDefaultCheckoutOptions(dispatcher);
-                        // the shipping address is the one of the customer
-                        cart.setShippingContactMechId(shipGroup.getString("contactMechId"));
-                        // create the order
-                        CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
-                        Map resultOrderMap = coh.createOrder(userLogin);
-                        String purchaseOrderId = (String)resultOrderMap.get("orderId");
 
-                        // TODO: associate the new purchase order with the sales order (ship group)
+                        // If there are indeed items to drop ship, then create the purchase order
+                        if (!UtilValidate.isEmpty(cart.items())) {
+                            // set checkout options
+                            cart.setDefaultCheckoutOptions(dispatcher);
+                            // the shipping address is the one of the customer
+                            cart.setShippingContactMechId(shipGroup.getString("contactMechId"));
+                            // create the order
+                            CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
+                            Map resultOrderMap = coh.createOrder(userLogin);
+                            String purchaseOrderId = (String)resultOrderMap.get("orderId");
+    
+                            // TODO: associate the new purchase order with the sales order (ship group)
+                        } else {
+                            // if there are no items to drop ship, then clear out the supplier partyId
+                            Debug.logWarning("No drop ship items found for order [" + shipGroup.getString("orderId") + "] and ship group [" + shipGroup.getString("shipGroupSeqId") + "] and supplier party [" + shipGroup.getString("supplierPartyId") + "].  Supplier party information will be cleared for this ship group", module);
+                            shipGroup.set("supplierPartyId", null);
+                            shipGroup.store();
+                    
+                        }
                     }
                 }
             }
