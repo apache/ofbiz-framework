@@ -62,10 +62,12 @@
     <!-- generic create data text service; looks at the type id to determine if ELECTRONIC_TEXT is necessary -->
     <service name="createDataText" engine="route" auth="true">
         <description>Uses ECA to decide if we should call createElectronicText or just createDataResource (SHORT_TEXT)</description>
+        <implements service="createDataResource"/>
         <implements service="createElectronicText"/>
     </service>
     <service name="updateDataText" engine="route" auth="true">
         <description>Uses ECA to decide if we should call updateElectronicText or just updateDataResource (SHORT_TEXT)</description>
+        <implements service="updateDataResource"/>
         <implements service="updateElectronicText"/>
     </service>
 
@@ -107,7 +109,6 @@
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="dataResourceTypeId" mode="IN" type="String" optional="true"></attribute>
         <attribute name="contentId" mode="INOUT" optional="true" type="String"/><!-- to optionaly know where this text is belonging to -->
     </service>
     <service name="removeElectronicText" default-entity-name="ElectronicText" engine="simple"
