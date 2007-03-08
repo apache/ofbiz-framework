@@ -797,7 +797,7 @@ under the License.
         <security auth="true" https="true"/>
         <event invoke="createContent" type="service"/>
         <response name="success" type="view" value="EditContent"/>
-        <response name="error" type="view" value="AddContent"/>
+        <response name="error" type="view" value="EditContent"/>
     </request-map>
     <request-map uri="editContent">
         <security auth="true" https="true"/>
