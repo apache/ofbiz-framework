@@ -25,4 +25,9 @@ under the License.
     <test-case case-name="userLoginEntityXmlAssert">
         <entity-xml-assert entity-xml-url="component://example/testdef/assertdata/TestUserLoginData.xml"/>
     </test-case>
+
+    <test-case case-name="testCreateExampleService">
+        <service-test service-name="testCreateExampleService"/>
+    </test-case>
+
 </test-suite>
