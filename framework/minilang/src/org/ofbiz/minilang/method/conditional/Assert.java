@@ -19,8 +19,9 @@
 package org.ofbiz.minilang.method.conditional;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
+
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -42,7 +43,7 @@ public class Assert extends MethodOperation {
     protected FlexibleStringExpander titleExdr;
 
     /** List of Conditional objects */
-    protected List conditionalList = new LinkedList(); 
+    protected List conditionalList = FastList.newInstance(); 
 
     public Assert(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -60,6 +61,11 @@ public class Assert extends MethodOperation {
 
     public boolean exec(MethodContext methodContext) {
         List messages = (List) errorListAcsr.get(methodContext);
+        if (messages == null) {
+            messages = FastList.newInstance();
+            errorListAcsr.put(methodContext, messages);
+        }
+
         String title = this.titleExdr.expandString(methodContext.getEnvMap());
         
         //  check each conditional and if fails generate a message to add to the error list
