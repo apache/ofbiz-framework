@@ -184,6 +184,8 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         }
         
         // set this contentId in the template context
+        ContentMapFacade facade = new ContentMapFacade(dispatcher, content, templateContext, locale, mimeTypeId, cache);
+        templateContext.put("thisContent", facade); 
         templateContext.put("contentId", contentId);
 
         // render all sub-content; place in template context under mapKey name
