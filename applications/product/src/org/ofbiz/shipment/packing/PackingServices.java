@@ -53,8 +53,13 @@ public class PackingServices {
             quantity = new Double(1);
         }
 
-        Debug.log("Pack input [" + productId + "] @ [" + quantity + "]", module);
+        Debug.log("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] Pack input [" + productId + "] @ [" + quantity + "] packageSeq [" + packageSeq + "] weight [" + weight +"]", module);
         
+        if (weight == null) {
+            Debug.logWarning("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] product [" + productId + "] being packed without a weight, assuming 0", module); 
+            weight = new Double(0.0);
+        }
+
         try {
             session.addOrIncreaseLine(orderId, null, shipGroupSeqId, productId, quantity.doubleValue(), packageSeq.intValue(), weight.doubleValue(), false);
         } catch (GeneralException e) {
