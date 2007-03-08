@@ -25,6 +25,20 @@ under the License.
     <version>1.0</version>
 
     <!-- Job Shop Management services -->
+    <service name="createProductionRunsForProductBom" engine="java"
+            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunsForProductBom" auth="true">
+        <description>Explodes a product id and creates all the needed production runs.</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" optional="true" mode="IN" type="Double"/>
+        <attribute name="startDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="routingId" type="String" mode="IN" optional="true"/>
+        <attribute name="workEffortName" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+        <attribute name="productionRuns" optional="true" mode="OUT" type="java.util.List"/><!-- TODO -->
+        <attribute name="productionRunId" type="String" mode="OUT" optional="false"/>
+    </service>
+
     <service name="createProductionRun" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRun" auth="true">
         <description>Create a Production Run</description>

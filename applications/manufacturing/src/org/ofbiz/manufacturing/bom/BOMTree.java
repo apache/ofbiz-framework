@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -324,26 +325,29 @@ public class BOMTree {
      * @param delegator The delegator used.
      * @throws GenericEntityException If a db problem occurs.
      */    
-    public void createManufacturingOrders(String orderId, String orderItemSeqId, String shipmentId, Date date, GenericValue userLogin)  throws GenericEntityException {
+    public String createManufacturingOrders(String facilityId, Date date, String workEffortName, String description, String routingId, String orderId, String orderItemSeqId, String shipmentId, GenericValue userLogin)  throws GenericEntityException {
+        String workEffortId = null;
         if (root != null) {
-            String facilityId = null;
-            if (orderId != null) {
-                GenericValue order = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
-                String productStoreId = order.getString("productStoreId");
-                if (productStoreId != null) {
-                    GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
-                    if (productStore != null) {
-                        facilityId = productStore.getString("inventoryFacilityId");
+            if (UtilValidate.isEmpty(facilityId)) {
+                if (orderId != null) {
+                    GenericValue order = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+                    String productStoreId = order.getString("productStoreId");
+                    if (productStoreId != null) {
+                        GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
+                        if (productStore != null) {
+                            facilityId = productStore.getString("inventoryFacilityId");
+                        }
                     }
-                }
 
+                }
+                if (facilityId == null && shipmentId != null) {
+                    GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+                    facilityId = shipment.getString("originFacilityId");
+                }
             }
-            if (facilityId == null && shipmentId != null) {
-                GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
-                facilityId = shipment.getString("originFacilityId");
-            }
-            root.createManufacturingOrder(orderId, orderItemSeqId, shipmentId, facilityId, date, true);
+            workEffortId = root.createManufacturingOrder(facilityId, date, workEffortName, description, routingId, orderId, orderItemSeqId, shipmentId, true);
         }
+        return workEffortId;
     }
 
     public void getProductsInPackages(ArrayList arr) {

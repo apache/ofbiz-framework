@@ -497,7 +497,7 @@ public class BOMNode {
         }
     }
 
-    public String createManufacturingOrder(String orderId, String orderItemSeqId, String shipmentId, String facilityId, Date date, boolean useSubstitute) throws GenericEntityException {
+    public String createManufacturingOrder(String facilityId, Date date, String workEffortName, String description, String routingId, String orderId, String orderItemSeqId, String shipmentId, boolean useSubstitute) throws GenericEntityException {
         String productionRunId = null;
         if (isManufactured()) {
             BOMNode oneChildNode = null;
@@ -505,7 +505,7 @@ public class BOMNode {
             for (int i = 0; i < childrenNodes.size(); i++) {
                 oneChildNode = (BOMNode)childrenNodes.get(i);
                 if (oneChildNode != null) {
-                    String childProductionRunId = oneChildNode.createManufacturingOrder(null, null, shipmentId, facilityId, date, false);
+                    String childProductionRunId = oneChildNode.createManufacturingOrder(facilityId, date, null, null, null, null, null, shipmentId, false);
                     if (childProductionRunId != null) {
                         childProductionRuns.add(childProductionRunId);
                     }
@@ -521,12 +521,22 @@ public class BOMNode {
                 serviceContext.put("productId", getSubstitutedNode().getProduct().getString("productId"));
                 serviceContext.put("facilityId", getSubstitutedNode().getProduct().getString("facilityId"));
             }
-            if (facilityId != null) {
+            if (!UtilValidate.isEmpty(facilityId)) {
                 serviceContext.put("facilityId", facilityId);
             }
-            if (shipmentId != null) {
+            if (!UtilValidate.isEmpty(workEffortName)) {
+                serviceContext.put("workEffortName", workEffortName);
+            }
+            if (!UtilValidate.isEmpty(description)) {
+                serviceContext.put("description", description);
+            }
+            if (!UtilValidate.isEmpty(routingId)) {
+                serviceContext.put("routingId", routingId);
+            }
+            if (!UtilValidate.isEmpty(shipmentId) && UtilValidate.isEmpty(workEffortName)) {
                 serviceContext.put("workEffortName", "SP_" + shipmentId + "_" + serviceContext.get("productId"));
             }
+            
             serviceContext.put("pRQuantity", new Double(getQuantity()));
             serviceContext.put("startDate", startDate);
             serviceContext.put("userLogin", userLogin);

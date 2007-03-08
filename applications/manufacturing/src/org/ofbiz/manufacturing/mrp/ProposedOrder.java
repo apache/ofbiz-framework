@@ -203,6 +203,10 @@ public class ProposedOrder {
      * @return String the requirementId
      **/
     public String create(DispatchContext ctx, GenericValue userLogin) {
+        if ("WIP".equals(product.getString("productTypeId"))) {
+            // No requirements for Work In Process products
+            return null;
+        }
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Map parameters = UtilMisc.toMap("userLogin", userLogin);
         
