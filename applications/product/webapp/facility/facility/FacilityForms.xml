@@ -128,6 +128,7 @@ under the License.
     <form name="SearchInventoryItemsParams" type="single" target="SearchInventoryItems"
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="facilityId"><text/></field>
+        <field name="datetimeReceived"><date-find/></field>
         <field name="manufacturerPartyId"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
             <submit button-type="button"/>
@@ -144,6 +145,7 @@ under the License.
         <field name="inventoryItemId"><display/></field>
         <field name="productId"><display/></field>
         <field name="manufacturerPartyId"><display/></field>
+        <field name="datetimeReceived"><display/></field>
         <field name="serialNumber"><display/></field> 
     </form>
 
