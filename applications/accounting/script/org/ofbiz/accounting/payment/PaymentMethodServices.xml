@@ -80,11 +80,17 @@ under the License.
         
         <find-by-and entity-name="CreditCard" map-name="lookupMap" list-name="creditCards"/>
         <iterate entry-name="creditCard" list-name="creditCards">
-            <set-service-fields service-name="updateCreditCard" map-name="creditCard" to-map-name="uccMap"/>
-            <set field="uccMap.contactMechId" from-field="parameters.contactMechId"/>
-            <set field="uccMap.partyId" from-field="parameters.partyId"/>
-            <!-- use the service so it will expire the old card and create a new one; don't break on error since this is a background process, just get whatever we can done... -->
-            <call-service service-name="updateCreditCard" in-map-name="uccMap" break-on-error="false"/>
+            <!-- UtilValidate.isDateAfterToday((String) context.get("expireDate"))  -->
+            <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDateAfterToday" ret-field-name="isNotExpired">
+                <field field-name="creditCard.expireDate"/>
+            </call-class-method>
+            <if-compare field-name="isNotExpired" operator="equals" type="Boolean" value="true">
+                <set-service-fields service-name="updateCreditCard" map-name="creditCard" to-map-name="uccMap"/>
+                <set field="uccMap.contactMechId" from-field="parameters.contactMechId"/>
+                <set field="uccMap.partyId" from-field="parameters.partyId"/>
+                <!-- use the service so it will expire the old card and create a new one; don't break on error since this is a background process, just get whatever we can done... -->
+                <call-service service-name="updateCreditCard" in-map-name="uccMap" break-on-error="false"/>
+            </if-compare>
         </iterate>
         
         <find-by-and entity-name="EftAccount" map-name="lookupMap" list-name="eftAccounts"/>
