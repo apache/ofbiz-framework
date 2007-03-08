@@ -131,4 +131,11 @@ under the License.
              location="org/ofbiz/example/ExamplePermissionServices.xml" invoke="exampleGenericPermission">
         <implements service="permissionInterface"/>
     </service>
+
+    <!-- Example ServiceTest Service -->
+    <service name="testCreateExampleService" engine="simple"
+             location="org/ofbiz/example/example/ExampleServices.xml" invoke="testCreateExampleService">
+        <implements service="testServiceInterface"/>
+    </service>
+
 </services>

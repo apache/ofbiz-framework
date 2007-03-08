@@ -89,4 +89,38 @@ under the License.
         <entity-one entity-name="ExampleItem" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+
+    <!-- Example ServiceTest Service -->
+    <simple-method method-name="testCreateExampleService" short-description="test the create example service" login-required="false">
+
+        <set field="createExampleMap.exampleTypeId" value="CONTRIVED"/>
+        <set field="createExampleMap.exampleName" value="Test Example"/>
+        <set field="createExampleMap.statusId" value="EXST_IN_DESIGN"/>
+
+        <entity-one entity-name="UserLogin" value-name="createExampleMap.userLogin" auto-field-map="false">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+
+        <call-service service-name="createExample" in-map-name="createExampleMap">
+            <result-to-field result-name="exampleId" field-name="lookupMap.exampleId"/>
+        </call-service>
+        <check-errors/>
+
+        <entity-one entity-name="Example" value-name="example" auto-field-map="false">
+            <field-map field-name="exampleId" value="lookupMap.exampleId"/>
+        </entity-one>
+        
+        <assert>
+            <not><if-empty field-name="example"/></not>
+        </assert>
+        <check-errors/>
+
+        <assert>
+            <if-compare field-name="example.exampleTypeId" value="createExampleMap.exampleTypeId" operator="equals"/>
+            <if-compare field-name="example.exampleName" value="createExampleMap.exampleName" operator="equals"/>
+            <if-compare field-name="example.statusId" value="createExampleMap.statusId" operator="equals"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    
 </simple-methods>
