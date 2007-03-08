@@ -147,13 +147,14 @@ document.lookupinventory.productId.focus();
         <tr>
           <td align="left"><div class="tableheadtext">${uiLabelMap.CommonDescription}</div></td>
           <td align="center">&nbsp</td>
+          <td align="left"><div class="tableheadtext">${uiLabelMap.CommonEventName}</div></td>
           <td align="left"><div class="tableheadtext">${uiLabelMap.CommonEventDate}</div></td>
           <td align="center">&nbsp</td>
           <td align="right"><div class="tableheadtext">${uiLabelMap.CommonQuantity}</div></td>
           <td align="right"><div class="tableheadtext">${uiLabelMap.ManufacturingTotalQuantity}</div></td>
         </tr>
         <tr>
-          <td colspan='6'><hr class='sepbar'></td>
+          <td colspan="7"><hr class="sepbar"/></td>
         </tr>
         <#assign count = lowIndex>
         <#assign productTmp = "">
@@ -183,7 +184,7 @@ document.lookupinventory.productId.focus();
                       </div>
                       </#if>
                   </td>
-                  <td colspan="4" align="right">
+                  <td colspan="5" align="right">
                     <#assign initialQohEvent = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("InventoryEventPlanned", Static["org.ofbiz.base.util.UtilMisc"].toMap("inventoryEventPlanTypeId", "INITIAL_QOH", "productId", inven.productId)))>
                     <#if initialQohEvent?exists && initialQohEvent.eventQuantity?has_content>
                         <#assign quantityAvailableAtDate = initialQohEvent.eventQuantity>
@@ -198,6 +199,7 @@ document.lookupinventory.productId.focus();
             <tr class="${rowClass}">
               <td><div class='tabletext'>${inventoryEventPlannedType.get("description",locale)}</div></td>
               <td>&nbsp</td>
+              <td>${inven.eventName?if_exists}</td>
               <td><div class='tabletext'>${inven.getString("eventDate")}</div></td>
               <td>&nbsp</td>
               <td><div class='tabletext'align="right"> ${inven.getString("eventQuantity")}</div></td>

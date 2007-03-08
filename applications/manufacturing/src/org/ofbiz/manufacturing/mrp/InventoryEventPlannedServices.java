@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -47,14 +48,13 @@ public class InventoryEventPlannedServices {
      */
     public static Map createInventoryEventPlanned(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
-        // No permission checking because this services is call from other services/
         Map parameters = UtilMisc.toMap("productId", context.get("productId"),
                                         "eventDate", context.get("eventDate"),
-                                        "inventoryEventPlanTypeId",context.get("inventoryEventPlanTypeId"));
+                                        "inventoryEventPlanTypeId", context.get("inventoryEventPlanTypeId"));
         Double quantity = (Double)context.get("eventQuantity");
         GenericValue inventoryEventPlanned = null;
         try {
-            createOrUpdateInventoryEventPlanned(parameters, quantity, delegator);
+            createOrUpdateInventoryEventPlanned(parameters, quantity, (String)context.get("eventName"), delegator);
         } catch (GenericEntityException e) {
             Debug.logError(e,"Error : delegator.findByPrimaryKey(\"InventoryEventPlanned\", parameters =)"+parameters, module);
             return ServiceUtil.returnError("Problem, on database access, for more detail look at the log");
@@ -62,16 +62,21 @@ public class InventoryEventPlannedServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static void createOrUpdateInventoryEventPlanned(Map inventoryEventPlannedKeyMap, Double newQuantity, GenericDelegator delegator) throws GenericEntityException {
+    public static void createOrUpdateInventoryEventPlanned(Map inventoryEventPlannedKeyMap, Double newQuantity, String eventName, GenericDelegator delegator) throws GenericEntityException {
         GenericValue inventoryEventPlanned = null;
         inventoryEventPlanned = delegator.findByPrimaryKey("InventoryEventPlanned", inventoryEventPlannedKeyMap);
         if (inventoryEventPlanned == null) {
             inventoryEventPlanned = delegator.makeValue("InventoryEventPlanned", inventoryEventPlannedKeyMap);
             inventoryEventPlanned.put("eventQuantity", newQuantity);
+            inventoryEventPlanned.put("eventName", eventName);
             inventoryEventPlanned.create();
         } else {
             double qties = newQuantity.doubleValue() + ((Double)inventoryEventPlanned.get("eventQuantity")).doubleValue();
             inventoryEventPlanned.put("eventQuantity", new Double(qties));
+            if (!UtilValidate.isEmpty(eventName)) {
+                String existingEventName = inventoryEventPlanned.getString("eventName");
+                inventoryEventPlanned.put("eventName", (UtilValidate.isEmpty(existingEventName)? eventName: existingEventName + ", " + eventName));
+            }
             inventoryEventPlanned.store();
         }
     }
