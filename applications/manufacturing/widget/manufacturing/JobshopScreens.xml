@@ -150,14 +150,14 @@ under the License.
                     <field-map field-name="workEffortId" env-name="productionRunId"/>
                 </entity-one>
                 <!-- Find all the work efforts that must be completed before this one. -->
-                <entity-condition entity-name="WorkEffortAssoc" list-name="mandatoryWorkEfforts" filter-by-date="true">
+                <entity-condition entity-name="WorkEffortAssoc" list-name="mandatoryWorkEfforts">
                     <condition-list>
                         <condition-expr field-name="workEffortIdTo" env-name="productionRunId"/>
                         <condition-expr field-name="workEffortAssocTypeId" value="WORK_EFF_PRECEDENCY"/>
                     </condition-list>
                 </entity-condition>
                 <!-- Find all the work efforts that are dependent from this one. -->
-                <entity-condition entity-name="WorkEffortAssoc" list-name="dependentWorkEfforts" filter-by-date="true">
+                <entity-condition entity-name="WorkEffortAssoc" list-name="dependentWorkEfforts">
                     <condition-list>
                         <condition-expr field-name="workEffortIdFrom" env-name="productionRunId"/>
                         <condition-expr field-name="workEffortAssocTypeId" value="WORK_EFF_PRECEDENCY"/>
