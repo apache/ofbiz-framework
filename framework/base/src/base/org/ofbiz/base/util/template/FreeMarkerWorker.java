@@ -115,6 +115,7 @@ public class FreeMarkerWorker {
             ftlTransforms.put("limitedSubContent", loader.loadClass("org.ofbiz.content.webapp.ftl.LimitedSubContentCacheTransform").newInstance());
             ftlTransforms.put("renderSubContentAsText", loader.loadClass("org.ofbiz.content.webapp.ftl.RenderSubContentAsText").newInstance());
             ftlTransforms.put("renderContentAsText", loader.loadClass("org.ofbiz.content.webapp.ftl.RenderContentAsText").newInstance());
+            ftlTransforms.put("renderContent", loader.loadClass("org.ofbiz.content.webapp.ftl.RenderContentTransform").newInstance());
         } catch (ClassNotFoundException e) {
             Debug.logError("Could not pre-initialize dynamically loaded class: " + e.toString(), module);
         } catch (IllegalAccessException e) {
