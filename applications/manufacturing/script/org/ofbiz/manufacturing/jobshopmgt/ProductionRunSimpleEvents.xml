@@ -31,7 +31,7 @@ under the License.
                         <fail-property resource="ProductUiLabels" property="ProductProductIdMissing"/>
                     </not-empty>
                 </process>
-                <process field="pRQuantity">
+                <process field="quantity">
                     <copy/>
                     <not-empty>
                         <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityMissing"/>
@@ -67,7 +67,7 @@ under the License.
             </simple-map-processor>
         </call-map-processor>
         <check-errors/>
-        <call-service service-name="createProductionRun" in-map-name="context1">
+        <call-service service-name="createProductionRunsForProductBom" in-map-name="context1">
             <result-to-field result-name="productionRunId"/>
         </call-service>
         <field-to-request field-name="productionRunId"/>

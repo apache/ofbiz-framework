@@ -1750,7 +1750,7 @@ public class ProductionRunServices {
         Map serviceContext = new HashMap();
         serviceContext.clear();
         serviceContext.put("productId", requirement.getString("productId"));
-        serviceContext.put("pRQuantity", quantity);
+        serviceContext.put("quantity", quantity);
         serviceContext.put("startDate", requirement.getTimestamp("requirementStartDate"));
         serviceContext.put("facilityId", requirement.getString("facilityId"));
         String workEffortName = null;
@@ -1766,7 +1766,7 @@ public class ProductionRunServices {
         serviceContext.put("userLogin", userLogin);
         Map resultService = null;
         try {
-            resultService = dispatcher.runSync("createProductionRun", serviceContext);
+            resultService = dispatcher.runSync("createProductionRunsForProductBom", serviceContext);
         } catch (GenericServiceException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotCreated", locale));
         }
@@ -2051,13 +2051,43 @@ public class ProductionRunServices {
                 tree.setRootQuantity(quantity.doubleValue());
                 tree.setRootAmount(amount.doubleValue());
                 tree.print(components);
-                tree.createManufacturingOrders(orderId, orderItem.getString("orderItemSeqId"), shipmentId, fromDate, userLogin);
+                tree.createManufacturingOrders(null, fromDate, null, null, null, orderId, orderItem.getString("orderItemSeqId"), shipmentId, userLogin);
             } catch(GenericEntityException gee) {
                 return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
             }
         }
         ArrayList productionRuns = new ArrayList();
         result.put("productionRuns" , productionRuns);
+        return result;
+    }
+
+    public static Map createProductionRunsForProductBom(DispatchContext dctx, Map context) {
+        Map result = new HashMap();
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin =(GenericValue)context.get("userLogin");
+
+        String productId = (String)context.get("productId");
+        Timestamp startDate = (Timestamp)context.get("startDate");
+        Double quantity = (Double)context.get("quantity");
+        String facilityId = (String)context.get("facilityId");
+        String workEffortName = (String)context.get("workEffortName");
+        String description = (String)context.get("description");
+        String routingId = (String)context.get("routingId");
+        String workEffortId = null;
+        try {
+            ArrayList components = new ArrayList();
+            BOMTree tree = new BOMTree(productId, "MANUF_COMPONENT", startDate, BOMTree.EXPLOSION_MANUFACTURING, delegator, dispatcher, userLogin);
+            tree.setRootQuantity(quantity.doubleValue());
+            tree.setRootAmount(0.0);
+            tree.print(components);
+            workEffortId = tree.createManufacturingOrders(facilityId, startDate, workEffortName, description, routingId, null, null, null, userLogin);
+        } catch(GenericEntityException gee) {
+            return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
+        }
+        ArrayList productionRuns = new ArrayList();
+        result.put("productionRuns" , productionRuns);
+        result.put("productionRunId" , workEffortId);
         return result;
     }
 
