@@ -150,7 +150,7 @@ if (mode != null && mode.equalsIgnoreCase("restore")) {
         subContentDataResourceView = ContentWorker.getSubContent(delegator, contentId, "ARTICLE", null, userLogin, assocTypes, fromDate);
         if ( subContentDataResourceView != null) {
             out = new StringWriter();
-            ContentWorker.renderContentAsText(delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId);
+            ContentWorker.renderContentAsText(dispatcher, delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId, true);
             textData = out.toString();
             singleWrapper.putInContext("txtContentId", subContentDataResourceView.get("contentId"));
             singleWrapper.putInContext("txtDataResourceId", subContentDataResourceView.get("dataResourceId"));
@@ -161,7 +161,7 @@ if (mode != null && mode.equalsIgnoreCase("restore")) {
         subContentDataResourceView = ContentWorker.getSubContent(delegator, contentId, "SUMMARY", null, userLogin, assocTypes, fromDate);
         if ( subContentDataResourceView != null) {
             out = new StringWriter();
-            ContentWorker.renderContentAsText(delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId);
+            ContentWorker.renderContentAsText(dispatcher, delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId, true);
             summaryData = out.toString();
             singleWrapper.putInContext("sumContentId", subContentDataResourceView.get("contentId"));
             singleWrapper.putInContext("sumDataResourceId", subContentDataResourceView.get("dataResourceId"));
@@ -171,7 +171,7 @@ if (mode != null && mode.equalsIgnoreCase("restore")) {
         subContentDataResourceView = ContentWorker.getSubContent(delegator, contentId, "IMAGE", null, userLogin, assocTypes, fromDate);
         if ( subContentDataResourceView != null) {
             out = new StringWriter();
-            ContentWorker.renderContentAsText(delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId);
+            ContentWorker.renderContentAsText(dispatcher, delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId, true);
             imageData = out.toString();
             singleWrapper.putInContext("imgContentId", subContentDataResourceView.get("contentId"));
             singleWrapper.putInContext("imgDataResourceId", subContentDataResourceView.get("dataResourceId"));
