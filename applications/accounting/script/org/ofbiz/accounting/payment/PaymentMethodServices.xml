@@ -80,7 +80,6 @@ under the License.
         
         <find-by-and entity-name="CreditCard" map-name="lookupMap" list-name="creditCards"/>
         <iterate entry-name="creditCard" list-name="creditCards">
-            <!-- UtilValidate.isDateAfterToday((String) context.get("expireDate"))  -->
             <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDateAfterToday" ret-field-name="isNotExpired">
                 <field field-name="creditCard.expireDate"/>
             </call-class-method>
