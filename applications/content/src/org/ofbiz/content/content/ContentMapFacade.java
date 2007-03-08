@@ -110,37 +110,43 @@ public class ContentMapFacade implements Map {
     }
 
     public Object put(Object name, Object value) {
-        throw new IllegalArgumentException("This method is not implemented in ContentMapFacade");
+        Debug.logWarning("This [put()] method is not implemented in ContentMapFacade", module);
+        return null;
     }
 
     public Object remove(Object object) {
-        throw new IllegalArgumentException("This method is not implemented in ContentMapFacade");
+        Debug.logWarning("This [remove()] method is not implemented in ContentMapFacade", module);
+        return null;
     }
 
     public void putAll(Map map) {
-        throw new IllegalArgumentException("This method is not implemented in ContentMapFacade");
+        Debug.logWarning("This method [putAll()] is not implemented in ContentMapFacade", module);
     }
 
     public void clear() {
-        throw new IllegalArgumentException("This method is not implemented in ContentMapFacade");
+        Debug.logWarning("This method [clear()] is not implemented in ContentMapFacade", module);
     }
 
     public Set keySet() {
-        throw new IllegalArgumentException("This method is not implemented in ContentMapFacade");
+        Debug.logWarning("This method [keySet()] is not implemented in ContentMapFacade", module);
+        return null;
     }
 
     public Collection values() {
-        throw new IllegalArgumentException("This method is not implemented in ContentMapFacade");
+        Debug.logWarning("This method [values()] is not implemented in ContentMapFacade", module);
+        return null;
     }
 
     public Set entrySet() {
-        throw new IllegalArgumentException("This method is not implemented in ContentMapFacade");
+        Debug.logWarning("This method [entrySet()] is not implemented in ContentMapFacade", module);
+        return null;
     }
 
     // implemented get method
     public Object get(Object obj) {
         if (!(obj instanceof String)) {
-            throw new IllegalArgumentException("Key parameters must be a string");
+            Debug.logWarning("Key parameters must be a string", module);
+            return null;
         }
         String name = (String) obj;
 
@@ -188,16 +194,17 @@ public class ContentMapFacade implements Map {
         }
 
         // content; returns object from contentId
-        if ("content".equals(name)) {
+        if ("content".equals(name)) {            
             return content;
         }
         
         // render this content
-        if ("render".equals("name")) {
+        if ("render".equals(name)) {
             Map renderCtx = FastMap.newInstance();
             renderCtx.putAll(context);
             if (isTop) {
-                throw new IllegalArgumentException("Cannot render content being rendered! (No Looping!)");
+                Debug.logWarning("Cannot render content being rendered! (No Looping!)", module);
+                return "Cannot render content being rendered! (No Looping!)";
             }
             try {
                 return ContentWorker.renderContentAsText(dispatcher, delegator, contentId, renderCtx, locale, mimeType, cache);
@@ -210,7 +217,7 @@ public class ContentMapFacade implements Map {
             }
         }
 
-        throw new IllegalArgumentException("Not a valid field of ContentMapFacade [" + name + "]");
+        return null;
     }
 
     abstract class AbstractInfo implements Map {
@@ -234,42 +241,52 @@ public class ContentMapFacade implements Map {
         public abstract Object get(Object object);
 
 
-        public Object put(Object key, Object value) {
-            throw new IllegalArgumentException("This method is not implemented in ContentMapFacade");
+        public Object put(Object name, Object value) {
+            Debug.logWarning("This [put()] method is not implemented in ContentMapFacade.AbstractInfo", module);
+            return null;
         }
 
         public Object remove(Object object) {
-            throw new IllegalArgumentException("This method is not implemented in ContentMapFacade");
+            Debug.logWarning("This [remove()] method is not implemented in ContentMapFacade.AbstractInfo", module);
+            return null;
         }
 
         public void putAll(Map map) {
-            throw new IllegalArgumentException("This method is not implemented in ContentMapFacade");
+            Debug.logWarning("This method [putAll()] is not implemented in ContentMapFacade.AbstractInfo", module);
         }
 
         public void clear() {
-            throw new IllegalArgumentException("This method is not implemented in ContentMapFacade");
+            Debug.logWarning("This method [clear()] is not implemented in ContentMapFacade.AbstractInfo", module);
         }
 
         public Set keySet() {
-            throw new IllegalArgumentException("This method is not implemented in ContentMapFacade");
+            Debug.logWarning("This method [keySet()] is not implemented in ContentMapFacade.AbstractInfo", module);
+            return null;
         }
 
         public Collection values() {
-            throw new IllegalArgumentException("This method is not implemented in ContentMapFacade");
+            Debug.logWarning("This method [values()] is not implemented in ContentMapFacade.AbstractInfo", module);
+            return null;
         }
 
         public Set entrySet() {
-            throw new IllegalArgumentException("This method is not implemented in ContentMapFacade");
+            Debug.logWarning("This method [entrySet()] is not implemented in ContentMapFacade.AbstractInfo", module);
+            return null;
         }
+
     }
 
     class Content extends AbstractInfo {
         public Object get(Object key) {
             if (!(key instanceof String)) {
-                throw new IllegalArgumentException("Key parameters must be a string");
+                Debug.logWarning("Key parameters must be a string", module);
+                return null;
             }
             String name = (String) key;
-
+            if (name.toLowerCase().startsWith("id_")) {
+                name = name.substring(3);
+            }
+            
             // look up the content ID (of name)
             GenericValue content = null;
             try {
@@ -288,7 +305,8 @@ public class ContentMapFacade implements Map {
     class SubContent extends AbstractInfo {
         public Object get(Object key) {
             if (!(key instanceof String)) {
-                throw new IllegalArgumentException("Key parameters must be a string");
+                Debug.logWarning("Key parameters must be a string", module);
+                return null;
             }
             String name = (String) key;
 
@@ -314,7 +332,8 @@ public class ContentMapFacade implements Map {
     class MetaData extends AbstractInfo {
         public Object get(Object key) {
             if (!(key instanceof String)) {
-                throw new IllegalArgumentException("Key parameters must be a string");
+                Debug.logWarning("Key parameters must be a string", module);
+                return null;
             }
             String name = (String) key;
             List metaData = null;
