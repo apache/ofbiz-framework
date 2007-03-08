@@ -107,6 +107,7 @@
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="dataResourceTypeId" mode="IN" type="String" optional="true"></attribute>
         <attribute name="contentId" mode="INOUT" optional="true" type="String"/><!-- to optionaly know where this text is belonging to -->
     </service>
     <service name="removeElectronicText" default-entity-name="ElectronicText" engine="simple"
