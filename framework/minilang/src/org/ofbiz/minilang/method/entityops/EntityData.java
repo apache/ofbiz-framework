@@ -18,19 +18,17 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.entityops;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-import javax.xml.parsers.ParserConfigurationException;
+import javolution.util.FastList;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.util.EntityDataAssert;
 import org.ofbiz.entity.util.EntitySaxReader;
 import org.ofbiz.minilang.SimpleMethod;
@@ -38,7 +36,6 @@ import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 /**
  * Uses the delegator to find entity values by a primary key
@@ -68,6 +65,11 @@ public class EntityData extends MethodOperation {
 
     public boolean exec(MethodContext methodContext) {
         List messages = (List) errorListAcsr.get(methodContext);
+        if (messages == null) {
+            messages = FastList.newInstance();
+            errorListAcsr.put(methodContext, messages);
+        }
+
         String location = this.locationExdr.expandString(methodContext.getEnvMap());
         String delegatorName = this.delegatorNameExdr.expandString(methodContext.getEnvMap());
 
