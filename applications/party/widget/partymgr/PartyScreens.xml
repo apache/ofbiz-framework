@@ -533,13 +533,9 @@ under the License.
                                 <if-has-permission permission="PARTYMGR" action="_CREATE"/>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-header">
-                                        <label style="boxhead" text="${uiLabelMap.PartyCreateNewParty}"/>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="create-new-party"/>
-                                    </container>
+                                <label style="head1" text="${uiLabelMap.PartyCreateNewParty}"/>
+                                <container style="screenlet-body">
+                                    <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="create-new-party"/>
                                 </container>
                             </widgets>
                             <fail-widgets>

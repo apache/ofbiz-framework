@@ -37,6 +37,7 @@ under the License.
     <#if security.hasEntityPermission("SECURITY", "_VIEW", session)>
       <li<#if selected == "security"> class="selected"</#if>><a href="<@ofbizUrl>FindSecurityGroup</@ofbizUrl>">${uiLabelMap.CommonSecurity}</a></li>
     </#if>
+    <li<#if selected == "addrmap"> class="selected"</#if>><a href="<@ofbizUrl>addressMatchMap</@ofbizUrl>">${uiLabelMap.PageTitleAddressMatchMap}</a></li>
   </ul>
   <ul class="opposed">
     <#if userLogin?has_content>
@@ -44,7 +45,6 @@ under the License.
     <#else>
       <li><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
     </#if>
-    <li<#if selected == "addrmap"> class="selected"</#if>><a href="<@ofbizUrl>addressMatchMap</@ofbizUrl>">${uiLabelMap.PageTitleAddressMatchMap}</a></li>
   </ul>
   <br class="clear" />
 </div>
