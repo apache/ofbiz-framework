@@ -96,6 +96,7 @@ under the License.
     </eca>
     <eca service="updateDataText" event="invoke">
         <condition field-name="dataResourceTypeId" operator="equals" value="ELECTRONIC_TEXT"/>
+        <action service="updateDataResource" mode="sync" result-to-context="true"/>
         <action service="updateElectronicText" mode="sync" result-to-context="true"/>
     </eca>
     <eca service="updateDataText" event="invoke">
@@ -108,9 +109,6 @@ under the License.
         <condition field-name="dataResourceId" operator="is-empty"/>
         <set field-name="dataResourceTypeId" value="ELECTRONIC_TEXT"/>
         <action service="createDataResource" mode="sync" result-to-context="true"/>
-    </eca>
-    <eca service="updateElectronicText" event="invoke">
-        <action service="updateDataResource" mode="sync" result-to-context="true"/>
     </eca>
 
     <!-- create content ecas -->
