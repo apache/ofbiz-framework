@@ -52,6 +52,12 @@
                 callEditor(true, node.widgetId, '', 'SHORT_TEXT');
             }
         );
+        dojo.event.topic.subscribe("newUrl/engage",
+            function (menuItem) {
+                var node = menuItem.getTreeNode();
+                callEditor(true, node.widgetId, '', 'URL_RESOURCE');
+            }
+        );
         dojo.event.topic.subscribe("newImage/engage",
             function (menuItem) {
                 var node = menuItem.getTreeNode();
@@ -354,6 +360,7 @@
 <dl dojoType="TreeContextMenu" id="webCmsContextMenu" style="font-size: 1em; color: #ccc;">
     <dt dojoType="TreeMenuItem" id="newLong" caption="New Long Text"/>
     <dt dojoType="TreeMenuItem" id="newShort" caption="New Short Text"/>
+    <dt dojoType="TreeMenuItem" id="newUrl" caption="New URL"/>
     <dt dojoType="TreeMenuItem" id="newImage" caption="New Image"/>
     <dt dojoType="TreeMenuItem" id="newVideo" caption="New Video"/>
     <dt dojoType="TreeMenuItem" id="newAudio" caption="New Audio"/>
