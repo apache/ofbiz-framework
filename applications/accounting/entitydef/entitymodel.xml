@@ -479,6 +479,10 @@ under the License.
         <relation type="one" fk-name="FXDASTMNT_PURORD" title="Purchase" rel-entity-name="OrderHeader">
             <key-map field-name="purchaseOrderId" rel-field-name="orderId"/>
         </relation>
+        <relation type="one" fk-name="FXDASTMNT_SI" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+        
     </entity>
     <entity entity-name="FixedAssetMaintMeter"
         package-name="org.ofbiz.accounting.fixedasset"

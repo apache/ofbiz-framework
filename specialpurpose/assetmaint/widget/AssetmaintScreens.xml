@@ -69,7 +69,7 @@
                 <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetId}" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/></container>
-                        <container><link target="printFixedAssetMaints.pdf?fixedAssetId=${fixedAssetId}&amp;maintHistSeqId=${maintHistSeqId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/></container>
+                        <container><link target="printFixedAssetMaint.pdf?fixedAssetId=${fixedAssetId}&amp;maintHistSeqId=${maintHistSeqId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/></container>
                         <container style="boxoutside">
                             <container style="screenlet-header">
                                 <label style="boxhead">${uiLabelMap.AccountingNewFixedAssetMaint}</label>
@@ -200,6 +200,7 @@
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
                 <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
                 <entity-condition list-name="itemIssuanceList" entity-name="ProductInventoryItemAndItemIssuance">
                     <condition-expr field-name="quantity" operator="greater" value="0"/>
                 </entity-condition>
@@ -216,4 +217,37 @@
             </widgets>
         </section>
     </screen>
+
+    <screen name="PrintFixedAssetMaint">
+        <section>
+            <actions>
+                <set field="title" value="Order"/>
+                <property-map resource="AssetMaintUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
+                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
+                <entity-condition list-name="itemIssuanceList" entity-name="ProductInventoryItemAndItemIssuance">
+                    <condition-expr field-name="quantity" operator="greater" value="0"/>
+                </entity-condition>
+                <set field="workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
+                <entity-condition list-name="notes" entity-name="WorkEffortNoteAndData">
+                    <condition-expr field-name="workEffortId" env-name="workEffortId"/>
+                    <order-by field-name="noteId"/>
+                </entity-condition>
+                <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/assetmaint/printFixedAssetMaint.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html><html-template  location="component://assetmaint/webapp/assetmaint/assetmaint/printFixedAssetMaint.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    
 </screens>

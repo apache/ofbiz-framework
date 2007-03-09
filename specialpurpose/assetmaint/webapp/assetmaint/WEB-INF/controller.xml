@@ -27,6 +27,8 @@
     <description>Asset Maintenance Component Site Configuration File</description>
     <errorpage>/error/error.jsp</errorpage>
 
+    <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopPdfViewHandler"/>
+
     <request-map uri="main">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
@@ -44,6 +46,11 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListFixedAssetMaints"/>
         <response name="error" type="view" value="ListFixedAssetMaints"/>
+    </request-map>
+    <request-map uri="printFixedAssetMaint.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PrintFixedAssetMaint"/>
+        <response name="error" type="view" value="EditFixedAssetMaint"/>
     </request-map>
     <request-map uri="EditFixedAssetMaint">
         <security https="true" auth="true"/>
@@ -192,6 +199,7 @@
     <view-map name="EditWorkEffortTimeEntries" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEffortTimeEntries"/>
     <view-map name="EditWorkEffortNotes" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEffortNotes"/>
     <view-map name="EditItemIssuances" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditItemIssuances"/>
+    <view-map name="PrintFixedAssetMaint" type="screenfop" page="component://assetmaint/widget/AssetmaintScreens.xml#PrintFixedAssetMaint"/>
 
 
     <!-- Lookup request mappings -->

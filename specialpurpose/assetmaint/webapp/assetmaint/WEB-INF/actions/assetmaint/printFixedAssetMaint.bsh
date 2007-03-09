@@ -1,0 +1,73 @@
+/**
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+**/
+
+import org.ofbiz.base.util.UtilMisc;
+
+
+facility = fixedAsset.getRelatedOne("LocatedAtFacility");
+context.put("locatedAtFacility", facility);
+
+List fixedAssetIdents = delegator.findByAnd("FixedAssetIdent", UtilMisc.toMap("fixedAssetId",fixedAssetId));
+fixedAssetIdentValue = "";
+if (fixedAssetIdents !=null) {
+	iter = fixedAssetIdents.iterator();
+	while (iter.hasNext()) {
+		ident = iter.next();
+		fixedAssetIdentValue = fixedAssetIdentValue + " " + ident.get("idValue");
+	}
+}
+context.put("fixedAssetIdentValue",fixedAssetIdentValue);
+
+status = fixedAssetMaint.getRelatedOne("StatusItem");
+if (status !=null) {
+    context.put("statusItemDesc",status.getString("description"));
+}
+//context.put("fixedAssetMaint",fixedAssetMaint);
+
+intervalUom = fixedAssetMaint.getRelatedOne("IntervalUom");
+if (intervalUom!=null) {
+    context.put("intervalUomDesc",intervalUom.getString("description"));
+}
+
+instanceOfProductId = fixedAsset.get("instanceOfProductId");
+productMaintSeqId = fixedAssetMaint.get("productMaintSeqId");
+if (productMaintSeqId != null && !productMaintSeqId.equals("")) {
+    productMaint = delegator.findByPrimaryKey("ProductMaint", UtilMisc.toMap("productId", instanceOfProductId,"productMaintSeqId",productMaintSeqId));
+    context.put("productMaintName",productMaint.get("maintName"));
+}
+
+productMaintTypeId = fixedAssetMaint.get("productMaintTypeId");
+if (productMaintTypeId!= null && !productMaintTypeId.equals("")) {
+    productMaintType = delegator.findByPrimaryKey("ProductMaintType", UtilMisc.toMap("productMaintTypeId", productMaintTypeId));
+    if (productMaintType != null) {
+        productMaintTypeDesc = productMaintType.get("description");
+        context.put("productMaintTypeDesc",productMaintTypeDesc);
+    }
+}
+
+intervalMeterTypeId = fixedAssetMaint.get("intervalMeterTypeId");
+productMeterTypeDesc = "";
+if (intervalMeterTypeId!= null && !intervalMeterTypeId.equals("")) {
+    productMeterType = delegator.findByPrimaryKey("ProductMeterType", UtilMisc.toMap("productMeterTypeId", intervalMeterTypeId));
+    productMeterTypeDesc  = productMeterType.get("description");
+}
+context.put("productMeterTypeDesc",productMeterTypeDesc);
+
+scheduleWorkEffort = fixedAssetMaint.getRelatedOne("ScheduleWorkEffort");
+context.put("scheduleWorkEffort",scheduleWorkEffort);

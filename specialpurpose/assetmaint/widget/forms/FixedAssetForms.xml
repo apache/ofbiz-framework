@@ -208,7 +208,7 @@
         <field name="quickAssignPartyId" title="${uiLabelMap.PartyPartyId}" use-when="fixedAssetMaint == null" field-name="partyId">
             <lookup target-form-name="LookupPerson"/>
         </field>
-        <field name="purchaseOrderId"  position="2" ><text/></field>
+        <field name="purchaseOrderId"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
