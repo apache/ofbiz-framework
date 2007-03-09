@@ -565,6 +565,14 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="allow-multiple" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="current" default="first-in-list">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -576,6 +584,7 @@ under the License.
         <xs:attribute type="xs:string" name="no-current-selected-key">
             <xs:annotation><xs:documentation>The key to mark as selected when there is no current entry value.</xs:documentation></xs:annotation>
         </xs:attribute>
+        <xs:attribute type="xs:integer" name="size" default="1"/>
         <xs:attribute type="xs:string" name="current-description"/>
         <xs:attribute type="xs:integer" name="other-field-size" default="0">
             <xs:annotation><xs:documentation>If non-zero, a text field will conditionally show
