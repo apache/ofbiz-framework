@@ -21,7 +21,7 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
 
     <menu name="ProfileTabBar" default-menu-item-name="viewprofile" default-selected-style="selected"
-        type="simple" menu-container-style="button-bar button-style-1">
+        type="simple" menu-container-style="button-bar tab-bar">
         <menu-item name="viewprofile" title="${uiLabelMap.PartyProfile}">
             <link target="viewprofile?partyId=${partyId}"/>
         </menu-item>
@@ -63,7 +63,7 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="create-new-party" type="simple" menu-container-style="head1">
+    <menu name="create-new-party" type="simple" menu-container-style="basic-nav">
         <menu-item name="create-party-group" title="${uiLabelMap.PartyCreateNewPartyGroup}">
             <link target="editpartygroup?create_new=Y"/>
         </menu-item>
