@@ -409,8 +409,25 @@ under the License.
     </xs:attributeGroup>
   <!-- ================== FIELD TYPES ==================== -->
     <xs:element name="check" substitutionGroup="AllFields">
-        <xs:complexType/>
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="entity-options"/>
+                <xs:element ref="list-options"/>
+                <xs:element ref="option"/>
+            </xs:choice>
+            <xs:attributeGroup ref="attlist.check"/>
+        </xs:complexType>
     </xs:element>
+    <xs:attributeGroup name="attlist.check">
+        <xs:attribute name="all-checked">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
     <xs:element name="date-find" substitutionGroup="AllFields">
         <xs:complexType>
             <xs:attributeGroup ref="attlist.date-find"/>

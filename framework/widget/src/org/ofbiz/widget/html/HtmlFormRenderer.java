@@ -684,25 +684,54 @@ public class HtmlFormRenderer implements FormStringRenderer {
      * @see org.ofbiz.widget.form.FormStringRenderer#renderCheckField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.CheckField)
      */
     public void renderCheckField(StringBuffer buffer, Map context, CheckField checkField) {
-        // well, I don't know if this will be very useful... but here it is
-
         ModelFormField modelFormField = checkField.getModelFormField();
-        // never used: ModelForm modelForm = modelFormField.getModelForm();
+        ModelForm modelForm = modelFormField.getModelForm();
         String currentValue = modelFormField.getEntry(context);
+        Boolean allChecked = checkField.isAllChecked(context);
         
-        buffer.append("<input type=\"checkbox\"");
+        List allOptionValues = checkField.getAllOptionValues(context, modelForm.getDelegator());
+        String event = modelFormField.getEvent();
+        String action = modelFormField.getAction(context);
 
-        appendClassNames(buffer, context, modelFormField);
+        // list out all options according to the option list
+        Iterator optionValueIter = allOptionValues.iterator();
+        while (optionValueIter.hasNext()) {
+            ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
 
-        // if current value should be selected in the list, select it
-        if ("Y".equals(currentValue) || "T".equals(currentValue)) {
-            buffer.append(" checked=\"checked\"");
+            buffer.append("<div");
+
+            appendClassNames(buffer, context, modelFormField);
+
+            buffer.append("><input type=\"checkbox\"");
+            
+            // if current value should be selected in the list, select it
+            if (Boolean.TRUE.equals(allChecked)) {
+                buffer.append(" checked=\"checked\"");
+            } else if (Boolean.FALSE.equals(allChecked)) {
+                // do nothing
+            } else if (UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey())) {
+                buffer.append(" checked=\"checked\"");
+            }
+            buffer.append(" name=\"");
+            buffer.append(modelFormField.getParameterName(context));
+            buffer.append('"');
+            buffer.append(" value=\"");
+            buffer.append(optionValue.getKey());
+            buffer.append("\"");
+
+            if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
+                buffer.append(" ");
+                buffer.append(event);
+                buffer.append("=\"");
+                buffer.append(action);
+                buffer.append('"');
+            }
+            
+            buffer.append("/>");
+
+            buffer.append(optionValue.getDescription());
+            buffer.append("</div>");
         }
-        buffer.append(" name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append('"');
-        buffer.append(" value=\"Y\"/>");
-        // any description by it?
 
         this.appendTooltip(buffer, context, modelFormField);
 
