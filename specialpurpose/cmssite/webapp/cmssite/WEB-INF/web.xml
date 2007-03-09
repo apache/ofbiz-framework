@@ -55,7 +55,7 @@ under the License.
         </init-param>
         <init-param>
             <param-name>allowedPaths</param-name>
-            <param-value>/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images</param-value>
+            <param-value>/cms:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images</param-value>
         </init-param>
         <init-param>
             <param-name>errorCode</param-name>
@@ -63,7 +63,7 @@ under the License.
         </init-param>
         <init-param>
             <param-name>redirectPath</param-name>
-            <param-value>/control/main</param-value>
+            <param-value>/cms/main</param-value>
         </init-param>        
     </filter>
     <filter-mapping>
