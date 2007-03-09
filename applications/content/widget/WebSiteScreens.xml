@@ -67,7 +67,9 @@ under the License.
                             </condition>
                             <widgets>
                                 <platform-specific><html><html-template location="component://content/webapp/content/website/WebSiteTabBar.ftl"/></html></platform-specific>
-                                <container style="widget-container"><link  text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.ContentWebSite}" target="EditWebSite" style="buttontext"/></container>
+                                <container style="widget-container">
+                                    <link  text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.ContentWebSite}" target="EditWebSite" style="buttontext"/>
+                                </container>
                                 
                                 <decorator-section-include name="body"/>
                             </widgets>
@@ -113,10 +115,8 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditWebSiteContent"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <entity-one entity-name="WebSite" value-name="webSite"/>
-
-                <set field="webSiteContentTypeId" value="PUBLISH_POINT"/>
+                
                 <entity-and entity-name="WebSiteContent" list-name="webSiteContent">
-                    <field-map field-name="webSiteContentTypeId" env-name="webSiteContentTypeId"/>
                     <field-map field-name="webSiteId" env-name="webSiteId"/>
                 </entity-and>                
             </actions>
@@ -129,7 +129,13 @@ under the License.
                                     <label style="head1">WebSite Content</label>
                                     <include-form name="ListWebSiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
                                 </container>
-                                <include-form name="CreateWebSiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                <container style="widget-container">
+                                    <include-form name="CreateWebSiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                </container>
+                                <container style="widget-container">
+                                    <label style="head2">Auto-Create Content Publish Points</label>
+                                    <include-form name="AutoCreateWebsiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                </container> 
                             </widgets>
                         </section>
                     </decorator-section>

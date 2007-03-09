@@ -147,4 +147,51 @@ under the License.
         <find-by-primary-key entity-name="WebSiteRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+
+    <!-- quick create website CMS content -->
+    <simple-method method-name="quickCreateWebSiteContent" short-description="Auto-Create WebSite CMS Content">
+        <entity-one entity-name="WebSite" value-name="webSite">
+            <field-map field-name="webSiteId" env-name="parameters.webSiteId"/>
+        </entity-one>
+        <now-timestamp-to-env env-name="now"/>
+        <log level="always" message="Parameters: ${parameters}"/>
+        
+        <if-instance-of field-name="parameters.webSiteContentTypeId" class="String">
+            <!-- just one checked -->
+            <entity-one entity-name="WebSiteContentType" value-name="wct">
+                <field-map field-name="webSiteContentTypeId" env-name="parameters.webSiteContentTypeId"/>
+            </entity-one>
+
+            <set field="cnt.contentName" value="${webSite.siteName} ${wct.description}"/>
+            <set field="cnt.contentTypeId" value="WEB_SITE_PUB_PT"/>
+            <call-service service-name="createContent" in-map-name="cnt">
+                <result-to-field result-name="contentId" field-name="wcc.contentId"/>
+            </call-service>
+
+            <set field="wcc.webSiteId" from-field="webSite.webSiteId"/>
+            <set field="wcc.webSiteContentTypeId" from-field="type.webSiteContentTypeId"/>
+            <set field="wcc.fromDate" from-field="now"/>
+            <call-service service-name="createWebSiteContent" in-map-name="wcc"/>
+
+            <else>
+                <!-- multi-checked -->
+                <iterate entry-name="thisType" list-name="parameters.webSiteContentTypeId">
+                    <entity-one entity-name="WebSiteContentType" value-name="wct">
+                        <field-map field-name="webSiteContentTypeId" env-name="thisType"/>
+                    </entity-one>
+
+                    <set field="cnt.contentName" value="${webSite.siteName} ${wct.description}"/>
+                    <set field="cnt.contentTypeId" value="WEB_SITE_PUB_PT"/>
+                    <call-service service-name="createContent" in-map-name="cnt">
+                        <result-to-field result-name="contentId" field-name="wcc.contentId"/>
+                    </call-service>
+
+                    <set field="wcc.webSiteId" from-field="webSite.webSiteId"/>
+                    <set field="wcc.webSiteContentTypeId" from-field="thisType"/>
+                    <set field="wcc.fromDate" from-field="now"/>
+                    <call-service service-name="createWebSiteContent" in-map-name="wcc"/>
+                </iterate>
+            </else>
+        </if-instance-of>                
+    </simple-method>
 </simple-methods>
