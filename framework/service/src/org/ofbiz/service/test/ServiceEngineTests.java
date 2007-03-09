@@ -30,7 +30,7 @@ import org.ofbiz.service.ModelService;
 public class ServiceEngineTests extends TestCase {
 
     public static final String DELEGATOR_NAME = "test";
-    public static final String DISPATCHER_NAME = "test-dispatcher";
+    public static final String DISPATCHER_NAME = "se-test-dispatcher";
 
     private LocalDispatcher dispatcher = null;
 
