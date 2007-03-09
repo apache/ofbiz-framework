@@ -25,11 +25,11 @@ ${thisContent.subcontent.htmlHead.render}
 </head>
 
 <body>
-${thisContent.subcontent.header.render}    
+${(thisContent.subcontent.header.render)?if_exists}
 
 ${decoratedContent.data.render}    
 
-${thisContent.subcontent.footer.render}    
+${(thisContent.subcontent.footer.render)?if_exists}    
 </body>
 
 </html>
