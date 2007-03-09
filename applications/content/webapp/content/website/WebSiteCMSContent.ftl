@@ -90,6 +90,7 @@
                             <option value="NONE">None (Tree, Category, etc)</option>
                             <option value="SHORT_TEXT">Short Text (255 chars.)</option>
                             <option value="ELECTRONIC_TEXT">Long Text</option>
+                            <option value="URL_RESOURCE">URL Resource</option>
                             <option value="IMAGE_OBJECT">Image</option>
                             <option value="VIDEO_OBJECT">Video</option>
                             <option value="AUDIO_OBJECT">Audio</option>
@@ -298,6 +299,13 @@
               <td>
                 <input type="hidden" name="isUploadObject" value="Y"/>
                 <input type="file" name="uploadedFile" class="inputBox" size="30"/>
+              </td>
+            </tr>
+          <#elseif (dataResourceTypeId == 'URL_RESOURCE')>
+            <tr>
+              <td><div class="tableheadtext">URL</div></td>
+              <td>
+                <input type="text" name="objectInfo" class="inputBox" size="40" maxsize="255" value="${(dataResource.objectInfo)?if_exists}"/>
               </td>
             </tr>
           <#elseif (dataResourceTypeId == 'SHORT_TEXT')>
