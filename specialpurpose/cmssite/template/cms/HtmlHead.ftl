@@ -18,7 +18,7 @@ under the License.
 -->
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>OFBiz E-Commerce Store: Main Page</title>
+    <title>${(decoratedContent.subcontent.title.render)?default("CMS Site Generic Title (Set subcontent 'title' on your content!)")}</title>
     <link rel="shortcut icon" href="/images/ofbiz.ico" />    
     <script language="javascript" src="/images/calendar1.js" type="text/javascript"></script>
     <script language="javascript" src="/images/selectall.js" type="text/javascript"></script>
@@ -27,6 +27,7 @@ under the License.
     <link rel="stylesheet" href="/images/ecommain.css" type="text/css"/>
     <link rel="stylesheet" href="/ecommerce/images/blog.css" type="text/css"/>
     <link rel="stylesheet" href="/content/images/contentForum.css" type="text/css"/>
+    
+    <meta name="description" content="${(decoratedContent.subcontent.metaDescription.render)?default("")}"/>
+    <meta name="keywords" content="${(decoratedContent.subcontent.metaKeywords.render)?default("")}"/>
 
-    <#-- TODO: make this dynamic -->
-    <meta name="keywords" content="cms,site"/>
