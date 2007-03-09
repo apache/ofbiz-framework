@@ -44,6 +44,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
+import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.content.content.UploadContentAndImage;
 import org.ofbiz.content.email.NotificationServices;
 import org.ofbiz.entity.GenericDelegator;
@@ -759,7 +760,8 @@ public class DataResourceWorker {
         // resource type
         } else if (dataResourceTypeId.equals("URL_RESOURCE")) {
             String text = null;
-            URL url = new URL(dataResource.getString("objectInfo"));
+            URL url = FlexibleLocation.resolveLocation(dataResource.getString("objectInfo"));
+            
             if (url.getHost() != null) { // is absolute
                 InputStream in = url.openStream();
                 int c;
