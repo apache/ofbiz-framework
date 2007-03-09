@@ -212,29 +212,36 @@ public class ContentMapFacade implements Map {
         
         // render this content
         if ("render".equalsIgnoreCase(name)) {
-            Map renderCtx = FastMap.newInstance();
-            renderCtx.putAll(context);
-            if (!render) {
-                String errorMsg = "WARNING: Cannot render content being rendered! (Infinite Recursion NOT allowed!)";
-                Debug.logWarning(errorMsg, module);
-                return "=========> " + errorMsg + " <=========";
-            }
-            try {
-                return ContentWorker.renderContentAsText(dispatcher, delegator, contentId, renderCtx, locale, mimeType, cache);
-            } catch (GeneralException e) {
-                Debug.logError(e, module);
-                return e.toString();
-            } catch (IOException e) {
-                Debug.logError(e, module);
-                return e.toString();
-            }
+            return this.renderThis();
         }
 
         return null;
     }
+    
+    protected String renderThis() {
+        Map renderCtx = FastMap.newInstance();
+        renderCtx.putAll(context);
+        if (!render) {
+            String errorMsg = "WARNING: Cannot render content being rendered! (Infinite Recursion NOT allowed!)";
+            Debug.logWarning(errorMsg, module);
+            return "=========> " + errorMsg + " <=========";
+        }
+        try {
+            return ContentWorker.renderContentAsText(dispatcher, delegator, contentId, renderCtx, locale, mimeType, cache);
+        } catch (GeneralException e) {
+            Debug.logError(e, module);
+            return e.toString();
+        } catch (IOException e) {
+            Debug.logError(e, module);
+            return e.toString();
+        }
+    }
+
+    public String toString() {
+        return this.renderThis();
+    }
 
     abstract class AbstractInfo implements Map {
-
         public int size() {
             return 0;
         }
@@ -286,7 +293,6 @@ public class ContentMapFacade implements Map {
             Debug.logWarning("This method [entrySet()] is not implemented in ContentMapFacade.AbstractInfo", module);
             return null;
         }
-
     }
 
     class Content extends AbstractInfo {
