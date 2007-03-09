@@ -21,24 +21,31 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.util.*;
 
-Map lookupMap = UtilMisc.toMap("webSiteId", webSiteId, "webSiteContentTypeId", "PUBLISH_POINT");
-
-List webSiteContents = delegator.findByAnd("WebSiteContent", lookupMap, UtilMisc.toList("-fromDate"));
+Map pplookupMap = UtilMisc.toMap("webSiteId", webSiteId, "webSiteContentTypeId", "PUBLISH_POINT");
+List webSiteContents = delegator.findByAnd("WebSiteContent", pplookupMap, UtilMisc.toList("-fromDate"));
 webSiteContents = EntityUtil.filterByDate(webSiteContents);
 webSiteContent = EntityUtil.getFirst(webSiteContents);
-
 if (webSiteContent != null) {
     content = webSiteContent.getRelatedOne("Content");
     contentRoot = content.getString("contentId");
-
-    publishPoint = delegator.findByPrimaryKey("WebSitePublishPoint", UtilMisc.toMap("contentId", contentRoot));
-
-    context.put("contentRoot", contentRoot);
     context.put("content", content);
-    context.put("publishPoint", publishPoint);
-    Debug.log("CnRt: " + contentRoot + " -- PP: " + publishPoint);
+    context.put("contentRoot", contentRoot);
 
     // get all sub content for the publish point
     List subsites = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentRoot));
     context.put("subsites", subsites);
+}
+
+Map mnlookupMap = UtilMisc.toMap("webSiteId", webSiteId, "webSiteContentTypeId", "MENU_ROOT");
+List webSiteMenus = delegator.findByAnd("WebSiteContent", mnlookupMap, UtilMisc.toList("-fromDate"));
+webSiteMenu = EntityUtil.getFirst(webSiteMenus);
+if (webSiteMenu != null) {
+    menu = webSiteMenu.getRelatedOne("Content");
+    menuRoot = menu.getString("contentId");
+    context.put("menu", menu);
+    context.put("menuRoot", menuRoot);
+
+    // get all sub content for the publish point
+    List menus = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", menuRoot));
+    context.put("menus", menus);
 }
