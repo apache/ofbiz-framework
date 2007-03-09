@@ -115,6 +115,7 @@ under the License.
     <ContentPurposeType contentPurposeTypeId="SOURCE" description="General Source"/>
 
     <!-- These ContentTypes are primarily for structuring knowledge -->
+    <ContentType contentTypeId="DECORATOR" description="Decorator" hasTable="N" parentTypeId=""/>
     <ContentType contentTypeId="DOCUMENT" description="Document" hasTable="N" parentTypeId=""/>
     <ContentType contentTypeId="TEMPLATE" description="Template or Form" hasTable="N" parentTypeId=""/>
     <ContentType contentTypeId="ANNOTATION" description="Annotation" hasTable="N" parentTypeId=""/>

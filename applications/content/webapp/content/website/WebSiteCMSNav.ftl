@@ -374,3 +374,27 @@
         <@fillTree assocList = subsites/>
     </#if>
 </div>
+
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+
+<dl dojoType="TreeContextMenu" id="webMenuContextMenu" style="font-size: 1em; color: #ccc;">
+    <dt dojoType="TreeMenuItem" id="newItem" caption="New Menu Item"/>
+    <dt dojoType="TreeMenuItem" id="newMenu" caption="New Menu"/>    
+</dl>
+
+<div class="tableheadtext">
+    Website Menus
+</div>
+<div class="tabletext">
+  *Right click to add new menus
+</div>
+<div>&nbsp;</div>
+
+<dojo:TreeSelector widgetId="webMenuTreeSelector" eventNames="select:webMenuNodeSelected"></dojo:TreeSelector>
+<div dojoType="Tree" menu="webMenuContextMenu" widgetId="webMenuTree" selector="webMenuTreeSelector" toggler="fade" toggleDuration="500">
+    <#if (menus?has_content)>
+        <@fillTree assocList = subsites/>
+    </#if>
+</div>
+

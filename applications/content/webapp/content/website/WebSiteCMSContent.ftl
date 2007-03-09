@@ -204,6 +204,24 @@
             </td>
           </tr>
           <tr>
+            <td><div class="tableheadtext">Decorator</div></td>
+            <td>
+                <select name="decoratorContentId" class="selectBox">
+                    <#if (content?has_content)>
+                        <#if (content.decoratorContentId?has_content)>
+                            <#assign thisDec = content.getRelatedOne("DecoratorContent")/>
+                            <option value="${thisDec.contentId}">${thisDec.contentName}</option>
+                            <option value="${thisDec.contentId}">----</option>
+                        </#if>
+                    </#if>
+                    <option value="">None</option>
+                    <#list decorators as decorator>
+                        <option value="${decorator.contentId}">${decorator.contentName}</option>
+                    </#list>
+                </select>
+            </td>
+          </tr>
+          <tr>
             <td><div class="tableheadtext">Template</div></td>
             <td>
                 <select name="templateDataResourceId" class="selectBox">

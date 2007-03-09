@@ -265,6 +265,9 @@ under the License.
                     <order-by field-name="sequenceId"/>
                 </entity-and>
                 <entity-condition entity-name="DataTemplateType" list-name="templateTypes"/>
+                <entity-and entity-name="Content" list-name="decorators">
+                    <field-map field-name="contentTypeId" value="DECORATOR"/>
+                </entity-and>
             </actions>
             <widgets>
                 <platform-specific>

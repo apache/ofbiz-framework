@@ -285,12 +285,13 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         GenericValue subContent = EntityUtil.getFirst(assocs);
 
         if (subContent == null) {
-            throw new GeneralException("No sub-content found with map-key [" + mapKey + "] for content [" + contentId + "]");
+            //throw new GeneralException("No sub-content found with map-key [" + mapKey + "] for content [" + contentId + "]");
+            out.write("<!-- no sub-content found with map-key [" + mapKey + "] for content [" + contentId + "] -->");
+        } else {
+            String subContentId = subContent.getString("contentIdTo");
+            templateContext.put("mapKey", mapKey);
+            renderContentAsText(dispatcher, delegator, subContentId, out, templateContext, locale, mimeTypeId, cache);
         }
-
-        String subContentId = subContent.getString("contentIdTo");
-        templateContext.put("mapKey", mapKey);
-        renderContentAsText(dispatcher, delegator, subContentId, out, templateContext, locale, mimeTypeId, cache);
     }
 
     public static GenericValue findAlternateLocaleContent(GenericDelegator delegator, GenericValue view, Locale locale) {
