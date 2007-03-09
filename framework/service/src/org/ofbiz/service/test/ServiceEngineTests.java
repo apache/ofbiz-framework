@@ -30,7 +30,7 @@ import org.ofbiz.service.ModelService;
 public class ServiceEngineTests extends TestCase {
 
     public static final String DELEGATOR_NAME = "test";
-    public static final String DISPATCHER_NAME = "se-test-dispatcher";
+    public static final String DISPATCHER_NAME = "test-dispatcher";
 
     private LocalDispatcher dispatcher = null;
 
@@ -40,11 +40,10 @@ public class ServiceEngineTests extends TestCase {
 
     protected void setUp() throws Exception {
         GenericDelegator delegator = GenericDelegator.getGenericDelegator(DELEGATOR_NAME);
-        dispatcher = new GenericDispatcher(DISPATCHER_NAME, delegator);
+        dispatcher = GenericDispatcher.getLocalDispatcher(DISPATCHER_NAME, delegator);
     }
 
     protected void tearDown() throws Exception {
-        dispatcher.deregister();
     }
 
     public void testBasicJavaInvocation() throws Exception {

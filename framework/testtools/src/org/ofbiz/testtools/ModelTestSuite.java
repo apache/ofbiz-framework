@@ -61,7 +61,7 @@ public class ModelTestSuite {
         if (UtilValidate.isEmpty(this.dispatcherName)) this.dispatcherName = "test-dispatcher";
         
         this.delegator = GenericDelegator.getGenericDelegator(this.delegatorName);
-        this.dispatcher = new GenericDispatcher(this.dispatcherName, delegator);
+        this.dispatcher = GenericDispatcher.getLocalDispatcher(this.dispatcherName, delegator);
         
         List testCaseElementList = UtilXml.childElementList(mainElement, "test-case");
         Iterator testCaseElementIter = testCaseElementList.iterator();

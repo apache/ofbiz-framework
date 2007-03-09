@@ -66,7 +66,7 @@ public class CCServicesTest extends TestCase {
 
     protected void setUp() throws Exception {
         this.delegator = GenericDelegator.getGenericDelegator(DELEGATOR_NAME);
-        dispatcher = new GenericDispatcher(DISPATCHER_NAME, delegator);
+        this.dispatcher = GenericDispatcher.getLocalDispatcher(DISPATCHER_NAME, delegator);
 
         // populate test data
         configFile = new String("paymentTest.properties");

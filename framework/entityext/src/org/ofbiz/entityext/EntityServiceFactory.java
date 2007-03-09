@@ -18,8 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.entityext;
 
-import java.util.HashMap;
-
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericDispatcher;
@@ -32,20 +30,8 @@ public class EntityServiceFactory {
 
     public static final String module = EntityServiceFactory.class.getName();
 
-    public static HashMap delegatorDispatchers = new HashMap();    
-    
     public static LocalDispatcher getLocalDispatcher(GenericDelegator delegator) {
-        String delegatorName = delegator.getDelegatorName();
-        GenericDispatcher dispatcher = (GenericDispatcher) delegatorDispatchers.get(delegatorName);
-        if (dispatcher == null) {
-            synchronized (EntityServiceFactory.class) {
-                dispatcher = (GenericDispatcher) delegatorDispatchers.get(delegatorName);
-                if (dispatcher == null) {
-                    dispatcher = new GenericDispatcher("entity-" + delegatorName, delegator);
-                    delegatorDispatchers.put(delegatorName, dispatcher);
-                }
-            }
-        }
+        LocalDispatcher dispatcher = GenericDispatcher.getLocalDispatcher("entity-" + delegator.getDelegatorName(), delegator);
         return dispatcher;
     }
     

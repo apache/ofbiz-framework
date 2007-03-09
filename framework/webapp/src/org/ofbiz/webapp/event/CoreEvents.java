@@ -41,18 +41,18 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceDispatcher;
-import org.ofbiz.service.WebAppDispatcher;
 import org.ofbiz.service.calendar.RecurrenceRule;
+import org.ofbiz.webapp.control.RequestHandler;
 
 /**
  * CoreEvents - WebApp Events Related To Framework pieces
@@ -138,12 +138,7 @@ public class CoreEvents {
             return "error";
         }
 
-        ServiceDispatcher sd = ServiceDispatcher.getInstance(dispatcherName, delegator);
-
-        if (sd == null)
-            dispatcher = new WebAppDispatcher(dctx, delegator);
-        else
-            dispatcher = sd.getLocalContext(dispatcherName).getDispatcher();
+        dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
 
         request.getSession().setAttribute("delegator", delegator);
         request.getSession().setAttribute("dispatcher", dispatcher);
