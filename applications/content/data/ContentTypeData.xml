@@ -226,8 +226,9 @@ under the License.
     <SubscriptionType description="Product Info" hasTable="N" parentTypeId="" subscriptionTypeId="PRODUCT_INFO_SUBSCR"/>
 
     <!-- website data -->
-    <WebSiteContentType webSiteContentTypeId="PUBLISH_POINT" description="Publish Point (one)" hasTable="N" parentTypeId=""/>
-    <WebSiteContentType webSiteContentTypeId="META_DATA" description="HTML Meta Data (many)" hasTable="N" parentTypeId=""/>
+    <WebSiteContentType webSiteContentTypeId="PUBLISH_POINT" description="Publish Point" hasTable="N" parentTypeId=""/>
+    <WebSiteContentType webSiteContentTypeId="MENU_ROOT" description="Menu Containers" hasTable="N" parentTypeId=""/>
+    <WebSiteContentType webSiteContentTypeId="BLOG_ROOT" description="Blog Root" hasTable="N" parentTypeId=""/>    
 
     <!-- survey data -->
     <SurveyApplType surveyApplTypeId="CART_ADD" description="Add-To Cart"/>

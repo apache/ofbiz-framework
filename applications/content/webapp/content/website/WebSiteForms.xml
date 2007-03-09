@@ -147,4 +147,16 @@ under the License.
                 description="[Delete]" also-hidden="false"/>
         </field>
     </form>
+    <form name="AutoCreateWebsiteContent" type="single" target="autoCreateWebSiteContent" title=""
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <field name="webSiteId"><hidden/></field>
+        <field name="webSiteContentTypeId" widget-style="tabletext">
+            <check all-checked="false">
+                <entity-options entity-name="WebSiteContentType" description="${description}">
+                    <entity-order-by field-name="description"/>    
+                </entity-options>
+            </check>
+        </field>        
+        <field name="submitButton" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>

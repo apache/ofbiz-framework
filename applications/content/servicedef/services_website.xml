@@ -152,4 +152,12 @@
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes entity-name="WebSiteRole" include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- auto-create website content records -->
+    <service name="autoCreateWebSiteContent" engine="simple" auth="true"
+            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="quickCreateWebSiteContent">
+        <description>Auto Create Content Publish Points</description>
+        <attribute name="webSiteId" type="String" mode="IN" optional="false"/>
+        <attribute name="webSiteContentTypeId" type="List" mode="IN" optional="false"/> 
+    </service>
 </services>
