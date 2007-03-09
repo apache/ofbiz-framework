@@ -2439,7 +2439,9 @@ public class ModelFormField {
 
     public static class DropDownField extends FieldInfoWithOptions {
         protected boolean allowEmpty = false;
+        protected boolean allowMulti = false;
         protected String current;
+        protected String size;
         protected FlexibleStringExpander currentDescription;
         protected SubHyperlink subHyperlink;
         protected int otherFieldSize = 0;
@@ -2460,8 +2462,15 @@ public class ModelFormField {
             super(element, modelFormField);
 
             this.current = element.getAttribute("current");
+            this.size = element.getAttribute("size");
             this.allowEmpty = "true".equals(element.getAttribute("allow-empty"));
+            this.allowMulti = "true".equals(element.getAttribute("allow-multiple"));
             this.currentDescription = new FlexibleStringExpander(element.getAttribute("current-description"));
+
+            // set the default size
+            if (size == null) {
+                size = "1";
+            }
 
             String sizeStr = element.getAttribute("other-field-size");
             try {
@@ -2484,6 +2493,10 @@ public class ModelFormField {
 
         public boolean isAllowEmpty() {
             return this.allowEmpty;
+        }
+
+        public boolean isAllowMultiple() {
+            return this.allowMulti;
         }
 
         public String getCurrent() {
@@ -2522,6 +2535,10 @@ public class ModelFormField {
         
         public int getOtherFieldSize() {
             return this.otherFieldSize;   
+        }
+
+        public String getSize() {
+            return this.size;
         }
         
         /**

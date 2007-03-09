@@ -554,6 +554,10 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append(idName);
             buffer.append('"');
         }
+
+        if (dropDownField.isAllowMultiple()) {
+            buffer.append(" multiple=\"multiple\"");
+        }
         
         int otherFieldSize = dropDownField.getOtherFieldSize();
         String otherFieldName = dropDownField.getParameterNameOther(context);
@@ -576,7 +580,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append('"');
         }
 
-        buffer.append(" size=\"1\">");
+        buffer.append(" size=\"").append(dropDownField.getSize()).append("\">");
 
         String currentValue = modelFormField.getEntry(context);
         List allOptionValues = dropDownField.getAllOptionValues(context, modelForm.getDelegator());
