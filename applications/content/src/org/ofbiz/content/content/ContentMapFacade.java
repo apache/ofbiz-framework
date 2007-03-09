@@ -50,7 +50,7 @@ public class ContentMapFacade implements Map {
     protected final Locale locale;
     protected final String mimeType;
     protected final boolean cache;
-    protected boolean isTop = false;
+    protected boolean render = true;
 
     // internal objects
     private DataResource dataResource;
@@ -67,7 +67,7 @@ public class ContentMapFacade implements Map {
         this.cache = cache;
         this.contentId = content.getString("contentId");
         this.delegator = content.getDelegator();
-        this.isTop = true;
+        this.render = false;
         init();
     }
 
@@ -93,6 +93,10 @@ public class ContentMapFacade implements Map {
         this.subContent = new SubContent();
         this.metaData = new MetaData();
         this.content = new Content();
+    }
+
+    public void setRenderFlag(boolean render) {
+        this.render = render;
     }
 
     // interface methods
@@ -154,7 +158,7 @@ public class ContentMapFacade implements Map {
         String name = (String) obj;
 
         // fields key, returns value object
-        if ("fields".equals(name)) {
+        if ("fields".equalsIgnoreCase(name)) {
             GenericValue value = null;
             try {
                 value = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
@@ -166,12 +170,12 @@ public class ContentMapFacade implements Map {
         }
 
         // data (resource) object
-        if ("data".equals(name)) {
+        if ("data".equalsIgnoreCase(name) || "dataresource".equalsIgnoreCase(name)) {
             return dataResource;   
         }
 
         // subcontent list of ordered subcontent
-        if ("subcontent_all".equals(name)) {
+        if ("subcontent_all".equalsIgnoreCase(name)) {
             List subContent = FastList.newInstance();
             List subs = null;
             try {
@@ -192,27 +196,28 @@ public class ContentMapFacade implements Map {
         }
 
         // return the subcontent object
-        if ("subcontent".equals(name)) {
+        if ("subcontent".equalsIgnoreCase(name)) {
             return this.subContent;
         }
 
         // return list of metaData by predicate ID
-        if ("metadata".equals(name)) {
+        if ("metadata".equalsIgnoreCase(name)) {
             return this.metaData;
         }
 
         // content; returns object from contentId
-        if ("content".equals(name)) {            
+        if ("content".equalsIgnoreCase(name)) {
             return content;
         }
         
         // render this content
-        if ("render".equals(name)) {
+        if ("render".equalsIgnoreCase(name)) {
             Map renderCtx = FastMap.newInstance();
             renderCtx.putAll(context);
-            if (isTop) {
-                Debug.logWarning("Cannot render content being rendered! (No Looping!)", module);
-                return "Cannot render content being rendered! (No Looping!)";
+            if (!render) {
+                String errorMsg = "WARNING: Cannot render content being rendered! (Infinite Recursion NOT allowed!)";
+                Debug.logWarning(errorMsg, module);
+                return "=========> " + errorMsg + " <=========";
             }
             try {
                 return ContentWorker.renderContentAsText(dispatcher, delegator, contentId, renderCtx, locale, mimeType, cache);
@@ -366,7 +371,7 @@ public class ContentMapFacade implements Map {
             String name = (String) key;
 
             // get the data resource value object
-            if ("fields".equals(name)) {
+            if ("fields".equalsIgnoreCase(name)) {
                 GenericValue dr = null;
                 try {
                     dr = value.getRelatedOne("DataResource");
@@ -377,7 +382,7 @@ public class ContentMapFacade implements Map {
             }
 
             // render just the dataresource
-            if ("render".equals(name)) {
+            if ("render".equalsIgnoreCase(name)) {
                 try {
                     return DataResourceWorker.renderDataResourceAsText(delegator, value.getString("dataResourceId"), context, locale, mimeType, cache);
                 } catch (GeneralException e) {

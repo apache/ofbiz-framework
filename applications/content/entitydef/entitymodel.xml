@@ -188,6 +188,7 @@ under the License.
       <field name="contentId" type="id-ne"></field>
       <field name="contentTypeId" type="id"></field>
       <field name="ownerContentId" type="id"></field>
+      <field name="decoratorContentId" type="id"></field> 
       <field name="instanceOfContentId" type="id"></field>
       <field name="dataResourceId" type="id"></field>
       <field name="templateDataResourceId" type="id"></field>
@@ -245,6 +246,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="CONTENT_DTSRC" rel-entity-name="DataSource">
         <key-map field-name="dataSourceId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENT_DCNTNT" title="Decorator" rel-entity-name="Content">
+        <key-map field-name="decoratorContentId" rel-field-name="contentId"/>
       </relation>
       <relation type="one" fk-name="CONTENT_PCNTNT" title="Owner" rel-entity-name="Content">
         <key-map field-name="ownerContentId" rel-field-name="contentId"/>
