@@ -227,10 +227,12 @@ under the License.
     <SubscriptionType description="Product Info" hasTable="N" parentTypeId="" subscriptionTypeId="PRODUCT_INFO_SUBSCR"/>
 
     <!-- website data -->
-    <WebSiteContentType webSiteContentTypeId="PUBLISH_POINT" description="Publish Point" hasTable="N" parentTypeId=""/>
+    <WebSiteContentType webSiteContentTypeId="BLOG_ROOT" description="Blog Root" hasTable="N" parentTypeId=""/>
+    <WebSiteContentType webSiteContentTypeId="DEFAULT_PAGE" description="Default Page" hasTable="N" parentTypeId=""/>
+    <WebSiteContentType webSiteContentTypeId="FORUM_ROOT" description="Forum Root" hasTable="N" parentTypeId=""/>
     <WebSiteContentType webSiteContentTypeId="MENU_ROOT" description="Menu Containers" hasTable="N" parentTypeId=""/>
-    <WebSiteContentType webSiteContentTypeId="BLOG_ROOT" description="Blog Root" hasTable="N" parentTypeId=""/>    
-
+    <WebSiteContentType webSiteContentTypeId="PUBLISH_POINT" description="Publish Point" hasTable="N" parentTypeId=""/>
+            
     <!-- survey data -->
     <SurveyApplType surveyApplTypeId="CART_ADD" description="Add-To Cart"/>
     <SurveyApplType surveyApplTypeId="CHECK_OUT" description="Check-Out"/>
