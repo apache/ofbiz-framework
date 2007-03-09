@@ -117,9 +117,6 @@ under the License.
                                     </div>
                                 </td>
                             </tr>        
-                            <tr bgcolor="#CCCCCC">
-                                <td colspan="5">&nbsp;</td>
-                            </tr>
                         </#list>
                     </#if>
                 </table>
