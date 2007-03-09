@@ -107,7 +107,7 @@
         <description>Update a Content</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <implements service="genericContentPermission" optional="true"/>
-        <implements service="updateContentAssoc"/>
+        <implements service="updateContentAssoc" optional="true"/>
         <auto-attributes entity-name="Content" include="pk" mode="INOUT" optional="false"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
         <!-- TODO: the following fields are depricated; but will not be removed until all services and callers are updated -->
