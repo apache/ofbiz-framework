@@ -2571,8 +2571,9 @@ public class ModelFormField {
         }
     }
 
-    public static class CheckField extends FieldInfo {
+    public static class CheckField extends FieldInfoWithOptions {
         public final static String ROW_SUBMIT_FIELD_NAME = "_rowSubmit";
+        protected FlexibleStringExpander allChecked = null;
 
         protected CheckField() {
             super();
@@ -2588,10 +2589,20 @@ public class ModelFormField {
 
         public CheckField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
+            allChecked = new FlexibleStringExpander(element.getAttribute("all-checked"));
         }
 
         public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
             formStringRenderer.renderCheckField(buffer, context, this);
+        }
+        
+        public Boolean isAllChecked(Map context) {
+            String allCheckedStr = this.allChecked.expandString(context);
+            if (UtilValidate.isNotEmpty(allCheckedStr)) {
+                return new Boolean("true".equals(allCheckedStr));
+            } else {
+                return null;
+            }
         }
     }
 
