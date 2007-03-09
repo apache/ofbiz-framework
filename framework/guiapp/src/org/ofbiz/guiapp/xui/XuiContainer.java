@@ -67,12 +67,7 @@ public abstract class XuiContainer implements Container {
 
         // get the dispatcher
         String dispatcherName = ContainerConfig.getPropertyValue(cc, "dispatcher-name", "xui-dispatcher");
-        LocalDispatcher dispatcher = null;
-        try {
-            dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
-        } catch (GenericServiceException e) {
-            throw new ContainerException(e);
-        }
+        LocalDispatcher dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
 
         // get the pre-defined session ID
         String xuiSessionId = ContainerConfig.getPropertyValue(cc, "xui-session-id", null);

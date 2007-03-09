@@ -19,22 +19,22 @@
 package org.ofbiz.service.job;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.sql.Timestamp;
 
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -48,7 +48,6 @@ import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericDispatcher;
-import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.calendar.RecurrenceInfo;
 import org.ofbiz.service.calendar.RecurrenceInfoException;
@@ -90,12 +89,7 @@ public class JobManager {
 
     /** Returns the ServiceDispatcher. */
     public LocalDispatcher getDispatcher() {
-        LocalDispatcher thisDispatcher = null;
-        try {
-            thisDispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
-        } catch (GenericServiceException e) {
-            Debug.logError(e, module);
-        }
+        LocalDispatcher thisDispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
         return thisDispatcher;
     }
 

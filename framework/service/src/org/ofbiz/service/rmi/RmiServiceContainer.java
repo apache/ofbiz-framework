@@ -115,7 +115,7 @@ public class RmiServiceContainer implements Container {
         GenericDelegator delegator = GenericDelegator.getGenericDelegator(delegatorProp.value);
 
         // create the LocalDispatcher
-        LocalDispatcher dispatcher = new GenericDispatcher(name, delegator);
+        LocalDispatcher dispatcher = GenericDispatcher.getLocalDispatcher(name, delegator);
 
         // create the RemoteDispatcher
         try {

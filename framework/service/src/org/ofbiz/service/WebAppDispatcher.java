@@ -45,10 +45,4 @@ public class WebAppDispatcher extends GenericDispatcher {
         DispatchContext dc = new DispatchContext(name, readerURLs, loader, null);
         init(name, delegator, dc);
     }
-
-    public WebAppDispatcher(DispatchContext ctx, GenericDelegator delegator) {   
-        super(ctx, delegator);        
-    }
-    
 }
-

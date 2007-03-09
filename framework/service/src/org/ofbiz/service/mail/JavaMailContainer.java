@@ -93,7 +93,7 @@ public class JavaMailContainer implements Container {
         }
         
         this.delegator = GenericDelegator.getGenericDelegator(delegatorName);
-        this.dispatcher = new GenericDispatcher(dispatcherName, delegator);
+        this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
         this.timerDelay = (long) ContainerConfig.getPropertyValue(cfg, "poll-delay", 300000);
         this.maxSize = (long) ContainerConfig.getPropertyValue(cfg, "maxSize", 1000000); // maximum size in bytes
 

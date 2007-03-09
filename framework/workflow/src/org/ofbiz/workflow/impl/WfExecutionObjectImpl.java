@@ -41,7 +41,6 @@ import org.ofbiz.entity.serialize.SerializeException;
 import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericDispatcher;
-import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.workflow.AlreadySuspended;
 import org.ofbiz.workflow.CannotResume;
@@ -593,11 +592,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
      * @throws WfException
      */
     protected LocalDispatcher getDispatcher() throws WfException {
-        try {
-            return GenericDispatcher.getLocalDispatcher(dispatcherName, getDelegator());
-        } catch (GenericServiceException e) {
-            throw new WfException("No workflow service dispatcher", e);
-        }
+        return GenericDispatcher.getLocalDispatcher(dispatcherName, getDelegator());
     }
 
     private Map getContext() throws WfException {

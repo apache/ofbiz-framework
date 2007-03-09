@@ -34,5 +34,5 @@ under the License.
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_test.xml"/>
     <entity-resource type="group" reader-name="main" loader="main" location="entitydef/entitygroup_test.xml"/>
     
-    <test-suite loader="main" location="testdef/entitytests.xml"/>
+    <!-- <test-suite loader="main" location="testdef/entitytests.xml"/> -->
 </ofbiz-component>

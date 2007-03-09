@@ -449,11 +449,7 @@ public class PackingSession implements java.io.Serializable {
 
     public LocalDispatcher getDispatcher() {
         if (_dispatcher == null) {
-            try {
-                _dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, this.getDelegator());
-            } catch (GenericServiceException e) {
-                throw new RuntimeException(e);
-            }
+            _dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, this.getDelegator());
         }
         return _dispatcher;
     }

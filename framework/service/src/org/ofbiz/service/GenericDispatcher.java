@@ -20,7 +20,10 @@ package org.ofbiz.service;
 
 import java.util.Map;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.base.util.Debug;
 
 /**
@@ -29,14 +32,78 @@ import org.ofbiz.base.util.Debug;
 public class GenericDispatcher extends GenericAbstractDispatcher {
 
     public static final String module = GenericDispatcher.class.getName();
-
-    public GenericDispatcher() {}
-
-    public GenericDispatcher(String name, GenericDelegator delegator) {
-        this(name, delegator, null);
+    
+    protected static Map dispatcherCache = FastMap.newInstance();
+    
+    public static LocalDispatcher getLocalDispatcher(String dispatcherName, GenericDelegator delegator) {
+        return getLocalDispatcher(dispatcherName, delegator, null, null);
     }
 
-    public GenericDispatcher(String name, GenericDelegator delegator, ClassLoader loader) {
+    public static LocalDispatcher getLocalDispatcher(String dispatcherName, GenericDelegator delegator, ClassLoader loader) {
+        return getLocalDispatcher(dispatcherName, delegator, loader, null);
+    }
+    
+    public static LocalDispatcher getLocalDispatcher(String dispatcherName, GenericDelegator delegator, ClassLoader loader, ServiceDispatcher serviceDispatcher) {
+        if (dispatcherName == null) {
+            dispatcherName = "default";
+            Debug.logWarning("Got a getGenericDelegator call with a null dispatcherName, assuming default for the name.", module);
+        }
+        LocalDispatcher dispatcher = (LocalDispatcher) dispatcherCache.get(dispatcherName);
+
+        if (dispatcher == null) {
+            synchronized (GenericDelegator.class) {
+                // must check if null again as one of the blocked threads can still enter
+                dispatcher = (GenericDispatcher) dispatcherCache.get(dispatcherName);
+                if (dispatcher == null) {
+                    if (Debug.infoOn()) Debug.logInfo("Creating new dispatcher [" + dispatcherName + "] (" + Thread.currentThread().getName() + ")", module);
+                    //Debug.logInfo(new Exception(), "Showing stack where new dispatcher is being created...", module);
+                    
+                    if (delegator == null && serviceDispatcher != null) {
+                        delegator = serviceDispatcher.getDelegator();
+                    }
+                    
+                    if (loader == null) {
+                        loader = GenericDispatcher.class.getClassLoader();
+                    }
+                    
+                    ServiceDispatcher sd = serviceDispatcher != null? serviceDispatcher : ServiceDispatcher.getInstance(dispatcherName, delegator);
+                    LocalDispatcher thisDispatcher = null;
+                    if (sd != null) {
+                        dispatcher = sd.getLocalDispatcher(dispatcherName);
+                    }
+                    if (thisDispatcher == null) {
+                        dispatcher = new GenericDispatcher(dispatcherName, delegator, loader, sd);
+                    }
+
+                    if (dispatcher != null) {
+                        dispatcherCache.put(dispatcherName, dispatcher);
+                    } else {
+                        Debug.logError("Could not create dispatcher with name " + dispatcherName + ", constructor failed (got null value) not sure why/how.", module);
+                    }
+                }
+            }
+        }
+        return dispatcher;
+    }
+
+    /** special method to obtain a new 'unique' reference with a variation on parameters */
+    public static LocalDispatcher newInstance(String name, GenericDelegator delegator, boolean enableJM, boolean enableJMS, boolean enableSvcs) throws GenericServiceException {
+        ServiceDispatcher sd = new ServiceDispatcher(delegator, enableJM, enableJMS, enableSvcs);
+        ClassLoader loader = null;
+        try {
+            loader = Thread.currentThread().getContextClassLoader();
+        } catch (SecurityException e) {
+            loader = GenericDispatcher.class.getClassLoader();
+        }
+        return new GenericDispatcher(name, delegator, loader, sd);        
+    }
+
+    protected GenericDispatcher() {}
+
+    protected GenericDispatcher(String name, GenericDelegator delegator, ClassLoader loader, ServiceDispatcher serviceDispatcher) {
+        if (serviceDispatcher != null) {
+            this.dispatcher = serviceDispatcher;
+        }
         if (loader == null) {
             try {
                 loader = Thread.currentThread().getContextClassLoader();
@@ -46,20 +113,6 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         }
         DispatchContext dc = new DispatchContext(name, null, loader, null);
         init(name, delegator, dc);
-    }
-
-    public GenericDispatcher(DispatchContext ctx, GenericDelegator delegator) {
-        init(ctx.getName(), delegator, ctx);
-    }
-
-    public GenericDispatcher(DispatchContext ctx, ServiceDispatcher dispatcher) {
-        this.dispatcher = dispatcher;
-        this.ctx = ctx;
-        this.name = ctx.getName();
-
-        ctx.setDispatcher(this);
-        ctx.loadReaders();
-        dispatcher.register(name, ctx);
     }
 
     protected void init(String name, GenericDelegator delegator, DispatchContext ctx) {
@@ -73,36 +126,6 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         ctx.setDispatcher(this);
         ctx.loadReaders();
         if (Debug.infoOn()) Debug.logInfo("[LocalDispatcher] : Created Dispatcher for: " + name, module);
-    }
-
-    public static LocalDispatcher getLocalDispatcher(String name, GenericDelegator delegator) throws GenericServiceException {
-        ServiceDispatcher sd = ServiceDispatcher.getInstance(name, delegator);
-        LocalDispatcher thisDispatcher = null;
-        if (sd != null) {
-            thisDispatcher = sd.getLocalDispatcher(name);
-        }
-        if (thisDispatcher == null) {
-            thisDispatcher = new GenericDispatcher(name, delegator);
-        }
-
-        if (thisDispatcher != null) {
-            return thisDispatcher;
-        } else {
-            throw new GenericServiceException("Unable to load dispatcher for name : " + name + " with delegator : " + delegator.getDelegatorName());
-        }
-    }
-
-    // special method to obtain a new 'unique' reference
-    public static LocalDispatcher newInstance(String name, GenericDelegator delegator, boolean enableJM, boolean enableJMS, boolean enableSvcs) throws GenericServiceException {
-        ServiceDispatcher sd = new ServiceDispatcher(delegator, enableJM, enableJMS, enableSvcs);
-        ClassLoader loader = null;
-        try {
-            loader = Thread.currentThread().getContextClassLoader();
-        } catch (SecurityException e) {
-            loader = GenericDispatcher.class.getClassLoader();
-        }
-        DispatchContext dc = new DispatchContext(name, null, loader, null);
-        return new GenericDispatcher(dc, sd);        
     }
 
     /**

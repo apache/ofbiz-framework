@@ -54,7 +54,7 @@ public class UspsServicesTests extends TestCase {
 
     protected void setUp() throws Exception {
         delegator = GenericDelegator.getGenericDelegator(DELEGATOR_NAME);
-        dispatcher = new GenericDispatcher(DISPATCHER_NAME, delegator);
+        dispatcher = GenericDispatcher.getLocalDispatcher(DISPATCHER_NAME, delegator);
     }
 
     protected void tearDown() throws Exception {
