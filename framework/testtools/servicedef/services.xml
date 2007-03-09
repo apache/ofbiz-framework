@@ -31,6 +31,7 @@ under the License.
             - errorMessage, errorMessageList, errorMessageMap: where messages will comes from for error or fail responses
             - successMessage, successMessagesList: where messages will comes from for success responses
         </description>
-        <attribute name="testCase" type="junit.framework.TestCase" mode="IN" optional="false"/>
+        <attribute name="test" type="junit.framework.Test" mode="IN" optional="false"/>
+        <attribute name="testResult" type="junit.framework.TestResult" mode="IN" optional="false"/>
     </service>
 </services>

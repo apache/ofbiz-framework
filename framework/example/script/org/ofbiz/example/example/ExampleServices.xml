@@ -106,9 +106,7 @@ under the License.
         </call-service>
         <check-errors/>
 
-        <entity-one entity-name="Example" value-name="example" auto-field-map="false">
-            <field-map field-name="exampleId" value="lookupMap.exampleId"/>
-        </entity-one>
+        <find-by-primary-key entity-name="Example" map-name="lookupMap" value-name="example"/>
         
         <assert>
             <not><if-empty field-name="example"/></not>
@@ -116,11 +114,20 @@ under the License.
         <check-errors/>
 
         <assert>
-            <if-compare field-name="example.exampleTypeId" value="createExampleMap.exampleTypeId" operator="equals"/>
-            <if-compare field-name="example.exampleName" value="createExampleMap.exampleName" operator="equals"/>
-            <if-compare field-name="example.statusId" value="createExampleMap.statusId" operator="equals"/>
+            <if-compare-field field-name="example.exampleTypeId" to-field-name="createExampleMap.exampleTypeId" operator="equals"/>
         </assert>
         <check-errors/>
+
+        <assert>
+            <if-compare-field field-name="example.exampleName" to-field-name="createExampleMap.exampleName" operator="equals"/>
+        </assert>
+        <check-errors/>
+
+        <assert>
+            <if-compare-field field-name="example.statusId" to-field-name="createExampleMap.statusId" operator="equals"/>
+        </assert>
+        <check-errors/>
+        
     </simple-method>
     
 </simple-methods>

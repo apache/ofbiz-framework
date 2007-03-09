@@ -53,8 +53,10 @@ public class EntityTestSuite extends TestCase {
     /*
      * This sets how many values to insert when trying to create a large number of values.  10,000 causes HSQL to crash but is ok
      * with Derby.  Going up to 100,000 causes problems all around because Java List seems to be capped at about 65,000 values.
+     * 
+     * NOTE: setting this lower so that the general tests don't take so long to run; to really push it can increase this number.
      */
-    public static final long TEST_COUNT = 10000;
+    public static final long TEST_COUNT = 1000;
 
     public EntityTestSuite(String name) {
         super(name);
