@@ -123,27 +123,6 @@ under the License.
                 </table>
             </td>
         </#if>
-                <#-- Product component sub-screen  Update or Add  -->
-                <#if productId?has_content || actionForm=="AddProductComponent">
-
-            <td> &nbsp; </td>
-            <td>
-                <table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-                  <tr><td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
-                        <tr>
-                        <#if productId?has_content> <#-- Product component Update  -->
-                            <td><div class="boxhead">${uiLabelMap.CommonEdit}&nbsp;${uiLabelMap.ManufacturingProductionRunProductComponent} : ${productId}</div></td>
-                        <#else> <#-- Product component Add         -->
-                            <td><div class="boxhead">${uiLabelMap.ManufacturingAddProductionRunProductComponent}</div></td>
-                        </#if>
-                        </tr>
-                    </table>
-                    ${editPrProductComponentWrapper.renderFormString(context)}
-                  </td></tr>
-                </table>
-            </td>
-        </#if>
         <#-- Fixed Asset assign sub-screen  Update or Add  -->
         <#if fixedAssetId?has_content || actionForm=="AddFixedAsset">
             <td> &nbsp; </td>
@@ -168,53 +147,6 @@ under the License.
     </table>
     <br/>
     
-              <#-- List Of ProductionRun RoutingTasks  sub-screen -->
-    <table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-      <tr><td>
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
-            <tr>
-                <td><div class="boxhead">${uiLabelMap.ManufacturingListOfProductionRunRoutingTasks}</div></td>
-                <td align="right">
-                    <a href="<@ofbizUrl>EditProductionRun?productionRunId=${productionRunId}&amp;actionForm=AddRoutingTask</@ofbizUrl>" class="submenutextright">
-                                    ${uiLabelMap.ManufacturingAddRoutingTask}</a>
-                </td>    
-            </tr>
-        </table>
-        ${ListProductionRunRoutingTasksWrapper.renderFormString(context)}
-      </td></tr>
-    </table>
-
-              <#-- List Of ProductionRun Components  sub-screen -->
-    <table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-      <tr><td>
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
-            <tr>
-                <td><div class="boxhead">${uiLabelMap.ManufacturingListOfProductionRunComponents}</div></td>
-                <td align="right">
-                    <a href="<@ofbizUrl>EditProductionRun?productionRunId=${productionRunId}&amp;actionForm=AddProductComponent</@ofbizUrl>" class="submenutextright">
-                                    ${uiLabelMap.ManufacturingAddProductionRunProductComponent}</a>
-                </td>
-            </tr>
-        </table>
-        ${ListProductionRunComponentsWrapper.renderFormString(context)}
-      </td></tr>
-    </table>
-
-    <#-- List of ProductionRun Fixed Assets sub-screen -->
-    <table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-      <tr><td>
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
-            <tr>
-                <td><div class="boxhead">${uiLabelMap.ManufacturingListOfProductionRunFixedAssets}</div></td>
-                <td align="right">
-                    <a href="<@ofbizUrl>EditProductionRun?productionRunId=${productionRunId}&amp;actionForm=AddFixedAsset</@ofbizUrl>" class="submenutextright">
-                                    ${uiLabelMap.ManufacturingAddProductionRunFixedAssetAssign}</a>
-                </td>
-            </tr>
-        </table>
-        ${ListProductionRunFixedAssetsWrapper.renderFormString(context)}
-      </td></tr>
-    </table>
 <#else>
   <h1>${uiLabelMap.ManufacturingNoProductionRunSelected}</h1>
 </#if>

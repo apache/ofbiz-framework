@@ -81,6 +81,8 @@ under the License.
                 <set field="titleProperty" value="ManufacturingEditProductionRun"/>
                 <set field="tabButtonItem" value="edit"/>
                 <set field="headerItem" value="jobshop"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/EditProductionRun.bsh"/>
             </actions>
             <widgets>
@@ -89,6 +91,24 @@ under the License.
                         <platform-specific>
                             <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/EditProductionRun.ftl"/></html>
                         </platform-specific>
+                        <container>
+                            <label style="head2">${uiLabelMap.ManufacturingListOfProductionRunRoutingTasks}</label>
+                        </container>
+                        <container>
+                            <link target="EditProductionRun?productionRunId=${productionRunId}&amp;actionForm=AddRoutingTask" text="${uiLabelMap.ManufacturingAddRoutingTask}" style="buttontext"/>
+                        </container>
+                        <include-form name="ListProductionRunRoutingTasks" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                        <container>
+                            <label style="head2">${uiLabelMap.ManufacturingMaterials}</label>
+                        </container>
+                        <include-form name="ListProductionRunComponents" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                        <container>
+                            <label style="head2">${uiLabelMap.ManufacturingListOfProductionRunFixedAssets}</label>
+                        </container>
+                        <container>
+                            <link target="EditProductionRun?productionRunId=${productionRunId}&amp;actionForm=AddFixedAsset" text="${uiLabelMap.ManufacturingAddProductionRunFixedAssetAssign}" style="buttontext"/>
+                        </container>
+                        <include-form name="ListProductionRunTaskFixedAssets" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -102,6 +122,8 @@ under the License.
                 <set field="tabButtonItem" value="declaration"/>
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="jobshop"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
 
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunDeclaration.bsh"/>
             </actions>
@@ -175,6 +197,37 @@ under the License.
                             <label style="head2">${uiLabelMap.ManufacturingDependentWorkEfforts}</label>
                         </container>
                         <include-form name="dependentWorkEfforts" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ProductionRunComponents">
+        <section>
+            <actions>
+                <set field="title" value="Production Run Components"/>
+                <set field="titleProperty" value="ManufacturingProductionRunComponents"/>
+                <set field="tabButtonItem" value="components"/>
+                <set field="headerItem" value="jobshop"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
+
+                <set field="productionRunId" from-field="parameters.productionRunId"/>
+                <entity-one entity-name="WorkEffort" value-name="productionRun">
+                    <field-map field-name="workEffortId" env-name="productionRunId"/>
+                </entity-one>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunComponents.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonJobshopDecorator">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head2">${uiLabelMap.ManufacturingTaskComponents}</label>
+                        </container>
+                        <include-form name="AddProductionRunComponent" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                        <platform-specific>
+                            <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunComponents.ftl"/></html>
+                        </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
