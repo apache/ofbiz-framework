@@ -30,8 +30,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 /**
  * Utilities for analyzing and converting Object types in Java 
@@ -641,6 +644,14 @@ public class ObjectType {
                         throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
                     }
                 }
+            } else if ("List".equals(type) || "java.util.List".equals(type)) {
+                List tempList = FastList.newInstance();
+                tempList.add(str);
+                return tempList;
+            } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
+                Set tempSet = FastSet.newInstance();
+                tempSet.add(str);
+                return tempSet;
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
@@ -667,6 +678,14 @@ public class ObjectType {
                 return new Long(Math.round(dbl.doubleValue()));
             } else if ("Integer".equals(type) || "java.lang.Integer".equals(type)) {
                 return new Integer((int) Math.round(dbl.doubleValue()));
+            } else if ("List".equals(type) || "java.util.List".equals(type)) {
+                List tempList = FastList.newInstance();
+                tempList.add(dbl);
+                return tempList;
+            } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
+                Set tempSet = FastSet.newInstance();
+                tempSet.add(dbl);
+                return tempSet;
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
@@ -692,6 +711,14 @@ public class ObjectType {
                 return new Long(Math.round(flt.doubleValue()));
             } else if ("Integer".equals(type)) {
                 return new Integer((int) Math.round(flt.doubleValue()));
+            } else if ("List".equals(type) || "java.util.List".equals(type)) {
+                List tempList = FastList.newInstance();
+                tempList.add(flt);
+                return tempList;
+            } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
+                Set tempSet = FastSet.newInstance();
+                tempSet.add(flt);
+                return tempSet;
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
@@ -717,6 +744,14 @@ public class ObjectType {
                 return obj;
             } else if ("Integer".equals(type) || "java.lang.Integer".equals(type)) {
                 return new Integer(lng.intValue());
+            } else if ("List".equals(type) || "java.util.List".equals(type)) {
+                List tempList = FastList.newInstance();
+                tempList.add(lng);
+                return tempList;
+            } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
+                Set tempSet = FastSet.newInstance();
+                tempSet.add(lng);
+                return tempSet;
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
@@ -741,6 +776,14 @@ public class ObjectType {
                 return new Long(intgr.longValue());
             } else if ("Integer".equals(type) || "java.lang.Integer".equals(type)) {
                 return obj;
+            } else if ("List".equals(type) || "java.util.List".equals(type)) {
+                List tempList = FastList.newInstance();
+                tempList.add(intgr);
+                return tempList;
+            } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
+                Set tempSet = FastSet.newInstance();
+                tempSet.add(intgr);
+                return tempSet;
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
@@ -765,6 +808,14 @@ public class ObjectType {
                 return new Long(bigDec.longValue());
             } else if ("Integer".equals(type) || "java.lang.Integer".equals(type)) {
                 return new Integer(bigDec.intValue());
+            } else if ("List".equals(type) || "java.util.List".equals(type)) {
+                List tempList = FastList.newInstance();
+                tempList.add(bigDec);
+                return tempList;
+            } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
+                Set tempSet = FastSet.newInstance();
+                tempSet.add(bigDec);
+                return tempSet;
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
@@ -784,6 +835,14 @@ public class ObjectType {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             } else if ("Timestamp".equals(type) || "java.sql.Timestamp".equals(type)) {
                 return new java.sql.Timestamp(dte.getTime());
+            } else if ("List".equals(type) || "java.util.List".equals(type)) {
+                List tempList = FastList.newInstance();
+                tempList.add(dte);
+                return tempList;
+            } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
+                Set tempSet = FastSet.newInstance();
+                tempSet.add(dte);
+                return tempSet;
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
@@ -805,6 +864,14 @@ public class ObjectType {
                 return obj;
             } else if ("Timestamp".equals(type) || "java.sql.Timestamp".equals(type)) {
                 return new java.sql.Timestamp(tme.getTime());
+            } else if ("List".equals(type) || "java.util.List".equals(type)) {
+                List tempList = FastList.newInstance();
+                tempList.add(tme);
+                return tempList;
+            } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
+                Set tempSet = FastSet.newInstance();
+                tempSet.add(tme);
+                return tempSet;
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
@@ -826,6 +893,14 @@ public class ObjectType {
                 return new java.sql.Time(tme.getTime());
             } else if ("Timestamp".equals(type) || "java.sql.Timestamp".equals(type)) {
                 return obj;
+            } else if ("List".equals(type) || "java.util.List".equals(type)) {
+                List tempList = FastList.newInstance();
+                tempList.add(tme);
+                return tempList;
+            } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
+                Set tempSet = FastSet.newInstance();
+                tempSet.add(tme);
+                return tempSet;
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
@@ -837,10 +912,19 @@ public class ObjectType {
             } else if ("String".equals(type) || "java.lang.String".equals(type)) {
                 return bol.toString();
             } else if ("Integer".equals(type) || "java.lang.Integer".equals(type)) {
-                if (bol.booleanValue())
+                if (bol.booleanValue()) {
                     return new Integer(1);
-                else
-                    return new Integer(0);                
+                } else {
+                    return new Integer(0);
+                }
+            } else if ("List".equals(type) || "java.util.List".equals(type)) {
+                List tempList = FastList.newInstance();
+                tempList.add(bol);
+                return tempList;
+            } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
+                Set tempSet = FastSet.newInstance();
+                tempSet.add(bol);
+                return tempSet;
             } else { 
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
@@ -862,6 +946,14 @@ public class ObjectType {
                 return obj;           
             } else if ("String".equals(type) || "java.lang.String".equals(type)) {
                 return obj.toString();   
+            } else if ("List".equals(type) || "java.util.List".equals(type)) {
+                List tempList = FastList.newInstance();
+                tempList.add(obj);
+                return tempList;
+            } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
+                Set tempSet = FastSet.newInstance();
+                tempSet.add(obj);
+                return tempSet;
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");            
             }            
@@ -872,6 +964,14 @@ public class ObjectType {
                 return map;
             } else if ("String".equals(type) || "java.lang.String".equals(type)) {
                 return map.toString();
+            } else if ("List".equals(type) || "java.util.List".equals(type)) {
+                List tempList = FastList.newInstance();
+                tempList.add(obj);
+                return tempList;
+            } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
+                Set tempSet = FastSet.newInstance();
+                tempSet.add(obj);
+                return tempSet;
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");            
             }
