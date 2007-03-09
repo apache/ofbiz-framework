@@ -19,9 +19,16 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <DataResource dataResourceId="CMSS_MAIN_DEC" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL" 
+    <Content contentId="CMSS_PPOINT" contentTypeId="WEB_SITE_PUB_PT" contentName="CMS Site Publish Point" description=""/>
+    <WebSiteContent webSiteId="CmsSite" contentId="CMSS_PPOINT" webSiteContentTypeId="PUBLISH_POINT" fromDate="2001-01-01 00:00:00"/>
+
+    <DataResource dataResourceId="CMSS_MAIN_DEC" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL"
         objectInfo="component://cmssite/template/cms/MainDecorator.ftl"/>
 
     <DataResource dataResourceId="CMSS_HTML_HEAD" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL" 
         objectInfo="component://cmssite/template/cms/HtmlHead.ftl"/>
+
+    <Content contentId="CMSS_DEC" contentTypeId="DECORATOR" contentName="CMS Site Main Decorator" dataResourceId="CMSS_MAIN_DEC"/>
+    <Content contentId="CMSS_HHEAD" contentTypeId="DOCUMENT" contentName="CMS Site HTML Head" dataResourceId="CMSS_HTML_HEAD"/>
+    <ContentAssoc contentId="CMSS_DEC" contentIdTo="CMSS_HHEAD" contentAssocTypeId="SUB_CONTENT" mapKey="htmlHead" fromDate="2001-01-01 00:00:00"/>
 </entity-engine-xml>
