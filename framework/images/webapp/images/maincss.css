@@ -1119,29 +1119,23 @@ height: 100%;
 #column-container .right {
 float: right;
 margin-left: 1em;
-/*width: 22em;*/
-width: 20%;
+width: 22em;
 }
 
 #column-container .leftonly {
-/*margin-left: 23em;
-width: auto;*/
-float: left;
-width: 79%;
+margin-left: 23em;
+width: auto;
 }
 
 #column-container .rightonly {
-/*margin-right: 23em;
-width: auto;*/
-float: right;
-width: 79%;
+margin-right: 23em;
+width: auto;
 }
 
 #column-container .center {
-/*margin-left: 23em;
+margin-left: 23em;
 margin-right: 23em;
-width: auto;*/
-width: 59%;
+width: auto;
 }
 
 #column-container .nocolumns {
@@ -1419,6 +1413,41 @@ display: block;
 /* placeholder */
 }
 
+/* ======================================================= */
+/* ===== Basic Navigation (Vertical Menu) Style ========== */
+/* ======================================================= */
+
+.basic-nav {
+/* indent menu - helpful for widgets */
+padding-left: 1em;
+}
+
+.basic-nav ul {
+/* placeholder */
+}
+
+.basic-nav ul li {
+}
+
+.basic-nav ul a {
+color: #000099;
+font-size: 1.1em;
+}
+
+.basic-nav ul .selected,
+.basic-nav ul .selected a {
+color: #0000ff;
+}
+
+.basic-nav ul a:hover {
+color: #0000ff;
+}
+
+.basic-nav ul .disabled,
+.basic-nav ul .disabled a {
+color: #D4D0C8;
+}
+
 /* ======================================== */
 /* ===== Button Bar Navigation Styles ===== */
 /* ======================================== */
@@ -1526,7 +1555,7 @@ background-color: #000099;
 color: #ffffff;
 }
 
-/* ===== Button bar decorator ===== */
+/* ===== Button bar decorators ===== */
 
 .tool-bar {
 background-color: #D4D0C8;
@@ -1539,6 +1568,41 @@ background-color: #D4D0C8;
 padding: 0.1em;
 }
 
+/* tab-bar decorator intended to be used at
+the top of the main content area */
+.tab-bar {
+margin-left: -1em;
+margin-top: -1em;
+padding: 0;
+}
+
+.tab-bar ul li {
+margin: 0;
+padding: 0;
+}
+
+.tab-bar ul a {
+background-color: #000099;
+border-right: solid #ffffff 0.1em;
+color: #ffffff;
+}
+
+.tab-bar ul .selected,
+.tab-bar ul .selected a {
+background-color: #ffffff;
+border-bottom: none;
+color: #000099;
+}
+
+.tab-bar ul a:hover {
+background-color: #ffffff;
+color: #000099;
+}
+
+.tab-bar ul .disabled {
+color: #D4D0C8;
+}
+
 /* ======================== */
 /* ===== Table Styles ===== */
 /* ======================== */
@@ -1547,8 +1611,7 @@ padding: 0.1em;
 width: 100%;
 }
 
-.basic-table,
-.basic-table .header-row:hover {
+.basic-table {
 background-color: #ffffff;
 color: #000000;
 }
@@ -1580,14 +1643,8 @@ font-weight: bold;
 text-align: left;
 }
 
-.basic-table .header-row:hover,
-.basic-table tr th:hover{
-background-color: #ffffff;
-color: #000000;
-}
-
 .basic-table .header-row td {
-border-bottom: 0.1em solid #999999;
+border-bottom: 0.1em solid #000000;
 }
 
 .basic-table .header-row td a {
@@ -1612,7 +1669,7 @@ background-color: #ffffff;
 border: #999999 solid 0.1em;
 color: #000099;
 float: left;
-margin: 0.1em 0.2em 0.1em 0.2em;
+margin: 0 0.1em 0 0.1em;
 padding: 0.1em 0.4em 0.1em 0.4em;
 white-space: nowrap;
 }
@@ -1644,6 +1701,12 @@ background-color: #cccccc;
 cursor: default;
 }
 
+.hover-bar .header-row:hover,
+.hover-bar tr th:hover {
+background-color: #ffffff;
+color: #000000;
+}
+
 /* ===== Table decorator - Grid ===== */
 
 /* These decorators need an IE hack. IE7 does not
@@ -1666,7 +1729,8 @@ border-right: 0.1em solid #cccccc;
 border-top: 0.1em solid #cccccc;
 }
 
-.light-grid td {
+.light-grid td,
+.light-grid .header-row td{
 border-bottom: 0.1em solid #cccccc;
 border-left: 0.1em solid #cccccc;
 }
@@ -1783,9 +1847,15 @@ text-decoration: none;
 
 /* ===== Form decorator - Form Widget ===== */
 
-.form-widget table tr .label {
+.form-widget table tr .label,
+.form-widget-table tr .label {
 /* Added for backward compatibility */
 width: 20%;
+}
+
+.form-widget table,
+.form-widget-table {
+width: auto;
 }
 
 /* ================================= */
