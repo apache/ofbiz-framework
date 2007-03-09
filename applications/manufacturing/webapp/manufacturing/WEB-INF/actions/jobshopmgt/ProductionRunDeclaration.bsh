@@ -197,26 +197,6 @@ if (!UtilValidate.isEmpty(productionRunId)) {
         context.put("ListProductionRunRoutingTasksWrapper",ListProductionRunRoutingTasksWrapper);
         context.put("productionRunRoutingTasks", productionRunRoutingTasks);
 
-        //---------------
-        // Components
-        //---------------
-        // Product component update sub-screen
-        productId = request.getParameter("productId");
-        if (productId != null && (actionForm.equals("updateProductComponent") || actionForm.equals("EditProductComponent"))){
-            workEffortId = request.getParameter("workEffortId");
-            List productComponents = delegator.findByAnd("WorkEffortGoodStandard", UtilMisc.toMap("workEffortId", workEffortId, "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED", "productId",productId));
-            GenericValue productComponent = EntityUtil.getFirst(productComponents);
-            Map productComponentData = productComponent.getAllFields();
-            productComponentData.put("productionRunId", productionRunId);
-            internalName = productComponent.getRelatedOne("Product").getString("internalName");
-            productComponentData.put("internalName",internalName);
-            HtmlFormWrapper editPrProductComponentWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "EditProductionRunComponent", request, response);
-            editPrProductComponentWrapper.putInContext("productComponentData", productComponentData);
-            editPrProductComponentWrapper.putInContext("actionForm", "updateProductComponent");
-            editPrProductComponentWrapper.putInContext("uiLabelButton",request.getAttribute("uiLabelMap").get("CommonUpdate"));
-            context.put("editPrProductComponentWrapper",editPrProductComponentWrapper);
-            context.put("productId",productId);
-        }
         //  Product components list
         List productionRunComponents = productionRun.getProductionRunComponents();
         List productionRunComponentsData = new LinkedList();

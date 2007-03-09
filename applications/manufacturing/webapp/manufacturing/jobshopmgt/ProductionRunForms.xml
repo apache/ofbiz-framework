@@ -121,21 +121,14 @@ under the License.
         </field>
     </form>
  
-   <form name="ListProductionRunComponents" type="list" target="EditProductionRun" title="" list-name="productionRunComponentsData">
+    <form name="ListProductionRunComponents" type="list" target="EditProductionRun" title="" list-name="productionRunComponents">
         <field name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTaskId}">
-            <display description="${workEffortName} [${workEffortId}]"/>
+            <display-entity entity-name="WorkEffort" description="${workEffortName} [${workEffortId}]"/>
         </field>
-        <field name="internalName" title="${uiLabelMap.ProductProductName}">
-            <display description="${productName} [${productId}]"/>
+        <field name="productId" title="${uiLabelMap.ProductProductName}">
+            <display-entity entity-name="Product" description="${internalName} [${productId}]"/>
         </field> 
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display/></field>
-        <field name="editLink" title="" widget-style="smallSubmit">
-            <hyperlink target="EditProductionRun?actionForm=EditProductComponent&amp;workEffortId=${workEffortId}&amp;productId=${productId}&amp;productionRunId=${productionRunId}" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
-        </field>
-        <field name="deleteLink" title="" widget-style="smallSubmit">
-            <!--<hyperlink target="RemoveWorkEffortGoodStandard?workEffortId=${workEffortId}&amp;productId=${productId}&amp;fromDate=${fromDate}" description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>-->
-            <hyperlink target="deleteProductionRunComponent?workEffortId=${workEffortId}&amp;productId=${productId}&amp;fromDate=${fromDate}&amp;productionRunId=${productionRunId}&amp;workEffortGoodStdTypeId=PRUNT_PROD_NEEDED" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
-        </field>
     </form>
 
      <form name="EditProductionRunRoutingTask" type="single" target="EditProductionRun" title="" default-map-name="routingTaskData">
@@ -177,43 +170,6 @@ under the License.
         </field>
     </form>
 
-    <form name="EditProductionRunComponent" type="single" target="EditProductionRun" title="" default-map-name="productComponentData">
-        <field name="actionForm">
-            <hidden value="${actionForm}"/>
-        </field>
-        <field name="productionRunId">
-            <hidden value="${productComponentData.productionRunId}"/>
-        </field>
-        <field name="productId" use-when="${actionIsAdd}==null">
-            <hidden value="${productComponentData.productId}"/>
-        </field>
-        <field name="workEffortId" use-when="${actionIsAdd}==null">
-            <hidden value="${productComponentData.workEffortId}"/>
-        </field>
-        <field name="productId" use-when="${actionIsAdd}!=null">
-            <lookup target-form-name="LookupProduct"/>
-        </field>
-        <field name="internalName" title="${uiLabelMap.ProductProductName}" use-when="${actionIsAdd}==null">
-            <display description="${productComponentData.internalName} [${productComponentData.productId}]"/>
-        </field> 
-        <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}">
-            <text size="10"/>
-        </field>
-        <field name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTaskId}" use-when="${actionIsAdd}!=null">
-            <drop-down allow-empty="false">
-                <entity-options entity-name="WorkEffort" description="${workEffortId}">
-                    <entity-constraint name="workEffortParentId" value="${productComponentData.productionRunId}"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="workEffortName" title="${uiLabelMap.ManufacturingRoutingTaskId}" use-when="${actionIsAdd}==null">
-            <display description="${productComponentData.workEffortId}"/>
-        </field> 
-        <field name="submitButton" title="${uiLabelButton}">
-            <submit button-type="button"/>
-        </field>
-    </form>
-    
     <!-- Production Run Declaration -->
     <form name="ShowProductionRun" type="single" target="productionRunProduce" title="" default-map-name="productionRunData">
         <field name="workEffortId"><hidden/></field>
@@ -395,11 +351,10 @@ under the License.
             <hyperlink target="/facility/control/EditInventoryItem?inventoryItemId=${inventoryItemId}" description="${inventoryItemId}" also-hidden="false" target-type="inter-app"/>
         </field>
     </form>
-    <form name="ListProductionRunTaskFixedAssets" type="list" target="EditProductionRun" title="" list-name="productionRunFixedAssetsData">
-        <alt-target use-when="declarationScreen.equals(&quot;Y&quot;)" target="ProductionRunDeclaration" />
+    <form name="ListProductionRunTaskFixedAssets" type="list" title="" list-name="productionRunFixedAssetsData">
         <auto-fields-entity entity-name="WorkEffortFixedAssetAssign" default-field-type="display" />
         <field name="workEffortId">
-            <display-entity entity-name="WorkEffort" description="[${workEffortId}] ${workEffortName}" />
+            <display-entity entity-name="WorkEffort" description="${workEffortName} [${workEffortId}]" />
         </field>
         <field name="fixedAssetId">
             <display-entity entity-name="FixedAsset" description="${fixedAssetName}" />
@@ -561,6 +516,35 @@ under the License.
         </field>
         <field name="costComponentCalcId">
             <display-entity entity-name="CostComponentCalc"/>
+        </field>
+    </form>
+    <form name="AddProductionRunComponent" type="single" target="addProductionRunComponent" title="">
+        <auto-fields-service service-name="addProductionRunComponent"/>
+        <field name="productionRunId"><hidden/></field>
+        <field name="workEffortId" title="${uiLabelMap.ManufacturingTask}" widget-style="selectBox">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="WorkEffort" description="${workEffortName} [${workEffortId}]">
+                    <entity-constraint name="workEffortParentId" env-name="productionRunId"/>
+                    <entity-order-by field-name="workEffortId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productId">
+            <lookup target-form-name="LookupProduct"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ProductionRunTaskComponents" type="list" target="updateProductionRunComponent" paginate-target="ProductionRunComponents" title="" list-name="taskComponents">
+        <field name="productId"><display/></field>
+        <field name="internalName" entry-name="productId">
+            <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
+        </field>
+        <field name="workEffortId"><hidden/></field>
+        <field name="productionRunId"><hidden/></field>
+        <field name="estimatedQuantity"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="smallSubmit">
+            <hyperlink target="deleteProductionRunComponent?workEffortId=${workEffortId}&amp;fromDate=${fromDate}&amp;productId=${productId}&amp;workEffortGoodStdTypeId=${workEffortGoodStdTypeId}&amp;productionRunId=${productionRunId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
 </forms>
