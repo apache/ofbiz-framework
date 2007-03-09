@@ -27,6 +27,7 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.content.data.DataResourceWorker;
 
 import java.util.*;
 import java.io.IOException;
@@ -52,6 +53,7 @@ public class ContentMapFacade implements Map {
     protected boolean isTop = false;
 
     // internal objects
+    private DataResource dataResource;
     private SubContent subContent;
     private MetaData metaData;
     private Content content;
@@ -87,6 +89,7 @@ public class ContentMapFacade implements Map {
     }
 
     private void init() {
+        this.dataResource = new DataResource();
         this.subContent = new SubContent();
         this.metaData = new MetaData();
         this.content = new Content();
@@ -160,6 +163,11 @@ public class ContentMapFacade implements Map {
             }
             return value;
 
+        }
+
+        // data (resource) object
+        if ("data".equals(name)) {
+            return dataResource;   
         }
 
         // subcontent list of ordered subcontent
@@ -308,9 +316,12 @@ public class ContentMapFacade implements Map {
                 Debug.logWarning("Key parameters must be a string", module);
                 return null;
             }
-            String name = (String) key;
+            String name = (String) key;            
+            if (name.toLowerCase().startsWith("id_")) {
+                name = name.substring(3);
+            }
 
-            // key is the mapKey            
+            // key is the mapKey
             List subs = null;
             try {
                 subs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId, "mapKey", name), UtilMisc.toList("-fromDate"));
@@ -343,6 +354,42 @@ public class ContentMapFacade implements Map {
                 Debug.logError(e, module);
             }
             return metaData;
+        }
+    }
+
+    class DataResource extends AbstractInfo {
+        public Object get(Object key) {
+            if (!(key instanceof String)) {
+                Debug.logWarning("Key parameters must be a string", module);
+                return null;
+            }
+            String name = (String) key;
+
+            // get the data resource value object
+            if ("fields".equals(name)) {
+                GenericValue dr = null;
+                try {
+                    dr = value.getRelatedOne("DataResource");
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+                return dr;
+            }
+
+            // render just the dataresource
+            if ("render".equals(name)) {
+                try {
+                    return DataResourceWorker.renderDataResourceAsText(delegator, value.getString("dataResourceId"), context, locale, mimeType, cache);
+                } catch (GeneralException e) {
+                    Debug.logError(e, module);
+                    return e.toString();
+                } catch (IOException e) {
+                    Debug.logError(e, module);
+                    return e.toString();
+                }
+            }
+
+            return null;
         }
     }
 }
