@@ -288,7 +288,7 @@ public class ObjectType {
      * @return
      */
     public static boolean isOrSubOf(Class objectClass, Class parentClass) {
-
+        //Debug.logInfo("Checking isOrSubOf for [" + objectClass.getName() + "] and [" + objectClass.getName() + "]", module);
         while (objectClass != null) {
             if (objectClass == parentClass) return true;
             objectClass = objectClass.getSuperclass();
@@ -366,8 +366,9 @@ public class ObjectType {
     public static boolean instanceOf(Object obj, String typeName, ClassLoader loader) {
         Class infoClass = loadInfoClass(typeName, loader);
 
-        if (infoClass == null)
+        if (infoClass == null) {
             throw new IllegalArgumentException("Illegal type found in info map (could not load class for specified type)");
+        }
 
         return instanceOf(obj, infoClass);
     }

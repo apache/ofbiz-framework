@@ -137,5 +137,4 @@ under the License.
              location="org/ofbiz/example/example/ExampleServices.xml" invoke="testCreateExampleService">
         <implements service="testServiceInterface"/>
     </service>
-
 </services>

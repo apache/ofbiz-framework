@@ -18,33 +18,35 @@
  *******************************************************************************/
 package org.ofbiz.testtools;
 
-import junit.framework.TestResult;
-import junit.framework.AssertionFailedError;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
-import org.w3c.dom.Element;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.service.ModelService;
+import junit.framework.AssertionFailedError;
+import junit.framework.TestResult;
+
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
+import org.w3c.dom.Element;
 
-import java.util.Map;
-import java.util.List;
-import java.util.Iterator;
-
-public class ServiceTest extends TestCaseBase {
+public class SimpleMethodTest extends TestCaseBase {
 
     public static final String module = ServiceTest.class.getName();
 
-    protected String serviceName;
+    protected String methodLocation;
+    protected String methodName;
 
     /**
      * @param modelTestSuite
      */
-    public ServiceTest(String caseName, ModelTestSuite modelTestSuite, Element mainElement) {
+    public SimpleMethodTest(String caseName, ModelTestSuite modelTestSuite, Element mainElement) {
         super(caseName, modelTestSuite);
-        this.serviceName = mainElement.getAttribute("service-name");
+        this.methodLocation = mainElement.getAttribute("location");
+        this.methodName = mainElement.getAttribute("name");
     }
 
     public int countTestCases() {
@@ -53,12 +55,13 @@ public class ServiceTest extends TestCaseBase {
 
     public void run(TestResult result) {
         result.startTest(this);
-
+        
         LocalDispatcher dispatcher = modelTestSuite.getDispatcher();
 
         try {
 
-            Map serviceResult = dispatcher.runSync(serviceName, UtilMisc.toMap("test", this, "testResult", result));
+            Map serviceResult = SimpleMethod.runSimpleService(methodLocation, methodName, dispatcher.getDispatchContext(), 
+                    UtilMisc.toMap("test", this, "testResult", result));
 
             // do something with the errorMessage
             String errorMessage = (String) serviceResult.get(ModelService.ERROR_MESSAGE);
@@ -85,7 +88,7 @@ public class ServiceTest extends TestCaseBase {
                 }
             }
 
-        } catch (GenericServiceException e) {
+        } catch (MiniLangException e) {
             result.addError(this, e);
         }
 

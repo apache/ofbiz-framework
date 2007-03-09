@@ -25,9 +25,10 @@ under the License.
     <test-case case-name="userLoginEntityXmlAssert">
         <entity-xml-assert entity-xml-url="component://example/testdef/assertdata/TestUserLoginData.xml"/>
     </test-case>
-
-    <test-case case-name="testCreateExampleService">
+    <test-case case-name="testCreateExampleService Through Service Engine">
         <service-test service-name="testCreateExampleService"/>
     </test-case>
-
+    <test-case case-name="testCreateExampleService Direct Simple Method">
+        <simple-method-test location="org/ofbiz/example/example/ExampleServices.xml" name="testCreateExampleService"/>
+    </test-case>
 </test-suite>
