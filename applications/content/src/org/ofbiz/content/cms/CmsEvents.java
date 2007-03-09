@@ -94,6 +94,23 @@ public class CmsEvents {
             }
         } // if called through the default request, there is no request in pathinfo
 
+
+        // if path info is null; check for a default content
+        if (pathInfo == null) {
+            List defaultContents = null;
+            try {
+                defaultContents = delegator.findByAnd("WebSiteContent", UtilMisc.toMap("webSiteId", webSiteId,
+                        "webSiteContentTypeId", "DEFAULT_PAGE"), UtilMisc.toList("-fromDate"));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+            defaultContents = EntityUtil.filterByDate(defaultContents);
+            GenericValue defaultContent = EntityUtil.getFirst(defaultContents);
+            if (defaultContent != null) {
+                pathInfo = defaultContent.getString("contentId");
+            }
+        }
+
         // check for path alias first
         if (pathInfo != null) {
             // clean up the pathinfo for parsing
@@ -137,8 +154,6 @@ public class CmsEvents {
             }
 
             // process through CMS -- using the mapKey (for now)
-            GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-            Timestamp fromDate = UtilDateTime.nowTimestamp();
             Locale locale = UtilHttp.getLocale(request);
 
             // get the contentId/mapKey from URL
