@@ -18,9 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
-    <menu name="MarketingAppBar" default-menu-item-name="main" default-selected-style="selected" 
-        id="app-navigation" default-tooltip-style="tooltip"  
-        type="simple" title="${uiLabelMap.MarketingManagerApplication}">
+    <menu name="MarketingAppBar" default-menu-item-name="main" id="app-navigation" type="simple" title="${uiLabelMap.MarketingManagerApplication}">
         <menu-item name="main" title="${uiLabelMap.MarketingMainPage}"><link target="main"/></menu-item>
         <menu-item name="DataSource" title="${uiLabelMap.DataSource}"><link target="FindDataSource"/></menu-item>
         <menu-item name="Campaign" title="${uiLabelMap.MarketingCampaign}"><link target="FindMarketingCampaign"/></menu-item>

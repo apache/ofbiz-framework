@@ -21,8 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     <!-- SegmentGroup Lookup forms -->
-    <form name="LookupSegmentGroup" target="LookupSegmentGroup" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="LookupSegmentGroup" target="LookupSegmentGroup" title="" type="single">
         <field name="segmentGroupId" title="${uiLabelMap.SegmentGroupSegmentGroupId}"><text-find/></field>
         <field name="segmentGroupTypeId" title="${uiLabelMap.SegmentGroupSegmentGroupTypeId}"><text-find/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text-find/></field>
@@ -30,9 +29,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupSegmentGroup" list-name="listIt" target="" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        paginate-target="LookupSegmentGroup" >
+    <form name="listLookupSegmentGroup" list-name="listIt" target="" title="" type="list" paginate-target="LookupSegmentGroup" >
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -47,13 +44,11 @@ under the License.
         <field name="productStoreId" title="${uiLabelMap.SegmentGroupProductStoreId}"><display/></field>
     </form>
     
-    <form name="listSegmentGroupClass" list-name="listIt" target="" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        paginate-target="listSegmentGroupClass" >
+    <form name="listSegmentGroupClass" list-name="listIt" target="" title="" type="list" paginate-target="listSegmentGroupClass" >
         <actions>
-        <entity-and entity-name="SegmentGroupClassification">
-            <field-map env-name="segmentGroupId" />
-        </entity-and>
+            <entity-and entity-name="SegmentGroupClassification">
+                <field-map field-name="segmentGroupId" />
+            </entity-and>
         </actions>
         <field name="segmentGroupId"  widget-style="buttontext" title="${uiLabelMap.SegmentGroupSegmentGroupId}">
             <hyperlink also-hidden="false" target-type="intra-app" description="${segmentGroupId}" target="viewSegmentGroup?segmentGroupId=${segmentGroupId}"/>

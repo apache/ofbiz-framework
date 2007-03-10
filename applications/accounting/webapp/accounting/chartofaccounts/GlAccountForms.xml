@@ -21,8 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     
-    <form name="EditGlJournalEntry" type="single" target="createGlJournalEntry" title="" default-map-name="journal"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditGlJournalEntry" type="single" target="createGlJournalEntry" title="" default-map-name="journal">
         <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}" widget-style="selectBox">
             <drop-down>
                 <entity-options entity-name="AcctgTransType" description="${description}">
@@ -81,9 +80,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListGlAccountOrganization" list-name="listIt" target="" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        paginate-target="/ListGlAccountOrganization">
+    <form name="ListGlAccountOrganization" list-name="listIt" target="" title="" type="list" paginate-target="ListGlAccountOrganization">
         <actions>
             <set field="entityName" value="GlAccountOrganization"/>
             <set field="noConditionFind" value="Y"/> 
@@ -100,8 +97,7 @@ under the License.
 
     <!-- Displays the form for assigning accounts to a party or company -->
     <!-- TODO: Localize field names --> 
-    <form name="AssignGlAccount" type="single" target="createGlAccountOrganization" title="" default-map-name="account"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="AssignGlAccount" type="single" target="createGlAccountOrganization" title="" default-map-name="account">
 
         <!-- field name="glAccountId" title="Edit" widget-style="buttontext" -->
 
@@ -125,9 +121,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.AccountingCreateAssignment}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListGlAccount" list-name="listIt" target="" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" default-entity-name="GlAccount"
-        paginate-target="/FindGlobalGlAccount">
+    <form name="ListGlAccount" list-name="listIt" target="" title="" type="list" default-entity-name="GlAccount" paginate-target="FindGlobalGlAccount">
         <actions>
             <set field="entityName" value="GlAccount"/>
             <set field="noConditionFind" value="Y"/> 
@@ -153,8 +147,7 @@ under the License.
         <field name="postedBalance" widget-area-style="tabletextright" widget-style="tabletext" title-area-style="tableheadsmall"><display type="currency" currency="${defaultCurrencyUomId}"/></field>
     </form>
 
-    <form name="EditGlAccount" type="single" target="updateGlAccount" title="" default-map-name="glAccount"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditGlAccount" type="single" target="updateGlAccount" title="" default-map-name="glAccount">
         <alt-target use-when="glAccount==null" target="createGlAccount"/>
         <auto-fields-service service-name="updateGlAccount" map-name=""/>
         
@@ -204,8 +197,7 @@ under the License.
     </form>
 
     <!-- this is used to list AcctgTransEntries and can be called either by using an acctgTransId or a glAccountId -->
-    <form name="ListAcctgTransEntries" type="list" list-name="entries"  default-entity-name="AcctgTransEntry"  
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+    <form name="ListAcctgTransEntries" type="list" list-name="entries"  default-entity-name="AcctgTransEntry">
         <field name="acctgTransId">
             <hyperlink also-hidden="false" description="${acctgTransId}" target="ListAcctgTransEntries?acctgTransId=${acctgTransId}"/>
         </field>
@@ -227,15 +219,13 @@ under the License.
         <field name="isSummary"><display/></field>
     </form>
 
-    <form name="GlAccountsNavForm" type="single" target="" title="GL Accounts" default-map-name="journal"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="GlAccountsNavForm" type="single" target="" title="GL Accounts" default-map-name="journal">
         <field name="" title="">
             <hyperlink also-hidden="false" description="[Back to Admin]" target="AdminMain?organizationPartyId=${organizationPartyId}"/>
         </field>
     </form>
 
-    <form name="ListGlReconciliations" type="list" list-name="glReconciliations" default-entity-name="GlReconciliation"
-        default-title-style="tableheadtext" default-widget-style="tabletext">
+    <form name="ListGlReconciliations" type="list" list-name="glReconciliations" default-entity-name="GlReconciliation">
         <field name="glReconciliationId">
             <hyperlink also-hidden="false" description="${glReconciliationId}" target="viewGlReconciliation?glReconciliationId=${glReconciliationId}&amp;amp;organizationPartyId=${organizationPartyId}&amp;amp;glAccountId=${glAccountId}"/>
         </field>
@@ -252,8 +242,7 @@ under the License.
         <field name="reconciledDate"><display/></field>
     </form>
 
-    <form name="ListGlReconciliationEntries" type="list" list-name="glReconciliationEntries" default-entity-name="GlReconciliationEntry"
-        default-title-style="tableheadtext" default-widget-style="tabletext">
+    <form name="ListGlReconciliationEntries" type="list" list-name="glReconciliationEntries" default-entity-name="GlReconciliationEntry">
         <field name="glReconciliationId"><display/></field>
         <field name="acctgTransId">
             <hyperlink also-hidden="false" description="${acctgTransId}"

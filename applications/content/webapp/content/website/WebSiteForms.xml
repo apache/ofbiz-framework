@@ -22,8 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
 
     <!-- WebSite Forms -->
-    <form name="EditWebSite" type="single" target="updateWebSite" title="" default-map-name="webSite"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditWebSite" type="single" target="updateWebSite" title="" default-map-name="webSite">
         
         <alt-target use-when="webSite==null" target="createWebSite"/>
         
@@ -50,9 +49,7 @@ under the License.
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListWebSites" target="" title="" type="list" list-name="webSites"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        paginate-target="FindWebSite" paginate="true">
+    <form name="ListWebSites" target="" title="" type="list" list-name="webSites" paginate-target="FindWebSite" paginate="true">
         <field name="webSiteId" title="${uiLabelMap.CommonId}" widget-style="buttontext">
             <hyperlink description="${webSiteId}" target="EditWebSite?webSiteId=${webSiteId}" also-hidden="false"/>
         </field>
@@ -99,8 +96,7 @@ under the License.
             <sort-field name="deleteLink"/>
         </sort-order>
     </form>
-    <form name="CreateWebSiteContent" type="single" target="CreateWebSiteContent" title="" default-map-name="webSite"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="CreateWebSiteContent" type="single" target="CreateWebSiteContent" title="" default-map-name="webSite">
         <auto-fields-service service-name="createWebSiteContent"/>
         <field name="webSiteId" map-name="webSite"><display also-hidden="true"/></field>
         <field name="webSiteContentTypeId" widget-style="selectBox">
@@ -114,8 +110,7 @@ under the License.
     </form>
 
     <!-- WebSite Role Forms -->
-    <form name="CreateWebSiteRole" type="single" target="createWebSiteRole" title=""
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="CreateWebSiteRole" type="single" target="createWebSiteRole" title="">
         <auto-fields-service service-name="createWebSiteRole"/>
         <field name="webSiteId" map-name="webSite"><hidden/></field>
         <field name="roleTypeId" widget-style="selectBox">
@@ -127,8 +122,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateWebSiteRole" type="list" target="updateWebSiteRole" title="" list-name="webSiteRoleDatas"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="UpdateWebSiteRole" type="list" target="updateWebSiteRole" title="" list-name="webSiteRoleDatas">
         <auto-fields-service service-name="updateWebSiteRole" map-name="webSiteRole"/>
         <field name="webSiteId"><hidden/></field>
         <!-- three possibilities for the Party: person, partyGroup, neither... just print everything and if it's empty, no biggie -->
@@ -147,8 +141,7 @@ under the License.
                 description="[Delete]" also-hidden="false"/>
         </field>
     </form>
-    <form name="AutoCreateWebsiteContent" type="single" target="autoCreateWebSiteContent" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="AutoCreateWebsiteContent" type="single" target="autoCreateWebSiteContent" title="">
         <field name="webSiteId"><hidden/></field>
         <field name="webSiteContentTypeId" widget-style="tabletext">
             <check all-checked="false">

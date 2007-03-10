@@ -19,9 +19,7 @@ under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
 
-    <menu name="TimesheetTabBar" default-menu-item-name="Timesheet" default-selected-style="tabButtonSelected" 
-        default-title-style="tabButton" default-tooltip-style="tabletext" default-widget-style="tabButton" 
-        orientation="horizontal" type="simple">
+    <menu name="TimesheetTabBar" default-menu-item-name="Timesheet" type="simple">
         <menu-item name="Timesheet" title="${uiLabelMap.Timesheet}">
             <link target="EditTimesheet?timesheetId=${timesheetId}"/>
         </menu-item>

@@ -21,8 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     
-    <form name="EditBillingAccount" type="single" target="updateBillingAccount" title="" default-map-name="billingAccount" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditBillingAccount" type="single" target="updateBillingAccount" title="" default-map-name="billingAccount">
         <alt-target use-when="billingAccount==null" target="createBillingAccount"/>
         <auto-fields-service service-name="updateBillingAccount" map-name="billingAccount"/>
  
@@ -57,8 +56,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListBillingAccountRoles" type="list"  list-name="billingAccountRoleList" target="updateBillingAccountRole"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="ListBillingAccountRoles" type="list"  list-name="billingAccountRoleList" target="updateBillingAccountRole">
         <actions>
             <entity-condition entity-name="BillingAccountRole" list-name="billingAccountRoleList">
                 <condition-expr field-name="billingAccountId" env-name="billingAccountId"/>
@@ -85,8 +83,7 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddBillingAccountRole" type="single" target="createBillingAccountRole" title="" default-map-name="billingAccountRole"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="AddBillingAccountRole" type="single" target="createBillingAccountRole" title="" default-map-name="billingAccountRole">
         
         <auto-fields-service service-name="createBillingAccountRole"/>
         <field name="billingAccountId"><hidden/></field>

@@ -20,13 +20,11 @@ under the License.
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
-    <menu name="empty" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="content"
-        orientation="horizontal" menu-width="100%" default-tooltip-style="tabletext" default-widget-style="tabButton"
+    <menu name="empty" default-title-style="tabButton" default-menu-item-name="content" menu-width="100%"
         default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
     </menu>
         
     <menu name="find" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="content"
-        orientation="horizontal" menu-width="100%" default-tooltip-style="tabletext" default-widget-style="tabButton"
         default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="find" title="Find">
             <link target="FindCompDocTemplate"/>
@@ -34,8 +32,7 @@ under the License.
     </menu>
         
         
-    <menu name="tree" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="content"
-        orientation="horizontal" menu-width="100%" default-tooltip-style="tabletext" default-widget-style="tabButton"
+    <menu name="tree" default-title-style="tabButton" default-menu-item-name="content"
         selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="viewtree" title="View Tree">
             <condition>
@@ -66,8 +63,7 @@ under the License.
         </menu-item>
     </menu>
         
-    <menu name="subtree" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="content"
-        orientation="horizontal" menu-width="100%" default-tooltip-style="tabletext" default-widget-style="tabButton"
+    <menu name="subtree" default-title-style="tabButton" default-menu-item-name="content"
         selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="viewtree" title="View Tree">
             <condition>
@@ -92,8 +88,7 @@ under the License.
         </menu-item>
     </menu>
      
-    <menu name="rootTemplateLine" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="content"
-        orientation="horizontal" menu-width="100%" default-tooltip-style="tabletext" default-widget-style="tabButton"
+    <menu name="rootTemplateLine" default-title-style="tabButton" default-menu-item-name="content"
         selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="edit-inplace" title="${contentName}[${contentId}]" widget-style="head2">
             <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
@@ -123,9 +118,7 @@ under the License.
 			-->
     </menu>
         
-    <menu name="childTemplateLine" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="content"
-        orientation="horizontal" menu-width="100%" default-tooltip-style="tabletext" default-widget-style="tabButton"
-        selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
+    <menu name="childTemplateLine" default-title-style="tabButton" default-menu-item-name="content" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="edit-inplace" title="${contentName} [${contentId}]">
             <link target="EditChildCompDoc?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caFromDate=${fromDate}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
@@ -163,9 +156,7 @@ under the License.
         </menu-item>
     </menu>
         
-    <menu name="rootInstanceLine" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="content"
-        orientation="horizontal" menu-width="100%" default-tooltip-style="tabletext" default-widget-style="tabButton"
-        selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
+    <menu name="rootInstanceLine" default-title-style="tabButton" default-menu-item-name="content" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="edit-inplace" title="${instanceContent.contentName}[${instanceContent.contentId}]"  widget-style="head2">
             <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>

@@ -21,8 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     <!-- WorkEffort Lookup forms -->
-    <form name="lookupWorkEffort" target="LookupWorkEffort" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="lookupWorkEffort" target="LookupWorkEffort" title="" type="single">
         <auto-fields-entity entity-name="WorkEffort" default-field-type="find"/>
         <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}"><text-find/></field>
         <field name="workEffortParentId"><text-find/></field>
@@ -88,8 +87,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="lookupWorkEffortShort" target="LookupWorkEffortShort" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="lookupWorkEffortShort" target="LookupWorkEffortShort" title="" type="single">
         <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}"><text-find/></field>
         <field name="workEffortParentId"><text-find/></field>
         <field name="workEffortName"><text-find/></field>
@@ -130,9 +128,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="listLookupWorkEffort" list-name="listIt" target="" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        paginate-target="LookupWorkEffort" >
+    <form name="listLookupWorkEffort" list-name="listIt" target="" title="" type="list" paginate-target="LookupWorkEffort" >
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -150,8 +146,7 @@ under the License.
     </form>
 
     <!-- Timesheet Lookup forms -->
-    <form name="lookupTimesheet" target="LookupTimesheet" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="lookupTimesheet" target="LookupTimesheet" title="" type="single">
         <auto-fields-entity entity-name="Timesheet" default-field-type="find"/>
         <field name="timesheetId" title="${uiLabelMap.TimesheetTimesheetId}"><text-find/></field>
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
@@ -160,9 +155,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="listLookupTimesheet" list-name="listIt" target="" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        paginate-target="LookupPerson">
+    <form name="listLookupTimesheet" list-name="listIt" target="" title="" type="list" paginate-target="LookupPerson">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>

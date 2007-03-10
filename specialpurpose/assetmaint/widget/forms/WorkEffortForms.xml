@@ -20,8 +20,7 @@
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="EditWorkEffort" target="updateWorkEffort" title="" type="single" default-map-name="workEffort"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="EditWorkEffort" target="updateWorkEffort" title="" type="single" default-map-name="workEffort">
         <alt-target target="createWorkEffort" use-when="workEffort==null"/>
         <field name="maintHistSeqId" map-name="fixedAssetMaint"><hidden/></field>
         <field map-name="workEffort" name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}*"><display/></field>
@@ -55,8 +54,7 @@
         <field map-name="workEffort" name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit/></field>
     </form>
 
-    <form name="AddWorkEffortChild"  target="createWorkEffortAndAssoc" title="" type="single" 
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="AddWorkEffortChild"  target="createWorkEffortAndAssoc" title="" type="single">
 
         <field name="fixedAssetId"><hidden/></field>
         <field name="maintHistSeqId"><hidden/></field>
@@ -95,9 +93,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="WorkEffortChildren"  target="updateWorkEffortAndAssoc" title="" type="list"  default-widget-style="inputBox" 
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" even-row-style="viewManyTR2" odd-row-style="viewManyTR1"
-        default-title-area-style="viewOneTR1" separate-columns="true">
+    <form name="WorkEffortChildren"  target="updateWorkEffortAndAssoc" title="" type="list" separate-columns="true">
         <actions>
             <entity-condition entity-name="WorkEffortAssocView">
                 <condition-expr field-name="workEffortIdFrom" operator="equals" env-name="workEffortIdFrom"/>
@@ -127,8 +123,7 @@
         <field name="actualCompletionDate" title="${uiLabelMap.WorkEffortActualEndDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="AddWorkEffortTimeEntry" type="single" target="createWorkEffortTimeEntry" title=""
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="AddWorkEffortTimeEntry" type="single" target="createWorkEffortTimeEntry" title="">
         <auto-fields-service service-name="createTimeEntry"/>
         
         <field name="workEffortId"><hidden/></field>
@@ -150,9 +145,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <!-- TimeEntry -->
-    <form name="ListWorkEffortTimeEntries" type="list" list-name="timesheetEntries" target="updateWorkEffortTimeEntry"
-        separate-columns="false"  default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext"
-        default-title-area-style="viewOneTR1" even-row-style="viewManyTR2" odd-row-style="viewManyTR1">
+    <form name="ListWorkEffortTimeEntries" type="list" list-name="timesheetEntries" target="updateWorkEffortTimeEntry">
         <actions>
             <entity-condition entity-name="TimeEntry">
                 <condition-expr field-name="workEffortId" env-name="workEffortId"/>
@@ -163,7 +156,6 @@
             </entity-condition>
         </actions>
         <auto-fields-service service-name="updateTimeEntry"/>
-        
         <field name="workEffortId"><hidden/></field>
         <field name="fixedAssetId"><hidden/></field>
         <field name="maintHistSeqId"><hidden/></field>
@@ -192,9 +184,7 @@
     </form>
     
     <!-- WorkEffort Note -->
-    <form name="ListWorkEffortNotes" type="list" list-name="workEffortNotes"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext"
-        default-title-area-style="viewOneTR1" even-row-style="viewManyTR2" odd-row-style="viewManyTR1">
+    <form name="ListWorkEffortNotes" type="list" list-name="workEffortNotes">
         <actions>
             <entity-condition entity-name="WorkEffortNoteAndData">
                 <condition-expr field-name="workEffortId" env-name="workEffortId"/>
@@ -209,8 +199,7 @@
         <field name="noteParty" title="${uiLabelMap.CommonBy}" widget-style="tabletext"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${noteDateTime}"/></field>
     </form>
     
-    <form name="AddWorkEffortNote" type="single" target="createWorkEffortNote" title=""
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="AddWorkEffortNote" type="single" target="createWorkEffortNote" title="">
         <auto-fields-service service-name="createWorkEffortNote"/>
         <field name="noteId"><ignored/><!-- don't pass, will be sequenced --></field>
         <field name="workEffortId"><hidden/></field>

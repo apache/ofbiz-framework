@@ -19,8 +19,7 @@ under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
 
-    <menu name="ContentAppBar" default-menu-item-name="main" default-selected-style="selected" 
-        default-tooltip-style="tooltip" id="app-navigation" title="${uiLabelMap.ContentContentManagerApplication}"
+    <menu name="ContentAppBar" default-menu-item-name="main" id="app-navigation" title="${uiLabelMap.ContentContentManagerApplication}"
         type="simple" selected-menuitem-context-field-name="headerItem">
         <menu-item name="main" title="${uiLabelMap.ContentMain}"><link target="main"/></menu-item>
         <menu-item name="websites" title="${uiLabelMap.ContentWebSites}"><link target="FindWebSite"/></menu-item>
@@ -44,16 +43,8 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="content" default-title-style="tabButton"
-        default-selected-style="tabButtonSelected"
-        default-menu-item-name="content"
-        orientation="horizontal"
-        menu-width="100%"
-        default-tooltip-style="tabletext" default-widget-style="tabButton"
-        default-permission-operation="HAS_AUTHOR_ROLE|CONTENT_ADMIN"
-        default-permission-entity-action="_ADMIN"
-        default-associated-content-id="${userLogin.userLoginId}"
-        selected-menuitem-context-field-name="tabButtonItem"
+    <menu name="content" default-title-style="tabButton" default-menu-item-name="content" default-permission-operation="HAS_AUTHOR_ROLE|CONTENT_ADMIN"
+        default-permission-entity-action="_ADMIN" default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="tabButtonItem"
         title="" type="simple">
         
         <menu-item name="content" title="${uiLabelMap.ContentContent}">
@@ -108,16 +99,8 @@ under the License.
         </menu-item>
         
     </menu>
-    <menu name="contentSub" default-title-style="buttontext"
-        default-selected-style="tabButtonSelected"
-        default-menu-item-name="content"
-        orientation="horizontal"
-        menu-width="100%"
-        default-tooltip-style="tabletext" default-widget-style="buttontext"
-        default-permission-operation="HAS_AUTHOR_ROLE|CONTENT_ADMIN"
-        default-permission-entity-action="_ADMIN"
-        default-associated-content-id="${userLogin.userLoginId}"
-        selected-menuitem-context-field-name="currentMenuItemName"
+    <menu name="contentSub" default-title-style="buttontext" default-menu-item-name="content" default-permission-operation="HAS_AUTHOR_ROLE|CONTENT_ADMIN"
+        default-permission-entity-action="_ADMIN" default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="currentMenuItemName"
         title="" type="simple">
         
         <menu-item name="NewContent" title="${uiLabelMap.CommonCreateNew}">

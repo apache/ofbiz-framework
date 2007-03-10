@@ -19,8 +19,7 @@ under the License.
 -->
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="ListWorkEffortCommEvents" separate-columns="false" target="updateCommunicationEventWorkEff" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+    <form name="ListWorkEffortCommEvents" separate-columns="false" target="updateCommunicationEventWorkEff" title="" type="list">
         <actions>
             <entity-condition entity-name="WorkEffortCommunicationEventView">
                 <condition-list combine="and">
@@ -39,8 +38,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="deleteLink" title="" widget-style="buttontext"><hyperlink target="deleteCommunicationEventWorkEff?workEffortId=${workEffortId}&amp;communicationEventId=${communicationEventId}" also-hidden="false" description="${uiLabelMap.CommonDelete}"/></field>
     </form>
-    <form name="AddWorkEffortCommEvent" default-map-name="communicationEvent" target="createWorkEffortCommEvent" title="" type="single" extends="EditCommEvent" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="AddWorkEffortCommEvent" default-map-name="communicationEvent" target="createWorkEffortCommEvent" title="" type="single" extends="EditCommEvent" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml">
         <field name="workEffortId"><hidden/></field>
         <field name="description"><textarea/></field>
         <field name="communicationEventId"><lookup target-form-name="LookupCommEvent"/></field>
