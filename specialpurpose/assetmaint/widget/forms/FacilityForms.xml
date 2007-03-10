@@ -21,9 +21,7 @@
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     
-    <form name="ListFacilities" type="list" list-name="facilities" 
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        default-title-area-style="viewOneTR1" even-row-style="viewManyTR2" odd-row-style="viewManyTR1">
+    <form name="ListFacilities" type="list" list-name="facilities">
         <field name="facilityId" title="ID" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${facilityId}" target="EditFacility?facilityId=${facilityId}"/>
         </field>

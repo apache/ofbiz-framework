@@ -20,8 +20,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
 
     <!-- form whose input filters the ListGatewayResponses -->
-    <form name="FindGatewayResponses" type="single" target="FindGatewayResponses" title=""
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="FindGatewayResponses" type="single" target="FindGatewayResponses" title="">
         <field name="hideSearch"><hidden value="Y"/></field> <!-- what is this for? -->
         <field name="paymentGatewayResponseId" title="${uiLabelMap.AccountingPaymentGatewayResponseId}"><text-find/></field>
         <field name="orderPaymentPreferenceId" title="${uiLabelMap.AccountingOrderPaymentPreferenceId}"><text-find/></field>
@@ -39,9 +38,7 @@ under the License.
     </form>
 
     <!-- Brings up a list of gateway responses. TODO: should cut down data displayd -->
-    <form name="ListGatewayResponses" type="list" use-row-submit="true" target="" title="" list-name="listIt"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
-        paginate-target="FindRequirements">
+    <form name="ListGatewayResponses" type="list" use-row-submit="true" target="" title="" list-name="listIt" paginate-target="FindRequirements">
         <actions>
             <set field="entityName" value="PaymentGatewayResponse"/>
             <set field="orderBy" value="transactionDate DESC"/>
@@ -59,8 +56,7 @@ under the License.
     </form>
 
     <!-- presents the orderId and orderPaymentPreferenceId for a gateway response with links to the order -->
-    <form name="ViewGatewayResponseRelations" type="single" target="" title=""
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ViewGatewayResponseRelations" type="single" target="" title="">
         <field name="orderId" widget-style="buttontext">
           <hyperlink also-hidden="false" target-type="inter-app" description="${orderId}" target="/ordermgr/control/orderview?orderId=${orderId}"/>
         </field>
@@ -68,8 +64,7 @@ under the License.
     </form>
 
     <!-- displays the gateway response in detail -->
-    <form name="ViewGatewayResponse" type="single" target="processCaptureTransaction" title="" default-map-name="paymentGatewayResponse"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ViewGatewayResponse" type="single" target="processCaptureTransaction" title="" default-map-name="paymentGatewayResponse">
         <auto-fields-entity entity-name="PaymentGatewayResponse" default-field-type="display"/>
         <!-- TODO: what is the correct way to ensure that the response was authorized?
         <field name="submitButton" use-when="paymentGatewayResponse!=null&amp;&amp;paymentGatewayResponse.getString(&quot;gatewayFlag&quot;).equals(&quot;A&quot;)" title="${uiLabelMap.AccountingCapture}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -77,8 +72,7 @@ under the License.
     </form>
 
     <!-- form for authorizing a transaction -->
-    <form name="AuthorizeTransaction" type="single" target="processAuthorizeTransaction" title="" 
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="AuthorizeTransaction" type="single" target="processAuthorizeTransaction" title="">
         <field name="orderId"><text/></field>
         <field name="orderPaymentPreferenceId"><text/></field>
         <field name="paymentMethodTypeId" title="${uiLabelMap.AccountingPaymentMethodType}">
@@ -91,8 +85,7 @@ under the License.
     </form>
 
     <!-- form for capturing a transaction -->
-    <form name="CaptureTransaction" type="single" target="processCaptureTransaction" title="" 
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="CaptureTransaction" type="single" target="processCaptureTransaction" title="">
         <field name="orderId"><text/></field>
         <field name="orderPaymentPreferenceId"><text/></field>
         <field name="paymentMethodTypeId" title="${uiLabelMap.AccountingPaymentMethodType}">

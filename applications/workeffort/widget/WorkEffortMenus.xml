@@ -20,8 +20,7 @@ under the License.
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
 
-    <menu name="WorkEffortAppBar" default-menu-item-name="task" default-selected-style="selected" 
-        default-tooltip-style="tooltip" id="app-navigation" type="simple" selected-menuitem-context-field-name="headerItem"
+    <menu name="WorkEffortAppBar" default-menu-item-name="task" id="app-navigation" type="simple" selected-menuitem-context-field-name="headerItem"
         title="${uiLabelMap.WorkEffortWorkEffortManagerApplication}">
         <menu-item name="task" title="${uiLabelMap.WorkEffortTaskList}"><link target="mytasks"/></menu-item>
         <menu-item name="calendar" title="${uiLabelMap.WorkEffortCalendar}"><link target="day"/></menu-item>
@@ -39,9 +38,7 @@ under the License.
             <link target="${checkLoginUrl}"/>
         </menu-item>
     </menu>
-    <menu name="WorkEffortTabBar" default-menu-item-name="WorkEffort" default-selected-style="tabButtonSelected" 
-        default-title-style="tabButton" default-tooltip-style="tabletext" default-widget-style="tabButton" 
-        orientation="horizontal" type="simple">
+    <menu name="WorkEffortTabBar" default-menu-item-name="WorkEffort" type="simple">
         <menu-item name="WorkEffortRelatedSummary" title="${uiLabelMap.WorkEffortSummary}">
             <link target="WorkEffortSummary?workEffortId=${workEffortId}"/>
         </menu-item>

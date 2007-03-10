@@ -20,9 +20,7 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="ListRequests" type="list" use-row-submit="true" title="" list-name="custRequestAndRoles" 
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
-        paginate-target="requestlist">
+    <form name="ListRequests" type="list" use-row-submit="true" title="" list-name="custRequestAndRoles" paginate-target="requestlist">
         <field name="custRequestId" widget-style="buttontext">
             <hyperlink description="${custRequestId}" target-type="inter-app" target="/ordermgr/control/ViewRequest?custRequestId=${custRequestId}"/>
         </field>

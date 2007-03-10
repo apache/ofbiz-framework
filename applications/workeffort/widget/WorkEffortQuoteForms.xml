@@ -20,8 +20,7 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
   
-    <form name="ListWorkEffortQuotes" separate-columns="true" target="ListWorkEffortQuotes" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+    <form name="ListWorkEffortQuotes" separate-columns="true" target="ListWorkEffortQuotes" title="" type="list">
         <actions>
             <entity-and entity-name="WorkEffortQuoteView">
                 <field-map field-name="workEffortId"/>
@@ -37,15 +36,13 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortQuote?workEffortId=${workEffortId}&amp;quoteId=${quoteId}"/>
         </field>
     </form>
-    <form name="AddWorkEffortQuote" target="createWorkEffortQuote" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="AddWorkEffortQuote" target="createWorkEffortQuote" title="" type="single">
         <field name="workEffortId"><hidden/></field>
         <field name="quoteId"><lookup target-form-name="LookupQuote"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListWorkEffortQuoteItems" separate-columns="true" target="ListWorkEffortQuoteItems" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+    <form name="ListWorkEffortQuoteItems" separate-columns="true" target="ListWorkEffortQuoteItems" title="" type="list">
         <actions>
             <entity-and entity-name="QuoteItem">
                 <field-map field-name="workEffortId"/>
@@ -65,8 +62,7 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortQuoteItem?workEffortId=${workEffortId}&amp;quoteId=${quoteId}&amp;quoteItemSeqId=${quoteItemSeqId}"/>
         </field>
     </form>
-    <form name="AddWorkEffortQuoteItem" target="createWorkEffortQuoteItem" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="AddWorkEffortQuoteItem" target="createWorkEffortQuoteItem" title="" type="single">
         <field name="workEffortId"><hidden/></field>
         <field name="quoteId"><lookup target-form-name="LookupQuote"/></field>
         <field name="quoteItemSeqId"><lookup target-form-name="LookupQuoteItem" target-parameter="quoteId"/></field>

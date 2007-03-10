@@ -19,21 +19,15 @@ under the License.
 -->
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
-    <menu name="ForumGroupTabBar" default-selected-style="tabButtonSelected" 
-        default-title-style="tabButton" default-tooltip-style="tabletext" default-widget-style="tabButton" 
-        orientation="horizontal" type="simple">
+    <menu name="ForumGroupTabBar" type="simple">
         <menu-item name="forumGroups" title="${uiLabelMap.FormFieldTitle_forumGroups}"><link target="findForumGroups"/></menu-item>
         <menu-item name="forums" title="${uiLabelMap.FormFieldTitle_forums}"><link target="findForums?forumGroupId=${parameters.forumGroupId}"/></menu-item>
         <menu-item name="purposes" title="${uiLabelMap.FormFieldTitle_purposes}"><link target="forumGroupPurposes?forumGroupId=${parameters.forumGroupId}"/></menu-item>
         <menu-item name="roles" title="${uiLabelMap.FormFieldTitle_roles}"><link target="forumGroupRoles?forumGroupId=${parameters.forumGroupId}"/></menu-item>
     </menu>
-    <menu name="ForumTabBar" default-menu-item-name="Survey" default-selected-style="tabButtonSelected" 
-        default-title-style="tabButton" default-tooltip-style="tabletext" default-widget-style="tabButton" 
-        orientation="horizontal" type="simple">
+    <menu name="ForumTabBar" default-menu-item-name="Survey" type="simple">
     </menu>
-    <menu name="ForumMessagesTabBar" default-selected-style="tabButtonSelected" 
-        default-title-style="tabButton" default-tooltip-style="tabletext" default-widget-style="tabButton" 
-        orientation="horizontal" type="simple">
+    <menu name="ForumMessagesTabBar" type="simple">
         <menu-item name="forumGroups" title="${uiLabelMap.FormFieldTitle_forumGroups}"><link target="findForumGroups"/></menu-item>
         <menu-item name="forums" title="${uiLabelMap.FormFieldTitle_forums}"><link target="findForums?forumGroupId=${parameters.forumGroupId}"/></menu-item>
         <menu-item name="messageList" title="${uiLabelMap.FormFieldTitle_messageList}"><link target="findForumMessages?forumGroupId=${parameters.forumGroupId}&amp;forumId=${parameters.forumId}"/></menu-item>

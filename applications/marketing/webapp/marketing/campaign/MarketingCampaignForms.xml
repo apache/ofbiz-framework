@@ -20,13 +20,12 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-     <form name="EditMarketingCampaign" type="single" target="updateMarketingCampaign" title="" default-map-name="marketingCampaign"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+     <form name="EditMarketingCampaign" type="single" target="updateMarketingCampaign" title="" default-map-name="marketingCampaign">
         <actions>
             <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
         </actions>
-        <auto-fields-entity entity-name="MarketingCampaign"/>
         <alt-target use-when="marketingCampaign==null" target="createMarketingCampaign"/>
+        <auto-fields-entity entity-name="MarketingCampaign"/>
         
         <field use-when="marketingCampaign!=null" name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="marketingCampaign==null&amp;&amp;marketingCampaignId==null" name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}"><ignored/></field>
@@ -65,9 +64,7 @@ under the License.
         <field name="cancelLink" widget-style="buttontext" title="${uiLabelMap.CommonCancel}"><hyperlink target="${donePage}" also-hidden="false" description="[${uiLabelMap.CommonCancelDone}]" target-type="inter-app"/></field>
     </form>
 
-   <form name="ListMarketingCampaign" list-name="" target="" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        paginate-target="listMarketingCampaign">
+   <form name="ListMarketingCampaign" list-name="" target="" title="" type="list" paginate-target="listMarketingCampaign">
         <actions>
             <entity-condition entity-name="MarketingCampaign"/>
         </actions>
@@ -84,9 +81,7 @@ under the License.
         </field>
     </form>
 
-   <form name="ListMarketingCampaignRoles" list-name="" target="" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        paginate-target="listMarketingCampaignGeo" >
+   <form name="ListMarketingCampaignRoles" list-name="" target="" title="" type="list" paginate-target="listMarketingCampaignGeo" >
         <actions>
         <entity-and entity-name="MarketingCampaignRole">
             <field-map field-name="marketingCampaignId" env-name="marketingCampaignId" />
@@ -121,8 +116,7 @@ under the License.
         </field>
     </form>
 
-    <form name="EditMarketingCampaignRoles" type="single" target="updateMarketingCampaignRole" title="" default-map-name="marketingCampaignRole"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditMarketingCampaignRoles" type="single" target="updateMarketingCampaignRole" title="" default-map-name="marketingCampaignRole">
         <alt-target use-when="marketingCampaignRole==null" target="createMarketingCampaignRole"/>
         <auto-fields-service service-name="updateMarketingCampaignRole"/>
         

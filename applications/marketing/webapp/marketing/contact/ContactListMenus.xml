@@ -19,9 +19,7 @@ under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
 
-    <menu name="ContactListTabBar" default-menu-item-name="ContactList" default-selected-style="tabButtonSelected" 
-        default-title-style="tabButton" default-tooltip-style="tabletext" default-widget-style="tabButton" 
-        orientation="horizontal" type="simple">
+    <menu name="ContactListTabBar" default-menu-item-name="ContactList" type="simple">
         <menu-item name="ContactList" title="${uiLabelMap.ContactList}">
             <link target="/EditContactList?contactListId=${contactListId}"/>
         </menu-item>

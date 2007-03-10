@@ -21,9 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
 
-    <form name="lookupListLayout" default-entity-name="ContentAssocDataResourceViewFrom" list-name="entityList" target="" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        paginate-target="LookupListLayout">
+    <form name="lookupListLayout" default-entity-name="ContentAssocDataResourceViewFrom" list-name="entityList" target="" title="" type="list" paginate-target="LookupListLayout">
         <actions>
             <entity-condition entity-name="ContentAssocDataResourceViewFrom" list-name="entityList" >
                 <condition-expr field-name="caContentIdTo" value="TEMPLATE_MASTER"/>
@@ -37,8 +35,7 @@ under the License.
         <field name="drObjectInfo" title="Template File"><display/></field>
     </form>
 
-    <form name="lookupDataResourceContent" default-entity-name="DataResourceContentView" target="LookupSubContent" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="lookupDataResourceContent" default-entity-name="DataResourceContentView" target="LookupSubContent" title="" type="single">
         <field name="dataResourceId" title="DataResource Id">
             <text-find/>
         </field>
@@ -74,9 +71,7 @@ under the License.
         </field>
     </form>
 
-    <form name="listLookupDataResourceContent" default-entity-name="DataResourceContentView" list-name="listIt" target="" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        paginate-target="LookupSubContent">
+    <form name="listLookupDataResourceContent" default-entity-name="DataResourceContentView" list-name="listIt" target="" title="" type="list" paginate-target="LookupSubContent">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
