@@ -463,15 +463,51 @@ public class MrpServices {
      */
     public static Map executeMrp(DispatchContext ctx, Map context) {
         Debug.logInfo("executeMrp called", module);
-        //Context
+
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp now = UtilDateTime.nowTimestamp();
         
         String mrpName = (String)context.get("mrpName");
+        String facilityGroupId = (String)context.get("facilityGroupId");
         String facilityId = (String)context.get("facilityId");
-        // Variable declaration
+        String manufacturingFacilityId = null;
+        if (UtilValidate.isEmpty(facilityId) && UtilValidate.isEmpty(facilityGroupId)) {
+            return ServiceUtil.returnError("facilityId and facilityGroupId cannot be both null");
+        }
+        if (UtilValidate.isEmpty(facilityId)) {
+            try {
+                GenericValue facilityGroup = delegator.findByPrimaryKey("FacilityGroup", UtilMisc.toMap("facilityGroupId", facilityGroupId));
+                if (UtilValidate.isEmpty(facilityGroup)) {
+                    return ServiceUtil.returnError("facilityGroupId [" + facilityGroupId + "] is not valid");
+                }
+                List facilities = facilityGroup.getRelated("FacilityGroupMember", UtilMisc.toList("sequenceNum"));
+                if (UtilValidate.isEmpty(facilities)) {
+                    return ServiceUtil.returnError("No facility associated to facilityGroupId [" + facilityGroupId + "]");
+                }
+                Iterator facilitiesIt = facilities.iterator();
+                while (facilitiesIt.hasNext()) {
+                    GenericValue facilityMember = (GenericValue)facilitiesIt.next();
+                    GenericValue facility = facilityMember.getRelatedOne("Facility");
+                    if ("WAREHOUSE".equals(facility.getString("facilityTypeId")) && UtilValidate.isEmpty(facilityId)) {
+                        facilityId = facility.getString("facilityId");
+                    }
+                    if ("PLANT".equals(facility.getString("facilityTypeId")) && UtilValidate.isEmpty(manufacturingFacilityId)) {
+                        manufacturingFacilityId = facility.getString("facilityId");
+                    }
+                }
+            } catch (GenericEntityException e) {
+                return ServiceUtil.returnError("Problem loading facility group information: " + e.getMessage());
+            }
+        } else {
+            manufacturingFacilityId = facilityId;
+        }
+
+        if (UtilValidate.isEmpty(facilityId) || UtilValidate.isEmpty(manufacturingFacilityId)) {
+            return ServiceUtil.returnError("facilityId and manufacturingFacilityId cannot be both null");
+        }
+        
         int bomLevelWithNoEvent = 0;
         double stockTmp = 0;
         String oldProductId = null;
@@ -486,7 +522,7 @@ public class MrpServices {
         double minimumStock = 0;
         int daysToShip = 0;
         List components = null;
-        boolean isbuild = false;
+        boolean isBuilt = false;
         GenericValue routing = null;
         
         Map result = null;
@@ -565,9 +601,9 @@ public class MrpServices {
                         components = (List)serviceResponse.get("components");
                         if (components != null && components.size() > 0) {
                             BOMNode node = ((BOMNode)components.get(0)).getParentNode();
-                            isbuild = node.isManufactured();
+                            isBuilt = node.isManufactured();
                         } else {
-                            isbuild = false;
+                            isBuilt = false;
                         }
                         // #####################################################
 
@@ -581,7 +617,7 @@ public class MrpServices {
                         eventDate = inventoryEventForMRP.getTimestamp("eventDate");
                         // to be just before the requirement
                         eventDate.setTime(eventDate.getTime()-1);
-                        ProposedOrder proposedOrder = new ProposedOrder(product, facilityId, isbuild, eventDate, qtyToStock);
+                        ProposedOrder proposedOrder = new ProposedOrder(product, facilityId, manufacturingFacilityId, isBuilt, eventDate, qtyToStock);
                         proposedOrder.setMrpName(mrpName);
                         // calculate the ProposedOrder quantity and update the quantity object property.
                         proposedOrder.calculateQuantityToSupply(reorderQuantity, minimumStock, iteratorListInventoryEventForMRP);
@@ -607,15 +643,15 @@ public class MrpServices {
                         }
                         if (components != null && components.size() > 0) {
                             BOMNode node = ((BOMNode)components.get(0)).getParentNode();
-                            isbuild = node.isManufactured();
+                            isBuilt = node.isManufactured();
                         } else {
-                            isbuild = false;
+                            isBuilt = false;
                         }
                         // #####################################################
                         
                         // calculate the ProposedOrder requirementStartDate and update the requirementStartDate object property.
                         Map routingTaskStartDate = proposedOrder.calculateStartDate(daysToShip, routing, delegator, dispatcher, userLogin);
-                        if (isbuild) {
+                        if (isBuilt) {
                             // process the product components
                             processBomComponent(product, proposedOrder.getQuantity(), proposedOrder.getRequirementStartDate(), routingTaskStartDate, components);
                         }
@@ -625,7 +661,7 @@ public class MrpServices {
                         }
                         Map eventMap = UtilMisc.toMap("productId", product.getString("productId"),
                                                       "eventDate", eventDate,
-                                                      "inventoryEventPlanTypeId", (isbuild? "PROP_MANUF_O_RECP" : "PROP_PUR_O_RECP"));
+                                                      "inventoryEventPlanTypeId", (isBuilt? "PROP_MANUF_O_RECP" : "PROP_PUR_O_RECP"));
                         try {
                             InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(eventMap, new Double(proposedOrder.getQuantity()), null, delegator);
                         } catch (GenericEntityException e) {

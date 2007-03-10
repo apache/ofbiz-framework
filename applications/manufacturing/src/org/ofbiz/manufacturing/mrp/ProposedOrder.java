@@ -50,20 +50,22 @@ public class ProposedOrder {
     public static final String resource = "ManufacturingUiLabels";
     
     protected GenericValue product;
-    protected boolean isbuild;
+    protected boolean isBuilt;
     protected String productId;
     protected String facilityId;
+    protected String manufacturingFacilityId;
     protected String mrpName;
     protected Timestamp requiredByDate;
     protected Timestamp requirementStartDate;
     protected double quantity;
     
     
-    public ProposedOrder(GenericValue product, String facilityId, boolean isbuild, Timestamp requiredByDate, double quantity) {
+    public ProposedOrder(GenericValue product, String facilityId, String manufacturingFacilityId, boolean isBuilt, Timestamp requiredByDate, double quantity) {
         this.product = product;
         this.productId = product.getString("productId");
         this.facilityId = facilityId;
-        this.isbuild = isbuild;
+        this.manufacturingFacilityId = manufacturingFacilityId;
+        this.isBuilt = isBuilt;
         this.requiredByDate = requiredByDate;
         this.quantity = quantity;
         this.requirementStartDate = null;
@@ -97,7 +99,7 @@ public class ProposedOrder {
         Map result = null;
         Timestamp endDate = (Timestamp) requiredByDate.clone();
         Timestamp startDate = endDate;
-        if (isbuild) {
+        if (isBuilt) {
             List listRoutingTaskAssoc = null;
             if (routing == null) {
                 try {
@@ -211,11 +213,11 @@ public class ProposedOrder {
         Map parameters = UtilMisc.toMap("userLogin", userLogin);
         
         parameters.put("productId", productId);
-        parameters.put("facilityId", facilityId);
+        parameters.put("facilityId", (isBuilt? manufacturingFacilityId: facilityId));
         parameters.put("requiredByDate", requiredByDate);
         parameters.put("requirementStartDate", requirementStartDate);
         parameters.put("quantity", new Double(quantity));
-        parameters.put("requirementTypeId", (isbuild? "INTERNAL_REQUIREMENT" : "PRODUCT_REQUIREMENT"));
+        parameters.put("requirementTypeId", (isBuilt? "INTERNAL_REQUIREMENT" : "PRODUCT_REQUIREMENT"));
         if (mrpName != null) {
             parameters.put("description", "MRP_" + mrpName);
         } else {
