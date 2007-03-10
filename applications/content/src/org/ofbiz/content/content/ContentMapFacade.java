@@ -34,6 +34,7 @@ import java.io.IOException;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 /**
  * ContentMapFacade
@@ -50,13 +51,14 @@ public class ContentMapFacade implements Map {
     protected final Locale locale;
     protected final String mimeType;
     protected final boolean cache;
-    protected boolean render = true;
+    protected boolean allowRender = true;
 
     // internal objects
     private DataResource dataResource;
     private SubContent subContent;
     private MetaData metaData;
     private Content content;
+    private GenericValue fields = null;
 
     public ContentMapFacade(LocalDispatcher dispatcher, GenericValue content, Map context, Locale locale, String mimeTypeId, boolean cache) {
         this.dispatcher = dispatcher;
@@ -67,7 +69,7 @@ public class ContentMapFacade implements Map {
         this.cache = cache;
         this.contentId = content.getString("contentId");
         this.delegator = content.getDelegator();
-        this.render = false;
+        this.allowRender = false;
         init();
     }
 
@@ -80,7 +82,11 @@ public class ContentMapFacade implements Map {
         this.mimeType = mimeTypeId;
         this.cache = cache;
         try {
-            this.value = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
+            if (cache) {
+                this.value = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
+            } else {
+                this.value = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+            }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new RuntimeException(e.getMessage());
@@ -96,12 +102,12 @@ public class ContentMapFacade implements Map {
     }
 
     public void setRenderFlag(boolean render) {
-        this.render = render;
+        this.allowRender = render;
     }
 
     // interface methods
     public int size() {
-        return 0;
+        return 1;
     }
 
     public boolean isEmpty() {
@@ -135,8 +141,18 @@ public class ContentMapFacade implements Map {
     }
 
     public Set keySet() {
-        Debug.logWarning("This method [keySet()] is not implemented in ContentMapFacade", module);
-        return null;
+        Debug.logWarning("This method [keySet()] is not completely implemented in ContentMapFacade", module);
+        Set keys = FastSet.newInstance();
+        keys.add("fields");
+        keys.add("link");
+        keys.add("data");
+        keys.add("dataresource");
+        keys.add("subcontent");
+        keys.add("subcontent_all");
+        keys.add("metadata");
+        keys.add("content");
+        keys.add("render");
+        return keys;
     }
 
     public Collection values() {
@@ -157,29 +173,38 @@ public class ContentMapFacade implements Map {
         }
         String name = (String) obj;
 
-        // fields key, returns value object
         if ("fields".equalsIgnoreCase(name)) {
-            GenericValue value = null;
+            // fields key, returns value object
+            if (this.fields != null) {
+                return fields;
+            }
             try {
-                value = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
+                if (cache) {
+                    this.fields = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
+                } else {
+                    this.fields = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+                }
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
-            return value;
+            return this.fields;
 
-        }
-
-        // data (resource) object
-        if ("data".equalsIgnoreCase(name) || "dataresource".equalsIgnoreCase(name)) {
+        } else if ("link".equalsIgnoreCase(name)) {
+            // link to this content
+            return "";
+        } else if ("data".equalsIgnoreCase(name) || "dataresource".equalsIgnoreCase(name)) {
+            // data (resource) object
             return dataResource;   
-        }
-
-        // subcontent list of ordered subcontent
-        if ("subcontent_all".equalsIgnoreCase(name)) {
+        } else if ("subcontent_all".equalsIgnoreCase(name)) {
+            // subcontent list of ordered subcontent
             List subContent = FastList.newInstance();
             List subs = null;
             try {
-                subs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId), UtilMisc.toList("-fromDate"));
+                if (cache) {
+                    subs = delegator.findByAndCache("ContentAssoc", UtilMisc.toMap("contentId", contentId), UtilMisc.toList("-fromDate"));
+                } else {
+                    subs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId), UtilMisc.toList("-fromDate"));
+                }
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -193,25 +218,17 @@ public class ContentMapFacade implements Map {
                 }
             }
             return subContent;
-        }
-
-        // return the subcontent object
-        if ("subcontent".equalsIgnoreCase(name)) {
+        } else if ("subcontent".equalsIgnoreCase(name)) {
+            // return the subcontent object
             return this.subContent;
-        }
-
-        // return list of metaData by predicate ID
-        if ("metadata".equalsIgnoreCase(name)) {
+        } else if ("metadata".equalsIgnoreCase(name)) {
+            // return list of metaData by predicate ID
             return this.metaData;
-        }
-
-        // content; returns object from contentId
-        if ("content".equalsIgnoreCase(name)) {
+        } else if ("content".equalsIgnoreCase(name)) {
+            // content; returns object from contentId
             return content;
-        }
-        
-        // render this content
-        if ("render".equalsIgnoreCase(name)) {
+        } else if ("render".equalsIgnoreCase(name)) {
+            // render this content
             return this.renderThis();
         }
 
@@ -221,7 +238,7 @@ public class ContentMapFacade implements Map {
     protected String renderThis() {
         Map renderCtx = FastMap.newInstance();
         renderCtx.putAll(context);
-        if (!render) {
+        if (!allowRender) {
             String errorMsg = "WARNING: Cannot render content being rendered! (Infinite Recursion NOT allowed!)";
             Debug.logWarning(errorMsg, module);
             return "=========> " + errorMsg + " <=========";
@@ -243,7 +260,7 @@ public class ContentMapFacade implements Map {
 
     abstract class AbstractInfo implements Map {
         public int size() {
-            return 0;
+            return 1;
         }
 
         public boolean isEmpty() {
@@ -309,7 +326,11 @@ public class ContentMapFacade implements Map {
             // look up the content ID (of name)
             GenericValue content = null;
             try {
-                content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", name));
+                if (cache) {
+                    content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", name));
+                } else {
+                    content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", name));
+                }
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -335,7 +356,11 @@ public class ContentMapFacade implements Map {
             // key is the mapKey
             List subs = null;
             try {
-                subs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId, "mapKey", name), UtilMisc.toList("-fromDate"));
+                if (cache) {
+                    subs = delegator.findByAndCache("ContentAssoc", UtilMisc.toMap("contentId", contentId, "mapKey", name), UtilMisc.toList("-fromDate"));
+                } else {
+                    subs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId, "mapKey", name), UtilMisc.toList("-fromDate"));
+                }
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -360,7 +385,11 @@ public class ContentMapFacade implements Map {
             String name = (String) key;
             List metaData = null;
             try {
-                metaData = delegator.findByAnd("ContentMetaData", UtilMisc.toMap("contentId", contentId, "metaDataPredicateId", name));
+                if (cache) {
+                    metaData = delegator.findByAndCache("ContentMetaData", UtilMisc.toMap("contentId", contentId, "metaDataPredicateId", name));
+                } else {
+                    metaData = delegator.findByAnd("ContentMetaData", UtilMisc.toMap("contentId", contentId, "metaDataPredicateId", name));
+                }
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -376,19 +405,21 @@ public class ContentMapFacade implements Map {
             }
             String name = (String) key;
 
-            // get the data resource value object
             if ("fields".equalsIgnoreCase(name)) {
+                // get the data resource value object
                 GenericValue dr = null;
                 try {
-                    dr = value.getRelatedOne("DataResource");
+                    if (cache) {
+                        dr = value.getRelatedOneCache("DataResource");
+                    } else {
+                        dr = value.getRelatedOne("DataResource");
+                    }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
                 return dr;
-            }
-
-            // render just the dataresource
-            if ("render".equalsIgnoreCase(name)) {
+            } else if ("render".equalsIgnoreCase(name)) {
+                // render just the dataresource
                 try {
                     return DataResourceWorker.renderDataResourceAsText(delegator, value.getString("dataResourceId"), context, locale, mimeType, cache);
                 } catch (GeneralException e) {
