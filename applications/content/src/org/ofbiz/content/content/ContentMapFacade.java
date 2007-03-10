@@ -27,6 +27,7 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.content.data.DataResourceWorker;
 
 import java.util.*;
@@ -52,6 +53,7 @@ public class ContentMapFacade implements Map {
     protected final String mimeType;
     protected final boolean cache;
     protected boolean allowRender = true;
+    protected boolean isDecorated = false;
 
     // internal objects
     private DataResource dataResource;
@@ -103,6 +105,10 @@ public class ContentMapFacade implements Map {
 
     public void setRenderFlag(boolean render) {
         this.allowRender = render;
+    }
+    
+    public void setIsDecorated(boolean isDecorated) {
+        this.isDecorated = isDecorated;
     }
 
     // interface methods
@@ -191,7 +197,19 @@ public class ContentMapFacade implements Map {
 
         } else if ("link".equalsIgnoreCase(name)) {
             // link to this content
-            return "";
+            // TODO: make more intelligent to use a link alias if exists
+            String contextLinkPrefix = (String) this.context.get("_CONTEXT_LINK_PREFIX_");
+            if (UtilValidate.isNotEmpty(contextLinkPrefix)) {
+                StringBuffer linkBuf = new StringBuffer();
+                linkBuf.append(contextLinkPrefix);
+                if (!contextLinkPrefix.endsWith("/")) {
+                    linkBuf.append("/");
+                }
+                linkBuf.append(this.contentId);
+                return linkBuf.toString();
+            } else {
+                return this.contentId;
+            }
         } else if ("data".equalsIgnoreCase(name) || "dataresource".equalsIgnoreCase(name)) {
             // data (resource) object
             return dataResource;   
@@ -236,13 +254,19 @@ public class ContentMapFacade implements Map {
     }
     
     protected String renderThis() {
-        Map renderCtx = FastMap.newInstance();
-        renderCtx.putAll(context);
-        if (!allowRender) {
+        if (!this.allowRender && !this.isDecorated) {
             String errorMsg = "WARNING: Cannot render content being rendered! (Infinite Recursion NOT allowed!)";
             Debug.logWarning(errorMsg, module);
             return "=========> " + errorMsg + " <=========";
         }
+        // TODO: change to use the MapStack instead of a cloned Map
+        Map renderCtx = FastMap.newInstance();
+        renderCtx.putAll(context);
+        
+        if (this.isDecorated) {
+            renderCtx.put("_IS_DECORATED_", Boolean.TRUE);
+        }
+        
         try {
             return ContentWorker.renderContentAsText(dispatcher, delegator, contentId, renderCtx, locale, mimeType, cache);
         } catch (GeneralException e) {

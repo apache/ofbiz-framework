@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<div>
-This is the header!
-</div>
+<div id="header">
+<div>This is the header!</div>
 <hr/>
+</div>

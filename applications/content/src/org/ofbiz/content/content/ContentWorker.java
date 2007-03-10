@@ -188,7 +188,9 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
         // look for a content decorator
         String contentDecoratorId = content.getString("decoratorContentId");
-        if (UtilValidate.isNotEmpty(contentDecoratorId)) {
+        // check to see if the decorator has already been run
+        boolean isDecorated = Boolean.TRUE.equals(templateContext.get("_IS_DECORATED_"));
+        if (!isDecorated && UtilValidate.isNotEmpty(contentDecoratorId)) {
             // if there is a decorator content; do not render this content;
             // instead render the decorator
             GenericValue decorator;
@@ -203,6 +205,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
             // render the decorator
             ContentMapFacade decFacade = new ContentMapFacade(dispatcher, decorator, templateContext, locale, mimeTypeId, cache);
+            facade.setIsDecorated(true);
             templateContext.put("decoratedContent", facade); // decorated content
             templateContext.put("thisContent", decFacade); // decorator content
             ContentWorker.renderContentAsText(dispatcher, delegator, contentDecoratorId, out, templateContext, locale, mimeTypeId, cache);

@@ -26,6 +26,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.ofbiz.widget.html.HtmlFormRenderer;
 import org.ofbiz.service.LocalDispatcher;
@@ -187,6 +188,12 @@ public class CmsEvents {
                 MapStack templateMap = MapStack.create();
                 ScreenRenderer.populateContextForRequest(templateMap, null, request, response, servletContext);
                 templateMap.put("formStringRenderer", new HtmlFormRenderer(request, response));
+                
+                // make the link prefix
+                ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
+                RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+                String contextLinkPrefix = rh.makeLink(request, response, "", true, false, true);
+                templateMap.put("_CONTEXT_LINK_PREFIX_", contextLinkPrefix);
 
                 Writer writer;
                 try {
