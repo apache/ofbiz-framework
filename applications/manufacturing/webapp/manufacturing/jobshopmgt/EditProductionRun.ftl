@@ -83,9 +83,9 @@ under the License.
                     <td align="left">
                         <table border="0" cellpadding="2" cellspacing="0">
                             <tr>
-                                <td width="20%" align="right">
-                                    <span class="tableheadtext">${uiLabelMap.ManufacturingOrderItems}</span>
-                                </td>
+                                <th width="20%" align="right">
+                                    ${uiLabelMap.ManufacturingOrderItems}
+                                </th>
                                 <td>&nbsp;</td>
                                 <td width="80%" align="left">
                                     <span class="tabletext">

@@ -21,7 +21,7 @@ under the License.
 
 <#if selectedFeatures?has_content>
 <hr/>
-<div class="tableheadtext">${uiLabelMap.ManufacturingSelectedFeatures}</div>
+<h2>${uiLabelMap.ManufacturingSelectedFeatures}</h2>
 <#list selectedFeatures as selectedFeature>
     <p>${selectedFeature.productFeatureTypeId} = ${selectedFeature.description?if_exists} [${selectedFeature.productFeatureId}]</p>
 </#list>
@@ -29,12 +29,12 @@ under the License.
 <hr/>
       <table border='0' cellspacing='0' cellpadding='2' class='boxbottom'>
         <tr>
-          <td width="10%" align="left"><div class="tableheadtext">${uiLabelMap.ManufacturingProductLevel}</div></td>
-          <td width="20%" align="left"><div class="tableheadtext">${uiLabelMap.ProductProductId}</div></td>
-          <td width="10%" align="left"><div class="tableheadtext">&nbsp;</div></td>
-          <td width="40%" align="left"><div class="tableheadtext">${uiLabelMap.ProductProductName}</div></td>
-          <td width="10%" align="right"><div class="tableheadtext">${uiLabelMap.CommonQuantity}</div></td>
-          <td width="10%" align="right"><div class="tableheadtext">&nbsp;</div></td>
+          <th width="10%" align="left">${uiLabelMap.ManufacturingProductLevel}</th>
+          <th width="20%" align="left">${uiLabelMap.ProductProductId}</th>
+          <th width="10%" align="left">&nbsp;</th>
+          <th width="40%" align="left">${uiLabelMap.ProductProductName}</th>
+          <th width="10%" align="right">${uiLabelMap.CommonQuantity}</th>
+          <th width="10%" align="right">&nbsp;</th>
         </tr>
         <tr>
           <td colspan="6"><hr class="sepbar"></td>
@@ -72,12 +72,12 @@ under the License.
 <hr/>
       <table border='0' cellspacing='0' cellpadding='2' class='boxbottom'>
         <tr>
-          <td width="18%" align="left"><div class="tableheadtext">${uiLabelMap.ProductProductId}</div></td>
-          <td width="50%" align="left"><div class="tableheadtext">${uiLabelMap.ProductProductName}</div></td>
-          <td width="8%" align="right"><div class="tableheadtext">${uiLabelMap.CommonQuantity}</div></td>
-          <td width="8%" align="right"><div class="tableheadtext">${uiLabelMap.ProductQoh}</div></td>
-          <td width="8%" align="right"><div class="tableheadtext">${uiLabelMap.FormFieldTitle_cost}</div></td>
-          <td width="8%" align="right"><div class="tableheadtext">${uiLabelMap.CommonTotalCost}</div></td>
+          <th width="18%" align="left">${uiLabelMap.ProductProductId}</th>
+          <th width="50%" align="left">${uiLabelMap.ProductProductName}</th>
+          <th width="8%" align="right">${uiLabelMap.CommonQuantity}</th>
+          <th width="8%" align="right">${uiLabelMap.ProductQoh}</th>
+          <th width="8%" align="right">${uiLabelMap.FormFieldTitle_cost}</th>
+          <th width="8%" align="right">${uiLabelMap.CommonTotalCost}</th>
         </tr>
         <tr>
           <td colspan="6"><hr class="sepbar"></td>
@@ -108,7 +108,7 @@ under the License.
           <#--
           <#if grandTotalCost?exists>
           <tr>
-            <td colspan="6" align="right"><div class="tableheadtext">${grandTotalCost}</div></td>
+            <th colspan="6" align="right">${grandTotalCost}</th>
           </tr>
           </#if>
           -->
