@@ -38,16 +38,16 @@ function addRoutingTask() {
     <input type="hidden" name="copyTask" value="N"/>
     <table cellpadding="2" cellspacing="0" border="0" class="boxoutside">
         <tr>
-            <td align="right">
-                <div class="tableheadtext">${uiLabelMap.ManufacturingRoutingTaskId}</div>
-            </td>
+            <th align="right">
+                ${uiLabelMap.ManufacturingRoutingTaskId}
+            </th>
             <td>
                 <input type="text" name="workEffortIdTo" size="20"/>
                 <a href="javascript:call_fieldlookup(document.addtaskassocform.workEffortIdTo,'<@ofbizUrl>LookupRoutingTask</@ofbizUrl>', 'vide',540,450);"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'></a>
             </td>
-            <td align="right">
-                <div class="tableheadtext">${uiLabelMap.CommonFromDate}</div>
-            </td>
+            <th align="right">
+                ${uiLabelMap.CommonFromDate}
+            </th>
             <td>
                 <input type="text" name="fromDate" size="25"/>
                 <a href="javascript:call_cal(document.addtaskassocform.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Click here For Calendar"></a>
@@ -55,15 +55,15 @@ function addRoutingTask() {
             <td align="center" width="40%">&nbsp;</td>
         </tr>
         <tr>
-            <td align="right">
-                <div class="tableheadtext">${uiLabelMap.CommonSequenceNum}</div>
-            </td>
+            <th align="right">
+                ${uiLabelMap.CommonSequenceNum}
+            </th>
             <td>
                 <input type="text" name="sequenceNum" size="10"/>
             </td>
-            <td align="right">
-                <div class="tableheadtext">${uiLabelMap.CommonThruDate}</div>
-            </td>
+            <th align="right">
+                ${uiLabelMap.CommonThruDate}
+            </th>
             <td>
                 <input type="text" name="thruDate" size="25"/>
                 <a href="javascript:call_cal(document.addtaskassocform.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Click here For Calendar"></a>

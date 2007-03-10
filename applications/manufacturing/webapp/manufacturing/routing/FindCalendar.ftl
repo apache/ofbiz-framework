@@ -22,9 +22,9 @@ under the License.
 <br/>
 <table width="100%" border="0" cellpadding="0" cellspacing="0"> 
   <tr>
-    <td><div class="tableheadtext">${uiLabelMap.ManufacturingCalendarId}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.CommonDescription}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.ManufacturingCalendarWeekId}</div></td>
+    <th>${uiLabelMap.ManufacturingCalendarId}</th>
+    <th>${uiLabelMap.CommonDescription}</th>
+    <th>${uiLabelMap.ManufacturingCalendarWeekId}</th>
     <td>&nbsp;</td>
   </tr>  
   <tr><td colspan="4"><hr class="sepbar"/></td></tr>    
@@ -42,7 +42,7 @@ under the License.
     </#list>
   <#else>
     <tr>
-      <td colspan='4'><div class="tabletext">${uiLabelMap.ManufacturingNoCalendarFound}</div></td>
+      <td colspan="4">${uiLabelMap.ManufacturingNoCalendarFound}</td>
     </tr>    
   </#if>
 </table>

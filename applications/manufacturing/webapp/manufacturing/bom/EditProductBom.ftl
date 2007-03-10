@@ -41,7 +41,7 @@ function lookupBom() {
     <a name="topform"/>
     <table border="0" cellpadding="2" cellspacing="0">
         <tr>
-            <td align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingBomType}:</div></td>
+            <th align="right">${uiLabelMap.ManufacturingBomType}:</th>
             <td>&nbsp;</td>
             <td>
             <select name="productAssocTypeId" size="1">
@@ -57,7 +57,7 @@ function lookupBom() {
             </#list>
             </select>
             </td>
-            <td align="right"><div class='tableheadtext'>${uiLabelMap.ProductProductId}:</div></td>
+            <th align="right">${uiLabelMap.ProductProductId}:</th>
             <td>&nbsp;</td>
             <td>
             <input type="text" name="productId" size="20" maxlength="40" value="${productId?if_exists}"/>
@@ -69,7 +69,7 @@ function lookupBom() {
             <td colspan='3' align="left">
                 &nbsp;
             </td>
-            <td align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingCopyToProductId}:</div></td>
+            <th align="right">${uiLabelMap.ManufacturingCopyToProductId}:</th>
             <td>&nbsp;</td>
             <td>
             <input type="text" name="copyToProductId" size="20" maxlength="40" value=""/>
@@ -88,7 +88,7 @@ function lookupBom() {
         <input type="hidden" name="UPDATE_MODE" value="CREATE"/>
         <table border="0" cellpadding="2" cellspacing="0">
             <tr>
-            <td align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingBomType}:</div></td>
+            <th align="right">${uiLabelMap.ManufacturingBomType}:</th>
             <td>&nbsp;</td>
             <td>
                 <select name="productAssocTypeId" size="1">
@@ -106,7 +106,7 @@ function lookupBom() {
             </td>
             </tr>
             <tr>
-            <td align="right"><div class='tableheadtext'>${uiLabelMap.ProductProductId}:</div></td>
+            <th align="right">${uiLabelMap.ProductProductId}:</th>
             <td>&nbsp;</td>
             <td>
                 <input type="text" name="productId" size="20" maxlength="40" value="${productId?if_exists}"/>
@@ -114,7 +114,7 @@ function lookupBom() {
             </td>
             </tr>
             <tr>
-            <td align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingProductIdTo}:</div></td>
+            <th align="right">${uiLabelMap.ManufacturingProductIdTo}:</th>
             <td>&nbsp;</td>
             <td>
                 <input type="text" name="productIdTo" size="20" maxlength="40" value="${productIdTo?if_exists}"/>
@@ -122,7 +122,7 @@ function lookupBom() {
             </td>
             </tr>
             <tr>
-            <td align="right"><div class='tableheadtext'>${uiLabelMap.CommonFromDate}:</div></td>
+            <th align="right">${uiLabelMap.CommonFromDate}:</th>
             <td>&nbsp;</td>
             <td>
                 <input type="text" name="fromDate" size="25" maxlength="40" value=""/>
@@ -139,28 +139,28 @@ function lookupBom() {
         <input type="hidden" name="fromDate" value="${fromDate?if_exists}"/>
         <table border="0" cellpadding="2" cellspacing="0">
         <tr>
-            <td align="right"><div class='tableheadtext'>${uiLabelMap.ProductProductId}:</div></td>
+            <th align="right">${uiLabelMap.ProductProductId}:</th>
             <td>&nbsp;</td>
             <td><b>${productId?if_exists}</b></td>
         </tr>
         <tr>
-            <td align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingProductIdTo}:</div></td>
+            <th align="right">${uiLabelMap.ManufacturingProductIdTo}:</th>
             <td>&nbsp;</td>
             <td><b>${productIdTo?if_exists}</b></td>
         </tr>
         <tr>
-            <td align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingBomType}:</div></td>
+            <th align="right">${uiLabelMap.ManufacturingBomType}:</th>
             <td>&nbsp;</td>
             <td><b><#if curProductAssocType?exists>${(curProductAssocType.get("description",locale))?if_exists}<#else> ${productAssocTypeId?if_exists}</#if></b></td>
         </tr>
         <tr>
-            <td align="right"><div class='tableheadtext'>${uiLabelMap.CommonFromDate}:</div></td>
+            <th align="right">${uiLabelMap.CommonFromDate}:</th>
             <td>&nbsp;</td>
             <td><b>${fromDate?if_exists}</b></td>
         </tr>
     </#if>
     <tr>
-        <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.CommonThruDate}:</div></td>
+        <th width="26%" align="right">${uiLabelMap.CommonThruDate}:</th>
         <td>&nbsp;</td>
         <td width="74%">
             <input type="text" name="thruDate" <#if useValues> value="${productAssoc.thruDate?if_exists}"<#else>value="${(request.getParameter("thruDate"))?if_exists}"</#if> size="30" maxlength="30"/> 
@@ -168,35 +168,35 @@ function lookupBom() {
         </td>
     </tr>
     <tr>
-        <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.CommonSequenceNum}:</div></td>
+        <th width="26%" align="right">${uiLabelMap.CommonSequenceNum}:</th>
         <td>&nbsp;</td>
         <td width="74%"><input type="text" name="sequenceNum" <#if useValues>value="${(productAssoc.sequenceNum)?if_exists}"<#else>value="${(request.getParameter("sequenceNum"))?if_exists}"</#if> size="5" maxlength="10"/></td>
     </tr>
     <tr>
-        <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingReason}:</div></td>
+        <th width="26%" align="right">${uiLabelMap.ManufacturingReason}:</th>
         <td>&nbsp;</td>
         <td width="74%"><input type="text" name="reason" <#if useValues>value="${(productAssoc.reason)?if_exists}"<#else>value="${(request.getParameter("reason"))?if_exists}"</#if> size="60" maxlength="255"/></td>
     </tr>
     <tr>
-        <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingInstruction}:</div></td>
+        <th width="26%" align="right">${uiLabelMap.ManufacturingInstruction}:</th>
         <td>&nbsp;</td>
         <td width="74%"><input type="text" name="instruction" <#if useValues>value="${(productAssoc.instruction)?if_exists}"<#else>value="${(request.getParameter("instruction"))?if_exists}"</#if> size="60" maxlength="255"/></td>
     </tr>
     
     <tr>
-        <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingQuantity}:</div></td>
+        <th width="26%" align="right">${uiLabelMap.ManufacturingQuantity}:</th>
         <td>&nbsp;</td>
         <td width="74%"><input type="text" name="quantity" <#if useValues>value="${(productAssoc.quantity)?if_exists}"<#else>value="${(request.getParameter("quantity"))?if_exists}"</#if> size="10" maxlength="15"/></td>
     </tr>
 
     <tr>
-        <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingScrapFactor}:</div></td>
+        <th width="26%" align="right">${uiLabelMap.ManufacturingScrapFactor}:</th>
         <td>&nbsp;</td>
         <td width="74%"><input type="text" name="scrapFactor" <#if useValues>value="${(productAssoc.scrapFactor)?if_exists}"<#else>value="${(request.getParameter("scrapFactor"))?if_exists}"</#if> size="10" maxlength="15"/></td>
     </tr>
 
     <tr>
-        <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingFormula}:</div></td>
+        <th width="26%" align="right">${uiLabelMap.ManufacturingFormula}:</th>
         <td>&nbsp;</td>
         <td width="74%">
             <select name="estimateCalcMethod">
@@ -215,7 +215,7 @@ function lookupBom() {
     </tr>
 
     <tr>
-        <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingRoutingTask}:</div></td>
+        <th width="26%" align="right">${uiLabelMap.ManufacturingRoutingTask}:</th>
         <td>&nbsp;</td>
         <td width="74%">
             <input type="text" name="routingWorkEffortId" <#if useValues>value="${(productAssoc.routingWorkEffortId)?if_exists}"<#else>value="${(request.getParameter("routingWorkEffortId"))?if_exists}"</#if> size="10" maxlength="15"/>
