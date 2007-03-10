@@ -34,7 +34,7 @@ under the License.
                 <entity-one entity-name="CostComponentCalc" value-name="costComponentCalc"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://manufacturing/widget/manufacturing/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <label style="head1">${uiLabelMap.ManufacturingManageCostComponentCalc}</label>

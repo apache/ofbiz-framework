@@ -46,7 +46,7 @@ under the License.
     <screen name="login">
         <section>
             <widgets>
-                <decorator-screen name="main-decorator">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://common/webcommon/login.ftl"/></html>

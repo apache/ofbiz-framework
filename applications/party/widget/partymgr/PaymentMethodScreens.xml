@@ -27,7 +27,7 @@ under the License.
                 <set field="headerItem" value="find"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://party/widget/partymgr/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
@@ -126,7 +126,7 @@ under the License.
                 <entity-one entity-name="PartyIcsAvsOverride" value-name="avsOverride"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://party/widget/partymgr/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->

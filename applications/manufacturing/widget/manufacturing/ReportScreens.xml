@@ -30,7 +30,7 @@ under the License.
                 <set field="mrpName" from-field="parameters.mrpName"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://manufacturing/widget/manufacturing/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <label style="head1" text="${uiLabelMap.ManufacturingReports}"/>

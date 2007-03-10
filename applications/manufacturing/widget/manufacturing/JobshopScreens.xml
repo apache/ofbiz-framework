@@ -27,7 +27,7 @@ under the License.
                 <!-- <set field="leftbarScreenLocation" value=""/> -->
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://manufacturing/widget/manufacturing/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for MANUFACTURING, _VIEW permission -->
@@ -63,7 +63,7 @@ under the License.
                 <set field="headerItem" value="jobshop"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://manufacturing/widget/manufacturing/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <label style="head1" text="${uiLabelMap.ManufacturingCreateProductionRun}"/>
@@ -272,7 +272,7 @@ under the License.
 
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://manufacturing/widget/manufacturing/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <label style="head1">${uiLabelMap.ManufacturingFindProductionRun}</label>
@@ -297,7 +297,7 @@ under the License.
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/WorkWithShipmentPlans.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://manufacturing/widget/manufacturing/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/WorkWithShipmentPlans.ftl"/></html>
