@@ -28,8 +28,9 @@ under the License.
     <service name="executeMrp" engine="java"
             location="org.ofbiz.manufacturing.mrp.MrpServices" invoke="executeMrp" auth="true" use-transaction="false">
         <description>Performs a run of Mrp</description>
-        <attribute name="facilityId" type="String" form-display="true" form-label="Facility" mode="IN" optional="false"/>
-        <attribute name="mrpName" type="String" form-display="true" form-label="Mrp Name" mode="IN" optional="true"/>
+        <attribute name="facilityGroupId" type="String" mode="IN" optional="true"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="mrpName" type="String" mode="IN" optional="true"/>
         <attribute name="msgResult" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="initInventoryEventPlanned" engine="java"
