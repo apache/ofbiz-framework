@@ -22,13 +22,48 @@ under the License.
     <Content contentId="CMSS_PPOINT" contentTypeId="WEB_SITE_PUB_PT" contentName="CMS Site Publish Point" description=""/>
     <WebSiteContent webSiteId="CmsSite" contentId="CMSS_PPOINT" webSiteContentTypeId="PUBLISH_POINT" fromDate="2001-01-01 00:00:00"/>
 
+    <!-- Main Decorator -->
     <DataResource dataResourceId="CMSS_MAIN_DEC" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL"
         objectInfo="component://cmssite/template/cms/MainDecorator.ftl"/>
-
+    <Content contentId="CMSS_DEC" contentTypeId="DECORATOR" contentName="CMS Site Main Decorator" dataResourceId="CMSS_MAIN_DEC"/>
+    
     <DataResource dataResourceId="CMSS_HTML_HEAD" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL" 
         objectInfo="component://cmssite/template/cms/HtmlHead.ftl"/>
-
-    <Content contentId="CMSS_DEC" contentTypeId="DECORATOR" contentName="CMS Site Main Decorator" dataResourceId="CMSS_MAIN_DEC"/>
     <Content contentId="CMSS_HHEAD" contentTypeId="DOCUMENT" contentName="CMS Site HTML Head" dataResourceId="CMSS_HTML_HEAD"/>
+    
+    <DataResource dataResourceId="CMSS_DEMO_HEADER" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL" 
+        objectInfo="component://cmssite/webapp/cmssite/DemoHeader.ftl"/>
+    <Content contentId="CMSS_DEMO_HEADER" contentTypeId="DOCUMENT" contentName="CMS Site Demo Header" dataResourceId="CMSS_DEMO_HEADER"/>
+    <DataResource dataResourceId="CMSS_DEMO_FOOTER" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL" 
+        objectInfo="component://cmssite/webapp/cmssite/DemoFooter.ftl"/>
+    <Content contentId="CMSS_DEMO_FOOTER" contentTypeId="DOCUMENT" contentName="CMS Site Demo Footer" dataResourceId="CMSS_DEMO_FOOTER"/>
+    
     <ContentAssoc contentId="CMSS_DEC" contentIdTo="CMSS_HHEAD" contentAssocTypeId="SUB_CONTENT" mapKey="htmlHead" fromDate="2001-01-01 00:00:00"/>
+    <ContentAssoc contentId="CMSS_DEC" contentIdTo="CMSS_DEMO_HEADER" contentAssocTypeId="SUB_CONTENT" mapKey="header" fromDate="2001-01-01 00:00:00"/>
+    <ContentAssoc contentId="CMSS_DEC" contentIdTo="CMSS_DEMO_FOOTER" contentAssocTypeId="SUB_CONTENT" mapKey="footer" fromDate="2001-01-01 00:00:00"/>
+    
+    <!-- demo home page -->
+    <DataResource dataResourceId="CMSS_DEMO_HOME" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL" 
+        objectInfo="component://cmssite/webapp/cmssite/DemoHome.ftl"/>
+    <Content contentId="CMSS_DEMO_HOME" contentTypeId="DOCUMENT" decoratorContentId="CMSS_DEC" 
+        contentName="CMS Site Demo Home Page" dataResourceId="CMSS_DEMO_HOME"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_HOME" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
+    <WebSiteContent webSiteId="CmsSite" contentId="CMSS_DEMO_HOME" webSiteContentTypeId="DEFAULT_PAGE" fromDate="2001-01-01 00:00:00"/>
+    
+    <!-- yet another demo page --> 
+    <DataResource dataResourceId="CMSS_DEMO_PAGE1" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="CMSS_DEMO_PAGE1">
+        <textData><![CDATA[
+            <div>Sub-content 1: ${thisContent.subcontent.sub1}</div>
+            <div>Sub-content 2: ${thisContent.subcontent.sub2}</div>
+            ]]></textData>
+    </ElectronicText>
+    <Content contentId="CMSS_DEMO_PAGE1" contentTypeId="DOCUMENT" decoratorContentId="CMSS_DEC" contentName="CMS Site Demo Page 1" dataResourceId="CMSS_DEMO_PAGE1"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_PAGE1" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
+    <DataResource dataResourceId="CMSS_DEMO_PAGE1_1" dataResourceTypeId="SHORT_TEXT" objectInfo="Sub-content 1 of Sub-content 1"/>
+    <Content contentId="CMSS_DEMO_PAGE1_1" contentTypeId="DOCUMENT" contentName="CMS Site Demo Page 1_1" dataResourceId="CMSS_DEMO_PAGE1_1"/>
+    <ContentAssoc contentId="CMSS_DEMO_PAGE1" contentIdTo="CMSS_DEMO_PAGE1_1" contentAssocTypeId="SUB_CONTENT" mapKey="sub1" fromDate="2001-01-01 00:00:00"/>
+    <DataResource dataResourceId="CMSS_DEMO_PAGE1_2" dataResourceTypeId="SHORT_TEXT" objectInfo="Sub-content 2 of Sub-content 1"/>
+    <Content contentId="CMSS_DEMO_PAGE1_2" contentTypeId="DOCUMENT" contentName="CMS Site Demo Page 1_2" dataResourceId="CMSS_DEMO_PAGE1_2"/>
+    <ContentAssoc contentId="CMSS_DEMO_PAGE1" contentIdTo="CMSS_DEMO_PAGE1_2" contentAssocTypeId="SUB_CONTENT" mapKey="sub2" fromDate="2001-01-01 00:00:00"/>
 </entity-engine-xml>
