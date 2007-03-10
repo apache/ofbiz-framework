@@ -27,7 +27,7 @@ under the License.
                 <!-- <set field="leftbarScreenLocation" value=""/> -->
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://manufacturing/widget/manufacturing/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for MANUFACTURING, _VIEW permission -->

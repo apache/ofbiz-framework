@@ -30,7 +30,7 @@ under the License.
 
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://manufacturing/widget/manufacturing/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for MANUFACTURING, _VIEW permission -->
@@ -62,7 +62,7 @@ under the License.
                 <entity-one entity-name="WorkEffort" value-name="routingTask"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://manufacturing/widget/manufacturing/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for MANUFACTURING, _VIEW permission -->
@@ -102,7 +102,7 @@ under the License.
                 <set field="requestParameters.currentStatusId" to-scope="screen" default-value="ROU_ACTIVE"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://manufacturing/widget/manufacturing/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <label style="head1">${uiLabelMap.ManufacturingRoutings}</label>
@@ -153,7 +153,7 @@ under the License.
                 <set field="requestParameters.currentStatusId" to-scope="screen" default-value="ROU_ACTIVE"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://manufacturing/widget/manufacturing/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <label style="head1">${uiLabelMap.ManufacturingRoutingTasks}</label>

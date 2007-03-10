@@ -23,7 +23,7 @@ under the License.
     <screen name="CommonBillingAccountDecorator">
         <section>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://accounting/widget/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for ACCOUNTING, _VIEW permission -->
@@ -58,7 +58,7 @@ under the License.
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/billingaccount/FindBillingAccount.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://accounting/widget/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://accounting/webapp/accounting/billingaccount/FindBillingAccount.ftl"/></html>

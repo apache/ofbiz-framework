@@ -23,7 +23,7 @@ under the License.
     <screen name="CommonAgreementDecorator">
         <section>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://accounting/widget/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for ACCOUNTING, _VIEW permission -->
@@ -62,7 +62,7 @@ under the License.
 
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://accounting/widget/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <label style="head1">${uiLabelMap.AccountingAgreements}</label>

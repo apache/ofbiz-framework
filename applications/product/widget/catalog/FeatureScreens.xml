@@ -68,7 +68,7 @@
                 <script location="component://product/webapp/catalog/WEB-INF/actions/feature/EditSupplierFeature.bsh"/>
             </actions>
             <widgets>
-                <!--<decorator-screen name="main-decorator" location="component://product/widget/catalog/CommonScreens.xml">-->
+                <!--<decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">-->
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
                         <container>

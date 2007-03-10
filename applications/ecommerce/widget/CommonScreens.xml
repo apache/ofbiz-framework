@@ -180,7 +180,7 @@ under the License.
                 <set field="MainColumnStyle" value="center"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                       <label style="head1" text="${uiLabelMap.${titleProperty}}"></label>
                       <decorator-section-include name="body"/>

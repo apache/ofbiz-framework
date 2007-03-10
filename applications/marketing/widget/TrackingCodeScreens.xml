@@ -29,7 +29,7 @@ under the License.
                 <entity-one entity-name="TrackingCode" value-name="trackingCode"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://marketing/widget/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for MARKETING, _VIEW permission -->

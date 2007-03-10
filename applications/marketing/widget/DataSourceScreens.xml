@@ -31,7 +31,7 @@ under the License.
                 <entity-one entity-name="DataSource" value-name="dataSource"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://marketing/widget/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for MARKETING, _VIEW permission -->

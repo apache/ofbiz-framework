@@ -29,7 +29,7 @@ under the License.
             </actions>
             <widgets>
                 <!-- main defines the regions of the HTML page -->
-                <decorator-screen name="main-decorator" location="component://accounting/widget/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                 <!-- body is the primary display for this page and is called recursively -->
                     <decorator-section name="body">
                         <section>
@@ -65,7 +65,7 @@ under the License.
                 <entity-one entity-name="GlAccount" value-name="glAccount"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://accounting/widget/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for CATALOG, _VIEW permission -->
@@ -175,7 +175,7 @@ under the License.
                 <entity-one entity-name="GlAccount" value-name="glAccount"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://accounting/widget/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://accounting/webapp/accounting/chartofaccounts/GlAccountTabBar.ftl"/></html>
@@ -250,7 +250,7 @@ under the License.
             </actions>
 
             <widgets>
-                <decorator-screen name="main-decorator" location="component://accounting/widget/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="EditGlAccount" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/>
                         
