@@ -18,7 +18,7 @@ under the License.
 -->
 <div>
 <h1>Welcome to the Home page.</h1>
-<div><a href="/cmssite/cms/CMSS_DEMO_PAGE1">Demo Page 1</a></div>
-<div><a href="${thisContent.content.CMSS_DEMO_PAGE1.link}">Demo Page 1</a></div>
+<div><a href="/cmssite/cms/CMSS_DEMO_PAGE1">Demo Page 1 - Hard Coded Link</a></div>
+<div><a href="${thisContent.content.CMSS_DEMO_PAGE1.link}">Demo Page 1 - Dynamic Link</a></div>
 </div>
 <hr/>
