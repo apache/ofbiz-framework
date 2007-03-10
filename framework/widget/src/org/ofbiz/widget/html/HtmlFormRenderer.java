@@ -1067,12 +1067,8 @@ public class HtmlFormRenderer implements FormStringRenderer {
             this.appendWhitespace(buffer);
             buffer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
             this.appendWhitespace(buffer);
-            buffer.append("<!--//");
-            this.appendWhitespace(buffer);
             buffer.append("document." + modelForm.getCurrentFormName(context) + ".");
             buffer.append(focusFieldName + ".focus();");
-            this.appendWhitespace(buffer);
-            buffer.append("//-->");
             this.appendWhitespace(buffer);
             buffer.append("</script>");
         }
@@ -1130,16 +1126,15 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append("<!-- begin form widget -->");
         this.appendWhitespace(buffer);
-         if(UtilValidate.isNotEmpty(modelForm.getDefaultTableStyle())) {
-             buffer.append(" <table");
-             buffer.append(" class=\"");
-             buffer.append(modelForm.getDefaultTableStyle());
-             buffer.append("\"");
-             buffer.append("cellspacing=\"0\">");
-         } else {
-             buffer.append(" <table cellspacing=\"0\" class=\"basic-table dark-grid\">");
-             // DEJ 20050101 removed the width=\"100%\", doesn't look very good with CSS float: left based side "columns"
-         }
+        if(UtilValidate.isNotEmpty(modelForm.getDefaultTableStyle())) {
+            buffer.append(" <table");
+            buffer.append(" class=\"");
+            buffer.append(modelForm.getDefaultTableStyle());
+            buffer.append("\" cellspacing=\"0\">");
+        } else {
+            buffer.append(" <table cellspacing=\"0\" class=\"basic-table form-widget-table dark-grid\">");
+            // DEJ 20050101 removed the width=\"100%\", doesn't look very good with CSS float: left based side "columns"
+        }
 
         this.appendWhitespace(buffer);
     }
