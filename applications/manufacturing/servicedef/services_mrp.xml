@@ -57,5 +57,7 @@ under the License.
         <attribute name="eventDate" type="Timestamp" mode="IN" optional="false"/>
         <attribute name="inventoryEventPlanTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="eventQuantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="eventName" type="String" mode="IN" optional="true"/>
     </service>
 </services>

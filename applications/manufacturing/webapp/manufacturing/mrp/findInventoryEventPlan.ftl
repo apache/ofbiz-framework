@@ -67,17 +67,6 @@ function lookupInventory() {
                  </td>
               </tr>
               <tr>
-                <td width='20%' align='right'><div class='tableheadtext'>${uiLabelMap.ProductFacility}:</div></td>
-                <td width='5%'>&nbsp;</td>
-                <td>
-                  <select name="facilityId">
-                    <#list facilities as facility>
-                      <option value="${facility.facilityId}">${facility.facilityName} [${facility.facilityId}]</option>
-                    </#list>
-                  </select>
-                </td>
-              </tr>        
-              <tr>
                 <td width='20%' align='right'><div class='tableheadtext'>${uiLabelMap.CommonFromDate}:</div></td>
                 <td width='5%'>&nbsp;</td>
                 <td>
@@ -161,10 +150,16 @@ document.lookupinventory.productId.focus();
         <#list inventoryList[lowIndex..highIndex-1] as inven>
             <#assign product = inven.getRelatedOne("Product")>
             <#if facilityId?exists && facilityId?has_content>
-                <#assign productFacility = delegator.findByPrimaryKey("ProductFacility", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId, "productId", inven.productId))?if_exists>
             </#if>
             <#if ! product.equals( productTmp )>
                 <#assign quantityAvailableAtDate = 0>
+                <#assign initialQohEvent = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("InventoryEventPlanned", Static["org.ofbiz.base.util.UtilMisc"].toMap("inventoryEventPlanTypeId", "INITIAL_QOH", "productId", inven.productId)))>
+                <#if initialQohEvent?exists && initialQohEvent.eventQuantity?has_content>
+                    <#assign quantityAvailableAtDate = initialQohEvent.eventQuantity>
+                </#if>
+                <#if initialQohEvent?exists && initialQohEvent.facilityId?has_content>
+                    <#assign productFacility = delegator.findByPrimaryKey("ProductFacility", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", initialQohEvent.facilityId, "productId", inven.productId))?if_exists>
+                </#if>
                 <tr bgcolor="lightblue">  
                   <td align="left">
                     <div class='tabletext'>
@@ -173,6 +168,9 @@ document.lookupinventory.productId.focus();
                   </td>
                   <td align="left">
                     <#if productFacility?exists && productFacility?has_content>
+                      <div class='tabletext'>
+                      <b>${uiLabelMap.ProductFacility}:</b>&nbsp;${productFacility.facilityId?if_exists}
+                      </div>
                       <div class='tabletext'>
                       <b>${uiLabelMap.ProductMinimumStock}:</b>&nbsp;${productFacility.minimumStock?if_exists}
                       </div>
@@ -185,10 +183,6 @@ document.lookupinventory.productId.focus();
                       </#if>
                   </td>
                   <td colspan="5" align="right">
-                    <#assign initialQohEvent = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("InventoryEventPlanned", Static["org.ofbiz.base.util.UtilMisc"].toMap("inventoryEventPlanTypeId", "INITIAL_QOH", "productId", inven.productId)))>
-                    <#if initialQohEvent?exists && initialQohEvent.eventQuantity?has_content>
-                        <#assign quantityAvailableAtDate = initialQohEvent.eventQuantity>
-                    </#if>
                     <big><b><div class='tabletext'>${quantityAvailableAtDate}</div></b></big>
                   </td>
                 </tr>

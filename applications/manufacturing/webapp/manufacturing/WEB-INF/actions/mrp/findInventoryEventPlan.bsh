@@ -49,9 +49,6 @@ Debug.logInfo("eventDateStr =  " + fromStr, "truc");
 // get the lookup flag
 lookupFlag = request.getParameter("lookupFlag");
 
-facilityId = request.getParameter("facilityId");
-context.put("facilityId", facilityId);
-
 // blank param list
 paramList = "";
 inventoryList = null;
@@ -117,6 +114,3 @@ context.put("listSize", listSize);
 context.put("highIndex", highIndex);
 context.put("lowIndex", lowIndex);
 context.put("viewSize", viewSize);
-
-facilities = delegator.findAll("Facility", UtilMisc.toList("facilityId"));
-context.put("facilities", facilities);
