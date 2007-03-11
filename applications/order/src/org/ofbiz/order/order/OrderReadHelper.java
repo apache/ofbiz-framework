@@ -1197,7 +1197,12 @@ public class OrderReadHelper {
                         Debug.logError(e, "Problem getting virtual product");
                     }
                     if (virtual != null) {
-                        pieces = virtual.getLong("piecesIncluded");
+                        try {
+                            GenericValue virtualProduct = virtual.getRelatedOne("MainProduct");
+                            pieces = virtualProduct.getLong("piecesIncluded");
+                        } catch (GenericEntityException e) {
+                            Debug.logError(e, "Problem getting virtual product");
+                        }
                     }
                 }
 
