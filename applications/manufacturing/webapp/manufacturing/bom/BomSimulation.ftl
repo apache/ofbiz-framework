@@ -41,9 +41,17 @@ under the License.
         </tr>
         <#if tree?has_content>
           <#assign rowClass = "viewManyTR2">
-          <#list tree as node>            
+          <#list tree as node>
             <tr class="${rowClass}">
-              <td><img src='/manufacturing/images/depth${node.depth}.gif' height='16' border='0' alt='Depth'></td>
+              <td>
+              <table cellspacing="1"><tr>
+              <td>${node.depth}</td>
+              <#list 0..(node.depth) as level>
+              <td bgcolor="red">&nbsp;&nbsp;</td>
+              </#list>
+              </tr>
+              </table>
+              </td>
               <td>${node.product.productId}</td>
               <td>
                 <#if node.product.isVirtual?default("N") == "Y">
