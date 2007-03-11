@@ -38,8 +38,8 @@ List tasks = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortParentI
 Iterator tasksIt = tasks.iterator();
 while (tasksIt.hasNext()) {
     GenericValue task = (GenericValue)tasksIt.next();
-    List records = delegator.findByAnd("WorkEffortGoodStandard", UtilMisc.toMap("workEffortId", task.getString("workEffortId")));
-    HtmlFormWrapper taskForm = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "ProductionRunTaskComponents", request, response);
+    List records = task.getRelated("WorkEffortFixedAssetAssign");
+    HtmlFormWrapper taskForm = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "ProductionRunTaskFixedAssets", request, response);
     taskForm.putInContext("records", records);
     taskInfos.add(UtilMisc.toMap("task", task, "taskForm", taskForm));
 }

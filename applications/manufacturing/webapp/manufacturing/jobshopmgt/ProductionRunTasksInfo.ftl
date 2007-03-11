@@ -18,12 +18,12 @@ under the License.
 -->
 
 <br/>
-<#list taskComponents as taskComponent>
-    <#assign task = taskComponent.task>
-    <#assign componentsForm = taskComponent.componentsForm>
+<#list taskInfos as taskInfo>
+    <#assign task = taskInfo.task>
+    <#assign taskForm = taskInfo.taskForm>
     <div>
         <span class="head2">${task.workEffortName?if_exists} [${task.workEffortId}]</span>
     </div>
-    ${componentsForm.renderFormString(context)}
+    ${taskForm.renderFormString(context)}
     <br/>
 </#list>
