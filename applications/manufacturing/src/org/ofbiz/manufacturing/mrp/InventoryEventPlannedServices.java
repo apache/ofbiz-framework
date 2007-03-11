@@ -54,7 +54,7 @@ public class InventoryEventPlannedServices {
         Double quantity = (Double)context.get("eventQuantity");
         GenericValue inventoryEventPlanned = null;
         try {
-            createOrUpdateInventoryEventPlanned(parameters, quantity, (String)context.get("eventName"), delegator);
+            createOrUpdateInventoryEventPlanned(parameters, quantity, (String)context.get("facilityId"), (String)context.get("eventName"), delegator);
         } catch (GenericEntityException e) {
             Debug.logError(e,"Error : delegator.findByPrimaryKey(\"InventoryEventPlanned\", parameters =)"+parameters, module);
             return ServiceUtil.returnError("Problem, on database access, for more detail look at the log");
@@ -62,13 +62,14 @@ public class InventoryEventPlannedServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static void createOrUpdateInventoryEventPlanned(Map inventoryEventPlannedKeyMap, Double newQuantity, String eventName, GenericDelegator delegator) throws GenericEntityException {
+    public static void createOrUpdateInventoryEventPlanned(Map inventoryEventPlannedKeyMap, Double newQuantity, String facilityId, String eventName, GenericDelegator delegator) throws GenericEntityException {
         GenericValue inventoryEventPlanned = null;
         inventoryEventPlanned = delegator.findByPrimaryKey("InventoryEventPlanned", inventoryEventPlannedKeyMap);
         if (inventoryEventPlanned == null) {
             inventoryEventPlanned = delegator.makeValue("InventoryEventPlanned", inventoryEventPlannedKeyMap);
             inventoryEventPlanned.put("eventQuantity", newQuantity);
             inventoryEventPlanned.put("eventName", eventName);
+            inventoryEventPlanned.put("facilityId", facilityId);
             inventoryEventPlanned.create();
         } else {
             double qties = newQuantity.doubleValue() + ((Double)inventoryEventPlanned.get("eventQuantity")).doubleValue();
@@ -80,5 +81,4 @@ public class InventoryEventPlannedServices {
             inventoryEventPlanned.store();
         }
     }
-
 }

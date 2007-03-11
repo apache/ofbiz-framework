@@ -161,7 +161,7 @@ public class MrpServices {
             }
             parameters = UtilMisc.toMap("productId", productId, "eventDate", estimatedShipDate, "inventoryEventPlanTypeId", "SALE_ORDER_SHIP");
             try {
-                InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, eventQuantityTmp, genericResult.getString("orderId") + "-" + genericResult.getString("orderItemSeqId"), delegator);
+                InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, eventQuantityTmp, null, genericResult.getString("orderId") + "-" + genericResult.getString("orderItemSeqId"), delegator);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError("Problem initializing the InventoryEventPlanned entity (SALE_ORDER_SHIP)");
             }
@@ -192,7 +192,7 @@ public class MrpServices {
             
             parameters = UtilMisc.toMap("productId", productId, "eventDate", estimatedShipDate, "inventoryEventPlanTypeId", "PROD_REQ_RECP");
             try {
-                InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, eventQuantityTmp, genericResult.getString("requirementId"), delegator);
+                InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, eventQuantityTmp, null, genericResult.getString("requirementId"), delegator);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError("Problem initializing the InventoryEventPlanned entity (PROD_REQ_RECP)");
             }
@@ -246,7 +246,7 @@ public class MrpServices {
             
             parameters = UtilMisc.toMap("productId", productId, "eventDate", estimatedShipDate, "inventoryEventPlanTypeId", "PUR_ORDER_RECP");
             try {
-                InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, eventQuantityTmp, genericResult.getString("orderId") + "-" + genericResult.getString("orderItemSeqId"), delegator);
+                InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, eventQuantityTmp, null, genericResult.getString("orderId") + "-" + genericResult.getString("orderItemSeqId"), delegator);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError("Problem initializing the InventoryEventPlanned entity (PUR_ORDER_RECP)");
             }
@@ -278,7 +278,7 @@ public class MrpServices {
             parameters = UtilMisc.toMap("productId", productId, "eventDate", estimatedShipDate, "inventoryEventPlanTypeId", "MANUF_ORDER_REQ");
             try {
                 String eventName = (UtilValidate.isEmpty(genericResult.getString("workEffortParentId"))? genericResult.getString("workEffortId"): genericResult.getString("workEffortParentId") + "-" + genericResult.getString("workEffortId"));
-                InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, eventQuantityTmp, eventName, delegator);
+                InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, eventQuantityTmp, null, eventName, delegator);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError("Problem initializing the InventoryEventPlanned entity (MRP_REQUIREMENT)");
             }
@@ -324,7 +324,7 @@ public class MrpServices {
             
             parameters = UtilMisc.toMap("productId", productId, "eventDate", estimatedShipDate, "inventoryEventPlanTypeId", "MANUF_ORDER_RECP");
             try {
-                InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, eventQuantityTmp, genericResult.getString("workEffortId"), delegator);
+                InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, eventQuantityTmp, null, genericResult.getString("workEffortId"), delegator);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError("Problem initializing the InventoryEventPlanned entity (MANUF_ORDER_RECP)");
             }
@@ -438,7 +438,7 @@ public class MrpServices {
                     parameters.put("inventoryEventPlanTypeId", "MRP_REQUIREMENT");
                     double componentEventQuantity = node.getQuantity();
                     try {
-                        InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, new Double(-1.0 * componentEventQuantity), null, delegator);
+                        InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, new Double(-1.0 * componentEventQuantity), null, null, delegator);
                     } catch (GenericEntityException e) {
                         Debug.logError("Error : delegator.findByPrimaryKey(\"InventoryEventPlanned\", parameters) ="+parameters+"--"+e.getMessage(), module);
                     }
@@ -576,7 +576,7 @@ public class MrpServices {
                         stockTmp = findProductMrpQoh(product, facilityId, dispatcher);
                         try {
                             InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(UtilMisc.toMap("productId", product.getString("productId"), "inventoryEventPlanTypeId", "INITIAL_QOH", "eventDate", now),
-                                                                                              new Double(stockTmp), null,
+                                                                                              new Double(stockTmp), facilityId, null,
                                                                                               delegator);
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError("Problem running createOrUpdateInventoryEventPlanned");
@@ -663,7 +663,7 @@ public class MrpServices {
                                                       "eventDate", eventDate,
                                                       "inventoryEventPlanTypeId", (isBuilt? "PROP_MANUF_O_RECP" : "PROP_PUR_O_RECP"));
                         try {
-                            InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(eventMap, new Double(proposedOrder.getQuantity()), null, delegator);
+                            InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(eventMap, new Double(proposedOrder.getQuantity()), null, null, delegator);
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError("Problem running createOrUpdateInventoryEventPlanned");
                         }

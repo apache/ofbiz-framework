@@ -166,6 +166,7 @@ under the License.
       <field name="eventDate" type="date-time"></field>
       <field name="inventoryEventPlanTypeId" type="id-ne"></field>
       <field name="eventQuantity" type="floating-point"></field>
+      <field name="facilityId" type="id"></field>
       <field name="eventName" type="name"></field>
       <prim-key field="productId"/>
       <prim-key field="eventDate"/>
@@ -175,6 +176,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="INV_EVNT_PLN_TYP" rel-entity-name="InventoryEventPlannedType">
         <key-map field-name="inventoryEventPlanTypeId"/>
+      </relation>
+      <relation type="one" fk-name="INV_EVNT_PLN_FAC" rel-entity-name="Facility">
+        <key-map field-name="facilityId"/>
       </relation>
     </entity>
     <entity entity-name="InventoryEventPlannedType"
