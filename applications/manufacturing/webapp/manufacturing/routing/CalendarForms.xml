@@ -20,6 +20,17 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="ListTechDataCalendars" type="list" title="" list-name="techDataCalendars">
+        <field name="calendarId" title="${uiLabelMap.ManufacturingCalendarWeekId}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="calendarWeekId" title="${uiLabelMap.ManufacturingCalendarId}"><display/></field>
+        <field name="updateLink" title="" widget-style="buttontext">
+            <hyperlink target="EditCalendar?calendarId=${calendarId}" description="${uiLabelMap.CommonUpdate}" />
+        </field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="RemoveCalendar?calendarId=${calendarId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
     <form name="ListCalendarWeek" type="list" target="UpdateCalendarWeek" title="" list-name="calendarWeeks">
         <field name="calendarWeekId" title="${uiLabelMap.ManufacturingCalendarWeekId}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>

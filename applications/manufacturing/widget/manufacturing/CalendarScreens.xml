@@ -77,19 +77,19 @@ under the License.
                 <set field="title" value="Find a Calendar"/>
                 <set field="titleProperty" value="PageTitleFindCalendar"/>
                 <set field="tabButtonItem" value="Calendar"/>
-                <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="calendar"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/routing/FindCalendar.bsh"/>
+                <entity-and list-name="techDataCalendars" entity-name="TechDataCalendar"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://manufacturing/webapp/manufacturing/routing/FindCalendar.ftl"/></html>
-                        </platform-specific>
+                        <container>
+                            <link style="buttontext" target="EditCalendar" text="${uiLabelMap.ManufacturingNewCalendar}"/>
+                        </container>
+                        <include-form name="ListTechDataCalendars" location="component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -101,17 +101,19 @@ under the License.
                 <set field="title" value="List Calendar Weeks"/>
                 <set field="titleProperty" value="PageTitleListCalendarWeek"/>
                 <set field="tabButtonItem" value="CalendarWeek"/>
-                <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="calendar"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/routing/ListCalendarWeek.bsh"/>
+                <entity-and list-name="calendarWeeks" entity-name="TechDataCalendarWeek"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://manufacturing/webapp/manufacturing/routing/ListCalendarWeek.ftl"/></html>
-                        </platform-specific>
+                        <container>
+                            <link style="buttontext" target="EditCalendarWeek" text="${uiLabelMap.ManufacturingNewCalendarWeek}"/>
+                        </container>
+                        <include-form name="ListCalendarWeek" location="component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -123,7 +125,6 @@ under the License.
                 <set field="title" value="Edit a Calendar Week"/>
                 <set field="titleProperty" value="PageTitleEditCalendarWeek"/>
                 <set field="tabButtonItem" value="CalendarWeek"/>
-                <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="calendar"/>
 
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/routing/EditCalendarWeek.bsh"/>
