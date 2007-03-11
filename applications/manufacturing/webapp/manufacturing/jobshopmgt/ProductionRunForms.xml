@@ -27,7 +27,7 @@ under the License.
         <field name="facilityId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Facility" description="${facilityName} [${facilityId}]">
-                    <entity-constraint name="facilityTypeId" value="WAREHOUSE"/>
+                    <!--<entity-constraint name="facilityTypeId" value="WAREHOUSE"/>-->
                 </entity-options>
             </drop-down>
         </field>
@@ -54,7 +54,7 @@ under the License.
         <field name="facilityId" title="${uiLabelMap.ProductFacilityId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
-                    <entity-constraint name="facilityTypeId" value="WAREHOUSE"/>
+                    <!--<entity-constraint name="facilityTypeId" value="WAREHOUSE"/>-->
                 </entity-options>
              </drop-down>
         </field>
@@ -351,6 +351,22 @@ under the License.
             <hyperlink target="/facility/control/EditInventoryItem?inventoryItemId=${inventoryItemId}" description="${inventoryItemId}" also-hidden="false" target-type="inter-app"/>
         </field>
     </form>
+    <form name="ProductionRunTaskFixedAssets" type="list" target="updateWorkEffortFixedAssetAssign" paginate-target="" title="" list-name="records">
+        <auto-fields-entity entity-name="WorkEffortFixedAssetAssign" default-field-type="edit" />
+        <field name="productionRunId"><hidden/></field>
+        <field name="workEffortId"><hidden/></field>
+        <field name="statusId"><hidden/></field>
+        <field name="fromDate"><display/></field>
+        <field name="fixedAssetId">
+            <display-entity entity-name="FixedAsset" description="${fixedAssetName} [${fixedAssetId}]" />
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="smallSubmit"
+                    use-when="!&quot;${declarationScreen}&quot;.equals(&quot;Y&quot;)">
+            <hyperlink description="${uiLabelMap.CommonDelete}" also-hidden="false"
+                target="removeWorkEffortFixedAssetAssign?workEffortId=${workEffortId}&amp;fixedAssetId=${fixedAssetId}&amp;fromDate=${fromDate}&amp;productionRunId=${productionRunId}" />
+        </field>
+    </form>
     <form name="ListProductionRunTaskFixedAssets" type="list" title="" list-name="productionRunFixedAssetsData">
         <auto-fields-entity entity-name="WorkEffortFixedAssetAssign" default-field-type="display" />
         <field name="workEffortId">
@@ -361,16 +377,6 @@ under the License.
         </field>
         <field name="statusId">
             <display-entity entity-name="StatusItem" />
-        </field>
-        <field name="editLink" title="" widget-style="smallSubmit" 
-                use-when="!&quot;${declarationScreen}&quot;.equals(&quot;Y&quot;)">
-            <hyperlink description="${uiLabelMap.CommonEdit}" also-hidden="false"
-                target="EditProductionRun?actionForm=UpdateFixedAsset&amp;workEffortId=${workEffortId}&amp;fixedAssetId=${fixedAssetId}&amp;fromDate=${fromDate}&amp;productionRunId=${productionRunId}" />
-        </field>
-        <field name="deleteLink" title="" widget-style="smallSubmit"
-                    use-when="!&quot;${declarationScreen}&quot;.equals(&quot;Y&quot;)">
-            <hyperlink description="${uiLabelMap.CommonDelete}" also-hidden="false"
-                target="removeProductionRunFixedAsset?workEffortId=${workEffortId}&amp;fixedAssetId=${fixedAssetId}&amp;fromDate=${fromDate}&amp;productionRunId=${productionRunId}" />
         </field>
     </form>
     <form name="EditProductionRunTaskFixedAsset" type="single" target="EditProductionRun" title="" default-map-name="fixedAssetData">
@@ -413,6 +419,36 @@ under the License.
             <submit button-type="button" />
         </field>
     </form>
+    <form name="AddProductionRunTaskFixedAsset" type="single" target="createWorkEffortFixedAssetAssign" title="">
+        <auto-fields-service service-name="createWorkEffortFixedAssetAssign" />
+        <field name="productionRunId"><hidden /></field>
+        <field name="workEffortId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="WorkEffort" description="[${workEffortId}] ${workEffortName}">
+                    <entity-constraint name="workEffortParentId" value="${productionRunId}" />
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fixedAssetId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="FixedAsset" description="${fixedAssetName} [${fixedAssetId}]" />
+            </drop-down>
+        </field>
+        <field name="statusId">
+            <!-- Statuses are not yet defined for the WorkEffortFixedAssetAssign entity
+                so this field will be hidden meanwhile
+            <drop-down>
+                <entity-options entity-name="StatusItem" description="${description}">
+                    <entity-constraint name="statusTypeId" value="WORK_EFF_ASSET_STTS" />
+                </entity-options>
+            </drop-down> -->
+            <hidden />
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
     <!-- ******************* -->
     <!-- Shipment Plan Forms -->
     <!-- ******************* -->
@@ -534,7 +570,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ProductionRunTaskComponents" type="list" target="updateProductionRunComponent" paginate-target="ProductionRunComponents" title="" list-name="taskComponents">
+    <form name="ProductionRunTaskComponents" type="list" target="updateProductionRunComponent" paginate-target="ProductionRunComponents" title="" list-name="records">
         <field name="productId"><display/></field>
         <field name="internalName" entry-name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
