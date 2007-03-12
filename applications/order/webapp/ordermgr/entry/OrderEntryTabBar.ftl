@@ -18,7 +18,7 @@ under the License.
 -->
 
 <div class="boxtop">
-    <div class="boxhead-right" align="right">
+    <div class="boxhead-right">
         <a href="<@ofbizUrl>emptycart</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderClearOrder}</a>
         <#if (shoppingCart.size() > 0)>
         <a href="javascript:document.cartform.submit()" class="buttontext">${uiLabelMap.OrderRecalculateOrder}</a>
