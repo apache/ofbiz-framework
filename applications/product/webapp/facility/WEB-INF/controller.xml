@@ -1003,6 +1003,10 @@ under the License.
         <response name="success" type="view" value="AddItemsFromOrder"/>
         <response name="error" type="view" value="AddItemsFromOrder"/>
     </request-map>
+    <request-map uri="ReceiveInventoryAgainstPurchaseOrder">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ReceiveInventoryAgainstPurchaseOrder"/>
+    </request-map>
     <!-- ================ Shipment Items From Order Requests ================= -->
     <request-map uri="EditShipmentPlan">
         <security https="true" auth="true"/>
@@ -1101,6 +1105,7 @@ under the License.
     <view-map name="EditShipmentPackages" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#EditShipmentPackages"/>
     <view-map name="EditShipmentRouteSegments" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#EditShipmentRouteSegments"/>
     <view-map name="AddItemsFromOrder" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#AddItemsFromOrder"/>
+    <view-map name="ReceiveInventoryAgainstPurchaseOrder" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#ReceiveInventoryAgainstPurchaseOrder"/>
     <view-map name="QuickShipOrder" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#QuickShipOrder"/>
     
     <view-map name="InventoryReports" type="screen" page="component://product/widget/facility/ReportScreens.xml#InventoryReports"/>

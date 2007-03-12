@@ -1,0 +1,213 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+import org.ofbiz.entity.util.*;
+import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.base.util.*;
+
+delegator = request.getAttribute("delegator");
+
+shipmentId = request.getParameter("shipmentId");
+orderId = request.getParameter("purchaseOrderId");
+shipGroupSeqId = request.getParameter("shipGroupSeqId");
+context.put("shipmentId", shipmentId);
+context.put("orderId", orderId);
+context.put("shipGroupSeqId", shipGroupSeqId);
+
+// Retrieve the map resident in session which stores order item quantities to receive
+itemQuantitiesToReceive = session.getAttribute("purchaseOrderItemQuantitiesToReceive");
+if (! UtilValidate.isEmpty(itemQuantitiesToReceive)) {
+    sessionShipmentId = itemQuantitiesToReceive.get("_shipmentId");
+    sessionOrderId = itemQuantitiesToReceive.get("_orderId");
+    if ( (UtilValidate.isNotEmpty(sessionShipmentId) && ! sessionShipmentId.equals(shipmentId)) || 
+         ((UtilValidate.isNotEmpty(sessionOrderId) && ! sessionOrderId.equals(orderId)))        ||
+         "Y".equals(request.getParameter("clearAll")) ) {
+
+             // Clear the map if the shipmentId or orderId are different than the current ones, or
+             // if the clearAll parameter is present
+             itemQuantitiesToReceive.clear();
+    }
+}
+
+shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+context.put("shipment", shipment);
+if (UtilValidate.isEmpty(shipment)) {
+    return;
+}
+
+isPurchaseShipment = "PURCHASE_SHIPMENT".equals(shipment.getString("shipmentTypeId"));
+context.put("isPurchaseShipment", isPurchaseShipment);
+if (! isPurchaseShipment) {
+    return;
+}
+
+facility = shipment.getRelatedOne("DestinationFacility");
+context.put("facility", facility);
+context.put("facilityId", shipment.get("destinationFacilityId"));
+context.put("now", UtilDateTime.nowTimestamp());
+
+if (UtilValidate.isEmpty(orderId)) {
+    orderId = shipment.get("primaryOrderId");
+}
+if (UtilValidate.isEmpty(shipGroupSeqId)) {
+    shipGroupSeqId = shipment.get("primaryShipGroupSeqId");
+}
+
+if (UtilValidate.isEmpty(orderId)) {
+    return;
+}
+
+orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+context.put("orderHeader", orderHeader);
+if (UtilValidate.isEmpty(orderHeader)) {
+    return;
+}
+
+isPurchaseOrder = "PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId"));
+context.put("isPurchaseOrder", isPurchaseOrder);
+if (! isPurchaseOrder) {
+    return;
+}
+
+// Get the base currency from the facility owner, for currency conversions
+baseCurrencyUomId = null;
+if (! UtilValidate.isEmpty(facility)) {
+    owner = facility.getRelatedOne("OwnerParty");
+    if (! UtilValidate.isEmpty(owner)) {
+        ownerAcctgPref = owner.getRelatedOne("PartyAcctgPreference");
+    }
+    if (! UtilValidate.isEmpty(ownerAcctgPref)) {
+        baseCurrencyUomId = ownerAcctgPref.get("baseCurrencyUomId");
+    }
+}
+
+inventoryItemTypes = delegator.findAll("InventoryItemType");
+context.put("inventoryItemTypes", inventoryItemTypes);
+
+// Populate the tracking map with shipment and order IDs
+if (UtilValidate.isEmpty(itemQuantitiesToReceive)) {
+    itemQuantitiesToReceive = UtilMisc.toMap("_shipmentId", shipmentId, "_orderId", orderId);
+}
+
+oiasgaLimitMap = null;
+if (! UtilValidate.isEmpty(shipGroupSeqId)) {
+    oiasgaLimitMap = UtilMisc.toMap("shipGroupSeqId", shipGroupSeqId);
+}
+
+orderItemDatas = new TreeMap();
+totalAvailableToReceive = 0;
+
+// Populate the order item data for the FTL
+orderItems = orderHeader.getRelated("OrderItemAndShipGroupAssoc", oiasgaLimitMap, UtilMisc.toList("shipGroupSeqId", "orderItemSeqId"));
+orderItemIter = orderItems.iterator();
+while (orderItemIter.hasNext()) {
+    orderItemAndShipGroupAssoc = orderItemIter.next();
+    product = orderItemAndShipGroupAssoc.getRelatedOne("Product");
+    orderItemData = new HashMap();
+
+    // Get the item's ordered quantity
+    totalOrdered = 0;
+    ordered = orderItemAndShipGroupAssoc.getDouble("quantity");
+    if (ordered != null)
+        totalOrdered += ordered.doubleValue();
+
+    // Get the item quantity received from all shipments via the ShipmentReciept entity
+    totalReceived = 0.0;
+    receipts = delegator.findByAnd("ShipmentReceipt", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemAndShipGroupAssoc.get("orderItemSeqId")));
+    if (receipts != null && receipts.size() > 0) {
+        recIter = receipts.iterator();
+        while (recIter.hasNext()) {
+            rec = recIter.next();
+            accepted = rec.getDouble("quantityAccepted");
+            rejected = rec.getDouble("quantityRejected");
+            if (accepted != null)
+                totalReceived += accepted.doubleValue();
+            if (rejected != null)
+                totalReceived += rejected.doubleValue();                                            
+        }            
+    }
+
+    // Update the unit cost with the converted value, if any
+    if (UtilValidate.isNotEmpty(baseCurrencyUomId)) {
+        if (! UtilValidate.isEmpty(product)) {
+            result = dispatcher.runSync("getProductCost", UtilMisc.toMap("productId", product.get("productId"), "currencyUomId", baseCurrencyUomId, "costComponentTypePrefix", "EST_STD", "userLogin", request.getAttribute("userLogin")));
+            if (!ServiceUtil.isError(result)) {
+                orderItemAndShipGroupAssoc.put("unitPrice", result.get("productCost"));
+            }
+        }
+    }
+
+    // Calculate how many units it should be possible to recieve for this purchase order
+    availableToReceive = totalOrdered - totalReceived;
+    totalAvailableToReceive += availableToReceive;
+    orderItemData.put("availableToReceive", availableToReceive);
+    orderItemData.put("totalQuantityReceived", totalReceived);
+    orderItemData.put("orderItemAndShipGroupAssoc", orderItemAndShipGroupAssoc);
+    orderItemData.put("product", product);
+    orderItemDatas.put(orderItemAndShipGroupAssoc.getString("orderItemSeqId"), orderItemData);
+}
+context.put("orderItemDatas", orderItemDatas.values());
+
+// Handle any item product quantities to receive by adding to the map in session
+productIdToReceive = request.getParameter("productId");
+productQtyToReceive = request.getParameter("quantity");
+if (UtilValidate.isNotEmpty(productIdToReceive)) {
+
+    // Get the first order item with the productId
+    orderItem = EntityUtil.getFirst(EntityUtil.filterByAnd(orderItems, UtilMisc.toMap("productId", productIdToReceive)));
+    if (! UtilValidate.isEmpty(orderItem)) {
+        orderItemSeqId = orderItem.getString("orderItemSeqId");
+        newQuantity = 0;
+        if (! UtilValidate.isEmpty(productQtyToReceive)) {
+            try {
+                quantity = Double.parseDouble(productQtyToReceive);
+            } catch (Exception e) {
+                quantity = 0;
+            }
+            
+            if (itemQuantitiesToReceive.containsKey(orderItemSeqId)) {
+                try {
+                    newQuantity = itemQuantitiesToReceive.get(orderItemSeqId) + quantity;
+                } catch (Exception e) {
+                    // Ignore the quantity update if there's a problem parsing it
+                }
+            } else {
+                newQuantity = quantity;
+            }
+        }
+
+        if (newQuantity <= orderItemDatas.get(orderItemSeqId).get("availableToReceive")) {
+            itemQuantitiesToReceive.put(orderItemSeqId, newQuantity);
+        } else {
+
+            // If the new quantity would be more than the quantity left to receive for this purchase order item, add an error message to the context
+            context.put("newQuantity", newQuantity);
+            context.put("ProductReceiveInventoryAgainstPurchaseOrderQuantityExceedsAvailableToReceive", true);
+        }
+    } else {
+
+        // Add an error message to the context if the productId doesn't exist in this purchase order
+        context.put("ProductReceiveInventoryAgainstPurchaseOrderProductNotFound", true);
+    }
+}
+
+// Put the tracking map back into the session, in case it has been reconstructed
+session.setAttribute("purchaseOrderItemQuantitiesToReceive", itemQuantitiesToReceive);
+context.put("itemQuantitiesToReceive", itemQuantitiesToReceive);
+context.put("totalAvailableToReceive", totalAvailableToReceive);
