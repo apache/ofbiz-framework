@@ -72,9 +72,14 @@ under the License.
             <tr>
             <td><div class="tabletext"><b>${uiLabelMap.ProductTransferId}</b></div></td>
             <td><div class="tabletext"><b>${uiLabelMap.ProductItem}</b></div></td>      
+            <td><div class="tabletext"><b>${uiLabelMap.ProductProductId}</b></div></td>      
+            <td><div class="tabletext"><b>${uiLabelMap.ProductInternalName}</b></div></td>      
+            <td><div class="tabletext"><b>${uiLabelMap.ProductSerialAtpQoh}</b></div></td>      
             <td><div class="tabletext"><b>${uiLabelMap.CommonTo}</b></div></td>
             <td><div class="tabletext"><b>${uiLabelMap.CommonSendDate}</b></div></td>
+            <#if !completeRequested>
             <td><div class="tabletext"><b>${uiLabelMap.CommonStatus}</b></div></td>
+            </#if>
             <td align="center">
               <#if completeRequested>
               <span class="tableheadtext">Select<br><input name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'CompleteRequested');" type="checkbox"></span>
@@ -85,20 +90,43 @@ under the License.
             </tr>
         
             <#list fromTransfers as transfer>
+            <#assign inventoryItem = transfer.getRelatedOne("InventoryItem")?if_exists>
+            <#if inventoryItem?has_content>
+              <#assign product = inventoryItem.getRelatedOne("Product")?if_exists>
+            </#if>
             <tr>
             <td><div class="tabletext"><a href="<@ofbizUrl>TransferInventoryItem?inventoryTransferId=${(transfer.inventoryTransferId)?if_exists}</@ofbizUrl>" class="buttontext">&nbsp;${(transfer.inventoryTransferId)?if_exists}</a></div></td>
             <td><div class="tabletext"><a href="<@ofbizUrl>EditInventoryItem?inventoryItemId=${(transfer.inventoryItemId)?if_exists}</@ofbizUrl>" class="buttontext">&nbsp;${(transfer.inventoryItemId)?if_exists}</a></div></td>      
+            <td>
+              <#if product?exists>
+              <span class="tabletext">${product.productId}</span>
+              </#if>
+            </td>
+            <td>
+              <#if product?exists>
+              <span class="tabletext">${product.internalName?if_exists}</span>
+              </#if>
+            </td>
+            <td class="tabletext">
+              <#if inventoryItem?exists && inventoryItem.inventoryItemTypeId.equals("NON_SERIAL_INV_ITEM")>
+                ${(inventoryItem.availableToPromiseTotal)?if_exists}&nbsp;/&nbsp;${(inventoryItem.quantityOnHandTotal)?if_exists}
+              <#elseif inventoryItem?exists && inventoryItem.inventoryItemTypeId.equals("SERIALIZED_INV_ITEM")>
+                ${inventoryItem.serialNumber?if_exists}
+              </#if>
+            </td>
             <td>
                 <#assign fac = delegator.findByPrimaryKey("Facility", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", transfer.getString("facilityIdTo")))>
                 <div class="tabletext"><a href="<@ofbizUrl>EditFacility?facilityId=${(transfer.facilityIdTo)?if_exists}</@ofbizUrl>" class="buttontext">&nbsp;<#if fac?exists>${(fac.facilityName)?if_exists}</#if>&nbsp;[${(transfer.facilityIdTo)?if_exists}]</a></div>
             </td>
             <td><div class="tabletext">&nbsp;${(transfer.sendDate)?if_exists}</div></td>
+            <#if !completeRequested>
             <td>
                 <#if (transfer.statusId)?exists>
                     <#assign transferStatus = delegator.findByPrimaryKey("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", transfer.statusId))>
                     <div class="tabletext">&nbsp;${(transferStatus.get("description",locale))?if_exists}</div>
                 </#if>
             </td>
+            </#if>
             <td align="center"><div class="tabletext">
                 <#if completeRequested>
                 <input type="hidden" name="inventoryTransferId_o_${transfer_index}" value="${transfer.inventoryTransferId}">
@@ -113,10 +141,10 @@ under the License.
             <#assign rowCount = transfer_index + 1>
             </#list>
             <#if completeRequested>
-            <tr><td colspan="6" align="right">
+            <tr><td colspan="8" align="right">
                 <input type="hidden" name="_rowCount" value="${rowCount}">
                 <input type="hidden" name="_useRowSubmit" value="Y"/>
-                <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonUpdate}"/>
+                <input type="submit" class="smallSubmit" value="${uiLabelMap.ProductComplete}"/>
             </td></tr>
             </#if>
         </table>
