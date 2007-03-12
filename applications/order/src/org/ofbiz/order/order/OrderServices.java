@@ -3140,7 +3140,7 @@ public class OrderServices {
         // load the order into a shopping cart
         Map loadCartResp = null;
         try {
-            loadCartResp = dispatcher.runSync("loadCartFromOrder", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
+            loadCartResp = dispatcher.runSync("loadCartFromOrder", UtilMisc.toMap("orderId", orderId, "skipInventoryChecks", Boolean.TRUE, "skipProductChecks", Boolean.TRUE, "userLogin", userLogin));
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             throw new GeneralException(e.getMessage());
