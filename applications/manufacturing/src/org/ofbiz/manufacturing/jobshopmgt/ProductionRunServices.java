@@ -125,6 +125,16 @@ public class ProductionRunServices {
                     serviceContext.put("currentStatusId", "PRUN_CANCELLED");
                     serviceContext.put("userLogin", userLogin);
                     resultService = dispatcher.runSync("updateWorkEffort", serviceContext);
+                    // cancel all the components
+                    List components = delegator.findByAnd("WorkEffortGoodStandard", UtilMisc.toMap("workEffortId", taskId, "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED", "statusId", "WEGS_CREATED"));
+                    if (!UtilValidate.isEmpty(components)) {
+                        Iterator componentsIt = components.iterator();
+                        while (componentsIt.hasNext()) {
+                            GenericValue component = (GenericValue)componentsIt.next();
+                            component.set("statusId", "WEGS_CANCELLED");
+                            component.store();
+                        }
+                    }
                 }
             } catch (Exception e) {
                 Debug.logError(e, "Problem calling the updateWorkEffort service", module);

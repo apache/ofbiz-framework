@@ -41,6 +41,9 @@ under the License.
                         <set from-field="component" field="callSvcMap.workEffortGoodStandard"/>
                         <set from-field="reserveOrderEnumId" field="callSvcMap.reserveOrderEnumId"/>
                         <call-service service-name="issueProductionRunTaskComponent" in-map-name="callSvcMap"/>
+
+                        <set value="WEGS_COMPLETED" field="component.statusId"/>
+                        <store-value value-name="component"/>
                     </if-not-empty>
                 </iterate>
                 <log level="info" message="Issued inventory for workEffortId ${workEffort.workEffortId}."/>
