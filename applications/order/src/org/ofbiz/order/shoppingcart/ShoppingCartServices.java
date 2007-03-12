@@ -149,7 +149,16 @@ public class ShoppingCartServices {
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
+        Boolean skipInventoryChecks = (Boolean) context.get("skipInventoryChecks");
+        Boolean skipProductChecks = (Boolean) context.get("skipProductChecks");
         Locale locale = (Locale) context.get("locale");
+
+        if (UtilValidate.isEmpty(skipInventoryChecks)) {
+            skipInventoryChecks = Boolean.FALSE;
+        }
+        if (UtilValidate.isEmpty(skipProductChecks)) {
+            skipProductChecks = Boolean.FALSE;
+        }
 
         // get the order header
         GenericValue orderHeader = null;
@@ -293,7 +302,7 @@ public class ShoppingCartServices {
                     String prodCatalogId = item.getString("prodCatalogId");
                     String productId = item.getString("productId");
                     try {
-                        itemIndex = cart.addItemToEnd(productId, amount, quantityDbl, null, null, null, prodCatalogId, item.getString("orderItemTypeId"), dispatcher, null, null);
+                        itemIndex = cart.addItemToEnd(productId, amount, quantityDbl, null, null, null, prodCatalogId, item.getString("orderItemTypeId"), dispatcher, null, null, skipInventoryChecks, skipProductChecks);
                     } catch (ItemNotFoundException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());

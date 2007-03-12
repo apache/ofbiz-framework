@@ -480,7 +480,7 @@ public class ShoppingCart implements Serializable {
             return this.addItem(0, ShoppingCartItem.makeItem(new Integer(0), productId, selectedAmountDbl, quantity, null, 
                     reservStart, reservLengthDbl, reservPersonsDbl, shipBeforeDate, shipAfterDate, 
                     features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher, 
-                    this, Boolean.TRUE, Boolean.TRUE, parentProductId));
+                    this, Boolean.TRUE, Boolean.TRUE, parentProductId, Boolean.FALSE, Boolean.FALSE));
         }
     }
 
@@ -509,7 +509,12 @@ public class ShoppingCart implements Serializable {
 
     /** Add an item to the shopping cart. */
     public int addItemToEnd(String productId, Double amount, double quantity, Double unitPrice, HashMap features, HashMap attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules) throws CartItemModifyException, ItemNotFoundException {
-        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, null, null, null, null, null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null));
+        return addItemToEnd(productId, amount, quantity, unitPrice, features, attributes, prodCatalogId, itemType, dispatcher, triggerExternalOps, triggerPriceRules, Boolean.FALSE, Boolean.FALSE);
+    }
+
+    /** Add an item to the shopping cart. */
+    public int addItemToEnd(String productId, Double amount, double quantity, Double unitPrice, HashMap features, HashMap attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
+        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, null, null, null, null, null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, skipInventoryChecks, skipProductChecks));
     }
 
     /** Add an item to the shopping cart. */

@@ -508,7 +508,8 @@ under the License.
 
         <!-- Recalculate the promotions for the order -->
         <set-service-fields service-name="loadCartFromOrder" to-map-name="loadCartFromOrderInMap" map-name="parameters"/>
-        <!--<set value="false" field="loadCartFromOrderInMap.applyOrderAdjustments"/>-->
+        <set value="true" field="loadCartFromOrderInMap.skipInventoryChecks" type="Boolean"/>
+        <set value="true" field="loadCartFromOrderInMap.skipProductChecks" type="Boolean"/>
         <call-service service-name="loadCartFromOrder" in-map-name="loadCartFromOrderInMap">
             <result-to-field result-name="shoppingCart" field-name="cart"/>
         </call-service>
