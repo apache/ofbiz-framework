@@ -2906,7 +2906,7 @@ public class OrderServices {
 
         // add in the new product
         try {
-            ShoppingCartItem item = ShoppingCartItem.makeItem(null, productId, null, quantity.doubleValue(), null, null, null, null, null, null, null, null, prodCatalogId, null, null, null, dispatcher, cart, null, null, null);
+            ShoppingCartItem item = ShoppingCartItem.makeItem(null, productId, null, quantity.doubleValue(), null, null, null, null, null, null, null, null, prodCatalogId, null, null, null, dispatcher, cart, null, null, null, Boolean.FALSE, Boolean.FALSE);
             if (basePrice != null&&overridePrice!=null) {
                 item.setBasePrice(basePrice.doubleValue());
                 // special hack to make sure we re-calc the promos after a price change
@@ -3373,7 +3373,7 @@ public class OrderServices {
             // load the order into a shopping cart
             Map loadCartResp = null;
             try {
-                loadCartResp = dispatcher.runSync("loadCartFromOrder", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
+                loadCartResp = dispatcher.runSync("loadCartFromOrder", UtilMisc.toMap("orderId", orderId, "skipInventoryChecks", Boolean.TRUE, "skipProductChecks", Boolean.TRUE, "userLogin", userLogin));
             } catch (GenericServiceException e) {
                 return ServiceUtil.returnError(e.getMessage());
             }

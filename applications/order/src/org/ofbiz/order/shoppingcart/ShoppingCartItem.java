@@ -279,7 +279,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     public static ShoppingCartItem makeItem(Integer cartLocation, String productId, Double selectedAmountDbl, double quantity, Double unitPriceDbl, 
             Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl, Timestamp shipBeforeDate, Timestamp shipAfterDate, 
             Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, 
-            String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, String parentProductId) 
+            String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, String parentProductId, Boolean skipInventoryChecks, Boolean skipProductChecks) 
             throws CartItemModifyException, ItemNotFoundException {
         GenericDelegator delegator = cart.getDelegator();
         GenericValue product = null;
@@ -322,7 +322,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         return makeItem(cartLocation, product, selectedAmountDbl, quantity, unitPriceDbl, 
                 reservStart, reservLengthDbl, reservPersonsDbl, shipBeforeDate, shipAfterDate, 
                 additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper, 
-                itemType, itemGroup, dispatcher, cart, triggerExternalOpsBool, triggerPriceRulesBool, parentProduct);
+                itemType, itemGroup, dispatcher, cart, triggerExternalOpsBool, triggerPriceRulesBool, parentProduct, skipInventoryChecks, skipProductChecks);
     }
 
     /**
@@ -358,7 +358,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             double quantity, Double unitPriceDbl, Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl, 
             Timestamp shipBeforeDate, Timestamp shipAfterDate, Map additionalProductFeatureAndAppls, Map attributes, 
             String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, 
-            ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, GenericValue parentProduct) throws CartItemModifyException {
+            ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, GenericValue parentProduct, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException {
 
         ShoppingCartItem newItem = new ShoppingCartItem(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper, cart.getLocale(), itemType, itemGroup, parentProduct);
 
@@ -383,30 +383,48 @@ public class ShoppingCartItem implements java.io.Serializable {
 
         java.sql.Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         
-        // check to see if introductionDate hasn't passed yet
-        if (product.get("introductionDate") != null && nowTimestamp.before(product.getTimestamp("introductionDate"))) {
-            Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
-                                            "productId", product.getString("productId"));            
+        if (!skipProductChecks.booleanValue()) {
+            // check to see if introductionDate hasn't passed yet
+            if (product.get("introductionDate") != null && nowTimestamp.before(product.getTimestamp("introductionDate"))) {
+                Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
+                                                "productId", product.getString("productId"));            
 
-            String excMsg = UtilProperties.getMessage(resource, "item.cannot_add_product_not_yet_available",
-                                          messageMap , cart.getLocale() );            
-            
-            Debug.logWarning(excMsg, module);
-            throw new CartItemModifyException(excMsg);
+                String excMsg = UtilProperties.getMessage(resource, "item.cannot_add_product_not_yet_available",
+                                              messageMap , cart.getLocale() );            
+
+                Debug.logWarning(excMsg, module);
+                throw new CartItemModifyException(excMsg);
+            }
+
+            // check to see if salesDiscontinuationDate has passed
+            if (product.get("salesDiscontinuationDate") != null && nowTimestamp.after(product.getTimestamp("salesDiscontinuationDate"))) {
+                Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
+                                                "productId", product.getString("productId"));
+
+                String excMsg = UtilProperties.getMessage(resource, "item.cannot_add_product_no_longer_available",
+                                              messageMap , cart.getLocale() );
+
+                Debug.logWarning(excMsg, module);
+                throw new CartItemModifyException(excMsg);
+            }
+            /*
+            if (product.get("salesDiscWhenNotAvail") != null && "Y".equals(product.getString("salesDiscWhenNotAvail"))) {
+                // check atp and if <= 0 then the product is no more available because
+                // all the units in warehouse are reserved by other sales orders and no new purchase orders will be done 
+                // for this product.
+                if (!newItem.isInventoryAvailableOrNotRequired(quantity, cart.getProductStoreId(), dispatcher)) {
+                    Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
+                                                    "productId", product.getString("productId"));
+
+                    String excMsg = UtilProperties.getMessage(resource, "item.cannot_add_product_no_longer_available",
+                                                  messageMap , cart.getLocale() );
+
+                    Debug.logWarning(excMsg, module);
+                    throw new CartItemModifyException(excMsg);
+                }
+            }
+             */
         }
-        
-        // check to see if salesDiscontinuationDate has passed
-        if (product.get("salesDiscontinuationDate") != null && nowTimestamp.after(product.getTimestamp("salesDiscontinuationDate"))) {
-            Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
-                                            "productId", product.getString("productId"));            
-
-            String excMsg = UtilProperties.getMessage(resource, "item.cannot_add_product_no_longer_available",
-                                          messageMap , cart.getLocale() );
-
-            Debug.logWarning(excMsg, module);
-            throw new CartItemModifyException(excMsg);
-        }
- 
         // check to see if the product is a rental item
         if ("ASSET_USAGE".equals(product.getString("productTypeId"))) {
             if (reservStart == null)    {
@@ -496,7 +514,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
 
         try {
-            newItem.setQuantity(quantity, dispatcher, cart, triggerExternalOps, true, triggerPriceRules);
+            newItem.setQuantity((int)quantity, dispatcher, cart, triggerExternalOps, true, triggerPriceRules, skipInventoryChecks.booleanValue());
         } catch (CartItemModifyException e) {
             Debug.logWarning(e.getMessage(), module);
             cart.removeCartItem(cart.getItemIndex(newItem), dispatcher);
@@ -755,12 +773,12 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /** Sets the quantity for the item and validates the change in quantity, etc */
     public void setQuantity(double quantity, LocalDispatcher dispatcher, ShoppingCart cart, boolean triggerExternalOps, boolean resetShipGroup) throws CartItemModifyException {
-        this.setQuantity((int) quantity, dispatcher, cart, triggerExternalOps, resetShipGroup, true);
+        this.setQuantity((int) quantity, dispatcher, cart, triggerExternalOps, resetShipGroup, true, false);
     }
 
     /** Sets the quantity for the item and validates the change in quantity, etc */
     public void setQuantity(double quantity, LocalDispatcher dispatcher, ShoppingCart cart, boolean triggerExternalOps, boolean resetShipGroup, boolean updateProductPrice) throws CartItemModifyException {
-        this.setQuantity((int) quantity, dispatcher, cart, triggerExternalOps, resetShipGroup, updateProductPrice);
+        this.setQuantity((int) quantity, dispatcher, cart, triggerExternalOps, resetShipGroup, updateProductPrice, false);
     }
 
     /** returns "OK" when the product can be booked or returns a string with the dates the related fixed Asset is not available */
@@ -869,7 +887,24 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
     }
 
-    protected void setQuantity(int quantity, LocalDispatcher dispatcher, ShoppingCart cart, boolean triggerExternalOps, boolean resetShipGroup, boolean updateProductPrice) throws CartItemModifyException {
+    protected boolean isInventoryAvailableOrNotRequired(double quantity, String productStoreId, LocalDispatcher dispatcher) throws CartItemModifyException {
+        boolean inventoryAvailable = true;
+        try {
+            Map invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.toMap("productStoreId", productStoreId, "productId", productId, "product", this.getProduct(), "quantity", new Double(quantity)));
+            if (ServiceUtil.isError(invReqResult)) {
+                Debug.logError("Error calling isStoreInventoryAvailableOrNotRequired service, result is: " + invReqResult, module);
+                throw new CartItemModifyException((String) invReqResult.get(ModelService.ERROR_MESSAGE));
+            }
+            inventoryAvailable = "Y".equals((String) invReqResult.get("availableOrNotRequired"));
+        } catch (GenericServiceException e) {
+            String errMsg = "Fatal error calling inventory checking services: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            throw new CartItemModifyException(errMsg);
+        }
+        return inventoryAvailable;
+    }
+
+    protected void setQuantity(int quantity, LocalDispatcher dispatcher, ShoppingCart cart, boolean triggerExternalOps, boolean resetShipGroup, boolean updateProductPrice, boolean skipInventoryChecks) throws CartItemModifyException {
         if (this.quantity == quantity) {
             return;
         }
@@ -881,23 +916,13 @@ public class ShoppingCartItem implements java.io.Serializable {
         // needed for inventory checking and auto-save
         String productStoreId = cart.getProductStoreId();
 
-        if (!"PURCHASE_ORDER".equals(cart.getOrderType())) {
+        if (!skipInventoryChecks && !"PURCHASE_ORDER".equals(cart.getOrderType())) {
             // check inventory if new quantity is greater than old quantity; don't worry about inventory getting pulled out from under, that will be handled at checkout time
             if (_product != null && quantity > this.quantity) {
-                try {
-                    Map invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.toMap("productStoreId", productStoreId, "productId", productId, "product", this.getProduct(), "quantity", new Double(quantity)));
-                    if (ServiceUtil.isError(invReqResult)) {
-                        Debug.logError("Error calling isStoreInventoryAvailableOrNotRequired service, result is: " + invReqResult, module);
-                        throw new CartItemModifyException((String) invReqResult.get(ModelService.ERROR_MESSAGE));
-                    } else if (!"Y".equals((String) invReqResult.get("availableOrNotRequired"))) {
-                        String excMsg = "Sorry, we do not have enough (you tried " + UtilFormatOut.formatQuantity(quantity) + ") of the product " + this.getName() + " (product ID: " + productId + ") in stock, not adding to cart. Please try a lower quantity, try again later, or call customer service for more information.";
-                        Debug.logWarning(excMsg, module);
-                        throw new CartItemModifyException(excMsg);
-                    }
-                } catch (GenericServiceException e) {
-                    String errMsg = "Fatal error calling inventory checking services: " + e.toString();
-                    Debug.logError(e, errMsg, module);
-                    throw new CartItemModifyException(errMsg);
+                if (!isInventoryAvailableOrNotRequired(quantity, productStoreId, dispatcher)) {
+                    String excMsg = "Sorry, we do not have enough (you tried " + UtilFormatOut.formatQuantity(quantity) + ") of the product " + this.getName() + " (product ID: " + productId + ") in stock, not adding to cart. Please try a lower quantity, try again later, or call customer service for more information.";
+                    Debug.logWarning(excMsg, module);
+                    throw new CartItemModifyException(excMsg);
                 }
             }
         }

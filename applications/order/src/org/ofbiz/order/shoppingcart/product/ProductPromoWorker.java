@@ -1167,7 +1167,7 @@ public class ProductPromoWorker {
                 try {
                     // just leave the prodCatalogId null, this line won't be associated with a catalog
                     String prodCatalogId = null;
-                    gwpItem = ShoppingCartItem.makeItem(null, product, null, quantity, null, null, null, null, null, null, null, null, prodCatalogId, null, null, null, dispatcher, cart, Boolean.FALSE, Boolean.TRUE, null);
+                    gwpItem = ShoppingCartItem.makeItem(null, product, null, quantity, null, null, null, null, null, null, null, null, prodCatalogId, null, null, null, dispatcher, cart, Boolean.FALSE, Boolean.TRUE, null, Boolean.FALSE, Boolean.FALSE);
                     if (optionProductIds.size() > 0) {
                         gwpItem.setAlternativeOptionProductIds(optionProductIds);
                     } else {
