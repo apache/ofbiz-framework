@@ -907,7 +907,8 @@ public class CheckOutHelper {
 
         // Invoke payment processing.
         if (requireAuth) {
-            if (orderTotal == 0) {
+            boolean autoApproveOrder = UtilValidate.isEmpty(productStore.get("autoApproveOrder")) || "Y".equalsIgnoreCase(productStore.getString("autoApproveOrder"));
+            if (orderTotal == 0 && autoApproveOrder) {
                 // if there is nothing to authorize; don't bother
                 boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
                 if (!ok) {
@@ -961,9 +962,11 @@ public class CheckOutHelper {
                     if (Debug.verboseOn()) Debug.logVerbose("Payment auth was a success!", module);
 
                     // set the order and item status to approved
-                    boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
-                    if (!ok) {
-                        throw new GeneralException("Problem with order change; see above error");
+                    if (autoApproveOrder) {
+                        boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
+                        if (!ok) {
+                            throw new GeneralException("Problem with order change; see above error");
+                        }
                     }
                 } else if (authResp.equals("ERROR")) {
                     // service failed

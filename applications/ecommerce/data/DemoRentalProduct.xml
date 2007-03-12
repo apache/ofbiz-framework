@@ -28,7 +28,7 @@ under the License.
         authDeclinedMessage="There has been a problem with your method of payment. Please try a different method or call customer service."
         authFraudMessage="Your order has been rejected and your account has been disabled due to fraud."
         authErrorMessage="Problem connecting to payment processor; we will continue to retry and notify you by email."
-        styleSheet="/images/ecommain.css" headerLogo="/images/opentravelsystem_logo.jpg" autoApproveInvoice="Y" shipIfCaptureFails="Y"/>
+        styleSheet="/images/ecommain.css" headerLogo="/images/opentravelsystem_logo.jpg" autoApproveInvoice="Y" shipIfCaptureFails="Y" autoApproveOrder="Y"/>
     <ProductStorePaymentSetting productStoreId="RentalStore" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveCCProcessor"/>
     <ProductStorePaymentSetting productStoreId="RentalStore" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="testCCRelease"/>
     <ProductStorePaymentSetting productStoreId="RentalStore" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentService="testCCCapture"/>
