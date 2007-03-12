@@ -1000,8 +1000,6 @@ public class PaymentGatewayServices {
         Double captureAmount = (Double) context.get("captureAmount");
         BigDecimal captureAmountBd = new BigDecimal(captureAmount.doubleValue());
 
-        Map result = new HashMap();
-
         // get the order header and payment preferences
         GenericValue orderHeader = null;
         List paymentPrefs = null;
@@ -1015,9 +1013,7 @@ public class PaymentGatewayServices {
             paymentPrefs = delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList);
         } catch (GenericEntityException gee) {
             Debug.logError(gee, "Problems getting entity record(s), see stack trace", module);
-            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-            result.put(ModelService.ERROR_MESSAGE, "ERROR: Could not get order information (" + gee.toString() + ").");
-            return result;
+            return ServiceUtil.returnError("ERROR: Could not get order information (" + gee.toString() + ").");
         }
 
         // error if no order was found
@@ -1069,7 +1065,7 @@ public class PaymentGatewayServices {
                         captureAmount = new Double(outstandingAmount.doubleValue());
                     } else {
                         Debug.logInfo("Amount to capture [" + captureAmount + "] was fully captured in Payment [" + tmpResult.get("paymentId") + "].", module);
-                        result = ServiceUtil.returnSuccess();
+                        Map result = ServiceUtil.returnSuccess();
                         result.put("processResult", "COMPLETE");
                         return result;
                     }
@@ -1082,8 +1078,8 @@ public class PaymentGatewayServices {
         // return complete if no payment prefs were found
         if (paymentPrefs == null || paymentPrefs.size() == 0) {
             Debug.logWarning("No orderPaymentPreferences available to capture", module);
+            Map result = ServiceUtil.returnSuccess();
             result.put("processResult", "COMPLETE");
-            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             return result;
         }
 
@@ -1243,11 +1239,18 @@ public class PaymentGatewayServices {
         }
 
         if (amountToCapture > 0.00) {
-            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+            GenericValue productStore = orh.getProductStore();
+            if (! UtilValidate.isEmpty(productStore)) {
+                boolean shipIfCaptureFails = UtilValidate.isEmpty(productStore.get("shipIfCaptureFails")) || "Y".equalsIgnoreCase(productStore.getString("shipIfCaptureFails"));
+                if(! shipIfCaptureFails) {
+                    return ServiceUtil.returnError("Cannot ship order because credit card captures were unsuccessful");
+                }
+            }
+            Map result = ServiceUtil.returnSuccess();
             result.put("processResult", "FAILED");
             return result;
         } else {
-            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+            Map result = ServiceUtil.returnSuccess();
             result.put("processResult", "COMPLETE");
             return result;
         }
