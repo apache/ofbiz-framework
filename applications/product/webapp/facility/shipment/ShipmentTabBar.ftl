@@ -33,6 +33,9 @@ under the License.
     <#if shipment.shipmentTypeId?exists && shipment.shipmentTypeId='PURCHASE_SHIPMENT' && shipment.destinationFacilityId?exists>
       <a href="<@ofbizUrl>ReceiveInventory?shipmentId=${shipmentId}&facilityId=${shipment.destinationFacilityId?if_exists}<#if shipment.primaryOrderId?exists>&purchaseOrderId=${shipment.primaryOrderId}</#if></@ofbizUrl>" class="${selectedClassMap.ReceiveInventory?default(unselectedClassName)}">${uiLabelMap.ProductReceiveInventory}</a>
     </#if>
+    <#if shipment.shipmentTypeId?exists && shipment.shipmentTypeId='PURCHASE_SHIPMENT' && shipment.destinationFacilityId?exists && shipment.primaryOrderId?exists>
+      <a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId?if_exists}&purchaseOrderId=${shipment.primaryOrderId?if_exists}</@ofbizUrl>" class="${selectedClassMap.ProductReceiveInventoryAgainstPurchaseOrder?default(unselectedClassName)}">${uiLabelMap.ProductReceiveInventoryAgainstPO}</a>
+    </#if>
     <#if shipment.shipmentTypeId?exists && shipment.shipmentTypeId='SALES_SHIPMENT'>
       <a href="<@ofbizUrl>EditShipmentItems?shipmentId=${shipmentId}</@ofbizUrl>" class="${selectedClassMap.EditShipmentItems?default(unselectedClassName)}">${uiLabelMap.ProductItems}</a>
       <a href="<@ofbizUrl>EditShipmentPackages?shipmentId=${shipmentId}</@ofbizUrl>" class="${selectedClassMap.EditShipmentPackages?default(unselectedClassName)}">${uiLabelMap.ProductPackages}</a>
