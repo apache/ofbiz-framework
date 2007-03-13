@@ -341,6 +341,79 @@ under the License.
         </if-compare>
     </simple-method>
 
+    <simple-method method-name="checkCreateProductRequirementForFacility" short-description="Create Requirements for all the products in a facility with QOH under the minimum stock level">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCheckCreateStockRequirement"/>
+        </check-permission>
+        <check-errors/>
+
+        <entity-and entity-name="ProductFacility" list-name="products">
+            <field-map env-name="parameters.facilityId" field-name="facilityId"/>
+        </entity-and>
+
+        <iterate list-name="products" entry-name="productFacility">
+            <set from-field="productFacility.productId" field="parameters.productId"/>
+            <call-simple-method method-name="getProductRequirementMethod"/>
+            <if>
+                <condition>
+                    <or>
+                        <if-compare field-name="requirementMethodId" operator="equals" value="PRODRQM_STOCK"/>
+                        <if-compare field-name="requirementMethodId" operator="equals" value="PRODRQM_STOCK_ATP"/>
+                    </or>
+                </condition>
+                <then>
+                    <!-- get QOH, ATP and find ProductFacility which has the minimum stock -->
+
+                    <if-not-empty field-name="productFacility.minimumStock">
+                        <!-- Get the product's total quantityOnHand in the facility -->
+                        <clear-field field-name="inputMap"/>
+                        <set from-field="productFacility.productId" field="inputMap.productId"/>
+                        <set from-field="productFacility.facilityId" field="inputMap.facilityId"/>
+                        <call-service service-name="getInventoryAvailableByFacility" in-map-name="inputMap">
+                           <result-to-field field-name="quantityOnHandTotal" result-name="quantityOnHandTotal"/>
+                           <result-to-field field-name="availableToPromiseTotal" result-name="availableToPromiseTotal"/>
+                        </call-service>
+
+                        <if-compare field-name="requirementMethodId" operator="equals" value="PRODRQM_STOCK">
+                            <set from-field="quantityOnHandTotal" field="currentQuantity"/>
+                        <else>
+                            <set from-field="availableToPromiseTotal" field="currentQuantity"/>
+                        </else>
+                        </if-compare>
+
+                        <!-- No requirements are created if we are already under stock -->
+                        <if-compare-field field-name="currentQuantity" to-field-name="productFacility.minimumStock" operator="less" type="Double">
+                            <clear-field field-name="inputMap"/>
+                            <set from-field="productFacility.productId" field="inputMap.productId"/>
+                            <if-not-empty field-name="productFacility.reorderQuantity">
+                                <set from-field="productFacility.reorderQuantity" field="inputMap.quantity" type="Double"/>
+                            <else>
+                                <set value="0" field="inputMap.quantity" type="Double"/>
+                            </else>
+                            </if-not-empty>
+
+                            <calculate field-name="quantityShortfall">
+                                <calcop field-name="productFacility.minimumStock" operator="subtract">
+                                    <calcop operator="get" field-name="currentQuantity"/>
+                                </calcop>
+                            </calculate>
+                            <if-compare-field field-name="inputMap.quantity" to-field-name="quantityShortfall" operator="less" type="Double">
+                                <set from-field="quantityShortfall" field="inputMap.quantity" type="Double"/>
+                            </if-compare-field>
+
+                            <set value="PRODUCT_REQUIREMENT" field="inputMap.requirementTypeId"/>
+                            <set from-field="parameters.facilityId" field="inputMap.facilityId"/>
+                            <call-service service-name="createRequirement" in-map-name="inputMap">
+                                <result-to-field field-name="requirementId" result-name="requirementId"/>
+                            </call-service>
+                            <log level="info" message="Requirement creted with id [${requirementId}] for product with id [${productFacility.productId}]."/>
+                        </if-compare-field>
+                    </if-not-empty>
+                </then>
+            </if>
+        </iterate>
+    </simple-method>
+
     <simple-method method-name="getNextOrderId" short-description="Get Next orderId">
         <!-- try to find PartyAcctgPreference for parameters.partyId, see if we need any special order number sequencing -->
         <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference"/>

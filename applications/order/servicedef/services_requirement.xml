@@ -148,6 +148,11 @@ under the License.
         <attribute name="quantity" type="Double" mode="IN" optional="true"/>
         <attribute name="requirementId" type="String" mode="OUT" optional="true"/>
     </service>
+    <service name="checkCreateProductRequirementForFacility" engine="simple" auth="true"
+            location="org/ofbiz/order/order/OrderServices.xml" invoke="checkCreateProductRequirementForFacility">
+        <description>Create Requirements for all the products in a facility with QOH under the minimum stock level</description>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+    </service>
 
     <service name="approveRequirement" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="approveRequirement" auth="true">
