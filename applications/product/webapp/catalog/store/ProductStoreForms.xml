@@ -20,6 +20,16 @@
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="FindProductStore" type="list" list-name="productStores">
+        <field name="ProductStoreNameId" title="${uiLabelMap.ProductStoreNameId}" widget-style="buttontext">
+            <hyperlink target="EditProductStore?productStoreId=${productStoreId}" description="${storeName} [${productStoreId}]"/>
+        </field>
+        <field name="title" title="${uiLabelMap.ProductTitle}"><display/></field>
+        <field name="subtitle" title="${uiLabelMap.ProductSubTitle}"><display/></field>
+        <field name="editLink" title="" widget-style="buttontext">
+            <hyperlink target="EditProductStore?productStoreId=${productStoreId}" description="${uiLabelMap.CommonEdit}"/>
+        </field>
+    </form>
     <form name="EditProductStore" type="single" target="updateProductStore" title="" default-map-name="productStore"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
 

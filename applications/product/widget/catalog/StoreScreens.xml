@@ -35,9 +35,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/store/FindProductStore.ftl"/></html>
-                        </platform-specific>
+                        <label style="head1">${uiLabelMap.ProductProductStoreList}</label>
+                        <container><link target="EditProductStore" text="[${uiLabelMap.ProductCreateNewProductStore}]" style="buttontext"/></container>
+                        <include-form name="FindProductStore" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
