@@ -29,6 +29,7 @@ under the License.
     <PostalAddress contactMechId="CA_BOE_0" toName="Board of Equalization" address1="P O BOX 942879" city="Sacramento" stateProvinceGeoId="CA" postalCode="94279" countryGeoId="USA"/>
     <PartyContactMech partyId="CA_BOE" contactMechId="CA_BOE_0" fromDate="2000-01-01 00:00:00.000" allowSolicitation="N"/>
     <PartyContactMechPurpose partyId="CA_BOE" contactMechId="CA_BOE_0" contactMechPurposeTypeId="PAYMENT_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="CA_BOE" contactMechId="CA_BOE_0" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyRole partyId="CA_BOE" roleTypeId="TAX_AUTHORITY"/>
     
     <Party partyId="NY_DTF" partyTypeId="PARTY_GROUP"/>
@@ -37,6 +38,7 @@ under the License.
     <PostalAddress contactMechId="NY_DTF_0" toName="NYS Sales Tax Processing" address1="JAF Building" address2="PO BOX 1205" city="New York" stateProvinceGeoId="NY" postalCode="11016" countryGeoId="USA"/>
     <PartyContactMech partyId="NY_DTF" contactMechId="NY_DTF_0" fromDate="2000-01-01 00:00:00.000" allowSolicitation="N"/>
     <PartyContactMechPurpose partyId="NY_DTF" contactMechId="NY_DTF_0" contactMechPurposeTypeId="PAYMENT_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="NY_DTF" contactMechId="NY_DTF_0" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyRole partyId="NY_DTF" roleTypeId="TAX_AUTHORITY"/>  
     
     <Party partyId="TX_TAXMAN" partyTypeId="PARTY_GROUP"/>
