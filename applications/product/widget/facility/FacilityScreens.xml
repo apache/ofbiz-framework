@@ -24,7 +24,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="facility"/>
-                <entity-and list-name="facilities" entity-name="Facility"/>
+                <entity-condition list-name="facilities" entity-name="Facility"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
