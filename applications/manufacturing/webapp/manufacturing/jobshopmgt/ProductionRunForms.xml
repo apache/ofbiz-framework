@@ -189,25 +189,16 @@ under the License.
         <field name="productionRunName"  title="${uiLabelMap.ManufacturingProductionRunName}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="quantity" title="${uiLabelMap.ManufacturingProduceQuantity}" use-when="${showQuantity}!=null"><text/></field>
+        <field name="inventoryItemTypeId" use-when="${showQuantity}!=null">
+            <drop-down allow-empty="false" no-current-selected-key="NON_SERIAL_INV_ITEM">
+                <entity-options entity-name="InventoryItemType" description="${description}"/>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelButton}" use-when="${showQuantity}!=null">
             <submit button-type="button"/>
         </field>
         <field name="quantityProduced" title="${uiLabelMap.ManufacturingQuantityProduced}"><display/></field>
         <field name="quantityRejected" title="${uiLabelMap.ManufacturingQuantityRejected}"><display/></field>
-        <sort-order>
-            <sort-field name="productionRunName"/>
-            <sort-field name="description"/>
-            <sort-field name="estimatedStartDate"/>
-            <sort-field name="actualStartDate"/>
-            <sort-field name="estimatedCompletionDate"/>
-            <sort-field name="actualCompletionDate"/>
-            <sort-field name="productId"/>
-            <sort-field name="quantityToProduce"/>
-            <sort-field name="quantity"/>
-            <sort-field name="submitButton"/>
-            <sort-field name="quantityProduced"/>
-            <sort-field name="quantityRejected"/>
-        </sort-order>
     </form>
    
     <form name="ListProductionRunDeclRoutingTasks" type="list" target="ProductionRunDeclaration" title="" list-name="productionRunRoutingTasks">

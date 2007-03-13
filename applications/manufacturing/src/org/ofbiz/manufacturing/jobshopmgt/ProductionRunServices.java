@@ -1229,14 +1229,14 @@ public class ProductionRunServices {
         
         // Optional input fields
         Double quantity = (Double)context.get("quantity");
-        Boolean createSerializedInventory = (Boolean)context.get("createSerializedInventory");
+        String inventoryItemTypeId = (String)context.get("inventoryItemTypeId");
         String lotId = (String)context.get("lotId");
         Boolean createLotIfNeeded = (Boolean)context.get("createLotIfNeeded");
         Boolean autoCreateLot = (Boolean)context.get("autoCreateLot");
         
         // The default is non-serialized inventory item
-        if (createSerializedInventory == null) {
-            createSerializedInventory = Boolean.FALSE;
+        if (UtilValidate.isEmpty(inventoryItemTypeId)) {
+            inventoryItemTypeId = "NON_SERIAL_INV_ITEM";
         }
         // The default is to create a lot if the lotId is given, but the lot doesn't exist
         if (createLotIfNeeded == null) {
@@ -1317,13 +1317,13 @@ public class ProductionRunServices {
             Map outputMap = dispatcher.runSync("getProductionRunCost", UtilMisc.toMap("userLogin", userLogin, "workEffortId", productionRunId));
             BigDecimal totalCost = (BigDecimal)outputMap.get("totalCost");
             // FIXME
-            unitCost = totalCost.divide(new BigDecimal(quantity.intValue()), decimals, rounding);
+            unitCost = totalCost.divide(new BigDecimal(quantity.doubleValue()), decimals, rounding);
         } catch (GenericServiceException e) {
             Debug.logWarning(e.getMessage(), module);
             return ServiceUtil.returnError(e.getMessage());
         }
         
-        if (createSerializedInventory.booleanValue()) {
+        if ("SERIALIZED_INV_ITEM".equals(inventoryItemTypeId)) {
             try {
                 int numOfItems = quantity.intValue();
                 for (int i = 0; i < numOfItems; i++) {
@@ -1331,7 +1331,7 @@ public class ProductionRunServices {
                                                         "inventoryItemTypeId", "SERIALIZED_INV_ITEM",
                                                         "statusId", "INV_AVAILABLE");
                     serviceContext.put("facilityId", productionRun.getGenericValue().getString("facilityId"));
-                    serviceContext.put("datetimeReceived", UtilDateTime.nowDate());
+                    serviceContext.put("datetimeReceived", UtilDateTime.nowTimestamp());
                     serviceContext.put("comments", "Created by production run " + productionRunId);
                     if (unitCost.compareTo(ZERO) != 0) {
                         serviceContext.put("unitCost", new Double(unitCost.doubleValue()));
@@ -1432,11 +1432,11 @@ public class ProductionRunServices {
         String facilityId = (String)context.get("facilityId");
         String currencyUomId = (String)context.get("currencyUomId");
         Double unitCost = (Double)context.get("unitCost");
-        Boolean createSerializedInventory = (Boolean)context.get("createSerializedInventory");
+        String inventoryItemTypeId = (String)context.get("inventoryItemTypeId");
         
         // The default is non-serialized inventory item
-        if (createSerializedInventory == null) {
-            createSerializedInventory = Boolean.FALSE;
+        if (UtilValidate.isEmpty(inventoryItemTypeId)) {
+            inventoryItemTypeId = "NON_SERIAL_INV_ITEM";
         }
         
         if (facilityId == null) {
@@ -1445,7 +1445,7 @@ public class ProductionRunServices {
             facilityId = productionRun.getGenericValue().getString("facilityId");
         }
         List inventoryItemIds = new ArrayList();
-        if (createSerializedInventory.booleanValue()) {
+        if ("SERIALIZED_INV_ITEM".equals(inventoryItemTypeId)) {
             try {
                 int numOfItems = quantity.intValue();
                 for (int i = 0; i < numOfItems; i++) {
@@ -1563,18 +1563,15 @@ public class ProductionRunServices {
         } catch(GenericEntityException gee) {
             return ServiceUtil.returnError(gee.getMessage());
         }
-        Boolean createSerializedInventory = (Boolean)context.get("createSerializedInventory");
-        // The default is non-serialized inventory item
-        if (createSerializedInventory == null) {
-            createSerializedInventory = Boolean.FALSE;
-        }
+        String inventoryItemTypeId = (String)context.get("inventoryItemTypeId");
+
         // TODO: if the task is not running, then return an error message.
 
         try {
             Map inventoryResult = dispatcher.runSync("productionRunTaskProduce", UtilMisc.toMap("workEffortId", productionRunTaskId,
                                                                                                 "productId", productId,
                                                                                                 "quantity", quantity,
-                                                                                                "createSerializedInventory", createSerializedInventory,
+                                                                                                "inventoryItemTypeId", inventoryItemTypeId,
                                                                                                 "userLogin", userLogin));
             if (ServiceUtil.isError(inventoryResult)) {
                 return ServiceUtil.returnError("Error calling productionRunTaskProduce: " + ServiceUtil.getErrorMessage(inventoryResult));
