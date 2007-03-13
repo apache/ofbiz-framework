@@ -36,6 +36,7 @@ under the License.
             <td width="35%" align="left"><span class="tableheadtext"><b>${uiLabelMap.EcommerceProduct}</b></span></td>               
             <#if maySelectItems?default("N") == "Y">
               <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderQtyOrdered}</b></span></td>
+              <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderQtyPicked}</b></span></td>
               <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderQtyShipped}</b></span></td>
               <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderQtyCanceled}</b></span></td>
             <#else>
@@ -135,6 +136,11 @@ under the License.
                 </td>
                 <#if maySelectItems?default("N") == "Y">
                 <td align="right" valign="top">
+                  <#assign pickedQty = localOrderReadHelper.getItemPickedQuantityBd(orderItem)>
+                  <div class="tabletext"><#if pickedQty gt 0 && orderHeader.statusId == "ORDER_APPROVED"><font color="red">${pickedQty?default(0)?string.number}</font><#else>${pickedQty?default(0)?string.number}</#if>
+                  </div>
+                </td>
+                <td align="right" valign="top">
                   <#assign shippedQty = localOrderReadHelper.getItemShippedQuantity(orderItem)>
                   <div class="tabletext">${shippedQty?default(0)?string.number}</div>
                 </td>
@@ -158,7 +164,7 @@ under the License.
                 </td>                    
                 <#if maySelectItems?default("N") == "Y">
                   <td>&nbsp;</td>
-                  <#if (orderHeader.statusId != "ORDER_SENT" && orderItem.statusId != "ITEM_COMPLETED" && orderItem.statusId != "ITEM_CANCELLED")>
+                  <#if (orderHeader.statusId != "ORDER_SENT" && orderItem.statusId != "ITEM_COMPLETED" && orderItem.statusId != "ITEM_CANCELLED" && pickedQty == 0)>
                     <td><a href="<@ofbizUrl>cancelOrderItem?orderId=${orderItem.orderId}&amp;orderItemSeqId=${orderItem.orderItemSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a></td>
                   <#else>
                     <td>&nbsp;</td>
