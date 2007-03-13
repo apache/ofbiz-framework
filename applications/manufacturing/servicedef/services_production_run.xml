@@ -170,7 +170,7 @@ under the License.
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="inventoryItemIds" type="List" mode="OUT" optional="false"/>
         <attribute name="quantity" type="Double" mode="INOUT" optional="true"/>
-        <attribute name="createSerializedInventory" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="inventoryItemTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="lotId" type="String" mode="IN" optional="true"/>
         <attribute name="createLotIfNeeded" type="Boolean" mode="IN" optional="true"/>
         <attribute name="autoCreateLot" type="Boolean" mode="IN" optional="true"/>
@@ -186,7 +186,7 @@ under the License.
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="unitCost" type="Double" mode="IN" optional="true"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
-        <attribute name="createSerializedInventory" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="inventoryItemTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="inventoryItemIds" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="productionRunTaskReturnMaterial" engine="java"
@@ -197,7 +197,7 @@ under the License.
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="quantity" type="Double" mode="IN" optional="true"/>
-        <attribute name="createSerializedInventory" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="inventoryItemTypeId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="checkDecomposeInventoryItem" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="checkDecomposeInventoryItem" auth="true">
