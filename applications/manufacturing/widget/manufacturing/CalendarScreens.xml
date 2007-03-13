@@ -81,7 +81,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
-                <entity-and list-name="techDataCalendars" entity-name="TechDataCalendar"/>
+                <entity-condition list-name="techDataCalendars" entity-name="TechDataCalendar"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator">
@@ -105,7 +105,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
-                <entity-and list-name="calendarWeeks" entity-name="TechDataCalendarWeek"/>
+                <entity-condition list-name="calendarWeeks" entity-name="TechDataCalendarWeek"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator">
