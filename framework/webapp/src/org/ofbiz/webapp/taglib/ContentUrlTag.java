@@ -39,6 +39,14 @@ public class ContentUrlTag extends BodyTagSupport {
     public static final String module = UrlTag.class.getName();
 
     public static void appendContentPrefix(HttpServletRequest request, StringBuffer urlBuffer) {
+        if (request == null) {
+            Debug.logWarning("WARNING: request was null in appendContentPrefix; this probably means this was used where it shouldn't be, like using ofbizContentUrl in a screen rendered through a service; using best-bet behavior: standard prefix from url.properties (no WebSite or security setting known)", module);
+            String prefix = UtilProperties.getPropertyValue("url", "content.url.prefix.standard");
+            if (prefix != null) {
+                urlBuffer.append(prefix.trim());
+            }
+            return;
+        }
         GenericValue webSite = WebSiteWorker.getWebSite(request);
         if (request.isSecure()) {
             if (webSite != null && UtilValidate.isNotEmpty(webSite.getString("secureContentPrefix"))) {

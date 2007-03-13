@@ -51,7 +51,7 @@ public class OfbizContentTransform implements TemplateTransformModel {
                     try {                              
                         Environment env = Environment.getCurrentEnvironment();
                         BeanModel req = (BeanModel)env.getVariable("request");
-                        HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
+                        HttpServletRequest request = req == null ? null : (HttpServletRequest) req.getWrappedObject();
                         
                         // make the link
                         StringBuffer newURL = new StringBuffer();
