@@ -1989,6 +1989,35 @@ public class OrderReadHelper {
         return getOrderBackorderQuantityBd().doubleValue();
     }
 
+    public BigDecimal getItemPickedQuantityBd(GenericValue orderItem) {
+        BigDecimal quantityPicked = ZERO;
+        EntityConditionList pickedConditions = new EntityConditionList(UtilMisc.toList(
+                new EntityExpr("orderId", EntityOperator.EQUALS, orderItem.get("orderId")),
+                new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, orderItem.getString("orderItemSeqId")),
+                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PICKLIST_CANCELLED")),
+                EntityOperator.AND);
+        
+        List picked = null;
+        try {
+        	picked = orderHeader.getDelegator().findByCondition("PicklistAndBinAndItem", pickedConditions, null, null);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            this.orderHeader = null;
+        }
+
+        if (picked != null) {
+            Iterator i = picked.iterator();
+            while (i.hasNext()) {
+                GenericValue pickedItem = (GenericValue) i.next();
+                BigDecimal issueQty = pickedItem.getBigDecimal("quantity");
+                if (issueQty != null) {
+                    quantityPicked = quantityPicked.add(issueQty).setScale(scale, rounding);
+                }
+            }
+        }
+        return quantityPicked.setScale(scale, rounding);
+    }
+
     public BigDecimal getItemShippedQuantityBd(GenericValue orderItem) {
         BigDecimal quantityShipped = ZERO;
         List issuance = getOrderItemIssuances(orderItem);

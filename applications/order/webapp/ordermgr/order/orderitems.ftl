@@ -58,6 +58,7 @@ under the License.
             <#list orderItemList as orderItem>
               <#assign orderItemContentWrapper = Static["org.ofbiz.order.order.OrderContentWrapper"].makeOrderContentWrapper(orderItem, request)>
               <#assign orderItemShipGrpInvResList = orderReadHelper.getOrderItemShipGrpInvResList(orderItem)>
+              <#assign pickedQty = orderReadHelper.getItemPickedQuantityBd(orderItem)>
               <tr><td colspan="8"><hr class="sepbar"/></td></tr>
               <tr>
                 <#assign orderItemType = orderItem.getRelatedOne("OrderItemType")?if_exists>
@@ -171,6 +172,7 @@ under the License.
                         <td>
                           <div class="tabletext">${uiLabelMap.OrderShipRequest}
                           :&nbsp;${orderReadHelper.getItemReservedQuantity(orderItem)}&nbsp;&nbsp;</div>
+                          <div class="tabletext"><#if pickedQty gt 0 && orderHeader.statusId == "ORDER_APPROVED"><font color="red">${uiLabelMap.OrderQtyPicked}:&nbsp;${pickedQty?default(0)?string.number}</font><#else>${uiLabelMap.OrderQtyPicked}:&nbsp;${pickedQty?default(0)?string.number}</#if>&nbsp;&nbsp;</div>
                           <div class="tabletext">${uiLabelMap.OrderQtyShipped}:&nbsp;${shippedQuantity}&nbsp;&nbsp;</div>
                           <div class="tabletext">${uiLabelMap.OrderOutstanding}:&nbsp;
                           <#-- Make sure digital goods without shipments don't always remainn "outstanding": if item is completed, it must have no outstanding quantity.  -->
