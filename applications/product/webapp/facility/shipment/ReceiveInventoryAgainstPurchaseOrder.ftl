@@ -30,10 +30,18 @@ under the License.
             <#assign uiLabelWithVar=uiLabelMap.ProductErrorOrderNotPurchaseOrder?interpret><@uiLabelWithVar/>
         <#elseif ProductReceiveInventoryAgainstPurchaseOrderProductNotFound?exists>
             <#assign uiLabelWithVar=uiLabelMap.ProductReceiveInventoryAgainstPurchaseOrderProductNotFound?interpret><@uiLabelWithVar/>
+            <script type="text/javascript">window.onload=function(){alert('<@uiLabelWithVar/>')};</script>
         <#elseif ProductReceiveInventoryAgainstPurchaseOrderQuantityExceedsAvailableToReceive?exists>
             <#assign uiLabelWithVar=uiLabelMap.ProductReceiveInventoryAgainstPurchaseOrderQuantityExceedsAvailableToReceive?interpret><@uiLabelWithVar/>
+            <script type="text/javascript">window.onload=function(){alert('<@uiLabelWithVar/>')};</script>
         </#if>
     </div>
+    <#if ProductReceiveInventoryAgainstPurchaseOrderQuantityGoesToBackOrder?exists>
+        <div class="errorMessage" style="color:green">
+            <#assign uiLabelWithVar=uiLabelMap.ProductReceiveInventoryAgainstPurchaseOrderQuantityGoesToBackOrder?interpret><@uiLabelWithVar/>
+            <script type="text/javascript">window.onload=function(){alert('<@uiLabelWithVar/>')};</script>
+        </div>
+    </#if>
 
     <form name="ReceiveInventoryAgainstPurchaseOrder" action="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder</@ofbizUrl>">
         <input type="hidden" name="clearAll" value="Y"/>
@@ -65,6 +73,7 @@ under the License.
                     <tr>
                         <td><div class="tableheadtext">${uiLabelMap.ProductProduct}</div></td>
                         <td><div class="tableheadtext">${uiLabelMap.OrderOrder}</div></td>
+                        <td><div class="tableheadtext">${uiLabelMap.OrderBackOrdered}</div></td>
                         <td><div class="tableheadtext">${uiLabelMap.CommonReceived}</div></td>
                         <td><div class="tableheadtext">${uiLabelMap.ProductOpenQuantity}</div></td>
                         <td><div class="tableheadtext">${uiLabelMap.CommonReceive}</div></td>
@@ -80,12 +89,18 @@ under the License.
                         <#assign product = orderItemData.product?if_exists>
                         <#assign totalQuantityReceived = orderItemData.totalQuantityReceived?default(0)>
                         <#assign availableToReceive = orderItemData.availableToReceive?default(0)>
+                        <#assign backOrderedQuantity = orderItemData.backOrderedQuantity?default(0)>
                         
                         <tr>
                             <td><div class="tabletext">${(product.internalName)?if_exists} [${orderItemAndShipGroupAssoc.productId?default("N/A")}]</div></td>
                             <td>
                                 <div class="tabletext">
-                                    ${orderItemAndShipGroupAssoc.quantity}
+                                    ${orderItemAndShipGroupAssoc.quantity - orderItemAndShipGroupAssoc.cancelQuantity?default(0)}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tabletext ${(backOrderedQuantity &gt; 0)?string(" errorMessage","")}">
+                                    ${backOrderedQuantity}
                                 </div>
                             </td>
                             <td>
@@ -140,7 +155,7 @@ under the License.
                     </#list>
                     <#if itemsAvailableToReceive>
                         <tr>
-                            <td colspan="7" align="right">
+                            <td colspan="8" align="right">
                                 <a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId}&purchaseOrderId=${orderId}&clearAll=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClearAll}</a>
                             </td>
                             <td align="right">
@@ -160,7 +175,7 @@ under the License.
                 <input type="hidden" name="purchaseOrderId" value="${orderId}"/>
                 <div class="tabletext">
                     <span class="tabletext">
-                        ${uiLabelMap.ProductProductId} <input type="text" class="inputBox" size="20" id="productId" name="productId" value=""/>
+                        ${uiLabelMap.ProductProductId}/${uiLabelMap.ProductGoodIdentification} <input type="text" class="inputBox" size="20" id="productId" name="productId" value=""/>
                         @
                         <input type="text" class="inputBox" name="quantity" size="6" maxlength="6" value="1" tabindex="0"/>
                         <input type="submit" value="${uiLabelMap.CommonAdd}" class="smallSubmit"/>

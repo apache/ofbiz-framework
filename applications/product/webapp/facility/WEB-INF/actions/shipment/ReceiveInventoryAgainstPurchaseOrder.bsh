@@ -17,6 +17,7 @@
  * under the License.
  */
 
+import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.base.util.*;
@@ -126,6 +127,9 @@ while (orderItemIter.hasNext()) {
     ordered = orderItemAndShipGroupAssoc.getDouble("quantity");
     if (ordered != null)
         totalOrdered += ordered.doubleValue();
+    cancelled = orderItemAndShipGroupAssoc.getDouble("cancelQuantity");
+    if (cancelled != null)
+        totalOrdered -= cancelled.doubleValue();
 
     // Get the item quantity received from all shipments via the ShipmentReciept entity
     totalReceived = 0.0;
@@ -153,6 +157,18 @@ while (orderItemIter.hasNext()) {
         }
     }
 
+    // Retrieve the backordered quantity
+    // TODO: limit to a facility? The shipment destination facility is not necessarily the same facility as the inventory
+    conditions = UtilMisc.toList(new EntityExpr("productId", EntityOperator.EQUALS, product.get("productId")), new EntityExpr("availableToPromiseTotal", EntityOperator.LESS_THAN, new Double(0)));
+    negativeInventoryItems = delegator.findByCondition("InventoryItem",  new EntityConditionList(conditions, EntityOperator.AND), null, null);
+    backOrderedQuantity = 0;
+    niit = negativeInventoryItems.iterator();
+    while (niit.hasNext()) {
+        negativeInventoryItem = niit.next();
+        backOrderedQuantity += negativeInventoryItem.getDouble("availableToPromiseTotal").doubleValue();
+    }
+    orderItemData.put("backOrderedQuantity", Math.abs(backOrderedQuantity));
+
     // Calculate how many units it should be possible to recieve for this purchase order
     availableToReceive = totalOrdered - totalReceived;
     totalAvailableToReceive += availableToReceive;
@@ -171,19 +187,39 @@ if (UtilValidate.isNotEmpty(productIdToReceive)) {
 
     // Get the first order item with the productId
     orderItem = EntityUtil.getFirst(EntityUtil.filterByAnd(orderItems, UtilMisc.toMap("productId", productIdToReceive)));
+
+    // If the productId as given isn't found in the order, try any goodIdentifications and use the first match
+    if (UtilValidate.isEmpty(orderItem)) {
+        goodIdentifications = delegator.findByAnd("GoodIdentification", UtilMisc.toMap("idValue", productIdToReceive));
+        if (! UtilValidate.isEmpty(goodIdentifications)) {
+            giit = goodIdentifications.iterator();
+            while (giit.hasNext()) {
+                goodIdentification = giit.next();
+                orderItem = EntityUtil.getFirst(EntityUtil.filterByAnd(orderItems, UtilMisc.toMap("productId", goodIdentification.get("productId"))));
+                if (! UtilValidate.isEmpty(orderItem)) {
+                    productIdToReceive = goodIdentification.get("productId");
+                    break;
+                }
+            }
+        }
+    }
+
     if (! UtilValidate.isEmpty(orderItem)) {
         orderItemSeqId = orderItem.getString("orderItemSeqId");
+        oldQuantity = 0;
         newQuantity = 0;
+        quantity = 0;
         if (! UtilValidate.isEmpty(productQtyToReceive)) {
             try {
                 quantity = Double.parseDouble(productQtyToReceive);
             } catch (Exception e) {
-                quantity = 0;
+                // Ignore the quantity update if there's a problem parsing it
             }
             
             if (itemQuantitiesToReceive.containsKey(orderItemSeqId)) {
                 try {
-                    newQuantity = itemQuantitiesToReceive.get(orderItemSeqId) + quantity;
+                    oldQuantity = itemQuantitiesToReceive.get(orderItemSeqId);
+                    newQuantity = oldQuantity + quantity;
                 } catch (Exception e) {
                     // Ignore the quantity update if there's a problem parsing it
                 }
@@ -199,6 +235,18 @@ if (UtilValidate.isNotEmpty(productIdToReceive)) {
             // If the new quantity would be more than the quantity left to receive for this purchase order item, add an error message to the context
             context.put("newQuantity", newQuantity);
             context.put("ProductReceiveInventoryAgainstPurchaseOrderQuantityExceedsAvailableToReceive", true);
+            return;
+        }
+        
+        // Notify if some or all of the quantity to receive for the item will go to a backorder
+        oldBackOrderedQuantity = orderItemDatas.get(orderItemSeqId).get("backOrderedQuantity") - oldQuantity;
+        if (oldBackOrderedQuantity < 0) oldBackOrderedQuantity = new Double(0).doubleValue();
+        newBackOrderedQuantity = orderItemDatas.get(orderItemSeqId).get("backOrderedQuantity") - newQuantity;
+        if (newBackOrderedQuantity < 0) newBackOrderedQuantity = new Double(0).doubleValue();
+        if (oldBackOrderedQuantity != newBackOrderedQuantity) {
+            context.put("quantityToReceive", quantity);
+            context.put("quantityToBackOrder", (oldBackOrderedQuantity - newBackOrderedQuantity));
+            context.put("ProductReceiveInventoryAgainstPurchaseOrderQuantityGoesToBackOrder", true);
         }
     } else {
 
