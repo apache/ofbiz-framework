@@ -120,18 +120,18 @@ under the License.
             </if-compare>
         </iterate>
 
-        <!-- check to see if all items have been received -->
-        <entity-and entity-name="OrderItem" list-name="allReturnItems">
+        <!-- check to see if all items have been completed -->
+        <entity-and entity-name="OrderItem" list-name="allOrderItems">
             <field-map field-name="orderId" env-name="parameters.orderId"/>
         </entity-and>
-        <set value="true" field="allReceived"/>
-        <iterate list-name="allReturnItems" entry-name="item">
-            <if-compare field-name="item.statusId" operator="not-equals" value="ITEM_RECEIVED">
-                <set value="false" field="allReceived"/>
+        <set value="true" field="allCompleted"/>
+        <iterate list-name="allOrderItems" entry-name="item">
+            <if-compare field-name="item.statusId" operator="not-equals" value="ITEM_COMPLETED">
+                <set value="false" field="allCompleted"/>
             </if-compare>
         </iterate>
-
-        <if-compare field-name="allReceived" operator="equals" value="true">
+        
+        <if-compare field-name="allCompleted" operator="equals" value="true">
             <!-- update the order header -->
             <set field="orderHeader.statusId" value="ORDER_COMPLETED"/>
             <store-value value-name="orderHeader"/>
