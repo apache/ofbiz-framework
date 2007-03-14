@@ -1499,15 +1499,22 @@ public class UpsServices {
         } catch (NumberFormatException e) {
             maxWeight = 99;
         }
+        String minWeightStr = UtilProperties.getPropertyValue(serviceConfigProps, "shipment.ups.min.estimate.weight", ".1");
+        double minWeight = .1;
+        try {
+            minWeight = Double.parseDouble(minWeightStr);
+        } catch (NumberFormatException e) {
+            minWeight = .1;
+        }
 
         // Passing in a list of package weights overrides the calculation of same via shippableItemInfo
         if (UtilValidate.isEmpty(packageWeights)) {
-            splitEstimatePackages(rateRequestDoc, shipmentElement, shippableItemInfo, maxWeight);
+            splitEstimatePackages(rateRequestDoc, shipmentElement, shippableItemInfo, maxWeight, minWeight);
         } else {
             Iterator i = packageWeights.iterator();
             while (i.hasNext()) {
                 Double packageWeight = (Double) i.next();
-                addPackageElement(rateRequestDoc, shipmentElement, packageWeight.doubleValue());
+                addPackageElement(rateRequestDoc, shipmentElement, checkForDefaultPackageWeight(packageWeight.doubleValue(), minWeight));
             }
         }
 
@@ -1570,13 +1577,13 @@ public class UpsServices {
 
     }
 
-    private static void splitEstimatePackages(Document requestDoc, Element shipmentElement, List shippableItemInfo, double maxWeight) {
+    private static void splitEstimatePackages(Document requestDoc, Element shipmentElement, List shippableItemInfo, double maxWeight, double minWeight) {
         List packages = getPackageSplit(shippableItemInfo, maxWeight);
         Iterator i = packages.iterator();
         while (i.hasNext()) {
             Map packageMap = (Map) i.next();
             double packageWeight = calcPackageWeight(packageMap, shippableItemInfo, 0);    
-            addPackageElement(requestDoc, shipmentElement, packageWeight);
+            addPackageElement(requestDoc, shipmentElement, checkForDefaultPackageWeight(packageWeight, minWeight));
         }
     }
             
@@ -1590,6 +1597,10 @@ public class UpsServices {
         UtilXml.addChildElementValue(packageWeightElement, "Weight", Double.toString(packageWeight), requestDoc);
     }
 
+    private static double checkForDefaultPackageWeight(double weight, double minWeight) {
+        return (weight > 0 && weight > minWeight ? weight : minWeight);
+    }
+    
     private static List getPackageSplit(List shippableItemInfo, double maxWeight) {
         // create the package list w/ the first pacakge
         List packages = new LinkedList();
@@ -2015,15 +2026,22 @@ public class UpsServices {
         } catch (NumberFormatException e) {
             maxWeight = 99;
         }
+        String minWeightStr = UtilProperties.getPropertyValue(serviceConfigProps, "shipment.ups.min.estimate.weight", ".1");
+        double minWeight = .1;
+        try {
+            minWeight = Double.parseDouble(minWeightStr);
+        } catch (NumberFormatException e) {
+            minWeight = .1;
+        }
         
         // Passing in a list of package weights overrides the calculation of same via shippableItemInfo
         if (UtilValidate.isEmpty(packageWeights)) {
-            splitEstimatePackages(rateRequestDoc, shipmentElement, shippableItemInfo, maxWeight);
+            splitEstimatePackages(rateRequestDoc, shipmentElement, shippableItemInfo, maxWeight, minWeight);
         } else {
             Iterator i = packageWeights.iterator();
             while (i.hasNext()) {
                 Double packageWeight = (Double) i.next();
-                addPackageElement(rateRequestDoc, shipmentElement, packageWeight.doubleValue());
+                addPackageElement(rateRequestDoc, shipmentElement, checkForDefaultPackageWeight(packageWeight.doubleValue(), minWeight));
             }
         }
 
