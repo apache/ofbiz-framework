@@ -523,6 +523,14 @@ under the License.
         <override name="facilityId" optional="false"/>
     </service>
 
+    <service name="issueOrderItemToShipmentAndReceiveAgainstPO" engine="group" auth="true">
+        <description>Issues order item quantity specified to the shipment, then receives inventory for that item and quantity</description>
+        <group>
+            <invoke name="issueOrderItemToShipment" result-to-context="true"/>
+            <invoke name="receiveInventoryProduct" result-to-context="true"/>
+        </group>
+    </service>
+
     <service name="quickReceiveReturn" engine="simple"
             location="org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="quickReceiveReturn" auth="true">
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
