@@ -796,10 +796,19 @@ public class ShipmentServices {
         String shipmentId = (String) context.get("shipmentId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         try {
-            List shipmentAndItems = delegator.findByAnd("ShipmentAndItem", UtilMisc.toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_SHIPPED"));
-            if (shipmentAndItems.size() == 0) return ServiceUtil.returnSuccess();
+
             List shipmentReceipts = delegator.findByAnd("ShipmentReceipt", UtilMisc.toMap("shipmentId", shipmentId));
             if (shipmentReceipts.size() == 0) return ServiceUtil.returnSuccess();
+
+            // If there are shipment receipts, the shipment must have been shipped, so set the shipment status to PURCH_SHIP_SHIPPED if it's only PURCH_SHIP_CREATED
+            GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+            if ((! UtilValidate.isEmpty(shipment)) && "PURCH_SHIP_CREATED".equals(shipment.getString("statusId"))) {
+                Map updateShipmentMap = dispatcher.runSync("updateShipment", UtilMisc.toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_SHIPPED", "userLogin", userLogin));
+                if (ServiceUtil.isError(updateShipmentMap)) return updateShipmentMap;
+            }
+            
+            List shipmentAndItems = delegator.findByAnd("ShipmentAndItem", UtilMisc.toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_SHIPPED"));
+            if (shipmentAndItems.size() == 0) return ServiceUtil.returnSuccess();
 
             // store the quanitity of each product shipped in a hashmap keyed to productId
             Map shippedCountMap = new HashMap();
