@@ -34,10 +34,14 @@ if (partyId == null) partyId = parameters.get("partyId");
 context.put("partyId", partyId);
 
 userLoginId = parameters.get("userlogin_id");
-if (partyId == null && userLoginId != null) {
+if (UtilValidate.isEmpty(userLoginId)) {
+    userLoginId = parameters.get("userLoginId");
+}
+if (UtilValidate.isEmpty(partyId) && UtilValidate.isNotEmpty(userLoginId)) {
     thisUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
     if (thisUserLogin != null) {
         partyId = thisUserLogin.getString("partyId");
+        parameters.put("partyId", partyId);
     }
 }
 
