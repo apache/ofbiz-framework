@@ -326,8 +326,9 @@ under the License.
     </form>
     <form name="ApprovedProductRequirementsSummary" type="single" default-map-name="quantityReport" target="ApprovedProductRequirements"
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
-        <field name="distinctProductCount"><display/></field>
+        <field name="distinctProductCount" title="Number of Products"><display/></field>
         <field name="quantityTotal"><display/></field>
+        <field name="amountTotal"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
     <form name="ApprovedProductRequirementsByVendor" type="list" use-row-submit="true" list-name="requirements" target="ApprovedProductRequirements" separate-columns="true"
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"

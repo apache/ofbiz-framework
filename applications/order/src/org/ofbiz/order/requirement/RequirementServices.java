@@ -79,8 +79,9 @@ public class RequirementServices {
             Map inventories = FastMap.newInstance();
             Map productsSold = FastMap.newInstance();
 
-            // to count quantity and distinct products in list
+            // to count quantity, running total, and distinct products in list
             double quantity = 0.0;
+            double amountTotal = 0.0;
             Set products = new HashSet();
 
             // time period to count products ordered from, six months ago and the 1st of that month
@@ -94,20 +95,28 @@ public class RequirementServices {
                 String productId = requirement.getString("productId");
                 partyId = requirement.getString("partyId");
                 String facilityId = requirement.getString("facilityId");
+                double requiredQuantity = requirement.getDouble("quantity").doubleValue();
 
-                // get an available supplier product
+                // get an available supplier product, preferably the one with the smallest minimum quantity to order, followed by price
                 String supplierKey =  partyId + "^" + productId;
                 GenericValue supplierProduct = (GenericValue) suppliers.get(supplierKey);
                 if (supplierProduct == null) {
                     conditions = UtilMisc.toList(
+                            // TODO: it is possible to restrict to quantity > minimumOrderQuantity, but then the entire requirement must be skipped
                             new EntityExpr("partyId", EntityOperator.EQUALS, partyId),
                             new EntityExpr("productId", EntityOperator.EQUALS, productId),
                             EntityUtil.getFilterByDateExpr("availableFromDate", "availableThruDate")
                             );
-                    supplierProduct = EntityUtil.getFirst( delegator.findByAnd("SupplierProduct", conditions) );
+                    supplierProduct = EntityUtil.getFirst( delegator.findByAnd("SupplierProduct", conditions, UtilMisc.toList("minimumOrderQuantity", "lastPrice")) );
                     suppliers.put(supplierKey, supplierProduct);
                 }
-                if (supplierProduct != null) union.putAll(supplierProduct.getAllFields());
+
+                // add our supplier product and cost of this line to the data
+                if (supplierProduct != null) {
+                    union.putAll(supplierProduct.getAllFields());
+                    double lastPrice = supplierProduct.getDouble("lastPrice").doubleValue();
+                    amountTotal += lastPrice * requiredQuantity;
+                }
 
                 // for good identification, get the UPCA type (UPC code)
                 GenericValue gid = (GenericValue) gids.get(productId);
@@ -156,7 +165,7 @@ public class RequirementServices {
 
                 // keep a running total of distinct products and quantity to order
                 if (requirement.getDouble("quantity") == null) requirement.put("quantity", new Double("1")); // default quantity = 1
-                quantity += requirement.getDouble("quantity").doubleValue();
+                quantity += requiredQuantity;
                 products.add(productId);
 
                 // add all the requirement fields last, to overwrite any conflicting fields
@@ -168,6 +177,7 @@ public class RequirementServices {
             results.put("requirementsForSupplier", requirements);
             results.put("distinctProductCount", new Integer(products.size()));
             results.put("quantityTotal", new Double(quantity));
+            results.put("amountTotal", new Double(amountTotal));
             return results;
         } catch (GenericServiceException e) {
             Debug.logError(e, module);

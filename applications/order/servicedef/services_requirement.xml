@@ -102,6 +102,7 @@ under the License.
         <attribute mode="OUT" name="requirementsForSupplier" type="java.util.List" optional="true"/>
         <attribute mode="OUT" name="distinctProductCount" type="Integer" optional="true"/>
         <attribute mode="OUT" name="quantityTotal" type="Double" optional="true"/>
+        <attribute mode="OUT" name="amountTotal" type="Double" optional="true"/>
     </service>
     <service name="createOrderRequirementCommitment" engine="simple" auth="true"
         location="org/ofbiz/order/order/OrderServices.xml" invoke="createOrderRequirementCommitment">
