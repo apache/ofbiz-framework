@@ -1007,6 +1007,12 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ReceiveInventoryAgainstPurchaseOrder"/>
     </request-map>
+    <request-map uri="issueOrderItemToShipmentAndReceiveAgainstPO">
+        <security https="true" auth="true"/>
+        <event type="service-multi" path="" invoke="issueOrderItemToShipmentAndReceiveAgainstPO"/>
+        <response name="success" type="view" value="ReceiveInventoryAgainstPurchaseOrder"/>
+        <response name="error" type="view" value="ReceiveInventoryAgainstPurchaseOrder"/>
+    </request-map>
     <!-- ================ Shipment Items From Order Requests ================= -->
     <request-map uri="EditShipmentPlan">
         <security https="true" auth="true"/>

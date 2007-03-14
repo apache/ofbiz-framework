@@ -18,6 +18,19 @@ under the License.
 -->
 <#if shipment?exists>
 
+    <#-- JS to populate the quantity_o_# field required by the chained issueOrderItemToShipment service -->
+    <script type="text/javascript">
+      function populateQuantities(rowCount) {
+        for (var x = 0; x <= rowCount; x++) {
+          var quantityAcceptedInput = document.getElementById('quantityAccepted_o_' + x);
+          var quantityInput = document.getElementById('quantity_o_' + x);
+          if (quantityAcceptedInput != null && quantityInput != null) {
+            quantityInput.value = quantityAcceptedInput.value;
+          }
+        }
+      }
+    </script>
+
     <#assign productId = parameters.productId?if_exists/>
     <div class="head3">${uiLabelMap.ProductReceiveInventoryAgainstPurchaseOrder}</div>
 
@@ -64,7 +77,7 @@ under the License.
         <#if orderItemDatas?exists>
             <#assign rowCount = 0>
             <#assign totalReadyToReceive = 0/>
-            <form action="<@ofbizUrl>receiveInventoryProduct/ReceiveInventoryAgainstPurchaseOrder?clearAll=Y</@ofbizUrl>" method="post" name="selectAllForm">
+            <form action="<@ofbizUrl>issueOrderItemToShipmentAndReceiveAgainstPO?clearAll=Y</@ofbizUrl>" method="post" name="selectAllForm">
                 <input type="hidden" name="facilityId" value="${facilityId}"/>
                 <input type="hidden" name="purchaseOrderId" value="${orderId}"/>
                 <input type="hidden" name="shipmentId" value="${shipmentId}">
@@ -124,13 +137,15 @@ under the License.
                                     <input type="hidden" name="ownerPartyId_o_${rowCount}" value="${(facility.ownerPartyId)?if_exists}"/>
                                     <input type="hidden" name="datetimeReceived_o_${rowCount}" value="${now}"/>
                                     <input type="hidden" name="quantityRejected_o_${rowCount}" value="0"/>
+                                    <#-- quantity field required by the chained issueOrderItemToShipment service -->
+                                    <input type="hidden" name="quantity_o_${rowCount}" id="quantity_o_${rowCount}" value=""/>
                                     <#if itemQuantitiesToReceive?exists && itemQuantitiesToReceive.get(orderItemAndShipGroupAssoc.orderItemSeqId)?exists>
                                         <#assign quantityToReceive = itemQuantitiesToReceive.get(orderItemAndShipGroupAssoc.orderItemSeqId)>
                                     <#else>
                                         <#assign quantityToReceive = 0>
                                     </#if>
                                     <#assign totalReadyToReceive = totalReadyToReceive + quantityToReceive/>
-                                    <input type="text" class='inputBox' size="5" name="quantityAccepted_o_${rowCount}" value="${quantityToReceive}"/>
+                                    <input type="text" class='inputBox' size="5" name="quantityAccepted_o_${rowCount}" id="quantityAccepted_o_${rowCount}" value="${quantityToReceive}"/>
                                 </td>
                                 <td>              
                                     <select name="inventoryItemTypeId_o_${rowCount}" class="selectBox">
@@ -159,7 +174,7 @@ under the License.
                                 <a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId}&purchaseOrderId=${orderId}&clearAll=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClearAll}</a>
                             </td>
                             <td align="right">
-                                <input type="submit" class="smallSubmit" value="${uiLabelMap.ProductReceiveItem}"/>
+                                <a class="smallSubmit" href="javascript:populateQuantities(${rowCount - 1});document.selectAllForm.submit();">${uiLabelMap.ProductReceiveItem}</a>
                             </td>
                         </tr>
                     </#if>
