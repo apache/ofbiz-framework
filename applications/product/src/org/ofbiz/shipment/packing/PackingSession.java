@@ -120,7 +120,7 @@ public class PackingSession implements java.io.Serializable {
         invLookup.put("orderId", orderId);
         invLookup.put("orderItemSeqId", orderItemSeqId);
         invLookup.put("shipGroupSeqId", shipGroupSeqId);
-        List reservations = this.getDelegator().findByAnd("OrderItemShipGrpInvRes", invLookup);
+        List reservations = this.getDelegator().findByAnd("OrderItemShipGrpInvRes", invLookup, UtilMisc.toList("quantity DESC"));
 
         // no reservations we cannot add this item
         if (UtilValidate.isEmpty(reservations)) {
