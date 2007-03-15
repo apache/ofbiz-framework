@@ -246,7 +246,7 @@ under the License.
         </field>
         <field name="unassignedRequirements"><check/></field>
         <field name="facilityId">
-            <drop-down allow-empty="true">
+            <drop-down allow-empty="false">
                 <entity-options entity-name="Facility" description="${facilityId}"/>
             </drop-down>
         </field>
