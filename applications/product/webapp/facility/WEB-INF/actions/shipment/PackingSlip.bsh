@@ -1,0 +1,85 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+// This script gets shipment items grouped by package for use in the packing slip PDF or any screens that require by-package layout
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
+import org.ofbiz.base.util.UtilMisc;
+
+// Since this script is run after ViewShipment, we will re-use the shipment in the context
+shipment = context.get("shipment");
+if (shipment == null) return;
+
+// get the packages related to this shipment in order of packages
+orderBy = UtilMisc.toList("shipmentPackageSeqId");
+shipmentPackages = shipment.getRelated("ShipmentPackage", orderBy);
+
+// first we scan the shipment items and count the quantity of each product that is being shipped
+quantityShippedByProduct = FastMap.newInstance();
+shipmentItems = shipment.getRelated("ShipmentItem");
+for (iter = shipmentItems.iterator(); iter.hasNext(); ) {
+    shipmentItem = iter.next();
+    productId = shipmentItem.get("productId");
+
+    shipped = quantityShippedByProduct.get(productId);
+    if (shipped == null) shipped = new Double(0);
+    shipped += shipmentItem.getDouble("quantity").doubleValue();
+    quantityShippedByProduct.put(productId, shipped);
+}
+
+// next scan the order items (via issuances) to count the quantity of each product requested
+quantityRequestedByProduct = FastMap.newInstance();
+issuances = shipment.getRelated("ItemIssuance");
+for (iter = issuances.iterator(); iter.hasNext(); ) {
+    issuance = iter.next();
+    orderItem = issuance.getRelatedOne("OrderItem");
+    productId = orderItem.get("productId");
+
+    requested = quantityRequestedByProduct.get(productId);
+    if (requested == null) requested = new Double(0);
+    cancelQuantity = orderItem.getDouble("cancelQuantity");
+    quantity = orderItem.getDouble("quantity");
+    requested += quantity.doubleValue() - (cancelQuantity != null ? cancelQuantity.doubleValue() : 0);
+    quantityRequestedByProduct.put(productId, requested);
+}
+
+// for each package, we want to list the quantities and details of each product
+packages = FastList.newInstance(); // note we assume that the package number is simply the index + 1 of this list
+for (iter = shipmentPackages.iterator(); iter.hasNext(); ) {
+    shipmentPackage = iter.next();
+    contents = shipmentPackage.getRelated("ShipmentPackageContent", UtilMisc.toList("shipmentItemSeqId"));
+
+    // each line is one logical Product and the quantities associated with it
+    lines = FastList.newInstance();
+    for (citer = contents.iterator(); citer.hasNext(); ) {
+        content = citer.next();
+        shipmentItem = content.getRelatedOne("ShipmentItem");
+        product = shipmentItem.getRelatedOne("Product");
+
+        line = FastMap.newInstance();
+        line.put("product", product);
+        line.put("quantityInPackage", content.get("quantity"));
+        line.put("quantityShipped", quantityShippedByProduct.get(product.get("productId")));
+        line.put("quantityRequested", quantityRequestedByProduct.get(product.get("productId")));
+        lines.add(line);
+    }
+    packages.add(lines);
+}
+context.put("packages", packages);

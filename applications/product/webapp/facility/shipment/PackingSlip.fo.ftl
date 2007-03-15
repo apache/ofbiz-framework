@@ -31,7 +31,6 @@ under the License.
 </fo:layout-master-set>
 
     <#if hasPermission>
-        <#assign rowColor = "white">
         <#assign shipGroup = shipment.getRelatedOne("PrimaryOrderItemShipGroup")?if_exists>
         <#assign carrier = (shipGroup.carrierPartyId)?default("N/A")>
         <fo:page-sequence master-reference="main">
@@ -51,7 +50,10 @@ under the License.
             </fo:block>
             <fo:block><fo:leader/></fo:block>
 
-            <fo:block font-size="14pt">${uiLabelMap.ProductShipmentId} #${shipmentId}</fo:block>
+
+            <#list packages as package>
+
+            <fo:block font-size="14pt">${uiLabelMap.ProductShipmentId} #${shipmentId} / Package ${package_index + 1}</fo:block>
             <fo:block font-size="12pt">${uiLabelMap.ProductOrderId} #${shipment.primaryOrderId?default("N/A")} / ${shipment.primaryShipGroupSeqId?default("N/A")}</fo:block>
             <fo:block><fo:leader/></fo:block>
 
@@ -110,47 +112,51 @@ under the License.
             <fo:block space-after.optimum="10pt" font-size="10pt">
             <fo:table>
                 <fo:table-column column-width="250pt"/>
-                <fo:table-column column-width="100pt"/>
-                <fo:table-column column-width="100pt"/>
+                <fo:table-column column-width="67pt"/>
+                <fo:table-column column-width="67pt"/>
+                <fo:table-column column-width="67pt"/>
                 <fo:table-header>
                     <fo:table-row font-weight="bold">
                         <fo:table-cell padding="2pt" background-color="#D4D0C8"><fo:block>${uiLabelMap.ProductProduct}</fo:block></fo:table-cell>
-                        <fo:table-cell padding="2pt" background-color="#D4D0C8"><fo:block>${uiLabelMap.ProductQuantityRequested}</fo:block></fo:table-cell>
-                        <fo:table-cell padding="2pt" background-color="#D4D0C8"><fo:block>${uiLabelMap.ProductQuantityShipped}</fo:block></fo:table-cell>
+                        <fo:table-cell padding="2pt" background-color="#D4D0C8"><fo:block>Requested</fo:block></fo:table-cell>
+                        <fo:table-cell padding="2pt" background-color="#D4D0C8"><fo:block>In this Package</fo:block></fo:table-cell>
+                        <fo:table-cell padding="2pt" background-color="#D4D0C8"><fo:block>Total Shipped</fo:block></fo:table-cell>
                     </fo:table-row>
                 </fo:table-header>
                 <fo:table-body>
-                    <#list shipmentItemDatas as shipmentItem>
-                        <#assign itemIssuances = shipmentItem.itemIssuances>
-                        <#list itemIssuances as issue>
-                            <#assign orderItem = issue.getRelatedOne("OrderItem")>
-                            <#assign product = shipmentItem.product>
+                    <#list package as line>
+                            <#if ((line_index % 2) == 0)>
+                                <#assign rowColor = "white">
+                            <#else>
+                                <#assign rowColor = "#CCCCCC">
+                            </#if>
+
                             <fo:table-row>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                    <#if product?has_content>
-                                        <fo:block>${product.internalName?default("Internal Name Not Set!")} [${product.productId}]</fo:block>
+                                    <#if line.product?has_content>
+                                        <fo:block>${line.product.internalName?default("Internal Name Not Set!")} [${line.product.productId}]</fo:block>
                                     <#else/>
-                                        <fo:block>&nbsp;</fo:block>
+                                        <fo:block>${line.getClass().getName()}&nbsp;</fo:block>
                                     </#if>
                                 </fo:table-cell>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                    <fo:block>${orderItem.quantity}</fo:block>
+                                    <fo:block>${line.quantityRequested?default(0)}</fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                    <fo:block>${issue.quantity}</fo:block>
+                                    <fo:block>${line.quantityInPackage?default(0)}</fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell padding="2pt" background-color="${rowColor}">
+                                    <fo:block>${line.quantityShipped?default(0)}</fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
-                            <#-- toggle the row color -->
-                            <#if rowColor == "white">
-                                <#assign rowColor = "#CCCCCC">
-                            <#else>
-                                <#assign rowColor = "white">
-                            </#if>
-                        </#list>
                     </#list>
                 </fo:table-body>
             </fo:table>
             </fo:block>
+
+            <#if package_has_next><fo:block break-before="page"/></#if>
+            </#list> <#-- packages -->
+
             <fo:block space-after.optimum="10pt" font-size="10pt">
             <fo:table>
                 <fo:table-column column-width="450pt"/>

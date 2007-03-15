@@ -275,7 +275,7 @@ under the License.
 
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ViewShipment.bsh"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentItems.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/PackingSlip.bsh"/>
             </actions>
             <widgets>
                 <platform-specific>
