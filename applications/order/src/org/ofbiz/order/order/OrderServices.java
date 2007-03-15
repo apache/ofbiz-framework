@@ -3706,4 +3706,60 @@ public class OrderServices {
         return ServiceUtil.returnSuccess();
     }
 
+    public static Map updateOrderPaymentPreference(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+
+        String orderPaymentPreferenceId = (String) context.get("orderPaymentPreferenceId");
+        String checkOutPaymentId = (String) context.get("checkOutPaymentId");
+        boolean cancelThis = ("true".equals((String) context.get("cancelThis")));
+        try {
+            GenericValue opp = delegator.findByPrimaryKey("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId));
+            String paymentMethodId = null;
+            String paymentMethodTypeId = null;
+
+            // The checkOutPaymentId is either a paymentMethodId or paymentMethodTypeId
+            // the original method did a "\d+" regexp to decide which is the case, this version is more explicit with its lookup of PaymentMethodType
+            if (checkOutPaymentId != null) {
+                List paymentMethodTypes = delegator.findAllCache("PaymentMethodType");
+                for (Iterator iter = paymentMethodTypes.iterator(); iter.hasNext(); ) {
+                    GenericValue type = (GenericValue) iter.next();
+                    if (type.get("paymentMethodTypeId").equals(checkOutPaymentId)) {
+                        paymentMethodTypeId = (String) type.get("paymentMethodTypeId");
+                        break;
+                    }
+                }
+                if (paymentMethodTypeId == null) {
+                    GenericValue method = delegator.findByPrimaryKey("PaymentMethod", UtilMisc.toMap("paymentMethodTypeId", paymentMethodTypeId));
+                    paymentMethodId = checkOutPaymentId;
+                    paymentMethodTypeId = (String) method.get("paymentMethodTypeId");
+                }
+            }
+
+            Map results = ServiceUtil.returnSuccess();
+            if (cancelThis) {
+                opp.set("statusId", "PAYMENT_CANCELLED");
+                opp.store();
+                results.put("orderPaymentPreferenceId", opp.get("orderPaymentPreferenceId"));
+            } else {
+                GenericValue newOpp = (GenericValue) opp.clone(); 
+                opp.set("statusId", "PAYMENT_CANCELLED");
+                opp.store();
+
+                newOpp.set("orderPaymentPreferenceId", delegator.getNextSeqId("OrderPaymentPreference"));
+                newOpp.set("paymentMethodId", paymentMethodId);
+                newOpp.set("paymentMethodTypeId", paymentMethodTypeId);
+                newOpp.setNonPKFields(context);
+                newOpp.create();
+                results.put("orderPaymentPreferenceId", newOpp.get("orderPaymentPreferenceId"));
+            }
+
+            return results;
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+    }
+
 }

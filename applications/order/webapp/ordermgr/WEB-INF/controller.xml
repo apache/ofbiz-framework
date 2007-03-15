@@ -1401,14 +1401,14 @@ under the License.
     <request-map uri="authOrderPayment">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="authOrderPaymentPreference"/>
-        <response name="success" type="view" value="orderview"/>
+        <response name="success" type="request-redirect" value="orderview"/>
     </request-map>
     
     <request-map uri="updateOrderPaymentPreference">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateOrderPaymentPreference"/>
-        <response name="success" type="view" value="orderview"/>
-        <response name="error" type="view" value="orderview"/>
+        <response name="success" type="request-redirect" value="orderview"/>
+        <response name="error" type="request-redirect" value="orderview"/>
     </request-map>
     
     <!-- Lookup request mappings -->

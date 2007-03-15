@@ -294,8 +294,8 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
 
-    <service name="updateOrderPaymentPreference" engine="simple" auth="true" default-entity-name="OrderPaymentPreference"
-            location="org/ofbiz/order/order/OrderServices.xml" invoke="updateOrderPaymentPreference">
+    <service name="updateOrderPaymentPreference" engine="java" auth="true" default-entity-name="OrderPaymentPreference"
+            location="org.ofbiz.order.order.OrderServices" invoke="updateOrderPaymentPreference">
         <auto-attributes mode="INOUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="checkOutPaymentId" type="String" mode="IN" optional="true"/>
