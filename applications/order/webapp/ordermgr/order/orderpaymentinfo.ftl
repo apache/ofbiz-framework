@@ -340,11 +340,12 @@ under the License.
          </select>
       </td>
    </tr>                    
+   <#assign openAmount = orderReadHelper.getOrderOpenAmount()>
    <tr>
       <td width="20%" align="right"><div class="tableheadtext">${uiLabelMap.AccountingAmount} </div></td>
       <td width="2%">&nbsp;</td>
       <td nowrap>
-         <input type="text" class="inputBox" name="maxAmount"/>
+         <input type="text" class="inputBox" name="maxAmount" value="${openAmount}"/>
       </td>
    </tr>
    <tr>

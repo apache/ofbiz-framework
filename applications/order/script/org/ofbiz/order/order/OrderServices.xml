@@ -491,54 +491,6 @@ under the License.
         <set-nonpk-fields value-name="orderHeader" map-name="parameters"/>
         <store-value value-name="orderHeader"/>  
     </simple-method>
-    <simple-method method-name="updateOrderPaymentPreference" short-description="Update an order payment preference record">
-        <check-permission permission="ORDERMGR" action="_UPDATE">
-            <fail-message message="ERROR: Not enough permissions to update this record."/>
-        </check-permission>
-        <check-errors/>
-
-        <entity-one entity-name="OrderPaymentPreference" value-name="opp">
-            <field-map field-name="orderPaymentPreferenceId" env-name="parameters.orderPaymentPreferenceId"/>
-        </entity-one>
-
-        <log level="always" message="Parameters - ${parameters}"/>
-        <if-not-empty field-name="checkOutPaymentId" map-name="parameters">
-            <if-regexp map-name="parameters" field-name="checkOutPaymentId" expr="\d+">
-                <log level="info" message="PaymentMethod found: ${parameters.checkOutPaymentId}"/>
-                <set field="parameters.paymentMethodId" from-field="parameters.checkOutPaymentId"/>
-                <entity-one entity-name="PaymentMethod" value-name="paymentMethod">
-                    <field-map field-name="paymentMethodId" env-name="parameters.checkOutPaymentId"/>
-                </entity-one>
-                <set field="parameters.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>
-            <else>
-                <log level="info" message="PaymentMethodType found: ${parameters.checkOutPaymentId}"/>
-                <set field="parameters.paymentMethodTypeId" from-field="parameters.checkOutPaymentId"/>
-            </else>
-            </if-regexp>
-        </if-not-empty>
-
-        <if-compare field-name="parameters.cancelThis" operator="not-equals" value="true">
-            <log level="always" message="Cancel not set; updating..."/>
-            <clone-value value-name="opp" new-value-name="newOpp"/>
-            <set field="opp.statusId" value="PAYMENT_CANCELLED"/>
-            <store-value value-name="opp"/>
-
-            <sequenced-id-to-env sequence-name="OrderPaymentPreference" env-name="payPrefId"/>
-            <set field="newOpp.orderPaymentPreferenceId" from-field="payPrefId"/>
-            <set field="newOpp.paymentMethodTypeId" set-if-null="true"/>
-            <set field="newOpp.paymentMethodId" set-if-null="true"/>
-            <set field="newOpp.createdByUserLogin" from-field="userLogin.userLoginId"/>
-            <set-nonpk-fields value-name="newOpp" map-name="parameters"/>
-            <create-value value-name="newOpp"/>
-            <field-to-result field-name="orderPaymentPreferenceId" map-name="newOpp" result-name="orderPaymentPreferenceId"/>
-        <else>
-            <log level="always" message="Cancel set; not updating..."/>
-            <set field="opp.statusId" value="PAYMENT_CANCELLED"/>
-            <store-value value-name="opp"/>
-            <field-to-result field-name="orderPaymentPreferenceId" map-name="opp" result-name="orderPaymentPreferenceId"/>
-        </else>
-        </if-compare>
-    </simple-method>
 
     <simple-method method-name="recreateOrderAdjustments" short-description="Auto create OrderAdjustments">
         <check-permission permission="ORDERMGR" action="_CREATE">

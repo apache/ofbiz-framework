@@ -1280,6 +1280,42 @@ public class OrderReadHelper {
         return getOrderGrandTotalBd().doubleValue();
     }
 
+    /**
+     * Gets the amount open on the order that is not covered by the relevant OrderPaymentPreferences.
+     * This works by adding up the amount allocated to each unprocessed OrderPaymentPreference and the
+     * amounts received as payments for the settled ones.
+     */
+    public double getOrderOpenAmount() throws GenericEntityException {
+        GenericDelegator delegator = orderHeader.getDelegator();
+        double total = getOrderGrandTotal();
+        double openAmount = 0;
+        List prefs = getPaymentPreferences();
+
+        // add up the covered amount, but skip preferences which are declined or cancelled
+        for (Iterator iter = prefs.iterator(); iter.hasNext(); ) {
+            GenericValue pref = (GenericValue) iter.next();
+            if ("PAYMENT_CANCELLED".equals(pref.get("statusId")) || "PAYMENT_DECLINED".equals(pref.get("statusId"))) {
+                continue;
+            } else if ("PAYMENT_SETTLED".equals(pref.get("statusId"))) {
+                List responses = pref.getRelatedByAnd("PaymentGatewayResponse", UtilMisc.toMap("transCodeEnumId", "PGT_CAPTURE"));
+                for (Iterator respIter = responses.iterator(); respIter.hasNext(); ) {
+                    GenericValue response = (GenericValue) respIter.next();
+                    Double amount = response.getDouble("amount");
+                    if (amount != null) {
+                        openAmount += amount.doubleValue();
+                    }
+                }
+            } else {
+                // all others are currently "unprocessed" payment preferences
+                Double maxAmount = pref.getDouble("maxAmount");
+                if (maxAmount != null) {
+                    openAmount += maxAmount.doubleValue();
+                }
+            }
+        }
+        return total - openAmount;
+    }
+
     public List getOrderHeaderAdjustments() {
         return getOrderHeaderAdjustments(getAdjustments(), null);
     }
