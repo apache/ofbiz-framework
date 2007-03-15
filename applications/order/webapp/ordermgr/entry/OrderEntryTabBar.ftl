@@ -17,8 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="boxtop">
-    <div class="boxhead-right">
+<div class="button-bar">
         <a href="<@ofbizUrl>emptycart</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderClearOrder}</a>
         <#if (shoppingCart.size() > 0)>
         <a href="javascript:document.cartform.submit()" class="buttontext">${uiLabelMap.OrderRecalculateOrder}</a>
@@ -44,15 +43,15 @@ under the License.
             <a href="<@ofbizUrl>finalizeOrder?finalizeMode=init</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderFinalizeOrder}</a>
             </#if>
         </#if>
-    </div>
-    <div class="boxhead-left">
-        &nbsp;${uiLabelMap.CommonCreate}
+</div>
+<div class="screenlet-title-bar">
+    <h3>
+        ${uiLabelMap.CommonCreate}
         <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
             ${uiLabelMap.OrderPurchaseOrder}
         <#else>
             ${uiLabelMap.OrderSalesOrder}
         </#if>
-    </div>
-    <div class="boxhead-fill">&nbsp;</div>
+    </h3>
 </div>
 

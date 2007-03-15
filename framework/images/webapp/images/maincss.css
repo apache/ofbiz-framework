@@ -1102,9 +1102,8 @@ width: 100%;
 #column-container .left {
 float: left;
 /* alt: position: absolute; top: 0px; left: 0px; */
-/*width: 22em;*/
+width: 22em;
 margin-right: 1em;
-width: 20%;
 }
 
 .left-border {
