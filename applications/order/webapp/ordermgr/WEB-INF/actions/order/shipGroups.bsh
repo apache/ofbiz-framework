@@ -1,0 +1,102 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+import javolution.util.FastMap;
+import javolution.util.FastList;
+
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.entity.util.EntityUtil;
+
+orderId = parameters.get("orderId");
+if (orderId == null) return;
+
+shipGroups = delegator.findByAnd("OrderItemShipGroup", UtilMisc.toMap("orderId", orderId), UtilMisc.toList("shipGroupSeqId"));
+context.put("shipGroups", shipGroups);
+
+// method to expand the marketing packages
+FastList expandProductGroup(product, quantity) {
+    sublines = FastList.newInstance();
+    associations = product.getRelatedByAnd("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "MANUF_COMPONENT"));
+    associations = EntityUtil.filterByDate( associations );
+    for (iter = associations.iterator(); iter.hasNext(); ) {
+        association = iter.next();
+        line = FastMap.newInstance();
+        line.put("product", association.getRelatedOne("AssocProduct"));
+
+        // determine the quantity
+        quantityComposed = association.getDouble("quantity");
+        quantityInGroup = quantity * (quantityComposed == null ? 0 : quantityComposed.doubleValue());
+        line.put("quantityInGroup", new Double(quantityInGroup));
+
+        sublines.add(line);
+    }
+    return sublines;
+}
+
+groupData = FastMap.newInstance();
+for (iter = shipGroups.iterator(); iter.hasNext(); ) {
+    groupQuantity = 0;
+    shipGroup = iter.next();
+    data = FastMap.newInstance();
+
+    address = shipGroup.getRelatedOne("PostalAddress");
+    data.put("address", address);
+
+    phoneNumber = shipGroup.getRelatedOne("TelecomTelecomNumber");
+    data.put("phoneNumber", phoneNumber);
+
+    carrierShipmentMethod = shipGroup.getRelatedOne("CarrierShipmentMethod");
+    if (carrierShipmentMethod != null) {
+        data.put("carrierShipmentMethod", carrierShipmentMethod);
+        data.put("shipmentMethodType", carrierShipmentMethod.getRelatedOneCache("ShipmentMethodType"));
+    }
+
+    // the lines in a page, each line being a row of data to display
+    lines = FastList.newInstance();
+
+    orderItemAssocs = shipGroup.getRelated("OrderItemShipGroupAssoc", UtilMisc.toList("orderItemSeqId"));
+    for (oiter = orderItemAssocs.iterator(); oiter.hasNext(); ) {
+        orderItemAssoc = oiter.next();
+        orderItem = orderItemAssoc.getRelatedOne("OrderItem");
+        product = orderItem.getRelatedOne("Product");
+        line = FastMap.newInstance();
+
+        line.put("quantityInGroup", orderItemAssoc.get("quantity"));
+        line.put("orderItem", orderItem);
+        line.put("product", product);
+
+        if ("MARKETING_PKG_AUTO".equals(product.get("productTypeId"))) {
+            sublines = expandProductGroup(product, orderItemAssoc.get("quantity").doubleValue());
+            line.put("expandedList", sublines);
+            for (siter = sublines.iterator(); iter.hasNext(); ) {
+                subline = iter.next();
+                groupQuantity += subline.get("quantityInGroup").doubleValue();
+            }
+        } else {
+            groupQuantity += orderItemAssoc.get("quantity").doubleValue();
+        }
+
+        lines.add(line);
+    }
+    data.put("lines", lines);
+    data.put("groupQuantity", new Double(groupQuantity));
+
+    groupData.put(shipGroup.get("shipGroupSeqId"), data);
+}
+context.put("groupData", groupData);

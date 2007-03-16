@@ -1437,6 +1437,7 @@ under the License.
     <!-- PDFs -->
     <request-map uri="order.pdf"><security https="true" auth="true"/><response name="success" type="view" value="OrderPDF"/></request-map>
     <request-map uri="return.pdf"><security https="true" auth="true"/><response name="success" type="view" value="ReturnPDF"/></request-map>
+    <request-map uri="shipGroups.pdf"><security https="true" auth="true"/><response name="success" type="view" value="ShipGroupsPDF"/></request-map>
 
     <!--
         These are just examples of reports developed using JasperReport and not really
@@ -1616,6 +1617,7 @@ under the License.
     <!-- PDFs  -->
     <view-map name="OrderPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintForms.xml#OrderPDF" content-type="application/pdf" encoding="none"/>
     <view-map name="ReturnPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintForms.xml#ReturnPDF" content-type="application/pdf" encoding="none"/>
+    <view-map name="ShipGroupsPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintForms.xml#ShipGroupsPDF" content-type="application/pdf" encoding="none"/>
 
     <view-map name="SendConfirmationMail" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#SendOrderConfirmation"/>
 
