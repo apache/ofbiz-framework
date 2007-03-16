@@ -150,6 +150,55 @@ if (action != null) {
         TransactionUtil.commit(beganTransaction);
     }
 
+    // If the user has specified a number of months over which to sum usage quantities, define the correct timestamp
+    checkTime = null;
+    monthsInPastLimitStr = request.getParameter("monthsInPastLimit");
+    if (UtilValidate.isNotEmpty(monthsInPastLimitStr)) {
+        try {
+            monthsInPastLimit = Integer.parseInt(monthsInPastLimitStr);
+            cal = UtilDateTime.toCalendar(null);
+            cal.add(Calendar.MONTH, 0 - monthsInPastLimit);
+            checkTime = UtilDateTime.toTimestamp(cal.getTime());
+            searchParameterString += "&monthsInPastLimit=" + monthsInPastLimitStr;
+        } catch (Exception e) {
+            // Ignore
+        }
+    }
+
+    if (! UtilValidate.isEmpty(checkTime)) {
+
+        // Construct a dynamic view entity to search against for sales usage quantities
+        salesUsageViewEntity = new DynamicViewEntity();
+        salesUsageViewEntity.addMemberEntity("OI", "OrderItem");
+        salesUsageViewEntity.addMemberEntity("OH", "OrderHeader");
+        salesUsageViewEntity.addMemberEntity("ItIss", "ItemIssuance");
+        salesUsageViewEntity.addMemberEntity("InvIt", "InventoryItem");
+        salesUsageViewEntity.addViewLink("OI", "OH", false, ModelKeyMap.makeKeyMapList("orderId"));
+        salesUsageViewEntity.addViewLink("OI", "ItIss", false, ModelKeyMap.makeKeyMapList("orderId", "orderId", "orderItemSeqId", "orderItemSeqId"));
+        salesUsageViewEntity.addViewLink("ItIss", "InvIt", false, ModelKeyMap.makeKeyMapList("inventoryItemId"));
+        salesUsageViewEntity.addAlias("OI", "productId");
+        salesUsageViewEntity.addAlias("OH", "statusId");
+        salesUsageViewEntity.addAlias("OH", "orderTypeId");
+        salesUsageViewEntity.addAlias("OH", "orderDate");
+        salesUsageViewEntity.addAlias("ItIss", "inventoryItemId");
+        salesUsageViewEntity.addAlias("ItIss", "quantity");
+        salesUsageViewEntity.addAlias("InvIt", "facilityId");
+    
+        // Construct a dynamic view entity to search against for production usage quantities
+        productionUsageViewEntity = new DynamicViewEntity();
+        productionUsageViewEntity.addMemberEntity("WEIA", "WorkEffortInventoryAssign");
+        productionUsageViewEntity.addMemberEntity("WE", "WorkEffort");
+        productionUsageViewEntity.addMemberEntity("II", "InventoryItem");
+        productionUsageViewEntity.addViewLink("WEIA", "WE", false, ModelKeyMap.makeKeyMapList("workEffortId"));
+        productionUsageViewEntity.addViewLink("WEIA", "II", false, ModelKeyMap.makeKeyMapList("inventoryItemId"));
+        productionUsageViewEntity.addAlias("WEIA", "quantity");
+        productionUsageViewEntity.addAlias("WE", "actualCompletionDate");
+        productionUsageViewEntity.addAlias("WE", "workEffortTypeId");
+        productionUsageViewEntity.addAlias("II", "facilityId");
+        productionUsageViewEntity.addAlias("II", "productId");
+
+    }
+
     prodsIt = prods.iterator();
 
     while (prodsIt.hasNext()) {
@@ -194,6 +243,64 @@ if (action != null) {
         oneInventory.put("offsetQOHQtyAvailable", offsetQOHQtyAvailable);
         oneInventory.put("offsetATPQtyAvailable", offsetATPQtyAvailable);
         oneInventory.put("quantityOnOrder", quantityOnOrder);
+
+        if (! UtilValidate.isEmpty(checkTime)) {
+        
+            // Make a query against the sales usage view entity
+            salesUsageIt = delegator.findListIteratorByCondition(salesUsageViewEntity, 
+                    new EntityConditionList(
+                        UtilMisc.toList(
+                            new EntityExpr("facilityId", EntityOperator.EQUALS, "WebStoreWarehouse"),
+                            new EntityExpr("productId", EntityOperator.EQUALS, oneProd.getString("productId")),
+                            new EntityExpr("statusId", EntityOperator.IN, UtilMisc.toList("ORDER_COMPLETED", "ORDER_APPROVED", "ORDER_HELD")),
+                            new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
+                            new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
+                        ),
+                    EntityOperator.AND),
+                null, null, null, null);
+    
+            // Sum the sales usage quantities found
+            salesUsageQuantity = 0;
+            while((salesUsageItem = salesUsageIt.next()) != null) {
+                if (salesUsageItem.get("quantity") != null) {
+                    try {
+                        salesUsageQuantity += salesUsageItem.getDouble("quantity").doubleValue();
+                    } catch (Exception e) {
+                        // Ignore
+                    }
+                }
+            }
+            salesUsageIt.close();
+    
+            // Make a query against the production usage view entity
+            productionUsageIt = delegator.findListIteratorByCondition(productionUsageViewEntity, 
+                    new EntityConditionList(
+                        UtilMisc.toList(
+                            new EntityExpr("facilityId", EntityOperator.EQUALS, "WebStoreWarehouse"),
+                            new EntityExpr("productId", EntityOperator.EQUALS, oneProd.getString("productId")),
+                            new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"),
+                            new EntityExpr("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
+                        ),
+                    EntityOperator.AND),
+                null, null, null, null);
+    
+            // Sum the production usage quantities found
+            productionUsageQuantity = 0;
+            while((productionUsageItem = productionUsageIt.next()) != null) {
+                if (productionUsageItem.get("quantity") != null) {
+                    try {
+                        productionUsageQuantity += productionUsageItem.getDouble("quantity").doubleValue();
+                    } catch (Exception e) {
+                        // Ignore
+                    }
+                }
+            }
+            productionUsageIt.close();
+    
+            oneInventory.put("usageQuantity", salesUsageQuantity + productionUsageQuantity);
+
+        }
+
         rows.add(oneInventory);
     }
 
