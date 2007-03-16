@@ -23,6 +23,9 @@ under the License.
   <#assign shipGroupAddress = shipGroup.getRelatedOne("PostalAddress")?if_exists>
   <div class="screenlet">
     <div class="screenlet-header">
+       <div class="boxlink">
+         <div class="tabletext"><a href="<@ofbizUrl>shipGroups.pdf?orderId=${orderId}</@ofbizUrl>" class="buttontext">Ship Groups PDF</a></div>
+       </div>
        <div class="boxhead">&nbsp;${uiLabelMap.OrderShipmentInformation} - ${shipGroup.shipGroupSeqId}</div>
     </div>
     <div class="screenlet-body">
