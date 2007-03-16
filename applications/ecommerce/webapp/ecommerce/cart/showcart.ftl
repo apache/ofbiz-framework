@@ -215,7 +215,7 @@ function setAlternateGwp(field) {
                     <#else>
                       <#assign parentProductId = cartLine.getProductId()/>
                     </#if>
-                    <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale)?if_exists>
+                    <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists>
                     <#if !smallImageUrl?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
                     <#if smallImageUrl?has_content>
                       <a href="<@ofbizUrl>product?product_id=${parentProductId}</@ofbizUrl>">
