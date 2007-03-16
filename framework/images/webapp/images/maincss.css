@@ -942,6 +942,10 @@ margin-right: 1em;
 margin-top: 1em;
 }
 
+.appbar {
+background-color: #ffffff;
+}
+
 .whitearea {
 background-color: #FFFFFF;
 }
