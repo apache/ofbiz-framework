@@ -98,11 +98,10 @@ public class MrpServices {
         }
 
         // Proposed requirements are deleted
-        // TODO: we have to find a way (a new status REQ_PROPOSED?) to recognize the requirements automatically created by the MRP process
         listResult = null;
         List listResultRoles = new ArrayList();
         try{
-            listResult = delegator.findByAnd("Requirement", UtilMisc.toMap("requirementTypeId", "PRODUCT_REQUIREMENT", "statusId", "REQ_CREATED"));
+            listResult = delegator.findByAnd("Requirement", UtilMisc.toMap("requirementTypeId", "PRODUCT_REQUIREMENT", "statusId", "REQ_PROPOSED"));
         } catch(GenericEntityException e) {
             return ServiceUtil.returnError("Problem, we can not find all the items of InventoryEventPlanned, for more detail look at the log");
         }
