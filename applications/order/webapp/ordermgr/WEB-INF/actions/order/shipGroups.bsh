@@ -84,8 +84,8 @@ for (iter = shipGroups.iterator(); iter.hasNext(); ) {
         if ("MARKETING_PKG_AUTO".equals(product.get("productTypeId"))) {
             sublines = expandProductGroup(product, orderItemAssoc.get("quantity").doubleValue());
             line.put("expandedList", sublines);
-            for (siter = sublines.iterator(); iter.hasNext(); ) {
-                subline = iter.next();
+            for (siter = sublines.iterator(); siter.hasNext(); ) {
+                subline = siter.next();
                 groupQuantity += subline.get("quantityInGroup").doubleValue();
             }
         } else {
