@@ -70,6 +70,7 @@ for (iter = shipGroups.iterator(); iter.hasNext(); ) {
     // the lines in a page, each line being a row of data to display
     lines = FastList.newInstance();
 
+    // process the order item to ship group associations, each being a line item for the group
     orderItemAssocs = shipGroup.getRelated("OrderItemShipGroupAssoc", UtilMisc.toList("orderItemSeqId"));
     for (oiter = orderItemAssocs.iterator(); oiter.hasNext(); ) {
         orderItemAssoc = oiter.next();
@@ -77,19 +78,24 @@ for (iter = shipGroups.iterator(); iter.hasNext(); ) {
         product = orderItem.getRelatedOne("Product");
         line = FastMap.newInstance();
 
-        line.put("quantityInGroup", orderItemAssoc.get("quantity"));
+        quantity = orderItemAssoc.get("quantity").doubleValue();
+        if (orderItemAssoc.get("cancelQuantity") != null) {
+            quantity -= orderItemAssoc.get("cancelQuantity").doubleValue();
+        }
+
+        line.put("quantityInGroup", quantity);
         line.put("orderItem", orderItem);
         line.put("product", product);
 
         if ("MARKETING_PKG_AUTO".equals(product.get("productTypeId"))) {
-            sublines = expandProductGroup(product, orderItemAssoc.get("quantity").doubleValue());
+            sublines = expandProductGroup(product, quantity);
             line.put("expandedList", sublines);
             for (siter = sublines.iterator(); siter.hasNext(); ) {
                 subline = siter.next();
                 groupQuantity += subline.get("quantityInGroup").doubleValue();
             }
         } else {
-            groupQuantity += orderItemAssoc.get("quantity").doubleValue();
+            groupQuantity += quantity;
         }
 
         lines.add(line);
