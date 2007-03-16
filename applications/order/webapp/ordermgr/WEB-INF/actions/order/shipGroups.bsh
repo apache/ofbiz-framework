@@ -26,11 +26,17 @@ import org.ofbiz.entity.util.EntityUtil;
 orderId = parameters.get("orderId");
 if (orderId == null) return;
 
-shipGroups = delegator.findByAnd("OrderItemShipGroup", UtilMisc.toMap("orderId", orderId), UtilMisc.toList("shipGroupSeqId"));
+shipGroupSeqId = parameters.get("shipGroupSeqId");
+
+// if a particular ship group is requested, we will limit ourselves to it
+findMap = UtilMisc.toMap("orderId", orderId);
+if (shipGroupSeqId != null) findMap.put("shipGroupSeqId", shipGroupSeqId);
+
+shipGroups = delegator.findByAnd("OrderItemShipGroup", findMap, UtilMisc.toList("shipGroupSeqId"));
 context.put("shipGroups", shipGroups);
 
 // method to expand the marketing packages
-FastList expandProductGroup(product, quantity) {
+FastList expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen) {
     sublines = FastList.newInstance();
     associations = product.getRelatedByAnd("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "MANUF_COMPONENT"));
     associations = EntityUtil.filterByDate( associations );
@@ -39,10 +45,11 @@ FastList expandProductGroup(product, quantity) {
         line = FastMap.newInstance();
         line.put("product", association.getRelatedOne("AssocProduct"));
 
-        // determine the quantity
-        quantityComposed = association.getDouble("quantity");
-        quantityInGroup = quantity * (quantityComposed == null ? 0 : quantityComposed.doubleValue());
-        line.put("quantityInGroup", new Double(quantityInGroup));
+        // determine the quantities
+        quantityComposed = (association.getDouble("quantity") == null ? 0 : association.getDouble("quantity").doubleValue());
+        line.put("quantityInGroup", quantityInGroup * quantityComposed);
+        line.put("quantityShipped", quantityShipped * quantityComposed);
+        line.put("quantityOpen", quantityOpen * quantityComposed);
 
         sublines.add(line);
     }
@@ -51,7 +58,6 @@ FastList expandProductGroup(product, quantity) {
 
 groupData = FastMap.newInstance();
 for (iter = shipGroups.iterator(); iter.hasNext(); ) {
-    groupQuantity = 0;
     shipGroup = iter.next();
     data = FastMap.newInstance();
 
@@ -78,31 +84,41 @@ for (iter = shipGroups.iterator(); iter.hasNext(); ) {
         product = orderItem.getRelatedOne("Product");
         line = FastMap.newInstance();
 
-        quantity = orderItemAssoc.get("quantity").doubleValue();
+        // the quantity in group
+        quantityInGroup = orderItemAssoc.get("quantity").doubleValue();
         if (orderItemAssoc.get("cancelQuantity") != null) {
-            quantity -= orderItemAssoc.get("cancelQuantity").doubleValue();
+            quantityInGroup -= orderItemAssoc.get("cancelQuantity").doubleValue();
         }
 
-        line.put("quantityInGroup", quantity);
+        // the quantity shipped
+        quantityShipped = 0.0;
+        List issuances = delegator.findByAnd("ItemIssuance", UtilMisc.toMap("orderId", orderItem.get("orderId"), "orderItemSeqId", orderItem.get("orderItemSeqId"), "shipGroupSeqId", orderItemAssoc.get("shipGroupSeqId")));
+        for (iiter = issuances.iterator(); iiter.hasNext(); ) {
+            issuance = iiter.next();
+            quantityShipped += issuance.get("quantity").doubleValue();
+        }
+
+        // the quantity open (ordered - shipped)
+        quantityOpen = orderItem.get("quantity").doubleValue();
+        if (orderItem.get("cancelQuantity") != null) {
+            quantityOpen -= orderItem.get("cancelQuantity").doubleValue();
+        }
+        quantityOpen -= quantityShipped;
+
         line.put("orderItem", orderItem);
         line.put("product", product);
+        line.put("quantityInGroup", quantityInGroup);
+        line.put("quantityShipped", quantityShipped);
+        line.put("quantityOpen", quantityOpen);
 
         if ("MARKETING_PKG_AUTO".equals(product.get("productTypeId"))) {
-            sublines = expandProductGroup(product, quantity);
+            sublines = expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen);
             line.put("expandedList", sublines);
-            for (siter = sublines.iterator(); siter.hasNext(); ) {
-                subline = siter.next();
-                groupQuantity += subline.get("quantityInGroup").doubleValue();
-            }
-        } else {
-            groupQuantity += quantity;
         }
 
         lines.add(line);
     }
     data.put("lines", lines);
-    data.put("groupQuantity", new Double(groupQuantity));
-
     groupData.put(shipGroup.get("shipGroupSeqId"), data);
 }
 context.put("groupData", groupData);

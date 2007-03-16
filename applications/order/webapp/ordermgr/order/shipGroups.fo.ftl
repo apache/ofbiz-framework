@@ -102,9 +102,11 @@ under the License.
 
   <#assign lines = data.lines>
   <fo:table table-layout="fixed">
-    <fo:table-column/>
-    <fo:table-column/>
-    <fo:table-column/>
+    <fo:table-column column-width="proportional-column-width(2)"/>
+    <fo:table-column column-width="proportional-column-width(3)"/>
+    <fo:table-column column-width="proportional-column-width(1)"/>
+    <fo:table-column column-width="proportional-column-width(1)"/>
+    <fo:table-column column-width="proportional-column-width(1)"/>
 
     <fo:table-header>
       <fo:table-row font-weight="bold">
@@ -116,6 +118,12 @@ under the License.
         </fo:table-cell>
         <fo:table-cell background-color="#D4D0C8" text-align="right" height="20pt" display-align="center" border-top-style="solid" border-bottom-style="solid">
           <fo:block>${uiLabelMap.OrderQuantityInShipGroup}</fo:block>
+        </fo:table-cell>
+        <fo:table-cell background-color="#D4D0C8" text-align="right" height="20pt" display-align="center" border-top-style="solid" border-bottom-style="solid">
+          <fo:block>${uiLabelMap.OrderQuantityShipped}</fo:block>
+        </fo:table-cell>
+        <fo:table-cell background-color="#D4D0C8" text-align="right" height="20pt" display-align="center" border-top-style="solid" border-bottom-style="solid">
+          <fo:block>${uiLabelMap.ProductOpenQuantity}</fo:block>
         </fo:table-cell>
       </fo:table-row>        
     </fo:table-header>
@@ -136,35 +144,38 @@ under the License.
           <fo:block>${line.orderItem.itemDescription?if_exists}</fo:block>
         </fo:table-cell>
         <fo:table-cell background-color="${rowColor}">
-          <fo:block text-align="right"><#if !line.expandedList?exists>${line.quantityInGroup?default(0)}</#if></fo:block>
+          <fo:block text-align="right">${line.quantityInGroup?default(0)}</fo:block>
         </fo:table-cell>
+        <fo:table-cell background-color="${rowColor}">
+          <fo:block text-align="right">${line.quantityShipped?default(0)}</fo:block>
+        </fo:table-cell>
+        <fo:table-cell background-color="${rowColor}">
+          <fo:block text-align="right">${line.quantityOpen?default(0)}</fo:block>
+        </fo:table-cell>
+
       </fo:table-row>
 
       <#list line.expandedList?if_exists as expandedLine>
       <fo:table-row>
-        <fo:table-cell background-color="${rowColor}">
-          <fo:block margin-left="30pt">${expandedLine.product.productId}</fo:block>
+        <fo:table-cell background-color="${rowColor}" font-style="italic">
+          <fo:block margin-left="20pt">${expandedLine.product.productId}</fo:block>
         </fo:table-cell>
-        <fo:table-cell background-color="${rowColor}">
-          <fo:block>Component of ${line.orderItem.itemDescription}</fo:block>
+        <fo:table-cell background-color="${rowColor}" font-style="italic">
+          <fo:block margin-left="20pt">${expandedLine.product.internalName}</fo:block>
         </fo:table-cell>
-        <fo:table-cell background-color="${rowColor}">
+        <fo:table-cell background-color="${rowColor}" font-style="italic">
           <fo:block text-align="right">${expandedLine.quantityInGroup?default(0)}</fo:block>
         </fo:table-cell>
+        <fo:table-cell background-color="${rowColor}" font-style="italic">
+          <fo:block text-align="right">${expandedLine.quantityShipped?default(0)}</fo:block>
+        </fo:table-cell>
+        <fo:table-cell background-color="${rowColor}" font-style="italic">
+          <fo:block text-align="right">${expandedLine.quantityOpen?default(0)}</fo:block>
+        </fo:table-cell>
       </fo:table-row>
       </#list>
 
       </#list>
-
-      <fo:table-row><fo:table-cell number-columns-spanned="3" border-top-style="solid" height="10pt"><fo:block/></fo:table-cell></fo:table-row>
-      <fo:table-row>
-        <fo:table-cell number-columns-spanned="2">
-          <fo:block font-weight="bold" text-align="right">${uiLabelMap.OrderQuantityInShipGroupTotal}</fo:block>
-        </fo:table-cell>
-        <fo:table-cell>
-          <fo:block font-weight="bold" text-align="right">${data.groupQuantity}</fo:block>
-        </fo:table-cell>
-      </fo:table-row>
 
   </fo:table-body>
 </fo:table>
