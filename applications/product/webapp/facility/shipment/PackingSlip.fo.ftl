@@ -35,6 +35,9 @@ under the License.
         <#assign carrier = (shipGroup.carrierPartyId)?default("N/A")>
         <fo:page-sequence master-reference="main">
         <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
+
+            <#list packages as package>
+
             <fo:block>
                  ${screens.render("component://order/widget/ordermgr/OrderPrintForms.xml#CompanyLogo")}
             </fo:block>
@@ -49,9 +52,6 @@ under the License.
                 </fo:instream-foreign-object>
             </fo:block>
             <fo:block><fo:leader/></fo:block>
-
-
-            <#list packages as package>
 
             <fo:block font-size="14pt">${uiLabelMap.ProductShipmentId} #${shipmentId} / Package ${package_index + 1}</fo:block>
             <fo:block font-size="12pt">${uiLabelMap.ProductOrderId} #${shipment.primaryOrderId?default("N/A")} / ${shipment.primaryShipGroupSeqId?default("N/A")}</fo:block>
@@ -154,9 +154,7 @@ under the License.
             </fo:table>
             </fo:block>
 
-            <#if package_has_next><fo:block break-before="page"/></#if>
-            </#list> <#-- packages -->
-
+            <#if shipGroup.giftMessage?has_content>
             <fo:block space-after.optimum="10pt" font-size="10pt">
             <fo:table>
                 <fo:table-column column-width="450pt"/>
@@ -176,6 +174,12 @@ under the License.
                 </fo:table-body>
             </fo:table>
             </fo:block>
+          </#if>
+
+
+            <#if package_has_next><fo:block break-before="page"/></#if>
+            </#list> <#-- packages -->
+
         </fo:flow>
         </fo:page-sequence>
 
