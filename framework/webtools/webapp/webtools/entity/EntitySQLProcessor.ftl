@@ -16,17 +16,16 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<span class="head1">${uiLabelMap.WebtoolsSqlProcessor}</span>
-
-<form method="post" action="EntitySQLProcessor" name="EntitySQLCommand" style="margin: 0;">
-<table border="0" cellpadding="2" cellspacing="0">
+<h1>${uiLabelMap.WebtoolsSqlProcessor}</h1>
+<br />
+<form method="post" action="EntitySQLProcessor" name="EntitySQLCommand">
+<table class="basic-table" cellspacing="0">
     <tr>
-        <td width="20%" align="right">
-            <span class="tableheadtext">${uiLabelMap.CommonGroup}</span>
+        <td class="label">
+            ${uiLabelMap.CommonGroup}
         </td>
-        <td>&nbsp;</td>
-        <td width="80%" align="left">
-            <select name="group" class="selectBox">
+        <td>
+            <select name="group">
                 <#list groups as group>
                     <option value="${group}" <#if selGroup?exists><#if group = selGroup>selected</#if></#if>>${group}</option>
                 </#list>
@@ -34,50 +33,59 @@ under the License.
         </td>
     </tr>
     <tr>
-        <td width="20%" align="right">
-            <span class="tableheadtext">${uiLabelMap.WebtoolsSqlCommand}</span>
+        <td class="label">
+            ${uiLabelMap.WebtoolsSqlCommand}
         </td>
-        <td>&nbsp;</td>
-        <td width="80%" align="left">
-            <textarea class="textAreaBox" name="sqlCommand" cols="100" rows="5">${sqlCommand?if_exists}</textarea>
-        </td>
-    </tr>
-    <tr>
-        <td width="20%" align="right">
-            <span class="tableheadtext">${uiLabelMap.WebtoolsLimitRowsTo}</span>
-        </td>
-        <td>&nbsp;</td>
-        <td width="80%" align="left">
-            <input class="tabletext" name="rowLimit" value="${rowLimit?default(200)}"/>
+        <td>
+            <textarea name="sqlCommand" cols="100" rows="5">${sqlCommand?if_exists}</textarea>
         </td>
     </tr>
     <tr>
-        <td width="20%" align="right">&nbsp;</td>
+        <td class="label">
+            ${uiLabelMap.WebtoolsLimitRowsTo}
+        </td>
+        <td>
+            <input name="rowLimit" value="${rowLimit?default(200)}"/>
+        </td>
+    </tr>
+    <tr>
         <td>&nbsp;</td>
-        <td width="80%" align="left" colspan="4">
-            <input type="submit" class="smallSubmit" name="submitButton" value="${uiLabelMap.CommonSubmit}"/>
+        <td>
+            <input type="submit" name="submitButton" value="${uiLabelMap.CommonSubmit}"/>
         </td>
     </tr>
 </table>
 </form>
 
-<span class="head1">${uiLabelMap.WebtoolsResults}</span>
+<br />
+<h1>${uiLabelMap.WebtoolsResults}</h1>
+<br />
 
-<div class="tabletext">${resultMessage?if_exists}</div>
+<#if resultMessage?has_content>
+  ${resultMessage}
+  <br />
+</#if>
+
 <#if columns?has_content>
-    <table border="1" cellpadding="2" cellspacing="0">
-        <tr>
+    <table class="basic-table dark-grid hover-bar" cellspacing="0">
+        <tr class="header-row">
         <#list columns as column>
-            <td><div class="tabletext"><b>${column}</b></div></td>
+            <td>${column}</td>
         </#list>
         </tr>
         <#if records?has_content>
+        <#assign alt_row = false>
         <#list records as record>
-            <tr>
+            <tr <#if alt_row> class="alternate-row"</#if> >
             <#list record as field>
-                <td><div class="tabletext">${field?if_exists}</div></td>
+                <td>${field?if_exists}</td>
             </#list>
             </tr>
+            <#if alt_row>
+              <#assign alt_row = false>
+            <#else>
+              <#assign alt_row = true>
+            </#if>
         </#list>
         </#if>
     </table>
