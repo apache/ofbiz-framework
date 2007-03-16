@@ -213,6 +213,7 @@ public class ProposedOrder {
         Map parameters = UtilMisc.toMap("userLogin", userLogin);
         
         parameters.put("productId", productId);
+        parameters.put("statusId", "REQ_PROPOSED");
         parameters.put("facilityId", (isBuilt? manufacturingFacilityId: facilityId));
         parameters.put("requiredByDate", requiredByDate);
         parameters.put("requirementStartDate", requirementStartDate);

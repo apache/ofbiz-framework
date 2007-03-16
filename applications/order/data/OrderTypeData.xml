@@ -183,10 +183,13 @@ under the License.
 
     <!-- Requirement statuses -->
     <StatusType description="Requirement Status" hasTable="N" parentTypeId="" statusTypeId="REQUIREMENT_STATUS"/>
+    <StatusItem description="Proposed" sequenceId="01" statusCode="PROPOSED" statusId="REQ_PROPOSED" statusTypeId="REQUIREMENT_STATUS"/>
     <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="REQ_CREATED" statusTypeId="REQUIREMENT_STATUS"/>
     <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="REQ_APPROVED" statusTypeId="REQUIREMENT_STATUS"/>
     <StatusItem description="Ordered" sequenceId="03" statusCode="ORDERED" statusId="REQ_ORDERED" statusTypeId="REQUIREMENT_STATUS"/>
     <StatusItem description="Rejected" sequenceId="98" statusCode="REJECTED" statusId="REQ_REJECTED" statusTypeId="REQUIREMENT_STATUS"/>
+    <StatusValidChange condition="" statusId="REQ_PROPOSED" statusIdTo="REQ_APPROVED" transitionName="Accept Requirement"/>
+    <StatusValidChange condition="" statusId="REQ_PROPOSED" statusIdTo="REQ_REJECTED" transitionName="Reject Requirement"/>
     <StatusValidChange condition="" statusId="REQ_CREATED" statusIdTo="REQ_APPROVED" transitionName="Accept Requirement"/>
     <StatusValidChange condition="" statusId="REQ_CREATED" statusIdTo="REQ_REJECTED" transitionName="Reject Requirement"/>
     <StatusValidChange condition="" statusId="REQ_APPROVED" statusIdTo="REQ_ORDERED" transitionName="Order Requirement"/>
