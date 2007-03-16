@@ -1417,16 +1417,21 @@ public class ModelFormField {
 
             // read all option and entity-options sub-elements, maintaining order
             List childElements = UtilXml.childElementList(element);
-            Iterator childElementIter = childElements.iterator();
-            while (childElementIter.hasNext()) {
-                Element childElement = (Element) childElementIter.next();
-                if ("option".equals(childElement.getTagName())) {
-                    this.addOptionSource(new SingleOption(childElement, this));
-                } else if ("list-options".equals(childElement.getTagName())) {
-                    this.addOptionSource(new ListOptions(childElement, this));
-                } else if ("entity-options".equals(childElement.getTagName())) {
-                    this.addOptionSource(new EntityOptions(childElement, this));
+            if (childElements.size() > 0) {
+                Iterator childElementIter = childElements.iterator();
+                while (childElementIter.hasNext()) {
+                    Element childElement = (Element) childElementIter.next();
+                    if ("option".equals(childElement.getTagName())) {
+                        this.addOptionSource(new SingleOption(childElement, this));
+                    } else if ("list-options".equals(childElement.getTagName())) {
+                        this.addOptionSource(new ListOptions(childElement, this));
+                    } else if ("entity-options".equals(childElement.getTagName())) {
+                        this.addOptionSource(new EntityOptions(childElement, this));
+                    }
                 }
+            } else {
+                // this must be added or the multi-form select box options would not show up
+                this.addOptionSource(new SingleOption("Y", " ", this));
             }
         }
 
