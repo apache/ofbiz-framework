@@ -100,6 +100,7 @@ under the License.
             <date-time default-value="${bsh: org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
         </field>
         <field name="VIEW_SIZE" entry-name="viewSize" title="${uiLabelMap.ProductShowProductsPerPage}" widget-style="inputBox"><text/></field>
+        <field name="monthsInPastLimit" entry-name="monthsInPastLimit" title="monthsInPastLimit" widget-style="inputBox"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
@@ -123,6 +124,7 @@ under the License.
         <field name="daysToShip" title="${uiLabelMap.ProductDaysToShip}" widget-area-style="tabletextright"><display/></field>
         <field name="offsetQOHQtyAvailable" title="${uiLabelMap.ProductQtyOffsetQOH}" widget-area-style="tabletextright"><display/></field>
         <field name="offsetATPQtyAvailable" title="${uiLabelMap.ProductQtyOffsetATP}" widget-area-style="tabletextright"><display/></field>
+        <field name="usageQuantity" title="${uiLabelMap.ProductUsage}" widget-area-style="tabletextright"><display/></field>
     </form>
 
     <form name="SearchInventoryItemsParams" type="single" target="SearchInventoryItems"
