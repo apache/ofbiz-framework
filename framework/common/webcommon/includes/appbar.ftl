@@ -32,11 +32,11 @@ under the License.
 <#assign selectedClass = {"col" : "mainblock", "left" : "tabupleft", "center" : "tabupcenter", "right" : "tabupright", "link" : "tablinkselected"}>
 
 <table align="center" width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr bgcolor="#FFFFFF">
+  <tr class="appbar">
     <td><div class="appbarleft"></div></td>
     <td height="15" width="100%">
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
+          <tr>
           <#list displayApps as display>
             <#assign thisApp = display.getContextRoot()>
             <#assign permission = true>
