@@ -98,7 +98,7 @@ under the License.
             </drop-down>
         </field>
         <field name="statusId" widget-style="selectBox">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="false" no-current-selected-key="REQ_CREATED">
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" value="REQUIREMENT_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
