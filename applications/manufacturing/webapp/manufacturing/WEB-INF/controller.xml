@@ -34,7 +34,7 @@ under the License.
 
     <!-- view handlers -->
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
-    <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopPdfViewHandler"/>
+    <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopViewHandler"/>
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
     
@@ -772,7 +772,7 @@ under the License.
     <view-map name="WorkWithShipmentPlans" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#WorkWithShipmentPlans" type="screen"/>
     
     <!-- Report view mappings -->
-    <view-map name="ShipmentPlanStockReport" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#ShipmentPlanStockReport" content-type="application/pdf" encoding="none"/>    
+    <view-map name="ShipmentPlanStockReport" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#ShipmentPlanStockReport" content-type="application/pdf" encoding="none"/>
     <view-map name="ShipmentLabel" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#ShipmentLabel" content-type="application/pdf" encoding="none"/>
     <view-map name="ShipmentWorkEffortTasks" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#ShipmentWorkEffortTasks" content-type="application/pdf" encoding="none"/>
     <view-map name="CuttingListReport" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#CuttingListReport" content-type="application/pdf" encoding="none"/>

@@ -33,7 +33,7 @@ under the License.
     <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
 
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
-    <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopPdfViewHandler"/>
+    <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopViewHandler"/>
     <handler name="simplecontent" type="view" class="org.ofbiz.content.view.SimpleContentViewHandler"/>
 
     <preprocessor>

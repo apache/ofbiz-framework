@@ -32,22 +32,27 @@ import org.apache.fop.apps.MimeConstants;
 import org.apache.fop.apps.FOPException;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.webapp.view.ApacheFopFactory;
 import org.ofbiz.widget.fo.FoFormRenderer;
 
 /**
- * Uses XSL-FO formatted templates to generate PDF views
+ * Uses XSL-FO formatted templates to generate PDF, PCL, POSTSCRIPT etc.  views
  * This handler will use JPublish to generate the XSL-FO
  */
-public class ScreenFopPdfViewHandler extends ScreenWidgetViewHandler {
-    public static final String module = ScreenFopPdfViewHandler.class.getName();
+public class ScreenFopViewHandler extends ScreenWidgetViewHandler {
+    public static final String module = ScreenFopViewHandler.class.getName();
 
     /**
      * @see org.ofbiz.content.webapp.view.ViewHandler#render(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
 
+        if (UtilValidate.isEmpty(contentType)) {
+            contentType = "application/pdf";
+        }
+        
         // render and obtain the XSL-FO
         Writer writer = new StringWriter();
 
@@ -69,10 +74,10 @@ public class ScreenFopPdfViewHandler extends ScreenWidgetViewHandler {
         TransformerFactory transFactory = TransformerFactory.newInstance();
 
         try {
-            Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, out);
+            Fop fop = fopFactory.newFop(contentType, out);
             Transformer transformer = transFactory.newTransformer();
 
-            // set the input source (XSL-FO) and generate the PDF
+            // set the input source (XSL-FO) and generate the output stream of contentType
             Reader reader = new StringReader(writer.toString());
             Source src = new StreamSource(reader);
 
@@ -84,21 +89,21 @@ public class ScreenFopPdfViewHandler extends ScreenWidgetViewHandler {
                 fw.close();
             } catch (IOException e) {
                 throw new ViewHandlerException("Unable write to browser OutputStream", e);            
-            }                             
+            }
             */
-            
+
             // Get handler that is used in the generation process
             Result res = new SAXResult(fop.getDefaultHandler());
 
             try {
-                // Transform the FOP XML source into a PDF, hopefully...
+                // Transform the FOP XML source
                 transformer.transform(src, res);
 
                 // We don't want to cache the images that get loaded by the FOP engine
                 fopFactory.getImageFactory().clearCaches();
 
                 // set the content type and length
-                response.setContentType(MimeConstants.MIME_PDF);
+                response.setContentType(contentType);
                 response.setContentLength(out.size());
 
                 // write to the browser
@@ -111,7 +116,7 @@ public class ScreenFopPdfViewHandler extends ScreenWidgetViewHandler {
 
             } catch (TransformerException e) {
                 Debug.logError("FOP transform failed:" + e, module );
-                throw new ViewHandlerException("Unable to transform FO to PDF", e);
+                throw new ViewHandlerException("Unable to transform FO to " + contentType, e);
             }
 
         } catch (TransformerConfigurationException e) {
