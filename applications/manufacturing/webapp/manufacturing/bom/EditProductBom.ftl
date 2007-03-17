@@ -62,7 +62,7 @@ function lookupBom() {
             <td>
             <input type="text" name="productId" size="20" maxlength="40" value="${productId?if_exists}"/>
             <a href="javascript:call_fieldlookup2(document.searchform.productId,'LookupProduct');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"/></a>
-            <span class='tabletext'><a href="javascript:document.searchform.submit();" class="buttontext">${uiLabelMap.ManufacturingShowBOMAssocs}</a></span>
+            <span><a href="javascript:document.searchform.submit();" class="buttontext">${uiLabelMap.ManufacturingShowBOMAssocs}</a></span>
             </td>
         </tr>
         <tr>
@@ -74,13 +74,13 @@ function lookupBom() {
             <td>
             <input type="text" name="copyToProductId" size="20" maxlength="40" value=""/>
             <a href="javascript:call_fieldlookup2(document.searchform.copyToProductId,'LookupProduct');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"/></a>
-            <span class='tabletext'><a href="javascript:document.searchform.UPDATE_MODE.value='COPY';document.searchform.submit();" class="buttontext">${uiLabelMap.ManufacturingCopyBOMAssocs}</a></span>
+            <span><a href="javascript:document.searchform.UPDATE_MODE.value='COPY';document.searchform.submit();" class="buttontext">${uiLabelMap.ManufacturingCopyBOMAssocs}</a></span>
             </td>
         </tr>
     </table>
     </form>
 
-    <hr class="sepbar"/>
+    <hr/>
 
     
     <form action="<@ofbizUrl>UpdateProductBom</@ofbizUrl>" method="post" style="margin: 0;" name="editProductAssocForm">
@@ -231,7 +231,7 @@ function lookupBom() {
     </form>
     <br/>
     <#if productId?exists && product?exists>
-        <hr class="sepbar">
+        <hr/>
         <a name="components"></a>
         <h2>${uiLabelMap.ManufacturingProductComponents}</h2>
         
@@ -255,9 +255,9 @@ function lookupBom() {
             <tr valign="middle">
                 <td><a href="<@ofbizUrl>EditProductBom?productId=${(assocFromProduct.productIdTo)?if_exists}&productAssocTypeId=${(assocFromProduct.productAssocTypeId)?if_exists}#components</@ofbizUrl>" class="buttontext">${(assocFromProduct.productIdTo)?if_exists}</a></td>
                 <td><#if listToProduct?exists><a href="<@ofbizUrl>EditProductBom?productId=${(assocFromProduct.productIdTo)?if_exists}&productAssocTypeId=${(assocFromProduct.productAssocTypeId)?if_exists}#components</@ofbizUrl>" class="buttontext">${(listToProduct.internalName)?if_exists}</a></#if>&nbsp;</td>
-                <td><div class="tabletext" <#if (assocFromProduct.getTimestamp("fromDate"))?exists && nowDate.before(assocFromProduct.getTimestamp("fromDate"))> style="color: red;"</#if>>
+                <td><div <#if (assocFromProduct.getTimestamp("fromDate"))?exists && nowDate.before(assocFromProduct.getTimestamp("fromDate"))> style="color: red;"</#if>>
                 ${(assocFromProduct.fromDate)?if_exists}&nbsp;</div></td>
-                <td><div class="tabletext" <#if (assocFromProduct.getTimestamp("thruDate"))?exists && nowDate.after(assocFromProduct.getTimestamp("thruDate"))> style="color: red;"</#if>>
+                <td><div <#if (assocFromProduct.getTimestamp("thruDate"))?exists && nowDate.after(assocFromProduct.getTimestamp("thruDate"))> style="color: red;"</#if>>
                 ${(assocFromProduct.thruDate)?if_exists}&nbsp;</div></td>
                 <td>&nbsp;${(assocFromProduct.sequenceNum)?if_exists}</td>
                 <td>&nbsp;${(assocFromProduct.quantity)?if_exists}</td>
@@ -276,7 +276,7 @@ function lookupBom() {
             </#list>
         </table>
         
-        <hr class="sepbar">
+        <hr/>
         <h2>${uiLabelMap.ManufacturingProductComponentOf}</h2>
         <table border="1" cellpadding="2" cellspacing="0">
             <tr>

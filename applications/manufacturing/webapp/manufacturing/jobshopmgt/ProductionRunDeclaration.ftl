@@ -106,7 +106,7 @@ under the License.
                                 </th>
                                 <td>&nbsp;</td>
                                 <td width="80%" align="left">
-                                    <span class="tabletext">
+                                    <span>
                                         <#list inventoryItems as inventoryItem>
                                             <a href="/facility/control/EditInventoryItem?inventoryItemId=${inventoryItem.getString("inventoryItemId")}" class="buttontext" target="_blank">
                                                 ${inventoryItem.getString("inventoryItemId")}
@@ -129,7 +129,7 @@ under the License.
                                 </th>
                                 <td>&nbsp;</td>
                                 <td width="80%" align="left">
-                                    <span class="tabletext">
+                                    <span>
                                         <#list orderItems as orderItem>
                                             <a href="/ordermgr/control/orderview?orderId=${orderItem.getString("orderId")}" class="buttontext" target="_blank">
                                                 ${orderItem.getString("orderId")}/${orderItem.getString("orderItemSeqId")}
