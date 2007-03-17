@@ -20,8 +20,7 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="ListCostComponentCalc" type="list" title="" list-name="allCostComponentCalcs"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListCostComponentCalc" type="list" title="" list-name="allCostComponentCalcs">
         <auto-fields-entity entity-name="CostComponentCalc" default-field-type="display"/>
         <field name="costComponentCalcId" widget-style="buttontext">
             <hyperlink target="EditCostCalcs?costComponentCalcId=${costComponentCalcId}" description="${costComponentCalcId}" also-hidden="false"/>
@@ -42,8 +41,7 @@ under the License.
             <hyperlink target="removeCostComponentCalc?costComponentCalcId=${costComponentCalcId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditCostComponentCalc" type="single" target="updateCostComponentCalc" title="" default-map-name="costComponentCalc"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditCostComponentCalc" type="single" target="updateCostComponentCalc" title="" default-map-name="costComponentCalc">
         <alt-target use-when="costComponentCalc==null" target="createCostComponentCalc"/>
         <auto-fields-entity entity-name="CostComponentCalc" default-field-type="edit"/>
         <field name="costComponentCalcId"><display/></field>
@@ -57,7 +55,7 @@ under the License.
                 <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId" description="${description}"/>
             </drop-down>
         </field>
-        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}" widget-style="selectBox">
+        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
                 <entity-options entity-name="Uom" key-field-name="uomId" description="${description} [${uomId}]">
                     <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>

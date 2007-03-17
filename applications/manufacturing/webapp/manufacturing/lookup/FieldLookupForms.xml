@@ -20,8 +20,7 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="lookupRouting" target="LookupRouting" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext">
+    <form name="lookupRouting" target="LookupRouting" title="" type="single">
         <auto-fields-service service-name="lookupRoutingTask" default-field-type="hidden"/>
         <field name="workEffortName"><text-find/></field>
         <field name="workEffortTypeId"><hidden value="ROUTING"/></field>
@@ -31,7 +30,6 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
     <form name="listLookupRouting" list-name="listIt" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
         paginate-target="LookupRouting" >
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
@@ -47,8 +45,7 @@ under the License.
         <field name="quantityToProduce" title="${uiLabelMap.ManufacturingQuantityMinimum}"><display/></field>
     </form>
 
-    <form name="lookupRoutingTask" target="LookupRoutingTask" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext">
+    <form name="lookupRoutingTask" target="LookupRoutingTask" title="" type="single">
         <auto-fields-service service-name="lookupRoutingTask" default-field-type="find"/>
         <field name="workEffortTypeId"><hidden value="ROU_TASK"/></field>
         <field name="fixedAssetId" >
@@ -65,7 +62,6 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
     <form name="listLookupRoutingTask" list-name="listIt" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
         paginate-target="LookupRoutingTask" >
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">

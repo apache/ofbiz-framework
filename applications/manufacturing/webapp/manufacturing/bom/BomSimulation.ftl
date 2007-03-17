@@ -37,7 +37,7 @@ under the License.
           <th width="10%" align="right">&nbsp;</th>
         </tr>
         <tr>
-          <td colspan="6"><hr class="sepbar"></td>
+          <td colspan="6"><hr/></td>
         </tr>
         <#if tree?has_content>
           <#assign rowClass = "viewManyTR2">
@@ -88,7 +88,7 @@ under the License.
           <th width="8%" align="right">${uiLabelMap.CommonTotalCost}</th>
         </tr>
         <tr>
-          <td colspan="6"><hr class="sepbar"></td>
+          <td colspan="6"><hr/></td>
         </tr>
         <#if productsData?has_content>
           <#assign rowClass = "viewManyTR2">

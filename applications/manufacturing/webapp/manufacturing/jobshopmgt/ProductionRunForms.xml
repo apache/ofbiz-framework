@@ -548,7 +548,7 @@ under the License.
     <form name="AddProductionRunComponent" type="single" target="addProductionRunComponent" title="">
         <auto-fields-service service-name="addProductionRunComponent"/>
         <field name="productionRunId"><hidden/></field>
-        <field name="workEffortId" title="${uiLabelMap.ManufacturingTask}" widget-style="selectBox">
+        <field name="workEffortId" title="${uiLabelMap.ManufacturingTask}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="WorkEffort" description="${workEffortName} [${workEffortId}]">
                     <entity-constraint name="workEffortParentId" env-name="productionRunId"/>

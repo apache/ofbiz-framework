@@ -26,11 +26,11 @@ under the License.
 <#if techDataCalendar?has_content>
     ${listCalendarExceptionWeekWrapper.renderFormString(context)}
     <br/>
-    <hr class="sepbar">
+    <hr/>
     <#if calendarExceptionWeek?has_content>
         ${updateCalendarExceptionWeekWrapper.renderFormString(context)}
         <br/>
-        <hr class="sepbar">
+        <hr/>
     </#if>
     ${addCalendarExceptionWeekWrapper.renderFormString(context)}
 </#if>

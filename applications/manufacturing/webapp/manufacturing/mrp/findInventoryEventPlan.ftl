@@ -54,7 +54,7 @@ function lookupInventory() {
           <td align='center' width='100%'>
             <table border='0' cellspacing='0' cellpadding='2'>
               <tr>
-                <td width='20%' align='right'><div class='tableheadtext'>${uiLabelMap.ManufacturingProductId}:</div></td>
+                <th width='20%' align='right'>${uiLabelMap.ManufacturingProductId}:</th>
                 <td width='5%'>&nbsp;</td>
                 <td>
                     <input type='text' size='25' name='productId' value='${requestParameters.productId?if_exists}'/>
@@ -67,7 +67,7 @@ function lookupInventory() {
                  </td>
               </tr>
               <tr>
-                <td width='20%' align='right'><div class='tableheadtext'>${uiLabelMap.CommonFromDate}:</div></td>
+                <th width='20%' align='right'>${uiLabelMap.CommonFromDate}:</th>
                 <td width='5%'>&nbsp;</td>
                 <td>
                   <input type='text' size='25' name='eventDate' value='${requestParameters.eventDate?if_exists}'/>
@@ -134,16 +134,16 @@ document.lookupinventory.productId.focus();
 
        <table width='100%' border='0' cellspacing='0' cellpadding='2' class='boxbottom'>
         <tr>
-          <td align="left"><div class="tableheadtext">${uiLabelMap.CommonDescription}</div></td>
-          <td align="center">&nbsp</td>
-          <td align="left"><div class="tableheadtext">${uiLabelMap.CommonEventName}</div></td>
-          <td align="left"><div class="tableheadtext">${uiLabelMap.CommonEventDate}</div></td>
-          <td align="center">&nbsp</td>
-          <td align="right"><div class="tableheadtext">${uiLabelMap.CommonQuantity}</div></td>
-          <td align="right"><div class="tableheadtext">${uiLabelMap.ManufacturingTotalQuantity}</div></td>
+          <th align="left">${uiLabelMap.CommonDescription}</th>
+          <th align="center">&nbsp</th>
+          <th align="left">${uiLabelMap.CommonEventName}</th>
+          <th align="left">${uiLabelMap.CommonEventDate}</th>
+          <th align="center">&nbsp</th>
+          <th align="right">${uiLabelMap.CommonQuantity}</th>
+          <th align="right">${uiLabelMap.ManufacturingTotalQuantity}</th>
         </tr>
         <tr>
-          <td colspan="7"><hr class="sepbar"/></td>
+          <td colspan="7"><hr/></td>
         </tr>
         <#assign count = lowIndex>
         <#assign productTmp = "">
