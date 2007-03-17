@@ -20,7 +20,7 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
 
     <menu name="ContentAppBar" default-menu-item-name="main" id="app-navigation" title="${uiLabelMap.ContentContentManagerApplication}"
-        type="simple" selected-menuitem-context-field-name="headerItem">
+        default-selected-style="selected" type="simple" selected-menuitem-context-field-name="headerItem">
         <menu-item name="main" title="${uiLabelMap.ContentMain}"><link target="main"/></menu-item>
         <menu-item name="websites" title="${uiLabelMap.ContentWebSites}"><link target="FindWebSite"/></menu-item>
         <menu-item name="survey" title="${uiLabelMap.ContentSurvey}"><link target="FindSurvey"/></menu-item>
