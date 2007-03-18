@@ -71,6 +71,7 @@ under the License.
                     </div>
                   </td>
                 </tr>
+                <#if shoppingCart.getOrderType() != "PURCHASE_ORDER">
                 <tr valign="top">
                   <td class="tabletext"><b>${uiLabelMap.OrderPONumber}</b>:</td> 
                   <td class="tabletext">
@@ -79,7 +80,8 @@ under the License.
                       <input type="submit" value="${uiLabelMap.CommonSet}" class="smallSubmit"/>
                     </form>
                   </td>
-                </tr>                
+                </tr>
+                </#if>
                 <tr>
                   <td valign="bottom"><div class="tabletext"><b>${uiLabelMap.CommonCurrency}</b>:</div></td>
                   <td valign="bottom"><div class="tabletext">${currencyUomId}</div></td>
