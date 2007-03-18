@@ -21,7 +21,7 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
 
     <menu name="WorkEffortAppBar" default-menu-item-name="task" id="app-navigation" type="simple" selected-menuitem-context-field-name="headerItem"
-        title="${uiLabelMap.WorkEffortWorkEffortManagerApplication}">
+        default-selected-style="selected" title="${uiLabelMap.WorkEffortWorkEffortManagerApplication}">
         <menu-item name="task" title="${uiLabelMap.WorkEffortTaskList}"><link target="mytasks"/></menu-item>
         <menu-item name="calendar" title="${uiLabelMap.WorkEffortCalendar}"><link target="day"/></menu-item>
         <menu-item name="mytime" title="${uiLabelMap.TimesheetMyTime}"><link target="MyTimesheets"/></menu-item>
