@@ -107,15 +107,15 @@ public class CheckOutHelper {
         return errorMessages;
     }
 
-    public Map setCheckOutShippingOptions(String shippingMethod, String correspondingPoId, String shippingInstructions,
+    public Map setCheckOutShippingOptions(String shippingMethod, String shippingInstructions,
             String orderAdditionalEmails, String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate ) {
         List errorMessages = new ArrayList();
         Map result;
         String errMsg = null;
 
         if (this.cart != null && this.cart.size() > 0) {
-            errorMessages.addAll(setCheckOutShippingOptionsInternal(shippingMethod, correspondingPoId,
-                    shippingInstructions, orderAdditionalEmails, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate));
+            errorMessages.addAll(setCheckOutShippingOptionsInternal(shippingMethod, shippingInstructions, 
+                    orderAdditionalEmails, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate));
         } else {
             errMsg = UtilProperties.getMessage(resource,"checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
             errorMessages.add(errMsg);
@@ -132,8 +132,8 @@ public class CheckOutHelper {
         return result;
     }
 
-    private List setCheckOutShippingOptionsInternal(String shippingMethod, String correspondingPoId, String shippingInstructions,
-            String orderAdditionalEmails, String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate ) {
+    private List setCheckOutShippingOptionsInternal(String shippingMethod, String shippingInstructions, String orderAdditionalEmails, 
+            String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate ) {
         List errorMessages = new ArrayList();
         String errMsg = null;
 
@@ -199,13 +199,6 @@ public class CheckOutHelper {
 
         // set any additional notification emails
         this.cart.setOrderAdditionalEmails(orderAdditionalEmails);
-
-        // set the PO number
-        if (UtilValidate.isNotEmpty(correspondingPoId)) {
-            this.cart.setPoNumber(correspondingPoId);
-        } else {
-            this.cart.setPoNumber(null);
-        }
 
         return errorMessages;
     }
@@ -339,8 +332,8 @@ public class CheckOutHelper {
 
 
     public Map setCheckOutOptions(String shippingMethod, String shippingContactMechId, Map selectedPaymentMethods,
-            List singleUsePayments, String billingAccountId, Double billingAccountAmt, String correspondingPoId,
-            String shippingInstructions, String orderAdditionalEmails, String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate) {
+            List singleUsePayments, String billingAccountId, Double billingAccountAmt, String shippingInstructions, 
+            String orderAdditionalEmails, String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate) {
         List errorMessages = new ArrayList();
         Map result = null;
         String errMsg = null;
@@ -348,8 +341,8 @@ public class CheckOutHelper {
 
         if (this.cart != null && this.cart.size() > 0) {
             // set the general shipping options and method
-            errorMessages.addAll(setCheckOutShippingOptionsInternal(shippingMethod, correspondingPoId,
-                    shippingInstructions, orderAdditionalEmails, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate));
+            errorMessages.addAll(setCheckOutShippingOptionsInternal(shippingMethod, shippingInstructions, 
+                    orderAdditionalEmails, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate));
 
             // set the shipping address
             errorMessages.addAll(setCheckOutShippingAddressInternal(shippingContactMechId));

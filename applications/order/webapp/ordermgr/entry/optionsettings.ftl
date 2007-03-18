@@ -116,16 +116,6 @@ under the License.
                     <textarea class='textAreaBox' cols="30" rows="3" name="${shipGroupIndex?default("0")}_shipping_instructions">${cart.getShippingInstructions(shipGroupIndex)?if_exists}</textarea>
                   </td>
                 </tr>
-                <#if cart.getOrderType() != "PURCHASE_ORDER">
-                <tr><td colspan="2"><hr class='sepbar'></td></tr>       
-                <tr>
-                  <td colspan="2">
-                    <span class="head2"><b>${uiLabelMap.OrderPONumber}</b></span>&nbsp;
-                    <input type="text" class='inputBox' name="corresponding_po_id" size="15" value='${cart.getPoNumber()?if_exists}'>
-                  </td>
-                </tr>                                                           
-                <tr><td colspan="2"><hr class='sepbar'></td></tr>                      
-                </#if>
                 <tr>
                   <td colspan="2">
                     <#if cart.getOrderType() = "PURCHASE_ORDER">

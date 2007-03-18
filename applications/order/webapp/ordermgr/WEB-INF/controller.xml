@@ -395,6 +395,12 @@ under the License.
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
+    <request-map uri="setPoNumber">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="setPoNumber"/>
+        <response name="success" type="request" value="orderentry"/>
+        <response name="error" type="request" value="orderentry"/>
+    </request-map>
 
     <request-map uri="additem">
         <security https="true" auth="true"/>

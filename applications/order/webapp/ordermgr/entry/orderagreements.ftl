@@ -70,6 +70,19 @@ under the License.
           <input type='text' class="inputBox" size='60' maxlength='100' name='orderName'/>
         </td>
       </tr>
+      
+      <#if cart.getOrderType() != "PURCHASE_ORDER">
+      <tr>
+        <td>&nbsp;</td>
+        <td align='right' valign='middle' class='tableheadtext' nowrap>
+          ${uiLabelMap.OrderPONumber}
+        </td>
+        <td>&nbsp;</td>
+        <td align='left'>
+          <input type="text" class='inputBox' name="correspondingPoId" size="15">
+        </td>
+      </tr>                                                           
+      </#if>
 
       <tr>
         <td>&nbsp;</td>
