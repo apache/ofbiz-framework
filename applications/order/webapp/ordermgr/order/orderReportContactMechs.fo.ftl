@@ -34,7 +34,7 @@ under the License.
                  <#assign postalAddress = supplierGeneralContactMechValueMap.postalAddress>
                  <#if postalAddress?has_content>
                    <#if postalAddress.toName?has_content><fo:block>${postalAddress.toName}</fo:block></#if>
-                   <#if postalAddress.attnName?has_content><fo:block>${postalAddress.attnName?if_exists}</#if>
+                   <#if postalAddress.attnName?has_content><fo:block>${postalAddress.attnName?if_exists}</fo:block></#if>
                    <fo:block>${postalAddress.address1?if_exists}</fo:block>
                    <#if postalAddress.address2?has_content><fo:block>${postalAddress.address2?if_exists}</fo:block></#if>
                    <fo:block>${postalAddress.city?if_exists}<#if postalAddress.stateProvinceGeoId?has_content>, ${postalAddress.stateProvinceGeoId} </#if><#if postalAddress.postalCode?has_content>${postalAddress.postalCode}</#if></fo:block>
