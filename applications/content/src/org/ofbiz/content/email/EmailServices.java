@@ -295,12 +295,16 @@ public class EmailServices {
         String bodyText = (String) serviceContext.remove("bodyText");
         String bodyScreenUri = (String) serviceContext.remove("bodyScreenUri");
         String xslfoAttachScreenLocation = (String) serviceContext.remove("xslfoAttachScreenLocation");
+        String attachmentName = (String) serviceContext.remove("attachmentName");
         Map bodyParameters = (Map) serviceContext.remove("bodyParameters");
         bodyParameters.put("locale", locale);
         String partyId = (String) bodyParameters.get("partyId");
         NotificationServices.setBaseUrl(dctx.getDelegator(), webSiteId, bodyParameters);
         String contentType = (String) serviceContext.remove("contentType");
 
+        if (UtilValidate.isEmpty(attachmentName)) {
+            attachmentName = "Details.pdf";
+        }
         StringWriter bodyWriter = new StringWriter();
 
         MapStack screenContext = MapStack.create();
@@ -386,7 +390,7 @@ public class EmailServices {
                 } else {
                     bodyParts.add(UtilMisc.toMap("content", bodyWriter.toString(), "type", "text/html"));
                 }
-                bodyParts.add(UtilMisc.toMap("content", baos.toByteArray(), "type", "application/pdf", "filename", "Details.pdf"));
+                bodyParts.add(UtilMisc.toMap("content", baos.toByteArray(), "type", "application/pdf", "filename", attachmentName));
                 serviceContext.put("bodyParts", bodyParts);
             } catch (GeneralException ge) {
                 String errMsg = "Error rendering PDF attachment for email: " + ge.toString();
