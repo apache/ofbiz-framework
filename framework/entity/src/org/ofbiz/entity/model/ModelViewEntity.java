@@ -317,8 +317,8 @@ public class ModelViewEntity extends ModelEntity {
     
     public ModelField getAliasedField(ModelEntity aliasedEntity, String field, ModelReader modelReader) {
         ModelField aliasedField = aliasedEntity.getField(field);
-        if (aliasedEntity == null) {
-            Debug.logError("[ModelViewEntity.populateFields] ERROR: could not find ModelEntity for entity name: " + aliasedEntity.getEntityName(), module);
+        if (aliasedField == null) {
+            Debug.logError("[ModelViewEntity.populateFields] ERROR: could not find ModelField for entity name: " + aliasedEntity.getEntityName() + " and field: " + field, module);
             return null;
         }
         return aliasedField;
