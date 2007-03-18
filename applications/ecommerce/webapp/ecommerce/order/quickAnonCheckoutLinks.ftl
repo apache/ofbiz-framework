@@ -27,7 +27,6 @@ function submitForm(form) {
 <#-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> <html> -->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <script language="javascript" src="<@ofbizContentUrl>/images/dojo/dojo.js</@ofbizContentUrl>" type="text/javascript"></script>    
 </head>
 <body>
 <div>
