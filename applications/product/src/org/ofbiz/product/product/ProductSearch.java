@@ -1035,7 +1035,7 @@ public class ProductSearch {
             if (removeStems != null) {
                 this.removeStems = removeStems.booleanValue();
             } else {
-                this.removeStems = UtilProperties.propertyValueEquals("prodsearch", "remove.stems", "true");
+                this.removeStems = UtilProperties.propertyValueEquals("keywordsearch", "remove.stems", "true");
             }
         }
 
