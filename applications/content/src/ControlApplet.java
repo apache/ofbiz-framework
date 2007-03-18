@@ -193,7 +193,7 @@ public class ControlApplet extends Applet implements Runnable {
         String responseStr = in.readLine();
         in.close();
         if (responseStr != null)
-            responseStr.trim();   
+            responseStr = responseStr.trim();
         if (debug != null && debug.equalsIgnoreCase("true"))
             System.out.println("Receive response: " + responseStr);                     
         return responseStr;                 
