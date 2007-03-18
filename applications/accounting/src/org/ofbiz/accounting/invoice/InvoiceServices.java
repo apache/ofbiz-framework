@@ -2955,7 +2955,7 @@ public class InvoiceServices {
                 }
             }
         }
-        successMessage.concat(UtilProperties.getMessage(resource, "AccountingSuccessFull",locale));
+        successMessage = successMessage.concat(UtilProperties.getMessage(resource, "AccountingSuccessFull",locale));
         return results;
     }
 

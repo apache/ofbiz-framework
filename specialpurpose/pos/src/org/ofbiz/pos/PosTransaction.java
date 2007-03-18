@@ -313,7 +313,7 @@ public class PosTransaction implements Serializable {
                     Debug.logError(e, module);
                 }
                 String nameOnCard = cc.getString("firstNameOnCard") + " " + cc.getString("lastNameOnCard");
-                nameOnCard.trim();
+                nameOnCard = nameOnCard.trim();
                 payInfo.put("nameOnCard", nameOnCard);
 
                 String cardNum = cc.getString("cardNumber");

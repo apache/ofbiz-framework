@@ -695,7 +695,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         List contentList = new ArrayList();
         String contentIdName = "contentId";
         if (linkDir != null && linkDir.equalsIgnoreCase("TO")) {
-            contentIdName.concat("To");
+            contentIdName = contentIdName.concat("To");
         }
         GenericValue assoc = null;
         GenericValue content = null;
@@ -729,8 +729,8 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         String contentIdName = "contentId";
         String contentAssocViewName = "contentAssocView";
         if (linkDir != null && linkDir.equalsIgnoreCase("TO")) {
-            contentIdName.concat("To");
-            contentAssocViewName.concat("To");
+            contentIdName = contentIdName.concat("To");
+            contentAssocViewName = contentAssocViewName.concat("To");
         }
         EntityExpr expr = new EntityExpr(contentIdName, EntityOperator.EQUALS, origContentId);
         exprListAnd.add(expr);
