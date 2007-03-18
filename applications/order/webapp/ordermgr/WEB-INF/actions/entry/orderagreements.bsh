@@ -29,15 +29,9 @@ import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.order.shoppingcart.product.ProductDisplayWorker;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 
-delegator = request.getAttribute("delegator");
-security = request.getAttribute("security");
-dispatcher= (LocalDispatcher)request.getAttribute("dispatcher");
-userLogin = session.getAttribute("userLogin");
-
-context.put("dispatcher",dispatcher);
-
 // Get the Cart and Prepare Size
 shoppingCart = ShoppingCartEvents.getCartObject(request);
+context.put("cart", shoppingCart);
 
 // check the selected product store
 productStoreId = shoppingCart.getProductStoreId();
@@ -72,4 +66,3 @@ context.put("partyId", partyId);
 currencies = delegator.findByAndCache("Uom", UtilMisc.toMap("uomTypeId","CURRENCY_MEASURE"));
 context.put("currencies", currencies);
 context.put("currencyUomId", shoppingCart.getCurrency());
-

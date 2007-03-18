@@ -71,6 +71,15 @@ under the License.
                     </div>
                   </td>
                 </tr>
+                <tr valign="top">
+                  <td class="tabletext"><b>${uiLabelMap.OrderPONumber}</b>:</td> 
+                  <td class="tabletext">
+                    <form method="post" action="setPoNumber" name="setCartPoNumberForm">
+                      <input type="text" name="correspondingPoId" class="inputBox" size="15" value='${shoppingCart.getPoNumber()?default("")}'/>
+                      <input type="submit" value="${uiLabelMap.CommonSet}" class="smallSubmit"/>
+                    </form>
+                  </td>
+                </tr>                
                 <tr>
                   <td valign="bottom"><div class="tabletext"><b>${uiLabelMap.CommonCurrency}</b>:</div></td>
                   <td valign="bottom"><div class="tabletext">${currencyUomId}</div></td>

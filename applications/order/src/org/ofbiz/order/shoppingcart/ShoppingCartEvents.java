@@ -923,6 +923,17 @@ public class ShoppingCartEvents {
         return "success";
     }
 
+    /**
+     * set the PO number of the cart based on request.  right now will always return "success"
+     *
+     */
+    public static String setPoNumber(HttpServletRequest request, HttpServletResponse response) {
+        ShoppingCart cart = getCartObject(request);
+        String correspondingPoId = request.getParameter("correspondingPoId");
+        cart.setPoNumber(correspondingPoId);
+        return "success";
+    }
+
     /** Add order term **/
     public static String addOrderTerm(HttpServletRequest request, HttpServletResponse response) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
@@ -1442,6 +1453,7 @@ public class ShoppingCartEvents {
         String shipBeforeDateStr = request.getParameter("shipBeforeDate");
         String shipAfterDateStr = request.getParameter("shipAfterDate");
         String orderName = request.getParameter("orderName");
+        String correspondingPoId = request.getParameter("correspondingPoId");
         Map result = null;
 
         // set the agreement if specified otherwise set the currency
@@ -1457,6 +1469,9 @@ public class ShoppingCartEvents {
 
         // set the order name
         cart.setOrderName(orderName);
+        
+        // set the corresponding purchase order id
+        cart.setPoNumber(correspondingPoId);
         
         // set the default ship before and after dates if supplied
         try {

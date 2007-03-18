@@ -821,6 +821,11 @@ under the License.
            </if-not-empty>
 
            <set field="correspondingPoId" from-field="parameters.corresponding_po_id"/>
+           <if-not-empty field-name="correspondingPoId">
+           	   <call-object-method obj-field-name="cart" method-name="setPoNumber">
+                   <field field-name="correspondingPoId" type="String"/>
+               </call-object-method>
+           </if-not-empty>
 
            <set field="isGift" from-field="parameters.is_gift" type="Boolean"/>
            <if-not-empty field-name="isGift">

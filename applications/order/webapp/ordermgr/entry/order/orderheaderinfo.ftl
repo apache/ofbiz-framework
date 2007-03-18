@@ -21,7 +21,7 @@ under the License.
     <div class="screenlet-body">
         <table width="100%" border="0" cellpadding="1">
         <#-- order name -->
-        <#if (orderName?exists)>
+        <#if (orderName?has_content)>
             <tr>
                 <td align="right" valign="top" width="15%">
                     <span class="tabletext">&nbsp;<b>${uiLabelMap.OrderOrderName}</b> </span>
@@ -42,6 +42,18 @@ under the License.
                 <td width="5">&nbsp;</td>
                 <td align="left" valign="top" width="80%" class="tabletext">
                     ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(orderForParty, false)} [${orderForParty.partyId}]
+                </td>
+            </tr>
+            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+        </#if>
+        <#if (cart.getPoNumber()?has_content)>
+            <tr>
+                <td align="right" valign="top" width="15%">
+                    <span class="tabletext">&nbsp;<b>${uiLabelMap.OrderPoNumber}</b> </span>
+                </td>
+                <td width="5">&nbsp;</td>
+                <td align="left" valign="top" width="80%" class="tabletext">
+                    ${cart.getPoNumber()}
                 </td>
             </tr>
             <tr><td colspan="7"><hr class="sepbar"/></td></tr>

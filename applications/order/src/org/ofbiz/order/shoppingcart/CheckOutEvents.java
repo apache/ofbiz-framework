@@ -118,7 +118,6 @@ public class CheckOutEvents {
         } else if ("shippingoptions".equals(curPage) == true) {
             // Set the general shipping options
             String shippingMethod = request.getParameter("shipping_method");
-            String correspondingPoId = request.getParameter("corresponding_po_id");
             String shippingInstructions = request.getParameter("shipping_instructions");
             String orderAdditionalEmails = request.getParameter("order_additional_emails");
             String maySplit = request.getParameter("may_split");
@@ -127,8 +126,8 @@ public class CheckOutEvents {
             String internalCode = request.getParameter("internalCode");
             String shipBeforeDate = request.getParameter("shipBeforeDate");
             String shipAfterDate = request.getParameter("shipAfterDate");
-            Map callResult = checkOutHelper.setCheckOutShippingOptions(shippingMethod, correspondingPoId,
-                    shippingInstructions, orderAdditionalEmails, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate);
+            Map callResult = checkOutHelper.setCheckOutShippingOptions(shippingMethod, shippingInstructions, 
+                    orderAdditionalEmails, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate);
 
             ServiceUtil.getMessages(request, callResult, null);
 
@@ -301,7 +300,6 @@ public class CheckOutEvents {
         String partyTaxId = request.getParameter("partyTaxId");
         String isExempt = request.getParameter("isExempt");
         
-        String correspondingPoId = request.getParameter("corresponding_po_id");
         String shippingInstructions = request.getParameter("shipping_instructions");
         String orderAdditionalEmails = request.getParameter("order_additional_emails");
         String maySplit = request.getParameter("may_split");
@@ -359,7 +357,7 @@ public class CheckOutEvents {
         }
 
         Map optResult = checkOutHelper.setCheckOutOptions(shippingMethod, shippingContactMechId, selectedPaymentMethods,
-                singleUsePayments, billingAccountId, billingAccountAmt, correspondingPoId, shippingInstructions,
+                singleUsePayments, billingAccountId, billingAccountAmt, shippingInstructions,
                 orderAdditionalEmails, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate);
 
         ServiceUtil.getMessages(request, optResult, null);

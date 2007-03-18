@@ -230,16 +230,6 @@ function toggleBillingAccount(box) {
                       <textarea class="textAreaBox" cols="30" rows="3" wrap="hard" name="shipping_instructions">${shoppingCart.getShippingInstructions()?if_exists}</textarea>
                     </td>
                   </tr>
-                  <tr><td colspan="2"><hr class="sepbar"/></td></tr>
-                  <tr>
-                    <td colspan="2">
-                      <span class="head2"><b>${uiLabelMap.OrderPoNumber}</b></span>&nbsp;
-                      <#if shoppingCart.getPoNumber()?exists && shoppingCart.getPoNumber() != "(none)">
-                        <#assign currentPoNumber = shoppingCart.getPoNumber()>
-                      </#if>
-                      <input type="text" class="inputBox" name="corresponding_po_id" size="15" value="${currentPoNumber?if_exists}">
-                    </td>
-                  </tr>
                  <#if shipping == true>
                   <#if productStore.showCheckoutGiftOptions?if_exists != "N">
                   <tr><td colspan="2"><hr class="sepbar"/></td></tr>
