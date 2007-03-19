@@ -85,30 +85,49 @@ under the License.
                 <table width="100%" cellpadding="2" cellspacing="0" border="1">
                     <tr>
                         <td><div class="tableheadtext">${uiLabelMap.ProductProduct}</div></td>
+                        
+                        <#-- Must use the uiLabelMap[""] notation since the label key has . in it -->
+                        <td><div class="tableheadtext">${uiLabelMap["GoodIdentificationType.description.UPCA"]}</div></td>
                         <td><div class="tableheadtext">${uiLabelMap.OrderOrder}</div></td>
+                        <td><div class="tableheadtext">${uiLabelMap.OrderCancelled}</div></td>
                         <td><div class="tableheadtext">${uiLabelMap.OrderBackOrdered}</div></td>
                         <td><div class="tableheadtext">${uiLabelMap.CommonReceived}</div></td>
                         <td><div class="tableheadtext">${uiLabelMap.ProductOpenQuantity}</div></td>
-                        <td><div class="tableheadtext">${uiLabelMap.CommonReceive}</div></td>
-                        <td><div class="tableheadtext">${uiLabelMap.ProductInventoryItemType}</div></td>
                         <#if itemsAvailableToReceive>
+                            <td><div class="tableheadtext">${uiLabelMap.CommonReceive}</div></td>
+                            <td><div class="tableheadtext">${uiLabelMap.ProductInventoryItemType}</div></td>
                             <td colspan="2" align="right">
                                 <div class="tableheadtext">${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');"></div>
                             </td>
                         </#if>
                     </tr>
                     <#list orderItemDatas?if_exists as orderItemData>
-                        <#assign orderItemAndShipGroupAssoc = orderItemData.orderItemAndShipGroupAssoc>
+                        <#assign orderItem = orderItemData.orderItem>
                         <#assign product = orderItemData.product?if_exists>
+                        <#assign itemShipGroupSeqId = orderItemData.shipGroupSeqId?if_exists>
                         <#assign totalQuantityReceived = orderItemData.totalQuantityReceived?default(0)>
                         <#assign availableToReceive = orderItemData.availableToReceive?default(0)>
                         <#assign backOrderedQuantity = orderItemData.backOrderedQuantity?default(0)>
                         
                         <tr>
-                            <td><div class="tabletext">${(product.internalName)?if_exists} [${orderItemAndShipGroupAssoc.productId?default("N/A")}]</div></td>
+                            <td><div class="tabletext">${(product.internalName)?if_exists} [${orderItem.productId?default("N/A")}]</div></td>
                             <td>
                                 <div class="tabletext">
-                                    ${orderItemAndShipGroupAssoc.quantity - orderItemAndShipGroupAssoc.cancelQuantity?default(0)}
+                                    <#assign upcaLookup = Static["org.ofbiz.base.util.UtilMisc"].toMap("productId", product.productId, "goodIdentificationTypeId", "UPCA")/>
+                                    <#assign upca = delegator.findByPrimaryKeyCache("GoodIdentification", upcaLookup)?if_exists/>
+                                    <#if upca?has_content>
+                                        ${upca.idValue?if_exists}
+                                    </#if>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tabletext">
+                                    ${orderItem.quantity}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tabletext">
+                                    ${orderItem.cancelQuantity?default(0)}
                                 </div>
                             </td>
                             <td>
@@ -121,7 +140,7 @@ under the License.
                             </td>
                             <td>
                                 <div class="tabletext">
-                                    ${orderItemAndShipGroupAssoc.quantity - totalQuantityReceived}
+                                    ${orderItem.quantity - orderItem.cancelQuantity?default(0) - totalQuantityReceived}
                                 </div>
                             </td>
                             <#if availableToReceive &gt; 0 >
@@ -129,18 +148,18 @@ under the License.
                                     <input type="hidden" name="productId_o_${rowCount}" value="${(product.productId)?if_exists}"/>
                                     <input type="hidden" name="facilityId_o_${rowCount}" value="${facilityId}"/>
                                     <input type="hidden" name="shipmentId_o_${rowCount}" value="${shipmentId}"/>
-                                    <input type="hidden" name="orderId_o_${rowCount}" value="${orderItemAndShipGroupAssoc.orderId}"/>
-                                    <input type="hidden" name="shipGroupSeqId_o_${rowCount}" value="${orderItemAndShipGroupAssoc.shipGroupSeqId}"/>
-                                    <input type="hidden" name="orderItemSeqId_o_${rowCount}" value="${orderItemAndShipGroupAssoc.orderItemSeqId}"/>
-                                    <input type="hidden" name="unitCost_o_${rowCount}" value="${orderItemAndShipGroupAssoc.unitPrice?default(0)}"/>
+                                    <input type="hidden" name="orderId_o_${rowCount}" value="${orderItem.orderId}"/>
+                                    <input type="hidden" name="shipGroupSeqId_o_${rowCount}" value="${itemShipGroupSeqId?if_exists}"/>
+                                    <input type="hidden" name="orderItemSeqId_o_${rowCount}" value="${orderItem.orderItemSeqId}"/>
+                                    <input type="hidden" name="unitCost_o_${rowCount}" value="${orderItem.unitPrice?default(0)}"/>
                                     <input type="hidden" name="currencyUomId_o_${rowCount}" value="${currencyUomId?default("")}"/>
                                     <input type="hidden" name="ownerPartyId_o_${rowCount}" value="${(facility.ownerPartyId)?if_exists}"/>
                                     <input type="hidden" name="datetimeReceived_o_${rowCount}" value="${now}"/>
                                     <input type="hidden" name="quantityRejected_o_${rowCount}" value="0"/>
                                     <#-- quantity field required by the chained issueOrderItemToShipment service -->
                                     <input type="hidden" name="quantity_o_${rowCount}" id="quantity_o_${rowCount}" value=""/>
-                                    <#if itemQuantitiesToReceive?exists && itemQuantitiesToReceive.get(orderItemAndShipGroupAssoc.orderItemSeqId)?exists>
-                                        <#assign quantityToReceive = itemQuantitiesToReceive.get(orderItemAndShipGroupAssoc.orderItemSeqId)>
+                                    <#if itemQuantitiesToReceive?exists && itemQuantitiesToReceive.get(orderItem.orderItemSeqId)?exists>
+                                        <#assign quantityToReceive = itemQuantitiesToReceive.get(orderItem.orderItemSeqId)>
                                     <#else>
                                         <#assign quantityToReceive = 0>
                                     </#if>
@@ -170,11 +189,16 @@ under the License.
                     </#list>
                     <#if itemsAvailableToReceive>
                         <tr>
-                            <td colspan="8" align="right">
+                            <td colspan="10" align="right">
                                 <a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId}&purchaseOrderId=${orderId}&clearAll=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClearAll}</a>
                             </td>
                             <td align="right">
                                 <a class="smallSubmit" href="javascript:populateQuantities(${rowCount - 1});document.selectAllForm.submit();">${uiLabelMap.ProductReceiveItem}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="11" align="right">
+                                <a class="smallSubmit" href="<@ofbizUrl>completePurchaseOrder?orderId=${orderId}&facilityId=${facilityId}&shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.OrderForceCompletePurchaseOrder}</a>
                             </td>
                         </tr>
                     </#if>

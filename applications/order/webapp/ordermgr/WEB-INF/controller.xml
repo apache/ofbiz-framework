@@ -283,6 +283,12 @@ under the License.
         <response name="success" type="request-redirect" value="orderview"/>
         <response name="error" type="request-redirect" value="orderview"/>
     </request-map>
+    <request-map uri="completePurchaseOrder">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="completePurchaseOrder"/>
+        <response name="success" type="view" value="orderview"/>
+        <response name="error" type="view" value="orderview"/>
+    </request-map>
     <request-map uri="editOrderItems">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="editorderitems"/>
