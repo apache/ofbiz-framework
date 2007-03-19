@@ -399,6 +399,14 @@ under the License.
     <InvoiceItemTypeMap invoiceTypeId="COMMISSION_INVOICE" invoiceItemMapKey="COM_COMM_ADJ" invoiceItemTypeId="COMM_INV_ADJ"/>
     
     <InvoiceItemTypeMap invoiceTypeId="INTEREST_INVOICE" invoiceItemMapKey="INT_INV_CHRG" invoiceItemTypeId="INV_INTRST_CHRG"/>
+
+    <!-- An Enumeration to identify the taxable invoice item types.  For these, the only important fields are enumId and enumTypeId. -->
+    <EnumerationType description="Taxable Invoice Item Types" enumTypeId="TAXABLE_INV_ITM_TY" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Sales Invoice Sales Tax" enumCode="INV_SALES_TAX" enumId="INV_SALES_TAX" sequenceId="01" enumTypeId="TAXABLE_INV_ITM_TY"/>
+    <Enumeration description="Sales Invoice Line Item Sales Tax" enumCode="ITM_SALES_TAX" enumId="ITM_SALES_TAX" sequenceId="02" enumTypeId="TAXABLE_INV_ITM_TY"/>
+    <Enumeration description="Purchase Invoice Sales Tax" enumCode="PINV_SALES_TAX" enumId="PINV_SALES_TAX" sequenceId="03" enumTypeId="TAXABLE_INV_ITM_TY"/>
+    <Enumeration description="Purchase Invoice Line Item Sales Tax" enumCode="PITM_SALES_TAX" enumId="PITM_SALES_TAX" sequenceId="04" enumTypeId="TAXABLE_INV_ITM_TY"/>
+    <Enumeration description="Customer Return Sales Tax Adjustment" enumCode="CRT_SALES_TAX_ADJ" enumId="CRT_SALES_TAX_ADJ" sequenceId="05" enumTypeId="TAXABLE_INV_ITM_TY"/>
     
     <PaymentMethodType description="Credit Card" paymentMethodTypeId="CREDIT_CARD"/>
     <PaymentMethodType description="Gift Card" paymentMethodTypeId="GIFT_CARD"/>

@@ -253,13 +253,29 @@ under the License.
 
                 <#-- the grand total -->
                 <fo:table-row>
-                   <fo:table-cell number-columns-spanned="4">
+                   <fo:table-cell number-columns-spanned="3">
                    </fo:table-cell>
                    <fo:table-cell>
                       <fo:block font-weight="bold">${uiLabelMap.AccountingTotalCapital}</fo:block>
                    </fo:table-cell>
-                   <fo:table-cell text-align="right">
+                   <fo:table-cell text-align="right" number-columns-spanned="2">
                       <fo:block font-weight="bold"><@ofbizCurrency amount=invoiceTotal isoCode=invoice.currencyUomId?if_exists/></fo:block>
+                   </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row height="7px">
+                   <fo:table-cell>
+                   </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row height="14px">
+                   <fo:table-cell number-columns-spanned="3">
+                   </fo:table-cell>
+                   <fo:table-cell number-columns-spanned="2">
+                      <fo:block>Total excl. tax</fo:block>
+                   </fo:table-cell>
+                   <fo:table-cell number-columns-spanned="1" text-align="right">
+                      <fo:block>
+                         <@ofbizCurrency amount=invoiceNoTaxTotal isoCode=invoice.currencyUomId?if_exists/>     
+                      </fo:block>
                    </fo:table-cell>
                 </fo:table-row>
             </fo:table-body>        

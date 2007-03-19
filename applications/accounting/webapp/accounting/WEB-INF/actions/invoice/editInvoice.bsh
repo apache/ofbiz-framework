@@ -37,7 +37,9 @@ if (invoice != null) {
     context.put("invoiceItems", invoiceItems);
     
     invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice);
+    invoiceNoTaxTotal = InvoiceWorker.getInvoiceNoTaxTotal(invoice);
     context.put("invoiceTotal", new Double(invoiceTotal));    
+    context.put("invoiceNoTaxTotal", new Double(invoiceNoTaxTotal));
     
     // each invoice of course has two billing addresses, but the one that is relevant for purchase invoices is the PAYMENT_LOCATION of the invoice
     // (ie Accounts Payable address for the supplier), while the right one for sales invoices is the BILLING_LOCATION (ie Accounts Receivable or
