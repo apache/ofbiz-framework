@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.List;
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -41,6 +42,7 @@ import org.ofbiz.entity.util.EntityUtil;
 public class InvoiceWorker {
     
     public static String module = InvoiceWorker.class.getName();
+    private static BigDecimal ZERO = new BigDecimal("0");
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
@@ -71,6 +73,55 @@ public class InvoiceWorker {
         
         return getInvoiceTotalBd(invoice);
     }
+
+    /** Method to get the taxable invoice item types as a List of invoiceItemTypeIds.  These are identified in Enumeration with enumTypeId TAXABLE_INV_ITM_TY. */
+    public static List getTaxableInvoiceItemTypeIds(GenericDelegator delegator) throws GenericEntityException {
+        List typeIds = FastList.newInstance();
+        List invoiceItemTaxTypes = delegator.findByAndCache("Enumeration", UtilMisc.toMap("enumTypeId", "TAXABLE_INV_ITM_TY"));
+        for (Iterator iter = invoiceItemTaxTypes.iterator(); iter.hasNext(); ) {
+            GenericValue invoiceItemTaxType = (GenericValue) iter.next();
+            typeIds.add(invoiceItemTaxType.get("enumId"));
+        }
+        return typeIds;
+    }
+
+    public static double getInvoiceTaxTotal(GenericValue invoice) {
+        BigDecimal invoiceTaxTotal = ZERO;
+        BigDecimal ONE = new BigDecimal("1");
+
+        if (invoice == null)
+           throw new IllegalArgumentException("The invoiceId passed does not match an existing invoice"); 
+        List invoiceTaxItems = null;
+        try {
+            GenericDelegator delegator = invoice.getDelegator();
+            EntityConditionList condition = new EntityConditionList( UtilMisc.toList(
+                    new EntityExpr("invoiceId", EntityOperator.EQUALS, invoice.get("invoiceId")),
+                    new EntityExpr("invoiceItemTypeId", EntityOperator.IN, getTaxableInvoiceItemTypeIds(delegator))
+                    ), EntityOperator.AND);
+            invoiceTaxItems = delegator.findByCondition("InvoiceItem", condition, null, null);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Trouble getting InvoiceItem list", module);            
+        }
+        if (invoiceTaxItems != null && invoiceTaxItems.size() > 0) {
+            Iterator invoiceItemsIter = invoiceTaxItems.iterator();
+            while (invoiceItemsIter.hasNext()) {
+                GenericValue invoiceItem = (GenericValue) invoiceItemsIter.next();
+                BigDecimal amount = invoiceItem.getBigDecimal("amount");
+                BigDecimal quantity = invoiceItem.getBigDecimal("quantity");
+                if (amount == null)
+                    amount = ZERO;
+                if (quantity == null)
+                    quantity = ONE;
+                invoiceTaxTotal = invoiceTaxTotal.add(amount.multiply(quantity)).setScale(decimals + 1, rounding);
+            }
+        }
+        return invoiceTaxTotal.setScale(decimals, rounding).doubleValue();
+
+    }
+    
+    public static double getInvoiceNoTaxTotal(GenericValue invoice) {
+        return getInvoiceTotalBd(invoice).doubleValue() - getInvoiceTaxTotal(invoice);
+    }
     
     /**
      * Method to return the total amount of an invoice
@@ -82,7 +133,7 @@ public class InvoiceWorker {
         }
         
         public static BigDecimal getInvoiceTotalBd(GenericValue invoice) {
-        BigDecimal invoiceTotal = new BigDecimal("0");
+        BigDecimal invoiceTotal = ZERO;
         List invoiceItems = null;
         try {
             invoiceItems = invoice.getRelated("InvoiceItem");
@@ -96,7 +147,7 @@ public class InvoiceWorker {
                 BigDecimal amount = invoiceItem.getBigDecimal("amount");
                 BigDecimal quantity = invoiceItem.getBigDecimal("quantity");
                 if (amount == null)
-                    amount = new BigDecimal("0");
+                    amount = ZERO;
                 if (quantity == null)
                     quantity = new BigDecimal("1");
                 invoiceTotal = invoiceTotal.add( amount.multiply(quantity)).setScale(decimals,rounding);
@@ -343,7 +394,7 @@ public class InvoiceWorker {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }
         
-        BigDecimal invoiceApplied = new BigDecimal("0");
+        BigDecimal invoiceApplied = ZERO;
         List paymentApplications = null;
         
         // lookup payment applications which took place before the asOfDateTime for this invoice
@@ -437,7 +488,7 @@ public class InvoiceWorker {
         return getInvoiceItemAppliedBd(invoiceItem).doubleValue();
     }
     public static BigDecimal getInvoiceItemAppliedBd(GenericValue invoiceItem) {
-        BigDecimal invoiceItemApplied = new BigDecimal("0");
+        BigDecimal invoiceItemApplied = ZERO;
         List paymentApplications = null;
         try {
             paymentApplications = invoiceItem.getRelated("PaymentApplication");
