@@ -3762,4 +3762,159 @@ public class OrderServices {
         }
     }
 
+    /**
+     * Generates a product requirement for the total cancelled quantity over all order items for each product
+     * @param dctx
+     * @param context
+     * @return
+     */
+    public static Map generateReqsFromCancelledPOItems(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+        
+        String orderId = (String) context.get("orderId");
+        String facilityId = (String) context.get("facilityId");
+
+        try {
+
+            GenericValue orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            
+            if (UtilValidate.isEmpty(orderHeader)) {
+                String errorMessage = UtilProperties.getMessage(resource_error, "OrderErrorOrderIdNotFound", UtilMisc.toMap("orderId", orderId), locale);
+                Debug.logError(errorMessage, module);
+                return ServiceUtil.returnError(errorMessage);
+            }
+            
+            if (! "PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId"))) {
+                String errorMessage = UtilProperties.getMessage(resource_error, "ProductErrorOrderNotPurchaseOrder", UtilMisc.toMap("orderId", orderId), locale);
+                Debug.logError(errorMessage, module);
+                return ServiceUtil.returnError(errorMessage);
+            }
+            
+            // Build a map of productId -> quantity cancelled over all order items
+            Map productRequirementQuantities = new HashMap();
+            List orderItems = orderHeader.getRelated("OrderItem");
+            Iterator oiit = orderItems.iterator();
+            while (oiit.hasNext()) {
+                GenericValue orderItem = (GenericValue) oiit.next();
+                if (! "PRODUCT_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId"))) continue;
+                
+                // Get the cancelled quantity for the item
+                double orderItemCancelQuantity = 0;
+                if (! UtilValidate.isEmpty(orderItem.get("cancelQuantity")) ) {
+                    orderItemCancelQuantity = orderItem.getDouble("cancelQuantity").doubleValue();
+                }
+
+                if (orderItemCancelQuantity <= 0) continue;
+                
+                String productId = orderItem.getString("productId");
+                if (productRequirementQuantities.containsKey(productId)) {
+                    orderItemCancelQuantity += ((Double) productRequirementQuantities.get(productId)).doubleValue(); 
+                }
+                productRequirementQuantities.put(productId, new Double(orderItemCancelQuantity));
+                
+            }
+
+            // Generate requirements for each of the product quantities
+            Iterator cqit = productRequirementQuantities.keySet().iterator();
+            while (cqit.hasNext()) {
+                String productId = (String) cqit.next();
+                Double requiredQuantity = (Double) productRequirementQuantities.get(productId);
+                Map createRequirementResult = dispatcher.runSync("createRequirement", UtilMisc.toMap("requirementTypeId", "PRODUCT_REQUIREMENT", "facilityId", facilityId, "productId", productId, "quantity", requiredQuantity, "userLogin", userLogin));
+                if (ServiceUtil.isError(createRequirementResult)) return createRequirementResult;                
+            }
+            
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        } catch (GenericServiceException se) {
+            Debug.logError(se, module);
+            return ServiceUtil.returnError(se.getMessage());
+        }
+
+        return ServiceUtil.returnSuccess();
+    }
+
+    /**
+     * Cancels remaining (unreceived) quantities for items of an order. Does not consider received-but-rejected quantities.
+     * @param dctx
+     * @param context
+     * @return
+     */
+    public static Map cancelRemainingPurchaseOrderItems(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+        
+        String orderId = (String) context.get("orderId");
+
+        try {
+
+            GenericValue orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            
+            if (UtilValidate.isEmpty(orderHeader)) {
+                String errorMessage = UtilProperties.getMessage(resource_error, "OrderErrorOrderIdNotFound", UtilMisc.toMap("orderId", orderId), locale);
+                Debug.logError(errorMessage, module);
+                return ServiceUtil.returnError(errorMessage);
+            }
+            
+            if (! "PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId"))) {
+                String errorMessage = UtilProperties.getMessage(resource_error, "OrderErrorOrderNotPurchaseOrder", UtilMisc.toMap("orderId", orderId), locale);
+                Debug.logError(errorMessage, module);
+                return ServiceUtil.returnError(errorMessage);
+            }
+            
+            List orderItems = orderHeader.getRelated("OrderItem");
+            Iterator oiit = orderItems.iterator();
+            while (oiit.hasNext()) {
+                GenericValue orderItem = (GenericValue) oiit.next();
+                if (! "PRODUCT_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId"))) continue;
+                
+                // Get the ordered quantity for the item
+                double orderItemQuantity = 0;
+                if (! UtilValidate.isEmpty(orderItem.get("quantity"))) {
+                    orderItemQuantity = orderItem.getDouble("quantity").doubleValue();
+                }
+                double orderItemCancelQuantity = 0;
+                if (! UtilValidate.isEmpty(orderItem.get("cancelQuantity")) ) {
+                    orderItemCancelQuantity = orderItem.getDouble("cancelQuantity").doubleValue();
+                }
+
+                // Get the received quantity for the order item - ignore the quantityRejected, since rejected items should be reordered
+                List shipmentReceipts = orderItem.getRelated("ShipmentReceipt");
+                double receivedQuantity = 0;
+                Iterator srit = shipmentReceipts.iterator();
+                while (srit.hasNext()) {
+                    GenericValue shipmentReceipt = (GenericValue) srit.next();
+                    if (! UtilValidate.isEmpty(shipmentReceipt.get("quantityAccepted")) ) {
+                        receivedQuantity += shipmentReceipt.getDouble("quantityAccepted").doubleValue();
+                    }
+                }
+                
+                double quantityToCancel = orderItemQuantity - orderItemCancelQuantity - receivedQuantity;
+                if (quantityToCancel <= 0) continue;
+                
+                Map cancelOrderItemResult = dispatcher.runSync("cancelOrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId"), "cancelQuantity", new Double(quantityToCancel), "userLogin", userLogin));
+                if (ServiceUtil.isError(cancelOrderItemResult)) return cancelOrderItemResult;       
+                
+                orderItem.refresh();
+                if ("ITEM_APPROVED".equals(orderItem.getString("statusId"))) {
+                    Map changeOrderItemStatusResult = dispatcher.runSync("changeOrderItemStatus", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId"), "statusId", "ITEM_COMPLETED", "userLogin", userLogin));
+                    if (ServiceUtil.isError(changeOrderItemStatusResult)) return changeOrderItemStatusResult;       
+                }
+            }
+
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        } catch (GenericServiceException se) {
+            Debug.logError(se, module);
+            return ServiceUtil.returnError(se.getMessage());
+        }
+
+        return ServiceUtil.returnSuccess();
+    }
 }

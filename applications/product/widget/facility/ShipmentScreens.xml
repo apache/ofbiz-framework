@@ -323,6 +323,7 @@ under the License.
     <screen name="ReceiveInventoryAgainstPurchaseOrder">
         <section>
             <actions>
+                <property-map resource="ProductEntityLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="ProductReceiveInventoryAgainstPurchaseOrder"/>
                 <set field="headerItem" value="shipment"/>
                 <set field="tabButtonItem" value="ProductReceiveInventoryAgainstPO"/>

@@ -600,4 +600,27 @@ under the License.
         <attribute type="String" mode="OUT" name="orderPaymentPreferenceId"/>
     </service>
     
+    <service name="completePurchaseOrder" engine="group" auth="true">
+        <description>Completes a purchase order by cancelling remaining (unreceived) item quantities and generating new product requirements
+            from those quantities</description>
+        <group>
+            <invoke name="cancelRemainingPurchaseOrderItems" result-to-context="true"/>
+            <invoke name="generateReqsFromCancelledPOItems" result-to-context="true"/>
+            <invoke name="checkOrderItemStatus" result-to-context="true"/>
+        </group>
+    </service>
+
+    <service name="cancelRemainingPurchaseOrderItems" engine="java"
+            location="org.ofbiz.order.order.OrderServices" invoke="cancelRemainingPurchaseOrderItems" auth="true">
+        <description>Cancels remaining (unreceived) quantities for items of an order. Does not consider received-but-rejected quantities.</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="generateReqsFromCancelledPOItems" engine="java"
+            location="org.ofbiz.order.order.OrderServices" invoke="generateReqsFromCancelledPOItems" auth="true">
+        <description>Generates a product requirement for the total cancelled quantity over all order items for each product</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+    </service>
+
 </services>

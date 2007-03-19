@@ -296,6 +296,17 @@ under the License.
                    </select>
                    <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderQuickReceivePurchaseOrder}"/>
                  </form>
+                 <#if orderHeader.statusId != "ORDER_COMPLETED">
+                   <form action="<@ofbizUrl>completePurchaseOrder?externalLoginKey=${externalLoginKey}</@ofbizUrl>" method="POST">
+                     <input type="hidden" name="orderId" value="${orderId}"/>
+                     <select name="facilityId" class="selectBox">
+                       <#list facilities as facility>
+                         <option value="${facility.facilityId}">${facility.facilityName}</option>
+                       </#list>
+                     </select>
+                     <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderForceCompletePurchaseOrder}"/>
+                   </form>
+                 </#if>
                  </#if>
                </#if>
              </div>

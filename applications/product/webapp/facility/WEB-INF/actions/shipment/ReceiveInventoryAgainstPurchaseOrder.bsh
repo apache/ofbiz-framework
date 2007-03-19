@@ -28,7 +28,6 @@ shipmentId = request.getParameter("shipmentId");
 orderId = request.getParameter("purchaseOrderId");
 shipGroupSeqId = request.getParameter("shipGroupSeqId");
 context.put("shipmentId", shipmentId);
-context.put("orderId", orderId);
 context.put("shipGroupSeqId", shipGroupSeqId);
 
 // Retrieve the map resident in session which stores order item quantities to receive
@@ -69,6 +68,7 @@ if (UtilValidate.isEmpty(orderId)) {
 if (UtilValidate.isEmpty(shipGroupSeqId)) {
     shipGroupSeqId = shipment.get("primaryShipGroupSeqId");
 }
+context.put("orderId", orderId);
 
 if (UtilValidate.isEmpty(orderId)) {
     return;
@@ -120,20 +120,23 @@ orderItemIter = orderItems.iterator();
 while (orderItemIter.hasNext()) {
     orderItemAndShipGroupAssoc = orderItemIter.next();
     product = orderItemAndShipGroupAssoc.getRelatedOne("Product");
+    
+    // Get the order item, since the orderItemAndShipGroupAssoc's quantity field is manipulated in some cases
+    orderItem = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemAndShipGroupAssoc.get("orderItemSeqId")));
     orderItemData = new HashMap();
 
     // Get the item's ordered quantity
     totalOrdered = 0;
-    ordered = orderItemAndShipGroupAssoc.getDouble("quantity");
+    ordered = orderItem.getDouble("quantity");
     if (ordered != null)
         totalOrdered += ordered.doubleValue();
-    cancelled = orderItemAndShipGroupAssoc.getDouble("cancelQuantity");
+    cancelled = orderItem.getDouble("cancelQuantity");
     if (cancelled != null)
         totalOrdered -= cancelled.doubleValue();
 
     // Get the item quantity received from all shipments via the ShipmentReciept entity
     totalReceived = 0.0;
-    receipts = delegator.findByAnd("ShipmentReceipt", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemAndShipGroupAssoc.get("orderItemSeqId")));
+    receipts = delegator.findByAnd("ShipmentReceipt", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId")));
     if (receipts != null && receipts.size() > 0) {
         recIter = receipts.iterator();
         while (recIter.hasNext()) {
@@ -152,7 +155,7 @@ while (orderItemIter.hasNext()) {
         if (! UtilValidate.isEmpty(product)) {
             result = dispatcher.runSync("getProductCost", UtilMisc.toMap("productId", product.get("productId"), "currencyUomId", baseCurrencyUomId, "costComponentTypePrefix", "EST_STD", "userLogin", request.getAttribute("userLogin")));
             if (!ServiceUtil.isError(result)) {
-                orderItemAndShipGroupAssoc.put("unitPrice", result.get("productCost"));
+                orderItem.put("unitPrice", result.get("productCost"));
             }
         }
     }
@@ -174,9 +177,10 @@ while (orderItemIter.hasNext()) {
     totalAvailableToReceive += availableToReceive;
     orderItemData.put("availableToReceive", availableToReceive);
     orderItemData.put("totalQuantityReceived", totalReceived);
-    orderItemData.put("orderItemAndShipGroupAssoc", orderItemAndShipGroupAssoc);
+    orderItemData.put("shipGroupSeqId", orderItemAndShipGroupAssoc.get("shipGroupSeqId"));
+    orderItemData.put("orderItem", orderItem);
     orderItemData.put("product", product);
-    orderItemDatas.put(orderItemAndShipGroupAssoc.getString("orderItemSeqId"), orderItemData);
+    orderItemDatas.put(orderItem.getString("orderItemSeqId"), orderItemData);
 }
 context.put("orderItemDatas", orderItemDatas.values());
 
