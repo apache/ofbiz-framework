@@ -26,7 +26,8 @@ under the License.
 
     <!-- MRP services -->
     <service name="executeMrp" engine="java"
-            location="org.ofbiz.manufacturing.mrp.MrpServices" invoke="executeMrp" auth="true" use-transaction="false">
+            location="org.ofbiz.manufacturing.mrp.MrpServices" invoke="executeMrp" auth="true"
+            transaction-timeout="7200" max-retry="0" use-transaction="false">
         <description>Performs a run of Mrp</description>
         <attribute name="facilityGroupId" type="String" mode="IN" optional="true"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
