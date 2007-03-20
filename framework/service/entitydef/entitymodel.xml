@@ -53,6 +53,7 @@ under the License.
       <field name="serviceName" type="name"></field>
       <field name="loaderName" type="name"></field>
       <field name="maxRetry" type="numeric"></field>
+      <field name="authUserLoginId" type="id-vlong"></field>
       <field name="runAsUser" type="id-vlong"></field>
       <field name="runtimeDataId" type="id"></field>
       <field name="recurrenceInfoId" type="id"></field>
@@ -66,6 +67,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="JOB_SNDBX_RNTMDTA" rel-entity-name="RuntimeData">
         <key-map field-name="runtimeDataId"/>
+      </relation>
+      <relation type="one" fk-name="JOB_SNDBX_AUSRLGN" title="Auth" rel-entity-name="UserLogin">
+        <key-map field-name="authUserLoginId" rel-field-name="userLoginId"/>
       </relation>
       <relation type="one" fk-name="JOB_SNDBX_USRLGN" title="RunAs" rel-entity-name="UserLogin">
         <key-map field-name="runAsUser" rel-field-name="userLoginId"/>
