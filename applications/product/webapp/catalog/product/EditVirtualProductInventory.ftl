@@ -21,7 +21,7 @@ under the License.
         <td><div class="tableheadtext">${uiLabelMap.ProductProductId}</div></td>
             <#list featureTypeIds as featureTypeId>
                 <#assign featureType = delegator.findByPrimaryKey("ProductFeatureType", Static["org.ofbiz.base.util.UtilMisc"].toMap("productFeatureTypeId", featureTypeId))>
-                <td><div class="tableheadtext">${featureType.description}</div></td>
+                <td><div class="tableheadtext">${featureType.description}&nbsp;</div></td>
             </#list>
         <td><div class="tableheadtext">${uiLabelMap.ProductQoh}</div></td>
         <td><div class="tableheadtext">${uiLabelMap.ProductAtp}</div></td>
@@ -30,7 +30,7 @@ under the License.
     <tr>
         <td><a href="/catalog/control/EditProductInventoryItems?productId=${variantSummary.productId}" class="buttontext">${variantSummary.productId}</a></td>
             <#list featureTypeIds as featureTypeId>
-                <td><div class="tabletext">${variantSummary[featureTypeId].description}</div></td>
+                <td><div class="tabletext">${(variantSummary[featureTypeId].description)?default(featureTypeId)}</div></td>
             </#list>
         <td><div class="tabletext">${variantSummary.quantityOnHandTotal}</div></td>
         <td><div class="tabletext">${variantSummary.availableToPromiseTotal}</div></td>
