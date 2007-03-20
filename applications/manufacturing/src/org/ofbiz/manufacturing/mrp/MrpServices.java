@@ -593,7 +593,7 @@ public class MrpServices {
                         // The components are also loaded thru the configurator
                         Map serviceResponse = null;
                         try {
-                            serviceResponse = dispatcher.runSync("getManufacturingComponents", UtilMisc.toMap("productId", product.getString("productId"), "quantity", new Double(positiveEventQuantity), "userLogin", userLogin));
+                            serviceResponse = dispatcher.runSync("getManufacturingComponents", UtilMisc.toMap("productId", product.getString("productId"), "quantity", new Double(positiveEventQuantity), "excludeWIPs", Boolean.FALSE, "userLogin", userLogin));
                         } catch (Exception e) {
                             return ServiceUtil.returnError("An error occurred exploding the product [" + product.getString("productId") + "]");
                         }
@@ -625,7 +625,7 @@ public class MrpServices {
                         // The components are also loaded thru the configurator
                         Map serviceResponse = null;
                         try {
-                            serviceResponse = dispatcher.runSync("getManufacturingComponents", UtilMisc.toMap("productId", product.getString("productId"), "quantity", new Double(proposedOrder.getQuantity()), "userLogin", userLogin));
+                            serviceResponse = dispatcher.runSync("getManufacturingComponents", UtilMisc.toMap("productId", product.getString("productId"), "quantity", new Double(proposedOrder.getQuantity()), "excludeWIPs", Boolean.FALSE, "userLogin", userLogin));
                         } catch (Exception e) {
                             return ServiceUtil.returnError("An error occurred exploding the product [" + product.getString("productId") + "]");
                         }
