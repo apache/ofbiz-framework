@@ -20,6 +20,40 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="UserJobs">
+        <section>
+            <actions>
+                <set field="headerItem" value="userJobs"/>
+                <set field="titleProperty" value="WorkEffortJobList"/>
+                <set field="filterByStatusId" from-field="parameters.statusId" default-value="SERVICE_RUNNING"/>
+                <entity-condition entity-name="JobSandbox" list-name="userJobs">
+                    <condition-list>
+                        <condition-expr field-name="authUserLoginId" env-name="userLogin.userLoginId"/>
+                        <condition-expr field-name="statusId" env-name="filterByStatusId"/>
+                    </condition-list>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <label style="head1">${uiLabelMap.WorkEffortJobList}</label>
+                                <include-form name="FilterUserJobs" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                <include-form name="UserJobsList" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.WorkEffortViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="mytasks">
         <section>
             <actions>

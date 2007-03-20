@@ -19,6 +19,34 @@ under the License.
 -->
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+
+    <form name="FilterUserJobs" title="" type="single">
+        <field name="statusId">
+            <drop-down no-current-selected-key="SERVICE_RUNNING">
+                <entity-options description="${description}" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" value="SERVICE_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+    </form>
+    <form name="UserJobsList" list-name="userJobs" title="" type="list">
+        <auto-fields-entity entity-name="JobSandbox" default-field-type="display"/>
+        <field name="statusId">
+            <display-entity entity-name="StatusItem" description="${description}"></display-entity>
+        </field>
+        <field name="poolId"><hidden/></field>
+        <field name="parentJobId"><hidden/></field>
+        <field name="previousJobId"><hidden/></field>
+        <field name="loaderName"><hidden/></field>
+        <field name="runAsUser"><hidden/></field>
+        <field name="authUserLoginId"><hidden/></field>
+        <field name="runByInstanceId"><hidden/></field>
+        <field name="runtimeDataId"><hidden/></field>
+        <field name="recurrenceInfoId"><hidden/></field>
+    </form>
+    
     <form name="EditWorkEffort" default-map-name="workEffort" target="updateWorkEffort" title="" type="single">
         <alt-target target="createWorkEffort" use-when="workEffort==null"/>
         <auto-fields-service service-name="updateWorkEffort"/>

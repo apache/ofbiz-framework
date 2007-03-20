@@ -99,6 +99,8 @@ under the License.
     
     <request-map uri="mytasks"><security https="true" auth="true"/><response name="success" type="view" value="mytasks"/></request-map>
 
+    <request-map uri="UserJobs"><security https="true" auth="true"/><response name="success" type="view" value="UserJobs"/></request-map>
+
     <request-map uri="day"><security https="true" auth="true"/><response name="success" type="view" value="day"/></request-map>
     <request-map uri="week"><security https="true" auth="true"/><response name="success" type="view" value="week"/></request-map>
     <request-map uri="month"><security https="true" auth="true"/><response name="success" type="view" value="month"/></request-map>
@@ -609,7 +611,9 @@ under the License.
     
     <view-map name="activity" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#activity"/>
     <view-map name="mytasks" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#mytasks"/>
-    
+
+    <view-map name="UserJobs" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#UserJobs"/>
+
     <view-map name="day" type="screen" page="component://workeffort/widget/CalendarScreens.xml#CalendarDay"/>
     <view-map name="week" type="screen" page="component://workeffort/widget/CalendarScreens.xml#CalendarWeek"/>
     <view-map name="month" type="screen" page="component://workeffort/widget/CalendarScreens.xml#CalendarMonth"/>
