@@ -2323,7 +2323,7 @@ under the License.
     <view-map name="EditProductAssetUsage" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductAssetUsage"/>
     <view-map name="showFixedAssetProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#showFixedAssetProduct"/>
     <view-map name="newFixedAssetProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#newFixedAssetProduct"/>
-    <view-map name="ProductBarCode.pdf" type="screenfop" page="component://product/widget/catalog/ProductScreens.xml#ProductBarCode.fo"/>    
+    <view-map name="ProductBarCode.pdf" type="screenfop" page="component://product/widget/catalog/ProductScreens.xml#ProductBarCode.fo" content-type="application/pdf" encoding="none"/>
 
     <view-map name="EditProductContent" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductContent"/>
     <view-map name="EditProductGoodIdentifications" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductGoodIdentifications"/>

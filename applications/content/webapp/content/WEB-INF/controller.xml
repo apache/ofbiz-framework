@@ -1680,7 +1680,7 @@ under the License.
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="main" type="screen" page="component://content/widget/CommonScreens.xml#main"/>
     <view-map name="login" type="screen" page="component://content/widget/CommonScreens.xml#login"/>
-    <view-map name="fonts.fo" type="screenfop" page="component://content/widget/CommonScreens.xml#fonts.fo"/>
+    <view-map name="fonts.fo" type="screenfop" page="component://content/widget/CommonScreens.xml#fonts.fo" content-type="application/pdf" encoding="none"/>
     
     <view-map name="FindForumGroups" page="component://content/widget/forum/ForumScreens.xml#FindForumGroups" type="screen"/>
     <view-map name="ForumGroupRoles" page="component://content/widget/forum/ForumScreens.xml#ForumGroupRoles" type="screen"/>

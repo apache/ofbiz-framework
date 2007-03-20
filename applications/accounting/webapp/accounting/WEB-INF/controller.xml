@@ -1258,7 +1258,7 @@ under the License.
     <view-map name="editPayment" type="screen" page="component://accounting/widget/PaymentScreens.xml#EditPayment"/>
     <view-map name="editPaymentApplications" type="screen" page="component://accounting/widget/PaymentScreens.xml#EditPaymentApplications"/>
     <view-map name="ManualTransaction" type="screen" page="component://accounting/widget/PaymentScreens.xml#ManualTransaction"/>
-    <view-map name="PrintChecks" type="screenfop" page="component://accounting/widget/PaymentScreens.xml#PrintChecks"/>
+    <view-map name="PrintChecks" type="screenfop" page="component://accounting/widget/PaymentScreens.xml#PrintChecks" content-type="application/pdf" encoding="none"/>
 
     <!-- New Screen Widget for EditGlobalGlAccount -->
     <view-map name="EditGlJournalEntry" type="screen" page="component://accounting/widget/AccountingScreens.xml#EditGlJournalEntry"/>
