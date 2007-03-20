@@ -1092,7 +1092,7 @@ under the License.
     <view-map name="PicklistManage" type="screen" page="component://product/widget/facility/FacilityScreens.xml#PicklistManage"/>
     <view-map name="PickMoveStock" type="screen" page="component://product/widget/facility/FacilityScreens.xml#PickMoveStock"/>
     <view-map name="PickMoveStockSimple" type="screen" page="component://product/widget/facility/FacilityScreens.xml#PickMoveStockSimple"/>
-    <view-map name="PicklistReport.pdf" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#PicklistReport.fo"/>
+    <view-map name="PicklistReport.pdf" type="screenfop" content-type="application/pdf" page="component://product/widget/facility/FacilityScreens.xml#PicklistReport.fo"/>
 
     <view-map name="FindFacilityGroup" type="screen" page="component://product/widget/facility/FacilityGroupScreens.xml#FindFacilityGroup"/>
     <view-map name="EditFacilityGroup" type="screen" page="component://product/widget/facility/FacilityGroupScreens.xml#EditFacilityGroup"/>
@@ -1101,13 +1101,13 @@ under the License.
     <view-map name="EditFacilityGroupRoles" type="screen" page="component://product/widget/facility/FacilityGroupScreens.xml#EditFacilityGroupRoles"/>
 
     <view-map name="PackOrder" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#PackOrder"/>
-    <view-map name="PackingSlip.pdf" type="screenfop" page="component://product/widget/facility/ShipmentScreens.xml#PackingSlip.fo"/>
-    <view-map name="ShipmentBarCode.pdf" type="screenfop" page="component://product/widget/facility/ShipmentScreens.xml#ShipmentBarCode.fo"/>
-    <view-map name="ShipmentManifest.pdf" type="screenfop" page="component://product/widget/facility/ShipmentScreens.xml#ShipmentManifest.fo"/>
+    <view-map name="PackingSlip.pdf" type="screenfop" content-type="application/pdf" page="component://product/widget/facility/ShipmentScreens.xml#PackingSlip.fo"/>
+    <view-map name="ShipmentBarCode.pdf" type="screenfop" content-type="application/pdf" page="component://product/widget/facility/ShipmentScreens.xml#ShipmentBarCode.fo"/>
+    <view-map name="ShipmentManifest.pdf" type="screenfop" content-type="application/pdf" page="component://product/widget/facility/ShipmentScreens.xml#ShipmentManifest.fo"/>
     
     <view-map name="ScheduleShipmentRouteSegment" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ScheduleShipmentRouteSegment"/>
     <view-map name="Labels" type="screen" page="component://product/widget/facility/FacilityScreens.xml#Labels"/>
-    <view-map name="BatchPrintShippingLabels" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#BatchPrintShippingLabels"/>
+    <view-map name="BatchPrintShippingLabels" type="screenfop" content-type="application/pdf" page="component://product/widget/facility/FacilityScreens.xml#BatchPrintShippingLabels"/>
 
     <view-map name="FindShipment" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#FindShipment"/>
     <view-map name="ViewShipment" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#ViewShipment"/>
