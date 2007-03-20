@@ -48,6 +48,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_contenttypes.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_data.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_email.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_print.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_survey.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_commevent.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_website.xml"/>
