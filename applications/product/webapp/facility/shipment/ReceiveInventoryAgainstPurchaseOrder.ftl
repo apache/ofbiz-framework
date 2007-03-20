@@ -93,6 +93,7 @@ under the License.
                         <td><div class="tableheadtext">${uiLabelMap.OrderBackOrdered}</div></td>
                         <td><div class="tableheadtext">${uiLabelMap.CommonReceived}</div></td>
                         <td><div class="tableheadtext">${uiLabelMap.ProductOpenQuantity}</div></td>
+                        <td><div class="tableheadtext">${uiLabelMap.ProductBackOrders}</div></td>
                         <#if itemsAvailableToReceive>
                             <td><div class="tableheadtext">${uiLabelMap.CommonReceive}</div></td>
                             <td><div class="tableheadtext">${uiLabelMap.ProductInventoryItemType}</div></td>
@@ -108,6 +109,7 @@ under the License.
                         <#assign totalQuantityReceived = orderItemData.totalQuantityReceived?default(0)>
                         <#assign availableToReceive = orderItemData.availableToReceive?default(0)>
                         <#assign backOrderedQuantity = orderItemData.backOrderedQuantity?default(0)>
+                        <#assign fulfilledReservations = orderItemData.fulfilledReservations>
                         
                         <tr>
                             <td><div class="tabletext">${(product.internalName)?if_exists} [${orderItem.productId?default("N/A")}]</div></td>
@@ -141,6 +143,15 @@ under the License.
                             <td>
                                 <div class="tabletext">
                                     ${orderItem.quantity - orderItem.cancelQuantity?default(0) - totalQuantityReceived}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tabletext">
+                                    <#if fulfilledReservations?has_content>
+                                        <#list fulfilledReservations?sort_by("orderId") as fulfilledReservation>
+                                            ${fulfilledReservation.orderId}<br/>
+                                        </#list>
+                                    </#if>
                                 </div>
                             </td>
                             <#if availableToReceive &gt; 0 >
@@ -189,7 +200,7 @@ under the License.
                     </#list>
                     <#if itemsAvailableToReceive>
                         <tr>
-                            <td colspan="10" align="right">
+                            <td colspan="11" align="right">
                                 <a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId}&purchaseOrderId=${orderId}&clearAll=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClearAll}</a>
                             </td>
                             <td align="right">
@@ -197,7 +208,7 @@ under the License.
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="11" align="right">
+                            <td colspan="12" align="right">
                                 <a class="smallSubmit" href="<@ofbizUrl>completePurchaseOrder?orderId=${orderId}&facilityId=${facilityId}&shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.OrderForceCompletePurchaseOrder}</a>
                             </td>
                         </tr>

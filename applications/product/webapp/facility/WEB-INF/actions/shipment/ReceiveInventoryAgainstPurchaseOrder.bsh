@@ -137,6 +137,7 @@ while (orderItemIter.hasNext()) {
     // Get the item quantity received from all shipments via the ShipmentReciept entity
     totalReceived = 0.0;
     receipts = delegator.findByAnd("ShipmentReceipt", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId")));
+    fulfilledReservations = new ArrayList();
     if (receipts != null && receipts.size() > 0) {
         recIter = receipts.iterator();
         while (recIter.hasNext()) {
@@ -147,15 +148,22 @@ while (orderItemIter.hasNext()) {
                 totalReceived += accepted.doubleValue();
             if (rejected != null)
                 totalReceived += rejected.doubleValue();                                            
+
+            // Get the reservations related to this receipt
+            oisgirs = delegator.findByAnd("OrderItemShipGrpInvRes", UtilMisc.toMap("inventoryItemId", rec.get("inventoryItemId")));
+            if (! UtilValidate.isEmpty(oisgirs)) {
+                fulfilledReservations.addAll(oisgirs);
+            }
         }            
     }
+    orderItemData.put("fulfilledReservations", fulfilledReservations);
 
     // Update the unit cost with the converted value, if any
-    if (UtilValidate.isNotEmpty(baseCurrencyUomId)) {
+    if (UtilValidate.isNotEmpty(baseCurrencyUomId) && UtilValidate.isNotEmpty(orderHeader.getString("currencyUom"))) {
         if (! UtilValidate.isEmpty(product)) {
-            result = dispatcher.runSync("getProductCost", UtilMisc.toMap("productId", product.get("productId"), "currencyUomId", baseCurrencyUomId, "costComponentTypePrefix", "EST_STD", "userLogin", request.getAttribute("userLogin")));
+            result = dispatcher.runSync("convertUom", UtilMisc.toMap("uomId", orderHeader.getString("currencyUom"), "uomIdTo", baseCurrencyUomId, "originalValue", orderItem.get("unitPrice")));
             if (!ServiceUtil.isError(result)) {
-                orderItem.put("unitPrice", result.get("productCost"));
+                orderItem.put("unitPrice", result.get("convertedValue"));
             }
         }
     }
