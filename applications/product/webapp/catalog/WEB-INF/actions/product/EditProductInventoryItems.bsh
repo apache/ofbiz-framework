@@ -27,7 +27,7 @@ import org.ofbiz.securityext.login.*;
 import org.ofbiz.product.inventory.InventoryWorker;
 
 //If product is virtual gather summary data from variants
-if (product.getString("isVirtual") != null && product.getString("isVirtual").equals("Y")) {
+if (product.getString("isVirtual") != null && "Y".equals(product.getString("isVirtual"))) {
     //Get the virtual product feature types
     result = dispatcher.runSync("getProductFeaturesByType", UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "SELECTABLE_FEATURE"));
     featureTypeIds = result.get("productFeatureTypes");
@@ -40,21 +40,21 @@ if (product.getString("isVirtual") != null && product.getString("isVirtual").equ
         variant = variantIterator.next();
 
         //create a map of each variant id and inventory summary (all facilities)
-        variantInventorySummary = new HashMap();
-        variantInventorySummary.put("productId", variant.getString("productIdTo"));
-        inventoryAvailable = dispatcher.runSync("getProductInventoryAvailable", UtilMisc.toMap("productId", variantInventorySummary.get("productId")));
-        variantInventorySummary.put("availableToPromiseTotal", inventoryAvailable.get("availableToPromiseTotal"));
-        variantInventorySummary.put("quantityOnHandTotal", inventoryAvailable.get("quantityOnHandTotal"));
+        inventoryAvailable = dispatcher.runSync("getProductInventoryAvailable", UtilMisc.toMap("productId", variant.get("productIdTo")));
+
+        variantInventorySummary = UtilMisc.toMap("productId", variant.get("productIdTo"), 
+            "availableToPromiseTotal", inventoryAvailable.get("availableToPromiseTotal"),
+            "quantityOnHandTotal", inventoryAvailable.get("quantityOnHandTotal"));
 
         //add the applicable features to the map
         featureTypeIdsIterator = featureTypeIds.iterator();
         while (featureTypeIdsIterator.hasNext()) {
             featureTypeId = featureTypeIdsIterator.next();
-            result = dispatcher.runSync("getProductFeatures", UtilMisc.toMap("productId", variant.getString("productIdTo"), "type", "STANDARD_FEATURE", "distinct", featureTypeId));
+            result = dispatcher.runSync("getProductFeatures", UtilMisc.toMap("productId", variant.get("productIdTo"), "type", "STANDARD_FEATURE", "distinct", featureTypeId));
             variantFeatures = result.get("productFeatures");
             if (variantFeatures.size() > 0) {
                 //there should only be one result in this collection
-                variantInventorySummary.put(featureTypeId, variantFeatures.iterator().next());
+                variantInventorySummary.put(featureTypeId, variantFeatures.get(0));
             }
         }
         variantInventorySummaries.add(variantInventorySummary);
