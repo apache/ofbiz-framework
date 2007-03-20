@@ -28,6 +28,7 @@ import java.util.Map;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.serialize.SerializeException;
@@ -97,6 +98,13 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
                 runtimeData.set("runtimeInfo", XmlSerializer.serialize(context));
                 toBeStored.add(runtimeData);
 
+                // Get the userLoginId out of the context
+                String authUserLoginId = null;
+                if (context.containsKey("userLogin")) {
+                    GenericValue userLogin = (GenericValue)context.get("userLogin");
+                    authUserLoginId = userLogin.getString("userLoginId");
+                }
+
                 // Create the job info
                 String jobId = dispatcher.getDelegator().getNextSeqId("JobSandbox");
                 String jobName = Long.toString((new Date().getTime()));
@@ -108,6 +116,9 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
                 jFields.put("loaderName", localName);
                 jFields.put("maxRetry", new Long(modelService.maxRetry));
                 jFields.put("runtimeDataId", dataId);
+                if (UtilValidate.isNotEmpty(authUserLoginId)) {
+                    jFields.put("authUserLoginId", authUserLoginId);
+                }
 
                 jobV = dispatcher.getDelegator().makeValue("JobSandbox", jFields);
                 toBeStored.add(jobV);
