@@ -117,6 +117,7 @@ under the License.
   </div>
 
 <#-- ============================================================= -->
+<#-- This is just sales over the last 12 months 
   <#if monthsToInclude?exists && totalSubRemainingAmount?exists && totalOrders?exists>
     <div id="totalOrders" class="screenlet">
       <div class="screenlet-title-bar">
@@ -127,7 +128,7 @@ under the License.
       </div>
     </div>
   </#if>
-
+  -->
 <#-- ============================================================= -->
   <div id="partyContactInfo" class="screenlet">
     <div class="screenlet-title-bar">
