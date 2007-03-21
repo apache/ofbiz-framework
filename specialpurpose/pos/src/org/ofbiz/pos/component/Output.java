@@ -33,35 +33,6 @@ public class Output {
     // login labels
 
     private Locale defaultLocale = Locale.getDefault();
-    /* Useless since i18n, see pos.properties
-    public static final String ULOGIN = "Enter User ID:"; 
-    public static final String UPASSW = "Enter Password:";
-
-    // open/close labels
-    public static final String OPDRAM = "Starting Drawer Amount:";
-    public static final String ENTCAS = "Enter Cash Amount:";
-    public static final String ENTCHK = "Enter Check Amount:";
-    public static final String ENTCRC = "Enter Credit Card Amount:";
-    public static final String ENTGFC = "Enter Gift Card Amount:";
-    public static final String ENTOTH = "Enter Other Payment Amount:";
-
-    // complete sale labels
-    public static final String PAYFIN = "Press Finish To Complete Sale";
-    public static final String TOTALD = "Total Due: ";
-    public static final String CHANGE = "Change Due: ";
-
-    // payment (credit/check/gc) labels
-    public static final String CREDNO = "Enter Card Number:";
-    public static final String CREDEX = "Enter Expiration Date (MMYY):";
-    public static final String CREDCF = "Enter Last 4 Digits:";
-    public static final String CREDZP = "Enter Billing ZipCode:";
-    public static final String REFNUM = "Enter Reference Number:";
-    public static final String AUTHCD = "Enter Auth Code:";
-
-    // standard messages
-    public static final String ISCLOSED = "Register Is Closed";
-    public static final String ISOPEN = "Register Is Open";*/
-
     protected XuiSession session = null;
     protected XEdit output = null;
 
@@ -79,7 +50,7 @@ public class Output {
             if (PosTransaction.getCurrentTx(session).isOpen()) {
                 this.print(UtilProperties.getMessage("pos","ISOPEN",defaultLocale));
             } else {
-            	this.print(UtilProperties.getMessage("pos","ISCLOSED",defaultLocale));
+                this.print(UtilProperties.getMessage("pos","ISCLOSED",defaultLocale));
             }
         }
     }
