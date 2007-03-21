@@ -361,7 +361,7 @@ if (orderHeader != null) {
 }
 
 if (displayParty != null) { 
-    List paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, assignPartyId, false);
+    List paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, displayParty.getString("partyId"), false);
     context.put("paymentMethodValueMaps", paymentMethodValueMaps);
 }
 
