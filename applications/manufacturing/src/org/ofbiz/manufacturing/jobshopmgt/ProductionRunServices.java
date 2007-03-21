@@ -113,6 +113,17 @@ public class ProductionRunServices {
                 serviceContext.put("userLogin", userLogin);
                 Map resultService = null;
                 resultService = dispatcher.runSync("updateWorkEffort", serviceContext);
+                // Cancel the product promised
+                List products = delegator.findByAnd("WorkEffortGoodStandard", UtilMisc.toMap("workEffortId", productionRunId, "workEffortGoodStdTypeId", "PRUN_PROD_DELIV", "statusId", "WEGS_CREATED"));
+                if (!UtilValidate.isEmpty(products)) {
+                    Iterator productsIt = products.iterator();
+                    while (productsIt.hasNext()) {
+                        GenericValue product = (GenericValue)productsIt.next();
+                        product.set("statusId", "WEGS_CANCELLED");
+                        product.store();
+                    }
+                }
+
                 // change the tasks status to PRUN_CANCELLED
                 List tasks = productionRun.getProductionRunRoutingTasks();
                 GenericValue oneTask = null;
