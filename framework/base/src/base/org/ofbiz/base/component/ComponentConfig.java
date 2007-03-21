@@ -97,29 +97,41 @@ public class ComponentConfig {
     }
 
     public static List getAllClasspathInfos() {
+        return getAllClasspathInfos(null);
+    }
+
+    public static List getAllClasspathInfos(String componentName) {
         List classpaths = FastList.newInstance();
         Iterator i = getAllComponents().iterator();
         while (i.hasNext()) {
             ComponentConfig cc = (ComponentConfig) i.next();
-            classpaths.addAll(cc.getClasspathInfos());
+            if (componentName == null || componentName.equals(cc.getComponentName())) {
+                classpaths.addAll(cc.getClasspathInfos());
+            }
         }
         return classpaths;
     }
 
     public static List getAllEntityResourceInfos(String type) {
+        return getAllEntityResourceInfos(type, null);
+    }
+
+    public static List getAllEntityResourceInfos(String type, String componentName) {
         List entityInfos = FastList.newInstance();
         Iterator i = getAllComponents().iterator();
         while (i.hasNext()) {
             ComponentConfig cc = (ComponentConfig) i.next();
-            List ccEntityInfoList = cc.getEntityResourceInfos();
-            if (UtilValidate.isEmpty(type)) {
-                entityInfos.addAll(ccEntityInfoList);
-            } else {
-                Iterator ccEntityInfoIter = ccEntityInfoList.iterator();
-                while (ccEntityInfoIter.hasNext()) {
-                    EntityResourceInfo entityResourceInfo = (EntityResourceInfo) ccEntityInfoIter.next();
-                    if (type.equals(entityResourceInfo.type)) {
-                        entityInfos.add(entityResourceInfo);
+            if (componentName == null || componentName.equals(cc.getComponentName())) {
+                List ccEntityInfoList = cc.getEntityResourceInfos();
+                if (UtilValidate.isEmpty(type)) {
+                    entityInfos.addAll(ccEntityInfoList);
+                } else {
+                    Iterator ccEntityInfoIter = ccEntityInfoList.iterator();
+                    while (ccEntityInfoIter.hasNext()) {
+                        EntityResourceInfo entityResourceInfo = (EntityResourceInfo) ccEntityInfoIter.next();
+                        if (type.equals(entityResourceInfo.type)) {
+                            entityInfos.add(entityResourceInfo);
+                        }
                     }
                 }
             }
@@ -128,19 +140,25 @@ public class ComponentConfig {
     }
 
     public static List getAllServiceResourceInfos(String type) {
+        return getAllServiceResourceInfos(type, null);
+    }
+
+    public static List getAllServiceResourceInfos(String type, String componentName) {
         List serviceInfos = FastList.newInstance();
         Iterator i = getAllComponents().iterator();
         while (i.hasNext()) {
             ComponentConfig cc = (ComponentConfig) i.next();
-            List ccServiceInfoList = cc.getServiceResourceInfos();
-            if (UtilValidate.isEmpty(type)) {
-                serviceInfos.addAll(ccServiceInfoList);
-            } else {
-                Iterator ccServiceInfoIter = ccServiceInfoList.iterator();
-                while (ccServiceInfoIter.hasNext()) {
-                    ServiceResourceInfo serviceResourceInfo = (ServiceResourceInfo) ccServiceInfoIter.next();
-                    if (type.equals(serviceResourceInfo.type)) {
-                        serviceInfos.add(serviceResourceInfo);
+            if (componentName == null || componentName.equals(cc.getComponentName())) {
+                List ccServiceInfoList = cc.getServiceResourceInfos();
+                if (UtilValidate.isEmpty(type)) {
+                    serviceInfos.addAll(ccServiceInfoList);
+                } else {
+                    Iterator ccServiceInfoIter = ccServiceInfoList.iterator();
+                    while (ccServiceInfoIter.hasNext()) {
+                        ServiceResourceInfo serviceResourceInfo = (ServiceResourceInfo) ccServiceInfoIter.next();
+                        if (type.equals(serviceResourceInfo.type)) {
+                            serviceInfos.add(serviceResourceInfo);
+                        }
                     }
                 }
             }

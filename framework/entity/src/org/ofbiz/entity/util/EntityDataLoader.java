@@ -74,10 +74,14 @@ public class EntityDataLoader {
 
     public static List getUrlList(String helperName) {
         DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
-        return getUrlList(helperName, datasourceInfo.readDatas);
+        return getUrlList(helperName, null, datasourceInfo.readDatas);
     }
 
     public static List getUrlList(String helperName, List readerNames) {
+        return getUrlList(helperName, null, readerNames);
+    }
+
+    public static List getUrlList(String helperName, String componentName, List readerNames) {
         String paths = getPathsString(helperName);
         List urlList = new LinkedList();
         
@@ -113,7 +117,7 @@ public class EntityDataLoader {
                     }
         
                     // get all of the component resource model stuff, ie specified in each ofbiz-component.xml file
-                    List componentResourceInfos = ComponentConfig.getAllEntityResourceInfos("data");
+                    List componentResourceInfos = ComponentConfig.getAllEntityResourceInfos("data", componentName);
                     Iterator componentResourceInfoIter = componentResourceInfos.iterator();
                     while (componentResourceInfoIter.hasNext()) {
                         ComponentConfig.EntityResourceInfo componentResourceInfo = (ComponentConfig.EntityResourceInfo) componentResourceInfoIter.next();
