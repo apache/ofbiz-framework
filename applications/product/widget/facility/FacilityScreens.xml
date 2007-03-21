@@ -456,6 +456,12 @@ under the License.
                 <set field="displayWithNoFacility" value="Y"/>
 
                 <script location="component://product/webapp/facility/WEB-INF/actions/inventory/EditInventoryItem.bsh"/>
+                <entity-condition entity-name="OrderItemShipGrpInvRes" list-name="inventoryItemReservations">
+                    <condition-list combine="and">
+                        <condition-expr field-name="inventoryItemId" operator="equals" env-name="inventoryItemId"/>
+                    </condition-list>
+                    <order-by field-name="reservedDatetime"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -463,6 +469,10 @@ under the License.
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/inventory/EditInventoryItem.ftl"/></html>
                         </platform-specific>
+                        <container>
+                            <label style="head2">${uiLabelMap.ProductInventoryItemReservations}</label>
+                        </container>
+                        <include-form name="InventoryItemReservations" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
                         <section> 
                             <condition>
                                 <if-compare field-name="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM"/>

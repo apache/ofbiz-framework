@@ -70,5 +70,11 @@ under the License.
         <!-- workEffortId - not sure if it's better to show manufacturing or workeffort app
         itemIssuanceId, receiptId, physicalInventoryId - no natural screens to show these -->
     </form>
-
+    <form name="InventoryItemReservations" type="list" target="" title="" list-name="inventoryItemReservations">
+        <auto-fields-entity entity-name="OrderItemShipGrpInvRes" default-field-type="display"/>
+        <field name="inventoryItemId"><hidden/></field>
+        <field name="orderId" widget-style="buttontext">
+            <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app" description="${orderId}" />
+        </field>
+    </form>
 </forms>
