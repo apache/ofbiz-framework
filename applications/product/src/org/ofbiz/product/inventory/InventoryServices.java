@@ -232,8 +232,6 @@ public class InventoryServices {
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError("Inventory refresh problem [" + e.getMessage() + "]");
             }
-        } else if (inventoryType.equals("SERIALIZED_INV_ITEM")) {
-            inventoryItem.set("statusId", "INV_AVAILABLE");
         }
 
         // set the fields on the item
@@ -242,6 +240,12 @@ public class InventoryServices {
                                                     "containerId", inventoryTransfer.get("containerIdTo"),
                                                     "locationSeqId", inventoryTransfer.get("locationSeqIdTo"),
                                                     "userLogin", userLogin);
+
+        // for serialized items, automatically make them available
+        if (inventoryType.equals("SERIALIZED_INV_ITEM")) {
+            updateInventoryItemMap.put("statusId", "INV_AVAILABLE");
+        }
+
         // if the destination facility's owner is different 
         // from the inventory item's ownwer, 
         // the inventory item is assigned to the new owner.
