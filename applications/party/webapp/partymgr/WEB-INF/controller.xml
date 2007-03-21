@@ -318,7 +318,7 @@ under the License.
     <request-map uri="createEmployee">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/party/user/UserEvents.xml" invoke="createEmployee"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile"/>
         <response name="error" type="view" value="NewEmployee"/>
     </request-map>
 
@@ -326,13 +326,13 @@ under the License.
     <request-map uri="createPerson">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createPerson"/>
-        <response name="success" type="view" value="EditPerson"/>
+        <response name="success" type="request-redirect" value="viewprofile"/>
         <response name="error" type="view" value="EditPerson"/>
     </request-map>
     <request-map uri="updatePerson">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updatePerson"/>
-        <response name="success" type="view" value="EditPerson"/>
+        <response name="success" type="request-redirect" value="viewprofile"/>
         <response name="error" type="view" value="EditPerson"/>
     </request-map>
 
@@ -340,13 +340,13 @@ under the License.
     <request-map uri="createPartyGroup">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createPartyGroup"/>
-        <response name="success" type="view" value="EditPartyGroup"/>
+        <response name="success" type="request-redirect" value="viewprofile"/>
         <response name="error" type="view" value="EditPartyGroup"/>
     </request-map>
     <request-map uri="updatePartyGroup">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updatePartyGroup"/>
-        <response name="success" type="view" value="EditPartyGroup"/>
+        <response name="success" type="request-redirect" value="viewprofile"/>
         <response name="error" type="view" value="EditPartyGroup"/>
     </request-map>
 
