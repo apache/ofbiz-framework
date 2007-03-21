@@ -45,6 +45,6 @@ conditionList.add(new EntityExpr("partyId", EntityOperator.EQUALS, shoppingCart.
 conditionList.add(new EntityExpr("currencyUomId", EntityOperator.EQUALS, shoppingCart.getCurrency()));
 conditions = new EntityConditionList(conditionList, EntityOperator.AND);
 
-productList = delegator.findByCondition("SupplierProduct", conditions, UtilMisc.toList("productId", "supplierProductId", "supplierProductName", "lastPrice", "minimumOrderQuantity"), UtilMisc.toList("productId"));
+productList = delegator.findByCondition("SupplierProduct", conditions, UtilMisc.toList("productId", "supplierProductId", "supplierProductName", "lastPrice", "minimumOrderQuantity", "availableFromDate", "availableThruDate"), UtilMisc.toList("productId"));
 productList = EntityUtil.filterByDate(productList, UtilDateTime.nowTimestamp(), "availableFromDate", "availableThruDate", true);
 context.put("productList", productList);
