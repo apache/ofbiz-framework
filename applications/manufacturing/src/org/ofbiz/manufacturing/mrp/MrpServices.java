@@ -150,7 +150,7 @@ public class MrpServices {
             return ServiceUtil.returnError("Problem, we can not find the order items, for more detail look at the log");
         }
         iteratorResult = resultList.iterator();
-        while(iteratorResult.hasNext()){
+        while (iteratorResult.hasNext()) {
             genericResult = (GenericValue) iteratorResult.next();
             String productId =  genericResult.getString("productId");
             Double eventQuantityTmp = new Double(-1.0 * genericResult.getDouble("quantity").doubleValue());
