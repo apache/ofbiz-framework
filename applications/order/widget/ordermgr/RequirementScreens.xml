@@ -327,6 +327,7 @@ under the License.
                     <decorator-section name="body">
                         <container>
                             <link target="EditRequirementRole?requirementId=${requirementId}" text="${uiLabelMap.CommonNew}" style="buttontext"/>
+                            <link target="autoAssignRequirementToSupplier?requirementId=${requirementId}" text="${uiLabelMap.OrderAutoAssign}" style="buttontext"/>
                         </container>
                         <include-form name="ListRequirementRoles" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
                     </decorator-section>

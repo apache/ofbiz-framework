@@ -1058,6 +1058,11 @@ under the License.
         <event type="service" invoke="updateRequirementRole"/>
         <response name="success" type="view" value="ListRequirementRoles"/>
     </request-map>
+    <request-map uri="autoAssignRequirementToSupplier">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="autoAssignRequirementToSupplier"/>
+        <response name="success" type="view" value="ListRequirementRoles"/>
+    </request-map>
 
     <request-map uri="ApproveRequirements">
         <security https="true" auth="true"/>

@@ -73,11 +73,12 @@ under the License.
                 <entity-condition entity-name="SupplierProduct" list-name="supplierProducts">
                     <condition-list>
                         <condition-expr field-name="productId" env-name="requirement.productId"/>
-                        <!-- TODO: compare quantity in requirement to the quantity in the SupplierProduct entity -->
-                        <!--<condition-expr field-name="supplierPrefOrderId" value="PRODUCT_REQUIREMENT"/>-->
+                        <condition-expr field-name="minimumOrderQuantity" env-name="requirement.quantity" operator="less-equals"/>
                     </condition-list>
+                    <order-by field-name="lastPrice"/>
                     <order-by field-name="supplierPrefOrderId"/>
                 </entity-condition>
+                <filter-list-by-date list-name="supplierProducts" valid-date-name="requirement.requiredByDate" from-field-name="availableFromDate" thru-field-name="availableThruDate"/>
                 <first-from-list list-name="supplierProducts" entry-name="supplierProduct"/>
                 <if-not-empty field-name="supplierProduct.partyId">
                     <make-value value-name="requirementSupplier" entity-name="RequirementRole"/>
