@@ -265,6 +265,10 @@ public class WorkEffortServices {
             List entityExprList = UtilMisc.toList(
                     new EntityExpr("estimatedCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, startStamp),
                     new EntityExpr("estimatedStartDate", EntityOperator.LESS_THAN, endStamp));
+            // Filter out all the canceled work efforts
+            entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"));
+            entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CANCELLED"));
+            
             List typesList = UtilMisc.toList(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "EVENT"));
             if (partyIds != null && partyIds.size() > 0) {
                 entityExprList.add(new EntityExpr("partyId", EntityOperator.IN, partyIds));
@@ -297,6 +301,7 @@ public class WorkEffortServices {
             //        by the query on the WorkEffortAndPartyAssign view when no party was
             //        specified; now it is no more necessary since, when no party is specified,
             //        the query is done on the WorkEffort entity.
+            /*
             Set tempWeKeys = new HashSet();
             Iterator tempWorkEffortIter = tempWorkEfforts.iterator();
             while (tempWorkEffortIter.hasNext()) {
@@ -308,7 +313,7 @@ public class WorkEffortServices {
                     tempWeKeys.add(tempWorkEffortId);
                 }
             }
-            
+             */
             validWorkEfforts = new ArrayList(tempWorkEfforts);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
