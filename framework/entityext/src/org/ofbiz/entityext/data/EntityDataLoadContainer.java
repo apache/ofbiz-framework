@@ -52,6 +52,7 @@ public class EntityDataLoadContainer implements Container {
     protected String readers = null;
     protected String directory = null;
     protected String file = null;
+    protected String component = null;
     protected boolean useDummyFks = false;
     protected boolean maintainTxs = false;
     protected boolean tryInserts = false;
@@ -109,6 +110,8 @@ public class EntityDataLoadContainer implements Container {
                         } catch (Exception e) {
                             this.txTimeout = -1;
                         }
+                    } else if ("component".equalsIgnoreCase(argumentName)) {
+                        this.component = argumentVal;
                     } else if ("delegator".equalsIgnoreCase(argumentName)) {
                         this.overrideDelegator = argumentVal;
                     } else if ("group".equalsIgnoreCase(argumentName)) {
@@ -183,7 +186,7 @@ public class EntityDataLoadContainer implements Container {
         // get the reader name URLs first
         List urlList = null;
         if (readerNames != null) {
-            urlList = EntityDataLoader.getUrlList(helperName, readerNames);
+            urlList = EntityDataLoader.getUrlList(helperName, component, readerNames);
         } else if (!"none".equalsIgnoreCase(this.readers)) {
             urlList = EntityDataLoader.getUrlList(helperName);
         }
