@@ -430,7 +430,6 @@ under the License.
     </form>
     <!-- create and update a Order on a fixed asset -->
     <form name="AddFixedAssetMaintOrder" type="single" target="createFixedAssetMaintOrder" title="" default-map-name="fixedAssetMaintOrder">        
-        <auto-fields-service service-name="createFixedAssetMaintOrder" map-name="fixedAssetMaintOrder"/>
         <field name="fixedAssetId"><hidden/></field>
         <field name="maintHistSeqId"><hidden/></field>
         <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>
