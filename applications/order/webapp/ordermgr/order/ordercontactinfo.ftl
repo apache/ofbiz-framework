@@ -110,7 +110,7 @@ under the License.
                   <#--<#if partyContactMech.extension?exists>ext&nbsp;${partyContactMech.extension}</#if>-->
                   <#if !telecomNumber.countryCode?exists || telecomNumber.countryCode == "011" || telecomNumber.countryCode == "1">
                     <a target="_blank" href="http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode?if_exists}&amp;telephone=${telecomNumber.contactNumber?if_exists}&amp;btnsubmit.x=20&amp;btnsubmit.y=8" class="buttontext">(lookup:anywho.com)</a>
-                   <a target="_blank" href="http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode}&amp;s=&amp;p=${telecomNumber.contactNumber}&amp;pt=b&amp;x=40&amp;y=9" class="buttontext">(lookup:whitepages.com)</a>
+                   <a target="_blank" href="http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode?if_exists}&amp;s=&amp;p=${telecomNumber.contactNumber?if_exists}&amp;pt=b&amp;x=40&amp;y=9" class="buttontext">(lookup:whitepages.com)</a>
                   </#if>
                 </div>
               <#elseif contactMech.contactMechTypeId == "EMAIL_ADDRESS">

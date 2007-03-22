@@ -34,7 +34,7 @@ under the License.
         <#if orderHeader.externalId?has_content>
           <#assign externalOrder = "(" + orderHeader.externalId + ")"/>
         </#if>
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderOrder} #${orderId} ${externalOrder?if_exists} ${uiLabelMap.CommonInformation} [<a href="<@ofbizUrl>order.pdf?orderId=${orderId}</@ofbizUrl>" class="buttontext" target="_blank">PDF</a> ]</div>
+        <div class="boxhead">&nbsp;${uiLabelMap.OrderOrder}&nbsp;#<a href="<@ofbizUrl>/orderview?orderId=${orderId}</@ofbizUrl>" class="lightbuttontext">${orderId}</a>&nbsp;${externalOrder?if_exists} ${uiLabelMap.CommonInformation} [<a href="<@ofbizUrl>order.pdf?orderId=${orderId}</@ofbizUrl>" class="buttontext" target="_blank">PDF</a> ]</div>
     </div>
     <div class="screenlet-body">
           <table width="100%" border="0" cellpadding="1" cellspacing="0">
