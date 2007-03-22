@@ -13262,7 +13262,7 @@ _bad.appendChild(node);
 }
 var _baf=((isTr)?this.domNode:this.domNode.firstChild);
 var _bb0=((isTr)?node:node.firstChild);
-var _bb1=tdp.childNodes;
+var _bb1=_baf.childNodes;
 var _bb2=_bb0.childNodes;
 for(var i=0;i<_bb1.length;i++){
 if((_bb2[i])&&(_bb2[i].style)){
