@@ -242,7 +242,10 @@ under the License.
     <service name="createFixedAssetMaintOrder" default-entity-name="FixedAssetMaintOrder" engine="simple"
                 location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMaintOrder" auth="true">
         <description>Create a FixedAsset Maintenance Order</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="fixedAssetId" type="String" mode="IN" optional="false"/>
+        <attribute name="maintHistSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteFixedAssetMaintOrder" default-entity-name="FixedAssetMaintOrder" engine="simple"

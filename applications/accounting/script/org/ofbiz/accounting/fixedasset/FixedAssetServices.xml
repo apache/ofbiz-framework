@@ -636,17 +636,30 @@ under the License.
             <set field="orderId" from-field="parameters.orderId"/>
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingOrderWithIdNotFound"/></add-error>
         </if-empty>
-        <check-errors/>        
-        
-        <if-not-empty field-name="orderItemSeqId" map-name="parameters">
-           <!-- Check, should exist orderId and orderItemId -->
-           <entity-one entity-name="OrderItem" value-name="lookedUpValue"/>
-           <if-empty field-name="lookedUpValue">
-              <set field="orderItemSeqId" from-field="parameters.orderItemSeqId"/>
-              <add-error><fail-property resource="AccountingUiLabels" property="AccountingOrderItemWithIdNotFound"/></add-error>
-           </if-empty>
         <check-errors/>
-        </if-not-empty>
+                
+        <!-- Check if user has not passed in orderItemSeqId then get list of OrderItems from database and default to first item -->        
+        <if-empty field-name="orderItemSeqId" map-name="parameters">
+            <entity-and entity-name="OrderItem" list-name="orderItems">
+                <field-map field-name="orderId" env-name="parameters.orderId"/>
+            </entity-and>
+            <if-not-empty field-name="orderItems">
+                <set field="orderItem" from-field="orderItems[0]"/>
+                <if-not-empty field-name="orderItem">
+                  <set field="parameters.orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+                </if-not-empty>
+            </if-not-empty>
+            
+            <else>
+               <!-- Check, should exist orderId and orderItemId -->
+               <entity-one entity-name="OrderItem" value-name="lookedUpValue"/>
+               <if-empty field-name="lookedUpValue">
+                  <set field="orderItemSeqId" from-field="parameters.orderItemSeqId"/>
+                  <add-error><fail-property resource="AccountingUiLabels" property="AccountingOrderItemWithIdNotFound"/></add-error>
+               </if-empty>
+            </else>
+        </if-empty>
+        <check-errors/>
         
         <make-value entity-name="FixedAssetMaintOrder" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
