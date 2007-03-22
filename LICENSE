@@ -95,6 +95,10 @@ ofbiz/trunk/framework/webapp/lib/xmlgraphics-commons-1.1.jar
 ofbiz/trunk/framework/webapp/lib/json-lib-0.9.jar
 ofbiz/trunk/framework/webapp/lib/ezmorph-0.9.1.jar
 ofbiz/trunk/framework/webapp/lib/rome-0.9.jar
+ofbiz/trunk/framework/webapp/lib/xmlrpc-common-3.0.jar
+ofbiz/trunk/framework/webapp/lib/xmlrpc-server-3.0.jar
+ofbiz/trunk/framework/webapp/lib/ws-commons-java5-1.0.1.jar
+ofbiz/trunk/framework/webapp/lib/ws-commons-util-1.0.1.jar
 ofbiz/trunk/framework/geronimo/lib/geronimo-transaction-1.0.jar
 ofbiz/trunk/framework/geronimo/lib/jencks-1.1.3.jar
 ofbiz/trunk/applications/content/lib/lucene.jar
