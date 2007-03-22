@@ -20781,7 +20781,7 @@ dojo.declare("dojo.dnd.HtmlDragObject",
 				// Set a fixed width to the cloned TDs
 				var tmpSrcTr = ((isTr) ? this.domNode : this.domNode.firstChild);
 				var tmpDstTr = ((isTr) ? node : node.firstChild);
-				var domTds = tdp.childNodes;
+				var domTds = tmpSrcTr.childNodes;
 				var cloneTds = tmpDstTr.childNodes;
 				for(var i = 0; i < domTds.length; i++){
 					if((cloneTds[i])&&(cloneTds[i].style)){
