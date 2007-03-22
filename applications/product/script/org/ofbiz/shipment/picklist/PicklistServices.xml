@@ -177,7 +177,7 @@ under the License.
                                         </then>
                                         <else>
                                             <log level="info" message="Found item to pick: ${orderItemShipGrpInvRes}"/>
-                                            <!-- see if there is stock to pick -->
+                                            <!-- see if there is stock to pick.  Items without stock (back ordered items) are not added to picklists. -->
                                             <if>
                                                 <condition>
                                                     <or>
@@ -189,7 +189,10 @@ under the License.
                                                     <log level="info" message="Item has stock; flagging order (${orderItemShipGrpInvRes.orderId}) as OK"/>
                                                     <set value="Y" field="hasStockToPick"/>
                                                 </then>
-                                            </if>
+                                                <else>
+                                                    <log level="info" message="Item ${orderitemShipGrpInvRes} does not have stock and will not be flagged as hasStockToPick"/>
+                                                </else> 
+                                           </if>
 
                                             <!-- check InventoryItem->FacilityLocation (if exists), if it is of type FLT_BULK set needs stock move to true -->
                                             <get-related-one value-name="inventoryItem" relation-name="FacilityLocation" to-value-name="facilityLocation"/>
