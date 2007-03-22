@@ -97,7 +97,12 @@ public class ProductStoreWorker {
 
     public static Locale getStoreLocale(HttpServletRequest request) {
         GenericValue productStore = getProductStore(request);
-        return UtilHttp.getLocale(request, request.getSession(), productStore.getString("defaultLocaleString"));
+        if (UtilValidate.isEmpty(productStore)) {
+            Debug.logError("No product store found in request, cannot set locale!", module);
+            return null;
+	} else {
+	    return UtilHttp.getLocale(request, request.getSession(), productStore.getString("defaultLocaleString"));
+	}
     }
 
     public static String determineSingleFacilityForStore(GenericDelegator delegator, String productStoreId) {
