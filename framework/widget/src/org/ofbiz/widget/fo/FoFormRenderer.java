@@ -62,7 +62,7 @@ public class FoFormRenderer implements FormStringRenderer {
     HttpServletRequest request;
     HttpServletResponse response;
 
-    protected FoFormRenderer() {}
+    public FoFormRenderer() {}
 
     public FoFormRenderer(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;

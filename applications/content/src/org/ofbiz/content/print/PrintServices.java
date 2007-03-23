@@ -32,6 +32,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.view.ApacheFopFactory;
+import org.ofbiz.widget.fo.FoFormRenderer;
 import org.ofbiz.widget.html.HtmlScreenRenderer;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.xml.sax.SAXException;
@@ -60,10 +61,12 @@ import javax.print.PrintException;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintServiceAttribute;
 import javax.print.attribute.PrintServiceAttributeSet;
+import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.HashPrintServiceAttributeSet;
 import javax.print.attribute.standard.Copies;
+import javax.print.attribute.standard.PrinterName;
 import javax.print.attribute.standard.PrinterURI;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Result;
@@ -86,7 +89,7 @@ public class PrintServices {
     public final static String module = PrintServices.class.getName();
 
     protected static final HtmlScreenRenderer htmlScreenRenderer = new HtmlScreenRenderer();
-
+    protected static final FoFormRenderer foFormRenderer = new FoFormRenderer();
     
     public static Map sendPrintFromScreen(DispatchContext dctx, Map serviceContext) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -101,7 +104,7 @@ public class PrintServices {
         }
         screenContext.put("locale", locale);
         if (UtilValidate.isEmpty(contentType)) {
-            contentType = "application/pdf";
+            contentType = "application/postscript";
         }
 
         try {
@@ -109,13 +112,12 @@ public class PrintServices {
             MapStack screenContextTmp = MapStack.create();
             screenContextTmp.put("locale", locale);
 
-            
             Writer writer = new StringWriter();
             // substitute the freemarker variables...
             ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContextTmp, htmlScreenRenderer);
             screensAtt.populateContextForService(dctx, screenContext);
             screenContextTmp.putAll(screenContext);
-            //screensAtt.getContext().put("formStringRenderer", new org.ofbiz.widget.fo.FoFormRenderer());
+            screensAtt.getContext().put("formStringRenderer", foFormRenderer);
             screensAtt.render(screenLocation);
 
             // create the in/output stream for the generation
@@ -148,14 +150,31 @@ public class PrintServices {
             URI printerUri = new URI(printerName);
             PrinterURI printerUriObj = new PrinterURI(printerUri);
             psaset.add(printerUriObj);
-            PrintService[] services = PrintServiceLookup.lookupPrintServices(psInFormat, psaset);
+            //PrintService[] services = PrintServiceLookup.lookupPrintServices(psInFormat, psaset); // TODO: selecting the printer by URI seems to not work
+            PrintService[] services = PrintServiceLookup.lookupPrintServices(psInFormat, null);
+            PrintService printer = null;
             if (services.length > 0) {
+                String sPrinterName = null;
+                for (int i = 0; i < services.length; i++) {
+                    PrintServiceAttribute attr = services[i].getAttribute(PrinterName.class);
+                    sPrinterName = ((PrinterName)attr).getValue();
+                    if (sPrinterName.toLowerCase().indexOf(printerName.toLowerCase()) >= 0) {
+                        printer = services[i];
+                        Debug.logInfo("Printer with name [" + sPrinterName +"] selected", module);
+                        break;
+                    }
+                }
+                if (UtilValidate.isEmpty(printer)) {
+                    printer = services[0];
+                }
+            }
+            if (UtilValidate.isNotEmpty(printer)) {
                 PrintRequestAttributeSet praset = new HashPrintRequestAttributeSet();
                 praset.add(new Copies(1));
-                DocPrintJob job = services[0].createPrintJob();
+                DocPrintJob job = printer.createPrintJob();
                 job.print(myDoc, praset);
             } else {
-                String errMsg = "No printer found";
+                String errMsg = "No printer found with name: " + printerName;
                 Debug.logError(errMsg, module);
                 return ServiceUtil.returnError(errMsg);
             }
