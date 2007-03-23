@@ -172,7 +172,7 @@ under the License.
                 <td width="10%">
                   <div class="tabletext"><b>${uiLabelMap.OrderTrackingCode}</b></div>
                 </td>
-                <#if filterInventoryProblems?has_content || filterAuthProblems?has_content || filterPOsOpenPastTheirETA?has_content || filterPOsWithRejectedItems?has_content || filterPartiallyReceivedPOs?has_content> 
+                <#if state.hasFilter('filterInventoryProblems') || state.hasFilter('filterAuthProblems') || state.hasFilter('filterPOsOpenPastTheirETA') || state.hasFilter('filterPOsWithRejectedItems') || state.hasFilter('filterPartiallyReceivedPOs')> 
                     <td width="10%">
                       <div class="tabletext"><b>${uiLabelMap.CommonStatus}</b></div>
                     </td>
@@ -236,23 +236,25 @@ under the License.
                   <td class="tabletext">
                   ${orderHeader.getRelatedOneCache("StatusItem").get("description",locale)}
                   </td>
-                  <td class="tabletext">
-                      <#if filterInventoryProblems.contains(orderHeader.orderId)>
-                        Inv&nbsp;                      
-                      </#if>
-                      <#if filterAuthProblems.contains(orderHeader.orderId)>
-                       Aut&nbsp;                      
-                      </#if>
-                      <#if filterPOsOpenPastTheirETA.contains(orderHeader.orderId)>
-                        ETA&nbsp;                      
-                      </#if>
-                      <#if filterPOsWithRejectedItems.contains(orderHeader.orderId)>
-                        Rej&nbsp;                      
-                      </#if>
-                      <#if filterPartiallyReceivedPOs.contains(orderHeader.orderId)>
-                        Part&nbsp;                      
-                      </#if>                      
-                  </td>
+                  <#if state.hasFilter('filterInventoryProblems') || state.hasFilter('filterAuthProblems') || state.hasFilter('filterPOsOpenPastTheirETA') || state.hasFilter('filterPOsWithRejectedItems') || state.hasFilter('filterPartiallyReceivedPOs')> 
+                      <td class="tabletext">
+                          <#if filterInventoryProblems.contains(orderHeader.orderId)>
+                            Inv&nbsp;
+                          </#if>
+                          <#if filterAuthProblems.contains(orderHeader.orderId)>
+                           Aut&nbsp;
+                          </#if>
+                          <#if filterPOsOpenPastTheirETA.contains(orderHeader.orderId)>
+                            ETA&nbsp;
+                          </#if>
+                          <#if filterPOsWithRejectedItems.contains(orderHeader.orderId)>
+                            Rej&nbsp;
+                          </#if>
+                          <#if filterPartiallyReceivedPOs.contains(orderHeader.orderId)>
+                            Part&nbsp;
+                          </#if>
+                      </td>
+                  </#if>
                 </tr>
               </#list>
               <#if !orderHeaderList?has_content>
