@@ -176,6 +176,7 @@ under the License.
                 <set field="titleProperty" value="OrderFindOrder"/>
                 <set field="headerItem" value="findorders"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/findOrders.bsh"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/print/findPrinters.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">

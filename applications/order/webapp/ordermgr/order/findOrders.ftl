@@ -406,6 +406,12 @@ document.lookuporder.orderId.focus();
            <option value="<@ofbizUrl>massPickOrders?hideFields=${requestParameters.hideFields?default("N")}${paramList}</@ofbizUrl>">${uiLabelMap.OrderPickOrders}</option>
            <option value="<@ofbizUrl>massPrintOrders?hideFields=${requestParameters.hideFields?default('N')}${paramList}</@ofbizUrl>">${uiLabelMap.CommonPrint}</option>
         </select>
+        <select name="printerName" class="selectBox">
+           <option value="javascript:void();">&nbsp;</option>
+           <#list printers as printer>
+           <option value="${printer}">${printer}</option>
+           </#list>
+        </select>
         <a href="javascript:runAction();" class="buttontext">${uiLabelMap.OrderRunAction}</a>
       </div>
 
