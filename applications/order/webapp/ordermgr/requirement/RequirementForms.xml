@@ -196,17 +196,9 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ApproveRequirements" type="multi" use-row-submit="true" target="approveRequirements" title="" list-name="listIt"
+    <form name="ApproveRequirements" type="multi" use-row-submit="true" target="approveRequirements" title="" list-name="requirements"
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
         paginate-target="ApproveRequirements">
-        <actions>
-            <set field="entityName" value="Requirement"/>
-            <set field="requestParameters.statusId" value="REQ_CREATED"/>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="requestParameters"/>
-                <field-map field-name="entityName" env-name="entityName"/>
-            </service>
-        </actions>
         <field name="requirementId" widget-style="buttontext">
             <hyperlink also-hidden="true" description="${requirementId}" target="EditRequirement?requirementId=${requirementId}"/>
         </field>
