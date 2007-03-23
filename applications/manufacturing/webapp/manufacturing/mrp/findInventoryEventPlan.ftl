@@ -200,7 +200,7 @@ document.lookupinventory.productId.focus();
               <td><div class='tabletext'>${inventoryEventPlannedType.get("description",locale)}</div></td>
               <td>&nbsp</td>
               <td>${inven.eventName?if_exists}</td>
-              <td><div class='tabletext'>${inven.getString("eventDate")}</div></td>
+              <td><div class='tabletext'><font <#if inven.isLate?default("N") == "Y">color='red'</#if>>${inven.getString("eventDate")}</font></div></td>
               <td>&nbsp</td>
               <td><div class='tabletext'align="right"> ${inven.getString("eventQuantity")}</div></td>
               <td align="right">

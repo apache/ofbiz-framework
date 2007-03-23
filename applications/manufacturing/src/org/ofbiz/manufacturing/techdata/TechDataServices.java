@@ -475,7 +475,7 @@ public class TechDataServices {
         result.put("previousCapacity",position.get("capacity"));
         return result;
     }
-    /** Used to move backward in a TechDataCalenda, start from the dateFrom and move backward only on available period.
+    /** Used to move backward in a TechDataCalendar, start from the dateFrom and move backward only on available period.
      * If the dateFrom (param in) is not  a available TechDataCalendar period, the startDate is the end of the previous day available
      *
      * @param techDataCalendar        The TechDataCalendar cover
