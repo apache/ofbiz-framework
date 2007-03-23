@@ -499,6 +499,12 @@ under the License.
             location="org.ofbiz.order.order.OrderServices" invoke="massChangeApproved" auth="true">
         <implements service="massOrderChangeInterface"/>
     </service>
+    <service name="massPrintOrders" engine="java" transaction-timeout="300"
+            location="org.ofbiz.order.order.OrderServices" invoke="massPrintOrders" auth="true">
+        <implements service="massOrderChangeInterface"/>
+        <attribute name="screenLocation" type="String" mode="IN" optional="false"/>
+        <attribute name="printerName" type="String" mode="IN" optional="true"/>
+    </service>
 
     <service name="getNextOrderId" engine="simple"
         location="org/ofbiz/order/order/OrderServices.xml" invoke="getNextOrderId">

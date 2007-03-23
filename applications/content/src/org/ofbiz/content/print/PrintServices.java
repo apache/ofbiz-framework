@@ -147,21 +147,25 @@ public class PrintServices {
             
             Doc myDoc = new SimpleDoc(bais, psInFormat, null);
             PrintServiceAttributeSet psaset = new HashPrintServiceAttributeSet();
-            URI printerUri = new URI(printerName);
-            PrinterURI printerUriObj = new PrinterURI(printerUri);
-            psaset.add(printerUriObj);
+            if (UtilValidate.isNotEmpty(printerName)) {
+                URI printerUri = new URI(printerName);
+                PrinterURI printerUriObj = new PrinterURI(printerUri);
+                psaset.add(printerUriObj);
+            }
             //PrintService[] services = PrintServiceLookup.lookupPrintServices(psInFormat, psaset); // TODO: selecting the printer by URI seems to not work
             PrintService[] services = PrintServiceLookup.lookupPrintServices(psInFormat, null);
             PrintService printer = null;
             if (services.length > 0) {
-                String sPrinterName = null;
-                for (int i = 0; i < services.length; i++) {
-                    PrintServiceAttribute attr = services[i].getAttribute(PrinterName.class);
-                    sPrinterName = ((PrinterName)attr).getValue();
-                    if (sPrinterName.toLowerCase().indexOf(printerName.toLowerCase()) >= 0) {
-                        printer = services[i];
-                        Debug.logInfo("Printer with name [" + sPrinterName +"] selected", module);
-                        break;
+                if (UtilValidate.isNotEmpty(printerName)) {
+                    String sPrinterName = null;
+                    for (int i = 0; i < services.length; i++) {
+                        PrintServiceAttribute attr = services[i].getAttribute(PrinterName.class);
+                        sPrinterName = ((PrinterName)attr).getValue();
+                        if (sPrinterName.toLowerCase().indexOf(printerName.toLowerCase()) >= 0) {
+                            printer = services[i];
+                            Debug.logInfo("Printer with name [" + sPrinterName +"] selected", module);
+                            break;
+                        }
                     }
                 }
                 if (UtilValidate.isEmpty(printer)) {

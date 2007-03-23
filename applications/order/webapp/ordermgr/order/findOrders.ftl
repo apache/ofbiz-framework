@@ -399,10 +399,12 @@ document.lookuporder.orderId.focus();
       <div>&nbsp;</div>
       <div align="right" class="tabletext">
         <input type="hidden" name="orderIdList" value=""/>
+        <input type="hidden" name="screenLocation" value="component://order/widget/ordermgr/OrderPrintForms.xml#OrderPDF"/>
         <select name="serviceName" class="selectBox" onchange="javascript:setServiceName(this);">
            <option value="javascript:void();">&nbsp;</option>
            <option value="<@ofbizUrl>massApproveOrders?hideFields=${requestParameters.hideFields?default("N")}${paramList}</@ofbizUrl>">${uiLabelMap.OrderApproveOrder}</option>
            <option value="<@ofbizUrl>massPickOrders?hideFields=${requestParameters.hideFields?default("N")}${paramList}</@ofbizUrl>">${uiLabelMap.OrderPickOrders}</option>
+           <option value="<@ofbizUrl>massPrintOrders?hideFields=${requestParameters.hideFields?default('N')}${paramList}</@ofbizUrl>">${uiLabelMap.CommonPrint}</option>
         </select>
         <a href="javascript:runAction();" class="buttontext">${uiLabelMap.OrderRunAction}</a>
       </div>
