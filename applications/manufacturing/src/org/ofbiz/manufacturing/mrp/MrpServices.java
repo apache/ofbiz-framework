@@ -412,7 +412,8 @@ public class MrpServices {
             if (UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(errorMessage)) {
                 GenericValue inventoryEventError = delegator.makeValue("InventoryEventPlanned", UtilMisc.toMap("productId", productId, 
                                                                                                                "eventDate", UtilDateTime.nowTimestamp(),
-                                                                                                               "inventoryEventPlanTypeId", "ERROR"));
+                                                                                                               "inventoryEventPlanTypeId", "ERROR",
+                                                                                                               "eventName", errorMessage));
                 inventoryEventError.create();
             }
         } catch (GenericEntityException e) {
@@ -519,7 +520,7 @@ public class MrpServices {
         }
 
         if (UtilValidate.isEmpty(facilityId) || UtilValidate.isEmpty(manufacturingFacilityId)) {
-            return ServiceUtil.returnError("facilityId and manufacturingFacilityId cannot be both null");
+            return ServiceUtil.returnError("facilityId and manufacturingFacilityId cannot be null");
         }
         
         int bomLevelWithNoEvent = 0;
@@ -670,14 +671,19 @@ public class MrpServices {
                             processBomComponent(product, proposedOrder.getQuantity(), proposedOrder.getRequirementStartDate(), routingTaskStartDate, components);
                         }
                         // create the  ProposedOrder (only if the product is warehouse managed), and the InventoryEventPlanned associated
+                        String requirementId = null;
                         if (productFacility != null) {
-                            String proposedOrderId = proposedOrder.create(ctx, userLogin);
+                            requirementId = proposedOrder.create(ctx, userLogin);
                         }
+                        if (UtilValidate.isEmpty(productFacility) && !isBuilt) {
+                            logMrpError(productId, "No ProductFacility record for [" + facilityId + "]; no requirement created.", delegator);
+                        }
+                        
                         Map eventMap = UtilMisc.toMap("productId", product.getString("productId"),
                                                       "eventDate", eventDate,
                                                       "inventoryEventPlanTypeId", (isBuilt? "PROP_MANUF_O_RECP" : "PROP_PUR_O_RECP"));
                         try {
-                            InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(eventMap, new Double(proposedOrder.getQuantity()), null, null, (proposedOrder.getRequirementStartDate().compareTo(now) > 0), delegator);
+                            InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(eventMap, new Double(proposedOrder.getQuantity()), null, (requirementId != null? "*" + requirementId + "*": null), (proposedOrder.getRequirementStartDate().compareTo(now) > 0), delegator);
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError("Problem running createOrUpdateInventoryEventPlanned");
                         }
