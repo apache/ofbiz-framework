@@ -113,6 +113,7 @@ under the License.
                 <set field="tabButtonItem" value="ApproveRequirements"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/requirement/selectCreatedProposed.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequirementsDecorator">
