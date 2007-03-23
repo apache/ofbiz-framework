@@ -54,7 +54,7 @@ public class InventoryEventPlannedServices {
         Double quantity = (Double)context.get("eventQuantity");
         GenericValue inventoryEventPlanned = null;
         try {
-            createOrUpdateInventoryEventPlanned(parameters, quantity, (String)context.get("facilityId"), (String)context.get("eventName"), delegator);
+            createOrUpdateInventoryEventPlanned(parameters, quantity, (String)context.get("facilityId"), (String)context.get("eventName"), false, delegator);
         } catch (GenericEntityException e) {
             Debug.logError(e,"Error : delegator.findByPrimaryKey(\"InventoryEventPlanned\", parameters =)"+parameters, module);
             return ServiceUtil.returnError("Problem, on database access, for more detail look at the log");
@@ -62,7 +62,7 @@ public class InventoryEventPlannedServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static void createOrUpdateInventoryEventPlanned(Map inventoryEventPlannedKeyMap, Double newQuantity, String facilityId, String eventName, GenericDelegator delegator) throws GenericEntityException {
+    public static void createOrUpdateInventoryEventPlanned(Map inventoryEventPlannedKeyMap, Double newQuantity, String facilityId, String eventName, boolean isLate, GenericDelegator delegator) throws GenericEntityException {
         GenericValue inventoryEventPlanned = null;
         inventoryEventPlanned = delegator.findByPrimaryKey("InventoryEventPlanned", inventoryEventPlannedKeyMap);
         if (inventoryEventPlanned == null) {
@@ -70,6 +70,7 @@ public class InventoryEventPlannedServices {
             inventoryEventPlanned.put("eventQuantity", newQuantity);
             inventoryEventPlanned.put("eventName", eventName);
             inventoryEventPlanned.put("facilityId", facilityId);
+            inventoryEventPlanned.put("isLate", (isLate? "Y": "N"));
             inventoryEventPlanned.create();
         } else {
             double qties = newQuantity.doubleValue() + ((Double)inventoryEventPlanned.get("eventQuantity")).doubleValue();
@@ -77,6 +78,9 @@ public class InventoryEventPlannedServices {
             if (!UtilValidate.isEmpty(eventName)) {
                 String existingEventName = inventoryEventPlanned.getString("eventName");
                 inventoryEventPlanned.put("eventName", (UtilValidate.isEmpty(existingEventName)? eventName: existingEventName + ", " + eventName));
+            }
+            if (isLate) {
+                inventoryEventPlanned.put("isLate", "Y");
             }
             inventoryEventPlanned.store();
         }

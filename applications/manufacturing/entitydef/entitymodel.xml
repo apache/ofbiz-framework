@@ -168,6 +168,7 @@ under the License.
       <field name="eventQuantity" type="floating-point"></field>
       <field name="facilityId" type="id"></field>
       <field name="eventName" type="name"></field>
+      <field name="isLate" type="indicator"></field>
       <prim-key field="productId"/>
       <prim-key field="eventDate"/>
       <prim-key field="inventoryEventPlanTypeId"/>
