@@ -77,6 +77,7 @@ if (lookupFlag != null) {
         andExprs.add(new EntityExpr("productId", EntityOperator.EQUALS, productId));
     } 
     andExprs.add(new EntityExpr("inventoryEventPlanTypeId", EntityOperator.NOT_EQUAL, "INITIAL_QOH"));
+    andExprs.add(new EntityExpr("inventoryEventPlanTypeId", EntityOperator.NOT_EQUAL, "ERROR"));
 
     mainCond = new EntityConditionList(andExprs, EntityOperator.AND); 
     
