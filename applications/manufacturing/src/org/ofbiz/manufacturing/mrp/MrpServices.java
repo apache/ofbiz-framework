@@ -390,7 +390,7 @@ public class MrpServices {
      * @param product the product for which the Quantity Available is required
      * @return the sum of all the totalAvailableToPromise of the inventoryItem related to the product, if the related facility is Mrp available (not yet implemented!!)
      */
-    public static double findProductMrpQoh(GenericValue product, String facilityId, LocalDispatcher dispatcher) {
+    public static double findProductMrpQoh(GenericValue product, String facilityId, LocalDispatcher dispatcher, GenericDelegator delegator) {
         List orderBy = UtilMisc.toList("facilityId", "-receivedDate", "-inventoryItemId");
         Map resultMap = null;
         try{
@@ -401,11 +401,25 @@ public class MrpServices {
             }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling getProductInventoryAvailableByFacility service", module);
+            logMrpError(product.getString("productId"), "Unable to count inventory", delegator);
             return 0;
         }
         return ((Double)resultMap.get("quantityOnHandTotal")).doubleValue();
     }
-    
+
+    public static void logMrpError(String productId, String errorMessage, GenericDelegator delegator) {
+        try{
+            if (UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(errorMessage)) {
+                GenericValue inventoryEventError = delegator.makeValue("InventoryEventPlanned", UtilMisc.toMap("productId", productId, 
+                                                                                                               "eventDate", UtilDateTime.nowTimestamp(),
+                                                                                                               "inventoryEventPlanTypeId", "ERROR"));
+                inventoryEventError.create();
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error calling logMrpError for productId [" + productId + "] and errorMessage [" + errorMessage + "]", module);
+        }
+    }
+
     /**
      * Process the bill of material (bom) of the product  to insert components in the InventoryEventPlanned table.
      *   Before inserting in the entity, test if there is the record already existing to add quantity rather to create a new one.
@@ -440,6 +454,7 @@ public class MrpServices {
                         InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, new Double(-1.0 * componentEventQuantity), null, null, delegator);
                     } catch (GenericEntityException e) {
                         Debug.logError("Error : delegator.findByPrimaryKey(\"InventoryEventPlanned\", parameters) ="+parameters+"--"+e.getMessage(), module);
+                        logMrpError(node.getProduct().getString("productId"), "Unable to create event (processBomComponent)", delegator);
                     }
                 }
             }
@@ -572,7 +587,7 @@ public class MrpServices {
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError("Problem, can not find the product for a event, for more detail look at the log");
                         }
-                        stockTmp = findProductMrpQoh(product, facilityId, dispatcher);
+                        stockTmp = findProductMrpQoh(product, facilityId, dispatcher, delegator);
                         try {
                             InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(UtilMisc.toMap("productId", product.getString("productId"), "inventoryEventPlanTypeId", "INITIAL_QOH", "eventDate", now),
                                                                                               new Double(stockTmp), facilityId, null,

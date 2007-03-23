@@ -153,6 +153,7 @@ document.lookupinventory.productId.focus();
             </#if>
             <#if ! product.equals( productTmp )>
                 <#assign quantityAvailableAtDate = 0>
+                <#assign errorEvents = delegator.findByAnd("InventoryEventPlanned", Static["org.ofbiz.base.util.UtilMisc"].toMap("inventoryEventPlanTypeId", "ERROR", "productId", inven.productId))>
                 <#assign initialQohEvent = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("InventoryEventPlanned", Static["org.ofbiz.base.util.UtilMisc"].toMap("inventoryEventPlanTypeId", "INITIAL_QOH", "productId", inven.productId)))>
                 <#if initialQohEvent?exists && initialQohEvent.eventQuantity?has_content>
                     <#assign quantityAvailableAtDate = initialQohEvent.eventQuantity>
@@ -186,6 +187,11 @@ document.lookupinventory.productId.focus();
                     <big><b><div class='tabletext'>${quantityAvailableAtDate}</div></b></big>
                   </td>
                 </tr>
+                <#list errorEvents as errorEvent>
+                <tr>
+                    <td colspan="7"><div class="tableheadtext"><font color="red">${errorEvent.eventName?if_exists}</font></div></td>
+                </tr>
+                </#list>
             </#if>
             <#assign quantityAvailableAtDate = quantityAvailableAtDate?default(0) + inven.getDouble("eventQuantity")>
             <#assign productTmp = product>
