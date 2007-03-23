@@ -148,9 +148,13 @@ public class PrintServices {
             Doc myDoc = new SimpleDoc(bais, psInFormat, null);
             PrintServiceAttributeSet psaset = new HashPrintServiceAttributeSet();
             if (UtilValidate.isNotEmpty(printerName)) {
-                URI printerUri = new URI(printerName);
-                PrinterURI printerUriObj = new PrinterURI(printerUri);
-                psaset.add(printerUriObj);
+                try {
+                    URI printerUri = new URI(printerName);
+                    PrinterURI printerUriObj = new PrinterURI(printerUri);
+                    psaset.add(printerUriObj);
+                } catch (URISyntaxException ue) {
+                    Debug.logWarning(ue, "Invalid URI for printer [" + printerName + "]", module);
+                }
             }
             //PrintService[] services = PrintServiceLookup.lookupPrintServices(psInFormat, psaset); // TODO: selecting the printer by URI seems to not work
             PrintService[] services = PrintServiceLookup.lookupPrintServices(psInFormat, null);
@@ -183,10 +187,6 @@ public class PrintServices {
                 return ServiceUtil.returnError(errMsg);
             }
 
-        } catch (URISyntaxException ue) {
-            String errMsg = "Error retrieving printer [" + printerName + "]: " + ue.toString();
-            Debug.logError(ue, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
         } catch (PrintException pe) {
             String errMsg = "Error printing [" + contentType + "]: " + pe.toString();
             Debug.logError(pe, errMsg, module);
