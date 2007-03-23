@@ -97,8 +97,9 @@ public class ProposedOrder {
      **/
     public Map calculateStartDate(int daysToShip, GenericValue routing, GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin){
         Map result = null;
-        Timestamp endDate = (Timestamp) requiredByDate.clone();
+        Timestamp endDate = (Timestamp)requiredByDate.clone();
         Timestamp startDate = endDate;
+        long timeToShip = daysToShip * 8 * 60 * 60 * 1000;
         if (isBuilt) {
             List listRoutingTaskAssoc = null;
             if (routing == null) {
@@ -144,6 +145,7 @@ public class ProposedOrder {
                         }
                         // Calculate the estimatedStartDate
                         long totalTime = ProductionRun.getEstimatedTaskTime(routingTask, quantity, dispatcher);
+                        totalTime += timeToShip;
                         startDate = TechDataServices.addBackward(TechDataServices.getTechDataCalendar(routingTask),endDate, totalTime);
                         // record the routingTask with the startDate associated
                         result.put(routingTask.getString("workEffortId"),startDate);
@@ -164,18 +166,16 @@ public class ProposedOrder {
 
             } else { 
                 // routing is null
-                // TODO : write an error message for the endUser to say "Build product without routing"
-                Debug.logError("Build product without routing for product = "+product.getString("productId"), module);
+                Debug.logError("No routing found for product = "+ product.getString("productId"), module);
             }
         } else {
             // the product is purchased
             // TODO: REVIEW this code
-            long duringTime = daysToShip * 8 * 60 * 60 * 1000;
             try {
-                GenericValue techDataCalendar = product.getDelegator().findByPrimaryKeyCache("TechDataCalendar",UtilMisc.toMap("calendarId", "SUPPLIER"));
-                startDate = TechDataServices.addBackward(techDataCalendar, endDate, duringTime);
+                GenericValue techDataCalendar = product.getDelegator().findByPrimaryKeyCache("TechDataCalendar", UtilMisc.toMap("calendarId", "SUPPLIER"));
+                startDate = TechDataServices.addBackward(techDataCalendar, endDate, timeToShip);
             } catch(GenericEntityException e) {
-                Debug.logError(e, "Error : reading SUPPLIER TechDataCalendar"+"--"+e.getMessage(), module);
+                Debug.logError(e, "Error : reading SUPPLIER TechDataCalendar: " + e.getMessage(), module);
             }
         }
         requirementStartDate = startDate;
