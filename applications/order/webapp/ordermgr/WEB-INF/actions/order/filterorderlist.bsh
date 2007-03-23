@@ -29,7 +29,7 @@ productStore = ProductStoreWorker.getProductStore(request);
 
 List filterInventoryProblems = new ArrayList();
 
-if (state.hasFilter("view_InventoryProblems") && UtilValidate.isNotEmpty(orderHeaderList)) {
+if (state.hasFilter("filterInventoryProblems") && UtilValidate.isNotEmpty(orderHeaderList)) {
     for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
         orderHeader = (GenericValue) ohi.next();
         orderReadHelper = OrderReadHelper.getHelper(orderHeader);

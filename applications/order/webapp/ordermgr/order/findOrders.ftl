@@ -430,7 +430,7 @@ document.lookuporder.orderId.focus();
           <td width="10%" align="right"><div class="tableheadtext">${uiLabelMap.OrderRemainingSubTotal}</div></td>
           <td width="10%" align="right"><div class="tableheadtext">${uiLabelMap.OrderOrderTotal}</div></td>
           <td width="5%" align="left"><div class="tableheadtext">&nbsp;</div></td>
-            <#if filterInventoryProblems?has_content || filterPOsOpenPastTheirETA?has_content || filterPOsWithRejectedItems?has_content || filterPartiallyReceivedPOs?has_content> 
+            <#if (requestParameters.filterInventoryProblems?default("N") == "Y") || (requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y") || (requestParameters.filterPOsWithRejectedItems?default("N") == "Y") || (requestParameters.filterPartiallyReceivedPOs?default("N") == "Y")> 
               <td width="15%" align="left"><div class="tableheadtext">${uiLabelMap.CommonStatus}</div></td>
               <td width="5%"><div class="tabletext"><b>${uiLabelMap.CommonFilter}</b></div></td>
             <#else>
@@ -504,6 +504,7 @@ document.lookuporder.orderId.focus();
               <td>&nbsp;</td>
               <td><div class="tabletext">${statusItem.get("description",locale)?default(statusItem.statusId?default("N/A"))}</div></td>
                                 </td>
+              <#if (requestParameters.filterInventoryProblems?default("N") == "Y") || (requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y") || (requestParameters.filterPOsWithRejectedItems?default("N") == "Y") || (requestParameters.filterPartiallyReceivedPOs?default("N") == "Y")> 
                   <td class="tabletext">
                       <#if filterInventoryProblems.contains(orderHeader.orderId)>
                         Inv&nbsp;                      
@@ -518,6 +519,7 @@ document.lookuporder.orderId.focus();
                         Part&nbsp;                      
                       </#if>                      
                   </td>
+              </#if>
               
               <td><div class="tabletext">${orderHeader.getString("orderDate")}</div></td>
               <td>
