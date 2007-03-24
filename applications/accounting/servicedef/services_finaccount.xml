@@ -31,17 +31,15 @@ under the License.
         <auto-attributes mode="IN" optional="true" include="nonpk"/>
         <auto-attributes mode="INOUT" optional="true" include="pk"/>
     </service>
-
     <service name="updateFinAccount" engine="simple" default-entity-name="FinAccount"
             location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="updateFinAccount">
         <description>Update a Financial Account</description>
         <auto-attributes mode="IN" optional="true" include="nonpk"/>
         <auto-attributes mode="INOUT" optional="false" include="pk"/>
     </service>
-
-    <service name="removeFinAccount" engine="simple" default-entity-name="FinAccount"
-            location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="removeFinAccount">
-        <description>Remove a Financial Account</description>
+    <service name="deleteFinAccount" engine="simple" default-entity-name="FinAccount"
+            location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="deleteFinAccount">
+        <description>Delete a Financial Account</description>
         <auto-attributes mode="IN" optional="false" include="pk"/>
     </service>
 
@@ -67,8 +65,8 @@ under the License.
         <auto-attributes mode="IN" optional="false" include="pk"/>
     </service>
 
-    <service name="removeFinAccountRole" engine="simple" default-entity-name="FinAccountRole"
-            location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="removeFinAccountRole">
+    <service name="deleteFinAccountRole" engine="simple" default-entity-name="FinAccountRole"
+            location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="deleteFinAccountRole">
         <description>Remove a Financial Account Role</description>
         <auto-attributes mode="IN" optional="false" include="pk"/>
     </service>

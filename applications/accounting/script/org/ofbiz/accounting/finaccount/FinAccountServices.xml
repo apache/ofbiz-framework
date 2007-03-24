@@ -41,7 +41,7 @@ under the License.
         <store-value value-name="lookedUpValue"/>
         <field-to-result field-name="lookedUpValue.finAccountId" result-name="finAccountId"/>
     </simple-method>
-    <simple-method method-name="removeFinAccount" short-description="Remove a Financial Account">
+    <simple-method method-name="deleteFinAccount" short-description="Delete a Financial Account">
         <entity-one value-name="finAccount" entity-name="FinAccount"/>
         <remove-value value-name="finAccount"/>
     </simple-method>
@@ -81,7 +81,7 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
-    <simple-method method-name="removeFinAccountRole" short-description="Remove a Financial Account Role">
+    <simple-method method-name="deleteFinAccountRole" short-description="Delete a Financial Account Role">
         <entity-one entity-name="FinAccountRole" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -103,7 +103,7 @@ under the License.
         <create-value value-name="newEntity"/>
         <field-to-result field-name="newEntity.finAccountAuthId" result-name="finAccountAuthId"/>
     </simple-method>
-    <simple-method short-description="Expire a Financial Account Authorization" method-name="expireFinAccountAuth">
+    <simple-method method-name="expireFinAccountAuth" short-description="Expire a Financial Account Authorization">
         <entity-one entity-name="FinAccountAuth" value-name="finAccountAuth"/>
         <if-empty field-name="parameters.expireDateTime">
             <now-timestamp-to-env env-name="finAccountAuth.thruDate"/>
