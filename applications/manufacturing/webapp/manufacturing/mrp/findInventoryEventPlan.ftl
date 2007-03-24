@@ -154,12 +154,22 @@ document.lookupinventory.productId.focus();
             <#if ! product.equals( productTmp )>
                 <#assign quantityAvailableAtDate = 0>
                 <#assign errorEvents = delegator.findByAnd("InventoryEventPlanned", Static["org.ofbiz.base.util.UtilMisc"].toMap("inventoryEventPlanTypeId", "ERROR", "productId", inven.productId))>
-                <#assign initialQohEvent = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("InventoryEventPlanned", Static["org.ofbiz.base.util.UtilMisc"].toMap("inventoryEventPlanTypeId", "INITIAL_QOH", "productId", inven.productId)))>
-                <#if initialQohEvent?exists && initialQohEvent.eventQuantity?has_content>
-                    <#assign quantityAvailableAtDate = initialQohEvent.eventQuantity>
+                <#assign qohEvents = delegator.findByAnd("InventoryEventPlanned", Static["org.ofbiz.base.util.UtilMisc"].toMap("inventoryEventPlanTypeId", "INITIAL_QOH", "productId", inven.productId))>
+                <#assign additionalErrorMessage = "">
+                <#assign initialQohEvent = null>
+                <#assign productFacility = null>
+                <#if qohEvents?has_content>
+                    <#assign initialQohEvent = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(qohEvents)>
                 </#if>
-                <#if initialQohEvent?exists && initialQohEvent.facilityId?has_content>
-                    <#assign productFacility = delegator.findByPrimaryKey("ProductFacility", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", initialQohEvent.facilityId, "productId", inven.productId))?if_exists>
+                <#if initialQohEvent != null>
+                    <#if initialQohEvent.eventQuantity?has_content>
+                        <#assign quantityAvailableAtDate = initialQohEvent.eventQuantity>
+                    </#if>
+                    <#if initialQohEvent.facilityId?has_content>
+                        <#assign productFacility = delegator.findByPrimaryKey("ProductFacility", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", initialQohEvent.facilityId, "productId", inven.productId))?if_exists>
+                    </#if>
+                <#else>
+                    <#assign additionalErrorMessage = "No QOH information found, assuming 0.">
                 </#if>
                 <tr bgcolor="lightblue">  
                   <td align="left">
@@ -168,7 +178,7 @@ document.lookupinventory.productId.focus();
                     </div>
                   </td>
                   <td align="left">
-                    <#if productFacility?exists && productFacility?has_content>
+                    <#if productFacility != null && productFacility?has_content>
                       <div class='tabletext'>
                       <b>${uiLabelMap.ProductFacility}:</b>&nbsp;${productFacility.facilityId?if_exists}
                       </div>
@@ -187,6 +197,11 @@ document.lookupinventory.productId.focus();
                     <big><b><div class='tabletext'>${quantityAvailableAtDate}</div></b></big>
                   </td>
                 </tr>
+                <#if additionalErrorMessage?has_content>
+                <tr>
+                    <td colspan="7"><div class="tableheadtext"><font color="red">${additionalErrorMessage}</font></div></td>
+                </tr>
+                </#if>
                 <#list errorEvents as errorEvent>
                 <tr>
                     <td colspan="7"><div class="tableheadtext"><font color="red">${errorEvent.eventName?if_exists}</font></div></td>
