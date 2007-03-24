@@ -33,6 +33,7 @@ under the License.
     <!-- ======================== Data Model ===================== -->
     <!-- The modules in this file are as follows:                  -->
     <!--  - org.ofbiz.accounting.budget -->
+    <!--  - org.ofbiz.accounting.finaccount -->
     <!--  - org.ofbiz.accounting.fixedasset -->
     <!--  - org.ofbiz.accounting.invoice -->
     <!--  - org.ofbiz.accounting.ledger -->
@@ -320,10 +321,202 @@ under the License.
       </relation>
     </entity>
 
-  <!-- ========================================================= -->
-  <!-- org.ofbiz.accounting.fixedasset -->
-  <!-- ========================================================= -->
-
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.accounting.finaccount -->
+    <!-- financial account entities for gift certificates, calling cards, or customer accounts -->
+    <!-- ========================================================= -->
+    
+    <entity entity-name="FinAccount" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Entity">
+        <field name="finAccountId" type="id-ne"></field>
+        <field name="finAccountTypeId" type="id"></field>
+        <field name="finAccountName" type="name"></field>
+        <field name="finAccountCode" type="long-varchar" encrypt="true"></field>
+        <field name="fromDate" type="date-time">
+            <description>Describes when account will be valid.  If null, valid immediately.</description>
+        </field>
+        <field name="thruDate" type="date-time">
+            <description>Expiration date of the account.  If null, will never expire.</description>
+        </field>
+        <prim-key field="finAccountId"/>
+        <relation type="one" fk-name="FINACCT_TYPE" rel-entity-name="FinAccountType">
+            <key-map field-name="finAccountTypeId"/>
+        </relation>
+        <relation type="many" rel-entity-name="FinAccountTypeAttr">
+            <key-map field-name="finAccountTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="FinAccountAttribute" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Attribute Entity">
+        <field name="finAccountId" type="id-ne"></field>
+        <field name="attrName" type="id-long-ne"></field>
+        <field name="attrValue" type="value"></field>
+        <prim-key field="finAccountId"/>
+        <prim-key field="attrName"/>
+        <relation type="one" fk-name="FINACCT_ATTR" rel-entity-name="FinAccount">
+            <key-map field-name="finAccountId"/>
+        </relation>
+        <relation type="many" rel-entity-name="FinAccountTypeAttr">
+            <key-map field-name="attrName"/>
+        </relation>
+    </entity>
+    <entity entity-name="FinAccountRole" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Role Entity">
+        <field name="finAccountId" type="id-ne"></field>
+        <field name="partyId" type="id-ne"></field>
+        <field name="roleTypeId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="finAccountId"/>
+        <prim-key field="partyId"/>
+        <prim-key field="roleTypeId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="FIN_ACT_RL_FNACT" rel-entity-name="FinAccount">
+            <key-map field-name="finAccountId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="RoleType">
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one" fk-name="FIN_ACT_RL_RTRL" rel-entity-name="PartyRole">
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="FinAccountTrans" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Transaction Entity">
+        <field name="finAccountTransId" type="id-ne"></field>
+        <field name="finAccountTransTypeId" type="id-ne"></field>
+        <field name="finAccountId" type="id"></field>
+        <field name="partyId" type="id"></field>
+        <field name="transactionDate" type="date-time"></field>
+        <field name="entryDate" type="date-time"></field>
+        <field name="paymentId" type="id-ne"></field>
+        <prim-key field="finAccountTransId"/>
+        <relation type="one" fk-name="FINACCT_TX_TYPE" rel-entity-name="FinAccountTransType">
+            <key-map field-name="finAccountTransTypeId"/>
+        </relation>
+        <relation type="many" rel-entity-name="FinAccountTransTypeAttr">
+            <key-map field-name="finAccountTransTypeId"/>
+        </relation>
+        <relation type="one" fk-name="FIN_ACT_TX_FNACT" rel-entity-name="FinAccount">
+            <key-map field-name="finAccountId"/>
+        </relation>
+        <relation type="one" fk-name="FIN_ACT_TX_PARTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="FIN_ACT_TX_PMT" rel-entity-name="Payment">
+            <key-map field-name="paymentId"/>
+        </relation>
+    </entity>
+    <entity entity-name="FinAccountAuth" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Authorizations record">
+        <field name="finAccountAuthId" type="id-ne"/>
+        <field name="finAccountId" type="id-ne"/>
+        <field name="amount" type="currency-amount"/>
+        <field name="currencyUomId" type="id-ne"/>
+        <field name="authorizationDate" type="date-time"/>
+        <field name="fromDate" type="date-time"/>
+        <field name="thruDate" type="date-time"/>
+        <prim-key field="finAccountAuthId"/>
+        <relation type="one" fk-name="FINACT_AUTH_FINACT" rel-entity-name="FinAccount">
+            <key-map field-name="finAccountId"/>
+        </relation>
+        <relation type="one" fk-name="FINACT_AUTH_CURNCY" title="Currency" rel-entity-name="Uom">
+            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+        </relation>
+    </entity>
+    <entity entity-name="FinAccountTransAttribute" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Transaction Attribute Entity">
+        <field name="finAccountTransId" type="id-ne"></field>
+        <field name="attrName" type="id-long-ne"></field>
+        <field name="attrValue" type="value"></field>
+        <prim-key field="finAccountTransId"/>
+        <prim-key field="attrName"/>
+        <relation type="one" fk-name="FINACCT_TX_ATTR" rel-entity-name="FinAccountTrans">
+            <key-map field-name="finAccountTransId"/>
+        </relation>
+        <relation type="many" rel-entity-name="FinAccountTransTypeAttr">
+            <key-map field-name="attrName"/>
+        </relation>
+    </entity>
+    <entity entity-name="FinAccountTransType" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Transaction Type Entity">
+        <field name="finAccountTransTypeId" type="id-ne"></field>
+        <field name="parentTypeId" type="id-ne"></field>
+        <field name="hasTable" type="indicator"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="finAccountTransTypeId"/>
+        <relation type="one" fk-name="FINACCT_TX_TYPPAR" title="Parent" rel-entity-name="FinAccountTransType">
+            <key-map field-name="parentTypeId" rel-field-name="finAccountTransTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="FinAccountTransTypeAttr" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Transaction Type Attribute Entity">
+        <field name="finAccountTransTypeId" type="id-ne"></field>
+        <field name="attrName" type="id-long-ne"></field>
+        <prim-key field="finAccountTransTypeId"/>
+        <prim-key field="attrName"/>
+        <relation type="one" fk-name="FINACCT_TX_TYPATR" rel-entity-name="FinAccountTransType">
+            <key-map field-name="finAccountTransTypeId"/>
+        </relation>
+        <relation type="many" rel-entity-name="FinAccountTransAttribute">
+            <key-map field-name="attrName"/>
+        </relation>
+        <relation type="many" rel-entity-name="FinAccountTrans">
+            <key-map field-name="finAccountTransTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="FinAccountType" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Type Entity">
+        <field name="finAccountTypeId" type="id-ne"></field>
+        <field name="parentTypeId" type="id-ne"></field>
+        <field name="hasTable" type="indicator"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="finAccountTypeId"/>
+        <relation type="one" fk-name="FINACCT_TYPE_PAR" title="Parent" rel-entity-name="FinAccountType">
+            <key-map field-name="parentTypeId" rel-field-name="finAccountTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="FinAccountTypeAttr" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Type Attribute Entity">
+        <field name="finAccountTypeId" type="id-ne"></field>
+        <field name="attrName" type="id-long-ne"></field>
+        <prim-key field="finAccountTypeId"/>
+        <prim-key field="attrName"/>
+        <relation type="one" fk-name="FINACCT_TYPE_ATTR" rel-entity-name="FinAccountType">
+            <key-map field-name="finAccountTypeId"/>
+        </relation>
+        <relation type="many" rel-entity-name="FinAccountAttribute">
+            <key-map field-name="attrName"/>
+        </relation>
+        <relation type="many" rel-entity-name="FinAccount">
+            <key-map field-name="finAccountTypeId"/>
+        </relation>
+    </entity>
+    <view-entity entity-name="FinAccountTransSum" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Transactio Sum">
+        <description>View entity to help calculate total of financial account transactions by doing a query for the sum of all amounts 
+            on a range of transactionDates for a given finAccountId, finAccountTransTypeId</description>
+        <member-entity entity-alias="FAT" entity-name="FinAccountTrans"/>
+        <member-entity entity-alias="P" entity-name="Payment"/>
+        <alias entity-alias="FAT" name="finAccountId" group-by="true"/>
+        <alias entity-alias="FAT" name="finAccountTransTypeId" group-by="false"/> <!-- must not group-by this, or aggregating DEPOSIT and ADJUSTMENT won't work -->
+        <alias entity-alias="FAT" name="transactionDate" group-by="false"/>
+        <alias entity-alias="P" name="amount" function="sum"/>
+        <alias entity-alias="P" name="currencyUomId" group-by="true"/>
+        <view-link entity-alias="FAT" rel-entity-alias="P">
+            <key-map field-name="paymentId"/>
+        </view-link>       
+    </view-entity>
+    <view-entity entity-name="FinAccountAuthSum" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Authorization Sum">
+        <description>View entity to help calculate total of financial account authorizations by doing a query for the sum of all amounts 
+            on a range of transactionDates for a given finAccountId.  Note there is no auth type to consider here, but authorizations do
+            have from and thru dates</description>
+        <member-entity entity-alias="FAA" entity-name="FinAccountAuth"/>
+        <alias entity-alias="FAA" name="finAccountId" group-by="true"/>
+        <alias entity-alias="FAA" name="authorizationDate" group-by="false"/>
+        <alias entity-alias="FAA" name="fromDate" group-by="false"/>
+        <alias entity-alias="FAA" name="thruDate" group-by="false"/>
+        <alias entity-alias="FAA" name="amount" function="sum"/>
+        <alias entity-alias="FAA" name="currencyUomId" group-by="true"/>
+    </view-entity>
+    
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.accounting.fixedasset -->
+    <!-- ========================================================= -->
+    
     <entity entity-name="DepreciationMethod"
             package-name="org.ofbiz.accounting.fixedasset"
             title="Depreciation Method Entity">
@@ -2004,216 +2197,6 @@ under the License.
         <key-map field-name="contactMechId"/>
       </relation>
     </entity>
-    
-    <!-- financial account entities for gift certificates, calling cards, or customer accounts -->
-    <entity entity-name="FinAccount"
-            package-name="org.ofbiz.accounting.finaccount"
-            title="Financial Account Entity">
-      <field name="finAccountId" type="id-ne"></field>
-      <field name="finAccountTypeId" type="id"></field>
-      <field name="finAccountName" type="name"></field>
-      <field name="finAccountCode" type="long-varchar" encrypt="true"></field>
-      <field name="fromDate" type="date-time">
-        <description>Describes when account will be valid.  If null, valid immediately.</description>
-      </field>
-      <field name="thruDate" type="date-time">
-        <description>Expiration date of the account.  If null, will never expire.</description>
-      </field>
-      <prim-key field="finAccountId"/>
-      <relation type="one" fk-name="FINACCT_TYPE" rel-entity-name="FinAccountType">
-        <key-map field-name="finAccountTypeId"/>
-      </relation>
-      <relation type="many" rel-entity-name="FinAccountTypeAttr">
-        <key-map field-name="finAccountTypeId"/>
-      </relation>
-    </entity>
-    <entity entity-name="FinAccountAttribute"
-            package-name="org.ofbiz.accounting.finaccount"
-            title="Financial Account Attribute Entity">
-      <field name="finAccountId" type="id-ne"></field>
-      <field name="attrName" type="id-long-ne"></field>
-      <field name="attrValue" type="value"></field>
-      <prim-key field="finAccountId"/>
-      <prim-key field="attrName"/>
-      <relation type="one" fk-name="FINACCT_ATTR" rel-entity-name="FinAccount">
-        <key-map field-name="finAccountId"/>
-      </relation>
-      <relation type="many" rel-entity-name="FinAccountTypeAttr">
-        <key-map field-name="attrName"/>
-      </relation>
-    </entity>
-    <entity entity-name="FinAccountRole"
-            package-name="org.ofbiz.accounting.finaccount"
-            title="Financial Account Role Entity">
-      <field name="finAccountId" type="id-ne"></field>
-      <field name="partyId" type="id-ne"></field>
-      <field name="roleTypeId" type="id-ne"></field>
-      <field name="fromDate" type="date-time"></field>
-      <field name="thruDate" type="date-time"></field>
-      <prim-key field="finAccountId"/>
-      <prim-key field="partyId"/>
-      <prim-key field="roleTypeId"/>
-      <prim-key field="fromDate"/>
-      <relation type="one" fk-name="FIN_ACT_RL_FNACT" rel-entity-name="FinAccount">
-        <key-map field-name="finAccountId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="Party">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeId"/>
-      </relation>
-      <relation type="one" fk-name="FIN_ACT_RL_RTRL" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
-    </entity>
-    <entity entity-name="FinAccountTrans"
-            package-name="org.ofbiz.accounting.finaccount"
-            title="Financial Account Transaction Entity">
-      <field name="finAccountTransId" type="id-ne"></field>
-      <field name="finAccountTransTypeId" type="id-ne"></field>
-      <field name="finAccountId" type="id"></field>
-      <field name="partyId" type="id"></field>
-      <field name="transactionDate" type="date-time"></field>
-      <field name="entryDate" type="date-time"></field>
-      <field name="paymentId" type="id-ne"></field>
-      <prim-key field="finAccountTransId"/>
-      <relation type="one" fk-name="FINACCT_TX_TYPE" rel-entity-name="FinAccountTransType">
-        <key-map field-name="finAccountTransTypeId"/>
-      </relation>
-      <relation type="many" rel-entity-name="FinAccountTransTypeAttr">
-        <key-map field-name="finAccountTransTypeId"/>
-      </relation>
-      <relation type="one" fk-name="FIN_ACT_TX_FNACT" rel-entity-name="FinAccount">
-        <key-map field-name="finAccountId"/>
-      </relation>
-      <relation type="one" fk-name="FIN_ACT_TX_PARTY" rel-entity-name="Party">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="FIN_ACT_TX_PMT" rel-entity-name="Payment">
-        <key-map field-name="paymentId"/>
-      </relation>
-    </entity>
-    <entity entity-name="FinAccountAuth"
-                package-name="org.ofbiz.accounting.finaccount"
-                title="Financial Account Authorizations record">
-      <field name="finAccountAuthId" type="id-ne"/>
-      <field name="finAccountId" type="id-ne"/>
-      <field name="amount" type="currency-amount"/>
-      <field name="currencyUomId" type="id-ne"/>
-      <field name="authorizationDate" type="date-time"/>
-      <field name="fromDate" type="date-time"/>
-      <field name="thruDate" type="date-time"/>
-      <prim-key field="finAccountAuthId"/>
-      <relation type="one" fk-name="FINACT_AUTH_FINACT" rel-entity-name="FinAccount">
-        <key-map field-name="finAccountId"/>
-      </relation>
-      <relation type="one" fk-name="FINACT_AUTH_CURNCY" title="Currency" rel-entity-name="Uom">
-        <key-map field-name="currencyUomId" rel-field-name="uomId"/>
-      </relation>
-    </entity>
-    <entity entity-name="FinAccountTransAttribute"
-            package-name="org.ofbiz.accounting.finaccount"
-            title="Financial Account Transaction Attribute Entity">
-      <field name="finAccountTransId" type="id-ne"></field>
-      <field name="attrName" type="id-long-ne"></field>
-      <field name="attrValue" type="value"></field>
-      <prim-key field="finAccountTransId"/>
-      <prim-key field="attrName"/>
-      <relation type="one" fk-name="FINACCT_TX_ATTR" rel-entity-name="FinAccountTrans">
-        <key-map field-name="finAccountTransId"/>
-      </relation>
-      <relation type="many" rel-entity-name="FinAccountTransTypeAttr">
-        <key-map field-name="attrName"/>
-      </relation>
-    </entity>
-    <entity entity-name="FinAccountTransType"
-            package-name="org.ofbiz.accounting.finaccount"
-            title="Financial Account Transaction Type Entity">
-      <field name="finAccountTransTypeId" type="id-ne"></field>
-      <field name="parentTypeId" type="id-ne"></field>
-      <field name="hasTable" type="indicator"></field>
-      <field name="description" type="description"></field>
-      <prim-key field="finAccountTransTypeId"/>
-      <relation type="one" fk-name="FINACCT_TX_TYPPAR" title="Parent" rel-entity-name="FinAccountTransType">
-        <key-map field-name="parentTypeId" rel-field-name="finAccountTransTypeId"/>
-      </relation>
-    </entity>
-    <entity entity-name="FinAccountTransTypeAttr"
-            package-name="org.ofbiz.accounting.finaccount"
-            title="Financial Account Transaction Type Attribute Entity">
-      <field name="finAccountTransTypeId" type="id-ne"></field>
-      <field name="attrName" type="id-long-ne"></field>
-      <prim-key field="finAccountTransTypeId"/>
-      <prim-key field="attrName"/>
-      <relation type="one" fk-name="FINACCT_TX_TYPATR" rel-entity-name="FinAccountTransType">
-        <key-map field-name="finAccountTransTypeId"/>
-      </relation>
-      <relation type="many" rel-entity-name="FinAccountTransAttribute">
-        <key-map field-name="attrName"/>
-      </relation>
-      <relation type="many" rel-entity-name="FinAccountTrans">
-        <key-map field-name="finAccountTransTypeId"/>
-      </relation>
-    </entity>
-    <entity entity-name="FinAccountType"
-            package-name="org.ofbiz.accounting.finaccount"
-            title="Financial Account Type Entity">
-      <field name="finAccountTypeId" type="id-ne"></field>
-      <field name="parentTypeId" type="id-ne"></field>
-      <field name="hasTable" type="indicator"></field>
-      <field name="description" type="description"></field>
-      <prim-key field="finAccountTypeId"/>
-      <relation type="one" fk-name="FINACCT_TYPE_PAR" title="Parent" rel-entity-name="FinAccountType">
-        <key-map field-name="parentTypeId" rel-field-name="finAccountTypeId"/>
-      </relation>
-    </entity>
-    <entity entity-name="FinAccountTypeAttr"
-            package-name="org.ofbiz.accounting.finaccount"
-            title="Financial Account Type Attribute Entity">
-      <field name="finAccountTypeId" type="id-ne"></field>
-      <field name="attrName" type="id-long-ne"></field>
-      <prim-key field="finAccountTypeId"/>
-      <prim-key field="attrName"/>
-      <relation type="one" fk-name="FINACCT_TYPE_ATTR" rel-entity-name="FinAccountType">
-        <key-map field-name="finAccountTypeId"/>
-      </relation>
-      <relation type="many" rel-entity-name="FinAccountAttribute">
-        <key-map field-name="attrName"/>
-      </relation>
-      <relation type="many" rel-entity-name="FinAccount">
-        <key-map field-name="finAccountTypeId"/>
-      </relation>
-    </entity>
-    <view-entity entity-name="FinAccountTransSum"
-               package-name="org.ofbiz.accounting.finaccount"
-               title="View entity to help calculate total of financial account transactions by doing a query for the sum of all amounts 
-               on a range of transactionDates for a given finAccountId, finAccountTransTypeId">
-       <member-entity entity-alias="FAT" entity-name="FinAccountTrans"/>
-       <member-entity entity-alias="P" entity-name="Payment"/>
-       <alias entity-alias="FAT" name="finAccountId" group-by="true"/>
-       <alias entity-alias="FAT" name="finAccountTransTypeId" group-by="false"/> <!-- must not group-by this, or aggregating DEPOSIT and ADJUSTMENT won't work -->
-       <alias entity-alias="FAT" name="transactionDate" group-by="false"/>
-       <alias entity-alias="P" name="amount" function="sum"/>
-       <alias entity-alias="P" name="currencyUomId" group-by="true"/>
-       <view-link entity-alias="FAT" rel-entity-alias="P">
-         <key-map field-name="paymentId"/>
-       </view-link>       
-    </view-entity>
-    <view-entity entity-name="FinAccountAuthSum"
-          package-name="org.ofbiz.accounting.finaccount"
-          title="View entity to help calculate total of financial account authorizations by doing a query for the sum of all amounts 
-          on a range of transactionDates for a given finAccountId.  Note there is no auth type to consider here, but authorizations do
-          have from and thru dates">
-      <member-entity entity-alias="FAA" entity-name="FinAccountAuth"/>
-      <alias entity-alias="FAA" name="finAccountId" group-by="true"/>
-      <alias entity-alias="FAA" name="authorizationDate" group-by="false"/>
-      <alias entity-alias="FAA" name="fromDate" group-by="false"/>
-      <alias entity-alias="FAA" name="thruDate" group-by="false"/>
-      <alias entity-alias="FAA" name="amount" function="sum"/>
-      <alias entity-alias="FAA" name="currencyUomId" group-by="true"/>
-    </view-entity>
     
     <entity entity-name="GiftCard"
             package-name="org.ofbiz.accounting.payment"
