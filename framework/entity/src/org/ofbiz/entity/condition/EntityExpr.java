@@ -162,14 +162,14 @@ public class EntityExpr extends EntityCondition {
         }
     }
 
-	protected void addValue(StringBuffer buffer, ModelField field, Object value, List params) {
-		if (rhs instanceof EntityFunction.UPPER) {
-			if (value instanceof String) {
-				value = ((String) value).toUpperCase();
-			}
-		}
-		super.addValue(buffer, field, value, params);
-	}
+    protected void addValue(StringBuffer buffer, ModelField field, Object value, List params) {
+        if (rhs instanceof EntityFunction.UPPER) {
+            if (value instanceof String) {
+                value = ((String) value).toUpperCase();
+            }
+        }
+        super.addValue(buffer, field, value, params);
+    }
 
     public EntityCondition freeze() {
         return operator.freeze(lhs, rhs);
