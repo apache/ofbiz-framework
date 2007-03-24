@@ -26,7 +26,7 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
-        <if-empty field-name="finAccountId" map-name="newEntity">
+        <if-empty field-name="newEntity.finAccountId">
             <sequenced-id-to-env sequence-name="FinAccount" env-name="finAccountId"/>
             <to-string field-name="finAccountId"/>
             <set from-field="finAccountId" field="newEntity.finAccountId"/>
@@ -35,104 +35,82 @@ under the License.
         <create-value value-name="newEntity"/>
         <field-to-result field-name="finAccountId" map-name="newEntity" result-name="finAccountId"/>
     </simple-method>
-
     <simple-method method-name="updateFinAccount" short-description="Update a Financial Account">
-        <set from-field="parameters.finAccountId" field="lookupPkMap.finAccountId"/>
-        <find-by-primary-key map-name="lookupPkMap" value-name="finAccount" entity-name="FinAccount"/>
-        <set-nonpk-fields map-name="parameters" value-name="finAccount"/>
-
-        <store-value value-name="finAccount"/>
-        <field-to-result field-name="finAccountId" map-name="finAccount" result-name="finAccountId"/>
+        <entity-one entity-name="FinAccount" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+        <field-to-result field-name="lookedUpValue.finAccountId" result-name="finAccountId"/>
     </simple-method>
-
     <simple-method method-name="removeFinAccount" short-description="Remove a Financial Account">
-        <set from-field="parameters.finAccountId" field="lookupPkMap.finAccountId"/>
-        <find-by-primary-key map-name="lookupPkMap" value-name="finAccount" entity-name="FinAccount"/>
-
+        <entity-one value-name="finAccount" entity-name="FinAccount"/>
         <remove-value value-name="finAccount"/>
     </simple-method>
 
+    <!-- FinAccountTrans Services -->    
     <simple-method method-name="createFinAccountTrans" short-description="Create a Financial Account Transaction">
         <make-value value-name="newEntity" entity-name="FinAccountTrans"/>
         <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
-
-        <sequenced-id-to-env sequence-name="FinAccountTrans" env-name="finAccountTransId"/>
-        <to-string field-name="finAccountTransId"/>
-        <set from-field="finAccountTransId" field="newEntity.finAccountTransId"/>
+        <sequenced-id-to-env sequence-name="FinAccountTrans" env-name="newEntity.finAccountTransId"/>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <if-empty field-name="transactionDate" map-name="newEntity">
+        <if-empty field-name="newEntity.transactionDate">
             <set from-field="nowTimestamp" field="newEntity.transactionDate"/>
         </if-empty>
-        <if-empty field-name="entryDate" map-name="newEntity">
+        <if-empty field-name="newEntity.entryDate">
             <set from-field="nowTimestamp" field="newEntity.entryDate"/>
         </if-empty>
 
         <create-value value-name="newEntity"/>
-        <field-to-result field-name="finAccountTransId" result-name="finAccountTransId"/>
+        <field-to-result field-name="newEntity.finAccountTransId" result-name="finAccountTransId"/>
     </simple-method>
 
+    <!-- FinAccountRole Services -->    
     <simple-method method-name="createFinAccountRole" short-description="Create a Financial Account Role">
         <make-value value-name="newEntity" entity-name="FinAccountRole"/>
         <set-pk-fields value-name="newEntity" map-name="parameters"/>
         <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
 
-        <if-empty field-name="fromDate" map-name="newEntity">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
-            <set from-field="nowTimestamp" field="newEntity.fromDate"/>
+        <if-empty field-name="newEntity.fromDate">
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
 
         <create-value value-name="newEntity"/>
     </simple-method>
-
     <simple-method method-name="updateFinAccountRole" short-description="Update a Financial Account Role">
-        <make-value value-name="pkLookupMap" entity-name="FinAccountRole"/>
-        <set-pk-fields value-name="pkLookupMap" map-name="parameters"/>
-        <find-by-primary-key map-name="pkLookupMap" value-name="finAcctRole"/>
-
-        <set-nonpk-fields map-name="parameters" value-name="finAcctRole"/>
-        <store-value value-name="finAcctRole"/>
+        <entity-one entity-name="FinAccountRole" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
     </simple-method>
-
     <simple-method method-name="removeFinAccountRole" short-description="Remove a Financial Account Role">
-        <make-value value-name="pkLookupMap" entity-name="FinAccountRole"/>
-        <set-pk-fields value-name="pkLookupMap" map-name="parameters"/>
-        <find-by-primary-key map-name="pkLookupMap" value-name="finAcctRole"/>
-
-        <remove-value value-name="finAcctRole"/>
+        <entity-one entity-name="FinAccountRole" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
     </simple-method>
-    
+
+    <!-- FinAccountAuth Services -->    
     <simple-method method-name="createFinAccountAuth" short-description="Create a Financial Account Authorization">
         <make-value value-name="newEntity" entity-name="FinAccountAuth"/>
         <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
 
-        <sequenced-id-to-env sequence-name="FinAccountAuth" env-name="finAccountAuthId"/>
-        <to-string field-name="finAccountAuthId"/>
-        <set from-field="finAccountAuthId" field="newEntity.finAccountAuthId"/>
+        <sequenced-id-to-env sequence-name="FinAccountAuth" env-name="newEntity.finAccountAuthId"/>
         
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <if-empty field-name="authorizationDate" map-name="newEntity">
+        <if-empty field-name="newEntity.authorizationDate">
             <set from-field="nowTimestamp" field="newEntity.authorizationDate"/>
         </if-empty>
-        <if-empty field-name="fromDate" map-name="newEntity">
+        <if-empty field-name="newEntity.fromDate">
             <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>
         <create-value value-name="newEntity"/>
-        <field-to-result field-name="finAccountAuthId" result-name="finAccountAuthId"/>
+        <field-to-result field-name="newEntity.finAccountAuthId" result-name="finAccountAuthId"/>
     </simple-method>
     <simple-method short-description="Expire a Financial Account Authorization" method-name="expireFinAccountAuth">
-        <make-value value-name="pkLookupMap" entity-name="FinAccountAuth"/>
-        <set-pk-fields value-name="pkLookupMap" map-name="parameters"/>
-        <find-by-primary-key map-name="pkLookupMap" value-name="finAccountAuth"/>
-
+        <entity-one entity-name="FinAccountAuth" value-name="finAccountAuth"/>
         <if-empty field-name="parameters.expireDateTime">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
-            <set from-field="nowTimestamp" field="finAccountAuth.thruDate"/>
+            <now-timestamp-to-env env-name="finAccountAuth.thruDate"/>
         <else>
             <set from-field="parameters.expireDatetime" field="finAccountAuth.thruDate"/>
         </else>
         </if-empty>
         <store-value value-name="finAccountAuth"/>
     </simple-method>
-
 </simple-methods>
