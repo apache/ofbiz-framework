@@ -94,6 +94,8 @@ public abstract class EntityFunction extends EntityConditionValue {
         codeString = code;
         if (value instanceof EntityConditionValue) {
             this.nested = (EntityConditionValue) value;
+        } else if (value instanceof String) {
+            this.value = ((String) value).replaceAll("'", "''");
         } else {
             this.value = value;
         }
