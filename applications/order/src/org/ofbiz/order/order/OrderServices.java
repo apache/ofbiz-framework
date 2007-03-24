@@ -3655,6 +3655,35 @@ public class OrderServices {
         return ServiceUtil.returnSuccess();
     }
 
+    public static Map massCreateFileForOrders(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String screenLocation = (String) context.get("screenLocation");
+
+        // make the list per facility
+        List orderIds = (List) context.get("orderIdList");
+        Iterator i = orderIds.iterator();
+        while (i.hasNext()) {
+            String orderId = (String) i.next();
+            if (UtilValidate.isEmpty(orderId)) {
+                continue;
+            }
+            Map ctx = FastMap.newInstance();
+            ctx.put("userLogin", userLogin);
+            ctx.put("screenLocation", screenLocation);
+            //ctx.put("contentType", "application/postscript");
+            ctx.put("fileName", "order_" + orderId + "_");
+            ctx.put("screenContext", UtilMisc.toMap("orderId", orderId));
+
+            try {
+                dispatcher.runAsync("createFileFromScreen", ctx);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, module);
+            }
+        }
+        return ServiceUtil.returnSuccess();
+    }
+
     public static Map checkCreateDropShipPurchaseOrders(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();

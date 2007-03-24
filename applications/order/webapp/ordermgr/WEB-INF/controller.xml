@@ -149,6 +149,12 @@ under the License.
         <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="request-redirect" value="findorders"/>
     </request-map>
+    <request-map uri="massCreateFileForOrders">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="massCreateFileForOrders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
+        <response name="error" type="request-redirect" value="findorders"/>
+    </request-map>
 
     <!-- Order Manager Task List Requests -->
     <request-map uri="acceptassignment">
