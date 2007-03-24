@@ -31,6 +31,7 @@ import org.apache.oro.text.regex.PatternMatcher;
 import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.model.ModelEntity;
@@ -83,6 +84,13 @@ public class EntityComparisonOperator extends EntityOperator {
 
     public void addSqlValue(StringBuffer sql, ModelEntity entity, List entityConditionParams, boolean compat, Object lhs, Object rhs) {
         //Debug.logInfo("EntityComparisonOperator.addSqlValue field=" + lhs + ", value=" + rhs + ", value type=" + (rhs == null ? "null object" : rhs.getClass().getName()), module);
+        
+        // if this is an IN operator and the rhs Object isEmpty, add "FALSE" instead of the normal SQL
+        if (this.idInt == EntityOperator.ID_IN && UtilValidate.isEmpty(rhs)) {
+            sql.append("FALSE");
+            return;
+        }
+        
         ModelField field;
         if (lhs instanceof EntityConditionValue) {
             EntityConditionValue ecv = (EntityConditionValue) lhs;
