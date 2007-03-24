@@ -53,11 +53,11 @@ public class DispatchContext implements Serializable {
     public static final String module = DispatchContext.class.getName();
 
     protected static final String GLOBAL_KEY = "global.services";
-    protected static UtilCache modelService = new UtilCache("service.ModelServices", 0, 0, false);
+    protected static UtilCache modelServiceMapByDispatcher = new UtilCache("service.ModelServiceMapByDispatcher", 0, 0, false);
 
     protected transient LocalDispatcher dispatcher;
     protected transient ClassLoader loader;
-    protected Collection readers;
+    protected Collection localReaders;
     protected Map attributes;
     protected String name;
 
@@ -66,24 +66,17 @@ public class DispatchContext implements Serializable {
      * @param readers a collection of reader URLs
      * @param loader the classloader to use for dispatched services
      */
-    public DispatchContext(String name, Collection readers, ClassLoader loader, LocalDispatcher dispatcher) {
+    public DispatchContext(String name, Collection localReaders, ClassLoader loader, LocalDispatcher dispatcher) {
         this.name = name;
-        this.readers = readers;
+        this.localReaders = localReaders;
         this.loader = loader;
         this.dispatcher = dispatcher;
         this.attributes = FastMap.newInstance();                
     }
 
     public void loadReaders() {
-        Map localService = addReaders(readers);
-        if (localService != null) {
-            modelService.put(name, localService);
-        }
-        
-        Map globalService = addGlobal();
-        if (globalService != null) {
-            modelService.put(GLOBAL_KEY, globalService);
-        }
+        this.getLocalServiceMap();
+        this.getGlobalServiceMap();
     }
 
     /** 
@@ -119,7 +112,7 @@ public class DispatchContext implements Serializable {
      * @return Collection of reader URLs
      */
     public Collection getReaders() {
-        return readers;
+        return localReaders;
     }
 
     /** 
@@ -163,7 +156,7 @@ public class DispatchContext implements Serializable {
         } else if (mode.equalsIgnoreCase("out")) {
             modeInt = 2;
         }        
-                        
+
         if (model == null) {
             throw new GenericServiceException("Model service is null! Should never happen.");        
         } else {
@@ -187,6 +180,7 @@ public class DispatchContext implements Serializable {
      * @return GenericServiceModel that corresponds to the serviceName
      */
     public ModelService getModelService(String serviceName) throws GenericServiceException {
+        //long timeStart = System.currentTimeMillis();
         ModelService retVal = getLocalModelService(serviceName);
         if (retVal == null) {
             retVal = getGlobalModelService(serviceName);
@@ -196,23 +190,12 @@ public class DispatchContext implements Serializable {
             throw new GenericServiceException("Cannot locate service by name (" + serviceName + ")");
         }
         
+        //Debug.logTiming("Got ModelService for name [" + serviceName + "] in [" + (System.currentTimeMillis() - timeStart) + "] milliseconds", module);
         return retVal;                
     }
     
     private ModelService getLocalModelService(String serviceName) throws GenericServiceException {
-        Map serviceMap = (Map) modelService.get(name);
-        if (serviceMap == null) {
-            synchronized (this) {
-                serviceMap = (Map) modelService.get(name);
-                if (serviceMap == null) {
-                    serviceMap = addReaders(readers);
-                    if (serviceMap != null) {
-                        modelService.put(name, serviceMap);
-                        ServiceEcaUtil.reloadConfig();
-                    }
-                }
-            }
-        }
+        Map serviceMap = this.getLocalServiceMap();
         
         ModelService retVal = null;
         if (serviceMap != null) {
@@ -226,19 +209,7 @@ public class DispatchContext implements Serializable {
     }
 
     private ModelService getGlobalModelService(String serviceName) throws GenericServiceException {
-        Map serviceMap = (Map) modelService.get(GLOBAL_KEY);
-        if (serviceMap == null) {
-            synchronized (this) {
-                serviceMap = (Map) modelService.get(GLOBAL_KEY);
-                if (serviceMap == null) {
-                    serviceMap = addGlobal();
-                    if (serviceMap != null) {
-                        modelService.put(GLOBAL_KEY, serviceMap);
-                        ServiceEcaUtil.reloadConfig();
-                    }
-                }
-            }
-        }
+        Map serviceMap = this.getGlobalServiceMap();
 
         ModelService retVal = null;
         if (serviceMap != null) {
@@ -283,96 +254,91 @@ public class DispatchContext implements Serializable {
         return dispatcher.getSecurity();
     }
 
-    private Map addReaders(Collection readerURLs) {
-        Map serviceMap = FastMap.newInstance();
-
-        if (readerURLs == null)
-            return null;
-        Iterator urlIter = readerURLs.iterator();
-
-        while (urlIter.hasNext()) {
-            URL readerURL = (URL) urlIter.next();
-
-            serviceMap.putAll(addReader(readerURL));
-        }
-        return serviceMap;
-    }
-
-    private Map addReader(URL readerURL) {
-        if (readerURL == null) {
-            Debug.logError("Cannot add reader with a null reader URL", module);
-            return null;
-        }
-
-        ModelServiceReader reader = ModelServiceReader.getModelServiceReader(readerURL, this);
-
-        if (reader == null) {
-            Debug.logError("Could not load the reader for the reader URL " + readerURL, module);
-            return null;
-        }
-
-        Map serviceMap = reader.getModelServices();
-
-        return serviceMap;
-    }
-
-    private Map addReader(ResourceHandler handler) {
-        ModelServiceReader reader = ModelServiceReader.getModelServiceReader(handler, this);
-
-        if (reader == null) {
-            Debug.logError("Could not load the reader for " + handler, module);
-            return null;
-        }
-
-        Map serviceMap = reader.getModelServices();
-
-        return serviceMap;
-    }
-
-    private Map addGlobal() {
-        Map globalMap = FastMap.newInstance();
-
-        Element rootElement = null;
-
-        try {
-            rootElement = ServiceConfigUtil.getXmlRootElement();
-        } catch (GenericConfigException e) {
-            Debug.logError(e, "Error getting Service Engine XML root element", module);
-            return null;
-        }
-
-        List globalServicesElements = UtilXml.childElementList(rootElement, "global-services");
-        Iterator gseIter = globalServicesElements.iterator();
-        while (gseIter.hasNext()) {
-            Element globalServicesElement = (Element) gseIter.next();
-            ResourceHandler handler = new MainResourceHandler(
-                    ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, globalServicesElement);
-
-            Map servicesMap = addReader(handler);
-            if (servicesMap != null) {
-                globalMap.putAll(servicesMap);
+    private Map getLocalServiceMap() {
+        Map serviceMap = (Map) modelServiceMapByDispatcher.get(name);
+        if (serviceMap == null) {
+            synchronized (this) {
+                serviceMap = (Map) modelServiceMapByDispatcher.get(name);
+                if (serviceMap == null) {
+                    if (this.localReaders != null) {
+                        serviceMap = FastMap.newInstance();
+                        Iterator urlIter = this.localReaders.iterator();
+                        while (urlIter.hasNext()) {
+                            URL readerURL = (URL) urlIter.next();
+                            Map readerServiceMap = ModelServiceReader.getModelServiceMap(readerURL, this);
+                            if (readerServiceMap != null) {
+                                serviceMap.putAll(readerServiceMap);
+                            }
+                        }
+                    }
+                    if (serviceMap != null) {
+                        modelServiceMapByDispatcher.put(name, serviceMap);
+                        // NOTE: the current ECA per dispatcher for local services stuff is a bit broken, so now just doing this on the global def load: ServiceEcaUtil.reloadConfig();
+                    }
+                }
             }
         }
         
-        // get all of the component resource model stuff, ie specified in each ofbiz-component.xml file
-        List componentResourceInfos = ComponentConfig.getAllServiceResourceInfos("model");
-        Iterator componentResourceInfoIter = componentResourceInfos.iterator();
-        while (componentResourceInfoIter.hasNext()) {
-            ComponentConfig.ServiceResourceInfo componentResourceInfo = (ComponentConfig.ServiceResourceInfo) componentResourceInfoIter.next();
-            Map servicesMap = addReader(componentResourceInfo.createResourceHandler());
-            if (servicesMap != null) {
-                globalMap.putAll(servicesMap);
+        return serviceMap;
+    }
+    
+    private Map getGlobalServiceMap() {
+        Map serviceMap = (Map) modelServiceMapByDispatcher.get(GLOBAL_KEY);
+        if (serviceMap == null) {
+            synchronized (this) {
+                serviceMap = (Map) modelServiceMapByDispatcher.get(GLOBAL_KEY);
+                if (serviceMap == null) {
+                    serviceMap = FastMap.newInstance();
+
+                    Element rootElement = null;
+
+                    try {
+                        rootElement = ServiceConfigUtil.getXmlRootElement();
+                    } catch (GenericConfigException e) {
+                        Debug.logError(e, "Error getting Service Engine XML root element", module);
+                        return null;
+                    }
+
+                    List globalServicesElements = UtilXml.childElementList(rootElement, "global-services");
+                    Iterator gseIter = globalServicesElements.iterator();
+                    while (gseIter.hasNext()) {
+                        Element globalServicesElement = (Element) gseIter.next();
+                        ResourceHandler handler = new MainResourceHandler(
+                                ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, globalServicesElement);
+
+                        Map servicesMap = ModelServiceReader.getModelServiceMap(handler, this);
+                        if (servicesMap != null) {
+                            serviceMap.putAll(servicesMap);
+                        }
+                    }
+                    
+                    // get all of the component resource model stuff, ie specified in each ofbiz-component.xml file
+                    List componentResourceInfos = ComponentConfig.getAllServiceResourceInfos("model");
+                    Iterator componentResourceInfoIter = componentResourceInfos.iterator();
+                    while (componentResourceInfoIter.hasNext()) {
+                        ComponentConfig.ServiceResourceInfo componentResourceInfo = (ComponentConfig.ServiceResourceInfo) componentResourceInfoIter.next();
+                        Map servicesMap = ModelServiceReader.getModelServiceMap(componentResourceInfo.createResourceHandler(), this);
+                        if (servicesMap != null) {
+                            serviceMap.putAll(servicesMap);
+                        }
+                    }
+
+                    if (serviceMap != null) {
+                        modelServiceMapByDispatcher.put(GLOBAL_KEY, serviceMap);
+                        ServiceEcaUtil.reloadConfig();
+                    }
+                }
             }
         }
 
-        return globalMap;
+        return serviceMap;
     }
 
     public Set getAllServiceNames() {
         Set serviceNames = new TreeSet();
 
-        Map globalServices = (Map) modelService.get(GLOBAL_KEY);
-        Map localServices = (Map) modelService.get(name);
+        Map globalServices = (Map) modelServiceMapByDispatcher.get(GLOBAL_KEY);
+        Map localServices = (Map) modelServiceMapByDispatcher.get(name);
         if (globalServices != null) {
             serviceNames.addAll(globalServices.keySet());
         }

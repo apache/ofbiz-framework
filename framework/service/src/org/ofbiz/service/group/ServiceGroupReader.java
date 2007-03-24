@@ -20,6 +20,9 @@ package org.ofbiz.service.group;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.config.GenericConfigException;
@@ -27,7 +30,6 @@ import org.ofbiz.base.config.MainResourceHandler;
 import org.ofbiz.base.config.ResourceHandler;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.w3c.dom.Element;
 
@@ -38,7 +40,8 @@ public class ServiceGroupReader {
     
     public static final String module = ServiceGroupReader.class.getName();
 
-    public static UtilCache groupsCache = new UtilCache("service.ServiceGroups", 0, 0, false);
+    // using a cache is dangerous here because if someone clears it the groups won't work at all: public static UtilCache groupsCache = new UtilCache("service.ServiceGroups", 0, 0, false);
+    public static Map groupsCache = FastMap.newInstance();
     
     public static void readConfig() {
         Element rootElement = null;

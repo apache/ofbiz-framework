@@ -26,23 +26,26 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.apache.commons.collections.map.LinkedMap;
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.ResourceHandler;
-import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.cache.UtilCache;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilTimer;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelFieldType;
 import org.ofbiz.service.group.GroupModel;
-
-import org.apache.commons.collections.map.LinkedMap;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -57,9 +60,6 @@ public class ModelServiceReader implements Serializable {
 
     public static final String module = ModelServiceReader.class.getName();
 
-    protected static UtilCache readersUrl = new UtilCache("service.ModelServiceReader.ByURL", 0, 0);
-    protected static UtilCache readersLoader = new UtilCache("service.ModelServiceReader.ByResourceLoader", 0, 0);
-
     /** is either from a URL or from a ResourceLoader (through the ResourceHandler) */
     protected boolean isFromURL;
     protected URL readerURL = null;
@@ -67,41 +67,32 @@ public class ModelServiceReader implements Serializable {
     protected Map modelServices = null;
     protected DispatchContext dctx = null;
 
-    public static ModelServiceReader getModelServiceReader(URL readerURL, DispatchContext dctx) {
-        ModelServiceReader reader;
-
-        // if ( readersUrl.containsKey(readerURL) ) <-- this is unnecessary as it will return null below if not found
-        reader = (ModelServiceReader) readersUrl.get(readerURL);
-        if (reader == null) { // don't want to block here
-            synchronized (ModelServiceReader.class) {
-                // must check if null again as one of the blocked threads can still enter
-                reader = (ModelServiceReader) readersUrl.get(readerURL);
-                if (reader == null) {
-                    // if (Debug.infoOn()) Debug.logInfo("[Creating reader]: " + readerURL.toExternalForm(), module);
-                    reader = new ModelServiceReader(readerURL, dctx);
-                    readersUrl.put(readerURL, reader);
-                }
-            }
+    public static Map getModelServiceMap(URL readerURL, DispatchContext dctx) {
+        if (readerURL == null) {
+            Debug.logError("Cannot add reader with a null reader URL", module);
+            return null;
         }
-        return reader;
+
+        ModelServiceReader reader = new ModelServiceReader(readerURL, dctx);
+        if (reader == null) {
+            Debug.logError("Could not load the reader for the reader URL " + readerURL, module);
+            return null;
+        }
+
+        Map serviceMap = reader.getModelServices();
+        return serviceMap;
     }
 
-    public static ModelServiceReader getModelServiceReader(ResourceHandler handler, DispatchContext dctx) {
+    public static Map getModelServiceMap(ResourceHandler handler, DispatchContext dctx) {
         ModelServiceReader reader;
-
-        reader = (ModelServiceReader) readersLoader.get(handler);
-        if (reader == null) { // don't want to block here
-            synchronized (ModelServiceReader.class) {
-                // must check if null again as one of the blocked threads can still enter
-                reader = (ModelServiceReader) readersLoader.get(handler);
-                if (reader == null) {
-                    // if (Debug.infoOn()) Debug.logInfo("[Creating reader]: " + handler, module);
-                    reader = new ModelServiceReader(handler, dctx);
-                    readersLoader.put(handler, reader);
-                }
-            }
+        reader = new ModelServiceReader(handler, dctx);
+        if (reader == null) {
+            Debug.logError("Could not load the reader for " + handler, module);
+            return null;
         }
-        return reader;
+
+        Map serviceMap = reader.getModelServices();
+        return serviceMap;
     }
 
     protected ModelServiceReader(URL readerURL, DispatchContext dctx) {

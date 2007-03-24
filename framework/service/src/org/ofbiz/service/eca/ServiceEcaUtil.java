@@ -27,6 +27,8 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.Collection;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.MainResourceHandler;
@@ -47,7 +49,8 @@ public class ServiceEcaUtil {
 
     public static final String module = ServiceEcaUtil.class.getName();
 
-    public static UtilCache ecaCache = new UtilCache("service.ServiceECAs", 0, 0, false);
+    // using a cache is dangerous here because if someone clears it the ECAs won't run: public static UtilCache ecaCache = new UtilCache("service.ServiceECAs", 0, 0, false);
+    public static Map ecaCache = FastMap.newInstance();
 
     public static void reloadConfig() {
         ecaCache.clear();
@@ -115,13 +118,13 @@ public class ServiceEcaUtil {
             numDefs++;
         }
         if (Debug.importantOn()) {
-			String resourceLocation = handler.getLocation();
-			try {
-				resourceLocation = handler.getURL().toExternalForm();
-			} catch (GenericConfigException e) {
-				Debug.logError(e, "Could not get resource URL", module);
-			}
-			Debug.logImportant("Loaded " + numDefs + " Service ECA definitions from " + resourceLocation, module);
+            String resourceLocation = handler.getLocation();
+            try {
+                resourceLocation = handler.getURL().toExternalForm();
+            } catch (GenericConfigException e) {
+                Debug.logError(e, "Could not get resource URL", module);
+            }
+            Debug.logImportant("Loaded " + numDefs + " Service ECA definitions from " + resourceLocation, module);
         }
     }
 
