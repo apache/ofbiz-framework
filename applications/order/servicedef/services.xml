@@ -505,6 +505,11 @@ under the License.
         <attribute name="screenLocation" type="String" mode="IN" optional="false"/>
         <attribute name="printerName" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="massCreateFileForOrders" engine="java" transaction-timeout="300"
+            location="org.ofbiz.order.order.OrderServices" invoke="massCreateFileForOrders" auth="true">
+        <implements service="massOrderChangeInterface"/>
+        <attribute name="screenLocation" type="String" mode="IN" optional="false"/>
+    </service>
 
     <service name="getNextOrderId" engine="simple"
         location="org/ofbiz/order/order/OrderServices.xml" invoke="getNextOrderId">

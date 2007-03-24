@@ -20,16 +20,26 @@ under the License.
 
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
-    <description>Content Component Print Services</description>
+    <description>Content Component Output Services</description>
     <vendor>OFBiz</vendor>
 
     <service name="sendPrintFromScreen" max-retry="0" engine="java"
-        location="org.ofbiz.content.print.PrintServices" invoke="sendPrintFromScreen">
+        location="org.ofbiz.content.output.OutputServices" invoke="sendPrintFromScreen">
         <description>Send Print From Screen Widget Service</description>
         <attribute name="screenLocation" type="String" mode="IN" optional="false"/>
         <attribute name="screenContext" type="Map" mode="IN" optional="true"/>
         <attribute name="contentType" type="String" mode="IN" optional="true"/>
         <attribute name="printerName" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="createFileFromScreen" max-retry="0" engine="java"
+        location="org.ofbiz.content.output.OutputServices" invoke="createFileFromScreen">
+        <description>Create a File From Screen Widget Service</description>
+        <attribute name="screenLocation" type="String" mode="IN" optional="false"/>
+        <attribute name="screenContext" type="Map" mode="IN" optional="true"/>
+        <attribute name="contentType" type="String" mode="IN" optional="true"/>
+        <attribute name="filePath" type="String" mode="IN" optional="true"/>
+        <attribute name="fileName" type="String" mode="IN" optional="false"/>
     </service>
 
 </services>
