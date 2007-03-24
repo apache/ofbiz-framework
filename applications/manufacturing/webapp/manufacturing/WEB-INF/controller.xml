@@ -164,13 +164,13 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListCalendarWeek"/>
     </request-map>
-    <request-map uri="CreateCalendarWeek">
+    <request-map uri="createCalendarWeek">
         <security https="true" auth="true"/>
         <event type="service" invoke="createCalendarWeek"/>
         <response name="success" type="view" value="EditCalendarWeek"/>
         <response name="error" type="view" value="EditCalendarWeek"/>
     </request-map>
-    <request-map uri="UpdateCalendarWeek">
+    <request-map uri="updateCalendarWeek">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateCalendarWeek"/>
         <response name="success" type="view" value="EditCalendarWeek"/>
