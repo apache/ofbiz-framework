@@ -127,14 +127,15 @@ under the License.
                 <set field="tabButtonItem" value="CalendarWeek"/>
                 <set field="headerItem" value="calendar"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/routing/EditCalendarWeek.bsh"/>
+                <entity-one entity-name="TechDataCalendarWeek" value-name="calendarWeek"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://manufacturing/webapp/manufacturing/routing/EditCalendarWeek.ftl"/></html>
-                        </platform-specific>
+                        <container>
+                            <link style="buttontext" target="EditCalendarWeek" text="${uiLabelMap.ManufacturingNewCalendarWeek}"/>
+                        </container>
+                        <include-form name="UpdateCalendarWeek" location="component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

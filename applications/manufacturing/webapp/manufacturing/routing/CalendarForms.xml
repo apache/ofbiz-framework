@@ -130,4 +130,26 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
+    
+    <form name="UpdateCalendarWeek" type="single" target="updateCalendarWeek" title="">
+        <alt-target use-when="calendarWeek==null" target="createCalendarWeek"/>
+        <auto-fields-service service-name="updateCalendarWeek" map-name="calendarWeek"/>
+        <field name="calendarWeekId" use-when="calendarWeek!=null"><display/></field>
+        <field name="mondayStartTime" position="1"><text/></field>
+        <field name="mondayCapacity" position="2"><text/></field>
+        <field name="tuesdayStartTime" position="1"><text/></field>
+        <field name="tuesdayCapacity" position="2"><text/></field>
+        <field name="wednesdayStartTime" position="1"><text/></field>
+        <field name="wednesdayCapacity" position="2"><text/></field>
+        <field name="thursdayStartTime" position="1"><text/></field>
+        <field name="thursdayCapacity" position="2"><text/></field>
+        <field name="fridayStartTime" position="1"><text/></field>
+        <field name="fridayCapacity" position="2"><text/></field>
+        <field name="saturdayStartTime" position="1"><text/></field>
+        <field name="saturdayCapacity" position="2"><text/></field>
+        <field name="sundayStartTime" position="1"><text/></field>
+        <field name="sundayCapacity" position="2"><text/></field>
+        <field name="submitButton"><submit button-type="button"/></field>
+    </form>
+
  </forms>
