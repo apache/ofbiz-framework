@@ -333,11 +333,11 @@ under the License.
             <link target="printChecks.pdf?paymentId=${payment.paymentId}"/>
         </menu-item>
     </menu>
-    <menu name="FixedAssetMaintTabBar" default-menu-item-name="overview"> 
-        <menu-item name="editFixedAssetMaint" title="${uiLabelMap.AccountingFixedAssetMaint}">
+    <menu name="FixedAssetMaintTabBar" selected-menuitem-context-field-name="tabButtonItemFixedAssetMaint" default-menu-item-name="EditFixedAssetMaint"> 
+        <menu-item name="EditFixedAssetMaint" title="${uiLabelMap.AccountingFixedAssetMaint}">
             <link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
         </menu-item>
-        <menu-item name="editFixedAssetMeter" title="${uiLabelMap.AccountingFixedAssetMaintMeters}">
+        <menu-item name="EditFixedAssetMaintMeters" title="${uiLabelMap.AccountingFixedAssetMaintMeters}">
             <link target="EditFixedAssetMaintMeters?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
         </menu-item>
         <menu-item name="EditFixedAssetMaintOrders" title="${uiLabelMap.AccountingFixedAssetMaintOrders}">
