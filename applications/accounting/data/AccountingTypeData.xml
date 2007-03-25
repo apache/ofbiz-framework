@@ -69,10 +69,11 @@ under the License.
     <FinAccountTransType description="Withdraw" finAccountTransTypeId="WITHDRAWAL" hasTable="N" parentTypeId=""/>
     <FinAccountTransType description="Adjustment" finAccountTransTypeId="ADJUSTMENT" hasTable="N" parentTypeId=""/>
 
-    <FinAccountType description="Bank" finAccountTypeId="BANK_ACCOUNT" hasTable="N" parentTypeId=""/>
     <FinAccountType description="Gift Certificate" finAccountTypeId="GIFTCERT_ACCOUNT" hasTable="N" parentTypeId=""/>
-    <FinAccountType description="Investment" finAccountTypeId="INVESTMENT_ACCOUNT" hasTable="N" parentTypeId=""/>
-
+    <FinAccountType description="Deposit Account" finAccountTypeId="DEPOSIT_ACCOUNT" hasTable="N" parentTypeId=""/>
+    <FinAccountType description="Bank Account" finAccountTypeId="BANK_ACCOUNT" hasTable="N" parentTypeId="DEPOSIT_ACCOUNT"/>
+    <FinAccountType description="Investment Account" finAccountTypeId="INVESTMENT_ACCOUNT" hasTable="N" parentTypeId="DEPOSIT_ACCOUNT"/>
+    
     <FixedAssetType description="Equipment" fixedAssetTypeId="EQUIPMENT" hasTable="N" parentTypeId=""/>
     <FixedAssetType description="The fixed asset used in the operation-routing definition" fixedAssetTypeId="PRODUCTION_EQUIPMENT" hasTable="N" parentTypeId=""/>
     <FixedAssetType description="Group of machines, used for task and routing definition" fixedAssetTypeId="GROUP_EQUIPMENT" hasTable="N" parentTypeId=""/>

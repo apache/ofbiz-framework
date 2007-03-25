@@ -18,7 +18,22 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-
+    <!-- The main Company Internal Organization -->
+    <Party partyId="Company" partyTypeId="PARTY_GROUP"/>
+    <PartyGroup partyId="Company" groupName="Your Company Name Here" logoImageUrl="http://www.ofbiz.org/images/ofbiz_logo.jpg"/>
+    <PartyRole partyId="Company" roleTypeId="BILL_FROM_VENDOR"/>
+    <PartyRole partyId="Company" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyRole partyId="Company" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="Company" roleTypeId="_NA_"/>
+    <ContactMech contactMechId="9000" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PartyContactMech partyId="Company" contactMechId="9000" fromDate="2000-01-01 00:00:00.000" allowSolicitation="Y"/>
+    <PostalAddress contactMechId="9000" toName="Company XYZ" address1="2003 Open Blvd" city="Open City" postalCode="999999" countryGeoId="USA" stateProvinceGeoId="CA"/>
+    <PartyContactMechPurpose partyId="Company" contactMechId="9000" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="Company" contactMechId="9000" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="Company" contactMechId="9000" contactMechPurposeTypeId="PAYMENT_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyAcctgPreference partyId="Company" taxFormId="US_IRS_1120" cogsMethodId="COGS_AVG_COST" baseCurrencyUomId="USD"/>
+    
+    <!-- Sub-Organizations -->
     <Party partyId="MARKETING" partyTypeId="PARTY_GROUP" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-27 09:37:41.016" lastUpdatedTxStamp="2004-03-27 09:37:41.016" createdStamp="2004-03-27 09:37:41.016" createdTxStamp="2004-03-27 09:37:41.016"/>
     <PartyGroup partyId="MARKETING" groupName="Marketing department"/>
     <PartyRole partyId="MARKETING" roleTypeId="INTERNAL_ORGANIZATIO" lastUpdatedStamp="2004-03-27 09:37:41.142" lastUpdatedTxStamp="2004-03-27 09:37:41.142" createdStamp="2004-03-27 09:37:41.142" createdTxStamp="2004-03-27 09:37:41.142"/>
@@ -38,7 +53,32 @@ under the License.
     <Party partyId="TESTING" partyTypeId="PARTY_GROUP" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-27 09:37:41.016" lastUpdatedTxStamp="2004-03-27 09:37:41.016" createdStamp="2004-03-27 09:37:41.016" createdTxStamp="2004-03-27 09:37:41.016"/>
     <PartyGroup partyId="TESTING" groupName="Testing department"/>
     <PartyRole partyId="TESTING" roleTypeId="INTERNAL_ORGANIZATIO" lastUpdatedStamp="2004-03-27 09:37:41.142" lastUpdatedTxStamp="2004-03-27 09:37:41.142" createdStamp="2004-03-27 09:37:41.142" createdTxStamp="2004-03-27 09:37:41.142"/>
-
-
+    
+    <!-- Some Sample Time Periods, a Year with Quarters and Months -->
+    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_YEAR" fromDate="2007-01-01" thruDate="2008-01-01" isClosed="N" periodNum="2007" periodName="Fiscal Year"/>
+    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_QUARTER" fromDate="2007-01-01" thruDate="2007-04-01" isClosed="N" periodNum="1" periodName="Quarter"/>
+    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_QUARTER" fromDate="2007-04-01" thruDate="2007-07-01" isClosed="N" periodNum="2" periodName="Quarter"/>
+    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_QUARTER" fromDate="2007-07-01" thruDate="2007-10-01" isClosed="N" periodNum="3" periodName="Quarter"/>
+    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_QUARTER" fromDate="2007-10-01" thruDate="2008-01-01" isClosed="N" periodNum="4" periodName="Quarter"/>
+    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-01-01" thruDate="2007-02-01" isClosed="N" periodNum="1" periodName="Month"/>
+    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-02-01" thruDate="2007-03-01" isClosed="N" periodNum="2" periodName="Month"/>
+    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-03-01" thruDate="2007-04-01" isClosed="N" periodNum="3" periodName="Month"/>
+    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-04-01" thruDate="2007-05-01" isClosed="N" periodNum="4" periodName="Month"/>
+    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-05-01" thruDate="2007-06-01" isClosed="N" periodNum="5" periodName="Month"/>
+    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-06-01" thruDate="2007-07-01" isClosed="N" periodNum="6" periodName="Month"/>
+    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-07-01" thruDate="2007-08-01" isClosed="N" periodNum="7" periodName="Month"/>
+    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-08-01" thruDate="2007-09-01" isClosed="N" periodNum="8" periodName="Month"/>
+    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-09-01" thruDate="2007-10-01" isClosed="N" periodNum="9" periodName="Month"/>
+    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-10-01" thruDate="2007-11-01" isClosed="N" periodNum="10" periodName="Month"/>
+    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-11-01" thruDate="2007-12-01" isClosed="N" periodNum="11" periodName="Month"/>
+    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-12-01" thruDate="2008-01-01" isClosed="N" periodNum="12" periodName="Month"/>
+    
+    <!-- FinAccountTypeGlAccount Entries for Company -->
+    <FinAccountTypeGlAccount finAccountTypeId="GIFTCERT_ACCOUNT" organizationPartyId="Company" glAccountId="213200"/>
+    <FinAccountTypeGlAccount finAccountTypeId="DEPOSIT_ACCOUNT" organizationPartyId="Company" glAccountId="213500"/>
+    <FinAccountTypeGlAccount finAccountTypeId="BANK_ACCOUNT" organizationPartyId="Company" glAccountId="213500"/>
+    <FinAccountTypeGlAccount finAccountTypeId="INVESTMENT_ACCOUNT" organizationPartyId="Company" glAccountId="213500"/>
+    
+    <!-- TODO: The LONG Section: GlAccountOrganization Records for Company -->
+    <GlAccountOrganization glAccountId="100000" organizationPartyId="Company" fromDate="2001-05-13 12:00:00.0"/>
 </entity-engine-xml>
-
