@@ -99,6 +99,7 @@ public class OutputServices {
         String screenLocation = (String) serviceContext.remove("screenLocation");
         Map screenContext = (Map) serviceContext.remove("screenContext");
         String contentType = (String) serviceContext.remove("contentType");
+        String printerContentType = (String) serviceContext.remove("printerContentType");
         String printerName = (String) serviceContext.remove("printerName");
         
         if (UtilValidate.isEmpty(screenContext)) {
@@ -107,6 +108,9 @@ public class OutputServices {
         screenContext.put("locale", locale);
         if (UtilValidate.isEmpty(contentType)) {
             contentType = "application/postscript";
+        }
+        if (UtilValidate.isEmpty(printerContentType)) {
+            printerContentType = contentType;
         }
 
         try {
@@ -144,7 +148,7 @@ public class OutputServices {
             fopFactory.getImageFactory().clearCaches();
 
             // Print is sent
-            DocFlavor psInFormat = new DocFlavor.INPUT_STREAM(contentType);
+            DocFlavor psInFormat = new DocFlavor.INPUT_STREAM(printerContentType);
             InputStream bais = new ByteArrayInputStream(baos.toByteArray());
             
             Doc myDoc = new SimpleDoc(bais, psInFormat, null);

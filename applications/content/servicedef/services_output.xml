@@ -29,6 +29,7 @@ under the License.
         <attribute name="screenLocation" type="String" mode="IN" optional="false"/>
         <attribute name="screenContext" type="Map" mode="IN" optional="true"/>
         <attribute name="contentType" type="String" mode="IN" optional="true"/>
+        <attribute name="printerContentType" type="String" mode="IN" optional="true"/>
         <attribute name="printerName" type="String" mode="IN" optional="true"/>
     </service>
 
