@@ -50,7 +50,7 @@
         <section>
             <actions>
                 <set field="titleProperty" value="Edit WorkOrder"/>
-                <set field="tabButtonItem" value="EditFixedAssetMaint"/>
+                <set field="tabButtonItemFixedAssetMaint" value="EditFixedAssetMaint"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
                 <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
@@ -88,7 +88,7 @@
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditFixedAssetMaintenance"/>
-                <set field="tabButtonItem" value="EditFixedAssetMeter"/>
+                <set field="tabButtonItemFixedAssetMaint" value="EditFixedAssetMeter"/>
                 <set field="labelTitleProperty" value="PageTitleEditFixedAssetMaintenance"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
@@ -109,7 +109,7 @@
     <screen name="EditWorkEfforts">
         <section>
             <actions>
-                <set field="tabButtonItem" value="EditWorkEfforts"/>
+                <set field="tabButtonItemFixedAssetMaint" value="EditWorkEfforts"/>
                 <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/workeffort/EditWorkEfforts.bsh"/>                
             </actions>
             <widgets>
@@ -140,7 +140,7 @@
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListWorkEffortTimeEntries"/>
-                <set field="tabButtonItem" value="EditWorkEffortTimeEntries"/>
+                <set field="tabButtonItemFixedAssetMaint" value="EditWorkEffortTimeEntries"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortTimeEntries"/>
                 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
@@ -167,7 +167,7 @@
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListWorkEffortNotes"/>
-                <set field="tabButtonItem" value="EditWorkEffortNotes"/>
+                <set field="tabButtonItemFixedAssetMaint" value="EditWorkEffortNotes"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortNotes"/>
 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
@@ -194,7 +194,7 @@
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListItemIssuance"/>
-                <set field="tabButtonItem" value="EditItemIssuances"/>
+                <set field="tabButtonItemFixedAssetMaint" value="EditItemIssuances"/>
                 <set field="labelTitleProperty" value="PageTitleListItemIssuance"/>
 
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>

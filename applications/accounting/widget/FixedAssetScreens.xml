@@ -226,7 +226,8 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditFixedAssetMaintenance"/>
-                <set field="tabButtonItem" value="ListFixedAssetMaints"/>
+                <set field="tabButtonItem" value="ListFixedAssetMaints"/>                
+                <set field="tabButtonItemFixedAssetMaint" value="EditFixedAssetMaint"/>
                 <set field="labelTitleProperty" value="PageTitleEditFixedAssetMaintenance"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
@@ -249,7 +250,8 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditFixedAssetMaintenance"/>
-                <set field="tabButtonItem" value="ListFixedAssetMaints"/>
+                <set field="tabButtonItem" value="ListFixedAssetMaints"/>                
+                <set field="tabButtonItemFixedAssetMaint" value="EditFixedAssetMaintMeters"/>
                 <set field="labelTitleProperty" value="PageTitleEditFixedAssetMaintenance"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
@@ -293,6 +295,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditFixedAssetMaintenance"/>
                 <set field="tabButtonItem" value="ListFixedAssetMaints"/>                
+                <set field="tabButtonItemFixedAssetMaint" value="EditFixedAssetMaintOrders"/>                
                 <set field="labelTitleProperty" value="PageTitleEditFixedAssetMaintenance"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
