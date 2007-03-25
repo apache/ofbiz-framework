@@ -29,7 +29,7 @@ under the License.
   <GlAccount parentGlAccountId="" glAccountId="100000" accountCode="100000" 
     glAccountClassId="ASSET" glAccountTypeId="" glResourceTypeId="MONEY"  
     accountName="ASSETS" description="" postedBalance="0.0"/>
-
+    
   <GlAccount parentGlAccountId="100000" glAccountId="110000" accountCode="110000" 
     glAccountClassId="CASH_EQUIVALENT" glAccountTypeId="CURRENT_ASSET" glResourceTypeId="MONEY"
     accountName="CASH" description="" postedBalance="0.0"/>
@@ -304,25 +304,30 @@ under the License.
     glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="ACCOUNTS_PAYABLE" glResourceTypeId="MONEY"  
     accountName="ACCOUNTS PAYABLE - OPERATING" description="" postedBalance="0.0"/>
 
-  <GlAccount parentGlAccountId="210000" glAccountId="213000" accountCode="213000" 
-    glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CUSTOMER_CREDIT" glResourceTypeId="MONEY"  
-    accountName="CUSTOMER CREDITS" description="" postedBalance="0.0"/>
-  <GlAccount parentGlAccountId="213000" glAccountId="213100" accountCode="213100" 
-    glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CUSTOMER_CREDIT" glResourceTypeId="MONEY"  
-    accountName="MERCHANDISE CREDITS UNREDEEMED" description="" postedBalance="0.0"/>
-  <GlAccount parentGlAccountId="213000" glAccountId="213200" accountCode="213200" 
-    glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CUSTOMER_CREDIT" glResourceTypeId="MONEY"  
-    accountName="GIFT CERTIFICATES UNREDEEMED" description="" postedBalance="0.0"/>
-  <GlAccount parentGlAccountId="213000" glAccountId="213300" accountCode="213300" 
-    glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CUSTOMER_DEPOSIT" glResourceTypeId="MONEY"  
-    accountName="SPECIAL ORDER DEPOSITS" description="" postedBalance="0.0"/>
-  <GlAccount parentGlAccountId="213000" glAccountId="213400" accountCode="213400" 
-    glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CUSTOMER_DEPOSIT" glResourceTypeId="MONEY"  
-    accountName="MAIL ORDER DEPOSITS" description="" postedBalance="0.0"/>
-  <GlAccount parentGlAccountId="210000" glAccountId="214000" accountCode="214000" 
-    glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"  
-    accountName="UNINVOICED ITEM RECEIPTS" description="" postedBalance="0.0"/>
-      
+    <GlAccount parentGlAccountId="210000" glAccountId="213000" accountCode="213000" 
+        glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CUSTOMER_CREDIT" glResourceTypeId="MONEY"  
+        accountName="CUSTOMER CREDITS" description="" postedBalance="0.0"/>
+
+    <GlAccount parentGlAccountId="213000" glAccountId="213100" accountCode="213100" 
+        glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CUSTOMER_CREDIT" glResourceTypeId="MONEY"  
+        accountName="MERCHANDISE CREDITS UNREDEEMED" description="" postedBalance="0.0"/>
+    <GlAccount parentGlAccountId="213000" glAccountId="213200" accountCode="213200" 
+        glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CUSTOMER_CREDIT" glResourceTypeId="MONEY"  
+        accountName="GIFT CERTIFICATES UNREDEEMED" description="" postedBalance="0.0"/>
+    <GlAccount parentGlAccountId="213000" glAccountId="213300" accountCode="213300" 
+        glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CUSTOMER_DEPOSIT" glResourceTypeId="MONEY"  
+        accountName="SPECIAL ORDER DEPOSITS" description="" postedBalance="0.0"/>
+    <GlAccount parentGlAccountId="213000" glAccountId="213400" accountCode="213400" 
+        glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CUSTOMER_DEPOSIT" glResourceTypeId="MONEY"  
+        accountName="MAIL ORDER DEPOSITS" description="" postedBalance="0.0"/>
+    <GlAccount parentGlAccountId="213000" glAccountId="213500" accountCode="213500" 
+        glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CUSTOMER_DEPOSIT" glResourceTypeId="MONEY"  
+        accountName="CUSTOMER DEPOSIT ACCOUNTS" description="" postedBalance="0.0"/>
+    
+    <GlAccount parentGlAccountId="210000" glAccountId="214000" accountCode="214000" 
+        glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"  
+        accountName="UNINVOICED ITEM RECEIPTS" description="" postedBalance="0.0"/>
+    
   <GlAccount parentGlAccountId="210000" glAccountId="215000" accountCode="215000" 
     glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="INVENTORY_XFER_IN" glResourceTypeId="MONEY"  
     accountName="PAYABLE FOR INVENTORY TRANSFERRED IN" description="" postedBalance="0.0"/>

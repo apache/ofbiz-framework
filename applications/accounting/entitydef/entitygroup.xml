@@ -20,9 +20,9 @@ under the License.
 <entitygroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitygroup.xsd">
 
-  <!-- ========================================================= -->
-  <!-- org.ofbiz.accounting.budget -->
-  <!-- ========================================================= -->
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.accounting.budget -->
+    <!-- ========================================================= -->
 
     <entity-group group="org.ofbiz" entity="Budget" />
     <entity-group group="org.ofbiz" entity="BudgetAttribute" />
@@ -42,9 +42,27 @@ under the License.
     <entity-group group="org.ofbiz" entity="BudgetType" />
     <entity-group group="org.ofbiz" entity="BudgetTypeAttr" />
 
-  <!-- ========================================================= -->
-  <!-- org.ofbiz.accounting.fixedasset -->
-  <!-- ========================================================= -->
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.accounting.finaccount -->
+    <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="FinAccount" />
+    <entity-group group="org.ofbiz" entity="FinAccountAttribute" />
+    <entity-group group="org.ofbiz" entity="FinAccountRole" />
+    <entity-group group="org.ofbiz" entity="FinAccountTrans" />
+    <entity-group group="org.ofbiz" entity="FinAccountAuth" />
+    <entity-group group="org.ofbiz" entity="FinAccountTransAttribute" />
+    <entity-group group="org.ofbiz" entity="FinAccountTransType" />
+    <entity-group group="org.ofbiz" entity="FinAccountTransTypeAttr" />
+    <entity-group group="org.ofbiz" entity="FinAccountType" />
+    <entity-group group="org.ofbiz" entity="FinAccountTypeAttr" />
+    <entity-group group="org.ofbiz" entity="FinAccountTypeGlAccount" />
+    <entity-group group="org.ofbiz" entity="FinAccountTransSum" />
+    <entity-group group="org.ofbiz" entity="FinAccountAuthSum" />
+    
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.accounting.fixedasset -->
+    <!-- ========================================================= -->
 
     <entity-group group="org.ofbiz" entity="DepreciationMethod" />
     <entity-group group="org.ofbiz" entity="FixedAsset" />
@@ -64,9 +82,9 @@ under the License.
     <entity-group group="org.ofbiz" entity="FixedAssetTypeAttr" />
     <entity-group group="org.ofbiz" entity="PartyFixedAssetAssignment" />
 
-  <!-- ========================================================= -->
-  <!-- org.ofbiz.accounting.invoice -->
-  <!-- ========================================================= -->
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.accounting.invoice -->
+    <!-- ========================================================= -->
 
     <entity-group group="org.ofbiz" entity="Invoice" />
     <entity-group group="org.ofbiz" entity="InvoiceAttribute" />
@@ -84,9 +102,9 @@ under the License.
     <entity-group group="org.ofbiz" entity="InvoiceType" />
     <entity-group group="org.ofbiz" entity="InvoiceTypeAttr" />
 
-  <!-- ========================================================= -->
-  <!-- org.ofbiz.accounting.ledger -->
-  <!-- ========================================================= -->
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.accounting.ledger -->
+    <!-- ========================================================= -->
 
     <entity-group group="org.ofbiz" entity="AcctgTrans" />
     <entity-group group="org.ofbiz" entity="AcctgTransAttribute" />
@@ -122,9 +140,9 @@ under the License.
     <entity-group group="org.ofbiz" entity="CostComponentCalc" />
     <entity-group group="org.ofbiz" entity="WorkEffortCostCalc" />
 
-  <!-- ========================================================= -->
-  <!-- org.ofbiz.accounting.payment -->
-  <!-- ========================================================= -->
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.accounting.payment -->
+    <!-- ========================================================= -->
 
     <entity-group group="org.ofbiz" entity="BillingAccount" />
     <entity-group group="org.ofbiz" entity="BillingAccountAndRole" />
@@ -137,18 +155,6 @@ under the License.
     <entity-group group="org.ofbiz" entity="Deduction" />
     <entity-group group="org.ofbiz" entity="DeductionType" />
     <entity-group group="org.ofbiz" entity="EftAccount" />
-    <entity-group group="org.ofbiz" entity="FinAccount" />
-    <entity-group group="org.ofbiz" entity="FinAccountAttribute" />
-    <entity-group group="org.ofbiz" entity="FinAccountRole" />
-    <entity-group group="org.ofbiz" entity="FinAccountTrans" />
-    <entity-group group="org.ofbiz" entity="FinAccountAuth" />
-    <entity-group group="org.ofbiz" entity="FinAccountTransAttribute" />
-    <entity-group group="org.ofbiz" entity="FinAccountTransType" />
-    <entity-group group="org.ofbiz" entity="FinAccountTransTypeAttr" />
-    <entity-group group="org.ofbiz" entity="FinAccountType" />
-    <entity-group group="org.ofbiz" entity="FinAccountTypeAttr" />
-    <entity-group group="org.ofbiz" entity="FinAccountTransSum" />
-    <entity-group group="org.ofbiz" entity="FinAccountAuthSum" />
     <entity-group group="org.ofbiz" entity="GiftCard" />
     <entity-group group="org.ofbiz" entity="GiftCardFulfillment" />
     <entity-group group="org.ofbiz" entity="OldValueLinkFulfillment" />

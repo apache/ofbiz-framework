@@ -25,7 +25,6 @@ under the License.
     <classpath type="jar" location="build/lib/*"/>
     <classpath type="dir" location="config"/>
     <classpath type="dir" location="script"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoMerchant.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProduct.xml"/>    
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProductImages.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoSurvey.xml"/>
