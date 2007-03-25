@@ -126,5 +126,9 @@
 	<classpathentry kind="lib" path="framework/webapp/lib/jdom-1.0.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/fop-0.93.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/barcode4j-fop-ext-0.93.jar"/>
+	<classpathentry kind="lib" path="framework/webapp/lib/ws-commons-java5-1.0.1.jar"/>
+	<classpathentry kind="lib" path="framework/webapp/lib/ws-commons-util-1.0.1.jar"/>
+	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-common-3.0.jar"/>
+	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-server-3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
