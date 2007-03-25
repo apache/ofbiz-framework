@@ -17,19 +17,18 @@
  * under the License.
  */
 
-.calendarempty {vertical-align: top; background: #FFFFFF; padding: 4px;}
-.calendarentry {vertical-align: top; background: #EEF3FB; padding: 4px; }
-.monthcalendarentry {vertical-align: top; background: #EEF3FB; padding: 4px; border-top: solid 1px #B6C7E5; }
+.calendarempty {vertical-align: top; background: #FFFFFF; padding: 0.4em;}
+.calendarentry {vertical-align: top; background: #EEF3FB; padding: 0.4em; }
+.monthcalendarentry {vertical-align: top; background: #EEF3FB; padding: 0.4em; border-top: solid 0.1em #B6C7E5; }
 .calendar {
 	background: #1E3C66;
-	
 }
 .bg {
 	background: #FFFFFF;
 }
 
 .monthweekheader {
-	padding: 4px;
+	padding: 0.4em;
 	background: #AFC8D4;
 }
 
@@ -39,28 +38,25 @@
 }
 
 A.monthweeknumber {
-    font-family: Tahoma, Verdana, Arial;
-	font-size: 11px;
+	font-size: 1.1em;
 	font-weight: bold;
 	color: #1E3C66;
 	text-decoration: none;
 }
 
 A.monthweeknumber:hover, visited, selected {
-    font-family: Tahoma, Verdana, Arial;
-	font-size: 11px;
+	font-size: 1.1em;
 	font-weight: bold;
 	color: black;
 	text-decoration: underline;
 }
 
 .monthdaynumber {
-	font-family: Tahoma, Verdana, Arial;
-	font-size: 18px;
+	font-size: 1.3em;
 	font-weight: bold;
 	color: #000000;
-	padding-left: 1px;
-	padding-bottom: 3px;
+	padding-left: 0.1em;
+	padding-bottom: 0.3em;
 }
 
 A.monthdaynumber {
@@ -74,8 +70,7 @@ A.monthdaynumber:hover, visited, selected {
 }
 
 A.previousnext{
-	font-family: Tahoma, Verdana, Arial;
-	font-size: 11px;
+	font-size: 1.1em;
 	font-weight: normal;
 	color: #000000;
 	text-decoration: none;
@@ -87,45 +82,27 @@ A.previousnext:hover {
 }
 
 .monthdayheader {
-	font-family: Tahoma, Verdana, Arial;
-	font-size: 11px;
+	font-size: 1.1em;
 	font-weight: bold;
 	color: #FFFFFF;
 	background: #1E3C66;
-	padding: 4px;
+	padding: 0.4em;
 }
 
 .monthheadertable {
-	border-left: solid 1px #1E3C66;
-	border-right: solid 1px #1E3C66;
-	padding: 4px;
+	border-left: solid 0.1em #1E3C66;
+	border-right: solid 0.1em #1E3C66;
+	padding: 0.4em;
 	background: #AFC8D4;
 }
 
 .monthheadertext {
-	font-family: Tahoma, Verdana, Arial;
-	font-size: 18px;
+	font-size: 1.8em;
 	font-weight: bold;
 	color: #1E3C66;
 }
 .previousnextmiddle {
 	color: #7D90B1;
-}
-
-td {
-	font-family: Tahoma, Verdana, Arial;
-	font-size: 11px;
-	color: #000000;
-}
-
-a {
-	color: #000000;
-	text-decoration: none;
-}
-
-a:hover {
-	color: #000000;
-	text-decoration: underline;
 }
 
 a.add {
