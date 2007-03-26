@@ -158,7 +158,15 @@ public class MrpServices {
         while (iteratorResult.hasNext()) {
             genericResult = (GenericValue) iteratorResult.next();
             String productId =  genericResult.getString("productId");
-            Double eventQuantityTmp = new Double(-1.0 * genericResult.getDouble("quantity").doubleValue());
+            Double shipGroupQuantity = genericResult.getDouble("quantity");
+            Double cancelledQuantity = genericResult.getDouble("cancelQuantity");
+            if (UtilValidate.isNotEmpty(cancelledQuantity)) {
+                shipGroupQuantity = new Double(shipGroupQuantity.doubleValue() - cancelledQuantity.doubleValue());
+            }
+            Double eventQuantityTmp = new Double(-1.0 * shipGroupQuantity.doubleValue());
+            if (eventQuantityTmp.doubleValue() == 0) {
+                continue;
+            }
             // This is the order in which order dates are considered:
             //   OrderItemShipGroup.shipByDate
             //   OrderItemShipGroup.shipAfterDate
