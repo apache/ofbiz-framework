@@ -332,12 +332,10 @@ under the License.
         <field name="finAccountName" type="name"></field>
         <field name="finAccountCode" type="long-varchar" encrypt="true"></field>
         <field name="postToGlAccountId" type="id"></field>
-        <field name="fromDate" type="date-time">
-            <description>Describes when account will be valid. If null, valid immediately.</description>
-        </field>
-        <field name="thruDate" type="date-time">
-            <description>Expiration date of the account. If null, will never expire.</description>
-        </field>
+        <field name="fromDate" type="date-time"><description>Describes when account will be valid. If null, valid immediately.</description></field>
+        <field name="thruDate" type="date-time"><description>Expiration date of the account. If null, will never expire.</description></field>
+        <field name="actualBalance" type="currency-amount"><description>Calculated as the sum of FinAccountTrans.amount</description></field>
+        <field name="availableBalance" type="currency-amount"><description>Calculated as actualBalance minus sum of outstanding FinAccountAuth.amount</description></field>
         <prim-key field="finAccountId"/>
         <relation type="one" fk-name="FINACCT_TYPE" rel-entity-name="FinAccountType">
             <key-map field-name="finAccountTypeId"/>
@@ -393,6 +391,7 @@ under the License.
         <field name="partyId" type="id"></field>
         <field name="transactionDate" type="date-time"></field>
         <field name="entryDate" type="date-time"></field>
+        <field name="amount" type="currency-amount"></field>
         <field name="paymentId" type="id-ne"></field>
         <field name="orderId" type="id"></field>
         <field name="orderItemSeqId" type="id"><description>To be used along with orderId to point to an OrderItem that represents the purchase of a product to add money to the account.</description></field>
