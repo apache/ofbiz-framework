@@ -84,6 +84,7 @@ public class MrpServices {
         List listResult = null;
         try{
             listResult = delegator.findAll("InventoryEventPlanned");
+            //int numOfRecordsRemoved = delegator.removeByCondition("InventoryEventPlanned", null);
         } catch(GenericEntityException e) {
             Debug.logError(e,"Error : delegator.findAll(\"InventoryEventPlanned\")", module);
             return ServiceUtil.returnError("Problem, we can not find all the items of InventoryEventPlanned, for more detail look at the log");
@@ -111,6 +112,7 @@ public class MrpServices {
                 while (listResultIt.hasNext()){
                     GenericValue tmpRequirement = (GenericValue)listResultIt.next();
                     listResultRoles.addAll(tmpRequirement.getRelated("RequirementRole"));
+                    //int numOfRecordsRemoved = delegator.removeRelated("RequirementRole", tmpRequirement);
                 }
                 delegator.removeAll(listResultRoles);
                 delegator.removeAll(listResult);
@@ -139,11 +141,14 @@ public class MrpServices {
         // ----------------------------------------
         // Loads all the approved sales order items and purchase order items
         // ----------------------------------------
+        // This is the default required date for orders without dates spesified:
+        // by convention it is a date far in the future of 100 years.
+        Timestamp notAssignedDate = UtilDateTime.getYearStart(now, 0, 0, 100);
         resultList = null;
         iteratorResult = null;
-        parameters = UtilMisc.toMap("orderTypeId", "SALES_ORDER", "itemStatusId", "ITEM_APPROVED");
+        parameters = UtilMisc.toMap("orderTypeId", "SALES_ORDER", "oiStatusId", "ITEM_APPROVED");
         try {
-            resultList = delegator.findByAnd("OrderHeaderAndItems", parameters, UtilMisc.toList("orderId"));
+            resultList = delegator.findByAnd("OrderHeaderItemAndShipGroup", parameters, UtilMisc.toList("orderId"));
         } catch(GenericEntityException e) {
             Debug.logError(e, "Error : delegator.findByAnd(\"OrderItem\", parameters\")", module);
             Debug.logError(e, "Error : parameters = "+parameters,module);
@@ -154,11 +159,29 @@ public class MrpServices {
             genericResult = (GenericValue) iteratorResult.next();
             String productId =  genericResult.getString("productId");
             Double eventQuantityTmp = new Double(-1.0 * genericResult.getDouble("quantity").doubleValue());
-            Timestamp estimatedShipDate = genericResult.getTimestamp("estimatedDeliveryDate");
-            if (estimatedShipDate == null) {
-                estimatedShipDate = now;
+            // This is the order in which order dates are considered:
+            //   OrderItemShipGroup.shipByDate
+            //   OrderItemShipGroup.shipAfterDate
+            //   OrderItem.shipBeforeDate
+            //   OrderItem.shipAfterDate
+            //   OrderItem.estimatedDeliveryDate
+            Timestamp requiredByDate = genericResult.getTimestamp("shipByDate");
+            if (UtilValidate.isEmpty(requiredByDate)) {
+                requiredByDate = genericResult.getTimestamp("shipAfterDate");
+                if (UtilValidate.isEmpty(requiredByDate)) {
+                    requiredByDate = genericResult.getTimestamp("oiShipBeforeDate");
+                    if (UtilValidate.isEmpty(requiredByDate)) {
+                        requiredByDate = genericResult.getTimestamp("oiShipAfterDate");
+                        if (UtilValidate.isEmpty(requiredByDate)) {
+                            requiredByDate = genericResult.getTimestamp("oiEstimatedDeliveryDate");
+                            if (requiredByDate == null) {
+                                requiredByDate = notAssignedDate;
+                            }
+                        }
+                    }
+                }
             }
-            parameters = UtilMisc.toMap("productId", productId, "eventDate", estimatedShipDate, "inventoryEventPlanTypeId", "SALE_ORDER_SHIP");
+            parameters = UtilMisc.toMap("productId", productId, "eventDate", requiredByDate, "inventoryEventPlanTypeId", "SALE_ORDER_SHIP");
             try {
                 InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, eventQuantityTmp, null, genericResult.getString("orderId") + "-" + genericResult.getString("orderItemSeqId"), false, delegator);
             } catch (GenericEntityException e) {
@@ -408,13 +431,16 @@ public class MrpServices {
     }
 
     public static void logMrpError(String productId, String errorMessage, GenericDelegator delegator) {
-        try{
+        logMrpError(productId, UtilDateTime.nowTimestamp(), errorMessage, delegator);
+    }
+    public static void logMrpError(String productId, Timestamp eventDate, String errorMessage, GenericDelegator delegator) {
+        try {
             if (UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(errorMessage)) {
                 GenericValue inventoryEventError = delegator.makeValue("InventoryEventPlanned", UtilMisc.toMap("productId", productId, 
-                                                                                                               "eventDate", UtilDateTime.nowTimestamp(),
+                                                                                                               "eventDate", eventDate,
                                                                                                                "inventoryEventPlanTypeId", "ERROR",
                                                                                                                "eventName", errorMessage));
-                inventoryEventError.create();
+                delegator.createOrStore(inventoryEventError);
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error calling logMrpError for productId [" + productId + "] and errorMessage [" + errorMessage + "]", module);
@@ -632,7 +658,7 @@ public class MrpServices {
                         eventDate = inventoryEventForMRP.getTimestamp("eventDate");
                         // to be just before the requirement
                         eventDate.setTime(eventDate.getTime()-1);
-                        ProposedOrder proposedOrder = new ProposedOrder(product, facilityId, manufacturingFacilityId, isBuilt, eventDate, qtyToStock);
+                        ProposedOrder proposedOrder = new ProposedOrder(product, facilityId, manufacturingFacilityId, isBuilt, eventDate, qtyToStock, now);
                         proposedOrder.setMrpName(mrpName);
                         // calculate the ProposedOrder quantity and update the quantity object property.
                         proposedOrder.calculateQuantityToSupply(reorderQuantity, minimumStock, iteratorListInventoryEventForMRP);
@@ -676,7 +702,7 @@ public class MrpServices {
                             requirementId = proposedOrder.create(ctx, userLogin);
                         }
                         if (UtilValidate.isEmpty(productFacility) && !isBuilt) {
-                            logMrpError(productId, "No ProductFacility record for [" + facilityId + "]; no requirement created.", delegator);
+                            logMrpError(productId, now, "No ProductFacility record for [" + facilityId + "]; no requirement created.", delegator);
                         }
                         
                         Map eventMap = UtilMisc.toMap("productId", product.getString("productId"),

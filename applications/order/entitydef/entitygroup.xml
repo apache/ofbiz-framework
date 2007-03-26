@@ -50,6 +50,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="OrderHeaderItemAndInv" />
     <entity-group group="org.ofbiz" entity="OrderHeaderItemAndInvRoles" />
     <entity-group group="org.ofbiz" entity="OrderHeaderItemAndRoles" />    
+    <entity-group group="org.ofbiz" entity="OrderHeaderItemAndShipGroup" />
     <entity-group group="org.ofbiz" entity="OrderHeaderNote" />
     <entity-group group="org.ofbiz" entity="OrderHeaderNoteView" />
     <entity-group group="org.ofbiz" entity="OrderHeaderWorkEffort" />

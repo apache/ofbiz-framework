@@ -594,6 +594,44 @@ under the License.
             <key-map field-name="productId"/>
         </relation>
     </view-entity>
+    <view-entity entity-name="OrderHeaderItemAndShipGroup"
+            package-name="org.ofbiz.order.order"
+            never-cache="true"
+            title="OrderHeader, OrderItem And ShipGroups View Entity">
+      <member-entity entity-alias="OH" entity-name="OrderHeader"/>
+      <member-entity entity-alias="OI" entity-name="OrderItem"/>
+      <member-entity entity-alias="OISGA" entity-name="OrderItemShipGroupAssoc"/>
+      <member-entity entity-alias="OISG" entity-name="OrderItemShipGroup"/>
+      <alias-all entity-alias="OH"/>
+      <alias-all entity-alias="OISGA"/>
+      <alias-all entity-alias="OISG"/>
+      <alias-all entity-alias="OI">
+        <exclude field="quantity"/>
+        <exclude field="cancelQuantity"/>
+        <exclude field="shipAfterDate"/>
+        <exclude field="shipBeforeDate"/>
+        <exclude field="estimatedShipDate"/>
+        <exclude field="estimatedDeliveryDate"/>
+      </alias-all>
+      <alias entity-alias="OI" name="oiQuantity" field="quantity"/>
+      <alias entity-alias="OI" name="oiCancelQuantity" field="cancelQuantity"/>
+      <alias entity-alias="OI" name="oiShipAfterDate" field="shipAfterDate"/>
+      <alias entity-alias="OI" name="oiShipBeforeDate" field="shipBeforeDate"/>
+      <alias entity-alias="OI" name="oiEstimatedShipDate" field="estimatedShipDate"/>
+      <alias entity-alias="OI" name="oiEstimatedDeliveryDate" field="estimatedDeliveryDate"/>
+      <alias entity-alias="OI" name="oiStatusId" field="statusId"/>
+      <view-link entity-alias="OH" rel-entity-alias="OI">
+        <key-map field-name="orderId"/>
+      </view-link>
+      <view-link entity-alias="OI" rel-entity-alias="OISGA">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+      </view-link>
+      <view-link entity-alias="OISGA" rel-entity-alias="OISG">
+        <key-map field-name="orderId"/>
+        <key-map field-name="shipGroupSeqId"/>
+      </view-link>
+    </view-entity>
     <view-entity entity-name="OrderItemAndShipGroupAssoc"
             package-name="org.ofbiz.order.order"
             never-cache="true"
