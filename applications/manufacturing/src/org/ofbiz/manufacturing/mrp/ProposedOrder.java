@@ -57,10 +57,11 @@ public class ProposedOrder {
     protected String mrpName;
     protected Timestamp requiredByDate;
     protected Timestamp requirementStartDate;
+    protected Timestamp now;
     protected double quantity;
     
     
-    public ProposedOrder(GenericValue product, String facilityId, String manufacturingFacilityId, boolean isBuilt, Timestamp requiredByDate, double quantity) {
+    public ProposedOrder(GenericValue product, String facilityId, String manufacturingFacilityId, boolean isBuilt, Timestamp requiredByDate, double quantity, Timestamp now) {
         this.product = product;
         this.productId = product.getString("productId");
         this.facilityId = facilityId;
