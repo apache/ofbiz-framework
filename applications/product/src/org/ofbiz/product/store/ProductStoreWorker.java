@@ -128,6 +128,18 @@ public class ProductStoreWorker {
         return productStore == null ? false : "Y".equalsIgnoreCase(productStore.getString("autoSaveCart"));
     }
 
+    public static String getProductStorePayToPartyId(String productStoreId, GenericDelegator delegator) {
+        return getProductStorePayToPartyId(getProductStore(productStoreId, delegator));
+    }
+    
+    public static String getProductStorePayToPartyId(GenericValue productStore) {
+        String payToPartyId = "Company"; // default value
+        if (productStore != null && productStore.get("payToPartyId") != null) {
+            payToPartyId = productStore.getString("payToPartyId");
+        }
+        return payToPartyId;
+    }
+
     public static String getProductStorePaymentProperties(ServletRequest request, String paymentMethodTypeId, String paymentServiceTypeEnumId, boolean anyServiceType) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         String productStoreId = ProductStoreWorker.getProductStoreId(request);
