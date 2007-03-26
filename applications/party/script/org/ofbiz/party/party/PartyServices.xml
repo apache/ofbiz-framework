@@ -20,6 +20,32 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+
+
+    <!-- create PartyRole -->
+    <simple-method method-name="createPartyRole" short-description="Create Party Role">
+        <check-permission permission="PARTYMGR" action="_CREATE">
+            <fail-property resource="PartyUiLabels" property="PartyCreatePartyRolePermissionError"/>
+        </check-permission>
+        <check-errors/>
+
+        <make-value value-name="partyRolePK" entity-name="PartyRole"/>
+        <set-pk-fields value-name="partyRolePK" map-name="parameters"/>
+        <find-by-primary-key entity-name="PartyRole" map-name="partyRolePK" value-name="partyRole"/>
+        <if-empty field-name="partyRole">
+            <make-value entity-name="PartyRole" map-name="partyRolePK" value-name="partyRole"/>
+            <create-value value-name="partyRole"/>
+        </if-empty>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="deletePartyRole" short-description="Delete a  PartyRole">
+        <check-permission permission="PARTYMGR" action="_DELETE"><fail-property resource="PartyUiLabels" property="PartyDeletePartyRolePermissionError"/></check-permission>
+        <check-errors/>
+        <entity-one entity-name="PartyRole" value-name="partyRole"/>
+        <remove-value value-name="partyRole"/>
+    </simple-method>
+    
     
     <simple-method method-name="savePartyNameChange" short-description="Save Party Name Change">
         <!-- for special case in ecommerce, if no partyId is passed in use userLogin.partyId -->
