@@ -69,9 +69,15 @@ under the License.
                   </td>
                 <#else>
                   <td valign="top">
+                    <#if productId?exists>
+                      <#assign product = orderItem.getRelatedOneCache("Product")>
+                    </#if>
                     <div class="tabletext">
                       <#if productId?exists>
                         ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription?if_exists}
+                        <#if product.salesDiscontinuationDate?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(product.salesDiscontinuationDate)>
+                          <br/><span style="color: red;">${uiLabelMap.OrderItemDiscontinued}: ${product.salesDiscontinuationDate}</span>
+                        </#if>
                       <#elseif orderItemType?exists>
                         ${orderItemType.description} - ${orderItem.itemDescription?if_exists}
                       <#else>
@@ -90,7 +96,6 @@ under the License.
                       <#-- INVENTORY -->
                       <#if (orderHeader.statusId != "ORDER_COMPLETED") && availableToPromiseMap?exists && quantityOnHandMap?exists && availableToPromiseMap.get(productId)?exists && quantityOnHandMap.get(productId)?exists>
                       <#assign quantityToProduce = 0>
-                      <#assign product = orderItem.getRelatedOneCache("Product")>
                       <#assign atpQuantity = availableToPromiseMap.get(productId)?default(0)>
                       <#assign qohQuantity = quantityOnHandMap.get(productId)?default(0)>
                       <#assign mktgPkgATP = mktgPkgATPMap.get(productId)?default(0)>

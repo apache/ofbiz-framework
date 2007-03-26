@@ -75,6 +75,12 @@ under the License.
                             <#assign orderItemName = orderItemType.description/>
                             </#if>
                             <p>${uiLabelMap.ProductProduct}: ${orderItemName}</p>
+                            <#if productId?exists>
+                                <#assign product = orderItem.getRelatedOneCache("Product")>
+                                <#if product.salesDiscontinuationDate?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(product.salesDiscontinuationDate)>
+                                    <span style="color: red;">${uiLabelMap.OrderItemDiscontinued}: ${product.salesDiscontinuationDate}</span>
+                                </#if>
+                            </#if>
                             ${uiLabelMap.CommonDescription}:<br />
                             <input style="textBox" type="text" size="20" name="idm_${orderItem.orderItemSeqId}" value="${orderItem.itemDescription?if_exists}"/>
                             </#if>
