@@ -211,16 +211,16 @@ under the License.
     </service>
 
     <!-- Party Role services -->
-    <service name="createPartyRole" engine="java"
-            location="org.ofbiz.party.party.PartyRoleServices" invoke="createPartyRole" auth="true">
-        <description>Create a Party Role (add a Role to a Party). The logged in user must have PARTYMGR_ROLE_CREATE or have 
+    <service name="createPartyRole" engine="simple"
+            location="org/ofbiz/party/party/PartyServices.xml" invoke="createPartyRole" auth="true">
+        <description>Create a Party Role (add a Role to a Party). The logged in user must have PARTYMGR_CREATE or have 
             permission to change the role of this partyId</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="deletePartyRole" engine="java"
-            location="org.ofbiz.party.party.PartyRoleServices" invoke="deletePartyRole" auth="true">
-        <description>Delete a Party Role (remove a Role from a Party). The logged in user must have PARTYMGR_ROLE_DELETE or have 
+    <service name="deletePartyRole" engine="simple"
+            location="org/ofbiz/party/party/PartyServices.xml" invoke="deletePartyRole" auth="true">
+        <description>Delete a Party Role (remove a Role from a Party). The logged in user must have PARTYMGR_DELETE or have 
             permission to change the role of this partyId</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
