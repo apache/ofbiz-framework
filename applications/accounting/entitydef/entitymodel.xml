@@ -331,6 +331,8 @@ under the License.
         <field name="finAccountTypeId" type="id"></field>
         <field name="finAccountName" type="name"></field>
         <field name="finAccountCode" type="long-varchar" encrypt="true"></field>
+        <field name="organizationPartyId" type="id"><description>The internal organization Party that owns (or rather, is liable for) the account.</description></field>
+        <field name="ownerPartyId" type="id"><description>The customer or third party that owns the account.</description></field>
         <field name="postToGlAccountId" type="id"></field>
         <field name="fromDate" type="date-time"><description>Describes when account will be valid. If null, valid immediately.</description></field>
         <field name="thruDate" type="date-time"><description>Expiration date of the account. If null, will never expire.</description></field>
@@ -340,7 +342,13 @@ under the License.
         <relation type="one" fk-name="FINACCT_TYPE" rel-entity-name="FinAccountType">
             <key-map field-name="finAccountTypeId"/>
         </relation>
-        <relation type="one" fk-name="FINACCT_GLAC" rel-entity-name="GlAccount">
+        <relation type="one" fk-name="FINACCT_ORGPTY" title="Organization" rel-entity-name="Party">
+            <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="FINACCT_OWNPTY" title="Owner" rel-entity-name="Party">
+            <key-map field-name="ownerPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="FINACCT_GLAC" title="PostTo" rel-entity-name="GlAccount">
             <key-map field-name="postToGlAccountId" rel-field-name="glAccountId"/>
         </relation>
         <relation type="many" rel-entity-name="FinAccountTypeAttr">
