@@ -28,13 +28,19 @@ under the License.
     <service name="createFinAccount" engine="simple" default-entity-name="FinAccount"
             location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="createFinAccount">
         <description>Create a new Financial Account.  If no finAccountId is provided, an auto-sequenced one will be used.</description>
-        <auto-attributes mode="IN" optional="true" include="nonpk"/>
+        <auto-attributes mode="IN" optional="true" include="nonpk">
+            <exclude field-name="actualBalance"/>
+            <exclude field-name="availableBalance"/>
+        </auto-attributes>
         <auto-attributes mode="INOUT" optional="true" include="pk"/>
     </service>
     <service name="updateFinAccount" engine="simple" default-entity-name="FinAccount"
             location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="updateFinAccount">
         <description>Update a Financial Account</description>
-        <auto-attributes mode="IN" optional="true" include="nonpk"/>
+        <auto-attributes mode="IN" optional="true" include="nonpk">
+            <exclude field-name="actualBalance"/>
+            <exclude field-name="availableBalance"/>
+        </auto-attributes>
         <auto-attributes mode="INOUT" optional="false" include="pk"/>
     </service>
     <service name="deleteFinAccount" engine="simple" default-entity-name="FinAccount"
