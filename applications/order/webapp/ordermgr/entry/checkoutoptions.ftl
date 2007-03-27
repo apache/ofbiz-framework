@@ -354,12 +354,26 @@ function toggleBillingAccount(box) {
                   </#if>
                   <tr><td colspan="2"><hr class="sepbar"/></td></tr>
 
+                  <#-- financial accounts -->
+                  <#list finAccounts as finAccount>
+                      <tr>
+                        <td width="1%">
+                          <input type="radio" name="checkOutPaymentId" value="FIN_ACCOUNT|${finAccount.finAccountId}" <#if "FIN_ACCOUNT" == checkOutPaymentId>checked="checked"</#if>/>                         
+                        </td>
+                        <td width="50%">
+                          <span class="tabletext">${uiLabelMap.FinancialAccount} #${finAccount.finAccountId}</span>
+                        </td>
+                      </tr>
+                  </#list>
+
                   <#if !paymentMethodList?has_content>
+                    <#if (!finAccounts?has_content)>
                       <tr>
                         <td colspan="2">
                           <div class="tabletext"><b>${uiLabelMap.AccountingNoPaymentMethodsOnFile}.</b></div>
                         </td>
                       </tr>
+                    </#if>
                   <#else>
                   <#list paymentMethodList as paymentMethod>
                     <#if paymentMethod.paymentMethodTypeId == "CREDIT_CARD">
