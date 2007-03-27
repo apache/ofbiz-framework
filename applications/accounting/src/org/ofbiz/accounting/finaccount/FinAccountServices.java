@@ -34,6 +34,7 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 
 import org.ofbiz.order.finaccount.FinAccountHelper;
+import org.ofbiz.product.store.ProductStoreWorker;
 
 public class FinAccountServices {
     
@@ -77,7 +78,11 @@ public class FinAccountServices {
             inContext.put("thruDate", UtilDateTime.getDayEnd(now, accountValidDays.intValue()));
             inContext.put("fromDate", now);
             inContext.put("userLogin", userLogin);
-                                   
+
+            // product store payToPartyId
+            String payToPartyId = ProductStoreWorker.getProductStorePayToPartyId(productStoreId, delegator);
+            inContext.put("organizationPartyId", payToPartyId);
+
             Map createResult = dispatcher.runSync("createFinAccount", inContext);
             
             if (ServiceUtil.isError(createResult)) {
@@ -130,8 +135,8 @@ public class FinAccountServices {
         BigDecimal availableBalance;
         BigDecimal balance;
         try {
-            availableBalance = FinAccountHelper.getAvailableBalance(finAccountId, currencyUom, delegator);
-            balance = FinAccountHelper.getBalance(finAccountId, currencyUom, delegator);
+            availableBalance = FinAccountHelper.getAvailableBalance(finAccountId, delegator);
+            balance = FinAccountHelper.getBalance(finAccountId, delegator);
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -146,7 +151,24 @@ public class FinAccountServices {
 
     public static Map checkFinAccountStatus(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
+        String finAccountAuthId = (String) context.get("finAccountAuthId");
         String finAccountId = (String) context.get("finAccountId");
+
+        if (finAccountId == null && finAccountAuthId != null) {
+            GenericValue auth;
+            try {
+                auth = delegator.findByPrimaryKey("FinAccountAuth", UtilMisc.toMap("finAccountAuthId", finAccountAuthId));
+            } catch (GenericEntityException e) {
+                return ServiceUtil.returnError(e.getMessage());
+            }
+            if (auth != null) {
+                finAccountId = auth.getString("finAccountId");
+            }
+        }
+
+        if (finAccountId == null) {
+            return ServiceUtil.returnError("Financial account ID is required for this service!");
+        }
 
         GenericValue finAccount;
         try {
@@ -162,7 +184,7 @@ public class FinAccountServices {
 
             BigDecimal balance;
             try {
-                balance = FinAccountHelper.getAvailableBalance(finAccountId, currency, delegator);
+                balance = FinAccountHelper.getAvailableBalance(finAccountId, delegator);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
             }

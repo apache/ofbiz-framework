@@ -142,7 +142,7 @@ public class FinAccountProductServices {
 
         // if we auto-replenish this type; set the level to the initial deposit
         if (replenishEnumId != null && "FARP_AUTOMATIC".equals(replenishEnumId)) {
-            createCtx.put("replenishLevel", deposit);
+            createCtx.put("replenishLevel", new Double(deposit.doubleValue()));
         }
 
         Map createResp;

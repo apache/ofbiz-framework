@@ -565,8 +565,7 @@ under the License.
         <alias entity-alias="FAA" name="authorizationDate" group-by="false"/>
         <alias entity-alias="FAA" name="fromDate" group-by="false"/>
         <alias entity-alias="FAA" name="thruDate" group-by="false"/>
-        <alias entity-alias="FAA" name="amount" function="sum"/>
-        <alias entity-alias="FAA" name="currencyUomId" group-by="true"/>
+        <alias entity-alias="FAA" name="amount" function="sum"/>        
     </view-entity>
     
     <!-- ========================================================= -->
