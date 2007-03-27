@@ -188,7 +188,7 @@ under the License.
     <Uom abbreviation="TTD" description="Trinidad and Tobago Dollar" uomId="TTD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="TWD" description="New Taiwan Dollar" uomId="TWD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="TZS" description="Tanzanian Shilling" uomId="TZS" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="UAK" description="Ukrainian Karbowanez" uomId="UAK" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="UAH" description="Ukrainian Hryvnia" uomId="UAH" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="UGS" description="Ugandan Shilling" uomId="UGS" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="USD" description="American Dollar" uomId="USD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="UYP" description="Uruguayan New Peso" uomId="UYP" uomTypeId="CURRENCY_MEASURE"/>
