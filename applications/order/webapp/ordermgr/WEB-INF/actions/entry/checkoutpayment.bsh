@@ -40,6 +40,11 @@ if (cart != null) {
     }
 }
 
+finAccounts = delegator.findByAnd("FinAccountAndRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "OWNER"));
+finAccounts = EntityUtil.filterByDate(finAccounts, UtilDateTime.nowTimestamp(), "roleFromDate", "roleThruDate", true);
+finAccounts = EntityUtil.filterByDate(finAccounts);
+context.put("finAccounts",finAccounts);
+
 context.put("shoppingCart", cart);
 context.put("userLogin", userLogin);
 context.put("productStoreId", productStoreId);
