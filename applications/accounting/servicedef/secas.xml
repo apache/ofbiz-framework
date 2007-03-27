@@ -110,4 +110,9 @@ under the License.
         <action service="sampleInvoiceAffiliateCommission" mode="sync"/>
     </eca>
     -->
+    
+    <!-- FinAccountTrans SECAs -->
+    <eca service="createFinAccountTrans" event="commit">
+        <action service="postFinAccountTransToGl" mode="sync"/>
+    </eca>
 </service-eca>
