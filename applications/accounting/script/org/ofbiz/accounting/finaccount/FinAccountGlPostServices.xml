@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+
+    <!-- FinAccountTrans Services -->    
+    <simple-method method-name="postFinAccountTransToGl" short-description="Post a Financial Account Transaction to the General Ledger">
+        <!-- NOTE: this is not yet complete -->
+        <!-- NOTE: this will behave differently depending on how the FinAccount is used, see comments on different GlAccounts for trans entries below -->
+        
+        <entity-one entity-name="FinAccountTrans" value-name="finAccountTrans"/>
+        <set field="finAccountId" from-field="finAccountTrans.finAccountId"/>
+        <entity-one entity-name="FinAccount" value-name="finAccount"/>
+        
+        <set field="organizationPartyId" from-field="finAccount.organizationPartyId"/>
+        
+        <!-- Figure out which GlAccount to post to using finAccount.postToGlAccountId or if not specified then use FinAccountTypeGlAccount -->
+        <if-not-empty field-name="finAccount.postToGlAccountId">
+            <set field="glAccountId" from-field="finAccount.postToGlAccountId"/>
+            
+            <else>
+                <entity-one entity-name="FinAccountTypeGlAccount" value-name="finAccountTypeGlAccount" auto-field-map="false">
+                    <field-map field-name="organizationPartyId"/>
+                    <field-map field-name="finAccountTypeId" env-name="finAccount.finAccountTypeId"/>
+                </entity-one>
+                <if-not-empty field-name="finAccountTypeGlAccount">
+                    <set field="glAccountId" from-field="finAccountTypeGlAccount.glAccountId"/>
+                </if-not-empty>
+            </else>
+        </if-not-empty>
+
+        <!-- Make sure we have the organizationPartyId and the glAccountId -->
+        <if-empty field-name="glAccountId">
+            <add-error><fail-message message="Cannot post FinAccountTrans with ID [${parameters.finAccountTransId}] to GL, could not find glAccountId"/></add-error>
+        </if-empty>
+        <if-empty field-name="organizationPartyId">
+            <add-error><fail-message message="Cannot post FinAccountTrans with ID [${parameters.finAccountTransId}] to GL, could not find organizationPartyId"/></add-error>
+        </if-empty>
+        <check-errors/>
+        
+        <!-- TODO: Find the other side to post to/from - 
+            if payment directory to account do from Payment; 
+            if from account refill product purchase pull from special account where those funds wait; 
+            if purchase on account, balance like bank acount received or something -->
+        
+        <!-- TODO: Post the finAccountTrans.amount to the given GlAccount -->
+        
+    </simple-method>
+</simple-methods>

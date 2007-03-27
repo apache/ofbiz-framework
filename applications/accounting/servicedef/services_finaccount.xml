@@ -42,14 +42,29 @@ under the License.
         <description>Delete a Financial Account</description>
         <auto-attributes mode="IN" optional="false" include="pk"/>
     </service>
-
+    <service name="updateFinAccountBalancesFromTrans" engine="simple"
+        location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="updateFinAccountActualBalanceFromTrans">
+        <description>Update FinAccount.actualBalance and FinAccount.availableBalance based on a new FinAccountTrans; meant to be called as an EECA as it is for data maintenance</description>
+        <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="updateFinAccountBalancesFromAuth" engine="simple"
+        location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="updateFinAccountBalancesFromAuth">
+        <description>Update FinAccount.availableBalance based on a new FinAccountAuth; meant to be called as an EECA as it is for data maintenance</description>
+        <attribute name="finAccountAuthId" type="String" mode="IN" optional="false"/>
+    </service>
+    
     <service name="createFinAccountTrans" engine="simple" default-entity-name="FinAccountTrans"
             location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="createFinAccountTrans">
         <description>Create a new Financial Account Transaction.  Will use current timestamp for entryDate and trasanctionDate if none is provided.</description>
         <auto-attributes mode="IN" optional="true" include="nonpk"/>
         <auto-attributes mode="OUT" optional="false" include="pk"/>
     </service>
-
+    <service name="postFinAccountTransToGl" engine="simple"
+        location="org/ofbiz/accounting/finaccount/FinAccountGlPostServices.xml" invoke="postFinAccountTransToGl">
+        <description>Post a Financial Account Transaction to the General Ledger; meant to be called as an SECA</description>
+        <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
+    </service>
+    
     <service name="createFinAccountRole" engine="simple" default-entity-name="FinAccountRole"
             location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="createFinAccountRole">
         <description>Create a new Financial Account Role</description>
@@ -57,31 +72,29 @@ under the License.
         <auto-attributes mode="IN" optional="false" include="pk"/>
         <override name="fromDate" optional="true"/>
     </service>
-
     <service name="updateFinAccountRole" engine="simple" default-entity-name="FinAccountRole"
             location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="updateFinAccountRole">
         <description>Update a Financial Account Role</description>
         <auto-attributes mode="IN" optional="true" include="nonpk"/>
         <auto-attributes mode="IN" optional="false" include="pk"/>
     </service>
-
     <service name="deleteFinAccountRole" engine="simple" default-entity-name="FinAccountRole"
             location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="deleteFinAccountRole">
         <description>Remove a Financial Account Role</description>
         <auto-attributes mode="IN" optional="false" include="pk"/>
     </service>
 
-   <service name="createFinAccountAuth" engine="simple" default-entity-name="FinAccountAuth"
+    <service name="createFinAccountAuth" engine="simple" default-entity-name="FinAccountAuth"
             location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="createFinAccountAuth">
         <description>Lower level service for creating authorization against a fin account.  Will use current time for authorizationDate and thruDate if not supplied.</description>
         <auto-attributes mode="IN" optional="true" include="nonpk"/>
         <auto-attributes mode="OUT" optional="false" include="pk"/>
     </service>   
-   <service name="expireFinAccountAuth" engine="simple" default-entity-name="FinAccountAuth"
+    <service name="expireFinAccountAuth" engine="simple" default-entity-name="FinAccountAuth"
             location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="expireFinAccountAuth">
         <description>Expires a fin account authorization.  Will use current time if no time is supplied in parameter</description>
-        <attribute type="String" mode="IN" name="finAccountAuthId" optional="false"/>
-        <attribute type="Timestamp" mode="IN" name="expireDateTime" optional="true"/>
+        <attribute name="finAccountAuthId" type="String" mode="IN" optional="false"/>
+        <attribute name="expireDateTime" type="Timestamp" mode="IN" optional="true"/>
     </service>   
     
     <!-- these services use the product store's fin account settings -->

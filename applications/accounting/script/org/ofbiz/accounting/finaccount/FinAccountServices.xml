@@ -113,4 +113,62 @@ under the License.
         </if-empty>
         <store-value value-name="finAccountAuth"/>
     </simple-method>
+    
+    <!-- Some methods to maintain FinAccount.actualBalance and FinAccount.availableBalance -->
+    <simple-method method-name="updateFinAccountBalancesFromTrans" short-description="">
+        <if-not-empty field-name="parameters.finAccountId">
+            <set field="finAccountId" from-field="parameters.finAccountId"/>
+            <else>
+                <entity-one entity-name="FinAccountTrans" value-name="mainFinAccountTrans"/>
+                <set field="finAccountId" from-field="mainFinAccountTrans.finAccountId"/>
+            </else>
+        </if-not-empty>
+        
+        <call-simple-method method-name="inlineUpdateFinAccountActualAndAvailableBalance"/>
+    </simple-method>
+    <simple-method method-name="updateFinAccountBalancesFromAuth" short-description="">
+        <if-not-empty field-name="parameters.finAccountId">
+            <set field="finAccountId" from-field="parameters.finAccountId"/>
+            <else>
+                <entity-one entity-name="FinAccountAuth" value-name="mainFinAccountAuth"/>
+                <set field="finAccountId" from-field="mainFinAccountAuth.finAccountId"/>
+            </else>
+        </if-not-empty>
+        
+        <call-simple-method method-name="inlineUpdateFinAccountActualAndAvailableBalance"/>
+    </simple-method>
+    <simple-method method-name="inlineUpdateFinAccountActualAndAvailableBalance" short-description="">
+        <!-- NOTE: finAccountId should always be in place -->
+        <!-- Get all of the records for the account from the database and sum everything up again, make sure we don't have any errors propagated over time -->
+        
+        <entity-condition entity-name="FinAccountTrans" list-name="finAccountTransList">
+            <condition-expr field-name="finAccountId" env-name="finAccountId"/>
+        </entity-condition>
+        <iterate entry-name="finAccountTrans" list-name="finAccountTransList">
+            <calculate field-name="actualBalanceSum" type="BigDecimal">
+                <calcop operator="add" field-name="actualBalanceSum">
+                    <calcop operator="get" field-name="finAccountTrans.amount"/>
+                </calcop>
+            </calculate>
+        </iterate>
+
+        <!-- start with the actual balance, and subtract off FinAccountAuth.amount -->
+        <set field="availableBalanceSum" from-field="actualBalanceSum"/>
+        <entity-condition entity-name="FinAccountAuth" list-name="finAccountAuthList">
+            <condition-expr field-name="finAccountId" env-name="finAccountId"/>
+        </entity-condition>
+        <iterate entry-name="finAccountAuth" list-name="finAccountAuthList">
+            <calculate field-name="availableBalanceSum" type="BigDecimal">
+                <calcop operator="add" field-name="availableBalanceSum">
+                    <calcop operator="negative" field-name="finAccountAuth.amount"/>
+                </calcop>
+            </calculate>
+        </iterate>
+        
+        <!-- Okay, now just store the results -->
+        <entity-one entity-name="FinAccount" value-name="finAccount"/>
+        <set field="finAccount.actualBalance" from-field="actualBalanceSum"/>
+        <set field="finAccount.availableBalance" from-field="availableBalanceSum"/>
+        <store-value value-name="finAccount"/>
+    </simple-method>
 </simple-methods>
