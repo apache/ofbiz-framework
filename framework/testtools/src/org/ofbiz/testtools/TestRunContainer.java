@@ -35,19 +35,43 @@ public class TestRunContainer implements Container {
     public static final String module = TestRunContainer.class.getName();
     protected TestResult results = null;
     protected String configFile = null;
+    protected String component = null;
 
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
     public void init(String[] args, String configFile) {
         this.configFile = configFile;
+        if (args != null) {
+            for (int i = 0; i < args.length; i++) {
+                String argument = args[i];
+                // arguments can prefix w/ a '-'. Just strip them off
+                if (argument.startsWith("-")) {
+                    int subIdx = 1;
+                    if (argument.startsWith("--")) {
+                        subIdx = 2;
+                    }
+                    argument = argument.substring(subIdx);
+                }
+
+                // parse the arguments
+                if (argument.indexOf("=") != -1) {
+                    String argumentName = argument.substring(0, argument.indexOf("="));
+                    String argumentVal = argument.substring(argument.indexOf("=") + 1);
+
+                    if ("component".equalsIgnoreCase(argumentName)) {
+                        this.component = argumentVal;
+                    }
+                }
+            }
+        }
     }
 
     public boolean start() throws ContainerException {
         //ContainerConfig.Container jc = ContainerConfig.getContainer("junit-container", configFile);
 
         // get the tests to run
-        JunitSuiteWrapper jsWrapper = new JunitSuiteWrapper();
+        JunitSuiteWrapper jsWrapper = new JunitSuiteWrapper(component);
 
         // load the tests into the suite
         TestSuite suite = new TestSuite();
