@@ -88,6 +88,7 @@ under the License.
         <property name="delegator-name" value="default"/>
         <property name="use-naming" value="false"/>
         <property name="debug" value="0"/>
+        <property name="catalina-runtime-home" value="runtime/catalina"/>
         <property name="apps-context-reloadable" value="false"/>
         <property name="apps-cross-context" value="false"/>
         <property name="apps-distributable" value="false"/>        
