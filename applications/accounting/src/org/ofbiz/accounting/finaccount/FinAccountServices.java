@@ -136,11 +136,13 @@ public class FinAccountServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        Debug.log("FinAccount Balance [" + balance + "] Available [" + availableBalance + "]", module);
-        
+        Debug.log("FinAccount Balance [" + balance + "] Available [" + availableBalance + "]", module);        
+        Boolean isFrozen = Boolean.valueOf("Y".equals(finAccount.getString("isFrozen")));
+
         Map result = ServiceUtil.returnSuccess();
         result.put("availableBalance", new Double(availableBalance.doubleValue()));
         result.put("balance", new Double(balance.doubleValue()));
+        result.put("isFrozen", isFrozen);
         return result;
     }
 
@@ -183,12 +185,12 @@ public class FinAccountServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
 
-            if ("N".equals(frozen) && balance.compareTo(FinAccountHelper.ZERO) == -1) {
+            if ("N".equals(frozen) && balance.compareTo(FinAccountHelper.ZERO) < 1) {
                 finAccount.set("isFrozen", "Y");
-                Debug.logInfo("Financial account [" + finAccountId + "] has passed its threshold [Frozen]", module);
+                Debug.logInfo("Financial account [" + finAccountId + "] has passed its threshold [" + balance + "] (Frozen)", module);
             } else if ("Y".equals(frozen) && balance.compareTo(FinAccountHelper.ZERO) > 0) {
                 finAccount.set("isFrozen", "N");
-                Debug.logInfo("Financial account [" + finAccountId + "] has been make current [Un-Frozen]", module);
+                Debug.logInfo("Financial account [" + finAccountId + "] has been made current [" + balance + "] (Un-Frozen)", module);
             }
             try {
                 finAccount.store();
