@@ -2300,7 +2300,11 @@ under the License.
         <relation type="many" fk-name="RTN_ITEM_OISGIR" rel-entity-name="OrderItemShipGrpInvRes">
             <key-map field-name="orderId"/>
             <key-map field-name="orderItemSeqId"/>
-        </relation>           
+        </relation>
+        <index name="RTN_ITM_BYORDITM">
+            <index-field name="orderId"/>
+            <index-field name="orderItemSeqId"/>
+        </index>
     </entity>
     <entity entity-name="ReturnItemResponse"
             package-name="org.ofbiz.order.return"
