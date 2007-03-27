@@ -83,12 +83,14 @@ under the License.
         <field name="facilityId" title="${uiLabelMap.ProductFacilityId}"><display/></field>
     </form>
 
-     <form name="UpdateProductionRun" type="single" target="EditProductionRun" title="" default-map-name="productionRunData">
-        <field name="actionForm"><hidden value="${actionForm}"/></field>
+     <form name="UpdateProductionRun" type="single" target="updateProductionRun" title="" default-map-name="productionRunData">
         <field name="productionRunId"><hidden/></field>
-        <field name="productId" title="${uiLabelMap.ProductProductId}">
-            <display description="[${productionRunData.productId}]/${productionRunData.productName}"/>
-        </field>
+        <field name="productId" title="${uiLabelMap.ProductProductName}">
+            <display-entity entity-name="Product" description="${internalName} [${productId}]"/>
+        </field> 
+        <field name="currentStatusId">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field> 
         <field name="facilityId" title="${uiLabelMap.ProductFacilityId}">
             <drop-down>
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
@@ -102,6 +104,26 @@ under the License.
         <field name="workEffortName"  title="${uiLabelMap.ManufacturingProductionRunName}"><text/></field>
         <field name="description"  title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form>
+    <form name="ListProductionRunOrderItems" type="list" target="EditProductionRun" title="" list-name="orderItems">
+        <field name="orderId" widget-style="buttontext">
+            <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" description="${orderId}/${orderItemSeqId}" also-hidden="false" target-type="inter-app"/>
+        </field>
+        <!--
+        <field name="orderItemSeqId"><display/></field>
+        <field name="orderItemGroupSeqId"><display/></field>
+        <field name="quantity"><display/></field>
+        <field name="cancelQuantity"><display/></field>
+        <field name="shipAfterDate"><display/></field>
+        <field name="shipBeforeDate"><display/></field>
+        <field name="estimatedShipDate"><display/></field>
+        <field name="estimatedDeliveryDate"><display/></field>
+        -->
+    </form>
+    <form name="ListProductionRunInventoryItems" type="list" title="" list-name="inventoryItems">
+        <field name="inventoryItemId" widget-style="buttontext">
+            <hyperlink target="/facility/control/EditInventoryItem?inventoryItemId=${inventoryItemId}" description="${inventoryItemId}" also-hidden="false" target-type="inter-app"/>
+        </field>
     </form>
     
      <form name="ListProductionRunRoutingTasks" type="list" target="EditProductionRun" title="" list-name="productionRunRoutingTasks">
@@ -127,7 +149,7 @@ under the License.
         </field>
         <field name="productId" title="${uiLabelMap.ProductProductName}">
             <display-entity entity-name="Product" description="${internalName} [${productId}]"/>
-        </field> 
+        </field>
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display/></field>
     </form>
 
@@ -173,12 +195,12 @@ under the License.
     <!-- Production Run Declaration -->
     <form name="ShowProductionRun" type="single" target="productionRunProduce" title="" default-map-name="productionRunData">
         <field name="workEffortId"><hidden/></field>
-        <field name="productId" title="${uiLabelMap.ProductProductId}">
-            <display description="[${productionRunData.productId}]/${productionRunData.productName}"/>
-        </field>
-        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
-        </field>
+        <field name="productId" title="${uiLabelMap.ProductProductName}">
+            <display-entity entity-name="Product" description="${internalName} [${productId}]"/>
+        </field> 
+        <field name="currentStatusId">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field> 
         <field name="quantityToProduce" title="${uiLabelMap.ManufacturingQuantityToProduce}">
             <display/>
         </field>
@@ -188,17 +210,20 @@ under the License.
         <field name="actualCompletionDate" title="${uiLabelMap.ManufacturingActualCompletionDate}"><display/></field>
         <field name="productionRunName"  title="${uiLabelMap.ManufacturingProductionRunName}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="quantity" title="${uiLabelMap.ManufacturingProduceQuantity}" use-when="${showQuantity}!=null"><text/></field>
-        <field name="inventoryItemTypeId" use-when="${showQuantity}!=null">
+        <field name="quantityProduced" title="${uiLabelMap.ManufacturingQuantityProduced}"><display/></field>
+        <field name="quantityRejected" title="${uiLabelMap.ManufacturingQuantityRejected}"><display/></field>
+    </form>
+    <form name="ProductionRunProduce" type="single" target="productionRunProduce" title="" default-map-name="productionRunData">
+        <field name="workEffortId"><hidden/></field>
+        <field name="quantity" title="${uiLabelMap.ManufacturingProduceQuantity}"><text/></field>
+        <field name="inventoryItemTypeId">
             <drop-down allow-empty="false" no-current-selected-key="NON_SERIAL_INV_ITEM">
                 <entity-options entity-name="InventoryItemType" description="${description}"/>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelButton}" use-when="${showQuantity}!=null">
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}">
             <submit button-type="button"/>
         </field>
-        <field name="quantityProduced" title="${uiLabelMap.ManufacturingQuantityProduced}"><display/></field>
-        <field name="quantityRejected" title="${uiLabelMap.ManufacturingQuantityRejected}"><display/></field>
     </form>
    
     <form name="ListProductionRunDeclRoutingTasks" type="list" target="ProductionRunDeclaration" title="" list-name="productionRunRoutingTasks">

@@ -34,20 +34,22 @@ productionRunId = request.getParameter("productionRunId");
 if (UtilValidate.isEmpty(productionRunId)) {
     productionRunId = request.getParameter("workEffortId");
 }
-if (!UtilValidate.isEmpty(productionRunId)) {
+if (UtilValidate.isNotEmpty(productionRunId)) {
     
     GenericValue productionRun = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", productionRunId));
-    if (productionRun != null) {
+    if (UtilValidate.isNotEmpty(productionRun)) {
         // If this is a task, get the parent production run
         if (productionRun.getString("workEffortTypeId") != null && "PROD_ORDER_TASK".equals(productionRun.getString("workEffortTypeId"))) {
             productionRun = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", productionRun.getString("workEffortParentId")));
         }
     }
 
-    if (productionRun == null) {
+    if (UtilValidate.isEmpty(productionRun)) {
         return "error";
     }
-    if ("PRUN_CREATED".equals(productionRun.getString("currentStatusId"))) {
+    if ("PRUN_CREATED".equals(productionRun.getString("currentStatusId")) ||
+            "PRUN_SCHEDULED".equals(productionRun.getString("currentStatusId")) ||
+            "PRUN_CANCELLED".equals(productionRun.getString("currentStatusId"))) {
         return "docs_not_printed";
     } else {
         return "docs_printed";

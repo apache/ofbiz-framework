@@ -238,14 +238,18 @@ under the License.
     <StatusType description="Production Run Status" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="PRODUCTION_RUN"/>
     
     <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="PRUN_CREATED" statusTypeId="PRODUCTION_RUN"/>
-    <StatusItem description="Confirmed" sequenceId="02" statusCode="DOC_PRINTED" statusId="PRUN_DOC_PRINTED" statusTypeId="PRODUCTION_RUN"/>
-    <StatusItem description="Running" sequenceId="03" statusCode="RUNNING" statusId="PRUN_RUNNING" statusTypeId="PRODUCTION_RUN"/>
-    <StatusItem description="Completed" sequenceId="04" statusCode="COMPLETED" statusId="PRUN_COMPLETED" statusTypeId="PRODUCTION_RUN"/>
-    <StatusItem description="Closed" sequenceId="05" statusCode="CLOSED" statusId="PRUN_CLOSED" statusTypeId="PRODUCTION_RUN"/>
+    <StatusItem description="Scheduled" sequenceId="02" statusCode="SCHEDULED" statusId="PRUN_SCHEDULED" statusTypeId="PRODUCTION_RUN"/>
+    <StatusItem description="Confirmed" sequenceId="03" statusCode="DOC_PRINTED" statusId="PRUN_DOC_PRINTED" statusTypeId="PRODUCTION_RUN"/>
+    <StatusItem description="Running" sequenceId="04" statusCode="RUNNING" statusId="PRUN_RUNNING" statusTypeId="PRODUCTION_RUN"/>
+    <StatusItem description="Completed" sequenceId="05" statusCode="COMPLETED" statusId="PRUN_COMPLETED" statusTypeId="PRODUCTION_RUN"/>
+    <StatusItem description="Closed" sequenceId="06" statusCode="CLOSED" statusId="PRUN_CLOSED" statusTypeId="PRODUCTION_RUN"/>
     <StatusItem description="Cancelled" sequenceId="10" statusCode="CANCELLED" statusId="PRUN_CANCELLED" statusTypeId="PRODUCTION_RUN"/>
 
     <StatusValidChange statusId="PRUN_CREATED" statusIdTo="PRUN_DOC_PRINTED" transitionName="Confirm"/>
+    <StatusValidChange statusId="PRUN_CREATED" statusIdTo="PRUN_SCHEDULED" transitionName="Schedule"/>
     <StatusValidChange statusId="PRUN_CREATED" statusIdTo="PRUN_RUNNING" transitionName="Start"/>
+    <StatusValidChange statusId="PRUN_SCHEDULED" statusIdTo="PRUN_DOC_PRINTED" transitionName="Confirm"/>
+    <StatusValidChange statusId="PRUN_SCHEDULED" statusIdTo="PRUN_RUNNING" transitionName="Start"/>
     <StatusValidChange statusId="PRUN_DOC_PRINTED" statusIdTo="PRUN_RUNNING" transitionName="Start"/>
     <StatusValidChange statusId="PRUN_RUNNING" statusIdTo="PRUN_COMPLETED" transitionName="Complete"/>
     <StatusValidChange statusId="PRUN_COMPLETED" statusIdTo="PRUN_CLOSED" transitionName="Close"/>

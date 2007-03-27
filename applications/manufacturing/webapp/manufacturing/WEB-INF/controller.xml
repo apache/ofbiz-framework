@@ -503,6 +503,12 @@ under the License.
         <event type="simple" path="org/ofbiz/manufacturing/jobshopmgt/ProductionRunSimpleEvents.xml" invoke="actionEditProductionRun"/>
         <response name="success" type="view" value="EditProductionRun"/>
     </request-map>
+    <request-map uri="updateProductionRun">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateProductionRun"/>
+        <response name="success" type="view" value="EditProductionRun"/>
+        <response name="error" type="view" value="EditProductionRun"/>
+    </request-map>
     <request-map uri="ProductionRunDeclaration">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ProductionRunDeclaration"/>

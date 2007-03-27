@@ -17,8 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if productionRunId?has_content>
-
 <#-- Mandatory work efforts -->
 <#if mandatoryWorkEfforts?has_content>
     <p>
@@ -58,92 +56,6 @@ under the License.
 
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
     <tr valign="top">
-        <td>
-            <#-- ProductionRun Update sub-screen -->
-            <table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-                <tr>
-                    <td>
-                        <div class="boxtop">
-                            <div class="boxhead-left">
-                                ${uiLabelMap.ManufacturingProductionRunId}: ${productionRunId}
-                            </div>
-                            <div class="boxhead-right" align="right">
-                                <#assign currentStatus = productionRun.getString("currentStatusId")/>
-                                <span class="submenutextdisabled">${uiLabelMap.ManufacturingConfirmProductionRun}</span>
-                                <#if currentStatus == "PRUN_COMPLETED">
-                                    <a href="<@ofbizUrl>changeProductionRunStatusToClosed?productionRunId=${productionRunId}</@ofbizUrl>" class="submenutext">${uiLabelMap.ManufacturingProductionRunClose}</a>
-                                <#else>
-                                    <span class="submenutextdisabled">${uiLabelMap.ManufacturingProductionRunClose}</span>
-                                </#if>
-                                <#if currentStatus == "PRUN_CANCELLED" || currentStatus == "PRUN_COMPLETED" || currentStatus == "PRUN_CLOSED">
-                                    <span class="submenutextdisabled">${uiLabelMap.ManufacturingQuickComplete}</span>
-                                <#else>
-                                    <a href="<@ofbizUrl>quickChangeProductionRunStatus?productionRunId=${productionRunId}&statusId=PRUN_COMPLETED</@ofbizUrl>" class="submenutext">${uiLabelMap.ManufacturingQuickComplete}</a>
-                                </#if>
-                                <#if currentStatus == "PRUN_CANCELLED" || currentStatus == "PRUN_CLOSED">
-                                    <span class="submenutextdisabled">${uiLabelMap.ManufacturingQuickClose}</span>
-                                <#else>
-                                    <a href="<@ofbizUrl>quickChangeProductionRunStatus?productionRunId=${productionRunId}&statusId=PRUN_CLOSED</@ofbizUrl>" class="submenutext">${uiLabelMap.ManufacturingQuickClose}</a>
-                                </#if>
-                                <#if currentStatus == "PRUN_CANCELLED" || currentStatus == "PRUN_COMPLETED" || currentStatus == "PRUN_CLOSED">
-                                    <span class="submenutextdisabled">${uiLabelMap.ManufacturingCancel}</span>
-                                <#else>
-                                    <a href="<@ofbizUrl>cancelProductionRun?productionRunId=${productionRunId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.ManufacturingCancel}</a>
-                                </#if>
-                            </div>
-                            <div class="boxhead-fill">&nbsp;</div>
-                        </div>
-                        ${updateProductionRunWrapper.renderFormString(context)}
-                    </td>
-                </tr>
-                <#if inventoryItems?has_content>
-                <tr>
-                    <td align="left">
-                        <table border="0" cellpadding="2" cellspacing="0">
-                            <tr>
-                                <th width="20%" align="right">
-                                    ${uiLabelMap.ManufacturingInventoryItemsProduced}
-                                </th>
-                                <td>&nbsp;</td>
-                                <td width="80%" align="left">
-                                    <span>
-                                        <#list inventoryItems as inventoryItem>
-                                            <a href="/facility/control/EditInventoryItem?inventoryItemId=${inventoryItem.getString("inventoryItemId")}" class="buttontext" target="_blank">
-                                                ${inventoryItem.getString("inventoryItemId")}
-                                            </a>&nbsp;
-                                        </#list>
-                                    </span>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                </#if>
-                <#if orderItems?has_content>
-                <tr>
-                    <td align="left">
-                        <table border="0" cellpadding="2" cellspacing="0">
-                            <tr>
-                                <th width="20%" align="right">
-                                    ${uiLabelMap.ManufacturingOrderItems}
-                                </th>
-                                <td>&nbsp;</td>
-                                <td width="80%" align="left">
-                                    <span>
-                                        <#list orderItems as orderItem>
-                                            <a href="/ordermgr/control/orderview?orderId=${orderItem.getString("orderId")}" class="buttontext" target="_blank">
-                                                ${orderItem.getString("orderId")}/${orderItem.getString("orderItemSeqId")}
-                                            </a>&nbsp;
-                                        </#list>
-                                    </span>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                </#if>
-            </table>
-        </td>
         <#-- RoutingTask sub-screen  Update or Add  -->
         <#if routingTaskId?has_content || actionForm=="AddRoutingTask">
         <td> &nbsp; </td>
@@ -176,47 +88,6 @@ under the License.
                     </td>
                 </tr>
             </table>
-            </td>
-        </#if>
-                <#-- Product component sub-screen  Update or Add  -->
-                <#if productId?has_content || actionForm=="AddProductComponent">
-
-            <td> &nbsp; </td>
-            <td>
-                <table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-                  <tr><td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
-                        <tr>
-                        <#if productId?has_content> <#-- Product component Update  -->
-                            <td><div class="boxhead">${uiLabelMap.CommonEdit}&nbsp;${uiLabelMap.ManufacturingProductionRunProductComponent} : ${productId}</div></td>
-                        <#else> <#-- Product component Add         -->
-                            <td><div class="boxhead">${uiLabelMap.ManufacturingAddProductionRunProductComponent}</div></td>
-                        </#if>
-                        </tr>
-                    </table>
-                    ${editPrProductComponentWrapper.renderFormString(context)}
-                  </td></tr>
-                </table>
-            </td>
-        </#if>
-        <#-- Fixed Asset assign sub-screen  Update or Add  -->
-        <#if fixedAssetId?has_content || actionForm=="AddFixedAsset">
-            <td> &nbsp; </td>
-            <td>
-                <table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-                    <tr><td>
-                    	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
-                        	<tr>
-                        	<#if fixedAssetId?has_content> <#-- Fixed Asset Assign Update  -->
-                            	<td><div class="boxhead">${uiLabelMap.CommonEdit}&nbsp;${uiLabelMap.ManufacturingProductionRunFixedAssetAssign}</div></td>
-                        	<#else> <#-- Fixed Asset Assign Add -->
-                            	<td><div class="boxhead">${uiLabelMap.ManufacturingAddProductionRunFixedAssetAssign}</div></td>
-                        	</#if>
-                        	</tr>
-                    	</table>
-                    	${editProdRunFixedAssetWrapper.renderFormString(context)}
-                    </td></tr>
-                </table>
             </td>
         </#if>
         </tr>
@@ -270,6 +141,3 @@ under the License.
         ${ListProductionRunFixedAssetsWrapper.renderFormString(context)}
       </td></tr>
     </table>
-<#else>
-  <h1>${uiLabelMap.ManufacturingNoProductionRunSelected}</h1>
-</#if>
