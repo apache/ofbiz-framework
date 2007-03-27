@@ -25,10 +25,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.regex.Pattern;
 
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilNumber;
+import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
@@ -84,8 +81,7 @@ public class FinAccountHelper {
               GenericValue firstEntry = (GenericValue) transactions.get(0);
               if (firstEntry.get(fieldName) != null) {
                   BigDecimal valueToAdd = new BigDecimal(firstEntry.getDouble(fieldName).doubleValue());
-                  BigDecimal newValue = initialValue.add(valueToAdd).setScale(decimals, rounding);
-                  return newValue;
+                  return initialValue.add(valueToAdd).setScale(decimals, rounding);
               } else {
                   return initialValue;
               }
@@ -103,24 +99,30 @@ public class FinAccountHelper {
       */
      public static String getNewFinAccountCode(int codeLength, GenericDelegator delegator) throws GenericEntityException {
 
-         // keep generating new 12-digit account codes until a unique one is found
+         // keep generating new account codes until a unique one is found
          Random r = new Random();
          boolean foundUniqueNewCode = false;
          StringBuffer newAccountCode = null;
-            
-         while (!foundUniqueNewCode) {
-            newAccountCode = new StringBuffer(codeLength);
-            for (int i = 0; i < codeLength; i++) {
-                newAccountCode.append(char_pool[r.nextInt(char_pool.length)]);
-            }
+         long count = 0;
 
-     	    List existingAccountsWithCode = delegator.findByAnd("FinAccount", UtilMisc.toMap("finAccountCode", newAccountCode.toString()));
-            if (existingAccountsWithCode.size() == 0) {
-    	        foundUniqueNewCode = true;
-            }
-    	 }
-    	    
-    	 return newAccountCode.toString();
+         while (!foundUniqueNewCode) {
+             newAccountCode = new StringBuffer(codeLength);
+             for (int i = 0; i < codeLength; i++) {
+                 newAccountCode.append(char_pool[r.nextInt(char_pool.length)]);
+             }
+
+             List existingAccountsWithCode = delegator.findByAnd("FinAccount", UtilMisc.toMap("finAccountCode", newAccountCode.toString()));
+             if (existingAccountsWithCode.size() == 0) {
+                 foundUniqueNewCode = true;
+             }
+
+             count++;
+             if (count > 999999) {
+                 throw new GenericEntityException("Unable to locate unique FinAccountCode! Length [" + codeLength + "]");
+             }             
+         }
+
+         return newAccountCode.toString();
      }
      
      /**
@@ -201,8 +203,7 @@ public class FinAccountHelper {
          decrementTotal = addFirstEntryAmount(decrementTotal, transSums, "amount", (decimals+1), rounding);
          
          // the net balance is just the incrementTotal minus the decrementTotal
-         BigDecimal netBalance = incrementTotal.subtract(decrementTotal).setScale(decimals, rounding);
-         return netBalance;
+         return incrementTotal.subtract(decrementTotal).setScale(decimals, rounding);
      }
 
      /**
@@ -242,8 +243,7 @@ public class FinAccountHelper {
          BigDecimal authorizationsTotal = addFirstEntryAmount(ZERO, authSums, "amount", (decimals+1), rounding);
          
          // the total available balance is transactions total minus authorizations total
-         BigDecimal netAvailableBalance = netBalance.subtract(authorizationsTotal).setScale(decimals, rounding);
-         return netAvailableBalance;
+         return netBalance.subtract(authorizationsTotal).setScale(decimals, rounding);
      }
 
      /**
@@ -256,5 +256,85 @@ public class FinAccountHelper {
       */
     public static BigDecimal getAvailableBalance(String finAccountId, String currencyUomId, GenericDelegator delegator) throws GenericEntityException {
         return getAvailableBalance(finAccountId, currencyUomId, UtilDateTime.nowTimestamp(), delegator);
+    }
+
+    public static boolean validateFinAccount(GenericValue finAccount) {
+        return false;    
+    }
+
+    /**
+     * Validates a FinAccount's PIN number
+     * @param delegator
+     * @param finAccountId
+     * @param pinNumber
+     * @return true if the bin is valid
+     */
+    public static boolean validatePin(GenericDelegator delegator, String finAccountId, String pinNumber) {
+        GenericValue finAccount = null;
+        try {
+            finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        
+        if (finAccount != null) {
+            String dbPin = finAccount.getString("finAccountCode");
+            Debug.logInfo("FinAccount Pin Validation: [Sent: " + pinNumber + "] [Actual: " + dbPin + "]", module);
+            if (dbPin != null && dbPin.equals(pinNumber)) {
+                return true;
+            }
+        } else {
+            Debug.logInfo("FinAccount record not found (" + finAccountId + ")", module);
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param delegator
+     * @param length length of the number to generate (up to 19 digits)
+     * @param isId to be used as an ID (will check the DB to make sure it doesn't already exist)
+     * @return String generated number
+     * @throws GenericEntityException
+     */
+    public static String generateRandomFinNumber(GenericDelegator delegator, int length, boolean isId) throws GenericEntityException {
+        if (length > 19) {
+            length = 19;
+        }
+
+        Random rand = new Random();
+        boolean isValid = false;
+        String number = null;
+        while (!isValid) {
+            number = "";
+            for (int i = 0; i < length; i++) {
+                int randInt = rand.nextInt(9);
+                number = number + randInt;
+            }
+
+            if (isId) {
+                int check = UtilValidate.getLuhnCheckDigit(number);
+                number = number + check;
+
+                // validate the number
+                if (checkFinAccountNumber(number)) {
+                    // make sure this number doens't already exist
+                    isValid = checkIsNumberInDatabase(delegator, number);
+                }
+            } else {
+                isValid = true;
+            }
+        }
+        return number;
+    }
+
+    private static boolean checkIsNumberInDatabase(GenericDelegator delegator, String number) throws GenericEntityException {
+        GenericValue finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", number));
+        return finAccount == null;
+    }
+
+    public static boolean checkFinAccountNumber(String number) {
+        number = number.replaceAll("\\D", "");
+        return UtilValidate.sumIsMod10(UtilValidate.getLuhnSum(number));
     }
 }
