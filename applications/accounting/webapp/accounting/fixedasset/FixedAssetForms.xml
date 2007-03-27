@@ -134,24 +134,23 @@ under the License.
     </form>
 
     <!-- list availability/occupation period on a fixed asset -->
-    <form name="listFixedAssetCalendar" type="list"  default-required-field-style="calendar" list-name="weeks"  target="updateFixedAssetProductCalendar"
-        default-title-style="calendarHeader" default-title-area-style="calendarHeader" default-widget-style="calendarContent" default-tooltip-style="tabletext">
+    <form name="listFixedAssetCalendar" type="list" list-name="weeks" target="updateFixedAssetProductCalendar" default-table-style="calendar-table">
 
-        <field name="week" title="${uiLabelMap.Common${month}} ${year}" widget-area-style="calendarWeek" widget-style="calendarWeek"><display description="${uiLabelMap.CommonWeek} ${week}"/></field>
-        <field name="Monday" title="" widget-style="calendarDayNumber"><display/></field>
-        <field name="MondayData" title="${uiLabelMap.CommonMonday}"><display/></field>
-        <field name="Tuesday" title="" widget-style="calendarDayNumber"><display/></field>
-        <field name="TuesdayData" title="${uiLabelMap.CommonTuesday}"><display/></field>
-        <field name="Wednesday" title="" widget-style="calendarDayNumber"><display/></field>
-        <field name="WednesdayData" title="${uiLabelMap.CommonWednesday}"><display/></field>
-        <field name="Thursday" title="" widget-style="calendarDayNumber"><display/></field>
-        <field name="ThursdayData" title="${uiLabelMap.CommonThursday}"><display/></field>
-        <field name="Friday" title="" widget-style="calendarDayNumber"><display/></field>
-        <field name="FridayData" title="${uiLabelMap.CommonFriday}"><display/></field>
-        <field name="Saturday" title="" widget-style="calendarDayNumber"><display/></field>
-        <field name="SaturdayData" title="${uiLabelMap.CommonSaturday}"><display/></field>
-        <field name="Sunday" title="" widget-style="calendarDayNumber"><display/></field>
-        <field name="SundayData" title="${uiLabelMap.CommonSunday}"><display/></field>
+        <field name="week" title="${uiLabelMap.Common${month}} ${year}" widget-area-style="calendarWeek"><display description="${uiLabelMap.CommonWeek} ${week}"/></field>
+        <field name="Monday" title=""><display/></field>
+        <field name="MondayData" title="${uiLabelMap.CommonMonday}" widget-style="calendarContent"><display/></field>
+        <field name="Tuesday" title=""><display/></field>
+        <field name="TuesdayData" title="${uiLabelMap.CommonTuesday}" widget-style="calendarContent"><display/></field>
+        <field name="Wednesday" title=""><display/></field>
+        <field name="WednesdayData" title="${uiLabelMap.CommonWednesday}" widget-style="calendarContent"><display/></field>
+        <field name="Thursday" title=""><display/></field>
+        <field name="ThursdayData" title="${uiLabelMap.CommonThursday}" widget-style="calendarContent"><display/></field>
+        <field name="Friday" title=""><display/></field>
+        <field name="FridayData" title="${uiLabelMap.CommonFriday}" widget-style="calendarContent"><display/></field>
+        <field name="Saturday" title=""><display/></field>
+        <field name="SaturdayData" title="${uiLabelMap.CommonSaturday}" widget-style="calendarContent"><display/></field>
+        <field name="Sunday" title=""><display/></field>
+        <field name="SundayData" title="${uiLabelMap.CommonSunday}" widget-style="calendarContent"><display/></field>
     </form>
     <!-- update the availability on a date basis of a fixed asset -->
     <form name="updateFixedAssetCalendar" type="single"  target="updateFixedAssetCalendar" title="Update the fixed Asset calendar" default-map-name="fixedAssetCalendar">

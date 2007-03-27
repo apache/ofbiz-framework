@@ -105,7 +105,7 @@ under the License.
     <screen name="ListFixedAssetCalendar">
         <section>
             <actions>
-                <set field="layoutSettings.extraHead" value="&lt;link rel='stylesheet' href='/images/calendarTable.css' type='text/css'&gt;" global="true"/>
+                <set field="layoutSettings.styleSheets[]" value="/images/calendarTable.css" global="true"/>
                 <set field="titleProperty" value="PageTitleListFixedAssetCalendar"/>
                 <set field="tabButtonItem" value="ListFixedAssetCalendar"/>
                 <set field="labelTitleProperty" value="AccountingFixedAssetCalendar"/>
@@ -116,15 +116,15 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
+                        <container style="button-bar">
                             <link target="ListFixedAssetCalendar?fixedAssetId=${fixedAssetId}&amp;month=-3" text="${uiLabelMap.CommonPrevious} ${uiLabelMap.CommonQuarter}" style="buttontext"/>
                             <link target="ListFixedAssetCalendar?fixedAssetId=${fixedAssetId}&amp;month=-1" text="${uiLabelMap.CommonPrevious} ${uiLabelMap.CommonMonth}" style="buttontext"/>
                             <link target="ListFixedAssetCalendar?fixedAssetId=${fixedAssetId}" text="${uiLabelMap.CommonThis} ${uiLabelMap.CommonMonth}" style="buttontext"/>
                             <link target="ListFixedAssetCalendar?fixedAssetId=${fixedAssetId}&amp;month=1" text="${uiLabelMap.CommonNext} ${uiLabelMap.CommonMonth}" style="buttontext"/>
                             <link target="ListFixedAssetCalendar?fixedAssetId=${fixedAssetId}&amp;month=3" text="${uiLabelMap.CommonNext} ${uiLabelMap.CommonQuarter}" style="buttontext"/>
-                            <include-form name="listFixedAssetCalendar" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
-                            <label style="tabletext" text="${uiLabelMap.AccountingFixedAssetMessage1}"></label>
                         </container>
+                        <include-form name="listFixedAssetCalendar" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <label text="${uiLabelMap.AccountingFixedAssetMessage1}"></label>
                         <!--
                         <container>
                             <label style="head1">${uiLabelMap.AccountingUpdateAvailability}</label>
