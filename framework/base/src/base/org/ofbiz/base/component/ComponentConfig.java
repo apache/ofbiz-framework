@@ -167,11 +167,17 @@ public class ComponentConfig {
     }
 
     public static List getAllTestSuiteInfos() {
+        return getAllTestSuiteInfos(null);
+    }
+
+    public static List getAllTestSuiteInfos(String componentName) {
         List testSuiteInfos = FastList.newInstance();
         Iterator i = getAllComponents().iterator();
         while (i.hasNext()) {
             ComponentConfig cc = (ComponentConfig) i.next();
-            testSuiteInfos.addAll(cc.getTestSuiteInfos());
+            if (componentName == null || componentName.equals(cc.getComponentName())) {
+                testSuiteInfos.addAll(cc.getTestSuiteInfos());
+            }
         }
         return testSuiteInfos;
 

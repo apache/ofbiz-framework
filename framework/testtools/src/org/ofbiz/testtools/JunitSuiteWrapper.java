@@ -41,8 +41,8 @@ public class JunitSuiteWrapper {
     
     protected List modelTestSuiteList = FastList.newInstance();
     
-    public JunitSuiteWrapper() {
-        List testSuiteInfoList = ComponentConfig.getAllTestSuiteInfos();
+    public JunitSuiteWrapper(String componentName) {
+        List testSuiteInfoList = ComponentConfig.getAllTestSuiteInfos(componentName);
         Iterator testSuiteInfoIter = testSuiteInfoList.iterator();
         while (testSuiteInfoIter.hasNext()) {
             ComponentConfig.TestSuiteInfo testSuiteInfo = (ComponentConfig.TestSuiteInfo) testSuiteInfoIter.next();
