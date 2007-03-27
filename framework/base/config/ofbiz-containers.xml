@@ -101,7 +101,7 @@ under the License.
             <property name="access-log-resolve" value="true"/>
             <property name="access-log-rotate" value="true"/>
             <property name="access-log-prefix" value="access_log."/>
-            <property name="access-log-dir" value="framework/logs"/>
+            <property name="access-log-dir" value="runtime/logs"/>
             <property name="enable-request-dump" value="false"/>
             <!-- uncomment for cluster support
             <property name="default-server-cluster" value="cluster">
