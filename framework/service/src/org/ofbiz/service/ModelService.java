@@ -287,6 +287,21 @@ public class ModelService implements Serializable {
         return nameList;
     }
 
+    // only returns number of defined parameters (not internal)
+    public int getDefinedInCount() {
+        int count = 0;
+
+        Iterator i = this.contextParamList.iterator();
+        while (i.hasNext()) {
+            ModelParam p = (ModelParam) i.next();
+            // don't include OUT parameters in this list, only IN and INOUT
+            if ("OUT".equals(p.mode) || p.internal) continue;
+            count++;
+        }
+
+        return count;
+    }
+
     public Set getOutParamNames() {
         Set nameList = new OrderedSet();
         Iterator i = this.contextParamList.iterator();
@@ -300,7 +315,22 @@ public class ModelService implements Serializable {
         return nameList;
     }
 
-    public void updateDefaultValues(Map context, String mode) {        
+    // only returns number of defined parameters (not internal)
+    public int getDefinedOutCount() {
+        int count = 0;
+
+        Iterator i = this.contextParamList.iterator();
+        while (i.hasNext()) {
+            ModelParam p = (ModelParam) i.next();
+            // don't include IN parameters in this list, only OUT and INOUT
+            if ("IN".equals(p.mode) || p.internal) continue;
+            count++;
+        }
+
+        return count;
+    }
+
+    public void updateDefaultValues(Map context, String mode) {
         List params = this.getModelParamList();
         if (params != null) {
             Iterator i = params.iterator();
