@@ -612,6 +612,9 @@ under the License.
         <exclude field="shipBeforeDate"/>
         <exclude field="estimatedShipDate"/>
         <exclude field="estimatedDeliveryDate"/>
+        <exclude field="statusId"/>
+        <exclude field="externalId"/>
+        <exclude field="syncStatusId"/>
       </alias-all>
       <alias entity-alias="OI" name="oiQuantity" field="quantity"/>
       <alias entity-alias="OI" name="oiCancelQuantity" field="cancelQuantity"/>
@@ -620,6 +623,8 @@ under the License.
       <alias entity-alias="OI" name="oiEstimatedShipDate" field="estimatedShipDate"/>
       <alias entity-alias="OI" name="oiEstimatedDeliveryDate" field="estimatedDeliveryDate"/>
       <alias entity-alias="OI" name="oiStatusId" field="statusId"/>
+      <alias entity-alias="OI" name="oiExternalId" field="externalId"/>
+      <alias entity-alias="OI" name="oiSyncStatusId" field="syncStatusId"/>
       <view-link entity-alias="OH" rel-entity-alias="OI">
         <key-map field-name="orderId"/>
       </view-link>
