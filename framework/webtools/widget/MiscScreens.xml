@@ -22,10 +22,82 @@ under the License.
     
     <screen name="ViewComponents">
         <section>
+            <actions>
+                <set field="headerItem" value="main"/>
+<!--                <set field="titleProperty" value="insertTitleHere"/> -->
+            </actions>
             <widgets>
                 <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://webtools/webapp/webtools/component/viewComponents.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditCustomTimePeriod">
+        <section>
+            <actions>
+                <set field="headerItem" value="main"/>
+<!--                <set field="titleProperty" value="insertTitleHere"/> -->
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/period/EditCustomTimePeriod.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://webtools/webapp/webtools/period/EditCustomTimePeriod.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="viewdatafile">
+        <section>
+            <actions>
+                <set field="headerItem" value="main"/>
+<!--                <set field="titleProperty" value="insertTitleHere"/> -->
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/datafile/viewdatafile.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://webtools/webapp/webtools/datafile/viewdatafile.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="readxpdl">
+        <section>
+            <actions>
+                <set field="headerItem" value="main"/>
+<!--                <set field="titleProperty" value="insertTitleHere"/> -->
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/workflow/readxpdl.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://webtools/webapp/webtools/workflow/readxpdl.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="workflowMonitor">
+        <section>
+            <actions>
+                <set field="headerItem" value="main"/>
+<!--                <set field="titleProperty" value="insertTitleHere"/> -->
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/workflow/workflowMonitor.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://webtools/webapp/webtools/workflow/workflowMonitor.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

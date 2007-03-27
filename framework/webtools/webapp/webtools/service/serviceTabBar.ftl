@@ -16,12 +16,15 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
+<#assign selected = page.tabButtonItem?default("void")>
 
-<div class="tabContainer">
-  <a href="<@ofbizUrl>serviceList</@ofbizUrl>" class="${selectedClassMap.ServiceList?default(unselectedClassName)}">${uiLabelMap.WebtoolsServiceList}</a>
-  <a href="<@ofbizUrl>jobList</@ofbizUrl>" class="${selectedClassMap.JobList?default(unselectedClassName)}">${uiLabelMap.WebtoolsJobList}</a>
-  <a href="<@ofbizUrl>threadList</@ofbizUrl>" class="${selectedClassMap.ThreadList?default(unselectedClassName)}">${uiLabelMap.WebtoolsThreadList}</a>
-  <a href="<@ofbizUrl>scheduleJob</@ofbizUrl>" class="${selectedClassMap.ScheduleJob?default(unselectedClassName)}">${uiLabelMap.WebtoolsScheduleJob}</a>
+<div class="button-bar button-style-1">
+  <ul>
+    <li<#if selected = "ServiceList"> class="selected"</#if>><a href="<@ofbizUrl>serviceList</@ofbizUrl>">${uiLabelMap.WebtoolsServiceList}</a></li>
+    <li<#if selected = "JobList"> class="selected"</#if>><a href="<@ofbizUrl>jobList</@ofbizUrl>">${uiLabelMap.WebtoolsJobList}</a></li>
+    <li<#if selected = "ThreadList"> class="selected"</#if>><a href="<@ofbizUrl>threadList</@ofbizUrl>">${uiLabelMap.WebtoolsThreadList}</a></li>
+    <li<#if selected = "ScheduleJob"> class="selected"</#if>><a href="<@ofbizUrl>scheduleJob</@ofbizUrl>">${uiLabelMap.WebtoolsScheduleJob}</a></li>
+  </ul>
+  <br class="clear" />
 </div>
+<br />

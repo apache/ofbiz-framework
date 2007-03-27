@@ -17,38 +17,47 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<table cellpadding="2" cellspacing="0" border="1" width="100%">
-  <tr>
-    <td><div class="tableheadtext">${uiLabelMap.WebtoolsJob}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.WebtoolsPool}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.WebtoolsRunTime}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.CommonStartDateTime}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.WebtoolsService}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.CommonEndDateTime}</div></td>
-    <td>&nbsp;</td>
-  </tr>
-  <#list jobs as job>
-  <tr>
-    <td><div class="tabletext">${job.jobName?if_exists}&nbsp;</td>
-    <td><div class="tabletext">${job.poolId?if_exists}&nbsp;</div></td>
-    <td><div class="tabletext">${job.runTime?if_exists}&nbsp;</div></td>
-    <td><div class="tabletext">${job.startDateTime?if_exists}&nbsp;</div></td>
-    <td><div class="tabletext"><a href="<@ofbizUrl>availableServices?sel_service_name=${job.serviceName?if_exists}</@ofbizUrl>" class="buttontext">${job.serviceName?if_exists}</a></div></td>
-    <td>
-      <div class="tabletext">
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>${uiLabelMap.PageTitleJobList}</h3>
+  </div>
+  <table class="basic-table hover-bar" cellspacing="0">
+    <tr class="header-row">
+      <td>${uiLabelMap.WebtoolsJob}</td>
+      <td>${uiLabelMap.CommonId}</td>
+      <td>${uiLabelMap.WebtoolsPool}</td>
+      <td>${uiLabelMap.WebtoolsRunTime}</td>
+      <td>${uiLabelMap.CommonStartDateTime}</td>
+      <td>${uiLabelMap.WebtoolsService}</td>
+      <td>${uiLabelMap.CommonEndDateTime}</td>
+      <td>&nbsp;</td>
+    </tr>
+    <#assign rowNum = "2">
+    <#list jobs as job>
+      <tr<#if rowNum == "1"> class="alternate-row"</#if>>
+        <td>${job.jobName?if_exists}&nbsp;</td>
+        <td>${job.jobId?if_exists}&nbsp;</td>
+        <td>${job.poolId?if_exists}&nbsp;</td>
+        <td>${job.runTime?if_exists}&nbsp;</td>
+        <td>${job.startDateTime?if_exists}&nbsp;</td>
+        <td class="button-col"><a href="<@ofbizUrl>availableServices?sel_service_name=${job.serviceName?if_exists}</@ofbizUrl>">${job.serviceName?if_exists}</a></td>
         <#if job.cancelDateTime?exists>
-        <font color="red">${job.cancelDateTime}</font>
+          <td class="alert">${job.cancelDateTime}
         <#else>
-        ${job.finishDateTime?if_exists}
+          <td>${job.finishDateTime?if_exists}
         </#if>
-      </div>
-    </td>
-    <td align="center">
-      <#if !(job.startDateTime?exists) && !(job.finishDateTime?exists) && !(job.cancelDateTime?exists)>
-      <a href="<@ofbizUrl>cancelJob?jobId=${job.jobId}</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsCancelJob}</a>
+        </td>
+        <td class="button-col">
+          <#if !(job.startDateTime?exists) && !(job.finishDateTime?exists) && !(job.cancelDateTime?exists)>
+            <a href="<@ofbizUrl>cancelJob?jobId=${job.jobId}</@ofbizUrl>">${uiLabelMap.WebtoolsCancelJob}</a>
+          </#if>
+        </td>
+      </tr>
+      <#if rowNum == "2">
+        <#assign rowNum = "1">
+      <#else>
+        <#assign rowNum = "2">
       </#if>
-      &nbsp;
-    </td>
-  </tr>
-  </#list>
-</table>
+    </#list>
+  </table>
+</div>

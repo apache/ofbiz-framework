@@ -16,69 +16,55 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<div class="head1">${uiLabelMap.WebtoolsFindValues}</div>
-<div class="head2">${uiLabelMap.WebtoolsForEntity}: ${entityName}</div>
-<div>&nbsp;</div>
-<div>
-    <a href="<@ofbizUrl>entitymaint</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsBackToEntityList}</a>
+
+<h1>${uiLabelMap.WebtoolsFindValues}</h1>
+<br />
+<h2>${uiLabelMap.WebtoolsForEntity}: ${entityName}</h2>
+<br />
+<div class="button-bar">
+  <a href="<@ofbizUrl>entitymaint</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsBackToEntityList}</a>
+  <a href="<@ofbizUrl>ViewRelations?entityName=${entityName}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsViewRelations}</a>
+  <a href="<@ofbizUrl>FindGeneric?entityName=${entityName}&amp;find=true&amp;VIEW_SIZE=50&amp;VIEW_INDEX=0</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonFind} ${uiLabelMap.CommonAll}</a>
+  <#if hasCreatePermission == 'Y'>
+    <a href="<@ofbizUrl>ViewGeneric?entityName=${entityName}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCreateNew} ${entityName}</a>
+  </#if>
 </div>
-<div>
-    <a href="<@ofbizUrl>ViewRelations?entityName=${entityName}</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsViewRelations}</a>
-    <a href="<@ofbizUrl>FindGeneric?entityName=${entityName}&amp;find=true&amp;VIEW_SIZE=50&amp;VIEW_INDEX=0</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonFind} ${uiLabelMap.CommonAll}</a>
-    <#if hasCreatePermission == 'Y'>
-        <a href="<@ofbizUrl>ViewGeneric?entityName=${entityName}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCreateNew} ${entityName}</a>
-    </#if>
-</div>
-<div>&nbsp;</div>
-<div class="tabletext">${uiLabelMap.WebtoolsToFindAll} ${entityName}, ${uiLabelMap.WebtoolsLeaveAllEntriesBlank}.</div>
+<br />
+<p>${uiLabelMap.WebtoolsToFindAll} ${entityName}, ${uiLabelMap.WebtoolsLeaveAllEntriesBlank}.</p>
 <form method="post" action="<@ofbizUrl>FindGeneric?entityName=${entityName}</@ofbizUrl>">
-    <input type="hidden" name="find" value="true">
-    <table border="1" cellpadding="2" cellspacing="0">
-        <tr class="viewOneTR1">
-            <td valign="top">
-                <span class="tableheadtext">${uiLabelMap.WebtoolsFieldName}</span>
-            </td>
-            <td valign="top">
-                <span class="tableheadtext">${uiLabelMap.WebtoolsPk}</span>
-            </td>
-            <td valign="top">
-                <span class="tableheadtext">${uiLabelMap.WebtoolsFieldType}</span>
-            </td>
-            <td valign="top">
-                <span class="tableheadtext"><input type="submit" value="${uiLabelMap.CommonFind}" class="smallSubmit"></span>
-            </td>
+  <input type="hidden" name="find" value="true">
+  <table class="basic-table light-grid" cellspacing="0">
+    <tr class="header-row">
+      <td>${uiLabelMap.WebtoolsFieldName}</td>
+      <td>${uiLabelMap.WebtoolsPk}</td>
+      <td>${uiLabelMap.WebtoolsFieldType}</td>
+      <td><input type="submit" value="${uiLabelMap.CommonFind}"></td>
+    </tr>
+    <#assign alt_row = false>
+    <#list fieldList as field>
+        <tr<#if alt_row> class="alternate-row"</#if>>
+            <td>${field.name}</td>
+            <td><#if field.isPk == 'Y'>*</#if></td>
+            <td>${field.javaType},&nbsp;${field.sqlType}</td>
+            <td><input type="text" name="${field.name}" value="${field.param}" size="40"></td>
         </tr>
-        <#assign rowClass = 'viewManyTR1'>
-        <#list fieldList as field>
-            <tr class='${rowClass}'>
-                <td valign="top">
-                    <span class="tableheadtext">${field.name}</span>
-                </td>
-                <td valign="top">
-                    <span class="tabletext"><#if field.isPk == 'Y'>*</#if></span>
-                </td>
-                <td valign="top">
-                    <span class="tabletext">${field.javaType},${field.sqlType}</span>
-                </td>
-                <td valign="top">
-                    <input type="text" name="${field.name}" value="${field.param}" size="40" class="inputBox">
-                </td>
-            </tr>
-            <#if rowClass == 'viewManyTR1'>
-                <#assign rowClass = 'viewManyTR2'>
-            <#else>
-                <#assign rowClass = 'viewManyTR1'>
-            </#if>
-        </#list>
+        <#if alt_row>
+            <#assign alt_row = false>
+        <#else>
+            <#assign alt_row = true>
+        </#if>
+    </#list>
         <tr>
-            <td valign="top" align="center" colspan="4"><input type="submit" value="${uiLabelMap.CommonFind}" class="smallSubmit"></td>
+            <td align="center" colspan="4"><input type="submit" value="${uiLabelMap.CommonFind}"></td>
         </tr>
     </table>
 </form>
-<div>&nbsp;</div>
+<br />
+<div class="button-bar">
 <#if hasCreatePermission == 'Y'>
     <a href='<@ofbizUrl>ViewGeneric?entityName=${entityName}</@ofbizUrl>' class="buttontext">${uiLabelMap.CommonCreateNew} ${entityName}</a>
 </#if>
+</div>
 <table border="0" width="100%" cellpadding="2">
     <#if (arraySize > 0)>
         <tr>

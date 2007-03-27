@@ -18,38 +18,49 @@ under the License.
 -->
 
 <#assign components = Static["org.ofbiz.base.component.ComponentConfig"].getAllComponents()?if_exists/>
-<div class="head3">Loaded Components:</div>
-<#if (components?has_content)>
-    <table cellpadding="2" cellspacing="0" border="1" width="100%">
+<div id="stats-bins-history" class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>Loaded Components</h3>
+  </div>
+  <#if (components?has_content)>
+    <table class="basic-table" cellspacing="0">
+      <tr class="header-row">
+        <td>Name</td>
+        <td>Path</td>
+        <td>Enabled</td>
+        <td colspan="3">WebApps (Name, Mount, Path)</td>
+      </tr>
+      <#list components as component>
+        <#assign webinfos = component.getWebappInfos()?if_exists/>
+        <#assign firstRow = "true">
         <tr>
-            <td><div class="tableheadtext">Name</div></td>
-            <td><div class="tableheadtext">Path</div></td>
-            <td><div class="tableheadtext">Enabled</div></td>
-            <td colspan="3"><div class="tableheadtext">WebApps (Name, Mount, Path)</div></td>
-        </tr>
-        <#list components as component>
-            <tr>
-                <td><div class="tabletext">${component.getComponentName()?if_exists}</div></td>
-                <td><div class="tabletext">${component.getRootLocation()?if_exists}</div></td>
-                <td><div class="tabletext">${component.enabled()?string?if_exists}</div></td>
-                <#assign webinfos = component.getWebappInfos()?if_exists/>
-                <#if (webinfos?has_content)>
-                    <td>
-                        <table cellpadding="2" cellspacing="0" border="0" width="100%">                           
-                            <#list webinfos as webinfo>
-                                <tr>
-                                    <td><div class="tabletext">${webinfo.getName()?if_exists}</div></td>
-                                    <td><div class="tabletext">${webinfo.getContextRoot()?if_exists}</div></td>
-                                    <td><div class="tabletext">${webinfo.getLocation()?if_exists}</div></td>
-                                </tr>
-                            </#list>
-                        </table>
-                    </td>
-                <#else>
-                    <td>&nbsp;</td>
-                </#if>
-        </#list>
+          <td>${component.getComponentName()?if_exists}</td>
+          <td>${component.getRootLocation()?if_exists}</td>
+          <td>${component.enabled()?string?if_exists}</td>
+          <#if (webinfos?has_content)>
+            <#list webinfos as webinfo>
+              <#if firstRow = "true">
+                <#assign firstRow = "false">
+              <#else>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+              </#if>
+              <td>${webinfo.getName()?if_exists}</td>
+              <td>${webinfo.getContextRoot()?if_exists}</td>
+              <td>${webinfo.getLocation()?if_exists}</td>
+              </tr>
+            </#list>
+          <#else>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+          </#if>
+      </#list>
     </table>
-<#else>
-    <div class="tabletext">No components loaded.</div>
-</#if>
+  <#else>
+    <div class="screenlet-body">No components loaded.</div>
+  </#if>
+</div>

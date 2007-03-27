@@ -1,0 +1,98 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+import java.util.*;
+import java.net.*;
+import org.ofbiz.security.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.datafile.*;
+
+List messages = new LinkedList();
+
+String dataFileSave = request.getParameter("DATAFILE_SAVE");
+
+String entityXmlFileSave = request.getParameter("ENTITYXML_FILE_SAVE");
+
+String dataFileLoc = request.getParameter("DATAFILE_LOCATION");
+String definitionLoc = request.getParameter("DEFINITION_LOCATION");
+String definitionName = request.getParameter("DEFINITION_NAME");
+boolean dataFileIsUrl = request.getParameter("DATAFILE_IS_URL")!=null?true:false;
+boolean definitionIsUrl = request.getParameter("DEFINITION_IS_URL")!=null?true:false;
+
+URL dataFileUrl = null;
+try {
+    dataFileUrl = dataFileIsUrl?new URL(dataFileLoc):UtilURL.fromFilename(dataFileLoc);
+}
+catch (java.net.MalformedURLException e) {
+    messages.add(e.getMessage());
+}
+
+URL definitionUrl = null;
+try {
+    definitionUrl = definitionIsUrl?new URL(definitionLoc):UtilURL.fromFilename(definitionLoc);
+}
+catch (java.net.MalformedURLException e) {
+    messages.add(e.getMessage());
+}
+
+Iterator definitionNames = null;
+if (definitionUrl != null) {
+    ModelDataFileReader reader = ModelDataFileReader.getModelDataFileReader(definitionUrl);
+    if (reader != null) {
+        definitionNames = ((Collection)reader.getDataFileNames()).iterator();
+    }
+}
+  
+DataFile dataFile = null;
+if (dataFileUrl != null && definitionUrl != null && definitionName != null && definitionName.length() > 0) {
+    try {
+        dataFile = DataFile.readFile(dataFileUrl, definitionUrl, definitionName);
+        context.put("dataFile", dataFile);
+    }
+    catch (Exception e) {
+        messages.add(e.toString()); Debug.log(e);
+    }
+}
+
+ModelDataFile modelDataFile = null;
+if (dataFile != null) {
+    modelDataFile = dataFile.getModelDataFile();
+    context.put("modelDataFile", modelDataFile);
+}
+
+if (dataFile != null && dataFileSave != null && dataFileSave.length() > 0) {
+    try {
+        dataFile.writeDataFile(dataFileSave);
+        messages.add("Data File saved to: " + dataFileSave);
+    }
+    catch (Exception e) {
+        messages.add(e.getMessage());
+    }
+}
+
+if (dataFile != null && entityXmlFileSave != null && entityXmlFileSave.length() > 0) {
+    try {
+        //dataFile.writeDataFile(entityXmlFileSave);
+        DataFile2EntityXml.writeToEntityXml(entityXmlFileSave, dataFile);
+        messages.add("Entity File saved to: " + entityXmlFileSave);
+    }
+    catch (Exception e) {
+        messages.add(e.getMessage());
+    }
+}

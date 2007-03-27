@@ -17,80 +17,66 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.WebtoolsEntityDataMaintenance}</div>
-<div>&nbsp;</div>
-<#assign rowOneClass = 'viewOneTR1'>
-<#assign rowClass = 'viewManyTR1'>
-<table cellpadding='1' cellspacing='1' border='0'>
-    <tr>
-        <td valign="top">
-            <table cellpadding="2" cellspacing="0" border="1" width="100%" class="boxoutside">
-                <tr class='${rowOneClass}'>
-                    <td colspan='5' class="tableheadtext" style='FONT-SIZE: xx-small;'>${uiLabelMap.WebtoolsEntityName}</td>
-                </tr>
-                <#list entitiesList as entity>
-                    <tr class='${rowClass}'>
-                        <td>
-                            ${entity.entityName}
-                        </td>
-                        <#if entity.viewEntity == 'Y'>
-                            <#if entity.entityPermissionView == 'Y'>
-                                <td colspan='3' align="center"><div class='tabletext' style='FONT-SIZE: xx-small;'>${uiLabelMap.WebtoolsEntityView}</div></td>
-                                <td><a href='<@ofbizUrl>FindGeneric?entityName=${entity.entityName}&find=true&VIEW_SIZE=50&VIEW_INDEX=0</@ofbizUrl>' class="buttontext" style='FONT-SIZE: xx-small;'>${uiLabelMap.WebtoolsAll}</a></td>
-                            <#else>
-                                <td colspan='3' align="center"><div class='tabletext' style='FONT-SIZE: xx-small;'>${uiLabelMap.WebtoolsEntityView}</div></td>
-                        </#if>
-                        <#else>
-                            <#if entity.entityPermissionCreate == 'Y'>
-                                <td><a href='<@ofbizUrl>ViewGeneric?entityName=${entity.entityName}</@ofbizUrl>' class="buttontext" style='FONT-SIZE: xx-small;'>${uiLabelMap.WebtoolsCreate}</a></td>
-                            <#else>
-                                <td><div class='tabletext' style='FONT-SIZE: xx-small;'>${uiLabelMap.WebtoolsNotPresent}</div></td>
-                            </#if>
-                            <#if entity.entityPermissionView == 'Y'>
-                                <td><a href='<@ofbizUrl>ViewRelations?entityName=${entity.entityName}</@ofbizUrl>' class="buttontext" style='FONT-SIZE: xx-small;'>${uiLabelMap.WebtoolsReln}</a></td>
-                                <td><a href='<@ofbizUrl>FindGeneric?entityName=${entity.entityName}</@ofbizUrl>' class="buttontext" style='FONT-SIZE: xx-small;'>${uiLabelMap.WebtoolsFind}</a></td>
-                                <td><a href='<@ofbizUrl>FindGeneric?entityName=${entity.entityName}&find=true&VIEW_SIZE=50&VIEW_INDEX=0</@ofbizUrl>' class="buttontext" style='FONT-SIZE: xx-small;'>${uiLabelMap.WebtoolsAll}</a></td>
-                            <#else>
-                                <td><div class='tabletext' style='FONT-SIZE: xx-small;'>${uiLabelMap.WebtoolsNotPresent}</div></td>
-                                <td><div class='tabletext' style='FONT-SIZE: xx-small;'>${uiLabelMap.WebtoolsNotPresent}</div></td>
-                            </#if>
-                        </#if>
-                    </tr>
-                    <#if rowClass == 'viewManyTR1'>
-                        <#assign rowClass = 'viewManyTR2'>
-                    <#else>
-                        <#assign rowClass = 'viewManyTR1'>
-                    </#if>
-                    <#if entity.changeColumn == 'Y'>
-                        </table>
-                        </td>
-                        <td valign="top">
-                        <table cellpadding="2" cellspacing="0" border="1" width="100%" class="boxoutside">
-                            <tr class='${rowOneClass}'>
-                                <td colspan='5' class="tableheadtext" style='FONT-SIZE: xx-small;'>${uiLabelMap.WebtoolsEntityName}</td>
-                            </tr>
-                        <#assign rowClass = 'viewManyTR1'>
-                    </#if>
-                </#list>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>&nbsp;</td>
-    </tr>
-    <tr>
-        <td class="tableheadtext">${uiLabelMap.CommonNote} : </td>
-    </tr>
-    <tr>
-        <td class="tabletext">${uiLabelMap.WebtoolsCreate} :- ${uiLabelMap.CommonCreateNew}</td>
-    </tr>
-    <tr>
-        <td class="tabletext">${uiLabelMap.WebtoolsReln} :- ${uiLabelMap.WebtoolsViewRelations}</td>
-    </tr>
-    <tr>
-        <td class="tabletext">${uiLabelMap.WebtoolsFind} :- ${uiLabelMap.WebtoolsFindRecord}</td>
-    </tr>
-    <tr>
-        <td class="tabletext">${uiLabelMap.WebtoolsAll} :- ${uiLabelMap.WebtoolsFindAllRecords}</td>
-    </tr>   
+<h1>${uiLabelMap.WebtoolsEntityDataMaintenance}</h1>
+<br />
+<p><b>${uiLabelMap.CommonNote}:</b></p>
+<p>${uiLabelMap.WebtoolsCreate} :- ${uiLabelMap.CommonCreateNew}</p>
+<p>${uiLabelMap.WebtoolsReln} :- ${uiLabelMap.WebtoolsViewRelations}</p>
+<p>${uiLabelMap.WebtoolsFind} :- ${uiLabelMap.WebtoolsFindRecord}</p>
+<p>${uiLabelMap.WebtoolsAll} :- ${uiLabelMap.WebtoolsFindAllRecords}</p>
+<br />
+<#assign firstChar = "*">
+<#assign alt_row = false>
+<#assign right_col = false>
+<table class="basic-table light-grid hover-bar" cellspacing='0'>
+  <tr class="header-row">
+    <td>${uiLabelMap.WebtoolsEntityName}</td>
+    <td>&nbsp;</td>
+      <td>${uiLabelMap.WebtoolsEntityName}</td>
+      <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <#list entitiesList as entity>
+    <#if entity.entityName?substring(0, 1) != firstChar>
+      <#if right_col>
+        <td>&nbsp;</td><td>&nbsp;</td></tr>
+        <#assign right_col = false>
+      </#if>
+      <#if firstChar != "*">
+        <tr class="header-row"><td colspan="4">&nbsp;</td></tr>
+        <tr<#if alt_row> class="alternate-row"</#if>>
+      </#if>
+      <#assign firstChar = entity.entityName?substring(0, 1)>
+    </#if>
+    <td>${entity.entityName}<#if entity.viewEntity == 'Y'>&nbsp;(${uiLabelMap.WebtoolsEntityView})</#if></td>
+    <td class="button-col">
+      <#if entity.viewEntity == 'Y'>
+        <#if entity.entityPermissionView == 'Y'>
+          <a href='<@ofbizUrl>FindGeneric?entityName=${entity.entityName}&find=true&VIEW_SIZE=50&VIEW_INDEX=0</@ofbizUrl>'>${uiLabelMap.WebtoolsAll}</a>
+        </#if>
+      <#else>
+        <#if entity.entityPermissionCreate == 'Y'>
+          <a href='<@ofbizUrl>ViewGeneric?entityName=${entity.entityName}</@ofbizUrl>'>${uiLabelMap.WebtoolsCreate}</a>
+        </#if>
+        <#if entity.entityPermissionView == 'Y'>
+          <a href='<@ofbizUrl>ViewRelations?entityName=${entity.entityName}</@ofbizUrl>'>${uiLabelMap.WebtoolsReln}</a>
+          <a href='<@ofbizUrl>FindGeneric?entityName=${entity.entityName}</@ofbizUrl>'>${uiLabelMap.WebtoolsFind}</a>
+          <a href='<@ofbizUrl>FindGeneric?entityName=${entity.entityName}&find=true&VIEW_SIZE=50&VIEW_INDEX=0</@ofbizUrl>'>${uiLabelMap.WebtoolsAll}</a>
+        </#if>
+      </#if>
+    </td>
+    <#if right_col>
+      </tr>
+      <tr<#if alt_row> class="alternate-row"</#if>>
+      <#if alt_row>
+        <#assign alt_row = false>
+      <#else>
+        <#assign alt_row = true>
+      </#if>
+      <#assign right_col = false>
+    <#else>
+      <#assign right_col = true>
+    </#if>
+  </#list>
+  <#if !right_col></tr></#if>
 </table>
