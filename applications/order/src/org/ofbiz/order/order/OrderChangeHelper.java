@@ -192,6 +192,7 @@ public class OrderChangeHelper {
                         GenericValue orderItem = (GenericValue) oii.next();
                         String orderItemSeqId = orderItem.getString("orderItemSeqId");
                         GenericValue product = null;
+                        
                         try {
                             product = orderItem.getRelatedOne("Product");
                         } catch (GenericEntityException e) {
@@ -213,6 +214,16 @@ public class OrderChangeHelper {
                                     if (ModelService.RESPOND_ERROR.equals(digitalStatusChange.get(ModelService.RESPONSE_MESSAGE))) {
                                         Debug.logError("Problems with digital product status change : " + product, module);
                                     }
+                                }
+                            }
+                        } else {
+                            String orderItemType = orderItem.getString("orderItemTypeId");
+                            if (!"PRODUCT_ORDER_ITEM".equals(orderItemType)) {
+                                // non-product items don't ship; treat as a digital item
+                                Map digitalStatusFields = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "statusId", digitalItemStatus, "userLogin", userLogin);
+                                Map digitalStatusChange = dispatcher.runSync("changeOrderItemStatus", digitalStatusFields);
+                                if (ModelService.RESPOND_ERROR.equals(digitalStatusChange.get(ModelService.RESPONSE_MESSAGE))) {
+                                    Debug.logError("Problems with digital product status change : " + product, module);
                                 }
                             }
                         }

@@ -2637,9 +2637,11 @@ public class OrderServices {
             }
         }
 
-        // find any digital goods
-        Map digitalProducts = new HashMap();
+        // find any digital or non-product items
+        List nonProductItems = new ArrayList();
         List digitalItems = new ArrayList();
+        Map digitalProducts = new HashMap();
+
         if (orderItems != null && orderItems.size() > 0) {
             Iterator i = orderItems.iterator();
             while (i.hasNext()) {
@@ -2674,26 +2676,36 @@ public class OrderServices {
                             }
                         }
                     }
+                } else {
+                    String itemType = item.getString("orderItemTypeId");
+                    if (!"PRODUCT_ORDER_ITEM".equals(itemType)) {
+                        nonProductItems.add(item);
+                    }
                 }
             }
         }
 
         // now process the digital items
-        if (digitalItems.size() > 0) {
+        if (digitalItems.size() > 0 || nonProductItems.size() > 0) {
             GenericValue productStore = OrderReadHelper.getProductStoreFromOrder(dispatcher.getDelegator(), orderId);
             boolean invoiceItems = true;
             if (productStore != null && productStore.get("autoInvoiceDigitalItems") != null) {
                 invoiceItems = "Y".equalsIgnoreCase(productStore.getString("autoInvoiceDigitalItems"));
             }
 
+            // single list with all invoice items
+            List itemsToInvoice = FastList.newInstance();
+            itemsToInvoice.addAll(nonProductItems);
+            itemsToInvoice.addAll(digitalItems);
+
             if (invoiceItems) {
-                // invoice all APPROVED digital goods
-                
+                // invoice all APPROVED digital/non-product goods
+
                 // do something tricky here: run as a different user that can actually create an invoice, post transaction, etc
                 Map invoiceResult = null;
                 try {
                     GenericValue permUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
-                    Map invoiceContext = UtilMisc.toMap("orderId", orderId, "billItems", digitalItems, "userLogin", permUserLogin);
+                    Map invoiceContext = UtilMisc.toMap("orderId", orderId, "billItems", itemsToInvoice, "userLogin", permUserLogin);
                     invoiceResult = dispatcher.runSync("createInvoiceForOrder", invoiceContext);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "ERROR: Unable to invoice digital items", module);
@@ -2707,17 +2719,23 @@ public class OrderServices {
                 }
 
                 // update the status of digital goods to COMPLETED; leave physical/digital as APPROVED for pick/ship
-                Iterator dii = digitalItems.iterator();
+                Iterator dii = itemsToInvoice.iterator();
                 while (dii.hasNext()) {
                     GenericValue productType = null;
                     GenericValue item = (GenericValue) dii.next();
                     GenericValue product = (GenericValue) digitalProducts.get(item);
+                    boolean markComplete = false;
 
                     if (product != null) {
                         try {
                             productType = product.getRelatedOne("ProductType");
                         } catch (GenericEntityException e) {
                             Debug.logError(e, "ERROR: Unable to get ProductType from Product", module);
+                        }
+                    } else {
+                        String itemType = item.getString("orderItemTypeId");
+                        if (!"PRODUCT_ORDER_ITEM".equals(itemType)) {
+                            markComplete = true;
                         }
                     }
 
@@ -2726,18 +2744,22 @@ public class OrderServices {
                         String isDigital = productType.getString("isDigital");
 
                         // we were set as a digital good; one more check and change status
-                        if ((isDigital != null && "Y".equalsIgnoreCase(isDigital)) && (
-                                isPhysical == null || !"Y".equalsIgnoreCase(isPhysical))) {
-                            Map statusCtx = new HashMap();
-                            statusCtx.put("orderId", item.getString("orderId"));
-                            statusCtx.put("orderItemSeqId", item.getString("orderItemSeqId"));
-                            statusCtx.put("statusId", "ITEM_COMPLETED");
-                            statusCtx.put("userLogin", userLogin);
-                            try {
-                                dispatcher.runSyncIgnore("changeOrderItemStatus", statusCtx);
-                            } catch (GenericServiceException e) {
-                                Debug.logError(e, "ERROR: Problem setting the status to COMPLETED : " + item, module);
-                            }
+                        if ((isDigital != null && "Y".equalsIgnoreCase(isDigital)) &&
+                                (isPhysical == null || !"Y".equalsIgnoreCase(isPhysical))) {
+                            markComplete = true;
+                        }
+                    }
+
+                    if (markComplete) {
+                        Map statusCtx = new HashMap();
+                        statusCtx.put("orderId", item.getString("orderId"));
+                        statusCtx.put("orderItemSeqId", item.getString("orderItemSeqId"));
+                        statusCtx.put("statusId", "ITEM_COMPLETED");
+                        statusCtx.put("userLogin", userLogin);
+                        try {
+                            dispatcher.runSyncIgnore("changeOrderItemStatus", statusCtx);
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, "ERROR: Problem setting the status to COMPLETED : " + item, module);
                         }
                     }
                 }
@@ -4012,6 +4034,14 @@ public class OrderServices {
         // set the payment method
         cart.addPayment(paymentMethodId);
 
+        // store the order
+        CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
+        Map createResp = coh.createOrder(userLogin);
+        if (ServiceUtil.isError(createResp)) {
+            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createResp));
+        }
+
+        // process the payment
         Map procCtx = FastMap.newInstance();
         procCtx.put("shoppingCart", cart);
         procCtx.put("userLogin", userLogin);
