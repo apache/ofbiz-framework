@@ -105,12 +105,10 @@ under the License.
     </eca>
     
     <!-- financial account transaction ecas -->
-    <!--
     <eca service="finAccountWithdraw" event="return">
         <condition field-name="productStoreId" operator="is-not-empty"/>
         <action service="finAccountReplenish" mode="async" run-as-user="system"/>
-    </eca>
-    -->
+    </eca>    
     <eca service="finAccountWithdraw" event="commit">
         <action service="checkFinAccountStatus" mode="sync" run-as-user="system"/>
     </eca>
@@ -118,12 +116,15 @@ under the License.
         <action service="checkFinAccountStatus" mode="sync" run-as-user="system"/>
     </eca>
 
+    <!--
     <eca service="createFinAccountTrans" event="commit">
         <action service="postFinAccountTransToGl" mode="sync"/>
     </eca>
+    -->
 
+    <!-- financial account AUTH ecas -->
     <eca service="expireFinAccountAuth" event="commit">
-        <action service="checkFinAccountStatus" mode="sync"/>
+        <action service="checkFinAccountStatus" mode="sync" run-as-user="system"/>
     </eca>
         
     <!-- sample ECA rules for the sampleInvoiceAffiliateCommission service triggering

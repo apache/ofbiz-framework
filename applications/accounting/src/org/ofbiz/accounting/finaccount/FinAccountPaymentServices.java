@@ -57,15 +57,8 @@ public class FinAccountPaymentServices {
         String finAccountCode = (String) context.get("finAccountCode");
         String finAccountPin = (String) context.get("finAccountPin");
         String finAccountId = (String) context.get("finAccountId");
-
-        String currency = (String) context.get("currency");
         String orderId = (String) context.get("orderId");
         Double amount = (Double) context.get("processAmount");
-
-        // make sure we have a currency
-        if (currency == null) {
-            currency = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
-        }
 
         // check for an existing auth trans and cancel it
         GenericValue authTrans = PaymentGatewayServices.getAuthTransaction(paymentPref);
@@ -173,6 +166,7 @@ public class FinAccountPaymentServices {
                 // mark the account as frozen if we have gone negative
                 BigDecimal newBalance = FinAccountHelper.getAvailableBalance(finAccountId, delegator);
                 if (newBalance.compareTo(FinAccountHelper.ZERO) == -1) {
+                    Debug.logInfo("Financal account [" + finAccountId + "] now frozen: " + newBalance, module);
                     finAccount.set("isFrozen", "Y");
                     try {
                         finAccount.store();
@@ -312,6 +306,7 @@ public class FinAccountPaymentServices {
         withdrawCtx.put("currency", currency);
         withdrawCtx.put("partyId", partyId);
         withdrawCtx.put("amount", amount);
+        withdrawCtx.put("requireBalance", Boolean.FALSE); // for captures; if auth passed, allow
         withdrawCtx.put("userLogin", userLogin);
 
         // call the withdraw service
@@ -421,7 +416,9 @@ public class FinAccountPaymentServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productStoreId = (String) context.get("productStoreId");
         String finAccountId = (String) context.get("finAccountId");
+        Boolean requireBalance = (Boolean) context.get("requireBalance");
         Double amount = (Double) context.get("amount");
+        if (requireBalance == null) requireBalance = Boolean.TRUE;
 
         final String WITHDRAWAL = "WITHDRAWAL";
 
@@ -469,7 +466,11 @@ public class FinAccountPaymentServices {
         BigDecimal balance;
         String refNum;
         Boolean procResult;
-        if (previousBalance.doubleValue() >= amount.doubleValue()) {
+        if (requireBalance.booleanValue() && previousBalance.doubleValue() < amount.doubleValue()) {
+            procResult = Boolean.FALSE;
+            balance = previousBalance;
+            refNum = "N/A";
+        } else {
             try {
                 refNum = FinAccountPaymentServices.createFinAcctPaymentTransaction(delegator, dispatcher, userLogin, amount,
                         productStoreId, partyId, currencyUom, WITHDRAWAL, finAccountId);
@@ -479,10 +480,6 @@ public class FinAccountPaymentServices {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
             }
-        } else {
-            procResult = Boolean.FALSE;
-            balance = previousBalance;
-            refNum = "N/A";
         }
 
         Map result = ServiceUtil.returnSuccess();
@@ -601,6 +598,27 @@ public class FinAccountPaymentServices {
             return ServiceUtil.returnSuccess();
         }
 
+        // get the product store settings
+        GenericValue finAccountSettings;
+        try {
+            finAccountSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting",
+                    UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId",
+                            finAccount.getString("finAccountTypeId")));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        if (finAccountSettings == null) {
+            // no settings; don't replenish
+            return ServiceUtil.returnSuccess();
+        }
+
+        Double replThres = finAccountSettings.getDouble("replenishThreshold");
+        if (replThres == null) {
+            return ServiceUtil.returnSuccess();
+        }
+        BigDecimal replenishThreshold = new BigDecimal(replThres.doubleValue());
+
         BigDecimal replenishLevel = finAccount.getBigDecimal("replenishLevel");
         if (replenishLevel == null || replenishLevel.compareTo(FinAccountHelper.ZERO) == 0) {
             // no replenish level set; this account goes not support auto-replenish
@@ -616,30 +634,27 @@ public class FinAccountPaymentServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
+        // see if we are within the threshold for replenishment
+        if (balance.compareTo(replenishThreshold) > -1) {
+            // not ready
+            return ServiceUtil.returnSuccess();        
+        }
+
         // the deposit is level - balance (500 - (-10) = 510 || 500 - (10) = 490)
         BigDecimal depositAmount = replenishLevel.subtract(balance);
 
-        // find the owner party
-        List finAcctOwners;
-        try {
-            finAcctOwners = delegator.findByAnd("FinAccountRole", UtilMisc.toMap("finAccountId", finAccountId, "roleTypeId", "OWNER"), UtilMisc.toList("-fromDate"));
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
-        }
-        finAcctOwners = EntityUtil.filterByDate(finAcctOwners);
-        GenericValue finAccountOwner = EntityUtil.getFirst(finAcctOwners);
-        if (finAccountOwner == null) {
+        // get the owner party
+        String ownerPartyId = finAccount.getString("ownerPartyId");
+        if (ownerPartyId == null) {
             // no owner cannot replenish; (not fatal, just not supported by this account)
             Debug.logWarning("No owner attached to financial account [" + finAccountId + "] cannot auto-replenish", module);
             return ServiceUtil.returnSuccess();
         }
-        String partyId = finAccountOwner.getString("partyId");
 
         // determine the payment method to use to replenish
         List paymentMethods;
         try {
-            paymentMethods = delegator.findByAnd("PaymentMethod", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-fromDate"));
+            paymentMethods = delegator.findByAnd("PaymentMethod", UtilMisc.toMap("partyId", ownerPartyId), UtilMisc.toList("-fromDate"));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -648,7 +663,7 @@ public class FinAccountPaymentServices {
         GenericValue paymentMethod = EntityUtil.getFirst(paymentMethods);
         if (paymentMethod == null) {
             // no payment methods on file; cannot replenish
-            Debug.logWarning("No payment methods attached to party [" + partyId + "] cannot auto-replenish", module);
+            Debug.logWarning("No payment methods attached to party [" + ownerPartyId + "] cannot auto-replenish", module);
             return ServiceUtil.returnSuccess();
         }
 
@@ -662,12 +677,12 @@ public class FinAccountPaymentServices {
         }
 
         // hit the payment method for the amount to replenish
-        Map orderItemMap = UtilMisc.toMap("Auto-Replenishment", new Double(depositAmount.doubleValue()));
+        Map orderItemMap = UtilMisc.toMap("Auto-Replenishment FA #" + finAccountId, new Double(depositAmount.doubleValue()));
         Map replOrderCtx = FastMap.newInstance();
         replOrderCtx.put("productStoreId", productStoreId);
         replOrderCtx.put("paymentMethodId", paymentMethod.getString("paymentMethodId"));
         replOrderCtx.put("currency", currency);
-        replOrderCtx.put("partyId", partyId);
+        replOrderCtx.put("partyId", ownerPartyId);
         replOrderCtx.put("itemMap", orderItemMap);
         replOrderCtx.put("userLogin", userLogin);
         Map replResp;
@@ -686,7 +701,7 @@ public class FinAccountPaymentServices {
         depositCtx.put("productStoreId", productStoreId);
         depositCtx.put("finAccountId", finAccountId);
         depositCtx.put("currency", currency);
-        depositCtx.put("partyId", partyId);
+        depositCtx.put("partyId", ownerPartyId);
         depositCtx.put("amount",  new Double(depositAmount.doubleValue()));
         depositCtx.put("userLogin", userLogin);
         Map depositResp;

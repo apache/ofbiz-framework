@@ -136,6 +136,7 @@ under the License.
         <description>Deposit Funds into a Financial Account</description>
         <attribute name="finAccountId" type="String" mode="IN" optional="false"/>        
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
+        <attribute name="requireBalance" type="Boolean" mode="IN" optional="true"/> 
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="amount" type="Double" mode="INOUT" optional="false"/>
@@ -156,6 +157,7 @@ under the License.
         <attribute name="finAccountId" type="String" mode="IN" optional="false"/>
         <attribute name="availableBalance" type="Double" mode="OUT" optional="false"/>
         <attribute name="balance" type="Double" mode="OUT" optional="false"/>
+        <attribute name="isFrozen" type="Boolean" mode="OUT" optional="false"/> 
     </service>
     <service name="checkFinAccountStatus" engine="java"
             location="org.ofbiz.accounting.finaccount.FinAccountServices" invoke="checkFinAccountStatus" auth="true">
