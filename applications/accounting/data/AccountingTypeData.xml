@@ -65,14 +65,19 @@ under the License.
     <Enumeration description="Refund" enumCode="REFUND" enumId="PGT_REFUND" sequenceId="04" enumTypeId="PGT_CODE"/>
     <Enumeration description="Credit" enumCode="CREDIT" enumId="PGT_CREDIT" sequenceId="05" enumTypeId="PGT_CODE"/>
 
+    <EnumerationType description="Financial Account Replenish Type" enumTypeId="FARP_TYPE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Automatic Replenish" enumCode="AUTOMATIC" enumId="FARP_AUTOMATIC" sequenceId="01" enumTypeId="FARP_TYPE"/>
+    <Enumeration description="Manual Replenish" enumCode="MANUAL" enumId="FARP_MANUAL" sequenceId="02" enumTypeId="FARP_TYPE"/>
+    <Enumeration description="No Replenish" enumCode="NONE" enumId="FARP_NONE" sequenceId="03" enumTypeId="FARP_TYPE"/>
+    
     <FinAccountTransType description="Deposit" finAccountTransTypeId="DEPOSIT" hasTable="N" parentTypeId=""/>
     <FinAccountTransType description="Withdraw" finAccountTransTypeId="WITHDRAWAL" hasTable="N" parentTypeId=""/>
     <FinAccountTransType description="Adjustment" finAccountTransTypeId="ADJUSTMENT" hasTable="N" parentTypeId=""/>
 
-    <FinAccountType description="Gift Certificate" finAccountTypeId="GIFTCERT_ACCOUNT" hasTable="N" parentTypeId=""/>
-    <FinAccountType description="Deposit Account" finAccountTypeId="DEPOSIT_ACCOUNT" hasTable="N" parentTypeId=""/>
-    <FinAccountType description="Bank Account" finAccountTypeId="BANK_ACCOUNT" hasTable="N" parentTypeId="DEPOSIT_ACCOUNT"/>
-    <FinAccountType description="Investment Account" finAccountTypeId="INVESTMENT_ACCOUNT" hasTable="N" parentTypeId="DEPOSIT_ACCOUNT"/>
+    <FinAccountType description="Gift Certificate" finAccountTypeId="GIFTCERT_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" parentTypeId=""/>
+    <FinAccountType description="Deposit Account" finAccountTypeId="DEPOSIT_ACCOUNT" replenishEnumId="FARP_AUTOMATIC" hasTable="N" parentTypeId=""/>
+    <FinAccountType description="Bank Account" finAccountTypeId="BANK_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" parentTypeId="DEPOSIT_ACCOUNT"/>
+    <FinAccountType description="Investment Account" finAccountTypeId="INVESTMENT_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" parentTypeId="DEPOSIT_ACCOUNT"/>
     
     <FixedAssetType description="Equipment" fixedAssetTypeId="EQUIPMENT" hasTable="N" parentTypeId=""/>
     <FixedAssetType description="The fixed asset used in the operation-routing definition" fixedAssetTypeId="PRODUCTION_EQUIPMENT" hasTable="N" parentTypeId=""/>
@@ -414,6 +419,7 @@ under the License.
     <PaymentMethodType description="Gift Certificate" paymentMethodTypeId="GIFT_CERTIFICATE"/>
     <PaymentMethodType description="Cash" paymentMethodTypeId="CASH"/>
     <PaymentMethodType description="Electronic Funds Transfer" paymentMethodTypeId="EFT_ACCOUNT"/>
+    <PaymentMethodType description="Financial Account" paymentMethodTypeId="FIN_ACCOUNT"/>
     <PaymentMethodType description="Personal Check" paymentMethodTypeId="PERSONAL_CHECK"/>
     <PaymentMethodType description="Company Check" paymentMethodTypeId="COMPANY_CHECK"/>
     <PaymentMethodType description="Certified Check" paymentMethodTypeId="CERTIFIED_CHECK"/>
