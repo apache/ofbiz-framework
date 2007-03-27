@@ -3978,4 +3978,88 @@ public class OrderServices {
 
         return ServiceUtil.returnSuccess();
     }
+
+    // create simple non-product order
+    public static Map createSimpleNonProductSalesOrder(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+
+        String paymentMethodId = (String) context.get("paymentMethodId");
+        String productStoreId = (String) context.get("productStoreId");        
+        String currency = (String) context.get("currency");
+        String partyId = (String) context.get("partyId");
+        Map itemMap = (Map) context.get("itemMap");
+
+        ShoppingCart cart = new ShoppingCart(delegator, productStoreId, null, locale, currency);
+        cart.setOrderType("SALES_ORDER");
+        cart.setOrderPartyId(partyId);
+
+        Iterator i = itemMap.keySet().iterator();
+        while (i.hasNext()) {
+            String item = (String) i.next();
+            Double price = (Double) itemMap.get(item);
+            try {
+                cart.addNonProductItem("BULK_ORDER_ITEM", item, null, price, 1, null, null, null, dispatcher);
+            } catch (CartItemModifyException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError(e.getMessage());
+            }
+        }
+
+        // set the payment method
+        cart.addPayment(paymentMethodId);
+
+        Map procCtx = FastMap.newInstance();
+        procCtx.put("shoppingCart", cart);
+        procCtx.put("userLogin", userLogin);
+        Map procResp;
+        try {
+            procResp = dispatcher.runSync("callProcessOrderPayments", procCtx);
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        if (ServiceUtil.isError(procResp)) {
+            return procResp;
+        }
+        
+        Map result = ServiceUtil.returnSuccess();
+        //result.put("shoppingCart", cart);
+        return result;
+    }
+
+    // generic method for processing an order's payment(s)
+    public static Map callProcessOrderPayments(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
+        Boolean manualHold = (Boolean) context.get("manualHold");
+        if (manualHold == null) {
+            manualHold = Boolean.FALSE;
+        }
+
+        String productStoreId = cart.getProductStoreId();
+        
+        GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
+        CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
+
+        // process payment
+        Map payResp;
+        try {
+            payResp = coh.processPayment(productStore, userLogin, false, manualHold.booleanValue());
+        } catch (GeneralException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        if (ServiceUtil.isError(payResp)) {
+            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(payResp));
+        }
+
+        return ServiceUtil.returnSuccess();
+    }
 }

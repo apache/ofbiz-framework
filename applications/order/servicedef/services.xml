@@ -140,7 +140,22 @@ under the License.
         <attribute name="orderId" type="String" mode="OUT" optional="false"/>
         <attribute name="statusId" type="String" mode="OUT" optional="false"/>
     </service>
+    
+    <service name="callProcessOrderPayments" engine="java"
+            location="org.ofbiz.order.order.OrderServices" invoke="callProcessOrderPayments" auth="true">
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="manualHold" type="Boolean" mode="IN" optional="true"/>
+    </service>
 
+    <service name="createSimpleNonProductSalesOrder" engine="java"
+            location="org.ofbiz.order.order.OrderServices" invoke="createSimpleNonProductSalesOrder" auth="true">
+        <attribute name="paymentMethodId" type="String" mode="IN" optional="false"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="currency" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="itemMap" type="Map" mode="IN" optional="false"/>         
+    </service>
+    
     <service name="createOrderItemBilling" engine="simple"
     	    location="org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="createOrderItemBilling">
         <description>Create a new order item billing record</description>
