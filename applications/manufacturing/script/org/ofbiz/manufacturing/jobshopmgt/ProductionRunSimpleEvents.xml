@@ -76,43 +76,6 @@ under the License.
     <!-- ProductionRun edition, actions events -->
     <simple-method method-name="actionEditProductionRun" short-description="Run services, depending of action parameters ">
         <log level="info" message="debut parameters = ${parameters}"/>
-        <if-compare value="updateProductionRun" field-name="actionForm" map-name="parameters"  operator="equals">
-            <call-map-processor in-map-name="parameters" out-map-name="context">
-                <simple-map-processor name="prepareUpdatePRun">
-                    <process field="productionRunId">
-                        <copy/>
-                    </process>
-                    <process field="quantity">
-                        <copy/>
-                        <convert type="Double">
-                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
-                        </convert>
-                    </process>
-                    <process field="estimatedStartDate">
-                        <copy/>
-                        <not-empty>
-                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunStartDateMissing"/>
-                        </not-empty>
-                        <convert type="Timestamp">
-                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunStartDateNotCorrect"/>
-                        </convert>
-                    </process>
-                    <process field="workEffortName">
-                        <copy/>
-                    </process>
-                    <process field="description">
-                        <copy/>
-                    </process>
-                    <process field="facilityId">
-                        <copy/>
-                    </process>
-                </simple-map-processor>
-            </call-map-processor>
-            <check-errors/>
-            <call-service service-name="updateProductionRun" in-map-name="context">
-            </call-service>
-            <log level="info" message="parameters = ${parameters}"/>
-        </if-compare>
         <if-compare value="UpdateRoutingTask" field-name="actionForm" map-name="parameters"  operator="equals">
             <call-map-processor in-map-name="parameters" out-map-name="context">
                 <simple-map-processor name="prCheckUpdatePrunRoutingTask">
@@ -194,7 +157,7 @@ under the License.
             </call-service>
             <log level="info" message="parameters = ${parameters}"/>
         </if-compare>
-        
+<!--        
         <if-compare value="addProductComponent" field-name="actionForm" map-name="parameters"  operator="equals">
             <call-map-processor in-map-name="parameters" out-map-name="context">
                 <simple-map-processor name="prepareAddProductComponent">
@@ -245,7 +208,7 @@ under the License.
             </call-service>
             <log level="info" message="parameters = ${parameters}"/>
         </if-compare>
-        
+-->
         <if-compare value="addRoutingTask" field-name="actionForm" map-name="parameters"  operator="equals">
             <call-map-processor in-map-name="parameters" out-map-name="context">
                 <simple-map-processor name="prepareAddRoutingTask">
@@ -304,7 +267,7 @@ under the License.
             </call-service>
             <log level="info" message="parameters = ${parameters}"/>
         </if-compare>
-        
+<!--
         <if-compare value="addFixedAsset" field-name="actionForm" map-name="parameters" operator="equals">
             <call-map-processor in-map-name="parameters" out-map-name="context">
                 <simple-map-processor name="prepareAddFixedAsset">
@@ -400,7 +363,7 @@ under the License.
             <check-errors />
             <call-service service-name="updateWorkEffortFixedAssetAssign" in-map-name="context" />
         </if-compare>
-
+-->
     </simple-method>
     <!-- This method calls the removeWorkEffortFixedAssetAssign service and returns a response according to the 
         production run status, so that we can show the appropriate screen (EditProductionRun or 

@@ -31,8 +31,6 @@ import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 
 delegator = request.getAttribute("delegator");
 
-HashMap productionRunData= new HashMap();
-
 productionRunId = parameters.get("productionRunId");
 if (!UtilValidate.isEmpty(productionRunId)) {
     ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
@@ -40,6 +38,19 @@ if (!UtilValidate.isEmpty(productionRunId)) {
         productionRunId = productionRun.getGenericValue().getString("workEffortId");
         context.put("productionRunId", productionRunId);
         context.put("productionRun", productionRun.getGenericValue());
+        // Prepare production run header data
+        HashMap productionRunData = new HashMap();
+        productionRunData.put("productionRunId", productionRunId);
+        productionRunData.put("productId", productionRun.getProductProduced().getString("productId"));
+        productionRunData.put("currentStatusId", productionRun.getGenericValue().getString("currentStatusId"));
+        productionRunData.put("facilityId", productionRun.getGenericValue().getString("facilityId"));
+        productionRunData.put("workEffortName", productionRun.getProductionRunName());
+        productionRunData.put("description", productionRun.getDescription());
+        productionRunData.put("quantity", productionRun.getQuantity());
+        productionRunData.put("estimatedStartDate",productionRun.getEstimatedStartDate());
+        productionRunData.put("estimatedCompletionDate",productionRun.getEstimatedCompletionDate());
+        context.put("productionRunData", productionRunData);
+
         // Find all the order items to which this production run is linked.
         List orderItems = delegator.findByAnd("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunId));
         if (orderItems.size() > 0) {
@@ -57,58 +68,30 @@ if (!UtilValidate.isEmpty(productionRunId)) {
             context.put("dependentWorkEfforts", dependentWorkEfforts);
         }
 
-        // productionRun update sub-screen
-        HtmlFormWrapper updateProductionRunWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "UpdateProductionRun", request, response);
-        updateProductionRunWrapper.putInContext("productionRunData", productionRunData);
-        updateProductionRunWrapper.putInContext("actionForm", "updateProductionRun");
-        updateProductionRunWrapper.setUseRequestParameters(false);
-        context.put("updateProductionRunWrapper",updateProductionRunWrapper);
+        //  RoutingTasks list
+        List productionRunRoutingTasks = productionRun.getProductionRunRoutingTasks();
+        context.put("productionRunRoutingTasks", productionRunRoutingTasks);
 
-        productionRunData.put("productionRunId",productionRunId);
-        productionRunData.put("productId",productionRun.getProductProduced().getString("productId"));
-        productionRunData.put("productName",productionRun.getProductProduced().getString("internalName"));
-        productionRunData.put("facilityId",productionRun.getGenericValue().getString("facilityId"));
+        //  Product component/parts list
+        List productionRunComponentsData = productionRun.getProductionRunComponents();
+        context.put("productionRunComponents", productionRunComponentsData);
+
+        // Fixed assets list
+        List productionRunFixedAssetsData = new LinkedList();
+        for (Iterator tasksIt = productionRunRoutingTasks.iterator(); tasksIt.hasNext();) {
+            GenericValue prodRunTask = (GenericValue)tasksIt.next();
+            List taskFixedAssets = prodRunTask.getRelated("WorkEffortFixedAssetAssign");
+            productionRunFixedAssetsData.addAll(taskFixedAssets);
+        }
+        context.put("productionRunFixedAssetsData", productionRunFixedAssetsData);
+
+
+
         actionForm = request.getParameter("actionForm");
         if (UtilValidate.isEmpty(actionForm)) {
             actionForm = "beforeActionProductionRun";
         }
         context.put("actionForm",actionForm);
-        String quantity, estimatedStartDate, estimatedCompletionDate, workEffortName, description, facilityId;
-        if (actionForm.equals("updateProductionRun")){
-            quantity = request.getParameter("quantity");
-            estimatedStartDate = request.getParameter("estimatedStartDate");
-            workEffortName = request.getParameter("workEffortName");
-            description = request.getParameter("description");
-            facilityId = request.getParameter("facilityId");
-        }
-        if (facilityId != null) {
-            productionRunData.put("facilityId", facilityId);
-        }
-        if (quantity != null) {
-            productionRunData.put("quantity", quantity);
-        } else {
-            productionRunData.put("quantity", productionRun.getQuantity());
-        }
-
-        if (estimatedStartDate != null) {
-            productionRunData.put("estimatedStartDate",estimatedStartDate);
-        } else {
-            productionRunData.put("estimatedStartDate",productionRun.getEstimatedStartDate());
-        }
-        productionRunData.put("estimatedCompletionDate",productionRun.getEstimatedCompletionDate());
-
-        if (workEffortName != null) {
-            productionRunData.put("workEffortName", workEffortName);
-        } else {
-            productionRunData.put("workEffortName", productionRun.getProductionRunName());
-        }
-
-        if (description != null) {
-            productionRunData.put("description",description);
-        } else {
-            productionRunData.put("description",productionRun.getDescription());
-        }
-
         //---------------
         // Routing tasks
         //---------------
@@ -141,32 +124,5 @@ if (!UtilValidate.isEmpty(productionRunId)) {
             context.put("editPrRoutingTaskWrapper",editPrRoutingTaskWrapper);
             context.put("routingTaskId",routingTaskId);
         }
-        //  RoutingTasks list
-        List productionRunRoutingTasks = productionRun.getProductionRunRoutingTasks();
-        context.put("productionRunRoutingTasks", productionRunRoutingTasks);
-
-        //  Product component/parts list
-        List productionRunComponentsData = productionRun.getProductionRunComponents();
-        context.put("productionRunComponents", productionRunComponentsData);
-
-        // Fixed assets list
-        List productionRunFixedAssetsData = new LinkedList();
-        for (Iterator tasksIt = productionRunRoutingTasks.iterator(); tasksIt.hasNext();) {
-            GenericValue prodRunTask = (GenericValue)tasksIt.next();
-            List taskFixedAssets = prodRunTask.getRelated("WorkEffortFixedAssetAssign");
-            productionRunFixedAssetsData.addAll(taskFixedAssets);
-        }
-        context.put("productionRunFixedAssetsData", productionRunFixedAssetsData);
     }
-}
-
-List msgResult = new LinkedList();
-msgResult = request.getParameter("msgResult");
-if (msgResult == null) msgResult = request.getAttribute("msgResult");
-context.put("msgResult", msgResult);
-
-tryEntity = true;
-errorMessage = request.getAttribute("_ERROR_MESSAGE_");
-if (errorMessage != null && errorMessage.length() > 0) {
-    tryEntity = false;    
 }

@@ -88,9 +88,24 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator">
                     <decorator-section name="body">
+                        <container>
+                            <link target="quickChangeProductionRunStatus?productionRunId=${productionRunId}&amp;statusId=PRUN_SCHEDULED" text="${uiLabelMap.ManufacturingSchedule}" style="buttontext"/>
+                            <link target="changeProductionRunStatusToPrinted?productionRunId=${productionRunId}" text="${uiLabelMap.ManufacturingConfirmProductionRun}" style="buttontext"/>
+                            <link target="quickChangeProductionRunStatus?productionRunId=${productionRunId}&amp;statusId=PRUN_COMPLETED" text="${uiLabelMap.ManufacturingQuickComplete}" style="buttontext"/>
+                            <link target="quickChangeProductionRunStatus?productionRunId=${productionRunId}&amp;statusId=PRUN_CLOSED" text="${uiLabelMap.ManufacturingQuickClose}" style="buttontext"/>
+                            <link target="cancelProductionRun?productionRunId=${productionRunId}" text="${uiLabelMap.ManufacturingCancel}" style="buttontext"/>
+                        </container>
+                        <container>
+                            <label style="head2">${uiLabelMap.ManufacturingProductionRunId}: ${productionRunId}</label>
+                        </container>
+                        <include-form name="UpdateProductionRun" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
                         <platform-specific>
                             <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/EditProductionRun.ftl"/></html>
                         </platform-specific>
+                        <container>
+                            <label style="head2">${uiLabelMap.ManufacturingOrderItems}</label>
+                        </container>
+                        <include-form name="ListProductionRunOrderItems" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
                         <container>
                             <label style="head2">${uiLabelMap.ManufacturingListOfProductionRunRoutingTasks}</label>
                         </container>
@@ -129,7 +144,49 @@ under the License.
                     <decorator-section name="body">
                         <container>
                             <link target="PrintProductionRun?productionRunId=${productionRunId}" text="${uiLabelMap.ManufacturingPrintProductionRun}" style="buttontext"/>
+                            <section>
+                                <condition>
+                                    <if-compare field-name="productionRun.currentStatusId" operator="equals" value="PRUN_COMPLETED"/>
+                                </condition>
+                                <widgets>
+                                    <link target="changeProductionRunStatusToClosed?productionRunId=${productionRunId}" text="${uiLabelMap.ManufacturingProductionRunClose}" style="buttontext"/>
+                                </widgets>
+                            </section>
+                            <section>
+                                <condition>
+                                    <and>
+                                        <if-compare field-name="productionRun.currentStatusId" operator="not-equals" value="PRUN_CANCELLED"/>
+                                        <if-compare field-name="productionRun.currentStatusId" operator="not-equals" value="PRUN_COMPLETED"/>
+                                        <if-compare field-name="productionRun.currentStatusId" operator="not-equals" value="PRUN_CLOSED"/>
+                                    </and>
+                                </condition>
+                                <widgets>
+                                    <link target="quickChangeProductionRunStatus?productionRunId=${productionRunId}&amp;statusId=PRUN_COMPLETED" text="${uiLabelMap.ManufacturingQuickComplete}" style="buttontext"/>
+                                    <link target="quickChangeProductionRunStatus?productionRunId=${productionRunId}&amp;statusId=PRUN_CLOSED" text="${uiLabelMap.ManufacturingQuickClose}" style="buttontext"/>
+                                    <link target="cancelProductionRun?productionRunId=${productionRunId}" text="${uiLabelMap.ManufacturingCancel}" style="buttontext"/>
+                                </widgets>
+                            </section>
                         </container>
+                        <container>
+                            <label style="head2">${uiLabelMap.ManufacturingProductionRunId}: ${productionRunId}</label>
+                        </container>
+                        <include-form name="ShowProductionRun" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                        <section>
+                            <condition>
+                                <if-compare field-name="canProduce" operator="equals" value="Y"/>
+                            </condition>
+                            <widgets>
+                                <include-form name="ProductionRunProduce" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                            </widgets>
+                        </section>
+                        <container>
+                            <label style="head2">${uiLabelMap.ManufacturingInventoryItemsProduced}</label>
+                        </container>
+                        <include-form name="ListProductionRunInventoryItems" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                        <container>
+                            <label style="head2">${uiLabelMap.ManufacturingOrderItems}</label>
+                        </container>
+                        <include-form name="ListProductionRunOrderItems" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
                         <platform-specific>
                             <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunDeclaration.ftl"/></html>
                         </platform-specific>
