@@ -142,14 +142,13 @@ public class CatalinaContainer implements Container {
     protected boolean distribute = false;
 
     protected boolean enableDefaultMimeTypes = true;
+    
+    protected String catalinaRuntimeHome;
 
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
     public void init(String[] args, String configFile) throws ContainerException {
-        // set catalina_home
-        System.setProperty("catalina.home", System.getProperty("ofbiz.home") + "/framework/catalina");
-
         // get the container config
         ContainerConfig.Container cc = ContainerConfig.getContainer("catalina-container", configFile);
         if (cc == null) {
@@ -165,6 +164,11 @@ public class CatalinaContainer implements Container {
         this.contextReloadable = ContainerConfig.getPropertyValue(cc, "apps-context-reloadable", false);
         this.crossContext = ContainerConfig.getPropertyValue(cc, "apps-cross-context", true);
         this.distribute = ContainerConfig.getPropertyValue(cc, "apps-distributable", true);
+        
+        this.catalinaRuntimeHome = ContainerConfig.getPropertyValue(cc, "catalina-runtime-home", "runtime/catalina");
+
+        // set catalina_home
+        System.setProperty("catalina.home", System.getProperty("ofbiz.home") + "/" + this.catalinaRuntimeHome);
 
         // configure JNDI in the StandardServer
         StandardServer server = (StandardServer) ServerFactory.getServer();
@@ -258,7 +262,7 @@ public class CatalinaContainer implements Container {
         }
 
         // create the default realm -- TODO: make this configurable
-        String dbConfigPath = "config/catalina-users.xml";
+        String dbConfigPath = "catalina-users.xml";
         MemoryRealm realm = new MemoryRealm();
         realm.setPathname(dbConfigPath);
         engine.setRealm(realm);
