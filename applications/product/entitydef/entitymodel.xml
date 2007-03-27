@@ -3241,7 +3241,7 @@ under the License.
     <entity entity-name="ProductStoreFinActSetting"
                 package-name="org.ofbiz.product.store"
                 title="Allows financial account, such as gift certificate or calling cards, to be configured at store level">
-      <field type="id-ne" name="productStoreId"/>
+      <field name="productStoreId" type="id-ne"/>
       <field name="finAccountTypeId" type="id-ne"/>
       <field name="requirePinCode" type="indicator"/>
       <field name="validateGCFinAcct" type="indicator">
@@ -3269,6 +3269,8 @@ under the License.
       <field name="purchSurveyCopyMe" type="id">
         <description>Whether the BCC on ProductStoreEmailSetting should be copied for email notifications</description>
       </field>
+      <field name="allowAuthToNegative" type="indicator"></field>
+      <field name="replenishThreshold" type="currency-amount"></field> 
       <prim-key field="productStoreId"/>
       <prim-key field="finAccountTypeId"/>
       <relation rel-entity-name="ProductStore" type="one" fk-name="PRSTFNAC_PRDS">
