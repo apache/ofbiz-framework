@@ -506,8 +506,8 @@ under the License.
         <relation type="one" fk-name="FINACCT_TYPE_PAR" title="Parent" rel-entity-name="FinAccountType">
             <key-map field-name="parentTypeId" rel-field-name="finAccountTypeId"/>
         </relation>
-        <relation type="one" fk-name="FINACCT_TYPE_RENUM" rel-entity-name="Enumeration">
-          <key-map field-name="depositEnumId" rel-field-name="enumId"/>
+        <relation type="one" fk-name="FINACCT_TYPE_RENUM" title="Replenish" rel-entity-name="Enumeration">
+            <key-map field-name="replenishEnumId" rel-field-name="enumId"/>
         </relation>
     </entity>
     <entity entity-name="FinAccountTypeAttr" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Type Attribute Entity">
