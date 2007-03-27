@@ -39,6 +39,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Locale;
+import java.util.Iterator;
 
 import javolution.util.FastMap;
 
@@ -150,12 +152,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
             String serviceName = xmlRpcReq.getMethodName();
 
             // prepare the context -- single parameter type struct (map)
-            Map context;
-            if (xmlRpcReq.getParameterCount() == 0) {
-                context = FastMap.newInstance();
-            } else {
-                context = (Map) xmlRpcReq.getParameter(0);
-            }
+            Map context = this.getContext(xmlRpcReq, serviceName);            
 
             // add in auth parameters
             XmlRpcHttpRequestConfig config = (XmlRpcHttpRequestConfig) xmlRpcReq.getConfig();
@@ -165,6 +162,9 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                 context.put("login.username", username);
                 context.put("login.password", password);
             }
+
+            // add the locale to the context
+            context.put("locale", Locale.getDefault());
 
             // invoke the service
             Map resp;
@@ -178,6 +178,53 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
             }
 
             return resp;
+        }
+
+        protected Map getContext(XmlRpcRequest xmlRpcReq, String serviceName) throws XmlRpcException {
+            ModelService model;
+            try {
+                model = dispatcher.getDispatchContext().getModelService(serviceName);
+            } catch (GenericServiceException e) {
+                throw new XmlRpcException(e.getMessage(), e);
+            }
+
+            // context placeholder
+            Map context = FastMap.newInstance();
+
+            if (model != null) {
+                int parameterCount = xmlRpcReq.getParameterCount();
+
+                // more than one parameter; use list notation based on service def order
+                if (parameterCount > 1) {
+                    int x = 0;
+                    Iterator i = model.getInParamNames().iterator();
+                    while (i.hasNext()) {
+                        String name = (String) i.next();
+                        context.put(name, xmlRpcReq.getParameter(x));
+                        x++;
+
+                        if (x == parameterCount) {
+                            break;
+                        }
+                    }
+
+                // only one parameter; if its a map use it as the context; otherwise make sure the service takes one param
+                } else if (parameterCount == 1) {
+                    Object param = xmlRpcReq.getParameter(0);
+                    if (param instanceof Map) {
+                        context = (Map) param;
+                    } else {
+                        if (model.getDefinedInCount() == 1) {
+                            String paramName = (String) model.getInParamNames().iterator().next();
+                            context.put(paramName, xmlRpcReq.getParameter(0));
+                        } else {
+                            throw new XmlRpcException("More than one parameter defined on service; cannot call via RPC with parameter list");
+                        }
+                    }
+                }
+            }
+
+            return context;
         }
     }
 
