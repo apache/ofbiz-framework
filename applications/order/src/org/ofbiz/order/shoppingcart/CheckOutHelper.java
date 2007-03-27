@@ -286,6 +286,17 @@ public class CheckOutHelper {
             Iterator i = paymentMethods.iterator();
             while (i.hasNext()) {
                 String checkOutPaymentId = (String) i.next();
+                String finAccountId = null;
+
+                if (checkOutPaymentId.indexOf("|") > -1) {
+                    // split type -- ID|Actual
+                    String[] splitStr = checkOutPaymentId.split("\\|");
+                    checkOutPaymentId = splitStr[0];
+                    if ("FIN_ACCOUNT".equals(checkOutPaymentId)) {
+                        finAccountId = splitStr[1];
+                    }
+                    Debug.log("Split checkOutPaymentId: " + splitStr[0] + " / " + splitStr[1], module);
+                }
 
                 // get the selected amount to use
                 Double paymentAmount = null;
@@ -294,7 +305,10 @@ public class CheckOutHelper {
                 }
 
                 boolean singleUse = singleUsePayments.contains(checkOutPaymentId);
-                cart.addPaymentAmount(checkOutPaymentId, paymentAmount, singleUse);
+                ShoppingCart.CartPaymentInfo inf = cart.addPaymentAmount(checkOutPaymentId, paymentAmount, singleUse);
+                if (finAccountId != null) {
+                    inf.finAccountId = finAccountId;
+                }
             }
         } else if (cart.getGrandTotal() != 0.00) {
             // only return an error if the order total is not 0.00

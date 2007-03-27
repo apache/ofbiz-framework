@@ -569,16 +569,11 @@ public class PaymentGatewayServices {
     private static GenericValue getPaymentSettings(GenericValue orderHeader, GenericValue paymentPreference, String paymentServiceType, boolean anyServiceType) {
         GenericDelegator delegator = orderHeader.getDelegator();
         GenericValue paymentSettings = null;
-        GenericValue paymentMethod = null;
-        try {
-            paymentMethod = paymentPreference.getRelatedOne("PaymentMethod");
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Problem getting PaymentMethod from OrderPaymentPreference", module);
-        }
-        if (paymentMethod != null) {
+        String paymentMethodTypeId = paymentPreference.getString("paymentMethodTypeId");
+
+        if (paymentMethodTypeId != null) {
             String productStoreId = orderHeader.getString("productStoreId");
-            String paymentMethodTypeId = paymentMethod.getString("paymentMethodTypeId");
-            if (productStoreId != null && paymentMethodTypeId != null) {
+            if (productStoreId != null) {
                 paymentSettings = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStoreId, paymentMethodTypeId, paymentServiceType, anyServiceType);
             }
         }
@@ -607,23 +602,26 @@ public class PaymentGatewayServices {
 
     private static String getBillingInformation(OrderReadHelper orh, GenericValue paymentPreference, Map toContext) throws GenericEntityException {
         // gather the payment related objects.
+        String paymentMethodTypeId = paymentPreference.getString("paymentMethodTypeId");
         GenericValue paymentMethod = paymentPreference.getRelatedOne("PaymentMethod");
-        if (paymentMethod != null && paymentMethod.getString("paymentMethodTypeId").equals("CREDIT_CARD")) {
+        if (paymentMethod != null && "CREDIT_CARD".equals(paymentMethodTypeId)) {
             // type credit card
             GenericValue creditCard = paymentMethod.getRelatedOne("CreditCard");
             GenericValue billingAddress = creditCard.getRelatedOne("PostalAddress");
             toContext.put("creditCard", creditCard);
             toContext.put("billingAddress", billingAddress);
-        } else if (paymentMethod != null && paymentMethod.getString("paymentMethodTypeId").equals("EFT_ACCOUNT")) {
+        } else if (paymentMethod != null && "EFT_ACCOUNT".equals(paymentMethodTypeId)) {
             // type eft
             GenericValue eftAccount = paymentMethod.getRelatedOne("EftAccount");
             GenericValue billingAddress = eftAccount.getRelatedOne("PostalAddress");
             toContext.put("eftAccount", eftAccount);
             toContext.put("billingAddress", billingAddress);
-        } else if (paymentMethod != null && paymentMethod.getString("paymentMethodTypeId").equals("GIFT_CARD")) {
+        } else if (paymentMethod != null && "GIFT_CARD".equals(paymentMethodTypeId)) {
             // type gift card
             GenericValue giftCard = paymentMethod.getRelatedOne("GiftCard");
             toContext.put("giftCard", giftCard);
+        } else if ("FIN_ACCOUNT".equals(paymentMethodTypeId)) {
+            toContext.put("finAccountId", paymentPreference.getString("finAccountId"));
         } else {
             // add other payment types here; i.e. gift cards, etc.
             // unknown payment type; ignoring.
@@ -668,6 +666,7 @@ public class PaymentGatewayServices {
             List othExpr = UtilMisc.toList(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "EFT_ACCOUNT"));
             othExpr.add(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "CREDIT_CARD"));
             othExpr.add(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "GIFT_CARD"));
+            othExpr.add(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "FIN_ACCOUNT"));
             EntityCondition con1 = new EntityConditionList(othExpr, EntityJoinOperator.OR);
 
             EntityCondition statExpr = new EntityExpr("statusId", EntityOperator.EQUALS, "PAYMENT_SETTLED");
