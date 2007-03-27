@@ -25,6 +25,7 @@ under the License.
     <!-- create PartyRole -->
     <simple-method method-name="createPartyRole" short-description="Create Party Role">
         <check-permission permission="PARTYMGR" action="_CREATE">
+            <accept-userlogin-party/>
             <fail-property resource="PartyUiLabels" property="PartyCreatePartyRolePermissionError"/>
         </check-permission>
         <check-errors/>
@@ -40,7 +41,10 @@ under the License.
     </simple-method>
 
     <simple-method method-name="deletePartyRole" short-description="Delete a  PartyRole">
-        <check-permission permission="PARTYMGR" action="_DELETE"><fail-property resource="PartyUiLabels" property="PartyDeletePartyRolePermissionError"/></check-permission>
+        <check-permission permission="PARTYMGR" action="_DELETE">
+            <accept-userlogin-party/>
+            <fail-property resource="PartyUiLabels" property="PartyDeletePartyRolePermissionError"/>
+        </check-permission>
         <check-errors/>
         <entity-one entity-name="PartyRole" value-name="partyRole"/>
         <remove-value value-name="partyRole"/>
