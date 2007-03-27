@@ -45,10 +45,11 @@ under the License.
     </target>
 
     <target name="dir-init" depends="ofbiz-init">
-        <mkdir dir="logs"/>
-        <mkdir dir="data"/>
-        <mkdir dir="data/derby"/>
-        <mkdir dir="data/hsql"/>
+        <mkdir dir="../runtime"/>
+        <mkdir dir="../runtime/logs"/>
+        <mkdir dir="../runtime/data"/>
+        <mkdir dir="../runtime/data/derby"/>
+        <mkdir dir="../runtime/data/hsql"/>
 
         <condition property="isMac">
             <os family="mac"/>
@@ -57,7 +58,7 @@ under the License.
     </target>
 
     <target name="copy-derby-props" if="isMac">
-        <copy file="data/derby.properties" todir="data/derby"/>
+        <copy file="../runtime/data/derby.properties" todir="../runtime/data/derby"/>
     </target>
 
     <!-- ================================================================== -->
@@ -79,7 +80,7 @@ under the License.
 
     <target name="clean-data">
         <delete verbose="on" includeemptydirs="true">
-            <fileset dir="data" includes="**/*">
+            <fileset dir="../runtime/data" includes="**/*">
                 <exclude name="README"/>
                 <exclude name="derby.properties"/>
             </fileset>
@@ -88,7 +89,7 @@ under the License.
 
     <target name="clean-logs">
         <delete verbose="on">
-            <fileset dir="logs" includes="*">
+            <fileset dir="../runtime/logs" includes="*">
                 <exclude name="README"/>
             </fileset>
         </delete>
@@ -126,8 +127,8 @@ under the License.
         <echo message="[build] ========== Start Building Framework (Compile) =========="/>
 
         <!-- make sure the data and logs directories exist (they should exist, because they are in svn) -->
-        <mkdir dir="data"/>
-        <mkdir dir="logs"/>
+        <mkdir dir="../runtime/data"/>
+        <mkdir dir="../runtime/logs"/>
 
         <subant inheritall="false">
             <filelist refid="framework-builds"/>
