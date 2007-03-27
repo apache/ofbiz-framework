@@ -26,6 +26,8 @@ under the License.
         <!-- NOTE: this is not yet complete -->
         <!-- NOTE: this will behave differently depending on how the FinAccount is used, see comments on different GlAccounts for trans entries below -->
         
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        
         <entity-one entity-name="FinAccountTrans" value-name="finAccountTrans"/>
         <set field="finAccountId" from-field="finAccountTrans.finAccountId"/>
         <entity-one entity-name="FinAccount" value-name="finAccount"/>
@@ -47,21 +49,94 @@ under the License.
             </else>
         </if-not-empty>
 
-        <!-- Make sure we have the organizationPartyId and the glAccountId -->
-        <if-empty field-name="glAccountId">
-            <add-error><fail-message message="Cannot post FinAccountTrans with ID [${parameters.finAccountTransId}] to GL, could not find glAccountId"/></add-error>
+        <!-- set initial values for AcctgTrans -->
+        <set field="createAcctgTransAndEntriesMap.finAccountTransId" from-field="parameters.finAccountTransId"/>
+        <set field="createAcctgTransAndEntriesMap.transactionDate" from-field="nowTimestamp"/>
+        <set field="createAcctgTransAndEntriesMap.glFiscalTypeId" value="ACTUAL"/>
+        <set field="createAcctgTransAndEntriesMap.partyId" from-field="finAccount.ownerPartyId"/>
+        
+        <!-- set initial values for Main AcctgTransEntry -->
+        <make-value value-name="mainAcctgTransEntry" entity-name="AcctgTransEntry"/>
+        <set field="mainAcctgTransEntry.glAccountId" from-field="glAccountId"/>
+        <set field="mainAcctgTransEntry.organizationPartyId" from-field="finAccount.organizationPartyId"/>
+        <set field="mainAcctgTransEntry.partyId" from-field="finAccount.ownerPartyId"/>
+        <set field="mainAcctgTransEntry.amount" from-field="finAccountTrans.amount"/>
+        <set field="mainAcctgTransEntry.acctgTransEntryTypeId" value="_NA_"/>
+        <set field="mainAcctgTransEntry.acctgTransEntrySeqId" value="01"/>
+        
+        <!-- set initial values for Offset AcctgTransEntry -->
+        <make-value value-name="offsetAcctgTransEntry" entity-name="AcctgTransEntry"/>
+        <set field="offsetAcctgTransEntry.organizationPartyId" from-field="finAccount.organizationPartyId"/>
+        <set field="offsetAcctgTransEntry.partyId" from-field="finAccount.ownerPartyId"/>
+        <set field="offsetAcctgTransEntry.amount" from-field="finAccountTrans.amount"/>
+        <set field="offsetAcctgTransEntry.acctgTransEntryTypeId" value="_NA_"/>
+        <set field="offsetAcctgTransEntry.acctgTransEntrySeqId" value="02"/>
+        
+        <!-- Find the other side to post to/from - 
+            if payment directory to account do from Payment; 
+            if from account refill product purchase pull from special account where those funds wait; 
+            if purchase on account, balance like bank acount received or something -->
+        <if>
+            <condition><if-compare field-name="finAccountTransTypeId" operator="equals" value="DEPOSIT"/></condition>
+            <then>
+                <!-- TODO: somehow check to see if the deposit was not from a product, or didn't get into the general CUSTOMER CREDITS 213000 account -->
+                
+                <!-- 
+                    Handle the case where a product is purchased to deposit to account.
+                    The Product should be setup so that funds go to the general CUSTOMER CREDITS account, 213000.
+                    This will simply transfer from that account to the configured account above.
+                -->
+                <set field="offsetAcctgTransEntry.glAccountId" value="213000"/>
+
+                <set field="mainAcctgTransEntry.debitCreditFlag" value="D"/>
+                <set field="offsetAcctgTransEntry.debitCreditFlag" value="C"/>
+                <set field="createAcctgTransAndEntriesMap.acctgTransTypeId" value="RECEIPT_ACCTG_TRANS"/>
+            </then>
+            <else-if>
+                <condition><if-compare field-name="finAccountTransTypeId" operator="equals" value="WITHDRAWAL"/></condition>
+                <then>
+                    <!-- TODO: somehow determine if this is an order placed against the account or some other type of withdrawal -->
+                    
+                    <!-- TODO: handle order placed against (paid for with) the account -->
+                    
+                    <set field="mainAcctgTransEntry.debitCreditFlag" value="C"/>
+                    <set field="offsetAcctgTransEntry.debitCreditFlag" value="D"/>
+                    <set field="createAcctgTransAndEntriesMap.acctgTransTypeId" value="PAYMENT_ACCTG_TRANS"/>
+                </then>
+            </else-if>
+            <else-if>
+                <condition><if-compare field-name="finAccountTransTypeId" operator="equals" value="ADJUSTMENT"/></condition>
+                <then>
+                    <!-- TODO: what to do for an adjustment? for now nothing, will error out below -->
+                    
+                    <!-- if positive will go to one account for write-off, if negative will go to another account for a fee -->
+                    
+                    <!-- these will reverse depending on positive/negative amount -->
+                    <set field="mainAcctgTransEntry.debitCreditFlag" value="D"/>
+                    <set field="offsetAcctgTransEntry.debitCreditFlag" value="C"/>
+                </then>
+            </else-if>
+        </if>
+        
+        <!-- Make sure we have the glAccountId, glAccountIdOffset, organizationPartyId -->
+        <if-empty field-name="mainAcctgTransEntry.glAccountId">
+            <add-error><fail-message message="Cannot post FinAccountTrans with ID [${parameters.finAccountTransId}] to GL, could not find Main glAccountId"/></add-error>
+        </if-empty>
+        <if-empty field-name="offsetAcctgTransEntry.glAccountId">
+            <add-error><fail-message message="Cannot post FinAccountTrans with ID [${parameters.finAccountTransId}] to GL, could not find Offset glAccountId"/></add-error>
         </if-empty>
         <if-empty field-name="organizationPartyId">
             <add-error><fail-message message="Cannot post FinAccountTrans with ID [${parameters.finAccountTransId}] to GL, could not find organizationPartyId"/></add-error>
         </if-empty>
         <check-errors/>
         
-        <!-- TODO: Find the other side to post to/from - 
-            if payment directory to account do from Payment; 
-            if from account refill product purchase pull from special account where those funds wait; 
-            if purchase on account, balance like bank acount received or something -->
-        
-        <!-- TODO: Post the finAccountTrans.amount to the given GlAccount -->
-        
+        <!-- Post the finAccountTrans.amount to/from the given GlAccounts -->
+        <set field="createAcctgTransAndEntriesMap.acctgTransEntries[]" from-field="mainAcctgTransEntry"/>
+        <set field="createAcctgTransAndEntriesMap.acctgTransEntries[]" from-field="offsetAcctgTransEntry"/>
+        <!-- TODO: un-comment this once ready for real use
+        <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesMap" include-user-login="true">
+        </call-service>
+        -->
+        <!-- TODO: do anything with return values from service? -->
     </simple-method>
 </simple-methods>

@@ -1293,6 +1293,7 @@ under the License.
       <field name="roleTypeId" type="id"></field>
       <field name="invoiceId" type="id"></field>
       <field name="paymentId" type="id"></field>
+      <field name="finAccountTransId" type="id"></field>
       <field name="shipmentId" type="id"></field>
       <field name="receiptId" type="id"></field>
       <field name="workEffortId" type="id"></field>
@@ -1340,6 +1341,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="ACCTTX_PAYMENT" rel-entity-name="Payment">
         <key-map field-name="paymentId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTX_FNACTTR" rel-entity-name="FinAccountTrans">
+        <key-map field-name="finAccountTransId"/>
       </relation>
       <relation type="one" fk-name="ACCTTX_SHIPMENT" rel-entity-name="Shipment">
         <key-map field-name="shipmentId"/>
