@@ -19,7 +19,7 @@ REM under the License.
 REM #####################################################################
 ECHO ON
 
-"%JAVA_HOME%\bin\java" -Xms256M -Xmx512M -Duser.language=en -jar ofbiz.jar > framework\logs\console.log
+"%JAVA_HOME%\bin\java" -Xms256M -Xmx512M -Duser.language=en -jar ofbiz.jar > runtime\logs\console.log
 
 REM This one is for more of a debugging mode
-REM "%JAVA_HOME%\bin\java" -Xms256M -Xmx512M -Duser.language=en -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -jar ofbiz.jar > framework\logs\console.log
+REM "%JAVA_HOME%\bin\java" -Xms256M -Xmx512M -Duser.language=en -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -jar ofbiz.jar > runtime\logs\console.log
