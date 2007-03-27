@@ -21,9 +21,9 @@ package org.ofbiz.accounting.finaccount;
 
 import java.sql.Timestamp;
 import java.util.Map;
+import java.math.BigDecimal;
 
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -44,7 +44,7 @@ public class FinAccountServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productStoreId = (String) context.get("productStoreId");
-        String finAccountTypeId = (String) context.get("finAccountTypeId");
+        String finAccountTypeId = (String) context.get("finAccountTypeId");        
         
         try {
             // get the product store id and use it to generate a unique fin account code
@@ -55,17 +55,29 @@ public class FinAccountServices {
             
             Long accountCodeLength = productStoreFinAccountSetting.getLong("accountCodeLength");
             Long accountValidDays = productStoreFinAccountSetting.getLong("accountValidDays");
-            
+            Long pinCodeLength = productStoreFinAccountSetting.getLong("pinCodeLength");
+            String requirePinCode = productStoreFinAccountSetting.getString("requirePinCode");
+
             // automatically set the parameters for the create fin account service
             ModelService createService = dctx.getModelService("createFinAccount");
-            Map inContext = createService.makeValid(context, "IN");
+            Map inContext = createService.makeValid(context, ModelService.IN_PARAM);
             Timestamp now = UtilDateTime.nowTimestamp();
+
             // now use our values
-            inContext.put("fromDate", now);
-            inContext.put("thruDate", UtilDateTime.getDayEnd(now, accountValidDays.intValue()));
             String finAccountCode = FinAccountHelper.getNewFinAccountCode(accountCodeLength.intValue(), delegator);
             inContext.put("finAccountCode", finAccountCode);
+
+            // with pin codes, the account code becomes the ID and the pin becomes the code
+            if ("Y".equalsIgnoreCase(requirePinCode)) {
+                String pinCode = FinAccountHelper.getNewFinAccountCode(pinCodeLength.intValue(), delegator);
+                inContext.put("finAccountPin", pinCode);
+            }
+
+            // set the dates/userlogin
+            inContext.put("thruDate", UtilDateTime.getDayEnd(now, accountValidDays.intValue()));
+            inContext.put("fromDate", now);
             inContext.put("userLogin", userLogin);
+                                   
             Map createResult = dispatcher.runSync("createFinAccount", inContext);
             
             if (ServiceUtil.isError(createResult)) {
@@ -81,6 +93,94 @@ public class FinAccountServices {
         } catch (GenericServiceException ex) {
             return ServiceUtil.returnError(ex.getMessage());
         }
+    }
+
+    public static Map checkFinAccountBalance(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        String finAccountId = (String) context.get("finAccountId");
+        String finAccountCode = (String) context.get("finAccountCode");
+
+        GenericValue finAccount;
+        if (finAccountId == null) {
+            try {
+                finAccount = FinAccountHelper.getFinAccountFromCode(finAccountCode, delegator);
+                finAccountId = finAccount.getString("finAccountId");
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError(e.getMessage());
+            }
+        } else {
+            try {
+                finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError(e.getMessage());
+            }
+        }
+        if (finAccount == null) {
+            return ServiceUtil.returnError("Unable to locate financial account");
+        }
+
+        String currencyUom = finAccount.getString("currencyUomId");
+        if (currencyUom != null) {
+            currencyUom = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+        }
+
+        // get the balance
+        BigDecimal availableBalance;
+        BigDecimal balance;
+        try {
+            availableBalance = FinAccountHelper.getAvailableBalance(finAccountId, currencyUom, delegator);
+            balance = FinAccountHelper.getBalance(finAccountId, currencyUom, delegator);
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        Debug.log("FinAccount Balance [" + balance + "] Available [" + availableBalance + "]", module);
         
+        Map result = ServiceUtil.returnSuccess();
+        result.put("availableBalance", new Double(availableBalance.doubleValue()));
+        result.put("balance", new Double(balance.doubleValue()));
+        return result;
+    }
+
+    public static Map checkFinAccountStatus(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        String finAccountId = (String) context.get("finAccountId");
+
+        GenericValue finAccount;
+        try {
+            finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
+        } catch (GenericEntityException ex) {
+            return ServiceUtil.returnError(ex.getMessage());
+        }
+
+        if (finAccount != null) {
+            String currency = finAccount.getString("currencyUomId");
+            String frozen = finAccount.getString("isFrozen");
+            if (frozen == null) frozen = "N";
+
+            BigDecimal balance;
+            try {
+                balance = FinAccountHelper.getAvailableBalance(finAccountId, currency, delegator);
+            } catch (GenericEntityException e) {
+                return ServiceUtil.returnError(e.getMessage());
+            }
+
+            if ("N".equals(frozen) && balance.compareTo(FinAccountHelper.ZERO) == -1) {
+                finAccount.set("isFrozen", "Y");
+                Debug.logInfo("Financial account [" + finAccountId + "] has passed its threshold [Frozen]", module);
+            } else if ("Y".equals(frozen) && balance.compareTo(FinAccountHelper.ZERO) > 0) {
+                finAccount.set("isFrozen", "N");
+                Debug.logInfo("Financial account [" + finAccountId + "] has been make current [Un-Frozen]", module);
+            }
+            try {
+                finAccount.store();
+            } catch (GenericEntityException e) {
+                return ServiceUtil.returnError(e.getMessage());
+            }
+        }
+
+        return ServiceUtil.returnSuccess();
     }
 }
