@@ -331,6 +331,7 @@ under the License.
         <field name="finAccountTypeId" type="id"></field>
         <field name="finAccountName" type="name"></field>
         <field name="finAccountCode" type="long-varchar" encrypt="true"></field>
+        <field name="currencyUomId" type="id-ne"/>
         <field name="organizationPartyId" type="id"><description>The internal organization Party that owns (or rather, is liable for) the account.</description></field>
         <field name="ownerPartyId" type="id"><description>The customer or third party that owns the account.</description></field>
         <field name="postToGlAccountId" type="id"></field>
@@ -341,6 +342,9 @@ under the License.
         <prim-key field="finAccountId"/>
         <relation type="one" fk-name="FINACCT_TYPE" rel-entity-name="FinAccountType">
             <key-map field-name="finAccountTypeId"/>
+        </relation>
+        <relation type="one" fk-name="FINACCT_CURUOM" title="Currency" rel-entity-name="Uom">
+            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
         </relation>
         <relation type="one" fk-name="FINACCT_ORGPTY" title="Organization" rel-entity-name="Party">
             <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
@@ -428,16 +432,12 @@ under the License.
         <field name="finAccountAuthId" type="id-ne"/>
         <field name="finAccountId" type="id-ne"/>
         <field name="amount" type="currency-amount"/>
-        <field name="currencyUomId" type="id-ne"/>
         <field name="authorizationDate" type="date-time"/>
         <field name="fromDate" type="date-time"/>
         <field name="thruDate" type="date-time"/>
         <prim-key field="finAccountAuthId"/>
         <relation type="one" fk-name="FINACT_AUTH_FINACT" rel-entity-name="FinAccount">
             <key-map field-name="finAccountId"/>
-        </relation>
-        <relation type="one" fk-name="FINACT_AUTH_CURNCY" title="Currency" rel-entity-name="Uom">
-            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
         </relation>
     </entity>
     <entity entity-name="FinAccountTransAttribute" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Transaction Attribute Entity">
