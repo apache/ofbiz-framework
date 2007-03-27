@@ -331,12 +331,15 @@ under the License.
         <field name="finAccountTypeId" type="id"></field>
         <field name="finAccountName" type="name"></field>
         <field name="finAccountCode" type="long-varchar" encrypt="true"></field>
+        <field name="finAccountPin" type="long-varchar" encrypt="true"></field>
         <field name="currencyUomId" type="id-ne"/>
         <field name="organizationPartyId" type="id"><description>The internal organization Party that owns (or rather, is liable for) the account.</description></field>
         <field name="ownerPartyId" type="id"><description>The customer or third party that owns the account.</description></field>
         <field name="postToGlAccountId" type="id"></field>
         <field name="fromDate" type="date-time"><description>Describes when account will be valid. If null, valid immediately.</description></field>
         <field name="thruDate" type="date-time"><description>Expiration date of the account. If null, will never expire.</description></field>
+        <field name="isFrozen" type="indicator"></field>        
+        <field name="replenishLevel" type="currency-amount"></field>
         <field name="actualBalance" type="currency-amount"><description>Calculated as the sum of FinAccountTrans.amount</description></field>
         <field name="availableBalance" type="currency-amount"><description>Calculated as actualBalance minus sum of outstanding FinAccountAuth.amount</description></field>
         <prim-key field="finAccountId"/>
@@ -359,6 +362,21 @@ under the License.
             <key-map field-name="finAccountTypeId"/>
         </relation>
     </entity>
+    <view-entity entity-name="FinAccountAndRole"
+                 package-name="org.ofbiz.accounting.finaccount"
+                 title="Financial Account and Role View Entity">
+      <member-entity entity-alias="FA" entity-name="FinAccount"/>
+      <member-entity entity-alias="FR" entity-name="FinAccountRole"/>
+      <alias-all entity-alias="FA"/>
+      <alias name="partyId" entity-alias="FR"/>
+      <alias name="roleTypeId" entity-alias="FR"/>
+      <alias name="roleFromDate" entity-alias="FR" field="fromDate"/>
+      <alias name="roleThruDate" entity-alias="FR" field="thruDate"/>
+      <view-link entity-alias="FA" rel-entity-alias="FR">
+        <key-map field-name="finAccountId"/>
+      </view-link>
+    </view-entity>
+
     <entity entity-name="FinAccountAttribute" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Attribute Entity">
         <field name="finAccountId" type="id-ne"></field>
         <field name="attrName" type="id-long-ne"></field>
@@ -481,11 +499,15 @@ under the License.
     <entity entity-name="FinAccountType" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Type Entity">
         <field name="finAccountTypeId" type="id-ne"></field>
         <field name="parentTypeId" type="id-ne"></field>
+        <field name="replenishEnumId" type="id-ne"></field>
         <field name="hasTable" type="indicator"></field>
         <field name="description" type="description"></field>
         <prim-key field="finAccountTypeId"/>
         <relation type="one" fk-name="FINACCT_TYPE_PAR" title="Parent" rel-entity-name="FinAccountType">
             <key-map field-name="parentTypeId" rel-field-name="finAccountTypeId"/>
+        </relation>
+        <relation type="one" fk-name="FINACCT_TYPE_RENUM" rel-entity-name="Enumeration">
+          <key-map field-name="depositEnumId" rel-field-name="enumId"/>
         </relation>
     </entity>
     <entity entity-name="FinAccountTypeAttr" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Type Attribute Entity">
