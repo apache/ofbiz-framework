@@ -18,35 +18,36 @@
 */
 
 /* calendar table styles */
-.calendarTable    {
-    font-family: Tahoma, Verdana, Arial;
-    font-size: 11px;
-    font-weight: bold;
-    color: #FFFFFF;
-    padding: 4px;
-    background: #FFFFFF;    
-    border: 1px;
-    vertical-align: top;
-}
-
-.calendarHeader {
-    background: #1E3C66;    
-        outline-color: #1E3C66;
-        border: 0;    
-}
-
-.calendarDayNumber {
+.calendar-table {
+/*    font-size: 1.1em;
+    font-weight: bold; */
     color: #000000;
-    background: #FFFFFF;    
-    }
+    background-color: #FFFFFF;    
+    border-right: 0.1em solid #000000;
+    border-top: 0.1em solid #000000;
+}
 
-.calendarWeek {
-    padding: 4px;
+.calendar-table td {
+    border-bottom: 0.1em solid #000000;
+    border-left: 0.1em solid #000000;
+    padding: 0.1em;
+}
+
+.calendar-table .header-row,
+.calendar-table .header-row:hover {
+    background-color: #1E3C66;    
+    color: #FFFFFF;
+    font-weight: bold;
+    outline-color: #1E3C66;
+}
+
+.calendar-table .calendarWeek {
+    padding: 0.4em;
     background: #AFC8D4;
-    }
+}
     
-.calendarContent    {
+.calendar-table .calendarContent {
     color: #5886C6;
     font-weight: normal;
     text-decoration: none;
-    }
+}
