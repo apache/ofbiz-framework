@@ -126,11 +126,6 @@ public class FinAccountServices {
             return ServiceUtil.returnError("Unable to locate financial account");
         }
 
-        String currencyUom = finAccount.getString("currencyUomId");
-        if (currencyUom != null) {
-            currencyUom = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
-        }
-
         // get the balance
         BigDecimal availableBalance;
         BigDecimal balance;
@@ -177,8 +172,7 @@ public class FinAccountServices {
             return ServiceUtil.returnError(ex.getMessage());
         }
 
-        if (finAccount != null) {
-            String currency = finAccount.getString("currencyUomId");
+        if (finAccount != null) {            
             String frozen = finAccount.getString("isFrozen");
             if (frozen == null) frozen = "N";
 
