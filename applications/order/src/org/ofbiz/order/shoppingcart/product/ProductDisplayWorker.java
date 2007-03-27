@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
@@ -180,23 +181,26 @@ public class ProductDisplayWorker {
 
                         while (orderItemsIter != null && orderItemsIter.hasNext()) {
                             GenericValue orderItem = (GenericValue) orderItemsIter.next();
-                            // for each order item get the associated product
-                            GenericValue product = orderItem.getRelatedOneCache("Product");
+                            String productId = orderItem.getString("productId");
+                            if (UtilValidate.isNotEmpty(productId)) {
+                                // for each order item get the associated product
+                                GenericValue product = orderItem.getRelatedOneCache("Product");
 
-                            products.put(product.get("productId"), product);
+                                products.put(product.get("productId"), product);
 
-                            Integer curQuant = (Integer) productQuantities.get(product.get("productId"));
+                                Integer curQuant = (Integer) productQuantities.get(product.get("productId"));
 
-                            if (curQuant == null) curQuant = new Integer(0);
-                            Double orderQuant = orderItem.getDouble("quantity");
+                                if (curQuant == null) curQuant = new Integer(0);
+                                Double orderQuant = orderItem.getDouble("quantity");
 
-                            if (orderQuant == null) orderQuant = new Double(0.0);
-                            productQuantities.put(product.get("productId"), new Integer(curQuant.intValue() + orderQuant.intValue()));
+                                if (orderQuant == null) orderQuant = new Double(0.0);
+                                productQuantities.put(product.get("productId"), new Integer(curQuant.intValue() + orderQuant.intValue()));
 
-                            Integer curOcc = (Integer) productOccurances.get(product.get("productId"));
+                                Integer curOcc = (Integer) productOccurances.get(product.get("productId"));
 
-                            if (curOcc == null) curOcc = new Integer(0);
-                            productOccurances.put(product.get("productId"), new Integer(curOcc.intValue() + 1));
+                                if (curOcc == null) curOcc = new Integer(0);
+                                productOccurances.put(product.get("productId"), new Integer(curOcc.intValue() + 1));
+                            }
                         }
                     }
                 }
