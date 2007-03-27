@@ -23,6 +23,7 @@ under the License.
   <screen name="FindUtilCache">
     <section>
       <actions>
+        <set field="headerItem" value="cache"/>
         <set field="titleProperty" value="PageTitleFindUtilCache"/>
         <script location="component://webtools/webapp/webtools/WEB-INF/actions/cache/findUtilCache.bsh"/>
       </actions>
@@ -53,6 +54,7 @@ under the License.
   <screen name="FindUtilCacheElements">
     <section>
       <actions>
+        <set field="headerItem" value="cache"/>
         <set field="titleProperty" value="PageTitleFindUtilCacheElements"/>
         <script location="component://webtools/webapp/webtools/WEB-INF/actions/cache/findUtilCacheElements.bsh"/>
       </actions>
@@ -83,6 +85,7 @@ under the License.
   <screen name="EditUtilCache">
     <section>
       <actions>
+        <set field="headerItem" value="cache"/>
         <set field="titleProperty" value="PageTitleEditUtilCache"/>
         <script location="component://webtools/webapp/webtools/WEB-INF/actions/cache/editUtilCache.bsh"/>
       </actions>

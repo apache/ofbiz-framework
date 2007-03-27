@@ -50,7 +50,7 @@ under the License.
     <screen name="main">
         <section>
             <actions>
-                <set field="appButtonItem" value="main"/>
+                <set field="headerItem" value="main"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">

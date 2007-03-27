@@ -20,58 +20,73 @@ under the License.
 <#assign isJava5 = javaVer.startsWith("1.5")/>
 <#if parameters.maxElements?has_content><#assign maxElements = parameters.maxElements?number/><#else><#assign maxElements = 5/></#if>
 
-<div class="head3">Service Engine Threads</div>
-<table cellpadding="2" cellspacing="0" border="1" width="100%">
-  <tr>
-    <td><div class="tableheadtext">${uiLabelMap.WebtoolsThread}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.CommonStatus}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.WebtoolsJob}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.WebtoolsService}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.CommonTime} (ms)</div></td>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>Service Engine Threads</h3>
+  </div>
+<table class="basic-table" cellspacing="0">
+  <tr class="header-row">
+    <td>${uiLabelMap.WebtoolsThread}</td>
+    <td>${uiLabelMap.CommonStatus}</td>
+    <td>${uiLabelMap.WebtoolsJob}</td>
+    <td>${uiLabelMap.WebtoolsService}</td>
+    <td>${uiLabelMap.CommonTime} (ms)</td>
   </tr>
   <#list threads as thread>
   <tr>
-    <td><div class="tabletext">${thread.threadName?if_exists}&nbsp;</div></td>
-    <td><div class="tabletext">${thread.status?if_exists}&nbsp;</div></td>
-    <td><div class="tabletext">${thread.jobName?default("[${uiLabelMap.CommonNone}]")}</div></td>
-    <td><div class="tabletext">${thread.serviceName?default("[${uiLabelMap.CommonNone}]")}</div></td>
-    <td><div class="tabletext">${thread.runTime?if_exists}&nbsp;</div></td>
+    <td>${thread.threadName?if_exists}</td>
+    <td>${thread.status?if_exists}</td>
+    <td>${thread.jobName?default("[${uiLabelMap.CommonNone}]")}</td>
+    <td>${thread.serviceName?default("[${uiLabelMap.CommonNone}]")}</td>
+    <td>${thread.runTime?if_exists}</td>
   </tr>
   </#list>
 </table>
-
-<hr/>
-<div class="head3">General Java Threads</div>
-<div class="tabletext">Note: certain things only work in Java 5. Java Version is ${javaVer}; is Java 5? ${isJava5?string}}</div>
-<table cellpadding="2" cellspacing="0" border="1" width="100%">
-  <tr>
-    <td><div class="tableheadtext">Group</div></td>
-    <td><div class="tableheadtext">ID</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.WebtoolsThread}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.CommonStatus}</div></td>
-    <td><div class="tableheadtext">Priority</div></td>
-    <td><div class="tableheadtext">Daemon</div></td>
+</div>
+<br />
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>General Java Threads</h3>
+  </div>
+<br />
+<p>Note: certain things only work in Java 5. Java Version is ${javaVer}; is Java 5? ${isJava5?string}}<p>
+<br />
+<table class="basic-table" cellspacing="0">
+  <tr class="header-row">
+    <td>Group</td>
+    <td>ID</td>
+    <td>${uiLabelMap.WebtoolsThread}</td>
+    <td>${uiLabelMap.CommonStatus}</td>
+    <td>Priority</td>
+    <td>Daemon</td>
   </tr>
   <#list allThreadList as javaThread>
     <#if javaThread?exists>
       <#if isJava5><#assign stackTraceArray = javaThread.getStackTrace()/></#if>
       <tr>
-        <td><div class="tabletext">${(javaThread.getThreadGroup().getName())?if_exists}&nbsp;</div></td>
-        <td><div class="tabletext"><#if isJava5>${javaThread.getId()?string}</#if>&nbsp;</div></td>
+        <td>${(javaThread.getThreadGroup().getName())?if_exists}</td>
+        <td><#if isJava5>${javaThread.getId()?string}</#if></td>
         <td>
-          <div class="tableheadtext">${javaThread.getName()?if_exists}&nbsp;</div>
+          <b>${javaThread.getName()?if_exists}</b>
           <#if isJava5>
             <#list 1..maxElements as stackIdx>
               <#assign stackElement = stackTraceArray[stackIdx]?if_exists/>
-              <#if (stackElement.toString())?has_content><div class="tabletext">${stackElement.toString()}&nbsp;</div></#if>
+              <#if (stackElement.toString())?has_content>${stackElement.toString()}</#if>
             </#list>
           </#if>
         </td>
-        <td><div class="tabletext"><#if isJava5>${javaThread.getState().name()?if_exists}</#if>&nbsp;</div></td>
-        <td><div class="tabletext">${javaThread.getPriority()}</div></td>
-        <td><div class="tabletext">${javaThread.isDaemon()?string}<#-- /${javaThread.isAlive()?string}/${javaThread.isInterrupted()?string} --></div></td>
+        <td><#if isJava5>${javaThread.getState().name()?if_exists}</#if>&nbsp;</td>
+        <td>${javaThread.getPriority()}</td>
+        <td>${javaThread.isDaemon()?string}<#-- /${javaThread.isAlive()?string}/${javaThread.isInterrupted()?string} --></td>
       </tr>
     </#if>
   </#list>
 </table>
+</div>
+
+
+
+
+
+
 

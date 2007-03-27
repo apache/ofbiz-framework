@@ -347,5 +347,47 @@ under the License.
             </fail-widgets>
         </section>
     </screen>
+    <screen name="EntityPerformanceTest">
+        <section>
+            <actions>
+                <set field="headerItem" value="main"/>
+<!--                <set field="titleProperty" value="insertTitleHere"/> -->
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityPerformanceTest.bsh"/>                            
+            </actions>
+            <widgets>  
+                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webtools/webapp/webtools/performance/EntityPerformanceTest.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="xmldsdump">
+        <section>
+            <actions>
+                <set field="headerItem" value="main"/>
+<!--                <set field="titleProperty" value="insertTitleHere"/> -->
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/xmldsdump.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://webtools/webapp/webtools/entity/xmldsdump.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+
 </screens>
+
+
+
+
+
+
 

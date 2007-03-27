@@ -17,70 +17,75 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.PageTitleFindUtilCache}</div>
-<div width="100%">
-    <a href="<@ofbizUrl>FindUtilCache</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsReloadCacheList}</a>
-    <a href="<@ofbizUrl>FindUtilCacheClearAll</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsClearAllCaches}</a>
-    <a href="<@ofbizUrl>FindUtilCacheClearAllExpired</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsClearExpiredFromAll}</a>
-    <a href="<@ofbizUrl>ForceGarbageCollection</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsRunGC}</a>
-</div>
-<div class="tabletext"><u><b>${uiLabelMap.WebtoolsMemory}:</b></u> [<b>${uiLabelMap.WebtoolsTotalMemory}:</b> ${memory}] [<b>${uiLabelMap.WebtoolsFreeMemory}:</b> ${freeMemory}] [<b>${uiLabelMap.WebtoolsUsedMemory}:</b> ${usedMemory}] [<b>${uiLabelMap.WebtoolsMaxMemory}:</b> ${maxMemory}]</span></div>
-<div>&nbsp;</div>
+<#macro displayButtonBar>
+    <div class="button-bar">
+        <a href="<@ofbizUrl>FindUtilCache</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsReloadCacheList}</a>
+        <a href="<@ofbizUrl>FindUtilCacheClearAll</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsClearAllCaches}</a>
+        <a href="<@ofbizUrl>FindUtilCacheClearAllExpired</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsClearExpiredFromAll}</a>
+        <a href="<@ofbizUrl>ForceGarbageCollection</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsRunGC}</a>
+    </div>
+</#macro>
+
+<h1>${uiLabelMap.PageTitleFindUtilCache}</h1>
+<br />
+
+<p>
+    <u><b>${uiLabelMap.WebtoolsMemory}:</b></u>
+    [<b>${uiLabelMap.WebtoolsTotalMemory}:</b> ${memory}]
+    [<b>${uiLabelMap.WebtoolsFreeMemory}:</b> ${freeMemory}]
+    [<b>${uiLabelMap.WebtoolsUsedMemory}:</b> ${usedMemory}]
+    [<b>${uiLabelMap.WebtoolsMaxMemory}:</b> ${maxMemory}]
+</p>
+<br />
+
+<@displayButtonBar/>
+
 <#if cacheList?has_content>
-    <#assign rowClass='viewManyTR1'>
-    <table cellpadding="2" cellspacing="0" border="1" width="100%" class="boxoutside">
-      <tr>
-        <td><div class="tableheadtext">${uiLabelMap.WebtoolsCacheName}</div></td>
-        <td><div class="tableheadtext">${uiLabelMap.WebtoolsSize}</div></td>
-        <td><div class="tableheadtext">${uiLabelMap.WebtoolsHits}</div></td>
-        <td><div class="tableheadtext">${uiLabelMap.WebtoolsMisses}</div></td>
-        <td><div class="tableheadtext">${uiLabelMap.WebtoolsRemoves}</div></td>
-        <td><div class="tableheadtext">${uiLabelMap.WebtoolsMaxSize}</div></td>
-        <td><div class="tableheadtext">${uiLabelMap.WebtoolsExpireTime}</div></td>
-        <td><div class="tableheadtext">${uiLabelMap.WebtoolsUseSoftRef}</div></td>
-        <td><div class="tableheadtext">${uiLabelMap.WebtoolsUseFileStore}</div></td>
-        <td colspan="3"><div class="tableheadtext">${uiLabelMap.WebtoolsAdministration}</div></td>
-      </tr>
-      <#list cacheList as cache>
-      <tr class='${rowClass}'>
-        <td><div class="tabletext">${cache.cacheName?if_exists}</div></td>
-        <td><div class="tabletext">${cache.cacheSize?if_exists}</div></td>
-        <td><div class="tabletext">${cache.hitCount?if_exists}</div></td>
-        <td><div class="tabletext">${cache.missCountTot?if_exists}/${cache.missCountNotFound?if_exists}/${cache.missCountExpired?if_exists}/${cache.missCountSoftRef?if_exists}</div></td>
-        <td><div class="tabletext">${cache.removeHitCount?if_exists}/${cache.removeMissCount?if_exists}</div></td>
-        <td><div class="tabletext">${cache.maxSize?if_exists}</div></td>
-        <td><div class="tabletext">${cache.expireTime?if_exists}</div></td>
-        <td><div class="tabletext">${cache.useSoftReference?if_exists}</div></td>
-        <td><div class="tabletext">${cache.useFileSystemStore?if_exists}</div></td>
-        <td align="center" valign=middle>
-            <a href="<@ofbizUrl>FindUtilCacheElements?UTIL_CACHE_NAME=${cache.cacheName?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsElements}</a>
-        </td>
-        <td align="center" valign=middle>
-              <#if hasUtilCacheEdit>
-                <a href="<@ofbizUrl>EditUtilCache?UTIL_CACHE_NAME=${cache.cacheName?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}</a>
-              </#if>
-        </td>
-        <td align="center" valign=middle>
-              <#if hasUtilCacheEdit>
-                <a href="<@ofbizUrl>FindUtilCacheClear?UTIL_CACHE_NAME=${cache.cacheName?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClear}</a>
-              </#if>
-        </td>
-      </tr>
-      <#if rowClass=='viewManyTR1'>
-          <#assign rowClass='viewManyTR2'>
-      <#else>
-        <#assign rowClass='viewManyTR1'>
-      </#if>
+    <table class="basic-table light-grid hover-bar" cellspacing="0">
+        <tr class="header-row">
+            <td>${uiLabelMap.WebtoolsCacheName}</td>
+            <td>${uiLabelMap.WebtoolsSize}</td>
+            <td>${uiLabelMap.WebtoolsHits}</td>
+            <td>${uiLabelMap.WebtoolsMisses}</td>
+            <td>${uiLabelMap.WebtoolsRemoves}</td>
+            <td>${uiLabelMap.WebtoolsMaxSize}</td>
+            <td>${uiLabelMap.WebtoolsExpireTime}</td>
+            <td align="center">${uiLabelMap.WebtoolsUseSoftRef}</td>
+            <td align="center">${uiLabelMap.WebtoolsUseFileStore}</td>
+            <td align="center">${uiLabelMap.WebtoolsAdministration}</td>
+        </tr>
+        <#assign alternateRow = false>
+        <#list cacheList as cache>
+            <tr<#if alternateRow> class="alternate-row"</#if>>
+                <td>${cache.cacheName?if_exists}</td>
+                <td>${cache.cacheSize?if_exists}</td>
+                <td>${cache.hitCount?if_exists}</td>
+                <td>${cache.missCountTot?if_exists}/${cache.missCountNotFound?if_exists}/${cache.missCountExpired?if_exists}/${cache.missCountSoftRef?if_exists}</td>
+                <td>${cache.removeHitCount?if_exists}/${cache.removeMissCount?if_exists}</td>
+                <td>${cache.maxSize?if_exists}</td>
+                <td>${cache.expireTime?if_exists}</td>
+                <td align="center">${cache.useSoftReference?if_exists}</td>
+                <td align="center">${cache.useFileSystemStore?if_exists}</td>
+                <td class="button-col">
+                    <a href="<@ofbizUrl>FindUtilCacheElements?UTIL_CACHE_NAME=${cache.cacheName?if_exists}</@ofbizUrl>">${uiLabelMap.WebtoolsElements}</a>
+                    <#if hasUtilCacheEdit>
+                        <a href="<@ofbizUrl>EditUtilCache?UTIL_CACHE_NAME=${cache.cacheName?if_exists}</@ofbizUrl>">${uiLabelMap.CommonEdit}</a>
+                    </#if>
+                    <#if hasUtilCacheEdit>
+                        <a href="<@ofbizUrl>FindUtilCacheClear?UTIL_CACHE_NAME=${cache.cacheName?if_exists}</@ofbizUrl>">${uiLabelMap.CommonClear}</a>
+                    </#if>
+                </td>
+            </tr>
+            <#if alternateRow == false>
+                <#assign alternateRow = true>
+            <#else>
+                <#assign alternateRow = false>
+            </#if>
         </#list>
     </table>
 <#else>
-    <div width="100%">
     ${uiLabelMap.WebtoolsNoUtilCacheFound}
-    </div>
 </#if>
-<div width="100%">
-    <a href="<@ofbizUrl>FindUtilCache</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsReloadCacheList}</a>
-    <a href="<@ofbizUrl>FindUtilCacheClearAll</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsClearAllCaches}</a>
-    <a href="<@ofbizUrl>FindUtilCacheClearAllExpired</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsClearExpiredFromAll}</a>
-    <a href="<@ofbizUrl>ForceGarbageCollection</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsRunGC}</a>
-</div>
+
+<@displayButtonBar/>
+

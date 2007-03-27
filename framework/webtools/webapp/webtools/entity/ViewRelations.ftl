@@ -17,38 +17,39 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if hasViewPermission>
-    <div class="head1">${uiLabelMap.WebtoolsRelations}</div>
-    <div class="head2">${uiLabelMap.WebtoolsForEntity}: ${entityName}</div>
-    <div>&nbsp;</div>
-    <div>
-        <a href="<@ofbizUrl>FindGeneric?entityName=${entityName}&amp;find=true&amp;VIEW_SIZE=50&amp;VIEW_INDEX=0</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsBackToFindScreen}</a>
+    <h1>${uiLabelMap.WebtoolsRelations}</h1>
+    <br />
+    <h2>${uiLabelMap.WebtoolsForEntity}: ${entityName}</h2>
+    <br />
+    <div class="button-bar">
+        <a href="<@ofbizUrl>FindGeneric?entityName=${entityName}&amp;find=true&amp;VIEW_SIZE=50&amp;VIEW_INDEX=0</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsBackToFindScreen}</a>
     </div>
-    <div>&nbsp;</div>
-    <table border="1" cellpadding="2" cellspacing="0" class="calendarTable">
-        <tr>
-            <td class="viewOneTR2"><b>${uiLabelMap.WebtoolsTitle}</b></td>
-              <td class="viewOneTR2"><b>${uiLabelMap.WebtoolsRelatedEntity}</b></td>
-              <td class="viewOneTR2"><b>${uiLabelMap.WebtoolsRelationType}</b></td>
-              <td class="viewOneTR2"><b>${uiLabelMap.WebtoolsFKName}</b></td>
-              <td class="viewOneTR2"><b>${uiLabelMap.WebtoolsFieldsList}</b></td>
-           </tr>
-           <#assign rowClass = 'viewManyTR1'>
+    <br />
+    <table class="basic-table light-grid hover-bar" cellspacing="0">
+        <tr class="header-row">
+            <td>${uiLabelMap.WebtoolsTitle}</td>
+            <td>${uiLabelMap.WebtoolsRelatedEntity}</td>
+            <td>${uiLabelMap.WebtoolsRelationType}</td>
+            <td>${uiLabelMap.WebtoolsFKName}</td>
+            <td>${uiLabelMap.WebtoolsFieldsList}</td>
+        </tr>
+        <#assign alt_row = false>
         <#list relations as relation>
-            <tr class="${rowClass}">
+            <tr<#if alt_row> class="alternate-row"</#if>>
                 <td>${relation.title}</td>
-                   <td><a href='<@ofbizUrl>FindGeneric?entityName=${relation.relEntityName}&find=true&VIEW_SIZE=50&VIEW_INDEX=0</@ofbizUrl>' class="buttontext">${relation.relEntityName}</a></td>
-                   <td>${relation.type}</td>
-                   <td>${relation.fkName}</td>
-                   <td>
-                       <#list relation.relFields as field>
-                           ${field.fieldName} -> ${field.relFieldName}<br/>
-                       </#list>
-                   </td>
+                <td class="button-col"><a href='<@ofbizUrl>FindGeneric?entityName=${relation.relEntityName}&find=true&VIEW_SIZE=50&VIEW_INDEX=0</@ofbizUrl>'>${relation.relEntityName}</a></td>
+                <td>${relation.type}</td>
+                <td>${relation.fkName}</td>
+                <td>
+                    <#list relation.relFields as field>
+                        ${field.fieldName} -> ${field.relFieldName}<br/>
+                    </#list>
+                </td>
             </tr>
-            <#if rowClass == 'viewManyTR1'>
-                <#assign rowClass = 'viewManyTR2'>
+            <#if alt_row>
+                <#assign alt_row = false>
             <#else>
-                <#assign rowClass = 'viewManyTR1'>
+                <#assign alt_row = true>
             </#if>
         </#list>
     </table>

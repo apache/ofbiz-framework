@@ -17,55 +17,57 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.PageTitleFindUtilCacheElements}</div>
-<div>&nbsp;</div>
-<div class="tabletext"><b>${uiLabelMap.WebtoolsCacheName}:</b> ${cacheName?if_exists} (${now})</div>
-<div>&nbsp;</div>
-<div width="100%">
-    <a href="<@ofbizUrl>FindUtilCache</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsBackToCacheMaintenance}</a>
-</div>
-<div>&nbsp;</div>
+<#macro displayButtonBar>
+    <div class="button-bar">
+        <a href="<@ofbizUrl>FindUtilCache</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsBackToCacheMaintenance}</a>
+    </div>
+</#macro>
+
+<h1>${uiLabelMap.PageTitleFindUtilCacheElements}</h1>
+<br />
+
+<p>
+    <b>${uiLabelMap.WebtoolsCacheName}:</b> ${cacheName?if_exists} (${now})
+    <b>${uiLabelMap.WebtoolsSizeTotal}:</b> ${totalSize} ${uiLabelMap.WebtoolsBytes}
+</p>
+<br />
+
+<@displayButtonBar/>
+
 <#if cacheName?has_content>
     <#if cacheElementsList?has_content>
-        <#assign rowClass='viewManyTR1'>
-        <table cellpadding="2" cellspacing="0" border="1" width="50%" class="boxoutside">
-          <tr>
-            <td><div class="tableheadtext">${uiLabelMap.WebtoolsCacheElementKey}</div></td>
-            <td><div class="tableheadtext">${uiLabelMap.WebtoolsExpireTime}</div></td>
-            <td><div class="tableheadtext">${uiLabelMap.WebtoolsBytes}</div></td>
-            <td><div class="tableheadtext">&nbsp;</div></td>
-          </tr>
-          <#list cacheElementsList as cacheElement>
-          <tr class='${rowClass}'>
-            <td><div class="tabletext">${cacheElement.elementKey?if_exists}</div></td>
-            <td><div class="tabletext">${cacheElement.expireTime?if_exists}</div></td>
-            <td><div class="tabletext">${cacheElement.lineSize?if_exists}</div></td>
-            <td align="center" valign=middle>
-                  <#if hasUtilCacheEdit>
-                    <a href="<@ofbizUrl>FindUtilCacheElementsRemoveElement?UTIL_CACHE_NAME=${cacheName?if_exists}&UTIL_CACHE_ELEMENT_NUMBER=${cacheElement.keyNum?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>
-                  </#if>
-            </td>
-          </tr>
-          <#if rowClass=='viewManyTR1'>
-              <#assign rowClass='viewManyTR2'>
-          <#else>
-            <#assign rowClass='viewManyTR1'>
-          </#if>
+        <table class="basic-table light-grid hover-bar" cellspacing="0">
+            <tr class="header-row">
+                <td>${uiLabelMap.WebtoolsCacheElementKey}</td>
+                <td>${uiLabelMap.WebtoolsExpireTime}</td>
+                <td>${uiLabelMap.WebtoolsBytes}</td>
+                <td>&nbsp;</td>
+            </tr>
+            <#assign alternateRow = false>
+            <#list cacheElementsList as cacheElement>
+                <tr<#if alternateRow> class="alternate-row"</#if>>
+                    <td>${cacheElement.elementKey?if_exists}</td>
+                    <td nowrap="nowrap">${cacheElement.expireTime?if_exists}</td>
+                    <td>${cacheElement.lineSize?if_exists}</td>
+                    <td align="center">
+                        <#if hasUtilCacheEdit>
+                            <a href="<@ofbizUrl>FindUtilCacheElementsRemoveElement?UTIL_CACHE_NAME=${cacheName?if_exists}&UTIL_CACHE_ELEMENT_NUMBER=${cacheElement.keyNum?if_exists}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonRemove}</a>
+                        </#if>
+                    </td>
+                </tr>
+                <#if alternateRow == false>
+                    <#assign alternateRow = true>
+                <#else>
+                    <#assign alternateRow = false>
+                </#if>
             </#list>
         </table>
     <#else>
-        <div width="100%">
-            ${uiLabelMap.WebtoolsNoUtilCacheElementsFound}
-        </div>
+        ${uiLabelMap.WebtoolsNoUtilCacheElementsFound}
     </#if>
 <#else>
-    <div width="100%">
-        ${uiLabelMap.WebtoolsNoUtilCacheSpecified}
-    </div>
+    ${uiLabelMap.WebtoolsNoUtilCacheSpecified}
 </#if>
-<div>&nbsp;</div>
-<div class="tabletext">${uiLabelMap.WebtoolsSizeTotal}: ${totalSize} ${uiLabelMap.WebtoolsBytes}</div>
-<div>&nbsp;</div>
-<div width="100%">
-    <a href="<@ofbizUrl>FindUtilCache</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsBackToCacheMaintenance}</a>
-</div>
+
+<@displayButtonBar/>
+

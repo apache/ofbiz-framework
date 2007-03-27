@@ -24,7 +24,7 @@ under the License.
     <screen name="CommonServiceDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="services"/>
+                <set field="headerItem" value="jobs"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -56,7 +56,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleServiceList"/>
-                <set field="headerItem" value="services"/>
                 <set field="tabButtonItem" value="ServiceList"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/services.bsh"/>
             </actions>
@@ -75,7 +74,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleJobList"/>
-                <set field="headerItem" value="services"/>
                 <set field="tabButtonItem" value="JobList"/>
                 <entity-condition entity-name="JobSandbox" list-name="jobs">
                     <order-by field-name="-runTime"/>
@@ -96,7 +94,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleThreadList"/>
-                <set field="headerItem" value="services"/>
                 <set field="tabButtonItem" value="ThreadList"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/threads.bsh"/>
             </actions>
@@ -115,7 +112,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleScheduleJob"/>
-                <set field="headerItem" value="services"/>
                 <set field="tabButtonItem" value="ScheduleJob"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/scheduleJob.bsh"/>
             </actions>
@@ -148,7 +144,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleScheduleJob"/>
-                <set field="headerItem" value="services"/>
                 <set field="tabButtonItem" value="ScheduleJob"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/scheduleJob.bsh"/>
             </actions>

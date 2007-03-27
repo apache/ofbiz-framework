@@ -31,7 +31,6 @@ under the License.
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
     <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
 
-    <handler name="region" type="view" class="org.ofbiz.webapp.view.RegionViewHandler"/>   
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
@@ -550,27 +549,28 @@ under the License.
     <view-map name="ModelGroupWriter" page="/entity/ModelGroupWriter.jsp"/>
     <view-map name="ModelInduceFromDb" page="/entity/ModelInduceFromDb.jsp"/>
 
-    <view-map name="EditEntity" type="region"/>
     <view-map name="checkdb" type="screen" page="component://webtools/widget/EntityScreens.xml#CheckDb"/>   
-    <view-map name="xmldsdump" type="region"/>
+    <view-map name="xmldsdump" type="screen" page="component://webtools/widget/EntityScreens.xml#xmldsdump"/>
     <view-map name="xmldsrawdump" page="/entity/xmldsrawdump.jsp"/>
 
     <view-map name="FindUtilCache" type="screen" page="component://webtools/widget/CacheScreens.xml#FindUtilCache"/>
     <view-map name="FindUtilCacheElements" type="screen" page="component://webtools/widget/CacheScreens.xml#FindUtilCacheElements"/>
     <view-map name="EditUtilCache" type="screen" page="component://webtools/widget/CacheScreens.xml#EditUtilCache"/>
 
-    <view-map name="viewdatafile" type="region"/>
-    <view-map name="readxpdl" type="region"/>
-    <view-map name="workflowMonitor" type="region"/>
+    <view-map name="viewdatafile" type="screen" page="component://webtools/widget/MiscScreens.xml#viewdatafile"/>
+
+    <view-map name="readxpdl" type="screen" page="component://webtools/widget/MiscScreens.xml#readxpdl"/>
+    <view-map name="workflowMonitor" type="screen" page="component://webtools/widget/MiscScreens.xml#workflowMonitor"/>
+
     <view-map name="LogConfiguration" type="screen" page="component://webtools/widget/LogScreens.xml#LogConfiguration"/>
     <view-map name="LogView" type="screen" page="component://webtools/widget/LogScreens.xml#LogView"/>
 
-    <view-map name="StatsSinceStart" type="region"/>
-    <view-map name="StatBinsHistory" type="region"/>
+    <view-map name="StatsSinceStart" type="screen" page="component://webtools/widget/StatsScreens.xml#StatsSinceStart"/>
+    <view-map name="StatBinsHistory" type="screen" page="component://webtools/widget/StatsScreens.xml#StatBinsHistory"/>
 
-    <view-map name="EntityPerformanceTest" type="region"/>
+    <view-map name="EntityPerformanceTest" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityPerformanceTest"/>
 
-    <view-map name="EditCustomTimePeriod" type="region"/>
+    <view-map name="EditCustomTimePeriod" type="screen" page="component://webtools/widget/MiscScreens.xml#EditCustomTimePeriod"/>
 
     <view-map name="serviceList" type="screen" page="component://webtools/widget/ServiceScreens.xml#ServiceList"/>
     <view-map name="jobList" type="screen" page="component://webtools/widget/ServiceScreens.xml#JobList"/>

@@ -17,21 +17,32 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<table cellpadding="2" cellspacing="0" border="1" width="100%">
-  <tr>
-    <td><div class="tableheadtext">${uiLabelMap.WebtoolsServiceName}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.WebtoolsDispatcherName}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.WebtoolsMode}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.CommonStartDateTime}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.CommonEndDateTime}</div></td>
-  </tr>
-  <#list services as service>
-  <tr>
-    <td><div class="tabletext">${service.serviceName?if_exists}&nbsp;</div></td>
-    <td><div class="tabletext">${service.localName?if_exists}&nbsp;</div></td>
-    <td><div class="tabletext">${service.modeStr?default("[none]")}&nbsp;</div></td>
-    <td><div class="tabletext">${service.startTime?if_exists}&nbsp;</div></td>
-    <td><div class="tabletext">${service.endTime?default("[running]")}&nbsp;</div></td>
-  </tr>
-  </#list>
-</table>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>${uiLabelMap.PageTitleServiceList}</h3>
+  </div>
+  <table class="basic-table hover-bar" cellspacing="0">
+    <tr class="header-row">
+      <td>${uiLabelMap.WebtoolsServiceName}</td>
+      <td>${uiLabelMap.WebtoolsDispatcherName}</td>
+      <td>${uiLabelMap.WebtoolsMode}</td>
+      <td>${uiLabelMap.CommonStartDateTime}</td>
+      <td>${uiLabelMap.CommonEndDateTime}</td>
+    </tr>
+    <#assign alt_row = false>
+    <#list services as service>
+      <tr<#if alt_row> class="alternate-row"</#if>>
+        <td>${service.serviceName?if_exists}</td>
+        <td>${service.localName?if_exists}</td>
+        <td>${service.modeStr?default("[none]")}</td>
+        <td>${service.startTime?if_exists}</td>
+        <td>${service.endTime?default("[running]")}</td>
+      </tr>
+      <#if alt_row>
+        <#assign alt_row = false>
+      <#else>
+        <#assign alt_row = true>
+      </#if>
+    </#list>
+  </table>
+</div>

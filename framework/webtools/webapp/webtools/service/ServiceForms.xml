@@ -21,8 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
 
-    <form name="scheduleJob" type="single" target="setServiceParameters" title="" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="scheduleJob" type="single" target="setServiceParameters">
         <field name="JOB_NAME" title="${uiLabelMap.WebtoolsJob}"><text/></field>
         <field name="SERVICE_NAME" title="${uiLabelMap.WebtoolsService}"><text/></field>
         <field name="POOL_NAME" title="${uiLabelMap.WebtoolsPool}"><text/></field>
@@ -43,14 +42,13 @@ under the License.
         <field name="SERVICE_INTERVAL" title="${uiLabelMap.WebtoolsInterval}" tooltip="${uiLabelMap.WebtoolsMessage8}"><text/></field>
         <field name="SERVICE_COUNT" title="${uiLabelMap.WebtoolsCount}" tooltip="${uiLabelMap.WebtoolsMessage9}"><text default-value="1"/></field>
         <field name="SERVICE_MAXRETRY" title="${uiLabelMap.WebtoolsMaxRetry}" tooltip="${uiLabelMap.WebtoolsMessage10}"><text/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field> 
     </form>
 
-    <form name="runService" type="single" target="setSyncServiceParameters" title="" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="runService" type="single" target="setSyncServiceParameters">
         <field name="SERVICE_NAME" title="${uiLabelMap.WebtoolsService}"><text/></field>
         <field name="POOL_NAME" title="${uiLabelMap.WebtoolsPool}"><text/></field>
         <field name="_RUN_SYNC_"><hidden value="Y"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field> 
     </form>
 </forms>
