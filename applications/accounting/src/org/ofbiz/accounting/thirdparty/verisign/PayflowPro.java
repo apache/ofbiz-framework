@@ -484,6 +484,7 @@ public class PayflowPro {
         result.put("refundFlag", parameters.get("RESULT"));
         result.put("refundMessage", parameters.get("RESPMSG"));
     }
+
     private static String parseContext(Map context) {
         StringBuffer buf = new StringBuffer();
         Set keySet = context.keySet();

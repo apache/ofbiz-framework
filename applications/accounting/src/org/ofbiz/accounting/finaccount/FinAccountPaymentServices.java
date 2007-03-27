@@ -140,7 +140,7 @@ public class FinAccountPaymentServices {
             }
 
             // check the amount to authorize against the available balance of fin account, which includes active authorizations as well as transactions
-            BigDecimal availableBalance = FinAccountHelper.getAvailableBalance(finAccountId, currency, delegator);
+            BigDecimal availableBalance = FinAccountHelper.getAvailableBalance(finAccountId, delegator);
             Map result = ServiceUtil.returnSuccess();
             Boolean processResult;
             String refNum;
@@ -161,7 +161,7 @@ public class FinAccountPaymentServices {
                 }
 
                 Map tmpResult = dispatcher.runSync("createFinAccountAuth", UtilMisc.toMap("finAccountId", finAccountId,
-                        "amount", amount, "currencyUomId", currency, "thruDate", thruDate, "userLogin", userLogin));
+                        "amount", amount, "thruDate", thruDate, "userLogin", userLogin));
 
                 if (ServiceUtil.isError(tmpResult)) {
                     return tmpResult;
@@ -171,7 +171,7 @@ public class FinAccountPaymentServices {
                 }
 
                 // mark the account as frozen if we have gone negative
-                BigDecimal newBalance = FinAccountHelper.getAvailableBalance(finAccountId, currency, delegator);
+                BigDecimal newBalance = FinAccountHelper.getAvailableBalance(finAccountId, delegator);
                 if (newBalance.compareTo(FinAccountHelper.ZERO) == -1) {
                     finAccount.set("isFrozen", "Y");
                     try {
@@ -458,7 +458,7 @@ public class FinAccountPaymentServices {
         // check the actual balance (excluding authorized amounts) and create the transaction if it is sufficient
         BigDecimal previousBalance;
         try {
-            previousBalance = FinAccountHelper.getBalance(finAccountId, currencyUom, delegator);
+            previousBalance = FinAccountHelper.getBalance(finAccountId, delegator);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -471,7 +471,7 @@ public class FinAccountPaymentServices {
             try {
                 refNum = FinAccountPaymentServices.createFinAcctPaymentTransaction(delegator, dispatcher, userLogin, amount,
                         productStoreId, partyId, currencyUom, WITHDRAWAL, finAccountId);
-                balance = FinAccountHelper.getAvailableBalance(finAccountId, currencyUom, delegator);
+                balance = FinAccountHelper.getAvailableBalance(finAccountId, delegator);
                         procResult = Boolean.TRUE;
             } catch (GeneralException e) {
                 Debug.logError(e, module);
@@ -536,7 +536,7 @@ public class FinAccountPaymentServices {
         // get the previous balance
         BigDecimal previousBalance;
         try {
-            previousBalance = FinAccountHelper.getAvailableBalance(finAccountId, currencyUom, delegator);
+            previousBalance = FinAccountHelper.getAvailableBalance(finAccountId, delegator);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -548,7 +548,7 @@ public class FinAccountPaymentServices {
         try {
             refNum = FinAccountPaymentServices.createFinAcctPaymentTransaction(delegator, dispatcher, userLogin, amount,
                     productStoreId, partyId, currencyUom, DEPOSIT, finAccountId);
-            balance = FinAccountHelper.getAvailableBalance(finAccountId, currencyUom, delegator);
+            balance = FinAccountHelper.getAvailableBalance(finAccountId, delegator);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -600,7 +600,7 @@ public class FinAccountPaymentServices {
         }
 
         BigDecimal replenishLevel = finAccount.getBigDecimal("replenishLevel");
-        if (replenishLevel == null) {
+        if (replenishLevel == null || replenishLevel.compareTo(FinAccountHelper.ZERO) == 0) {
             // no replenish level set; this account goes not support auto-replenish
             return ServiceUtil.returnSuccess();
         }
@@ -608,7 +608,7 @@ public class FinAccountPaymentServices {
         // get the current balance
         BigDecimal balance;
         try {
-             balance = FinAccountHelper.getBalance(finAccountId, currency, delegator);
+             balance = FinAccountHelper.getBalance(finAccountId, delegator);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());

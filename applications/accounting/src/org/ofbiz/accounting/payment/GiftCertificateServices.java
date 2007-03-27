@@ -195,7 +195,7 @@ public class GiftCertificateServices {
         // get the previous balance
         BigDecimal previousBalance = ZERO;
         try {
-            previousBalance = FinAccountHelper.getAvailableBalance(cardNumber, currencyUom, delegator);
+            previousBalance = FinAccountHelper.getAvailableBalance(cardNumber, delegator);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -207,7 +207,7 @@ public class GiftCertificateServices {
         try {
             refNum = GiftCertificateServices.createTransaction(delegator, dispatcher, userLogin, amount,
                     productStoreId, partyId, currencyUom, deposit, finAccountId);
-            balance = FinAccountHelper.getAvailableBalance(cardNumber, currencyUom, delegator);
+            balance = FinAccountHelper.getAvailableBalance(cardNumber, delegator);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -263,7 +263,7 @@ public class GiftCertificateServices {
         // check the actual balance (excluding authorized amounts) and create the transaction if it is sufficient
         double previousBalance = 0.00;
         try {
-            previousBalance = FinAccountHelper.getBalance(cardNumber, currencyUom, delegator).doubleValue();
+            previousBalance = FinAccountHelper.getBalance(cardNumber, delegator).doubleValue();
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -276,7 +276,7 @@ public class GiftCertificateServices {
             try {
                 refNum = GiftCertificateServices.createTransaction(delegator, dispatcher, userLogin, amount,
                         productStoreId, partyId, currencyUom, withdrawl, cardNumber);
-                balance = FinAccountHelper.getAvailableBalance(cardNumber, currencyUom, delegator).doubleValue();
+                balance = FinAccountHelper.getAvailableBalance(cardNumber, delegator).doubleValue();
                 procResult = Boolean.TRUE;
             } catch (GeneralException e) {
                 Debug.logError(e, module);
@@ -314,7 +314,7 @@ public class GiftCertificateServices {
         // get the balance
         double balance = 0.00;
         try {
-            balance = FinAccountHelper.getAvailableBalance(cardNumber, currencyUom, delegator).doubleValue();
+            balance = FinAccountHelper.getAvailableBalance(cardNumber, delegator).doubleValue();
         } catch (GeneralException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -455,7 +455,7 @@ public class GiftCertificateServices {
             }
             
             // check the amount to authorize against the available balance of fin account, which includes active authorizations as well as transactions
-            BigDecimal availableBalance = FinAccountHelper.getAvailableBalance(finAccountId, currency, delegator);
+            BigDecimal availableBalance = FinAccountHelper.getAvailableBalance(finAccountId, delegator);
             Boolean processResult = null;
             String refNum = null;
             Map result = ServiceUtil.returnSuccess();
