@@ -66,6 +66,8 @@ under the License.
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas_payment.xml"/>
 
+    <test-suite loader="main" location="testdef/accountingtests.xml"/>
+
     <webapp name="accounting"
         title="Accounting"
         server="default-server"

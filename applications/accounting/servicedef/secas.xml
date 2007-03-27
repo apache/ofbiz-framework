@@ -99,6 +99,33 @@ under the License.
         <action service="sendOrderPayRetryNotification" mode="async" persist="true"/>
     </eca>
 
+    <!-- financial account role ecas -->
+    <eca service="createFinAccountRole" event="invoke">
+        <action service="ensurePartyRole" mode="sync" run-as-user="system"/>
+    </eca>
+    
+    <!-- financial account transaction ecas -->
+    <!--
+    <eca service="finAccountWithdraw" event="return">
+        <condition field-name="productStoreId" operator="is-not-empty"/>
+        <action service="finAccountReplenish" mode="async" run-as-user="system"/>
+    </eca>
+    -->
+    <eca service="finAccountWithdraw" event="commit">
+        <action service="checkFinAccountStatus" mode="sync" run-as-user="system"/>
+    </eca>
+    <eca service="finAccountDeposit" event="commit">
+        <action service="checkFinAccountStatus" mode="sync" run-as-user="system"/>
+    </eca>
+
+    <eca service="createFinAccountTrans" event="commit">
+        <action service="postFinAccountTransToGl" mode="sync"/>
+    </eca>
+
+    <eca service="expireFinAccountAuth" event="commit">
+        <action service="checkFinAccountStatus" mode="sync"/>
+    </eca>
+        
     <!-- sample ECA rules for the sampleInvoiceAffiliateCommission service triggering
     <eca service="createPayment" event="commit">
         <condition field-name="statusId" operator="equals" value="PMNT_RECEIVED"/>
@@ -110,9 +137,4 @@ under the License.
         <action service="sampleInvoiceAffiliateCommission" mode="sync"/>
     </eca>
     -->
-    
-    <!-- FinAccountTrans SECAs -->
-    <eca service="createFinAccountTrans" event="commit">
-        <action service="postFinAccountTransToGl" mode="sync"/>
-    </eca>
 </service-eca>
