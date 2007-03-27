@@ -253,8 +253,8 @@ under the License.
       <field name="purchaseThruDate" type="date-time"></field>
       <field name="useCountLimit" type="numeric"></field>
       <field name="useDaysLimit" type="floating-point"></field>
-      <prim-key field="contentId"/>
       <prim-key field="productCategoryId"/>
+      <prim-key field="contentId"/>
       <prim-key field="prodCatContentTypeId"/>
       <prim-key field="fromDate"/>
       <relation type="one" fk-name="PRDCAT_CNT_PRDCAT" rel-entity-name="ProductCategory">
@@ -266,6 +266,10 @@ under the License.
       <relation type="one" fk-name="PRDCAT_CNT_TYPE" rel-entity-name="ProductCategoryContentType">
         <key-map field-name="prodCatContentTypeId"/>
       </relation>
+        <index name="PRDCAT_CNT_CTTP">
+            <index-field name="productCategoryId"/>
+            <index-field name="prodCatContentTypeId"/>
+        </index>
     </entity>
     <view-entity entity-name="ProductCategoryContentAndInfo"
                 package-name="org.ofbiz.product.category"
@@ -355,6 +359,9 @@ under the License.
         <relation type="one" fk-name="PROD_CMBR_CATEGORY" rel-entity-name="ProductCategory">
             <key-map field-name="productCategoryId"/>
         </relation>
+        <index name="PRD_CMBR_PCT">
+            <index-field name="productCategoryId"/>
+        </index>
     </entity>
     <view-entity entity-name="ProductCategoryMemberAndRole"
             package-name="org.ofbiz.product.category"
@@ -1604,6 +1611,12 @@ under the License.
       <relation type="one" fk-name="PROD_PRICE_LMBUL" title="LastModifiedBy" rel-entity-name="UserLogin">
         <key-map field-name="lastModifiedByUserLogin" rel-field-name="userLoginId"/>
       </relation>
+        <index name="PRD_PRC_GENLKP">
+            <index-field name="productId"/>
+            <index-field name="productPricePurposeId"/>
+            <index-field name="currencyUomId"/>
+            <index-field name="productStoreGroupId"/>
+        </index>
     </entity>
     <entity entity-name="ProductPriceAction"
             package-name="org.ofbiz.product.price"

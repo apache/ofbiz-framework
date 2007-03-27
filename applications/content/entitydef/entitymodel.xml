@@ -351,6 +351,11 @@ under the License.
       <relation type="one" fk-name="CONTENTASSC_DTSRC" rel-entity-name="DataSource">
         <key-map field-name="dataSourceId"/>
       </relation>
+        <index name="CONTENTASSC_TOQRY">
+            <index-field name="contentIdTo"/>
+            <index-field name="contentAssocTypeId"/>
+            <index-field name="thruDate"/>
+        </index>
     </entity>
     <view-entity entity-name="ContentAssocDataResourceViewFrom"
                 package-name="org.ofbiz.content.content"
