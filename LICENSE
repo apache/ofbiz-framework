@@ -95,6 +95,7 @@ ofbiz/trunk/framework/webapp/lib/xmlgraphics-commons-1.1.jar
 ofbiz/trunk/framework/webapp/lib/json-lib-0.9.jar
 ofbiz/trunk/framework/webapp/lib/ezmorph-0.9.1.jar
 ofbiz/trunk/framework/webapp/lib/rome-0.9.jar
+ofbiz/trunk/framework/webapp/lib/xmlrpc-client-3.0.jar
 ofbiz/trunk/framework/webapp/lib/xmlrpc-common-3.0.jar
 ofbiz/trunk/framework/webapp/lib/xmlrpc-server-3.0.jar
 ofbiz/trunk/framework/webapp/lib/ws-commons-java5-1.0.1.jar
