@@ -1434,38 +1434,40 @@ public class ShoppingCart implements Serializable {
     }
 
     /** adds a payment method/payment method type */
-    public void addPaymentAmount(String id, Double amount, String refNum, String authCode, boolean isSingleUse, boolean isPresent, boolean replace) {
+    public CartPaymentInfo addPaymentAmount(String id, Double amount, String refNum, String authCode, boolean isSingleUse, boolean isPresent, boolean replace) {
         CartPaymentInfo inf = this.getPaymentInfo(id, refNum, authCode, amount, true);
         inf.singleUse = isSingleUse;
         if (replace) {
             paymentInfo.remove(inf);
         }
         paymentInfo.add(inf);
+
+        return inf;
     }
 
     /** adds a payment method/payment method type */
-    public void addPaymentAmount(String id, Double amount, boolean isSingleUse) {
-        this.addPaymentAmount(id, amount, null, null, isSingleUse, false, true);
+    public CartPaymentInfo addPaymentAmount(String id, Double amount, boolean isSingleUse) {
+        return this.addPaymentAmount(id, amount, null, null, isSingleUse, false, true);
     }
 
     /** adds a payment method/payment method type */
-    public void addPaymentAmount(String id, double amount, boolean isSingleUse) {
-        this.addPaymentAmount(id, new Double(amount), isSingleUse);
+    public CartPaymentInfo addPaymentAmount(String id, double amount, boolean isSingleUse) {
+        return this.addPaymentAmount(id, new Double(amount), isSingleUse);
     }
 
     /** adds a payment method/payment method type */
-    public void addPaymentAmount(String id, Double amount) {
-        this.addPaymentAmount(id, amount, false);
+    public CartPaymentInfo addPaymentAmount(String id, Double amount) {
+        return this.addPaymentAmount(id, amount, false);
     }
 
     /** adds a payment method/payment method type */
-    public void addPaymentAmount(String id, double amount) {
-        this.addPaymentAmount(id, new Double(amount), false);
+    public CartPaymentInfo addPaymentAmount(String id, double amount) {
+        return this.addPaymentAmount(id, new Double(amount), false);
     }
 
     /** adds a payment method/payment method type */
-    public void addPayment(String id) {
-        this.addPaymentAmount(id, null, false);
+    public CartPaymentInfo addPayment(String id) {
+        return this.addPaymentAmount(id, null, false);
     }
 
     /** returns the payment method/payment method type amount */
@@ -4095,6 +4097,7 @@ public class ShoppingCart implements Serializable {
     public static class CartPaymentInfo implements Serializable, Comparable {
         public String paymentMethodTypeId = null;
         public String paymentMethodId = null;
+        public String finAccountId = null;
         public String securityCode = null;
         public String postalCode = null;
         public String[] refNum = new String[2];
@@ -4189,6 +4192,7 @@ public class ShoppingCart implements Serializable {
                 opp.set("presentFlag", isPresent ? "Y" : "N");
                 opp.set("overflowFlag", overflow ? "Y" : "N");
                 opp.set("paymentMethodId", paymentMethodId);
+                opp.set("finAccountId", finAccountId);
                 opp.set("billingPostalCode", postalCode);
                 opp.set("maxAmount", amount);
                 if (refNum != null) {
@@ -4198,7 +4202,7 @@ public class ShoppingCart implements Serializable {
                 if (securityCode != null) {
                     opp.set("securityCode", securityCode);
                 }
-                if (paymentMethodId != null) {
+                if (paymentMethodId != null || "FIN_ACCOUNT".equals(paymentMethodTypeId)) {
                     opp.set("statusId", "PAYMENT_NOT_AUTH");
                 } else if (paymentMethodTypeId != null) {
                     // external payment method types require notification when received
