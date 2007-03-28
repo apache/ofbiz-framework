@@ -46,6 +46,8 @@ under the License.
   <tr>
     <th>Transaction ${uiLabelMap.CommonDate}</th>
     <th>ID</th>
+    <th>Order Item</th>
+    <th>Payment</th>
     <th>Type</th>
     <th>Amount</th>
   </tr>
@@ -58,6 +60,8 @@ under the License.
   <tr>
     <td>${ownedFinAccountTrans.transactionDate?if_exists}</td>
     <td>${ownedFinAccountTrans.finAccountTransId}</td>
+    <td><#if ownedFinAccountTrans.orderId?has_content>${ownedFinAccountTrans.orderId?if_exists}:${ownedFinAccountTrans.orderItemSeqId?if_exists}<#else>&nbsp;</#if></td>
+    <td><#if ownedFinAccountTrans.paymentId?has_content>${ownedFinAccountTrans.paymentId?if_exists}<#else>&nbsp;</#if></td>
     <td>${finAccountTransType.description?default(ownedFinAccountTrans.finAccountTransTypeId)?if_exists}</td>
     <td><@ofbizCurrency amount=displayAmount isoCode=ownedFinAccount.currencyUomId/></td>
   </tr>
