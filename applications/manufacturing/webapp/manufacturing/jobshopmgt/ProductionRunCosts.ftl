@@ -21,9 +21,7 @@ under the License.
 <#list taskCosts as taskCost>
     <#assign task = taskCost.task>
     <#assign costsForm = taskCost.costsForm>
-    <div>
-        <span class="head2">${task.workEffortName?if_exists} [${task.workEffortId}]</span>
-    </div>
+    <h2>${task.workEffortName?if_exists} [${task.workEffortId}]</h2>
     ${costsForm.renderFormString(context)}
     <br/>
 </#list>

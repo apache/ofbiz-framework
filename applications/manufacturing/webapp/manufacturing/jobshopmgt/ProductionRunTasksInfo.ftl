@@ -21,9 +21,7 @@ under the License.
 <#list taskInfos as taskInfo>
     <#assign task = taskInfo.task>
     <#assign taskForm = taskInfo.taskForm>
-    <div>
-        <span class="head2">${task.workEffortName?if_exists} [${task.workEffortId}]</span>
-    </div>
+    <h2>${task.workEffortName?if_exists} [${task.workEffortId}]</h2>
     ${taskForm.renderFormString(context)}
     <br/>
 </#list>
