@@ -17,43 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#-- Mandatory work efforts -->
-<#if mandatoryWorkEfforts?has_content>
-    <p>
-    ${uiLabelMap.ManufacturingMandatoryProductionRuns}:
-    <#list mandatoryWorkEfforts as mandatoryWorkEffortAssoc>
-        <#assign mandatoryWorkEffort = mandatoryWorkEffortAssoc.getRelatedOne("FromWorkEffort")>
-        <#if "PRUN_COMPLETED" == mandatoryWorkEffort.getString("currentStatusId") || "PRUN_CLOSED" == mandatoryWorkEffort.getString("currentStatusId")>
-            <a href="<@ofbizUrl>ProductionRunDeclaration?productionRunId=${mandatoryWorkEffort.workEffortId}</@ofbizUrl>" class="buttontext">${mandatoryWorkEffort.workEffortName}</a>&nbsp;
-        <#else>
-            <#if "PRUN_CREATED" == mandatoryWorkEffort.getString("currentStatusId")>
-                <a href="<@ofbizUrl>EditProductionRun?productionRunId=${mandatoryWorkEffort.workEffortId}</@ofbizUrl>" class="buttontext">${mandatoryWorkEffort.workEffortName}</a>[*]&nbsp;
-            <#else>
-                <a href="<@ofbizUrl>ProductionRunDeclaration?productionRunId=${mandatoryWorkEffort.workEffortId}</@ofbizUrl>" class="buttontext">${mandatoryWorkEffort.workEffortName}</a>[*]&nbsp;
-            </#if>
-        </#if>
-    </#list>
-    </p>
-</#if>
-<#-- Dependent work efforts -->
-<#if dependentWorkEfforts?has_content>
-    <p>
-    ${uiLabelMap.ManufacturingDependentProductionRuns}: 
-    <#list dependentWorkEfforts as dependentWorkEffortAssoc>
-        <#assign dependentWorkEffort = dependentWorkEffortAssoc.getRelatedOne("ToWorkEffort")>
-        <#if "PRUN_COMPLETED" == dependentWorkEffort.currentStatusId || "PRUN_CLOSED" == dependentWorkEffort.currentStatusId>
-            <a href="<@ofbizUrl>ProductionRunDeclaration?productionRunId=${dependentWorkEffort.workEffortId}</@ofbizUrl>" class="buttontext">${dependentWorkEffort.workEffortName}</a>&nbsp;
-        <#else>
-            <#if "PRUN_CREATED" == dependentWorkEffort.getString("currentStatusId")>
-                <a href="<@ofbizUrl>EditProductionRun?productionRunId=${dependentWorkEffort.workEffortId}</@ofbizUrl>" class="buttontext">${dependentWorkEffort.workEffortName}</a>[*]&nbsp;
-            <#else>
-                <a href="<@ofbizUrl>ProductionRunDeclaration?productionRunId=${dependentWorkEffort.workEffortId}</@ofbizUrl>" class="buttontext">${dependentWorkEffort.workEffortName}</a>[*]&nbsp;
-            </#if>
-        </#if>
-    </#list>
-    </p>
-</#if>
-
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
     <tr valign="top">
         <#-- RoutingTask sub-screen  Update or Add  -->

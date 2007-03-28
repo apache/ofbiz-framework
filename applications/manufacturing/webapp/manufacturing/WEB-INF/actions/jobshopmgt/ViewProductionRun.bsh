@@ -84,45 +84,5 @@ if (!UtilValidate.isEmpty(productionRunId)) {
             productionRunFixedAssetsData.addAll(taskFixedAssets);
         }
         context.put("productionRunFixedAssetsData", productionRunFixedAssetsData);
-
-
-
-        actionForm = request.getParameter("actionForm");
-        if (UtilValidate.isEmpty(actionForm)) {
-            actionForm = "beforeActionProductionRun";
-        }
-        context.put("actionForm",actionForm);
-        //---------------
-        // Routing tasks
-        //---------------
-        // routingTask add sub-screen
-        if (actionForm.equals("AddRoutingTask")){
-            Map routingTaskData =UtilMisc.toMap("workEffortParentId",productionRunId);
-            HtmlFormWrapper editPrRoutingTaskWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "AddProductionRunRoutingTask", request, response);
-//            editPrRoutingTaskWrapper.putInContext("routingTaskData", routingTaskData);
-//            editPrRoutingTaskWrapper.putInContext("actionForm", "addRoutingTask");
-//            editPrRoutingTaskWrapper.putInContext("actionIsAdd", "Y");
-            context.put("editPrRoutingTaskWrapper",editPrRoutingTaskWrapper);
-        }
-        // routingTask update sub-screen
-        routingTaskId = request.getParameter("routingTaskId");
-        if (routingTaskId != null  && (actionForm.equals("UpdateRoutingTask") || actionForm.equals("EditRoutingTask"))){
-            GenericValue routingTask = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", routingTaskId));
-            Map routingTaskData = routingTask.getAllFields();
-            if (routingTask.getDouble("estimatedSetupMillis") != null)
-                routingTaskData.put("estimatedSetupMillis",routingTask.getDouble("estimatedSetupMillis").toString());
-            else
-                routingTaskData.put("estimatedSetupMillis", "0");
-            if (routingTask.getDouble("estimatedMilliSeconds") != null)
-                routingTaskData.put("estimatedMilliSeconds",routingTask.getDouble("estimatedMilliSeconds").toString());
-            else
-                routingTaskData.put("estimatedMilliSeconds", "0");
-            HtmlFormWrapper editPrRoutingTaskWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "updateProductionRunRoutingTask", request, response);
-            editPrRoutingTaskWrapper.putInContext("routingTask", routingTaskData);
-//            editPrRoutingTaskWrapper.putInContext("actionForm", "UpdateRoutingTask");
-//            editPrRoutingTaskWrapper.putInContext("actionIsAdd", "null");
-            context.put("editPrRoutingTaskWrapper",editPrRoutingTaskWrapper);
-            context.put("routingTaskId",routingTaskId);
-        }
     }
 }
