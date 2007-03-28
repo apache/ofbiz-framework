@@ -559,6 +559,8 @@ under the License.
 <#-- only 5 messages will show; edit the viewprofile.bsh to change this number -->
 ${screens.render("component://ecommerce/widget/CustomerScreens.xml#messagelist-include")}
 
+${screens.render("component://ecommerce/widget/CustomerScreens.xml#FinAccountList-include")}
+
 <#else>
     <div class="head3">${uiLabelMap.PartyNoPartyForCurrentUserName}: ${userLogin.userLoginId}</div>
 </#if>
