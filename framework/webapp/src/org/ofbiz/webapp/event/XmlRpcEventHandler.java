@@ -35,9 +35,7 @@ import org.ofbiz.base.util.UtilValidate;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Map;
 import java.util.Locale;
 import java.util.Iterator;
@@ -62,14 +60,47 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
     }
 
     public String invoke(String eventPath, String eventMethod, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
-         try {
-             this.execute(this.getXmlRpcConfig(request), new HttpStreamConnection(request, response));
-         } catch (XmlRpcException e) {
-             Debug.logError(e, module);
-             throw new EventHandlerException(e.getMessage(), e);
-         }
+        String report = request.getParameter("echo");
+        if (report != null) {
+            StringBuffer buf = new StringBuffer();
+            try {
+                // read the inputstream buffer
+                String line;
+                BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
+                while ((line = reader.readLine()) != null) {
+                    buf.append(line).append("\n");
+                }
+            } catch (Exception e) {
+                throw new EventHandlerException(e.getMessage(), e);
+            }
+            Debug.logInfo("Echo: " + buf.toString(), module);
 
-         return null;
+            // echo back the request
+            try {
+                response.setContentType("text/xml");
+                Writer out = response.getWriter();
+                out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+                out.write("<methodResponse>");
+                out.write("<params><param>");
+                out.write("<value><string><![CDATA[");
+                out.write(buf.toString());
+                out.write("]]></string></value>");
+                out.write("</param></params>");
+                out.write("</methodResponse>");
+                out.flush();
+            } catch (Exception e) {
+                throw new EventHandlerException(e.getMessage(), e);
+            }
+        } else {
+            try {
+                this.execute(this.getXmlRpcConfig(request), new HttpStreamConnection(request, response));
+            } catch (XmlRpcException e) {
+                Debug.logError(e, module);
+                throw new EventHandlerException(e.getMessage(), e);
+            }
+        }
+
+        return null;
     }
 
     protected void setResponseHeader(ServerStreamConnection con, String header, String value) {
