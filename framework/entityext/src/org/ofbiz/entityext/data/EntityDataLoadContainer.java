@@ -98,36 +98,54 @@ public class EntityDataLoadContainer implements Container {
                 }
     
                 // parse the arguments
+                String argumentName;
+                String argumentVal;
                 if (argument.indexOf("=") != -1) {
-                    String argumentName = argument.substring(0, argument.indexOf("="));
-                    String argumentVal = argument.substring(argument.indexOf("=") + 1);
-                    Debug.log("Install Argument - " + argumentName + " = " + argumentVal, module);
-                    if ("readers".equalsIgnoreCase(argumentName)) {
-                        this.readers = argumentVal;
-                    } else if ("timeout".equalsIgnoreCase(argumentName)) {
-                        try {
-                            this.txTimeout = Integer.parseInt(argumentVal);
-                        } catch (Exception e) {
-                            this.txTimeout = -1;
-                        }
-                    } else if ("component".equalsIgnoreCase(argumentName)) {
-                        this.component = argumentVal;
-                    } else if ("delegator".equalsIgnoreCase(argumentName)) {
-                        this.overrideDelegator = argumentVal;
-                    } else if ("group".equalsIgnoreCase(argumentName)) {
-                        this.overrideGroup = argumentVal;
-                    } else if ("file".equalsIgnoreCase(argumentName)) {
-                        this.file = argumentVal;
-                    } else if ("dir".equalsIgnoreCase(argumentName)) {
-                        this.directory = argumentVal;
-                    } else if ("createfks".equalsIgnoreCase(argumentName)) {
-                        this.useDummyFks = "true".equalsIgnoreCase(argumentVal);
-                    } else if ("maintainTxs".equalsIgnoreCase(argumentName)) {
-                        this.maintainTxs = "true".equalsIgnoreCase(argumentVal);
-                    } else if ("inserts".equalsIgnoreCase(argumentName)) {
-                        this.tryInserts = "true".equalsIgnoreCase(argumentVal);
-                    }
+                    argumentName = argument.substring(0, argument.indexOf("="));
+                    argumentVal = argument.substring(argument.indexOf("=") + 1);
+                } else {
+                    argumentName = argument;
+                    argumentVal = "";
                 }
+                Debug.log("Install Argument - " + argumentName + " = " + argumentVal, module);
+
+                if ("readers".equalsIgnoreCase(argumentName)) {
+                    this.readers = argumentVal;
+                } else if ("timeout".equalsIgnoreCase(argumentName)) {
+                    try {
+                        this.txTimeout = Integer.parseInt(argumentVal);
+                    } catch (Exception e) {
+                        this.txTimeout = -1;
+                    }
+                } else if ("component".equalsIgnoreCase(argumentName)) {
+                    this.component = argumentVal;
+                } else if ("delegator".equalsIgnoreCase(argumentName)) {
+                    this.overrideDelegator = argumentVal;
+                } else if ("group".equalsIgnoreCase(argumentName)) {
+                    this.overrideGroup = argumentVal;
+                } else if ("file".equalsIgnoreCase(argumentName)) {
+                    this.file = argumentVal;
+                } else if ("dir".equalsIgnoreCase(argumentName)) {
+                    this.directory = argumentVal;
+                } else if ("createfks".equalsIgnoreCase(argumentName)) {
+                    this.useDummyFks = "true".equalsIgnoreCase(argumentVal);
+                } else if ("maintainTxs".equalsIgnoreCase(argumentName)) {
+                    this.maintainTxs = "true".equalsIgnoreCase(argumentVal);
+                } else if ("inserts".equalsIgnoreCase(argumentName)) {
+                    this.tryInserts = "true".equalsIgnoreCase(argumentVal);
+                } else if ("help".equalsIgnoreCase(argumentName)) {
+                    Debug.log("--------------------------------------", module);
+                    Debug.log("java -jar ofbiz.jar -install [options]", module);
+                    Debug.log("-component=[name] .... only load from a specific component");
+                    Debug.log("-delegator=[name] .... use the defined delegator (default-no-eca", module);
+                    Debug.log("-group=[name] ........ override the entity group (org.ofbiz)", module);
+                    Debug.log("-file=[path] ......... load a single from from location", module);
+                    Debug.log("-createfks ........... create dummy (placeholder) FKs", module);
+                    Debug.log("-maintainTxs ......... maintain timestamps in data file", module);
+                    Debug.log("-inserts ............. use mostly inserts option", module);
+                    Debug.log("-help ................ display this information", module);
+                    System.exit(1);
+                }                
     
                 // special case
                 if (this.readers == null && (this.file != null || this.directory != null)) {
