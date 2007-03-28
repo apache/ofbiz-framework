@@ -158,6 +158,10 @@ public class FinAccountPaymentServices {
 
             // check the amount to authorize against the available balance of fin account, which includes active authorizations as well as transactions
             BigDecimal availableBalance = finAccount.getBigDecimal("availableBalance");
+            if (availableBalance == null) {
+                availableBalance = FinAccountHelper.ZERO;
+            }
+            
             Map result = ServiceUtil.returnSuccess();
             String authMessage = null;
             Boolean processResult;
@@ -188,20 +192,8 @@ public class FinAccountPaymentServices {
                     processResult = Boolean.TRUE;
                 }
 
-                // mark the account as frozen if we have gone negative
+                // refresh the account
                 finAccount.refresh();
-                BigDecimal newBalance = finAccount.getBigDecimal("availableBalance");
-                if (newBalance.compareTo(FinAccountHelper.ZERO) == -1) {
-                    Debug.logInfo("Financal account [" + finAccountId + "] now frozen: " + newBalance, module);
-                    finAccount.set("isFrozen", "Y");
-                    try {
-                        finAccount.store();
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e, module);
-                        return ServiceUtil.returnError(e.getMessage());
-                    }
-                }
-
             } else {
                 Debug.logError("Attempted to authorize [" + amount + "] against a balance of only [" + availableBalance + "]", module);
                 refNum = "0"; // a refNum is always required from authorization
