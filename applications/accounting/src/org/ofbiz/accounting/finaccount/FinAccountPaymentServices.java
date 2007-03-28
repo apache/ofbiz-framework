@@ -485,6 +485,9 @@ public class FinAccountPaymentServices {
 
         // check the actual balance (excluding authorized amounts) and create the transaction if it is sufficient
         BigDecimal previousBalance = finAccount.getBigDecimal("actualBalance");
+        if (previousBalance == null) {
+            previousBalance = FinAccountHelper.ZERO;
+        }
 
         BigDecimal balance;
         String refNum;
@@ -504,6 +507,11 @@ public class FinAccountPaymentServices {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
             }
+        }
+
+        // make sure balance is not null
+        if (balance == null) {
+            balance = FinAccountHelper.ZERO;
         }
 
         Map result = ServiceUtil.returnSuccess();
@@ -558,6 +566,9 @@ public class FinAccountPaymentServices {
         
         // get the previous balance
         BigDecimal previousBalance = finAccount.getBigDecimal("actualBalance");
+        if (previousBalance == null) {
+            previousBalance = FinAccountHelper.ZERO;    
+        }
 
         // create the transaction
         BigDecimal balance;
@@ -570,6 +581,11 @@ public class FinAccountPaymentServices {
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
+        }
+
+        // make sure balance is not null
+        if (balance == null) {
+            balance = FinAccountHelper.ZERO;
         }
 
         Map result = ServiceUtil.returnSuccess();
