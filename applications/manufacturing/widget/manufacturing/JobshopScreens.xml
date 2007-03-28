@@ -83,7 +83,7 @@ under the License.
                 <set field="headerItem" value="jobshop"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/EditProductionRun.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ViewProductionRun.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator">
@@ -100,7 +100,7 @@ under the License.
                         </container>
                         <include-form name="UpdateProductionRun" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
                         <platform-specific>
-                            <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/EditProductionRun.ftl"/></html>
+                            <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/associatedProductionRuns.ftl"/></html>
                         </platform-specific>
                         <container>
                             <label style="head2">${uiLabelMap.ManufacturingOrderItems}</label>
@@ -134,6 +134,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
 
+                <!--<script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ViewProductionRun.bsh"/>-->
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunDeclaration.bsh"/>
             </actions>
             <widgets>
@@ -186,6 +187,9 @@ under the License.
                         <include-form name="ListProductionRunOrderItems" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
                         <platform-specific>
                             <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunDeclaration.ftl"/></html>
+                        </platform-specific>
+                        <platform-specific>
+                            <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/associatedProductionRuns.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
