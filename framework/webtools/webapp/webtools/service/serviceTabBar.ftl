@@ -24,6 +24,7 @@ under the License.
     <li<#if selected = "JobList"> class="selected"</#if>><a href="<@ofbizUrl>jobList</@ofbizUrl>">${uiLabelMap.WebtoolsJobList}</a></li>
     <li<#if selected = "ThreadList"> class="selected"</#if>><a href="<@ofbizUrl>threadList</@ofbizUrl>">${uiLabelMap.WebtoolsThreadList}</a></li>
     <li<#if selected = "ScheduleJob"> class="selected"</#if>><a href="<@ofbizUrl>scheduleJob</@ofbizUrl>">${uiLabelMap.WebtoolsScheduleJob}</a></li>
+    <li<#if selected = "RunService"> class="selected"</#if>><a href="<@ofbizUrl>runService</@ofbizUrl>">${uiLabelMap.PageTitleRunService}</a></li>
   </ul>
   <br class="clear" />
 </div>
