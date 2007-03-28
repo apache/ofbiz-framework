@@ -34,6 +34,8 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
@@ -57,6 +59,8 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.workflow.WfUtil;
+
+import javax.transaction.Transaction;
 
 /**
  * Order Processing Services
@@ -4099,30 +4103,46 @@ public class OrderServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
 
-        ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
-        GenericValue userLogin = cart.getUserLogin();
-        Boolean manualHold = (Boolean) context.get("manualHold");
-        if (manualHold == null) {
-            manualHold = Boolean.FALSE;
-        }
-
-        String productStoreId = cart.getProductStoreId();
-        
-        GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
-        CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
-
-        // process payment
-        Map payResp;
+        Transaction trans = null;
         try {
-            payResp = coh.processPayment(productStore, userLogin, false, manualHold.booleanValue());
-        } catch (GeneralException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
-        }
-        if (ServiceUtil.isError(payResp)) {
-            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(payResp));
-        }
+            // disable transaction procesing
+            trans = TransactionUtil.suspend();
 
-        return ServiceUtil.returnSuccess();
+            // get the cart
+            ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
+            GenericValue userLogin = cart.getUserLogin();
+            Boolean manualHold = (Boolean) context.get("manualHold");
+            if (manualHold == null) {
+                manualHold = Boolean.FALSE;
+            }
+
+            String productStoreId = cart.getProductStoreId();
+
+            GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
+            CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
+    
+            // process payment
+            Map payResp;
+            try {
+                payResp = coh.processPayment(productStore, userLogin, false, manualHold.booleanValue());
+            } catch (GeneralException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError(e.getMessage());
+            }
+            if (ServiceUtil.isError(payResp)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(payResp));
+            }
+
+            return ServiceUtil.returnSuccess();
+        } catch (GenericTransactionException e) {
+            return ServiceUtil.returnError(e.getMessage());
+        } finally {
+            // resume transaction
+            try {
+                TransactionUtil.resume(trans);
+            } catch (GenericTransactionException e) {
+                Debug.logWarning(e, e.getMessage(), module);
+            }
+        }
     }
 }
