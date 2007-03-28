@@ -175,40 +175,39 @@ public class FinAccountHelper {
       * @throws GenericEntityException
       */
      public static BigDecimal getBalance(String finAccountId, Timestamp asOfDateTime, GenericDelegator delegator) throws GenericEntityException {
-         if (asOfDateTime == null) asOfDateTime = UtilDateTime.nowTimestamp();
+        if (asOfDateTime == null) asOfDateTime = UtilDateTime.nowTimestamp();
          
-         BigDecimal incrementTotal = ZERO;  // total amount of transactions which increase balance
-         BigDecimal decrementTotal = ZERO;  // decrease balance
+        BigDecimal incrementTotal = ZERO;  // total amount of transactions which increase balance
+        BigDecimal decrementTotal = ZERO;  // decrease balance
 
-         GenericValue finAccount = delegator.findByPrimaryKeyCache("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
-         String currencyUomId = finAccount.getString("currencyUomId");
+        GenericValue finAccount = delegator.findByPrimaryKeyCache("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
+        String currencyUomId = finAccount.getString("currencyUomId");
          
-         // find the sum of all transactions which increase the value
-         EntityConditionList incrementConditions = new EntityConditionList(UtilMisc.toList(
-                 new EntityExpr("finAccountId", EntityOperator.EQUALS, finAccountId),
-                 new EntityExpr("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
-                 new EntityExpr("currencyUomId", EntityOperator.EQUALS, currencyUomId),
-                 new EntityConditionList(UtilMisc.toList(
-                         new EntityExpr("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT"),
-                         new EntityExpr("finAccountTransTypeId", EntityOperator.EQUALS, "ADJUSTMENT")),
-                     EntityOperator.OR)),
-                 EntityOperator.AND);
-         List transSums = delegator.findByCondition("FinAccountTransSum", incrementConditions, UtilMisc.toList("amount"), null);
-         incrementTotal = addFirstEntryAmount(incrementTotal, transSums, "amount", (decimals+1), rounding);
+        // find the sum of all transactions which increase the value
+        EntityConditionList incrementConditions = new EntityConditionList(UtilMisc.toList(
+                new EntityExpr("finAccountId", EntityOperator.EQUALS, finAccountId),
+                new EntityExpr("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
+                new EntityConditionList(UtilMisc.toList(
+                        new EntityExpr("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT"),
+                        new EntityExpr("finAccountTransTypeId", EntityOperator.EQUALS, "ADJUSTMENT")),
+                    EntityOperator.OR)),
+                EntityOperator.AND);
+        List transSums = delegator.findByCondition("FinAccountTransSum", incrementConditions, UtilMisc.toList("amount"), null);
+        incrementTotal = addFirstEntryAmount(incrementTotal, transSums, "amount", (decimals+1), rounding);
 
-         // now find sum of all transactions with decrease the value
-         EntityConditionList decrementConditions = new EntityConditionList(UtilMisc.toList(
-                 new EntityExpr("finAccountId", EntityOperator.EQUALS, finAccountId),
-                 new EntityExpr("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
-                 new EntityExpr("currencyUomId", EntityOperator.EQUALS, currencyUomId),
-                 new EntityExpr("finAccountTransTypeId", EntityOperator.EQUALS, "WITHDRAWAL")),
-             EntityOperator.AND);
-         transSums = delegator.findByCondition("FinAccountTransSum", decrementConditions, UtilMisc.toList("amount"), null);
-         decrementTotal = addFirstEntryAmount(decrementTotal, transSums, "amount", (decimals+1), rounding);
-         
-         // the net balance is just the incrementTotal minus the decrementTotal
-         return incrementTotal.subtract(decrementTotal).setScale(decimals, rounding);
-     }
+        // now find sum of all transactions with decrease the value
+        EntityConditionList decrementConditions = new EntityConditionList(UtilMisc.toList(
+                new EntityExpr("finAccountId", EntityOperator.EQUALS, finAccountId),
+                new EntityExpr("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
+                new EntityExpr("currencyUomId", EntityOperator.EQUALS, currencyUomId),
+                new EntityExpr("finAccountTransTypeId", EntityOperator.EQUALS, "WITHDRAWAL")),
+            EntityOperator.AND);
+        transSums = delegator.findByCondition("FinAccountTransSum", decrementConditions, UtilMisc.toList("amount"), null);
+        decrementTotal = addFirstEntryAmount(decrementTotal, transSums, "amount", (decimals+1), rounding);
+        
+        // the net balance is just the incrementTotal minus the decrementTotal
+        return incrementTotal.subtract(decrementTotal).setScale(decimals, rounding);
+    }
 
      /**
       * Returns the net balance (see above) minus the sum of all authorization amounts which are not expired and were authorized by the as of date
@@ -218,25 +217,25 @@ public class FinAccountHelper {
       * @return
       * @throws GenericEntityException
       */
-     public static BigDecimal getAvailableBalance(String finAccountId, Timestamp asOfDateTime, GenericDelegator delegator) throws GenericEntityException {
-         if (asOfDateTime == null) asOfDateTime = UtilDateTime.nowTimestamp();
+    public static BigDecimal getAvailableBalance(String finAccountId, Timestamp asOfDateTime, GenericDelegator delegator) throws GenericEntityException {
+        if (asOfDateTime == null) asOfDateTime = UtilDateTime.nowTimestamp();
 
-         BigDecimal netBalance = getBalance(finAccountId, asOfDateTime, delegator);
+        BigDecimal netBalance = getBalance(finAccountId, asOfDateTime, delegator);
          
-         // find sum of all authorizations which are not expired and which were authorized before as of time
-         EntityConditionList authorizationConditions = new EntityConditionList(UtilMisc.toList(
-                 new EntityExpr("finAccountId", EntityOperator.EQUALS, finAccountId),
-                 new EntityExpr("authorizationDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
-                 EntityUtil.getFilterByDateExpr(asOfDateTime)),
-             EntityOperator.AND);
+        // find sum of all authorizations which are not expired and which were authorized before as of time
+        EntityConditionList authorizationConditions = new EntityConditionList(UtilMisc.toList(
+                new EntityExpr("finAccountId", EntityOperator.EQUALS, finAccountId),
+                new EntityExpr("authorizationDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
+                EntityUtil.getFilterByDateExpr(asOfDateTime)),
+            EntityOperator.AND);
          
-         List authSums = delegator.findByCondition("FinAccountAuthSum", authorizationConditions, UtilMisc.toList("amount"), null);
+        List authSums = delegator.findByCondition("FinAccountAuthSum", authorizationConditions, UtilMisc.toList("amount"), null);
          
-         BigDecimal authorizationsTotal = addFirstEntryAmount(ZERO, authSums, "amount", (decimals+1), rounding);
+        BigDecimal authorizationsTotal = addFirstEntryAmount(ZERO, authSums, "amount", (decimals+1), rounding);
          
-         // the total available balance is transactions total minus authorizations total
-         return netBalance.subtract(authorizationsTotal).setScale(decimals, rounding);
-     }
+        // the total available balance is transactions total minus authorizations total
+        return netBalance.subtract(authorizationsTotal).setScale(decimals, rounding);
+    }
 
     public static boolean validateFinAccount(GenericValue finAccount) {
         return false;    

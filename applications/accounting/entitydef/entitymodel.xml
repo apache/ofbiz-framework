@@ -550,15 +550,10 @@ under the License.
         <description>View entity to help calculate total of financial account transactions by doing a query for the sum of all amounts 
             on a range of transactionDates for a given finAccountId, finAccountTransTypeId</description>
         <member-entity entity-alias="FAT" entity-name="FinAccountTrans"/>
-        <member-entity entity-alias="P" entity-name="Payment"/>
         <alias entity-alias="FAT" name="finAccountId" group-by="true"/>
         <alias entity-alias="FAT" name="finAccountTransTypeId" group-by="false"/> <!-- must not group-by this, or aggregating DEPOSIT and ADJUSTMENT won't work -->
         <alias entity-alias="FAT" name="transactionDate" group-by="false"/>
-        <alias entity-alias="P" name="amount" function="sum"/>
-        <alias entity-alias="P" name="currencyUomId" group-by="true"/>
-        <view-link entity-alias="FAT" rel-entity-alias="P">
-            <key-map field-name="paymentId"/>
-        </view-link>       
+        <alias entity-alias="FAT" name="amount" function="sum"/>
     </view-entity>
     <view-entity entity-name="FinAccountAuthSum" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Authorization Sum">
         <description>View entity to help calculate total of financial account authorizations by doing a query for the sum of all amounts 
