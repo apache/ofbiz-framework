@@ -95,7 +95,7 @@ public class ProductionRunServices {
         String currentStatusId = productionRun.getGenericValue().getString("currentStatusId");
 
         // PRUN_CREATED, PRUN_DOC_PRINTED --> PRUN_CANCELLED
-        if (currentStatusId.equals("PRUN_CREATED") || currentStatusId.equals("PRUN_DOC_PRINTED")) {
+        if (currentStatusId.equals("PRUN_CREATED") || currentStatusId.equals("PRUN_DOC_PRINTED") || currentStatusId.equals("PRUN_SCHEDULED")) {
             try {
                 // First of all, make sure that there aren't production runs that depend on this one.
                 List mandatoryWorkEfforts = new ArrayList();
