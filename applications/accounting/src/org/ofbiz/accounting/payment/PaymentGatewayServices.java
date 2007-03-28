@@ -20,15 +20,7 @@ package org.ofbiz.accounting.payment;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Calendar;
-import java.util.Set;
+import java.util.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
@@ -2593,6 +2585,30 @@ public class PaymentGatewayServices {
         return result;
     }
 
+    /**
+     *  Test authorize - does random declines
+     */
+    public static Map testRandomAuthorize(DispatchContext dctx, Map context) {
+        Map result = ServiceUtil.returnSuccess();
+        String refNum = UtilDateTime.nowAsString();
+        Random r = new Random();
+        int i = r.nextInt(9);
+        if (i < 5 || i % 2 == 0) {
+            result.put("authResult", Boolean.TRUE);
+            result.put("authFlag", "A");
+        } else {
+            result.put("authResult", Boolean.FALSE);
+            result.put("authFlag", "D");
+        }
+
+        result.put("processAmount", context.get("processAmount"));
+        result.put("authRefNum", refNum);
+        result.put("authAltRefNum", refNum);
+        result.put("authCode", "100");        
+        result.put("authMessage", "This is a test processor; no payments were captured or authorized.");
+
+        return result;
+    }
 
     /**
      * Always approve processor.

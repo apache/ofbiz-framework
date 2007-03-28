@@ -483,6 +483,11 @@ under the License.
         <description>Credit Card Processing</description>
         <implements service="ccAuthInterface"/>
     </service>
+    <service name="testRandomAuthorize" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRandomAuthorize">
+        <description>Credit Card Processing</description>
+        <implements service="ccAuthInterface"/>
+    </service>
 
     <service name="alwaysApproveCCProcessor" engine="java"
              location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysApproveProcessor">
