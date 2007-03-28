@@ -35,7 +35,7 @@ if (UtilValidate.isEmpty(productionRunId)) {
 }
 
 List taskCosts = new ArrayList();
-List tasks = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortParentId", productionRunId), UtilMisc.toList("workEffortId"));
+List tasks = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortParentId", productionRunId, "workEffortTypeId", "PROD_ORDER_TASK"), UtilMisc.toList("workEffortId"));
 Iterator tasksIt = tasks.iterator();
 while (tasksIt.hasNext()) {
     GenericValue task = (GenericValue)tasksIt.next();
