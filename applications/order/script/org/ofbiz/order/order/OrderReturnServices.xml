@@ -281,9 +281,6 @@ under the License.
                     <calcop operator="get" field-name="returnablePrice"/>
                 </calcop>
             </calculate>
-            <if-compare-field field-name="returnPriceDelta" operator="less" to-field-name="zero" type="Double">
-                <calculate field-name="returnPriceDelta" type="Double"><calcop field-name="returnPriceDelta" operator="negative"/></calculate>
-            </if-compare-field>
 			
 			<!-- just checking greater-equals sometimes returns an error if the difference is actually zero -->
             <if-compare-field field-name="returnPriceDelta" operator="not-equals" to-field-name="zero" type="Double">
