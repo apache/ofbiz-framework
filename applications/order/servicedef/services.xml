@@ -157,7 +157,8 @@ under the License.
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
         <attribute name="currency" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="itemMap" type="Map" mode="IN" optional="false"/>         
+        <attribute name="itemMap" type="Map" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="OUT" optional="false"/>  
     </service>
     
     <service name="createOrderItemBilling" engine="simple"
