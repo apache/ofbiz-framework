@@ -72,7 +72,7 @@ under the License.
           </#list>          
         <#else>
           <tr>
-            <td colspan='4'><div class='head3'>${uiLabelMap.CommonNoElementFound}.</div></td>
+            <th colspan="4">${uiLabelMap.CommonNoElementFound}.</th>
           </tr>        
         </#if>
       </table>

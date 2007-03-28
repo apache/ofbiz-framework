@@ -58,7 +58,7 @@ function lookupInventory() {
                 <td width='5%'>&nbsp;</td>
                 <td>
                     <input type='text' size='25' name='productId' value='${requestParameters.productId?if_exists}'/>
-                    <span class='tabletext'>
+                    <span>
                       <a href="javascript:call_fieldlookup2(document.lookupinventory.productId,'LookupProduct');">
                         <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
                       </a> 
@@ -172,39 +172,37 @@ document.lookupinventory.productId.focus();
                     <#assign additionalErrorMessage = "No QOH information found, assuming 0.">
                 </#if>
                 <tr bgcolor="lightblue">  
-                  <td align="left">
-                    <div class='tabletext'>
+                  <th align="left">
                       <b>[${inven.productId}]</b>&nbsp;&nbsp;${product.internalName?if_exists}
-                    </div>
-                  </td>
+                  </th>
                   <td align="left">
                     <#if productFacility != null && productFacility?has_content>
-                      <div class='tabletext'>
+                      <div>
                       <b>${uiLabelMap.ProductFacility}:</b>&nbsp;${productFacility.facilityId?if_exists}
                       </div>
-                      <div class='tabletext'>
+                      <div>
                       <b>${uiLabelMap.ProductMinimumStock}:</b>&nbsp;${productFacility.minimumStock?if_exists}
                       </div>
-                      <div class='tabletext'>
+                      <div>
                       <b>${uiLabelMap.ProductReorderQuantity}:</b>&nbsp;${productFacility.reorderQuantity?if_exists}
                       </div>
-                      <div class='tabletext'>
+                      <div>
                       <b>${uiLabelMap.ProductDaysToShip}:</b>&nbsp;${productFacility.daysToShip?if_exists}
                       </div>
                       </#if>
                   </td>
                   <td colspan="5" align="right">
-                    <big><b><div class='tabletext'>${quantityAvailableAtDate}</div></b></big>
+                    <big><b><div>${quantityAvailableAtDate}</div></b></big>
                   </td>
                 </tr>
                 <#if additionalErrorMessage?has_content>
                 <tr>
-                    <td colspan="7"><div class="tableheadtext"><font color="red">${additionalErrorMessage}</font></div></td>
+                    <th colspan="7"><font color="red">${additionalErrorMessage}</font></th>
                 </tr>
                 </#if>
                 <#list errorEvents as errorEvent>
                 <tr>
-                    <td colspan="7"><div class="tableheadtext"><font color="red">${errorEvent.eventName?if_exists}</font></div></td>
+                    <th colspan="7"><font color="red">${errorEvent.eventName?if_exists}</font></td>
                 </tr>
                 </#list>
             </#if>
@@ -212,15 +210,13 @@ document.lookupinventory.productId.focus();
             <#assign productTmp = product>
             <#assign inventoryEventPlannedType = inven.getRelatedOne("InventoryEventPlannedType")>
             <tr class="${rowClass}">
-              <td><div class='tabletext'>${inventoryEventPlannedType.get("description",locale)}</div></td>
+              <td>${inventoryEventPlannedType.get("description",locale)}</td>
               <td>&nbsp</td>
               <td>${inven.eventName?if_exists}</td>
-              <td><div class='tabletext'><font <#if inven.isLate?default("N") == "Y">color='red'</#if>>${inven.getString("eventDate")}</font></div></td>
+              <td><font <#if inven.isLate?default("N") == "Y">color='red'</#if>>${inven.getString("eventDate")}</font></td>
               <td>&nbsp</td>
-              <td><div class='tabletext'align="right"> ${inven.getString("eventQuantity")}</div></td>
-              <td align="right">
-                <div class='tabletext'>${quantityAvailableAtDate?if_exists}</div>
-              </td>
+              <td align="right">${inven.getString("eventQuantity")}</td>
+              <td align="right">${quantityAvailableAtDate?if_exists}</td>
             </tr>
             <#assign count=count+1>
            </#list>
