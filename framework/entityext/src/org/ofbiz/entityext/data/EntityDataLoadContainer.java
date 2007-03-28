@@ -188,7 +188,7 @@ public class EntityDataLoadContainer implements Container {
         if (readerNames != null) {
             urlList = EntityDataLoader.getUrlList(helperName, component, readerNames);
         } else if (!"none".equalsIgnoreCase(this.readers)) {
-            urlList = EntityDataLoader.getUrlList(helperName);
+            urlList = EntityDataLoader.getUrlList(helperName, component);
         }
 
         // need a list if it is empty
