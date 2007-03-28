@@ -77,6 +77,11 @@ public class EntityDataLoader {
         return getUrlList(helperName, null, datasourceInfo.readDatas);
     }
 
+    public static List getUrlList(String helperName, String componentName) {
+        DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
+        return getUrlList(helperName, componentName, datasourceInfo.readDatas);
+    }
+
     public static List getUrlList(String helperName, List readerNames) {
         return getUrlList(helperName, null, readerNames);
     }
