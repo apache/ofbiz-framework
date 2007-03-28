@@ -127,14 +127,8 @@ public class FinAccountServices {
         }
 
         // get the balance
-        BigDecimal availableBalance;
-        BigDecimal balance;
-        try {
-            availableBalance = FinAccountHelper.getAvailableBalance(finAccountId, delegator);
-            balance = FinAccountHelper.getBalance(finAccountId, delegator);
-        } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(e.getMessage());
-        }
+        BigDecimal availableBalance = finAccount.getBigDecimal("availableBalance");
+        BigDecimal balance= finAccount.getBigDecimal("actualBalance");
 
         Debug.log("FinAccount Balance [" + balance + "] Available [" + availableBalance + "]", module);        
         Boolean isFrozen = Boolean.valueOf("Y".equals(finAccount.getString("isFrozen")));
@@ -178,19 +172,14 @@ public class FinAccountServices {
             String frozen = finAccount.getString("isFrozen");
             if (frozen == null) frozen = "N";
 
-            BigDecimal balance;
-            try {
-                balance = FinAccountHelper.getAvailableBalance(finAccountId, delegator);
-            } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(e.getMessage());
-            }
+            BigDecimal availableBalance = finAccount.getBigDecimal("availableBalance");
 
-            if ("N".equals(frozen) && balance.compareTo(FinAccountHelper.ZERO) < 1) {
+            if ("N".equals(frozen) && FinAccountHelper.ZERO.compareTo(availableBalance) < 1) {
                 finAccount.set("isFrozen", "Y");
-                Debug.logInfo("Financial account [" + finAccountId + "] has passed its threshold [" + balance + "] (Frozen)", module);
-            } else if ("Y".equals(frozen) && balance.compareTo(FinAccountHelper.ZERO) > 0) {
+                Debug.logInfo("Financial account [" + finAccountId + "] has passed its threshold [" + availableBalance + "] (Frozen)", module);
+            } else if ("Y".equals(frozen) && FinAccountHelper.ZERO.compareTo(availableBalance) > 0) {
                 finAccount.set("isFrozen", "N");
-                Debug.logInfo("Financial account [" + finAccountId + "] has been made current [" + balance + "] (Un-Frozen)", module);
+                Debug.logInfo("Financial account [" + finAccountId + "] has been made current [" + availableBalance + "] (Un-Frozen)", module);
             }
             try {
                 finAccount.store();

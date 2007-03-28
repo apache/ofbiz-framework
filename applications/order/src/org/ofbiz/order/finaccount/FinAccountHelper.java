@@ -175,6 +175,8 @@ public class FinAccountHelper {
       * @throws GenericEntityException
       */
      public static BigDecimal getBalance(String finAccountId, Timestamp asOfDateTime, GenericDelegator delegator) throws GenericEntityException {
+         if (asOfDateTime == null) asOfDateTime = UtilDateTime.nowTimestamp();
+         
          BigDecimal incrementTotal = ZERO;  // total amount of transactions which increase balance
          BigDecimal decrementTotal = ZERO;  // decrease balance
 
@@ -209,17 +211,6 @@ public class FinAccountHelper {
      }
 
      /**
-      * Same as above for the current instant
-      * @param finAccountId
-      * @param delegator
-      * @return
-      * @throws GenericEntityException
-      */
-     public static BigDecimal getBalance(String finAccountId, GenericDelegator delegator) throws GenericEntityException {
-         return getBalance(finAccountId, UtilDateTime.nowTimestamp(), delegator);
-     }
-     
-     /**
       * Returns the net balance (see above) minus the sum of all authorization amounts which are not expired and were authorized by the as of date
       * @param finAccountId
       * @param asOfDateTime
@@ -228,6 +219,8 @@ public class FinAccountHelper {
       * @throws GenericEntityException
       */
      public static BigDecimal getAvailableBalance(String finAccountId, Timestamp asOfDateTime, GenericDelegator delegator) throws GenericEntityException {
+         if (asOfDateTime == null) asOfDateTime = UtilDateTime.nowTimestamp();
+
          BigDecimal netBalance = getBalance(finAccountId, asOfDateTime, delegator);
          
          // find sum of all authorizations which are not expired and which were authorized before as of time
@@ -244,17 +237,6 @@ public class FinAccountHelper {
          // the total available balance is transactions total minus authorizations total
          return netBalance.subtract(authorizationsTotal).setScale(decimals, rounding);
      }
-
-     /**
-      * Same as above for the current instant
-      * @param finAccountId
-      * @param delegator
-      * @return
-      * @throws GenericEntityException
-      */
-    public static BigDecimal getAvailableBalance(String finAccountId, GenericDelegator delegator) throws GenericEntityException {
-        return getAvailableBalance(finAccountId, UtilDateTime.nowTimestamp(), delegator);
-    }
 
     public static boolean validateFinAccount(GenericValue finAccount) {
         return false;    

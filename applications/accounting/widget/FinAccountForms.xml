@@ -45,15 +45,11 @@ under the License.
                 <field-map field-name="orderBy" value="fromDate"/>
             </service>
         </actions>
+        <auto-fields-entity entity-name="FinAccount" default-field-type="display"/>
         <field name="finAccountId"> <hyperlink  description="${finAccountId}" target="EditFinAccount?finAccountId=${finAccountId}"/> </field>
         <field name="finAccountTypeId"><display-entity entity-name="FinAccountType" description="${description}"/></field>
-        <field name="finAccountName"><display/></field>
-        <field name="finAccountCode"><display/></field>
-        <field name="fromdate"><display/></field>
-        <field name="thrudate"><display/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink target="deleteFinAccount?finAccountId=${finAccountId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteFinAccount?finAccountId=${finAccountId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
 	

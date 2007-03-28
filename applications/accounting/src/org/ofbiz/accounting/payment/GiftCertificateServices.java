@@ -170,35 +170,41 @@ public class GiftCertificateServices {
         }
 
         String finAccountId = null;
+        GenericValue finAccount = null;
          // validate the pin if the store requires it and figure out the finAccountId from card number
         try {
             GenericValue giftCertSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId));
-             if ("Y".equals(giftCertSettings.getString("requirePinCode"))) {
-        if (!validatePin(delegator, cardNumber, pinNumber)) {
-            return ServiceUtil.returnError("PIN number is not valid!");
-        }
-                 finAccountId = cardNumber;
-             } else {
-                 GenericValue finAccount = FinAccountHelper.getFinAccountFromCode(cardNumber, delegator);
-                 if (finAccount != null) {
-                     finAccountId = finAccount.getString("finAccountId");
-                 }
-             }
-        } catch (GenericEntityException ex) {
-            return ServiceUtil.returnError("Cannot get store fin account settings " + ex.getMessage());
+            if ("Y".equals(giftCertSettings.getString("requirePinCode"))) {
+                if (!validatePin(delegator, cardNumber, pinNumber)) {
+                    return ServiceUtil.returnError("PIN number is not valid!");
+                }
+                finAccountId = cardNumber;
+            } else {
+                finAccount = FinAccountHelper.getFinAccountFromCode(cardNumber, delegator);
+                if (finAccount != null) {
+                    finAccountId = finAccount.getString("finAccountId");
+                }
+            }
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError("Cannot get store financial account settings " + e.getMessage());
         }
 
         if (finAccountId == null) {
             return ServiceUtil.returnError("Cannot get fin account for adding to balance");
         }
+        
+        if (finAccount == null) {
+            try {
+                finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
+            } catch (GenericEntityException e) {
+                return ServiceUtil.returnError("Cannot get financial account settings " + e.getMessage());
+            }
+        }
 
         // get the previous balance
         BigDecimal previousBalance = ZERO;
-        try {
-            previousBalance = FinAccountHelper.getAvailableBalance(cardNumber, delegator);
-        } catch (GeneralException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
+        if (finAccount.get("availableBalance") != null) {
+            previousBalance = finAccount.getBigDecimal("availableBalance");
         }
 
         // create the transaction
@@ -207,7 +213,8 @@ public class GiftCertificateServices {
         try {
             refNum = GiftCertificateServices.createTransaction(delegator, dispatcher, userLogin, amount,
                     productStoreId, partyId, currencyUom, deposit, finAccountId);
-            balance = FinAccountHelper.getAvailableBalance(cardNumber, delegator);
+            finAccount.refresh();
+            balance = finAccount.getBigDecimal("availableBalance");
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -260,14 +267,15 @@ public class GiftCertificateServices {
         }
         Debug.logInfo("Attempting to redeem GC for " + amount, module);
 
-        // check the actual balance (excluding authorized amounts) and create the transaction if it is sufficient
-        double previousBalance = 0.00;
+        GenericValue finAccount = null;
         try {
-            previousBalance = FinAccountHelper.getBalance(cardNumber, delegator).doubleValue();
-        } catch (GeneralException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
+            finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", cardNumber));
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError("Cannot get financial account settings " + e.getMessage());
         }
+        
+        // check the actual balance (excluding authorized amounts) and create the transaction if it is sufficient
+        double previousBalance = finAccount.get("actualBalance") == null ? 0.0 : finAccount.getDouble("actualBalance").doubleValue();
 
         double balance = 0.00;
         String refNum = null;
@@ -276,7 +284,8 @@ public class GiftCertificateServices {
             try {
                 refNum = GiftCertificateServices.createTransaction(delegator, dispatcher, userLogin, amount,
                         productStoreId, partyId, currencyUom, withdrawl, cardNumber);
-                balance = FinAccountHelper.getAvailableBalance(cardNumber, delegator).doubleValue();
+                finAccount.refresh();
+                balance = finAccount.get("availableBalance") == null ? 0.0 : finAccount.getDouble("availableBalance").doubleValue();
                 procResult = Boolean.TRUE;
             } catch (GeneralException e) {
                 Debug.logError(e, module);
@@ -309,15 +318,17 @@ public class GiftCertificateServices {
             return ServiceUtil.returnError("PIN number is not valid!");
         }
 
-        // TODO: get the real currency from context
-        String currencyUom = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
-        // get the balance
-        double balance = 0.00;
+        GenericValue finAccount = null;
         try {
-            balance = FinAccountHelper.getAvailableBalance(cardNumber, delegator).doubleValue();
-        } catch (GeneralException e) {
-            return ServiceUtil.returnError(e.getMessage());
+            finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", cardNumber));
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError("Cannot get financial account settings " + e.getMessage());
         }
+        
+        // TODO: get the real currency from context
+        //String currencyUom = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+        // get the balance
+        double balance = finAccount.get("availableBalance") == null ? 0.0 : finAccount.getDouble("availableBalance").doubleValue();
 
         Map result = ServiceUtil.returnSuccess();
         result.put("balance", new Double(balance));
@@ -455,7 +466,7 @@ public class GiftCertificateServices {
             }
             
             // check the amount to authorize against the available balance of fin account, which includes active authorizations as well as transactions
-            BigDecimal availableBalance = FinAccountHelper.getAvailableBalance(finAccountId, delegator);
+            BigDecimal availableBalance = finAccount.getBigDecimal("availableBalance");
             Boolean processResult = null;
             String refNum = null;
             Map result = ServiceUtil.returnSuccess();
