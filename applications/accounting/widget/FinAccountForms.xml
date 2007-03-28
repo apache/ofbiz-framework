@@ -130,7 +130,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="FinAccountTrans" default-field-type="display"/>
         <field name="finAccountId"><hidden/></field>
-        <field name="finAccountTransId"><hidden/></field>
+        <field name="finAccountTransId"><display/></field>
         <field name="finAccountTransTypeId"><display-entity entity-name="FinAccountTransType" description="${description}"/></field>
     </form>
     <form name="AddFinAccountTrans" type="single" target="createFinAccountTrans">
@@ -160,7 +160,7 @@ under the License.
             </entity-condition>
         </actions>
         <auto-fields-entity entity-name="FinAccountAuth" default-field-type="display"/>
-        <field name="finAccountAuthId"><hidden/></field>
+        <field name="finAccountAuthId"><display/></field>
         <field name="finAccountId"><hidden/></field>
         <field name="expireLink" title="" widget-style="buttontext">
             <hyperlink target="expireFinAccountAuth?finAccountId=${finAccountId}&amp;finAccountAuthId=${finAccountAuthId}"
