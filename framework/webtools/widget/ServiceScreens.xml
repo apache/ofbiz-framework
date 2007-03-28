@@ -129,10 +129,11 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleRunService"/>
+                <set field="tabButtonItem" value="RunService"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/scheduleJob.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonServiceDecorator">
                     <decorator-section name="body">
                         <include-form name="runService" location="component://webtools/webapp/webtools/service/ServiceForms.xml"/>
                     </decorator-section>
