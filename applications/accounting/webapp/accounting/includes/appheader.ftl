@@ -39,7 +39,7 @@ under the License.
   <div class="col"><a href="<@ofbizUrl>ListFixedAssets</@ofbizUrl>" class="${selectedLeftClassMap.ListFixedAssets?default(unselectedLeftClassName)}">${uiLabelMap.AccountingFixedAssets}</a></div>
   <div class="col"><a href="<@ofbizUrl>FindTaxAuthority</@ofbizUrl>" class="${selectedLeftClassMap.TaxAuthorities?default(unselectedLeftClassName)}">${uiLabelMap.AccountingTaxAuthorities}</a></div>
   <div class="col"><a href="<@ofbizUrl>ListCompanies</@ofbizUrl>" class="${selectedLeftClassMap.companies?default(unselectedLeftClassName)}">${uiLabelMap.AccountingCompanies}</a></div>
-
+  <div class="col"><a href="<@ofbizUrl>FindFinAccount</@ofbizUrl>" class="${selectedLeftClassMap.FindFinAccount?default(unselectedLeftClassName)}">${uiLabelMap.AccountingFinAccount}</a></div>
   <#if userLogin?has_content>
     <div class="col-right"><a href="<@ofbizUrl>logout</@ofbizUrl>" class="${selectedRightClassMap.logout?default(unselectedRightClassName)}">${uiLabelMap.CommonLogout}</a></div>
   <#else>

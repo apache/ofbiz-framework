@@ -59,6 +59,8 @@ under the License.
         <if-empty field-name="newEntity.entryDate">
             <set from-field="nowTimestamp" field="newEntity.entryDate"/>
         </if-empty>
+        
+        <set field="newEntity.performedByPartyId" from-field="userLogin.partyId"/>
 
         <create-value value-name="newEntity"/>
         <field-to-result field-name="newEntity.finAccountTransId" result-name="finAccountTransId"/>
@@ -145,9 +147,21 @@ under the License.
             <condition-expr field-name="finAccountId" env-name="finAccountId"/>
         </entity-condition>
         <iterate entry-name="finAccountTrans" list-name="finAccountTransList">
+            <if>
+                <condition><if-compare field-name="finAccountTrans.finAccountTransTypeId" operator="equals" value="DEPOSIT"/></condition>
+                <then><set field="amountForCalc" from-field="finAccountTrans.amount"/></then>
+                <else-if>
+                    <condition><if-compare field-name="finAccountTrans.finAccountTransTypeId" operator="equals" value="WITHDRAWAL"/></condition>
+                    <then><calculate field-name="amountForCalc"><calcop operator="negative" field-name="finAccountTrans.amount"/></calculate></then>
+                </else-if>
+                <else-if>
+                    <condition><if-compare field-name="finAccountTrans.finAccountTransTypeId" operator="equals" value="ADJUSTMENT"/></condition>
+                    <then><set field="amountForCalc" from-field="finAccountTrans.amount"/></then>
+                </else-if>
+            </if>
             <calculate field-name="actualBalanceSum" type="BigDecimal">
                 <calcop operator="add" field-name="actualBalanceSum">
-                    <calcop operator="get" field-name="finAccountTrans.amount"/>
+                    <calcop operator="get" field-name="amountForCalc"/>
                 </calcop>
             </calculate>
         </iterate>
