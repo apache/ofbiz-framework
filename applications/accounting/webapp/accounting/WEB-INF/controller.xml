@@ -1227,7 +1227,88 @@ under the License.
         <response name="success" type="view" value="EditFixedAssetMaintOrders"/>
         <response name="error" type="view" value="EditFixedAssetMaintOrders"/>
     </request-map>
-    
+    <!-- Fin Account -->
+    <request-map uri="FindFinAccount">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindFinAccount"/>
+        <response name="error" type="view" value="FindFinAccount"/>
+    </request-map>
+    <request-map uri="EditFinAccount">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditFinAccount"/>
+        <response name="error" type="view" value="EditFinAccount"/>
+    </request-map>
+    <request-map uri="createFinAccount">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createFinAccount"/>
+        <response name="success" type="view" value="EditFinAccount"/>
+        <response name="error" type="view" value="EditFinAccount"/>
+    </request-map>
+    <request-map uri="updateFinAccount">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateFinAccount"/>
+        <response name="success" type="view" value="EditFinAccount"/>
+        <response name="error" type="view" value="EditFinAccount"/>
+    </request-map>
+    <request-map uri="deleteFinAccount">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteFinAccount"/>
+        <response name="success" type="view" value="FindFinAccount"/>
+        <response name="error" type="view" value="FindFinAccount"/>
+    </request-map>
+    <!-- Fin Account Roles -->
+    <request-map uri="EditFinAccountRoles">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditFinAccountRoles"/>
+    </request-map>
+    <request-map uri="createFinAccountRole">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createFinAccountRole"/>
+        <response name="success" type="view" value="EditFinAccountRoles"/>
+        <response name="error" type="view" value="EditFinAccountRoles"/>
+    </request-map>
+    <request-map uri="updateFinAccountRole">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateFinAccountRole"/>
+        <response name="success" type="view" value="EditFinAccountRoles"/>
+        <response name="error" type="view" value="EditFinAccountRoles"/>
+    </request-map>
+    <request-map uri="deleteFinAccountRole">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteFinAccountRole"/>
+        <response name="success" type="view" value="EditFinAccountRoles"/>
+        <response name="error" type="view" value="EditFinAccountRoles"/>
+    </request-map>
+    <!-- Fin Account Transaction-->
+    <request-map uri="EditFinAccountTrans">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditFinAccountTrans"/>
+        <response name="error" type="view" value="EditFinAccountTrans"/>
+    </request-map>
+    <request-map uri="createFinAccountTrans">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createFinAccountTrans"/>
+        <response name="success" type="view" value="EditFinAccountTrans"/>
+        <response name="error" type="view" value="EditFinAccountTrans"/>
+    </request-map>
+    <!-- Fin Account Authority-->
+    <request-map uri="EditFinAccountAuths">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditFinAccountAuths"/>
+        <response name="error" type="view" value="EditFinAccountAuths"/>
+    </request-map>
+    <request-map uri="createFinAccountAuth">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createFinAccountAuth"/>
+        <response name="success" type="view" value="EditFinAccountAuths"/>
+        <response name="error" type="view" value="EditFinAccountAuths"/>
+    </request-map>
+    <request-map uri="expireFinAccountAuth">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="expireFinAccountAuth"/>
+        <response name="success" type="view" value="EditFinAccountAuths"/>
+        <response name="error" type="view" value="EditFinAccountAuths"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -1377,6 +1458,13 @@ under the License.
     <view-map name="LookupFacilityLocation" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation"/>
     <!-- Fixed Asset Maintenance Order -->
     <view-map name="EditFixedAssetMaintOrders" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetMaintOrders"/>
+    <!-- FinAccount -->
+    <view-map name="FindFinAccount" type="screen" page="component://accounting/widget/FinAccountScreens.xml#FindFinAccount"/>
+    <view-map name="ListFinAccount" type="screen" page="component://accounting/widget/FinAccountScreens.xml#ListFinAccount"/>    
+    <view-map name="EditFinAccount" type="screen" page="component://accounting/widget/FinAccountScreens.xml#EditFinAccount"/>
+    <view-map name="EditFinAccountRoles" type="screen" page="component://accounting/widget/FinAccountScreens.xml#EditFinAccountRoles"/>
+    <view-map name="EditFinAccountTrans" type="screen" page="component://accounting/widget/FinAccountScreens.xml#EditFinAccountTrans"/>
+    <view-map name="EditFinAccountAuths" type="screen" page="component://accounting/widget/FinAccountScreens.xml#EditFinAccountAuths"/> 
         
-    <!-- end of view mappings -->
+        <!-- end of view mappings -->
 </site-conf>

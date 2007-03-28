@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+	
+    <form name="FindFinAccounts" type="single" target="FindFinAccount">
+        <auto-fields-entity entity-name="FinAccount" default-field-type="find"/>
+        <field name="finAccountId"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="finAccountTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="FinAccountType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="finAccountCode"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListFinAccounts" type="list" separate-columns="true" default-entity-name="FinAccount" list-name="listIt" paginate-target="FindFinAccount" paginate="true">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="FinAccount"/>
+                <field-map field-name="orderBy" value="fromDate"/>
+            </service>
+        </actions>
+        <field name="finAccountId"> <hyperlink  description="${finAccountId}" target="EditFinAccount?finAccountId=${finAccountId}"/> </field>
+        <field name="finAccountTypeId"><display-entity entity-name="FinAccountType" description="${description}"/></field>
+        <field name="finAccountName"><display/></field>
+        <field name="finAccountCode"><display/></field>
+        <field name="fromdate"><display/></field>
+        <field name="thrudate"><display/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteFinAccount?finAccountId=${finAccountId}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+	
+    <form name="EditFinAccount" type="single" target="updateFinAccount" default-map-name="finAccount">
+        <alt-target use-when="finAccount==null" target="createFinAccount"/>
+        <auto-fields-service service-name="updateFinAccount"/>
+        
+        <field name="finAccountId" use-when="finAccountId!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field name="finAccountId" use-when="finAccount==null&amp;&amp;finAccountId==null"><ignored/></field>
+        <field name="finAccountId" use-when="finAccount==null&amp;&amp;finAccountId!=null" tooltip="${uiLabelMap.CommonCannotBeFound}: [${finAccountId}]" widget-style="tabletext"><display also-hidden="false"/></field>
+        
+        <field name="finAccountCode"><text size="20"/></field>
+        <field name="finAccountPin"><text size="10"/></field>
+        <field name="finAccountTypeId">
+            <drop-down no-current-selected-key="DEPOSIT_ACCOUNT">
+                <entity-options description="${description}" entity-name="FinAccountType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}">
+            <drop-down no-current-selected-key="USD">
+                <entity-options description="${uomId} - ${description}" entity-name="Uom" key-field-name="uomId">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="organizationPartyId" widget-style="tabletext"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="ownerPartyId" widget-style="tabletext"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="postToGlAccountId" widget-style="selectBox"><lookup target-form-name="LookupGlAccount"/></field>
+        <field name="isFrozen">
+            <drop-down no-current-selected-key="N"><option key="N"/><option key="Y"/></drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="actualBalance"><display/></field>
+        <field name="availableBalance"><display/></field>
+    </form>
+	
+    <form name="ListFinAccountRoles" type="list"  list-name="finAccountRoles"  target="updateFinAccountRole" separate-columns="true">
+        <actions>
+            <entity-condition entity-name="FinAccountRole">
+                <condition-expr field-name="finAccountId" env-name="finAccountId"/>
+                <order-by field-name="finAccountId"/>
+            </entity-condition>
+        </actions>
+        <field name="finAccountId"><hidden/></field>
+        <field name="roleTypeId" widget-style="tabletext"><display/></field>
+        <field name="partyId" widget-style="tabletext"> <display/></field>
+        <field name="fromDate" widget-style="tabletext"><display/></field>        
+        <field name="thruDate" widget-style="inputBox"><date-time/></field>        
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteFinAccountRole?finAccountId=${finAccountId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="AddFinAccountRole" type="single" target="createFinAccountRole">
+        <auto-fields-service service-name="createFinAccountRole"/>
+        <field name="finAccountId"><hidden/></field>
+        <field name="partyId"> <lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="RoleType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>  
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+	
+    <form name="ListFinAccountTransactions" type="list"  list-name="finAccountTransactions" separate-columns="true">
+        <actions>
+            <entity-condition entity-name="FinAccountTrans">
+                <condition-expr field-name="finAccountId" env-name="finAccountId"/>
+            </entity-condition>
+        </actions>
+        <field name="finAccountId"><hidden/></field>
+        <field name="finAccountTrasnsId"><hidden/></field>
+        <field name="finAccountTransTypeId"><display-entity entity-name="FinAccountTransType" description="${description}"/></field>
+        <field name="partyId"><display/></field>
+        <field name="transactionDate"><display/></field>   
+        <field name="entryDate"><display/></field>
+        <field name="paymentId"><display/></field>       
+        <field name="amount"><display/></field>       
+        <field name="orderId"><display/></field>       
+    </form>
+    <form name="AddFinAccountTrans" type="single" target="createFinAccountTrans">
+        <auto-fields-service service-name="createFinAccountTrans"/>
+        <field name="finAccountId"><hidden/></field>
+        <field name="finAccountTransId"><hidden/></field>
+        <field name="finAccountTransTypeId"> 
+            <drop-down no-current-selected-key="ADJUSTMENT">
+                <entity-options description="${description}" entity-name="FinAccountTransType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="transactionDate"> <date-time/> </field>   
+        <field name="entryDate"><date-time/></field>
+        <field name="paymentId"><lookup target-form-name="LookupPayment"/></field>   
+        <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>		
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListFinAccountAuths" type="list"  list-name="finAccountauths"  target="expireFinAccountAuth" separate-columns="true">
+        <actions>
+            <entity-condition entity-name="FinAccountAuth">
+                <condition-expr field-name="finAccountId" env-name="finAccountId"/>
+                <order-by field-name="finAccountAuthId"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-entity entity-name="FinAccountAuth"/>
+        <field name="finAccountAuthId"><hidden/></field>
+        <field name="finAccountId"><hidden/></field>
+        <field name="amount"><display/></field>
+        <field name="authorizationDate"><display/></field>   
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><display/></field>
+        <field name="expireLink" title="" widget-style="buttontext">
+            <hyperlink target="expireFinAccountAuth?finAccountId=${finAccountId}&amp;finAccountAuthId=${finAccountAuthId}"
+                description="${uiLabelMap.CommonExpire}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="AddFinAccountAuth" type="single" target="createFinAccountAuth">
+        <auto-fields-service service-name="createFinAccountAuth"/>
+        <field name="finAccountId"><hidden/></field>
+        <field name="finAccountAuthId"><hidden/></field> 
+        <field name="amount"><text/></field>
+        <field name="authorizationDate"><date-time/></field>   
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>  
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+</forms>    

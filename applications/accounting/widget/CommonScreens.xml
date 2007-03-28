@@ -232,6 +232,40 @@ under the License.
         </section>
     </screen>
     
+    <screen name="CommonFinAccountDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="FindFinAccount"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for ACCOUNTING, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                            </condition>
+                                <widgets>
+                                    <section>
+                                        <condition><not><if-empty field-name="finAccountId"/></not></condition>
+                                        <widgets>
+                                            <include-menu name="FinAccountTabBar" location="component://accounting/widget/Menus.xml"/>
+                                            <label style="head1" text="${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: [${uiLabelMap.CommonId}:${finAccountId}]  ${${extraFunctionName}}"/>
+                                        </widgets>
+                                    </section>
+                              </widgets>
+                              <fail-widgets>
+                                    <label style="head3" text="${uiLabelMap.AcccountingViewPermissionError}"/>
+                              </fail-widgets>
+                        </section>                    
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    
     <screen name="main">
         <section>
             <actions>

@@ -390,6 +390,18 @@ under the License.
             <key-map field-name="attrName"/>
         </relation>
     </entity>
+    <entity entity-name="FinAccountAuth" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Authorizations record">
+        <field name="finAccountAuthId" type="id-ne"/>
+        <field name="finAccountId" type="id-ne"/>
+        <field name="amount" type="currency-amount"/>
+        <field name="authorizationDate" type="date-time"/>
+        <field name="fromDate" type="date-time"/>
+        <field name="thruDate" type="date-time"/>
+        <prim-key field="finAccountAuthId"/>
+        <relation type="one" fk-name="FINACT_AUTH_FINACT" rel-entity-name="FinAccount">
+            <key-map field-name="finAccountId"/>
+        </relation>
+    </entity>
     <entity entity-name="FinAccountRole" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Role Entity">
         <field name="finAccountId" type="id-ne"></field>
         <field name="partyId" type="id-ne"></field>
@@ -425,6 +437,7 @@ under the License.
         <field name="paymentId" type="id-ne"></field>
         <field name="orderId" type="id"></field>
         <field name="orderItemSeqId" type="id"><description>To be used along with orderId to point to an OrderItem that represents the purchase of a product to add money to the account.</description></field>
+        <field name="performedByPartyId" type="id"></field>
         <prim-key field="finAccountTransId"/>
         <relation type="one" fk-name="FINACCT_TX_TYPE" rel-entity-name="FinAccountTransType">
             <key-map field-name="finAccountTransTypeId"/>
@@ -445,17 +458,8 @@ under the License.
             <key-map field-name="orderId"/>
             <key-map field-name="orderItemSeqId"/>
         </relation>
-    </entity>
-    <entity entity-name="FinAccountAuth" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Authorizations record">
-        <field name="finAccountAuthId" type="id-ne"/>
-        <field name="finAccountId" type="id-ne"/>
-        <field name="amount" type="currency-amount"/>
-        <field name="authorizationDate" type="date-time"/>
-        <field name="fromDate" type="date-time"/>
-        <field name="thruDate" type="date-time"/>
-        <prim-key field="finAccountAuthId"/>
-        <relation type="one" fk-name="FINACT_AUTH_FINACT" rel-entity-name="FinAccount">
-            <key-map field-name="finAccountId"/>
+        <relation type="one" fk-name="FIN_ACT_TX_PBPTY" title="PerformedBy" rel-entity-name="Party">
+            <key-map field-name="performedByPartyId" rel-field-name="partyId"/>
         </relation>
     </entity>
     <entity entity-name="FinAccountTransAttribute" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Transaction Attribute Entity">

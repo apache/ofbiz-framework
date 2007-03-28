@@ -373,5 +373,21 @@ under the License.
         </menu-item>
     </menu>
     
+    <menu name="FinAccountTabBar" default-menu-item-name="EditFinAccount" default-selected-style="tabButtonSelected" 
+        default-title-style="tabButton" default-tooltip-style="tabletext" default-widget-style="tabButton" 
+        orientation="horizontal" type="simple">  
+        <menu-item name="EditFinAccount" title="${uiLabelMap.AccountingFinAccount}">
+            <link target="EditFinAccount?finAccountId=${finAccountId}"/>
+        </menu-item>
+        <menu-item name="EditFinAccountRoles" title="${uiLabelMap.PartyRoles}">
+            <link target="EditFinAccountRoles?finAccountId=${finAccountId}"/>
+        </menu-item>
+        <menu-item name="EditFinAccountTrans" title="${uiLabelMap.AccountingFinAccountTransations}">
+            <link target="EditFinAccountTrans?finAccountId=${finAccountId}"/>
+        </menu-item>
+        <menu-item name="EditFinAccountAuths" title="${uiLabelMap.AccountingFinAccountAuth}">
+            <link target="EditFinAccountAuths?finAccountId=${finAccountId}"/>
+        </menu-item>
+    </menu>
 </menus>
     
