@@ -168,7 +168,7 @@ under the License.
 
         <!-- start with the actual balance, and subtract off FinAccountAuth.amount -->
         <set field="availableBalanceSum" from-field="actualBalanceSum"/>
-        <entity-condition entity-name="FinAccountAuth" list-name="finAccountAuthList">
+        <entity-condition entity-name="FinAccountAuth" list-name="finAccountAuthList" filter-by-date="true">
             <condition-expr field-name="finAccountId" env-name="finAccountId"/>
         </entity-condition>
         <iterate entry-name="finAccountAuth" list-name="finAccountAuthList">
