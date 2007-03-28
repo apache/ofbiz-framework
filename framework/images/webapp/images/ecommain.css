@@ -47,6 +47,21 @@ height: 0px;
 visibility: hidden;
 }  
 
+TH {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: #000000;
+}
+
+TD {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: normal;
+text-decoration: none;
+color: #000000;
+}
 
 /* ===== Header Styles ===== */
 #ecom-header {
