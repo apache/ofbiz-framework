@@ -116,7 +116,15 @@ public class FinAccountPaymentServices {
                 // validate the PIN if the store requires it
                 if ("Y".equals(finAccountSettings.getString("requirePinCode"))) {
                     if (!FinAccountHelper.validatePin(delegator, finAccountCode, finAccountPin)) {
-                        return ServiceUtil.returnError("Financial account PIN/CODE combination not found");
+                        Map result = ServiceUtil.returnSuccess();
+                        result.put("authMessage", "Financial account PIN/CODE combination not found");
+                        result.put("authResult", Boolean.FALSE);
+                        result.put("processAmount", amount);
+                        result.put("authFlag", "0");
+                        result.put("authCode", "A");
+                        result.put("authRefNum", "0");
+                        Debug.logError("Unable to auth FinAccount: " + result, module);
+                        return result;
                     }
                 }
             }
@@ -124,17 +132,34 @@ public class FinAccountPaymentServices {
             // check for account being frozen
             String isFrozen = finAccount.getString("isFrozen");
             if (isFrozen != null && "Y".equals(isFrozen)) {
-                return ServiceUtil.returnError("Financial account is currently frozen");    
+                Map result = ServiceUtil.returnSuccess();
+                result.put("authMessage", "Account is currently frozen");
+                result.put("authResult", Boolean.FALSE);
+                result.put("processAmount", amount);
+                result.put("authFlag", "0");
+                result.put("authCode", "A");
+                result.put("authRefNum", "0");
+                Debug.logError("Unable to auth FinAccount: " + result, module);
+                return result;
             }
 
             // check for expiration date
             if ((finAccount.getTimestamp("thruDate") != null) && (finAccount.getTimestamp("thruDate").before(UtilDateTime.nowTimestamp()))) {
-                return ServiceUtil.returnError("Financial account has expired as of " + finAccount.getTimestamp("thruDate"));
+                Map result = ServiceUtil.returnSuccess();
+                result.put("authMessage", "Account has expired as of " + finAccount.getTimestamp("thruDate"));
+                result.put("authResult", Boolean.FALSE);
+                result.put("processAmount", amount);
+                result.put("authFlag", "0");
+                result.put("authCode", "A");
+                result.put("authRefNum", "0");
+                Debug.logError("Unable to auth FinAccount: " + result, module);
+                return result;
             }
 
             // check the amount to authorize against the available balance of fin account, which includes active authorizations as well as transactions
             BigDecimal availableBalance = finAccount.getBigDecimal("availableBalance");
             Map result = ServiceUtil.returnSuccess();
+            String authMessage = null;
             Boolean processResult;
             String refNum;
 
@@ -180,15 +205,18 @@ public class FinAccountPaymentServices {
             } else {
                 Debug.logError("Attempted to authorize [" + amount + "] against a balance of only [" + availableBalance + "]", module);
                 refNum = "0"; // a refNum is always required from authorization
+                authMessage = "Insufficient funds";
                 processResult = Boolean.FALSE;
             }
 
             result.put("processAmount", amount);
+            result.put("authMessage", authMessage);
             result.put("authResult", processResult);
             result.put("processAmount", amount);
             result.put("authFlag", "1");
             result.put("authCode", "A");            
             result.put("authRefNum", refNum);
+            Debug.logInfo("FinAccont Auth: " + result, module);
 
             return result;
         } catch (GenericEntityException ex) {
