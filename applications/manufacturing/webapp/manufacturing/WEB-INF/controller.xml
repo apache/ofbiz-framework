@@ -645,6 +645,12 @@ under the License.
         <response name="success" type="view" value="ProductionRunDeclaration"/>
         <response name="error" type="view" value="ProductionRunDeclaration"/>
     </request-map>
+    <request-map uri="scheduleProductionRun">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="quickChangeProductionRunStatus"/>
+        <response name="success" type="view" value="EditProductionRun"/>
+        <response name="error" type="view" value="EditProductionRun"/>
+    </request-map>
     <request-map uri="quickChangeProductionRunStatus">
         <security https="true" auth="true"/>
         <event type="service" invoke="quickChangeProductionRunStatus"/>

@@ -90,7 +90,7 @@ under the License.
                     <decorator-section name="body">
                         <container>
                             <link target="PrintProductionRun?productionRunId=${productionRunId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
-                            <link target="quickChangeProductionRunStatus?productionRunId=${productionRunId}&amp;statusId=PRUN_SCHEDULED" text="${uiLabelMap.ManufacturingSchedule}" style="buttontext"/>
+                            <link target="scheduleProductionRun?productionRunId=${productionRunId}&amp;statusId=PRUN_SCHEDULED" text="${uiLabelMap.ManufacturingSchedule}" style="buttontext"/>
                             <link target="changeProductionRunStatusToPrinted?productionRunId=${productionRunId}" text="${uiLabelMap.ManufacturingConfirmProductionRun}" style="buttontext"/>
                             <link target="quickChangeProductionRunStatus?productionRunId=${productionRunId}&amp;statusId=PRUN_COMPLETED" text="${uiLabelMap.ManufacturingQuickComplete}" style="buttontext"/>
                             <link target="quickChangeProductionRunStatus?productionRunId=${productionRunId}&amp;statusId=PRUN_CLOSED" text="${uiLabelMap.ManufacturingQuickClose}" style="buttontext"/>
