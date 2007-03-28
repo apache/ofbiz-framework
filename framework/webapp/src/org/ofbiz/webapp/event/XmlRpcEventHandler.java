@@ -205,7 +205,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                 throw new XmlRpcException(e.getMessage(), e);
             }
             if (ServiceUtil.isError(resp)) {
-                throw new XmlRpcException(ServiceUtil.getErrorMessage(resp));
+                Debug.logError(ServiceUtil.getErrorMessage(resp), module);                
             }
 
             return resp;
