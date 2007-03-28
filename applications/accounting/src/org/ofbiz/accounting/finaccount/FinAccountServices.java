@@ -109,7 +109,6 @@ public class FinAccountServices {
         if (finAccountId == null) {
             try {
                 finAccount = FinAccountHelper.getFinAccountFromCode(finAccountCode, delegator);
-                finAccountId = finAccount.getString("finAccountId");
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -128,9 +127,15 @@ public class FinAccountServices {
 
         // get the balance
         BigDecimal availableBalance = finAccount.getBigDecimal("availableBalance");
-        BigDecimal balance= finAccount.getBigDecimal("actualBalance");
+        BigDecimal balance = finAccount.getBigDecimal("actualBalance");
+        if (availableBalance == null) {
+            availableBalance = FinAccountHelper.ZERO;
+        }
+        if (balance == null) {
+            balance = FinAccountHelper.ZERO;
+        }
 
-        Debug.log("FinAccount Balance [" + balance + "] Available [" + availableBalance + "]", module);        
+        Debug.log("FinAccount Balance [" + balance + "] Available [" + availableBalance + "]", module);
         Boolean isFrozen = Boolean.valueOf("Y".equals(finAccount.getString("isFrozen")));
 
         Map result = ServiceUtil.returnSuccess();
@@ -173,7 +178,10 @@ public class FinAccountServices {
             if (frozen == null) frozen = "N";
 
             BigDecimal availableBalance = finAccount.getBigDecimal("availableBalance");
-
+            if (availableBalance == null) {
+                availableBalance = FinAccountHelper.ZERO;
+            }
+            
             if ("N".equals(frozen) && FinAccountHelper.ZERO.compareTo(availableBalance) < 1) {
                 finAccount.set("isFrozen", "Y");
                 Debug.logInfo("Financial account [" + finAccountId + "] has passed its threshold [" + availableBalance + "] (Frozen)", module);
