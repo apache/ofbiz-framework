@@ -142,6 +142,7 @@ under the License.
         <entity-one entity-name="WorkEffort" value-name="lookedUpValue"/>
 
         <!-- Remove associated/dependent entries from other entities here -->
+        <remove-related value-name="lookedUpValue" relation-name="WorkEffortKeyword"/>
         <remove-related value-name="lookedUpValue" relation-name="WorkEffortAttribute"/>
         <remove-related value-name="lookedUpValue" relation-name="WorkOrderItemFulfillment"/>
         <remove-related value-name="lookedUpValue" relation-name="FromWorkEffortAssoc"/>
