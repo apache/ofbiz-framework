@@ -24,12 +24,12 @@ under the License.
     <#if productionRun?has_content>
         <#if productionRun.getString("currentStatusId") == "PRUN_CREATED" || productionRun.getString("currentStatusId") == "PRUN_SCHEDULED">
         <a href="<@ofbizUrl>EditProductionRun?productionRunId=${productionRunId}</@ofbizUrl>" class="${selectedClassMap.edit?default(unselectedClassName)}">${uiLabelMap.ManufacturingEditProductionRun}</a>
-        <#else>
-        <a href="<@ofbizUrl>ProductionRunDeclaration?productionRunId=${productionRunId}</@ofbizUrl>" class="${selectedClassMap.declaration?default(unselectedClassName)}">${uiLabelMap.ManufacturingProductionRunDeclaration}</a>
-        </#if>
         <a href="<@ofbizUrl>ProductionRunTasks?productionRunId=${productionRunId}</@ofbizUrl>" class="${selectedClassMap.tasks?default(unselectedClassName)}">${uiLabelMap.ManufacturingListOfProductionRunRoutingTasks}</a>
         <a href="<@ofbizUrl>ProductionRunComponents?productionRunId=${productionRunId}</@ofbizUrl>" class="${selectedClassMap.components?default(unselectedClassName)}">${uiLabelMap.ManufacturingMaterials}</a>
         <a href="<@ofbizUrl>ProductionRunFixedAssets?productionRunId=${productionRunId}</@ofbizUrl>" class="${selectedClassMap.fixedAssets?default(unselectedClassName)}">${uiLabelMap.AccountingFixedAssets}</a>
+        <#else>
+        <a href="<@ofbizUrl>ProductionRunDeclaration?productionRunId=${productionRunId}</@ofbizUrl>" class="${selectedClassMap.declaration?default(unselectedClassName)}">${uiLabelMap.ManufacturingProductionRunDeclaration}</a>
+        </#if>
         <a href="<@ofbizUrl>ProductionRunAssocs?productionRunId=${productionRunId}</@ofbizUrl>" class="${selectedClassMap.assocs?default(unselectedClassName)}">${uiLabelMap.ManufacturingProductionRunAssocs}</a>
         <a href="<@ofbizUrl>ProductionRunCosts?productionRunId=${productionRunId}</@ofbizUrl>" class="${selectedClassMap.costs?default(unselectedClassName)}">${uiLabelMap.ManufacturingActualCosts}</a>
     </#if>

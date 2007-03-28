@@ -87,7 +87,6 @@ if (!UtilValidate.isEmpty(productionRunId)) {
         }
         double maxQuantity = quantityDeclared.doubleValue() - quantityProduced.doubleValue();
 
-
         HashMap productionRunData= new HashMap();
         productionRunData.put("workEffortId",productionRunId);
         productionRunData.put("productId", productionRun.getProductProduced().getString("productId"));
@@ -180,13 +179,10 @@ if (!UtilValidate.isEmpty(productionRunId)) {
                 startTaskId = task.getString("workEffortId");
             }
         }
-        HtmlFormWrapper ListProductionRunRoutingTasksWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "ListProductionRunDeclRoutingTasks", request, response);
-        ListProductionRunRoutingTasksWrapper.putInContext("productionRunRoutingTasks", productionRunRoutingTasks);
-        ListProductionRunRoutingTasksWrapper.putInContext("startTaskId", (startTaskId != null? startTaskId: "null"));
-        ListProductionRunRoutingTasksWrapper.putInContext("issueTaskId", (issueTaskId != null? issueTaskId: "null"));
-        ListProductionRunRoutingTasksWrapper.putInContext("completeTaskId", (completeTaskId != null? completeTaskId: "null"));
-        context.put("ListProductionRunRoutingTasksWrapper",ListProductionRunRoutingTasksWrapper);
         context.put("productionRunRoutingTasks", productionRunRoutingTasks);
+        context.put("startTaskId", (startTaskId != null? startTaskId: "null"));
+        context.put("issueTaskId", (issueTaskId != null? issueTaskId: "null"));
+        context.put("completeTaskId", (completeTaskId != null? completeTaskId: "null"));
 
         //  Product components list
         List productionRunComponents = productionRun.getProductionRunComponents();
@@ -234,12 +230,8 @@ if (!UtilValidate.isEmpty(productionRunId)) {
                 productionRunComponentsData.add(componentData);
             }
         }
-        HtmlFormWrapper ListProductionRunComponentsWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "ListProductionRunDeclComponents", request, response);
-        ListProductionRunComponentsWrapper.putInContext("productionRunId", productionRunId);
-        ListProductionRunComponentsWrapper.putInContext("productionRunComponentsData", productionRunComponentsData);
-        context.put("ListProductionRunComponentsWrapper",ListProductionRunComponentsWrapper);
         context.put("productionRunComponentsData", productionRunComponentsData);
-        
+
         // Fixed assets list
         List productionRunFixedAssetsData = new LinkedList();
         for (Iterator tasksIt = productionRunRoutingTasks.iterator(); tasksIt.hasNext();) {
@@ -247,10 +239,7 @@ if (!UtilValidate.isEmpty(productionRunId)) {
             List taskFixedAssets = prodRunTask.getRelated("WorkEffortFixedAssetAssign");
             productionRunFixedAssetsData.addAll(taskFixedAssets);
         }
-        HtmlFormWrapper ListProductionRunFixedAssetsWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "ListProductionRunTaskFixedAssets", request, response);
-        ListProductionRunFixedAssetsWrapper.putInContext("productionRunId", productionRunId);
-        ListProductionRunFixedAssetsWrapper.putInContext("productionRunFixedAssetsData", productionRunFixedAssetsData);
-        ListProductionRunFixedAssetsWrapper.putInContext("declarationScreen", "Y");
-        context.put("ListProductionRunFixedAssetsWrapper", ListProductionRunFixedAssetsWrapper);
+        context.put("productionRunFixedAssetsData", productionRunFixedAssetsData);
+
     }
 }
