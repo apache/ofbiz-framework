@@ -24,6 +24,7 @@
     <!-- To maintain FinAccount.actualBalance and FinAccount.availableBalance -->
     <eca entity="FinAccountTrans" operation="create-store" event="return">
         <action service="updateFinAccountBalancesFromTrans" mode="sync"/>
+        <action service="checkFinAccountStatus" mode="sync"/> 
     </eca>
     <!-- To maintain FinAccount.availableBalance -->
     <eca entity="FinAccountAuth" operation="create-store" event="return">

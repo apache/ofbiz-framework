@@ -138,6 +138,7 @@ public class FinAccountProductServices {
         createCtx.put("productStoreId", productStoreId);
         createCtx.put("ownerPartyId", partyId);
         createCtx.put("currencyUomId", currency);
+        createCtx.put("isFrozen", "N");
         createCtx.put("userLogin", userLogin);
 
         // if we auto-replenish this type; set the level to the initial deposit
