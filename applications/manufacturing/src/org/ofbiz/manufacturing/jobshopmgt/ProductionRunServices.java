@@ -1294,6 +1294,7 @@ public class ProductionRunServices {
         }
        
         List inventoryItemIds = new ArrayList();
+        result.put("inventoryItemIds", inventoryItemIds);
         // The production run is loaded
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
         // The last task is loaded
@@ -1305,17 +1306,20 @@ public class ProductionRunServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductIsWIP", locale));
         }
         Double quantityProduced = productionRun.getGenericValue().getDouble("quantityProduced");
+
         if (quantityProduced == null) {
             quantityProduced = new Double(0);
         }
         Double quantityDeclared = lastTask.getDouble("quantityProduced");
+
         if (quantityDeclared == null) {
             quantityDeclared = new Double(0);
         }
         // If the quantity already produced is not lower than the quantity declared, no inventory is created.
         double maxQuantity = quantityDeclared.doubleValue() - quantityProduced.doubleValue();
+
         if (maxQuantity <= 0) {
-            return ServiceUtil.returnSuccess();
+            return result;
         }
 
         // If quantity was not passed, the max quantity is used
@@ -1461,7 +1465,6 @@ public class ProductionRunServices {
             }
         }
         result.put("quantity", quantity);
-        result.put("inventoryItemIds", inventoryItemIds);
         return result;
     }
 
