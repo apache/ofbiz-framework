@@ -4016,6 +4016,12 @@ public class OrderServices {
         Map itemMap = (Map) context.get("itemMap");
 
         ShoppingCart cart = new ShoppingCart(delegator, productStoreId, null, locale, currency);
+        try {
+            cart.setUserLogin(userLogin, dispatcher);
+        } catch (CartItemModifyException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
         cart.setOrderType("SALES_ORDER");
         cart.setOrderPartyId(partyId);
 
@@ -4061,13 +4067,34 @@ public class OrderServices {
         return result;
     }
 
+    // generic method for creating an order from a shopping cart
+    public static Map createOrderFromShoppingCart(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+
+        ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
+        GenericValue userLogin = cart.getUserLogin();
+
+        CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
+        Map createOrder = coh.createOrder(userLogin);
+        if (ServiceUtil.isError(createOrder)) {
+            return createOrder;
+        }
+        String orderId = (String) createOrder.get("orderId");
+
+        Map result = ServiceUtil.returnSuccess();
+        result.put("shoppingCart", cart);
+        result.put("orderId", orderId);
+        return result;
+    }
+
     // generic method for processing an order's payment(s)
     public static Map callProcessOrderPayments(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
 
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
+        GenericValue userLogin = cart.getUserLogin();
         Boolean manualHold = (Boolean) context.get("manualHold");
         if (manualHold == null) {
             manualHold = Boolean.FALSE;

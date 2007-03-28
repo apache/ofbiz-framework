@@ -142,11 +142,15 @@ under the License.
     </service>
     
     <service name="callProcessOrderPayments" engine="java"
-            location="org.ofbiz.order.order.OrderServices" invoke="callProcessOrderPayments" auth="true">
+            location="org.ofbiz.order.order.OrderServices" invoke="callProcessOrderPayments" auth="false">
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="manualHold" type="Boolean" mode="IN" optional="true"/>
     </service>
-
+    <service name="createOrderFromShoppingCart" engine="java"
+            location="org.ofbiz.order.order.OrderServices" invoke="createOrderFromShoppingCart" auth="false">
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="INOUT" optional="false"/>
+        <attribute name="orderId" type="String" mode="OUT" optional="false"/> 
+    </service>
     <service name="createSimpleNonProductSalesOrder" engine="java"
             location="org.ofbiz.order.order.OrderServices" invoke="createSimpleNonProductSalesOrder" auth="true">
         <attribute name="paymentMethodId" type="String" mode="IN" optional="false"/>
