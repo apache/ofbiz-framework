@@ -98,10 +98,10 @@ if (!UtilValidate.isEmpty(productionRunId)) {
         // routingTask add sub-screen
         if (actionForm.equals("AddRoutingTask")){
             Map routingTaskData =UtilMisc.toMap("workEffortParentId",productionRunId);
-            HtmlFormWrapper editPrRoutingTaskWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "EditProductionRunRoutingTask", request, response);
-            editPrRoutingTaskWrapper.putInContext("routingTaskData", routingTaskData);
-            editPrRoutingTaskWrapper.putInContext("actionForm", "addRoutingTask");
-            editPrRoutingTaskWrapper.putInContext("actionIsAdd", "Y");
+            HtmlFormWrapper editPrRoutingTaskWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "AddProductionRunRoutingTask", request, response);
+//            editPrRoutingTaskWrapper.putInContext("routingTaskData", routingTaskData);
+//            editPrRoutingTaskWrapper.putInContext("actionForm", "addRoutingTask");
+//            editPrRoutingTaskWrapper.putInContext("actionIsAdd", "Y");
             context.put("editPrRoutingTaskWrapper",editPrRoutingTaskWrapper);
         }
         // routingTask update sub-screen
@@ -117,10 +117,10 @@ if (!UtilValidate.isEmpty(productionRunId)) {
                 routingTaskData.put("estimatedMilliSeconds",routingTask.getDouble("estimatedMilliSeconds").toString());
             else
                 routingTaskData.put("estimatedMilliSeconds", "0");
-            HtmlFormWrapper editPrRoutingTaskWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "EditProductionRunRoutingTask", request, response);
-            editPrRoutingTaskWrapper.putInContext("routingTaskData", routingTaskData);
-            editPrRoutingTaskWrapper.putInContext("actionForm", "UpdateRoutingTask");
-            editPrRoutingTaskWrapper.putInContext("actionIsAdd", "null");
+            HtmlFormWrapper editPrRoutingTaskWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "updateProductionRunRoutingTask", request, response);
+            editPrRoutingTaskWrapper.putInContext("routingTask", routingTaskData);
+//            editPrRoutingTaskWrapper.putInContext("actionForm", "UpdateRoutingTask");
+//            editPrRoutingTaskWrapper.putInContext("actionIsAdd", "null");
             context.put("editPrRoutingTaskWrapper",editPrRoutingTaskWrapper);
             context.put("routingTaskId",routingTaskId);
         }

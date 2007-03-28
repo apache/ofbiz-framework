@@ -53,30 +53,3 @@ under the License.
     </#list>
     </p>
 </#if>
-
-
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
-    <tr valign="top">
-        <#-- RoutingTask sub-screen  Update or Add  -->
-        <#if routingTaskId?has_content || actionForm=="AddRoutingTask">
-            <td> &nbsp; </td>
-            <td>
-                <table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-                  <tr><td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
-                        <tr>
-                        <#if routingTaskId?has_content> <#-- RoutingTask Update  -->
-                            <td><div class="boxhead">${uiLabelMap.CommonEdit}&nbsp;${uiLabelMap.ManufacturingRoutingTaskId} : ${routingTaskId}</div></td>
-                        <#else> <#-- RoutingTask Add         -->
-                            <td><div class="boxhead">${uiLabelMap.ManufacturingAddRoutingTask}</div></td>
-                        </#if>
-                        </tr>
-                    </table>
-                    ${editPrRoutingTaskWrapper.renderFormString(context)}
-                  </td></tr>
-                </table>
-            </td>
-        </#if>
-        </tr>
-    </table>
-    <br/>

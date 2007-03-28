@@ -20,7 +20,7 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="CreateProductionRun" target="CreateProductionRunGo" title="" type="single">
+    <form name="CreateProductionRun" target="createProductionRun" title="" type="single">
         <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct" size="16"/></field>
         <field name="quantity" title="${uiLabelMap.ManufacturingQuantity}"><text size="6"/></field>
         <field name="startDate" title="${uiLabelMap.ManufacturingStartDate}"><date-time/></field>
@@ -102,7 +102,7 @@ under the License.
         <field name="estimatedStartDate"  title="${uiLabelMap.ManufacturingStartDate}"><date-time/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
         <field name="workEffortName"  title="${uiLabelMap.ManufacturingProductionRunName}"><text/></field>
-        <field name="description"  title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="description"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
     <form name="ListProductionRunOrderItems" type="list" target="EditProductionRun" title="" list-name="orderItems">
@@ -126,7 +126,16 @@ under the License.
         </field>
     </form>
     
-     <form name="ListProductionRunRoutingTasks" type="list" target="EditProductionRun" title="" list-name="productionRunRoutingTasks">
+     <form name="ViewListProductionRunRoutingTasks" type="list" title="" list-name="productionRunRoutingTasks">
+        <field name="priority" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
+        <field name="workEffortId"  title="${uiLabelMap.ManufacturingTaskName}"><display description="${workEffortName} [${workEffortId}]" /></field>
+        <field name="fixedAssetId"  title="${uiLabelMap.ManufacturingMachine}"><display/></field>
+        <field name="estimatedStartDate"  title="${uiLabelMap.ManufacturingStartDate}"><display/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
+        <field name="estimatedSetupMillis" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}" ><display/></field>
+        <field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}" ><display/></field>
+    </form>
+     <form name="ListProductionRunRoutingTasks" type="list" target="ProductionRunTasks" title="" list-name="productionRunRoutingTasks">
         <field name="priority" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
         <field name="workEffortId"  title="${uiLabelMap.ManufacturingTaskName}"><display description="${workEffortName} [${workEffortId}]" /></field>
         <field name="fixedAssetId"  title="${uiLabelMap.ManufacturingMachine}"><display/></field>
@@ -135,7 +144,7 @@ under the License.
         <field name="estimatedSetupMillis" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}" ><display/></field>
         <field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}" ><display/></field>
         <field name="editLink" title="" widget-style="smallSubmit">
-            <hyperlink target="EditProductionRun?actionForm=EditRoutingTask&amp;routingTaskId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
+            <hyperlink target="ProductionRunTasks?routingTaskId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
         </field>
         <field name="deleteLink" title="" widget-style="smallSubmit">
             <!--<hyperlink target="RemoveRoutingTaskAssoc?workEffortIdFrom=${workEffortIdFrom}&amp;workEffortIdTo=${workEffortIdTo}&amp;fromDate=${fromDate}&amp;workEffortAssocTypeId=ROUTING_COMPONENT" description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>-->
@@ -153,18 +162,16 @@ under the License.
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display/></field>
     </form>
 
-     <form name="EditProductionRunRoutingTask" type="single" target="EditProductionRun" title="" default-map-name="routingTaskData">
-        <field name="actionForm">
-            <hidden value="${actionForm}"/>
-        </field>
+    <form name="EditProductionRunRoutingTask" type="single" target="updateProductionRunRoutingTask" title="" default-map-name="productionRunTask">
+        <alt-target use-when="productionRunTask==null" target="addProductionRunRoutingTask"/>
         <field name="productionRunId">
-            <hidden value="${routingTaskData.workEffortParentId}"/>
+            <hidden value="${productionRunId}"/>
         </field>
-        <field name="routingTaskId" use-when="${actionIsAdd} == null">
-            <hidden value="${routingTaskData.workEffortId}"/>
-        </field>
-        <field name="routingTaskId" title="${uiLabelMap.ManufacturingRoutingTaskId}" use-when="${actionIsAdd} != null">
+        <field name="routingTaskId" title="${uiLabelMap.ManufacturingRoutingTaskId}" use-when="productionRunTask==null">
             <lookup target-form-name="LookupRoutingTask"/>
+        </field>
+        <field name="routingTaskId" map-name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTaskId}" use-when="productionRunTask!=null">
+            <display/>
         </field>
         <field name="priority" title="${uiLabelMap.CommonSequenceNum}">
             <text size="4"/>
@@ -172,7 +179,7 @@ under the License.
         <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}">
             <text/>
         </field>
-        <field name="description" title="${uiLabelMap.CommonDescription}">
+        <field name="description">
             <text/>
         </field>
         <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}">
@@ -187,7 +194,7 @@ under the License.
         <field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}">
             <text/>
         </field>
-        <field name="submitButton" title="${uiLabelButton}">
+        <field name="submitButton" title="${uiLabelMap.CommonEdit}">
             <submit button-type="button"/>
         </field>
     </form>

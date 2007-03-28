@@ -473,9 +473,9 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="CreateProductionRun"/>
     </request-map>
-    <request-map uri="CreateProductionRunGo">
+    <request-map uri="createProductionRun">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/manufacturing/jobshopmgt/ProductionRunSimpleEvents.xml" invoke="checkFieldCreateProductionRun"/>
+        <event type="service" invoke="createProductionRunsForProductBom"/>
         <response name="success" type="view" value="EditProductionRun"/>
         <response name="error" type="view" value="CreateProductionRun"/>
     </request-map>
@@ -485,6 +485,10 @@ under the License.
         <response name="docs_not_printed" type="view" value="EditProductionRun"/>
         <response name="docs_printed" type="view" value="ProductionRunDeclaration"/>
         <response name="error" type="view" value="FindProductionRun"/>
+    </request-map>
+    <request-map uri="EditProductionRun">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductionRun"/>
     </request-map>
     <request-map uri="PrintProductionRun">
         <security https="true" auth="true"/>
@@ -497,11 +501,6 @@ under the License.
     <request-map uri="FindProductionRun">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindProductionRun"/>
-    </request-map>
-    <request-map uri="EditProductionRun">
-        <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/manufacturing/jobshopmgt/ProductionRunSimpleEvents.xml" invoke="actionEditProductionRun"/>
-        <response name="success" type="view" value="EditProductionRun"/>
     </request-map>
     <request-map uri="updateProductionRun">
         <security https="true" auth="true"/>
@@ -538,6 +537,26 @@ under the License.
         <event type="service" invoke="removeWorkEffortFixedAssetAssign"/>
         <response name="success" type="view" value="ProductionRunFixedAssets"/>
         <response name="error" type="view" value="ProductionRunFixedAssets"/>
+    </request-map>
+    <request-map uri="ProductionRunTasks">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ProductionRunTasks"/>
+    </request-map>
+    <request-map uri="addProductionRunRoutingTask">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/manufacturing/jobshopmgt/ProductionRunSimpleEvents.xml" invoke="addProductionRunRoutingTask"/>
+        <response name="success" type="view" value="ProductionRunTasks"/>
+    </request-map>
+    <request-map uri="updateProductionRunRoutingTask">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/manufacturing/jobshopmgt/ProductionRunSimpleEvents.xml" invoke="editProductionRunRoutingTask"/>
+        <response name="success" type="view" value="ProductionRunTasks"/>
+    </request-map>
+    <request-map uri="deleteProductionRunRoutingTask">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteWorkEffort"/>
+        <response name="success" type="view" value="ProductionRunTasks"/>
+        <response name="error" type="view" value="ProductionRunTasks"/>
     </request-map>
     <request-map uri="ProductionRunComponents">
         <security https="true" auth="true"/>
@@ -576,12 +595,6 @@ under the License.
         <event type="service" invoke="removeWorkEffortGoodStandard"/>
         <response name="success" type="view" value="ListRoutingTaskProducts"/>
         <response name="error" type="view" value="ListRoutingTaskProducts"/>
-    </request-map>
-    <request-map uri="deleteProductionRunRoutingTask">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteWorkEffort"/>
-        <response name="success" type="view" value="EditProductionRun"/>
-        <response name="error" type="view" value="EditProductionRun"/>
     </request-map>
     <!-- Production Run Declaration -->
     <request-map uri="changeProductionRunStatusToPrinted">
@@ -772,6 +785,7 @@ under the License.
     <view-map name="PrintProductionRun" type="screenfop" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="ProductionRunDeclaration" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunDeclaration" type="screen"/>
     <view-map name="ProductionRunCosts" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunCosts" type="screen"/>
+    <view-map name="ProductionRunTasks" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunTasks" type="screen"/>
     <view-map name="ProductionRunComponents" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunComponents" type="screen"/>
     <view-map name="ProductionRunFixedAssets" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunFixedAssets" type="screen"/>
     <view-map name="ProductionRunAssocs" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunAssocs" type="screen"/>
