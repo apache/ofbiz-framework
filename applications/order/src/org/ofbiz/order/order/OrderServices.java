@@ -2069,6 +2069,10 @@ public class OrderServices {
             return ServiceUtil.returnFailure("Could not find OrderHeader with ID [" + orderId + "]");
         }
 
+        if (orderHeader.get("webSiteId") == null) {
+            return ServiceUtil.returnFailure("No website attached to order; cannot generate notification [" + orderId + "]");
+        }
+
         GenericValue productStoreEmail = null;
         try {
             productStoreEmail = delegator.findByPrimaryKey("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", orderHeader.get("productStoreId"), "emailType", emailType));
@@ -4040,30 +4044,32 @@ public class OrderServices {
         // set the payment method
         cart.addPayment(paymentMethodId);
 
-        // store the order
-        CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
-        Map createResp = coh.createOrder(userLogin);
-        if (ServiceUtil.isError(createResp)) {
-            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createResp));
-        }
-
-        // process the payment
-        Map procCtx = FastMap.newInstance();
-        procCtx.put("shoppingCart", cart);
-        procCtx.put("userLogin", userLogin);
-        Map procResp;
+        // save the order (new tx)
+        Map createResp;
         try {
-            procResp = dispatcher.runSync("callProcessOrderPayments", procCtx);
+            createResp = dispatcher.runSync("createOrderFromShoppingCart", UtilMisc.toMap("shoppingCart", cart), 90, true);
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-        if (ServiceUtil.isError(procResp)) {
-            return procResp;
+        if (ServiceUtil.isError(createResp)) {
+            return createResp;
         }
-        
+
+        // auth the order (new tx)
+        Map authResp;
+        try {
+            authResp = dispatcher.runSync("callProcessOrderPayments", UtilMisc.toMap("shoppingCart", cart), 180, true);
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        if (ServiceUtil.isError(authResp)) {
+            return authResp;
+        }
+
         Map result = ServiceUtil.returnSuccess();
-        //result.put("shoppingCart", cart);
+        result.put("orderId", createResp.get("orderId"));
         return result;
     }
 
