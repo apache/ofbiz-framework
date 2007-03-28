@@ -388,6 +388,7 @@ under the License.
                 <set field="productsummaryScreen" value="component://ecommerce/widget/CatalogScreens.xml#productsummary"/>
 
                 <set field="titleProperty" value="PageTitleSearchResults"/>
+                <set field="parameters.VIEW_SIZE" from-field="parameters.VIEW_SIZE" default-value="10"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/keywordsearch.bsh"/>
             </actions>
             <widgets>

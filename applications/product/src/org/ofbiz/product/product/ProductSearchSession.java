@@ -142,6 +142,23 @@ public class ProductSearchSession {
             this.viewIndex = viewIndex;
         }
         /**
+         * @param viewIndex The viewIndex to set.
+         */
+        public void setViewIndex(String viewIndexStr) {
+            if (UtilValidate.isEmpty(viewIndexStr)) {
+                return;
+            }
+            try {
+                this.setViewIndex(Integer.valueOf(viewIndexStr));
+            } catch (Exception e) {
+                Debug.logError(e, "Error in formatting of VIEW_INDEX [" + viewIndexStr + "], setting to 20", module);
+                if (this.viewIndex == null) {
+                    this.setViewIndex(new Integer(20));
+                }
+            }
+        }
+
+        /**
          * @return Returns the viewSize.
          */
         public Integer getViewSize() {
@@ -152,6 +169,22 @@ public class ProductSearchSession {
          */
         public void setViewSize(Integer viewSize) {
             this.viewSize = viewSize;
+        }
+        /**
+         * @param viewSize The viewSize to set.
+         */
+        public void setViewSize(String viewSizeStr) {
+            if (UtilValidate.isEmpty(viewSizeStr)) {
+                return;
+            }
+            try {
+                this.setViewSize(Integer.valueOf(viewSizeStr));
+            } catch (Exception e) {
+                Debug.logError(e, "Error in formatting of VIEW_SIZE [" + viewSizeStr + "], setting to 20", module);
+                if (this.viewSize == null) {
+                    this.setViewSize(new Integer(20));
+                }
+            }
         }
 
         public List searchGetConstraintStrings(boolean detailed, GenericDelegator delegator, Locale locale) {
@@ -395,6 +428,11 @@ public class ProductSearchSession {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         Boolean alreadyRun = (Boolean) request.getAttribute("processSearchParametersAlreadyRun"); 
         if (Boolean.TRUE.equals(alreadyRun)) {
+            // even if already run, check the VIEW_SIZE and VIEW_INDEX again, just for kicks
+            ProductSearchOptions productSearchOptions = getProductSearchOptions(request.getSession());
+            productSearchOptions.setViewIndex((String) parameters.get("VIEW_INDEX"));
+            productSearchOptions.setViewSize((String) parameters.get("VIEW_SIZE"));
+            
             return;
         } else {
             request.setAttribute("processSearchParametersAlreadyRun", Boolean.TRUE);
@@ -589,26 +627,8 @@ public class ProductSearchSession {
             productSearchOptions.clearViewInfo();
         }
 
-        String viewIndexStr = (String) parameters.get("VIEW_INDEX");
-        if (UtilValidate.isNotEmpty(viewIndexStr)) {
-            try {
-                productSearchOptions.setViewIndex(Integer.valueOf(viewIndexStr));
-            } catch (Exception e) {
-                Debug.logError(e, "Error formatting VIEW_INDEX, setting to 0", module);
-                // we could just do nothing here, but we know something was specified so we don't want to use the previous value from the session
-                productSearchOptions.setViewIndex(new Integer(0));
-            }
-        }
-
-        String viewSizeStr = (String) parameters.get("VIEW_SIZE");
-        if (UtilValidate.isNotEmpty(viewSizeStr)) {
-            try {
-                productSearchOptions.setViewSize(Integer.valueOf(viewSizeStr));
-            } catch (Exception e) {
-                Debug.logError(e, "Error formatting VIEW_SIZE, setting to 20", module);
-                productSearchOptions.setViewSize(new Integer(20));
-            }
-        }
+        productSearchOptions.setViewIndex((String) parameters.get("VIEW_INDEX"));
+        productSearchOptions.setViewSize((String) parameters.get("VIEW_SIZE"));
     }
 
     public static Map getProductSearchResult(HttpServletRequest request, GenericDelegator delegator, String prodCatalogId) {
