@@ -239,6 +239,6 @@ under the License.
   <tr>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
-    <td colspan="2"><input type="submit" value="<#if survey.submitCaption?has_content>${survey.submitCaption}<#else/>Submit</#if>"/></td>
+    <td colspan="2"><input type="submit" class="smallSubmit" value="<#if survey.submitCaption?has_content>${survey.submitCaption}<#else/>Submit</#if>"/></td>
   </tr>
 </table>
