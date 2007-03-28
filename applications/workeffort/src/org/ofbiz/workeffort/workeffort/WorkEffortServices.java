@@ -276,10 +276,12 @@ public class WorkEffortServices {
             if (UtilValidate.isNotEmpty(facilityId)) {
                 entityExprList.add(new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId));
                 typesList.add(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_HEADER"));
+                entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CREATED"));
             }
             if (UtilValidate.isNotEmpty(fixedAssetId)) {
                 entityExprList.add(new EntityExpr("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
                 typesList.add(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"));
+                entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CREATED"));
             }
             EntityCondition typesCondition = null;
             if (typesList.size() == 1) {
@@ -463,6 +465,7 @@ public class WorkEffortServices {
 
             List findIncomingProductionRunsStatusConds = new LinkedList();
             findIncomingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_CREATED"));
+            findIncomingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_SCHEDULED"));
             findIncomingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_DOC_PRINTED"));
             findIncomingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_RUNNING"));
             findIncomingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_COMPLETED"));
@@ -535,6 +538,7 @@ public class WorkEffortServices {
 
             List findOutgoingProductionRunsStatusConds = new LinkedList();
             findOutgoingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_CREATED"));
+            findOutgoingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_SCHEDULED"));
             findOutgoingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_DOC_PRINTED"));
             findOutgoingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_RUNNING"));
             findOutgoingProductionRunsConds.add(new EntityConditionList(findOutgoingProductionRunsStatusConds, EntityOperator.OR));
