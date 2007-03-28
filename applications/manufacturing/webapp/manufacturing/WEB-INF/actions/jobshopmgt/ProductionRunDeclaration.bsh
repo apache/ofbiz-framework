@@ -175,7 +175,8 @@ if (!UtilValidate.isEmpty(productionRunId)) {
             if (startTaskId == null &&
                   issueTaskId == null &&
                   completeTaskId == null &&
-                  task.getString("currentStatusId").equals("PRUN_CREATED")) {
+                  ("PRUN_CREATED".equals(task.getString("currentStatusId")) ||
+                   "PRUN_SCHEDULED".equals(task.getString("currentStatusId")))) {
                 startTaskId = task.getString("workEffortId");
             }
         }

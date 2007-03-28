@@ -514,9 +514,45 @@ public class ProductionRunServices {
             result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusChanged",UtilMisc.toMap("newStatusId", currentStatusId), locale));
             return result;
         }
-        
-        // PRUN_CREATED --> PRUN_DOC_PRINTED
-        if (currentStatusId.equals("PRUN_CREATED") && (statusId == null || statusId.equals("PRUN_DOC_PRINTED"))) {
+
+        // PRUN_CREATED --> PRUN_SCHEDULED
+        if (currentStatusId.equals("PRUN_CREATED") && statusId.equals("PRUN_SCHEDULED")) {
+            // change the production run status to PRUN_SCHEDULED
+            Map serviceContext = new HashMap();
+            serviceContext.clear();
+            serviceContext.put("workEffortId", productionRunId);
+            serviceContext.put("currentStatusId", statusId);
+            serviceContext.put("userLogin", userLogin);
+            Map resultService = null;
+            try {
+                resultService = dispatcher.runSync("updateWorkEffort", serviceContext);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Problem calling the updateWorkEffort service", module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
+            }
+            // change the production run tasks status to PRUN_CLOSED
+            Iterator tasks = productionRun.getProductionRunRoutingTasks().iterator();
+            while (tasks.hasNext()) {
+                GenericValue task = (GenericValue)tasks.next();
+                serviceContext.clear();
+                serviceContext.put("workEffortId", task.getString("workEffortId"));
+                serviceContext.put("currentStatusId", statusId);
+                serviceContext.put("userLogin", userLogin);
+                resultService = null;
+                try {
+                    resultService = dispatcher.runSync("updateWorkEffort", serviceContext);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, "Problem calling the updateWorkEffort service", module);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
+                }
+            }
+            result.put("newStatusId", statusId);
+            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusChanged",UtilMisc.toMap("newStatusId", "PRUN_CLOSED"), locale));
+            return result;
+        }
+
+        // PRUN_CREATED or PRON_SCHEDULED --> PRUN_DOC_PRINTED
+        if ((currentStatusId.equals("PRUN_CREATED") || currentStatusId.equals("PRUN_SCHEDULED")) && (statusId == null || statusId.equals("PRUN_DOC_PRINTED"))) {
             // change only the production run (header) status to PRUN_DOC_PRINTED
             Map serviceContext = new HashMap();
             serviceContext.clear();
@@ -683,9 +719,9 @@ public class ProductionRunServices {
             return result;
         }
         
-        // PRUN_CREATED --> PRUN_RUNNING
+        // PRUN_CREATED or PRUN_SCHEDULED --> PRUN_RUNNING
         // this should be called only when the first task is started
-        if (currentStatusId.equals("PRUN_CREATED") && (statusId == null || statusId.equals("PRUN_RUNNING"))) {
+        if ((currentStatusId.equals("PRUN_CREATED") || currentStatusId.equals("PRUN_SCHEDULED")) && (statusId == null || statusId.equals("PRUN_RUNNING"))) {
             // change the production run task status to PRUN_RUNNING
             // if necessary change the production run (header) status to PRUN_RUNNING
             if (!allPrecTaskCompleted) {
@@ -2224,23 +2260,24 @@ public class ProductionRunServices {
                 serviceContext.put("statusId", "PRUN_DOC_PRINTED");
                 serviceContext.put("userLogin", userLogin);
                 resultService = dispatcher.runSync("changeProductionRunStatus", serviceContext);
-            }
-            if (statusId.equals("PRUN_COMPLETED") ||
-                    statusId.equals("PRUN_CLOSED")) {
-                serviceContext.clear();
+            } else if (statusId.equals("PRUN_COMPLETED") ||
+                       statusId.equals("PRUN_CLOSED")) {
                 serviceContext.put("productionRunId", productionRunId);
                 serviceContext.put("userLogin", userLogin);
                 resultService = dispatcher.runSync("quickRunAllProductionRunTasks", serviceContext);
-            }
-            if (statusId.equals("PRUN_CLOSED")) {
+            } else if (statusId.equals("PRUN_CLOSED")) {
                 // Put in warehouse the products manufactured
-                serviceContext.clear();
                 serviceContext.put("workEffortId", productionRunId);
                 serviceContext.put("userLogin", userLogin);
                 resultService = dispatcher.runSync("productionRunProduce", serviceContext);
                 serviceContext.clear();
                 serviceContext.put("productionRunId", productionRunId);
                 serviceContext.put("statusId", "PRUN_CLOSED");
+                serviceContext.put("userLogin", userLogin);
+                resultService = dispatcher.runSync("changeProductionRunStatus", serviceContext);
+            } else {
+                serviceContext.put("productionRunId", productionRunId);
+                serviceContext.put("statusId", statusId);
                 serviceContext.put("userLogin", userLogin);
                 resultService = dispatcher.runSync("changeProductionRunStatus", serviceContext);
             }
