@@ -133,7 +133,7 @@ public class FinAccountPaymentServices {
             }
 
             // check the amount to authorize against the available balance of fin account, which includes active authorizations as well as transactions
-            BigDecimal availableBalance = FinAccountHelper.getAvailableBalance(finAccountId, delegator);
+            BigDecimal availableBalance = finAccount.getBigDecimal("availableBalance");
             Map result = ServiceUtil.returnSuccess();
             Boolean processResult;
             String refNum;
@@ -164,7 +164,8 @@ public class FinAccountPaymentServices {
                 }
 
                 // mark the account as frozen if we have gone negative
-                BigDecimal newBalance = FinAccountHelper.getAvailableBalance(finAccountId, delegator);
+                finAccount.refresh();
+                BigDecimal newBalance = finAccount.getBigDecimal("availableBalance");
                 if (newBalance.compareTo(FinAccountHelper.ZERO) == -1) {
                     Debug.logInfo("Financal account [" + finAccountId + "] now frozen: " + newBalance, module);
                     finAccount.set("isFrozen", "Y");
@@ -455,13 +456,7 @@ public class FinAccountPaymentServices {
         }
 
         // check the actual balance (excluding authorized amounts) and create the transaction if it is sufficient
-        BigDecimal previousBalance;
-        try {
-            previousBalance = FinAccountHelper.getBalance(finAccountId, delegator);
-        } catch (GeneralException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
-        }
+        BigDecimal previousBalance = finAccount.getBigDecimal("actualBalance");
 
         BigDecimal balance;
         String refNum;
@@ -474,8 +469,9 @@ public class FinAccountPaymentServices {
             try {
                 refNum = FinAccountPaymentServices.createFinAcctPaymentTransaction(delegator, dispatcher, userLogin, amount,
                         productStoreId, partyId, currencyUom, WITHDRAWAL, finAccountId);
-                balance = FinAccountHelper.getAvailableBalance(finAccountId, delegator);
-                        procResult = Boolean.TRUE;
+                finAccount.refresh();
+                balance = finAccount.getBigDecimal("actualBalance");
+                procResult = Boolean.TRUE;
             } catch (GeneralException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -533,13 +529,7 @@ public class FinAccountPaymentServices {
         Debug.log("Deposit into financial account #" + finAccountId + " [" + amount + "]", module);
         
         // get the previous balance
-        BigDecimal previousBalance;
-        try {
-            previousBalance = FinAccountHelper.getAvailableBalance(finAccountId, delegator);
-        } catch (GeneralException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
-        }
+        BigDecimal previousBalance = finAccount.getBigDecimal("actualBalance");
 
         // create the transaction
         BigDecimal balance;
@@ -547,7 +537,8 @@ public class FinAccountPaymentServices {
         try {
             refNum = FinAccountPaymentServices.createFinAcctPaymentTransaction(delegator, dispatcher, userLogin, amount,
                     productStoreId, partyId, currencyUom, DEPOSIT, finAccountId);
-            balance = FinAccountHelper.getAvailableBalance(finAccountId, delegator);
+            finAccount.refresh();
+            balance = finAccount.getBigDecimal("actualBalance");
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -626,13 +617,7 @@ public class FinAccountPaymentServices {
         }
 
         // get the current balance
-        BigDecimal balance;
-        try {
-             balance = FinAccountHelper.getBalance(finAccountId, delegator);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
-        }
+        BigDecimal balance = finAccount.getBigDecimal("actualBalance");
 
         // see if we are within the threshold for replenishment
         if (balance.compareTo(replenishThreshold) > -1) {

@@ -416,8 +416,8 @@ public class CheckOutHelper {
                             errMsg = UtilProperties.getMessage(resource,"checkhelper.gift_card_does_not_exist", (cart != null ? cart.getLocale() : Locale.getDefault()));
                             errorMessages.add(errMsg);
                             gcFieldsOkay = false;
-                        } else if ((FinAccountHelper.getAvailableBalance(finAccount.getString("finAccountId"), delegator) == null) ||
-                                !(FinAccountHelper.getAvailableBalance(finAccount.getString("finAccountId"), delegator).compareTo(FinAccountHelper.ZERO) == 1)) {
+                        } else if ((finAccount.getBigDecimal("availableBalance") == null) ||
+                                !((finAccount.getBigDecimal("availableBalance")).compareTo(FinAccountHelper.ZERO) > 0)) {
                             // if account's available balance (including authorizations) is not greater than zero, then return an error
                             errMsg = UtilProperties.getMessage(resource,"checkhelper.gift_card_has_no_value", (cart != null ? cart.getLocale() : Locale.getDefault()));
                             errorMessages.add(errMsg);
