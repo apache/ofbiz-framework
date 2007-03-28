@@ -132,15 +132,10 @@ under the License.
                 <condition-expr field-name="finAccountId" env-name="finAccountId"/>
             </entity-condition>
         </actions>
+        <auto-fields-entity entity-name="FinAccountTrans" default-field-type="display"/>
         <field name="finAccountId"><hidden/></field>
-        <field name="finAccountTrasnsId"><hidden/></field>
+        <field name="finAccountTransId"><hidden/></field>
         <field name="finAccountTransTypeId"><display-entity entity-name="FinAccountTransType" description="${description}"/></field>
-        <field name="partyId"><display/></field>
-        <field name="transactionDate"><display/></field>   
-        <field name="entryDate"><display/></field>
-        <field name="paymentId"><display/></field>       
-        <field name="amount"><display/></field>       
-        <field name="orderId"><display/></field>       
     </form>
     <form name="AddFinAccountTrans" type="single" target="createFinAccountTrans">
         <auto-fields-service service-name="createFinAccountTrans"/>
@@ -168,13 +163,9 @@ under the License.
                 <order-by field-name="finAccountAuthId"/>
             </entity-condition>
         </actions>
-        <auto-fields-entity entity-name="FinAccountAuth"/>
+        <auto-fields-entity entity-name="FinAccountAuth" default-field-type="display"/>
         <field name="finAccountAuthId"><hidden/></field>
         <field name="finAccountId"><hidden/></field>
-        <field name="amount"><display/></field>
-        <field name="authorizationDate"><display/></field>   
-        <field name="fromDate"><display/></field>
-        <field name="thruDate"><display/></field>
         <field name="expireLink" title="" widget-style="buttontext">
             <hyperlink target="expireFinAccountAuth?finAccountId=${finAccountId}&amp;finAccountAuthId=${finAccountAuthId}"
                 description="${uiLabelMap.CommonExpire}" also-hidden="false"/>
