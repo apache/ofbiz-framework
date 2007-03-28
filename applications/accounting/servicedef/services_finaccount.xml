@@ -172,7 +172,7 @@ under the License.
     <service name="createPartyFinAccountFromPurchase" engine="java"
             location="org.ofbiz.accounting.finaccount.FinAccountProductServices" invoke="createPartyFinAccountFromPurchase" auth="true">
         <implements service="itemFulfillmentInterface"/>
-        <attribute name="finAccountId" type="String" mode="OUT"/>
+        <attribute name="finAccountId" type="String" mode="OUT" optional="false"/>
     </service>
 
     <!-- financial account as payment method services -->

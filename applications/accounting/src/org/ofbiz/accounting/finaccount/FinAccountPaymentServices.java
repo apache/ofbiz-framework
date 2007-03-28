@@ -731,24 +731,36 @@ public class FinAccountPaymentServices {
         String paymentType;
         String partyIdFrom;
         String partyIdTo;
+        Double paymentAmount;
 
         // determine the payment type and which direction the parties should go
         if ("DEPOSIT".equals(txType)) {
             paymentType = "RECEIPT";
             partyIdFrom = partyId;
             partyIdTo = coParty;
+            paymentAmount = amount;
         } else if ("WITHDRAWAL".equals(txType)) {
             paymentType = "DISBURSEMENT";
             partyIdFrom = coParty;
             partyIdTo = partyId;
+            paymentAmount = amount;
         } else if ("ADJUSTMENT".equals(txType)) {
-            paymentType = "CUSTOMER_REFUND";
-            partyIdFrom = coParty;
-            partyIdTo = partyId;
+            if (amount.doubleValue() < 0) {
+                paymentType = "DISBURSEMENT";
+                partyIdFrom = coParty;
+                partyIdTo = partyId;
+                paymentAmount = new Double(amount.doubleValue() * -1); // must be positive
+            } else {
+                paymentType = "RECEIPT";
+                partyIdFrom = partyId;
+                partyIdTo = coParty;
+                paymentAmount = amount;
+            }
         } else {
             throw new GeneralException("Unable to create financial account transaction!");
         }
 
+        // payment amount should always be positive; adjustments may
         // create the payment for the transaction
         Map paymentCtx = UtilMisc.toMap("paymentTypeId", paymentType);
         paymentCtx.put("paymentMethodTypeId", paymentMethodType);
@@ -756,7 +768,7 @@ public class FinAccountPaymentServices {
         paymentCtx.put("partyIdFrom", partyIdFrom);
         paymentCtx.put("statusId", "PMNT_RECEIVED");
         paymentCtx.put("currencyUomId", currencyUom);
-        paymentCtx.put("amount", amount);
+        paymentCtx.put("amount", paymentAmount);
         paymentCtx.put("userLogin", userLogin);
         paymentCtx.put("paymentRefNum", Long.toString(UtilDateTime.nowTimestamp().getTime()));
 
@@ -780,7 +792,8 @@ public class FinAccountPaymentServices {
         Map transCtx = UtilMisc.toMap("finAccountTransTypeId", txType);
         transCtx.put("finAccountId", finAccountId);
         transCtx.put("partyId", userLogin.getString("partyId"));
-        transCtx.put("userLogin", userLogin);        
+        transCtx.put("amount", amount);
+        transCtx.put("userLogin", userLogin);
         transCtx.put("paymentId", paymentId);
 
         Map transResult;
