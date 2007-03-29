@@ -435,9 +435,40 @@ under the License.
       <field name="trackingCodeTypeId" type="id-ne"></field>
       <field name="trackingCodeId" type="id-ne"></field>
       <field name="isBillable" type="indicator"></field>
+      <field name="siteId" type="long-varchar"></field>
+      <field name="hasExported" type="indicator"></field>                
+      <field name="affiliateReferredTimeStamp" type="date-time"></field>  
       <prim-key field="orderId"/>
       <prim-key field="trackingCodeTypeId"/>
       <relation type="one" fk-name="TKNG_CODODR_ODR" rel-entity-name="OrderHeader">
+        <key-map field-name="orderId"/>
+      </relation>
+      <relation type="one" fk-name="TKNG_CODODR_TKCD" rel-entity-name="TrackingCode">
+        <key-map field-name="trackingCodeId"/>
+      </relation>
+      <relation type="one" fk-name="TKNG_CODODR_TYP" rel-entity-name="TrackingCodeType">
+        <key-map field-name="trackingCodeTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="TrackingCodeOrderReturn"
+            package-name="org.ofbiz.marketing.tracking"
+            title="Tracking Code And Order Return">
+      <field name="returnId" type="id-ne"></field>
+      <field name="orderId" type="id-ne"></field>
+      <field name="orderItemSeqId" type="id-ne"></field>
+      <field name="trackingCodeTypeId" type="id-ne"></field>
+      <field name="trackingCodeId" type="id-ne"></field>
+      <field name="isBillable" type="indicator"></field>
+      <field name="siteId" type="long-varchar"></field>
+      <field name="hasExported" type="indicator"></field>
+      <field name="affiliateReferredTimeStamp" type="date-time"></field>
+      <prim-key field="returnId"/>
+      <prim-key field="orderId"/>
+      <prim-key field="trackingCodeTypeId"/>
+      <relation type="one" fk-name="TKNG_CODODR_ODRTN" rel-entity-name="ReturnHeader">
+        <key-map field-name="returnId"/>
+      </relation>
+      <relation type="one" fk-name="TKNG_CODODR_ODRTN" rel-entity-name="OrderHeader">
         <key-map field-name="orderId"/>
       </relation>
       <relation type="one" fk-name="TKNG_CODODR_TKCD" rel-entity-name="TrackingCode">
@@ -480,8 +511,9 @@ under the License.
     <!-- org.ofbiz.marketing.reports -->
     <!-- ========================================================= -->
 
-     <view-entity entity-name="TrackingCodeAndVisit" package-name="org.ofbiz.marketing.reports"
-         title="View entity for reporting number of visits for a tracking code">
+     <view-entity entity-name="TrackingCodeAndVisit"
+                  package-name="org.ofbiz.marketing.reports"
+                  title="View entity for reporting number of visits for a tracking code">
         <member-entity entity-alias="TC" entity-name="TrackingCode"/>
         <member-entity entity-alias="TCV" entity-name="TrackingCodeVisit"/>
         <alias entity-alias="TC" name="trackingCodeId" group-by="true"/>
@@ -495,8 +527,9 @@ under the License.
             <key-map field-name="trackingCodeId"/>
         </view-link>
       </view-entity>
-      <view-entity entity-name="TrackingCodeAndOrderHeader" package-name="org.ofibz.marketing.reports"
-          title="View entity for reporting number of orders and total order amounts">
+      <view-entity entity-name="TrackingCodeAndOrderHeader"
+                   package-name="org.ofibz.marketing.reports"
+                   title="View entity for reporting number of orders and total order amounts">
         <member-entity entity-alias="TCO" entity-name="TrackingCodeOrder"/>
         <member-entity entity-alias="OH" entity-name="OrderHeader"/>
         <alias entity-alias="OH" name="grandTotal" function="sum"/>
@@ -507,8 +540,49 @@ under the License.
             <key-map field-name="orderId"/>
         </view-link>
     </view-entity>
-    <view-entity entity-name="MarketingCampaignAndVisit" package-name="org.ofbiz.marketing.reports"
-         title="View entity for reporting number of visits for a marketing campaign.  Note that because
+    <view-entity entity-name="TrackingCodeOrderAndOrderHeader"
+                 package-name="org.ofibz.marketing.reports"
+                 never-cache="true"
+                 title="Order Header And Tracking Code Order View Entity">
+      <member-entity entity-alias="TCO" entity-name="TrackingCodeOrder"/>
+      <member-entity entity-alias="OH" entity-name="OrderHeader"/>
+      <alias entity-alias="TCO" name="orderId"/>
+      <alias entity-alias="TCO" name="trackingCodeId"/>
+      <alias entity-alias="TCO" name="siteId"/>
+      <alias entity-alias="TCO" name="hasExported"/>
+      <alias entity-alias="TCO" name="affiliateReferredTimeStamp"/>
+      <alias entity-alias="OH" name="statusId"/>
+      <view-link entity-alias="TCO" rel-entity-alias="OH">
+        <key-map field-name="orderId"/>
+      </view-link>
+      <relation type="one" rel-entity-name="OrderHeader">
+            <key-map field-name="orderId"/>
+      </relation>
+    </view-entity>
+    <view-entity entity-name="TrackingCodeOrderReturnAndReturnHeader"
+                 package-name="org.ofibz.marketing.reports"
+                 never-cache="true"
+                 title="Return Header And Tracking Code Order Return View Entity">
+      <member-entity entity-alias="TCO" entity-name="TrackingCodeOrderReturn"/>
+      <member-entity entity-alias="RH" entity-name="ReturnHeader"/>
+      <alias entity-alias="TCO" name="returnId"/>
+      <alias entity-alias="TCO" name="orderId"/>
+      <alias entity-alias="TCO" name="orderItemSeqId"/>
+      <alias entity-alias="TCO" name="trackingCodeId"/>
+      <alias entity-alias="TCO" name="siteId"/>
+      <alias entity-alias="TCO" name="hasExported"/>
+      <alias entity-alias="TCO" name="affiliateReferredTimeStamp"/>
+      <alias entity-alias="RH" name="statusId"/>
+      <view-link entity-alias="TCO" rel-entity-alias="RH">
+        <key-map field-name="returnId"/>
+      </view-link>
+      <relation type="one" rel-entity-name="ReturnHeader">
+            <key-map field-name="returnId"/>
+      </relation>
+    </view-entity>
+    <view-entity entity-name="MarketingCampaignAndVisit"
+                 package-name="org.ofbiz.marketing.reports"
+                 title="View entity for reporting number of visits for a marketing campaign.  Note that because
          marketingCampaignId is a field of TrackingCode, this is really very similar to TrackingCodeAndVisit, 
          except the group-by is with marketingCampaignId instead of trackingCodeId">
         <member-entity entity-alias="TC" entity-name="TrackingCode"/>
@@ -520,8 +594,9 @@ under the License.
             <key-map field-name="trackingCodeId"/>
         </view-link>
       </view-entity>
-      <view-entity entity-name="MarketingCampaignAndOrderHeader" package-name="org.ofibz.marketing.reports"
-          title="View entity for reporting number of orders and total order amounts">
+      <view-entity entity-name="MarketingCampaignAndOrderHeader"
+                   package-name="org.ofibz.marketing.reports"
+                   title="View entity for reporting number of orders and total order amounts">
         <member-entity entity-alias="TC" entity-name="TrackingCode"/>
         <member-entity entity-alias="TCO" entity-name="TrackingCodeOrder"/>
         <member-entity entity-alias="OH" entity-name="OrderHeader"/>

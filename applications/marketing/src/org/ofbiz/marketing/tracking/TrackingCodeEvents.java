@@ -57,7 +57,7 @@ public class TrackingCodeEvents {
         if (UtilValidate.isNotEmpty(trackingCodeId)) {
             //tracking code is specified on the request, get the TrackingCode value and handle accordingly
             GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-            GenericValue trackingCode = null;
+            GenericValue trackingCode;
             try {
                 trackingCode = delegator.findByPrimaryKeyCache("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId));
             } catch (GenericEntityException e) {
@@ -94,7 +94,7 @@ public class TrackingCodeEvents {
         if (UtilValidate.isNotEmpty(trackingCodeId)) {
             //partner managed tracking code is specified on the request
             GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-            GenericValue trackingCode = null;
+            GenericValue trackingCode;
             try {
                 trackingCode = delegator.findByPrimaryKeyCache("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId));
             } catch (GenericEntityException e) {
@@ -119,7 +119,7 @@ public class TrackingCodeEvents {
                     
                     if (defaultTrackingCode != null) {
                         defaultTrackingCode.set("trackingCodeId", trackingCodeId);
-                        defaultTrackingCode.set("trackingCodeTypeId", "PARTNER_MGD");
+                        defaultTrackingCode.set("trackingCodeTypeId", "PARTNER_MGD"); 
                         //null out userLogin fields, no use tracking to customer, or is there?; set dates to current
                         defaultTrackingCode.set("createdDate", UtilDateTime.nowTimestamp());
                         defaultTrackingCode.set("createdByUserLogin", null);
@@ -243,6 +243,42 @@ public class TrackingCodeEvents {
             if (cookieDomain.length() > 0) billableCookie.setDomain(cookieDomain);
             response.addCookie(billableCookie);
         }
+        
+        // if site id exist in cookies then not req to create it if exist with diffrent site then create it
+        int siteIdCookieAge = (60 * 60 * 24 * 365); // should this be configurable?
+        String siteId = request.getParameter("siteId");
+        if (siteId != null && siteId.length() > 0) {
+            String visitorSiteIdCookieName = "Ofbiz.TKCD.SiteId";
+            String visitorSiteId = null;
+            // first try to get the current ID from the visitor cookie
+            javax.servlet.http.Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (int i = 0; i < cookies.length; i++) {
+                    if (cookies[i].getName().equals(visitorSiteIdCookieName)) {
+                        visitorSiteId = cookies[i].getValue();
+                        break;
+                    }
+                }
+            }
+
+            if ( visitorSiteId == null || (visitorSiteId != null && !visitorSiteId.equals(siteId)) ) {
+                // if trackingCode.siteId is  not null  write a trackable cookie with name in the form: Ofbiz.TKCSiteId and timeout will be 60 * 60 * 24 * 365
+                Cookie siteIdCookie = new Cookie("Ofbiz.TKCD.SiteId" ,siteId);
+                siteIdCookie.setMaxAge(siteIdCookieAge);
+                siteIdCookie.setPath("/");
+                siteIdCookie.setVersion(1);
+                if (cookieDomain.length() > 0) siteIdCookie.setDomain(cookieDomain);
+                    response.addCookie(siteIdCookie);
+            
+                // if trackingCode.siteId is  not null  write a trackable cookie with name in the form: Ofbiz.TKCSiteId and timeout will be 60 * 60 * 24 * 365
+                Cookie updatedTimeStampCookie = new Cookie("Ofbiz.TKCD.UpdatedTimeStamp" ,UtilDateTime.nowTimestamp().toString());
+                updatedTimeStampCookie.setMaxAge(siteIdCookieAge);
+                updatedTimeStampCookie.setPath("/");
+                updatedTimeStampCookie.setVersion(1);
+                if (cookieDomain.length() > 0) updatedTimeStampCookie.setDomain(cookieDomain);
+                    response.addCookie(updatedTimeStampCookie);
+            }
+        }
 
         // if we have overridden logo, css and/or catalogId set some session attributes
         HttpSession session = request.getSession();
@@ -289,7 +325,7 @@ public class TrackingCodeEvents {
                 for (int i = 0; i < cookies.length; i++) {
                     if (cookies[i].getName().startsWith("TKCDT_")) {
                         String trackingCodeId = cookies[i].getValue();
-                        GenericValue trackingCode = null;
+                        GenericValue trackingCode;
                         try {
                             trackingCode = delegator.findByPrimaryKeyCache("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId));
                         } catch (GenericEntityException e) {
@@ -339,13 +375,26 @@ public class TrackingCodeEvents {
         List trackingCodeOrders = new LinkedList();
         
         Cookie[] cookies = request.getCookies();
+        String affiliateReferredTimeStamp = null;
+        String siteId = null;
+
         if (cookies != null && cookies.length > 0) {
             for (int i = 0; i < cookies.length; i++) {
+                String cookieName = cookies[i].getName();
+
+                // find the siteId cookie if it exists
+                if ("Ofbiz.TKCD.siteId".equals(cookieName)) {
+                    siteId = cookies[i].getValue();
+                }
+
+                // find the referred timestamp cookie if it exists
+                if ("Ofbiz.TKCD.UpdatedTimeStamp".equals(cookieName)) {
+                    affiliateReferredTimeStamp = cookies[i].getValue();
+                }
+
                 // find any that start with TKCDB_ for billable tracking code cookies with isBillable=Y
                 // also and for each TKCDT_ cookie that doesn't have a corresponding billable code add it to the list with isBillable=N
-                
                 String isBillable = null;
-                String cookieName = cookies[i].getName();
                 if (cookieName.startsWith("TKCDB_")) {
                     isBillable = "Y";
                 } else if (cookieName.startsWith("TKCDT_")) {
@@ -354,7 +403,7 @@ public class TrackingCodeEvents {
                 
                 if (isBillable != null) {
                     String trackingCodeId = cookies[i].getValue();
-                    GenericValue trackingCode = null;
+                    GenericValue trackingCode;
                     try {
                         trackingCode = delegator.findByPrimaryKeyCache("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId));
                     } catch (GenericEntityException e) {
@@ -391,7 +440,8 @@ public class TrackingCodeEvents {
                     // this will have everything except the orderId set, that will be set by the createOrder service
                     GenericValue trackingCodeOrder = delegator.makeValue("TrackingCodeOrder", 
                             UtilMisc.toMap("trackingCodeTypeId", trackingCode.get("trackingCodeTypeId"), 
-                            "trackingCodeId", trackingCodeId, "isBillable", isBillable));
+                            "trackingCodeId", trackingCodeId, "isBillable", isBillable, "siteId", siteId,
+                            "hasExported", "N", "affiliateReferredTimeStamp", affiliateReferredTimeStamp));
                     
                     trackingCodeOrders.add(trackingCodeOrder);
                 }

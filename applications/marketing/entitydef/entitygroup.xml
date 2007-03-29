@@ -59,6 +59,7 @@ under the License.
 
     <entity-group group="org.ofbiz" entity="TrackingCode" />
     <entity-group group="org.ofbiz" entity="TrackingCodeOrder" />
+    <entity-group group="org.ofbiz" entity="TrackingCodeOrderReturn"/>
     <entity-group group="org.ofbiz" entity="TrackingCodeType" />
     <entity-group group="org.ofbiz" entity="TrackingCodeVisit" />
 
@@ -68,7 +69,8 @@ under the License.
 
     <entity-group group="org.ofbiz" entity="TrackingCodeAndVisit"/>
     <entity-group group="org.ofbiz" entity="TrackingCodeAndOrderHeader"/>
+    <entity-group group="org.ofbiz" entity="TrackingCodeOrderAndOrderHeader"/>
+    <entity-group group="org.ofbiz" entity="TrackingCodeOrderReturnAndReturnHeader"/>
     <entity-group group="org.ofbiz" entity="MarketingCampaignAndVisit"/>
     <entity-group group="org.ofbiz" entity="MarketingCampaignAndOrderHeader"/>
-
 </entitygroup>
