@@ -138,6 +138,7 @@ under the License.
     <eca service="updateReturnHeader" event="commit">
         <condition field-name="statusId" operator="equals" value="RETURN_ACCEPTED"/>
         <condition field-name="currentStatusId" operator="not-equals" value="RETURN_ACCEPTED"/>
+        <action service="createTrackingCodeOrderReturns" mode="sync"/>
         <action service="sendReturnAcceptNotification" mode="async" persist="true"/>
     </eca>
     <eca service="updateReturnHeader" event="commit">

@@ -20,7 +20,7 @@ under the License.
 
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
-    <description>Common Application Components Order Services</description>
+    <description>Marketing Component Services</description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
 
@@ -28,18 +28,21 @@ under the License.
     <service name="createMarketingCampaign" default-entity-name="MarketingCampaign" engine="simple"
             location="org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="createMarketingCampaign" auth="true">
         <description>Create a MarketingCampaign record</description>
+        <permission-service service-name="marketingPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateMarketingCampaign" default-entity-name="MarketingCampaign" engine="simple"
             location="org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="updateMarketingCampaign" auth="true">
         <description>Update a MarketingCampaign record</description>
+        <permission-service service-name="marketingPermissionService" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteMarketingCampaign" default-entity-name="MarketingCampaign" engine="simple"
             location="org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="deleteMarketingCampaign" auth="true">
         <description>Remove a MarketingCampaign record</description>
+        <permission-service service-name="marketingPermissionService" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
@@ -306,4 +309,40 @@ under the License.
         <attribute name="areRelated" type="String" mode="OUT" optional="false"><!-- will be Y or N --></attribute>
     </service>
     
+    <!-- Tracking Code Order return  -->
+    <service name="createTrackingCodeOrderReturn" default-entity-name="TrackingCodeOrderReturn" engine="simple"
+            location="org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCodeOrderReturn">
+        <description>Create a TrackingCodeOrderReturn  record</description>
+        <permission-service service-name="marketingPermissionService" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateTrackingCodeOrderReturn" default-entity-name="TrackingCodeOrderReturn" engine="simple"
+            location="org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="updateTrackingCodeOrderReturn">
+        <description>Update a TrackingCode record</description>
+        <permission-service service-name="marketingPermissionService" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteTrackingCodeOrderReturn" default-entity-name="TrackingCodeOrderReturn" engine="simple"
+            location="org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="deleteTrackingCodeOrderReturn">
+        <description>Update a TrackingCode record</description>
+        <permission-service service-name="marketingPermissionService" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="createTrackingCodeOrderReturns"  engine="simple"
+                location="org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCodeOrderReturns">
+        <description>Create TrackingCodeOrderReturn for all the Return Items with Orders that have trackingCodeOrder entry</description>
+        <permission-service service-name="marketingPermissionService" main-action="CREATE"/>
+        <attribute type="String" mode="IN" name="returnId" optional="false"/>
+    </service>
+
+    <!-- marketing permission service -->
+    <service name="marketingPermissionService" engine="simple"
+             location="org/ofbiz/common/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
+        <implements service="permissionInterface"/>
+        <attribute name="primaryPermission" type="String" mode="IN" optional="false" default-value="MARKETING"/>
+        <attribute name="altPermission" type="String" mode="IN" optional="true"/>
+    </service>    
  </services>

@@ -103,4 +103,65 @@ under the License.
         <find-by-primary-key entity-name="TrackingCodeType" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+
+    <!-- add service for tracking code return -->
+    <simple-method method-name="createTrackingCodeOrderReturn" short-description="Create an TrackingCodeOrderReturn">
+        <now-timestamp-to-env env-name="nowStamp"/>
+        <make-value value-name="newEntity" entity-name="TrackingCodeOrderReturn"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        
+        <!-- set the history/audit info -->
+        <set from-field="nowStamp" field="newEntity.createdStamp"/>
+
+        <create-value value-name="newEntity"/>
+    </simple-method>
+        
+    <simple-method method-name="createTrackingCodeOrderReturns" short-description="Create TrackingCodeOrderReturn for all the Return Items with Orders that have trackingCodeOrder entry">
+        <if-not-empty field-name="returnId" map-name="parameters">
+            <set field="returnHeaderFindContext.returnId" from-field="parameters.returnId" />
+            <find-by-primary-key entity-name="ReturnHeader" value-name="returnHeader" map-name="returnHeaderFindContext"/>
+            <get-related list-name="returnItems" relation-name="ReturnItem" value-name="returnHeader"/>
+            <log level="info" message="Return items lists are : ${returnItems}"/> 
+            <iterate list-name="returnItems" entry-name="returnItem">
+                <get-related-one relation-name="OrderHeader" value-name="returnItem" to-value-name="orderHeader"/>    
+                <set field="trackingCodeOrderFindContext.orderId" from-field="orderHeader.orderId"/>
+                <!-- set field="trackingCodeOrderFindContext.trackingCodeTypeId" value="PARTNER_MGD"/-->
+                <!-- get the siteId ,trackingCodeId from TrackingCodeOrder -->
+                <log level="info" message="Find Tracking Code Order For ${trackingCodeOrderFindContext}"/>
+                <find-by-and entity-name="TrackingCodeOrder" list-name="trackingCodeOrders" map-name="trackingCodeOrderFindContext"/>
+                <set field="trackingCodeOrder" from-field="trackingCodeOrders[0]"/>
+                <log level="info" message="Create  Tracking Code Order Return  For ${trackingCodeOrder}"/>
+                <if-not-empty field-name="trackingCodeOrder">
+                    <set-service-fields to-map-name="trackingCodeOrderReturnContext" service-name="createTrackingCodeOrderReturn" map-name="trackingCodeOrder"/>
+                    <set field="trackingCodeOrderReturnContext.returnId" from-field="parameters.returnId"/>
+                    <set field="trackingCodeOrderReturnContext.orderId" from-field="trackingCodeOrder.orderId"/>
+                    <set field="trackingCodeOrderReturnContext.trackingCodeTypeId" value="PARTNER_MGD"/>
+                    <set field="trackingCodeOrderReturnContext.hasExported" value="N"/>
+                    <set field="trackingCodeOrderReturnContext.affiliateReferredTimeStamp" from-field="nowTimestamp"/>
+                    <call-service service-name="createTrackingCodeOrderReturn" in-map-name="trackingCodeOrderReturnContext"/> 
+               </if-not-empty>
+            </iterate>
+        </if-not-empty>
+    </simple-method>
+    <simple-method method-name="updateTrackingCodeOrderReturn" short-description="update an TrackingCodeOrderReturn">
+        <now-timestamp-to-env env-name="nowStamp"/>
+        
+        <make-value entity-name="TrackingCodeOrderReturn" value-name="lookupPKMap"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="TrackingCodeOrderReturn" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        
+        <!-- set the history/audit info -->
+        <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
+        <set from-field="lastModifiedDate" field="newEntity.createdDate"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>    
+    <simple-method method-name="deleteTrackingCodeOrderReturn" short-description="delete an TrackingCodeOrderReturn">
+        <make-value entity-name="TrackingCodeOrderReturn" value-name="lookupPKMap"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="TrackingCodeOrderReturn" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>    
+
 </simple-methods>
