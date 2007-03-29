@@ -146,7 +146,7 @@ function toggleBillingAccount(box) {
                   <#if shoppingCart.getPoNumber()?exists && shoppingCart.getPoNumber() != "(none)">
                     <#assign currentPoNumber = shoppingCart.getPoNumber()>
                   </#if>
-                  <input type="text" class="inputBox" name="corresponding_po_id" size="15" value="${currentPoNumber?if_exists}"/>
+                  <input type="text" class="inputBox" name="correspondingPoId" size="15" value="${currentPoNumber?if_exists}"/>
                 </td>
               </tr>
               <#if productStore.showCheckoutGiftOptions?if_exists != "N">
