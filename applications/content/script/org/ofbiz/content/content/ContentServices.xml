@@ -102,7 +102,7 @@
     <simple-method method-name="removeContentAssoc" short-description="Remove a Content Assoc Record">
         <make-value entity-name="ContentAssoc" value-name="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="Content" map-name="lookupKeyValue" value-name="assoc"/>
+        <find-by-primary-key entity-name="ContentAssoc" map-name="lookupKeyValue" value-name="assoc"/>
 
         <remove-value value-name="assoc"/>
     </simple-method>
