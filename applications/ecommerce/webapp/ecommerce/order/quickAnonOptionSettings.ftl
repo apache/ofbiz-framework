@@ -116,7 +116,7 @@ function onClickShippingMethod(e) {
             <tr>
               <td colspan="2">
                 <span class="head2"><b>${uiLabelMap.OrderPoNumber}</b></span>&nbsp;
-                <input type="text" class='inputBox' name="corresponding_po_id" size="15" value='${shoppingCart.getPoNumber()?if_exists}'/>
+                <input type="text" class='inputBox' name="correspondingPoId" size="15" value='${shoppingCart.getPoNumber()?if_exists}'/>
               </td>
             </tr>
             <#if productStore.showCheckoutGiftOptions?if_exists != "N">
