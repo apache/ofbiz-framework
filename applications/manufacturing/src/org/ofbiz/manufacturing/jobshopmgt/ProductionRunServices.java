@@ -459,7 +459,8 @@ public class ProductionRunServices {
             ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
             if (productionRun.exist()){
                 
-                if (!productionRun.getGenericValue().getString("currentStatusId").equals("PRUN_CREATED")) {
+                if (!"PRUN_CREATED".equals(productionRun.getGenericValue().getString("currentStatusId")) &&
+                      !"PRUN_SCHEDULED".equals(productionRun.getGenericValue().getString("currentStatusId"))) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunPrinted", locale));
                 }
 
@@ -930,7 +931,8 @@ public class ProductionRunServices {
             ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
             if (productionRun.exist()){
                 
-                if (!productionRun.getGenericValue().getString("currentStatusId").equals("PRUN_CREATED")) {
+                if (!"PRUN_CREATED".equals(productionRun.getGenericValue().getString("currentStatusId")) &&
+                      !"PRUN_SCHEDULED".equals(productionRun.getGenericValue().getString("currentStatusId"))) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunPrinted", locale));
                 }
 
@@ -1004,7 +1006,8 @@ public class ProductionRunServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunTaskNotExists", locale));
         }
         
-        if (!productionRun.getGenericValue().getString("currentStatusId").equals("PRUN_CREATED")) {
+        if (!"PRUN_CREATED".equals(productionRun.getGenericValue().getString("currentStatusId")) &&
+              !"PRUN_SCHEDULED".equals(productionRun.getGenericValue().getString("currentStatusId"))) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunPrinted", locale));
         }
 
@@ -1073,7 +1076,8 @@ public class ProductionRunServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunComponentNotExists", locale));
         }
         
-        if (!productionRun.getGenericValue().getString("currentStatusId").equals("PRUN_CREATED")) {
+        if (!"PRUN_CREATED".equals(productionRun.getGenericValue().getString("currentStatusId")) &&
+              !"PRUN_SCHEDULED".equals(productionRun.getGenericValue().getString("currentStatusId"))) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunPrinted", locale));
         }
 
@@ -1154,7 +1158,8 @@ public class ProductionRunServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunTaskNotExists", locale));
         }
         
-        if (!productionRun.getGenericValue().getString("currentStatusId").equals("PRUN_CREATED")) {
+        if (!"PRUN_CREATED".equals(productionRun.getGenericValue().getString("currentStatusId")) &&
+              !"PRUN_SCHEDULED".equals(productionRun.getGenericValue().getString("currentStatusId"))) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunPrinted", locale));
         }
 
@@ -2318,6 +2323,7 @@ public class ProductionRunServices {
 
             List findOutgoingProductionRunsStatusConds = new LinkedList();
             findOutgoingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_CREATED"));
+            findOutgoingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_SCHEDULED"));
             findOutgoingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_DOC_PRINTED"));
             findOutgoingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_RUNNING"));
             findOutgoingProductionRunsConds.add(new EntityConditionList(findOutgoingProductionRunsStatusConds, EntityOperator.OR));
