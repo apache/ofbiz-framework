@@ -74,25 +74,12 @@ public class ModelServiceReader implements Serializable {
         }
 
         ModelServiceReader reader = new ModelServiceReader(readerURL, dctx);
-        if (reader == null) {
-            Debug.logError("Could not load the reader for the reader URL " + readerURL, module);
-            return null;
-        }
-
-        Map serviceMap = reader.getModelServices();
-        return serviceMap;
+        return reader.getModelServices();
     }
 
     public static Map getModelServiceMap(ResourceHandler handler, DispatchContext dctx) {
-        ModelServiceReader reader;
-        reader = new ModelServiceReader(handler, dctx);
-        if (reader == null) {
-            Debug.logError("Could not load the reader for " + handler, module);
-            return null;
-        }
-
-        Map serviceMap = reader.getModelServices();
-        return serviceMap;
+        ModelServiceReader reader = new ModelServiceReader(handler, dctx);
+        return reader.getModelServices();
     }
 
     protected ModelServiceReader(URL readerURL, DispatchContext dctx) {
@@ -273,8 +260,9 @@ public class ModelServiceReader implements Serializable {
         service.location = UtilXml.checkEmpty(serviceElement.getAttribute("location"));
         service.invoke = UtilXml.checkEmpty(serviceElement.getAttribute("invoke"));  
         service.defaultEntityName = UtilXml.checkEmpty(serviceElement.getAttribute("default-entity-name"));
-        
-        // these default to true; if anything but true, make false    
+        service.fromLoader = isFromURL ? readerURL.toExternalForm() : handler.getLoaderName();        
+
+        // these default to true; if anything but true, make false
         service.auth = "true".equalsIgnoreCase(serviceElement.getAttribute("auth"));
         service.export = "true".equalsIgnoreCase(serviceElement.getAttribute("export"));
         service.debug = "true".equalsIgnoreCase(serviceElement.getAttribute("debug"));
@@ -315,6 +303,7 @@ public class ModelServiceReader implements Serializable {
         
         // contruct the context
         service.contextInfo = FastMap.newInstance();
+        this.createNotification(serviceElement, service);
         this.createPermission(serviceElement, service);
         this.createPermGroups(serviceElement, service);
         this.createGroupDefs(serviceElement, service);
@@ -342,6 +331,36 @@ public class ModelServiceReader implements Serializable {
             }
         }
         return value;
+    }
+
+    protected void createNotification(Element baseElement, ModelService model) {
+        List n = UtilXml.childElementList(baseElement, "notification");
+        // default notification groups
+        ModelNotification nSuccess = new ModelNotification();
+        nSuccess.notificationEvent = "success";
+        nSuccess.notificationGroupName = "default.success." + model.fromLoader;
+        model.notifications.add(nSuccess);
+
+        ModelNotification nFail = new ModelNotification();
+        nFail.notificationEvent = "fail";
+        nFail.notificationGroupName = "default.fail." + model.fromLoader;
+        model.notifications.add(nFail);
+
+        ModelNotification nError = new ModelNotification();
+        nError.notificationEvent = "error";
+        nError.notificationGroupName = "default.error." + model.fromLoader;
+        model.notifications.add(nError);
+
+        if (n != null) {
+            Iterator i = n.iterator();
+            while (i.hasNext()) {
+                Element e = (Element) i.next();
+                ModelNotification notify = new ModelNotification();
+                notify.notificationEvent = e.getAttribute("event");
+                notify.notificationGroupName = e.getAttribute("group");
+                model.notifications.add(notify);                
+            }
+        }
     }
 
     protected void createPermission(Element baseElement, ModelService model) {

@@ -63,7 +63,7 @@ public class DispatchContext implements Serializable {
 
     /** 
      * Creates new DispatchContext
-     * @param readers a collection of reader URLs
+     * @param localReaders a collection of reader URLs
      * @param loader the classloader to use for dispatched services
      */
     public DispatchContext(String name, Collection localReaders, ClassLoader loader, LocalDispatcher dispatcher) {
@@ -148,7 +148,7 @@ public class DispatchContext implements Serializable {
      * @throws GenericServiceException
      */
     public Map makeValidContext(ModelService model, String mode, Map context) throws GenericServiceException {
-        Map newContext = null;
+        Map newContext;
         
         int modeInt = 0;
         if (mode.equalsIgnoreCase("in")) {
@@ -290,7 +290,7 @@ public class DispatchContext implements Serializable {
                 if (serviceMap == null) {
                     serviceMap = FastMap.newInstance();
 
-                    Element rootElement = null;
+                    Element rootElement;
 
                     try {
                         rootElement = ServiceConfigUtil.getXmlRootElement();

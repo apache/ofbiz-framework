@@ -20,6 +20,7 @@ package org.ofbiz.service;
 
 import java.util.*;
 import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 import java.io.Serializable;
 
 import javax.wsdl.*;
@@ -55,7 +56,7 @@ import org.w3c.dom.Document;
 /**
  * Generic Service Model Class
  */
-public class ModelService implements Serializable {
+public class ModelService extends AbstractMap implements Serializable {
 
     public static final String module = ModelService.class.getName();
 
@@ -97,6 +98,9 @@ public class ModelService implements Serializable {
     /** The default Entity to use for auto-attributes */
     public String defaultEntityName;
 
+    /** The loader which loaded this definition */
+    public String fromLoader;
+    
     /** Does this service require authorization */
     public boolean auth;
 
@@ -138,6 +142,9 @@ public class ModelService implements Serializable {
 
     /** List of permission groups for service invocation */
     public List permissionGroups = FastList.newInstance();
+
+    /** List of email-notifications for this service */
+    public List notifications = FastList.newInstance();
 
     /** Internal Service Group */
     public GroupModel internalGroup = null;
@@ -181,6 +188,31 @@ public class ModelService implements Serializable {
         while (i.hasNext()) {
             this.addParamClone((ModelParam) i.next());
         }
+    }
+
+    public Object get(Object name) {
+        Field field;
+        try {
+            field = this.getClass().getField(name.toString());
+        } catch (NoSuchFieldException e) {
+            return null;
+        }
+        if (field != null) {
+            try {
+                return field.get(this);
+            } catch (IllegalAccessException e) {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    public Set entrySet() {
+        return null;
+    }
+
+    public Object put(Object o1, Object o2) {
+        return null;
     }
 
     public String toString() {
@@ -845,6 +877,17 @@ public class ModelService implements Serializable {
             result.put("hasPermission", Boolean.FALSE);
             result.put("failMessage", "No ModelService found; no service name specified!");
             return result;
+        }
+    }
+
+    /**
+     * Evaluates notifications
+     */
+    public void evalNotifications(DispatchContext dctx, Map context, Map result) {
+        Iterator i = this.notifications.iterator();
+        while (i.hasNext()) {
+            ModelNotification notify = (ModelNotification) i.next();
+            notify.callNotify(dctx, this, context, result);
         }
     }
 

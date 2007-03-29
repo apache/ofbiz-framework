@@ -127,13 +127,14 @@ public class ModelParam implements Serializable {
         buf.append(fieldName).append("::");
         buf.append(stringMapPrefix).append("::");
         buf.append(stringListSuffix).append("::");
-        buf.append(validators.toString()).append("::");
         buf.append(optional).append("::");
         buf.append(overrideOptional).append("::");
         buf.append(formDisplay).append("::");
         buf.append(overrideFormDisplay).append("::");
         buf.append(defaultValue).append("::");
         buf.append(internal);
+        if (validators != null)
+            buf.append(validators.toString()).append("::");
         return buf.toString();
     }
 
