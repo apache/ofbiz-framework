@@ -76,7 +76,7 @@ under the License.
         <attribute mode="IN" name="productId" optional="false" type="String"/>
         <attribute mode="IN" name="fromDate" optional="true" type="String"/>
         <attribute mode="IN" name="bomType" optional="true" type="String"/>
-        <attribute mode="OUT" name="depth" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="depth" optional="false" type="Long"/>
     </service>
 
     <service name="updateLowLevelCode" engine="java"
@@ -85,7 +85,7 @@ under the License.
         <attribute mode="IN" name="productIdTo" optional="false" type="String"/>
         <attribute mode="IN" name="alsoComponents" optional="true" type="Boolean"/>
         <attribute mode="IN" name="alsoVariants" optional="true" type="Boolean"/>
-        <attribute mode="OUT" name="lowLevelCode" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="lowLevelCode" optional="false" type="Long"/>
     </service>
 
     <service name="initLowLevelCode" engine="java"

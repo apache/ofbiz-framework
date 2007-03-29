@@ -105,7 +105,7 @@ public class BOMServices {
         } catch(GenericEntityException gee) {
             return ServiceUtil.returnError("Error running max depth algorithm: " + gee.getMessage());
         }
-        result.put("depth", new Integer(maxDepth));
+        result.put("depth", new Long(maxDepth));
 
         return result;
     }
@@ -132,11 +132,11 @@ public class BOMServices {
             alsoVariants = Boolean.TRUE;
         }
 
-        Integer llc = null;
+        Long llc = null;
         try {
             GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
             Map depthResult = dispatcher.runSync("getMaxDepth", UtilMisc.toMap("productId", productId, "bomType", "MANUF_COMPONENT"));
-            llc = (Integer)depthResult.get("depth");
+            llc = (Long)depthResult.get("depth");
             // If the product is a variant of a virtual, then the billOfMaterialLevel cannot be 
             // lower than the billOfMaterialLevel of the virtual product.
             List virtualProducts = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", "PRODUCT_VARIANT"));
@@ -157,7 +157,7 @@ public class BOMServices {
                     }
                 }
                 if (virtualMaxDepth > llc.intValue()) {
-                    llc = new Integer(virtualMaxDepth);
+                    llc = new Long(virtualMaxDepth);
                 }
             }
             product.set("billOfMaterialLevel", llc);
@@ -175,7 +175,7 @@ public class BOMServices {
                         lev = oneProduct.getLong("billOfMaterialLevel").intValue();
                     }
                     if (lev < oneNode.getDepth()) {
-                        oneProduct.set("billOfMaterialLevel", new Integer(oneNode.getDepth()));
+                        oneProduct.set("billOfMaterialLevel", new Long(oneNode.getDepth()));
                         oneProduct.store();
                     }
                 }
