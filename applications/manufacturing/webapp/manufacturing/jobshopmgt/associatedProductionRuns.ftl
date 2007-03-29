@@ -26,7 +26,7 @@ under the License.
         <#if "PRUN_COMPLETED" == mandatoryWorkEffort.getString("currentStatusId") || "PRUN_CLOSED" == mandatoryWorkEffort.getString("currentStatusId")>
             <a href="<@ofbizUrl>ProductionRunDeclaration?productionRunId=${mandatoryWorkEffort.workEffortId}</@ofbizUrl>" class="buttontext">${mandatoryWorkEffort.workEffortName}</a>&nbsp;
         <#else>
-            <#if "PRUN_CREATED" == mandatoryWorkEffort.getString("currentStatusId")>
+            <#if "PRUN_CREATED" == mandatoryWorkEffort.getString("currentStatusId") || "PRUN_SCHEDULED" == mandatoryWorkEffort.getString("currentStatusId")>
                 <a href="<@ofbizUrl>EditProductionRun?productionRunId=${mandatoryWorkEffort.workEffortId}</@ofbizUrl>" class="buttontext">${mandatoryWorkEffort.workEffortName}</a>[*]&nbsp;
             <#else>
                 <a href="<@ofbizUrl>ProductionRunDeclaration?productionRunId=${mandatoryWorkEffort.workEffortId}</@ofbizUrl>" class="buttontext">${mandatoryWorkEffort.workEffortName}</a>[*]&nbsp;
@@ -44,7 +44,7 @@ under the License.
         <#if "PRUN_COMPLETED" == dependentWorkEffort.currentStatusId || "PRUN_CLOSED" == dependentWorkEffort.currentStatusId>
             <a href="<@ofbizUrl>ProductionRunDeclaration?productionRunId=${dependentWorkEffort.workEffortId}</@ofbizUrl>" class="buttontext">${dependentWorkEffort.workEffortName}</a>&nbsp;
         <#else>
-            <#if "PRUN_CREATED" == dependentWorkEffort.getString("currentStatusId")>
+            <#if "PRUN_CREATED" == dependentWorkEffort.getString("currentStatusId") || "PRUN_SCHEDULED" == dependentWorkEffort.getString("currentStatusId")>
                 <a href="<@ofbizUrl>EditProductionRun?productionRunId=${dependentWorkEffort.workEffortId}</@ofbizUrl>" class="buttontext">${dependentWorkEffort.workEffortName}</a>[*]&nbsp;
             <#else>
                 <a href="<@ofbizUrl>ProductionRunDeclaration?productionRunId=${dependentWorkEffort.workEffortId}</@ofbizUrl>" class="buttontext">${dependentWorkEffort.workEffortName}</a>[*]&nbsp;
