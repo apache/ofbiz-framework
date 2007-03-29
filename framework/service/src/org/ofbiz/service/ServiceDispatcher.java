@@ -429,6 +429,9 @@ public class ServiceDispatcher {
                         throw new GenericServiceException(errMsg);
                     }
                 }
+
+                // call notifications -- event is determined from the result (success, error, fail)
+                modelService.evalNotifications(this.getLocalContext(localName), context, result);
             }
         } catch (GenericTransactionException te) {
             Debug.logError(te, "Problems with the transaction", module);

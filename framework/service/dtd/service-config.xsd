@@ -22,10 +22,18 @@ under the License.
     <xs:element name="service-config">
         <xs:complexType>
             <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" ref="service-engine"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>    
+    <xs:element name="service-engine">
+        <xs:complexType>
+            <xs:sequence>
                 <xs:element ref="authorization"/>
                 <xs:element ref="thread-pool"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="engine"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="service-location"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="notification-group"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="startup-service"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="resource-loader"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="global-services"/>
@@ -33,8 +41,12 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="service-ecas"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="jms-service"/>
             </xs:sequence>
+            <xs:attributeGroup ref="attlist.service-engine"/>
         </xs:complexType>
     </xs:element>
+    <xs:attributeGroup name="attlist.service-engine">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+    </xs:attributeGroup>
     <xs:element name="authorization">
         <xs:complexType>
             <xs:attributeGroup ref="attlist.authorization"/>
@@ -197,5 +209,45 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute type="xs:string" name="listener-class"/>
+    </xs:attributeGroup>
+
+    <xs:element name="notification-group">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="1" ref="notification"/>
+                <xs:element minOccurs="2" maxOccurs="unbounded" ref="notify"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.notification-group"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.notification-group">
+        <xs:attribute type="xs:string" name="name"/>
+    </xs:attributeGroup>
+    <xs:element name="notification">
+        <xs:complexType>            
+            <xs:attributeGroup ref="attlist.notification"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.notification">
+        <xs:attribute type="xs:string" name="subject" use="required"/>
+        <xs:attribute type="xs:string" name="screen" use="required"/>
+        <xs:attribute type="xs:string" name="service" default="sendMailFromScreen"/>
+    </xs:attributeGroup>
+    <xs:element name="notify">
+        <xs:complexType mixed="true">
+            <xs:attributeGroup ref="attlist.notify"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.notify">
+        <xs:attribute name="type" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="to"/>
+                    <xs:enumeration value="cc"/>
+                    <xs:enumeration value="bcc"/>
+                    <xs:enumeration value="from"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
 </xs:schema>

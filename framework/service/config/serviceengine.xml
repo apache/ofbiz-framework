@@ -20,69 +20,83 @@ under the License.
 
 <service-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/service-config.xsd">
-    <!-- Name of the service to use for authorization -->
-    <authorization service-name="userLogin"/>
 
-    <!-- Thread pool configuration (max/min threads, uses to live and time to live) -->
-    <thread-pool send-to-pool="pool"
-                 purge-job-days="4"
-                 failed-retry-min="3"
-                 ttl="18000000"
-                 wait-millis="750"
-                 jobs="10"
-                 min-threads="5"
-                 max-threads="15"
-                 poll-enabled="true"
-                 poll-db-millis="20000">
-        <run-from-pool name="pool"/>
-    </thread-pool>
+    <service-engine name="default">
+        <!-- Name of the service to use for authorization -->
+        <authorization service-name="userLogin"/>
 
-    <!-- Service Engine Configuration -->
-    <engine name="bsh" class="org.ofbiz.service.engine.BeanShellEngine"/>
-    <engine name="group" class="org.ofbiz.service.group.ServiceGroupEngine"/>    
-    <engine name="http" class="org.ofbiz.service.engine.HttpEngine"/>
-    <engine name="interface" class="org.ofbiz.service.engine.InterfaceEngine"/>
-    <engine name="jacl" class="org.ofbiz.service.engine.BSFEngine"/>
-    <engine name="java" class="org.ofbiz.service.engine.StandardJavaEngine"/>
-    <engine name="javascript" class="org.ofbiz.service.engine.BSFEngine"/>
-    <engine name="jms" class="org.ofbiz.service.jms.JmsServiceEngine"/> 
-    <engine name="jpython" class="org.ofbiz.service.engine.BSFEngine"/>
-    <engine name="route" class="org.ofbiz.service.engine.RouteEngine"/>
-    <engine name="rmi" class="org.ofbiz.service.rmi.RmiServiceEngine"/>
-    <engine name="simple" class="org.ofbiz.minilang.SimpleServiceEngine"/>
-    <engine name="soap" class="org.ofbiz.service.engine.SOAPClientEngine"/>
-    <engine name="ofbiz-workflow" class="org.ofbiz.workflow.WorkflowEngine"/>
-    <engine name="workflow" class="org.ofbiz.shark.service.SharkServiceEngine"/>
+        <!-- Thread pool configuration (max/min threads, uses to live and time to live) -->
+        <thread-pool send-to-pool="pool"
+                     purge-job-days="4"
+                     failed-retry-min="3"
+                     ttl="18000000"
+                     wait-millis="750"
+                     jobs="10"
+                     min-threads="5"
+                     max-threads="15"
+                     poll-enabled="true"
+                     poll-db-millis="20000">
+            <run-from-pool name="pool"/>
+        </thread-pool>
 
-    <service-location name="main-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
-    <service-location name="main-http" location="http://localhost:8080/webtools/control/httpService"/>
+        <!-- Service Engine Configuration -->
+        <engine name="bsh" class="org.ofbiz.service.engine.BeanShellEngine"/>
+        <engine name="group" class="org.ofbiz.service.group.ServiceGroupEngine"/>
+        <engine name="http" class="org.ofbiz.service.engine.HttpEngine"/>
+        <engine name="interface" class="org.ofbiz.service.engine.InterfaceEngine"/>
+        <engine name="jacl" class="org.ofbiz.service.engine.BSFEngine"/>
+        <engine name="java" class="org.ofbiz.service.engine.StandardJavaEngine"/>
+        <engine name="javascript" class="org.ofbiz.service.engine.BSFEngine"/>
+        <engine name="jms" class="org.ofbiz.service.jms.JmsServiceEngine"/>
+        <engine name="jpython" class="org.ofbiz.service.engine.BSFEngine"/>
+        <engine name="route" class="org.ofbiz.service.engine.RouteEngine"/>
+        <engine name="rmi" class="org.ofbiz.service.rmi.RmiServiceEngine"/>
+        <engine name="simple" class="org.ofbiz.minilang.SimpleServiceEngine"/>
+        <engine name="soap" class="org.ofbiz.service.engine.SOAPClientEngine"/>
+        <engine name="ofbiz-workflow" class="org.ofbiz.workflow.WorkflowEngine"/>
+        <engine name="workflow" class="org.ofbiz.shark.service.SharkServiceEngine"/>
 
-    <service-location name="entity-sync-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
-    <service-location name="entity-sync-http" location="http://localhost:8080/webtools/control/httpService"/>
+        <service-location name="main-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
+        <service-location name="main-http" location="http://localhost:8080/webtools/control/httpService"/>
 
-    <service-location name="rita-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
-    <service-location name="eedcc-test" location="http://localhost:8080/webtools/control/httpService"/>
+        <service-location name="entity-sync-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
+        <service-location name="entity-sync-http" location="http://localhost:8080/webtools/control/httpService"/>
 
-    <!-- Start-Up Services -->
-    <!--
-       - runtime-data-id refers to the RuntimeData entity for in-parameters
-       - runtime-delay is the milliseconds after startup this service should run
-       - run-in-pool is the name of the pool to run the job in; defaults to the send-to-poll (above)
+        <service-location name="rita-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
+        <service-location name="eedcc-test" location="http://localhost:8080/webtools/control/httpService"/>
 
-    <startup-service name="testScv" runtime-data-id="9900" runtime-delay="0" run-in-pool="pool"/>
-    -->   
+        <!-- default notification group for all services loaded with 'main' loader
+             - uncomment this to enable error notification for all services
+             - (default.fail.main, default.success.main can also be defined
+                     
+        <notification-group name="default.error.main">
+            <notification subject="Service Error ${model.serviceName}"
+                          screen="component://content/widget/EmailScreens.xml#ServiceNotification"/>
+            <notify type="from">ofbiz@test.com</notify>
+            <notify type="to">error@test.com</notify>
+        </notification-group>
+        -->
+        
+        <!-- Start-Up Services -->
+        <!--
+           - runtime-data-id refers to the RuntimeData entity for in-parameters
+           - runtime-delay is the milliseconds after startup this service should run
+           - run-in-pool is the name of the pool to run the job in; defaults to the send-to-poll (above)
 
-    <!-- JMS Service Queue/Topic Configuration -->
-    <!--
-    <jms-service name="serviceMessenger" send-mode="all">
-        <server jndi-server-name="default"
-                jndi-name="jms/TopicConnectionFactory"
-                topic-queue="jms/OFBTopic"
-                type="topic"
-                username="admin"
-                password="admin"
-                listen="true"/>
-    </jms-service>
-    -->
+        <startup-service name="testScv" runtime-data-id="9900" runtime-delay="0" run-in-pool="pool"/>
+        -->
 
+        <!-- JMS Service Queue/Topic Configuration -->
+        <!--
+        <jms-service name="serviceMessenger" send-mode="all">
+            <server jndi-server-name="default"
+                    jndi-name="jms/TopicConnectionFactory"
+                    topic-queue="jms/OFBTopic"
+                    type="topic"
+                    username="admin"
+                    password="admin"
+                    listen="true"/>
+        </jms-service>
+        -->
+    </service-engine>
 </service-config>

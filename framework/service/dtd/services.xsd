@@ -112,6 +112,23 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
+    <xs:element name="notification">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.notification"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.notification">
+        <xs:attribute name="event" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="success"/>
+                    <xs:enumeration value="error"/>
+                    <xs:enumeration value="fail"/>                    
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="group" use="required"/>        
+    </xs:attributeGroup>
     <xs:element name="permission-service">
         <xs:complexType>
             <xs:attributeGroup ref="attlist.permission-service"/>
