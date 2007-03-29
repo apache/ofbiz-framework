@@ -132,15 +132,29 @@ public class FinAccountPaymentServices {
             // check for account being frozen
             String isFrozen = finAccount.getString("isFrozen");
             if (isFrozen != null && "Y".equals(isFrozen)) {
-                Map result = ServiceUtil.returnSuccess();
-                result.put("authMessage", "Account is currently frozen");
-                result.put("authResult", Boolean.FALSE);
-                result.put("processAmount", amount);
-                result.put("authFlag", "0");
-                result.put("authCode", "A");
-                result.put("authRefNum", "0");
-                Debug.logError("Unable to auth FinAccount: " + result, module);
-                return result;
+                // try to call replenish
+                try {
+                    dispatcher.runSync("finAccountReplenish", UtilMisc.toMap("finAccountId",
+                            finAccountId, "productStoreId", productStoreId, "userLogin", userLogin));
+                } catch (GenericServiceException e) {
+                    Debug.logWarning(e.getMessage(), module);
+                }
+
+                // refresh the finaccount
+                finAccount.refresh();
+                isFrozen = finAccount.getString("isFrozen");
+
+                if (isFrozen != null && "Y".equals(isFrozen)) {
+                    Map result = ServiceUtil.returnSuccess();
+                    result.put("authMessage", "Account is currently frozen");
+                    result.put("authResult", Boolean.FALSE);
+                    result.put("processAmount", amount);
+                    result.put("authFlag", "0");
+                    result.put("authCode", "A");
+                    result.put("authRefNum", "0");
+                    Debug.logError("Unable to auth FinAccount: " + result, module);
+                    return result;
+                }
             }
 
             // check for expiration date
