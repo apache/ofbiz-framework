@@ -139,6 +139,10 @@ under the License.
     <GeoAssoc geoId="USA" geoIdTo="WY" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="USA" geoIdTo="VI" geoAssocTypeId="REGIONS"/>
     
+    <GeoAssoc geoId="USA" geoIdTo="AA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="AE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="AP" geoAssocTypeId="REGIONS"/>
+    
     <Geo abbreviation="AB" geoCode="AB" geoId="AB" geoName="Alberta" geoTypeId="PROVINCE"/>
     <Geo abbreviation="BC" geoCode="BC" geoId="BC" geoName="British Columbia" geoTypeId="PROVINCE"/>
     <Geo abbreviation="MB" geoCode="MB" geoId="MB" geoName="Manitoba" geoTypeId="PROVINCE"/>
