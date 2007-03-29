@@ -108,6 +108,7 @@ public class ProposedOrder {
                     Map routingInMap = UtilMisc.toMap("productId", product.getString("productId"), "ignoreDefaultRouting", "Y", "userLogin", userLogin);
                     Map routingOutMap = dispatcher.runSync("getProductRouting", routingInMap);
                     routing = (GenericValue)routingOutMap.get("routing");
+                    listRoutingTaskAssoc = (List)routingOutMap.get("tasks");
                     if (routing == null) {
                         // try to find a routing linked to the virtual product
                         BOMTree tree = null;
@@ -127,14 +128,24 @@ public class ProposedOrder {
                             routing = (GenericValue)routingOutMap.get("routing");
                         }
                     }
-                    listRoutingTaskAssoc = (List)routingOutMap.get("tasks");
                 } catch(GenericServiceException gse) {
                     Debug.logWarning(gse.getMessage(), module);
                 }
             }
-            if (routing != null && listRoutingTaskAssoc != null) {
+            if (routing != null) {
                 result = new HashMap();
                 //Looks for all the routingTask (ordered by inversed (begin from the end) sequence number)
+                if (listRoutingTaskAssoc == null) {
+                    try {
+                        Map routingTasksInMap = UtilMisc.toMap("workEffortId", routing.getString("workEffortId"), "userLogin", userLogin);
+                        Map routingTasksOutMap = dispatcher.runSync("getRoutingTaskAssocs", routingTasksInMap);
+                        listRoutingTaskAssoc = (List)routingTasksOutMap.get("routingTaskAssocs");
+                    } catch(GenericServiceException gse) {
+                        Debug.logWarning(gse.getMessage(), module);
+                    }
+                }
+            }
+            if (listRoutingTaskAssoc != null) {
                 for (int i = 1; i <= listRoutingTaskAssoc.size(); i++) {
                     GenericValue routingTaskAssoc = (GenericValue) listRoutingTaskAssoc.get(listRoutingTaskAssoc.size() - i);
                     if (EntityUtil.isValueActive(routingTaskAssoc, endDate)) {
@@ -164,7 +175,6 @@ public class ProposedOrder {
                         */
                     }
                 }
-
             } else { 
                 // routing is null
                 Debug.logError("No routing found for product = "+ product.getString("productId"), module);
