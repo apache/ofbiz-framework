@@ -26,7 +26,7 @@ under the License.
     <table class="basic-table form-widget-table">
       <tr>
         <td class="label">Definition Filename or URL</td>
-        <td><input name="DEFINITION_LOCATION" type="text" size="60" value="${definitionLoc?if_exists}"></td>
+        <td><input name="DEFINITION_LOCATION" type="text" size="60" value="${parameters.DEFINITION_LOCATION?if_exists}"></td>
         <td><span class="label">Is URL?</span><input type="checkbox" name="DEFINITION_IS_URL"<#if parameters.DEFINITION_IS_URL?has_content> checked="checked"</#if>></td>
       </tr>
       <tr>
@@ -37,7 +37,7 @@ under the License.
               <option value=""></option>
               <#list definitionNames as oneDefinitionName>
                 boolean isSelected = definitionName != null && definitionName.equals(oneDefinitionName);
-                %><option value="<%=oneDefinitionName%>" <%=(isSelected? "selected": "")%>><%=oneDefinitionName%></option><%
+                <option value="${oneDefinitionName}" <#if parameters.DEFINITION_NAME?exists && parameters.DEFINITION_NAME == oneDefinitionName> selected </#if>>${oneDefinitionName}</option>
               </#list>
             </select>
           <#else>
@@ -48,17 +48,17 @@ under the License.
       </tr>
       <tr>
         <td class="label">Data Filename or URL</td>
-        <td><input name="DATAFILE_LOCATION" type="text" size="60" value="${dataFileLoc?if_exists}"></td>
-        <td><span class="label">Is URL?</span><input type="checkbox" name="DATAFILE_IS_URL"<#if DATAFILE_IS_URL?has_content> checked="checked"</#if>></td>
+        <td><input name="DATAFILE_LOCATION" type="text" size="60" value="${parameters.DATAFILE_LOCATION?if_exists}"></td>
+        <td><span class="label">Is URL?</span><input type="checkbox" name="DATAFILE_IS_URL"<#if parameters.DATAFILE_IS_URL?has_content> checked="checked"</#if>></td>
       </tr>
       <tr>
         <td class="label">Save to file</td>
-        <td><input name="DATAFILE_SAVE" type="text" size="60" value="${dataFileSave?if_exists}"/></td>
+        <td><input name="DATAFILE_SAVE" type="text" size="60" value="${parameters.DATAFILE_SAVE?if_exists}"/></td>
         <td>&nbsp;</td>
       </tr>
       <tr>
         <td class="label">Save to entity xml file</td>
-        <td><input name="ENTITYXML_FILE_SAVE" type="text" size="60" value="${entityXmlFileSave?if_exists}"></td>
+        <td><input name="ENTITYXML_FILE_SAVE" type="text" size="60" value="${parameters.ENTITYXML_FILE_SAVE?if_exists}"></td>
         <td>&nbsp;</td>
       </tr>
       <tr>
@@ -116,7 +116,7 @@ under the License.
           </#if>
         </#list>
       </tr>
-      <#if record.getChildRecords() != null && record.getChildRecords().size() > 0>
+      <#if record.getChildRecords() != null && (record.getChildRecords().size() > 0)>
         <@displayrecords records = record.getChildRecords()/>
       </#if>
     </#list>

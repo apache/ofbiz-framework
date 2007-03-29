@@ -80,5 +80,37 @@ public class ModelRecord {
         }
         return null;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
+    public List getFields() {
+        return fields;
+    }
+
+    public void setFields(List fields) {
+        this.fields = fields;
+    }
 }
 

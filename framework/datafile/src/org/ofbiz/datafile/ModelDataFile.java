@@ -69,4 +69,76 @@ public class ModelDataFile {
         }
         return null;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTypeCode() {
+        return typeCode;
+    }
+
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public int getRecordLength() {
+        return recordLength;
+    }
+
+    public void setRecordLength(int recordLength) {
+        this.recordLength = recordLength;
+    }
+
+    public char getDelimiter() {
+        return delimiter;
+    }
+
+    public void setDelimiter(char delimiter) {
+        this.delimiter = delimiter;
+    }
+
+    public String getSeparatorStyle() {
+        return separatorStyle;
+    }
+
+    public void setSeparatorStyle(String separatorStyle) {
+        this.separatorStyle = separatorStyle;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List getRecords() {
+        return records;
+    }
+
+    public void setRecords(List records) {
+        this.records = records;
+    }
 }

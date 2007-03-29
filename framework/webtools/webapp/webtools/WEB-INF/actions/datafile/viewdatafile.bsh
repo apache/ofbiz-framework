@@ -58,7 +58,8 @@ if (definitionUrl != null) {
         definitionNames = ((Collection)reader.getDataFileNames()).iterator();
     }
 }
-  
+context.put("definitionNames", definitionNames);
+
 DataFile dataFile = null;
 if (dataFileUrl != null && definitionUrl != null && definitionName != null && definitionName.length() > 0) {
     try {
