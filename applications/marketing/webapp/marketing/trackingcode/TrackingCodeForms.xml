@@ -37,14 +37,14 @@ under the License.
             </drop-down>
         </field>
         <field name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}">
-            <drop-down>
+            <drop-down allow-empty="true">
                 <entity-options description="${campaignName}" entity-name="MarketingCampaign" key-field-name="marketingCampaignId">
                     <entity-order-by field-name="campaignName"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="prodCatalogId" title="${uiLabelMap.TrackingCodeDefaultProdCatalogId}" tooltip="${uiLabelMap.TrackingCodeNoOverrideIfEmpty}">
-            <drop-down>
+            <drop-down allow-empty="true">
                 <entity-options description="${catalogName}" entity-name="ProdCatalog" key-field-name="prodCatalogId">
                     <entity-order-by field-name="catalogName"/>
                 </entity-options>
