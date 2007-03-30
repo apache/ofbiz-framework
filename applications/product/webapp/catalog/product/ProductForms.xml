@@ -1266,4 +1266,44 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
+
+    <form name="UpdateProductFacilityLocations" type="list" target="updateProductFacilityLocation" title="" list-name="productFacilityLocations">
+        <row-actions>
+            <entity-one entity-name="FacilityLocation" value-name="facilityLocation">
+                <field-map field-name="facilityId"/>
+                <field-map field-name="locationSeqId"/>
+            </entity-one>
+            <entity-one entity-name="Enumeration" value-name="locationType">
+                <field-map field-name="enumId" env-name="facilityLocation.locationTypeEnumId"/>
+            </entity-one>
+        </row-actions>
+        <auto-fields-service service-name="updateProductFacilityLocation"/>
+        <field name="productId"><hidden/></field>
+        <field name="facilityId">
+            <display-entity entity-name="Facility" description="${facilityName} [${facilityId}]" also-hidden="true"/>
+        </field>
+        <field name="locationSeqId">
+            <display description="${facilityLocation.areaId} ${facilityLocation.aisleId} ${facilityLocation.sectionId} ${facilityLocation.levelId} ${facilityLocation.positionId} [${locationSeqId}] (${locationType.description})"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteProductFacilityLocation?productId=${productId}&amp;facilityId=${facilityId}&amp;locationSeqId=${locationSeqId}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="AddProductFacilityLocation" target="createProductFacilityLocation" title="" type="single">
+        <auto-fields-service service-name="createProductFacilityLocation"/>
+        <field name="productId"><hidden/></field>
+        <field name="facilityId">
+            <drop-down>
+                <entity-options entity-name="Facility" description="${facilityName}">
+                    <entity-order-by field-name="facilityName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="locationSeqId">
+            <lookup target-form-name="LookupFacilityLocation"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
 </forms>
