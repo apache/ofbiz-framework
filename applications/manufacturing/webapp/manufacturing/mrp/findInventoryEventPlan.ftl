@@ -134,13 +134,13 @@ document.lookupinventory.productId.focus();
 
        <table width='100%' border='0' cellspacing='0' cellpadding='2' class='boxbottom'>
         <tr>
-          <th align="left">${uiLabelMap.CommonDescription}</th>
-          <th align="center">&nbsp</th>
-          <th align="left">${uiLabelMap.CommonEventName}</th>
-          <th align="left">${uiLabelMap.CommonEventDate}</th>
-          <th align="center">&nbsp</th>
-          <th align="right">${uiLabelMap.CommonQuantity}</th>
-          <th align="right">${uiLabelMap.ManufacturingTotalQuantity}</th>
+          <td align="left"><b>${uiLabelMap.CommonType}</b></td>
+          <td align="center"><b>&nbsp</b></td>
+          <td align="left"><b>${uiLabelMap.CommonDescription}</b></td>
+          <td align="left"><b>${uiLabelMap.CommonDate}</b></td>
+          <td align="center"><b>&nbsp</b></td>
+          <td align="right"><b>${uiLabelMap.CommonQuantity}</b></td>
+          <td align="right"><b>${uiLabelMap.ManufacturingTotalQuantity}</b></td>
         </tr>
         <tr>
           <td colspan="7"><hr/></td>
@@ -192,7 +192,7 @@ document.lookupinventory.productId.focus();
                       </#if>
                   </td>
                   <td colspan="5" align="right">
-                    <big><b><div>${quantityAvailableAtDate}</div></b></big>
+                    <big><b>${quantityAvailableAtDate}</b></big>
                   </td>
                 </tr>
                 <#if additionalErrorMessage?has_content>
