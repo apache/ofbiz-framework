@@ -35,9 +35,20 @@ public class ComponentLocationResolver implements LocationResolver {
 
     public static final String module = ComponentLocationResolver.class.getName();
 
-    public URL resolveLocation(String location) throws MalformedURLException {
-        StringBuffer baseLocation = new StringBuffer(FlexibleLocation.stripLocationType(location));
+    public URL resolveLocation(String location) throws MalformedURLException {        
+        StringBuffer baseLocation = ComponentLocationResolver.getBaseLocation(location);
+        URL fileUrl = UtilURL.fromFilename(baseLocation.toString());
         
+        if (fileUrl == null) {
+            Debug.logWarning("Unable to get file URL for component location; expanded location was [" + baseLocation + "], original location was [" + location + "]", module);
+        }
+        
+        return fileUrl;
+    }
+
+    public static StringBuffer getBaseLocation(String location) throws MalformedURLException {
+        StringBuffer baseLocation = new StringBuffer(FlexibleLocation.stripLocationType(location));
+
         // componentName is between the first slash and the second
         int firstSlash = baseLocation.indexOf("/");
         int secondSlash = baseLocation.indexOf("/", firstSlash + 1);
@@ -45,15 +56,15 @@ public class ComponentLocationResolver implements LocationResolver {
             throw new MalformedURLException("Bad component location [" + location + "]: base location missing slashes [" + baseLocation + "], first=" + firstSlash + ", second=" + secondSlash + "; should be like: component://{component-name}/relative/path");
         }
         String componentName = baseLocation.substring(firstSlash + 1, secondSlash);
-        
+
         // got the componentName, now remove it from the baseLocation, removing the second slash too (just in case the rootLocation has one)
         baseLocation.delete(0, secondSlash + 1);
 
-        String rootLocation = null;
+        String rootLocation;
         try {
             rootLocation = ComponentConfig.getRootLocation(componentName);
         } catch (ComponentException e) {
-            String errMsg = "Could not get root location for component with name [" + componentName + "], error was: " + e.toString(); 
+            String errMsg = "Could not get root location for component with name [" + componentName + "], error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             throw new MalformedURLException(errMsg);
         }
@@ -66,12 +77,6 @@ public class ComponentLocationResolver implements LocationResolver {
         // insert the root location and we're done
         baseLocation.insert(0, rootLocation);
 
-        URL fileUrl = UtilURL.fromFilename(baseLocation.toString());
-        
-        if (fileUrl == null) {
-            Debug.logWarning("Unable to get file URL for component location; expanded location was [" + baseLocation + "], original location was [" + location + "]", module);
-        }
-        
-        return fileUrl;
+        return baseLocation;
     }
 }
