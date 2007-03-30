@@ -157,7 +157,10 @@ public class ProposedOrder {
                         }
                         // Calculate the estimatedStartDate
                         long totalTime = ProductionRun.getEstimatedTaskTime(routingTask, quantity, dispatcher);
-                        totalTime += timeToShip;
+                        if (i == listRoutingTaskAssoc.size()) {
+                            // add the daysToShip at the end of the routing
+                            totalTime += timeToShip;
+                        }
                         startDate = TechDataServices.addBackward(TechDataServices.getTechDataCalendar(routingTask),endDate, totalTime);
                         // record the routingTask with the startDate associated
                         result.put(routingTask.getString("workEffortId"),startDate);
