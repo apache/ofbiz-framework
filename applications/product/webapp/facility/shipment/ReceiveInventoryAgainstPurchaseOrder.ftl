@@ -55,22 +55,24 @@ under the License.
             <script type="text/javascript">window.onload=function(){alert('<@uiLabelWithVar/>')};</script>
         </div>
     </#if>
+</#if>
 
-    <form name="ReceiveInventoryAgainstPurchaseOrder" action="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder</@ofbizUrl>">
-        <input type="hidden" name="clearAll" value="Y"/>
-        <div class="tabletext">
-            ${uiLabelMap.ProductShipmentId} : <input type="text" class='inputBox' size="20" name="shipmentId" value="${shipmentId?if_exists}"/>
-            ${uiLabelMap.ProductOrderId} : <input type="text" class='inputBox' size="20" name="purchaseOrderId" value="${orderId?if_exists}"/>
-            <span class='tabletext'>
-                <a href="javascript:call_fieldlookup2(document.additemsfromorder.orderId,'LookupOrderHeaderAndShipInfo');">
-                    <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'>
-                </a>
-            </span>
-            ${uiLabelMap.ProductOrderShipGroupId} : <input type="text" class='inputBox' size="20" name="shipGroupSeqId" value="${shipGroupSeqId?if_exists}"/>
-            <input type="submit" value="${uiLabelMap.CommonSelect}" class="smallSubmit"/>
-        </div>
-    </form>
+<form name="ReceiveInventoryAgainstPurchaseOrder" action="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder</@ofbizUrl>">
+    <input type="hidden" name="clearAll" value="Y"/>
+    <div class="tabletext">
+        ${uiLabelMap.ProductShipmentId} : <input type="text" class='inputBox' size="20" name="shipmentId" value="${shipmentId?if_exists}"/>
+        ${uiLabelMap.ProductOrderId} : <input type="text" class='inputBox' size="20" name="purchaseOrderId" value="${orderId?if_exists}"/>
+        <span class='tabletext'>
+            <a href="javascript:call_fieldlookup2(document.ReceiveInventoryAgainstPurchaseOrder.purchaseOrderId,'LookupOrderHeaderAndShipInfo');">
+                <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'>
+            </a>
+        </span>
+        ${uiLabelMap.ProductOrderShipGroupId} : <input type="text" class='inputBox' size="20" name="shipGroupSeqId" value="${shipGroupSeqId?if_exists}"/>
+        <input type="submit" value="${uiLabelMap.CommonSelect}" class="smallSubmit"/>
+    </div>
+</form>
     
+<#if shipment?exists>
     <#if isPurchaseShipment>
     
         <#assign itemsAvailableToReceive = totalAvailableToReceive?default(0) &gt; 0/>
@@ -237,6 +239,6 @@ under the License.
             </script>
         </#if>
     </#if>
-<#else>
+<#elseif parameters.shipmentId?has_content>
   <h3>${uiLabelMap.ProductShipmentNotFoundId}: [${shipmentId?if_exists}]</h3>
 </#if>
