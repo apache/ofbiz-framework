@@ -198,7 +198,7 @@ under the License.
                     <div class="tableheadtext">${uiLabelMap.ProductPerUnitPrice}:</div>
                   </td>
                   <td align="right">
-                    <input type='text' name='unitCost_o_0' size='6' value='${unitCost?default(0)?string("##0.00")}' class="inputBox">
+                    <input type='text' name='unitCost_o_${rowCount}' size='6' value='${unitCost?default(0)?string("##0.00")}' class="inputBox">
                   </td>
                 </tr>                                               
               </table>
