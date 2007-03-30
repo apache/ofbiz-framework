@@ -76,6 +76,7 @@ public class ProductEvents {
     public static String updateProductKeyword(HttpServletRequest request, HttpServletResponse response) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         Security security = (Security) request.getAttribute("security");
+        List errMsgList = new LinkedList();
 
         String updateMode = request.getParameter("UPDATE_MODE");
 
@@ -110,15 +111,13 @@ public class ProductEvents {
 
         String errMsgTemp = "";
         if (!UtilValidate.isNotEmpty(productId)) {
-            errMsgTemp += ("<li>" + UtilProperties.getMessage(resource,"productevents.product_ID_missing", UtilHttp.getLocale(request)));
+            errMsgList.add(UtilProperties.getMessage(resource,"productevents.product_ID_missing", UtilHttp.getLocale(request)));
         }
         if (!UtilValidate.isNotEmpty(keyword)) {
-            errMsgTemp += ("<li>" + UtilProperties.getMessage(resource,"productevents.keyword_missing", UtilHttp.getLocale(request)));
+            errMsgList.add(UtilProperties.getMessage(resource,"productevents.keyword_missing", UtilHttp.getLocale(request)));
         }
-        if (errMsgTemp.length() > 0) {
-            errMsgTemp += ("<b>" + UtilProperties.getMessage(resource,"productevents.following_errors_occurred", UtilHttp.getLocale(request)));
-            errMsgTemp += ("</b><br/><ul>" + errMsgTemp + "</ul>");
-            request.setAttribute("_ERROR_MESSAGE_", errMsgTemp);
+        if (errMsgList.size() > 0) {
+            request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList);
             return "error";
         }
 
@@ -376,6 +375,7 @@ public class ProductEvents {
      */
     public static String updateProductAssoc(HttpServletRequest request, HttpServletResponse response) {
         String errMsg = "";
+        List errMsgList = new LinkedList();
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         Security security = (Security) request.getAttribute("security");
 
@@ -405,11 +405,11 @@ public class ProductEvents {
         try {
             if (delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId)) == null) {
                 Map messageMap = UtilMisc.toMap("productId", productId);
-                errMsg += ("<li>" + UtilProperties.getMessage(resource,"productevents.product_with_id_not_found", messageMap, UtilHttp.getLocale(request)));
+                errMsgList.add(UtilProperties.getMessage(resource,"productevents.product_with_id_not_found", messageMap, UtilHttp.getLocale(request)));
             }
             if (delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productIdTo)) == null) {
                 Map messageMap = UtilMisc.toMap("productIdTo", productIdTo);
-                errMsg += ("<li>" + UtilProperties.getMessage(resource,"productevents.product_To_with_id_not_found", messageMap, UtilHttp.getLocale(request)));
+                errMsgList.add(UtilProperties.getMessage(resource,"productevents.product_To_with_id_not_found", messageMap, UtilHttp.getLocale(request)));
             }
         } catch (GenericEntityException e) {
             // if there is an exception for either, the other probably wont work
@@ -420,22 +420,20 @@ public class ProductEvents {
             try {
                 fromDate = Timestamp.valueOf(fromDateStr);
             } catch (Exception e) {
-                errMsg += "<li>From Date not formatted correctly.";
+                errMsgList.add("From Date not formatted correctly.");
             }
         }
         if (!UtilValidate.isNotEmpty(productId))
-            errMsg += ("<li>" + UtilProperties.getMessage(resource,"productevents.product_ID_missing", UtilHttp.getLocale(request)));
+            errMsgList.add(UtilProperties.getMessage(resource,"productevents.product_ID_missing", UtilHttp.getLocale(request)));
         if (!UtilValidate.isNotEmpty(productIdTo))
-            errMsg += ("<li>" + UtilProperties.getMessage(resource,"productevents.product_ID_To_missing", UtilHttp.getLocale(request)));
+            errMsgList.add(UtilProperties.getMessage(resource,"productevents.product_ID_To_missing", UtilHttp.getLocale(request)));
         if (!UtilValidate.isNotEmpty(productAssocTypeId))
-            errMsg += ("<li>" + UtilProperties.getMessage(resource,"productevents.association_type_ID_missing", UtilHttp.getLocale(request)));
+            errMsgList.add(UtilProperties.getMessage(resource,"productevents.association_type_ID_missing", UtilHttp.getLocale(request)));
         // from date is only required if update mode is not CREATE
         if (!updateMode.equals("CREATE") && !UtilValidate.isNotEmpty(fromDateStr))
-            errMsg += ("<li>" + UtilProperties.getMessage(resource,"productevents.from_date_missing", UtilHttp.getLocale(request)));
-        if (errMsg.length() > 0) {
-            errMsg += ("<b>" + UtilProperties.getMessage(resource,"productevents.following_errors_occurred", UtilHttp.getLocale(request)));
-            errMsg += ("</b><br/><ul>" + errMsg + "</ul>");
-            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            errMsgList.add(UtilProperties.getMessage(resource,"productevents.from_date_missing", UtilHttp.getLocale(request)));
+        if (errMsgList.size() > 0) {
+            request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList);
             return "error";
         }
 
@@ -489,27 +487,25 @@ public class ProductEvents {
             try {
                 thruDate = Timestamp.valueOf(thruDateStr);
             } catch (Exception e) {
-                errMsg += ("<li>" + UtilProperties.getMessage(resource,"productevents.thru_date_not_formatted_correctly", UtilHttp.getLocale(request)));
+                errMsgList.add(UtilProperties.getMessage(resource,"productevents.thru_date_not_formatted_correctly", UtilHttp.getLocale(request)));
             }
         }
         if (UtilValidate.isNotEmpty(quantityStr)) {
             try {
                 quantity = Double.valueOf(quantityStr);
             } catch (Exception e) {
-                errMsg += ("<li>" + UtilProperties.getMessage(resource,"productevents.quantity_not_formatted_correctly", UtilHttp.getLocale(request)));
+                errMsgList.add(UtilProperties.getMessage(resource,"productevents.quantity_not_formatted_correctly", UtilHttp.getLocale(request)));
             }
         }
         if (UtilValidate.isNotEmpty(sequenceNumStr)) {
             try {
                 sequenceNum = Long.valueOf(sequenceNumStr);
             } catch (Exception e) {
-                errMsg += ("<li>" + UtilProperties.getMessage(resource,"productevents.sequenceNum_not_formatted_correctly", UtilHttp.getLocale(request)));
+                errMsgList.add(UtilProperties.getMessage(resource,"productevents.sequenceNum_not_formatted_correctly", UtilHttp.getLocale(request)));
             }
         }
-        if (errMsg.length() > 0) {
-            errMsg += ("<b>" + UtilProperties.getMessage(resource,"productevents.following_errors_occurred", UtilHttp.getLocale(request)));
-            errMsg += ("</b><br/><ul>" + errMsg + "</ul>");
-            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+        if (errMsgList.size() > 0) {
+            request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList);
             return "error";
         }
 
@@ -569,6 +565,7 @@ public class ProductEvents {
 
     public static String updateAttribute(HttpServletRequest request, HttpServletResponse response) {
         String errMsg = "";
+        List errMsgList = new LinkedList();
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         Security security = (Security) request.getAttribute("security");
 
@@ -595,13 +592,11 @@ public class ProductEvents {
         String attrType = request.getParameter("ATTRIBUTE_TYPE");
 
         if (!UtilValidate.isNotEmpty(productId))
-            errMsg += ("<li>" + UtilProperties.getMessage(resource,"productevents.product_ID_missing", UtilHttp.getLocale(request)));
+            errMsgList.add(UtilProperties.getMessage(resource,"productevents.product_ID_missing", UtilHttp.getLocale(request)));
         if (!UtilValidate.isNotEmpty(attrName))
-            errMsg += ("<li>" + UtilProperties.getMessage(resource,"productevents.attribute_name_missing", UtilHttp.getLocale(request)));
-        if (errMsg.length() > 0) {
-            errMsg += ("<b>" + UtilProperties.getMessage(resource,"productevents.following_errors_occurred", UtilHttp.getLocale(request)));
-            errMsg += ("</b><br/><ul>" + errMsg + "</ul>");
-            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            errMsgList.add(UtilProperties.getMessage(resource,"productevents.attribute_name_missing", UtilHttp.getLocale(request)));
+        if (errMsgList.size() > 0) {
+            request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList);
             return "error";
         }
 
