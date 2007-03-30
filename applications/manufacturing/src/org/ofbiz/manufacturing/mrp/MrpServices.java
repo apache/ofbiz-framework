@@ -720,7 +720,7 @@ public class MrpServices {
                                                       "eventDate", eventDate,
                                                       "inventoryEventPlanTypeId", (isBuilt? "PROP_MANUF_O_RECP" : "PROP_PUR_O_RECP"));
                         try {
-                            InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(eventMap, new Double(proposedOrder.getQuantity()), null, eventName, (proposedOrder.getRequirementStartDate().compareTo(now) > 0), delegator);
+                            InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(eventMap, new Double(proposedOrder.getQuantity()), null, eventName, (proposedOrder.getRequirementStartDate().compareTo(now) < 0), delegator);
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError("Problem running createOrUpdateInventoryEventPlanned");
                         }
