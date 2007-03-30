@@ -66,7 +66,7 @@ ofbiz/trunk/framework/catalina/lib/tomcat-ajp.jar
 ofbiz/trunk/framework/catalina/lib/tomcat-coyote.jar
 ofbiz/trunk/framework/catalina/lib/tomcat-http.jar
 ofbiz/trunk/framework/catalina/lib/tomcat-util.jar
-ofbiz/trunk/framework/entity/lib/jdbc/derby.jar
+ofbiz/trunk/framework/entity/lib/jdbc/derby-10.2.1.6.jar
 ofbiz/trunk/framework/entity/lib/jdbc/derbyLocale_de_DE.jar
 ofbiz/trunk/framework/entity/lib/jdbc/derbyLocale_es.jar
 ofbiz/trunk/framework/entity/lib/jdbc/derbyLocale_fr.jar
