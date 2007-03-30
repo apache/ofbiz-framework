@@ -712,12 +712,15 @@ public class MrpServices {
                         if (UtilValidate.isEmpty(productFacility) && !isBuilt) {
                             logMrpError(productId, now, "No ProductFacility record for [" + facilityId + "]; no requirement created.", delegator);
                         }
-                        
+                        String eventName = null;
+                        if (UtilValidate.isNotEmpty(requirementId)) {
+                            eventName = "*" + requirementId + " (" + proposedOrder.getRequirementStartDate() + ")*";
+                        }
                         Map eventMap = UtilMisc.toMap("productId", product.getString("productId"),
                                                       "eventDate", eventDate,
                                                       "inventoryEventPlanTypeId", (isBuilt? "PROP_MANUF_O_RECP" : "PROP_PUR_O_RECP"));
                         try {
-                            InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(eventMap, new Double(proposedOrder.getQuantity()), null, (requirementId != null? "*" + requirementId + "*": null), (proposedOrder.getRequirementStartDate().compareTo(now) > 0), delegator);
+                            InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(eventMap, new Double(proposedOrder.getQuantity()), null, eventName, (proposedOrder.getRequirementStartDate().compareTo(now) > 0), delegator);
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError("Problem running createOrUpdateInventoryEventPlanned");
                         }
