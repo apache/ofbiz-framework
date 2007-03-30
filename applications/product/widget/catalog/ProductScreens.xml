@@ -384,9 +384,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/product/EditProductFacilities.ftl"/></html>
-                        </platform-specific>
+                        <include-form name="UpdateProductFacilities" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <container><label style="head2">${uiLabelMap.ProductAddFacility}</label></container>
+                        <include-form name="AddProductFacility" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
