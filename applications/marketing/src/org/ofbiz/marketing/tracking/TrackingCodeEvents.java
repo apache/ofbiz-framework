@@ -383,7 +383,7 @@ public class TrackingCodeEvents {
                 String cookieName = cookies[i].getName();
 
                 // find the siteId cookie if it exists
-                if ("Ofbiz.TKCD.siteId".equals(cookieName)) {
+                if ("Ofbiz.TKCD.SiteId".equals(cookieName)) {
                     siteId = cookies[i].getValue();
                 }
 

@@ -465,16 +465,16 @@ under the License.
       <prim-key field="returnId"/>
       <prim-key field="orderId"/>
       <prim-key field="trackingCodeTypeId"/>
-      <relation type="one" fk-name="TKNG_CODODR_ODRTN" rel-entity-name="ReturnHeader">
+      <relation type="one" fk-name="TKNG_CODODR_RTN" rel-entity-name="ReturnHeader">
         <key-map field-name="returnId"/>
       </relation>
       <relation type="one" fk-name="TKNG_CODODR_ODRTN" rel-entity-name="OrderHeader">
         <key-map field-name="orderId"/>
       </relation>
-      <relation type="one" fk-name="TKNG_CODODR_TKCD" rel-entity-name="TrackingCode">
+      <relation type="one" fk-name="TKNG_CODODR_RTNTKCD" rel-entity-name="TrackingCode">
         <key-map field-name="trackingCodeId"/>
       </relation>
-      <relation type="one" fk-name="TKNG_CODODR_TYP" rel-entity-name="TrackingCodeType">
+      <relation type="one" fk-name="TKNG_CODODR_RTNTYP" rel-entity-name="TrackingCodeType">
         <key-map field-name="trackingCodeTypeId"/>
       </relation>
     </entity>
