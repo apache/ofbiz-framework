@@ -114,6 +114,7 @@ under the License.
         </subant>
         <subant inheritall="false">
             <fileset dir="${basedir}/hot-deploy" casesensitive="no">
+                <exclude name="disabled/**"/>
                 <include name="**/build.xml"/>
             </fileset>
         </subant>
