@@ -89,7 +89,7 @@ under the License.
     </service>
 
     <service name="initLowLevelCode" engine="java"
-            location="org.ofbiz.manufacturing.bom.BOMServices" invoke="initLowLevelCode">
+            location="org.ofbiz.manufacturing.bom.BOMServices" invoke="initLowLevelCode" transaction-timeout="7200">
         <description>Updates the low level code of all the products in the Product entity</description>
     </service>
 
