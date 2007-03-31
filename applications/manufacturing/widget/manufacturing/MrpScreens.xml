@@ -81,14 +81,61 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
+                <entity-condition entity-name="JobSandbox" list-name="mrpActiveJobs">
+                    <condition-list combine="and">
+                        <condition-expr field-name="serviceName" value="executeMrp"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="statusId" value="SERVICE_PENDING"/>
+                            <condition-expr field-name="statusId" value="SERVICE_QUEUED"/>
+                            <condition-expr field-name="statusId" value="SERVICE_RUNNING"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="-createdStamp"/>
+                </entity-condition>
+                <entity-condition entity-name="JobSandbox" list-name="mrpRunningJobs">
+                    <condition-list combine="and">
+                        <condition-expr field-name="serviceName" value="executeMrp"/>
+                        <condition-expr field-name="statusId" value="SERVICE_RUNNING"/>
+                    </condition-list>
+                    <order-by field-name="-createdStamp"/>
+                </entity-condition>
+                <entity-condition entity-name="JobSandbox" list-name="mrpFinishedJobs">
+                    <condition-list combine="and">
+                        <condition-expr field-name="serviceName" value="executeMrp"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="statusId" value="SERVICE_FINISHED"/>
+                            <condition-expr field-name="statusId" value="SERVICE_FAILED"/>
+                            <condition-expr field-name="statusId" value="SERVICE_CRASHED"/>
+                            <condition-expr field-name="statusId" value="SERVICE_CANCELLED"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="-finishDateTime"/>
+                </entity-condition>
+                <set field="lastFinishedJob" from-field="mrpFinishedJobs[0]"/>
+                <set field="lastFinishedJobs[]" from-field="lastFinishedJob"/>
+                
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/mrp/findInventoryEventPlan.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonMrpDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://manufacturing/webapp/manufacturing/mrp/findInventoryEventPlan.ftl"/></html>
-                        </platform-specific>
+                        <label style="head2">${uiLabelMap.ManufacturingMrpJobLastExecuted}</label>
+                        <include-form name="ListFinishedMrpJobs" location="component://manufacturing/webapp/manufacturing/mrp/MrpForms.xml"/>
+                        <label style="head2">${uiLabelMap.ManufacturingMrpJobScheduledOrRunning}</label>
+                        <include-form name="ListRunningMrpJobs" location="component://manufacturing/webapp/manufacturing/mrp/MrpForms.xml"/>
+                        <section>
+                            <condition>
+                                <if-empty field-name="mrpRunningJobs"/>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://manufacturing/webapp/manufacturing/mrp/findInventoryEventPlan.ftl"/></html>
+                                </platform-specific>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head1">${uiLabelMap.ManufacturingMrpJobIsRunning}</label>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
