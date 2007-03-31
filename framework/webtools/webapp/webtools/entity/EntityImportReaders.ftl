@@ -17,24 +17,25 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.WebtoolsImportToDataSource}</div>
-<div>${uiLabelMap.WebtoolsMessage5}.</div>
+<h1>${uiLabelMap.WebtoolsImportToDataSource}</h1>
+<br />
+<p>${uiLabelMap.WebtoolsMessage5}.</p>
 <hr/>
-  <div class="head2">${uiLabelMap.WebtoolsImport}:</div>
+  <h2>${uiLabelMap.WebtoolsImport}:</h2>
 
   <form method="post" action="<@ofbizUrl>entityImportReaders</@ofbizUrl>">
-    <div class="tabletext">Enter Readers (comma separated, no spaces; from entityengine.xml and ofbiz-component.xml files; common ones include seed,ext,demo):</div>
-    <div><input type="text" class="inputBox" size="60" name="readers" value="${readers?default("seed")}"/></div>
-    <div class="tabletext"><input type="checkbox" name="mostlyInserts" <#if mostlyInserts?exists>"checked"</#if>/>${uiLabelMap.WebtoolsMostlyInserts}</div>
-    <div class="tabletext"><input type="checkbox" name="maintainTimeStamps" <#if keepStamps?exists>"checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}</div>
-    <div class="tabletext"><input type="checkbox" name="createDummyFks" <#if createDummyFks?exists>"checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}</div>
-    <div class="tabletext">${uiLabelMap.WebtoolsTimeoutSeconds}:<input type="text" size="6" value="${txTimeoutStr?default("7200")}" name="txTimeout"/></div>
-    <div><input type="submit" value="${uiLabelMap.WebtoolsImport}"/></div>
+    Enter Readers (comma separated, no spaces; from entityengine.xml and ofbiz-component.xml files; common ones include seed,ext,demo):</div>
+    <input type="text" size="60" name="readers" value="${readers?default("seed")}"/><br />
+    <input type="checkbox" name="mostlyInserts" <#if mostlyInserts?exists>"checked"</#if>/>${uiLabelMap.WebtoolsMostlyInserts}<br />
+    <input type="checkbox" name="maintainTimeStamps" <#if keepStamps?exists>"checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}<br />
+    <input type="checkbox" name="createDummyFks" <#if createDummyFks?exists>"checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}<br />
+    ${uiLabelMap.WebtoolsTimeoutSeconds}:<input type="text" size="6" value="${txTimeoutStr?default("7200")}" name="txTimeout"/><br />
+    <div class="button-bar"><input type="submit" value="${uiLabelMap.WebtoolsImport}"/></div>
   </form>
-  <hr/>
   <#if messages?exists>
+      <hr/>
       <h3>${uiLabelMap.WebtoolsResults}:</h3>
       <#list messages as message>
-          <div class="tabletext">${message}</div>
+          <p>${message}</p>
       </#list>
   </#if>

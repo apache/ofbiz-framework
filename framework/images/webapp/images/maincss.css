@@ -1239,6 +1239,7 @@ float: left;
 /* placeholder */
 }
 
+#masthead ul .opposed,
 #masthead ul .control-area {
 float: right;
 text-align: right;
@@ -1489,10 +1490,8 @@ padding: 0.1em 0.5em 0.1em 0.5em;
 white-space: nowrap;
 }
 
-.button-bar ul a:hover,
-.tabContainer ul a:hover,
-.button-bar a {
-text-decoration: none;
+.button-bar ul a:hover {
+color: #0000ff;
 }
 
 /* ===== Button style decorator ===== */
@@ -1528,6 +1527,7 @@ a.button-style-1:hover,
 .tabContainer ul a:hover {
 background-color: #000099;
 color: #ffffff;
+text-decoration: none;
 }
 
 /* ===== Button style decorator ===== */
@@ -1556,6 +1556,7 @@ color: #ffffff;
 a.button-style-2:hover {
 background-color: #000099;
 color: #ffffff;
+text-decoration: none;
 }
 
 /* ===== Button bar decorators ===== */
@@ -1600,6 +1601,7 @@ color: #000099;
 .tab-bar ul a:hover {
 background-color: #ffffff;
 color: #000099;
+text-decoration: none;
 }
 
 .tab-bar ul .disabled {

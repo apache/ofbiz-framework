@@ -20,7 +20,7 @@ under the License.
     <h3>${uiLabelMap.WebtoolsCheckUpdateDatabase}</h3>
     <form method="post" action="${encodeURLCheckDb}">
         <input type="hidden" name="option" value="checkupdatetables"/>
-        ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="40"/>
+        ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="40"/>
         &nbsp;<input type="checkbox" name="checkPks" value="true" checked="checked"/>&nbsp;${uiLabelMap.WebtoolsPks}
         &nbsp;<input type="checkbox" name="checkFks" value="true"/>&nbsp;${uiLabelMap.WebtoolsFks}
         &nbsp;<input type="checkbox" name="checkFkIdx" value="true"/>&nbsp;${uiLabelMap.WebtoolsFkIdx}
@@ -30,86 +30,84 @@ under the License.
     </form>
     <p>${uiLabelMap.WebtoolsNote2}</p>
     <script language="JavaScript" type="text/javascript">
-     <!--
          function enableTablesRemove() {
              document.forms["TablesRemoveForm"].elements["TablesRemoveButton"].disabled=false;
          }
-     //-->
     </script>
     <h3>${uiLabelMap.WebtoolsRemoveAllTables}</h3>
     <form method="post" action="${encodeURLCheckDb}" name="TablesRemoveForm">
         <input type="hidden" name="option" value="removetables"/>
-        ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="40"/>
+        ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="40"/>
         <input type="submit" value="${uiLabelMap.CommonRemove}" name="TablesRemoveButton" disabled="disabled"/>
         <input type="button" value="${uiLabelMap.WebtoolsEnable}" onClick="enableTablesRemove();"/>
     </form>
     <form method="post" action="${encodeURLCheckDb}" name="TableRemoveForm">
         <input type="hidden" name="option" value="removetable"/>
-        ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="20"/>
-        ${uiLabelMap.WebtoolsEntityName}: <input type="text" class="inputBox" name="entityName" value="${entityName}" size="20"/>
+        ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="20"/>
+        ${uiLabelMap.WebtoolsEntityName}: <input type="text" name="entityName" value="${entityName}" size="20"/>
         <input type="submit" value="${uiLabelMap.CommonRemove}" name="TablesRemoveButton"/>
     </form>
     <h3>${uiLabelMap.WebtoolsCreateRemoveAllPrimaryKeys}</h3>
     <form method="post" action="${encodeURLCheckDb}">
         <input type="hidden" name="option" value="createpks"/>
-        ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="40"/>
+        ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="40"/>
         <input type="submit" value="${uiLabelMap.CommonCreate}"/>
     </form>
     <form method="post" action="${encodeURLCheckDb}">
         <input type="hidden" name="option" value="removepks"/>
-        ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="40"/>
+        ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="40"/>
         <input type="submit" value="${uiLabelMap.CommonRemove}"/>
     </form>
     <h3>${uiLabelMap.WebtoolsCreateRemovePrimaryKey}</h3>
     <form method="post" action="${encodeURLCheckDb}">
         <input type="hidden" name="option" value="createpk"/>
-        ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="20"/>
-        ${uiLabelMap.WebtoolsEntityName}: <input type="text" class="inputBox" name="entityName" value="${entityName}" size="20"/>
+        ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="20"/>
+        ${uiLabelMap.WebtoolsEntityName}: <input type="text" name="entityName" value="${entityName}" size="20"/>
         <input type="submit" value="${uiLabelMap.CommonCreate}"/>
     </form>
     <form method="post" action="${encodeURLCheckDb}">
         <input type="hidden" name="option" value="removepk"/>
-        ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="20"/>
-        ${uiLabelMap.WebtoolsEntityName}: <input type="text" class="inputBox" name="entityName" value="${entityName}" size="20"/>
+        ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="20"/>
+        ${uiLabelMap.WebtoolsEntityName}: <input type="text" name="entityName" value="${entityName}" size="20"/>
         <input type="submit" value="${uiLabelMap.CommonRemove}"/>
     </form>
     <h3>${uiLabelMap.WebtoolsCreateRemoveAllDeclaredIndices}</h3>
     <form method="post" action="${encodeURLCheckDb}">
         <input type="hidden" name="option" value="createidx"/>
-        ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="40"/>
+        ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="40"/>
         <input type="submit" value="${uiLabelMap.CommonCreate}"/>
     </form>
     <form method="post" action="${encodeURLCheckDb}">
         <input type="hidden" name="option" value="removeidx"/>
-        ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="40"/>
+        ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="40"/>
         <input type="submit" value="${uiLabelMap.CommonRemove}"/>
     <h3>${uiLabelMap.WebtoolsCreateRemoveAllForeignKeyIndices}</h3>
     <form method="post" action="${encodeURLCheckDb}">
         <input type="hidden" name="option" value="createfkidxs"/>
-        ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="40"/>
+        ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="40"/>
         <input type="submit" value="${uiLabelMap.CommonCreate}"/>
     </form>
     <form method="post" action="${encodeURLCheckDb}">
         <input type="hidden" name="option" value="removefkidxs"/>
-        ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="40"/>
+        ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="40"/>
         <input type="submit" value="${uiLabelMap.CommonRemove}"/>
     </form>
     <h3>${uiLabelMap.WebtoolsCreateRemoveAllForeignKeys}</h3>
     <p>${uiLabelMap.WebtoolsNote3}</p>
     <form method="post" action="${encodeURLCheckDb}">
         <input type="hidden" name="option" value="createfks"/>
-        ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="40"/>
+        ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="40"/>
         <input type="submit" value="${uiLabelMap.CommonCreate}"/>
     </form>
     <form method="post" action="${encodeURLCheckDb}">
         <input type="hidden" name="option" value="removefks"/>
-        ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="40"/>
+        ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="40"/>
         <input type="submit" value="${uiLabelMap.CommonRemove}"/>
     </form>
     <h3>${uiLabelMap.WebtoolsUpdateCharacterSetAndCollate}</h3>
     <form method="post" action="${encodeURLCheckDb}">
         <input type="hidden" name="option" value="updateCharsetCollate"/>
-        ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="40"/>
+        ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="40"/>
         <input type="submit" value="${uiLabelMap.CommonUpdate}"/>
     </form>
     <hr/>

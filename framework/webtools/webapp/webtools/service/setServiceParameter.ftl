@@ -19,22 +19,22 @@ under the License.
 
 <form name="scheduleForm" method="POST" action="<@ofbizUrl>scheduleService</@ofbizUrl>">
     <#list scheduleOptions as scheduleOption>
-	<input type="hidden" name="${scheduleOption.name}" value="${scheduleOption.value}"/>
+	  <input type="hidden" name="${scheduleOption.name}" value="${scheduleOption.value}"/>
     </#list>
 
-    <table border="0">
+    <table class="basic-table" cellspacing="0">
         
     <#list serviceParameters as serviceParameter>
       <tr>
-        <td align="right"><div class="tabletext">${serviceParameter.name} (${serviceParameter.type})</div></td>
+        <td class="label">${serviceParameter.name} (${serviceParameter.type})</td>
         <td>
-          <input type="text" class="inputBox" size="20" name="${serviceParameter.name}" value="${serviceParameter.value?if_exists}" />
-          <span class="tabletext"><#if serviceParameter.optional == "N">(required)<#else>(optional)</#if></span>
+          <input type="text" size="20" name="${serviceParameter.name}" value="${serviceParameter.value?if_exists}" />
+          <#if serviceParameter.optional == "N">(required)<#else>(optional)</#if>
         </td>
       </tr>
     </#list>
       <tr>
-        <td colspan="2" align="center"><input type="submit" class="smallSubmit" value="${uiLabelMap.CommonSubmit}"></td>
+        <td colspan="2" align="center"><input type="submit" value="${uiLabelMap.CommonSubmit}"></td>
       </tr>      
     </table>
 </form>	

@@ -24,398 +24,298 @@ under the License.
 
 <#-- Selected Service is available -->
 <#if selectedServiceMap?exists>
-    <table border=0 width='100%' cellspacing='0' cellpadding='0' class='boxtop'>
-        <tr>
-            <td align='left'><div class='boxhead'>
-                ${uiLabelMap.WebtoolsService}: ${selectedServiceMap.serviceName}</div>
-            </td>
-            <td align='right'>
-                <a href='<@ofbizUrl>/scheduleJob?SERVICE_NAME=${selectedServiceMap.serviceName}</@ofbizUrl>' class='submenutext'>${uiLabelMap.WebtoolsSchedule}</a>
-                <a href='<@ofbizUrl>${url}</@ofbizUrl>' class='submenutextright'>${uiLabelMap.CommonListAll}</a>
-            </td>
-        </tr>
-    </table>
-
-	<#if showWsdl?exists && showWsdl = true>
-	    <br>
-		<table border='0' width='100%' cellspacing='0' cellpadding='0' class='boxtop'>
-            <tr>
-                <td><div class='boxhead'>${uiLabelMap.WebtoolsServiceWSDL}</div></td>
-            </tr>
+  <#if showWsdl?exists && showWsdl = true>
+    <div class="screenlet">
+      <div class="screenlet-title-bar">
+        <h3>${uiLabelMap.WebtoolsServiceWSDL} - ${uiLabelMap.WebtoolsService}: ${selectedServiceMap.serviceName}</h3>
+      </div>
+      <div class="screenlet-body" align="center">
+        <form><textarea rows="20" cols="85" name="wsdloutput">${selectedServiceMap.wsdl}</textarea></form>
+        <br />
+        <a href='<@ofbizUrl>${url}?sel_service_name=${selectedServiceMap.serviceName}</@ofbizUrl>' class='smallSubmit'>${uiLabelMap.CommonBack}</a>
+      </div>
+    </div>
+  <#else>
+    <div class="screenlet">
+      <div class="screenlet-title-bar">
+        <ul>
+          <h3>${uiLabelMap.WebtoolsService}: ${selectedServiceMap.serviceName}</h3>
+          <li><a href='<@ofbizUrl>${url}</@ofbizUrl>'>${uiLabelMap.CommonListAll}</a></li>
+          <li><a href='<@ofbizUrl>/scheduleJob?SERVICE_NAME=${selectedServiceMap.serviceName}</@ofbizUrl>'>${uiLabelMap.WebtoolsSchedule}</a></li>
+        </ul>
+        <br class="clear"/>
+      </div>
+      <div class="screenlet-body">
+        <table class="basic-table" cellspacing='0'>
+          <tr>
+            <td class="label">${uiLabelMap.WebtoolsServiceName}:</td>
+            <td>${selectedServiceMap.serviceName}</td>
+            <td class="label">${uiLabelMap.WebtoolsEngineName}:</td>
+            <td><a href='<@ofbizUrl>${url}?constraint=engine_name@${selectedServiceMap.engineName}</@ofbizUrl>'>${selectedServiceMap.engineName}</a></td>
+          </tr>
+          <tr>
+            <td class="label">${uiLabelMap.CommonDescription}:</td>
+            <td>${selectedServiceMap.description}</td>
+            <td class="label">${uiLabelMap.WebtoolsInvoke}:</td>
+            <td>${selectedServiceMap.invoke}</td>
+          </tr>
+          <tr>
+            <td class="label">${uiLabelMap.WebtoolsExportable}:</td>
+            <td>${selectedServiceMap.export}<#if selectedServiceMap.export = "True">&nbsp;(<a href='<@ofbizUrl>${url}?sel_service_name=${selectedServiceMap.serviceName}&show_wsdl=true</@ofbizUrl>'>${uiLabelMap.WebtoolsShowShowWSDL}</a>)</#if></td>
+            <td class="label">${uiLabelMap.WebtoolsLocation}:</td>
+            <td><a href='<@ofbizUrl>${url}?constraint=location@${selectedServiceMap.location}</@ofbizUrl>'>${selectedServiceMap.location}</a></td>
+          </tr>
+          <tr>
+            <td colspan="2">&nbsp;</td>
+            <td class="label">${uiLabelMap.WebtoolsDefaultEntityName}:</td>
+            <td><a href='<@ofbizUrl>${url}?constraint=default_entity_name@${selectedServiceMap.defaultEntityName}</@ofbizUrl>'>${selectedServiceMap.defaultEntityName}</a></td>
+          </tr>
+          <tr>
+            <td colspan="2">&nbsp;</td>
+            <td class="label">${uiLabelMap.WebtoolsRequireNewTransaction}:</td>
+            <td>${selectedServiceMap.requireNewTransaction}</td>
+          </tr>
+          <tr>
+            <td colspan="2">&nbsp;</td>
+            <td class="label">${uiLabelMap.WebtoolsUseTransaction}:</td>
+            <td>${selectedServiceMap.useTrans}</td>
+          </tr>
+          <tr>
+            <td colspan="2">&nbsp;</td>
+            <td class="label">${uiLabelMap.WebtoolsMaxRetries}:</td>
+            <td>${selectedServiceMap.maxRetry}</td>
+          </tr>
         </table>
-        <table border=0 width='100%' cellspacing='0' cellpadding='5' class='boxoutside'>
+      </div>
+    </div>
+
+    <div class="screenlet">
+      <div class="screenlet-title-bar">
+        <h3>${uiLabelMap.PartySecurityGroups}</h3>
+      </div>
+      <#if selectedServiceMap.permissionGroups != 'NA'>
+        <table class="basic-table" cellspacing='0'>
+          <tr class="header-row">
+            <td>${uiLabelMap.WebtoolsNameOrRole}</td>
+            <td>${uiLabelMap.WebtoolsPermissionType}</td>
+            <td>${uiLabelMap.WebtoolsAction}</td>
+          </tr>
+          <#list selectedServiceMap.permissionGroups as permGrp>
             <tr>
-               <td align="center"><form><textarea class="textAreaBox" rows="20" cols="85" name="wsdloutput">${selectedServiceMap.wsdl}</textarea></form></td>
+              <td>${permGrp.nameOrRole?default("NA")}</td>
+              <td>${permGrp.permType?default("NA")}</td>
+              <td>${permGrp.action?default("NA")}</td>
             </tr>
-            <tr>
-               <td align="center"><a href='<@ofbizUrl>${url}?sel_service_name=${selectedServiceMap.serviceName}</@ofbizUrl>' class='linktext'>${uiLabelMap.CommonBack}</a></td>
-            </tr>
+          </#list>
         </table>
-    <#else>
+      <#else>
+        <div class="screenlet-body">
+          <b>${selectedServiceMap.permissionGroups}</b>
+        </div>
+      </#if>
+    </div>
 
-	
-    <table border=0 width='100%' cellspacing='5' cellpadding='5' class='tabletext'>
-        <tr>
-            <td width='10%'>&nbsp;</td>
-            <td align='left' valign='top'><br>
-                <b>${uiLabelMap.WebtoolsServiceName}:</b>&nbsp;${selectedServiceMap.serviceName}<br>
-                <b>${uiLabelMap.CommonDescription}:</b>&nbsp;${selectedServiceMap.description}<br>
-                <b>${uiLabelMap.WebtoolsExportable}:</b>&nbsp;${selectedServiceMap.export}<#if selectedServiceMap.export = "True">&nbsp;(<a href='<@ofbizUrl>${url}?sel_service_name=${selectedServiceMap.serviceName}&show_wsdl=true</@ofbizUrl>' class='linktext'>${uiLabelMap.WebtoolsShowShowWSDL}</a>)</#if><br>
-            <td width='10' align='left'>&nbsp;</td>
-            <td align='left' valign='top'><br>
-                <b>${uiLabelMap.WebtoolsEngineName}:</b>&nbsp;<a href='<@ofbizUrl>${url}?constraint=engine_name@${selectedServiceMap.engineName}</@ofbizUrl>' class='linktext'>${selectedServiceMap.engineName}</a><br>
-                <b>${uiLabelMap.WebtoolsInvoke}:</b>&nbsp;${selectedServiceMap.invoke}<br>
-                <b>${uiLabelMap.WebtoolsLocation}:</b>&nbsp;</b><a href='<@ofbizUrl>${url}?constraint=location@${selectedServiceMap.location}</@ofbizUrl>' class='linktext'>${selectedServiceMap.location}</a><br>
-                <b>${uiLabelMap.WebtoolsDefaultEntityName}:</b>&nbsp;<a href='<@ofbizUrl>${url}?constraint=default_entity_name@${selectedServiceMap.defaultEntityName}</@ofbizUrl>' class='linktext'>${selectedServiceMap.defaultEntityName}</a><br>
-                <b>${uiLabelMap.WebtoolsRequireNewTransaction}:</b>&nbsp;${selectedServiceMap.requireNewTransaction}<br>
-                <b>${uiLabelMap.WebtoolsUseTransaction}:</b>&nbsp;${selectedServiceMap.useTrans}<br>
-                <b>${uiLabelMap.WebtoolsMaxRetries}:</b>&nbsp;${selectedServiceMap.maxRetry}
-            </td>
-        </tr>
-    </table>
+    <div class="screenlet">
+      <div class="screenlet-title-bar">
+        <h3>${uiLabelMap.WebtoolsImplementedServices}</h3>
+      </div>
+      <div class="screenlet-body">
+        <#if selectedServiceMap.implServices == 'NA'>
+          <b>${selectedServiceMap.implServices}</b>
+        <#elseif selectedServiceMap.implServices?has_content>
+          <#list selectedServiceMap.implServices as implSrv>
+            <a href='<@ofbizUrl>${url}?sel_service_name=${implSrv}</@ofbizUrl>'>${implSrv}</a><br>
+          </#list>
+        </#if>
+      </div>
+    </div>
 
-    <table border=0 width='100%' cellspacing='5' cellpadding='1'>
-        <tr>
-            <#-- Permission Groups -->
-            <td valign='top' width='50%'>
-                <table border=0 width='100%' cellspacing='0' cellpadding='0' class='boxtop'>
-                    <tr>
-                        <td class='tabletext'><div class='boxhead'>${uiLabelMap.PartySecurityGroups}</div></td>
-                    </tr>
-                </table>
-                <table border=0 width='100%' cellspacing='5' cellpadding='1' class='boxoutside'>
-                    <tr>
-                        <td class='tabletext'>
-                        <#if selectedServiceMap.permissionGroups!='NA'>
-                        <table border=0 width='100%' cellspacing='5' cellpadding='1'>
-                            <tr>
-                                <td class='tableheadtext'>${uiLabelMap.WebtoolsNameOrRole}</td>
-                                <td class='tableheadtext'>${uiLabelMap.WebtoolsPermissionType}</td>
-                                <td class='tableheadtext'>${uiLabelMap.WebtoolsAction}</td>
-                            </tr>
-                            <tr>
-                                <td class='sepbar' colspan='3'><hr class='sepbar'></td>
-                            </tr>
-                            <#list selectedServiceMap.permissionGroups as permGrp>
-                            <tr>
-                                <td class='tabletext'>${permGrp.nameOrRole?default("NA")}</b></td>
-                                <td class='tabletext'>${permGrp.permType?default("NA")}</td>
-                                <td class='tabletext'>${permGrp.action?default("NA")}</td>
-                            </tr>
-                            </#list>
-                    </table>
-                        <#else>
-                            <b>${selectedServiceMap.permissionGroups}</b>
-                        </#if>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            <#-- Impl Services -->
-            <td valign='top' width='50%'>
-                <table border=0 width='100%' cellspacing='0' cellpadding='0' class='boxtop'>
-                    <tr>
-                        <td class='tabletext'><div class='boxhead'>${uiLabelMap.WebtoolsImplementedServices}</div></td>
-                    </tr>
-                </table>
-                <table border=0 width='100%' cellspacing='5' cellpadding='1' class='boxoutside'>
-                    <tr>
-                        <td class='tabletext'>
-                        <#if selectedServiceMap.implServices=='NA'>
-                            <b>${selectedServiceMap.implServices}</b>
-                        <#elseif selectedServiceMap.implServices?has_content>
-                            <#list selectedServiceMap.implServices as implSrv>
-                                <a href='<@ofbizUrl>${url}?sel_service_name=${implSrv}</@ofbizUrl>' class='linktext'>${implSrv}</a><br>
-                            </#list>
-                        </#if>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-    <!-- If service has ECA's -->
+    <#-- If service has ECA's -->
     <#if ecaMapList?exists && ecaMapList?has_content>
-        <#-- add the javascript for modalpopup's -->
-        <script language='javascript' type='text/javascript'>
-            function detailsPopup(viewName){
-                    var lookupWinSettings = 'top=50,left=50,width=600,height=300,scrollbars=auto,status=no,resizable=no,dependent=yes,alwaysRaised=yes';
-                    var params = '';
-                    var lookupWin = window.open(viewName, params, lookupWinSettings);
-                    if(lookupWin.opener == null) lookupWin.opener = self;
-                    lookupWin.focus();
-            }
-        </script>
-        <table border=0 width='100%' cellspacing='0' cellpadding='0' class='boxtop'>
+      <#-- add the javascript for modalpopup's -->
+      <script language='javascript' type='text/javascript'>
+          function detailsPopup(viewName){
+              var lookupWinSettings = 'top=50,left=50,width=600,height=300,scrollbars=auto,status=no,resizable=no,dependent=yes,alwaysRaised=yes';
+              var params = '';
+              var lookupWin = window.open(viewName, params, lookupWinSettings);
+              if(lookupWin.opener == null) lookupWin.opener = self;
+              lookupWin.focus();
+          }
+      </script>
+      <div class="screenlet">
+        <div class="screenlet-title-bar">
+          <h3>${uiLabelMap.WebtoolsServiceECA}</h3>
+        </div>
+        <table class="basic-table" cellspacing='0'>
+          <tr class="header-row">
+            <td>${uiLabelMap.WebtoolsEventName}</td>
+            <td>${uiLabelMap.WebtoolsRunOnError}</td>
+            <td>${uiLabelMap.WebtoolsRunOnFailure}</td>
+            <td>${uiLabelMap.WebtoolsActions}</td>
+            <td>${uiLabelMap.WebtoolsConditions}</td>
+          </tr>
+          <#list ecaMapList as ecaMap>
             <tr>
-                <td><div class='boxhead'>${uiLabelMap.WebtoolsServiceECA}</div></td>
+              <td>${ecaMap.eventName?if_exists}</td>
+              <td>${ecaMap.runOnError?if_exists}</div></td>
+              <td>${ecaMap.runOnFailure?if_exists}</div></td>
+              <td>
+                <#if ecaMap.actions?exists && ecaMap.actions?has_content>
+                  <#list ecaMap.actions as action>
+                    <a href='<@ofbizUrl>${url}?sel_service_name=${action.serviceName}</@ofbizUrl>'>${action.serviceName?default("NA")}</a>
+                    <a href='javascript:detailsPopup("<@ofbizUrl>${popupUrl}?detail_type=action&prt_srv=${selectedServiceMap.serviceName}<#if ecaMap.eventName?exists>&prt_evt_name=${ecaMap.eventName}</#if><#if ecaMap.runOnError?exists>&prt_run_on_err=${ecaMap.runOnError}</#if><#if ecaMap.runOnFailure?exists>&prt_run_on_fail=${ecaMap.runOnFailure}</#if>&acx_srv=${action.serviceName}<#if action.eventName?exists>&acx_evt_name=${action.eventName}</#if><#if action.ignoreError?exists>&acx_ig_err=${action.ignoreError}</#if><#if action.ignoreFailure?exists>&acx_ig_fail=${action.ignoreFailure}</#if><#if action.persist?exists>&acx_pers=${action.persist}</#if><#if action.resultToContext?exists>&acx_res_to_ctx=${action.resultToContext}</#if><#if action.serviceMode?exists>&acx_srv_mode=${action.serviceMode}</#if><#if action.resultMapName?exists>&acx_res_map_name=${action.resultMapName}</#if></@ofbizUrl>")'>
+                    [${uiLabelMap.CommonDetail}]</a>
+                  </#list>
+                </#if>
+              </td>
+              <td>
+                <#if ecaMap.conditions?exists && ecaMap.conditions?has_content>
+                  <#list ecaMap.conditions as condition>
+                    <table class='basic-table' cellspacing='0'>
+                      <tr>
+                        <td><b>${uiLabelMap.WebtoolsCompareType}:</b> ${condition.compareType?default("NA")}</td>
+                        <td>
+                          <b>${uiLabelMap.WebtoolsConditionService}:</b> 
+                          <#if condition.conditionService?exists && condition.conditionService?has_content>
+                            <a href='<@ofbizUrl>${url}?sel_service_name=${condition.conditionService}</@ofbizUrl>'>${condition.conditionService?default("NA")}</a>
+                          <#else>
+                            ${condition.conditionService?default("NA")}
+                          </#if>
+                        </td>
+                        <td><b>${uiLabelMap.WebtoolsFormat}:</b> ${condition.format?default("NA")}</td>
+                      </tr>
+                      <tr>                                                    
+                        <td><b>${uiLabelMap.WebtoolsIsService}:</b> ${condition.isService?default("NA")}</td>
+                        <td><b>${uiLabelMap.WebtoolsIsConstant}:</b> ${condition.isConstant?default("NA")}</td>
+                        <td><b>${uiLabelMap.WebtoolsOperator}:</b> ${condition.operator?default("NA")}</td>
+                      </tr>
+                      <tr>
+                        <td><b>${uiLabelMap.WebtoolsLHSMapName}:</b> ${condition.lhsMapName?default("NA")}</td>
+                        <td><b>${uiLabelMap.WebtoolsLHSValueName}:</b> ${condition.lhsValueName?default("NA")}</td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td><b>${uiLabelMap.WebtoolsRHSMapName}:</b> ${condition.rhsMapName?default("NA")}</td>
+                        <td><b>${uiLabelMap.WebtoolsRHSValueName}:</b> ${condition.rhsValueName?default("NA")}</td>
+                        <td>&nbsp;</td>
+                      </tr>
+                    </table><br/>
+                  </#list>
+                </#if>
+              </td>
             </tr>
+            <tr><td colspan='5'><hr></td></tr>
+          </#list>
         </table>
-        <table border=0 width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-            <tr>
-                <td width='50%' align='left'>
-                    <table border=0 width='100%' cellspacing='0' cellpadding='2'>
-                        <tr>
-                            <td align='left' valign='top'><div class='tableheadtext'>${uiLabelMap.WebtoolsEventName}</div></td>
-                            <td align='left' valign='top'><div class='tableheadtext'>${uiLabelMap.WebtoolsRunOnError}</div></td>
-                            <td align='left' valign='top'><div class='tableheadtext'>${uiLabelMap.WebtoolsRunOnFailure}</div></td>
-                            <td align='left' valign='top'><div class='tableheadtext'>${uiLabelMap.WebtoolsActions}</div></td>
-                            <td align='left' valign='top'><div class='tableheadtext'>${uiLabelMap.WebtoolsConditions}</div></td>
-                        </tr>
-                        <tr><td colspan='5'><hr class='sepbar'></td></tr>
-                        <#list ecaMapList as ecaMap>
-                            <tr>
-                                <td align='left' valign='top'><div class='tableheadtext'>${ecaMap.eventName?if_exists}</div></td>
-                                <td align='left' valign='top'><div class='tableheadtext'>${ecaMap.runOnError?if_exists}</div></td>
-                                <td align='left' valign='top'><div class='tableheadtext'>${ecaMap.runOnFailure?if_exists}</div></td>
-                                <td align='left' valign='top'>
-                                    <#if ecaMap.actions?exists && ecaMap.actions?has_content>
-                                        <#list ecaMap.actions as action>
-                                            <a href='<@ofbizUrl>${url}?sel_service_name=${action.serviceName}</@ofbizUrl>' class='linktext'>${action.serviceName?default("NA")}</a>
-                                            <a href='javascript:detailsPopup("<@ofbizUrl>${popupUrl}?detail_type=action&prt_srv=${selectedServiceMap.serviceName}<#if ecaMap.eventName?exists>&prt_evt_name=${ecaMap.eventName}</#if><#if ecaMap.runOnError?exists>&prt_run_on_err=${ecaMap.runOnError}</#if><#if ecaMap.runOnFailure?exists>&prt_run_on_fail=${ecaMap.runOnFailure}</#if>&acx_srv=${action.serviceName}<#if action.eventName?exists>&acx_evt_name=${action.eventName}</#if><#if action.ignoreError?exists>&acx_ig_err=${action.ignoreError}</#if><#if action.ignoreFailure?exists>&acx_ig_fail=${action.ignoreFailure}</#if><#if action.persist?exists>&acx_pers=${action.persist}</#if><#if action.resultToContext?exists>&acx_res_to_ctx=${action.resultToContext}</#if><#if action.serviceMode?exists>&acx_srv_mode=${action.serviceMode}</#if><#if action.resultMapName?exists>&acx_res_map_name=${action.resultMapName}</#if></@ofbizUrl>")' class='linktext'>
-                                                [${uiLabelMap.CommonDetail}]
-                                            </a>
-                                        </#list>
-                                    </#if>
-                                </td>
-                                <td valign='top'>
-                                    <#if ecaMap.conditions?exists && ecaMap.conditions?has_content>
-                                        <#list ecaMap.conditions as condition>
-                                            <table class='boxoutside' width='100%'>
-                                                <tr>
-                                                    <td class='tabletext'>
-                                                        <b>${uiLabelMap.WebtoolsCompareType}:</b> ${condition.compareType?default("NA")}
-                                                    </td>
-                                                    <td class='tabletext'>
-                                                        <b>${uiLabelMap.WebtoolsConditionService}:</b> 
-                                                        <#if condition.conditionService?exists && condition.conditionService?has_content>
-                                                            <a href='<@ofbizUrl>${url}?sel_service_name=${condition.conditionService}</@ofbizUrl>' class='linktext'>${condition.conditionService?default("NA")}</a>
-                                                        <#else>
-                                                            ${condition.conditionService?default("NA")}
-                                                        </#if>
-                                                    </td>
-                                                    <td class='tabletext'>
-                                                        <b>${uiLabelMap.WebtoolsFormat}:</b> ${condition.format?default("NA")}
-                                                    </td>
-                                                </tr>
-                                                <tr>                                                    
-                                                    <td class='tabletext'>
-                                                        <b>${uiLabelMap.WebtoolsIsService}:</b> ${condition.isService?default("NA")}
-                                                    </td>
-                                                    <td class='tabletext'>
-                                                        <b>${uiLabelMap.WebtoolsIsConstant}:</b> ${condition.isConstant?default("NA")}
-                                                    </td>
-                                                    <td class='tabletext'>
-                                                        <b>${uiLabelMap.WebtoolsOperator}:</b> ${condition.operator?default("NA")}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class='tabletext'>
-                                                        <b>${uiLabelMap.WebtoolsLHSMapName}:</b> ${condition.lhsMapName?default("NA")}
-                                                    </td>
-                                                    <td class='tabletext'>
-                                                        <b>${uiLabelMap.WebtoolsLHSValueName}:</b> ${condition.lhsValueName?default("NA")}
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class='tabletext'>
-                                                        <b>${uiLabelMap.WebtoolsRHSMapName}:</b> ${condition.rhsMapName?default("NA")}
-                                                    </td>
-                                                    <td class='tabletext'>
-                                                        <b>${uiLabelMap.WebtoolsRHSValueName}:</b> ${condition.rhsValueName?default("NA")}
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
-                                            </table><br>
-                                        </#list>
-                                    </#if>
-                                </td>
-                            </tr>
-                            <tr><td colspan='5'><hr class='sepbar'></td></tr>
-                        </#list>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <br>
+      </div>
     </#if>
-    <!-- End if service has ECA's -->
+    <#-- End if service has ECA's -->
 
     <#list selectedServiceMap.allParamsList?if_exists as paramList>
-        <table border=0 width='100%' cellspacing='0' cellpadding='0' class='boxtop'>
-            <tr>
-                <td><div class='boxhead'>${paramList.title}</div></td>
-            </tr>
-        </table>
-        <table border=0 width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-            <tr>
-                <td width='50%' align='left'>
-                    <table border=0 width='100%' cellspacing='0' cellpadding='2'>
-                        <#if paramList.paramList?exists && paramList.paramList?has_content>
-                            <tr>
-                                <td align='left'><div class='tableheadtext'>${uiLabelMap.WebtoolsParameterName}</div></td>
-                                <td align='left'><div class='tableheadtext'>${uiLabelMap.WebtoolsOptional}</div></td>
-                                <td align='left'><div class='tableheadtext'>${uiLabelMap.CommonType}</div></td>
-                                <td align='left'><div class='tableheadtext'>${uiLabelMap.WebtoolsMode}</div></td>
-                                <td align='left'><div class='tableheadtext'>${uiLabelMap.WebtoolsIsSetInternally}</div></td>
-                                <td align='left'><div class='tableheadtext'>${uiLabelMap.WebtoolsEntityName}</div></td>
-                                <td align='left'><div class='tableheadtext'>${uiLabelMap.WebtoolsFieldName}</div></td>
-                            <tr>
-                            <tr>
-                                <td align='left' colspan='7'><hr class='sepbar'></td>
-                            </tr>
-                            <#list paramList.paramList as params>
-                                <tr>
-                                    <td align='left'><div class='tabletext'>${params.name?if_exists}</div></td>
-                                    <td align='left'><div class='tabletext'>${params.optional?if_exists}</div></td>
-                                    <td align='left'><div class='tabletext'>${params.type?if_exists}</div></td>
-                                    <td align='left'><div class='tabletext'>${params.mode?if_exists}</div></td>
-                                    <td align='left'><div class='tabletext'>${params.internal?if_exists}</div></td>
-                                    <td align='left'>
-                                        <#if params.entityName?exists>
-                                            <a href='<@ofbizUrl>${url}?constraint=default_entity_name@${params.entityName}</@ofbizUrl>' class='linktext'>${params.entityName?if_exists}</a>
-                                        </#if>
-                                    </td>
-                                    <td align='left'><div class='tabletext'>${params.fieldName?if_exists}</div></td>
-                                </tr>
-                            </#list>
-                        <#else>
-                            ${uiLabelMap.WebtoolsNoParametersDefined}
-                        </#if>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <br>
+      <div class="screenlet">
+        <div class="screenlet-title-bar">
+          <h3>${paramList.title}</h3>
+        </div>
+        <#if paramList.paramList?exists && paramList.paramList?has_content>
+          <table class="basic-table" cellspacing='0'>
+              <tr class="header-row">
+                <td>${uiLabelMap.WebtoolsParameterName}</td>
+                <td>${uiLabelMap.WebtoolsOptional}</td>
+                <td>${uiLabelMap.CommonType}</td>
+                <td>${uiLabelMap.WebtoolsMode}</td>
+                <td>${uiLabelMap.WebtoolsIsSetInternally}</td>
+                <td>${uiLabelMap.WebtoolsEntityName}</td>
+                <td>${uiLabelMap.WebtoolsFieldName}</td>
+              </tr>
+              <#list paramList.paramList as params>
+                <tr>
+                  <td>${params.name?if_exists}</td>
+                  <td>${params.optional?if_exists}</td>
+                  <td>${params.type?if_exists}</td>
+                  <td>${params.mode?if_exists}</td>
+                  <td>${params.internal?if_exists}</td>
+                  <td>
+                    <#if params.entityName?exists>
+                      <a href='<@ofbizUrl>${url}?constraint=default_entity_name@${params.entityName}</@ofbizUrl>'>${params.entityName?if_exists}</a>
+                    </#if>
+                  </td>
+                  <td>${params.fieldName?if_exists}</td>
+                </tr>
+              </#list>
+          </table>
+        <#else>
+          <div class="screenlet-body">
+            ${uiLabelMap.WebtoolsNoParametersDefined}
+          </div>
+        </#if>
+      </div>
     </#list>
-	</#if>
-	
+  </#if>
 <#-- No Service selected , we list all-->
 <#elseif servicesList?exists && servicesList?has_content>
 
-    <#-- Show alphabetical index -->
-    <#if serviceNamesAlphaList?exists && serviceNamesAlphaList?has_content>
-        <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-            <tr>
-                <td align='center'>
-                    <#if dispArrList?exists && dispArrList?has_content>
-                        <script language='javascript' type='text/javascript'>
-                            function submitDispForm(){
-                                selObj = document.getElementById('sd');
-                                var dispVar = selObj.options[selObj.selectedIndex].value;
-                                if(dispVar != ''){
-                                    document.getElementById('dispForm').submit();
-                                }
-                            }
-                        </script>
-                        <form id='dispForm' method='post' action='<@ofbizUrl>${url}</@ofbizUrl>'>
-                    </#if>
-                    <#assign isfirst=true>
-                    <#list serviceNamesAlphaList as alpha>
-                        <#if !isfirst>
-                            &nbsp;|&nbsp;
-                        </#if>
-                        <a href='<@ofbizUrl>${url}?constraint=alpha@${alpha}</@ofbizUrl>' class='linktext'>${alpha}</a>
-                        <#assign isfirst=false>
-                    </#list>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <#if dispArrList?exists && dispArrList?has_content>                        
-                            <select id='sd' name='selDisp' onChange='submitDispForm();' class='selectBox'>
-                                <option value='' selected>${uiLabelMap.WebtoolsSelectDispatcher}</option>
-                                <option value='' ></option>
-                                <#list dispArrList as disp>
-                                    <option value='${disp}'>${disp}</option>
-                                </#list>
-                            </select>
-                        </form>
-                    </#if>
-                </td>
-            </tr>
-        </table>
-    </#if>
-
-<br>
-
-    <table border=0 width='100%' cellspacing='0' cellpadding='0' class='boxtop'>
-        <tr>
-            <td align='left'><div class='boxhead'>
-                ${uiLabelMap.WebtoolsServicesListFor} ${dispatcherName?default("NA")}(${servicesFoundCount} ${uiLabelMap.CommonFound})</div>
-            </td>
-            <td align='right'>
-                <a href='<@ofbizUrl>${url}</@ofbizUrl>' class='submenutextright'>${uiLabelMap.CommonListAll}</a>&nbsp;&nbsp;
-            </td>
-        </tr>
-    </table>
-
-    <#assign rowClass='viewManyTR1'>
-    <table border=0 width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-        <tr>
-            <td align='left'><div class='tableheadtext'>
-                ${uiLabelMap.WebtoolsServiceName}</div>
-            </td>
-            <td>&nbsp;&nbsp;</td>
-            <td align='left'><div class='tableheadtext'>
-                ${uiLabelMap.WebtoolsEngineName}</div>
-            </td>
-            <td>&nbsp;&nbsp;</td>
-            <td align='left'><div class='tableheadtext'>
-                ${uiLabelMap.WebtoolsDefaultEntityName}</div>
-            </td>
-            <td>&nbsp;&nbsp;</td>
-            <td align='left'><div class='tableheadtext'>
-                ${uiLabelMap.WebtoolsInvoke}</div>
-            </td>
-            <td>&nbsp;&nbsp;</td>
-            <td align='left'><div class='tableheadtext'>
-                ${uiLabelMap.WebtoolsLocation}</div>
-            </td>
-        </tr>
-
-        <tr>
-            <td align='left' colspan='9'>
-                <hr class='sepbar'>
-            </td>
-        </tr>
-
-        <#list servicesList as service>
-            <tr class='${rowClass}'>
-                <td align='left'>
-                    <a href='<@ofbizUrl>${url}?sel_service_name=${service.serviceName}</@ofbizUrl>' class='linktext'>${service.serviceName}</a>
-                </td>
-                <td>&nbsp;&nbsp;</td>
-                <td align='left'>
-                    <a href='<@ofbizUrl>${url}?constraint=engine_name@${service.engineName?default("NA")}</@ofbizUrl>' class='linktext'>${service.engineName}</a>
-                </td>
-                <td>&nbsp;&nbsp;</td>
-                <td align='left'>
-                    <a href='<@ofbizUrl>${url}?constraint=default_entity_name@${service.defaultEntityName?default("NA")}</@ofbizUrl>' class='linktext'>${service.defaultEntityName}</a>
-                </td>
-                <td>&nbsp;&nbsp;</td>
-                <td align='left'>
-                    <div class='tabletext'>${service.invoke}</div>
-                </td>
-                <td>&nbsp;&nbsp;</td>
-                <td align='left'>
-                    <a href='<@ofbizUrl>${url}?constraint=location@${service.location?default("NA")}</@ofbizUrl>' class='linktext'>${service.location}
-                </td>
-            </tr>
-            <#if rowClass=='viewManyTR1'>
-                <#assign rowClass='viewManyTR2'>
-            <#else>
-                <#assign rowClass='viewManyTR1'>
-            </#if>
+  <#-- Show alphabetical index -->
+  <#if serviceNamesAlphaList?exists && serviceNamesAlphaList?has_content>
+    <form id='dispForm' method='post' action='<@ofbizUrl>${url}</@ofbizUrl>'>
+      <div class="button-bar">
+        <#assign isfirst=true>
+        <#list serviceNamesAlphaList as alpha>
+          <#if !isfirst>
+            |
+          </#if>
+          <a href='<@ofbizUrl>${url}?constraint=alpha@${alpha}</@ofbizUrl>'>${alpha}</a>
+          <#assign isfirst=false>
         </#list>
+        <#if dispArrList?exists && dispArrList?has_content>                        
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <script language='javascript' type='text/javascript'>
+            function submitDispForm(){
+                selObj = document.getElementById('sd');
+                var dispVar = selObj.options[selObj.selectedIndex].value;
+                if(dispVar != ''){
+                    document.getElementById('dispForm').submit();
+                }
+            }
+          </script>
+          <select id='sd' name='selDisp' onChange='submitDispForm();'>
+            <option value='' selected="selected">${uiLabelMap.WebtoolsSelectDispatcher}</option>
+            <option value='' ></option>
+            <#list dispArrList as disp>
+              <option value='${disp}'>${disp}</option>
+            </#list>
+          </select>
+        </#if>
+      </div>
+    </form>
+    <br />
+  </#if>
+
+  <div class="screenlet">
+    <div class="screenlet-title-bar">
+      <h3>${uiLabelMap.WebtoolsServicesListFor} ${dispatcherName?default("NA")} (${servicesFoundCount} ${uiLabelMap.CommonFound})</h3>
+    </div>
+    <table class="basic-table hover-bar" cellspacing='0'>
+      <tr class="header-row">
+        <td>${uiLabelMap.WebtoolsServiceName}</td>
+        <td>${uiLabelMap.WebtoolsEngineName}</td>
+        <td>${uiLabelMap.WebtoolsDefaultEntityName}</td>
+        <td>${uiLabelMap.WebtoolsInvoke}</td>
+        <td>${uiLabelMap.WebtoolsLocation}</td>
+      </tr>
+      <#assign alt_row = false>
+      <#list servicesList as service>
+        <tr<#if alt_row> class="alternate-row"</#if>>
+          <td><a href='<@ofbizUrl>${url}?sel_service_name=${service.serviceName}</@ofbizUrl>'>${service.serviceName}</a></td>
+          <td><a href='<@ofbizUrl>${url}?constraint=engine_name@${service.engineName?default("NA")}</@ofbizUrl>'>${service.engineName}</a></td>
+          <td><a href='<@ofbizUrl>${url}?constraint=default_entity_name@${service.defaultEntityName?default("NA")}</@ofbizUrl>'>${service.defaultEntityName}</a></td>
+          <td>${service.invoke}</td>
+          <td><a href='<@ofbizUrl>${url}?constraint=location@${service.location?default("NA")}</@ofbizUrl>'>${service.location}</a></td>
+        </tr>
+        <#assign alt_row = !alt_row>
+      </#list>
     </table>
+  </div>
 <#else>
-    <table border=0 width='100%' cellspacing='2' cellpadding='5' class='boxoutside'>
-        <tr>
-            <td align='left' class='tableheadtext'>
-                ${uiLabelMap.WebtoolsNoServicesFound}...
-            <td>
-            <td align='right'>
-                <a href='<@ofbizUrl>${url}</@ofbizUrl>' class='linktext'>${uiLabelMap.CommonListAll}</a>&nbsp;&nbsp;
-            </td>
-        </tr>    
-    </table>
+  ${uiLabelMap.WebtoolsNoServicesFound}.
+  <a href='<@ofbizUrl>${url}</@ofbizUrl>' class="smallSubmit">${uiLabelMap.CommonListAll}</a>
 </#if>

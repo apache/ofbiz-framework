@@ -17,7 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<!-- begin StatsSinceStart.ftl -->
 <h1>${uiLabelMap.WebtoolsStatsMainPageTitle}</h1>
 <br />
 <div class="button-bar"><a href="<@ofbizUrl>StatsSinceStart?clear=true</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsClearSince}</a>

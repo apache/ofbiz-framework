@@ -17,26 +17,27 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.WebtoolsImportToDataSource}</div>
-<div class="tabletext">${uiLabelMap.WebtoolsMessage5}.</div>
+<h1>${uiLabelMap.WebtoolsImportToDataSource}</h1>
+<br />
+<p>${uiLabelMap.WebtoolsMessage5}.</p>
 <hr/>
-  <div class="head2">${uiLabelMap.WebtoolsImport}:</div>
+<h2>${uiLabelMap.WebtoolsImport}:</h2>
 
   <form method="post" action="<@ofbizUrl>entityImportDir</@ofbizUrl>">
-    <div class="tabletext">${uiLabelMap.WebtoolsAbsolutePath}:</div>
-    <div><input type="text" class="inputBox" size="60" name="path" value="${path?if_exists}"/></div>
-    <div class="tabletext"><input type="checkbox" name="mostlyInserts" <#if mostlyInserts?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsMostlyInserts}</div>
-    <div class="tabletext"><input type="checkbox" name="maintainTimeStamps" <#if keepStamps?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}</div>
-    <div class="tabletext"><input type="checkbox" name="createDummyFks" <#if createDummyFks?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}</div>
-    <div class="tabletext"><input type="checkbox" name="deleteFiles" <#if (deleteFiles?exists)>checked="checked"</#if>/>${uiLabelMap.WebtoolsDeleteFiles}</div>
-    <div class="tabletext">${uiLabelMap.WebtoolsTimeoutSeconds}:<input type="text" size="6" value="${txTimeoutStr?default("7200")}" name="txTimeout"/></div>
-    <div class="tabletext">${uiLabelMap.WebtoolsPause}:<input type="text" size="6" value="${filePauseStr?default("0")}" name="filePause"/></div>
-    <div><input type="submit" value="${uiLabelMap.WebtoolsImportFile}"/></div>
+    ${uiLabelMap.WebtoolsAbsolutePath}:<br />
+    <input type="text" size="60" name="path" value="${path?if_exists}"/><br />
+    <input type="checkbox" name="mostlyInserts" <#if mostlyInserts?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsMostlyInserts}<br />
+    <input type="checkbox" name="maintainTimeStamps" <#if keepStamps?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}<br />
+    <input type="checkbox" name="createDummyFks" <#if createDummyFks?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}<br />
+    <input type="checkbox" name="deleteFiles" <#if (deleteFiles?exists)>checked="checked"</#if>/>${uiLabelMap.WebtoolsDeleteFiles}<br />
+    ${uiLabelMap.WebtoolsTimeoutSeconds}:<input type="text" size="6" value="${txTimeoutStr?default("7200")}" name="txTimeout"/><br />
+    ${uiLabelMap.WebtoolsPause}:<input type="text" size="6" value="${filePauseStr?default("0")}" name="filePause"/><br />
+    <div class="button-bar"><input type="submit" value="${uiLabelMap.WebtoolsImportFile}"/></div>
   </form>
-  <hr/>
   <#if messages?exists>
-    <div class="head1">${uiLabelMap.WebtoolsResults}:</div>
+    <hr/>
+    <h1>${uiLabelMap.WebtoolsResults}:</h1>
     <#list messages as message>
-        <div class="tabletext">${message}</div>
+        <p>${message}</p>
     </#list>
   </#if>

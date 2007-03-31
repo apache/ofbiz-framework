@@ -32,9 +32,9 @@ under the License.
       <td>${uiLabelMap.CommonEndDateTime}</td>
       <td>&nbsp;</td>
     </tr>
-    <#assign rowNum = "2">
+    <#assign alt_row = false>
     <#list jobs as job>
-      <tr<#if rowNum == "1"> class="alternate-row"</#if>>
+      <tr<#if alt_row> class="alternate-row"</#if>>
         <td>${job.jobName?if_exists}&nbsp;</td>
         <td>${job.jobId?if_exists}&nbsp;</td>
         <td>${job.poolId?if_exists}&nbsp;</td>
@@ -53,11 +53,7 @@ under the License.
           </#if>
         </td>
       </tr>
-      <#if rowNum == "2">
-        <#assign rowNum = "1">
-      <#else>
-        <#assign rowNum = "2">
-      </#if>
+      <#assign alt_row = !alt_row>
     </#list>
   </table>
 </div>

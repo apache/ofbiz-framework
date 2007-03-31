@@ -81,11 +81,7 @@ under the License.
                 <td>${field?if_exists}</td>
             </#list>
             </tr>
-            <#if alt_row>
-              <#assign alt_row = false>
-            <#else>
-              <#assign alt_row = true>
-            </#if>
+            <#assign alt_row = !alt_row>
         </#list>
         </#if>
     </table>
