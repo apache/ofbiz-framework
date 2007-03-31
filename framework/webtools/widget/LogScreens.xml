@@ -79,8 +79,8 @@ under the License.
                 <link target="LogView" text="${uiLabelMap.CommonRefresh}" style="buttontext"/>
             </container>
             <container>
-                <label style="tableheadtext">${uiLabelMap.WebtoolsLogFileName}:</label>
-                <label style="tabletext">${logFileName}</label>
+                <label style="label">${uiLabelMap.WebtoolsLogFileName}:</label>
+                <label>${logFileName}</label>
             </container>
             <platform-specific>
                 <html><html-template location="component://webtools/webapp/webtools/log/logContent.ftl"/></html>

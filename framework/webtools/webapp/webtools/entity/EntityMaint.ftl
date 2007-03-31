@@ -51,13 +51,12 @@ under the License.
       <#if right_col>
         <td>&nbsp;</td><td>&nbsp;</td></tr>
         <#assign right_col = false>
-        <#if alt_row>
-          <#assign alt_row = false>
-        <#else>
-          <#assign alt_row = true>
-        </#if>
+        <#assign alt_row = !alt_row>
       </#if>
-      <#if firstChar != "*"><tr class="header-row"><td colspan="4">&nbsp;</td></tr></#if>
+      <#if firstChar != "*">
+        <tr<#if alt_row> class="alternate-row"</#if>><td colspan="4">&nbsp;</td></tr>
+        <#assign alt_row = !alt_row>
+      </#if>
       <#assign firstChar = entity.entityName?substring(0, 1)>
       <#assign anchor="id=\"Entity_${firstChar}\"">
     </#if>
@@ -87,15 +86,9 @@ under the License.
     </td>
     <#if right_col>
       </tr>
-      <#if alt_row>
-        <#assign alt_row = false>
-      <#else>
-        <#assign alt_row = true>
-      </#if>
-      <#assign right_col = false>
-    <#else>
-      <#assign right_col = true>
+      <#assign alt_row = !alt_row>
     </#if>
+    <#assign right_col = !right_col>
   </#list>
   <#if right_col>
     <td>&nbsp;</td><td>&nbsp;</td></tr>

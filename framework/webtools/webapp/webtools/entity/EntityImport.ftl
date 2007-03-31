@@ -17,33 +17,34 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.WebtoolsImportToDataSource}</div>
-<div>${uiLabelMap.WebtoolsMessage5}.</div>
+<h1>${uiLabelMap.WebtoolsImportToDataSource}</h1>
+<br />
+<p>${uiLabelMap.WebtoolsMessage5}.</p>
 <hr/>
-  <div class="head2">${uiLabelMap.WebtoolsImport}:</div>
+<h2>${uiLabelMap.WebtoolsImport}:</h2>
+<br />
 
   <form method="post" action="<@ofbizUrl>entityImport</@ofbizUrl>">
-    <div class="tabletext">${uiLabelMap.WebtoolsMessage6}:</div>
-    <div><input type="text" class="inputBox" size="60" name="fmfilename" value="${fmfilename?if_exists}"/></div>
-    <div class="tabletext">${uiLabelMap.WebtoolsMessage7}:</div>
-    <div><input type="text" class="inputBox" size="60" name="filename" value="${filename?if_exists}"/></div>
-    <div class="tabletext"><input type="checkbox" name="isUrl" <#if isUrl?exists>"checked"</#if>/>${uiLabelMap.WebtoolsIsURL}</div>
-    <div class="tabletext"><input type="checkbox" name="mostlyInserts" <#if mostlyInserts?exists>"checked"</#if>/>${uiLabelMap.WebtoolsMostlyInserts}</div>
-    <div class="tabletext"><input type="checkbox" name="maintainTimeStamps" <#if keepStamps?exists>"checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}</div>
-    <div class="tabletext"><input type="checkbox" name="createDummyFks" <#if createDummyFks?exists>"checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}</div>
-    <div class="tabletext">${uiLabelMap.WebtoolsTimeoutSeconds}:<input type="text" size="6" value="${txTimeoutStr?default("7200")}" name="txTimeout"/></div>
-    <div><input type="submit" value="${uiLabelMap.WebtoolsImportFile}"/></div>
+    ${uiLabelMap.WebtoolsMessage6}:<br />
+    <input type="text" size="60" name="fmfilename" value="${fmfilename?if_exists}"/><br />
+    ${uiLabelMap.WebtoolsMessage7}:<br />
+    <input type="text" size="60" name="filename" value="${filename?if_exists}"/><br />
+    <input type="checkbox" name="isUrl" <#if isUrl?exists>"checked"</#if>/>${uiLabelMap.WebtoolsIsURL}<br />
+    <input type="checkbox" name="mostlyInserts" <#if mostlyInserts?exists>"checked"</#if>/>${uiLabelMap.WebtoolsMostlyInserts}<br />
+    <input type="checkbox" name="maintainTimeStamps" <#if keepStamps?exists>"checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}<br />
+    <input type="checkbox" name="createDummyFks" <#if createDummyFks?exists>"checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}<br />
+    ${uiLabelMap.WebtoolsTimeoutSeconds}:<input type="text" size="6" value="${txTimeoutStr?default("7200")}" name="txTimeout"/><br />
+    <div class="button-bar"><input type="submit" value="${uiLabelMap.WebtoolsImportFile}"/></div>
   </form>
   <form method="post" action="<@ofbizUrl>entityImport</@ofbizUrl>">
-    <div class="tabletext">${uiLabelMap.WebtoolsMessage4}:</div>
-    <textarea class="textAreaBox" rows="20" cols="85" name="fulltext">${fulltext?default("<entity-engine-xml>
-</entity-engine-xml>")}</textarea>
-    <br/><input type="submit" value="${uiLabelMap.WebtoolsImportText}"/>
+    ${uiLabelMap.WebtoolsMessage4}:<br />
+    <textarea rows="20" cols="85" name="fulltext">${fulltext?default("<entity-engine-xml>\n</entity-engine-xml>")}</textarea>
+    <div class="button-bar"><input type="submit" value="${uiLabelMap.WebtoolsImportText}"/></div>
   </form>
-  <hr/>
   <#if messages?exists>
+      <hr/>
       <h3>${uiLabelMap.WebtoolsResults}:</h3>
       <#list messages as message>
-          <div class="tabletext">${message}</div>
+          <p>${message}</p>
       </#list>
   </#if>

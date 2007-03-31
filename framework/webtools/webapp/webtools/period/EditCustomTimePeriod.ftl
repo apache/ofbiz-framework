@@ -179,7 +179,7 @@ under the License.
                 </#list>
               </select>
             </td>
-            <td><input type="text" class='inputBox' size='12' name="organizationPartyId" value="${customTimePeriod.organizationPartyId?if_exists}"></td>
+            <td><input type="text" size='12' name="organizationPartyId" value="${customTimePeriod.organizationPartyId?if_exists}"></td>
             <td>
               <select name="periodTypeId">
                 <#list periodTypes as periodType>

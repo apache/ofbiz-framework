@@ -17,28 +17,27 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.WebtoolsExportFromDataSource}</div>
-<div class="tabletext">
+<h1>${uiLabelMap.WebtoolsExportFromDataSource}</h1>
+<br />
+<p>
     ${uiLabelMap.WebtoolsMessage1}. 
     ${uiLabelMap.WebtoolsMessage2}.
     ${uiLabelMap.WebtoolsMessage3}.
-</div>
-<hr/>
-    
-<div class="head2">${uiLabelMap.WebtoolsResults}:</div>
-
+</p>
 <#if results?has_content>
+    <hr/>
+    <h2>${uiLabelMap.WebtoolsResults}:</h2>
     <#list results as result>
-        <div class="tabletext">${result}</div>
+        <p>${result}</p>
     </#list>
 </#if>
 
 <hr/>
 
-<div class="head2">${uiLabelMap.WebtoolsExport}:</div>
+<h2>${uiLabelMap.WebtoolsExport}:</h2>
 <form method="post" action="<@ofbizUrl>entityExportAll</@ofbizUrl>">
-    <div class="tabletext">${uiLabelMap.WebtoolsOutputDirectory}: <input type="text" class="inputBox" size="60" name="outpath" value="${outpath?if_exists}"></div>
-    <div class="tabletext">${uiLabelMap.WebtoolsTimeoutSeconds}: <input type="text" size="6" value="${txTimeout?default('7200')}" name="txTimeout"/></div>
-    <br/>
+    ${uiLabelMap.WebtoolsOutputDirectory}: <input type="text" size="60" name="outpath" value="${outpath?if_exists}"><br />
+    ${uiLabelMap.WebtoolsTimeoutSeconds}: <input type="text" size="6" value="${txTimeout?default('7200')}" name="txTimeout"/><br />
+    <br />
     <input type="submit" value="${uiLabelMap.WebtoolsExport}">
 </form>

@@ -21,9 +21,8 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     
-    <menu name="WebtoolsAppBar" default-menu-item-name="main" default-selected-style="headerButtonLeftSelected" selected-menuitem-context-field-name="appButtonItem"
-        default-title-style="tabButton" default-tooltip-style="tabletext" default-widget-style="headerButtonLeft" 
-        default-align-style="col" menu-container-style="row" fill-style="col-fill" orientation="horizontal" type="simple">
+    <menu name="WebtoolsAppBar" default-menu-item-name="main" default-selected-style="selected" selected-menuitem-context-field-name="appButtonItem"
+        menu-id="app-navigation" type="simple">
         <menu-item name="main" title="Main"><link target="main"/></menu-item>
         <menu-item name="cache" title="Cache"><link target="FindUtilCache"/></menu-item>
         <menu-item name="entity" title="Entity"><link target="entitymaint"/></menu-item>

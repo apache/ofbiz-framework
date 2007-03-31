@@ -18,28 +18,28 @@ under the License.
 -->
 
 <form method="post" action="<@ofbizUrl>saveServiceResultsToSession</@ofbizUrl>"
-<table cellpadding="2" cellspacing="0" border="1" width="100%">
-  <tr>
-    <td><div class="tableheadtext">parameter</div></td>
-    <td><div class="tableheadtext">value</div></td>
-    <td><div class="tableheadtext">save value?</div></td>
+<table class="basic-table dark-grid" cellspacing="0">
+  <tr class="header-row">
+    <td>parameter</td>
+    <td>value</td>
+    <td>save value?</td>
   </tr>
 
   <#list serviceResultList as srl>
-  <tr>
+    <tr>
       <#if srl.hasChild=="Y">
-          <td><div class="tabletext"><a href="<@ofbizUrl>/serviceResult?servicePath=</@ofbizUrl><#if parameters.servicePath?exists>${parameters.servicePath}||</#if>${srl.key?if_exists}">${srl.key?if_exists}</a></div></td>    
+        <td><a href="<@ofbizUrl>/serviceResult?servicePath=</@ofbizUrl><#if parameters.servicePath?exists>${parameters.servicePath}||</#if>${srl.key?if_exists}">${srl.key?if_exists}</a></td>
       <#else>
-          <td><div class="tabletext">${srl.key?if_exists}</div></td>
+        <td>${srl.key?if_exists}</td>
       </#if>
-    <td><div class="tabletext">${srl.value?if_exists}</div></td>
-    <td><div class="tabletext"><input type="checkbox" name="<#if parameters.servicePath?exists>${parameters.servicePath}||</#if>${srl.key?if_exists}" /></div></td>
-  </tr>
+      <td>${srl.value?if_exists}</td>
+      <td><input type="checkbox" name="<#if parameters.servicePath?exists>${parameters.servicePath}||</#if>${srl.key?if_exists}" /></td>
+    </tr>
   </#list>
 
   <tr>
-    <td><div class="tabletext">&nbsp</div></td>
-    <td><div class="tabletext">Clear previous params? <input type="checkbox" name="_CLEAR_PREVIOUS_PARAMS_" /></div></td>
-    <td><div class="tabletext"><input type="submit" value="submit" /></div></td>
+    <td>&nbsp</td>
+    <td>Clear previous params? <input type="checkbox" name="_CLEAR_PREVIOUS_PARAMS_" /></td>
+    <td><input type="submit" value="submit" /></td>
   </tr>
 </table>

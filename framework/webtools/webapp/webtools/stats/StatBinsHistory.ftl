@@ -17,7 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<!-- begin StatsBinsHistory.ftl -->
 <h1>${uiLabelMap.WebtoolsStatsBinsPageTitle}</h1>
 <br />
 <div class="button-bar"><a href="<@ofbizUrl>StatsSinceStart</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsMainPageTitle}</a>
