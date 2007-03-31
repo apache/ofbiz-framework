@@ -52,7 +52,7 @@ under the License.
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductCategoryAndMember" key-field-name="productCategoryId" description="${categoryName} [${productCategoryId}]">
                     <entity-constraint name="productId" env-name="product.productId"/>
-                    <entity-order-by field-name="description"/>
+                    <entity-order-by field-name="categoryName"/>
                 </entity-options>
             </drop-down>
         </field>
