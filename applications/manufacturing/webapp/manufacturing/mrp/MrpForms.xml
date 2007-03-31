@@ -37,4 +37,39 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
+    
+    <form name="ListRunningMrpJobs" list-name="mrpActiveJobs" title="" type="list">
+        <auto-fields-entity entity-name="JobSandbox" default-field-type="display"/>
+        <field name="statusId">
+            <display-entity entity-name="StatusItem" description="${description}"></display-entity>
+        </field>
+        <field name="poolId"><hidden/></field>
+        <field name="parentJobId"><hidden/></field>
+        <field name="previousJobId"><hidden/></field>
+        <field name="loaderName"><hidden/></field>
+        <field name="runAsUser"><hidden/></field>
+        <field name="runByInstanceId"><hidden/></field>
+        <field name="runtimeDataId"><hidden/></field>
+        <field name="recurrenceInfoId"><hidden/></field>
+        <field name="serviceName"><hidden/></field>
+        <field name="startDateTime"><hidden/></field>
+        <field name="finishDateTime"><hidden/></field>
+        <field name="cancelDateTime"><hidden/></field>
+    </form>
+    <form name="ListFinishedMrpJobs" list-name="lastFinishedJobs" title="" type="list">
+        <auto-fields-entity entity-name="JobSandbox" default-field-type="display"/>
+        <field name="statusId">
+            <display-entity entity-name="StatusItem" description="${description}"></display-entity>
+        </field>
+        <field name="poolId"><hidden/></field>
+        <field name="parentJobId"><hidden/></field>
+        <field name="previousJobId"><hidden/></field>
+        <field name="loaderName"><hidden/></field>
+        <field name="runAsUser"><hidden/></field>
+        <field name="runByInstanceId"><hidden/></field>
+        <field name="runtimeDataId"><hidden/></field>
+        <field name="recurrenceInfoId"><hidden/></field>
+        <field name="serviceName"><hidden/></field>
+    </form>
+
 </forms>
