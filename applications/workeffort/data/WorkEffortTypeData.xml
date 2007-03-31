@@ -250,6 +250,7 @@ under the License.
     <StatusValidChange statusId="PRUN_CREATED" statusIdTo="PRUN_RUNNING" transitionName="Start"/>
     <StatusValidChange statusId="PRUN_SCHEDULED" statusIdTo="PRUN_DOC_PRINTED" transitionName="Confirm"/>
     <StatusValidChange statusId="PRUN_SCHEDULED" statusIdTo="PRUN_RUNNING" transitionName="Start"/>
+    <StatusValidChange statusId="PRUN_SCHEDULED" statusIdTo="PRUN_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange statusId="PRUN_DOC_PRINTED" statusIdTo="PRUN_RUNNING" transitionName="Start"/>
     <StatusValidChange statusId="PRUN_RUNNING" statusIdTo="PRUN_COMPLETED" transitionName="Complete"/>
     <StatusValidChange statusId="PRUN_COMPLETED" statusIdTo="PRUN_CLOSED" transitionName="Close"/>
