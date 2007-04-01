@@ -100,9 +100,13 @@ under the License.
   <!-- ELEMENTS start here -->
     <xs:element name="field">
         <xs:annotation>
-            <xs:documentation>
-                Typical field-name/map-name pair. With the "." Syntax, the map-name is typically no longer necessary because
-                you can do map-name.field-name in the field-name attribute, but those are still there for legacy purposes.                                                                
+            <xs:documentation>                
+                Used to specify a field to be passed as an argument to the method call. 
+                The field can be in a map in the environment or if no map-name is specified 
+                then the field will come directly from the environment.
+                
+                With the "." Syntax, the map-name is typically no longer necessary because
+                you can do map-name.field-name in the field-name attribute, but those are still there for legacy purposes.                
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -570,6 +574,12 @@ under the License.
             </xs:annotation>                                    
         </xs:attribute>
         <xs:attribute name="require-new-transaction" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Defines if the simple-method requires a new transaction or not.
+                    Defaults to "false".
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -577,7 +587,14 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="transaction-timeout"/>
+        <xs:attribute type="xs:string" name="transaction-timeout">
+            <xs:annotation>
+                <xs:documentation>
+                    Defines the time out for the transaction, in milliseconds.
+                    None by defaults.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="error-prefix">
         <xs:annotation>
@@ -860,7 +877,13 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.call-bsh">
-        <xs:attribute type="xs:string" name="resource"/>
+        <xs:attribute type="xs:string" name="resource">
+            <xs:annotation>
+                <xs:documentation>
+                    Name of a properties file on the classpath.
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
         <xs:attribute type="xs:string" name="error-list-name" default="error_list">
             <xs:annotation>
                 <xs:documentation>
@@ -922,15 +945,7 @@ under the License.
                         </xs:documentation>
                     </xs:annotation>            
                 </xs:element>
-                <xs:element ref="field">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Used to specify a field to be passed as an argument to the method call. 
-                            The field can be in a map in the environment or if no map-name is specified 
-                            then the field will come directly from the environment.
-                        </xs:documentation>
-                    </xs:annotation>                                
-                </xs:element>
+                <xs:element ref="field"/>
             </xs:choice>
             <xs:attributeGroup ref="attlist.call-object-method"/>
         </xs:complexType>
@@ -999,12 +1014,12 @@ under the License.
                 <xs:element ref="field">
                     <xs:annotation>
                         <xs:documentation>
-                            Used to specify a field to be passed as an argument to the method call. 
+                            Used to specify a field to be passed as an argument to the constructor method. 
                             The field can be in a map in the environment or if no map-name is specified then 
-                            the field will come directly from the environment.
+                            the field will come directly from the environment. 
                         </xs:documentation>
                     </xs:annotation>                    
-                </xs:element>
+                </xs:element>                
             </xs:choice>
             <xs:attributeGroup ref="attlist.call-class-method"/>
         </xs:complexType>
@@ -1054,16 +1069,16 @@ under the License.
                 <xs:element ref="field">
                     <xs:annotation>
                         <xs:documentation>
-                            Used to specify an inline String argument to the constructor method. 
+                            Used to specify a field to be passed as an argument to the constructor method. 
+                            The field can be in a map in the environment or if no map-name is specified then 
+                            the field will come directly from the environment. 
                         </xs:documentation>
                     </xs:annotation>                                
                 </xs:element>
                 <xs:element ref="string">
                     <xs:annotation>
                         <xs:documentation>
-                            Used to specify a field to be passed as an argument to the constructor method. 
-                            The field can be in a map in the environment or if no map-name is specified then 
-                            the field will come directly from the environment. 
+                            Used to specify an inline String argument to the method call.
                         </xs:documentation>
                     </xs:annotation>            
                 </xs:element>
@@ -1206,7 +1221,8 @@ under the License.
         <xs:attribute type="xs:string" name="request-name">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the request attribute to use. Defaults to the field-name.
+                    The name of the request attribute to use. 
+                    Defaults to the field-name.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -1233,7 +1249,8 @@ under the License.
         <xs:attribute type="xs:string" name="list-name">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the list in the method environment that the request parameter values will be appended to. (default: request-name)
+                    The name of the list in the method environment that the request parameter values will be appended to. 
+                    (default: request-name)
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -1296,7 +1313,8 @@ under the License.
         <xs:attribute type="xs:string" name="resource" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    The resource location of the properties file inside the webapp, and relative to the root of the webapp (can be inside a war file). 
+                    The resource location of the properties file inside the webapp, 
+                    and relative to the root of the webapp (can be inside a war file). 
                     An example of this is "/WEB-INF/myprops.properties".
                 </xs:documentation>
             </xs:annotation>
@@ -1450,7 +1468,7 @@ under the License.
         <xs:attribute type="xs:string" name="to-list-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    Name of the list to copy to
+                    Name of the list to copy to.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -1480,14 +1498,16 @@ under the License.
     <xs:element name="set" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
-                Move a value from one field to another field. 
+                Move a value from one field to another field.
                 You can also take a value, just a string constant or a string
                 that is made up of a mixture of constant and flexible
-                string expansion variables, the ${} things, that will be
+                string expansion variables using the ${} syntax, that will be
                 put in the field.
+                
                 You can also specify a default value in the case that the
                 value evaluates to an empty string or the from field is
                 null or empty. Then the default-value will be used.
+                
                 Again you can use the flexible string expander here, the
                 ${} syntax and such. It can also do a type conversion,
                 so going from whatever type the source data is in,
@@ -1555,8 +1575,8 @@ under the License.
         <xs:attribute name="set-if-null" default="false">
             <xs:annotation>
                 <xs:documentation>
-                    If the source variable is null it should set it on the new field, and the default for that is false. 
-                    If the source variable is null it will leave the target field as it was.
+                    Specifies whether or not to set fields that are null or empty. 
+                    Defaults to true.
                 </xs:documentation>
             </xs:annotation>            
             <xs:simpleType>
@@ -1570,8 +1590,10 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     If the source value, either from a value or from a field, is empty, and
-                    empty-string an empty list or a null value. In this case
-                    it's set to true. If you don't want to set, if you want it to
+                    empty-string an empty list or a null value. 
+                    In this case it's set to true. 
+                    
+                    If you don't want to set, if you want it to
                     leave the target field alone when the source is empty,
                     then you need to set this to false.
                 </xs:documentation>
@@ -1602,10 +1624,10 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     The field that you want string-append to operate on. 
-                    This is the target field where the value will be put, and this is the string to append to
-                    that field. So if the field does not exist then it will create
-                    a new field with this string value. If it does exist then it
-                    will append this string value to the end.
+                    This is the target field where the value will be put, and this is the string to append to that field. 
+
+                    So if the field does not exist then it will create a new field with this string value. 
+                    If it does exist then it will append this string value to the end.
                 </xs:documentation>
             </xs:annotation>            
         </xs:attribute>
@@ -1630,6 +1652,7 @@ under the License.
                     the string using the object in the standard Java library
                     that does this sort of string expresison with a { } brackets
                     and a number, no dollar sign.
+                    
                     This pattern of the arg-list-name with the prefix and
                     suffix is something form the early days which is still
                     supported, but the best thing to do here is just use the
@@ -1660,7 +1683,8 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 Take a string literally that can also have a flexible string expander and such in it, 
-                and it will add it to a list. 
+                and it will add it to a list.
+                 
                 Note that you can have an arg-listname for using the standard
                 Java style argument list where you have in the source
                 string numbers inside of { } brackets that represent the
@@ -1693,6 +1717,7 @@ under the License.
                     the string using the object in the standard Java library
                     that does this sort of string expresison with a { } brackets
                     and a number, no dollar sign.
+                    
                     This pattern of the arg-list-name with the prefix and
                     suffix is something form the early days which is still
                     supported, but the best thing to do here is just use the
@@ -1792,7 +1817,7 @@ under the License.
         <xs:attribute type="xs:string" name="entry-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    he name of the method environment field that will contain the first entry in the list.
+                    The name of the method environment field that will contain the first entry in the list.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -1932,7 +1957,14 @@ under the License.
     <xs:element name="make-next-seq-id" substitutionGroup="EntityMiscOperations">
         <xs:annotation>
             <xs:documentation>
-                
+                Sequenced-id-to-env is the primary key sequencer.                
+                Make-next-seq-id is the secondary key sequencer. So
+                this would be something like an orderId for example,
+                where we're sequencing an orderId automatically. And
+                this would be something like an orderItemSequenceId,
+                where we have a sub-sequence that varies for order
+                item records related back to an orderHeader. So all of
+                them will have the same orderId.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -1943,28 +1975,41 @@ under the License.
         <xs:attribute type="xs:string" name="value-name" use="required">
             <xs:annotation>
                 <xs:documentation>
+                    Specify the name of the entity for a sequenced-id-to-env preparing the primarySequencedId.
+                    The name of the entity is typically what we use for the sequenced name, but you can use anything
+                    you want if you want to have different sets of sequences.
                     
+                    The risk of course of many different sets of sequences
+                    for the same entity is unless you somehow prefix or
+                    suffix the value, you could have a key conflict. So we
+                    just use the entity name for these primary sequences.                    
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="seq-field-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    The field that will have the sub-sequenced value.
+                    We use the seqId suffix on the field names in the OFBiz
+                    data model to denote that that field is a secondary sequenced ID 
+                    and should therefore be maintained for this sort of operation.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="numeric-padding" default="5">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Since these are eventually strings we do numeric-padding so that the sort is consistent, 
+                    By default we pad it with five positions.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="increment-by" default="1">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Default to 1.
+                    If you want to leave some space in the sub-sequence you
+                    can use a greater increment.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -1973,7 +2018,16 @@ under the License.
     <xs:element name="entity-data" substitutionGroup="EntityMiscOperations">
         <xs:annotation>
             <xs:documentation>
+                Specify the location of an XML file that should be in the same format as any
+                of the entity engine XML files, or the entity engine transformed
+                XML files. And what this will do is either load or
+                assert that file depending on the mode.
                 
+                If it finds the record but any of the fields are different,
+                this is in the assert mode still, it will report any field
+                that's different in a message on the error list. So that's
+                basically what you can in essence assert, that a certain
+                set of data exists in the database. 
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -1984,21 +2038,21 @@ under the License.
         <xs:attribute type="xs:string" name="location" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Specify the location of an XML file to load in database or verify in assert mode.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="delegator-name" use="optional">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Overrides the delegator or default context by specifying a delegator-name. 
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:integer" name="timeout" default="-1">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Override the timeout to start a new transaction and load the data with a longer timeout.     
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2013,13 +2067,27 @@ under the License.
         <xs:attribute name="mode" default="load">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    "load" or "assert". Default to "load".
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
-                    <xs:enumeration value="load"/>
-                    <xs:enumeration value="assert"/>
+                    <xs:enumeration value="load">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Load the file into the database.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="assert">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Go through each row in the file, each record, and it
+                                will look that up by primary key. If it does not find it, it'll
+                                add a message to the error list about not having found it.                                                                
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -2111,7 +2179,10 @@ under the License.
         <xs:attribute type="xs:string" name="order-by-list-name">
             <xs:annotation>
                 <xs:documentation>
-                    The name of a list in the method environment that contains a list of strings specifying fields to order the results by.
+                    This will be a list sitting in the context that has string entries in it for each field that you want it to order by/
+                    Each field in the list, or each entry in the list, will just be a string with a field name. 
+                    It can be preceded by a plus or a minus to specify an ascending or descending sort for that. 
+                    The default is ascending sort, so you just put a minus in front of the field-name if you want it to be descending.                     
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2225,11 +2296,10 @@ under the License.
     <xs:element name="entity-and" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                Does a find-by-and, returns a list if values are found, otherwise returns null.
+                Does a find-by-and, returns a list of Generic values if any are found, otherwise returns null.
                 Uses name/value pairs, that will be used for the query and will all be "anded" together.
 
-                The result-set-type by
-                default is scroll which is flexible so you can go forward
+                The result-set-type by default is scroll which is flexible so you can go forward.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -2294,7 +2364,7 @@ under the License.
         <xs:attribute name="list-name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the list where to put results.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2302,41 +2372,18 @@ under the License.
     <xs:element name="entity-condition" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                
+                Like entity-and returns a list of Generic values if any are found, otherwise returns null.
+                Uses any of condition-expression, condition-list and condition-object.                
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:choice minOccurs="0">
-                    <xs:element ref="condition-expr">
-                        <xs:annotation>
-                            <xs:documentation>
-                                
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element ref="condition-list">
-                        <xs:annotation>
-                            <xs:documentation>
-                                
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element ref="condition-object">
-                        <xs:annotation>
-                            <xs:documentation>
-                                
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
+                    <xs:element ref="condition-expr"/>                
+                    <xs:element ref="condition-list"/>
+                    <xs:element ref="condition-object"/>
                 </xs:choice>
-                <xs:element minOccurs="0" ref="having-condition-list">
-                    <xs:annotation>
-                        <xs:documentation>
-                            
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
+                <xs:element minOccurs="0" ref="having-condition-list"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field">
                     <xs:annotation>
                         <xs:documentation>
@@ -2346,13 +2393,7 @@ under the License.
                 </xs:element>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by"/>
                 <xs:choice minOccurs="0">
-                    <xs:element ref="limit-range">
-                        <xs:annotation>
-                            <xs:documentation>
-                                
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
+                    <xs:element ref="limit-range"/>
                     <xs:element ref="limit-view"/>
                     <xs:element ref="use-iterator"/>
                 </xs:choice>
@@ -2364,7 +2405,7 @@ under the License.
         <xs:attribute name="entity-name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of entity to search in.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2396,7 +2437,8 @@ under the License.
         <xs:attribute name="distinct" default="false">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Filter the results making sure that all of them are unique.
+                    Defaults to false.
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -2409,14 +2451,15 @@ under the License.
         <xs:attribute name="delegator-name" type="xs:string">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of a delegator to use. 
+                    By default uses the delegator associated with that instance of the service engine.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="list-name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the list where to put results.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2424,32 +2467,18 @@ under the License.
     <xs:element name="condition-list">
         <xs:annotation>
             <xs:documentation>
-                
+                A condition-list is a list of conditions that are combined with either and or or. 
+                The default is and.
+
+                You can have condition-lists under condition-list, for building fairly complex condition trees, 
+                and you can also drop in condition-objects at any point.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
-                <xs:element ref="condition-expr">
-                    <xs:annotation>
-                        <xs:documentation>
-                            
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element ref="condition-list">
-                    <xs:annotation>
-                        <xs:documentation>
-                            
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element ref="condition-object">
-                    <xs:annotation>
-                        <xs:documentation>
-                            
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
+                <xs:element ref="condition-expr"/>                
+                <xs:element ref="condition-list"/>
+                <xs:element ref="condition-object"/>
             </xs:choice>
             <xs:attributeGroup ref="attlist.condition-list"/>
         </xs:complexType>
@@ -2458,7 +2487,7 @@ under the License.
         <xs:attribute name="combine" default="and">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    "or" or "and", defaults to and.
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -2472,32 +2501,14 @@ under the License.
     <xs:element name="having-condition-list">
         <xs:annotation>
             <xs:documentation>
-                
+                Similar to condition-list but relates to SQL grouping : having-condition runs after the grouping.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
-                <xs:element ref="condition-expr">
-                    <xs:annotation>
-                        <xs:documentation>
-                            
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element ref="condition-list">
-                    <xs:annotation>
-                        <xs:documentation>
-                            
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element ref="condition-object">
-                    <xs:annotation>
-                        <xs:documentation>
-                            
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
+                <xs:element ref="condition-expr"/>                
+                <xs:element ref="condition-list"/>
+                <xs:element ref="condition-object"/>
             </xs:choice>
             <xs:attributeGroup ref="attlist.having-condition-list"/>
         </xs:complexType>
@@ -2506,7 +2517,7 @@ under the License.
         <xs:attribute name="combine" default="and">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    "or" or "and", defaults to and.
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -2520,7 +2531,10 @@ under the License.
     <xs:element name="condition-expr">
         <xs:annotation>
             <xs:documentation>
-                
+                Basically combines a field, an SQL operator and a variable or a value.
+                The variable is actually a field in the context : env-name.  
+                There are some options to ignore the condition if the env-name or value is empty or null. 
+                Or to ignore case.                 
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -2531,14 +2545,19 @@ under the License.
         <xs:attribute name="field-name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the field to apply operator on, combined with env-name or value.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="operator" default="equals">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Operator to apply to field-name and env-name or value.
+                    If you use the between then the evn-name must point to
+                    a collection that has two entries in it. With in you may specify several entries.  
+                    If you use like, then it's just a single thing, as will all of the other ones;
+                    less, greater, less-equals, greater-equals, equals, not equals.                    
+                    Defaults to equals.
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -2558,21 +2577,22 @@ under the License.
         <xs:attribute name="env-name" type="xs:string">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of variable to apply operator on, combined with field-name.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="value" type="xs:string">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Value to apply operator on, combined with field-name.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="ignore-if-null" default="false">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Ignore the condition if the env-name or value is null.
+                    Defaults to false.
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -2585,7 +2605,8 @@ under the License.
         <xs:attribute name="ignore-if-empty" default="false">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Ignore the condition if the env-name or value is empty.
+                    Defaults to false.
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -2598,7 +2619,8 @@ under the License.
         <xs:attribute name="ignore-case" default="false">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Ignore case when using operator if the env-name or value is empty.
+                    Defaults to false.                    
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -2612,7 +2634,7 @@ under the License.
     <xs:element name="condition-object">
         <xs:annotation>
             <xs:documentation>
-                
+                An instance of the entity-condition, or an object that implements the entity-condition interface.                
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -2623,7 +2645,7 @@ under the License.
         <xs:attribute name="field-name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Field in the current context where that condition object is that implements the entity condition interface.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2750,14 +2772,14 @@ under the License.
         <xs:attribute type="xs:string" name="env-name">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the variable in the context.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="value">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Literal or flexible string using ${} syntax.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2765,7 +2787,16 @@ under the License.
     <xs:element name="entity-count" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
+                The entity-count is very  similar to the entity-condition.
                 
+                Specify the entity-name, optionally the delgator-name if you want to override that, 
+                and then the name of the variable to put the count in.
+
+                You can do the same condition-expr (condition expression) or condition-list which can have condition-expr
+                and other condition-lists underneath it for a tree of conditions that can be arbitrarily complex. 
+                You can also use the have-in-condition-list, this is the same as on the entity-condition.
+                What this will do basically is, rather than doing a query and getting the results back, 
+                it will just count the results and put that number in the context in the variable named by the count-name.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -2775,13 +2806,7 @@ under the License.
                     <xs:element ref="condition-list"/>
                     <xs:element ref="condition-object"/>
                 </xs:choice>
-                <xs:element minOccurs="0" ref="having-condition-list">
-                    <xs:annotation>
-                        <xs:documentation>
-                            
-                        </xs:documentation>
-                    </xs:annotation>        
-                </xs:element>
+                <xs:element minOccurs="0" ref="having-condition-list"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.entity-count"/>
         </xs:complexType>
@@ -2790,21 +2815,22 @@ under the License.
         <xs:attribute name="entity-name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of entity to search in.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="delegator-name" type="xs:string">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of a delegator to use. 
+                    By default uses the delegator associated with that instance of the service engine.                    
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="count-name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the variable to put result of the count in.                    
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2812,7 +2838,10 @@ under the License.
     <xs:element name="get-related-one" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                
+                If you have a generic value object sitting in the context and you want to get a related entity
+                following one of the type one relationships in the data model, then you can specify the name of the value
+                here, the relation-name, the name of the relationship between the two entities, and the to-value where it
+                should put the result, and you can tell it to use-cache or not, by default it doesn't.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -2823,14 +2852,14 @@ under the License.
         <xs:attribute name="value-name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of a generic value sitting in the context from where you want to get a related-one generic value.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="relation-name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the one-relation to use to relate generic value in value-name to generic value in to-value. 
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2846,7 +2875,7 @@ under the License.
         <xs:attribute type="xs:string" name="to-value-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of a generic value where to put the result.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2854,7 +2883,17 @@ under the License.
     <xs:element name="get-related" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
+                Get-related is just like get-related-one, 
+                except that instead of getting a single value back to put in the to-value,
+                it gets a full list back. 
                 
+                You start with the the value object, specify the name of the relationship.
+                You can specify the name of a map that will restrain the query further, 
+                beyond the field mappings and their relationship.
+
+                You can also specify how you want to order it. 
+                
+                Use-cache true or false, list-name for the output.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -2865,28 +2904,32 @@ under the License.
         <xs:attribute type="xs:string" name="value-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of a generic value sitting in the context from where you want to get a related generic value.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="relation-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the relation to use to relate generic value in value-name to generic value in to-value.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="map-name">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of a map that will restrain the query further, 
+                    beyond the field mappings and their relationship.                    
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="order-by-list-name">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    This will be a list sitting in the context that has string entries in it for each field that you want it to order by/
+                    Each field in the list, or each entry in the list, will just be a string with a field name. 
+                    It can be preceded by a plus or a minus to specify an ascending or descending sort for that. 
+                    The default is ascending sort, so you just put a minus in front of the field-name if you want it to be descending.                     
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2902,7 +2945,7 @@ under the License.
         <xs:attribute type="xs:string" name="list-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of a list where to put the result in.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2910,7 +2953,8 @@ under the License.
     <xs:element name="order-value-list" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                
+                Order-value-list does not actually do anything with the database. 
+                It takes an exiting list that has been returned and sorts it.                                 
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -2921,21 +2965,25 @@ under the License.
         <xs:attribute type="xs:string" name="list-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the list of generic value objects that we want to sort.                   
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="to-list-name">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the output list. If it is empty, as it is optional, it will simply use the list-name.
+                    In other words it will take the ordered list and put it over top of the resource list.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="order-by-list-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    This will be a list sitting in the context that has string entries in it for each field that you want it to order by.
+                    Each field in the list, or each entry in the list, will just be a string with a field name. 
+                    It can be preceded by a plus or a minus to specify an ascending or descending sort for that. 
+                    The default is ascending sort, so you just put a minus in front of the field-name if you want it to be descending.                     
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -3171,7 +3219,7 @@ under the License.
     <xs:element name="refresh-value" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
-                
+                Refresh from database the value given in value-name.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -3182,14 +3230,14 @@ under the License.
         <xs:attribute type="xs:string" name="value-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the value to refresh from database.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="do-cache-clear" default="true">            
             <xs:annotation>
                 <xs:documentation>
-                    Clear the cache, defaults to true
+                    Clear the cache, defaults to true.
                 </xs:documentation>
             </xs:annotation>            
             <xs:simpleType>
@@ -3236,7 +3284,32 @@ under the License.
     <xs:element name="remove-related" substitutionGroup="EntityValueOperations">
         <xs:annotation>
             <xs:documentation>
+                Given a value name and a relationship name, 
+                follows the relationship and remove all related
+                records, whether they be a type one or type many
+                relationship. 
                 
+                For a type one relationship it will remove a
+                single record if it exists, and for a type many relationship
+                it will remove all the records that are related to it.
+                
+                This of course can be dangerous, for example if you
+                have a product-type entity and you do a remove-related
+                with a certain product type value object here, and the
+                relation name product here, it will remove all products
+                of that type. This is of more value when you're doing
+                something like removing an order or removing a product,
+                and you want to remove all related elements before
+                removing the product to resolve foreign key issues.
+                
+                Usually the best practice for that, for removing a product
+                for example, is to do a remove-related on certain
+                types of information related to the product, and then try
+                to remove the product but not remove all related tables.
+                
+                In many cases, if the product has been ordered for example,
+                then you do not want to remove the product,
+                and so you can do all these remove-relateds.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -3247,14 +3320,14 @@ under the License.
         <xs:attribute type="xs:string" name="value-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of a generic value to remove all related records.                    
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="relation-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of a relation to use to remove related records.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -3535,7 +3608,13 @@ under the License.
     <xs:element name="iterate-map" substitutionGroup="ControlOperations">
         <xs:annotation>
             <xs:documentation>
+                The operations contained by the iterate-map tag will be executed for each of the entries in the map. 
+                It will run all of the operations underneath the iterate-map-element for each of the entries in the given map, 
+                setting the key for that entry and the key-name variable, and the value for that entry and the value-name variable.
                 
+                This tag can contain any of the simple-method operations, including the conditional/if operations.
+                
+                Any simple-method operation can be nested under the iterate-map tag.                                
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -3547,21 +3626,21 @@ under the License.
         <xs:attribute type="xs:string" name="key-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the variable to put the key.   
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="value-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the variable to put the value in.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="map-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the map to use.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -3569,7 +3648,14 @@ under the License.
     <xs:element name="loop" substitutionGroup="ControlOperations">
         <xs:annotation>
             <xs:documentation>
-                
+                Loop, rather than iterating over some sort of a structure,
+                will simply loop a certain number of times. The
+                number of times to loop is specified in the count attribute,
+                and it will put the current count in the field attribute,
+                or in the variable named by the field attribute. So if you
+                want to loop ten times you say count=ten, and
+                field=count for example. First time through count will
+                be zero; last time through count will be nine.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -3581,14 +3667,14 @@ under the License.
         <xs:attribute type="xs:string" name="count" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Number of times to loop.                    
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="field" use="optional">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Current count is put in the field attribute.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -3636,20 +3722,8 @@ under the License.
         </xs:annotation>                    
         <xs:complexType>
             <xs:choice>
-                <xs:element ref="fail-message">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Used to specify an inline message. Has one attribute called 'message'.
-                        </xs:documentation>
-                    </xs:annotation>                                        
-                </xs:element>
-                <xs:element ref="fail-property">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Used to get the message from a properties file. Has two attributes: resource and property.
-                        </xs:documentation>
-                    </xs:annotation>                                        
-                </xs:element>
+                <xs:element ref="fail-message"/>
+                <xs:element ref="fail-property"/>
             </xs:choice>
             <xs:attributeGroup ref="attlist.add-error"/>
         </xs:complexType>
@@ -3688,6 +3762,10 @@ under the License.
             <xs:documentation>
                 Each condition under the assert element will be checked and if it fails an error will be added to the given error list. 
                 Note that while the definitions for the if-* operations are used, the tags should be empty because of the differing semantics.
+                
+                This is mainly used for testing, and for writing simple-methods that are meant to be used as part of a test suite.
+                
+                This is mostly useful for testing because the messages are targeted at a programmer, and not really at an end user. 
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -3699,7 +3777,8 @@ under the License.
         <xs:attribute type="xs:string" name="title">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Each assert operation have a title that can be used in the report for the testing.  
+                    These can be used in the normal code.
                 </xs:documentation>
             </xs:annotation>            
         </xs:attribute>
@@ -3841,8 +3920,23 @@ under the License.
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="condition"/>
-                <xs:element ref="then"/>
+                <xs:element ref="condition">
+                    <xs:annotation>
+                        <xs:documentation>
+                            A simple element with no attributes that contains the condition that will be evaluated to determine which sub-operations to execute. 
+                            To combine the other if operations documented below the and, or, xor, and notelements can be used. 
+                            The and, or, and xor elements can contain as many general if operations and modifier/combination elements (ie and, or, xor, and not).
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="then">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The then element is used to contain operations that will run if the condition evaluate to true. 
+                            A then tag must be included, but can be empty.                            
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -4081,7 +4175,7 @@ under the License.
         <xs:attribute type="xs:string" name="format">
             <xs:annotation>
                 <xs:documentation>
-                    A format specifier to use when converting String objects to other data types, mainly Date, Time and Timestamp.
+                    Format based on the type of the object (date,number, etc.).
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -4155,7 +4249,7 @@ under the License.
         <xs:attribute type="xs:string" name="format">
             <xs:annotation>
                 <xs:documentation>
-                    A format specifier to use when converting String objects to other data types, mainly Date, Time and Timestamp.
+                    Format based on the type of the object (date,number, etc.).
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -4371,30 +4465,10 @@ under the License.
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="1" ref="accept-userlogin-party"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="alt-permission">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Allows you to specify alternate permissions, any of which will satisfy this check permission. 
-                            If the current userLogin does not have any of these permissions the error will be added to the list. 
-                            Has two attributes: permission and action that behave just as the corresponding attributes described above for the check-permission element.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="alt-permission"/>                
                 <xs:choice>
-                    <xs:element ref="fail-message">
-                        <xs:annotation>
-                            <xs:documentation>
-                                An inline failure message.                                
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element ref="fail-property">
-                        <xs:annotation>
-                            <xs:documentation>
-                                A failure message from a properties file.
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
+                    <xs:element ref="fail-message"/>                    
+                    <xs:element ref="fail-property"/>
                 </xs:choice>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.check-permission"/>
@@ -4451,9 +4525,12 @@ under the License.
     <xs:element name="alt-permission">
         <xs:annotation>
             <xs:documentation>
-                Allows to specify a number of alternate permissions.
-                This tag basically has the same attributes as the check-permission tag, permission and action.
+                Allows to specify a number of alternate permissions, any of which will satisfy this check permission.                
+                If the current userLogin does not have any of these permissions the error will be added to the list.
                 If the user has any of the alt-permissions, they subsume standard permissions.
+                                
+                This tag basically has the same attributes as the check-permission tag, permission and action.
+                Just as the corresponding attributes for the check-permission element.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -4488,20 +4565,8 @@ under the License.
         </xs:annotation>
         <xs:complexType>
             <xs:choice minOccurs="0">
-                <xs:element ref="fail-message">
-                    <xs:annotation>
-                        <xs:documentation>
-                            An inline failure message.                                
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element ref="fail-property">
-                    <xs:annotation>
-                        <xs:documentation>
-                            A failure message from a properties file.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
+                <xs:element ref="fail-message"/>                
+                <xs:element ref="fail-property"/>
             </xs:choice>
             <xs:attributeGroup ref="attlist.check-id"/>
         </xs:complexType>
@@ -4641,7 +4706,7 @@ under the License.
         <xs:attribute type="xs:string" name="resource" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    The resource location of the properties file.
+                    Name of a properties file on the classpath.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -4713,12 +4778,11 @@ under the License.
     <xs:element name="calculate" substitutionGroup="OtherOperations">
         <xs:annotation>
             <xs:documentation>
-                The calculate tag performs the specified calculation and puts the result in an object in the field of the specified map (see the calculate element attribute descriptions above). 
-                The type of the object can be specified with thetype attribute, but defaults to Double.
+                The calculate tag performs the specified calculation and puts the result in an object in the field of the specified map (see the calculate element attribute descriptions). 
+                The type of the object can be specified with the type attribute, defaults to Double.
                 
-                The calculate tag can contain calcop andnumber tags, and the calcop tag can also contain these two tags to enable nested calculations.
+                The calculate tag can contain calcop and number tags, and the calcop tag can also contain these two tags to enable nested calculations.
                 
-                Each calcop tag has three attributes: operator, map-name and field-name. Only the operator is required. 
                 The operator specifies the operation to perform on the given field and nested calcops and numbers. 
                 It must be one of the following: get | add | subtract | multiply | divide | negative.                
             </xs:documentation>
@@ -4730,12 +4794,11 @@ under the License.
                         <xs:documentation>
                             This tag is used to apply an operator in the calculation. 
                             It can have calcop and number tags nested under it, making it also act like a parenthesis. 
-                            It has three attributes: operator, map-name, and field-name. These are described below.            
+                            It has three attributes: operator, map-name, and field-name. Operator and field-name are required.            
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element ref="number">
-                </xs:element>
+                <xs:element ref="number"/>                
             </xs:choice>
             <xs:attributeGroup ref="attlist.calculate"/>
         </xs:complexType>
@@ -4919,6 +4982,11 @@ under the License.
         <xs:attribute type="xs:string" name="field" use="required"/>
     </xs:attributeGroup>
     <xs:element name="in-field">
+        <xs:annotation>
+            <xs:documentation>
+                Name of one of the incoming fields, or one of the fields in the in-map to add to the string.
+            </xs:documentation>
+        </xs:annotation>        
         <xs:complexType>
             <xs:attributeGroup ref="attlist.in-field"/>
         </xs:complexType>
@@ -4927,15 +4995,39 @@ under the License.
         <xs:attribute type="xs:string" name="field" use="required"/>
     </xs:attributeGroup>
     <xs:element name="property">
+        <xs:annotation>
+            <xs:documentation>
+                Load the value of a property from a resourcebundle properties file, with the given resource
+                on the classpath, and the name of the property in that file.
+            </xs:documentation>
+        </xs:annotation>                
         <xs:complexType>
             <xs:attributeGroup ref="attlist.property"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.property">
-        <xs:attribute type="xs:string" name="resource" use="required"/>
-        <xs:attribute type="xs:string" name="property" use="required"/>
+        <xs:attribute type="xs:string" name="resource" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Name of a properties file on the classpath.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="property" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Name of the property in the resource attribute file.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
-    <xs:element name="constant" type="xs:string"/>
+    <xs:element name="constant" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Any simple literal value.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
     <!-- Field Process & Operations -->
     <xs:element name="process">
         <xs:annotation>
@@ -5013,8 +5105,20 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.compare">
-        <xs:attribute type="xs:string" name="value" use="required"/>
-        <xs:attribute type="xs:string" name="format"/>
+        <xs:attribute type="xs:string" name="value" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Literal or flexible string using ${} syntax.     
+                </xs:documentation>
+            </xs:annotation>               
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="format">
+            <xs:annotation>
+                <xs:documentation>
+                    Format based on the type of the object (date,number, etc.).
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="compare-field">
         <xs:annotation>
@@ -5034,7 +5138,13 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.compare-field">
         <xs:attribute type="xs:string" name="field" use="required"/>
-        <xs:attribute type="xs:string" name="format"/>
+        <xs:attribute type="xs:string" name="format">
+            <xs:annotation>
+                <xs:documentation>
+                    Format based on the type of the object (date,number, etc.).
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="regexp">
         <xs:annotation>
@@ -5058,8 +5168,8 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 The not-empty tag verifies that the current field is not empty.  
-                If the field is a String it must not be null and must have a length greater than zero, otherwise it must simply not be null.  
-                The not-empty tag has no attributes.
+                If the field is a String it must not be null and must have a length greater than zero, 
+                otherwise it must simply not be null and you will get the fail-message or fail-property.  
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -5091,8 +5201,9 @@ under the License.
         <xs:attribute name="replace" default="true">
             <xs:annotation>
                 <xs:documentation>
-                    The replace attribute can be used to specify if an existing field in the out-Map should be replaced or not.  
-                    The replace attribute defaults to true. 
+                    Specify if an existing field in the out-Map should be replaced or not, defaults to true. 
+                    If you set it to false then it will look in the out-map, 
+                    and if it finds a value of the same name already there it will not copy over top of that value.
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -5105,8 +5216,8 @@ under the License.
         <xs:attribute name="set-if-null" default="true">
             <xs:annotation>
                 <xs:documentation>
-                    The set-if-null attribute specifies whether or not the value should be put in the out-Map if it is null.  
-                    The default for set-if-null is false.
+                    Specifies whether or not to set fields that are null or empty. 
+                    Defaults to true.
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -5159,6 +5270,13 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="replace" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    Specify if an existing field in the out-Map should be replaced or not, defaults to true. 
+                    If you set it to false then it will look in the out-map, 
+                    and if it finds a value of the same name already there it will not copy over top of that value.
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -5167,6 +5285,12 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="set-if-null" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    Specifies whether or not to set fields that are null or empty. 
+                    Defaults to true.
+                </xs:documentation>
+            </xs:annotation>                        
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -5174,24 +5298,59 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="format"/>
+        <xs:attribute type="xs:string" name="format">
+            <xs:annotation>
+                <xs:documentation>
+                    Format based on the type of the object (date,number, etc.).
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
     </xs:attributeGroup>
     <!-- Failure stuff: inline message or from a properties file -->
     <xs:element name="fail-message">
+        <xs:annotation>
+            <xs:documentation>
+                Used to specify an inline message. Has one attribute called 'message'.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.fail-message"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.fail-message">
-        <xs:attribute type="xs:string" name="message" use="required"/>
+        <xs:attribute type="xs:string" name="message" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Literal or flexible string using ${} syntax.
+                </xs:documentation>
+            </xs:annotation>                        
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="fail-property">
+        <xs:annotation>
+            <xs:documentation>
+                Used to get the message from a properties file. Has two attributes: resource and property.
+                Typically used for internationalized messages.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.fail-property"/>
+            <xs:attributeGroup ref="attlist.fail-property"/>                            
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.fail-property">
-        <xs:attribute type="xs:string" name="resource" use="required"/>
-        <xs:attribute type="xs:string" name="property" use="required"/>
+        <xs:attribute type="xs:string" name="resource" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Name of a properties file on the classpath.
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="property" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Name of the property in the properties file qualifed by 'resource'.
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
     </xs:attributeGroup>
 </xs:schema>
