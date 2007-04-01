@@ -4749,7 +4749,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name">
+        <xs:attribute type="xs:string" name="field-name" use="required">
             <xs:annotation><xs:documentation>The name (key) of the map (or env if map-name is empty) field to use.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute name="type" default="Double">
