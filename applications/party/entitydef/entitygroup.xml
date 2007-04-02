@@ -126,6 +126,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="PartyRelationshipType" />
     <entity-group group="org.ofbiz" entity="PartyRole" />
     <entity-group group="org.ofbiz" entity="PartyRoleAndPartyDetail" />
+    <entity-group group="org.ofbiz" entity="PartyRoleNameDetail"/>
     <entity-group group="org.ofbiz" entity="PartyStatus" />
     <entity-group group="org.ofbiz" entity="OldPartyTaxInfo" />
     <entity-group group="org.ofbiz" entity="PartyType" />

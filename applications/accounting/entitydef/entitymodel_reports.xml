@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitymodel.xsd">
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
+    <title>Entity of an Open For Business Project Component</title>
+    <description>None</description>
+    <copyright>Copyright 2001-2007 The Apache Software Foundation</copyright>
+    <author>None</author>
+    <version>1.0</version>
+
+    <!-- ========================================================= -->
+    <!-- ======================== Data Model ===================== -->
+    <!-- The modules in this file are as follows:                  -->
+    <!--  - org.ofbiz.accounting.reports -->
+    <!-- ========================================================= -->
+
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.accounting.reports -->
+    <!-- ========================================================= -->
+
+    <view-entity entity-name="InvoiceItemProductSummary" package-name="org.ofbiz.accounting.reports">
+        <member-entity entity-alias="INV" entity-name="Invoice"/>
+        <member-entity entity-alias="INITM" entity-name="InvoiceItem"/>
+        <alias entity-alias="INV" name="statusId"/>
+        <alias entity-alias="INV" name="invoiceDate"/>
+        <alias entity-alias="INV" name="invoiceTypeId"/>
+        <alias entity-alias="INV" name="partyIdFrom"/>
+        <alias entity-alias="INV" name="partyId"/>
+        <alias entity-alias="INV" name="currencyUomId"/>
+        <alias entity-alias="INITM" name="invoiceItemTypeId"/>
+        <alias entity-alias="INITM" name="productId" group-by="true"/>
+        <alias entity-alias="INITM" name="quantityTotal" field="quantity" function="sum"/>
+        <alias entity-alias="INITM" name="amountTotal" field="amount" function="sum"/>
+        <view-link entity-alias="INV" rel-entity-alias="INITM">
+            <key-map field-name="invoiceId"/>
+        </view-link>
+    </view-entity>
+    <view-entity entity-name="InvoiceItemCategorySummary" package-name="org.ofbiz.accounting.reports">
+        <member-entity entity-alias="INV" entity-name="Invoice"/>
+        <member-entity entity-alias="INITM" entity-name="InvoiceItem"/>
+        <member-entity entity-alias="PCM" entity-name="ProductCategoryMember"/>
+        <alias entity-alias="INV" name="statusId"/>
+        <alias entity-alias="INV" name="invoiceDate"/>
+        <alias entity-alias="INV" name="invoiceTypeId"/>
+        <alias entity-alias="INV" name="partyIdFrom"/>
+        <alias entity-alias="INV" name="partyId"/>
+        <alias entity-alias="INV" name="currencyUomId"/>
+        <alias entity-alias="INITM" name="invoiceItemTypeId"/>
+        <alias entity-alias="INITM" name="productId"/>
+        <alias entity-alias="INITM" name="quantityTotal" field="quantity" function="sum"/>
+        <alias entity-alias="INITM" name="amountTotal" field="amount" function="sum"/>
+        <alias entity-alias="PCM" name="productCategoryId" group-by="true"/>
+        <view-link entity-alias="INV" rel-entity-alias="INITM">
+            <key-map field-name="invoiceId"/>
+        </view-link>
+        <view-link entity-alias="INITM" rel-entity-alias="PCM">
+            <key-map field-name="productId"/>
+        </view-link>
+    </view-entity>
+</entitymodel>

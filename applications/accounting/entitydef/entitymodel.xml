@@ -20,12 +20,12 @@ under the License.
 
 <entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitymodel.xsd">
-  <!-- ========================================================= -->
-  <!-- ======================== Defaults ======================= -->
-  <!-- ========================================================= -->
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
     <title>Entity of an Open For Business Project Component</title>
     <description>None</description>
-    <copyright>Copyright 2001-2006 The Apache Software Foundation</copyright>
+    <copyright>Copyright 2001-2007 The Apache Software Foundation</copyright>
     <author>None</author>
     <version>1.0</version>
 
@@ -42,9 +42,9 @@ under the License.
     <!-- ========================================================= -->
 
 
-  <!-- ========================================================= -->
-  <!-- org.ofbiz.accounting.budget -->
-  <!-- ========================================================= -->
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.accounting.budget -->
+    <!-- ========================================================= -->
 
     <entity entity-name="Budget"
             package-name="org.ofbiz.accounting.budget"

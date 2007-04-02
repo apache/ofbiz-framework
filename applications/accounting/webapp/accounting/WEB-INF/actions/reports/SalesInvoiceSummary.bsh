@@ -1,0 +1,160 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+import javolution.util.FastList;
+import javolution.util.FastSet;
+import javolution.util.FastMap;
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.entity.util.*;
+
+//NOTE: this code ignores from/thru dates on the products and categories under the rootProductCategoryId!
+
+//TODO: variant product support for products in category
+//TODO: show product/category names with content wrapper
+//TODO: monthly totals
+//TODO: 
+
+// get products and categories under the root category
+productMemberList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", rootProductCategoryId), UtilMisc.toList("sequenceNum"));
+categoryRollupList = delegator.findByAnd("ProductCategoryRollup", UtilMisc.toMap("parentProductCategoryId", rootProductCategoryId), UtilMisc.toList("sequenceNum"));
+
+// for use in the queries
+productIdSet = FastSet.newInstance();
+productCategoryIdSet = FastSet.newInstance();
+
+// for use in the templates
+productList = FastList.newInstance();
+productCategoryList = FastList.newInstance();
+
+productMemberIter = productMemberList.iterator();
+while (productMemberIter.hasNext()) {
+    productMember = productMemberIter.next();
+    if (!productIdSet.contains(productMember.get("productId"))) {
+        productList.add(productMember.getRelatedOneCache("Product"));
+    }
+    productIdSet.add(productMember.get("productId"));
+}
+categoryRollupIter = categoryRollupList.iterator();
+while (categoryRollupIter.hasNext()) {
+    categoryRollup = categoryRollupIter.next();
+    if (!productCategoryIdSet.contains(categoryRollup.get("productCategoryId"))) {
+        productCategoryList.add(categoryRollup.getRelatedOneCache("CurrentProductCategory"));
+    }
+    productCategoryIdSet.add(categoryRollup.get("productCategoryId"));
+}
+
+productFieldsToSelect = UtilMisc.toList("productId", "quantityTotal", "amountTotal");
+
+//NOTE: tax, etc also have productId on them, so restrict by type INV_PROD_ITEM, INV_FPROD_ITEM, INV_DPROD_ITEM, others?
+baseProductAndExprs = FastList.newInstance();
+baseProductAndExprs.add(new EntityExpr("invoiceTypeId", EntityOperator.EQUALS, "SALES_INVOICE"));
+baseProductAndExprs.add(new EntityExpr("invoiceItemTypeId", EntityOperator.IN, UtilMisc.toList("INV_PROD_ITEM", "INV_FPROD_ITEM", "INV_DPROD_ITEM")));
+baseProductAndExprs.add(new EntityExpr("statusId", EntityOperator.IN, UtilMisc.toList("INVOICE_READY", "INVOICE_PAID")));
+if (UtilValidate.isNotEmpty(organizationPartyId)) baseProductAndExprs.add(new EntityExpr("partyIdFrom", EntityOperator.EQUALS, organizationPartyId));
+if (UtilValidate.isNotEmpty(currencyUomId)) baseProductAndExprs.add(new EntityExpr("currencyUomId", EntityOperator.EQUALS, currencyUomId));
+
+categoryFieldsToSelect = UtilMisc.toList("productCategoryId", "quantityTotal", "amountTotal");
+
+baseCategoryAndExprs = FastList.newInstance();
+baseCategoryAndExprs.add(new EntityExpr("invoiceTypeId", EntityOperator.EQUALS, "SALES_INVOICE"));
+baseCategoryAndExprs.add(new EntityExpr("invoiceItemTypeId", EntityOperator.IN, UtilMisc.toList("INV_PROD_ITEM", "INV_FPROD_ITEM", "INV_DPROD_ITEM")));
+baseCategoryAndExprs.add(new EntityExpr("statusId", EntityOperator.IN, UtilMisc.toList("INVOICE_READY", "INVOICE_PAID")));
+baseCategoryAndExprs.add(new EntityExpr("productCategoryId", EntityOperator.IN, productCategoryIdSet));
+baseCategoryAndExprs.add(new EntityExpr("productId", EntityOperator.NOT_IN, productIdSet));
+if (UtilValidate.isNotEmpty(organizationPartyId)) baseCategoryAndExprs.add(new EntityExpr("partyIdFrom", EntityOperator.EQUALS, organizationPartyId));
+if (UtilValidate.isNotEmpty(currencyUomId)) baseCategoryAndExprs.add(new EntityExpr("currencyUomId", EntityOperator.EQUALS, currencyUomId));
+
+
+// get the Calendar object for the current month (specifed by month, year Integer values in the context)
+monthCal = Calendar.getInstance();
+monthCal.set(Calendar.YEAR, year.intValue());
+monthCal.set(Calendar.MONTH, month.intValue());
+
+// iterate through the days and do the queries
+productResultMapByDayList = FastList.newInstance();
+productNullResultByDayList = FastList.newInstance();
+categoryResultMapByDayList = FastList.newInstance();
+daysInMonth = monthCal.getActualMaximum(Calendar.DAY_OF_MONTH);
+for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
+    currentDayCal = Calendar.getInstance();
+    currentDayCal.setTimeInMillis(monthCal.getTimeInMillis());
+    currentDayCal.set(Calendar.DAY_OF_MONTH, currentDay);
+	currentDayBegin = new java.sql.Timestamp(currentDayCal.getTimeInMillis());
+    currentDayCal.add(Calendar.DAY_OF_MONTH, 1);
+	nextDayBegin = new java.sql.Timestamp(currentDayCal.getTimeInMillis());
+	
+    findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
+
+    // do the product find
+    productAndExprs = FastList.newInstance();
+    productAndExprs.addAll(baseProductAndExprs);
+    productAndExprs.add(new EntityExpr("productId", EntityOperator.IN, productIdSet));
+    productAndExprs.add(new EntityExpr("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
+    productAndExprs.add(new EntityExpr("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
+    
+    productResultListIterator = delegator.findListIteratorByCondition("InvoiceItemProductSummary", new EntityConditionList(productAndExprs, EntityOperator.AND), null, productFieldsToSelect, null, findOpts);
+    productResultMap = FastMap.newInstance();
+    while ((productResult = productResultListIterator.next()) != null) {
+        productResultMap.put(productResult.get("productId"), productResult);
+    }
+    productResultListIterator.close();
+    productResultMapByDayList.add(productResultMap);
+    
+    // do the category find
+    categoryAndExprs = FastList.newInstance();
+    categoryAndExprs.addAll(baseCategoryAndExprs);
+    categoryAndExprs.add(new EntityExpr("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
+    categoryAndExprs.add(new EntityExpr("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
+    
+    categoryResultListIterator = delegator.findListIteratorByCondition("InvoiceItemCategorySummary", new EntityConditionList(categoryAndExprs, EntityOperator.AND), null, categoryFieldsToSelect, null, findOpts);
+    categoryResultMap = FastMap.newInstance();
+    while ((categoryResult = categoryResultListIterator.next()) != null) {
+        categoryResultMap.put(categoryResult.get("productCategoryId"), categoryResult);
+    }
+    categoryResultListIterator.close();
+    categoryResultMapByDayList.add(categoryResultMap);
+    
+    // do a find for InvoiceItem with a null productId
+    productNullAndExprs = FastList.newInstance();
+    productNullAndExprs.addAll(baseProductAndExprs);
+    productNullAndExprs.add(new EntityExpr("productId", EntityOperator.EQUALS, null));
+    productNullAndExprs.add(new EntityExpr("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
+    productNullAndExprs.add(new EntityExpr("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
+    productNullResultListIterator = delegator.findListIteratorByCondition("InvoiceItemProductSummary", new EntityConditionList(productNullAndExprs, EntityOperator.AND), null, productFieldsToSelect, null, findOpts);
+    // should just be 1 result
+    productNullResult = productNullResultListIterator.next();
+    productNullResultListIterator.close();
+    if (productNullResult != null) {
+    	productNullResultByDayList.add(productNullResult);
+    } else {
+        // no result, add an empty Map place holder
+    	productNullResultByDayList.add(FastMap.newInstance());
+    }
+}
+
+context.put("productResultMapByDayList", productResultMapByDayList);
+context.put("productNullResultByDayList", productResultMapByDayList);
+context.put("categoryResultMapByDayList", categoryResultMapByDayList);
+
+context.put("productCategoryList", productCategoryList);
+context.put("productList", productList);
+
+    
