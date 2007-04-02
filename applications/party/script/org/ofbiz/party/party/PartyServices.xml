@@ -24,7 +24,7 @@ under the License.
 
     <!-- create PartyRole -->
     <simple-method method-name="createPartyRole" short-description="Create Party Role">
-        <check-permission permission="PARTYMGR" action="_CREATE">
+        <check-permission permission="PARTYMGR" action="_ROLE_CREATE">
             <accept-userlogin-party/>
             <fail-property resource="PartyUiLabels" property="PartyCreatePartyRolePermissionError"/>
         </check-permission>
