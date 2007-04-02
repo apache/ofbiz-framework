@@ -165,19 +165,22 @@ under the License.
     <!-- Product Store Shipping Method Services -->
     <service name="createProductStoreShipMeth" default-entity-name="ProductStoreShipmentMeth" engine="simple"
             location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreShipMeth" auth="true">
-        <description>Create a Product Store Email Setting</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <description>Create a Product Store Shipment Method</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="productStoreId" optional="false"/>
+        <override name="shipmentMethodTypeId" optional="false"/>
+        <override name="partyId" optional="false"/>
+        <override name="roleTypeId" optional="false"/>
     </service>
     <service name="updateProductStoreShipMeth" default-entity-name="ProductStoreShipmentMeth" engine="simple"
             location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="updateProductStoreShipMeth" auth="true">
-        <description>Update a Product Store Email Setting</description>
+        <description>Update a Product Store Shipment Method</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeProductStoreShipMeth" default-entity-name="ProductStoreShipmentMeth" engine="simple"
             location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="removeProductStoreShipMeth" auth="true">
-        <description>Remove a Product Store Email Setting</description>
+        <description>Remove a Product Store Shipment Method</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
