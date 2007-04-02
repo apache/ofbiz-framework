@@ -178,7 +178,14 @@ under the License.
     <entity-group group="org.ofbiz" entity="ValueLinkKey" />
     
     <!-- ========================================================= -->
-    <!-- org.ofbiz.order.tax -->
+    <!-- org.ofbiz.accounting.reports -->
+    <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="InvoiceItemProductSummary" />
+    <entity-group group="org.ofbiz" entity="InvoiceItemCategorySummary" />
+    
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.accounting.tax -->
     <!-- ========================================================= -->
     
     <entity-group group="org.ofbiz" entity="PartyTaxAuthInfo" />

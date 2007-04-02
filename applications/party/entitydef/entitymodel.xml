@@ -1894,6 +1894,31 @@ under the License.
         <key-map field-name="partyId"/>
       </view-link>
     </view-entity>
+    <view-entity entity-name="PartyRoleNameDetail"
+        package-name="org.ofbiz.party.party"
+        title="Party Role and Party Detail (Person, PartyGroup, etc) View Entity">
+        <member-entity entity-alias="PTY" entity-name="Party"/>
+        <member-entity entity-alias="PR" entity-name="PartyRole"/>
+        <member-entity entity-alias="PERSON" entity-name="Person"/>
+        <member-entity entity-alias="PTYGRP" entity-name="PartyGroup"/>
+        <alias-all entity-alias="PTY"/>
+        <alias-all entity-alias="PR"/>
+        <alias-all entity-alias="PERSON">
+            <exclude field="comments"/>
+        </alias-all>
+        <alias-all entity-alias="PTYGRP">
+            <exclude field="comments"/>
+        </alias-all>
+        <view-link entity-alias="PTY" rel-entity-alias="PR">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PTY" rel-entity-alias="PERSON" rel-optional="true">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PTY" rel-entity-alias="PTYGRP" rel-optional="true">
+            <key-map field-name="partyId"/>
+        </view-link>
+    </view-entity>
     <entity entity-name="PartyStatus"
             package-name="org.ofbiz.party.party"
             title="Tracks a history of the status of a Party">

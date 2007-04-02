@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+	
+    <screen name="FinancialSummryReportOptions">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFinancialSummaryReportOptions"/>
+                <set field="headerItem" value="FinancialSummryReports"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><label style="head1" text="${uiLabelMap.PageTitleFinancialSummaryReportOptions}"/></container>
+                        <include-form name="SalesInvoiceSummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        <!--
+                        <include-form name="InventoryOutSummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        <include-form name="PaymentCreditCardSummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        <include-form name="FinancialAccountSummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        -->
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+	
+    <screen name="SalesInvoiceSummary">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleSalesInvoiceSummary"/>
+                <set field="headerItem" value="FinancialSummryReports"/>
+                
+                <set field="month" from-field="parameters.month" type="Integer" default-value="0"/>
+                <set field="year" from-field="parameters.year" type="Integer"/>
+                <set field="rootProductCategoryId" from-field="parameters.rootProductCategoryId"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="currencyUomId" from-field="parameters.currencyUomId"/>
+                
+                <entity-one entity-name="ProductCategory" value-name="rootProductCategory" auto-field-map="false" use-cache="true">
+                    <field-map field-name="productCategoryId" env-name="rootProductCategoryId"/>
+                </entity-one>
+                <entity-one entity-name="PartyNameView" value-name="organizationPartyName" auto-field-map="false" use-cache="true">
+                    <field-map field-name="partyId" env-name="organizationPartyId"/>
+                </entity-one>
+                <entity-one entity-name="Uom" value-name="currencyUom" auto-field-map="false" use-cache="true">
+                    <field-map field-name="uomId" env-name="currencyUomId"/>
+                </entity-one>
+                
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/SalesInvoiceSummary.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <label style="head1" text="${uiLabelMap.PageTitleSalesInvoiceSummary}"/>
+                        <platform-specific><html><html-template location="component://accounting/webapp/accounting/reports/SalesInvoiceSummary.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>
