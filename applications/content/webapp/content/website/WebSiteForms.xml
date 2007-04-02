@@ -23,7 +23,6 @@ under the License.
 
     <!-- WebSite Forms -->
     <form name="EditWebSite" type="single" target="updateWebSite" title="" default-map-name="webSite">
-        
         <alt-target use-when="webSite==null" target="createWebSite"/>
         
         <auto-fields-service service-name="updateWebSite" map-name=""/>
@@ -46,8 +45,7 @@ under the License.
                 <sub-hyperlink use-when="&quot;${webSite.productStoreId}&quot;.length()>0" link-style="buttontext" target-type="inter-app" target="/catalog/control/EditProductStore?productStoreId=${webSite.productStoreId}" description="${uiLabelMap.ContentEditProductStore}"/>
             </drop-down>
         </field>
-
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButtonq" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListWebSites" target="" title="" type="list" list-name="webSites" paginate-target="FindWebSite" paginate="true">
         <field name="webSiteId" title="${uiLabelMap.CommonId}" widget-style="buttontext">

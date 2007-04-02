@@ -30,11 +30,9 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateWebSite" short-description="Update a WebSite">
-        <make-value value-name="lookupKeyValue" entity-name="WebSite"/>
-        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="WebSite" map-name="lookupKeyValue" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <entity-one entity-name="WebSite" value-name="webSite"/>
+        <set-nonpk-fields map-name="parameters" value-name="webSite"/>
+        <store-value value-name="webSite"/>
     </simple-method>
     <simple-method method-name="removeWebSite" short-description="Remove a WebSite">
         <make-value value-name="lookupKeyValue" entity-name="WebSite"/>

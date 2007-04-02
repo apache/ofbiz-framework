@@ -38,12 +38,6 @@
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateWebSite" default-entity-name="WebSite" engine="simple" auth="true"
-            location="org/ofbiz/content/website/WebSiteServices.xml" invoke="updateWebSite">
-        <description>Remove a WebSite</description>
-        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-    </service>
 
     <!-- WebSite Content Services -->
     <service name="createWebSiteContent" default-entity-name="WebSiteContent" engine="simple" auth="true"
