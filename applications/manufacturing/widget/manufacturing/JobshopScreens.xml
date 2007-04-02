@@ -86,7 +86,7 @@ under the License.
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ViewProductionRun.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonJobshopDecorator">
+                <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
                     <decorator-section name="body">
                         <container>
                             <link target="PrintProductionRun?productionRunId=${productionRunId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
@@ -138,7 +138,7 @@ under the License.
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunDeclaration.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonJobshopDecorator">
+                <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
                     <decorator-section name="body">
                         <container>
                             <link target="PrintProductionRun?productionRunId=${productionRunId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
@@ -255,7 +255,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonJobshopDecorator">
+                <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
                     <decorator-section name="body">
                         <container>
                             <label style="head2">${uiLabelMap.ManufacturingMandatoryWorkEfforts}</label>
@@ -291,7 +291,7 @@ under the License.
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunTasks.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonJobshopDecorator">
+                <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
                     <decorator-section name="body">
                         <container>
                             <label style="head2">${uiLabelMap.ManufacturingListOfProductionRunRoutingTasks}</label>
@@ -320,7 +320,7 @@ under the License.
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunComponents.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonJobshopDecorator">
+                <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
                     <decorator-section name="body">
                         <container>
                             <label style="head2">${uiLabelMap.ManufacturingTaskComponents}</label>
@@ -351,7 +351,7 @@ under the License.
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunFixedAssets.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonJobshopDecorator">
+                <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
                     <decorator-section name="body">
                         <container>
                             <label style="head2">${uiLabelMap.ManufacturingTaskFixedAssets}</label>
@@ -380,7 +380,7 @@ under the License.
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunCosts.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonJobshopDecorator">
+                <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
                     <decorator-section name="body">
                         <container>
                             <label style="head2">${uiLabelMap.ManufacturingActualCosts}</label>
