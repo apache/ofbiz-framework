@@ -167,7 +167,7 @@ under the License.
       <field name="inventoryEventPlanTypeId" type="id-ne"></field>
       <field name="eventQuantity" type="floating-point"></field>
       <field name="facilityId" type="id"></field>
-      <field name="eventName" type="description"></field>
+      <field name="eventName" type="very-long"></field>
       <field name="isLate" type="indicator"></field>
       <prim-key field="productId"/>
       <prim-key field="eventDate"/>
