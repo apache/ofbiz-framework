@@ -88,6 +88,9 @@ if (orderHeader != null) {
         partyId = displayParty.getString("partyId");
         context.put("displayParty", displayParty);
         context.put("partyId", partyId);
+        
+        List paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, displayParty.getString("partyId"), false);
+        context.put("paymentMethodValueMaps", paymentMethodValueMaps);
     }
 
     otherAdjAmount = OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, true, false, false);
@@ -358,11 +361,6 @@ if (orderHeader != null) {
         returnableItems = returnableItemServiceMap.get("returnableItems");
     }
     context.put("returnableItems", returnableItems);
-}
-
-if (displayParty != null) { 
-    List paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, displayParty.getString("partyId"), false);
-    context.put("paymentMethodValueMaps", paymentMethodValueMaps);
 }
 
 if (orderHeader != null) {
