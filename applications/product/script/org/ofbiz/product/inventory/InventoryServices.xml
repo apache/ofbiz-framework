@@ -185,6 +185,68 @@ under the License.
         <set field="inventoryItem.quantityOnHandTotal" from-field="inventoryItemDetailSummary.quantityOnHandTotal"/>
         <store-value value-name="inventoryItem"/>
     </simple-method>
+    <simple-method method-name="updateSerializedInventoryTotals" short-description="Update the totals on serialized inventory">
+        <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
+        <if-compare field-name="inventoryItem.inventoryItemTypeId" value="SERIALIZED_INV_ITEM" operator="equals">
+            <if>
+                <!-- available -->
+                <condition>
+                    <and>
+                        <if-compare field-name="inventoryItem.statusId" value="INV_AVAILABLE" operator="equals"/>
+                        <or>
+                            <if-compare field-name="inventoryItem.availableToPromiseTotal" value="1" operator="not-equals" type="Double"/>
+                            <if-compare field-name="inventoryItem.quantityOnHandTotal" value="1" operator="not-equals" type="Double"/>
+                        </or>
+                    </and>
+                </condition>
+                <then>
+                    <set field="inventoryItem.availableToPromiseTotal" value="1" type="Double"/>
+                    <set field="inventoryItem.quantityOnHandTotal" value="1" type="Double"/>
+                    <log level="always" message="Storing totals [${inventoryItem.inventoryItemId}] for INV_AVAIABLE [1/1]"/>
+                    <store-value value-name="inventoryItem"/>
+                </then>
+
+                <!-- delivered -->
+                <else-if>
+                    <condition>
+                        <and>
+                            <if-compare field-name="inventoryItem.statusId" value="INV_DELIVERED" operator="equals"/>
+                            <or>
+                                <if-compare field-name="inventoryItem.availableToPromiseTotal" value="0" operator="not-equals" type="Double"/>
+                                <if-compare field-name="inventoryItem.quantityOnHandTotal" value="0" operator="not-equals" type="Double"/>
+                            </or>
+                        </and>
+                    </condition>
+                    <then>
+                        <set field="inventoryItem.availableToPromiseTotal" value="0" type="Double"/>
+                        <set field="inventoryItem.quantityOnHandTotal" value="0" type="Double"/>
+                        <log level="always" message="Storing totals [${inventoryItem.inventoryItemId}] for INV_DELIVERED [0/0]"/>
+                        <store-value value-name="inventoryItem"/>
+                    </then>
+                </else-if>
+
+                <!-- any promised; or on-hand but not available status -->
+                <else-if>
+                    <condition>
+                        <and>
+                            <if-compare field-name="inventoryItem.statusId" value="INV_AVAILABLE" operator="not-equals"/>
+                            <if-compare field-name="inventoryItem.statusId" value="INV_DELIVERED" operator="not-equals"/>
+                            <or>
+                                <if-compare field-name="inventoryItem.availableToPromiseTotal" value="0" operator="not-equals" type="Double"/>
+                                <if-compare field-name="inventoryItem.quantityOnHandTotal" value="1" operator="not-equals" type="Double"/>
+                            </or>
+                        </and>
+                    </condition>
+                    <then>
+                        <set field="inventoryItem.availableToPromiseTotal" value="0" type="Double"/>
+                        <set field="inventoryItem.quantityOnHandTotal" value="1" type="Double"/>
+                        <log level="always" message="Storing totals [${inventoryItem.inventoryItemId}] for other status [1/0]"/>
+                        <store-value value-name="inventoryItem"/>
+                    </then>
+                </else-if>
+            </if>
+        </if-compare>
+    </simple-method>
     <simple-method method-name="updateOldInventoryToDetailAll" short-description="Update Old Inventory To Detail All">
         <!-- find all InventoryItem records where oldQuantityOnHand or oldAvailableToPromise are not null -->
         <entity-condition entity-name="InventoryItem" list-name="inventoryItemList">
@@ -219,6 +281,7 @@ under the License.
         <if>
             <condition>
                 <and>
+                    <not><if-empty field-name="product"/></not>
                     <if-compare field-name="product.salesDiscWhenNotAvail" operator="equals" value="Y"/>
                     <or>
                         <if-empty field-name="product.salesDiscontinuationDate"/>
@@ -418,9 +481,9 @@ under the License.
 
         <!-- we might get away with a cache here since real serious errors will occur during the reservation service... but only if we need the speed -->
         <if-compare field-name="parameters.useCache" operator="equals" value="true" type="Boolean">
-            <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItems" use-cache="true"/>
+            <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItems" use-iterator="true" use-cache="true"/>
             <else>
-                <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItems" use-cache="false"/>
+                <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItems" use-iterator="true" use-cache="false"/>
             </else>
         </if-compare>
         

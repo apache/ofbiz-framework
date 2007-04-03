@@ -83,6 +83,11 @@ under the License.
         </description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="updateSerializedInventoryTotals" default-entity-name="InventoryItem" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateSerializedInventoryTotals" auth="false">
+        <description>Sets the ATP/QOH totals for serialized inventory items</description>                    
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+    </service>
 
     <service name="createInventoryItemVariance" default-entity-name="InventoryItemVariance" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemVariance" auth="true">

@@ -34,13 +34,18 @@ under the License.
     <eca entity="ProductContent" operation="create-store" event="return">
         <action service="indexProductKeywords" mode="sync"/>
     </eca>
-    
+
+    <!-- inventory related ECAs -->
     <eca entity="InventoryItem" operation="create-store" event="return">
         <condition field-name="productId" operator="is-not-empty"/>
         <condition field-name="availableToPromiseTotal" operator="is-not-empty"/>
         <condition field-name="availableToPromiseTotal" operator="less-equals" value="0" type="Double"/>
         <action service="checkProductInventoryDiscontinuation" mode="async"/>
     </eca>
+    <!-- update the totals for serialized inventory items -->
+    <eca entity="InventoryItem" operation="create-store" event="return">           
+        <action service="updateSerializedInventoryTotals" mode="sync"/> 
+    </eca>    
     <!-- Just in case an InventoryItem is ever created with ATP/QOH values, catch and handle that -->
     <eca entity="InventoryItem" operation="create" event="return">
         <action service="createInventoryItemCheckSetAtpQoh" mode="sync"/>
