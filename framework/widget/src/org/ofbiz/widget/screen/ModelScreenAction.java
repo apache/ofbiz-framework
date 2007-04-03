@@ -51,6 +51,7 @@ import org.ofbiz.entity.finder.ByAndFinder;
 import org.ofbiz.entity.finder.ByConditionFinder;
 import org.ofbiz.entity.finder.EntityFinderUtil;
 import org.ofbiz.entity.finder.PrimaryKeyFinder;
+import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
 import org.w3c.dom.Element;
@@ -420,7 +421,15 @@ public abstract class ModelScreenAction implements Serializable {
             try {
                 Map serviceContext = null;
                 if ("true".equals(autoFieldMapString)) {
-                    serviceContext = this.modelScreen.getDispatcher(context).getDispatchContext().makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, context);
+                    DispatchContext dc = this.modelScreen.getDispatcher(context).getDispatchContext();
+                    // try a map called "parameters", try it first so values from here are overriden by values in the main context
+                    Map combinedMap = FastMap.newInstance();
+                    Object parametersObj = context.get("parameters");
+                    if (parametersObj != null && parametersObj instanceof Map) {
+                        combinedMap.putAll((Map) parametersObj);
+                    }
+                    combinedMap.putAll(context);
+                    serviceContext = dc.makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, combinedMap);
                 } else if (UtilValidate.isNotEmpty(autoFieldMapString) && !"false".equals(autoFieldMapString)) {
                     FlexibleMapAccessor fieldFma = new FlexibleMapAccessor(autoFieldMapString);
                     Map autoFieldMap = (Map) fieldFma.get(context);
