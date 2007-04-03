@@ -80,12 +80,14 @@ public class ModelTestSuite {
                     suite.addTestSuite(clz);
                     Enumeration testEnum = suite.tests();
                     int testsAdded = 0;
+                    int casesAdded = 0;
                     while (testEnum.hasMoreElements()) {
                         Test tst = (Test) testEnum.nextElement();
                         this.testList.add(tst);
+                        casesAdded += tst.countTestCases();
                         testsAdded++;
                     }
-                    Debug.logInfo("Added " + testsAdded + " tests from the class: " + className, module);
+                    Debug.logInfo("Added " + testsAdded + " tests [" + casesAdded + " cases] from the class: " + className, module);
                 } catch (Exception e) {
                     String errMsg = "Unable to load test suite class : " + className;
                     Debug.logError(e, errMsg, module);
