@@ -21,15 +21,6 @@ import org.ofbiz.entity.*;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.base.util.*;
  
-shipmentCostEstimateId = request.getParameter("shipmentCostEstimateId");
-if (shipmentCostEstimateId != null) {
-    shipmentCostEstimate = delegator.findByPrimaryKey("ShipmentCostEstimate", UtilMisc.toMap("shipmentCostEstimateId", shipmentCostEstimateId));
-    context.put("shipEstimate", shipmentCostEstimate);
-}
-
-estimates = delegator.findByAnd("ShipmentCostEstimate", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("geoIdFrom", "shipmentMethodTypeId", "geoIdTo"));
-context.put("estimates", estimates);   
-
 geos = delegator.findAll("Geo", UtilMisc.toList("geoTypeId", "geoName"));
 context.put("geoList", geos);
 
@@ -44,13 +35,6 @@ context.put("shipmentMethodTypes", shipMethTypes);
 
 roleTypes = delegator.findAll("RoleType", UtilMisc.toList("description"));
 context.put("roleTypes", roleTypes);
-        
-exprs = UtilMisc.toList(new EntityExpr("uomTypeId", EntityOperator.NOT_EQUAL, "CURRENCY_MEASURE"));        
-quantityUoms = delegator.findByAnd("Uom", exprs, UtilMisc.toList("description"));
-context.put("quantityUoms", quantityUoms);
-        
-weightUoms = delegator.findByAnd("Uom", UtilMisc.toMap("uomTypeId", "WEIGHT_MEASURE"), UtilMisc.toList("description")); 
-context.put("weightUoms", weightUoms);
 
 editCarrier = request.getParameter("editCarrierShipmentMethodId");
 carrierShipmentMethod = new HashMap();
@@ -67,4 +51,3 @@ if (editMethod != null) {
     shipmentMethodType = delegator.findByPrimaryKey("ShipmentMethodType", UtilMisc.toMap("shipmentMethodTypeId", editMethod));
 }
 context.put("shipmentMethodType", shipmentMethodType);
-

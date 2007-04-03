@@ -559,8 +559,7 @@ under the License.
     <service name="createShipmentEstimate" engine="java"
                 location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="createShipmentEstimate" auth="true">
         <description>Create Shipment Estimate</description>
-        <attribute name="shipMethod" type="String" mode="IN" optional="false"/>
-        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="productStoreShipMethId" type="String" mode="IN" optional="false"/>
         <attribute name="toGeo" type="String" mode="IN" optional="true"/>
         <attribute name="fromGeo" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
@@ -573,14 +572,17 @@ under the License.
         <attribute name="featurePrice" type="Double" mode="IN" optional="true"/>
         <attribute name="oversizeUnit" type="Double" mode="IN" optional="true"/>
         <attribute name="oversizePrice" type="Double" mode="IN" optional="true"/>
+        <attribute name="weightBreakId" type="String" mode="IN" optional="true"/>
         <attribute name="wmin" type="Double" mode="IN" optional="true"/>
         <attribute name="wmax" type="Double" mode="IN" optional="true"/>
         <attribute name="wprice" type="Double" mode="IN" optional="true"/>
         <attribute name="wuom" type="String" mode="IN" optional="true"/>
+        <attribute name="quantityBreakId" type="String" mode="IN" optional="true"/>
         <attribute name="qmin" type="Double" mode="IN" optional="true"/>
         <attribute name="qmax" type="Double" mode="IN" optional="true"/>
         <attribute name="qprice" type="Double" mode="IN" optional="true"/>
         <attribute name="quom" type="String" mode="IN" optional="true"/>
+        <attribute name="priceBreakId" type="String" mode="IN" optional="true"/>
         <attribute name="pmin" type="Double" mode="IN" optional="true"/>
         <attribute name="pmax" type="Double" mode="IN" optional="true"/>
         <attribute name="pprice" type="Double" mode="IN" optional="true"/>

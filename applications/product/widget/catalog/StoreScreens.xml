@@ -224,6 +224,45 @@ under the License.
             </widgets>
        </section>
     </screen>
+    <screen name="EditProductStoreShipmentCostEstimates">
+       <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductStoreShipSetup"/>
+                <set field="headerItem" value="store"/>
+                <set field="tabButtonItem" value="EditProductStoreShipmentCostEstimates"/>
+                <set field="labelTitleProperty" value="ProductProductStoreShipmentSettings"/>
+
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="true"/>
+                <entity-condition entity-name="ShipmentCostEstimate" list-name="estimates">
+                    <condition-expr field-name="productStoreId" env-name="productStoreId"/>
+                    <order-by field-name="geoIdFrom"/>
+                    <order-by field-name="shipmentMethodTypeId"/>
+                    <order-by field-name="geoIdTo"/>
+                </entity-condition>
+                <entity-one entity-name="ShipmentCostEstimate" value-name="estimate" auto-field-map="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListShipmentCostEstimates" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                        <section>
+                            <condition>
+                                <if-empty field-name="estimate"/>
+                            </condition>
+                            <widgets>
+                                <label style="head2">${uiLabelMap.ProductNewShipmentEstimate}</label>
+                                <include-form name="AddShipmentCostEstimate" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <include-form name="ViewShipmentCostEstimate" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+       </section>
+    </screen>
     <screen name="EditProductStorePaySetup">
        <section>
             <actions>
