@@ -147,6 +147,9 @@ public final class BshUtil {
                     script = (Interpreter.ParsedScript) parsedScripts.get(location);
                     if (script == null) {
                         URL scriptUrl = FlexibleLocation.resolveLocation(location);
+                        if (scriptUrl == null) {
+                            throw new GeneralException("Could not find bsh script at [" + location + "]");
+                        }
                         Reader scriptReader = new InputStreamReader(scriptUrl.openStream());
                         script = interpreter.parseScript(location, scriptReader);
                         if (Debug.verboseOn()) Debug.logVerbose("Caching BSH script at: " + location, module);
