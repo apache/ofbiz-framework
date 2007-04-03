@@ -78,7 +78,7 @@ under the License.
                 </container>
             </widgets>
             <fail-widgets>
-                <label style="head2" text="${uiLabelMap.OrderNoOrderFound} ${uiLabelMap.CommonWith} ${uiLabelMap.CommonId}: [${orderId?if_exists}]"></label>
+                <label style="head2" text="${uiLabelMap.OrderNoOrderFound}: [${orderId}]"></label>
             </fail-widgets>
         </section>
     </screen>
