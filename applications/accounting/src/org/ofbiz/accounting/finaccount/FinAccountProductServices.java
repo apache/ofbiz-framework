@@ -54,6 +54,7 @@ public class FinAccountProductServices {
 
         // order ID for tracking
         String orderId = orderItem.getString("orderId");
+        String orderItemSeqId = orderItem.getString("orderItemSeqId");
 
         // the order header for store info
         GenericValue orderHeader;
@@ -217,6 +218,8 @@ public class FinAccountProductServices {
         depositCtx.put("productStoreId", productStoreId);
         depositCtx.put("currency", currency);
         depositCtx.put("partyId", partyId);
+        depositCtx.put("orderId", orderId);
+        depositCtx.put("orderItemSeqId", orderItemSeqId);
         depositCtx.put("amount", new Double(deposit.doubleValue()));
         depositCtx.put("userLogin", userLogin);
 

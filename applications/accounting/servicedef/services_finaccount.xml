@@ -127,6 +127,8 @@ under the License.
         <attribute name="isRefund" type="Boolean" mode="IN" optional="true"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="amount" type="Double" mode="INOUT" optional="false"/>
         <attribute name="balance" type="Double" mode="OUT" optional="false"/>
         <attribute name="previousBalance" type="Double" mode="OUT" optional="true"/>
@@ -141,6 +143,8 @@ under the License.
         <attribute name="requireBalance" type="Boolean" mode="IN" optional="true"/> 
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="amount" type="Double" mode="INOUT" optional="false"/>
         <attribute name="balance" type="Double" mode="OUT" optional="false"/>
         <attribute name="previousBalance" type="Double" mode="OUT" optional="true"/>

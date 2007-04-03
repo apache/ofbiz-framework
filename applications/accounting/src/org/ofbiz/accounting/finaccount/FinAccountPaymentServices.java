@@ -340,6 +340,7 @@ public class FinAccountPaymentServices {
         withdrawCtx.put("productStoreId", productStoreId);
         withdrawCtx.put("currency", currency);
         withdrawCtx.put("partyId", partyId);
+        withdrawCtx.put("orderId", orderId);
         withdrawCtx.put("amount", amount);
         withdrawCtx.put("requireBalance", Boolean.FALSE); // for captures; if auth passed, allow
         withdrawCtx.put("userLogin", userLogin);
@@ -395,8 +396,9 @@ public class FinAccountPaymentServices {
         String productStoreId = null;
         String partyId = null;
 
+        String orderId = null;
         if (orderPaymentPreference != null) {
-            String orderId = orderPaymentPreference.getString("orderId");
+            orderId = orderPaymentPreference.getString("orderId");
             if (orderId != null) {
                 OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
                 productStoreId = orh.getProductStoreId();
@@ -415,6 +417,7 @@ public class FinAccountPaymentServices {
         depositCtx.put("isRefund", Boolean.TRUE);
         depositCtx.put("currency", currency);
         depositCtx.put("partyId", partyId);
+        depositCtx.put("orderId", orderId);
         depositCtx.put("amount", amount);
         depositCtx.put("userLogin", userLogin);
 
@@ -451,6 +454,8 @@ public class FinAccountPaymentServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productStoreId = (String) context.get("productStoreId");
         String finAccountId = (String) context.get("finAccountId");
+        String orderItemSeqId = (String) context.get("orderItemSeqId");
+        String orderId = (String) context.get("orderId");
         Boolean requireBalance = (Boolean) context.get("requireBalance");
         Double amount = (Double) context.get("amount");
         if (requireBalance == null) requireBalance = Boolean.TRUE;
@@ -505,7 +510,7 @@ public class FinAccountPaymentServices {
         } else {
             try {
                 refNum = FinAccountPaymentServices.createFinAcctPaymentTransaction(delegator, dispatcher, userLogin, amount,
-                        productStoreId, partyId, currencyUom, WITHDRAWAL, finAccountId);
+                        productStoreId, partyId, orderId, orderItemSeqId, currencyUom, WITHDRAWAL, finAccountId);
                 finAccount.refresh();
                 balance = finAccount.getBigDecimal("actualBalance");
                 procResult = Boolean.TRUE;
@@ -536,7 +541,9 @@ public class FinAccountPaymentServices {
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productStoreId = (String) context.get("productStoreId");
-        String finAccountId = (String) context.get("finAccountId");        
+        String finAccountId = (String) context.get("finAccountId");
+        String orderItemSeqId = (String) context.get("orderItemSeqId");
+        String orderId = (String) context.get("orderId");
         Boolean isRefund = (Boolean) context.get("isRefund");
         Double amount = (Double) context.get("amount");
 
@@ -581,7 +588,7 @@ public class FinAccountPaymentServices {
         String refNum;
         try {
             refNum = FinAccountPaymentServices.createFinAcctPaymentTransaction(delegator, dispatcher, userLogin, amount,
-                    productStoreId, partyId, currencyUom, DEPOSIT, finAccountId);
+                    productStoreId, partyId, orderId, orderItemSeqId, currencyUom, DEPOSIT, finAccountId);
             finAccount.refresh();
             balance = finAccount.getBigDecimal("actualBalance");
         } catch (GeneralException e) {
@@ -730,6 +737,7 @@ public class FinAccountPaymentServices {
         if (ServiceUtil.isError(replResp)) {
             return replResp;
         }
+        String orderId = (String) replResp.get("orderId");
 
         // create the deposit
         Map depositCtx = FastMap.newInstance();
@@ -737,6 +745,8 @@ public class FinAccountPaymentServices {
         depositCtx.put("finAccountId", finAccountId);
         depositCtx.put("currency", currency);
         depositCtx.put("partyId", ownerPartyId);
+        depositCtx.put("orderId", orderId);
+        depositCtx.put("orderItemSeqId", "00001"); // always one item on a replish order
         depositCtx.put("amount",  new Double(depositAmount.doubleValue()));
         depositCtx.put("userLogin", userLogin);
         Map depositResp;
@@ -754,7 +764,7 @@ public class FinAccountPaymentServices {
     }
     
     private static String createFinAcctPaymentTransaction(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, Double amount,
-            String productStoreId, String partyId, String currencyUom, String txType, String finAccountId) throws GeneralException {
+            String productStoreId, String partyId, String orderId, String orderItemSeqId, String currencyUom, String txType, String finAccountId) throws GeneralException {
 
         final String coParty = ProductStoreWorker.getProductStorePayToPartyId(productStoreId, delegator);
         final String paymentMethodType = "FIN_ACCOUNT";
@@ -826,7 +836,9 @@ public class FinAccountPaymentServices {
         // create the initial transaction
         Map transCtx = UtilMisc.toMap("finAccountTransTypeId", txType);
         transCtx.put("finAccountId", finAccountId);
-        transCtx.put("partyId", userLogin.getString("partyId"));
+        transCtx.put("partyId", partyId);
+        transCtx.put("orderId", orderId);
+        transCtx.put("orderItemSeqId", orderItemSeqId);
         transCtx.put("amount", amount);
         transCtx.put("userLogin", userLogin);
         transCtx.put("paymentId", paymentId);
