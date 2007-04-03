@@ -45,8 +45,6 @@ orderHeader = null;
 boolean isDemoStore = true;
 if (orderId != null && orderId.length() > 0) {
     orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
-    productStore = orderHeader.getRelatedOneCache("ProductStore");
-    if (productStore != null) isDemoStore = !"N".equals(productStore.getString("isDemoStore"));
     
     // check OrderRole to make sure the user can view this order.  This check must be done for any order which is not anonymously placed and
     // any anonymous order when the allowAnonymousView security flag (see above) is not set to Y, to prevent peeking
@@ -62,6 +60,9 @@ if (orderId != null && orderId.length() > 0) {
 }
 
 if (orderHeader != null) {
+    productStore = orderHeader.getRelatedOneCache("ProductStore");
+    if (productStore != null) isDemoStore = !"N".equals(productStore.getString("isDemoStore"));
+
     orderReadHelper = new OrderReadHelper(orderHeader);
     orderItems = orderReadHelper.getOrderItems();
     orderAdjustments = orderReadHelper.getAdjustments();
