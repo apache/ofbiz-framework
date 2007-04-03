@@ -1474,7 +1474,7 @@ under the License.
     <view-map name="PrintCheckPDF" type="screenfop" page="component://accounting/widget/AccountingPrintForms.xml#PrintCheckPDF" content-type="application/pdf" encoding="none"/>
     
     <!-- Financial Summary Reports -->
-    <view-map name="FinancialSummryReportOptions" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#FinancialSummryReportOptions"/>
+    <view-map name="FinancialSummaryReportOptions" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#FinancialSummaryReportOptions"/>
     <view-map name="SalesInvoiceSummary" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#SalesInvoiceSummary"/>
     
     

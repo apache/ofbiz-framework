@@ -21,7 +21,7 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
 	
-    <screen name="FinancialSummryReportOptions">
+    <screen name="FinancialSummaryReportOptions">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFinancialSummaryReportOptions"/>
