@@ -78,7 +78,7 @@ under the License.
         <set from-field="parameters.quantity" field="parameters.quantityNotReserved"/>
 
         <!-- first reserve against InventoryItems in FLT_PICKLOC type locations, then FLT_BULK locations, then InventoryItems with no locations -->
-        <find-by-and entity-name="InventoryItemAndLocation" map-name="lookupFieldMap" list-name="inventoryItemAndLocations" order-by-list-name="orderByList"/>
+        <find-by-and entity-name="InventoryItemAndLocation" map-name="lookupFieldMap" list-name="inventoryItemAndLocations" use-iterator="true" order-by-list-name="orderByList"/>
         <iterate entry-name="inventoryItemAndLocation" list-name="inventoryItemAndLocations">
             <if-compare field-name="inventoryItemAndLocation.locationTypeEnumId" operator="equals" value="FLT_PICKLOC">
                 <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
@@ -86,8 +86,10 @@ under the License.
                 <call-simple-method method-name="reserveForInventoryItemInline"/>
             </if-compare>
         </iterate>
+
         <!-- still some left? try the FLT_BULK locations -->
         <if-compare field-name="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
+            <find-by-and entity-name="InventoryItemAndLocation" map-name="lookupFieldMap" list-name="inventoryItemAndLocations" use-iterator="true" order-by-list-name="orderByList"/>
             <iterate entry-name="inventoryItemAndLocation" list-name="inventoryItemAndLocations">
                 <if-compare field-name="inventoryItemAndLocation.locationTypeEnumId" operator="equals" value="FLT_BULK">
                     <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
@@ -98,8 +100,8 @@ under the License.
         </if-compare>
 
         <!-- last of all try reserving in InventoryItems that have no locationSeqId, ie are not in any particular location -->
-        <if-compare field-name="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
-            <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItems" order-by-list-name="orderByList"/>
+        <if-compare field-name="parameters.quantityNotReserved" operator="greater" value="0" type="Double">            
+            <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItems" use-iterator="true" order-by-list-name="orderByList"/>
             <iterate entry-name="inventoryItem" list-name="inventoryItems">
                 <if-empty field-name="inventoryItem.locationSeqId">
                     <call-simple-method method-name="reserveForInventoryItemInline"/>
