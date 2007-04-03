@@ -608,8 +608,10 @@ under the License.
                         <store-value value-name="nonSerInvItem"/>
                         <check-errors/>
                         
-                        <get-related value-name="nonSerInvItem" relation-name="OrderItemShipGrpInvRes" list-name="nonSerInvRes"/>
-                        <!-- TODO: Order the list of reservations -->
+                        <!-- Get list of reservations ordered by reservedDatetime, oldest one first -->
+                        <string-to-list string="reservedDatetime" list-name="orderByList"/>
+                        <get-related value-name="nonSerInvItem" relation-name="OrderItemShipGrpInvRes" list-name="nonSerInvRes"
+                             order-by-list-name="orderByList"/>
                         <first-from-list entry-name="inventoryReservation" list-name="nonSerInvRes"/>                    
                         <if-not-empty field-name="inventoryReservation">
         
