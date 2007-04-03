@@ -75,9 +75,10 @@ under the License.
     <FinAccountTransType description="Adjustment" finAccountTransTypeId="ADJUSTMENT" hasTable="N" parentTypeId=""/>
 
     <FinAccountType description="Gift Certificate" finAccountTypeId="GIFTCERT_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" parentTypeId=""/>
-    <FinAccountType description="Deposit Account" finAccountTypeId="DEPOSIT_ACCOUNT" replenishEnumId="FARP_AUTOMATIC" hasTable="N" parentTypeId=""/>
+    <FinAccountType description="Deposit Account" finAccountTypeId="DEPOSIT_ACCOUNT" replenishEnumId="FARP_MANUAL" hasTable="N" parentTypeId=""/>
     <FinAccountType description="Bank Account" finAccountTypeId="BANK_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" parentTypeId="DEPOSIT_ACCOUNT"/>
     <FinAccountType description="Investment Account" finAccountTypeId="INVESTMENT_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" parentTypeId="DEPOSIT_ACCOUNT"/>
+    <FinAccountType description="Replenish Account" finAccountTypeId="REPLENISH_ACCOUNT" hasTable="N" replenishEnumId="FARP_AUTOMATIC" parentTypeId="DEPOSIT_ACCOUNT"/>
     
     <FixedAssetType description="Equipment" fixedAssetTypeId="EQUIPMENT" hasTable="N" parentTypeId=""/>
     <FixedAssetType description="The fixed asset used in the operation-routing definition" fixedAssetTypeId="PRODUCTION_EQUIPMENT" hasTable="N" parentTypeId=""/>

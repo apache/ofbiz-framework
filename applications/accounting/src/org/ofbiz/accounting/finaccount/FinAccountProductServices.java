@@ -28,6 +28,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.finaccount.FinAccountHelper;
 
@@ -123,6 +124,39 @@ public class FinAccountProductServices {
         if (billToParty != null) {
             partyId = billToParty.getString("partyId");
         }
+
+        // some person data for expanding
+        GenericValue partyGroup = null;
+        GenericValue person = null;
+        GenericValue party = null;
+
+        if (billToParty != null) {
+            try {
+                party = billToParty.getRelatedOne("Party");
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+            if (party != null) {
+                String partyTypeId = party.getString("partyTypeId");
+                if ("PARTY_GROUP".equals(partyTypeId)) {
+                    partyGroup = billToParty;
+                } else if ("PERSON".equals(partyTypeId)) {
+                    person = billToParty;
+                }
+            }
+        }
+        
+        // create the context for FSE
+        Map expContext = FastMap.newInstance();
+        expContext.put("orderHeader", orderHeader);
+        expContext.put("orderItem", orderItem);
+        expContext.put("party", party);
+        expContext.put("person", person);
+        expContext.put("partyGroup", partyGroup);
+
+        // expand the name field to dynamicly add information
+        FlexibleStringExpander exp = new FlexibleStringExpander(finAccountName);
+        finAccountName = exp.expandString(expContext);
 
         // price/amount/quantity to create initial deposit amount
         BigDecimal quantity = orderItem.getBigDecimal("quantity");        
