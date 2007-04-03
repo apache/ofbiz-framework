@@ -1860,17 +1860,21 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditProductStoreShipSetup"/>
     </request-map>
+    <request-map uri="EditProductStoreShipmentCostEstimates">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductStoreShipmentCostEstimates"/>
+    </request-map>
     <request-map uri="storeCreateShipRate">
         <security https="true" auth="true"/>
         <event type="service" invoke="createShipmentEstimate"/>
-        <response name="success" type="view" value="EditProductStoreShipSetup"/>
-        <response name="error" type="view" value="EditProductStoreShipSetup"/>
+        <response name="success" type="view" value="EditProductStoreShipmentCostEstimates"/>
+        <response name="error" type="view" value="EditProductStoreShipmentCostEstimates"/>
     </request-map>
     <request-map uri="storeRemoveShipRate">
         <security https="true" auth="true"/>
         <event type="service" invoke="removeShipmentEstimate"/>
-        <response name="success" type="view" value="EditProductStoreShipSetup"/>
-        <response name="error" type="view" value="EditProductStoreShipSetup"/>
+        <response name="success" type="view" value="EditProductStoreShipmentCostEstimates"/>
+        <response name="error" type="view" value="EditProductStoreShipmentCostEstimates"/>
     </request-map>
     <request-map uri="storeCreateShipMeth">
         <security https="true" auth="true"/>
@@ -2393,6 +2397,7 @@ under the License.
     <view-map name="EditProductStorePromos" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStorePromos"/>
     <view-map name="EditProductStoreCatalogs" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreCatalogs"/>
     <view-map name="EditProductStoreShipSetup" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreShipSetup"/>
+    <view-map name="EditProductStoreShipmentCostEstimates" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreShipmentCostEstimates"/>
     <view-map name="EditProductStoreSurveys" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreSurveys"/>
     <view-map name="EditProductStoreTaxSetup" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreTaxSetup"/>
     <view-map name="EditProductStorePaySetup" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStorePaySetup"/>

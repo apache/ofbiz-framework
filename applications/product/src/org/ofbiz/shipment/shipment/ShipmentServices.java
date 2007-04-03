@@ -50,17 +50,24 @@ public class ShipmentServices {
         GenericDelegator delegator = dctx.getDelegator();
         List storeAll = new ArrayList();
 
-        String shipMethodAndParty = (String) context.get("shipMethod");
-        List shipMethodSplit = StringUtil.split(shipMethodAndParty, "|");
+        String productStoreShipMethId = (String)context.get("productStoreShipMethId");
+
+        GenericValue productStoreShipMeth = null;
+        try {
+            productStoreShipMeth = delegator.findByPrimaryKey("ProductStoreShipmentMeth", UtilMisc.toMap("productStoreShipMethId", productStoreShipMethId));
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError("Problem retrieving ProductStoreShipmentMeth entry with id [" + productStoreShipMethId + "]: " + e.toString());
+        }
+
 
         // Create the basic entity.
         GenericValue estimate = delegator.makeValue("ShipmentCostEstimate", null);
 
         estimate.set("shipmentCostEstimateId", delegator.getNextSeqId("ShipmentCostEstimate"));
-        estimate.set("shipmentMethodTypeId", shipMethodSplit.get(1));
-        estimate.set("carrierPartyId", shipMethodSplit.get(0));
+        estimate.set("shipmentMethodTypeId", productStoreShipMeth.getString("shipmentMethodTypeId"));
+        estimate.set("carrierPartyId", productStoreShipMeth.getString("partyId"));
         estimate.set("carrierRoleTypeId", "CARRIER");
-        estimate.set("productStoreId", context.get("productStoreId"));
+        estimate.set("productStoreId", productStoreShipMeth.getString("productStoreId"));
         estimate.set("geoIdTo", context.get("toGeo"));
         estimate.set("geoIdFrom", context.get("fromGeo"));
         estimate.set("partyId", context.get("partyId"));
@@ -73,6 +80,15 @@ public class ShipmentServices {
         estimate.set("oversizePrice", context.get("oversizePrice"));
         estimate.set("featurePercent", context.get("featurePercent"));
         estimate.set("featurePrice", context.get("featurePrice"));
+        estimate.set("weightBreakId", context.get("weightBreakId"));
+        estimate.set("weightUnitPrice", (Double)context.get("wprice"));
+        estimate.set("weightUomId", context.get("wuom"));
+        estimate.set("quantityBreakId", context.get("quantityBreakId"));
+        estimate.set("quantityUnitPrice", (Double)context.get("qprice"));
+        estimate.set("quantityUomId", context.get("quom"));
+        estimate.set("priceBreakId", context.get("priceBreakId"));
+        estimate.set("priceUnitPrice", (Double)context.get("pprice"));
+        estimate.set("priceUomId", context.get("puom"));
         storeAll.add(estimate);
 
         if (!applyQuantityBreak(context, result, storeAll, delegator, estimate, "w", "weight", "Weight")) {
