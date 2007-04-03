@@ -277,11 +277,15 @@ public class WorkEffortServices {
                 entityExprList.add(new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId));
                 typesList.add(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_HEADER"));
                 entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CREATED"));
+                entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_COMPLETED"));
+                entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CLOSED"));
             }
             if (UtilValidate.isNotEmpty(fixedAssetId)) {
                 entityExprList.add(new EntityExpr("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
                 typesList.add(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"));
                 entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CREATED"));
+                entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_COMPLETED"));
+                entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CLOSED"));
             }
             EntityCondition typesCondition = null;
             if (typesList.size() == 1) {
