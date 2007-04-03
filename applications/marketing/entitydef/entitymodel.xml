@@ -471,7 +471,7 @@ under the License.
       <relation type="one" fk-name="TKNG_CODODR_ODRTN" rel-entity-name="OrderHeader">
         <key-map field-name="orderId"/>
       </relation>
-      <relation type="one" fk-name="TKNG_CODODR_RTNTKCD" rel-entity-name="TrackingCode">
+      <relation type="one" fk-name="TKNG_CODODR_RTNTCD" rel-entity-name="TrackingCode">
         <key-map field-name="trackingCodeId"/>
       </relation>
       <relation type="one" fk-name="TKNG_CODODR_RTNTYP" rel-entity-name="TrackingCodeType">
