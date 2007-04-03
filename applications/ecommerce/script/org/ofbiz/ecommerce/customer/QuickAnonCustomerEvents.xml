@@ -92,13 +92,13 @@ under the License.
         <!-- Create the Person -->
         <call-map-processor in-map-name="parameters" out-map-name="personContext">
             <simple-map-processor name="newPerson">
-                <process field="firstName"><copy to-field="firstName"/><not-empty><fail-property resource="PartyUiLabels" property="PartyFirstNameMissing"/></not-empty></process>
-                <process field="middleName"><copy to-field="middleName"/></process>
-                <process field="lastName"><copy to-field="lastName"/><not-empty><fail-property resource="PartyUiLabels" property="PartyLastNameMissingError"/></not-empty></process>
-                <process field="personalTitle"><copy to-field="personalTitle"/></process>
-                <process field="suffix"><copy to-field="suffix"/></process>
-                <process field="birthDate"><convert type="Date" to-field="birthDate"><fail-property resource="PartyUiLabels" property="PartyBirthDateMissingError"/></convert></process>
-                <process field="gender"><copy to-field="gender"/></process>
+                <process field="firstName"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyFirstNameMissing"/></not-empty></process>
+                <process field="middleName"><copy/></process>
+                <process field="lastName"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyLastNameMissingError"/></not-empty></process>
+                <process field="personalTitle"><copy/></process>
+                <process field="suffix"><copy/></process>
+                <process field="birthDate"><convert type="Date"><fail-property resource="PartyUiLabels" property="PartyBirthDateMissingError"/></convert></process>
+                <process field="gender"><copy/></process>
             </simple-map-processor>
         </call-map-processor>
 
