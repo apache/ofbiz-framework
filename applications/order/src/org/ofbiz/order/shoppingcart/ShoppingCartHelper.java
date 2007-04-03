@@ -428,6 +428,15 @@ public class ShoppingCartHelper {
                 productId = (String) context.get("productId" + thisSuffix);
                 quantStr = (String) context.get("quantity" + thisSuffix);
                 requirementId = (String) context.get("requirementId" + thisSuffix);
+                GenericValue requirement = null;
+                try {
+                    requirement = delegator.findByPrimaryKey("Requirement", UtilMisc.toMap("requirementId", requirementId));
+                } catch(GenericEntityException gee) {
+                }
+                if (requirement == null) {
+                    return ServiceUtil.returnError("Requirement with id [" + requirementId + "] doesn't exist.");
+                }
+
                 if (quantStr != null && quantStr.length() > 0) {
                     double quantity = 0;
                     try {
@@ -446,12 +455,12 @@ public class ShoppingCartHelper {
                             }
                         }
                         if (requirementAlreadyInCart) {
-                            if (Debug.warningOn()) Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderTheRequirementIsAlreadyInTheCartNotAdding", UtilMisc.toMap("requirementId",requirementId), cart.getLocale()), module);
+                            if (Debug.warningOn()) Debug.logWarning(UtilProperties.getMessage(resource_error, "OrderTheRequirementIsAlreadyInTheCartNotAdding", UtilMisc.toMap("requirementId",requirementId), cart.getLocale()), module);
                             continue;
                         }
                         try {
                             if (Debug.verboseOn()) Debug.logVerbose("Bulk Adding to cart requirement [" + quantity + "] of [" + productId + "]", module);
-                            int index = this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, catalogId, null, null, itemGroupNumber, null, dispatcher);
+                            int index = this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, requirement.getTimestamp("requiredByDate"), null, null, null, catalogId, null, null, itemGroupNumber, null, dispatcher);
                             ShoppingCartItem sci = (ShoppingCartItem)this.cart.items().get(index);
                             sci.setRequirementId(requirementId);
                         } catch (CartItemModifyException e) {
