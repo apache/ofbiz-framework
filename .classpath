@@ -130,5 +130,6 @@
 	<classpathentry kind="lib" path="framework/webapp/lib/ws-commons-util-1.0.1.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-common-3.0.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-server-3.0.jar"/>
+	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-client-3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
