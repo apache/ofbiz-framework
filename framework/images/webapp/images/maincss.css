@@ -58,6 +58,12 @@ a:hover, a:active {
 text-decoration: underline;
 }
 
+.disabled {
+background-color: #cccccc;
+color: #333366;
+text-decoration: none;
+}
+
 body, textarea, input, select {
 font-family: Verdana, Arial, Helvetica, sans-serif;
 }
@@ -162,8 +168,14 @@ margin: 0.2em;
 padding: 0.1em 0.2em 0.1em 0.2em;
 }
 
-.smallSubmit:hover, .smallSubmit:active {
+.smallSubmit:hover {
 color: #ff0000;
+text-decoration: none;
+}
+
+.smallSubmit:active {
+background-color: #cccccc;
+color: #333366;
 text-decoration: none;
 }
 
@@ -1847,6 +1859,12 @@ padding: 0.1em 0.2em 0.1em 0.2em;
 .basic-form table tr td .smallSubmit:hover,
 .basic-form table tr td .smallSubmit:active {
 color: #ff0000;
+text-decoration: none;
+}
+
+.basic-form table tr td .disabled {
+background-color: #cccccc;
+color: #333366;
 text-decoration: none;
 }
 
