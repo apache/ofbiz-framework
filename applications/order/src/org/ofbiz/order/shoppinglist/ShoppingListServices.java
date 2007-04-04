@@ -452,17 +452,20 @@ public class ShoppingListServices {
                 }
 
                 if (listCart.size() > 0) {
-                    if (shoppingList.get("paymentMethodId") != null) {
+                    if (UtilValidate.isNotEmpty(shoppingList.get("paymentMethodId"))) {
                         listCart.addPayment(shoppingList.getString("paymentMethodId"));
                     }
-                    if (shoppingList.get("contactMechId") != null) {
+                    if (UtilValidate.isNotEmpty(shoppingList.get("contactMechId"))) {
                         listCart.setShippingContactMechId(0, shoppingList.getString("contactMechId"));
                     }
-                    if (shoppingList.get("shipmentMethodTypeId") != null) {
+                    if (UtilValidate.isNotEmpty(shoppingList.get("shipmentMethodTypeId"))) {
                         listCart.setShipmentMethodTypeId(0, shoppingList.getString("shipmentMethodTypeId"));
                     }
-                    if (shoppingList.get("carrierPartyId") != null) {
+                    if (UtilValidate.isNotEmpty(shoppingList.get("carrierPartyId"))) {
                         listCart.setCarrierPartyId(0, shoppingList.getString("carrierPartyId"));
+                    }
+                    if (UtilValidate.isNotEmpty(shoppingList.getString("productPromoCodeId"))) {
+                        listCart.addProductPromoCode(shoppingList.getString("productPromoCodeId"), dispatcher);
                     }
                 }
             }
