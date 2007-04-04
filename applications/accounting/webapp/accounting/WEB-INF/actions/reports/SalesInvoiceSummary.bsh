@@ -77,8 +77,8 @@ baseCategoryAndExprs = FastList.newInstance();
 baseCategoryAndExprs.add(new EntityExpr("invoiceTypeId", EntityOperator.EQUALS, "SALES_INVOICE"));
 baseCategoryAndExprs.add(new EntityExpr("invoiceItemTypeId", EntityOperator.IN, UtilMisc.toList("INV_PROD_ITEM", "INV_FPROD_ITEM", "INV_DPROD_ITEM")));
 baseCategoryAndExprs.add(new EntityExpr("statusId", EntityOperator.IN, UtilMisc.toList("INVOICE_READY", "INVOICE_PAID")));
-baseCategoryAndExprs.add(new EntityExpr("productCategoryId", EntityOperator.IN, productCategoryIdSet));
-baseCategoryAndExprs.add(new EntityExpr("productId", EntityOperator.NOT_IN, productIdSet));
+if (productCategoryIdSet.size() > 0) baseCategoryAndExprs.add(new EntityExpr("productCategoryId", EntityOperator.IN, productCategoryIdSet));
+if (productIdSet.size() > 0) baseCategoryAndExprs.add(new EntityExpr("productId", EntityOperator.NOT_IN, productIdSet));
 if (UtilValidate.isNotEmpty(organizationPartyId)) baseCategoryAndExprs.add(new EntityExpr("partyIdFrom", EntityOperator.EQUALS, organizationPartyId));
 if (UtilValidate.isNotEmpty(currencyUomId)) baseCategoryAndExprs.add(new EntityExpr("currencyUomId", EntityOperator.EQUALS, currencyUomId));
 
@@ -106,7 +106,7 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     // do the product find
     productAndExprs = FastList.newInstance();
     productAndExprs.addAll(baseProductAndExprs);
-    productAndExprs.add(new EntityExpr("productId", EntityOperator.IN, productIdSet));
+    if (productIdSet.size() > 0) productAndExprs.add(new EntityExpr("productId", EntityOperator.IN, productIdSet));
     productAndExprs.add(new EntityExpr("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
     productAndExprs.add(new EntityExpr("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
     
