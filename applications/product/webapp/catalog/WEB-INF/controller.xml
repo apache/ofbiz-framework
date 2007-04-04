@@ -1894,57 +1894,77 @@ under the License.
         <response name="success" type="view" value="EditProductStoreShipSetup"/>
         <response name="error" type="view" value="EditProductStoreShipSetup"/>
     </request-map>
-    <request-map uri="createShipmentMethodType">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createShipmentMethodType"/>
-        <response name="success" type="view" value="EditProductStoreShipSetup"/>
-        <response name="error" type="view" value="EditProductStoreShipSetup"/>
-    </request-map>
-    <request-map uri="updateShipmentMethodType">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateShipmentMethodType"/>
-        <response name="success" type="view" value="EditProductStoreShipSetup"/>
-        <response name="error" type="view" value="EditProductStoreShipSetup"/>
-    </request-map>
-    <request-map uri="createCarrierShipmentMethod">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createCarrierShipmentMethod"/>
-        <response name="success" type="view" value="EditProductStoreShipSetup"/>
-        <response name="error" type="view" value="EditProductStoreShipSetup"/>
-    </request-map>
-    <request-map uri="updateCarrierShipmentMethod">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateCarrierShipmentMethod"/>
-        <response name="success" type="view" value="EditProductStoreShipSetup"/>
-        <response name="error" type="view" value="EditProductStoreShipSetup"/>
-    </request-map>
 
     <!-- ================ QuantityBreak Requests ================= -->
     <request-map uri="ListQuantityBreaks">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListQuantityBreaks"/>
     </request-map>
-    <request-map uri="EditQuantityBreak">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditQuantityBreak"/>
-    </request-map>
     <request-map uri="createQuantityBreak">
         <security https="true" auth="true"/>
         <event type="service" invoke="createQuantityBreak"/>
         <response name="success" type="view" value="ListQuantityBreaks"/>
-        <response name="error" type="view" value="EditQuantityBreak"/>
+        <response name="error" type="view" value="ListQuantityBreaks"/>
     </request-map>
     <request-map uri="updateQuantityBreak">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateQuantityBreak"/>
         <response name="success" type="view" value="ListQuantityBreaks"/>
-        <response name="error" type="view" value="EditQuantityBreak"/>
+        <response name="error" type="view" value="ListQuantityBreaks"/>
     </request-map>
     <request-map uri="deleteQuantityBreak">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteQuantityBreak"/>
         <response name="success" type="view" value="ListQuantityBreaks"/>
         <response name="error" type="view" value="ListQuantityBreaks"/>
+    </request-map>
+
+    <!-- ================ ShipmentMethodType Requests ================= -->
+    <request-map uri="ListShipmentMethodTypes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListShipmentMethodTypes"/>
+    </request-map>
+    <request-map uri="createShipmentMethodType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createShipmentMethodType"/>
+        <response name="success" type="view" value="ListShipmentMethodTypes"/>
+        <response name="error" type="view" value="ListShipmentMethodTypes"/>
+    </request-map>
+    <request-map uri="updateShipmentMethodType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateShipmentMethodType"/>
+        <response name="success" type="view" value="ListShipmentMethodTypes"/>
+        <response name="error" type="view" value="ListShipmentMethodTypes"/>
+    </request-map>
+    <request-map uri="deleteShipmentMethodType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteShipmentMethodType"/>
+        <response name="success" type="view" value="ListShipmentMethodTypes"/>
+        <response name="error" type="view" value="ListShipmentMethodTypes"/>
+    </request-map>
+
+    <!-- ================ CarrierShipmentMethod Requests ================= -->
+    <request-map uri="ListCarrierShipmentMethods">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListCarrierShipmentMethods"/>
+    </request-map>
+    <request-map uri="createCarrierShipmentMethod">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCarrierShipmentMethod"/>
+        <response name="success" type="view" value="ListCarrierShipmentMethods"/>
+        <response name="error" type="view" value="ListCarrierShipmentMethods"/>
+    </request-map>
+    <request-map uri="updateCarrierShipmentMethod">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateCarrierShipmentMethod"/>
+        <response name="success" type="view" value="ListCarrierShipmentMethods"/>
+        <response name="error" type="view" value="ListCarrierShipmentMethods"/>
+    </request-map>
+    <request-map uri="deleteCarrierShipmentMethod">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteCarrierShipmentMethod"/>
+        <response name="success" type="view" value="ListCarrierShipmentMethods"/>
+        <response name="error" type="view" value="ListCarrierShipmentMethods"/>
     </request-map>
 
     <!-- ================ ProductStore Survey Requests ================= -->
@@ -2418,8 +2438,9 @@ under the License.
     
     <view-map name="EditProductWorkEfforts" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductWorkEfforts"/>        
 
-    <view-map name="ListQuantityBreaks" type="screen" page="component://product/widget/catalog/StoreScreens.xml#ListQuantityBreaks"/>
-    <view-map name="EditQuantityBreak" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditQuantityBreak"/>
+    <view-map name="ListQuantityBreaks" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListQuantityBreaks"/>
+    <view-map name="ListShipmentMethodTypes" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListShipmentMethodTypes"/>
+    <view-map name="ListCarrierShipmentMethods" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListCarrierShipmentMethods"/>
 
     <!-- Lookup request mappings -->
     <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>

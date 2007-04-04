@@ -1095,6 +1095,10 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="carrierShipmentMethod"/>
         <store-value value-name="carrierShipmentMethod"/>
     </simple-method>
+    <simple-method method-name="deleteCarrierShipmentMethod" short-description="Removes a CarrierShipmentMethod">
+        <entity-one entity-name="CarrierShipmentMethod" value-name="carrierShipmentMethod"/>
+        <remove-value value-name="carrierShipmentMethod"/>
+    </simple-method>
 
     <simple-method method-name="createShipmentMethodType" short-description="Creates a ShipmentMethodType">
         <make-value value-name="shipmentMethodType" entity-name="ShipmentMethodType"/>
@@ -1106,6 +1110,10 @@ under the License.
         <entity-one entity-name="ShipmentMethodType" value-name="shipmentMethodType"/>
         <set-nonpk-fields map-name="parameters" value-name="shipmentMethodType"/>
         <store-value value-name="shipmentMethodType"/>
+    </simple-method>
+    <simple-method method-name="deleteShipmentMethodType" short-description="Deletes a ShipmentMethodType">
+        <entity-one entity-name="ShipmentMethodType" value-name="shipmentMethodType"/>
+        <remove-value value-name="shipmentMethodType"/>
     </simple-method>
 
     <!-- quick ship entire order in one package per facility & ship group -->

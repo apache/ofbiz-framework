@@ -29,25 +29,3 @@ context.put("storeShipMethods", storeShipMeth);
 
 shipMeth = delegator.findAll("CarrierAndShipmentMethod", UtilMisc.toList("sequenceNumber"));
 context.put("shipmentMethods", shipMeth);
-
-shipMethTypes = delegator.findAll("ShipmentMethodType", UtilMisc.toList("description"));
-context.put("shipmentMethodTypes", shipMethTypes);
-
-roleTypes = delegator.findAll("RoleType", UtilMisc.toList("description"));
-context.put("roleTypes", roleTypes);
-
-editCarrier = request.getParameter("editCarrierShipmentMethodId");
-carrierShipmentMethod = new HashMap();
-if (editCarrier != null) {
-    splitKey = StringUtil.split(editCarrier, "|");
-    Debug.log(splitKey.toString());
-    carrierShipmentMethod = delegator.findByPrimaryKey("CarrierShipmentMethod", UtilMisc.toMap("partyId", splitKey.get(0), "roleTypeId", splitKey.get(1), "shipmentMethodTypeId", splitKey.get(2)));
-}
-context.put("carrierShipmentMethod", carrierShipmentMethod);
-
-editMethod = request.getParameter("editShipmentMethodTypeId");
-shipmentMethodType = new HashMap();
-if (editMethod != null) {
-    shipmentMethodType = delegator.findByPrimaryKey("ShipmentMethodType", UtilMisc.toMap("shipmentMethodTypeId", editMethod));
-}
-context.put("shipmentMethodType", shipmentMethodType);

@@ -179,7 +179,42 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
+    <screen name="CommonShippingDecorator">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
+                <set field="MainColumnStyle" value="leftonly"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for CATALOG, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="CATALOG" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/catalog/shipping/ShippingTabBar.ftl"/></html>
+                                </platform-specific>
+                                <!--<include-menu name="EditSubscriptionResource" location="component://product/widget/catalog/SubscriptionMenus.xml"/>-->
+                                <container>
+                                    <label style="head1">${uiLabelMap.${labelTitleProperty}}</label>
+                                </container>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="leftbar">
         <section>
             <widgets>
