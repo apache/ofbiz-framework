@@ -37,6 +37,11 @@ under the License.
         <auto-attributes entity-name="CarrierShipmentMethod" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="CarrierShipmentMethod" include="nonpk" mode="IN" optional="true"/>
     </service>
+    <service name="deleteCarrierShipmentMethod" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteCarrierShipmentMethod" auth="true">
+        <description>Deletes A CarrierShipmentMethod</description>
+        <auto-attributes entity-name="CarrierShipmentMethod" include="pk" mode="IN" optional="false"/>
+    </service>
     <service name="createShipmentMethodType" engine="simple"
             location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentMethodType" auth="true">
         <description>Creates A ShipmentMethodType</description>
@@ -48,6 +53,11 @@ under the License.
         <description>Updates A ShipmentMethodType</description>
         <auto-attributes entity-name="ShipmentMethodType" mode="IN" optional="false"/>
         <override name="sequenceNum" optional="true"/>
+    </service>
+    <service name="deleteShipmentMethodType" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentMethodType" auth="true">
+        <description>Deletes A ShipmentMethodType</description>
+        <auto-attributes entity-name="ShipmentMethodType" include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="quickShipEntireOrder" engine="simple"

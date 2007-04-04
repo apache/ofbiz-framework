@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <!-- QuantityBreak forms -->
+    <form name="ListQuantityBreaks" target="" title="" type="list"  list-name="quantityBreaks"
+        paginate-target="ListQuantityBreaks">
+        <auto-fields-entity entity-name="QuantityBreak" default-field-type="display"/>
+        <field name="quantityBreakId" widget-style="buttontext">
+            <hyperlink target="ListQuantityBreaks?quantityBreakId=${quantityBreakId}" description="${quantityBreakId}" also-hidden="false"/>
+        </field>
+        <field name="quantityBreakTypeId" title="${uiLabelMap.CommonType}"><display-entity also-hidden="false" entity-name="QuantityBreakType"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteQuantityBreak?quantityBreakId=${quantityBreakId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditQuantityBreak" type="single" target="createQuantityBreak" title="" default-map-name="quantityBreak">
+        <alt-target use-when="quantityBreak!=null" target="updateQuantityBreak"/>
+        <auto-fields-entity entity-name="QuantityBreak" default-field-type="edit"/>
+        <field name="quantityBreakId"><hidden/></field>
+        <field name="quantityBreakTypeId" title="${uiLabelMap.CommonType}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="QuantityBreakType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListShipmentMethodTypes" target="" title="" type="list"  list-name="shipmentMethodTypes"
+        paginate-target="ListQuantityBreaks">
+        <auto-fields-entity entity-name="ShipmentMethodType" default-field-type="display"/>
+        <field name="shipmentMethodTypeId" widget-style="buttontext">
+            <hyperlink target="ListShipmentMethodTypes?shipmentMethodTypeId=${shipmentMethodTypeId}" description="${shipmentMethodTypeId}" also-hidden="false"/>
+        </field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteShipmentMethodType?shipmentMethodTypeId=${shipmentMethodTypeId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditShipmentMethodType" type="single" target="createShipmentMethodType" title="" default-map-name="shipmentMethodType">
+        <alt-target use-when="shipmentMethodType!=null" target="updateShipmentMethodType"/>
+        <auto-fields-service service-name="createShipmentMethodType" default-field-type="edit"/>
+        <field name="shipmentMethodTypeId" use-when="shipmentMethodType!=null"><display/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListCarrierShipmentMethods" target="" title="" type="list"  list-name="carrierShipmentMethods"
+        paginate-target="ListQuantityBreaks">
+        <auto-fields-entity entity-name="CarrierShipmentMethod" default-field-type="display"/>
+        <field name="shipmentMethodTypeId"><display-entity also-hidden="false" entity-name="ShipmentMethodType"/></field>
+        <field name="roleTypeId"><display-entity also-hidden="false" entity-name="RoleType"/></field>
+        <field name="editLink" widget-style="buttontext">
+            <hyperlink target="ListCarrierShipmentMethods?shipmentMethodTypeId=${shipmentMethodTypeId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
+        </field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteCarrierShipmentMethod?shipmentMethodTypeId=${shipmentMethodTypeId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditCarrierShipmentMethod" type="single" target="createCarrierShipmentMethod" title="" default-map-name="carrierShipmentMethod">
+        <alt-target use-when="carrierShipmentMethod!=null" target="updateCarrierShipmentMethod"/>
+        <auto-fields-service service-name="createCarrierShipmentMethod" default-field-type="edit"/>
+        <field name="shipmentMethodTypeId" use-when="carrierShipmentMethod==null">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="ShipmentMethodType" description="${description} [${shipmentMethodTypeId}]">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="shipmentMethodTypeId" use-when="carrierShipmentMethod!=null"><display/></field>
+        <field name="partyId" use-when="carrierShipmentMethod!=null"><display/></field>
+        <field name="partyId" use-when="carrierShipmentMethod==null">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="roleTypeId" use-when="carrierShipmentMethod!=null"><display/></field>
+        <field name="roleTypeId" use-when="carrierShipmentMethod==null">
+            <drop-down allow-empty="false" no-current-selected-key="CARRIER">
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="sequenceNumber" tooltip="${uiLabelMap.ProductUsedForDisplayOrdering}"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+</forms>
