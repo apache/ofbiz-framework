@@ -24,18 +24,18 @@
     <form name="SalesInvoiceSummaryOptions" type="single" target="SalesInvoiceSummary">
         <field name="month" required-field="true">
             <drop-down allow-empty="false">
-                <option key="0" description="January"/>
-                <option key="1" description="February"/>
-                <option key="2" description="March"/>
-                <option key="3" description="April"/>
-                <option key="4" description="May"/>
-                <option key="5" description="June"/>
-                <option key="6" description="July"/>
-                <option key="7" description="August"/>
-                <option key="8" description="September"/>
-                <option key="9" description="October"/>
-                <option key="10" description="November"/>
-                <option key="11" description="December"/>
+                <option key="0" description="1-January"/>
+                <option key="1" description="2-February"/>
+                <option key="2" description="3-March"/>
+                <option key="3" description="4-April"/>
+                <option key="4" description="5-May"/>
+                <option key="5" description="6-June"/>
+                <option key="6" description="7-July"/>
+                <option key="7" description="8-August"/>
+                <option key="8" description="9-September"/>
+                <option key="9" description="10-October"/>
+                <option key="10" description="11-November"/>
+                <option key="11" description="12-December"/>
             </drop-down>
         </field>
         <field name="year" required-field="true"><text size="4" default-value="2007"/></field>

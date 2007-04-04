@@ -27,11 +27,12 @@ under the License.
 
 <div>Sales Invoice Summary Report for:</div>
 <ul>
-    <li>Month: ${month}/${year}</li>
+    <li>Month: ${(month + 1)}/${year}</li>
     <li>Root Category: ${rootProductCategory.categoryName?if_exists} [${rootProductCategoryId}]</li>
     <li>Organization: ${(organizationPartyName.groupName)?if_exists} [${organizationPartyId?default("No Organization Specified")}]</li>
     <li>Currency: ${(currencyUom.description)?if_exists} [${currencyUomId?default("No Currency Specified")}]</li>
-</il> 
+</il>
+<div>NOTE: each set of numbers is: &lt;quantity&gt;:&lt;total amount&gt;:&lt;average amount&gt;</div>
 <table>
     <#-- Create the header row -->
 	<tr>
