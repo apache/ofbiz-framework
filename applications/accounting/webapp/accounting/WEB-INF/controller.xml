@@ -1312,7 +1312,7 @@ under the License.
     </request-map>
     
     <!-- ================ Financial Summary Report requests ================== -->
-    <request-map uri="FinancialSummryReportOptions"><security https="true" auth="true"/><response name="success" type="view" value="FinancialSummryReportOptions"/></request-map>
+    <request-map uri="FinancialSummaryReportOptions"><security https="true" auth="true"/><response name="success" type="view" value="FinancialSummaryReportOptions"/></request-map>
     <request-map uri="SalesInvoiceSummary"><security https="true" auth="true"/><response name="success" type="view" value="SalesInvoiceSummary"/></request-map>
     <!-- end of request mappings -->
 
