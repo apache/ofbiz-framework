@@ -848,7 +848,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
                 buffer.append(action);
                 buffer.append('"');
             } else {
-            	buffer.append(singleClickAction);
+            	// disabling for now, using form onSubmit action instead: buffer.append(singleClickAction);
             }
             
             buffer.append("/>");
@@ -881,7 +881,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
                 buffer.append('"');
             } else {
             	//add single click JS onclick
-            	buffer.append(singleClickAction);
+                // disabling for now, using form onSubmit action instead: buffer.append(singleClickAction);
             }
             
             buffer.append("/>");
@@ -1049,6 +1049,8 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append("basic-form");
         }
         buffer.append("\"");
+        
+        buffer.append(" onSubmit=\"javascript:submitFormDisableSubmits(this)\"");
 
         buffer.append(" name=\"");
         buffer.append(modelForm.getCurrentFormName(context));

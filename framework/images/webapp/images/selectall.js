@@ -184,10 +184,36 @@ function confirmActionFormLink(msg, formName) {
     }
 }
 
+function submitFormDisableSubmits(form) {
+    for (var i=0;i<form.length;i++) {
+        var formel = form.elements[i];
+        if (formel.type == "submit") {
+            submitFormDisableButton(formel);
+            var formName = form.name;
+            var formelName = formel.name;
+            var timeoutString = "submitFormEnableButtonByName('" + formName + "', '" + formelName + "')";
+            var t = setTimeout(timeoutString, 1500);
+        }
+    }
+}
+
 // prevents doubleposts for <submit> inputs of type "button" or "image"
 function submitFormDisableButton(button) {
     if (button.form.action != null && button.form.action.length > 0) {
         button.disabled = true;
     }
-    button.form.submit();
+    button.className = button.className + " disabled";
+    button.value = button.value + "*";
 }                                                                                                                                                                                                                          
+
+function submitFormEnableButtonByName(formName, buttonName) {
+    // alert("formName=" + formName + " buttonName=" + buttonName);
+    var form = document[formName];
+    var button = form.elements[buttonName];
+    submitFormEnableButton(button);
+}
+function submitFormEnableButton(button) {
+    button.disabled = false;
+    button.className = button.className.substring(0, button.className.length - " disabled".length);
+    button.value = button.value.substring(0, button.value.length - 1);
+}
