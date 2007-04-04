@@ -2496,6 +2496,7 @@ under the License.
       <field name="recurrenceInfoId" type="id"></field>
       <field name="lastOrderedDate" type="date-time"></field>
       <field name="lastAdminModified" type="date-time"></field>
+      <field name="productPromoCodeId" type="id"></field>
       <prim-key field="shoppingListId"/>
       <relation type="one" fk-name="SHLIST_PARENT" title="Parent" rel-entity-name="ShoppingList">
         <key-map field-name="parentShoppingListId" rel-field-name="shoppingListId"/>
@@ -2538,6 +2539,9 @@ under the License.
       <relation type="one" fk-name="SHLIST_RECINFO" rel-entity-name="RecurrenceInfo">
         <key-map field-name="recurrenceInfoId"/>
       </relation>
+        <relation type="one" fk-name="SHLIST_PRMCD" rel-entity-name="ProductPromoCode">
+            <key-map field-name="productPromoCodeId"/>
+        </relation>
     </entity>
     <entity entity-name="ShoppingListItem"
             package-name="org.ofbiz.order.shoppinglist"
