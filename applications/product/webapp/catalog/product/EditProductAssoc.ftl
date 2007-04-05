@@ -200,11 +200,11 @@ under the License.
                 <td><div class="tabletext"><#if curProductAssocType?exists> ${(curProductAssocType.get("description",locale))?if_exists}<#else>${(assocFromProduct.productAssocTypeId)?if_exists}</#if></div></td>
                 <td>
                 <a href="<@ofbizUrl>UpdateProductAssoc?UPDATE_MODE=DELETE&productId=${productId}&PRODUCT_ID=${productId}&PRODUCT_ID_TO=${(assocFromProduct.productIdTo)?if_exists}&PRODUCT_ASSOC_TYPE_ID=${(assocFromProduct.productAssocTypeId)?if_exists}&FROM_DATE=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(assocFromProduct.getTimestamp("fromDate").toString())}&useValues=true</@ofbizUrl>" class="buttontext">
-                [${uiLabelMap.CommonDelete}]</a>
+                ${uiLabelMap.CommonDelete}</a>
                 </td>
                 <td>
                 <a href="<@ofbizUrl>EditProductAssoc?productId=${productId}&PRODUCT_ID=${productId}&PRODUCT_ID_TO=${(assocFromProduct.productIdTo)?if_exists}&PRODUCT_ASSOC_TYPE_ID=${(assocFromProduct.productAssocTypeId)?if_exists}&FROM_DATE=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(assocFromProduct.getTimestamp("fromDate").toString())}&useValues=true</@ofbizUrl>" class="buttontext">
-                [${uiLabelMap.CommonEdit}]</a>
+                ${uiLabelMap.CommonEdit}</a>
                 </td>
             </tr>
             </#list>
@@ -232,7 +232,7 @@ under the License.
                 <td><div class="tabletext"><#if curProductAssocType?exists> ${(curProductAssocType.get("description",locale))?if_exists}<#else> ${(assocToProduct.productAssocTypeId)?if_exists}</#if></div></td>
                 <td>
                 <a href="<@ofbizUrl>UpdateProductAssoc?UPDATE_MODE=DELETE&productId=${(assocToProduct.productIdTo)?if_exists}&PRODUCT_ID=${(assocToProduct.productId)?if_exists}&PRODUCT_ID_TO=${(assocToProduct.productIdTo)?if_exists}&PRODUCT_ASSOC_TYPE_ID=${(assocToProduct.productAssocTypeId)?if_exists}&FROM_DATE=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(assocToProduct.getTimestamp("fromDate").toString())}&useValues=true</@ofbizUrl>" class="buttontext">
-                [${uiLabelMap.CommonDelete}]</a>
+                ${uiLabelMap.CommonDelete}</a>
                 </td>
             </tr>
             </#list>

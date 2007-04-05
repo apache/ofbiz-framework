@@ -60,8 +60,8 @@ under the License.
             <hidden value="${donePage}"/>
         </field>
         
-        <field name="submitButton" title="[${uiLabelMap.CommonSave}]" widget-style="buttontext"><submit button-type="text-link"/></field>
-        <field name="cancelLink" widget-style="buttontext" title="${uiLabelMap.CommonCancel}"><hyperlink target="${donePage}" also-hidden="false" description="[${uiLabelMap.CommonCancelDone}]" target-type="inter-app"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="cancelLink" widget-style="buttontext" title="${uiLabelMap.CommonCancel}"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}" target-type="inter-app"/></field>
     </form>
 
    <form name="ListMarketingCampaign" list-name="" target="" title="" type="list" paginate-target="listMarketingCampaign">
@@ -77,7 +77,7 @@ under the License.
         </field>
         <field name="deleteLink" title="&amp;nbsp;" widget-style="buttontext">
             <hyperlink target="removeMarketingCampaign?marketingCampaignId=${marketingCampaignId}"
-                description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
 
@@ -92,19 +92,19 @@ under the License.
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="&quot;${lastName}&quot;!=null">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" also-hidden="true">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" description="[${partyId}]" link-style="buttontext" target-type="inter-app"/>
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" description="${partyId}" link-style="buttontext" target-type="inter-app"/>
             </display-entity>
         </field>
 <!-- Currently not working for PartyGroup
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="&quot;${groupName}&quot;!=null">
             <display-entity entity-name="PartyNameView" description="${groupName}" also-hidden="true">
-                <sub-hyperlink target="/partymgr/control/viewProfile?partyId=${partyId}" description="[${partyId}]" link-style="buttontext"/>
+                <sub-hyperlink target="/partymgr/control/viewProfile?partyId=${partyId}" description="${partyId}" link-style="buttontext"/>
             </display-entity>
         </field>
         -->
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}">
             <display-entity entity-name="RoleType" description="${description}" also-hidden="true"/>
-<!--                 <sub-hyperlink target="/partymgr/control/viewProfile?partyId=${partyId}" description="[${partyId}]" link-style="buttontext"/>
+<!--                 <sub-hyperlink target="/partymgr/control/viewProfile?partyId=${partyId}" description="${partyId}" link-style="buttontext"/>
             </display-entity>-->
         </field>
         <field name="editLink" title="&amp;nbsp;" widget-style="buttontext">
@@ -112,7 +112,7 @@ under the License.
         </field>
         <field name="deleteLink" title="&amp;nbsp;" widget-style="buttontext">
             <hyperlink target="removeMarketingCampaignRole?marketingCampaignId=${marketingCampaignId}&amp;roleTypeId=${roleTypeId}&amp;partyId=${partyId}"
-                description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
 
@@ -133,8 +133,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="[${uiLabelMap.CommonSave}]" widget-style="buttontext"><submit button-type="text-link"/></field>
-        <field name="cancelLink" widget-style="buttontext" title="${uiLabelMap.CommonCancel}"><hyperlink target="${donePage}?marketingCampaignId=${marketingCampaignId}" also-hidden="false" description="[${uiLabelMap.CommonCancelDone}]"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="cancelLink" widget-style="buttontext" title="${uiLabelMap.CommonCancel}"><hyperlink target="${donePage}?marketingCampaignId=${marketingCampaignId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
 
 </forms>
