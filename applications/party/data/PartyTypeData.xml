@@ -214,7 +214,7 @@ under the License.
     <RoleType description="Subsidiary" hasTable="N" parentTypeId="ORGANIZATION_UNIT" roleTypeId="SUBSIDIARY"/>
     <RoleType description="Worker" hasTable="N" parentTypeId="EMPLOYEE" roleTypeId="WORKER"/>
 
-    <!-- <PartyClassificationType description="" hasTable="N" parentTypeId="" partyClassificationTypeId="EEOC_CLASSIFICATION"/> -->
+    <PartyClassificationType description="EEOC (Equal Opportunity)" hasTable="N" parentTypeId="" partyClassificationTypeId="EEOC_CLASSIFICATION"/>
     <PartyClassificationType description="Minority" hasTable="N" parentTypeId="" partyClassificationTypeId="MINORITY_CLASSIFICAT"/>
     <PartyClassificationType description="Income" hasTable="N" parentTypeId="" partyClassificationTypeId="INCOME_CLASSIFICATIO"/>
     <PartyClassificationType description="Industry" hasTable="N" parentTypeId="" partyClassificationTypeId="INDUSTRY_CLASSIFICAT"/>

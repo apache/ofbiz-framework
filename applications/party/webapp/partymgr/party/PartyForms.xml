@@ -63,6 +63,7 @@ under the License.
         focus-field-name="userLoginId">
         <auto-fields-service service-name="createUserLogin"/>
         <field name="partyId"><hidden/></field>
+        <field name="enabled"><hidden/></field>
         <field name="currentPassword"><password/></field>
         <field name="currentPasswordVerify"><password/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>

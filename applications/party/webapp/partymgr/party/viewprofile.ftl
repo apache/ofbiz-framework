@@ -393,7 +393,7 @@ under the License.
 <#-- AVS Strings -->
   <div id="partyAVS" class="screenlet">
     <div class="screenlet-title-bar">
-      <h3>${uiLabelMap.PartyCybersourceAvsOver}</h3>
+      <h3>${uiLabelMap.PartyAvsOver}</h3>
     </div>
     <div class="screenlet-body">
       <span class="label">${uiLabelMap.PartyAvsString}</span>${(avsOverride.avsDeclineString)?default("${uiLabelMap.CommonGlobal}")}
