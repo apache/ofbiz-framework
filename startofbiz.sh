@@ -23,7 +23,7 @@ ADMIN_PORT=10523
 ADMIN_KEY=so3du5kasd5dn
 
 # console log file
-OFBIZ_LOG=framework/logs/console.log
+OFBIZ_LOG=runtime/logs/console.log
 
 # delete the last log
 rm -f $OFBIZ_LOG
