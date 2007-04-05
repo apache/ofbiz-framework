@@ -185,6 +185,7 @@ public class PersistedServiceJob extends GenericServiceJob {
     protected void failed(Throwable t) throws InvalidJobException {
         super.failed(t);
 
+        GenericValue job = getJob();
         // if the job has not been re-scheduled; we need to re-schedule and run again
         if (nextRecurrence == -1) {
             if (this.canRetry()) {
@@ -193,24 +194,23 @@ public class PersistedServiceJob extends GenericServiceJob {
                 cal.setTime(new Date());
                 cal.add(Calendar.MINUTE, ServiceConfigUtil.getFailedRetryMin());
                 long next = cal.getTimeInMillis();
-                GenericValue job = getJob();
                 try {
                     createRecurrence(job, next);
                 } catch (GenericEntityException gee) {
                     Debug.logError(gee, "ERROR: Unable to re-schedule job [" + getJobId() + "] to re-run : " + job, module);
                 }
-
-                // set the failed status
-                job.set("statusId", "SERVICE_FAILED");
-                try {
-                    job.store();
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, "Cannot update the job sandbox", module);
-                }
                 Debug.log("Persisted Job [" + getJobId() + "] Failed Re-Scheduling : " + next, module);
             } else {
                 Debug.logWarning("Persisted Job [" + getJobId() + "] Failed - Max Retry Hit; not re-scheduling", module);
             }
+        }
+        // set the failed status
+        job.set("statusId", "SERVICE_FAILED");
+        job.set("finishDateTime", UtilDateTime.nowTimestamp());
+        try {
+            job.store();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Cannot update the job sandbox", module);
         }
     }
 
