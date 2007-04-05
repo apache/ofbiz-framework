@@ -24,9 +24,7 @@ under the License.
          default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
          paginate-target="FindExample">
         <actions>
-            <entity-condition entity-name="Example">
-                <order-by field-name="description"/>
-            </entity-condition>
+            <entity-condition entity-name="Example"><order-by field-name="description"/></entity-condition>
         </actions>
         
         <field name="exampleId" title="${uiLabelMap.ExampleExampleId}" widget-style="buttontext">
@@ -58,7 +56,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field use-when="example==null" name="statusId" title="${uiLabelMap.CommonStatus}" widget-style="selectBox">
+        <field name="statusId" use-when="example==null" title="${uiLabelMap.CommonStatus}" widget-style="selectBox">
             <drop-down allow-empty="false">
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" value="EXAMPLE_STATUS"/>
@@ -66,17 +64,18 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field use-when="example!=null" name="statusId" title="${uiLabelMap.CommonStatus}" widget-style="selectBox">
+        <field name="statusId" use-when="example!=null" title="${uiLabelMap.CommonStatus}" widget-style="selectBox">
             <drop-down allow-empty="false" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
-                    <entity-constraint name="statusId" value="${example.statusId}"/>
+                    <entity-constraint name="statusId" env-name="example.statusId"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
             </drop-down>
         </field>
 
         <field name="description" title="${uiLabelMap.CommonDescription}"/>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="example==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="example!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
     <!-- ExampleItem -->

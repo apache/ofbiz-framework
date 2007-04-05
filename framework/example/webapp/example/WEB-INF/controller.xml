@@ -214,10 +214,7 @@ under the License.
         <response name="error" type="view" value="EditExampleFeatureExampleAppls"/>
     </request-map>
     
-    <request-map uri="LookupExampleFeature">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="LookupExampleFeature"/>
-    </request-map>
+    <request-map uri="LookupExampleFeature"><security https="true" auth="true"/><response name="success" type="view" value="LookupExampleFeature"/></request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
