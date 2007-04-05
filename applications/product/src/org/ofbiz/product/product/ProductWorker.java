@@ -26,15 +26,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.sql.Timestamp;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.collections.map.LinkedMap;
 
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilFormatOut;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -711,6 +709,31 @@ public class ProductWorker {
 
     public static GenericValue findProduct(GenericDelegator delegator, String idToFind) throws GenericEntityException {
         return findProduct(delegator, idToFind, null);
+    }
+
+    public static boolean isSellable(GenericDelegator delegator, String productId, Timestamp atTime) throws GenericEntityException {
+        return isSellable(findProduct(delegator, productId), atTime);
+    }
+
+    public static boolean isSellable(GenericDelegator delegator, String productId) throws GenericEntityException {
+        return isSellable(findProduct(delegator, productId));
+    }
+
+    public static boolean isSellable(GenericValue product) {
+        return isSellable(product, UtilDateTime.nowTimestamp());
+    }
+
+    public static boolean isSellable(GenericValue product, Timestamp atTime) {
+        if (product != null) {
+            Timestamp introDate = product.getTimestamp("introductionDate");
+            Timestamp discDate = product.getTimestamp("salesDiscontinuationDate");
+            if (introDate == null || introDate.before(atTime)) {
+                if (discDate == null || discDate.after(atTime)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
 
