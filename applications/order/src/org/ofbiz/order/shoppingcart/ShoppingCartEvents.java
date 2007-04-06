@@ -301,7 +301,7 @@ public class ShoppingCartEvents {
         } else if (paramMap.containsKey("quantity")) {
             quantityStr = (String) paramMap.remove("quantity");
         }
-        if (quantityStr == null) {
+        if (UtilValidate.isEmpty(quantityStr)) {
             quantityStr = "1";  // default quantity is 1
         }
 
