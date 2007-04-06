@@ -73,6 +73,13 @@ under the License.
         <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="OUT"/>
         <attribute name="userLoginSession" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
+
+    <service name="serviceStreamInterface" engine="interface">
+        <description>Inteface to describe services call with streams</description>
+        <attribute name="inputStream" type="java.io.InputStream" mode="IN"/>
+        <attribute name="outputStream" type="java.io.OutputStream" mode="IN"/>
+        <attribute name="contentType" type="String" mode="OUT"/> 
+    </service>
     
     <service name="serviceEcaConditionInterface" engine="interface">
         <description>Interface to describe services which are used as SECA conditions</description>
