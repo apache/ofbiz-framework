@@ -87,6 +87,32 @@ under the License.
     </tr>
     <tr>
       <td align="right" valign="middle">
+        <div class="tabletext">${uiLabelMap.ProductFeatureCategory} ${uiLabelMap.CommonIds}:</div>
+      </td>
+      <td valign="middle">
+        <div>
+          <input type="text" class="inputBox" name="SEARCH_PROD_FEAT_CAT1" size="15" value="${requestParameters.SEARCH_PROD_FEAT_CAT1?if_exists}"/>&nbsp;
+              ${uiLabelMap.CommonInclude}<input type="radio" name="SEARCH_PROD_FEAT_CAT_EXC1" value="" checked="checked"/>
+              ${uiLabelMap.CommonExclude}<input type="radio" name="SEARCH_PROD_FEAT_CAT_EXC1" value="Y"/>
+              ${uiLabelMap.CommonAlwaysInclude}<input type="radio" name="SEARCH_PROD_FEAT_CAT_EXC1" value="N"/>
+        </div>
+        <div>
+          <input type="text" class="inputBox" name="SEARCH_PROD_FEAT_CAT2" size="15" value="${requestParameters.SEARCH_PROD_FEAT_CAT2?if_exists}"/>&nbsp;
+              ${uiLabelMap.CommonInclude}<input type="radio" name="SEARCH_PROD_FEAT_CAT_EXC2" value="" checked="checked"/>
+              ${uiLabelMap.CommonExclude}<input type="radio" name="SEARCH_PROD_FEAT_CAT_EXC2" value="Y"/>
+              ${uiLabelMap.CommonAlwaysInclude}<input type="radio" name="SEARCH_PROD_FEAT_CAT_EXC2" value="N"/>
+        </div>
+        <div>
+          <input type="text" class="inputBox" name="SEARCH_PROD_FEAT_CAT3" size="15" value="${requestParameters.SEARCH_PROD_FEAT_CAT3?if_exists}"/>&nbsp;
+              ${uiLabelMap.CommonInclude}<input type="radio" name="SEARCH_PROD_FEAT_CAT_EXC3" value="" checked="checked"/>
+              ${uiLabelMap.CommonExclude}<input type="radio" name="SEARCH_PROD_FEAT_CAT_EXC3" value="Y"/>
+              ${uiLabelMap.CommonAlwaysInclude}<input type="radio" name="SEARCH_PROD_FEAT_CAT_EXC3" value="N"/>
+        </div>
+      </td>
+    </tr>
+    
+    <tr>
+      <td align="right" valign="middle">
         <div class="tabletext">${uiLabelMap.ProductFeatures} ${uiLabelMap.CommonIds}:</div>
       </td>
       <td valign="middle">

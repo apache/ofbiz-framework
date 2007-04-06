@@ -925,6 +925,78 @@ public class ProductSearch {
         }
     }
 
+    
+    public static class ProductFeatureCategoryConstraint extends ProductSearchConstraint {
+        public static final String constraintName = "ProductFeatureCategory";
+        protected String productFeatureCategoryId;
+        /** This is a tri-state variable: null = Include, true = Exclude, false = AlwaysInclude */
+        protected Boolean exclude;
+
+        /**
+         * 
+         * @param productFeatureCategoryId
+         * @param exclude This is a tri-state variable: null = Include, true = Exclude, false = AlwaysInclude
+         */
+        public ProductFeatureCategoryConstraint(String productFeatureCategoryId, Boolean exclude) {
+            this.productFeatureCategoryId = productFeatureCategoryId;
+            this.exclude = exclude;
+        }
+
+        public void addConstraint(ProductSearchContext productSearchContext) {
+            // just add to global sets
+            if (exclude == null) {
+                productSearchContext.includeFeatureIds.add(productFeatureCategoryId);
+            } else if (exclude.equals(Boolean.TRUE)) {
+                productSearchContext.excludeFeatureIds.add(productFeatureCategoryId);
+            } else if (exclude.equals(Boolean.FALSE)) {
+                productSearchContext.alwaysIncludeFeatureIds.add(productFeatureCategoryId);
+            }
+
+            // add in productSearchConstraint, don't worry about the productSearchResultId or constraintSeqId, those will be fill in later
+            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", this.productFeatureCategoryId)));
+        }
+
+        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+            GenericValue productFeatureCategory = null;
+            try {
+                productFeatureCategory = delegator.findByPrimaryKeyCache("ProductFeatureCategory", UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryId));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error finding ProductFeatureCategory and Type information for constraint pretty print", module);
+            }
+            StringBuffer ppBuf = new StringBuffer();
+            if (productFeatureCategory != null) {                                
+                ppBuf.append(UtilProperties.getMessage(resource, "ProductFeatureCategory", locale)+": ");
+                if(productFeatureCategory.get("description") != null) {
+                    ppBuf.append("[" + productFeatureCategory.get("description") + "]");    
+                } else {
+                    ppBuf.append("[" + this.productFeatureCategoryId + "]");
+                }
+                
+            } 
+            return (ppBuf.toString());
+        }
+
+        public boolean equals(Object obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof ProductFeatureCategoryConstraint) {
+                ProductFeatureCategoryConstraint that = (ProductFeatureCategoryConstraint) psc;
+                if (this.productFeatureCategoryId == null) {
+                    if (that.productFeatureCategoryId != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.productFeatureCategoryId.equals(that.productFeatureCategoryId)) {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    
+    
     public static class FeatureSetConstraint extends ProductSearchConstraint {
         public static final String constraintName = "Feature Set";
         protected Set productFeatureIdSet;

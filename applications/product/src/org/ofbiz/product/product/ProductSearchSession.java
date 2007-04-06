@@ -531,6 +531,21 @@ public class ProductSearchSession {
             searchAddFeatureIdConstraints(featureIdByType.values(), null, request);
         }
 
+        //if product features category were selected add a constraint for each
+        Iterator parameterProdFeatureCatNameIter = parameters.keySet().iterator();
+        while (parameterProdFeatureCatNameIter.hasNext()) {
+            String parameterName = (String) parameterProdFeatureCatNameIter.next();
+            if (parameterName.startsWith("SEARCH_PROD_FEAT_CAT")) {
+                String productFeatureCategoryId = (String) parameters.get(parameterName);
+                if (productFeatureCategoryId != null && productFeatureCategoryId.length() > 0) {
+                    String paramNameExt = parameterName.substring("SEARCH_PROD_FEAT_CAT".length() + 1);
+                    String searchProdFeatureCategoryExc = (String) parameters.get("SEARCH_PROD_FEAT_CAT_EXC" + paramNameExt);
+                    Boolean exclude = UtilValidate.isEmpty(searchProdFeatureCategoryExc) ? null : new Boolean(!"N".equals(searchProdFeatureCategoryExc));
+                    searchAddConstraint(new ProductSearch.ProductFeatureCategoryConstraint(productFeatureCategoryId, exclude), session);
+                }
+            }
+        }
+
         // add a supplier to the search
         if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_SUPPLIER_ID"))) {
             String supplierPartyId = (String) parameters.get("SEARCH_SUPPLIER_ID");

@@ -226,4 +226,26 @@ public class ParametricSearch {
         
         return outSb.toString();
     }
+    
+    /**
+     *  Handles parameters coming in prefixed with "SEARCH_PROD_FEAT_CAT" 
+     *  where the parameter value is a productFeatureCategoryId; 
+     *  meant to be used with text entry boxes or check-boxes and such 
+     **/
+    public static List makeProductFeatureCategoryIdListFromPrefixed(Map parameters) {
+        List prodFeatureCategoryIdList = FastList.newInstance();
+        if (parameters == null) return prodFeatureCategoryIdList;
+        
+        Iterator parameterNameIter = parameters.keySet().iterator();
+        while (parameterNameIter.hasNext()) {
+            String parameterName = (String) parameterNameIter.next();
+            if (parameterName.startsWith("SEARCH_PROD_FEAT_CAT")) {
+                String productFeatureCategoryId = (String) parameters.get(parameterName);
+                if (productFeatureCategoryId != null && productFeatureCategoryId.length() > 0) {
+                   prodFeatureCategoryIdList.add(productFeatureCategoryId);
+                }
+            }
+        }
+        return prodFeatureCategoryIdList;
+    }
 }
