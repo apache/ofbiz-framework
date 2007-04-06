@@ -1552,7 +1552,7 @@ under the License.
 
     <view-map name="createPartyForOrder" type="screen" page="component://order/widget/ordermgr/OrderEntryScreens.xml#CreatePartyForOrder"/>
 
-    <view-map name="showAllPromotions" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#showAllPromotions" content-type="application/pdf" encoding="none"/>
+    <view-map name="showAllPromotions" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#showAllPromotions"/>
     <view-map name="showPromotionDetails" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#showPromotionDetails"/>
 
     <view-map name="findreturn" type="screen" page="component://order/widget/ordermgr/OrderReturnScreens.xml#OrderFindReturn"/>
