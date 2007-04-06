@@ -18,9 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.common;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -435,6 +433,35 @@ public class CommonServices {
             Debug.logError(e, module);
         }
         return ServiceUtil.returnSuccess();
+    }
+
+    public static Map streamTest(DispatchContext dctx, Map context) {
+        InputStream in = (InputStream) context.get("inputStream");
+        OutputStream out = (OutputStream) context.get("outputStream");
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        Writer writer = new OutputStreamWriter(out);
+        String line;
+
+        try {
+            while ((line = reader.readLine()) != null) {
+                Debug.log("Read line: " + line, module);
+                writer.write(line);               
+            }                       
+        } catch (IOException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        } finally {
+            try {
+                writer.close();
+            } catch (Exception e) {
+                Debug.logError(e, module);
+            }
+        }       
+
+        Map result = ServiceUtil.returnSuccess();
+        result.put("contentType", "text/plain");
+        return result;
     }
 
     public static Map ping(DispatchContext dctx, Map context) {
