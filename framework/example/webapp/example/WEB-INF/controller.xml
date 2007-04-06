@@ -76,39 +76,18 @@ under the License.
     <!-- End of Security Mappings -->
 
     <!-- Request Mappings -->
-    <request-map uri="view">
-        <security https="false" auth="false"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="error"/>
-    </request-map>
-    
-    <request-map uri="authview">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="error"/>
-    </request-map>
+    <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>
+    <request-map uri="authview"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>
     <request-map uri="setSessionLocale">
         <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-    
-    <request-map uri="main">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="main"/>
-    </request-map>
 
     <!-- Example Requests -->
-    <request-map uri="FindExample">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindExample"/>
-    </request-map>
-
-    <request-map uri="EditExample">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditExample"/>
-    </request-map>
+    <request-map uri="FindExample"><security https="true" auth="true"/><response name="success" type="view" value="FindExample"/></request-map>
+    <request-map uri="EditExample"><security https="true" auth="true"/><response name="success" type="view" value="EditExample"/></request-map>
     <request-map uri="createExample">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createExample"/>
@@ -122,10 +101,7 @@ under the License.
         <response name="error" type="view" value="EditExample"/>
     </request-map>
     
-    <request-map uri="EditExampleItems">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditExampleItems"/>
-    </request-map>
+    <request-map uri="EditExampleItems"><security https="true" auth="true"/><response name="success" type="view" value="EditExampleItems"/></request-map>
     <request-map uri="createExampleItem">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createExampleItem"/>
@@ -145,10 +121,7 @@ under the License.
         <response name="error" type="view" value="EditExampleItems"/>
     </request-map>
 
-    <request-map uri="EditExampleFeatureAppls">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditExampleFeatureAppls"/>
-    </request-map>
+    <request-map uri="EditExampleFeatureAppls"><security https="true" auth="true"/><response name="success" type="view" value="EditExampleFeatureAppls"/></request-map>
     <request-map uri="example_createExampleFeatureAppl">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createExampleFeatureAppl"/>
@@ -169,15 +142,8 @@ under the License.
     </request-map>
 
     <!-- ExampleFeature Requests -->
-    <request-map uri="FindExampleFeature">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindExampleFeature"/>
-    </request-map>
-    
-    <request-map uri="EditExampleFeature">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditExampleFeature"/>
-    </request-map>
+    <request-map uri="FindExampleFeature"><security https="true" auth="true"/><response name="success" type="view" value="FindExampleFeature"/></request-map>
+    <request-map uri="EditExampleFeature"><security https="true" auth="true"/><response name="success" type="view" value="EditExampleFeature"/></request-map>
     <request-map uri="createExampleFeature">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createExampleFeature"/>
@@ -191,10 +157,7 @@ under the License.
         <response name="error" type="view" value="EditExampleFeature"/>
     </request-map>
     
-    <request-map uri="EditExampleFeatureExampleAppls">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditExampleFeatureExampleAppls"/>
-    </request-map>
+    <request-map uri="EditExampleFeatureExampleAppls"><security https="true" auth="true"/><response name="success" type="view" value="EditExampleFeatureExampleAppls"/></request-map>
     <request-map uri="feature_createExampleFeatureAppl">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createExampleFeatureAppl"/>
