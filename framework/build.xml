@@ -102,7 +102,7 @@ under the License.
     </target>
 
     <target name="clean-catalina" depends="">
-        <delete dir="catalina/work"/>
+        <delete dir="../runtime/catalina/work"/>
     </target>
 
     <target name="tests">
