@@ -42,7 +42,7 @@ import org.ofbiz.base.component.ComponentConfig;
 public class GenerateContainer implements Container {
 
     public static final String module = GenerateContainer.class.getName();
-    public static final String source = "/framework/appservers/templates/";
+    public static final String source = "/framework/appserver/templates/";
     public static final String target = "/setup/";
 
     protected String configFile = null;
