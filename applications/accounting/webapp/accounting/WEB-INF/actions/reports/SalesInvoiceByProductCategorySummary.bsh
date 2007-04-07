@@ -27,9 +27,7 @@ import org.ofbiz.entity.util.*;
 
 //NOTE: this code ignores from/thru dates on the products and categories under the rootProductCategoryId!
 
-//TODO: variant product support for products in category
-//TODO: show product/category names with content wrapper
-//TODO: monthly totals
+//TODO_MAYBE: variant product support for products in category, and product shown directly (should we really do this?)
 //TODO: 
 
 // get products and categories under the root category
@@ -86,12 +84,21 @@ if (UtilValidate.isNotEmpty(currencyUomId)) baseCategoryAndExprs.add(new EntityE
 // get the Calendar object for the current month (specifed by month, year Integer values in the context)
 monthCal = Calendar.getInstance();
 monthCal.set(Calendar.YEAR, year.intValue());
-monthCal.set(Calendar.MONTH, month.intValue());
+monthCal.set(Calendar.MONTH, (month.intValue() - 1));
+
+nextMonthCal = Calendar.getInstance();
+nextMonthCal.setTimeInMillis(monthCal.getTimeInMillis());
+nextMonthCal.add(Calendar.MONTH, 1);
 
 // iterate through the days and do the queries
 productResultMapByDayList = FastList.newInstance();
 productNullResultByDayList = FastList.newInstance();
 categoryResultMapByDayList = FastList.newInstance();
+
+monthProductResultMap = FastMap.newInstance();
+monthCategoryResultMap = FastMap.newInstance();
+monthProductNullResult = FastMap.newInstance();
+
 daysInMonth = monthCal.getActualMaximum(Calendar.DAY_OF_MONTH);
 for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     currentDayCal = Calendar.getInstance();
@@ -114,6 +121,9 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     productResultMap = FastMap.newInstance();
     while ((productResult = productResultListIterator.next()) != null) {
         productResultMap.put(productResult.get("productId"), productResult);
+        monthProductResult = UtilMisc.getMapFromMap(monthProductResultMap, productResult.get("productId"));
+        UtilMisc.addToBigDecimalInMap(monthProductResult, "quantityTotal", productResult.getBigDecimal("quantityTotal"));
+        UtilMisc.addToBigDecimalInMap(monthProductResult, "amountTotal", productResult.getBigDecimal("amountTotal"));
     }
     productResultListIterator.close();
     productResultMapByDayList.add(productResultMap);
@@ -128,6 +138,9 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     categoryResultMap = FastMap.newInstance();
     while ((categoryResult = categoryResultListIterator.next()) != null) {
         categoryResultMap.put(categoryResult.get("productCategoryId"), categoryResult);
+        monthCategoryResult = UtilMisc.getMapFromMap(monthCategoryResultMap, categoryResult.get("productCategoryId"));
+        UtilMisc.addToBigDecimalInMap(monthCategoryResult, "quantityTotal", categoryResult.getBigDecimal("quantityTotal"));
+        UtilMisc.addToBigDecimalInMap(monthCategoryResult, "amountTotal", categoryResult.getBigDecimal("amountTotal"));
     }
     categoryResultListIterator.close();
     categoryResultMapByDayList.add(categoryResultMap);
@@ -144,6 +157,8 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     productNullResultListIterator.close();
     if (productNullResult != null) {
     	productNullResultByDayList.add(productNullResult);
+        UtilMisc.addToBigDecimalInMap(monthProductNullResult, "quantityTotal", productNullResult.getBigDecimal("quantityTotal"));
+        UtilMisc.addToBigDecimalInMap(monthProductNullResult, "amountTotal", productNullResult.getBigDecimal("amountTotal"));
     } else {
         // no result, add an empty Map place holder
     	productNullResultByDayList.add(FastMap.newInstance());
@@ -154,7 +169,10 @@ context.put("productResultMapByDayList", productResultMapByDayList);
 context.put("productNullResultByDayList", productResultMapByDayList);
 context.put("categoryResultMapByDayList", categoryResultMapByDayList);
 
+context.put("monthProductResultMap", monthProductResultMap);
+context.put("monthCategoryResultMap", monthCategoryResultMap);
+context.put("monthProductNullResult", monthProductNullResult);
+
 context.put("productCategoryList", productCategoryList);
 context.put("productList", productList);
-
     

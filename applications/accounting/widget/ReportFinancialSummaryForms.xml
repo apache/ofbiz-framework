@@ -1,45 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-    
-    http://www.apache.org/licenses/LICENSE-2.0
-    
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
 -->
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    
-    <form name="SalesInvoiceSummaryOptions" type="single" target="SalesInvoiceSummary">
+
+    <form name="BaseSummaryOptions" type="single">
         <field name="month" required-field="true">
             <drop-down allow-empty="false">
-                <option key="0" description="1-January"/>
-                <option key="1" description="2-February"/>
-                <option key="2" description="3-March"/>
-                <option key="3" description="4-April"/>
-                <option key="4" description="5-May"/>
-                <option key="5" description="6-June"/>
-                <option key="6" description="7-July"/>
-                <option key="7" description="8-August"/>
-                <option key="8" description="9-September"/>
-                <option key="9" description="10-October"/>
-                <option key="10" description="11-November"/>
-                <option key="11" description="12-December"/>
+                <option key="01" description="1-January"/><option key="02" description="2-February"/>
+                <option key="03" description="3-March"/><option key="04" description="4-April"/>
+                <option key="05" description="5-May"/><option key="06" description="6-June"/>
+                <option key="07" description="7-July"/><option key="08" description="8-August"/>
+                <option key="09" description="9-September"/><option key="10" description="10-October"/>
+                <option key="11" description="11-November"/><option key="12" description="12-December"/>
             </drop-down>
         </field>
-        <field name="year" required-field="true"><text size="4" default-value="2007"/></field>
-        <field name="rootProductCategoryId" required-field="true"><lookup target-form-name="LookupProductCategory"/></field>
+        <field name="year" required-field="true"><text size="4"/></field>
         <field name="organizationPartyId" required-field="false">
             <drop-down allow-empty="true" no-current-selected-key="Company">
                 <entity-options entity-name="PartyRoleNameDetail" description="${groupName} [${partyId}]" key-field-name="partyId">
@@ -56,6 +49,22 @@
                 </entity-options>
             </drop-down>
         </field>
+    </form>
+    
+    <form name="SalesInvoiceByProductCategorySummaryOptions" type="single" target="SalesInvoiceByProductCategorySummary" extends="BaseSummaryOptions">
+        <field name="rootProductCategoryId" required-field="true"><lookup target-form-name="LookupProductCategory"/></field>
+        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="SalesInvoiceByProductGlAccountSummaryOptions" type="single" target="SalesInvoiceByProductGlAccountSummary" extends="BaseSummaryOptions">
+        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="PaymentByMethodSummaryOptions" type="single" target="PaymentByMethodSummary" extends="BaseSummaryOptions">
+        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="InventoryIssueSummaryOptions" type="single" target="InventoryIssueSummary" extends="BaseSummaryOptions">
+        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="FinancialAccountSummaryOptions" type="single" target="FinancialAccountSummary" extends="BaseSummaryOptions">
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
