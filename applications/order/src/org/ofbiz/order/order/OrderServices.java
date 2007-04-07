@@ -3283,7 +3283,7 @@ public class OrderServices {
                 cancelPromoCtx.put("userLogin", userLogin);
                 Map cancelResp = null;
                 try {
-                    cancelResp = dispatcher.runSync("cancelOrderItem", cancelPromoCtx);
+                    cancelResp = dispatcher.runSync("cancelOrderItemNoActions", cancelPromoCtx);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     throw new GeneralException(e.getMessage());
