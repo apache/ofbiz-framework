@@ -617,6 +617,7 @@ public class UtilDateTime {
         calendar.setTime(date);
         return dateFormat.format(date);
     }
+    
     /**
      * Makes a date String in the format MM/DD/YYYY from a Date
      *
@@ -736,5 +737,3 @@ public class UtilDateTime {
         return calendar.get(Calendar.WEEK_OF_YEAR);
     }
 }
-
-
