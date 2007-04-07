@@ -42,11 +42,11 @@
     <DataResource dataResourceId="DR101DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
 
     <ElectronicText dataResourceId="DR101DESCFR" textData="Petis Gizmos"/>
-    <ElectronicText dataResourceId="DR101DESCIT" textData="Piccolo Gizmos"/>
+    <ElectronicText dataResourceId="DR101DESCIT" textData="Piccoli Gizmos"/>
     <ElectronicText dataResourceId="DR101DESCEN" textData="Small Gizmos"/>    
 
     <Content contentId="C101DESCFR" contentTypeId="DOCUMENT" dataResourceId="DR101DESCFR" description="DESCRIPTION FR Petits Gizmos" localeString="fr" />
-    <Content contentId="C101DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR101DESCIT" description="DESCRIPTION IT Piccolo Gizmos" localeString="it" />
+    <Content contentId="C101DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR101DESCIT" description="DESCRIPTION IT Piccoli Gizmos" localeString="it" />
     <Content contentId="C101DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR101DESCEN" description="DESCRIPTION EN Small Gizmos" localeString="en"/>
 
     <ProductCategoryContent productCategoryId="101" contentId="C101DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>
@@ -60,11 +60,11 @@
     <DataResource dataResourceId="DR102DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
 
     <ElectronicText dataResourceId="DR102DESCFR" textData="Grands Gizmos"/>
-    <ElectronicText dataResourceId="DR102DESCIT" textData="Grande Gizmos"/>
+    <ElectronicText dataResourceId="DR102DESCIT" textData="Grandi Gizmos"/>
     <ElectronicText dataResourceId="DR102DESCEN" textData="Large Gizmos"/>
 
     <Content contentId="C102DESCFR" contentTypeId="DOCUMENT" dataResourceId="DR102DESCFR" description="DESCRIPTION FR Grands Gizmos" localeString="fr" />
-    <Content contentId="C102DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR102DESCIT" description="DESCRIPTION IT Grande Gizmos" localeString="it" />
+    <Content contentId="C102DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR102DESCIT" description="DESCRIPTION IT Grandi Gizmos" localeString="it" />
     <Content contentId="C102DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR102DESCEN" description="DESCRIPTION IT Large Gizmos" localeString="en"/>
 
     <ProductCategoryContent productCategoryId="102" contentId="C102DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>
@@ -96,11 +96,11 @@
     <DataResource dataResourceId="DR201DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
 
     <ElectronicText dataResourceId="DR201DESCFR" textData="Petis Widgets"/>
-    <ElectronicText dataResourceId="DR201DESCIT" textData="Piccolo Widgets"/>
+    <ElectronicText dataResourceId="DR201DESCIT" textData="Piccoli Widgets"/>
     <ElectronicText dataResourceId="DR201DESCEN" textData="Small Widgets"/>    
 
     <Content contentId="C201DESCFR" contentTypeId="DOCUMENT" dataResourceId="DR201DESCFR" description="DESCRIPTION FR Petits Widgets" localeString="fr" />
-    <Content contentId="C201DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR201DESCIT" description="DESCRIPTION IT Piccolo Widgets" localeString="it" />
+    <Content contentId="C201DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR201DESCIT" description="DESCRIPTION IT Piccoli Widgets" localeString="it" />
     <Content contentId="C201DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR201DESCEN" description="DESCRIPTION EN Small Widgets" localeString="en"/>
 
     <ProductCategoryContent productCategoryId="201" contentId="C201DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>
@@ -114,11 +114,11 @@
     <DataResource dataResourceId="DR2012DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
 
     <ElectronicText dataResourceId="DR2012DESCFR" textData="Autres Mini Widgets"/>
-    <ElectronicText dataResourceId="DR2012DESCIT" textData="Altro Mini Widgets"/>
+    <ElectronicText dataResourceId="DR2012DESCIT" textData="Altri Mini Widgets"/>
     <ElectronicText dataResourceId="DR2012DESCEN" textData="Other Mini Widgets"/>    
 
     <Content contentId="C2012DESCFR" contentTypeId="DOCUMENT" dataResourceId="DR2012DESCFR" description="DESCRIPTION FR Autre Mini Widgets" localeString="fr" />
-    <Content contentId="C2012DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR2012DESCIT" description="DESCRIPTION IT Altro Piccolo Widgets" localeString="it" />
+    <Content contentId="C2012DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR2012DESCIT" description="DESCRIPTION IT Altri Piccoli Widgets" localeString="it" />
     <Content contentId="C2012DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR2012DESCEN" description="DESCRIPTION EN Other Mini Widgets" localeString="en"/>
 
     <ProductCategoryContent productCategoryId="2012" contentId="C2012DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>
@@ -172,7 +172,7 @@
     <ElectronicText dataResourceId="DR202DESCEN" textData="Large Widgets"/>
 
     <Content contentId="C202DESCFR" contentTypeId="DOCUMENT" dataResourceId="DR202DESCFR" description="DESCRIPTION FR Grands Widgets" localeString="fr" />
-    <Content contentId="C202DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR202DESCIT" description="DESCRIPTION IT Grande Widgets" localeString="it" />
+    <Content contentId="C202DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR202DESCIT" description="DESCRIPTION IT Grandi Widgets" localeString="it" />
     <Content contentId="C202DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR202DESCEN" description="DESCRIPTION IT Large Widgets" localeString="en"/>
 
     <ProductCategoryContent productCategoryId="202" contentId="C202DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>
@@ -222,11 +222,11 @@
     <DataResource dataResourceId="DRGC-102DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
 
     <ElectronicText dataResourceId="DRGC-102DESCFR" textData="Rechargement de carte cadeau"/>
-    <ElectronicText dataResourceId="DRGC-102DESCIT" textData="Ricaricano di carte regalo"/>
+    <ElectronicText dataResourceId="DRGC-102DESCIT" textData="Ricarica di carte regalo"/>
     <ElectronicText dataResourceId="DRGC-102DESCEN" textData="Gift Cards Reload"/>    
 
     <Content contentId="CGC-102DESCFR" contentTypeId="DOCUMENT" dataResourceId="DRGC-102DESCFR" description="DESCRIPTION FR Rechargement de cartes cadeau" localeString="fr" />
-    <Content contentId="CGC-102DESCIT" contentTypeId="DOCUMENT" dataResourceId="DRGC-102DESCIT" description="DESCRIPTION IT Ricaricano di carte regalo" localeString="it" />
+    <Content contentId="CGC-102DESCIT" contentTypeId="DOCUMENT" dataResourceId="DRGC-102DESCIT" description="DESCRIPTION IT Ricarica di carte regalo" localeString="it" />
     <Content contentId="CGC-102DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-102DESCEN" description="DESCRIPTION EN Gift Cards Reload" localeString="en"/>
 
     <ProductCategoryContent productCategoryId="GC-102" contentId="CGC-102DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>

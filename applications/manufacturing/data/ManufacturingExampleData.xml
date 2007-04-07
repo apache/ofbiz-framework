@@ -26,75 +26,10 @@ under the License.
     <CustomMethod customMethodId="6001" customMethodTypeId="BOM_FORMULA" customMethodName="exampleComponentFormula" description="Example bom formula (qty * k)"/>
     <CustomMethod customMethodId="6002" customMethodTypeId="BOM_FORMULA" customMethodName="linearComponentFormula" description="Bom formula for linear components"/>
 
-    <!-- ******************** -->
-    <!-- Data for MRP EXAMPLE or demonstration -->
-    <!-- ******************** -->
+    <TechDataCalendarWeek calendarWeekId="DEMO_WEEK" description="Demo calendar week of 8hours/days 5days/week starting at 8h30 from monday to friday" mondayStartTime="08:30:00" mondayCapacity="2.88E7" tuesdayStartTime="08:30:00" tuesdayCapacity="2.88E7" wednesdayStartTime="08:30:00" wednesdayCapacity="2.88E7" thursdayStartTime="08:30:00" thursdayCapacity="2.88E7" fridayStartTime="08:30:00" fridayCapacity="2.88E7"/>
+    <TechDataCalendar calendarId="DEMO_CALENDAR" description="Demo Workcenter Calendar" calendarWeekId="DEMO_WEEK"/>
+    <TechDataCalendarExcDay calendarId="DEMO_CALENDAR" exceptionDateStartTime="2004-12-24 00:01:00.0" exceptionCapacity="0" description="Christmas Day"/>
 
-    <TechDataCalendarWeek calendarWeekId="STD24H-7D" description="Standard calendar open 24h per day 7days per  week" mondayStartTime="00:00:00" mondayCapacity="8.64E7" tuesdayStartTime="00:00:00" tuesdayCapacity="8.64E7" wednesdayStartTime="00:00:00" wednesdayCapacity="8.64E7" thursdayStartTime="00:00:00" thursdayCapacity="8.64E7" fridayStartTime="00:00:00" fridayCapacity="8.64E7" saturdayStartTime="00:00:00" saturdayCapacity="8.64E7" sundayStartTime="00:00:00" sundayCapacity="8.64E7"/>
-    <TechDataCalendarWeek calendarWeekId="STD8H-5D" description="Standard calendar 8hours/days 5days/week starting at 8h30 from monday to friday" mondayStartTime="08:30:00" mondayCapacity="2.88E7" tuesdayStartTime="08:30:00" tuesdayCapacity="2.88E7" wednesdayStartTime="08:30:00" wednesdayCapacity="2.88E7" thursdayStartTime="08:30:00" thursdayCapacity="2.88E7" fridayStartTime="08:30:00" fridayCapacity="2.88E7"/>
-    <TechDataCalendarWeek calendarWeekId="HOLIDAY" description="Calendar for holiday period, 0hours/days 0days/week" mondayStartTime="08:30:00" mondayCapacity="0" tuesdayStartTime="08:30:00" tuesdayCapacity="0"/>
-    <TechDataCalendar calendarId="MACHINING" description="Machining Workshop calendar" calendarWeekId="STD8H-5D"/>
-    <TechDataCalendar calendarId="DRYING" description="Drying Workshop calendar" calendarWeekId="STD24H-7D"/>
-    <TechDataCalendarExcDay calendarId="MACHINING" exceptionDateStartTime="2004-12-24 00:01:00.0" exceptionCapacity="0" description="Christmas Day"/>
-    <TechDataCalendarExcDay calendarId="DRYING" exceptionDateStartTime="2004-12-24 00:01:00.0" exceptionCapacity="0" description="Christmas Day"/>
-
-    <FixedAsset fixedAssetId="MACHINING-ELEC01" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Electrolytic Machining"/>
-    <FixedAsset fixedAssetId="MACHINING-GANG01" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Gang Machining"/>
-    <FixedAsset fixedAssetId="DRIER01" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="DRIER Machining"/>
-    <FixedAsset fixedAssetId="MACH-ELEC01-A" fixedAssetName="Electrolytic Machining #01-A" fixedAssetTypeId="PRODUCTION_EQUIPMENT" parentFixedAssetId="MACHINING-ELEC01" calendarId="MACHINING"/>
-    <FixedAsset fixedAssetId="MACH-GANG01-A" fixedAssetName="Gang Machining #01-A" fixedAssetTypeId="PRODUCTION_EQUIPMENT" parentFixedAssetId="MACHINING-GANG01" calendarId="MACHINING"/>
-    <FixedAsset fixedAssetId="MACH-GANG01-B" fixedAssetName="Gang Machining #01-B" fixedAssetTypeId="PRODUCTION_EQUIPMENT" parentFixedAssetId="MACHINING-GANG01" calendarId="MACHINING"/>
-    <FixedAsset fixedAssetId="DRIER01M" fixedAssetName="DRIER Machining #01" fixedAssetTypeId="PRODUCTION_EQUIPMENT" parentFixedAssetId="DRIER01" calendarId="DRYING"/>
-
-    <!--
-        <Product productId="TableA" productTypeId="FINISHED_GOOD" productName="TableA 100x201" description="Table 100x201, modelA" isVirtual="N" billOfMaterialLevel="0"/>
-        <Product productId="AluTube15" productTypeId="RAW_MATERIAL" internalName="Aluminium Tube diam 15" description="Aluminium Tube diam 15" billOfMaterialLevel="3"/>
-        <Product productId="screw30" productTypeId="RAW_MATERIAL" internalName="screw30" description="screw 8x30" billOfMaterialLevel="2"/>
-        <Product productId="TableFrameA" productTypeId="SUBASSEMBLY" internalName="TableFrameA" description="TableFrameA" billOfMaterialLevel="1"/>
-        <Product productId="TableBoardA" productTypeId="SUBASSEMBLY" internalName="TableBoardA" description="TableBoardA" billOfMaterialLevel="1"/>
-        <Product productId="MelaminePanelA" productTypeId="SUBASSEMBLY" internalName="melaminePanelA" description="melaminePanelA" billOfMaterialLevel="2"/>
-        <Product productId="woodPannel300x100" productTypeId="RAW_MATERIAL" internalName="woodPannel300x100" description="woodPannel300x100" billOfMaterialLevel="3"/>
-        <Product productId="Paint" productTypeId="RAW_MATERIAL" internalName="Paint" description="Paint" billOfMaterialLevel="3"/>
-        <Product productId="FootBl" productTypeId="SUBASSEMBLY" internalName="FootBl" description="FootBl" billOfMaterialLevel="2"/>
-        <Product productId="EndCap1" productTypeId="SUBASSEMBLY" internalName="EndCap1" description="EndCap1" billOfMaterialLevel="3"/>
-        <Product productId="PlasticCube" productTypeId="RAW_MATERIAL" internalName="PlasticCube" description="PlasticCube" billOfMaterialLevel="4"/>
-        <Product productId="BottomFrame" productTypeId="SUBASSEMBLY" internalName="BottomFrame" description="BottomFrame" billOfMaterialLevel="2"/>
-        <Product productId="LeftFrame" productTypeId="SUBASSEMBLY" internalName="LeftFrame" description="LeftFrame" billOfMaterialLevel="3"/>
-        <Product productId="RightFrame" productTypeId="SUBASSEMBLY" internalName="RightFrame" description="RightFrame" billOfMaterialLevel="3"/>
-        <Product productId="SteelTube30" productTypeId="RAW_MATERIAL" internalName="SteelTube30" description="SteelTube30" billOfMaterialLevel="4"/>
-    -->
-
-    <!-- ******************** -->
-    <!-- CONFIGURATOR EXAMPLE -->
-    <!-- ******************** -->  
-    <!--     This is an example of virtual bill of materials for the "Giant Widget" product (WG-9943).
-                The Giant Widget is made of a frame (WG-FRAME), a coloured cover (WG-COVER),     
-                2 or 3 wheels (WG-WHEEL), 13 screws.    WG-COVER and WG-WHEEL are virtual component/parts.    
-                WG-COVER is dinamically substituted with a coloured real cover by the configurator accordingly to    
-                the product features selected for the WG-9943 product (9000 = black, 9001 = silver).    
-                WG-WHEEL is dinamically substituted with real wheels by the configurator accordingly to    
-                the product features selected for the WG-9943 product (9002 = three wheels, 9003 = four wheels).    
-                Example:    
-                Input: WG-9943 Configurator Output: a virtual bom    
-                Input: WG-9943-B3 Configurator Output: a real bom (WG-COVER-B, 3 WG-WHEEL-STD)    
-                Input: WG-9943-S4 Configurator Output: a real bom (WG-COVER-S, 4 WG-WHEEL-STD)  
-    <Product productId="WG-FRAME" productTypeId="SUBASSEMBLY" internalName="Frame" description="Standard frame for widgets" isVirtual="N"/>
-    <Product productId="WG-COVER" productTypeId="SUBASSEMBLY" internalName="Virtual cover" description="Virtual cover for widgets" isVirtual="Y"/>
-    <Product productId="WG-COVER-B" productTypeId="SUBASSEMBLY" internalName="Black cover" description="Black cover for widgets" isVirtual="N"/>
-    <Product productId="WG-COVER-S" productTypeId="SUBASSEMBLY" internalName="Silver cover" description="Silver cover for widgets" isVirtual="N"/>
-    <Product productId="WG-WHEEL" productTypeId="SUBASSEMBLY" internalName="Virtual wheel" description="Virtual wheel for widgets" isVirtual="Y"/>
-    <Product productId="WG-WHEEL-STD" productTypeId="SUBASSEMBLY" internalName="Standard wheel" description="Standard wheel for widgets" isVirtual="N"/>
-    <Product productId="SCREW" productTypeId="FINISHED_GOOD" internalName="Screw" description="Screw" isVirtual="N"/>
-    
-    <ProductAssoc productId="WG-9943" productIdTo="WG-FRAME" productAssocTypeId="MANUF_COMPONENT" fromDate="2001-01-01 12:00:00.0" sequenceNum="1" quantity="1.0" reason=""/>  
-    <ProductAssoc productId="WG-FRAME" productIdTo="WG-COVER" productAssocTypeId="MANUF_COMPONENT" fromDate="2001-01-01 12:00:00.0" sequenceNum="1" quantity="1.0" reason=""/>
-    <ProductAssoc productId="WG-FRAME" productIdTo="WG-WHEEL" productAssocTypeId="MANUF_COMPONENT" fromDate="2001-01-01 12:00:00.0" sequenceNum="2" quantity="2.0" reason=""/>
-    <ProductAssoc productId="WG-FRAME" productIdTo="SCREW" productAssocTypeId="MANUF_COMPONENT" fromDate="2001-01-01 12:00:00.0" sequenceNum="3" quantity="13.0" reason=""/>
-    <ProductManufacturingRule ruleId="R01" productId="" productIdFor="" productIdIn="WG-COVER" ruleSeqId="1" fromDate="2001-01-01 12:00:00.0" productIdInSubst="WG-COVER-B" productFeature="9000" ruleOperator="OR" quantity="0"/>
-    <ProductManufacturingRule ruleId="R02" productId="" productIdFor="" productIdIn="WG-COVER" ruleSeqId="1" fromDate="2001-01-01 12:00:00.0" productIdInSubst="WG-COVER-S" productFeature="9001" ruleOperator="OR" quantity="0"/>
-    <ProductManufacturingRule ruleId="R03" productId="" productIdFor="" productIdIn="WG-WHEEL" ruleSeqId="1" fromDate="2001-01-01 12:00:00.0" productIdInSubst="WG-WHEEL-STD" productFeature="9002" ruleOperator="OR" quantity="3"/>
-    <ProductManufacturingRule ruleId="R04" productId="" productIdFor="" productIdIn="WG-WHEEL" ruleSeqId="1" fromDate="2001-01-01 12:00:00.0" productIdInSubst="WG-WHEEL-STD" productFeature="9003" ruleOperator="OR" quantity="4"/>
-    -->
-
-    
+    <FixedAsset fixedAssetId="DEMO_MACHINE_GROUP" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Demo Machine Group"/>
+    <FixedAsset fixedAssetId="DEMO_MACHINE" fixedAssetName="Demo Machine" fixedAssetTypeId="PRODUCTION_EQUIPMENT" parentFixedAssetId="DEMO_MACHINE_GROUP" calendarId="DEMO_CALENDAR"/>
 </entity-engine-xml>
