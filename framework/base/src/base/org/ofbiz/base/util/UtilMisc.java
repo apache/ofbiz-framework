@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -40,6 +41,8 @@ import org.ofbiz.base.util.collections.MapComparator;
 public class UtilMisc {
 
     public static final String module = UtilMisc.class.getName();
+    
+    public static final BigDecimal ZERO_BD = new BigDecimal(0.0);
 
     /**
      * Get an iterator from a collection, returning null if collection is null
@@ -191,6 +194,55 @@ public class UtilMisc {
             return null;
         }
         return toSort;
+    }
+    
+    /**
+     * Assuming outerMap not null; if null will throw a NullPointerException 
+     */
+    public static Map getMapFromMap(Map outerMap, Object key) {
+        Map innerMap = (Map) outerMap.get(key);
+        if (innerMap == null) {
+            innerMap = FastMap.newInstance();
+            outerMap.put(key, innerMap);
+        }
+        return innerMap;
+    }
+
+    /**
+     * Assuming outerMap not null; if null will throw a NullPointerException 
+     */
+    public static List getListFromMap(Map outerMap, Object key) {
+        List innerList = (List) outerMap.get(key);
+        if (innerList == null) {
+            innerList = FastList.newInstance();
+            outerMap.put(key, innerList);
+        }
+        return innerList;
+    }
+    
+    /**
+     * Assuming theMap not null; if null will throw a NullPointerException 
+     */
+    public static void addToBigDecimalInMap(Map theMap, Object mapKey, BigDecimal addNumber) {
+        if (addNumber == null || ZERO_BD.equals(addNumber)) {
+            return;
+        }
+        Object currentNumberObj = theMap.get(mapKey);
+        BigDecimal currentNumber = null;
+        if (currentNumberObj == null) {
+            currentNumber = ZERO_BD;
+        } else if (currentNumberObj instanceof BigDecimal) {
+            currentNumber = (BigDecimal) currentNumberObj;
+        } else if (currentNumberObj instanceof Double) {
+            currentNumber = new BigDecimal(((Double) currentNumberObj).doubleValue());
+        } else if (currentNumberObj instanceof Long) {
+            currentNumber = new BigDecimal(((Long) currentNumberObj).longValue());
+        } else {
+            throw new IllegalArgumentException("In addToBigDecimalInMap found a Map value of a type not supported: " + currentNumberObj.getClass().getName());
+        }
+        
+        currentNumber = currentNumber.add(addNumber);
+        theMap.put(mapKey, currentNumber);
     }
 
     public static Object removeFirst(List lst) {
