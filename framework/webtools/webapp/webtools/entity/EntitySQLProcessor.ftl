@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <h1>${uiLabelMap.WebtoolsSqlProcessor}</h1>
-<br />
+<br/>
 <form method="post" action="EntitySQLProcessor" name="EntitySQLCommand">
 <table class="basic-table" cellspacing="0">
     <tr>
@@ -45,7 +45,7 @@ under the License.
             ${uiLabelMap.WebtoolsLimitRowsTo}
         </td>
         <td>
-            <input name="rowLimit" value="${rowLimit?default(200)}"/>
+            <input name="rowLimit" type="text" size="5" value="${rowLimit?default(200)}"/>
         </td>
     </tr>
     <tr>
