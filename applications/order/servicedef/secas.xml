@@ -36,7 +36,6 @@ under the License.
         <action service="recalcTaxTotal" mode="sync"/>
         <action service="resetGrandTotal" mode="sync"/>
         <action service="checkOrderItemStatus" mode="sync"/>
-        <action service="sendOrderChangeNotification" mode="async" persist="true"/>
     </eca>
     <eca service="changeOrderItemStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="ITEM_COMPLETED"/>
@@ -90,6 +89,7 @@ under the License.
     <!-- edit/add order items -->
     <eca service="updateOrderItems" event="commit">
         <action service="resetGrandTotal" mode="sync"/>
+        <action service="sendOrderChangeNotification" mode="async" persist="true"/>
     </eca>
     <eca service="updateOrderItems" event="return">
         <action service="processOrderPayments" mode="sync"/>
@@ -104,6 +104,7 @@ under the License.
     <eca service="cancelOrderItem" event="commit">
         <action service="recreateOrderAdjustments" mode="sync"/>
         <action service="resetGrandTotal" mode="sync"/>
+        <action service="sendOrderChangeNotification" mode="async" persist="true"/>
     </eca>
     <eca service="cancelOrderItem" event="return">
         <action service="processOrderPayments" mode="sync"/>
