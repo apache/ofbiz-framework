@@ -503,9 +503,9 @@ under the License.
         <iterate list-name="orderItems" entry-name="orderItem">
             <if-compare field-name="orderItem.isPromo" value="Y" operator="equals">
                 <clear-field field-name="cancelOrderItemInMap"/>
-                <set-service-fields service-name="cancelOrderItem" to-map-name="cancelOrderItemInMap" map-name="parameters"/>
+                <set-service-fields service-name="cancelOrderItemNoActions" to-map-name="cancelOrderItemInMap" map-name="parameters"/>
                 <set from-field="orderItem.orderItemSeqId" field="cancelOrderItemInMap.orderItemSeqId"/>
-                <call-service service-name="cancelOrderItem" in-map-name="cancelOrderItemInMap"/>
+                <call-service service-name="cancelOrderItemNoActions" in-map-name="cancelOrderItemInMap"/>
             </if-compare>
         </iterate>
 

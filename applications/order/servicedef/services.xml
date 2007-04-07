@@ -275,6 +275,14 @@ under the License.
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
     	<attribute name="cancelQuantity" type="Double" mode="IN" optional="true"/>
     </service>
+    <service name="cancelOrderItemNoActions" engine="java" auth="true"
+    		location="org.ofbiz.order.order.OrderServices" invoke="cancelOrderItem">
+    	<description>Cancel an Order Item Quantity. This is equal to cancelOrderItem but no ECAs are attached to this service.</description>
+    	<attribute name="orderId" type="String" mode="IN" optional="false"/>
+    	<attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
+    	<attribute name="cancelQuantity" type="Double" mode="IN" optional="true"/>
+    </service>
 
     <service name="updateOrderItems" engine="java" auth="true"
             location="org.ofbiz.order.order.OrderServices" invoke="updateApprovedOrderItems">
