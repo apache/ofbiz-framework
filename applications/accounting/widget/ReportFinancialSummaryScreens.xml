@@ -26,31 +26,43 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFinancialSummaryReportOptions"/>
                 <set field="headerItem" value="FinancialSummryReports"/>
+                
+                <set field="month" from-field="parameters.month" default-value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;MM&quot;)}"/>
+                <set field="year" from-field="parameters.year" default-value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy&quot;)}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><label style="head1" text="${uiLabelMap.PageTitleFinancialSummaryReportOptions}"/></container>
-                        <include-form name="SalesInvoiceSummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                        <!--
-                        <include-form name="InventoryOutSummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                        <include-form name="PaymentCreditCardSummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        
+                        <container><label style="head2" text="${uiLabelMap.PageTitleSalesInvoiceByProductCategorySummary}"/></container>
+                        <include-form name="SalesInvoiceByProductCategorySummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        
+                        <container><label style="head2" text="${uiLabelMap.PageTitleSalesInvoiceByProductGlAccountSummary}"/></container>
+                        <include-form name="SalesInvoiceByProductGlAccountSummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        
+                        <container><label style="head2" text="${uiLabelMap.PageTitlePaymentByMethodSummary}"/></container>
+                        <include-form name="PaymentByMethodSummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        
+                        <container><label style="head2" text="${uiLabelMap.PageTitleInventoryIssueSummary}"/></container>
+                        <include-form name="InventoryIssueSummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        
+                        <container><label style="head2" text="${uiLabelMap.PageTitleFinancialAccountSummary}"/></container>
                         <include-form name="FinancialAccountSummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                        -->
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
 	
-    <screen name="SalesInvoiceSummary">
+    <screen name="SalesInvoiceByProductCategorySummary">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleSalesInvoiceSummary"/>
+                <set field="titleProperty" value="PageTitleSalesInvoiceByProductCategorySummary"/>
                 <set field="headerItem" value="FinancialSummryReports"/>
                 
-                <set field="month" from-field="parameters.month" type="Integer" default-value="0"/>
-                <set field="year" from-field="parameters.year" type="Integer"/>
+                <set field="month" from-field="parameters.month" type="Integer" default-value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;MM&quot;)}"/>
+                <set field="year" from-field="parameters.year" type="Integer" default-value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy&quot;)}"/>
                 <set field="rootProductCategoryId" from-field="parameters.rootProductCategoryId"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <set field="currencyUomId" from-field="parameters.currencyUomId"/>
@@ -65,13 +77,43 @@ under the License.
                     <field-map field-name="uomId" env-name="currencyUomId"/>
                 </entity-one>
                 
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/SalesInvoiceSummary.bsh"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/SalesInvoiceByProductCategorySummary.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <label style="head1" text="${uiLabelMap.PageTitleSalesInvoiceSummary}"/>
-                        <platform-specific><html><html-template location="component://accounting/webapp/accounting/reports/SalesInvoiceSummary.ftl"/></html></platform-specific>
+                        <label style="head1" text="${uiLabelMap.PageTitleSalesInvoiceByProductCategorySummary}"/>
+                        <platform-specific><html><html-template location="component://accounting/webapp/accounting/reports/SalesInvoiceByProductCategorySummary.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="PaymentByMethodSummary">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitlePaymentByMethodSummary"/>
+                <set field="headerItem" value="FinancialSummryReports"/>
+                
+                <set field="month" from-field="parameters.month" type="Integer" default-value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;MM&quot;)}"/>
+                <set field="year" from-field="parameters.year" type="Integer" default-value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy&quot;)}"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="currencyUomId" from-field="parameters.currencyUomId"/>
+                
+                <entity-one entity-name="PartyNameView" value-name="organizationPartyName" auto-field-map="false" use-cache="true">
+                    <field-map field-name="partyId" env-name="organizationPartyId"/>
+                </entity-one>
+                <entity-one entity-name="Uom" value-name="currencyUom" auto-field-map="false" use-cache="true">
+                    <field-map field-name="uomId" env-name="currencyUomId"/>
+                </entity-one>
+                
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/PaymentByMethodSummary.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <label style="head1" text="${uiLabelMap.PageTitlePaymentByMethodSummary}"/>
+                        <platform-specific><html><html-template location="component://accounting/webapp/accounting/reports/PaymentByMethodSummary.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
