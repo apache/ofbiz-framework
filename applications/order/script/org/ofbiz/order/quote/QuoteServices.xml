@@ -280,6 +280,17 @@ under the License.
         <field-to-result field-name="newEntity.quoteId" result-name="quoteId"/>
         <field-to-result field-name="newEntity.quoteItemSeqId" result-name="quoteItemSeqId"/>
 
+        <!-- if there is no price and a productItem is supplied fill the price from the product record -->
+        <if-empty field-name="parameters.quoteUnitPrice">
+            <if-not-empty field-name="parameters.productId">
+                <entity-one entity-name="Product" value-name="product"/>
+                <set from-field="product" field="calculateProductPriceMap.product"/>
+                <call-service service-name="calculateProductPrice" in-map-name="calculateProductPriceMap">
+                    <result-to-field result-name="price" field-name="newEntity.quoteUnitPrice"/>
+                </call-service>
+            </if-not-empty>
+        </if-empty>
+        
         <!-- finally create the record (should not exist already)-->
         <create-value value-name="newEntity"/>
         <check-errors/>
