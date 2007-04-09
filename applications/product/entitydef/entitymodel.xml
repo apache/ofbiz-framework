@@ -1085,7 +1085,8 @@ under the License.
       <field name="serialNumber" type="value"></field>
       <field name="softIdentifier" type="value"></field>
       <field name="activationNumber" type="value"></field>
-      <field name="unitCost" type="floating-point"><description>Higher precision in case it is a calculated number</description></field>
+      <field name="activationValidThru" type="date-time"></field> 
+        <field name="unitCost" type="floating-point"><description>Higher precision in case it is a calculated number</description></field>
       <field name="currencyUomId" type="id"><description>The currency Uom of the unit cost.</description></field>
       <prim-key field="inventoryItemId"/>
       <relation type="one" fk-name="INV_ITEM_TYPE" rel-entity-name="InventoryItemType">
