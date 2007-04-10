@@ -580,6 +580,16 @@ under the License.
         <response name="success" type="view" value="ProductionRunComponents"/>
         <response name="error" type="view" value="ProductionRunComponents"/>
     </request-map>
+    <request-map uri="ProductionRunActualComponents">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ProductionRunActualComponents"/>
+    </request-map>
+    <request-map uri="issueProductionRunTaskComponent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="issueProductionRunTaskComponent"/>
+        <response name="success" type="view" value="ProductionRunActualComponents"/>
+        <response name="error" type="view" value="ProductionRunActualComponents"/>
+    </request-map>
     <request-map uri="ProductionRunAssocs">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ProductionRunAssocs"/>
@@ -793,6 +803,7 @@ under the License.
     <view-map name="ProductionRunCosts" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunCosts" type="screen"/>
     <view-map name="ProductionRunTasks" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunTasks" type="screen"/>
     <view-map name="ProductionRunComponents" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunComponents" type="screen"/>
+    <view-map name="ProductionRunActualComponents" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunActualComponents" type="screen"/>
     <view-map name="ProductionRunFixedAssets" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunFixedAssets" type="screen"/>
     <view-map name="ProductionRunAssocs" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunAssocs" type="screen"/>
     <view-map name="WorkWithShipmentPlans" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#WorkWithShipmentPlans" type="screen"/>

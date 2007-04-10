@@ -334,6 +334,37 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ProductionRunActualComponents">
+        <section>
+            <actions>
+                <set field="title" value="Production Run Actual Components"/>
+                <set field="titleProperty" value="ManufacturingProductionRunActualComponents"/>
+                <set field="tabButtonItem" value="actualComponents"/>
+                <set field="headerItem" value="jobshop"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
+
+                <set field="productionRunId" from-field="parameters.productionRunId"/>
+                <entity-one entity-name="WorkEffort" value-name="productionRun">
+                    <field-map field-name="workEffortId" env-name="productionRunId"/>
+                </entity-one>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunActualComponents.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head2">${uiLabelMap.ManufacturingActualMaterials}</label>
+                        </container>
+                        <include-form name="IssueProductionRunComponent" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                        <platform-specific>
+                            <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunTasksInfo.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="ProductionRunFixedAssets">
         <section>
             <actions>

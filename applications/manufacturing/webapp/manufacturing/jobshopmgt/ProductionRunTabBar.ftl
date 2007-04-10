@@ -29,6 +29,7 @@ under the License.
         <a href="<@ofbizUrl>ProductionRunFixedAssets?productionRunId=${productionRunId}</@ofbizUrl>" class="${selectedClassMap.fixedAssets?default(unselectedClassName)}">${uiLabelMap.AccountingFixedAssets}</a>
         <#else>
         <a href="<@ofbizUrl>ProductionRunDeclaration?productionRunId=${productionRunId}</@ofbizUrl>" class="${selectedClassMap.declaration?default(unselectedClassName)}">${uiLabelMap.ManufacturingProductionRunDeclaration}</a>
+        <a href="<@ofbizUrl>ProductionRunActualComponents?productionRunId=${productionRunId}</@ofbizUrl>" class="${selectedClassMap.actualComponents?default(unselectedClassName)}">${uiLabelMap.ManufacturingActualMaterials}</a>
         </#if>
         <a href="<@ofbizUrl>ProductionRunAssocs?productionRunId=${productionRunId}</@ofbizUrl>" class="${selectedClassMap.assocs?default(unselectedClassName)}">${uiLabelMap.ManufacturingProductionRunAssocs}</a>
         <a href="<@ofbizUrl>ProductionRunCosts?productionRunId=${productionRunId}</@ofbizUrl>" class="${selectedClassMap.costs?default(unselectedClassName)}">${uiLabelMap.ManufacturingActualCosts}</a>

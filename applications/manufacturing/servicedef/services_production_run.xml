@@ -146,6 +146,7 @@ under the License.
         </description>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
         <attribute name="workEffort" type="GenericValue" mode="IN" optional="true"/>
         <attribute name="workEffortGoodStandard" type="GenericValue" mode="IN" optional="true"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>

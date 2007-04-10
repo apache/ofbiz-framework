@@ -606,4 +606,37 @@ under the License.
             <hyperlink target="deleteProductionRunComponent?workEffortId=${workEffortId}&amp;fromDate=${fromDate}&amp;productId=${productId}&amp;workEffortGoodStdTypeId=${workEffortGoodStdTypeId}&amp;productionRunId=${productionRunId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
+    <form name="ProductionRunTaskActualComponents" type="list" target="updateProductionRunComponent" paginate-target="ProductionRunActualComponents" title="" list-name="records">
+        <row-actions>
+            <set field="quantityOnHandDiff" value="${bsh:-1*quantityOnHandDiff}"/> 
+        </row-actions>
+        <field name="inventoryItemId" widget-style="buttontext">
+            <hyperlink target="/facility/control/EditInventoryItem?inventoryItemId=${inventoryItemId}" description="${inventoryItemId}" also-hidden="false" target-type="inter-app"/>
+        </field>
+        <field name="productId" entry-name="inventoryItemId">
+            <display-entity entity-name="InventoryItem" key-field-name="inventoryItemId" description="${productId}"/>
+        </field>
+        <field name="workEffortId"><hidden/></field>
+        <field name="productionRunId"><hidden/></field>
+        <field name="quantityOnHandDiff" title="${uiLabelMap.CommonQuantity}"><display/></field>
+    </form>
+    <form name="IssueProductionRunComponent" type="single" target="issueProductionRunTaskComponent" title="">
+        <auto-fields-service service-name="issueProductionRunTaskComponent"/>
+        <field name="productionRunId"><hidden/></field>
+        <field name="workEffort"><ignored/></field>
+        <field name="workEffortGoodStandard"><ignored/></field>
+        <field name="reserveOrderEnumId"><ignored/></field>
+        <field name="workEffortId" title="${uiLabelMap.ManufacturingTask}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="WorkEffort" description="${workEffortName} [${workEffortId}]">
+                    <entity-constraint name="workEffortParentId" env-name="productionRunId"/>
+                    <entity-order-by field-name="workEffortId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productId">
+            <lookup target-form-name="LookupProduct"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>
