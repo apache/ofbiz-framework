@@ -52,15 +52,18 @@ under the License.
     </simple-method>
     <simple-method method-name="issueProductionRunTaskComponent" short-description="Issues the Inventory for a Production Run Task Component" login-required="false">
         <if-empty field-name="parameters.workEffortGoodStandard">
-            <set field="parameters.workEffortGoodStdTypeId" value="PRUNT_PROD_NEEDED"/>
-            <entity-one entity-name="WorkEffortGoodStandard" value-name="workEffortGoodStandard"/>
+            <set from-field="parameters.productId" field="productId"/>
+            <set from-field="parameters.quantity" field="estimatedQuantity" default-value="0.0" type="Double"/>
         <else>
             <set from-field="parameters.workEffortGoodStandard" field="workEffortGoodStandard"/>
+            <set from-field="workEffortGoodStandard.productId" field="productId"/>
+            <set from-field="workEffortGoodStandard.estimatedQuantity" field="estimatedQuantity"/>
         </else>
         </if-empty>
 
+        
         <!-- kind of like the inventory reservation routine, find InventoryItems to issue from, but instead of doing the reservation just create an issuance and an inventory item detail for the change -->
-        <if-not-empty field-name="workEffortGoodStandard.productId">
+        <if-not-empty field-name="productId">
             <now-timestamp-to-env env-name="nowTimestamp"/>
 
             <!-- NOTE: the inventory will be issued from the WorkEffort.facilityId -->
@@ -91,11 +94,11 @@ under the License.
             </else>
             </if-compare>
             <field-to-list field-name="orderByString" list-name="orderByList"/>
-            <set from-field="workEffortGoodStandard.productId" field="lookupFieldMap.productId"/>
+            <set from-field="productId" field="lookupFieldMap.productId"/>
             <set from-field="workEffort.facilityId" field="lookupFieldMap.facilityId"/>
             <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItemList" order-by-list-name="orderByList"/>
     
-            <set from-field="workEffortGoodStandard.estimatedQuantity" field="parameters.quantityNotIssued"/>
+            <set from-field="estimatedQuantity" field="parameters.quantityNotIssued"/>
 
             <iterate entry-name="inventoryItem" list-name="inventoryItemList">
                 <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
@@ -129,7 +132,7 @@ under the License.
                     <!-- no non-ser inv item, create a non-ser InventoryItem with availableToPromise = -quantityNotIssued -->
                     <clear-field field-name="createInvItemInMap"/>
                     <clear-field field-name="createInvItemOutMap"/>
-                    <set field="createInvItemInMap.productId" from-field="workEffortGoodStandard.productId"/>
+                    <set field="createInvItemInMap.productId" from-field="productId"/>
                     <set field="createInvItemInMap.facilityId" from-field="workEffort.facilityId"/>
                     <set field="createInvItemInMap.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
                     <call-service service-name="createInventoryItem" in-map-name="createInvItemInMap">
@@ -160,8 +163,10 @@ under the License.
 
                 <calculate field-name="quantityNotIssued" map-name="parameters"><number value="0"/></calculate>
             </if-compare>
-            <set value="WEGS_COMPLETED" field="workEffortGoodStandard.statusId"/>
-            <store-value value-name="workEffortGoodStandard"/>
+            <if-not-empty field-name="workEffortGoodStandard">
+                <set value="WEGS_COMPLETED" field="workEffortGoodStandard.statusId"/>
+                <store-value value-name="workEffortGoodStandard"/>
+            </if-not-empty>
         </if-not-empty>
     </simple-method>
     <simple-method method-name="issueProductionRunTaskComponentInline" short-description="Does a issuance for one InventoryItem, meant to be called in-line">
