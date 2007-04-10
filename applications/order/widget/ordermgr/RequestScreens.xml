@@ -82,6 +82,7 @@ under the License.
             <actions>
                 <set field="MainColumnStyle" value="rightonly"/>
                 <set field="tabButtonItem" value="ViewRequest"/>
+                <set field="headerItem" value="request"/>
                 <set field="titleProperty" value="PageTitleViewRequest"/>
                 <!--<set field="headerItem" value="Shopping List"/>-->
                 <set field="showRequestManagementLinks" value="Y"/>
