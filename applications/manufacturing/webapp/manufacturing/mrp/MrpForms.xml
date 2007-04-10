@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
 
     <form name="RunMrp" type="single" target="runMrpGo" title="">
-        <field name="mrpName"  title="${uiLabelMap.ManufacturingMrpName}"><text size="20"/></field>
+        <field name="mrpName" title="${uiLabelMap.ManufacturingMrpName}"><text size="20"/></field>
         <field name="facilityGroupId" title="${uiLabelMap.ProductFacilityGroup}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="FacilityGroup" description="${facilityGroupName} [${facilityGroupId}]"/>
@@ -33,6 +33,7 @@ under the License.
                 <entity-options entity-name="Facility" description="${facilityName} [${facilityId}]"/>
             </drop-down>
         </field>
+        <field name="defaultYearsOffset"><text size="5" default-value="1"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
             <submit button-type="button"/>
         </field>
