@@ -32,12 +32,14 @@ under the License.
         <attribute name="facilityGroupId" type="String" mode="IN" optional="true"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="mrpName" type="String" mode="IN" optional="true"/>
+        <attribute name="defaultYearsOffset" type="Integer" mode="IN" optional="true"/>
         <attribute name="msgResult" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="initInventoryEventPlanned" engine="java"
             location="org.ofbiz.manufacturing.mrp.MrpServices" invoke="initInventoryEventPlanned" auth="true" use-transaction="false">
         <description>Initialize the table "InventoryEventPlanned"</description>
         <attribute name="reInitialize" type="Boolean" mode="IN" optional="false"/>
+        <attribute name="defaultYearsOffset" type="Integer" mode="IN" optional="true"/>
     </service>
     <service name="listProductForMrp" engine="java"
             location="org.ofbiz.manufacturing.mrp.MrpServices" invoke="listProductForMrp" auth="true">

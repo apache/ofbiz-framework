@@ -77,6 +77,8 @@ public class MrpServices {
         GenericDelegator delegator = ctx.getDelegator();
         Timestamp now = UtilDateTime.nowTimestamp();
         
+        Integer defaultYearsOffset = (Integer)context.get("defaultYearsOffset");
+        
         //Erases the old table for the moment and initializes it with the new orders,
         //Does not modify the old one now.
         Debug.logInfo("initInventoryEventPlanned called", module);
@@ -143,7 +145,12 @@ public class MrpServices {
         // ----------------------------------------
         // This is the default required date for orders without dates spesified:
         // by convention it is a date far in the future of 100 years.
-        Timestamp notAssignedDate = UtilDateTime.getYearStart(now, 0, 0, 100);
+        Timestamp notAssignedDate = null;
+        if (UtilValidate.isEmpty(defaultYearsOffset)) {
+            notAssignedDate = now;
+        } else {
+            notAssignedDate = UtilDateTime.getYearStart(now, 0, 0, defaultYearsOffset.intValue());
+        }
         resultList = null;
         iteratorResult = null;
         parameters = UtilMisc.toMap("orderTypeId", "SALES_ORDER", "oiStatusId", "ITEM_APPROVED");
@@ -519,6 +526,7 @@ public class MrpServices {
         Timestamp now = UtilDateTime.nowTimestamp();
         
         String mrpName = (String)context.get("mrpName");
+        Integer defaultYearsOffset = (Integer)context.get("defaultYearsOffset");
         String facilityGroupId = (String)context.get("facilityGroupId");
         String facilityId = (String)context.get("facilityId");
         String manufacturingFacilityId = null;
@@ -581,7 +589,7 @@ public class MrpServices {
         GenericValue inventoryEventForMRP = null;
         
         // Initialisation of the InventoryEventPlanned table, This table will contain the products we want to buy or build.
-        parameters = UtilMisc.toMap("reInitialize",Boolean.TRUE,"userLogin", userLogin);
+        parameters = UtilMisc.toMap("reInitialize", Boolean.TRUE, "defaultYearsOffset", defaultYearsOffset, "userLogin", userLogin);
         try {
             result = dispatcher.runSync("initInventoryEventPlanned", parameters);
         } catch (GenericServiceException e) {
