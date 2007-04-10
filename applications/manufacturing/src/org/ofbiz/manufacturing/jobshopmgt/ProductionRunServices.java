@@ -510,14 +510,14 @@ public class ProductionRunServices {
         }
         String currentStatusId = productionRun.getGenericValue().getString("currentStatusId");
         
-        if (statusId != null && currentStatusId.equals(statusId)) {
+        if (currentStatusId.equals(statusId)) {
             result.put("newStatusId", currentStatusId);
             result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusChanged",UtilMisc.toMap("newStatusId", currentStatusId), locale));
             return result;
         }
 
         // PRUN_CREATED --> PRUN_SCHEDULED
-        if (currentStatusId.equals("PRUN_CREATED") && statusId.equals("PRUN_SCHEDULED")) {
+        if (currentStatusId.equals("PRUN_CREATED") && (statusId != null && statusId.equals("PRUN_SCHEDULED"))) {
             // change the production run status to PRUN_SCHEDULED
             Map serviceContext = new HashMap();
             serviceContext.clear();
