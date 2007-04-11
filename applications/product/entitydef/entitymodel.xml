@@ -1070,6 +1070,7 @@ under the License.
       <field name="ownerPartyId" type="id"><description>The owner of the inventory item.</description></field>
       <field name="statusId" type="id"></field>
       <field name="datetimeReceived" type="date-time"></field>
+      <field name="datetimeManufactured" type="date-time"></field>
       <field name="expireDate" type="date-time"></field>
       <field name="facilityId" type="id"></field>
       <field name="containerId" type="id"></field>
