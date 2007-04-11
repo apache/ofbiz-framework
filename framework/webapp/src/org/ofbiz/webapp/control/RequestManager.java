@@ -20,6 +20,7 @@ package org.ofbiz.webapp.control;
 
 import java.io.Serializable;
 import java.net.URL;
+import java.net.MalformedURLException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.List;
@@ -28,6 +29,7 @@ import javax.servlet.ServletContext;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.KeyStoreUtil;
 
 /**
  * RequestManager - Manages request, config and view mappings.
@@ -39,12 +41,14 @@ public class RequestManager implements Serializable {
     public static final int EVENT_HANDLER_KEY = 0;
 
     private URL configFileUrl;
+    private URL webInfUrl;
 
     public RequestManager(ServletContext context) {
 
         /** Loads the site configuration from servlet context parameter. */
         try {
             configFileUrl = context.getResource("/WEB-INF/controller.xml");
+            webInfUrl = context.getResource("/WEB-INF");
         } catch (Exception e) {
             Debug.logError(e, "[RequestManager.constructor] Error Finding XML Config File: " +
                 "/WEB-INF/controller.xml", module);
@@ -296,6 +300,65 @@ public class RequestManager implements Serializable {
             return "true".equalsIgnoreCase(value);
         } else
             return false;
+    }
+
+    public boolean requiresHttpsClientCert(String uriStr) {
+        Map uri = getRequestMapMap(uriStr);
+
+        if (uri != null) {
+            String value = (String) uri.get(ConfigXMLReader.SECURITY_CERT);
+
+            //if (Debug.verboseOn()) Debug.logVerbose("Requires x.509 Cert: " + value, module);
+            return "true".equalsIgnoreCase(value);
+        } else
+            return false;
+
+    }
+
+    public URL get509CertKeyStore(String uriStr) {
+        String defaultTrustStore = KeyStoreUtil.getTrustStoreFileName();
+        Map uri = getRequestMapMap(uriStr);
+
+        if (uri != null) {
+            String value = (String) uri.get(ConfigXMLReader.SECURITY_KEYSTORE);
+            if (UtilValidate.isNotEmpty(value)) {
+                if (value.indexOf(";") > -1) {
+                    value = value.substring(0, value.indexOf(";"));
+                }
+                if (value.indexOf(".") == -1) {
+                    value = value + ".jks"; // append .jks if no extension is set
+                }
+
+                try {
+                    return new URL(webInfUrl.toExternalForm() + "/" + value);
+                } catch (MalformedURLException e) {
+                    Debug.logError(e, module);
+                }
+            }
+        }
+
+        // make a url from the default
+        URL url = null;
+        try {
+            url = new URL(defaultTrustStore);
+        } catch (MalformedURLException e) {
+            Debug.logError(e, module);
+        }
+
+        return url;
+    }
+
+    public String get509CertKeyStorePass(String uriStr) {
+        Map uri = getRequestMapMap(uriStr);
+
+        if (uri != null) {
+            String value = (String) uri.get(ConfigXMLReader.SECURITY_KEYSTORE);
+            if (value.indexOf(";") > -1) {            
+                return value.substring(value.indexOf(";") + 1);
+            }
+        }
+
+        return KeyStoreUtil.getTrustStorePassword();
     }
 
     public boolean allowExtView(String uriStr) {

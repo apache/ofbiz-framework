@@ -18,10 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.webapp.control;
 
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.security.cert.X509Certificate;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
@@ -35,12 +33,7 @@ import javax.transaction.Transaction;
 import javolution.util.FastList;
 
 import org.ofbiz.base.component.ComponentConfig;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilFormatOut;
-import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -62,6 +55,7 @@ public class LoginWorker {
     public static final String resourceWebapp = "WebappUiLabels";
 
     public static final String EXTERNAL_LOGIN_KEY_ATTR = "externalLoginKey";
+    public static final String X509_CERT_ATTR = "SSLx509Cert";
 
     /** This Map is keyed by the randomly generated externalLoginKey and the value is a UserLogin GenericValue object */
     public static Map externalLoginKeys = new HashMap();
@@ -512,6 +506,52 @@ public class LoginWorker {
             request.setAttribute("_AUTO_LOGIN_LOGOUT_", Boolean.TRUE);
             return logout(request, response);
         }
+        return "success";
+    }
+
+    public static String check509CertLogin(HttpServletRequest request, HttpServletResponse response) {
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        HttpSession session = request.getSession();
+        GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
+        if (currentUserLogin != null) {
+            if (LoginWorker.isFlaggedLoggedOut(currentUserLogin)) {
+                currentUserLogin = null;
+            }
+        }
+
+        if (currentUserLogin == null) {
+            X509Certificate[] clientCerts = (X509Certificate[]) request.getAttribute("javax.servlet.request.X509Certificate"); // 2.2 spec
+            if (clientCerts == null) {
+                clientCerts = (X509Certificate[]) request.getAttribute("javax.net.ssl.peer_certificates"); // 2.1 spec
+            }
+
+            if (clientCerts != null) {
+                for (int i = 0; i < clientCerts.length; i++) {
+                    String certHex = StringUtil.toHexString(clientCerts[i].getPublicKey().getEncoded());
+                    List userLogins = null;
+                    try {
+                        userLogins = delegator.findByAnd("UserLogin", UtilMisc.toMap("x509Cert", certHex));
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
+                    }
+
+                    if (userLogins != null && userLogins.size() > 0) {
+                        Debug.log("Found [" + userLogins.size() + "] possible UserLogin records.", module);
+                        Iterator it = userLogins.iterator();
+                        while (it.hasNext()) {
+                            GenericValue ul = (GenericValue) it.next();
+                            String enabled = ul.getString("enabled");
+                            if (enabled == null || "Y".equals(enabled)) {
+                                Debug.log("Found x.509 cert for login; logging in as [" + ul.getString("userLoginId") + "]", module);
+                                doBasicLogin(ul, request);
+                                return "success";
+                            }
+                        }
+                    }
+                }
+            }            
+        }
+
         return "success";
     }
 

@@ -21,11 +21,12 @@ package org.ofbiz.webapp.control;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
+import java.security.cert.X509Certificate;
+import java.security.KeyStore;
+import java.security.GeneralSecurityException;
+import java.security.KeyStoreException;
+import java.net.URL;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,13 +34,7 @@ import javax.servlet.http.HttpSession;
 
 import javolution.util.FastMap;
 
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilObject;
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -87,6 +82,7 @@ public class RequestHandler implements Serializable {
     public void doRequest(HttpServletRequest request, HttpServletResponse response, String chain,
             GenericValue userLogin, GenericDelegator delegator) throws RequestHandlerException {
 
+        HttpSession session = request.getSession();
         String eventType;
         String eventPath;
         String eventMethod;
@@ -139,9 +135,70 @@ public class RequestHandler implements Serializable {
                 }
             }
 
-            // If its the first visit run the first visit events.
-            HttpSession session = request.getSession();
+            // Check for HTTPS client (x.509) security
+            if (request.isSecure() && requestManager.requiresHttpsClientCert(requestUri)) {            
+                X509Certificate[] clientCerts = (X509Certificate[]) request.getAttribute("javax.servlet.request.X509Certificate"); // 2.2 spec
+                if (clientCerts == null) {
+                    clientCerts = (X509Certificate[]) request.getAttribute("javax.net.ssl.peer_certificates"); // 2.1 spec
+                }
 
+                // check if the client has a valid certificate (in our db store)
+                String keyStorePass = requestManager.get509CertKeyStorePass(requestUri);
+                URL keyStoreUrl = requestManager.get509CertKeyStore(requestUri);    
+                boolean foundValidCert = false;
+
+                if (clientCerts == null) {
+                    throw new RequestHandlerException("Unknown request [" + requestUri + "]; this request does not exist or cannot be called directly.");
+                } else {
+                    // key the trust store info
+
+
+                    // load the trust store
+                    KeyStore keyStore;
+                    try {
+                        keyStore = KeyStoreUtil.getTrustStore(keyStoreUrl, keyStorePass);
+                    } catch (IOException e) {
+                       throw new RequestHandlerException("Unable to open keystore", e);
+                    } catch (GeneralSecurityException e) {
+                        throw new RequestHandlerException("Keystore security problem", e);
+                    }
+
+                    // get all cert aliases
+                    Enumeration en;
+                    try {
+                        en = keyStore.aliases();
+                    } catch (KeyStoreException e) {
+                        throw new RequestHandlerException("Unable to read keystore aliases", e);
+                    }
+
+                    // check for valid client cert
+                    while (en.hasMoreElements() && !foundValidCert) {
+                        String alias = (String) en.nextElement();
+                        X509Certificate trustedCert;
+                        try {
+                            trustedCert = (X509Certificate) keyStore.getCertificate(alias);
+                        } catch (KeyStoreException e) {
+                            throw new RequestHandlerException("Unable to read certificate from keystore", e);
+                        }
+
+                        for (int i = 0; i < clientCerts.length; i++) {
+                            if (!foundValidCert && trustedCert.equals(clientCerts[i])) {
+                                byte[] publicKey = clientCerts[i].getPublicKey().getEncoded();
+                                session.setAttribute(LoginWorker.X509_CERT_ATTR, StringUtil.toHexString(publicKey));
+                                //Debug.log("Cert Hex: " + session.getAttribute(LoginWorker.X509_CERT_ATTR));
+                                foundValidCert = true;
+                            }
+                        }
+                    }
+                }
+
+                if (!foundValidCert) {
+                    Debug.logWarning("No client certification found for request [" + requestUri + "] : " + keyStoreUrl.toExternalForm(), module);
+                    throw new RequestHandlerException("Unknown request [" + requestUri + "]; this request does not exist or cannot be called directly.");
+                }
+            }
+
+            // If its the first visit run the first visit events.
             if (session.getAttribute("visit") == null) {
                 Debug.logInfo("This is the first request in this visit." + " sessionId=" + UtilHttp.getSessionId(request), module);
                 // This isn't an event because it is required to run. We do not want to make it optional.
