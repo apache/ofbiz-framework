@@ -55,13 +55,13 @@
             <hyperlink target="/facility/control/EditFacility?facilityId=${productStore.inventoryFacilityId}" target-type="inter-app"
                 description="${uiLabelMap.CommonEdit} ${uiLabelMap.ProductFacility} ${productStore.inventoryFacilityId}" also-hidden="false"/>
         </field>
-		
+
         <field name="manualAuthIsCapture" widget-style="selectBox">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-		<field name="prorateShipping" widget-style="selectBox">
+        <field name="prorateShipping" widget-style="selectBox">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
-        </field>		
+        </field>
         <field name="prorateTaxes" widget-style="selectBox">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
@@ -122,10 +122,10 @@
         </field>
         -->
 
-		<field name="allowPassword" widget-style="selectBox">
+        <field name="allowPassword" widget-style="selectBox">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-		<field name="retryFailedAuths" widget-style="selectBox">
+        <field name="retryFailedAuths" widget-style="selectBox">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field name="headerApprovedStatus">
@@ -351,6 +351,88 @@
                 description="${uiLabelMap.CommonDelete}" also-hidden="false" target-type="inter-app"/>
         </field>
     </form>
+    <form name="ListProductStoreShipmentMeths" target="" title="" type="list"  list-name="storeShipMethods"
+        paginate-target="EditProductStoreShipSetup">
+        <auto-fields-entity entity-name="ProductStoreShipmentMeth" default-field-type="display"/>
+        <field name="productStoreId"><hidden/></field>
+        <field name="productStoreShipMethId" title="" widget-style="buttontext">
+            <hyperlink target="EditProductStoreShipSetup?productStoreId=${productStoreId}&amp;productStoreShipMethId=${productStoreShipMethId}" description="${productStoreShipMethId}" also-hidden="false"/>
+        </field>
+        <field name="shipmentMethodTypeId" title="${uiLabelMap.ProductMethod}">
+            <display-entity entity-name="ShipmentMethodType" description="${description}" cache="true" also-hidden="true"/>
+        </field>
+        <field name="roleTypeId"><hidden/></field>
+        <field name="includeGeoId">
+            <display-entity entity-name="Geo" key-field-name="geoId" description="${geoName} [${geoId}]"/>
+        </field>
+        <field name="excludeGeoId">
+            <display-entity entity-name="Geo" key-field-name="geoId" description="${geoName} [${geoId}]"/>
+        </field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="storeRemoveShipMeth?productStoreId=${productStoreId}&amp;productStoreShipMethId=${productStoreShipMethId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditProductStoreShipmentMeth" type="single" target="storeUpdateShipMeth" title="" default-map-name="productStoreShipmentMeth">
+        <alt-target use-when="productStoreShipmentMeth==null" target="storeCreateShipMeth"/>
+        <!--<auto-fields-service service-name="updateProductStoreShipMeth"/>-->
+        <field name="productStoreId"><hidden/></field>
+        <field name="productStoreShipMethId" use-when="productStoreShipmentMeth!=null"><display/></field>
+        <field name="shipmentMethodTypeId">
+            <display-entity entity-name="ShipmentMethodType" description="${description}" cache="true" also-hidden="true"/>
+        </field>
+        <field name="roleTypeId"><display/></field>
+        <field name="partyId"><display/></field>
+
+        <field name="minSize" tooltip="${uiLabelMap.ProductMinSizeMessage}"><text/></field>
+        <field name="maxSize" tooltip="${uiLabelMap.ProductMaxSizeMessage}"><text/></field>
+        <field name="minWeight" tooltip="${uiLabelMap.ProductMinWeightMessage}"><text/></field>
+        <field name="maxWeight" tooltip="${uiLabelMap.ProductMaxWeightMessage}"><text/></field>
+        <field name="minTotal" tooltip="${uiLabelMap.ProductMinTotalMesssage}"><text/></field>
+        <field name="maxTotal" tooltip="${uiLabelMap.ProductMaxTotalMesssage}"><text/></field>
+        <field name="allowUspsAddr" tooltip="${uiLabelMap.ProductAllowUSPSAddr}">
+            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
+        <field name="requireUspsAddr" tooltip="${uiLabelMap.ProductRequireMessage}">
+            <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
+        <field name="allowCompanyAddr">
+            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
+        <field name="requireCompanyAddr" tooltip="${uiLabelMap.ProductRequireMessage}">
+            <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
+        <field name="companyPartyId" tooltip="${uiLabelMap.ProductAllowMessage}">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="includeNoChargeItems" title="${uiLabelMap.ProductIncludeFreeship}" tooltip="${uiLabelMap.ProductIncludeFreeshipMessage}">
+            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
+        
+        <field name="includeGeoId" title="${uiLabelMap.ProductIncludeGeo}" tooltip="${uiLabelMap.ProductIncludeGeoMessage}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
+                    <entity-order-by field-name="geoTypeId"/>
+                    <entity-order-by field-name="geoName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="excludeGeoId" title="${uiLabelMap.ProductExcludeGeo}" tooltip="${uiLabelMap.ProductExcludeGeoMessage}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
+                    <entity-order-by field-name="geoTypeId"/>
+                    <entity-order-by field-name="geoName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="includeFeatureGroup" tooltip="${uiLabelMap.ProductIncludeFeatureMessage}"><text/></field>
+        <field name="excludeFeatureGroup" tooltip="${uiLabelMap.ProductExcludeFeatureMessage}"><text/></field>
+        <field name="serviceName"><text/></field>
+        <field name="configProps"><text/></field>
+        <field name="sequenceNumber" tooltip="${uiLabelMap.ProductUsedForDisplayOrdering}"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    
     <form name="ListShipmentCostEstimates" target="" title="" type="list"  list-name="estimates"
         paginate-target="EditProductStoreShipmentCostEstimates">
         <auto-fields-entity entity-name="ShipmentCostEstimate" default-field-type="display"/>
