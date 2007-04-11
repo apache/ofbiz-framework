@@ -54,7 +54,8 @@ under the License.
       <field name="lastLocale" type="very-short"></field>
       <field name="disabledDateTime" type="date-time"></field>
       <field name="successiveFailedLogins" type="numeric"></field>
-      <prim-key field="userLoginId"/>
+      <field name="x509Cert" type="very-long"></field> 
+        <prim-key field="userLoginId"/>
     </entity>
     <entity entity-name="UserLoginHistory"
             package-name="org.ofbiz.security.login"
