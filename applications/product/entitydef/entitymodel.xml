@@ -3675,6 +3675,8 @@ under the License.
         <field name="thruDate" type="date-time"></field>
         <field name="purchaseFromDate" type="date-time"></field>
         <field name="purchaseThruDate" type="date-time"></field>
+        <field name="maxLifeTime" type="numeric"></field>
+        <field name="maxLifeTimeUomId" type="id"></field>
         <field name="availableTime" type="numeric"></field>
         <field name="availableTimeUomId" type="id"></field>
         <field name="useCountLimit" type="numeric"></field>
@@ -3698,6 +3700,9 @@ under the License.
         </relation>
         <relation type="one" fk-name="PROD_SBRS_UTU" title="AvailableTime" rel-entity-name="Uom">
             <key-map field-name="availableTimeUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one" fk-name="PROD_SBRS_UTU" title="MaxLifeTime" rel-entity-name="Uom">
+            <key-map field-name="maxLifeTimeUomId" rel-field-name="uomId"/>
         </relation>
     </entity>
     <entity entity-name="Subscription" package-name="org.ofbiz.product.subscription" title="Subscription Entity">
