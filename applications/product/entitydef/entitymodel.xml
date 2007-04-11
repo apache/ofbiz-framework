@@ -3698,10 +3698,10 @@ under the License.
         <relation type="one" fk-name="PROD_SBRS_UTU" title="UseTime" rel-entity-name="Uom">
             <key-map field-name="useTimeUomId" rel-field-name="uomId"/>
         </relation>
-        <relation type="one" fk-name="PROD_SBRS_UTU" title="AvailableTime" rel-entity-name="Uom">
+        <relation type="one" fk-name="PROD_SBRS_ATU" title="AvailableTime" rel-entity-name="Uom">
             <key-map field-name="availableTimeUomId" rel-field-name="uomId"/>
         </relation>
-        <relation type="one" fk-name="PROD_SBRS_UTU" title="MaxLifeTime" rel-entity-name="Uom">
+        <relation type="one" fk-name="PROD_SBRS_MTU" title="MaxLifeTime" rel-entity-name="Uom">
             <key-map field-name="maxLifeTimeUomId" rel-field-name="uomId"/>
         </relation>
     </entity>
