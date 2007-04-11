@@ -271,6 +271,7 @@ under the License.
         -->
 
         <field name="contactMechIdFrom" title="${uiLabelMap.PartyFromContactMech}">
+            <lookup target-form-name="LookupPreferredContactMech" target-parameter="partyIdFrom"/>
             <text default-value="${thisUserPrimaryEmail.contactMechId}"/>          <!-- this default value is the logged in user's primary email and is useful for comm events which are emails -->
         </field>
         <field name="contactListId"><lookup size="20" target-form-name="LookupContactList"/></field>
@@ -333,14 +334,14 @@ under the License.
         <field name="contactListId" title="${uiLabelMap.ContactListContactListId}"><text-find/></field>
         <field name="contactListName" title="${uiLabelMap.ContactListContactListName}"><text-find/></field>
         <field name="contactListTypeId" title="${uiLabelMap.ContactListContactListTypeId}">
-            <drop-down>
+            <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="ContactListType" key-field-name="contactListTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="contactMechTypeId" title="${uiLabelMap.ContactListContactMechTypeId}">
-            <drop-down>
+            <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -353,13 +354,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListLookupContactList" target="" title="" type="list">
+    <form name="ListLookupContactList" list-name="listIt" target="" title="" type="list">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map env-name="parameters" field-name="inputFields"/>
-                <field-map env-name="entityName" field-name="entityName"/>
+                <field-map value="ContactList" field-name="entityName"/>
             </service>
         </actions>
         <field name="contactListId" title="${uiLabelMap.ContactListContactListId}" widget-style="buttontext">
