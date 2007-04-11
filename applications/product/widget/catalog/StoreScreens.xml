@@ -210,15 +210,32 @@ under the License.
                 <set field="productStoreId" from-field="parameters.viewProductStoreId"/>
                 <set field="productStoreId" from-field="parameters.productStoreId" default-value="${productStoreId}"/>
                 <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="true"/>
-
-                <script location="component://product/webapp/catalog/WEB-INF/actions/store/EditProductStoreShipSetup.bsh"/>
+                <entity-condition entity-name="ProductStoreShipmentMethView" list-name="storeShipMethods">
+                    <condition-expr field-name="productStoreId" env-name="productStoreId"/>
+                    <order-by field-name="sequenceNumber"/>
+                </entity-condition>
+                <entity-one entity-name="ProductStoreShipmentMeth" value-name="productStoreShipmentMeth" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/store/EditProductStoreShipSetup.ftl"/></html>
-                        </platform-specific>
+                        <include-form name="ListProductStoreShipmentMeths" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-empty field-name="productStoreShipmentMeth"/>
+                                    <if-empty field-name="parameters.addCarrierShipMeth"/>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/catalog/store/EditProductStoreShipSetup.ftl"/></html>
+                                </platform-specific>
+                            </widgets>
+                            <fail-widgets>
+                                <include-form name="EditProductStoreShipmentMeth" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

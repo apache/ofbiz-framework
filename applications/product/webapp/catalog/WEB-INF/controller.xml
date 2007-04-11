@@ -1876,6 +1876,12 @@ under the License.
         <response name="success" type="view" value="EditProductStoreShipmentCostEstimates"/>
         <response name="error" type="view" value="EditProductStoreShipmentCostEstimates"/>
     </request-map>
+    <request-map uri="prepareCreateShipMeth">
+        <security https="true" auth="true"/>
+        <event type="bsf" path="/store/" invoke="prepareCreateShipMeth.bsh"/>
+        <response name="success" type="view" value="EditProductStoreShipSetup"/>
+        <response name="error" type="view" value="EditProductStoreShipSetup"/>
+    </request-map>
     <request-map uri="storeCreateShipMeth">
         <security https="true" auth="true"/>
         <event type="service" invoke="createProductStoreShipMeth"/>

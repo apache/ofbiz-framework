@@ -17,15 +17,20 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.base.util.*;
- 
-geos = delegator.findAll("Geo", UtilMisc.toList("geoTypeId", "geoName"));
-context.put("geoList", geos);
+import java.util.StringTokenizer;
+import org.ofbiz.base.util.UtilValidate;
 
-storeShipMeth = delegator.findByAnd("ProductStoreShipmentMethView", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNumber"));
-context.put("storeShipMethods", storeShipMeth);
-
-shipMeth = delegator.findAll("CarrierAndShipmentMethod", UtilMisc.toList("sequenceNumber"));
-context.put("shipmentMethods", shipMeth);
+String carrierShipmentString = request.getParameter("carrierShipmentString");
+if (UtilValidate.isNotEmpty(carrierShipmentString)) {
+    StringTokenizer st = new StringTokenizer(carrierShipmentString, "|");
+    if (st.countTokens() != 3) {
+        return "error";
+    }
+    request.setAttribute("addCarrierShipMeth", "Y");
+    request.setAttribute("partyId", st.nextToken());
+    request.setAttribute("roleTypeId", st.nextToken());
+    request.setAttribute("shipmentMethodTypeId", st.nextToken());
+    return "success";
+} else {
+    return "error";
+}
