@@ -40,6 +40,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Collection;
+import java.net.URL;
 
 import javax.crypto.KeyAgreement;
 import javax.crypto.SecretKey;
@@ -100,6 +101,12 @@ public class KeyStoreUtil {
         KeyStore ks = KeyStore.getInstance(getTrustStoreType());
         ks.load(fis, getTrustStorePassword().toCharArray());
         fis.close();
+        return ks;
+    }
+
+    public static KeyStore getTrustStore(URL url, String password) throws IOException, GeneralSecurityException {
+        KeyStore ks = KeyStore.getInstance(getTrustStoreType());
+        ks.load(url.openStream(), password.toCharArray());
         return ks;
     }
 

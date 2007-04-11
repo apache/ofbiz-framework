@@ -229,7 +229,7 @@ under the License.
             <property name="threadPriority" value="java.lang.Thread#NORM_PRIORITY"/>
             <!-- SSL connector attributes -->
             <property name="algorithm" value="SunX509"/>
-            <property name="clientAuth" value="false"/>
+            <property name="clientAuth" value="want"/>
             <property name="keystoreFile" value="framework/base/config/ofbizssl.jks"/>
             <property name="keystorePass" value="changeit"/>
             <property name="keystoreType" value="JKS"/>
