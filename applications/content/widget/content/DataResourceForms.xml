@@ -365,15 +365,11 @@ under the License.
         <actions>
             <entity-one entity-name="ElectronicText" value-name="electronicText"/>
         </actions>
+        <alt-target use-when="electronicText==null" target="addElectronicText"/>
         <field name="dataResourceId" title="" widget-style="buttontext"><display also-hidden="true"/></field>
         <field name="textData" widget-style="buttontext"><textarea cols="120" rows="24"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
-    <form name="AddElectronicText" target="addElectronicText" title="" type="single">
-        <auto-fields-service service-name="createElectronicText"/>
-        <field name="dataResourceId" title="" widget-style="buttontext" map-name="currentValue"><display also-hidden="true"/></field>
-        <field name="textData" widget-style="buttontext"><textarea cols="120" rows="24"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton"  use-when="electronicText!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="electronicText==null" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
     <!-- Html forms -->
