@@ -173,7 +173,7 @@ under the License.
             </drop-down>
         </field>
         <field name="preferredContactMechId" title="${uiLabelMap.ContactListPreferredContactMech}">
-            <lookup target-form-name="LookupPreferredContactMech" target-parameter="partyId"/>
+            <lookup target-form-name="LookupContactMech" target-parameter="partyId"/>
         </field>
         
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>

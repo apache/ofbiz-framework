@@ -270,4 +270,47 @@ under the License.
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
     </form>
+
+    <form name="lookupContactMech" target="LookupContactMech" type="single">
+        <field name="contactMechId" title="${uiLabelMap.contactMechId}"><text-find/></field>
+
+        <field name="contactMechTypeId" title="${uiLabelMap.ContactListContactMechTypeId}">
+            <drop-down allow-empty="true" no-current-selected-key="EMAIL_ADDRESS">
+                <entity-options description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="PartyType"/>
+            </drop-down>
+        </field>
+        <field name="infoString" title="${uiLabelMap.infoString}"><text-find/></field>
+        <field name="paAddress1" title="${uiLabelMap.paAddress1}"><text-find/></field>
+        <field name="paAddress2" title="${uiLabelMap.paAddress2}"><text-find/></field>
+        <field name="paPostalCode" title="${uiLabelMap.paPostalCode}"><text-find/></field>
+
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="listLookupContactMech" type="list" list-name="listIt" paginate-target="LookupContactMech">
+        <actions>
+            <service service-name="performFind" result-map-list-name="listIt" result-map-name="result">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="PartyAndContactMech"/>
+            </service>
+        </actions>
+
+        <field name="contactMechId"  widget-style="buttontext">
+            <hyperlink description="${contactMechId}" target-type="plain" target="javascript:set_value('${contactMechId}')" also-hidden="false"/>
+        </field>
+        <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}"> 
+            <display-entity also-hidden="false" entity-name="PartyType" description="${description}"/>
+        </field>
+        <field name="contactMechTypeId" title="${uiLabelMap.ContactListContactMechTypeId}"><display-entity entity-name="ContactMechType"/></field>
+        <field name="cmDetail"><display description="[${infoString}] [${tnCountryCode}-${tnAreaCode}-${tnContactNumber}] [${paAddress1}, ${paAddress2}, ${paCity}, ${paStateProvinceGeoId}, ${paPostalCode}, ${paPostalCodeExt} ${paCountryGeoId}]" also-hidden="false"/></field>
+    </form>
+    
 </forms>
