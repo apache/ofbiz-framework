@@ -182,10 +182,10 @@ public class CategoryServices {
         
         String prodCatalogId = (String) context.get("prodCatalogId");
 
-        boolean useCacheForMembers = (context.get("useCacheForMembers") != null ? ((Boolean) context.get("useCacheForMembers")).booleanValue() : true);
-        boolean activeOnly = (context.get("activeOnly") != null ? ((Boolean) context.get("activeOnly")).booleanValue() : true);
+        boolean useCacheForMembers = (context.get("useCacheForMembers") == null || ((Boolean) context.get("useCacheForMembers")).booleanValue());
+        boolean activeOnly = (context.get("activeOnly") == null || ((Boolean) context.get("activeOnly")).booleanValue());
         // checkViewAllow defaults to false, must be set to true and pass the prodCatalogId to enable
-        boolean checkViewAllow = (context.get("checkViewAllow") != null ? ((Boolean) context.get("checkViewAllow")).booleanValue() : false);
+        boolean checkViewAllow = (context.get("checkViewAllow") != null && ((Boolean) context.get("checkViewAllow")).booleanValue());
         
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
@@ -219,6 +219,9 @@ public class CategoryServices {
             // get the indexes for the partial list
             lowIndex = (((viewIndex - 1) * viewSize) + 1);
             highIndex = viewIndex * viewSize;
+        } else {
+            lowIndex = 0;
+            highIndex = 0;
         }
         
         List productCategoryMembers = null;
@@ -282,6 +285,10 @@ public class CategoryServices {
                     String viewProductCategoryId = CatalogWorker.getCatalogViewAllowCategoryId(delegator, prodCatalogId);
                     if (viewProductCategoryId != null) {
                         productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, productCategoryMembers, viewProductCategoryId);
+                        listSize = productCategoryMembers.size();
+                        if (highIndex > listSize) {
+                            highIndex = listSize;
+                        }
                     }
                 }
             } catch (GenericEntityException e) {
