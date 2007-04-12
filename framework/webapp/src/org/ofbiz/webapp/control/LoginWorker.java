@@ -45,6 +45,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.webapp.stats.VisitHandler;
+import org.ofbiz.common.login.LoginServices;
 
 /**
  * Common Workers
@@ -314,23 +315,27 @@ public class LoginWorker {
         if (ModelService.RESPOND_SUCCESS.equals(result.get(ModelService.RESPONSE_MESSAGE))) {
             GenericValue userLogin = (GenericValue) result.get("userLogin");
             Map userLoginSession = (Map) result.get("userLoginSession");
-
-            if (userLogin != null && hasBasePermission(userLogin, request)) {
-                doBasicLogin(userLogin, request);
-            } else {
-                String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.unable_to_login_this_application", UtilHttp.getLocale(request));
-                request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                return "error";
-            }
-
-            if (userLoginSession != null) {
-                session.setAttribute("userLoginSession", userLoginSession);
-            }
+            return doMainLogin(request, response, userLogin, userLoginSession);
         } else {
             Map messageMap = UtilMisc.toMap("errorMessage", (String) result.get(ModelService.ERROR_MESSAGE));
             String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
+        }
+    }
+
+    public static String doMainLogin(HttpServletRequest request, HttpServletResponse response, GenericValue userLogin, Map userLoginSession) {
+        HttpSession session = request.getSession();
+        if (userLogin != null && hasBasePermission(userLogin, request)) {
+            doBasicLogin(userLogin, request);
+        } else {
+            String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.unable_to_login_this_application", UtilHttp.getLocale(request));
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
+        }
+
+        if (userLoginSession != null) {
+            session.setAttribute("userLoginSession", userLoginSession);
         }
 
         request.setAttribute("_LOGIN_PASSED_", "TRUE");
@@ -514,7 +519,8 @@ public class LoginWorker {
         HttpSession session = request.getSession();
         GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
         if (currentUserLogin != null) {
-            if (LoginWorker.isFlaggedLoggedOut(currentUserLogin)) {
+            String hasLoggedOut = currentUserLogin.getString("hasLoggedOut");
+            if (hasLoggedOut != null && "Y".equals(hasLoggedOut)) {
                 currentUserLogin = null;
             }
         }
@@ -535,16 +541,21 @@ public class LoginWorker {
                         Debug.logError(e, module);
                     }
 
-                    if (userLogins != null && userLogins.size() > 0) {
-                        Debug.log("Found [" + userLogins.size() + "] possible UserLogin records.", module);
+                    if (userLogins != null && userLogins.size() > 0) {                        
                         Iterator it = userLogins.iterator();
                         while (it.hasNext()) {
                             GenericValue ul = (GenericValue) it.next();
                             String enabled = ul.getString("enabled");
+
                             if (enabled == null || "Y".equals(enabled)) {
-                                Debug.log("Found x.509 cert for login; logging in as [" + ul.getString("userLoginId") + "]", module);
-                                doBasicLogin(ul, request);
-                                return "success";
+                                ul.set("hasLoggedOut", "N");
+                                try {
+                                    ul.store();
+                                } catch (GenericEntityException e) {
+                                    Debug.logWarning(e, module);
+                                }
+                                Map ulSessionMap = LoginServices.getUserLoginSession(ul);
+                                return doMainLogin(request, response, ul, ulSessionMap); // doing the main login                                                                
                             }
                         }
                     }

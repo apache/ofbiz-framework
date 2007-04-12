@@ -169,21 +169,8 @@ public class LoginServices {
 
                             if (!isServiceAuth) {
                                 // get the UserLoginSession if this is not a service auth
+                                Map userLoginSessionMap = getUserLoginSession(userLogin);
                                 GenericValue userLoginSession = null;
-                                Map userLoginSessionMap = null;
-                                try {
-                                    userLoginSession = userLogin.getRelatedOne("UserLoginSession");
-                                    if (userLoginSession != null) {
-                                        Object deserObj = XmlSerializer.deserialize(userLoginSession.getString("sessionData"), delegator);
-                                        //don't check, just cast, if it fails it will get caught and reported below; if (deserObj instanceof Map)
-                                        userLoginSessionMap = (Map) deserObj;
-                                    }
-                                } catch (GenericEntityException ge) {
-                                    Debug.logWarning(ge, "Cannot get UserLoginSession for UserLogin ID: " +
-                                            userLogin.getString("userLoginId"), module);
-                                } catch (Exception e) {
-                                    Debug.logWarning(e, "Problems deserializing UserLoginSession", module);
-                                }
 
                                 // return the UserLoginSession Map
                                 if (userLoginSessionMap != null) {
@@ -780,5 +767,25 @@ public class LoginServices {
         }
 
         return HashCrypt.getDigestHash(str, hashType);
+    }
+
+    public static Map getUserLoginSession(GenericValue userLogin) {
+        GenericDelegator delegator = userLogin.getDelegator();
+        GenericValue userLoginSession;
+        Map userLoginSessionMap = null;
+        try {
+            userLoginSession = userLogin.getRelatedOne("UserLoginSession");
+            if (userLoginSession != null) {
+                Object deserObj = XmlSerializer.deserialize(userLoginSession.getString("sessionData"), delegator);
+                //don't check, just cast, if it fails it will get caught and reported below; if (deserObj instanceof Map)
+                userLoginSessionMap = (Map) deserObj;
+            }
+        } catch (GenericEntityException ge) {
+            Debug.logWarning(ge, "Cannot get UserLoginSession for UserLogin ID: " +
+                    userLogin.getString("userLoginId"), module);
+        } catch (Exception e) {
+            Debug.logWarning(e, "Problems deserializing UserLoginSession", module);
+        }
+        return userLoginSessionMap;
     }
 }
