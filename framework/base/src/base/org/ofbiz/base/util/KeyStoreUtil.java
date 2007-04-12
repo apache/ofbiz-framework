@@ -46,6 +46,8 @@ import javax.crypto.KeyAgreement;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.DHParameterSpec;
 
+import org.apache.commons.codec.binary.Base64;
+
 /**
  * KeyStoreUtil - Utilities for getting KeyManagers and TrustManagers
  *
@@ -223,7 +225,7 @@ public class KeyStoreUtil {
         byte[] certBuf = cert.getEncoded();
         StringBuffer buf = new StringBuffer();
         buf.append("-----BEGIN CERTIFICATE-----\n");
-        buf.append(Base64.base64Encode(certBuf));
+        buf.append(new String(Base64.encodeBase64Chunked(certBuf)));
         buf.append("\n-----END CERTIFICATE-----\n");
         return buf.toString();
     }
@@ -262,6 +264,7 @@ public class KeyStoreUtil {
 
         // in between the header and footer is the actual certificate
         while ((line = reader.readLine()) != null && !line.equals(footer)) {
+            line = line.replaceAll("\\s", "");
             ps.print(line);
         }
 
@@ -274,8 +277,13 @@ public class KeyStoreUtil {
         // decode the buffer to a X509Certificate
 
         CertificateFactory cf = CertificateFactory.getInstance("X.509");
-        byte[] certBytes = Base64.base64Decode(baos.toByteArray());
+        byte[] certBytes = Base64.decodeBase64(baos.toByteArray());
         return cf.generateCertificate(new ByteArrayInputStream(certBytes));
+    }
+
+    public static String pemToPkHex(String certString) throws IOException, CertificateException {
+        Certificate cert = pemToCert(certString);
+        return StringUtil.toHexString(cert.getPublicKey().getEncoded());
     }
 
     public static SecretKey generateSecretKey(PrivateKey ourKey, PublicKey theirKey) throws Exception {
