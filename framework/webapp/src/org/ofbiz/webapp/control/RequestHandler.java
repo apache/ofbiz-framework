@@ -141,6 +141,9 @@ public class RequestHandler implements Serializable {
                 if (clientCerts == null) {
                     clientCerts = (X509Certificate[]) request.getAttribute("javax.net.ssl.peer_certificates"); // 2.1 spec
                 }
+                if (clientCerts == null) {
+                    Debug.logWarning("Received no client certificates from browser", module);
+                }
 
                 // check if the client has a valid certificate (in our db store)
                 String keyStorePass = requestManager.get509CertKeyStorePass(requestUri);
@@ -150,9 +153,6 @@ public class RequestHandler implements Serializable {
                 if (clientCerts == null) {
                     throw new RequestHandlerException("Unknown request [" + requestUri + "]; this request does not exist or cannot be called directly.");
                 } else {
-                    // key the trust store info
-
-
                     // load the trust store
                     KeyStore keyStore;
                     try {
@@ -181,12 +181,10 @@ public class RequestHandler implements Serializable {
                             throw new RequestHandlerException("Unable to read certificate from keystore", e);
                         }
 
-                        for (int i = 0; i < clientCerts.length; i++) {
-                            if (!foundValidCert && trustedCert.equals(clientCerts[i])) {
-                                byte[] publicKey = clientCerts[i].getPublicKey().getEncoded();
-                                session.setAttribute(LoginWorker.X509_CERT_ATTR, StringUtil.toHexString(publicKey));
-                                //Debug.log("Cert Hex: " + session.getAttribute(LoginWorker.X509_CERT_ATTR));
+                        for (int ci = 0; ci < clientCerts.length; ci++) {                            
+                            if (!foundValidCert && trustedCert.equals(clientCerts[ci])) {
                                 foundValidCert = true;
+                                break;
                             }
                         }
                     }

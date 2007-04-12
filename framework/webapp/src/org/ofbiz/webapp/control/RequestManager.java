@@ -316,7 +316,7 @@ public class RequestManager implements Serializable {
     }
 
     public URL get509CertKeyStore(String uriStr) {
-        String defaultTrustStore = KeyStoreUtil.getTrustStoreFileName();
+        String defaultTrustStore = "file://" + KeyStoreUtil.getTrustStoreFileName();
         Map uri = getRequestMapMap(uriStr);
 
         if (uri != null) {
@@ -353,7 +353,7 @@ public class RequestManager implements Serializable {
 
         if (uri != null) {
             String value = (String) uri.get(ConfigXMLReader.SECURITY_KEYSTORE);
-            if (value.indexOf(";") > -1) {            
+            if (value != null && value.indexOf(";") > -1) {            
                 return value.substring(value.indexOf(";") + 1);
             }
         }
