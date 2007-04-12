@@ -378,9 +378,12 @@
 <dojo:TreeSelector widgetId="webCmsTreeSelector" eventNames="select:webCmsNodeSelected"></dojo:TreeSelector>
 <div dojoType="Tree" menu="webCmsContextMenu" widgetId="webCmsTree" selector="webCmsTreeSelector" toggler="fade" toggleDuration="500">
     <#if (subsites?has_content)>
-        <@fillTree assocList = subsites/>
+        <@fillTree assocList = subsites/>    
     </#if>
 </div>
+<#if (!subsites?has_content)>
+    <a href="javascript:void(0);" class="linktext">Add Tree</a>
+</#if>
 
 <div>&nbsp;</div>
 <div>&nbsp;</div>
@@ -401,7 +404,11 @@
 <dojo:TreeSelector widgetId="webMenuTreeSelector" eventNames="select:webMenuNodeSelected"></dojo:TreeSelector>
 <div dojoType="Tree" menu="webMenuContextMenu" widgetId="webMenuTree" selector="webMenuTreeSelector" toggler="fade" toggleDuration="500">
     <#if (menus?has_content)>
-        <@fillTree assocList = subsites/>
+        ${menus}
+        <@fillTree assocList = menus/>
     </#if>
 </div>
+<#if (!menus?has_content)>
+    <a href="javascript:void(0);" class="linktext">Add Menu</a>
+</#if>
 

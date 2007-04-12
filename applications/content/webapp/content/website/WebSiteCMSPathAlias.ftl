@@ -17,6 +17,15 @@
   under the License.
   -->
 
+<#-- cms menu bar -->
+<div id="cmsmenu" style="margin-bottom: 8px;">
+    <#if (content?has_content)>
+        <a href="javascript:void(0);" onclick="javascript:callEditor(true, '${content.contentId}', '', 'ELECTRONIC_TEXT');" class="tabButton">Quick Sub-Content</a>
+        <a href="javascript:void(0);" onclick="javascript:callPathAlias('${content.contentId}');" class="tabButtonSelected">Path Alias</a>
+        <a href="javascript:void(0);" onclick="javascript:callMetaInfo('${content.contentId}');" class="tabButton">Meta Tags</a>
+    </#if>
+</div>
+
 <#if (content?has_content)>
     <div class="tabletext" style="margin-bottom: 8px;">
         New <b>PathAlias</b> attached from WebSite: <b>${webSite.webSiteId}</b> to Content: <b>${content.contentId}</b></b>
