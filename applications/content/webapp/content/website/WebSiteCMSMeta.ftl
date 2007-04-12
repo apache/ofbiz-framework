@@ -26,6 +26,15 @@
     <input type="hidden" name="contentIdFrom" value="${(content.contentId)?if_exists}"/>
 </#macro>
 
+<#-- cms menu bar -->
+<div id="cmsmenu" style="margin-bottom: 8px;">
+    <#if (content?has_content)>
+        <a href="javascript:void(0);" onclick="javascript:callEditor(true, '${content.contentId}', '', 'ELECTRONIC_TEXT');" class="tabButton">Quick Sub-Content</a>
+        <a href="javascript:void(0);" onclick="javascript:callPathAlias('${content.contentId}');" class="tabButton">Path Alias</a>
+        <a href="javascript:void(0);" onclick="javascript:callMetaInfo('${content.contentId}');" class="tabButtonSelected">Meta Tags</a>
+    </#if>
+</div>
+
 <#if (content?has_content)>
     <div class="tabletext" style="margin-bottom: 8px;">
         Set <b>Meta-Data</b> for Content: <b>${content.contentId}</b></b>
