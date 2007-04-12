@@ -80,6 +80,19 @@ public class KeyStoreUtil {
         return UtilProperties.getPropertyValue("jsse.properties", "ofbiz.trustStore.type", "jks");
     }
 
+    public static KeyStore getStore(URL url, String password) throws IOException, GeneralSecurityException {
+        return getStore(url, password, "jks");
+    }
+
+    public static KeyStore getStore(URL url, String password, String type) throws IOException, GeneralSecurityException {
+        if (type == null) {
+            throw new IOException("Invalid keystore type; null");
+        }
+        KeyStore ks = KeyStore.getInstance(type);
+        ks.load(url.openStream(), password.toCharArray());
+        return ks;
+    }
+
     public static KeyStore getKeyStore() throws IOException, GeneralSecurityException {
         if (getKeyStoreFileName() != null && !keyStoreExists(getKeyStoreFileName())) {
             return null;
@@ -103,12 +116,6 @@ public class KeyStoreUtil {
         KeyStore ks = KeyStore.getInstance(getTrustStoreType());
         ks.load(fis, getTrustStorePassword().toCharArray());
         fis.close();
-        return ks;
-    }
-
-    public static KeyStore getTrustStore(URL url, String password) throws IOException, GeneralSecurityException {
-        KeyStore ks = KeyStore.getInstance(getTrustStoreType());
-        ks.load(url.openStream(), password.toCharArray());
         return ks;
     }
 
