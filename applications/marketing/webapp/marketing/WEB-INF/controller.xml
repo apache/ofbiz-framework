@@ -36,7 +36,7 @@ under the License.
     
     <preprocessor>
         <!-- Events to run on every request before security (chains exempt) -->
-        <!-- <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/> -->
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="check509CertLogin"/>
         <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
     </preprocessor>
     <postprocessor>
