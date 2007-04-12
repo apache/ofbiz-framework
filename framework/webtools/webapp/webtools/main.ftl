@@ -125,6 +125,8 @@ text-decoration: underline;
           <li><h3>${uiLabelMap.WebtoolsServerHitStatisticsTools}</h3></li>
           <li><a href="<@ofbizUrl>StatsSinceStart</@ofbizUrl>">${uiLabelMap.WebtoolsStatsSinceServerStart}</a></li>
         </#if>
+        <li><h3>x.509 Certificates</h3></li>
+        <li><a href="<@ofbizUrl>myCertificates</@ofbizUrl>">${uiLabelMap.WebtoolsMyCertificates}</a></li>
       </ul>
     </#if>
     <br />

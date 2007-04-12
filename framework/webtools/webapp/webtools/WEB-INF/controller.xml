@@ -484,6 +484,12 @@ under the License.
         <response name="error" type="view" value="EntitySyncStatus"/>
     </request-map>
 
+    <!-- cert requests -->
+    <request-map uri="myCertificates">
+        <security https="true"/>
+        <response name="success" type="view" value="viewbrowsercerts"/>
+    </request-map>
+
     <!-- printing requests -->
     <request-map uri="print">
         <event type="java" path="org.ofbiz.webtools.print.rmi.FopPrintServer" invoke="readFopPrintServerSettings"/>
@@ -603,5 +609,8 @@ under the License.
     <view-map name="EntityImportReaders" page="component://webtools/widget/EntityScreens.xml#EntityImportReaders" type="screen"/>
     
     <view-map name="ViewComponents" page="component://webtools/widget/MiscScreens.xml#ViewComponents" type="screen"/>
+
+    <!-- cert views -->
+    <view-map name="viewbrowsercerts" type="screen" page="component://webtools/widget/CommonScreens.xml#browsercerts"/> 
     <!-- end of view mappings -->
 </site-conf>
