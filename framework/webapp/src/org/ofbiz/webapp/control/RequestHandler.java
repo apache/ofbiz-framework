@@ -156,7 +156,7 @@ public class RequestHandler implements Serializable {
                     // load the trust store
                     KeyStore keyStore;
                     try {
-                        keyStore = KeyStoreUtil.getTrustStore(keyStoreUrl, keyStorePass);
+                        keyStore = KeyStoreUtil.getStore(keyStoreUrl, keyStorePass);
                     } catch (IOException e) {
                        throw new RequestHandlerException("Unable to open keystore", e);
                     } catch (GeneralSecurityException e) {
