@@ -21,6 +21,7 @@ package org.ofbiz.base.util;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
+import java.security.SecureRandom;
 
 import javax.net.ssl.*;
 
@@ -34,7 +35,7 @@ public class SSLUtil {
     private static boolean loadedProps = false;
 
     static {
-        SSLUtil. loadJsseProperties();
+        SSLUtil.loadJsseProperties();
     }
 
     public static KeyManager[] getKeyManagers(KeyStore ks, String password, String alias) throws GeneralSecurityException {
@@ -63,7 +64,7 @@ public class SSLUtil {
         KeyManager[] km = getKeyManagers(ks, password, alias);
 
         SSLContext context = SSLContext.getInstance("SSL");
-        context.init(km, tm, null);
+        context.init(km, tm, new SecureRandom());
         return context.getSocketFactory();
     }
 
