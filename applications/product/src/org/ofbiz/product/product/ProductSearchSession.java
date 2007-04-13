@@ -479,6 +479,18 @@ public class ProductSearchSession {
             }
         }
 
+        // a shorter variation for categories
+        for (int catNum = 1; catNum < 10; catNum++) {
+            if (UtilValidate.isNotEmpty((String) parameters.get("S_CAT" + catNum))) {
+                String searchCategoryId = (String) parameters.get("S_CAT" + catNum);
+                String searchSubCategories = (String) parameters.get("S_CSB" + catNum);
+                String searchCategoryExc = (String) parameters.get("S_CEX" + catNum);
+                Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : new Boolean(!"N".equals(searchCategoryExc));
+                searchAddConstraint(new ProductSearch.CategoryConstraint(searchCategoryId, !"N".equals(searchSubCategories), exclude), session);
+                constraintsChanged = true;
+            }
+        }
+
         // if there is any category selected try to use catalog and add a constraint for it
         if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_CATALOG_ID"))) {    
             String searchCatalogId = (String) parameters.get("SEARCH_CATALOG_ID");
@@ -523,19 +535,19 @@ public class ProductSearchSession {
                     searchAddConstraint(new ProductSearch.FeatureConstraint(productFeatureId, exclude), session);
                 }
             }
-        }
+            // a shorter feature variation
+            if (parameterName.startsWith("S_PFI")) {
+                String productFeatureId = (String) parameters.get(parameterName);
+                if (productFeatureId != null && productFeatureId.length() > 0) {
+                    String paramNameExt = parameterName.substring("S_PFI".length());
+                    String searchCategoryExc = (String) parameters.get("S_PFX" + paramNameExt);
+                    Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : new Boolean(!"N".equals(searchCategoryExc));
+                    //Debug.logInfo("parameterName=" + parameterName + ", paramNameExt=" + paramNameExt + ", searchCategoryExc=" + searchCategoryExc + ", exclude=" + exclude, module);
+                    searchAddConstraint(new ProductSearch.FeatureConstraint(productFeatureId, exclude), session);
+                }
+            }
 
-        // if features were selected add a constraint for each
-        Map featureIdByType = ParametricSearch.makeFeatureIdByTypeMap(parameters);
-        if (featureIdByType.size() > 0) {
-            constraintsChanged = true;
-            searchAddFeatureIdConstraints(featureIdByType.values(), null, request);
-        }
-
-        //if product features category were selected add a constraint for each
-        Iterator parameterProdFeatureCatNameIter = parameters.keySet().iterator();
-        while (parameterProdFeatureCatNameIter.hasNext()) {
-            String parameterName = (String) parameterProdFeatureCatNameIter.next();
+            //if product features category were selected add a constraint for each
             if (parameterName.startsWith("SEARCH_PROD_FEAT_CAT") && !parameterName.startsWith("SEARCH_PROD_FEAT_CAT_EXC")) {
                 String productFeatureCategoryId = (String) parameters.get(parameterName);
                 if (productFeatureCategoryId != null && productFeatureCategoryId.length() > 0) {
@@ -545,11 +557,29 @@ public class ProductSearchSession {
                     searchAddConstraint(new ProductSearch.ProductFeatureCategoryConstraint(productFeatureCategoryId, exclude), session);
                 }
             }
+            // a shorter variation for feature category
+            if (parameterName.startsWith("S_FCI")) {
+                String productFeatureCategoryId = (String) parameters.get(parameterName);
+                if (productFeatureCategoryId != null && productFeatureCategoryId.length() > 0) {
+                    String paramNameExt = parameterName.substring("S_FCI".length());
+                    String searchProdFeatureCategoryExc = (String) parameters.get("S_FCX" + paramNameExt);
+                    Boolean exclude = UtilValidate.isEmpty(searchProdFeatureCategoryExc) ? null : new Boolean(!"N".equals(searchProdFeatureCategoryExc));
+                    searchAddConstraint(new ProductSearch.ProductFeatureCategoryConstraint(productFeatureCategoryId, exclude), session);
+                }
+            }
+        }
+
+        // if features were selected add a constraint for each
+        Map featureIdByType = ParametricSearch.makeFeatureIdByTypeMap(parameters);
+        if (featureIdByType.size() > 0) {
+            constraintsChanged = true;
+            searchAddFeatureIdConstraints(featureIdByType.values(), null, request);
         }
 
         // add a supplier to the search
-        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_SUPPLIER_ID"))) {
+        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_SUPPLIER_ID")) || UtilValidate.isNotEmpty((String) parameters.get("S_SUP"))) {
             String supplierPartyId = (String) parameters.get("SEARCH_SUPPLIER_ID");
+            if (UtilValidate.isEmpty(supplierPartyId)) supplierPartyId = (String) parameters.get("S_SUP");
             searchAddConstraint(new ProductSearch.SupplierConstraint(supplierPartyId), session);
             constraintsChanged = true;
         }
@@ -576,8 +606,9 @@ public class ProductSearchSession {
             searchAddConstraint(new ProductSearch.ListPriceRangeConstraint(listPriceLow, listPriceHigh, listPriceCurrency), session);
             constraintsChanged = true;
         }
-        if (UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_RANGE"))) {
+        if (UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_RANGE")) || UtilValidate.isNotEmpty((String) parameters.get("S_LPR"))) {
             String listPriceRangeStr = (String) parameters.get("LIST_PRICE_RANGE");
+            if (UtilValidate.isEmpty(listPriceRangeStr)) listPriceRangeStr = (String) parameters.get("S_LPR");
             String listPriceLowStr = listPriceRangeStr.substring(0, listPriceRangeStr.indexOf("_")); 
             String listPriceHighStr = listPriceRangeStr.substring(listPriceRangeStr.indexOf("_") + 1); 
 
@@ -623,16 +654,24 @@ public class ProductSearchSession {
         
         // set the sort order
         String sortOrder = (String) parameters.get("sortOrder");
+        if (UtilValidate.isEmpty(sortOrder)) sortOrder = (String) parameters.get("S_O");
         String sortAscending = (String) parameters.get("sortAscending");
+        if (UtilValidate.isEmpty(sortAscending)) sortAscending = (String) parameters.get("S_A");
         boolean ascending = !"N".equals(sortAscending);
         if (sortOrder != null) {
-            if (sortOrder.equals("SortKeywordRelevancy")) {
+            if (sortOrder.equals("SortKeywordRelevancy") || sortOrder.equals("SKR")) {
                 searchSetSortOrder(new ProductSearch.SortKeywordRelevancy(), session);
             } else if (sortOrder.startsWith("SortProductField:")) {
                 String fieldName = sortOrder.substring("SortProductField:".length());
                 searchSetSortOrder(new ProductSearch.SortProductField(fieldName, ascending), session);
+            } else if (sortOrder.startsWith("SPF:")) {
+                String fieldName = sortOrder.substring("SPF:".length());
+                searchSetSortOrder(new ProductSearch.SortProductField(fieldName, ascending), session);
             } else if (sortOrder.startsWith("SortProductPrice:")) {
                 String priceTypeId = sortOrder.substring("SortProductPrice:".length());
+                searchSetSortOrder(new ProductSearch.SortProductPrice(priceTypeId, ascending), session);
+            } else if (sortOrder.startsWith("SPP:")) {
+                String priceTypeId = sortOrder.substring("SPP:".length());
                 searchSetSortOrder(new ProductSearch.SortProductPrice(priceTypeId, ascending), session);
             }
         }
@@ -742,16 +781,16 @@ public class ProductSearchSession {
                 } else {
                     isNotFirst = true;
                 }
-                searchParamString.append("SEARCH_CATEGORY_ID");
+                searchParamString.append("S_CAT");
                 searchParamString.append(categoriesCount);
                 searchParamString.append("=");
                 searchParamString.append(cc.productCategoryId);
-                searchParamString.append("&amp;SEARCH_SUB_CATEGORIES");
+                searchParamString.append("&amp;S_CSB");
                 searchParamString.append(categoriesCount);
                 searchParamString.append("=");
                 searchParamString.append(cc.includeSubCategories ? "Y" : "N");
                 if (cc.exclude != null) {
-                    searchParamString.append("&amp;SEARCH_CATEGORY_EXC");
+                    searchParamString.append("&amp;S_CEX");
                     searchParamString.append(categoriesCount);
                     searchParamString.append("=");
                     searchParamString.append(cc.exclude.booleanValue() ? "Y" : "N");
@@ -764,12 +803,12 @@ public class ProductSearchSession {
                 } else {
                     isNotFirst = true;
                 }
-                searchParamString.append("SEARCH_FEAT");
+                searchParamString.append("S_PFI");
                 searchParamString.append(featuresCount);
                 searchParamString.append("=");
                 searchParamString.append(fc.productFeatureId);
                 if (fc.exclude != null) {
-                    searchParamString.append("&amp;SEARCH_FEAT_EXC");
+                    searchParamString.append("&amp;S_PFX");
                     searchParamString.append(featuresCount);
                     searchParamString.append("=");
                     searchParamString.append(fc.exclude.booleanValue() ? "Y" : "N");
@@ -786,12 +825,12 @@ public class ProductSearchSession {
                 } else {
                     isNotFirst = true;
                 }
-                searchParamString.append("SEARCH_PROD_FEAT_CAT");
+                searchParamString.append("S_FCI");
                 searchParamString.append(featureCategoriesCount);
                 searchParamString.append("=");
                 searchParamString.append(pfcc.productFeatureCategoryId);
                 if (pfcc.exclude != null) {
-                    searchParamString.append("&amp;SEARCH_PROD_FEAT_CAT_EXC");
+                    searchParamString.append("&amp;S_FCX");
                     searchParamString.append(featureCategoriesCount);
                     searchParamString.append("=");
                     searchParamString.append(pfcc.exclude.booleanValue() ? "Y" : "N");
@@ -816,7 +855,6 @@ public class ProductSearchSession {
                 searchParamString.append(keywordsCount);
                 searchParamString.append("=");
                 searchParamString.append(kc.anyPrefix | kc.anySuffix ? "Y" : "N");
-                
             } else if (psc instanceof ProductSearch.ListPriceRangeConstraint) {
                 ProductSearch.ListPriceRangeConstraint lprc = (ProductSearch.ListPriceRangeConstraint) psc;
                 if (lprc.lowPrice != null || lprc.highPrice != null) {
@@ -825,7 +863,7 @@ public class ProductSearchSession {
                     } else {
                         isNotFirst = true;
                     }
-                    searchParamString.append("LIST_PRICE_RANGE");
+                    searchParamString.append("S_LPR");
                     searchParamString.append("=");
                     if (lprc.lowPrice != null) searchParamString.append(lprc.lowPrice);
                     searchParamString.append("_");
@@ -839,7 +877,7 @@ public class ProductSearchSession {
                     } else {
                         isNotFirst = true;
                     }
-                    searchParamString.append("SEARCH_SUPPLIER_ID");
+                    searchParamString.append("S_SUP");
                     searchParamString.append("=");
                     searchParamString.append(suppc.supplierPartyId);
                 }
@@ -850,17 +888,17 @@ public class ProductSearchSession {
         if (resultSortOrder != null) {
             if (resultSortOrder instanceof ProductSearch.SortKeywordRelevancy) {
                 //ProductSearch.SortKeywordRelevancy skr = (ProductSearch.SortKeywordRelevancy) resultSortOrder;
-                searchParamString.append("&amp;sortOrder=SortKeywordRelevancy");
+                searchParamString.append("&amp;S_O=SKR");
             } else if (resultSortOrder instanceof ProductSearch.SortProductField) {
                 ProductSearch.SortProductField spf = (ProductSearch.SortProductField) resultSortOrder;
-                searchParamString.append("&amp;sortOrder=SortProductField:");
+                searchParamString.append("&amp;S_O=SPF:");
                 searchParamString.append(spf.fieldName);
             } else if (resultSortOrder instanceof ProductSearch.SortProductPrice) {
                 ProductSearch.SortProductPrice spp = (ProductSearch.SortProductPrice) resultSortOrder;
-                searchParamString.append("&amp;sortOrder=SortProductPrice:");
+                searchParamString.append("&amp;S_O=SPP:");
                 searchParamString.append(spp.productPriceTypeId);
             }
-            searchParamString.append("&amp;sortAscending=");
+            searchParamString.append("&amp;S_A=");
             searchParamString.append(resultSortOrder.isAscending() ? "Y" : "N");
         }
 
