@@ -184,8 +184,15 @@ public class CategoryServices {
 
         boolean useCacheForMembers = (context.get("useCacheForMembers") == null || ((Boolean) context.get("useCacheForMembers")).booleanValue());
         boolean activeOnly = (context.get("activeOnly") == null || ((Boolean) context.get("activeOnly")).booleanValue());
+
         // checkViewAllow defaults to false, must be set to true and pass the prodCatalogId to enable
-        boolean checkViewAllow = (context.get("checkViewAllow") != null && ((Boolean) context.get("checkViewAllow")).booleanValue());
+        boolean checkViewAllow = (prodCatalogId != null && context.get("checkViewAllow") != null &&
+                ((Boolean) context.get("checkViewAllow")).booleanValue());
+
+        String viewProductCategoryId = null;
+        if (checkViewAllow) {
+            viewProductCategoryId = CatalogWorker.getCatalogViewAllowCategoryId(delegator, prodCatalogId);
+        }
         
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
@@ -232,11 +239,20 @@ public class CategoryServices {
                     if (activeOnly) {
                         productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
                     }
+
+                    // filter out the view allow before getting the sublist
+                    if (viewProductCategoryId != null && productCategoryMembers.size() > 0) {
+                        productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, productCategoryMembers, viewProductCategoryId);
+                        listSize = productCategoryMembers.size();
+                    }
+
+                    // set the index and size
                     listSize = productCategoryMembers.size();
                     if (highIndex > listSize) {
                         highIndex = listSize;
                     }
 
+                    // get only between low and high indexes
                     if (limitView) {
                         productCategoryMembers = productCategoryMembers.subList(lowIndex-1, highIndex);
                     } else {
@@ -251,23 +267,50 @@ public class CategoryServices {
                     }
                     EntityCondition mainCond = new EntityConditionList(mainCondList, EntityOperator.AND);
                 
-                    // set distinct on so we only get one row per order
+                    // set distinct on
                     EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
                     // using list iterator
                     EntityListIterator pli = delegator.findListIteratorByCondition(entityName, mainCond, null, null, orderByFields, findOpts);
                 
                     // get the partial list for this page
                     if (limitView) {
-                        productCategoryMembers = pli.getPartialList(lowIndex, viewSize);
-                        // attempt to get the full size
-                        pli.last();
-                        listSize = pli.currentIndex();
+                        if (viewProductCategoryId != null) {
+                            // do manual checking to filter view allow
+                            productCategoryMembers = FastList.newInstance();
+                            GenericValue nextValue;
+                            int chunkSize = 0;
+                            listSize = 0;
+
+                            while ((nextValue = (GenericValue) pli.next()) != null) {
+                                String productId = nextValue.getString("productId");
+                                if (CategoryWorker.isProductInCategory(delegator, productId, viewProductCategoryId)) {
+                                    if (listSize + 1 >= lowIndex && chunkSize < viewSize) {
+                                        productCategoryMembers.add(nextValue);
+                                        chunkSize++;
+                                    }
+                                    listSize++;
+                                }
+                            }
+                        } else {
+                            productCategoryMembers = pli.getPartialList(lowIndex, viewSize);
+
+                            // attempt to get the full size
+                            pli.last();
+                            listSize = pli.currentIndex();
+                        }
                     } else {
                         productCategoryMembers = pli.getCompleteList();
+                        if (viewProductCategoryId != null && productCategoryMembers.size() > 0) {
+                            // fiter out the view allow
+                            productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, productCategoryMembers, viewProductCategoryId);
+                        }
+                        
                         listSize = productCategoryMembers.size();
                         lowIndex = 1;
                         highIndex = listSize;
                     }
+
+                    // null safety
                     if (productCategoryMembers == null) {
                         productCategoryMembers = FastList.newInstance();
                     }
@@ -278,18 +321,6 @@ public class CategoryServices {
                 
                     // close the list iterator
                     pli.close();
-                }
-                
-                // first check to see if there is a view allow category and if this product is in it...
-                if (checkViewAllow && prodCatalogId != null && productCategoryMembers != null && productCategoryMembers.size() > 0) {
-                    String viewProductCategoryId = CatalogWorker.getCatalogViewAllowCategoryId(delegator, prodCatalogId);
-                    if (viewProductCategoryId != null) {
-                        productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, productCategoryMembers, viewProductCategoryId);
-                        listSize = productCategoryMembers.size();
-                        if (highIndex > listSize) {
-                            highIndex = listSize;
-                        }
-                    }
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);

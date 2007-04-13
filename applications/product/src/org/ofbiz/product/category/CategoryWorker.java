@@ -416,10 +416,11 @@ public class CategoryWorker {
     }
 
     public static List filterProductsInCategory(GenericDelegator delegator, List valueObjects, String productCategoryId, String productIdFieldName) throws GenericEntityException {
-        if (productCategoryId == null) return new LinkedList();
-        if (valueObjects == null) return null;
-
         List newList = FastList.newInstance();
+
+        if (productCategoryId == null) return newList;
+        if (valueObjects == null) return null;
+        
         Iterator valIter = valueObjects.iterator();
         while (valIter.hasNext()) {
             GenericValue curValue = (GenericValue) valIter.next();
