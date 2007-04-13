@@ -1908,8 +1908,8 @@ public class PaymentGatewayServices {
             partyIdTo = invoice.getString("partyIdFrom");
         } else {
             // otherwise default to Company and print a big warning about this
-            payTo = "Company";
-            Debug.logWarning("Using default value of [Company] for payTo on invoice [" + invoiceId + "] and orderPaymentPreference [" + 
+            partyIdTo = "Company";
+            Debug.logWarning("Using default value of [" + partyIdTo + "] for payTo on invoice [" + invoiceId + "] and orderPaymentPreference [" + 
                     paymentPreference.getString("orderPaymentPreferenceId") + "]", module);
         }
 
