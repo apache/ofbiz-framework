@@ -163,6 +163,9 @@ public class ProductSearch {
         public Set excludeCategoryIds = FastSet.newInstance();
         public Set alwaysIncludeCategoryIds = FastSet.newInstance();
 
+        public List includeCategoryIdOrSetAndList = FastList.newInstance();
+        public List alwaysIncludeCategoryIdOrSetAndList = FastList.newInstance();
+        
         public Set includeFeatureIds = FastSet.newInstance();
         public Set excludeFeatureIds = FastSet.newInstance();
         public Set alwaysIncludeFeatureIds = FastSet.newInstance();
@@ -326,8 +329,9 @@ public class ProductSearch {
 
         public void finishCategoryAndFeatureConstraints() {
             if (includeCategoryIds.size() == 0 && excludeCategoryIds.size() == 0 && alwaysIncludeCategoryIds.size() == 0 &&
+                    includeCategoryIdOrSetAndList.size() == 0 && alwaysIncludeCategoryIdOrSetAndList.size() == 0 &&
                     includeFeatureIds.size() == 0 && excludeFeatureIds.size() == 0 && alwaysIncludeFeatureIds.size() == 0 &&
-                    includeFeatureIdOrSetAndList.size() == 0) {
+                    includeFeatureIdOrSetAndList.size() == 0 && alwaysIncludeFeatureIdOrSetAndList.size() == 0) {
                 return;
             }
             
@@ -342,41 +346,44 @@ public class ProductSearch {
             
             EntityCondition topCond = null;
             
-            Iterator includeCategoryIdIter = includeCategoryIds.iterator();
-            while (includeCategoryIdIter.hasNext()) {
-                String includeCategoryId = (String) includeCategoryIdIter.next();
-                String categoryPrefix = "pcm" + this.index;
-                String entityAlias = "PCM" + this.index;
-                this.index++;
+            if (includeCategoryIds.size() > 0) {
+                Iterator includeCategoryIdIter = includeCategoryIds.iterator();
+                while (includeCategoryIdIter.hasNext()) {
+                    String includeCategoryId = (String) includeCategoryIdIter.next();
+                    String categoryPrefix = "pcm" + this.index;
+                    String entityAlias = "PCM" + this.index;
+                    this.index++;
 
-                this.dynamicViewEntity.addMemberEntity(entityAlias, "ProductCategoryMember");
-                this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "ProductCategoryId", "productCategoryId", null, null, null, null);
-                this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "FromDate", "fromDate", null, null, null, null);
-                this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "ThruDate", "thruDate", null, null, null, null);
-                this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
-                incExcCondList.add(new EntityExpr(new EntityExpr(categoryPrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(categoryPrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
-                incExcCondList.add(new EntityExpr(categoryPrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
-                incExcCondList.add(new EntityExpr(categoryPrefix + "ProductCategoryId", EntityOperator.EQUALS, includeCategoryId));
+                    this.dynamicViewEntity.addMemberEntity(entityAlias, "ProductCategoryMember");
+                    this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "ProductCategoryId", "productCategoryId", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "FromDate", "fromDate", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "ThruDate", "thruDate", null, null, null, null);
+                    this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+                    incExcCondList.add(new EntityExpr(new EntityExpr(categoryPrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(categoryPrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
+                    incExcCondList.add(new EntityExpr(categoryPrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
+                    incExcCondList.add(new EntityExpr(categoryPrefix + "ProductCategoryId", EntityOperator.EQUALS, includeCategoryId));
+                }
             }
-            Iterator includeFeatureIdIter = includeFeatureIds.iterator();
-            while (includeFeatureIdIter.hasNext()) {
-                String includeFeatureId = (String) includeFeatureIdIter.next();
-                String featurePrefix = "pfa" + this.index;
-                String entityAlias = "PFA" + this.index;
-                this.index++;
+            if (includeFeatureIds.size() > 0) {
+                Iterator includeFeatureIdIter = includeFeatureIds.iterator();
+                while (includeFeatureIdIter.hasNext()) {
+                    String includeFeatureId = (String) includeFeatureIdIter.next();
+                    String featurePrefix = "pfa" + this.index;
+                    String entityAlias = "PFA" + this.index;
+                    this.index++;
 
-                this.dynamicViewEntity.addMemberEntity(entityAlias, "ProductFeatureAppl");
-                this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ProductFeatureId", "productFeatureId", null, null, null, null);
-                this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "FromDate", "fromDate", null, null, null, null);
-                this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ThruDate", "thruDate", null, null, null, null);
-                this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
-                incExcCondList.add(new EntityExpr(new EntityExpr(featurePrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(featurePrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
-                incExcCondList.add(new EntityExpr(featurePrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
-                incExcCondList.add(new EntityExpr(featurePrefix + "ProductFeatureId", EntityOperator.EQUALS, includeFeatureId));
+                    this.dynamicViewEntity.addMemberEntity(entityAlias, "ProductFeatureAppl");
+                    this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ProductFeatureId", "productFeatureId", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "FromDate", "fromDate", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ThruDate", "thruDate", null, null, null, null);
+                    this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+                    incExcCondList.add(new EntityExpr(new EntityExpr(featurePrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(featurePrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
+                    incExcCondList.add(new EntityExpr(featurePrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
+                    incExcCondList.add(new EntityExpr(featurePrefix + "ProductFeatureId", EntityOperator.EQUALS, includeFeatureId));
+                }
             }
             
-            
-            if (excludeCategoryIds.size() != 0) {
+            if (excludeCategoryIds.size() > 0) {
                 String categoryPrefix = "pcm" + this.index;
                 String entityAlias = "PCM" + this.index;
                 this.index++;
@@ -390,7 +397,7 @@ public class ProductSearch {
                 incExcCondList.add(new EntityExpr(categoryPrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
                 incExcCondList.add(new EntityExpr(categoryPrefix + "ProductCategoryId", EntityOperator.NOT_IN, excludeCategoryIds)); 
             }
-            if (excludeFeatureIds.size() != 0) {
+            if (excludeFeatureIds.size() > 0) {
                 String featurePrefix = "pfa" + this.index;
                 String entityAlias = "PFA" + this.index;
                 this.index++;
@@ -405,7 +412,7 @@ public class ProductSearch {
                 incExcCondList.add(new EntityExpr(featurePrefix + "ProductFeatureId", EntityOperator.NOT_IN, excludeFeatureIds)); 
             }
             
-            if (alwaysIncludeCategoryIds.size() != 0) {
+            if (alwaysIncludeCategoryIds.size() > 0) {
                 String categoryPrefix = "pcm" + this.index;
                 String entityAlias = "PCM" + this.index;
                 this.index++;
@@ -419,7 +426,7 @@ public class ProductSearch {
                 alwIncCondList.add(new EntityExpr(categoryPrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
                 alwIncCondList.add(new EntityExpr(categoryPrefix + "ProductCategoryId", EntityOperator.IN, alwaysIncludeCategoryIds)); 
             }
-            if (alwaysIncludeFeatureIds.size() != 0) {
+            if (alwaysIncludeFeatureIds.size() > 0) {
                 String featurePrefix = "pfa" + this.index;
                 String entityAlias = "PFA" + this.index;
                 this.index++;
@@ -435,39 +442,79 @@ public class ProductSearch {
             }
 
             // handle includeFeatureIdOrSetAndList and alwaysIncludeFeatureIdOrSetAndList
-            
-            Iterator includeFeatureIdOrSetAndIter = includeFeatureIdOrSetAndList.iterator();
-            while (includeFeatureIdOrSetAndIter.hasNext()) {
-                Set includeFeatureIdOrSet = (Set) includeFeatureIdOrSetAndIter.next();
-                String featurePrefix = "pfa" + this.index;
-                String entityAlias = "PFA" + this.index;
-                this.index++;
+            if (includeFeatureIdOrSetAndList.size() > 0) {
+                Iterator includeFeatureIdOrSetAndIter = includeFeatureIdOrSetAndList.iterator();
+                while (includeFeatureIdOrSetAndIter.hasNext()) {
+                    Set includeFeatureIdOrSet = (Set) includeFeatureIdOrSetAndIter.next();
+                    String featurePrefix = "pfa" + this.index;
+                    String entityAlias = "PFA" + this.index;
+                    this.index++;
 
-                this.dynamicViewEntity.addMemberEntity(entityAlias, "ProductFeatureAppl");
-                this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ProductFeatureId", "productFeatureId", null, null, null, null);
-                this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "FromDate", "fromDate", null, null, null, null);
-                this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ThruDate", "thruDate", null, null, null, null);
-                this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
-                incExcCondList.add(new EntityExpr(new EntityExpr(featurePrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(featurePrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
-                incExcCondList.add(new EntityExpr(featurePrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
-                incExcCondList.add(new EntityExpr(featurePrefix + "ProductFeatureId", EntityOperator.EQUALS, includeFeatureIdOrSet));
+                    this.dynamicViewEntity.addMemberEntity(entityAlias, "ProductFeatureAppl");
+                    this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ProductFeatureId", "productFeatureId", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "FromDate", "fromDate", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ThruDate", "thruDate", null, null, null, null);
+                    this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+                    incExcCondList.add(new EntityExpr(new EntityExpr(featurePrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(featurePrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
+                    incExcCondList.add(new EntityExpr(featurePrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
+                    incExcCondList.add(new EntityExpr(featurePrefix + "ProductFeatureId", EntityOperator.IN, includeFeatureIdOrSet));
+                }
+            }
+            if (alwaysIncludeFeatureIdOrSetAndList.size() > 0) {
+                Iterator alwaysIncludeFeatureIdOrSetAndIter = alwaysIncludeFeatureIdOrSetAndList.iterator();
+                while (alwaysIncludeFeatureIdOrSetAndIter.hasNext()) {
+                    Set alwaysIncludeFeatureIdOrSet = (Set) alwaysIncludeFeatureIdOrSetAndIter.next();
+                    String featurePrefix = "pfa" + this.index;
+                    String entityAlias = "PFA" + this.index;
+                    this.index++;
+
+                    this.dynamicViewEntity.addMemberEntity(entityAlias, "ProductFeatureAppl");
+                    this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ProductFeatureId", "productFeatureId", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "FromDate", "fromDate", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ThruDate", "thruDate", null, null, null, null);
+                    this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+                    alwIncCondList.add(new EntityExpr(new EntityExpr(featurePrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(featurePrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
+                    alwIncCondList.add(new EntityExpr(featurePrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
+                    alwIncCondList.add(new EntityExpr(featurePrefix + "ProductFeatureId", EntityOperator.IN, alwaysIncludeFeatureIdOrSet));
+                }
             }
 
-            Iterator alwaysIncludeFeatureIdOrSetAndIter = alwaysIncludeFeatureIdOrSetAndList.iterator();
-            while (alwaysIncludeFeatureIdOrSetAndIter.hasNext()) {
-                Set alwaysIncludeFeatureIdOrSet = (Set) alwaysIncludeFeatureIdOrSetAndIter.next();
-                String featurePrefix = "pfa" + this.index;
-                String entityAlias = "PFA" + this.index;
-                this.index++;
+            // handle includeCategoryIdOrSetAndList and alwaysIncludeCategoryIdOrSetAndList
+            if (includeCategoryIdOrSetAndList.size() > 0) {
+                Iterator includeCategoryIdOrSetAndIter = includeCategoryIdOrSetAndList.iterator();
+                while (includeCategoryIdOrSetAndIter.hasNext()) {
+                    Set includeCategoryIdOrSet = (Set) includeCategoryIdOrSetAndIter.next();
+                    String categoryPrefix = "pcm" + this.index;
+                    String entityAlias = "PCM" + this.index;
+                    this.index++;
 
-                this.dynamicViewEntity.addMemberEntity(entityAlias, "ProductFeatureAppl");
-                this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ProductFeatureId", "productFeatureId", null, null, null, null);
-                this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "FromDate", "fromDate", null, null, null, null);
-                this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ThruDate", "thruDate", null, null, null, null);
-                this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
-                alwIncCondList.add(new EntityExpr(new EntityExpr(featurePrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(featurePrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
-                alwIncCondList.add(new EntityExpr(featurePrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
-                alwIncCondList.add(new EntityExpr(featurePrefix + "ProductFeatureId", EntityOperator.EQUALS, alwaysIncludeFeatureIdOrSet));
+                    this.dynamicViewEntity.addMemberEntity(entityAlias, "ProductCategoryMember");
+                    this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "ProductCategoryId", "productCategoryId", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "FromDate", "fromDate", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "ThruDate", "thruDate", null, null, null, null);
+                    this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+                    incExcCondList.add(new EntityExpr(new EntityExpr(categoryPrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(categoryPrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
+                    incExcCondList.add(new EntityExpr(categoryPrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
+                    incExcCondList.add(new EntityExpr(categoryPrefix + "ProductCategoryId", EntityOperator.IN, includeCategoryIdOrSet));
+                }
+            }
+            if (alwaysIncludeCategoryIdOrSetAndList.size() > 0) {
+                Iterator alwaysIncludeCategoryIdOrSetAndIter = alwaysIncludeCategoryIdOrSetAndList.iterator();
+                while (alwaysIncludeCategoryIdOrSetAndIter.hasNext()) {
+                    Set alwaysIncludeCategoryIdOrSet = (Set) alwaysIncludeCategoryIdOrSetAndIter.next();
+                    String categoryPrefix = "pcm" + this.index;
+                    String entityAlias = "PCM" + this.index;
+                    this.index++;
+
+                    this.dynamicViewEntity.addMemberEntity(entityAlias, "ProductCategoryMember");
+                    this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "ProductCategoryId", "productCategoryId", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "FromDate", "fromDate", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "ThruDate", "thruDate", null, null, null, null);
+                    this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+                    alwIncCondList.add(new EntityExpr(new EntityExpr(categoryPrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(categoryPrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
+                    alwIncCondList.add(new EntityExpr(categoryPrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
+                    alwIncCondList.add(new EntityExpr(categoryPrefix + "ProductCategoryId", EntityOperator.IN, alwaysIncludeCategoryIdOrSet));
+                }
             }
 
             if (incExcCondList.size() > 0) {
@@ -779,24 +826,21 @@ public class ProductSearch {
         }
 
         public void addConstraint(ProductSearchContext productSearchContext) {
-            List productCategoryIdList = null;
+            Set productCategoryIdSet = FastSet.newInstance();
             if (includeSubCategories) {
                 // find all sub-categories recursively, make a Set of productCategoryId
-                Set productCategoryIdSet = FastSet.newInstance();
                 ProductSearch.getAllSubCategoryIds(productCategoryId, productCategoryIdSet, productSearchContext.getDelegator(), productSearchContext.nowTimestamp);
-                productCategoryIdList = FastList.newInstance();
-                productCategoryIdList.addAll(productCategoryIdSet);
             } else {
-                productCategoryIdList = UtilMisc.toList(productCategoryId);
+                productCategoryIdSet.add(productCategoryId);
             }
 
             // just add to global sets
             if (exclude == null) {
-                productSearchContext.includeCategoryIds.addAll(productCategoryIdList);
+                productSearchContext.includeCategoryIdOrSetAndList.add(productCategoryIdSet);
             } else if (exclude.equals(Boolean.TRUE)) {
-                productSearchContext.excludeCategoryIds.addAll(productCategoryIdList);
+                productSearchContext.excludeCategoryIds.addAll(productCategoryIdSet);
             } else if (exclude.equals(Boolean.FALSE)) {
-                productSearchContext.alwaysIncludeCategoryIds.addAll(productCategoryIdList);
+                productSearchContext.alwaysIncludeCategoryIdOrSetAndList.add(productCategoryIdSet);
             }
             
             // add in productSearchConstraint, don't worry about the productSearchResultId or constraintSeqId, those will be fill in later
