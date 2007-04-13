@@ -37,7 +37,7 @@ under the License.
         </tr>
     <#else>
         <tr>
-           <td align="right" valign="middle">
+           <td align="right" valign="top">
              <div class="tabletext">${uiLabelMap.ProductCatalog}:</div>
            </td>
            <td valign="middle">
@@ -56,7 +56,7 @@ under the License.
            </td>
         </tr>    
         <tr>
-          <td align="right" valign="middle">
+          <td align="right" valign="top">
             <div class="tabletext">${uiLabelMap.ProductCategory}:</div>
           </td>
           <td valign="middle">
@@ -74,7 +74,7 @@ under the License.
         </tr>
     </#if>
     <tr>
-      <td align="right" valign="middle">
+      <td align="right" valign="top">
         <div class="tabletext">${uiLabelMap.ProductKeywords}:</div>
       </td>
       <td valign="middle">
@@ -86,7 +86,7 @@ under the License.
       </td>
     </tr>
     <tr>
-      <td align="right" valign="middle">
+      <td align="right" valign="top">
         <div class="tabletext">${uiLabelMap.ProductFeatureCategory} ${uiLabelMap.CommonIds}:</div>
       </td>
       <td valign="middle">
@@ -112,7 +112,7 @@ under the License.
     </tr>
     
     <tr>
-      <td align="right" valign="middle">
+      <td align="right" valign="top">
         <div class="tabletext">${uiLabelMap.ProductFeatures} ${uiLabelMap.CommonIds}:</div>
       </td>
       <td valign="middle">
@@ -137,7 +137,7 @@ under the License.
       </td>
     </tr>
     <tr>
-      <td align="right" valign="middle">
+      <td align="right" valign="top">
         <div>${uiLabelMap.ListPriceRange}:</div>
       </td>
       <td valign="middle">
@@ -217,7 +217,7 @@ under the License.
             </#list>
             <div class="tabletext">${uiLabelMap.CommonSortedBy}: ${searchSortOrderString}</div>
             <div class="tabletext">
-              ${uiLabelMap.ProductNewSearch}<input type="radio" name="clearSearch" value="Y" checked/>
+              ${uiLabelMap.ProductNewSearch}<input type="radio" name="clearSearch" value="Y" checked="checked"/>
               ${uiLabelMap.ProductRefineSearch}<input type="radio" name="clearSearch" value="N"/>
             </div>
         </td>

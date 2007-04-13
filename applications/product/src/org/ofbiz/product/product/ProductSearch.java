@@ -902,6 +902,13 @@ public class ProductSearch {
                 ppBuf.append(productFeatureType.getString("description") + ": ");
                 ppBuf.append(productFeature.getString("description"));
             }
+            if (this.exclude != null) {
+                if (Boolean.TRUE.equals(this.exclude)) {
+                    ppBuf.append(" (Exclude)");
+                } else {
+                    ppBuf.append(" (Always Include)");
+                }
+            }
             return (ppBuf.toString());
         }
 
@@ -973,6 +980,13 @@ public class ProductSearch {
                 }
                 
             } 
+            if (this.exclude != null) {
+                if (Boolean.TRUE.equals(this.exclude)) {
+                    ppBuf.append(" (Exclude)");
+                } else {
+                    ppBuf.append(" (Always Include)");
+                }
+            }
             return (ppBuf.toString());
         }
 

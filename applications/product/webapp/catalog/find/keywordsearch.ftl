@@ -188,8 +188,8 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
 <div class="tabletext">
 <form method="post" action="" name="searchShowParams">
   <#assign searchParams = Static["org.ofbiz.product.product.ProductSearchSession"].makeSearchParametersString(session)>
-  <b>Plain Search Parameters:</b><input type="text" size="60" name="searchParameters" value="${searchParams}" class="inputBox">
-  <b>HTML Search Parameters:</b><input type="text" size="60" name="searchParameters" value="${searchParams?html}" class="inputBox">
+  <div><b>Plain Search Parameters:</b><input type="text" size="60" name="searchParameters" value="${searchParams}" class="inputBox"></div>
+  <div><b>HTML Search Parameters:</b><input type="text" size="60" name="searchParameters" value="${searchParams?html}" class="inputBox"></div>
   <input type="hidden" name="clearSearch" value="N">
 </form>
 </div>
