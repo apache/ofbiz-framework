@@ -384,6 +384,7 @@ under the License.
         <attribute name="releaseAmount" type="Double" mode="INOUT" optional="false"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
+        <attribute name="authTrans" type="GenericValue" mode="IN" optional="true"/>
         <attribute name="releaseResult" type="Boolean" mode="OUT" optional="true"/>
         <attribute name="releaseAltRefNum" type="String" mode="OUT" optional="true"/>
         <attribute name="releaseRefNum" type="String" mode="OUT" optional="false"/>
