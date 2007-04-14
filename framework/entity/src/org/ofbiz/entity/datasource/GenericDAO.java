@@ -319,7 +319,7 @@ public class GenericDAO {
                 fieldList.add(field);
             }
         }
-        sql += " WHERE " + condition.makeWhereString(modelEntity, null);
+        sql += " WHERE " + condition.makeWhereString(modelEntity, null, this.datasourceInfo);
 
         try {
             sqlP.prepareStatement(sql);
@@ -684,7 +684,7 @@ public class GenericDAO {
         String entityCondWhereString = "";
         List whereEntityConditionParams = FastList.newInstance();
         if (whereEntityCondition != null) {
-            entityCondWhereString = whereEntityCondition.makeWhereString(modelEntity, whereEntityConditionParams);
+            entityCondWhereString = whereEntityCondition.makeWhereString(modelEntity, whereEntityConditionParams, this.datasourceInfo);
         }
 
         String viewClause = SqlJdbcUtil.makeViewWhereClause(modelEntity, datasourceInfo.joinStyle);
@@ -722,7 +722,7 @@ public class GenericDAO {
         List havingEntityConditionParams = FastList.newInstance();
 
         if (havingEntityCondition != null) {
-            entityCondHavingString = havingEntityCondition.makeWhereString(modelEntity, havingEntityConditionParams);
+            entityCondHavingString = havingEntityCondition.makeWhereString(modelEntity, havingEntityConditionParams, this.datasourceInfo);
         }
         if (entityCondHavingString.length() > 0) {
             sqlBuffer.append(" HAVING ");
@@ -920,7 +920,7 @@ public class GenericDAO {
         String entityCondWhereString = "";
         List whereEntityConditionParams = FastList.newInstance();
         if (whereEntityCondition != null) {
-            entityCondWhereString = whereEntityCondition.makeWhereString(modelEntity, whereEntityConditionParams);
+            entityCondWhereString = whereEntityCondition.makeWhereString(modelEntity, whereEntityConditionParams, this.datasourceInfo);
         }
 
         String viewClause = SqlJdbcUtil.makeViewWhereClause(modelEntity, datasourceInfo.joinStyle);
@@ -957,7 +957,7 @@ public class GenericDAO {
         String entityCondHavingString = "";
         List havingEntityConditionParams = FastList.newInstance();
         if (havingEntityCondition != null) {
-            entityCondHavingString = havingEntityCondition.makeWhereString(modelEntity, havingEntityConditionParams);
+            entityCondHavingString = havingEntityCondition.makeWhereString(modelEntity, havingEntityConditionParams, this.datasourceInfo);
         }
         if (entityCondHavingString.length() > 0) {
             sqlBuffer.append(" HAVING ");
@@ -1067,9 +1067,9 @@ public class GenericDAO {
             throw new org.ofbiz.entity.GenericNotImplementedException("Operation deleteByCondition not supported yet for view entities");
         }
 
-        String sql = "DELETE FROM " + modelEntity.getTableName(datasourceInfo);
+        String sql = "DELETE FROM " + modelEntity.getTableName(this.datasourceInfo);
 
-        sql += " WHERE " + condition.makeWhereString(modelEntity, null);
+        sql += " WHERE " + condition.makeWhereString(modelEntity, null, this.datasourceInfo);
 
         try {
             sqlP.prepareStatement(sql);

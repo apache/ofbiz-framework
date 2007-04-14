@@ -28,6 +28,7 @@ import java.util.Map;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
+import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 
@@ -78,24 +79,24 @@ public abstract class EntityOperator extends EntityConditionBase {
 
     public static final EntityComparisonOperator EQUALS = new EntityComparisonOperator(ID_EQUALS, "=") {
         public boolean compare(Object lhs, Object rhs) { return EntityComparisonOperator.compareEqual(lhs, rhs); }
-        protected void makeRHSWhereString(ModelEntity entity, List entityConditionParams, StringBuffer sb, ModelField field, Object rhs) {
+        protected void makeRHSWhereString(ModelEntity entity, List entityConditionParams, StringBuffer sb, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
             if (rhs == null || rhs == GenericEntity.NULL_FIELD) {
                 //Debug.logInfo("makeRHSWhereString: field IS NULL: " + field.getName(), module);
                 sb.append(" IS NULL");
             } else {
                 //Debug.logInfo("makeRHSWhereString: field not null, doing super: " + field.getName() + ", type: " + rhs.getClass().getName() + ", value: " + rhs, module);
-                super.makeRHSWhereString(entity, entityConditionParams, sb, field, rhs);
+                super.makeRHSWhereString(entity, entityConditionParams, sb, field, rhs, datasourceInfo);
             }
         }
     };
     static { register( "equals", EQUALS ); }
     public static final EntityComparisonOperator NOT_EQUAL = new EntityComparisonOperator(ID_NOT_EQUAL, "<>") {
         public boolean compare(Object lhs, Object rhs) { return EntityComparisonOperator.compareNotEqual(lhs, rhs); }
-        protected void makeRHSWhereString(ModelEntity entity, List entityConditionParams, StringBuffer sb, ModelField field, Object rhs) {
+        protected void makeRHSWhereString(ModelEntity entity, List entityConditionParams, StringBuffer sb, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
             if (rhs == null || rhs == GenericEntity.NULL_FIELD) {
                 sb.append(" IS NOT NULL");
             } else {
-                super.makeRHSWhereString(entity, entityConditionParams, sb, field, rhs);
+                super.makeRHSWhereString(entity, entityConditionParams, sb, field, rhs, datasourceInfo);
             }
         }
     };
@@ -216,11 +217,11 @@ public abstract class EntityOperator extends EntityConditionBase {
 
     public abstract boolean mapMatches(GenericDelegator delegator, Map map, Object lhs, Object rhs);
     public abstract void validateSql(ModelEntity entity, Object lhs, Object rhs) throws GenericModelException;
-    public void addSqlValue(StringBuffer sql, ModelEntity entity, List entityConditionParams, Object lhs, Object rhs) {
-        addSqlValue(sql, entity, entityConditionParams, true, lhs, rhs);
+    public void addSqlValue(StringBuffer sql, ModelEntity entity, List entityConditionParams, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
+        addSqlValue(sql, entity, entityConditionParams, true, lhs, rhs, datasourceInfo);
     }
 
-    public abstract void addSqlValue(StringBuffer sql, ModelEntity entity, List entityConditionParams, boolean compat, Object rhs, Object lhs);
+    public abstract void addSqlValue(StringBuffer sql, ModelEntity entity, List entityConditionParams, boolean compat, Object rhs, Object lhs, DatasourceInfo datasourceInfo);
     public abstract EntityCondition freeze(Object lhs, Object rhs);
     public abstract void visit(EntityConditionVisitor visitor, Object lhs, Object rhs);
 

@@ -22,8 +22,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.GenericEntity;
+import org.ofbiz.entity.GenericModelException;
+import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 
 /**
@@ -47,7 +48,7 @@ public class EntityWhereString extends EntityCondition {
         this.sqlString = sqlString;
     }
 
-    public String makeWhereString(ModelEntity modelEntity, List entityConditionParams) {
+    public String makeWhereString(ModelEntity modelEntity, List entityConditionParams, DatasourceInfo datasourceInfo) {
         return sqlString;
     }
 

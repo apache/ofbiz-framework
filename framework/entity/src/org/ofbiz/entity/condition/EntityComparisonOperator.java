@@ -34,6 +34,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericModelException;
+import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 
@@ -82,7 +83,7 @@ public class EntityComparisonOperator extends EntityOperator {
         visitor.accept(rhs);
     }
 
-    public void addSqlValue(StringBuffer sql, ModelEntity entity, List entityConditionParams, boolean compat, Object lhs, Object rhs) {
+    public void addSqlValue(StringBuffer sql, ModelEntity entity, List entityConditionParams, boolean compat, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
         //Debug.logInfo("EntityComparisonOperator.addSqlValue field=" + lhs + ", value=" + rhs + ", value type=" + (rhs == null ? "null object" : rhs.getClass().getName()), module);
         
         // if this is an IN operator and the rhs Object isEmpty, add "FALSE" instead of the normal SQL
@@ -94,7 +95,7 @@ public class EntityComparisonOperator extends EntityOperator {
         ModelField field;
         if (lhs instanceof EntityConditionValue) {
             EntityConditionValue ecv = (EntityConditionValue) lhs;
-            ecv.addSqlValue(sql, entity, entityConditionParams, false, null);
+            ecv.addSqlValue(sql, entity, entityConditionParams, false, datasourceInfo);
             field = ecv.getModelField(entity);
         } else if (compat && lhs instanceof String) {
             field = getField(entity, (String) lhs);
@@ -108,18 +109,18 @@ public class EntityComparisonOperator extends EntityOperator {
             field = null;
         }
 
-        makeRHSWhereString(entity, entityConditionParams, sql, field, rhs);
+        makeRHSWhereString(entity, entityConditionParams, sql, field, rhs, datasourceInfo);
     }
 
-    protected void makeRHSWhereString(ModelEntity entity, List entityConditionParams, StringBuffer sql, ModelField field, Object rhs) {
+    protected void makeRHSWhereString(ModelEntity entity, List entityConditionParams, StringBuffer sql, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
         sql.append(' ').append(getCode()).append(' ');
-        makeRHSWhereStringValue(entity, entityConditionParams, sql, field, rhs);
+        makeRHSWhereStringValue(entity, entityConditionParams, sql, field, rhs, datasourceInfo);
     }
 
-    protected void makeRHSWhereStringValue(ModelEntity entity, List entityConditionParams, StringBuffer sql, ModelField field, Object rhs) {
+    protected void makeRHSWhereStringValue(ModelEntity entity, List entityConditionParams, StringBuffer sql, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
         if (rhs instanceof EntityConditionValue) {
             EntityConditionValue ecv = (EntityConditionValue) rhs;
-            ecv.addSqlValue(sql, entity, entityConditionParams, false, null);
+            ecv.addSqlValue(sql, entity, entityConditionParams, false, datasourceInfo);
         } else {
             addValue(sql, field, rhs, entityConditionParams);
         }
