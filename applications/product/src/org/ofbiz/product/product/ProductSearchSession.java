@@ -533,6 +533,7 @@ public class ProductSearchSession {
                     Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : new Boolean(!"N".equals(searchCategoryExc));
                     //Debug.logInfo("parameterName=" + parameterName + ", paramNameExt=" + paramNameExt + ", searchCategoryExc=" + searchCategoryExc + ", exclude=" + exclude, module);
                     searchAddConstraint(new ProductSearch.FeatureConstraint(productFeatureId, exclude), session);
+                    constraintsChanged = true;
                 }
             }
             // a shorter feature variation
@@ -544,6 +545,7 @@ public class ProductSearchSession {
                     Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : new Boolean(!"N".equals(searchCategoryExc));
                     //Debug.logInfo("parameterName=" + parameterName + ", paramNameExt=" + paramNameExt + ", searchCategoryExc=" + searchCategoryExc + ", exclude=" + exclude, module);
                     searchAddConstraint(new ProductSearch.FeatureConstraint(productFeatureId, exclude), session);
+                    constraintsChanged = true;
                 }
             }
 
@@ -554,7 +556,8 @@ public class ProductSearchSession {
                     String paramNameExt = parameterName.substring("SEARCH_PROD_FEAT_CAT".length());
                     String searchProdFeatureCategoryExc = (String) parameters.get("SEARCH_PROD_FEAT_CAT_EXC" + paramNameExt);
                     Boolean exclude = UtilValidate.isEmpty(searchProdFeatureCategoryExc) ? null : new Boolean(!"N".equals(searchProdFeatureCategoryExc));
-                    searchAddConstraint(new ProductSearch.ProductFeatureCategoryConstraint(productFeatureCategoryId, exclude), session);
+                    searchAddConstraint(new ProductSearch.FeatureCategoryConstraint(productFeatureCategoryId, exclude), session);
+                    constraintsChanged = true;
                 }
             }
             // a shorter variation for feature category
@@ -564,7 +567,8 @@ public class ProductSearchSession {
                     String paramNameExt = parameterName.substring("S_FCI".length());
                     String searchProdFeatureCategoryExc = (String) parameters.get("S_FCX" + paramNameExt);
                     Boolean exclude = UtilValidate.isEmpty(searchProdFeatureCategoryExc) ? null : new Boolean(!"N".equals(searchProdFeatureCategoryExc));
-                    searchAddConstraint(new ProductSearch.ProductFeatureCategoryConstraint(productFeatureCategoryId, exclude), session);
+                    searchAddConstraint(new ProductSearch.FeatureCategoryConstraint(productFeatureCategoryId, exclude), session);
+                    constraintsChanged = true;
                 }
             }
         }
@@ -817,8 +821,8 @@ public class ProductSearchSession {
             } else if (psc instanceof ProductSearch.FeatureSetConstraint) {
                 ProductSearch.FeatureSetConstraint fsc = (ProductSearch.FeatureSetConstraint) psc;
              */   
-            } else if (psc instanceof ProductSearch.ProductFeatureCategoryConstraint) {
-                ProductSearch.ProductFeatureCategoryConstraint pfcc = (ProductSearch.ProductFeatureCategoryConstraint) psc;
+            } else if (psc instanceof ProductSearch.FeatureCategoryConstraint) {
+                ProductSearch.FeatureCategoryConstraint pfcc = (ProductSearch.FeatureCategoryConstraint) psc;
                 featureCategoriesCount++;
                 if (isNotFirst) {
                     searchParamString.append("&amp;");
