@@ -124,4 +124,406 @@ under the License.
         <find-by-primary-key entity-name="ProdCatalogRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    
+    <simple-method method-name="getAllCategories" short-description="get All categories" login-required="false">
+        <if-not-empty field-name="parameters.topCategory">
+            <set field="defaultTopCategoryId" from-field="parameters.topCategory"/>            
+        <else>
+            <property-to-field property="top.category.default" field-name="defaultTopCategoryId" resource="catalog"/>
+        </else>                
+        </if-not-empty>
+        <!--  set field="productCategoryContext.productCategoryId"  from-field="defaultTopCategoryId"/>        
+        <find-by-primary-key entity-name="ProductCategory" map-name="productCategoryContext" value-name="productCategory"/>
+        <field-to-list list-name="categories" field-name="productCategory"/>
+        -->
+        <set field="relatedCategoryContext.parentProductCategoryId"  from-field="defaultTopCategoryId"/>        
+        <call-service service-name="getRelatedCategories" in-map-name="relatedCategoryContext">
+            <result-to-field result-name="categories" field-name="resCategories"/>
+        </call-service>                
+        <field-to-result field-name="resCategories" result-name="categories"/>
+        <!-- iterate entry-name="category" list-name="resCategories">
+            <log level="info" message="=========${category.productCategoryId}" />
+        </iterate -->
+    </simple-method>
+    <simple-method method-name="getRelatedCategories" short-description="get All Related categories" login-required="false">        
+        <set value="sequenceNum" field="orderByString"/>
+        <field-to-list list-name="orderByStringList" field-name="orderByString"/>
+        <set field="productCategoryRollUpContext.parentProductCategoryId" from-field="parameters.parentProductCategoryId" />
+        <!--set field="categories" from-field="parameters.categories" / -->        
+        <find-by-and entity-name="ProductCategoryRollup" list-name="rollups" map-name="productCategoryRollUpContext" order-by-list-name="orderByStringList"/>
+        <if-not-empty field-name="parameters.categories">
+            <list-to-list list-name="parameters.categories" to-list-name="categories"/>
+        </if-not-empty>
+        <if-not-empty field-name="rollups">
+            <iterate list-name="rollups" entry-name="parent">
+                <get-related-one relation-name="CurrentProductCategory" value-name="parent" to-value-name="currentProductCategory"/>                     
+                <field-to-list list-name="subCategories" field-name="currentProductCategory"/>                        
+            </iterate>        
+            <if-not-empty field-name="subCategories">
+                <set field="relatedCategoryContext.categories"  from-field="subCategories"/>
+                <iterate list-name="subCategories" entry-name="subCategory">                    
+                    <set field="relatedCategoryContext.parentProductCategoryId"  from-field="subCategory.productCategoryId"/>                            
+                    <call-service service-name="getRelatedCategories" in-map-name="relatedCategoryContext">
+                        <result-to-field result-name="categories" field-name="relCategories"/>                    
+                    </call-service>                           
+                    <if-not-empty field-name="relCategories">
+                        <if-not-empty field-name="categories">
+                            <iterate list-name="relCategories" entry-name="relCategory">
+                            <call-object-method obj-field-name="categories" method-name="contains" ret-field-name="addInCategories" >
+                                <field field-name="relCategory" type="java.lang.Object"/>
+                            </call-object-method>
+                            <if-compare value="false" field-name="addInCategories" operator="equals" type="Boolean">
+                                <field-to-list list-name="categories" field-name="relCategory"/>  
+                            </if-compare>
+                           </iterate>
+                        <else>
+                            <list-to-list list-name="relCategories" to-list-name="categories"/>
+                        </else>                                    
+                        </if-not-empty>
+                        <field-to-result field-name="categories" result-name="categories"/>
+                         <!-- iterate entry-name="category" list-name="categories">
+                            <log level="info" message="Category ${category.productCategoryId}" />
+                         </iterate -->
+                    </if-not-empty>
+                    <!--   field-to-result field-name="categories" result-name="categories"/ -->
+                </iterate>                
+            </if-not-empty>              
+        <else>
+            <set field="productCategoryContext.productCategoryId" from-field="parameters.parentProductCategoryId"/>
+            <find-by-primary-key entity-name="ProductCategory" value-name="productCategory" map-name="productCategoryContext"/>
+            <field-to-list list-name="categories" field-name="productCategory"/>
+            <field-to-result field-name="categories" result-name="categories"/>
+        </else>    
+        </if-not-empty>
+        <!-- iterate entry-name="category" list-name="categories">
+           <log level="info" message="Category ${category.productCategoryId}" />
+        </iterate -->
+        <field-to-result result-name="categories" field-name="categories"/>
+    </simple-method>
+    <simple-method method-name="checkImageUrlForAllCategories" short-description="Check for image url exists or not for All categories" login-required="false">                  
+        <!-- Get all the categories from top category -->
+        <set-service-fields to-map-name="categoryFindContext" service-name="getAllCategories" map-name="parameters"/>
+        <call-service service-name="getAllCategories" in-map-name="categoryFindContext">
+            <result-to-field result-name="categories" field-name="categories"/>
+        </call-service>
+        <!-- Get the category from categories-->
+        <if-not-empty field-name="categories">
+            <iterate list-name="categories" entry-name="category">
+                <set field="checkImageUrlForCategoryContext.categoryId" from-field="category.productCategoryId"/>
+                <call-service service-name="checkImageUrlForCategoryAndProduct" in-map-name="checkImageUrlForCategoryContext">
+                    <result-to-field result-name="fileExists" field-name="fileStatusMap.fileExists"/>
+                    <result-to-field result-name="fileNotExists" field-name="fileStatusMap.fileNotExists"/>                   
+                </call-service>
+                <set field="categoryId" from-field="category.productCategoryId"/>
+                <set field="categoriesMap.${categoryId}" from-field="fileStatusMap" />
+            </iterate>
+            <field-to-result field-name="categoriesMap" result-name="categoriesMap"/>
+        </if-not-empty>        
+    </simple-method>    
+    
+    <simple-method method-name="checkImageUrlForCategoryAndProduct" short-description="Check for image url exists or not for category and product " login-required="false">                  
+        <!--set from-field="parameters.categoryId" field="productCategoryContext.categoryId"/ -->        
+        <set-service-fields to-map-name="productCategoryContext" service-name="getProductCategoryMembers" map-name="parameters"/>
+        <call-service service-name="getProductCategoryMembers" in-map-name="productCategoryContext" >
+            <result-to-field result-name="categoryMembers" field-name="categoryMembers"/>
+            <result-to-field result-name="category" field-name="category"/>            
+        </call-service>  
+        <!-- Get category images and check it exists or not -->
+        <if-not-empty field-name="category">
+            
+            <set field="checkImageUrlForCategoryContext.categoryId" from-field="category.productCategoryId"/>
+            <call-service service-name="checkImageUrlForCategory" in-map-name="checkImageUrlForCategoryContext">
+                   <result-to-field result-name="filesImageMap" field-name="filesImageMap"/>
+            </call-service>
+            
+            <if-not-empty field-name="categoryImageUrl" map-name="filesImageMap.categoryImageUrlMap">
+                <if-compare value="Y" field-name="filesImageMap.categoryImageUrlMap.isExists" operator="equals">
+                    <field-to-list list-name="fileExists" field-name="categoryImageUrl" map-name="filesImageMap.categoryImageUrlMap"/>
+                <else>
+                    <field-to-list list-name="fileNotExists" field-name="categoryImageUrl" map-name="filesImageMap.categoryImageUrlMap"/>
+                </else>    
+                </if-compare>
+            </if-not-empty>
+            <if-not-empty field-name="linkOneImageUrl" map-name="filesImageMap.linkOneImageUrlMap">
+                <if-compare value="Y" field-name="filesImageMap.linkOneImageUrlMap.isExists" operator="equals">
+                    <field-to-list list-name="fileExists" field-name="linkOneImageUrl" map-name="filesImageMap.linkOneImageUrlMap"/>
+                <else>
+                     <field-to-list list-name="fileNotExists" field-name="linkOneImageUrl" map-name="filesImageMap.linkOneImageUrlMap"/>
+                </else>    
+                </if-compare>
+            </if-not-empty>
+            <if-not-empty field-name="linkTwoImageUrl" map-name="filesImageMap.linkTwoImageUrlMap">
+                <if-compare value="Y" field-name="filesImageMap.linkTwoImageUrlMap.isExists" operator="equals">
+                    <field-to-list list-name="fileExists" field-name="linkTwoImageUrl" map-name="filesImageMap.linkTwoImageUrlMap"/>
+                <else>
+                    <field-to-list list-name="fileNotExists" field-name="linkTwoImageUrl" map-name="filesImageMap.linkTwoImageUrlMap"/>
+                </else>    
+               </if-compare>
+            </if-not-empty>
+        </if-not-empty> 
+               
+        <if-not-empty field-name="categoryMembers">
+            <iterate list-name="categoryMembers" entry-name="productCategoryMember">                                
+                <set field="checkImageUrlForProductContext.productId" from-field="productCategoryMember.productId"/>
+                <call-service service-name="checkImageUrlForProduct" in-map-name="checkImageUrlForProductContext">
+                    <result-to-field result-name="filesImageMap" field-name="filesImageMap"/>
+                </call-service>
+                <if-not-empty field-name="filesImageMap">
+                    <if-not-empty field-name="smallImageUrl" map-name="filesImageMap.smallImageUrlMap">
+                        <if-compare value="Y" field-name="filesImageMap.smallImageUrlMap.isExists" operator="equals">
+                            <field-to-list list-name="fileExists" field-name="smallImageUrl" map-name="filesImageMap.smallImageUrlMap"/>
+                        <else>
+                            <field-to-list list-name="fileNotExists" field-name="smallImageUrl" map-name="filesImageMap.smallImageUrlMap"/>
+                        </else>    
+                        </if-compare>
+                    </if-not-empty>
+                    <if-not-empty field-name="mediumImageUrl" map-name="filesImageMap.mediumImageUrlMap">
+                        <if-compare value="Y" field-name="filesImageMap.mediumImageUrlMap.isExists" operator="equals">
+                            <field-to-list list-name="fileExists" field-name="mediumImageUrl" map-name="filesImageMap.mediumImageUrlMap"/>
+                        <else>
+                            <field-to-list list-name="fileNotExists" field-name="mediumImageUrl" map-name="filesImageMap.mediumImageUrlMap"/>
+                        </else>    
+                        </if-compare>
+                    </if-not-empty>
+                    <if-not-empty field-name="largeImageUrl" map-name="filesImageMap.largeImageUrlMap">
+                        <if-compare value="Y" field-name="filesImageMap.largeImageUrlMap.isExists" operator="equals">
+                            <field-to-list list-name="fileExists" field-name="largeImageUrl" map-name="filesImageMap.largeImageUrlMap"/>
+                        <else>
+                            <field-to-list list-name="fileNotExists" field-name="largeImageUrl" map-name="filesImageMap.largeImageUrlMap"/>
+                        </else>    
+                        </if-compare>
+                    </if-not-empty>                                        
+                    <if-not-empty field-name="detailImageUrl" map-name="filesImageMap.detailImageUrlMap">
+                        <if-compare value="Y" field-name="filesImageMap.detailImageUrl.isExists" operator="equals">
+                            <field-to-list list-name="fileExists" field-name="detailImageUrl" map-name="filesImageMap.detailImageUrl"/>
+                        <else>
+                            <field-to-list list-name="fileNotExists" field-name="detailImageUrl" map-name="filesImageMap.detailImageUrl"/>
+                        </else>    
+                        </if-compare>
+                    </if-not-empty>                    
+                </if-not-empty>
+                <!--  Case For virtual Product -->
+                <!--  get related assoc product -->
+                <get-related-one relation-name="Product" value-name="productCategoryMember" to-value-name="product"/>
+                <if-compare operator="equals" field-name="isVirtual" value="Y" map-name="product">                
+                <!-- log level="info" message = "Virtual product =====${productCategoryMember.productId}"/ -->
+                <set field="virtualProductContext.productId" from-field="product.productId"/>
+                <set field="virtualProductContext.productAssocTypeId" value="PRODUCT_VARIANT"/>                
+                <find-by-and entity-name="ProductAssoc" map-name="virtualProductContext" list-name="variantProducts"/>   
+                
+                <if-not-empty field-name="variantProducts">
+                   <iterate entry-name="variantProduct" list-name="variantProducts">
+                       <!-- log level="info" message = "Variant product =====${variantProduct.productIdTo}"/ -->
+                       <set field="variantProductContext.productId" from-field="variantProduct.productIdTo"/>
+                       <call-service service-name="checkImageUrlForProduct" in-map-name="variantProductContext">
+                           <result-to-field result-name="filesImageMap" field-name="filesImageMap"/>
+                       </call-service>
+                       <if-not-empty field-name="filesImageMap">
+                           <if-not-empty field-name="smallImageUrl" map-name="filesImageMap.smallImageUrlMap">
+                               <if-compare value="Y" field-name="filesImageMap.smallImageUrlMap.isExists" operator="equals">
+                                   <field-to-list list-name="fileExists" field-name="smallImageUrl" map-name="filesImageMap.smallImageUrlMap"/>
+                               <else>
+                                   <field-to-list list-name="fileNotExists" field-name="smallImageUrl" map-name="filesImageMap.smallImageUrlMap"/>
+                               </else>    
+                               </if-compare>
+                           </if-not-empty>
+                       
+                           <if-not-empty field-name="mediumImageUrl" map-name="filesImageMap.mediumImageUrlMap">
+                               <if-compare value="Y" field-name="filesImageMap.mediumImageUrlMap.isExists" operator="equals">
+                                   <field-to-list list-name="fileExists" field-name="mediumImageUrl" map-name="filesImageMap.mediumImageUrlMap"/>
+                               <else>
+                                   <field-to-list list-name="fileNotExists" field-name="mediumImageUrl" map-name="filesImageMap.mediumImageUrlMap"/>
+                               </else>    
+                               </if-compare>
+                           </if-not-empty>
+                       
+                           <if-not-empty field-name="largeImageUrl" map-name="filesImageMap.largeImageUrlMap">
+                               <if-compare value="Y" field-name="filesImageMap.largeImageUrlMap.isExists" operator="equals">
+                                   <field-to-list list-name="fileExists" field-name="largeImageUrl" map-name="filesImageMap.largeImageUrlMap"/>
+                               <else>
+                                   <field-to-list list-name="fileNotExists" field-name="largeImageUrl" map-name="filesImageMap.largeImageUrlMap"/>
+                               </else>    
+                               </if-compare>
+                           </if-not-empty>                                        
+                       
+                           <if-not-empty field-name="detailImageUrl" map-name="filesImageMap.detailImageUrlMap">
+                               <if-compare value="Y" field-name="filesImageMap.detailImageUrl.isExists" operator="equals">
+                                  <field-to-list list-name="fileExists" field-name="detailImageUrl" map-name="filesImageMap.detailImageUrl"/>
+                               <else>
+                                  <field-to-list list-name="fileNotExists" field-name="detailImageUrl" map-name="filesImageMap.detailImageUrl"/>
+                               </else>    
+                               </if-compare>
+                           </if-not-empty>                    
+                       
+                       </if-not-empty>
+                   </iterate>
+                </if-not-empty>
+                </if-compare>
+            </iterate>
+            <field-to-result field-name="fileExists" result-name="fileExists"/>
+            <field-to-result field-name="fileNotExists" result-name="fileNotExists"/>            
+        </if-not-empty>    
+    </simple-method>
+    
+    
+    <!-- This service get the category id and check all the images of category exists or not -->
+    <simple-method method-name="checkImageUrlForCategory" short-description="Check for image url exists or not for product" login-required="false">
+        <if-not-empty field-name="parameters.categoryId">
+            <set field="productCategoryFindContext.productCategoryId" from-field="parameters.categoryId"/>
+            <find-by-primary-key entity-name="ProductCategory" value-name="category" map-name="productCategoryFindContext"/>
+            <!-- check for category image url -->
+            <if-not-empty field-name="category.categoryImageUrl">
+                <set field="checkImageUrlContext.imageUrl" from-field="category.categoryImageUrl"/>
+                <call-service service-name="checkImageUrl" in-map-name="checkImageUrlContext">
+                    <result-to-field result-name="isExists" field-name="isExists"/>
+                </call-service>
+                <set field="categoryImageUrlMap.categoryImageUrl" from-field="category.categoryImageUrl"/>
+                <set field="categoryImageUrlMap.isExists" from-field="isExists"/>
+                <set field="filesImageMap.categoryImageUrlMap" from-field="categoryImageUrlMap" />                 
+                <if-compare value="N" field-name="isExists" operator="equals">
+                    <clear-field field-name="categoryImageUrl" map-name="category"></clear-field>
+                </if-compare>                
+            </if-not-empty>
+            <!-- check for link image url -->            
+            <if-not-empty field-name="category.linkOneImageUrl">
+                <clear-field field-name="checkImageUrlContext.imageUrl"/>
+                <set field="checkImageUrlContext.imageUrl" from-field="category.linkOneImageUrl"/>
+                <call-service service-name="checkImageUrl" in-map-name="checkImageUrlContext">
+                    <result-to-field result-name="isExists" field-name="isExists"/>
+                </call-service>
+                <set field="linkOneImageUrlMap.linkOneImageUrl" from-field="category.linkOneImageUrl"/>
+                <set field="linkOneImageUrlMap.isExists" from-field="isExists"/>
+                <set field="filesImageMap.linkOneImageUrlMap" from-field="linkOneImageUrlMap" />
+                <if-compare value="N" field-name="isExists" operator="equals">
+                    <clear-field field-name="linkOneImageUrl" map-name="category"></clear-field>
+                </if-compare>                
+            </if-not-empty>
+            <!-- check for link two image url -->            
+            <if-not-empty field-name="category.linkTwoImageUrl">
+                <clear-field field-name="checkImageUrlContext.imageUrl"/>
+                <set field="checkImageUrlContext.imageUrl" from-field="category.linkTwoImageUrl"/>
+                <call-service service-name="checkImageUrl" in-map-name="checkImageUrlContext">
+                    <result-to-field result-name="isExists" field-name="isExists"/>
+                </call-service>
+                <set field="linkTwoImageUrlMap.largeImageUrl" from-field="category.linkTwoImageUrl"/>
+                <set field="linkTwoImageUrlMap.isExists" from-field="isExists"/>
+                <set field="filesImageMap.linkTwoImageUrlMap" from-field="linkTwoImageUrlMap" />                 
+                <if-compare value="N" field-name="isExists" operator="equals">
+                    <clear-field field-name="linkTwoImageUrl" map-name="category"></clear-field>
+                </if-compare>                
+            </if-not-empty>
+            <!-- set-service-fields service-name="updateProductCategory" map-name="category" to-map-name="updateProductCategoryContext"/>
+            <call-service service-name="updateProductCategory" in-map-name="updateProductCategoryContext" / -->
+            <store-value value-name="category"/>
+            <field-to-result field-name="filesImageMap" result-name="filesImageMap"/>                        
+        </if-not-empty>    
+    </simple-method>
+    <simple-method method-name="checkImageUrlForProduct" short-description="Check for image url exists or not for product" login-required="false">
+        <if-not-empty field-name="parameters.productId">
+            <set field="productFindContext.productId" from-field="parameters.productId"/>
+            <find-by-primary-key entity-name="Product" value-name="product" map-name="productFindContext"/>
+            <!-- check for small image url -->
+            <if-not-empty field-name="product.smallImageUrl">
+                <set field="checkImageUrlContext.imageUrl" from-field="product.smallImageUrl"/>
+                <call-service service-name="checkImageUrl" in-map-name="checkImageUrlContext">
+                    <result-to-field result-name="isExists" field-name="isExists"/>
+                </call-service>
+                <set field="smallImageUrlMap.smallImageUrl" from-field="product.smallImageUrl"/>
+                <set field="smallImageUrlMap.isExists" from-field="isExists"/>
+                <set field="filesImageMap.smallImageUrlMap" from-field="smallImageUrlMap" />                 
+                <if-compare value="N" field-name="isExists" operator="equals">
+                    <log level="info" message="Update SmallImage for product Id ${parameters.productId}" />
+                    <clear-field field-name="smallImageUrl" map-name="product"></clear-field>
+                </if-compare>                
+            </if-not-empty>
+            <!-- check for medium image url -->            
+            <if-not-empty field-name="product.mediumImageUrl">
+                <clear-field field-name="checkImageUrlContext.imageUrl"/>
+                <set field="checkImageUrlContext.imageUrl" from-field="product.mediumImageUrl"/>
+                <call-service service-name="checkImageUrl" in-map-name="checkImageUrlContext">
+                    <result-to-field result-name="isExists" field-name="isExists"/>
+                </call-service>
+                <set field="mediumImageUrlMap.mediumImageUrl" from-field="product.mediumImageUrl"/>
+                <set field="mediumImageUrlMap.isExists" from-field="isExists"/>
+                <set field="filesImageMap.mediumImageUrlMap" from-field="mediumImageUrlMap" />
+                <if-compare value="N" field-name="isExists" operator="equals">
+                    <clear-field field-name="mediumImageUrl" map-name="product"></clear-field>
+                </if-compare>                
+            </if-not-empty>
+            <!-- check for large image url -->            
+            <if-not-empty field-name="product.largeImageUrl">
+                <clear-field field-name="checkImageUrlContext.imageUrl"/>
+                <set field="checkImageUrlContext.imageUrl" from-field="product.largeImageUrl"/>
+                <call-service service-name="checkImageUrl" in-map-name="checkImageUrlContext">
+                    <result-to-field result-name="isExists" field-name="isExists"/>
+                </call-service>
+                <set field="largeImageUrlMap.largeImageUrl" from-field="product.largeImageUrl"/>
+                <set field="largeImageUrlMap.isExists" from-field="isExists"/>
+                <set field="filesImageMap.largeImageUrlMap" from-field="largeImageUrlMap" />                 
+                <if-compare value="N" field-name="isExists" operator="equals">
+                    <clear-field field-name="largeImageUrl" map-name="product"></clear-field>
+                </if-compare>                
+            </if-not-empty>
+            <!-- check for detail image url -->            
+            <if-not-empty field-name="product.detailImageUrl">
+                <clear-field field-name="checkImageUrlContext.imageUrl"/>                 
+                <set field="checkImageUrlContext.imageUrl" from-field="product.detailImageUrl"/>
+                <call-service service-name="checkImageUrl" in-map-name="checkImageUrlContext">
+                    <result-to-field result-name="isExists" field-name="isExists"/>
+                </call-service>
+                <set field="detailImageUrlMap.detailImageUrl" from-field="product.detailImageUrl"/>
+                <set field="detailImageUrlMap.isExists" from-field="isExists"/>
+                <set field="filesImageMap.detailImageUrlMap" from-field="detailImageUrlMap" />                 
+                <if-compare value="N" field-name="isExists" operator="equals">
+                    <clear-field field-name="detailImageUrl" map-name="product"></clear-field>
+                </if-compare>
+            </if-not-empty>
+            <field-to-result field-name="filesImageMap" result-name="filesImageMap"/>
+            <store-value value-name="product"/>
+            <!-- set-service-fields service-name="updateProduct" map-name="product" to-map-name="updateProductContext"/>
+            <call-service service-name="updateProduct" in-map-name="updateProductContext" / --> 
+            </if-not-empty>    
+
+    </simple-method>
+    <!-- get file image url and return Y or N -->
+    <simple-method method-name="checkImageUrl" short-description="Check for image url exists or not" login-required="false">                  
+        <set field="imageUrl" from-field="parameters.imageUrl"/>
+        
+        <call-object-method obj-field-name="imageUrl" method-name="startsWith" ret-field-name="httpFlag" >
+            <string value="http"></string>
+        </call-object-method>
+        <call-object-method obj-field-name="imageUrl" method-name="startsWith" ret-field-name="httpsFlag" >
+            <string value="https"></string>
+        </call-object-method>
+        <call-object-method obj-field-name="imageUrl" method-name="startsWith" ret-field-name="ftpFlag" >
+            <string value="ftp"></string>
+        </call-object-method>
+        <if>
+            <condition>                  
+                <or>
+                    <if-compare value="true" field-name="httpFlag" operator="equals" type="Boolean"/>
+                    <if-compare value="true" field-name="httpsFlag" operator="equals" type="Boolean"/>
+                    <if-compare value="true" field-name="ftpFlag" operator="equals" type="Boolean"/>
+                </or>                      
+            </condition>    
+            <then>             
+                <call-class-method method-name="fromUrlString" class-name="org.ofbiz.base.util.UtilURL" ret-field-name="url">
+                   <string value="${imageUrl}"/>
+                </call-class-method>
+            </then>
+            <else>
+                <set field="imageUrl" value="/framework/images/webapp${parameters.imageUrl}" />            
+                <call-class-method method-name="fromOfbizHomePath" class-name="org.ofbiz.base.util.UtilURL" ret-field-name="url">
+                   <string value="${imageUrl}"/>
+                </call-class-method>
+            </else>    
+        </if>
+        <if-not-empty field-name="url" >
+            <set field="isExists" value="Y"/>
+        <else>
+            <set field="isExists" value="N"/>
+        </else>    
+        </if-not-empty>   
+        <field-to-result result-name="isExists" field-name="isExists"/>
+    </simple-method>
 </simple-methods>
