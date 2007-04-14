@@ -1053,9 +1053,9 @@ public class PaymentGatewayServices {
                     // it from other methods, otherwise return
                     if (billingAccountCaptureAmount.compareTo(captureAmountBd) == -1) {
                         BigDecimal outstandingAmount = captureAmountBd.subtract(billingAccountCaptureAmount).setScale(decimals, rounding);
-                        captureAmount = new Double(outstandingAmount.doubleValue());
+                        captureAmountBd = outstandingAmount;
                     } else {
-                        Debug.logInfo("Amount to capture [" + captureAmount + "] was fully captured in Payment [" + tmpResult.get("paymentId") + "].", module);
+                        Debug.logInfo("Amount to capture [" + captureAmountBd + "] was fully captured in Payment [" + tmpResult.get("paymentId") + "].", module);
                         Map result = ServiceUtil.returnSuccess();
                         result.put("processResult", "COMPLETE");
                         return result;
@@ -1076,31 +1076,18 @@ public class PaymentGatewayServices {
 
         BigDecimal orderGrandTotal = orh.getOrderGrandTotalBd();
         orderGrandTotal = orderGrandTotal.setScale(2, BigDecimal.ROUND_HALF_UP);
-        double orderTotal = orderGrandTotal.doubleValue();
 
-        double totalPayments = PaymentWorker.getPaymentsTotal(orh.getOrderPayments());
-        double remainingTotal = orderTotal - totalPayments;
-        if (Debug.infoOn()) Debug.logInfo("Capture Remaining Total: " + remainingTotal, module);
+        BigDecimal totalPayments = PaymentWorker.getPaymentsTotal(orh.getOrderPayments());
+        totalPayments = totalPayments.setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal remainingTotalBd = orderGrandTotal.subtract(totalPayments);
+        if (Debug.infoOn()) Debug.logInfo("Capture Remaining Total: " + remainingTotalBd, module);
 
-        // re-format the remaining total
-        String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
-        DecimalFormat formatter = new DecimalFormat(currencyFormat);
-        String remainingTotalString = formatter.format(remainingTotal);
-        try {
-            Number remaining = formatter.parse(remainingTotalString);
-            if (remaining != null) {
-                remainingTotal = remaining.doubleValue();
-            }
-        } catch (ParseException e) {
-            Debug.logError(e, "Problem getting parsed remaining total", module);
-            return ServiceUtil.returnError("ERROR: Cannot parse grand total from formatted string; see logs");
+        double amountToCapture = 0.0;
+        if (captureAmountBd == null) {
+            amountToCapture = remainingTotalBd.doubleValue();
+        } else {
+            amountToCapture = captureAmountBd.doubleValue();
         }
-        //Debug.logInfo("Formatted Remaining total : " + remainingTotal, module);
-
-        if (captureAmount == null) {
-            captureAmount = new Double(remainingTotal);
-        }
-        double amountToCapture = captureAmount.doubleValue();
         if (Debug.infoOn()) Debug.logInfo("Actual Expected Capture Amount : " + amountToCapture, module);
 
         // iterate over the prefs and capture each one until we meet our total
@@ -1124,8 +1111,8 @@ public class PaymentGatewayServices {
             //Debug.log("Actual Auth amount : " + authAmount, module);
  
             // if the authAmount is more then the remaining total; just use remaining total
-            if (authAmount.doubleValue() > remainingTotal) {
-                authAmount = new Double(remainingTotal);
+            if (authAmount.doubleValue() > remainingTotalBd.doubleValue()) {
+                authAmount = new Double(remainingTotalBd.doubleValue());
             }
 
             // if we have a billing account; total up auth + account available

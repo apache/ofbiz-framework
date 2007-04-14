@@ -207,21 +207,22 @@ public class PaymentWorker {
      * Returns the total from a list of Payment entities
      * 
      * @param payments List of Payment GenericValue items
-     * @return total payments as double
+     * @return total payments as BigDecimal
      */
-    public static double getPaymentsTotal(List payments) {
+
+    public static BigDecimal getPaymentsTotal(List payments) {
         if (payments == null) {
             throw new IllegalArgumentException("Payment list cannot be null");            
         }
-        
-        double paymentsTotal = 0.00;
+
+        BigDecimal paymentsTotal = new BigDecimal("0");
         Iterator i = payments.iterator();
         while (i.hasNext()) {
             GenericValue payment = (GenericValue) i.next();
-            paymentsTotal += payment.getDouble("amount").doubleValue();
+            paymentsTotal = paymentsTotal.add(payment.getBigDecimal("amount")).setScale(decimals, rounding);
         }
         return paymentsTotal;
-    }          
+    }
 
     /**
      * Method to return the total amount of an payment which is applied to a payment
