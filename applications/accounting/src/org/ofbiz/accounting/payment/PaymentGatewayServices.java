@@ -539,7 +539,7 @@ public class PaymentGatewayServices {
             if (ServiceUtil.isError(processorResult)) {
                 Debug.logError("Processor failed; will retry later: " + processorResult.get(ModelService.ERROR_MESSAGE), module);
                 // log the error message as a gateway response when it fails
-                saveError(dispatcher, userLogin, paymentPreference, processorResult, "PRDS_PAY_AUTH", "PGT_AUTHORIZE");
+                saveError(dispatcher, userLogin, paymentPreference, processorResult, AUTH_SERVICE_TYPE, "PGT_AUTHORIZE");
                 // this is the one place where we want to return null because the calling method will look for this
                 return null;
             }
@@ -893,7 +893,7 @@ public class PaymentGatewayServices {
                 result = ServiceUtil.returnFailure(errMsg);
             }
         } else if (ServiceUtil.isError(releaseResult)) {
-            saveError(dispatcher, userLogin, paymentPref, releaseResult, "PRDS_PAY_RELEASE", "PGT_RELEASE");
+            saveError(dispatcher, userLogin, paymentPref, releaseResult, RELEASE_SERVICE_TYPE, "PGT_RELEASE");
             result = ServiceUtil.returnError(ServiceUtil.getErrorMessage(releaseResult));
         }
 
@@ -1428,7 +1428,7 @@ public class PaymentGatewayServices {
 
         // log the error message as a gateway response when it fails
         if (ServiceUtil.isError(captureResult)) {
-            saveError(dispatcher, userLogin, paymentPref, captureResult, "PRDS_PAY_CAPTURE", "PGT_CAPTURE");
+            saveError(dispatcher, userLogin, paymentPref, captureResult, CAPTURE_SERVICE_TYPE, "PGT_CAPTURE");
         }
 
         return captureResult;
@@ -2018,7 +2018,7 @@ public class PaymentGatewayServices {
                     return ServiceUtil.returnError("Refund processor problems; see logs");
                 }
                 if (ServiceUtil.isError(refundResponse)) {
-                    saveError(dispatcher, userLogin, paymentPref, refundResponse, "PRDS_PAY_REFUND", "PGT_REFUND");
+                    saveError(dispatcher, userLogin, paymentPref, refundResponse, REFUND_SERVICE_TYPE, "PGT_REFUND");
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(refundResponse));
                 }
 
@@ -2290,7 +2290,7 @@ public class PaymentGatewayServices {
             List order = UtilMisc.toList("-transactionDate");
             List transactions = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, order);
 
-            List exprs = UtilMisc.toList(new EntityExpr("paymentServiceTypeEnumId", EntityOperator.EQUALS, "PRDS_PAY_CAPTURE"));
+            List exprs = UtilMisc.toList(new EntityExpr("paymentServiceTypeEnumId", EntityOperator.EQUALS, CAPTURE_SERVICE_TYPE));
 
             List capTransactions = EntityUtil.filterByAnd(transactions, exprs);
 
@@ -2313,8 +2313,8 @@ public class PaymentGatewayServices {
             List order = UtilMisc.toList("-transactionDate");
             List transactions = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, order);
 
-            List exprs = UtilMisc.toList(new EntityExpr("paymentServiceTypeEnumId", EntityOperator.EQUALS, "PRDS_PAY_AUTH"),
-                    new EntityExpr("paymentServiceTypeEnumId", EntityOperator.EQUALS, "PRDS_PAY_REAUTH"));
+            List exprs = UtilMisc.toList(new EntityExpr("paymentServiceTypeEnumId", EntityOperator.EQUALS, AUTH_SERVICE_TYPE),
+                    new EntityExpr("paymentServiceTypeEnumId", EntityOperator.EQUALS, REAUTH_SERVICE_TYPE));
 
             List authTransactions = EntityUtil.filterByOr(transactions, exprs);
 
@@ -2418,7 +2418,7 @@ public class PaymentGatewayServices {
         }
 
         // check valid implemented types
-        if (!transactionType.equals("PRDS_PAY_CREDIT")) {
+        if (!transactionType.equals(CREDIT_SERVICE_TYPE)) {
             return ServiceUtil.returnError("This transaction type is not yet supported.");
         }
 
