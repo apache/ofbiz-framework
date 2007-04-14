@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.ofbiz.product.product;
 
 import java.sql.Timestamp;
@@ -42,6 +42,8 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityConditionSubSelect;
+import org.ofbiz.entity.condition.EntityConditionValue;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.DynamicViewEntity;
@@ -384,32 +386,20 @@ public class ProductSearch {
             }
             
             if (excludeCategoryIds.size() > 0) {
-                String categoryPrefix = "pcm" + this.index;
-                String entityAlias = "PCM" + this.index;
-                this.index++;
-                
-                this.dynamicViewEntity.addMemberEntity(entityAlias, "ProductCategoryMember");
-                this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "ProductCategoryId", "productCategoryId", null, null, null, null);
-                this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "FromDate", "fromDate", null, null, null, null);
-                this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "ThruDate", "thruDate", null, null, null, null);
-                this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
-                incExcCondList.add(new EntityExpr(new EntityExpr(categoryPrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(categoryPrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
-                incExcCondList.add(new EntityExpr(categoryPrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
-                incExcCondList.add(new EntityExpr(categoryPrefix + "ProductCategoryId", EntityOperator.NOT_IN, excludeCategoryIds)); 
+                List idExcludeCondList = FastList.newInstance();
+                idExcludeCondList.add(new EntityExpr(new EntityExpr("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
+                idExcludeCondList.add(new EntityExpr("fromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
+                idExcludeCondList.add(new EntityExpr("productCategoryId", EntityOperator.IN, excludeCategoryIds));
+                EntityConditionValue subSelCond = new EntityConditionSubSelect("ProductCategoryMember", "productId", new EntityConditionList(idExcludeCondList, EntityOperator.AND), true, delegator);
+                incExcCondList.add(new EntityExpr("productId", EntityOperator.NOT_EQUAL, subSelCond));
             }
             if (excludeFeatureIds.size() > 0) {
-                String featurePrefix = "pfa" + this.index;
-                String entityAlias = "PFA" + this.index;
-                this.index++;
-
-                this.dynamicViewEntity.addMemberEntity(entityAlias, "ProductFeatureAppl");
-                this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ProductFeatureId", "productFeatureId", null, null, null, null);
-                this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "FromDate", "fromDate", null, null, null, null);
-                this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ThruDate", "thruDate", null, null, null, null);
-                this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
-                incExcCondList.add(new EntityExpr(new EntityExpr(featurePrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(featurePrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
-                incExcCondList.add(new EntityExpr(featurePrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
-                incExcCondList.add(new EntityExpr(featurePrefix + "ProductFeatureId", EntityOperator.NOT_IN, excludeFeatureIds)); 
+                List idExcludeCondList = FastList.newInstance();
+                idExcludeCondList.add(new EntityExpr(new EntityExpr("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
+                idExcludeCondList.add(new EntityExpr("fromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
+                idExcludeCondList.add(new EntityExpr("productFeatureId", EntityOperator.IN, excludeFeatureIds));
+                EntityConditionValue subSelCond = new EntityConditionSubSelect("ProductFeatureAppl", "productId", new EntityConditionList(idExcludeCondList, EntityOperator.AND), true, delegator);
+                incExcCondList.add(new EntityExpr("productId", EntityOperator.NOT_EQUAL, subSelCond));
             }
             
             if (alwaysIncludeCategoryIds.size() > 0) {
