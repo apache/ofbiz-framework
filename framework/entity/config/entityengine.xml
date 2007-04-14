@@ -139,7 +139,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             field-type-name="derby"
             check-on-start="true"
             add-missing-on-start="true"
-            use-pk-constraint-names="false">
+            use-pk-constraint-names="false"
+            alias-view-columns="false">
         <read-data reader-name="seed"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
@@ -159,7 +160,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         field-type-name="derby"
         check-on-start="true"
         add-missing-on-start="true"
-        use-pk-constraint-names="false">
+        use-pk-constraint-names="false"
+        alias-view-columns="false">
         <inline-jdbc
             jdbc-driver="org.apache.derby.jdbc.EmbeddedDriver"
             jdbc-uri="jdbc:derby:ofbizodbc;create=true"

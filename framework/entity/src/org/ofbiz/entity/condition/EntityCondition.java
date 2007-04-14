@@ -22,9 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastList;
+
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.GenericEntity;
+import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 
 /**
@@ -41,14 +44,14 @@ import org.ofbiz.entity.model.ModelEntity;
 public abstract class EntityCondition extends EntityConditionBase {
 
     public String toString() {
-        return makeWhereString(null, new ArrayList());
+        return makeWhereString(null, FastList.newInstance(), null);
     }
 
     public void accept(EntityConditionVisitor visitor) {
         throw new IllegalArgumentException(getClass().getName() + ".accept not implemented");
     }
 
-    abstract public String makeWhereString(ModelEntity modelEntity, List entityConditionParams);
+    abstract public String makeWhereString(ModelEntity modelEntity, List entityConditionParams, DatasourceInfo datasourceInfo);
 
     abstract public void checkCondition(ModelEntity modelEntity) throws GenericModelException;
 

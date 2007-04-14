@@ -27,6 +27,7 @@ import org.ofbiz.entity.EntityCryptoException;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
+import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 
@@ -143,10 +144,10 @@ public class EntityExpr extends EntityCondition {
         return rhs;
     }
 
-    public String makeWhereString(ModelEntity modelEntity, List entityConditionParams) {
+    public String makeWhereString(ModelEntity modelEntity, List entityConditionParams, DatasourceInfo datasourceInfo) {
         // if (Debug.verboseOn()) Debug.logVerbose("makeWhereString for entity " + modelEntity.getEntityName(), module);
         StringBuffer sql = new StringBuffer();
-        operator.addSqlValue(sql, modelEntity, entityConditionParams, true, lhs, rhs);
+        operator.addSqlValue(sql, modelEntity, entityConditionParams, true, lhs, rhs, datasourceInfo);
         return sql.toString();
     }
 

@@ -27,6 +27,7 @@ import java.util.Map;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
+import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 
 /**
@@ -42,32 +43,32 @@ public class EntityJoinOperator extends EntityOperator {
         this.shortCircuitValue = shortCircuitValue;
     }
 
-    public void addSqlValue(StringBuffer sql, ModelEntity modelEntity, List entityConditionParams, boolean compat, Object lhs, Object rhs) {
+    public void addSqlValue(StringBuffer sql, ModelEntity modelEntity, List entityConditionParams, boolean compat, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
         sql.append('(');
-        sql.append(((EntityCondition) lhs).makeWhereString(modelEntity, entityConditionParams));
+        sql.append(((EntityCondition) lhs).makeWhereString(modelEntity, entityConditionParams, datasourceInfo));
         sql.append(' ');
         sql.append(getCode());
         sql.append(' ');
         if (rhs instanceof EntityCondition) {
-            sql.append(((EntityCondition) rhs).makeWhereString(modelEntity, entityConditionParams));
+            sql.append(((EntityCondition) rhs).makeWhereString(modelEntity, entityConditionParams, datasourceInfo));
         } else {
             addValue(sql, null, rhs, entityConditionParams);
         }
         sql.append(')');
     }
 
-    public void addSqlValue(StringBuffer sql, ModelEntity modelEntity, List entityConditionParams, List conditionList) {
+    public void addSqlValue(StringBuffer sql, ModelEntity modelEntity, List entityConditionParams, List conditionList, DatasourceInfo datasourceInfo) {
         if (conditionList != null && conditionList.size() > 0) {
             sql.append('(');
             Iterator conditionIter = conditionList.iterator();
             while (conditionIter.hasNext()) {
                 EntityCondition condition = (EntityCondition) conditionIter.next();
-                sql.append(condition.makeWhereString(modelEntity, entityConditionParams));
-                 if (conditionIter.hasNext()) {
-                     sql.append(' ');
-                     sql.append(getCode());
-                     sql.append(' ');
-                 }
+                sql.append(condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo));
+                if (conditionIter.hasNext()) {
+                    sql.append(' ');
+                    sql.append(getCode());
+                    sql.append(' ');
+                }
             }
             sql.append(')');
         }

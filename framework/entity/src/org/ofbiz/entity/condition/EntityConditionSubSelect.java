@@ -29,6 +29,7 @@ import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.jdbc.SqlJdbcUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
+import org.ofbiz.entity.model.ModelViewEntity;
 
 public class EntityConditionSubSelect extends EntityConditionValue {
     public static final String module = EntityConditionSubSelect.class.getName();
@@ -52,6 +53,9 @@ public class EntityConditionSubSelect extends EntityConditionValue {
 
     public void addSqlValue(StringBuffer sql, Map tableAliases, ModelEntity parentModelEntity, List entityConditionParams,
             boolean includeTableNamePrefix, DatasourceInfo datasourceInfo) {
+        if (localModelEntity instanceof ModelViewEntity && datasourceInfo == null) {
+            throw new IllegalArgumentException("Call to EntityConditionSubSelect.addSqlValue with datasourceInfo=null which is not allowed because the local entity [" + this.localModelEntity.getEntityName() + "] is a view entity");
+        }
         try {
             // add select and where and such, based on local entity not on the main entity
             ModelField localModelField = localModelEntity.getField(this.keyFieldName);
@@ -72,7 +76,7 @@ public class EntityConditionSubSelect extends EntityConditionValue {
             StringBuffer whereString = new StringBuffer();
             String entityCondWhereString = "";
             if (this.whereCond != null) {
-                entityCondWhereString = this.whereCond.makeWhereString(localModelEntity, entityConditionParams);
+                entityCondWhereString = this.whereCond.makeWhereString(localModelEntity, entityConditionParams, datasourceInfo);
             }
 
             String viewClause = SqlJdbcUtil.makeViewWhereClause(localModelEntity, (datasourceInfo != null ? datasourceInfo.joinStyle : null));

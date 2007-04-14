@@ -25,6 +25,7 @@ import java.util.Map;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericModelException;
+import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 
 public class EntityDateFilterCondition extends EntityCondition {
@@ -37,9 +38,9 @@ public class EntityDateFilterCondition extends EntityCondition {
         this.thruDateName = thruDateName;
     }
 
-    public String makeWhereString(ModelEntity modelEntity, List entityConditionParams) {
+    public String makeWhereString(ModelEntity modelEntity, List entityConditionParams, DatasourceInfo datasourceInfo) {
         EntityCondition condition = makeCondition();
-        return condition.makeWhereString(modelEntity, entityConditionParams);
+        return condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo);
     }
 
     public void checkCondition(ModelEntity modelEntity) throws GenericModelException {

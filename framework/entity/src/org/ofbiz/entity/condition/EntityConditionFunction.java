@@ -24,6 +24,7 @@ import java.util.Map;
 
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericModelException;
+import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 
 /**
@@ -84,10 +85,10 @@ public abstract class EntityConditionFunction extends EntityCondition {
         return idInt ^ condition.hashCode();
     }
 
-    public String makeWhereString(ModelEntity modelEntity, List entityConditionParams) {
+    public String makeWhereString(ModelEntity modelEntity, List entityConditionParams, DatasourceInfo datasourceInfo) {
         StringBuffer sb = new StringBuffer();
         sb.append(codeString).append('(');
-        sb.append(condition.makeWhereString(modelEntity, entityConditionParams));
+        sb.append(condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo));
         sb.append(')');
         return sb.toString();
     }
