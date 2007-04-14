@@ -533,10 +533,11 @@ public class LoginWorker {
 
             if (clientCerts != null) {
                 for (int i = 0; i < clientCerts.length; i++) {
-                    String certHex = StringUtil.toHexString(clientCerts[i].getPublicKey().getEncoded());
+                    String certKeyHex = StringUtil.toHexString(clientCerts[i].getPublicKey().getEncoded());
+                    String certSn = clientCerts[i].getSerialNumber().toString(16);
                     List userLogins = null;
                     try {
-                        userLogins = delegator.findByAnd("UserLogin", UtilMisc.toMap("x509Cert", certHex));
+                        userLogins = delegator.findByAnd("UserLogin", UtilMisc.toMap("x509CertSn", certSn));
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
                     }
@@ -545,9 +546,10 @@ public class LoginWorker {
                         Iterator it = userLogins.iterator();
                         while (it.hasNext()) {
                             GenericValue ul = (GenericValue) it.next();
+                            String certKey = ul.getString("x509CertKey");
                             String enabled = ul.getString("enabled");
 
-                            if (enabled == null || "Y".equals(enabled)) {
+                            if ((enabled == null || "Y".equals(enabled)) && certKey.equals(certKeyHex)) {
                                 ul.set("hasLoggedOut", "N");
                                 try {
                                     ul.store();
