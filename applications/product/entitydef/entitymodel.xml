@@ -327,6 +327,7 @@ under the License.
         <field name="titleText" type="description"></field>
         <field name="detailText" type="very-long"></field>
         <field name="imageUrl" type="url"></field>
+        <field name="imageTwoUrl" type="url"></field>
         <field name="linkTypeEnumId" type="id"></field>
         <field name="linkInfo" type="long-varchar"></field>
         <field name="detailSubScreen" type="long-varchar"><description>This is optional. If not specified a default should be used by the category detail template.</description></field>
