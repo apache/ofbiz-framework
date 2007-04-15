@@ -37,32 +37,30 @@ under the License.
 
 <#-- display the error messages -->
 <#if (errorMessage?has_content || errorMessageList?has_content)>
-  <div class="errorMessage">${uiLabelMap.CommonFollowingErrorsOccurred}:</div><br/>
-  <ul>
+  <div id="content-messages" class="errorMessage">
+    <p>${uiLabelMap.CommonFollowingErrorsOccurred}:</p>
     <#if errorMessage?has_content>
-      <li class="errorMessage">${errorMessage}</li>
+      <p>${errorMessage}</p>
     </#if>
     <#if errorMessageList?has_content>
       <#list errorMessageList as errorMsg>
-        <li class="errorMessage">${errorMsg}</li>
+        <p>${errorMsg}</p>
       </#list>
     </#if>
-  </ul>
-  <br/>
+  </div>
 </#if>
 
 <#-- display the event messages -->
 <#if (eventMessage?has_content || eventMessageList?has_content)>
-  <div class="eventMessage">${uiLabelMap.CommonFollowingOccurred}:</div><br/>
-  <ul>
+  <div id="content-messages" class="eventMessage">
+    <p>${uiLabelMap.CommonFollowingOccurred}:</p>
     <#if eventMessage?has_content>
-      <li class="eventMessage">${eventMessage}</li>
+      <p>${eventMessage}</p>
     </#if>
     <#if eventMessageList?has_content>
       <#list eventMessageList as eventMsg>
-        <li class="eventMessage">${eventMsg}</li>
+        <p>${eventMsg}</p>
       </#list>
     </#if>
-  </ul>
-  <br/>
+  </div>
 </#if>
