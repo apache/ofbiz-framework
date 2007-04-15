@@ -1190,6 +1190,10 @@ visibility: hidden;
 color: #ff0000;
 }
 
+#content-messages p {
+margin: 0.5em 0 0.5em 0;
+}
+
 .label {
 /* Used for <input> element labels */
 font-weight: bold;
@@ -1427,6 +1431,17 @@ display: block;
 
 .screenlet-title-bar ul a:hover {
 /* placeholder */
+}
+
+/* login screenlet decorator */
+.login-screenlet {
+margin-left: 38%;
+min-width: 25em;
+width: 24%;
+}
+
+.login-screenlet .screenlet-title-bar {
+text-align: center;
 }
 
 /* ======================================================= */

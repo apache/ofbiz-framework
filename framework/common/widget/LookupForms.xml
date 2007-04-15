@@ -21,8 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     <!-- Geo Lookup forms -->
-    <form name="LookupGeo" target="LookupGeo" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+    <form name="LookupGeo" target="LookupGeo" title="" type="single">
         <field name="geoId" title="${uiLabelMap.SegmentGroupGeoId}"><text-find/></field>
         <field name="geoTypeId" title="${uiLabelMap.SegmentGroupGeoTypeId}">
             <drop-down allow-empty="true">
@@ -39,7 +38,6 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listLookupGeo" list-name="listIt" target="" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
         paginate-target="LookupGeo">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">

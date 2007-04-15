@@ -18,7 +18,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<#assign docLangAttr = locale.toString()?replace("_", "-")>
+<#assign langDir = "ltr">
+<#if "ar.iw"?contains(docLangAttr?substring(0, 2))>
+    <#assign langDir = "rtl">
+</#if>
+
+<html lang="${docLangAttr}" dir="${langDir}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>${layoutSettings.companyName}: <#if (page.titleProperty)?has_content>${uiLabelMap[page.titleProperty]}<#else>${(page.title)?if_exists}</#if></title>
@@ -39,8 +45,7 @@ under the License.
     ${layoutSettings.extraHead?if_exists}
 </head>
 
-<#-- TODO: create a corresponding style in the main style sheet, eliminate embedded style -->
-<body style="background-color: WHITE;">
+<body id="column-container">
 <form name="printPage">
 <input type="button" value="${uiLabelMap.CommonPrint}" onClick="window.print()" class="smallSubmit"/>
 </form>
