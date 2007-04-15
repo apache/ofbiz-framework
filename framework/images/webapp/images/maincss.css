@@ -1288,6 +1288,7 @@ display: inline; /* IE Fix */
 }
 
 #main-navigation ul li {
+border-right: solid #ffffff 0.1em;
 background-color: #B4B0AA;
 float: left;
 }
