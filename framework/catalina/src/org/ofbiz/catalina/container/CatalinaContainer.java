@@ -35,10 +35,7 @@ import org.ofbiz.base.container.ClassLoaderContainer;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilURL;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 
 import org.apache.catalina.Cluster;
@@ -130,6 +127,11 @@ public class CatalinaContainer implements Container {
     public static final String J2EE_APP = "OFBiz";
     public static final String module = CatalinaContainer.class.getName();
     protected static Map mimeTypes = new HashMap();
+
+    // load the JSSE propertes (set the trust store)
+    static {
+        SSLUtil.loadJsseProperties();
+    }
 
     protected GenericDelegator delegator = null;
     protected Embedded embedded = null;
