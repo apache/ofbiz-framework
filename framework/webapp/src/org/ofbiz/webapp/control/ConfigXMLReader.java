@@ -213,6 +213,12 @@ public class ConfigXMLReader {
                 String securityKeystore = securityElement.getAttribute(SECURITY_KEYSTORE);
                 String securityExtView = securityElement.getAttribute(SECURITY_EXTVIEW);
                 String securityDirectRequest = securityElement.getAttribute(SECURITY_DIRECT);
+
+                // if x509 is required so is https
+                if ("true".equalsIgnoreCase(securityCert)) {
+                    securityHttps = "true";
+                }
+                
                 uriMap.put(SECURITY_HTTPS, securityHttps);
                 uriMap.put(SECURITY_AUTH, securityAuth);
                 uriMap.put(SECURITY_CERT, securityCert);
