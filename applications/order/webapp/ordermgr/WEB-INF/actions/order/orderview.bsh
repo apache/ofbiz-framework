@@ -58,7 +58,7 @@ if (orderHeader != null) {
     context.put("canViewInternalDetails", true);
 
     orderReadHelper = new OrderReadHelper(orderHeader);
-    orderItems = orderReadHelper.getValidOrderItems();
+    orderItems = orderReadHelper.getOrderItems();
     orderAdjustments = orderReadHelper.getAdjustments();
     orderHeaderAdjustments = orderReadHelper.getOrderHeaderAdjustments();
     orderSubTotal = orderReadHelper.getOrderItemsSubTotal();

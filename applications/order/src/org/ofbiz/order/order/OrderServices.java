@@ -3278,6 +3278,10 @@ public class OrderServices {
             Iterator pii = promoItems.iterator();
             while (pii.hasNext()) {
                 GenericValue promoItem = (GenericValue) pii.next();
+                // Skip if the promo is already cancelled
+                if ("ITEM_CANCELLED".equals(promoItem.get("statusId"))) {
+                    continue;
+                }
                 Map cancelPromoCtx = UtilMisc.toMap("orderId", orderId);
                 cancelPromoCtx.put("orderItemSeqId", promoItem.getString("orderItemSeqId"));
                 cancelPromoCtx.put("userLogin", userLogin);
