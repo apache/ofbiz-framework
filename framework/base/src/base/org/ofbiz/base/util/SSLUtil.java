@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.SecureRandom;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.net.ssl.*;
 
@@ -32,6 +34,11 @@ import javax.net.ssl.*;
 public class SSLUtil {
 
     public static final String module = SSLUtil.class.getName();
+
+    public static final int HOSTCERT_NO_CHECK = 0;
+    public static final int HOSTCERT_MIN_CHECK = 1;
+    public static final int HOSTCERT_NORMAL_CHECK = 2;
+
     private static boolean loadedProps = false;
 
     static {
@@ -84,6 +91,54 @@ public class SSLUtil {
         SSLContext context = SSLContext.getInstance("SSL");
         context.init(km, tm, null);
         return context.getServerSocketFactory();
+    }
+
+    public static HostnameVerifier getHostnameVerifier(int level) {
+        switch(level) {           
+            case HOSTCERT_MIN_CHECK:
+                return new HostnameVerifier() {
+                    public boolean verify(String hostname, SSLSession session) {
+                        Debug.log("Checking: " + hostname + " :: " + session.getPeerHost(), module);
+                        javax.security.cert.X509Certificate[] peerCerts;
+                        try {
+                            peerCerts = session.getPeerCertificateChain();
+                        } catch (SSLPeerUnverifiedException e) {
+                            // cert not verified
+                            Debug.logWarning(e.getMessage(), module);
+                            return false;
+                        }
+                        for (int i = 0; i < peerCerts.length; i++) {
+                            Map certMap = new HashMap();
+                            String name = peerCerts[i].getSubjectDN().getName();
+                            String[] sections = name.split("\\,");
+                            for (int si = 0; si < sections.length; si++) {
+                                String[] nv = sections[si].split("\\=");
+                                for (int nvi = 0; nvi < nv.length; nvi++) {
+                                    certMap.put(nv[0], nv[1]);
+                                }
+                            }
+
+                            Debug.log(peerCerts[i].getSerialNumber().toString(16) + " :: " + certMap.get("CN"), module);
+                            try {
+                                peerCerts[i].checkValidity();
+                            } catch (Exception e) {
+                                // certificate not valid
+                                Debug.logWarning("Certificate is not valid!", module);
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                };
+            case HOSTCERT_NO_CHECK:
+                return new HostnameVerifier() {
+                    public boolean verify(String hostname, SSLSession session) {
+                        return true;
+                    }
+                };
+            default:
+                return null;
+        }
     }
 
     public static void loadJsseProperties() {
