@@ -17,21 +17,19 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign unselectedLeftClassName = "headerButtonLeft">
-<#assign unselectedRightClassName = "headerButtonRight">
-<#assign selectedLeftClassMap = {headerItem?default("void") : "headerButtonLeftSelected"}>
-<#assign selectedRightClassMap = {headerItem?default("void") : "headerButtonRightSelected"}>
+<#assign selected = headerItem?default("void")>
 
-<div class="apptitle">${uiLabelMap.ExampleApplication}</div>
-<div class="row">
-    <div class="col"><a href="<@ofbizUrl>main</@ofbizUrl>" class="${selectedLeftClassMap.main?default(unselectedLeftClassName)}">${uiLabelMap.CommonMain}</a></div>
-    <div class="col"><a href="<@ofbizUrl>FindExample</@ofbizUrl>" class="${selectedLeftClassMap.Example?default(unselectedLeftClassName)}">${uiLabelMap.ExampleExample}</a></div>
-    <div class="col"><a href="<@ofbizUrl>FindExampleFeature</@ofbizUrl>" class="${selectedLeftClassMap.ExampleFeature?default(unselectedLeftClassName)}">${uiLabelMap.ExampleFeature}</a></div>
-
+<div id="app-navigation">
+  <h2>${uiLabelMap.ExampleApplication}</h2>
+  <ul>
+    <li<#if selected = "main"> class="selected"</#if>><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.CommonMain}</a></li>
+    <li<#if selected = "Example"> class="selected"</#if>><a href="<@ofbizUrl>FindExample</@ofbizUrl>">${uiLabelMap.ExampleExample}</a></li>
+    <li<#if selected = "ExampleFeature"> class="selected"</#if>><a href="<@ofbizUrl>FindExampleFeature</@ofbizUrl>">${uiLabelMap.ExampleFeature}</a></li>
     <#if userLogin?has_content>
-        <div class="col-right"><a href="<@ofbizUrl>logout</@ofbizUrl>" class="${selectedRightClassMap.logout?default(unselectedRightClassName)}">${uiLabelMap.CommonLogout}</a></div>
+      <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
     <#else>
-        <div class="col-right"><a href='<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>' class='${selectedRightClassMap.login?default(unselectedRightClassName)}'>${uiLabelMap.CommonLogin}</a></div>
+      <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
     </#if>
-    <div class="col-fill">&nbsp;</div>
+  </ul>
+  <br class="clear" />
 </div>

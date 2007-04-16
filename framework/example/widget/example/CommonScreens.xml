@@ -54,10 +54,10 @@ under the License.
                                 <section>
                                     <condition><if-empty field-name="userLogin"/></condition>
                                     <widgets>
-                                        <container><label style="tabletext" text="${uiLabelMap.ExampleMessage}"/></container>
+                                        <container><label text="${uiLabelMap.ExampleMessage}"/></container>
                                     </widgets>
                                 </section>
-                                <container><label style="tabletext" text="${uiLabelMap.ExampleWelcome}"/></container>
+                                <container><label text="${uiLabelMap.ExampleWelcome}"/></container>
                             </container>
                         </container>
                     </decorator-section>
