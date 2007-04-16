@@ -61,9 +61,9 @@ under the License.
         <br />
         <p>
         <#if person?has_content>
-          ${uiLabelMap.CommonWelcome}&nbsp;${person.firstName?if_exists}&nbsp;${person.lastName?if_exists}!
+          ${uiLabelMap.CommonWelcome}&nbsp;${person.firstName?if_exists}&nbsp;${person.lastName?if_exists}&nbsp;[${userLogin.userLoginId}]
         <#elseif partyGroup?has_content>
-          ${uiLabelMap.CommonWelcome}&nbsp;${partyGroup.groupName?if_exists}!
+          ${uiLabelMap.CommonWelcome}&nbsp;${partyGroup.groupName?if_exists}&nbsp;[${userLogin.userLoginId}]
         <#else>
           ${uiLabelMap.CommonWelcome}!
         </#if>
