@@ -645,7 +645,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitlePickListOptions"/>
                 <set field="headerItem" value="facility"/>
-                <set field="tabButtonItem" value="PicklistOptions"/>
+                <set field="tabButtonItem" value="PicklistManage"/>
 
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <service service-name="getPicklistDisplayInfo">
@@ -681,7 +681,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitlePickingMoveStock"/>
                 <set field="headerItem" value="facility"/>
-                <set field="tabButtonItem" value="PicklistOptions"/>
+                <set field="tabButtonItem" value="PickMoveStock"/>
 
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <service service-name="findStockMovesNeeded">
