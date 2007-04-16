@@ -60,6 +60,7 @@ if (shipment != null) {
             } else {
                 shipmentRouteSegmentData.put("carrierServiceStatusValidChangeToDetails", delegator.findByAnd("StatusValidChangeToDetail", UtilMisc.toMap("statusId", "SHRSCS_NOT_STARTED"), UtilMisc.toList("sequenceId")));
             }
+            shipmentRouteSegmentData.put("thirdPartyPostalAddress", shipmentRouteSegment.getRelatedOne("ThirdPartyPostalAddress"));
             shipmentRouteSegmentDatas.add(shipmentRouteSegmentData);
         }
     }

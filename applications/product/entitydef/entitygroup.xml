@@ -324,5 +324,6 @@ under the License.
     <entity-group group="org.ofbiz" entity="ShipmentType" />
     <entity-group group="org.ofbiz" entity="ShipmentTypeAttr" />
     <entity-group group="org.ofbiz" entity="ShippingDocument" />
+    <entity-group group="org.ofbiz" entity="PackedQtyVsOrderItemQuantity" />
 </entitygroup>
 

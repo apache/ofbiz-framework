@@ -997,6 +997,7 @@ under the License.
       <field name="dateCreated" type="date-time"></field>
       <field name="weight" type="floating-point"></field>
       <field name="weightUomId" type="id"></field>
+      <field name="insuredValue" type="currency-amount"></field>
       <prim-key field="shipmentId"/>
       <prim-key field="shipmentPackageSeqId"/>
       <relation type="one" fk-name="SHPKG_SHPMNT" rel-entity-name="Shipment">
@@ -1110,6 +1111,8 @@ under the License.
       <field name="lastUpdatedDate" type="date-time"></field>
       <field name="homeDeliveryType" type="id"></field> 
       <field name="homeDeliveryDate" type="date-time"></field> 
+      <field name="thirdPartyAccountNumber" type="id"></field>
+      <field name="thirdPartyContactMechId" type="id"></field>
       <prim-key field="shipmentId"/>
       <prim-key field="shipmentRouteSegmentId"/>
       <relation type="one" fk-name="SHPMT_RTSEG_SHPMT" rel-entity-name="Shipment">
@@ -1162,6 +1165,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="SHPKRTSG_BWUOM" title="BillingWeight" rel-entity-name="Uom">
         <key-map field-name="billingWeightUomId" rel-field-name="uomId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMT_RTSEG_TPPAD" title="ThirdParty" rel-entity-name="PostalAddress">
+        <key-map field-name="thirdPartyContactMechId" rel-field-name="contactMechId"/>
       </relation>
     </entity>
     <view-entity entity-name="ShipmentPackageRouteDetail"
@@ -1274,5 +1280,32 @@ under the License.
         <key-map field-name="shipmentPackageSeqId"/>
       </relation>
     </entity>
+
+    <view-entity entity-name="PackedQtyVsOrderItemQuantity"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Route Segment Detail View Entity">
+      <description>View to report ShipmentPackageContent quantity vs. OrderItem quantity via
+        ItemIssuance</description>
+      <member-entity entity-alias="SPC" entity-name="ShipmentPackageContent"/>
+      <member-entity entity-alias="II" entity-name="ItemIssuance"/>
+      <member-entity entity-alias="OI" entity-name="OrderItem"/>
+      <alias entity-alias="SPC" name="shipmentId"/>
+      <alias entity-alias="SPC" name="shipmentPackageSeqId"/>
+      <alias entity-alias="SPC" name="packedQuantity" field="quantity"/>
+      <alias entity-alias="OI" name="orderId"/>
+      <alias entity-alias="OI" name="orderItemSeqId"/>
+      <alias entity-alias="OI" name="orderedQuantity" field="quantity"/>
+      <view-link entity-alias="SPC" rel-entity-alias="II">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentItemSeqId"/>
+      </view-link>
+      <view-link entity-alias="II" rel-entity-alias="OI">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+      </view-link>
+      <relation type="one" rel-entity-name="OrderHeader">
+          <key-map field-name="orderId"/>
+      </relation>
+    </view-entity>
 </entitymodel>
 

@@ -645,4 +645,16 @@ under the License.
         <description>Delete a QuantityBreak</description>
         <auto-attributes entity-name="QuantityBreak" include="pk" mode="IN" optional="false"/>
     </service>
+
+    <service name="getShipmentPackageValueFromOrders" engine="java"
+            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="getShipmentPackageValueFromOrders" auth="true">
+        <description>Calculates the total value of a shipment package by totalling the results of the getOrderItemValue service
+            for the orderItem related to each ShipmentPackageContent, prorated by the quantity of the orderItem packed in the 
+            ShipmentPackageContent. Value is converted according to the incoming currencyUomId.</description>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentPackageSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="false"/>
+        <attribute name="packageValue" type="BigDecimal" mode="OUT" optional="true"/>
+    </service>
+
 </services>
