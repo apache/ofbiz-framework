@@ -38,11 +38,13 @@ public class URLConnector {
     private URL url = null;
     private String clientCertAlias = null;
     private boolean timedOut = false;
+    private int hostCertLevel = 2;
 
-    protected URLConnector() {}    
-    protected URLConnector(URL url, String clientCertAlias) {
+    protected URLConnector() {}
+    protected URLConnector(URL url, String clientCertAlias, int hostCertLevel) {
         this.clientCertAlias = clientCertAlias;
         this.url = url;
+        this.hostCertLevel = hostCertLevel;
     }
     
     protected synchronized URLConnection openConnection(int timeout) throws IOException {       
@@ -73,15 +75,15 @@ public class URLConnector {
     }
     
     public static URLConnection openConnection(URL url, int timeout) throws IOException {
-        return openConnection(url, timeout, null);
+        return openConnection(url, timeout, null, SSLUtil.HOSTCERT_NORMAL_CHECK);
     }
     
     public static URLConnection openConnection(URL url, String clientCertAlias) throws IOException {
-        return openConnection(url, 30000, clientCertAlias);
+        return openConnection(url, 30000, clientCertAlias, SSLUtil.HOSTCERT_NORMAL_CHECK);
     }
       
-    public static URLConnection openConnection(URL url, int timeout, String clientCertAlias) throws IOException {
-        URLConnector uc = new URLConnector(url, clientCertAlias);
+    public static URLConnection openConnection(URL url, int timeout, String clientCertAlias, int hostCertLevel) throws IOException {
+        URLConnector uc = new URLConnector(url, clientCertAlias, hostCertLevel);
         return uc.openConnection(timeout);
     }    
 
@@ -95,6 +97,10 @@ public class URLConnector {
                     HttpsURLConnection scon = (HttpsURLConnection) con;
                     try {
                         scon.setSSLSocketFactory(SSLUtil.getSSLSocketFactory(clientCertAlias));
+                        HostnameVerifier hv = SSLUtil.getHostnameVerifier(hostCertLevel);
+                        if (hv != null) {
+                            scon.setHostnameVerifier(hv);
+                        }
                     } catch (GeneralSecurityException gse) {
                         Debug.logError(gse, module);
                     }
