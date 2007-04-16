@@ -240,7 +240,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             check-pks-on-start="false"
             use-foreign-keys="true"
             join-style="ansi-no-parenthesis"
-            alias-view-columns="true"
+            alias-view-columns="false"
             drop-fk-use-foreign-key-keyword="true"
             table-type="InnoDB"
             character-set="latin1"
@@ -258,7 +258,6 @@ access. For a detailed description see the core/docs/entityconfig.html file.
                 pool-maxsize="20"/>
         <!-- <jndi-jdbc jndi-server-name="localjndi" jndi-name="java:/MySqlDataSource" isolation-level="Serializable"/> -->
     </datasource>
-
     <datasource name="odbcmysql"
             helper-class="org.ofbiz.entity.datasource.GenericHelperDAO"
             field-type-name="mysql"
@@ -267,7 +266,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             check-pks-on-start="false"
             use-foreign-keys="true"
             join-style="ansi-no-parenthesis"
-            alias-view-columns="true"
+            alias-view-columns="false"
             drop-fk-use-foreign-key-keyword="true"
             table-type="InnoDB"
             character-set="latin1"
