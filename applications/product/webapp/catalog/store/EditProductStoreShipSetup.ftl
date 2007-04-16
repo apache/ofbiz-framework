@@ -18,7 +18,6 @@ under the License.
 -->
 
 <form name="addscarr" method="post" action="<@ofbizUrl>prepareCreateShipMeth</@ofbizUrl>">
-<input type="hidden" name="viewProductStoreId" value="${productStoreId}"/>
 <input type="hidden" name="newShipMethod" value="Y"/>
 <input type="hidden" name="productStoreId" value="${productStoreId}"/>
 <table cellspacing="2" cellpadding="2">
@@ -27,8 +26,8 @@ under the License.
       <td>
         <select name="carrierShipmentString">
           <option>${uiLabelMap.ProductSelectOne}</option>
-          <#list storeShipMethods as shipmentMethod>
-            <option value="${shipmentMethod.partyId}|${shipmentMethod.roleTypeId}|${shipmentMethod.shipmentMethodTypeId}">${shipmentMethod.description} (${shipmentMethod.partyId}/${shipmentMethod.roleTypeId})</option>
+          <#list carrierShipmentMethods as shipmentMethod>
+            <option value="${shipmentMethod.partyId}|${shipmentMethod.roleTypeId}|${shipmentMethod.shipmentMethodTypeId}">${shipmentMethod.shipmentMethodTypeId} (${shipmentMethod.partyId}/${shipmentMethod.roleTypeId})</option>
           </#list>
         </select>
       </td>

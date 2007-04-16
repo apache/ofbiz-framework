@@ -207,14 +207,16 @@ under the License.
                 <set field="tabButtonItem" value="EditProductStoreShipSetup"/>
                 <set field="labelTitleProperty" value="ProductProductStoreShipmentSettings"/>
 
-                <set field="productStoreId" from-field="parameters.viewProductStoreId"/>
-                <set field="productStoreId" from-field="parameters.productStoreId" default-value="${productStoreId}"/>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="true"/>
                 <entity-condition entity-name="ProductStoreShipmentMethView" list-name="storeShipMethods">
                     <condition-expr field-name="productStoreId" env-name="productStoreId"/>
                     <order-by field-name="sequenceNumber"/>
                 </entity-condition>
                 <entity-one entity-name="ProductStoreShipmentMeth" value-name="productStoreShipmentMeth" auto-field-map="true"/>
+                <entity-condition entity-name="CarrierShipmentMethod" list-name="carrierShipmentMethods">
+                    <order-by field-name="sequenceNumber"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
