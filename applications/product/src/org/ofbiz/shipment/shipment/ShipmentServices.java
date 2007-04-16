@@ -19,13 +19,11 @@
 package org.ofbiz.shipment.shipment;
 
 import java.util.*;
+import java.math.BigDecimal;
 
 import javolution.util.FastMap;
 
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.*;
 import org.ofbiz.common.geo.GeoWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -44,6 +42,11 @@ import org.ofbiz.service.ServiceUtil;
 public class ShipmentServices {
 
     public static final String module = ShipmentServices.class.getName();
+
+    public static final String resource = "ProductUiLabels";
+    public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
+    public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
+    public static final BigDecimal ZERO = (new BigDecimal("0")).setScale(decimals, rounding);    
 
     public static Map createShipmentEstimate(DispatchContext dctx, Map context) {
         Map result = new HashMap();
@@ -943,5 +946,87 @@ public class ShipmentServices {
 
         // don't return an error
         return ServiceUtil.returnSuccess();
+    }
+
+    /**
+     * Calculates the total value of a shipment package by totalling the results of the getOrderItemValue service
+     *  for the orderItem related to each ShipmentPackageContent, prorated by the quantity of the orderItem packed in the 
+     *  ShipmentPackageContent. Value is converted according to the incoming currencyUomId.
+     * @param dctx DispatchContext
+     * @param context Map
+     * @return Map
+     */
+    public static Map getShipmentPackageValueFromOrders(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+        
+        String shipmentId = (String) context.get("shipmentId");
+        String shipmentPackageSeqId = (String) context.get("shipmentPackageSeqId");
+        String currencyUomId = (String) context.get("currencyUomId");
+
+        BigDecimal packageTotalValue = ZERO;
+
+        GenericValue shipment = null;
+        GenericValue shipmentPackage = null;
+        try {
+
+            shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+            if (UtilValidate.isEmpty(shipment)) {
+                String errorMessage = UtilProperties.getMessage(resource, "ProductShipmentNotFoundId", locale);
+                Debug.logError(errorMessage, module);
+                return ServiceUtil.returnError(errorMessage);
+            }
+            
+            shipmentPackage = delegator.findByPrimaryKey("ShipmentPackage", UtilMisc.toMap("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackageSeqId));
+            if (UtilValidate.isEmpty(shipmentPackage)) {
+                String errorMessage = UtilProperties.getMessage(resource, "ProductShipmentPackageNotFound", context, locale);
+                Debug.logError(errorMessage, module);
+                return ServiceUtil.returnError(errorMessage);
+            }
+            
+            List packageContents = delegator.findByAnd("PackedQtyVsOrderItemQuantity", UtilMisc.toMap("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackageSeqId));
+            Iterator packageContentsIt = packageContents.iterator();
+            while (packageContentsIt.hasNext()) {
+                GenericValue packageContent = (GenericValue) packageContentsIt.next();
+                String orderId = packageContent.getString("orderId");
+                String orderItemSeqId = packageContent.getString("orderItemSeqId");
+            
+                // Get the value of the orderItem by calling the getOrderItemValue service
+                Map getOrderItemValueResult = dispatcher.runSync("getOrderItemValue", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "userLogin", userLogin, "locale", locale));
+                if (ServiceUtil.isError(getOrderItemValueResult)) return getOrderItemValueResult;
+                BigDecimal orderItemTotalValue = (BigDecimal) getOrderItemValueResult.get("orderItemValue");
+            
+                // How much of the orderItem does the packed item represent?
+                BigDecimal packedQuantity = packageContent.getBigDecimal("packedQuantity");
+                BigDecimal orderedQuantity = packageContent.getBigDecimal("orderedQuantity");
+                BigDecimal proportionOfOrderedQuantity = packedQuantity.divide(orderedQuantity, 10, rounding);
+            
+                // Prorate the orderItem's value by that proportion
+                BigDecimal packageContentValue = proportionOfOrderedQuantity.multiply(orderItemTotalValue).setScale(decimals, rounding);
+            
+                // Convert the value to the shipment currency, if necessary
+                GenericValue orderHeader = packageContent.getRelatedOne("OrderHeader");
+                Map convertUomResult = dispatcher.runSync("convertUom", UtilMisc.toMap("uomId", orderHeader.getString("currencyUom"), "uomIdTo", currencyUomId, "originalValue", new Double(packageContentValue.doubleValue())));
+                if (ServiceUtil.isError(convertUomResult)) return convertUomResult;
+                if (convertUomResult.containsKey("convertedValue")) {
+                    packageContentValue = new BigDecimal(((Double) convertUomResult.get("convertedValue")).doubleValue()).setScale(decimals, rounding);
+                }
+                
+                // Add the value of the packed item to the package's total value
+                packageTotalValue = packageTotalValue.add(packageContentValue);
+            }
+
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        Map result = ServiceUtil.returnSuccess();
+        result.put("packageValue", packageTotalValue);
+        return result;
     }
 }

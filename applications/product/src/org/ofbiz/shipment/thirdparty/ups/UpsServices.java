@@ -21,35 +21,20 @@ package org.ofbiz.shipment.thirdparty.ups;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
+import java.math.BigDecimal;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.velocity.test.MiscTestCase;
-import org.ofbiz.base.util.Base64;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.HttpClient;
-import org.ofbiz.base.util.HttpClientException;
-import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.ServiceDispatcher;
-import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.service.*;
 import org.ofbiz.product.store.ProductStoreWorker;
 
 import org.w3c.dom.Document;
@@ -75,11 +60,15 @@ public class UpsServices {
             unitsOfbizToUps.put(entry.getValue(), entry.getKey());
         }
     }
-
+    public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
+    public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
 
     public static Map upsShipmentConfirm(DispatchContext dctx, Map context) {
         Map result = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
 
@@ -200,6 +189,67 @@ public class UpsServices {
                 ordersDescription = "Order " + (String) orderIdSet.iterator().next();
             }
             
+            // COD Support
+            boolean applyCODSurcharge = "true".equalsIgnoreCase(UtilProperties.getPropertyValue("shipment", "shipment.ups.cod.applyCODSurcharge"));
+
+            // COD only applies if all orders involved with the shipment were paid only with EXT_COD - anything else becomes too complicated
+            if (applyCODSurcharge) {
+
+                // Get the paymentMethodTypeIds of all the orderPaymentPreferences involved with the shipment
+                List opps = delegator.findByCondition("OrderPaymentPreference", new EntityExpr("orderId", EntityOperator.IN, orderIdSet), null, null);
+                List paymentMethodTypeIds = EntityUtil.getFieldListFromEntityList(opps, "paymentMethodTypeId", true);
+                
+                if (paymentMethodTypeIds.size() > 1 || ! paymentMethodTypeIds.contains("EXT_COD")) {
+                    applyCODSurcharge = false;
+                }
+            }
+
+            String codSurchargeAmount = null;
+            String codSurchargeCurrencyUomId = null;
+            String codFundsCode = null;
+            
+            boolean codSurchargeApplyToFirstPackage = false;
+            boolean codSurchargeApplyToAllPackages = false;
+            boolean codSurchargeSplitBetweenPackages = false;
+
+            BigDecimal codSurchargePackageAmount = null;
+            
+            if (applyCODSurcharge) {
+
+                codSurchargeAmount = UtilProperties.getPropertyValue("shipment", "shipment.ups.cod.surcharge.amount");
+                if (UtilValidate.isEmpty(codSurchargeAmount)) {
+                    return ServiceUtil.returnError("shipment.ups.cod.surcharge.amount is not configured in shipment.properties");
+                }
+                codSurchargeCurrencyUomId = UtilProperties.getPropertyValue("shipment", "shipment.ups.cod.surcharge.currencyUomId");
+                if (UtilValidate.isEmpty(codSurchargeCurrencyUomId)) {
+                    return ServiceUtil.returnError("shipment.ups.cod.surcharge.currencyUomId is not configured in shipment.properties");
+                }
+                String codSurchargeApplyToPackages = UtilProperties.getPropertyValue("shipment", "shipment.ups.cod.surcharge.applyToPackages");
+                if (UtilValidate.isEmpty(codSurchargeApplyToPackages)) {
+                    return ServiceUtil.returnError("shipment.ups.cod.surcharge.applyToPackages is not configured in shipment.properties");
+                }
+                codFundsCode = UtilProperties.getPropertyValue("shipment", "shipment.ups.cod.codFundsCode");
+                if (UtilValidate.isEmpty(codFundsCode)) {
+                    return ServiceUtil.returnError("shipment.ups.cod.codFundsCode is not configured in shipment.properties");
+                }
+
+                codSurchargeApplyToFirstPackage = "first".equalsIgnoreCase(codSurchargeApplyToPackages);
+                codSurchargeApplyToAllPackages = "all".equalsIgnoreCase(codSurchargeApplyToPackages);
+                codSurchargeSplitBetweenPackages = "split".equalsIgnoreCase(codSurchargeApplyToPackages);
+                
+                codSurchargePackageAmount = new BigDecimal(codSurchargeAmount).setScale(decimals, rounding);
+                if (codSurchargeSplitBetweenPackages) {
+                    codSurchargePackageAmount = codSurchargePackageAmount.divide(new BigDecimal(shipmentPackageRouteSegs.size()), decimals, rounding);
+                }
+
+                if (UtilValidate.isEmpty(destTelecomNumber)) {
+                    Debug.logInfo("Voice notification service will not be requested for COD shipmentId " + shipmentId + ", shipmentRouteSegmentId " + shipmentRouteSegmentId + " - missing destination phone number", module);
+                }
+                if (UtilValidate.isEmpty(shipmentRouteSegment.get("homeDeliveryType"))) {
+                    Debug.logInfo("Voice notification service will not be requested for COD shipmentId " + shipmentId + ", shipmentRouteSegmentId " + shipmentRouteSegmentId + " - destination address is not residential", module);
+                }
+            }
+
             // Okay, start putting the XML together...
             Document shipmentConfirmRequestDoc = UtilXml.makeEmptyXmlDocument("ShipmentConfirmRequest");
             Element shipmentConfirmRequestElement = shipmentConfirmRequestDoc.getDocumentElement();
@@ -267,6 +317,9 @@ public class UpsServices {
             UtilXml.addChildElementValue(shipToAddressElement, "StateProvinceCode", destPostalAddress.getString("stateProvinceGeoId"), shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipToAddressElement, "PostalCode", destPostalAddress.getString("postalCode"), shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipToAddressElement, "CountryCode", destCountryGeo.getString("geoCode"), shipmentConfirmRequestDoc);
+            if (UtilValidate.isNotEmpty(shipmentRouteSegment.getString("homeDeliveryType"))) {
+                UtilXml.addChildElement(shipToAddressElement, "ResidentialAddress", shipmentConfirmRequestDoc);
+            }
 
             // Child of Shipment: ShipFrom
             Element shipFromElement = UtilXml.addChildElement(shipmentElement, "ShipFrom", shipmentConfirmRequestDoc);
@@ -286,17 +339,46 @@ public class UpsServices {
 
             // Child of Shipment: PaymentInformation
             Element paymentInformationElement = UtilXml.addChildElement(shipmentElement, "PaymentInformation", shipmentConfirmRequestDoc);
-            Element prepaidElement = UtilXml.addChildElement(paymentInformationElement, "Prepaid", shipmentConfirmRequestDoc);
-            Element billShipperElement = UtilXml.addChildElement(prepaidElement, "BillShipper", shipmentConfirmRequestDoc);
-            // fill in BillShipper AccountNumber element from properties file
-            UtilXml.addChildElementValue(billShipperElement, "AccountNumber", UtilProperties.getPropertyValue("shipment", "shipment.ups.bill.shipper.account.number"), shipmentConfirmRequestDoc);
+            
+            String thirdPartyAccountNumber = shipmentRouteSegment.getString("thirdPartyAccountNumber");
+
+            if (UtilValidate.isEmpty(thirdPartyAccountNumber)) {
+                
+                // Paid by shipper
+                Element prepaidElement = UtilXml.addChildElement(paymentInformationElement, "Prepaid", shipmentConfirmRequestDoc);
+                Element billShipperElement = UtilXml.addChildElement(prepaidElement, "BillShipper", shipmentConfirmRequestDoc);
+
+                // fill in BillShipper AccountNumber element from properties file
+                UtilXml.addChildElementValue(billShipperElement, "AccountNumber", UtilProperties.getPropertyValue("shipment", "shipment.ups.bill.shipper.account.number"), shipmentConfirmRequestDoc);
+            } else {
+
+                // Paid by another shipper (may be receiver or not)
+                GenericValue thirdPartyPostalAddress = shipmentRouteSegment.getRelatedOne("ThirdPartyPostalAddress");
+    
+                // UPS requires the postal code and country code of the third party
+                if (UtilValidate.isEmpty(thirdPartyPostalAddress)) {
+                    return ServiceUtil.returnError("ThirdPartyPostalAddress not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
+                }
+                GenericValue thirdPartyCountryGeo = thirdPartyPostalAddress.getRelatedOne("CountryGeo");
+                if (UtilValidate.isEmpty(thirdPartyCountryGeo)) {
+                    return ServiceUtil.returnError("ThirdPartyCountryGeo not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
+                }
+
+                Element billThirdPartyElement = UtilXml.addChildElement(paymentInformationElement, "BillThirdParty", shipmentConfirmRequestDoc);
+                Element billThirdPartyShipperElement = UtilXml.addChildElement(billThirdPartyElement, "BillThirdPartyShipper", shipmentConfirmRequestDoc);
+                UtilXml.addChildElementValue(billThirdPartyShipperElement, "AccountNumber", thirdPartyAccountNumber, shipmentConfirmRequestDoc);
+                Element thirdPartyElement = UtilXml.addChildElement(billThirdPartyShipperElement, "ThirdParty", shipmentConfirmRequestDoc);
+                Element addressElement = UtilXml.addChildElement(thirdPartyElement, "Address", shipmentConfirmRequestDoc);
+                UtilXml.addChildElementValue(addressElement, "PostalCode", thirdPartyPostalAddress.getString("postalCode"), shipmentConfirmRequestDoc);
+                UtilXml.addChildElementValue(addressElement, "CountryCode", thirdPartyCountryGeo.getString("geoCode"), shipmentConfirmRequestDoc);
+            }
 
             // Child of Shipment: Service
             Element serviceElement = UtilXml.addChildElement(shipmentElement, "Service", shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(serviceElement, "Code", carrierShipmentMethod.getString("carrierServiceCode"), shipmentConfirmRequestDoc);
 
             // Child of Shipment: Package
-            Iterator shipmentPackageRouteSegIter = shipmentPackageRouteSegs.iterator();
+            ListIterator shipmentPackageRouteSegIter = shipmentPackageRouteSegs.listIterator();
             while (shipmentPackageRouteSegIter.hasNext()) {
                 GenericValue shipmentPackageRouteSeg = (GenericValue) shipmentPackageRouteSegIter.next();
                 GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage");
@@ -351,6 +433,54 @@ public class UpsServices {
 
                 if (carrierShipmentBoxType != null && carrierShipmentBoxType.get("oversizeCode") != null) {
                     UtilXml.addChildElementValue(packageElement, "OversizePackage", carrierShipmentBoxType.getString("oversizeCode"), shipmentConfirmRequestDoc);
+                }
+                
+                Element packageServiceOptionsElement = UtilXml.addChildElement(packageElement, "PackageServiceOptions", shipmentConfirmRequestDoc);
+
+                // Determine the currency by trying the shipmentRouteSegment, then the Shipment, then the framework's default currency, and finally default to USD
+                String currencyCode = null;
+                if (UtilValidate.isNotEmpty(shipmentRouteSegment.getString("currencyUomId"))) {
+                    currencyCode = shipmentRouteSegment.getString("currencyUomId");
+                } else if (UtilValidate.isNotEmpty(shipmentRouteSegment.getString("currencyUomId"))) {
+                    currencyCode = shipment.getString("currencyUomId");
+                } else {
+                    currencyCode = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+                }
+
+                // Package insured value
+                BigDecimal insuredValue = shipmentPackage.getBigDecimal("insuredValue");
+                if (! UtilValidate.isEmpty(insuredValue)) {
+
+                    Element insuredValueElement = UtilXml.addChildElement(packageServiceOptionsElement, "InsuredValue", shipmentConfirmRequestDoc);
+                    UtilXml.addChildElementValue(insuredValueElement, "MonetaryValue", insuredValue.setScale(2, BigDecimal.ROUND_HALF_UP).toString(), shipmentConfirmRequestDoc);
+                    UtilXml.addChildElementValue(insuredValueElement, "CurrencyCode", currencyCode, shipmentConfirmRequestDoc);
+                }
+
+                if (applyCODSurcharge) {
+                    Element codElement = UtilXml.addChildElement(packageServiceOptionsElement, "COD", shipmentConfirmRequestDoc);
+                    UtilXml.addChildElementValue(codElement, "CODCode", "3", shipmentConfirmRequestDoc); // "3" is the only valid value for package-level COD
+                    UtilXml.addChildElementValue(codElement, "CODFundsCode", codFundsCode, shipmentConfirmRequestDoc);
+                    Element codAmountElement = UtilXml.addChildElement(codElement, "CODAmount", shipmentConfirmRequestDoc);
+                    UtilXml.addChildElementValue(codAmountElement, "CurrencyCode", currencyCode, shipmentConfirmRequestDoc);
+
+                    // Get the value of the package by going back to the orderItems
+                    Map getPackageValueResult = dispatcher.runSync("getShipmentPackageValueFromOrders", UtilMisc.toMap("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackage.get("shipmentPackageSeqId"), "currencyUomId", currencyCode, "userLogin", userLogin, "locale", locale));
+                    if (ServiceUtil.isError(getPackageValueResult)) return getPackageValueResult;
+                    BigDecimal packageValue = (BigDecimal) getPackageValueResult.get("packageValue");
+                    
+                    // Convert the value of the COD surcharge to the shipment currency, if necessary
+                    Map convertUomResult = dispatcher.runSync("convertUom", UtilMisc.toMap("uomId", codSurchargeCurrencyUomId, "uomIdTo", currencyCode, "originalValue", new Double(codSurchargePackageAmount.doubleValue())));
+                    if (ServiceUtil.isError(convertUomResult)) return convertUomResult;
+                    if (convertUomResult.containsKey("convertedValue")) {
+                        codSurchargePackageAmount = new BigDecimal(((Double) convertUomResult.get("convertedValue")).doubleValue()).setScale(decimals, rounding);
+                    }
+                    
+                    // Add the amount of the surcharge for the package, if the surcharge should be on all packages or the first and this is the first package
+                    if (codSurchargeApplyToAllPackages || codSurchargeSplitBetweenPackages || (codSurchargeApplyToFirstPackage && shipmentPackageRouteSegIter.previousIndex() <= 0)) {
+                        packageValue = packageValue.add(codSurchargePackageAmount);
+                    }
+
+                    UtilXml.addChildElementValue(codAmountElement, "MonetaryValue", packageValue.setScale(decimals, rounding).toString(), shipmentConfirmRequestDoc);
                 }
             }
 
@@ -432,6 +562,9 @@ public class UpsServices {
             }
 
             return handleUpsShipmentConfirmResponse(shipmentConfirmResponseDocument, shipmentRouteSegment);
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError("Error reading or writing Shipment data for UPS Shipment Confirm: " + e.toString());
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             if (shipmentConfirmResponseString != null) {

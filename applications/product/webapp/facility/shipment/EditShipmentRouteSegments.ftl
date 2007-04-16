@@ -25,6 +25,8 @@ under the License.
             <div class="tableheadtext">${uiLabelMap.ProductOriginDestinationFacility}</div>
             <div class="tableheadtext">${uiLabelMap.ProductOriginDestinationAddressId}</div>
             <div class="tableheadtext">${uiLabelMap.ProductOriginDestinationPhoneId}</div>
+            <div class="tableheadtext">${uiLabelMap.ProductShipmentThirdPartyAccountNumber}</div>
+            <div class="tableheadtext">${uiLabelMap.ProductShipmentThirdPartyAddress}</div>
         </td>
         <td>
             <div class="tableheadtext">${uiLabelMap.ProductShipmentFedexHomeDeliveryTypeDate}</div>
@@ -60,6 +62,7 @@ under the License.
     <#assign currencyUom = shipmentRouteSegmentData.currencyUom?if_exists>
     <#assign billingWeightUom = shipmentRouteSegmentData.billingWeightUom?if_exists>
     <#assign carrierServiceStatusValidChangeToDetails = shipmentRouteSegmentData.carrierServiceStatusValidChangeToDetails?if_exists>
+    <#assign thirdPartyPostalAddress = shipmentRouteSegmentData.thirdPartyPostalAddress?if_exists>
     <form action="<@ofbizUrl>updateShipmentRouteSegment</@ofbizUrl>" name="updateShipmentRouteSegmentForm${shipmentRouteSegmentData_index}">
     <input type="hidden" name="shipmentId" value="${shipmentId}"/>
     <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRouteSegment.shipmentRouteSegmentId}"/>
@@ -128,11 +131,21 @@ under the License.
                 <input type="text" size="15" name="destTelecomNumberId" value="${shipmentRouteSegment.destTelecomNumberId?if_exists}" class="inputBox"/>
                 <#if destTelecomNumber?has_content>[${destTelecomNumber.countryCode?if_exists}  ${destTelecomNumber.areaCode?if_exists} ${destTelecomNumber.contactNumber?if_exists}]</#if>
             </div>
+            <div class="tabletext">
+                <input type="text" size="15" name="thirdPartyAccountNumber" value="${shipmentRouteSegment.thirdPartyAccountNumber?if_exists}" class="inputBox"/>
+            </div>
+            <div class="tabletext">
+                <input type="text" size="15" name="thirdPartyContactMechId" value="${shipmentRouteSegment.thirdPartyContactMechId?if_exists}" class="inputBox"/>
+                <#if thirdPartyPostalAddress?has_content>[${uiLabelMap.CommonTo}: ${thirdPartyPostalAddress.toName?if_exists}, ${uiLabelMap.CommonAttn}: ${thirdPartyPostalAddress.attnName?if_exists}, ${thirdPartyPostalAddress.address1?if_exists}, ${thirdPartyPostalAddress.address2?if_exists}, ${thirdPartyPostalAddress.city?if_exists}, ${thirdPartyPostalAddress.stateProvinceGeoId?if_exists}, ${thirdPartyPostalAddress.postalCode?if_exists}, ${thirdPartyPostalAddress.countryGeoId?if_exists}]</#if>
+            </div>
         </td>
         <td>
             <#if "UPS" == shipmentRouteSegment.carrierPartyId?if_exists>
                 <#if !shipmentRouteSegment.carrierServiceStatusId?has_content || "SHRSCS_NOT_STARTED" == shipmentRouteSegment.carrierServiceStatusId?if_exists>
                     <a href="<@ofbizUrl>upsShipmentConfirm?shipmentId=${shipmentRouteSegment.shipmentId}&shipmentRouteSegmentId=${shipmentRouteSegment.shipmentRouteSegmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductConfirmShipmentUps}</a>
+                    <br/>
+                    ${uiLabelMap.ProductShipmentUpsResidential}:
+                    <input type="checkbox" name="homeDeliveryType" class="checkBox" value="Y" ${(shipmentRouteSegment.homeDeliveryType?has_content)?string("checked=\"checked\"","")}>
                 <#elseif "SHRSCS_CONFIRMED" == shipmentRouteSegment.carrierServiceStatusId?if_exists>
                     <a href="<@ofbizUrl>upsShipmentAccept?shipmentId=${shipmentRouteSegment.shipmentId}&shipmentRouteSegmentId=${shipmentRouteSegment.shipmentRouteSegmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductAcceptUpsShipmentConfirmation}</a>
                     <br/>

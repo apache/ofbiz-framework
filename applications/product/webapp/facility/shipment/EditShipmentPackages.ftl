@@ -58,6 +58,9 @@ under the License.
                     <option value="${boxType.shipmentBoxTypeId}" <#if shipmentPackage.shipmentBoxTypeId?exists && shipmentPackage.shipmentBoxTypeId == boxType.shipmentBoxTypeId>selected</#if>>${boxType.get("description",locale)}</option>
                 </#list>
             </select>
+            <br />
+            <span class="tabletext">${uiLabelMap.ProductShipmentInsuredValuePackage}:</span>
+            <input type="text" size="5" name="insuredValue" value="${shipmentPackage.insuredValue?if_exists}" class="inputBox"/>
         </td>
         <td><a href="javascript:document.updateShipmentPackageForm${shipmentPackageData_index}.submit();" class="buttontext">${uiLabelMap.CommonUpdate}</a></td>
         <td><div class="tabletext"><a href="<@ofbizUrl>deleteShipmentPackage?shipmentId=${shipmentId}&shipmentPackageSeqId=${shipmentPackage.shipmentPackageSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a></div></td>
