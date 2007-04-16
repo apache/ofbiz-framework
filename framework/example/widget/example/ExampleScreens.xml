@@ -35,7 +35,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <container><label style="head1">${uiLabelMap.${titleProperty}}</label></container>
-                                <container><link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext"/></container>
+                                <container style="button-bar"><link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext"/></container>
                                 <include-form name="ListExamples" location="component://example/widget/example/ExampleForms.xml"/>
                             </widgets>
                             <fail-widgets>
@@ -71,8 +71,8 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <include-menu name="EditExample" location="component://example/widget/example/ExampleMenus.xml"/>
-                                        <container><link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext"/></container>
-                                        <container><label style="head1">${uiLabelMap.${titleProperty}}</label><label style="head2"> ${uiLabelMap.CommonFor} "${example.exampleName}" [${exampleId}]</label></container>
+                                        <container style="button-bar"><link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext"/></container>
+                                        <container style="button-bar"><label style="head1">${uiLabelMap.${titleProperty}}</label><label style="head2"> ${uiLabelMap.CommonFor} "${example.exampleName}" [${exampleId}]</label></container>
                                     </widgets>
                                 </section>
 
