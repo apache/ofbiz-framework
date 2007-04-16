@@ -88,6 +88,8 @@ public class OrderServices {
     }
     public static final int taxDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
     public static final int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
+    public static final int orderDecimals = UtilNumber.getBigDecimalScale("order.decimals");
+    public static final int orderRounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
     public static final BigDecimal ZERO = (new BigDecimal("0")).setScale(taxDecimals, taxRounding);    
 
     /** Service for creating a new order */
@@ -4148,5 +4150,64 @@ public class OrderServices {
                 Debug.logWarning(e, e.getMessage(), module);
             }
         }
+    }
+
+    /**
+     * Calculates the value of a given orderItem by totalling the item subtotal, any adjustments for that item, and
+     *  the item's share of any order-level adjustments (that calculated by applying the percentage of the items total that the
+     *  item represents to the order-level adjustments total.
+     * @param dctx DispatchContext
+     * @param context Map
+     * @return Map
+     */
+    public static Map getOrderItemValue(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        
+        String orderId = (String) context.get("orderId");
+        String orderItemSeqId = (String) context.get("orderItemSeqId");
+
+        GenericValue orderHeader = null;
+        GenericValue orderItem = null;
+        try {
+
+            orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            if (UtilValidate.isEmpty(orderHeader)) {
+                String errorMessage = UtilProperties.getMessage(resource_error, "OrderErrorOrderIdNotFound", context, locale);
+                Debug.logError(errorMessage, module);
+                return ServiceUtil.returnError(errorMessage);
+            }
+            
+            orderItem = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
+            if (UtilValidate.isEmpty(orderItem)) {
+                String errorMessage = UtilProperties.getMessage(resource_error, "OrderErrorOrderItemNotFound", context, locale);
+                Debug.logError(errorMessage, module);
+                return ServiceUtil.returnError(errorMessage);
+            }
+            
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        OrderReadHelper orh = new OrderReadHelper(orderHeader);
+        
+        // How much of the order items total does this orderItem represent? (Includes item-level adjustments but not order-level adjustments)
+        BigDecimal orderItemTotal = orh.getOrderItemTotalBd(orderItem);
+        BigDecimal orderItemsTotal = orh.getOrderItemsTotalBd();
+        BigDecimal proportionOfOrderItemsTotal = orderItemTotal.divide(orderItemsTotal, orderRounding);
+        BigDecimal portionOfOrderItemsTotal = proportionOfOrderItemsTotal.multiply(orderItemsTotal).setScale(orderDecimals, orderRounding);
+        
+        // How much of the order-level adjustments total does this orderItem represent? The assumption is: the same
+        //  proportion of the adjustments as of the item to the items total
+        BigDecimal orderAdjustmentsTotal = orh.getOrderAdjustmentsTotalBd();
+        BigDecimal portionOfOrderAdjustmentsTotal = proportionOfOrderItemsTotal.multiply(orderAdjustmentsTotal).setScale(orderDecimals, orderRounding);
+        
+        // The total value of the item is the value of the item itself plus its adjustments, and the item's share of the order-level adjustments
+        BigDecimal orderItemTotalValue = portionOfOrderItemsTotal.add(portionOfOrderAdjustmentsTotal);
+
+        Map result = ServiceUtil.returnSuccess();
+        result.put("orderItemValue", orderItemTotalValue);
+        return result;
     }
 }

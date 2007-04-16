@@ -662,4 +662,14 @@ under the License.
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
     </service>
 
+    <service name="getOrderItemValue" engine="java"
+            location="org.ofbiz.order.order.OrderServices" invoke="getOrderItemValue" auth="true">
+        <description>Calculates the value of a given orderItem by totalling the item subtotal, any adjustments for that item, and
+            the item's share of any order-level adjustments (which is calculated by applying the percentage of the items total that the
+            item represents to the order-level adjustments total.</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemValue" type="BigDecimal" mode="OUT" optional="true"/>
+    </service>
+
 </services>
