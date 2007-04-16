@@ -251,7 +251,7 @@ public class ShoppingCartServices {
             Debug.log("No payment preferences found for order #" + orderId, module);
         }
 
-        List orderItems = orh.getOrderItems();
+        List orderItems = orh.getValidOrderItems();
         long nextItemSeq = 0;
         if (orderItems != null) {
             Iterator i = orderItems.iterator();
