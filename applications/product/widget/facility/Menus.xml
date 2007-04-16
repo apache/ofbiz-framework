@@ -52,8 +52,14 @@ under the License.
         <menu-item name="ReceiveReturn" title="${uiLabelMap.ProductReceiveReturn}">
             <link target="ReceiveReturn?facilityId=${facilityId}"/>
         </menu-item>
+        <menu-item name="PickMoveStock" title="${uiLabelMap.ProductStockMoves}">
+            <link target="PickMoveStock?facilityId=${facilityId}"/>
+        </menu-item>
         <menu-item name="PicklistOptions" title="${uiLabelMap.ProductPicking}">
             <link target="PicklistOptions?facilityId=${facilityId}"/>
+        </menu-item>
+        <menu-item name="PicklistManage" title="${uiLabelMap.ProductPicklistManage}">
+            <link target="PicklistManage?facilityId=${facilityId}"/>
         </menu-item>
         <menu-item name="PackOrder" title="${uiLabelMap.ProductPacking}">
             <link target="PackOrder?facilityId=${facilityId}"/>
