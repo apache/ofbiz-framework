@@ -180,7 +180,19 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
         }
 
         public Object execute(XmlRpcRequest xmlRpcReq) throws XmlRpcException {
+            DispatchContext dctx = dispatcher.getDispatchContext();
             String serviceName = xmlRpcReq.getMethodName();
+            ModelService model = null;
+            try {
+                model = dctx.getModelService(serviceName);
+            } catch (GenericServiceException e) {
+                throw new XmlRpcException(e.getMessage(), e);
+            }
+
+            // check remote invocation security
+            if (model == null || !model.export) {
+                throw new XmlRpcException("Unknown method");
+            }
 
             // prepare the context -- single parameter type struct (map)
             Map context = this.getContext(xmlRpcReq, serviceName);            
@@ -208,7 +220,8 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                 Debug.logError(ServiceUtil.getErrorMessage(resp), module);                
             }
 
-            return resp;
+            // return only definied parameters                        
+            return model.makeValid(resp, ModelService.OUT_PARAM, false, null);
         }
 
         protected Map getContext(XmlRpcRequest xmlRpcReq, String serviceName) throws XmlRpcException {
