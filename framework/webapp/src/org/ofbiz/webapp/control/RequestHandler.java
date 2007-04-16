@@ -135,6 +135,11 @@ public class RequestHandler implements Serializable {
                 }
             }
 
+            // Check if X509 is required and we are not secure; throw exception
+            if (!request.isSecure() && requestManager.requiresHttpsClientCert(requestUri)) {
+                throw new RequestHandlerException("Unknown request [" + requestUri + "]; this request does not exist or cannot be called directly.");
+            }            
+
             // Check for HTTPS client (x.509) security
             if (request.isSecure() && requestManager.requiresHttpsClientCert(requestUri)) {            
                 X509Certificate[] clientCerts = (X509Certificate[]) request.getAttribute("javax.servlet.request.X509Certificate"); // 2.2 spec
@@ -183,6 +188,7 @@ public class RequestHandler implements Serializable {
 
                         for (int ci = 0; ci < clientCerts.length; ci++) {                            
                             if (!foundValidCert && trustedCert.equals(clientCerts[ci])) {
+                                Debug.log("Found valid certificate for request; allowing: " + clientCerts[ci].getSerialNumber().toString(16), module);
                                 foundValidCert = true;
                                 break;
                             }
