@@ -44,7 +44,7 @@ public class AliasKeyManager implements X509KeyManager {
     // this is where the customization comes in
     public String chooseClientAlias(String[] keyType, Principal[] issuers, Socket socket) {
       for (int i = 0; i < keyType.length; i++) {
-          String[] aliases = keyManager.getClientAliases(keyType[i], issuers);
+          String[] aliases = keyManager.getClientAliases(keyType[i], null); // ignoring the issuers 
           if (aliases != null && aliases.length > 0) {
               for (int x = 0; x < aliases.length; x++) {
                   if (alias.equals(aliases[i])) {
