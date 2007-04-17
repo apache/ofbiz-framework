@@ -494,7 +494,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
                 break;
 
             case 14: // java.util.Date
-                set(name, UtilDateTime.toDate(fieldType));
+                set(name, UtilDateTime.toDate(value));
                 break;
 
             case 15: // java.util.Collection
