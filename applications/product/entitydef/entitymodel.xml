@@ -1938,6 +1938,7 @@ under the License.
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedDate" type="date-time"></field>
       <field name="lastModifiedByUserLogin" type="id-vlong"></field>
+      <field name="inShippingBox" type="indicator"></field>        
       <prim-key field="productId"/>
       <relation type="one" fk-name="PROD_TYPE" rel-entity-name="ProductType">
         <key-map field-name="productTypeId"/>

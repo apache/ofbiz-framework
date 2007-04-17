@@ -1712,6 +1712,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
     }
 
+
     public Map getItemProductInfo() {
         Map itemInfo = FastMap.newInstance();
         itemInfo.put("productId", this.getProductId());
@@ -1719,6 +1720,15 @@ public class ShoppingCartItem implements java.io.Serializable {
         itemInfo.put("size",  new Double(this.getSize()));
         itemInfo.put("piecesIncluded", new Long(this.getPiecesIncluded()));
         itemInfo.put("featureSet", this.getFeatureSet());
+        GenericValue product = getProduct();
+        if (product != null) {
+            itemInfo.put("inShippingBox", product.getString("inShippingBox"));
+            if (product.getString("inShippingBox") != null && product.getString("inShippingBox").equals("Y")){
+                itemInfo.put("shippingHeight", product.getDouble("shippingHeight"));
+                itemInfo.put("shippingWidth", product.getDouble("shippingWidth"));
+                itemInfo.put("shippingDepth", product.getDouble("shippingDepth"));
+            }
+        }
         return itemInfo;
     }
 

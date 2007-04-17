@@ -1526,12 +1526,12 @@ public class UpsServices {
         Iterator i = packages.iterator();
         while (i.hasNext()) {
             Map packageMap = (Map) i.next();
-            double packageWeight = calcPackageWeight(packageMap, shippableItemInfo, 0);    
-            addPackageElement(requestDoc, shipmentElement, checkForDefaultPackageWeight(packageWeight, minWeight));
+            addPackageElement(requestDoc, shipmentElement, shippableItemInfo, packageMap, minWeight);
         }
     }
-            
-    private static void addPackageElement(Document requestDoc, Element shipmentElement, double packageWeight) {
+
+    private static void addPackageElement(Document requestDoc, Element shipmentElement, List shippableItemInfo, Map packageMap, double minWeight) {
+        double packageWeight = checkForDefaultPackageWeight(calcPackageWeight(packageMap, shippableItemInfo, 0),minWeight);
         Element packageElement = UtilXml.addChildElement(shipmentElement, "Package", requestDoc);
         Element packagingTypeElement = UtilXml.addChildElement(packageElement, "PackagingType", requestDoc);
         UtilXml.addChildElementValue(packagingTypeElement, "Code", "00", requestDoc);
@@ -1539,8 +1539,33 @@ public class UpsServices {
         UtilXml.addChildElementValue(packageElement, "Description", "Package Description", requestDoc);
         Element packageWeightElement = UtilXml.addChildElement(packageElement, "PackageWeight", requestDoc);
         UtilXml.addChildElementValue(packageWeightElement, "Weight", Double.toString(packageWeight), requestDoc);
+        //If product is in shippable Package then it we should have one product per packagemap
+        if (packageMap.size() ==1) {
+            Iterator i = packageMap.keySet().iterator();
+            String productId = (String) i.next();
+            Map productInfo = getProductItemInfo(shippableItemInfo, productId);
+            if(productInfo.get("inShippingBox") != null &&  ((String) productInfo.get("inShippingBox")).equalsIgnoreCase("Y")
+                    && productInfo.get("shippingDepth") !=null && productInfo.get("shippingWidth") !=null && productInfo.get("shippingHeight") !=null ) {
+                Element dimensionsElement = UtilXml.addChildElement(packageElement, "Dimensions", requestDoc);
+                UtilXml.addChildElementValue(dimensionsElement, "Length", productInfo.get("shippingDepth").toString(), requestDoc);
+                UtilXml.addChildElementValue(dimensionsElement, "Width", productInfo.get("shippingWidth").toString(), requestDoc);
+                UtilXml.addChildElementValue(dimensionsElement, "Height", productInfo.get("shippingHeight").toString(), requestDoc);
+            }
+        }
+        
     }
 
+    private static void addPackageElement(Document requestDoc, Element shipmentElement, Double packageWeight) {        
+        Element packageElement = UtilXml.addChildElement(shipmentElement, "Package", requestDoc);
+        Element packagingTypeElement = UtilXml.addChildElement(packageElement, "PackagingType", requestDoc);
+        UtilXml.addChildElementValue(packagingTypeElement, "Code", "00", requestDoc);
+        UtilXml.addChildElementValue(packagingTypeElement, "Description", "Unknown PackagingType", requestDoc);
+        UtilXml.addChildElementValue(packageElement, "Description", "Package Description", requestDoc);
+        Element packageWeightElement = UtilXml.addChildElement(packageElement, "PackageWeight", requestDoc);
+        UtilXml.addChildElementValue(packageWeightElement, "Weight", packageWeight.toString(), requestDoc);        
+    }
+    
+    
     private static double checkForDefaultPackageWeight(double weight, double minWeight) {
         return (weight > 0 && weight > minWeight ? weight : minWeight);
     }
@@ -1567,7 +1592,11 @@ public class UpsServices {
                 for (int z = 1; z <= totalQuantity; z++) {
                     double partialQty = pieces > 1 ? 1.000 / pieces : 1;
                     for (long x = 0; x < pieces; x++) {
-                        if (weight >= maxWeight) {
+                        if(itemInfo.get("inShippingBox") != null &&  ((String) itemInfo.get("inShippingBox")).equalsIgnoreCase("Y")) {
+                            Map newPackage = new HashMap();
+                            newPackage.put(productId, new Double(partialQty));
+                            packages.add(newPackage);
+                        } else if (weight >= maxWeight) {
                             Map newPackage = new HashMap();
                             newPackage.put(productId, new Double(partialQty));
                             packages.add(newPackage);
@@ -1979,13 +2008,14 @@ public class UpsServices {
         }
         
         // Passing in a list of package weights overrides the calculation of same via shippableItemInfo
-        if (UtilValidate.isEmpty(packageWeights)) {
+        if (UtilValidate.isEmpty(packageWeights)) {           
+                        
             splitEstimatePackages(rateRequestDoc, shipmentElement, shippableItemInfo, maxWeight, minWeight);
         } else {
             Iterator i = packageWeights.iterator();
             while (i.hasNext()) {
                 Double packageWeight = (Double) i.next();
-                addPackageElement(rateRequestDoc, shipmentElement, checkForDefaultPackageWeight(packageWeight.doubleValue(), minWeight));
+                addPackageElement(rateRequestDoc,  shipmentElement, packageWeight);
             }
         }
 
@@ -2016,9 +2046,7 @@ public class UpsServices {
         StringBuffer xmlString = new StringBuffer();
         xmlString.append(accessRequestString);
         xmlString.append(rateRequestString);
-        
-        System.err.println(xmlString.toString());
-
+        Debug.logInfo(xmlString.toString(), module);       
         // send the request
         String rateResponseString = null;
         try {
