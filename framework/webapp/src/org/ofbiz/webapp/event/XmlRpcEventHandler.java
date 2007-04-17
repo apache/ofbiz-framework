@@ -266,6 +266,9 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                         }
                     }
                 }
+
+                // do map value conversions
+                context = model.makeValid(context, ModelService.IN_PARAM);
             }
 
             return context;
