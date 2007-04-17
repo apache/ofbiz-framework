@@ -356,7 +356,7 @@ public class HttpClient {
         // Create the URL and open the connection.
         try {
             requestUrl = new URL(url);
-            con = URLConnector.openConnection(requestUrl, timeout, clientCertAlias, 0);
+            con = URLConnector.openConnection(requestUrl, timeout, clientCertAlias, SSLUtil.HOSTCERT_NORMAL_CHECK);
             if (Debug.verboseOn() || debug) Debug.log("Connection opened to : " + requestUrl.toExternalForm(), module);
 
             if ((con instanceof HttpURLConnection)) {
