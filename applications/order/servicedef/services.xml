@@ -450,7 +450,7 @@ under the License.
             location="org.ofbiz.order.order.OrderServices" invoke="getOrderShippingAmount">
         <description>Get the total shipping for an order</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="shippingAmount" type="Double" mode="OUT" optional="false"/>
+        <attribute name="shippingAmount" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 
     <!-- Order Delivery Services -->

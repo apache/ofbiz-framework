@@ -75,7 +75,7 @@ if (orderId != null) {
 
     // get the order shipping amount
     Map shipRes = dispatcher.runSync("getOrderShippingAmount", UtilMisc.toMap("orderId", orderId));
-    Double shippingAmount = shipRes.get("shippingAmount");
+    BigDecimal shippingAmount = shipRes.get("shippingAmount");
     context.put("shippingAmount", shippingAmount);
 }
 
