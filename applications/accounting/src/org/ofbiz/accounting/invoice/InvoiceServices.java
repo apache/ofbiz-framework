@@ -1961,7 +1961,7 @@ public class InvoiceServices {
                 }
 
             }
-            amount.setScale(decimals, rounding);
+            amount = amount.setScale(decimals, rounding);
             adjAmount = amount;
         }
         else if (adj.get("sourcePercentage") != null) {
@@ -2019,7 +2019,7 @@ public class InvoiceServices {
                 }
 
             }
-            amount.setScale(decimals, rounding);
+            amount = amount.setScale(decimals, rounding);
             adjAmount = amount;
         }
 

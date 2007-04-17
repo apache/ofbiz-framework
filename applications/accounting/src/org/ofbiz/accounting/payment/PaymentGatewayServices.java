@@ -76,7 +76,7 @@ public class PaymentGatewayServices {
         rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
 
         // set zero to the proper scale
-        if (decimals != -1) ZERO.setScale(decimals);
+        if (decimals != -1) ZERO = ZERO.setScale(decimals);
     }
     
     /**

@@ -56,7 +56,7 @@ public class AgreementServices {
         rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
         // set zero to the proper scale
-        if (decimals != -1) ZERO.setScale(decimals, rounding);
+        if (decimals != -1) ZERO = ZERO.setScale(decimals, rounding);
     }
     public static final String resource = "AccountingUiLabels";
     
