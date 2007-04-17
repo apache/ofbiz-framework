@@ -40,6 +40,7 @@ under the License.
                         <set from-field="workEffort" field="callSvcMap.workEffort"/>
                         <set from-field="component" field="callSvcMap.workEffortGoodStandard"/>
                         <set from-field="reserveOrderEnumId" field="callSvcMap.reserveOrderEnumId"/>
+                        <set field="callSvcMap.description" value="BOM Part"/>
                         <call-service service-name="issueProductionRunTaskComponent" in-map-name="callSvcMap"/>
 
                         <set value="WEGS_COMPLETED" field="component.statusId"/>
@@ -125,8 +126,8 @@ under the License.
                     <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
                         <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
+                    <set field="createDetailMap.description" from-field="parameters.description"/>
                     <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
-
                     <clear-field field-name="createDetailMap"/>
                 <else>
                     <!-- no non-ser inv item, create a non-ser InventoryItem with availableToPromise = -quantityNotIssued -->
@@ -155,8 +156,8 @@ under the License.
                     <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
                         <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
+                    <set field="createDetailMap.description" from-field="parameters.description"/>
                     <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
-
                     <clear-field field-name="createDetailMap"/>
                 </else>
                 </if-not-empty>
@@ -218,6 +219,7 @@ under the License.
                         <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
                             <calcop field-name="parameters.deductAmount" operator="negative"/>
                         </calculate>
+                        <set field="createDetailMap.description" from-field="parameters.description"/>
                         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                         <clear-field field-name="createDetailMap"/>
                         

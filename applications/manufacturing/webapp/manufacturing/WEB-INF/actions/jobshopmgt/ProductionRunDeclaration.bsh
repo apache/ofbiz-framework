@@ -163,8 +163,8 @@ if (!UtilValidate.isEmpty(productionRunId)) {
             GenericValue task = (GenericValue)tasksIt.next();
             if (task.getString("currentStatusId").equals("PRUN_RUNNING")) {
                 List components = delegator.findByAnd("WorkEffortGoodStandard", UtilMisc.toMap("workEffortId", task.getString("workEffortId"), "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"));
-                List issuances = delegator.findByAnd("WorkEffortInventoryAssign", UtilMisc.toMap("workEffortId", task.getString("workEffortId")));
-                if (components.size() > 0 && issuances.size() == 0) {
+                List notIssued = EntityUtil.filterByAnd(components, UtilMisc.toMap("statusId", "WEGS_CREATED"));
+                if (components.size() > 0 && notIssued.size() > 0) {
                     issueTaskId = task.getString("workEffortId");
                 }
                 if (issueTaskId == null) {
