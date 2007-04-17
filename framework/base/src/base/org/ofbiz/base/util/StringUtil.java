@@ -20,6 +20,7 @@ package org.ofbiz.base.util;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -226,6 +227,70 @@ public class StringUtil {
             buf.append(encodedValue);
         }
         return buf.toString();
+    }
+
+    /**
+     * Reads a String version of a Map (should contain only strings) and creates a new Map
+     *
+     * @param s String value of a Map ({n1=v1, n2=v2})
+     * @return new Map
+     */
+    public static Map toMap(String s) {
+        Map newMap = FastMap.newInstance();
+        if (s.startsWith("{") && s.endsWith("}")) {
+            s = s.substring(1, s.length() - 1);
+            String[] entry = s.split("\\,\\s");
+            for (int i = 0; i < entry.length; i++) {
+                String[] nv = entry[i].split("\\=");
+                newMap.put(nv[0], nv[1]);
+            }
+        } else {
+            throw new IllegalArgumentException("String is not from Map.toString()");
+        }
+
+        return newMap;
+    }
+
+    /**
+     * Reads a String version of a List (should contain only strings) and creates a new List
+     *
+     * @param s String value of a Map ({n1=v1, n2=v2})
+     * @return new List
+     */
+    public static List toList(String s) {
+        List newList = FastList.newInstance();
+        if (s.startsWith("[") && s.endsWith("]")) {
+            s = s.substring(1, s.length() - 1);
+            String[] entry = s.split("\\,\\s");
+            for (int i = 0; i < entry.length; i++) {
+                newList.add(entry[i]);
+            }
+        } else {
+            throw new IllegalArgumentException("String is not from List.toString()");
+        }
+
+        return newList;
+    }
+
+    /**
+     * Reads a String version of a Set (should contain only strings) and creates a new Set
+     *
+     * @param s String value of a Map ({n1=v1, n2=v2})
+     * @return new List
+     */
+    public static Set toSet(String s) {
+        Set newSet = FastSet.newInstance();
+        if (s.startsWith("[") && s.endsWith("]")) {
+            s = s.substring(1, s.length() - 1);
+            String[] entry = s.split("\\,\\s");
+            for (int i = 0; i < entry.length; i++) {
+                newSet.add(entry[i]);
+            }
+        } else {
+            throw new IllegalArgumentException("String is not from Set.toString()");
+        }
+
+        return newSet;    
     }
 
     /**
