@@ -962,7 +962,7 @@ public class OrderReadHelper {
                 }
                 if (product != null) {
                     if (ProductWorker.shippingApplies(product)) {
-                        shippableQuantity =shippableQuantity.add(getOrderItemQuantityBd(item)).setScale(scale, rounding);
+                        shippableQuantity = shippableQuantity.add(getOrderItemQuantityBd(item)).setScale(scale, rounding);
                     }
                 }
             }
@@ -2169,7 +2169,7 @@ public class OrderReadHelper {
         for (int i = 0; i < orderItems.size(); i++) {
             GenericValue oi = (GenericValue) orderItems.get(i);
 
-            totalItems =totalItems.add(oi.getBigDecimal("quantity")).setScale(scale, rounding);
+            totalItems = totalItems.add(oi.getBigDecimal("quantity")).setScale(scale, rounding);
         }
         return totalItems;
     }

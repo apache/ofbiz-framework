@@ -69,8 +69,8 @@ public class ProductionRunServices {
         decimals = UtilNumber.getBigDecimalScale("order.decimals");
         rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
         // set zero to the proper scale
-        ZERO.setScale(decimals);
-        ONE.setScale(decimals);
+        ZERO = ZERO.setScale(decimals);
+        ONE = ONE.setScale(decimals);
     }
 
     /**

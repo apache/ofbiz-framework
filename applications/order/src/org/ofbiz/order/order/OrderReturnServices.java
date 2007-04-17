@@ -75,7 +75,7 @@ public class OrderReturnServices {
         rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
         // set zero to the proper scale
-        if (decimals != -1) ZERO.setScale(decimals);
+        if (decimals != -1) ZERO = ZERO.setScale(decimals);
     }
 
     // locate the return item's initial inventory item cost

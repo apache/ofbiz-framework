@@ -122,8 +122,8 @@ public class TaxAuthorityServices {
         }
         
         // round to 2 decimal places for display/etc
-        taxTotal.setScale(salestaxFinalDecimals, salestaxRounding);
-        priceWithTax.setScale(salestaxFinalDecimals, salestaxRounding);
+        taxTotal = taxTotal.setScale(salestaxFinalDecimals, salestaxRounding);
+        priceWithTax = priceWithTax.setScale(salestaxFinalDecimals, salestaxRounding);
         
         Map result = ServiceUtil.returnSuccess();
         result.put("taxTotal", taxTotal);
