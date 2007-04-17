@@ -1115,19 +1115,19 @@ public class OrderServices {
 
         if (orderHeader != null) {
             OrderReadHelper orh = new OrderReadHelper(orderHeader);
-            Double currentTotal = orderHeader.getDouble("grandTotal");
-            Double currentSubTotal = orderHeader.getDouble("remainingSubTotal");
+            BigDecimal currentTotal = orderHeader.getBigDecimal("grandTotal");
+            BigDecimal currentSubTotal = orderHeader.getBigDecimal("remainingSubTotal");
 
             // get the new grand total
-            double updatedTotal = orh.getOrderGrandTotal();
+            BigDecimal updatedTotal = orh.getOrderGrandTotalBd();
 
             // calculate subTotal as grandTotal - returnsTotal - (tax + shipping of items not returned)
-            double remainingSubTotal = updatedTotal - orh.getOrderReturnedTotal() - orh.getOrderNonReturnedTaxAndShipping();
+            BigDecimal remainingSubTotal = updatedTotal.subtract(orh.getOrderReturnedTotalBd()).subtract(orh.getOrderNonReturnedTaxAndShippingBd());
 
-            if (currentTotal == null || currentSubTotal == null || updatedTotal != currentTotal.doubleValue() ||
-                    remainingSubTotal != currentSubTotal.doubleValue()) {
-                orderHeader.set("grandTotal", UtilFormatOut.formatPriceNumber(updatedTotal));
-                orderHeader.set("remainingSubTotal", UtilFormatOut.formatPriceNumber(remainingSubTotal));
+            if (currentTotal == null || currentSubTotal == null || updatedTotal.compareTo(currentTotal) != 0 ||
+                    remainingSubTotal.compareTo(currentSubTotal) != 0) {
+                orderHeader.set("grandTotal", updatedTotal);
+                orderHeader.set("remainingSubTotal", remainingSubTotal);
                 try {
                     orderHeader.store();
                 } catch (GenericEntityException e) {
@@ -1277,10 +1277,10 @@ public class OrderServices {
                     // adjustments and total
                     List allAdjustments = orh.getAdjustments();
                     List orderHeaderAdjustments = OrderReadHelper.getOrderHeaderAdjustments(allAdjustments, shipGroupSeqId);
-                    double orderSubTotal = OrderReadHelper.getOrderItemsSubTotal(validOrderItems, allAdjustments);
+                    BigDecimal orderSubTotal = OrderReadHelper.getOrderItemsSubTotalBd(validOrderItems, allAdjustments);
 
                     // shipping amount
-                    BigDecimal orderShipping = new BigDecimal(OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true));
+                    BigDecimal orderShipping = OrderReadHelper.calcOrderAdjustmentsBd(orderHeaderAdjustments, orderSubTotal, false, false, true);
 
                     // build up the list of tax calc service parameters
                     for (int i = 0; i < validOrderItems.size(); i++) {
@@ -1288,8 +1288,8 @@ public class OrderServices {
                         String productId = orderItem.getString("productId");
                         try {
                             products.add(i, delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId)));  // get the product entity
-                            amounts.add(i, new BigDecimal(OrderReadHelper.getOrderItemSubTotal(orderItem, allAdjustments, true, false))); // get the item amount
-                            shipAmts.add(i, new BigDecimal(OrderReadHelper.getOrderItemAdjustmentsTotal(orderItem, allAdjustments, false, false, true))); // get the shipping amount
+                            amounts.add(i, OrderReadHelper.getOrderItemSubTotalBd(orderItem, allAdjustments, true, false)); // get the item amount
+                            shipAmts.add(i, OrderReadHelper.getOrderItemAdjustmentsTotalBd(orderItem, allAdjustments, false, false, true)); // get the shipping amount
                             itPrices.add(i, orderItem.getBigDecimal("unitPrice"));
                         } catch (GenericEntityException e) {
                             Debug.logError(e, "Cannot read order item entity : " + orderItem, module);
@@ -2281,7 +2281,7 @@ public class OrderServices {
         String orderId = (String) context.get("orderId");
         String paymentMethodTypeId = (String) context.get("paymentMethodTypeId");
         String paymentMethodId = (String) context.get("paymentMethodId");
-        Double maxAmount = (Double) context.get("maxAmount");
+        BigDecimal maxAmount = (BigDecimal) context.get("maxAmount");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
 
@@ -2354,13 +2354,13 @@ public class OrderServices {
             List orderItems = orh.getValidOrderItems();
             List orderAdjustments = orh.getAdjustments();
             List orderHeaderAdjustments = orh.getOrderHeaderAdjustments();
-            double orderSubTotal = orh.getOrderItemsSubTotal();
+            BigDecimal orderSubTotal = orh.getOrderItemsSubTotalBd();
 
-            double shippingAmount = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, false, true);
-            shippingAmount += OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true);
+            BigDecimal shippingAmount = OrderReadHelper.getAllOrderItemsAdjustmentsTotalBd(orderItems, orderAdjustments, false, false, true);
+            shippingAmount = shippingAmount.add(OrderReadHelper.calcOrderAdjustmentsBd(orderHeaderAdjustments, orderSubTotal, false, false, true));
 
             result = ServiceUtil.returnSuccess();
-            result.put("shippingAmount", new Double(shippingAmount));
+            result.put("shippingAmount", shippingAmount);
         } else {
             result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToFindOrderHeaderCannotGetShippingAmount", locale));
         }
