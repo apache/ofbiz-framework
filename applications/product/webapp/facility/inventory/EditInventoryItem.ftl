@@ -205,6 +205,17 @@ under the License.
         <td>&nbsp;</td>
         <td><input type="text" name="comments" value="${inventoryItemData.comments?if_exists}" size="60" maxlength="250" class="inputBox"></td>
       </tr>
+      <tr><td colspan="3">&nbsp;</td></tr>
+      <tr>
+        <td align="right"><div class="tabletext">${uiLabelMap.ProductSoftIdentifier}</div></td>
+        <td>&nbsp;</td>
+        <td><input type="text" name="comments" value="${inventoryItemData.softIdentifier?if_exists}" size="30" maxlength="250" class="inputBox"></td>
+      </tr>
+      <tr>
+        <td align="right"><div class="tabletext">${uiLabelMap.ProductActivationNumber}</div></td>
+        <td>&nbsp;</td>
+        <td><input type="text" name="comments" value="${inventoryItemData.activationNumber?if_exists}" size="30" maxlength="250" class="inputBox"></td>
+      </tr>
     <#if "NON_SERIAL_INV_ITEM" == (inventoryItem.inventoryItemTypeId)?if_exists>
       <tr>
         <td align="right"><div class="tabletext">${uiLabelMap.ProductAvailablePromiseQuantityHand}</div></td>
