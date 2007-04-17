@@ -20,12 +20,7 @@ package org.ofbiz.common;
 
 import java.io.*;
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 import javax.mail.internet.MimeMessage;
 import javax.transaction.xa.XAException;
@@ -407,6 +402,20 @@ public class CommonServices {
             if (ServiceUtil.isError(contentResp)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(contentResp));
             }
+        }
+
+        return ServiceUtil.returnSuccess();
+    }
+
+    public static Map simpleMapListTest(DispatchContext dctx, Map context) {
+        List listOfStrings = (List) context.get("listOfStrings");
+        Map mapOfStrings = (Map) context.get("mapOfStrings");
+
+        Iterator i = listOfStrings.iterator();
+        while (i.hasNext()) {
+            String str = (String) i.next();
+            String v = (String) mapOfStrings.get(str);
+            Debug.log("SimpleMapListTest: " + str + " -> " + v, module);
         }
 
         return ServiceUtil.returnSuccess();
