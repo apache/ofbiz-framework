@@ -443,16 +443,6 @@ public class ObjectType {
             return null;
         }
 
-        // do simple array to list conversion first (so that other checks can run against the updated object)
-        if (obj.getClass().isArray()) {
-            List newObj = FastList.newInstance();
-            int len = Array.getLength(obj);
-            for (int i = 0; i < len; i++) {
-                newObj.add(Array.get(obj, i));
-            }
-            obj = newObj;
-        }
-
         if (obj.getClass().getName().equals(type)) {
             return obj;
         }
@@ -465,7 +455,14 @@ public class ObjectType {
 
         String fromType = null;
 
-        if (obj instanceof java.lang.String) {
+        if ((type.equals("List") || type.equals("java.util.List")) && obj.getClass().isArray()) {
+            List newObj = FastList.newInstance();
+            int len = Array.getLength(obj);
+            for (int i = 0; i < len; i++) {
+                newObj.add(Array.get(obj, i));
+            }
+            return newObj;        
+        } else if (obj instanceof java.lang.String) {
             fromType = "String";
             String str = (String) obj;
             if ("String".equals(type) || "java.lang.String".equals(type)) {
@@ -651,13 +648,24 @@ public class ObjectType {
                     }
                 }
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
-                List tempList = FastList.newInstance();
-                tempList.add(str);
-                return tempList;
+                if (str.startsWith("[") && str.endsWith("]")) {
+                    return StringUtil.toList(str);
+                } else {
+                    List tempList = FastList.newInstance();
+                    tempList.add(str);
+                    return tempList;
+                }
             } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
-                Set tempSet = FastSet.newInstance();
-                tempSet.add(str);
-                return tempSet;
+                if (str.startsWith("[") && str.endsWith("]")) {
+                    return StringUtil.toSet(str);
+                } else {
+                    Set tempSet = FastSet.newInstance();
+                    tempSet.add(str);
+                    return tempSet;
+                }
+            } else if (("Map".equals(type) || "java.util.Map".equals(type)) &&
+                    (str.startsWith("{") && str.endsWith("}"))) {
+                return StringUtil.toMap(str);
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
