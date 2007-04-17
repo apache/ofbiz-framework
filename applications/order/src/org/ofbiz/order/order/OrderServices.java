@@ -2904,7 +2904,7 @@ public class OrderServices {
         String orderId = (String) context.get("orderId");
         String productId = (String) context.get("productId");
         String prodCatalogId = (String) context.get("prodCatalogId");
-        Double basePrice = (Double) context.get("basePrice");
+        BigDecimal basePrice = (BigDecimal) context.get("basePrice");
         Double quantity = (Double) context.get("quantity");
         Double amount = (Double) context.get("amount");
         String overridePrice = (String) context.get("overridePrice");
@@ -2939,7 +2939,7 @@ public class OrderServices {
         // add in the new product
         try {
             ShoppingCartItem item = ShoppingCartItem.makeItem(null, productId, null, quantity.doubleValue(), null, null, null, null, null, null, null, null, prodCatalogId, null, null, null, dispatcher, cart, null, null, null, Boolean.FALSE, Boolean.FALSE);
-            if (basePrice != null&&overridePrice!=null) {
+            if (basePrice != null && overridePrice != null) {
                 item.setBasePrice(basePrice.doubleValue());
                 // special hack to make sure we re-calc the promos after a price change
                 item.setQuantity(quantity.doubleValue() + 1, dispatcher, cart, false);

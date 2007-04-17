@@ -302,7 +302,7 @@ under the License.
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="prodCatalogId" type="String" mode="IN" optional="false"/>
-        <attribute name="basePrice" type="Double" mode="IN" optional="true"/>
+        <attribute name="basePrice" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="quantity" type="Double" mode="IN" optional="false"/>
         <attribute name="amount" type="Double" mode="IN" optional="true"/>
         <attribute name="overridePrice" type="String" mode="IN" optional="true"/>
@@ -386,7 +386,7 @@ under the License.
         <attribute name="orderId" type="String" mode="IN"/>
         <attribute name="paymentMethodTypeId" type="String" mode="IN"/>
         <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>
-        <attribute name="maxAmount" type="Double" mode="IN" optional="true"/>
+        <attribute name="maxAmount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="orderPaymentPreferenceId" type="String" mode="OUT"/>
     </service>
 
@@ -635,7 +635,7 @@ under the License.
         <description>Add Payment Method to Order.From this servicewe will call the createOrderPaymentPreference service to create OrderPaymentPreference</description>
         <attribute type="String" mode="IN" name="orderId" optional="false"/>
         <attribute type="String" mode="IN" name="paymentMethodId" optional="false"/>
-        <attribute type="Double" mode="IN" name="maxAmount"/>
+        <attribute type="BigDecimal" mode="IN" name="maxAmount"/>
         <attribute type="String" mode="OUT" name="orderPaymentPreferenceId"/>
     </service>
     
