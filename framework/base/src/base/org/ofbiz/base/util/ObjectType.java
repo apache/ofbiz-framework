@@ -20,17 +20,13 @@ package org.ofbiz.base.util;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -445,6 +441,16 @@ public class ObjectType {
     public static Object simpleTypeConvert(Object obj, String type, String format, Locale locale, boolean noTypeFail) throws GeneralException {
         if (obj == null) {
             return null;
+        }
+
+        // do simple array to list conversion first (so that other checks can run against the updated object)
+        if (obj.getClass().isArray()) {
+            List newObj = FastList.newInstance();
+            int len = Array.getLength(obj);
+            for (int i = 0; i < len; i++) {
+                newObj.add(Array.get(obj, i));
+            }
+            obj = newObj;
         }
 
         if (obj.getClass().getName().equals(type)) {
