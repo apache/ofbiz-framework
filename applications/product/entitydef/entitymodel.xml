@@ -1195,6 +1195,7 @@ under the License.
       <field name="itemIssuanceId" type="id"></field>
       <field name="receiptId" type="id"></field>
       <field name="physicalInventoryId" type="id"></field>
+      <field name="description" type="description"></field>
       <prim-key field="inventoryItemId"/>
       <prim-key field="inventoryItemDetailSeqId"/>
       <relation type="one" fk-name="INV_ITDTL_INVIT" rel-entity-name="InventoryItem">

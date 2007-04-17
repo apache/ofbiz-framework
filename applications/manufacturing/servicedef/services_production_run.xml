@@ -150,6 +150,7 @@ under the License.
         <attribute name="workEffort" type="GenericValue" mode="IN" optional="true"/>
         <attribute name="workEffortGoodStandard" type="GenericValue" mode="IN" optional="true"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
     </service>
     <service name="issueInventoryItemToWorkEffort" engine="simple"
                 location="org/ofbiz/manufacturing/jobshopmgt/ProductionRunServices.xml" invoke="issueInventoryItemToWorkEffort" auth="false">
