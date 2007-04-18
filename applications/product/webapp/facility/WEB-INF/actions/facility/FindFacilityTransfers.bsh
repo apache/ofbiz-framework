@@ -26,7 +26,7 @@ import org.ofbiz.widget.html.*;
 
 delegator = request.getAttribute("delegator");
 
-String facilityId = request.getParameter("facilityId");
+String facilityId = parameters.get("facilityId");
 if (facilityId != null) context.put("facilityId", facilityId);
 
 GenericValue facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
