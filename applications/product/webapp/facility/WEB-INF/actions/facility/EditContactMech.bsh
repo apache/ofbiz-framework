@@ -28,6 +28,7 @@ import org.ofbiz.webapp.control.*;
 delegator = request.getAttribute("delegator");
 
 String facilityId = request.getParameter("facilityId");
+if (facilityId == null) facilityId = session.getAttribute("facilityId");
 context.put("facilityId", facilityId);
 
 Map mechMap = new HashMap();
