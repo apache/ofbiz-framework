@@ -217,13 +217,17 @@ under the License.
                 <fo:table-column column-width="60pt"/>
                 <fo:table-column column-width="180pt"/>
                 <fo:table-column column-width="50pt"/>
-                <fo:table-column column-width="150pt"/>
+                <fo:table-column column-width="70pt"/>
+                <fo:table-column column-width="40pt"/>
+                <fo:table-column column-width="40pt"/>
                 <fo:table-header>
                     <fo:table-row font-weight="bold">
                         <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.OrderOrderItem}</fo:block></fo:table-cell>
                         <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductProductId}</fo:block></fo:table-cell>
                         <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductToPack}</fo:block></fo:table-cell>
-                        <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductInventoryAvailNotAvail}</fo:block></fo:table-cell>
+                        <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductInventoryItem}</fo:block></fo:table-cell>
+                        <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductInventoryAvail}</fo:block></fo:table-cell>
+                        <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductInventoryNotAvail}</fo:block></fo:table-cell>
                     </fo:table-row>
                 </fo:table-header>
                 <fo:table-body>
@@ -246,13 +250,22 @@ under the License.
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
                                 <fo:block>${picklistItem.quantity}</fo:block>
                             </fo:table-cell>
-                            <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <#if orderItemShipGrpInvRes?has_content>
-                                    <fo:block>${orderItemShipGrpInvRes.inventoryItemId}:${orderItemShipGrpInvRes.quantity}:${orderItemShipGrpInvRes.quantityNotAvailable?if_exists}</fo:block>
-                                <#else>
+                            <#if orderItemShipGrpInvRes?has_content>
+                                <#assign quantityAvailable = orderItemShipGrpInvRes.quantity?default(0) - orderItemShipGrpInvRes.quantityNotAvailable?default(0)>
+                                <fo:table-cell padding="2pt" background-color="${rowColor}">
+                                    <fo:block>${orderItemShipGrpInvRes.inventoryItemId}</fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell padding="2pt" background-color="${rowColor}">
+                                    <fo:block>${quantityAvailable}</fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell padding="2pt" background-color="${rowColor}">
+                                    <fo:block>${orderItemShipGrpInvRes.quantityNotAvailable?default(0)}</fo:block>
+                                </fo:table-cell>
+                            <#else>
+                                <fo:table-cell padding="2pt" background-color="${rowColor}" number-columns-spanned="3">
                                     <fo:block>${uiLabelMap.ProductNoInventoryReservation}</fo:block>
-                                </#if>
-                            </fo:table-cell>
+                                </fo:table-cell>
+                            </#if>
                         </fo:table-row>
                         <#-- toggle the row color -->
                         <#if rowColor == "white">

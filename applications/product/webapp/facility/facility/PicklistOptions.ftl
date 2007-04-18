@@ -22,12 +22,12 @@ under the License.
         <div class="boxhead">${uiLabelMap.ProductFindOrdersToPick}</div>
     </div>
     <div class="screenlet-body">
-        <table border="1" cellspacing="0" cellpadding="2">
+        <table class="basic-table">
             <tr>
-                <td><div class="tableheadtext">${uiLabelMap.ProductShipmentMethod}</div></td>
-                <td><div class="tableheadtext">${uiLabelMap.ProductReadyToPick}</div></td>
-                <td><div class="tableheadtext">${uiLabelMap.ProductNeedStockMove}</div></td>
-                <td><div class="tableheadtext">&nbsp;</div></td>
+                <th>${uiLabelMap.ProductShipmentMethod}</th>
+                <th>${uiLabelMap.ProductReadyToPick}</th>
+                <th>${uiLabelMap.ProductNeedStockMove}</th>
+                <th>&nbsp;</th>
             </tr>
             <#if rushOrderInfo?has_content>
                 <#assign orderReadyToPickInfoList = rushOrderInfo.orderReadyToPickInfoList?if_exists>
@@ -35,22 +35,20 @@ under the License.
                 <#assign orderReadyToPickInfoListSize = (orderReadyToPickInfoList.size())?default(0)>
                 <#assign orderNeedsStockMoveInfoListSize = (orderNeedsStockMoveInfoList.size())?default(0)>
                 <tr>
-                    <td><div class="tabletext">[Rush Orders, all Methods]</div></td>
-                    <td><div class="tabletext">${orderReadyToPickInfoListSize}</div></td>
-                    <td><div class="tabletext">${orderNeedsStockMoveInfoListSize}</div></td>
+                    <td>[Rush Orders, all Methods]</td>
+                    <td>${orderReadyToPickInfoListSize}</td>
+                    <td>${orderNeedsStockMoveInfoListSize}</td>
                     <td>
-                        <div class="tabletext">
-                            <#if orderReadyToPickInfoList?has_content>
-                                <form method="post" action="<@ofbizUrl>createPicklistFromOrders</@ofbizUrl>">
-                                    <input type="hidden" name="facilityId" value="${facilityId}"/>
-                                    <input type="hidden" name="isRushOrder" value="Y"/>
-                                    ${uiLabelMap.ProductPickFirst}:<input type="text" size="4" name="maxNumberOfOrders" value="20" class="inputBox"/>
-                                    <input type="submit" value="${uiLabelMap.ProductCreatePicklist}" class="smallSubmit"/>
-                                </form>
-                            <#else>
-                                &nbsp;
-                            </#if>
-                        </div>
+                        <#if orderReadyToPickInfoList?has_content>
+                            <form method="post" action="<@ofbizUrl>createPicklistFromOrders</@ofbizUrl>">
+                                <input type="hidden" name="facilityId" value="${facilityId}"/>
+                                <input type="hidden" name="isRushOrder" value="Y"/>
+                                ${uiLabelMap.ProductPickFirst}:<input type="text" size="4" name="maxNumberOfOrders" value="20"/>
+                                <input type="submit" value="${uiLabelMap.ProductCreatePicklist}"/>
+                            </form>
+                        <#else>
+                            &nbsp;
+                        </#if>
                     </td>
                 </tr>
             </#if>
@@ -67,48 +65,44 @@ under the License.
                     <#assign orderNeedsStockMoveInfoListSizeTotal = orderNeedsStockMoveInfoListSizeTotal + orderNeedsStockMoveInfoListSize>
                     <tr>
                         <td><a href="<@ofbizUrl>PicklistOptions?viewDetail=${shipmentMethodType.shipmentMethodTypeId?if_exists}&facilityId=${facilityId?if_exists}</@ofbizUrl>" class="linktext"><#if shipmentMethodType?exists && shipmentMethodType?has_content>${shipmentMethodType.description}<#else>${groupName?if_exists}</#if></a></td>
-                        <td><div class="tabletext">${orderReadyToPickInfoListSize}</div></td>
-                        <td><div class="tabletext">${orderNeedsStockMoveInfoListSize}</div></td>
+                        <td>${orderReadyToPickInfoListSize}</td>
+                        <td>${orderNeedsStockMoveInfoListSize}</td>
                         <td>
-                            <div class="tabletext">
-                                <#if orderReadyToPickInfoList?has_content>
-                                    <form method="post" action="<@ofbizUrl>createPicklistFromOrders</@ofbizUrl>">
-                                        <input type="hidden" name="facilityId" value="${facilityId}"/>
-                                        <#if shipmentMethodType?exists && shipmentMethodType?has_content>
-                                        <input type="hidden" name="shipmentMethodTypeId" value="${shipmentMethodType.shipmentMethodTypeId}"/>
-                                        <#else>
-                                            <input type="hidden" name="orderIdList" value=""/>
-                                            <#assign orderIdsForPickList = orderReadyToPickInfoList?if_exists>
-                                            <#list orderIdsForPickList as orderIdForPickList>
-                                                <input type="hidden" name="orderIdList" value="${orderIdForPickList.orderHeader.orderId}"/>
-                                            </#list>
-                                        </#if>
-                                        ${uiLabelMap.ProductPickFirst}:<input type="text" size="4" name="maxNumberOfOrders" value="20" class="inputBox"/>
-                                        <input type="submit" value="${uiLabelMap.ProductCreatePicklist}" class="smallSubmit"/>
-                                    </form>
-                                <#else>
-                                    &nbsp;
-                                </#if>
-                            </div>
+                            <#if orderReadyToPickInfoList?has_content>
+                                <form method="post" action="<@ofbizUrl>createPicklistFromOrders</@ofbizUrl>">
+                                    <input type="hidden" name="facilityId" value="${facilityId}"/>
+                                    <#if shipmentMethodType?exists && shipmentMethodType?has_content>
+                                    <input type="hidden" name="shipmentMethodTypeId" value="${shipmentMethodType.shipmentMethodTypeId}"/>
+                                    <#else>
+                                        <input type="hidden" name="orderIdList" value=""/>
+                                        <#assign orderIdsForPickList = orderReadyToPickInfoList?if_exists>
+                                        <#list orderIdsForPickList as orderIdForPickList>
+                                            <input type="hidden" name="orderIdList" value="${orderIdForPickList.orderHeader.orderId}"/>
+                                        </#list>
+                                    </#if>
+                                    ${uiLabelMap.ProductPickFirst}:<input type="text" size="4" name="maxNumberOfOrders" value="20"/>
+                                    <input type="submit" value="${uiLabelMap.ProductCreatePicklist}"/>
+                                </form>
+                            <#else>
+                                &nbsp;CIAO
+                            </#if>
                         </td>
                     </tr>
                 </#list>
                 <tr>
-                    <td><div class="tableheadtext">${uiLabelMap.CommonAllMethods}</div></td>
-                    <td><div class="tableheadtext">${orderReadyToPickInfoListSizeTotal}</div></td>
-                    <td><div class="tableheadtext">${orderNeedsStockMoveInfoListSizeTotal}</div></td>
+                    <th>${uiLabelMap.CommonAllMethods}</div></th>
+                    <th>${orderReadyToPickInfoListSizeTotal}</div></th>
+                    <th>${orderNeedsStockMoveInfoListSizeTotal}</div></th>
                     <td>
-                        <div class="tabletext">
-                          <#if (orderReadyToPickInfoListSizeTotal > 0)>
-                            <form method="post" action="<@ofbizUrl>createPicklistFromOrders</@ofbizUrl>">
-                                <input type="hidden" name="facilityId" value="${facilityId}"/>
-                                ${uiLabelMap.ProductPickFirst}:<input type="text" size="4" name="maxNumberOfOrders" value="20" class="inputBox"/>
-                                <input type="submit" value="${uiLabelMap.ProductCreatePicklist}" class="smallSubmit"/>
-                            </form>
-                          <#else>
-                            &nbsp;
-                          </#if>
-                        </div>
+                      <#if (orderReadyToPickInfoListSizeTotal > 0)>
+                        <form method="post" action="<@ofbizUrl>createPicklistFromOrders</@ofbizUrl>">
+                            <input type="hidden" name="facilityId" value="${facilityId}"/>
+                            ${uiLabelMap.ProductPickFirst}:<input type="text" size="4" name="maxNumberOfOrders" value="20"/>
+                            <input type="submit" value="${uiLabelMap.ProductCreatePicklist}"/>
+                        </form>
+                      <#else>
+                        &nbsp;
+                      </#if>
                     </td>
                 </tr>
             <#else>
@@ -135,16 +129,15 @@ under the License.
         <div class="boxhead">${shipmentMethodType.description?if_exists} Detail</div>
     </div>
     <div class="screenlet-body">
-        <table border="1" cellspacing="0" cellpadding="2">
+        <table class="basic-table">
             <tr>
-                <#-- todo: internationalize -->
-                <td><div class="tableheadtext">Order ID</div></td>
-                <td><div class="tableheadtext">Order Date</div></td>
-                <td><div class="tableheadtext">Channel</div></td>
-                <td><div class="tableheadtext">Order Item ID</div></td>
-                <td><div class="tableheadtext">Description</div></td>
-                <td><div class="tableheadtext">Ship Grp ID</div></td>
-                <td><div class="tableheadtext">Quantity</div></td>
+                <th>Order ID</th>
+                <th>Order Date</th>
+                <th>Channel</th>
+                <th>Order Item Id</th>
+                <th>Description</th>
+                <th>Ship Grp Id</th>
+                <th>Quantity</th>
             </tr>
             <#list toPickList as toPick>
                 <#assign oiasgal = toPick.orderItemAndShipGroupAssocList>
@@ -155,16 +148,16 @@ under the License.
                     <#assign product = oiasga.getRelatedOne("Product")?if_exists>
                     <tr>
                         <td><a href="/ordermgr/control/orderview?orderId=${oiasga.orderId}${externalKeyParam}" class="linktext" target="_blank">${oiasga.orderId}</a></td>
-                        <td><div class="tabletext">${header.orderDate?string}</div></td>
-                        <td><div class="tabletext">${(channel.description)?if_exists}</div></td>
-                        <td><div class="tabletext">${oiasga.orderItemSeqId}</div></td>
+                        <td>${header.orderDate?string}</td>
+                        <td>${(channel.description)?if_exists}</td>
+                        <td>${oiasga.orderItemSeqId}</td>
                         <td><a href="/catalog/control/EditProduct?productId=${oiasga.productId?if_exists}${externalKeyParam}" class="linktext" target="_blank">${(product.internalName)?if_exists}</a></td>
-                        <td><div class="tabletext">${oiasga.shipGroupSeqId}</div></td>
-                        <td><div class="tabletext">${oiasga.quantity}</div></td>
+                        <td>${oiasga.shipGroupSeqId}</td>
+                        <td>${oiasga.quantity}</td>
                     </tr>
                 </#list>
                 <tr>
-                    <td colspan="7" bgcolor="#CCCCCC">&nbsp;</td>
+                    <td colspan="7"><hr/></td>
                 </tr>
             </#list>
         </table>
