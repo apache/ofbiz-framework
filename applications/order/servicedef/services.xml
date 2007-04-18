@@ -672,4 +672,75 @@ under the License.
         <attribute name="orderItemValue" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
 
+    <!-- order lookup services -->
+    <service name="findOrders" engine="java" transaction-timeout="300" auth="true"
+            location="org.ofbiz.order.order.OrderLookupServices" invoke="findOrders">
+        <description>Uses dynamic view entity to find orders; returns a list of Order (OrderHeader) objects</description>
+        <!-- order header fields -->
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderName" type="String" mode="IN" optional="true"/>
+        <attribute name="orderTypeId" type="List" mode="IN" optional="true"/> <!-- can pass multiple values as list -->
+        <attribute name="orderStatusId" type="List" mode="IN" optional="true"/> <!-- can pass multiple values as list -->
+        <attribute name="productStoreId" type="List" mode="IN" optional="true"/> <!-- can pass multiple values as list -->
+        <attribute name="orderWebSiteId" type="List" mode="IN" optional="true"/> <!-- can pass multiple values as list -->
+        <attribute name="salesChannelEnumId" type="List" mode="IN" optional="true"/> <!-- can pass multiple values as list -->
+        <attribute name="createdBy" type="String" mode="IN" optional="true"/>
+        <attribute name="terminalId" type="String" mode="IN" optional="true"/>
+        <attribute name="transactionId" type="String" mode="IN" optional="true"/>
+        <attribute name="externalId" type="String" mode="IN" optional="true"/>
+        <attribute name="internalCode" type="String" mode="IN" optional="true"/>
+        <attribute name="useEntryDate" type="String" mode="IN" optional="true"/> <!-- Y/N use entryDate instead of orderDate -->
+        <attribute name="minDate" type="String" mode="IN" optional="true"/> <!-- converted to Timestamp -->
+        <attribute name="maxDate" type="String" mode="IN" optional="true"/> <!-- converted to Timestamp -->
+
+        <!-- order role fields -->
+        <attribute name="userLoginId" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" type="List" mode="IN" optional="true"/> <!-- can pass multiple values as list -->
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+
+        <!-- order item fields -->
+        <attribute name="correspondingPoId" type="String" mode="IN" optional="true"/>
+        <attribute name="subscriptionId" type="String" mode="IN" optional="true"/>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="budgetId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteId" type="String" mode="IN" optional="true"/>
+
+        <attribute name="billingAccountId" type="String" mode="IN" optional="true"/>
+        <attribute name="finAccountId" type="String" mode="IN" optional="true"/>
+        <attribute name="cardNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="accountNumber" type="String" mode="IN" optional="true"/>
+
+        <!-- shipment/inventory fields -->
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
+        <attribute name="softIdentifier" type="String" mode="IN" optional="true"/>
+        <attribute name="serialNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="true"/>
+
+        <!-- inventory problem fields -->
+        <attribute name="filterInventoryProblems" type="String" mode="IN" optional="true"/>
+        <attribute name="filterPOsWithRejectedItems" type="String" mode="IN" optional="true"/>
+        <attribute name="filterPOsOpenPastTheirETA" type="String" mode="IN" optional="true"/>
+        <attribute name="filterPartiallyReceivedPOs" type="String" mode="IN" optional="true"/>
+
+        <!-- view and page fields -->
+        <attribute name="viewIndex" type="Integer" mode="INOUT" optional="false"/>
+        <attribute name="viewSize" type="Integer" mode="INOUT" optional="false"/>
+        <attribute name="showAll" type="String" mode="INOUT" optional="true"/>
+
+        <!-- index fields -->
+        <attribute name="highIndex" type="Integer" mode="OUT" optional="false"/>
+        <attribute name="lowIndex" type="Integer" mode="OUT" optional="false"/>
+
+        <!-- inventory problem results -->
+        <attribute name="filterInventoryProblemsList" type="List" mode="OUT" optional="true"/>
+        <attribute name="filterPOsWithRejectedItemsList" type="List" mode="OUT" optional="true"/>
+        <attribute name="filterPOsOpenPastTheirETAList" type="List" mode="OUT" optional="true"/>
+        <attribute name="filterPartiallyReceivedPOsList" type="List" mode="OUT" optional="true"/>
+
+        <!-- actual results -->
+        <attribute name="paramList" type="String" mode="OUT" optional="false"/>
+        <attribute name="orderList" type="List" mode="OUT" optional="false"/>
+        <attribute name="orderListSize" type="Integer" mode="OUT" optional="false"/>
+    </service>
+
 </services>

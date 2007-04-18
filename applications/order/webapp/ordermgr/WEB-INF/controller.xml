@@ -110,6 +110,12 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="findorders"/>
     </request-map>
+    <request-map uri="searchorders">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="findOrders"/>
+        <response name="success" type="view" value="findorders"/>
+        <response name="error" type="view" value="findorders"/>
+    </request-map>
     <request-map uri="tasklist">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ordertasklist"/>

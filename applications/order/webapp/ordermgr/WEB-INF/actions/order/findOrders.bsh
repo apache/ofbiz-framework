@@ -19,15 +19,8 @@
 
 import java.util.*;
 import java.sql.Timestamp;
-import java.math.BigDecimal;
 import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.transaction.*;
 import org.ofbiz.base.util.*;
-import org.ofbiz.product.product.*;
-import org.ofbiz.order.order.OrderReadHelper;
-import org.ofbiz.product.store.ProductStoreWorker;
 
 module = "findOrders.bsh";
 
@@ -79,7 +72,7 @@ if (currentStatusId != null && currentStatusId.length() > 0) {
 }
 
 // current website
-currentWebSiteId = request.getParameter("webSiteId");
+currentWebSiteId = request.getParameter("orderWebSiteId");
 if (currentWebSiteId != null && currentWebSiteId.length() > 0) {
     currentWebSite = delegator.findByPrimaryKeyCache("WebSite", UtilMisc.toMap("webSiteId", currentWebSiteId));
     context.put("currentWebSite", currentWebSite);
@@ -102,7 +95,7 @@ if (currentSalesChannelId != null && currentSalesChannelId.length() > 0) {
 // create the fromDate for calendar
 fromCal = Calendar.getInstance();
 fromCal.setTime(new java.util.Date());
-//fromCal.set(Calendar.DAY_OF_WEEK, fromCal.getActualMinimum(Calendar.DAY_OF_WEEK));
+fromCal.set(Calendar.DAY_OF_WEEK, fromCal.getActualMinimum(Calendar.DAY_OF_WEEK));
 fromCal.set(Calendar.HOUR_OF_DAY, fromCal.getActualMinimum(Calendar.HOUR_OF_DAY));
 fromCal.set(Calendar.MINUTE, fromCal.getActualMinimum(Calendar.MINUTE));
 fromCal.set(Calendar.SECOND, fromCal.getActualMinimum(Calendar.SECOND));
@@ -115,7 +108,7 @@ context.put("fromDateStr", fromStr);
 // create the thruDate for calendar
 toCal = Calendar.getInstance();
 toCal.setTime(new java.util.Date());
-//toCal.set(Calendar.DAY_OF_WEEK, toCal.getActualMaximum(Calendar.DAY_OF_WEEK));
+toCal.set(Calendar.DAY_OF_WEEK, toCal.getActualMaximum(Calendar.DAY_OF_WEEK));
 toCal.set(Calendar.HOUR_OF_DAY, toCal.getActualMaximum(Calendar.HOUR_OF_DAY));
 toCal.set(Calendar.MINUTE, toCal.getActualMaximum(Calendar.MINUTE));
 toCal.set(Calendar.SECOND, toCal.getActualMaximum(Calendar.SECOND));
@@ -127,7 +120,7 @@ context.put("thruDateStr", toStr);
 // set the page parameters
 viewIndex = 1;
 try {
-    viewIndex = Integer.valueOf((String) request.getParameter("VIEW_INDEX")).intValue();
+    viewIndex = Integer.valueOf((String) request.getParameter("viewIndex")).intValue();
 } catch (Exception e) {
     viewIndex = 1;
 }
@@ -135,7 +128,7 @@ context.put("viewIndex", viewIndex);
 
 viewSize = 20;
 try {
-    viewSize = Integer.valueOf((String) request.getParameter("VIEW_SIZE")).intValue();
+    viewSize = Integer.valueOf((String) request.getParameter("viewSize")).intValue();
 } catch (Exception e) {
     viewSize = 20;
 }
@@ -144,321 +137,21 @@ context.put("viewSize", viewSize);
 // get the lookup flag
 lookupFlag = request.getParameter("lookupFlag");
 
-// blank param list
-paramList = "";
-
-// defined
-orderHeaderList = null;
-orderHeaderListSize = 0;
-lowIndex = 0;
-highIndex = 0;
-
-if (lookupFlag != null) {
-    showAll = request.getParameter("showAll") != null ? request.getParameter("showAll") : "N";
-    paramList = paramList + "&amp;lookupFlag=" + lookupFlag + "&amp;showAll=" + showAll;
-    locale = UtilHttp.getLocale(request);
-    uiLabelMap = UtilProperties.getResourceBundleMap("OrderErrorUiLabels", locale);
-
-    lookupErrorMessage = null;
-    andExprs = new ArrayList();
-    entityName = "OrderHeader";
-
-    // check for a orderId (happens in some browsers)
-    orderId = request.getParameter("orderId");
-    if (orderId != null && orderId.length() > 0) {
-        paramList = paramList + "&amp;orderId=" + orderId;
-        andExprs.add(new EntityExpr("orderId", EntityOperator.EQUALS, orderId));
-    }
-
-    // find the orders for party
-    partyId = request.getParameter("partyId");
-    userLoginId = request.getParameter("userLoginId");
-    if (userLoginId != null && userLoginId.length() > 0) {
-        requestedUserLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
-        if (requestedUserLogin != null) {
-            partyId = requestedUserLogin.getString("partyId");
-        } else {
-            lookupErrorMessage = uiLabelMap.get("OrderNoUserLoginFoundForUserLoginId") + userLoginId;
-        }
-    }
-
-    if (partyId != null && partyId.length() > 0) {
-        paramList = paramList + "&amp;partyId=" + partyId;
-        entityName = "OrderHeaderAndRoles";
-        andExprs.add(new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
-    }
-
-    // item related
-    correspondingPoId = request.getParameter("correspondingPoId");
-    if (correspondingPoId != null && correspondingPoId.length() > 0) {
-        paramList = paramList + "&amp;correspondingPoId=" + correspondingPoId;
-        entityName= "OrderHeaderItemAndRoles";
-        andExprs.add(new EntityExpr("correspondingPoId", EntityOperator.EQUALS, correspondingPoId));
-    }
-
-    productId = request.getParameter("productId");
-    if (productId != null && productId.length() > 0) {
-        paramList = paramList + "&amp;productId=" + productId;
-        entityName = "OrderHeaderItemAndRoles";
-        andExprs.add(new EntityExpr("productId", EntityOperator.EQUALS, ProductWorker.findProductId(delegator, productId)));
-    }
-
-    hasBackOrders = request.getParameter("hasBackOrders");
-    if (hasBackOrders != null){
-        paramList = paramList + "&amp;hasBackOrders=" + hasBackOrders;
-        if ("Y".equals(hasBackOrders)) {
-            // Y = only show backorders
-        entityName = "OrderHeaderItemAndInvRoles";
-        andExprs.add(new EntityExpr("quantityNotAvailable", EntityOperator.NOT_EQUAL, null));
-        andExprs.add(new EntityExpr("quantityNotAvailable", EntityOperator.GREATER_THAN, new Double(0)));
-        } else if ("N".equals(hasBackOrders)) {
-            // N = exclude backorders... we might also need to include and OR condition: qty not available == 0
-            entityName = "OrderHeaderItemAndInvRoles";
-            andExprs.add(new EntityExpr("quantityNotAvailable", EntityOperator.EQUALS, null));
-    }
-    }
-
-    
-
-    // define the main condition
-    mainCond = null;
-
-    // now do the filtering
-    if (lookupErrorMessage == null) {
-        roleType = request.getParameter("roleTypeId");
-        orderType = request.getParameter("orderTypeId");
-        orderStatus = request.getParameter("orderStatusId");
-        productStoreId = request.getParameter("productStoreId");
-        webSiteId = request.getParameter("webSiteId");
-        salesChannelEnumId = request.getParameter("salesChannelEnumId");
-
-        createdBy = request.getParameter("createdBy");
-        externalId = request.getParameter("externalId");
-        internalCode = request.getParameter("internalCode");
-        billAcct = request.getParameter("billingAccountId");
-        minDate = request.getParameter("minDate");
-        maxDate = request.getParameter("maxDate");
-
-        if (productStoreId == null) productStoreId = "ANY";
-        if (webSiteId == null) webSiteId = "ANY";
-        if (roleType == null) roleType = "ANY";
-        if (orderType == null) orderType = "ANY";
-        if (orderStatus == null) orderStatus = "ANY";
-        if (salesChannelEnumId == null) salesChannelEnumId = "ANY";
-
-        paramList = paramList + "&amp;productStoreId=" + productStoreId;
-        if (!"ANY".equals(productStoreId)) {
-            andExprs.add(new EntityExpr("productStoreId", EntityOperator.EQUALS, productStoreId));
-        }
-        paramList = paramList + "&amp;webSiteId=" + webSiteId;
-        if (!"ANY".equals(webSiteId)) {
-            andExprs.add(new EntityExpr("webSiteId", EntityOperator.EQUALS, webSiteId));
-        }
-        paramList = paramList + "&amp;roleTypeId=" + roleType;
-        if (!"ANY".equals(roleType)) {
-            entityName = "OrderHeaderAndRoles";
-            andExprs.add(new EntityExpr("roleTypeId", EntityOperator.EQUALS, roleType));
-        }
-        paramList = paramList + "&amp;orderTypeId=" + orderType;
-        if (!"ANY".equals(orderType)) {
-            andExprs.add(new EntityExpr("orderTypeId", EntityOperator.EQUALS, orderType));
-        }
-        paramList = paramList + "&amp;orderStatusId=" + orderStatus;
-        if (!"ANY".equals(orderStatus)) {
-            andExprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, orderStatus));
-        }
-        paramList = paramList + "&amp;salesChannelEnumId=" + salesChannelEnumId;
-        if (!"ANY".equals(salesChannelEnumId)) {
-            andExprs.add(new EntityExpr("salesChannelEnumId", EntityOperator.EQUALS, salesChannelEnumId));
-        }
-
-        if (billAcct != null && billAcct.length() > 0) {
-            paramList = paramList + "&amp;billingAccountId=" + billAcct;
-            andExprs.add(new EntityExpr("billingAccountId", EntityOperator.EQUALS, billAcct));
-        }
-        if (createdBy != null && createdBy.length() > 0) {
-            paramList = paramList + "&amp;createdBy=" + createdBy;
-            andExprs.add(new EntityExpr("createdBy", EntityOperator.EQUALS, createdBy));
-        }
-        if (externalId != null && externalId.length() > 0) {
-            paramList = paramList + "&amp;externalId=" + externalId;
-            andExprs.add(new EntityExpr("externalId", EntityOperator.EQUALS, externalId));
-        }
-        if (internalCode != null && internalCode.length() > 0) {
-            paramList = paramList + "&amp;internalCode=" + internalCode;
-            andExprs.add(new EntityExpr("internalCode", EntityOperator.EQUALS, internalCode));
-        }
-        if (minDate != null && minDate.length() > 8) {
-            minDate = minDate.trim();
-            if (minDate.length() < 14) minDate = minDate + " " + "00:00:00.000";
-            paramList = paramList + "&amp;minDate=" + minDate;
-            andExprs.add(new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(minDate, "Timestamp", null, null)));
-        }
-        if (maxDate != null && maxDate.length() > 8) {
-            maxDate = maxDate.trim();
-            if (maxDate.length() < 14) maxDate = maxDate + " " + "23:59:59.999";
-            paramList = paramList + "&amp;maxDate=" + maxDate;
-            andExprs.add(new EntityExpr("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(maxDate, "Timestamp", null, null)));
-        }
-
-        if (andExprs.size() > 0 || showAll.equalsIgnoreCase("Y")) mainCond = new EntityConditionList(andExprs, EntityOperator.AND);
-
-    } else {
-        Debug.log("Error messages: " + lookupErrorMessage, module);
-    }
-
-    // do the lookup
-    if (lookupErrorMessage == null && mainCond != null) {
-        // field we need to select; will be used to set distinct
-        List fieldsToSelect = UtilMisc.toList("orderId", "orderTypeId", "orderDate", "currencyUom", "grandTotal", "remainingSubTotal");
-        fieldsToSelect.add("statusId");
-        if (!"OrderHeader".equals(entityName)) {
-            if (partyId != null && partyId.length() > 0) {
-                fieldsToSelect.add("partyId");
-            }
-            if (!"ANY".equals(roleType)) {
-                fieldsToSelect.add("roleTypeId");
-            }
-        }
-
-        // sorting by order date newest first
-        List orderBy = UtilMisc.toList("-orderDate", "-orderId");
-
-        // set distinct on so we only get one row per order
-        EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-
-        boolean beganTransaction = false;
-        try {
-            beganTransaction = TransactionUtil.begin();
-
-            // using list iterator
-            EntityListIterator ohli = delegator.findListIteratorByCondition(entityName, mainCond, null, fieldsToSelect, orderBy, findOpts);
-
-            // get the indexes for the partial list
-            lowIndex = (((viewIndex - 1) * viewSize) + 1);
-            highIndex = viewIndex * viewSize;
-
-            // attempt to get the full size
-            ohli.last();
-            orderHeaderListSize = ohli.currentIndex();
-            if (highIndex > orderHeaderListSize) {
-                highIndex = orderHeaderListSize;
-            }
-
-            // get the partial list for this page
-            ohli.beforeFirst();
-            if (orderHeaderListSize > viewSize) {
-                orderHeaderList = ohli.getPartialList(lowIndex, viewSize);
-                //Debug.log("Got partial list [" + lowIndex + " / " + viewSize + "] : " + orderHeaderList);
-            } else if (orderHeaderListSize > 0) {
-                orderHeaderList = ohli.getCompleteList();
-                //Debug.log("Got full list [" + orderHeaderList.size() + "] : " + orderHeaderList);
-            } else {
-                orderHeaderList = new ArrayList();
-            }
-
-            // close the iterator
-            ohli.close();
-        } catch (GenericEntityException e) {
-            String errMsg = "Failure in operation, rolling back transaction";
-            Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            TransactionUtil.commit(beganTransaction);
-        }
-    } else {
-        orderHeaderList = new ArrayList();
-        orderHeaderListSize = 0;
-    }
-
-    // viewing of purchase orders requires a special permission.  if user doesn't have it, only SALES_ORDER
-    if (!security.hasEntityPermission("ORDERMGR", "_PURCHASE_VIEW", session)) {
-        orderHeaderList = EntityUtil.filterOutByCondition(orderHeaderList, new EntityExpr("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER"));
-    }
-    
-    productStore = ProductStoreWorker.getProductStore(request);
-    List filterInventoryProblems = new ArrayList();
-    
-    if ("Y".equals(parameters.get("filterInventoryProblems")) && UtilValidate.isNotEmpty(orderHeaderList)) {
-        paramList = paramList + "&amp;filterInventoryProblems=" + "Y";
-        for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
-            orderHeader = (GenericValue) ohi.next();
-            orderReadHelper = OrderReadHelper.getHelper(orderHeader);
-            backorderQty = orderReadHelper.getOrderBackorderQuantityBd();
-            if (backorderQty.compareTo(new BigDecimal("0")) == 1) {
-                filterInventoryProblems.add(orderHeader.get("orderId"));
-            }
-        }
-    }
-
-    List filterPOsOpenPastTheirETA = new ArrayList();
-    List filterPOsWithRejectedItems = new ArrayList();
-    List filterPartiallyReceivedPOs = new ArrayList();
-    
-    if ("Y".equals(parameters.get("filterPOsWithRejectedItems"))) {
-                        paramList = paramList + "&amp;filterPOsWithRejectedItems=" + "Y";
-    }    
-    if ("Y".equals(parameters.get("filterPOsOpenPastTheirETA"))) {
-                        paramList = paramList + "&amp;filterPOsOpenPastTheirETA=" + "Y";
-    }    
-    if ("Y".equals(parameters.get("filterPartiallyReceivedPOs"))) {
-                        paramList = paramList + "&amp;filterPartiallyReceivedPOs=" + "Y";
-    }
-        
-    if (("Y".equals(parameters.get("filterPartiallyReceivedPOs")) ||
-            "Y".equals(parameters.get("filterPOsOpenPastTheirETA")) ||
-            "Y".equals(parameters.get("filterPOsWithRejectedItems"))) &&
-            UtilValidate.isNotEmpty(orderHeaderList)) {
-        for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
-            orderHeader = (GenericValue) ohi.next();
-            facilityId = orderHeader.getString("originFacilityId");
-            if (facilityId == null) {
-            facilityId = productStore.getString("inventoryFacilityId");
-            }
-            orderReadHelper = OrderReadHelper.getHelper(orderHeader);
-            if ("PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId"))) {                
-                if (orderReadHelper.getRejectedOrderItems() &&
-                        "Y".equals(parameters.get("filterPOsWithRejectedItems"))) {                    
-                    filterPOsWithRejectedItems.add(orderHeader.get("orderId"));
-                    paramList = paramList + "&amp;filterPOsWithRejectedItems=" + "Y";
-                    continue;
-                }
-                if (orderReadHelper.getPastEtaOrderItems(orderHeader.get("orderId")) &&
-                        "Y".equals(parameters.get("filterPOsOpenPastTheirETA"))) {
-                    filterPOsOpenPastTheirETA.add(orderHeader.get("orderId"));
-                    continue;
-                }
-                if (orderReadHelper.getPartiallyReceivedItems() &&
-                        "Y".equals(parameters.get("filterPartiallyReceivedPOs"))) {
-                    filterPartiallyReceivedPOs.add(orderHeader.get("orderId"));
-                    paramList = paramList + "&amp;filterPartiallyReceivedPOs=" + "Y";
-                    continue;
-                }            
-            }
-        }
-    }
-
-    context.put("filterInventoryProblems", filterInventoryProblems);
-    context.put("filterPOsWithRejectedItems", filterPOsWithRejectedItems);
-    context.put("filterPOsOpenPastTheirETA", filterPOsOpenPastTheirETA);
-    context.put("filterPartiallyReceivedPOs", filterPartiallyReceivedPOs);   
-
-    context.put("orderHeaderList", orderHeaderList);
-    context.put("orderHeaderListSize", orderHeaderListSize); // TODO : orderHeaderListSize here is not reactualized. Date from "if user doesn't have it, only SALES_ORDER" comment above...    
-
-    if (lookupErrorMessage != null) {
-        context.put("lookupErrorMessage", lookupErrorMessage);
-    }
+// fields from the service call
+paramList = request.getAttribute("paramList");
+if (paramList == null) {
+    paramList = "";
 }
-
 context.put("paramList", paramList);
-context.put("highIndex", highIndex);
+
+orderList = request.getAttribute("orderList");
+context.put("orderList", orderList);
+
+orderListSize = request.getAttribute("orderListSize");
+context.put("orderListSize", orderListSize);
+
+lowIndex = request.getAttribute("lowIndex");
 context.put("lowIndex", lowIndex);
+
+highIndex = request.getAttribute("highIndex");
+context.put("highIndex", highIndex);

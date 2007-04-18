@@ -25,7 +25,7 @@ function lookupOrders(click) {
         document.lookuporder.action = "<@ofbizUrl>orderview</@ofbizUrl>";
         document.lookuporder.method = "get";
     } else {
-        document.lookuporder.action = "<@ofbizUrl>findorders</@ofbizUrl>";
+        document.lookuporder.action = "<@ofbizUrl>searchorders</@ofbizUrl>";
     }
 
     if (click) {
@@ -62,9 +62,12 @@ function runAction() {
 </script>
 
 <#if security.hasEntityPermission("ORDERMGR", "_VIEW", session)>
-<form method="post" name="lookuporder" action="<@ofbizUrl>findorders</@ofbizUrl>" onsubmit="javascript:lookupOrders();">
+<form method="post" name="lookuporder" action="<@ofbizUrl>searchorders</@ofbizUrl>" onsubmit="javascript:lookupOrders();">
 <input type="hidden" name="lookupFlag" value="Y"/>
 <input type="hidden" name="hideFields" value="Y"/>
+<input type="hidden" name="viewSize" value="${viewSize}"/>
+<input type="hidden" name="viewIndex" value="${viewIndex}"/>
+
 <table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
   <tr>
     <td width='100%'>
@@ -74,9 +77,9 @@ function runAction() {
           <td align='right'>
             <div class="tabletext">
               <#if requestParameters.hideFields?default("N") == "Y">
-                <a href="<@ofbizUrl>findorders?hideFields=N${paramList}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonShowLookupFields}</a>
+                <a href="<@ofbizUrl>searchorders?hideFields=N&viewSize=${viewSize}&viewIndex=${viewIndex}&${paramList}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonShowLookupFields}</a>
               <#else>
-                <#if orderHeaderList?exists><a href="<@ofbizUrl>findorders?hideFields=Y${paramList}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonHideFields}</a></#if>
+                <#if orderList?exists><a href="<@ofbizUrl>searchorders?hideFields=Y&viewSize=${viewSize}&viewIndex=${viewIndex}&${paramList}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonHideFields}</a></#if>
                 <a href="javascript:lookupOrders(true);" class="buttontext">${uiLabelMap.OrderLookupOrder}</a>
                 <a href="/partymgr/control/findparty?externalLoginKey=${requestAttributes.externalLoginKey?if_exists}" class="buttontext">${uiLabelMap.PartyLookupParty}</a>
               </#if>
@@ -115,6 +118,21 @@ function runAction() {
                 <td><input type='text' class='inputBox' name='productId' value='${requestParameters.productId?if_exists}'/></td>
               </tr>
               <tr>
+                <td width='25%' align='right'><div class='tableheadtext'>${uiLabelMap.ProductInventoryItemId}</div></td>
+                <td width='5%'>&nbsp;</td>
+                <td><input type='text' class='inputBox' name='inventoryItemId' value='${requestParameters.inventoryItemId?if_exists}'/></td>
+              </tr>
+              <tr>
+                <td width='25%' align='right'><div class='tableheadtext'>${uiLabelMap.ProductSerialNumber}</div></td>
+                <td width='5%'>&nbsp;</td>
+                <td><input type='text' class='inputBox' name='serialNumber' value='${requestParameters.serialNumber?if_exists}'/></td>
+              </tr>
+              <tr>
+                <td width='25%' align='right'><div class='tableheadtext'>${uiLabelMap.ProductSoftIdentifier}</div></td>
+                <td width='5%'>&nbsp;</td>
+                <td><input type='text' class='inputBox' name='softIdentifier' value='${requestParameters.softIdentifier?if_exists}'/></td>
+              </tr>
+              <tr>
                 <td width='25%' align='right'><div class='tableheadtext'>${uiLabelMap.PartyRoleType}</div></td>
                 <td width='5%'>&nbsp;</td>
                 <td>
@@ -123,7 +141,7 @@ function runAction() {
                     <option value="${currentRole.roleTypeId}">${currentRole.get("description", locale)}</option>
                     <option value="${currentRole.roleTypeId}">---</option>
                     </#if>
-                    <option value="ANY">${uiLabelMap.CommonAnyRoleType}</option>
+                    <option value="">${uiLabelMap.CommonAnyRoleType}</option>
                     <#list roleTypes as roleType>
                       <option value="${roleType.roleTypeId}">${roleType.get("description", locale)}</option>
                     </#list>
@@ -154,7 +172,7 @@ function runAction() {
                     <option value="${currentType.orderTypeId}">${currentType.get("description", locale)}</option>
                     <option value="${currentType.orderTypeId}">---</option>
                     </#if>
-                    <option value="ANY">${uiLabelMap.CommonAnyOrderType}</option>
+                    <option value="">${uiLabelMap.CommonAnyOrderType}</option>
                     <#list orderTypes as orderType>
                       <option value="${orderType.orderTypeId}">${orderType.get("description", locale)}</option>
                     </#list>
@@ -180,7 +198,7 @@ function runAction() {
                     <option value="${currentSalesChannel.enumId}">${currentSalesChannel.get("description", locale)}</option>
                     <option value="${currentSalesChannel.enumId}">---</option>
                     </#if>
-                    <option value="ANY">${uiLabelMap.CommonAnySalesChannel}</option>
+                    <option value="">${uiLabelMap.CommonAnySalesChannel}</option>
                     <#list salesChannels as channel>
                       <option value="${channel.enumId}">${channel.get("description", locale)}</option>
                     </#list>
@@ -196,7 +214,7 @@ function runAction() {
                     <option value="${currentProductStore.productStoreId}">${currentProductStore.storeName?if_exists}</option>
                     <option value="${currentProductStore.productStoreId}">---</option>
                     </#if>
-                    <option value="ANY">${uiLabelMap.CommonAnyStore}</option>
+                    <option value="">${uiLabelMap.CommonAnyStore}</option>
                     <#list productStores as store>
                       <option value="${store.productStoreId}">${store.storeName?if_exists}</option>
                     </#list>
@@ -207,12 +225,12 @@ function runAction() {
                 <td width='25%' align='right'><div class='tableheadtext'>${uiLabelMap.ProductWebSite}</div></td>
                 <td width='5%'>&nbsp;</td>
                 <td>
-                  <select name='webSiteId' class='selectBox'>
+                  <select name='orderWebSiteId' class='selectBox'>
                     <#if currentWebSite?has_content>
                     <option value="${currentWebSite.webSiteId}">${currentWebSite.siteName}</option>
                     <option value="${currentWebSite.webSiteId}">---</option>
                     </#if>
-                    <option value="ANY">${uiLabelMap.CommonAnyWebSite}</option>
+                    <option value="">${uiLabelMap.CommonAnyWebSite}</option>
                     <#list webSites as webSite>
                       <option value="${webSite.webSiteId}">${webSite.siteName}</option>
                     </#list>
@@ -228,7 +246,7 @@ function runAction() {
                     <option value="${currentStatus.statusId}">${currentStatus.get("description", locale)}</option>
                     <option value="${currentStatus.statusId}">---</option>
                     </#if>
-                    <option value="ANY">${uiLabelMap.CommonAnyOrderStatus}</option>
+                    <option value="">${uiLabelMap.CommonAnyOrderStatus}</option>
                     <#list orderStatuses as orderStatus>
                       <option value="${orderStatus.statusId}">${orderStatus.get("description", locale)}</option>
                     </#list>
@@ -364,7 +382,6 @@ document.lookuporder.orderId.focus();
 </script>
 </#if>
 
-<#if orderHeaderList?exists>
 <br/>
 <form name="massOrderChangeForm" method="post" action="javascript:void();">
 <table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
@@ -375,17 +392,17 @@ document.lookuporder.orderId.focus();
           <td width="50%"><div class="boxhead">${uiLabelMap.OrderOrderFound}</div></td>
           <td width="50%">
             <div class="boxhead" align="right">
-              <#if 0 < orderHeaderList?size>
+              <#if (orderList?has_content && 0 < orderList?size)>
                 <#if (viewIndex > 1)>
-                  <a href="<@ofbizUrl>findorders?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}&hideFields=${requestParameters.hideFields?default("N")}${paramList}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a>
+                  <a href="<@ofbizUrl>searchorders?viewSize=${viewSize}&viewIndex=${viewIndex-1}&hideFields=${requestParameters.hideFields?default("N")}&${paramList}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a>
                 <#else>
                   <span class="buttontextdisabled">${uiLabelMap.CommonPrevious}</span>
                 </#if>
-                <#if (orderHeaderListSize > 0)>
-                  <span class="submenutextinfo">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${orderHeaderListSize}</span>
+                <#if (orderListSize > 0)>
+                  <span class="submenutextinfo">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${orderListSize}</span>
                 </#if>
-                <#if (orderHeaderListSize > highIndex)>
-                  <a href="<@ofbizUrl>findorders?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex+1}&hideFields=${requestParameters.hideFields?default("N")}${paramList}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
+                <#if (orderListSize > highIndex)>
+                  <a href="<@ofbizUrl>searchorders?viewSize=${viewSize}&viewIndex=${viewIndex+1}&hideFields=${requestParameters.hideFields?default("N")}&${paramList}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
                 <#else>
                   <span class="buttontextdisabled">${uiLabelMap.CommonNext}</span>
                 </#if>
@@ -444,9 +461,9 @@ document.lookuporder.orderId.focus();
         <tr>
           <td colspan='15'><hr class='sepbar'/></td>
         </tr>
-        <#if orderHeaderList?has_content>
+        <#if orderList?has_content>
           <#assign rowClass = "viewManyTR2">
-          <#list orderHeaderList as orderHeader>
+          <#list orderList as orderHeader>
             <#assign orh = Static["org.ofbiz.order.order.OrderReadHelper"].getHelper(orderHeader)>
             <#assign statusItem = orderHeader.getRelatedOneCache("StatusItem")>
             <#assign orderType = orderHeader.getRelatedOneCache("OrderType")>
@@ -557,7 +574,6 @@ document.lookuporder.orderId.focus();
 </table>
 </form>
 
-</#if>
 <#else>
   <h3>${uiLabelMap.OrderViewPermissionError}</h3>
 </#if>
