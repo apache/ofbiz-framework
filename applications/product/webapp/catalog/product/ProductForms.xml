@@ -114,7 +114,7 @@ under the License.
         </field>
         <field position="1" title="${uiLabelMap.ProductShippingHeight}" name="shippingHeight"><text size="10" maxlength="20"/></field>
 
-		<field position="1" title="${uiLabelMap.ProductProductWidth}" name="productWidth"><text size="10" maxlength="20"/></field>
+        <field position="1" title="${uiLabelMap.ProductProductWidth}" name="productWidth"><text size="10" maxlength="20"/></field>
         <field position="2" name="widthUomId" title="${uiLabelMap.ProductWidthUomId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Uom" key-field-name="uomId" description="${description} [${abbreviation}]">
@@ -125,7 +125,7 @@ under the License.
         </field>
         <field position="1" title="${uiLabelMap.ProductShippingWidth}" name="shippingWidth"><text size="10" maxlength="20"/></field>
 
-		<field position="1" title="${uiLabelMap.ProductProductDepth}" name="productDepth"><text size="10" maxlength="20"/></field>
+        <field position="1" title="${uiLabelMap.ProductProductDepth}" name="productDepth"><text size="10" maxlength="20"/></field>
         <field position="2" name="depthUomId" title="${uiLabelMap.ProductDepthUomId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Uom" key-field-name="uomId" description="${description} [${abbreviation}]">
@@ -136,7 +136,7 @@ under the License.
         </field>
         <field position="1" title="${uiLabelMap.ProductShippingDepth}" name="shippingDepth"><text size="10" maxlength="20"/></field>
 
-		<field position="1" name="weight" title="${uiLabelMap.ProductWeight}"><text size="10" maxlength="20"/></field>
+        <field position="1" name="weight" title="${uiLabelMap.ProductWeight}"><text size="10" maxlength="20"/></field>
         <field position="2" name="weightUomId" title="${uiLabelMap.ProductWeightUomId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Uom" key-field-name="uomId" description="${description} [${abbreviation}]">
