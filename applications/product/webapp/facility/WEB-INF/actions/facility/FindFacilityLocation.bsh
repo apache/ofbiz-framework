@@ -25,8 +25,7 @@ import org.ofbiz.widget.html.*;
 
 delegator = request.getAttribute("delegator");
 
-facilityId = request.getParameter("facilityId");
-if (facilityId == null) facilityId = session.getAttribute("facilityId");
+facilityId = parameters.get("facilityId");
 context.put("facilityId", facilityId);
 
 lookup = request.getParameter("look_up");
