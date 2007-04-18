@@ -25,6 +25,7 @@ context.put("nowStr", UtilDateTime.nowTimestamp());
 delegator = request.getAttribute("delegator");
 
 facilityId = request.getParameter("facilityId");
+if (facilityId == null) facilityId = session.getAttribute("facilityId");
 facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
 facilityType = null;
 if (facility == null) {
