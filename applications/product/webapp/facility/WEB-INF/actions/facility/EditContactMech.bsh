@@ -25,10 +25,7 @@ import org.ofbiz.common.*;
 import org.ofbiz.party.contact.*;
 import org.ofbiz.webapp.control.*;
 
-delegator = request.getAttribute("delegator");
-
-String facilityId = request.getParameter("facilityId");
-if (facilityId == null) facilityId = session.getAttribute("facilityId");
+String facilityId = parameters.get("facilityId");
 context.put("facilityId", facilityId);
 
 Map mechMap = new HashMap();
