@@ -439,6 +439,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             check-on-start="true"
             add-missing-on-start="true"
             join-style="ansi"
+            alias-view-columns="false"
             use-fk-initially-deferred="false">
         <read-data reader-name="seed"/>
         <read-data reader-name="demo"/>
