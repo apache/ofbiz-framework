@@ -121,6 +121,13 @@
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="updateSingleContentPurpose" engine="simple" default-entity-name="ContentPurpose" auth="true"
+            location="org/ofbiz/content/content/ContentServices.xml" invoke="updateSingleContentPurpose">
+        <description>Removes content purposes and creates a new one</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
 
     <!-- ContentPurposeOperation services -->
     <service name="createContentPurposeOperation" engine="simple" default-entity-name="ContentPurposeOperation" auth="true"
