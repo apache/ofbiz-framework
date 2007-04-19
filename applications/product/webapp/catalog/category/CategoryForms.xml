@@ -135,7 +135,8 @@ under the License.
         <field name="detailText"><ignored/></field>
         <field name="linkInfo"><ignored/></field>
         <field name="detailSubScreen"><ignored/></field>
-        <field name="imageUrl"><ignored/></field>        
+        <field name="imageUrl"><ignored/></field>
+        <field name="imageTwoUrl"><ignored/></field>      
         <field name="deleteLink" title="" widget-style="buttontext">
             <hyperlink target="deleteProductCategoryLink?productCategoryId=${productCategoryId}&amp;linkSeqId=${linkSeqId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
