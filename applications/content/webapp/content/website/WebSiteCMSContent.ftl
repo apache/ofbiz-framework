@@ -151,6 +151,7 @@
                 </#if>
             </#list>
         <#else>
+            <input type="hidden" name="contentPurposeTypeId" value="${contentPurposeTypeId?default('SECTION')}"/>
             <input type="hidden" name="contentAssocTypeId" value="${contentAssocTypeId?default('SUBSITE')}"/>
             <input type="hidden" name="ownerContentId" value="${contentIdFrom?default(contentRoot)}"/>
             <input type="hidden" name="contentIdFrom" value="${contentIdFrom?default(contentRoot)}"/>
