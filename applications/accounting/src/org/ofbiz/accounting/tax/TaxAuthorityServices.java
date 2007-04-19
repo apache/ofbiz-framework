@@ -358,23 +358,7 @@ public class TaxAuthorityServices {
                         billToPartyIdSet.add(partyRelationship.get("partyIdFrom"));
                     }
 
-                    List ptiConditionList = UtilMisc.toList(
-                            new EntityExpr("partyId", EntityOperator.IN, billToPartyIdSet),
-                            new EntityExpr("taxAuthGeoId", EntityOperator.EQUALS, taxAuthGeoId),
-                            new EntityExpr("taxAuthPartyId", EntityOperator.EQUALS, taxAuthPartyId));
-                    ptiConditionList.add(new EntityExpr("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp));
-                    ptiConditionList.add(new EntityExpr(new EntityExpr("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("thruDate", EntityOperator.GREATER_THAN, nowTimestamp)));
-                    EntityCondition ptiCondition = new EntityConditionList(ptiConditionList, EntityOperator.AND);
-                    // sort by -fromDate to get the newest (largest) first, just in case there is more than one, we only want the most recent valid one, should only be one per jurisdiction...
-                    List partyTaxInfos = delegator.findByCondition("PartyTaxAuthInfo", ptiCondition, null, UtilMisc.toList("-fromDate"));
-                    if (partyTaxInfos.size() > 0) {
-                        GenericValue partyTaxInfo = (GenericValue) partyTaxInfos.get(0);
-                        adjValue.set("customerReferenceId", partyTaxInfo.get("partyTaxId"));
-                        if ("Y".equals(partyTaxInfo.getString("isExempt"))) {
-                            adjValue.set("amount", new Double(0));
-                            adjValue.set("exemptAmount", taxAmount);
-                        }
-                    }
+                    handlePartyTaxExempt(adjValue, billToPartyIdSet, taxAuthGeoId, taxAuthPartyId, taxAmount, nowTimestamp, delegator);
                 } else {
                     Debug.logInfo("NOTE: A tax calculation was done without a billToPartyId or taxAuthGeoId, so no tax exemptions or tax IDs considered; billToPartyId=[" + billToPartyId + "] taxAuthGeoId=[" + taxAuthGeoId + "]", module);
                 }
@@ -387,5 +371,35 @@ public class TaxAuthorityServices {
         }
 
         return adjustments;
+    }
+    
+    private static void handlePartyTaxExempt(GenericValue adjValue, Set billToPartyIdSet, String taxAuthGeoId, String taxAuthPartyId, BigDecimal taxAmount, Timestamp nowTimestamp, GenericDelegator delegator) throws GenericEntityException {
+        List ptiConditionList = UtilMisc.toList(
+                new EntityExpr("partyId", EntityOperator.IN, billToPartyIdSet),
+                new EntityExpr("taxAuthGeoId", EntityOperator.EQUALS, taxAuthGeoId),
+                new EntityExpr("taxAuthPartyId", EntityOperator.EQUALS, taxAuthPartyId));
+        ptiConditionList.add(new EntityExpr("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp));
+        ptiConditionList.add(new EntityExpr(new EntityExpr("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("thruDate", EntityOperator.GREATER_THAN, nowTimestamp)));
+        EntityCondition ptiCondition = new EntityConditionList(ptiConditionList, EntityOperator.AND);
+        // sort by -fromDate to get the newest (largest) first, just in case there is more than one, we only want the most recent valid one, should only be one per jurisdiction...
+        List partyTaxInfos = delegator.findByCondition("PartyTaxAuthInfo", ptiCondition, null, UtilMisc.toList("-fromDate"));
+        if (partyTaxInfos.size() > 0) {
+            GenericValue partyTaxInfo = (GenericValue) partyTaxInfos.get(0);
+            adjValue.set("customerReferenceId", partyTaxInfo.get("partyTaxId"));
+            if ("Y".equals(partyTaxInfo.getString("isExempt"))) {
+                adjValue.set("amount", new Double(0));
+                adjValue.set("exemptAmount", taxAmount);
+            } else {
+                // try the "parent" TaxAuthority
+                List taxAuthorityAssocList = delegator.findByAndCache("TaxAuthorityAssoc", 
+                        UtilMisc.toMap("toTaxAuthGeoId", taxAuthGeoId, "toTaxAuthPartyId", taxAuthPartyId, "taxAuthorityAssocTypeId", "EXEMPT_INHER"), 
+                        UtilMisc.toList("-fromDate"));
+                taxAuthorityAssocList = EntityUtil.filterByDate(taxAuthorityAssocList, true);
+                GenericValue taxAuthorityAssoc = EntityUtil.getFirst(taxAuthorityAssocList);
+                if (taxAuthorityAssoc != null) {
+                    handlePartyTaxExempt(adjValue, billToPartyIdSet, taxAuthorityAssoc.getString("taxAuthGeoId"), taxAuthorityAssoc.getString("taxAuthPartyId"), taxAmount, nowTimestamp, delegator);
+                }
+            }
+        }
     }
 }
