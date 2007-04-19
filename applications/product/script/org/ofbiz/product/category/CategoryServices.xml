@@ -667,14 +667,20 @@ under the License.
     <!-- ProductCategoryLink Create/Update/Delete"-->
     <simple-method method-name="createProductCategoryLink" short-description="create a ProductCategoryLink">
         <make-value entity-name="ProductCategoryLink" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set field="newEntity.productCategoryId" from-field="parameters.productCategoryId"/>
+
+        <!-- don't set the fromDate yet; let's get the seq ID first -->
         <if-empty field-name="parameters.linkSeqId">
             <make-next-seq-id value-name="newEntity" seq-field-name="linkSeqId"/> <!-- this finds the next sub-sequence ID -->
             <set from-field="linkSeqId" field="newEntity.linkSeqId"/>
-        </if-empty>    
+        </if-empty>
+
+        <!-- now set the rest of the PK fields (should just be fromDate now; unless linkSeqId is not empty -->
+        <set-pk-fields value-name="newEntity" map-name="parameters"/>
         <if-empty field-name="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
+
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>  
     </simple-method>   
