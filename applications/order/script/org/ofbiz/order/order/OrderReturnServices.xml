@@ -159,7 +159,7 @@ under the License.
                     </call-service>
                     <log level="info" message="Available amount for return on order #${returnItem.orderId} is [${availableReturnTotal}] (orderTotal = [${orderTotal}] - returnTotal = [${returnTotal}]"/>
 
-                    <if-compare field-name="availableReturnTotal" operator="less" value="-0.01" type="Double">
+                    <if-compare field-name="availableReturnTotal" operator="less" value="-0.01" type="BigDecimal">
                         <add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnPriceCannotExceedTheOrderTotal"/></add-error>
                     </if-compare>
                     <check-errors/>
@@ -696,7 +696,7 @@ under the License.
         <log level="info" message="OrderTotal [${orderTotal}] - ReturnTotal [${returnTotal}] = available Return Total [${availableReturnTotal}]"/>
 
         <!-- create a manual balance adjustment based on the difference between order total and return total -->
-        <if-compare field-name="availableReturnTotal" operator="not-equals" value="0.00" type="Double">
+        <if-compare field-name="availableReturnTotal" operator="not-equals" value="0.00" type="BigDecimal">
             <set value="Balance Adjustment" field="balanceItemCtx.description"/>
             <set value="RET_MAN_ADJ" field="balanceItemCtx.returnAdjustmentTypeId"/>
 

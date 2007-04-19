@@ -101,24 +101,24 @@ public class OrderReturnServices {
         }
 
         // an adjustment value to test
-        Double adj = (Double) context.get("adjustment");
+        BigDecimal adj = (BigDecimal) context.get("adjustment");
         if (adj == null) {
-            adj = new Double(0);
+            adj = ZERO;
         }
 
         Boolean countNewReturnItems = (Boolean) context.get("countNewReturnItems");
         if (countNewReturnItems == null) {
             countNewReturnItems = Boolean.FALSE;
         }
-        double returnTotal = orh.getOrderReturnedTotal(countNewReturnItems.booleanValue());
-        double orderTotal = orh.getOrderGrandTotal();
-        double available = orderTotal - returnTotal - adj.doubleValue();
+        BigDecimal returnTotal = orh.getOrderReturnedTotalBd(countNewReturnItems.booleanValue());
+        BigDecimal orderTotal = orh.getOrderGrandTotalBd();
+        BigDecimal available = orderTotal.subtract(returnTotal).subtract(adj);
 
 
         Map result = ServiceUtil.returnSuccess();
-        result.put("availableReturnTotal", new Double(available));
-        result.put("orderTotal", new Double(orderTotal));
-        result.put("returnTotal", new Double(returnTotal));
+        result.put("availableReturnTotal", available);
+        result.put("orderTotal", orderTotal);
+        result.put("returnTotal", returnTotal);
         return result;
     }
 
