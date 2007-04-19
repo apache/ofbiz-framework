@@ -713,7 +713,6 @@ under the License.
         </if-compare>
         <get-related value-name="orderItemShipGroup" relation-name="OrderItemShipGrpInvRes" list-name="orderItemShipGroupInvResList" order-by-list-name="orderByList"/>
         <first-from-list entry-name="orderItemShipGroupInvRes" list-name="orderItemShipGroupInvResList"/>
-<log level="always" message="JACOPO: ${orderItemShipGroupInvRes.promisedDatetime}"/>
         <field-to-result field-name="orderItemShipGroupInvRes.promisedDatetime" result-name="estimatedShipDate"/>
     </simple-method>
 
