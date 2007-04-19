@@ -703,7 +703,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getOrderItemShipGroupEstimatedShipDate" short-description="Compute and return the OrderItemShipGroup estimated ship date based on the associated items.">
-<log level="always" message="JACOPO: ${orderItemShipGroupInvRes.promisedDatetime}"/>
         <entity-one entity-name="OrderItemShipGroup" value-name="orderItemShipGroup"/>
         <if-compare field-name="orderItemShipGroup.maySplit" operator="equals" value="Y">
             <set field="orderByList[]" value="+promisedDatetime"/>
