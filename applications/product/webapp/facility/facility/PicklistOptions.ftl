@@ -84,7 +84,7 @@ under the License.
                                     <input type="submit" value="${uiLabelMap.ProductCreatePicklist}"/>
                                 </form>
                             <#else>
-                                &nbsp;CIAO
+                                &nbsp;
                             </#if>
                         </td>
                     </tr>
