@@ -20,6 +20,7 @@
 package org.ofbiz.manufacturing.mrp;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -149,7 +150,9 @@ public class MrpServices {
         if (UtilValidate.isEmpty(defaultYearsOffset)) {
             notAssignedDate = now;
         } else {
-            notAssignedDate = UtilDateTime.getYearStart(now, 0, 0, defaultYearsOffset.intValue());
+            Calendar calendar = UtilDateTime.toCalendar(now);
+            calendar.add(Calendar.YEAR, defaultYearsOffset.intValue());
+            notAssignedDate = new Timestamp(calendar.getTimeInMillis());
         }
         resultList = null;
         iteratorResult = null;
