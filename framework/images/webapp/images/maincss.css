@@ -1292,11 +1292,12 @@ float: left;
 }
 
 #main-navigation ul a {
+background-image: url(/images/tabs/tab_down_right.gif);
+background-position: top right;
+background-repeat: no-repeat;
 background-color: #B4B0AA;
 border-bottom: solid #909090 0.1em;
 border-left: solid #d0d0d0 0.1em;
-border-right: solid #909090 0.1em;
-border-top: solid #d0d0d0 0.1em;
 color: #000000;
 display: block;
 padding: 0.1em 0.5em 0.1em 0.5em;
@@ -1311,20 +1312,19 @@ color: #D4D0C8;
 #main-navigation ul .selected {
 /* selected tab */
 background-color: #D4D0C8;
-border-left: solid #e0e0e0 0.1em;
-border-top: solid #e0e0e0 0.1em;
 }
 
-#main-navigation ul .selected a {
+#main-navigation ul .selected a, ui .selected a:hover {
 background-color: #D4D0C8;
 border-bottom: solid #D4D0C8 0.1em;
+border-left: solid #ffffff 0.1em;
 color: #000099;
 }
 
 #main-navigation ul a:hover {
 background-color: #D4D0C8;
-border-left: solid #e0e0e0 0.1em;
-border-top: solid #e0e0e0 0.1em;
+border-left: solid #ffffff 0.1em;
+border-bottom: solid #D4D0C8 0.1em;
 color: #000099;
 text-decoration: none;
 }
