@@ -1577,9 +1577,9 @@ public class OrderReturnServices {
                     if ((returnItemResponse != null) && (orderId != null)) {
                         // TODO should we filter on payment's status (PMNT_SENT,PMNT_RECEIVED)
                         payment = returnItemResponse.getRelatedOne("Payment");
-                        if ((payment != null) && (payment.getDouble("amount") != null) &&
+                        if ((payment != null) && (payment.getBigDecimal("amount") != null) &&
                                 !paymentList.contains(payment.get("paymentId"))) {
-                            UtilMisc.addToDoubleInMap(returnAmountByOrder, orderId, payment.getDouble("amount"));
+                            UtilMisc.addToBigDecimalInMap(returnAmountByOrder, orderId, payment.getBigDecimal("amount"));
                             paymentList.add(payment.get("paymentId"));  // make sure we don't add duplicated payment amount
                         }
                     }
@@ -1616,17 +1616,17 @@ public class OrderReturnServices {
             Iterator orderIterator = returnAmountByOrder.keySet().iterator();
             while (orderIterator.hasNext()) {
                 String orderId = (String) orderIterator.next();
-                Double returnAmount = (Double) returnAmountByOrder.get(orderId);
-                if (Math.abs(returnAmount.doubleValue()) < 0.000001) {
+                BigDecimal returnAmount = (BigDecimal) returnAmountByOrder.get(orderId);
+                if (returnAmount.abs().compareTo(new BigDecimal("0.000001")) < 0) {
                     Debug.logError("Order [" + orderId + "] refund amount[ " + returnAmount + "] less than zero", module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderReturnTotalCannotLessThanZero", locale));
                 }
                 OrderReadHelper helper = new OrderReadHelper(OrderReadHelper.getOrderHeader(delegator, orderId));
-                double grandTotal = helper.getOrderGrandTotal();
+                BigDecimal grandTotal = helper.getOrderGrandTotalBd();
                 if (returnAmount == null) {
                     Debug.logInfo("No returnAmount found for order:" + orderId, module);
                 } else {
-                    if ((returnAmount.doubleValue() - grandTotal) > 0.01) {
+                    if (returnAmount.subtract(grandTotal).compareTo("0.01") > 0) {
                         Debug.logError("Order [" + orderId + "] refund amount[ " + returnAmount + "] exceeds order total [" + grandTotal + "]", module);
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderRefundAmountExceedsOrderTotal", locale));
                     }
