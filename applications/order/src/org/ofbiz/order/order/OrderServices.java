@@ -1456,20 +1456,21 @@ public class OrderServices {
                 }
 
                 Map shippingEstMap = ShippingEvents.getShipEstimate(dispatcher, delegator, orh, shipGroupSeqId);
-                Double shippingTotal = null;
+                BigDecimal shippingTotal = null;
                 if (orh.getValidOrderItems(shipGroupSeqId) == null || orh.getValidOrderItems(shipGroupSeqId).size() == 0) {
-                    shippingTotal = new Double(0.00);
+                    shippingTotal = ZERO;
                     Debug.log("No valid order items found - " + shippingTotal, module);
                 } else {
-                    shippingTotal = (Double) shippingEstMap.get("shippingTotal");
+                    shippingTotal = new BigDecimal(((Double) shippingEstMap.get("shippingTotal")).doubleValue());
+                    shippingTotal = shippingTotal.setScale(orderDecimals, orderRounding);
                     Debug.log("Got new shipping estimate - " + shippingTotal, module);
                 }
                 if (Debug.infoOn()) {
                     Debug.log("New Shipping Total [" + orderId + " / " + shipGroupSeqId + "] : " + shippingTotal, module);
                 }
 
-                double currentShipping = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId), orh.getAdjustments(), false, false, true);
-                currentShipping += OrderReadHelper.calcOrderAdjustments(orh.getOrderHeaderAdjustments(shipGroupSeqId), orh.getOrderItemsSubTotal(), false, false, true);
+                BigDecimal currentShipping = OrderReadHelper.getAllOrderItemsAdjustmentsTotalBd(orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId), orh.getAdjustments(), false, false, true);
+                currentShipping = currentShipping.add(OrderReadHelper.calcOrderAdjustmentsBd(orh.getOrderHeaderAdjustments(shipGroupSeqId), orh.getOrderItemsSubTotalBd(), false, false, true));
 
                 if (Debug.infoOn()) {
                     Debug.log("Old Shipping Total [" + orderId + " / " + shipGroupSeqId + "] : " + currentShipping, module);
@@ -1481,9 +1482,9 @@ public class OrderServices {
                     continue;
                 }
 
-                if ((shippingTotal != null) && (shippingTotal.doubleValue() != currentShipping)) {
+                if ((shippingTotal != null) && (shippingTotal.compareTo(currentShipping) != 0)) {
                     // place the difference as a new shipping adjustment
-                    Double adjustmentAmount = new Double(shippingTotal.doubleValue() - currentShipping);
+                    BigDecimal adjustmentAmount = shippingTotal.subtract(currentShipping);
                     String adjSeqId = delegator.getNextSeqId("OrderAdjustment");
                     GenericValue orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentId", adjSeqId));
                     orderAdjustment.set("orderAdjustmentTypeId", "SHIPPING_CHARGES");
