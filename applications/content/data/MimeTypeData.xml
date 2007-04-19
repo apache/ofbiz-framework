@@ -90,6 +90,7 @@ under the License.
     <MimeType mimeTypeId="text/csv" description="Comma Separated Value Text"/>
     <MimeType mimeTypeId="text/html" description="HTML Text"/>
     <MimeType mimeTypeId="text/sgml" description="SGML Text"/>
+    <MimeType mimeTypeId="text/x-diff" description="diff for patching files"/>
     <MimeType mimeTypeId="text/xml" description="XML Text"/>
 
     <!-- video mime types -->
