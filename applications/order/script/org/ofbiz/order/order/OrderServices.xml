@@ -701,7 +701,22 @@ under the License.
             <call-service service-name="removeOrderContactMech" in-map-name="removeOrderContactMechMap" include-user-login="true"/>
         </if-empty>
     </simple-method>
-    
+
+    <simple-method method-name="getOrderItemShipGroupEstimatedShipDate" short-description="Compute and return the OrderItemShipGroup estimated ship date based on the associated items.">
+<log level="always" message="JACOPO: ${orderItemShipGroupInvRes.promisedDatetime}"/>
+        <entity-one entity-name="OrderItemShipGroup" value-name="orderItemShipGroup"/>
+        <if-compare field-name="orderItemShipGroup.maySplit" operator="equals" value="Y">
+            <set field="orderByList[]" value="+promisedDatetime"/>
+        <else>
+            <set field="orderByList[]" value="-promisedDatetime"/>
+        </else>
+        </if-compare>
+        <get-related value-name="orderItemShipGroup" relation-name="OrderItemShipGrpInvRes" list-name="orderItemShipGroupInvResList" order-by-list-name="orderByList"/>
+        <first-from-list entry-name="orderItemShipGroupInvRes" list-name="orderItemShipGroupInvResList"/>
+<log level="always" message="JACOPO: ${orderItemShipGroupInvRes.promisedDatetime}"/>
+        <field-to-result field-name="orderItemShipGroupInvRes.promisedDatetime" result-name="estimatedShipDate"/>
+    </simple-method>
+
     <simple-method method-name="createOrderContactMech" short-description="Create OrderContactMech">
         <check-permission permission="ORDERMGR" action="_CREATE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateOrderContactMech"/>

@@ -363,6 +363,14 @@ under the License.
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
     </service>
 
+    <service name="getOrderItemShipGroupEstimatedShipDate" engine="simple"
+            location="org/ofbiz/order/order/OrderServices.xml" invoke="getOrderItemShipGroupEstimatedShipDate" auth="true">
+        <description>Compute and return the OrderItemShipGroup estimated ship date based on the associated items.</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="estimatedShipDate" type="Timestamp" mode="OUT" optional="true"/>
+    </service>
+
     <service name="addOrderRole" engine="java"
             location="org.ofbiz.order.order.OrderServices" invoke="addRoleType">
         <description>Adds a RoleType to an order</description>
