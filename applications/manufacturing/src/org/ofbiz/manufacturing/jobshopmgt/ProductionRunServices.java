@@ -1834,13 +1834,7 @@ public class ProductionRunServices {
         }
         String productionRunId = (String)resultService.get("productionRunId");
         result.put("productionRunId", productionRunId);
-        
-//        try {
-//            requirement.remove();
-//        } catch (GenericEntityException e) {
-//            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingRequirementNotDeleted", locale));
-//        }
-        
+
         result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "ManufacturingProductionRunCreated",UtilMisc.toMap("productionRunId", productionRunId), locale));
         return result;
     }
