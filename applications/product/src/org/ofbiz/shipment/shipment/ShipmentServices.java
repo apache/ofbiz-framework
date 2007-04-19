@@ -78,6 +78,7 @@ public class ShipmentServices {
         estimate.set("orderPricePercent", context.get("flatPercent"));
         estimate.set("orderFlatPrice", context.get("flatPrice"));
         estimate.set("orderItemFlatPrice", context.get("flatItemPrice"));
+        estimate.set("shippingPricePercent", context.get("shippingPricePercent"));
         estimate.set("productFeatureGroupId", context.get("productFeatureGroupId"));
         estimate.set("oversizeUnit", context.get("oversizeUnit"));
         estimate.set("oversizePrice", context.get("oversizePrice"));
@@ -433,11 +434,16 @@ public class ShipmentServices {
         if (estimate.getDouble("orderPricePercent") != null)
             orderPercent = estimate.getDouble("orderPricePercent").doubleValue();
 
+        double shippingPricePercent = 0.00;
+        if (estimate.getDouble("shippingPricePercent") != null)
+            shippingPricePercent = estimate.getDouble("shippingPricePercent").doubleValue();
+
         double itemFlatAmount = shippableQuantity.doubleValue() * orderItemFlat;
         double orderPercentage = shippableTotal.doubleValue() * (orderPercent / 100);
 
         // flat total
         double flatTotal = orderFlat + itemFlatAmount + orderPercentage;
+        flatTotal = flatTotal + flatTotal * (shippingPricePercent / 100);
 
         // spans
         double weightUnit = 0.00;

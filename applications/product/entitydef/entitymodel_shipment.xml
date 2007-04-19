@@ -729,6 +729,7 @@ under the License.
       <field name="orderFlatPrice" type="currency-amount"></field>
       <field name="orderPricePercent" type="floating-point"></field>
       <field name="orderItemFlatPrice" type="currency-amount"></field>
+      <field name="shippingPricePercent" type="floating-point"></field>
       <field name="productFeatureGroupId" type="id"></field>
       <field name="oversizeUnit" type="floating-point"></field>
       <field name="oversizePrice" type="currency-amount"></field>
