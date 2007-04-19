@@ -143,6 +143,11 @@ under the License.
         <action service="createContentAssoc" mode="sync" run-as-user="system"/>
     </eca>
 
+    <eca service="createContent" event="commit">
+        <condition field-name="contentPurposeTypeId" operator="is-not-empty"/>
+        <action service="createContentPurpose" mode="sync" run-as-user="system"/>
+    </eca>
+
     <!-- content role ecas -->
     <eca service="createContentRole" event="invoke">
         <action service="ensurePartyRole" mode="sync" run-as-user="system"/>

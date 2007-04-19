@@ -406,6 +406,10 @@
         <!-- resetting the permission flag -->
         <set field="hasPermission" type="Boolean" value="false"/>
 
+        <if-empty field-name="checkId">
+            <add-error><fail-message message="Required field 'checkId' (contentId) is missing in simple method call [checkContentOperationSecurity]"/></add-error>
+        </if-empty>
+
         <if-empty field-name="contentOperationId">
             <add-error><fail-message message="Required field 'contentOperationId' is missing in simple method call [checkContentOperationSecurity]"/></add-error>
         </if-empty>
@@ -417,23 +421,37 @@
             <set field="contentPurposeTypeId" value="_NA_"/>
         </if-empty>
 
-        <if-empty field-name="statusId">
-            <if-not-empty field-name="content">
-                <set field="statusId" from-field="content.statusId"/>
-            </if-not-empty>
-        </if-empty>
+        <entity-one entity-name="Content" value-name="checkContent">
+            <field-map field-name="contentId" env-name="checkId"/>
+        </entity-one>
+        <set field="statusId" from-field="checkContent.statusId"/>         
 
-        <!-- check both the purpose and the _NA_ purpose -->
-        <entity-condition entity-name="ContentPurposeOperation" list-name="operations">
-            <condition-list combine="and">
-                <condition-list combine="or">
-                    <condition-expr field-name="contentPurposeTypeId" operator="equals" env-name="contentPurposeTypeId"/>
-                    <condition-expr field-name="contentPurposeTypeId" operator="equals" value="_NA_"/>
+        <!-- get all purposes for this content -->
+        <call-simple-method method-name="findAllContentPurposes"/>
+
+        <!-- find defined purpose/operation mappings -->
+        <iterate entry-name="currentPurpose" list-name="contentPurposes">
+            <entity-condition entity-name="ContentPurposeOperation" list-name="currentOperations">
+                <condition-list combine="and">
+                    <condition-expr field-name="contentPurposeTypeId" operator="equals" env-name="currentPurpose.contentPurposeTypeId"/>
+                    <condition-expr field-name="contentOperationId" operator="equals" env-name="contentOperationId"/>
                 </condition-list>
-                <condition-expr field-name="contentOperationId" operator="equals" env-name="contentOperationId"/>
-            </condition-list>
-            <order-by field-name="contentPurposeTypeId"/>
-        </entity-condition>
+                <order-by field-name="contentPurposeTypeId"/>
+            </entity-condition>
+            <list-to-list list-name="currentOperations" to-list-name="operations"/>
+        </iterate>
+
+        <!-- check the _NA_ purpose but only if no other purposes were found -->
+        <if-empty field-name="contentPurposes">
+            <entity-condition entity-name="ContentPurposeOperation" list-name="currentOperations">
+                <condition-list combine="and">
+                    <condition-expr field-name="contentPurposeTypeId" operator="equals" value="_NA_"/>
+                    <condition-expr field-name="contentOperationId" operator="equals" env-name="contentOperationId"/>
+                </condition-list>
+                <order-by field-name="contentPurposeTypeId"/>
+            </entity-condition>
+            <list-to-list list-name="currentOperations" to-list-name="operations"/>
+        </if-empty>
 
         <!-- place holder for the content ID -->
         <set field="toCheckContentId" from-field="checkId"/>
@@ -470,7 +488,7 @@
                         </then>
                     </if>
 
-                    <log level="verbose" message="Testing OPERATION: ${operation}"/>
+                    <log level="verbose" message="Testing [${checkId}] [${statusId}] OPERATION: ${operation}"/>
 
                     <!-- check statusId -->
                     <if>
@@ -486,6 +504,8 @@
                             </or>
                         </condition>
                         <then>
+                            <log level="verbose" message="Passed status check; now checking role(s)"/>
+                            
                             <!-- first check passed; now we test for the role membership(s) -->
                             <iterate entry-name="thisPartyId" list-name="partyIdList">
                                 <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals">
@@ -683,6 +703,17 @@
 
     </simple-method>
 
+    <!-- method to get the content purposes -->
+    <simple-method method-name="findAllContentPurposes" short-description="Find all content purposes for the specified content">
+        <if-empty field-name="checkId">
+            <add-error><fail-message message="Required field 'checkId' (contentId) is missing in simple method call [findAllContentPurposes]"/></add-error>
+        </if-empty>
+        <check-errors/>
+        
+        <set field="purposeLookup.contentId" from-field="checkId"/> 
+        <find-by-and entity-name="ContentPurpose" map-name="purposeLookup" list-name="contentPurposes"/>
+    </simple-method>
+    
     <!-- method to get user's party associations -->
     <simple-method method-name="findAllAssociatedPartyIds" short-description="Finds all associated party Ids for a user">
         <set field="lookupMap.partyIdFrom" from-field="userLogin.partyId"/>

@@ -38,6 +38,7 @@
         <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
         <!-- end of deprecated fields -->
+        <attribute name="contentPurposeTypeId" type="String" mode="IN" optional="true"/> 
         <attribute name="contentAssocTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contentIdFrom" type="String" mode="IN" optional="true"/>
         <attribute name="contentIdTo" type="String" mode="IN" optional="true"/>
