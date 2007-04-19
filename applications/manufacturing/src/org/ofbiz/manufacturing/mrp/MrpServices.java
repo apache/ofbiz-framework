@@ -600,9 +600,7 @@ public class MrpServices {
             Debug.logError("Error : parameters = "+parameters,module);
             return ServiceUtil.returnError("Problem, can not initialise the table InventoryEventPlanned, for more detail look at the log");
         }
-        // TODO : modifier le jeux d'essai de TGR pour mettre 0 au niveau pf
         long bomLevel = 0;
-        // iteration for the bomLevel for which there are some events
         do {
             //get the products from the InventoryEventPlanned table for the current billOfMaterialLevel (ie. BOM)
             parameters = UtilMisc.toMap("billOfMaterialLevel", new Long(bomLevel), "userLogin", userLogin);
@@ -677,7 +675,7 @@ public class MrpServices {
                         eventDate = inventoryEventForMRP.getTimestamp("eventDate");
                         // to be just before the requirement
                         eventDate.setTime(eventDate.getTime()-1);
-                        ProposedOrder proposedOrder = new ProposedOrder(product, facilityId, manufacturingFacilityId, isBuilt, eventDate, qtyToStock, now);
+                        ProposedOrder proposedOrder = new ProposedOrder(product, facilityId, manufacturingFacilityId, isBuilt, eventDate, qtyToStock);
                         proposedOrder.setMrpName(mrpName);
                         // calculate the ProposedOrder quantity and update the quantity object property.
                         proposedOrder.calculateQuantityToSupply(reorderQuantity, minimumStock, iteratorListInventoryEventForMRP);

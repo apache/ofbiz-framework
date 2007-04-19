@@ -38,6 +38,8 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 
+import org.ofbiz.manufacturing.mrp.ProposedOrder;
+
 /** An ItemCoinfigurationNode represents a component in a bill of materials.
  */
 
@@ -561,6 +563,26 @@ public class BOMNode {
             }
         }
         return productionRunId;
+    }
+
+    public Timestamp getStartDate(String facilityId, Timestamp requiredBydate) {
+        Timestamp minStartDate = requiredBydate;
+        if ("WIP".equals(getProduct().getString("productTypeId"))) {
+            ProposedOrder proposedOrder = new ProposedOrder(getProduct(), facilityId, facilityId, true, requiredBydate, getQuantity());
+            proposedOrder.calculateStartDate(0, null, delegator, dispatcher, userLogin);
+            Timestamp startDate = proposedOrder.getRequirementStartDate();
+            minStartDate = startDate;
+            for (int i = 0; i < childrenNodes.size(); i++) {
+                BOMNode oneChildNode = (BOMNode)childrenNodes.get(i);
+                if (oneChildNode != null) {
+                    Timestamp childStartDate = oneChildNode.getStartDate(facilityId, startDate);
+                    if (childStartDate.compareTo(minStartDate) < 0) {
+                        minStartDate = childStartDate;
+                    }
+                }
+            }
+        }
+        return minStartDate;
     }
 
     public boolean isWarehouseManaged() {

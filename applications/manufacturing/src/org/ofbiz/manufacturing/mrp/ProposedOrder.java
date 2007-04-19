@@ -32,6 +32,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.manufacturing.bom.BOMTree;
 import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 import org.ofbiz.manufacturing.techdata.TechDataServices;
 import org.ofbiz.service.DispatchContext;
@@ -57,11 +58,10 @@ public class ProposedOrder {
     protected String mrpName;
     protected Timestamp requiredByDate;
     protected Timestamp requirementStartDate;
-    protected Timestamp now;
     protected double quantity;
     
     
-    public ProposedOrder(GenericValue product, String facilityId, String manufacturingFacilityId, boolean isBuilt, Timestamp requiredByDate, double quantity, Timestamp now) {
+    public ProposedOrder(GenericValue product, String facilityId, String manufacturingFacilityId, boolean isBuilt, Timestamp requiredByDate, double quantity) {
         this.product = product;
         this.productId = product.getString("productId");
         this.facilityId = facilityId;
@@ -227,7 +227,14 @@ public class ProposedOrder {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
         Map parameters = UtilMisc.toMap("userLogin", userLogin);
-        
+        if (isBuilt) {
+            try {
+                BOMTree tree = new BOMTree(productId, "MANUF_COMPONENT", null, BOMTree.EXPLOSION_MANUFACTURING, delegator, dispatcher, userLogin);
+                requirementStartDate = tree.getRoot().getStartDate(manufacturingFacilityId, requiredByDate);
+            } catch (Exception e) {
+                Debug.logError(e,"Error : computing the requirement start date. " + e.getMessage(), module);
+            }
+        }
         parameters.put("productId", productId);
         parameters.put("statusId", "REQ_PROPOSED");
         parameters.put("facilityId", (isBuilt? manufacturingFacilityId: facilityId));
