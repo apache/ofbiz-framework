@@ -256,6 +256,12 @@ under the License.
                     <field-map field-name="contentAssocTypeId" env-name="parameters.contentAssocTypeId"/>
                     <field-map field-name="fromDate" env-name="parameters.fromDate"/>
                 </entity-one>
+                <entity-and entity-name="ContentPurpose" list-name="currentPurposes">
+                    <field-map field-name="contentId" env-name="contentId"/>                    
+                </entity-and>
+                <entity-condition entity-name="ContentPurposeType" list-name="purposeTypes">
+                    <order-by field-name="description"/>
+                </entity-condition>
                 <entity-and entity-name="DataResource" list-name="templates">
                     <field-map field-name="dataCategoryId" value="TEMPLATE"/>
                     <order-by field-name="dataResourceName"/>

@@ -438,6 +438,11 @@
         <find-by-primary-key entity-name="ContentPurpose" map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    <simple-method method-name="updateSingleContentPurpose" short-description="Updates the purpose making sure there is only one">
+        <set field="toRemove.contentId" from-field="parameters.contentId"/>
+        <remove-by-and entity-name="ContentPurpose" map-name="toRemove"/>
+        <call-simple-method method-name="createContentPurpose"/>
+    </simple-method>
     
     <!-- Methods for ContentOperation -->
     <simple-method method-name="createContentOperation" short-description="Create Content Operation">

@@ -150,8 +150,7 @@
                     <input type="hidden" name="${paramName}" value="${requestParameters.get(paramName)}"/>
                 </#if>
             </#list>
-        <#else>
-            <input type="hidden" name="contentPurposeTypeId" value="${contentPurposeTypeId?default('SECTION')}"/>
+        <#else>            
             <input type="hidden" name="contentAssocTypeId" value="${contentAssocTypeId?default('SUBSITE')}"/>
             <input type="hidden" name="ownerContentId" value="${contentIdFrom?default(contentRoot)}"/>
             <input type="hidden" name="contentIdFrom" value="${contentIdFrom?default(contentRoot)}"/>
@@ -186,6 +185,24 @@
             <td><div class="tableheadtext">Key</div></td>
             <td>
                 <input type="text" name="mapKey" class="inputBox" value="${(assoc.mapKey)?if_exists}" size="40"/>
+            </td>
+          </tr>
+          <tr>
+            <td><div class="tableheadtext">Purpose</div></td>
+            <td>
+                <select name="contentPurposeTypeId" class="selectBox">
+                    <#if (currentPurposes?has_content)>
+                        <#assign purpose = currentPurposes[0].getRelatedOne("ContentPurposeType")/>
+                        <option value="${purpose.contentPurposeTypeId}">${purpose.description?default(purpose.contentPurposeTypeId)}</option>
+                        <option value="${purpose.contentPurposeTypeId}">----</option>
+                    <#else>
+                        <option value="SECTION">Section</option>
+                        <option value="SECTION">----</option>
+                    </#if>
+                    <#list purposeTypes as type>
+                        <option value="${type.contentPurposeTypeId}">${type.description}</option>
+                    </#list>
+                </select>
             </td>
           </tr>
           <tr>
