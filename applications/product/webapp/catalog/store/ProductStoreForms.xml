@@ -505,6 +505,7 @@
         <field name="flatPercent" title="${uiLabelMap.ProductFlatBasePercent}" tooltip="${uiLabelMap.ProductShipamountOrderTotalPercent}"><text/></field>
         <field name="flatPrice" title="${uiLabelMap.ProductFlatBasePrice}" tooltip="${uiLabelMap.ProductShipamountPrice}"><text/></field>
         <field name="flatItemPrice" title="${uiLabelMap.ProductFlatItemPrice}" tooltip="${uiLabelMap.ProductShipamountTotalQuantityPrice}"><text/></field>
+        <field name="shippingPricePercent" title="${uiLabelMap.ProductFlatShippingPercent}" tooltip="${uiLabelMap.ProductShipamountShippingTotalPercent}"><text/></field>
         
         <field name="FeatureTitle" title=" " title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="productFeatureGroupId" title="${uiLabelMap.ProductFeatureGroup}" tooltip="${uiLabelMap.ProductFeatureMessage}"><text/></field>
@@ -602,6 +603,7 @@
         <field name="orderPricePercent" title="${uiLabelMap.ProductFlatBasePercent}" tooltip="${uiLabelMap.ProductShipamountOrderTotalPercent}"><display/></field>
         <field name="orderFlatPrice" title="${uiLabelMap.ProductFlatBasePrice}" tooltip="${uiLabelMap.ProductShipamountPrice}"><display/></field>
         <field name="orderItemFlatPrice" title="${uiLabelMap.ProductFlatItemPrice}" tooltip="${uiLabelMap.ProductShipamountTotalQuantityPrice}"><display/></field>
+        <field name="shippingPricePercent" title="${uiLabelMap.ProductFlatShippingPercent}" tooltip="${uiLabelMap.ProductShipamountShippingTotalPercent}"><display/></field>
         
         <field name="FeatureTitle" title=" " title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="productFeatureGroupId" title="${uiLabelMap.ProductFeatureGroup}" tooltip="${uiLabelMap.ProductFeatureMessage}"><display/></field>
