@@ -1626,7 +1626,7 @@ public class OrderReturnServices {
                 if (returnAmount == null) {
                     Debug.logInfo("No returnAmount found for order:" + orderId, module);
                 } else {
-                    if (returnAmount.subtract(grandTotal).compareTo("0.01") > 0) {
+                    if (returnAmount.subtract(grandTotal).compareTo(new BigDecimal("0.01")) > 0) {
                         Debug.logError("Order [" + orderId + "] refund amount[ " + returnAmount + "] exceeds order total [" + grandTotal + "]", module);
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderRefundAmountExceedsOrderTotal", locale));
                     }
