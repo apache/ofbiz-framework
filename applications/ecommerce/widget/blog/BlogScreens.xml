@@ -606,19 +606,16 @@
                         <set field="useRequestParameters" value="false" type="Boolean"/>
 
                         <!-- used for permission check -->
-                        <set field="contentPurposeTypeId" value="RESPONSE"/>
-                        <set field="contentOperationId" value="CONTENT_CREATE"/>
-                        <set field="ownerContentId" from-field="content.ownerContentId"/>
+                        <set field="contentPurposeTypeId" value="ARTICLE"/>
+                        <set field="contentOperationId" value="CONTENT_RESPOND"/>
+                        <set field="ownerContentId" from-field="content.contentId"/>
                     </actions>
                     <widgets>
                         <container style="bloghr">
                             <label text="Add Comment [${content.contentId}]: " style="blogtitle"/>
                             <section>
-                                <condition>
-                                    <and>
-                                        <if-compare field-name="content.statusId" operator="equals" value="CTNT_PUBLISHED"/>
-                                        <if-service-permission service-name="genericContentPermission" main-action="CREATE"/>                                                                                
-                                    </and>
+                                <condition>                                                                        
+                                    <if-service-permission service-name="genericContentPermission" main-action="CREATE"/>
                                 </condition>
 
                                 <actions>
