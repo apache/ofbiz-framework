@@ -180,6 +180,10 @@ public class ProductSearch {
         public Set excludeFeatureCategoryIds = FastSet.newInstance();
         public Set alwaysIncludeFeatureCategoryIds = FastSet.newInstance();
 
+        public Set includeFeatureGroupIds = FastSet.newInstance();
+        public Set excludeFeatureGroupIds = FastSet.newInstance();
+        public Set alwaysIncludeFeatureGroupIds = FastSet.newInstance();
+
         public ProductSearchContext(GenericDelegator delegator, String visitId) {
             this.delegator = delegator;
             this.visitId = visitId;
@@ -339,7 +343,8 @@ public class ProductSearch {
                     includeCategoryIdOrSetAndList.size() == 0 && alwaysIncludeCategoryIdOrSetAndList.size() == 0 &&
                     includeFeatureIds.size() == 0 && excludeFeatureIds.size() == 0 && alwaysIncludeFeatureIds.size() == 0 &&
                     includeFeatureIdOrSetAndList.size() == 0 && alwaysIncludeFeatureIdOrSetAndList.size() == 0 &&
-                    includeFeatureCategoryIds.size() == 0 && excludeFeatureCategoryIds.size() == 0 && alwaysIncludeFeatureCategoryIds.size() == 0) {
+                    includeFeatureCategoryIds.size() == 0 && excludeFeatureCategoryIds.size() == 0 && alwaysIncludeFeatureCategoryIds.size() == 0 &&
+                    includeFeatureGroupIds.size() == 0 && excludeFeatureGroupIds.size() == 0 && alwaysIncludeFeatureGroupIds.size() == 0) {
                 return;
             }
             
@@ -412,6 +417,32 @@ public class ProductSearch {
                     incExcCondList.add(new EntityExpr(otherFeaturePrefix + "ProductFeatureCategoryId", EntityOperator.EQUALS, includeFeatureCategoryId));
                 }
             }
+            if (includeFeatureGroupIds.size() > 0) {
+                Iterator includeFeatureGroupIdIter = includeFeatureGroupIds.iterator();
+                while (includeFeatureGroupIdIter.hasNext()) {
+                    String includeFeatureGroupId = (String) includeFeatureGroupIdIter.next();
+                    String featurePrefix = "pfa" + this.index;
+                    String entityAlias = "PFA" + this.index;
+                    String otherFeaturePrefix = "pfga" + this.index;
+                    String otherEntityAlias = "PFGA" + this.index;
+                    this.index++;
+
+                    this.dynamicViewEntity.addMemberEntity(entityAlias, "ProductFeatureAppl");
+                    this.dynamicViewEntity.addMemberEntity(otherEntityAlias, "ProductFeatureGroupAppl");
+                    this.dynamicViewEntity.addAlias(otherEntityAlias, otherFeaturePrefix + "ProductFeatureGroupId", "productFeatureGroupId", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "FromDate", "fromDate", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ThruDate", "thruDate", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(otherEntityAlias, otherFeaturePrefix + "FromDate", "fromDate", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(otherEntityAlias, otherFeaturePrefix + "ThruDate", "thruDate", null, null, null, null);
+                    this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+                    this.dynamicViewEntity.addViewLink(entityAlias, otherEntityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productFeatureId"));
+                    incExcCondList.add(new EntityExpr(new EntityExpr(featurePrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(featurePrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
+                    incExcCondList.add(new EntityExpr(featurePrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
+                    incExcCondList.add(new EntityExpr(new EntityExpr(otherFeaturePrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(otherFeaturePrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
+                    incExcCondList.add(new EntityExpr(otherFeaturePrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
+                    incExcCondList.add(new EntityExpr(otherFeaturePrefix + "ProductFeatureGroupId", EntityOperator.EQUALS, includeFeatureGroupId));
+                }
+            }
             
             if (excludeCategoryIds.size() > 0) {
                 List idExcludeCondList = FastList.newInstance();
@@ -435,6 +466,16 @@ public class ProductSearch {
                 idExcludeCondList.add(new EntityExpr("fromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
                 idExcludeCondList.add(new EntityExpr("productFeatureCategoryId", EntityOperator.IN, excludeFeatureCategoryIds));
                 EntityConditionValue subSelCond = new EntityConditionSubSelect("ProductFeatureAndAppl", "productId", new EntityConditionList(idExcludeCondList, EntityOperator.AND), true, delegator);
+                incExcCondList.add(new EntityExpr("mainProductId", EntityOperator.NOT_EQUAL, subSelCond));
+            }
+            if (excludeFeatureGroupIds.size() > 0) {
+                List idExcludeCondList = FastList.newInstance();
+                idExcludeCondList.add(new EntityExpr(new EntityExpr("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
+                idExcludeCondList.add(new EntityExpr("fromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
+                idExcludeCondList.add(new EntityExpr(new EntityExpr("groupThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("groupThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
+                idExcludeCondList.add(new EntityExpr("groupFromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
+                idExcludeCondList.add(new EntityExpr("productFeatureGroupId", EntityOperator.IN, excludeFeatureGroupIds));
+                EntityConditionValue subSelCond = new EntityConditionSubSelect("ProdFeaGrpAppAndProdFeaApp", "productId", new EntityConditionList(idExcludeCondList, EntityOperator.AND), true, delegator);
                 incExcCondList.add(new EntityExpr("mainProductId", EntityOperator.NOT_EQUAL, subSelCond));
             }
             
@@ -486,6 +527,32 @@ public class ProductSearch {
                     alwIncCondList.add(new EntityExpr(new EntityExpr(featurePrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(featurePrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
                     alwIncCondList.add(new EntityExpr(featurePrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
                     alwIncCondList.add(new EntityExpr(otherFeaturePrefix + "ProductFeatureCategoryId", EntityOperator.EQUALS, alwaysIncludeFeatureCategoryId));
+                }
+            }
+            if (alwaysIncludeFeatureGroupIds.size() > 0) {
+                Iterator alwaysIncludeFeatureGroupIdIter = alwaysIncludeFeatureGroupIds.iterator();
+                while (alwaysIncludeFeatureGroupIdIter.hasNext()) {
+                    String alwaysIncludeFeatureGroupId = (String) alwaysIncludeFeatureGroupIdIter.next();
+                    String featurePrefix = "pfa" + this.index;
+                    String entityAlias = "PFA" + this.index;
+                    String otherFeaturePrefix = "pfga" + this.index;
+                    String otherEntityAlias = "PFGA" + this.index;
+                    this.index++;
+
+                    this.dynamicViewEntity.addMemberEntity(entityAlias, "ProductFeatureAppl");
+                    this.dynamicViewEntity.addMemberEntity(otherEntityAlias, "ProductFeatureGroupAppl");
+                    this.dynamicViewEntity.addAlias(otherEntityAlias, otherFeaturePrefix + "ProductFeatureGroupId", "productFeatureGroupId", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "FromDate", "fromDate", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(entityAlias, featurePrefix + "ThruDate", "thruDate", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(otherEntityAlias, otherFeaturePrefix + "FromDate", "fromDate", null, null, null, null);
+                    this.dynamicViewEntity.addAlias(otherEntityAlias, otherFeaturePrefix + "ThruDate", "thruDate", null, null, null, null);
+                    this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+                    this.dynamicViewEntity.addViewLink(entityAlias, otherEntityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productFeatureId"));
+                    alwIncCondList.add(new EntityExpr(new EntityExpr(featurePrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(featurePrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
+                    alwIncCondList.add(new EntityExpr(featurePrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
+                    alwIncCondList.add(new EntityExpr(new EntityExpr(otherFeaturePrefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(otherFeaturePrefix + "ThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
+                    alwIncCondList.add(new EntityExpr(otherFeaturePrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
+                    alwIncCondList.add(new EntityExpr(otherFeaturePrefix + "ProductFeatureGroupId", EntityOperator.EQUALS, alwaysIncludeFeatureGroupId));
                 }
             }
 
@@ -1101,7 +1168,83 @@ public class ProductSearch {
             }
         }
     }
-    
+
+    public static class FeatureGroupConstraint extends ProductSearchConstraint {
+        public static final String constraintName = "FeatureGroup";
+        protected String productFeatureGroupId;
+        /** This is a tri-state variable: null = Include, true = Exclude, false = AlwaysInclude */
+        protected Boolean exclude;
+
+        /**
+         * 
+         * @param productFeatureGroupId
+         * @param exclude This is a tri-state variable: null = Include, true = Exclude, false = AlwaysInclude
+         */
+        public FeatureGroupConstraint(String productFeatureGroupId, Boolean exclude) {
+            this.productFeatureGroupId = productFeatureGroupId;
+            this.exclude = exclude;
+        }
+
+        public void addConstraint(ProductSearchContext productSearchContext) {
+            // just add to global sets
+            if (exclude == null) {
+                productSearchContext.includeFeatureGroupIds.add(productFeatureGroupId);
+            } else if (exclude.equals(Boolean.TRUE)) {
+                productSearchContext.excludeFeatureGroupIds.add(productFeatureGroupId);
+            } else if (exclude.equals(Boolean.FALSE)) {
+                productSearchContext.alwaysIncludeFeatureGroupIds.add(productFeatureGroupId);
+            }
+
+            // add in productSearchConstraint, don't worry about the productSearchResultId or constraintSeqId, those will be fill in later
+            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", this.productFeatureGroupId)));
+        }
+
+        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+            GenericValue productFeatureGroup = null;
+            try {
+                productFeatureGroup = delegator.findByPrimaryKeyCache("ProductFeatureGroup", UtilMisc.toMap("productFeatureGroupId", productFeatureGroupId));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error finding ProductFeatureGroup and Type information for constraint pretty print", module);
+            }
+            StringBuffer ppBuf = new StringBuffer();
+            if (productFeatureGroup != null) {
+                ppBuf.append(UtilProperties.getMessage(resource, "ProductFeatureGroup", locale) + ": ");
+                if(productFeatureGroup.get("description") != null) {
+                    ppBuf.append(productFeatureGroup.get("description"));    
+                } else {
+                    ppBuf.append("[" + this.productFeatureGroupId + "]");
+                }
+            } 
+            if (this.exclude != null) {
+                if (Boolean.TRUE.equals(this.exclude)) {
+                    ppBuf.append(" (Exclude)");
+                } else {
+                    ppBuf.append(" (Always Include)");
+                }
+            }
+            return (ppBuf.toString());
+        }
+
+        public boolean equals(Object obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof FeatureGroupConstraint) {
+                FeatureGroupConstraint that = (FeatureGroupConstraint) psc;
+                if (this.productFeatureGroupId == null) {
+                    if (that.productFeatureGroupId != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.productFeatureGroupId.equals(that.productFeatureGroupId)) {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
     
     public static class FeatureSetConstraint extends ProductSearchConstraint {
         public static final String constraintName = "Feature Set";

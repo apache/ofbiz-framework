@@ -993,6 +993,26 @@ under the License.
         <key-map field-name="productFeatureId"/>
       </view-link>
     </view-entity>
+    <view-entity entity-name="ProdFeaGrpAppAndProdFeaApp"
+            package-name="org.ofbiz.product.feature"
+            title="ProductFeatureGroupAppl And ProductFeatureAppl View Entity">
+      <member-entity entity-alias="PFGA" entity-name="ProductFeatureGroupAppl"/>
+      <member-entity entity-alias="PFA" entity-name="ProductFeatureAppl"/>
+      <alias entity-alias="PFGA" name="productFeatureGroupId"/>
+      <alias entity-alias="PFGA" name="productFeatureId"/>
+      <alias entity-alias="PFA" name="groupFromDate" field="fromDate"/>
+      <alias entity-alias="PFA" name="groupThruDate" field="thruDate"/>
+      <alias entity-alias="PFA" name="productId"/>
+      <alias entity-alias="PFA" name="productFeatureApplTypeId"/>
+      <alias entity-alias="PFA" name="fromDate"/>
+      <alias entity-alias="PFA" name="thruDate"/>
+      <alias entity-alias="PFA" name="sequenceNum"/>
+      <alias entity-alias="PFA" name="amount"/>
+      <alias entity-alias="PFA" name="recurringAmount"/>
+      <view-link entity-alias="PFGA" rel-entity-alias="PFA">
+        <key-map field-name="productFeatureId"/>
+      </view-link>
+    </view-entity>
     <entity entity-name="ProductFeatureGroupAppl"
             package-name="org.ofbiz.product.feature"
             title="Product Feature Group Applicability Entity">
