@@ -31,11 +31,11 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <container>
+                                <container style="button-bar">
                                     <label style="head1">${uiLabelMap.${labelTitleProperty}}</label>
                                 </container>
-                                <container>
-                                    <link target="EntitySyncStatus" style="buttontext" text="${uiLabelMap.CommonRefresh}"/>
+                                <container style="button-bar">
+                                    <link target="EntitySyncStatus" style="smallSubmit" text="${uiLabelMap.CommonRefresh}"/>
                                 </container>
 
 								<!-- Now call the SimpleScreen form -->
@@ -62,7 +62,9 @@ under the License.
                 <decorator-screen name="GenericDecorator">
                     <decorator-section name="body">
                         <include-form name="EntitySyncStatus" location="component://webtools/widget/EntitySyncForms.xml"/>
-                        <label style="head1">${uiLabelMap.WebtoolsLoadOfflineData}</label>
+                        <container style="button-bar">
+                            <label style="head1">${uiLabelMap.WebtoolsLoadOfflineData}</label>
+                        </container>
                         <include-form name="EntitySyncLoadOffline" location="component://webtools/widget/EntitySyncForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
