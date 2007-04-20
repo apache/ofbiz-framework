@@ -89,6 +89,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="ProductFeatureDataResource" />
     <entity-group group="org.ofbiz" entity="ProductFeatureGroup" />
     <entity-group group="org.ofbiz" entity="ProductFeatureGroupAndAppl" />
+    <entity-group group="org.ofbiz" entity="ProdFeaGrpAppAndProdFeaApp" />
     <entity-group group="org.ofbiz" entity="ProductFeatureGroupAppl" />
     <entity-group group="org.ofbiz" entity="ProductFeatureIactn" />
     <entity-group group="org.ofbiz" entity="ProductFeatureIactnType" />

@@ -571,6 +571,29 @@ public class ProductSearchSession {
                     constraintsChanged = true;
                 }
             }
+
+            //if product features group were selected add a constraint for each
+            if (parameterName.startsWith("SEARCH_PROD_FEAT_GRP") && !parameterName.startsWith("SEARCH_PROD_FEAT_GRP_EXC")) {
+                String productFeatureGroupId = (String) parameters.get(parameterName);
+                if (productFeatureGroupId != null && productFeatureGroupId.length() > 0) {
+                    String paramNameExt = parameterName.substring("SEARCH_PROD_FEAT_GRP".length());
+                    String searchProdFeatureGroupExc = (String) parameters.get("SEARCH_PROD_FEAT_GRP_EXC" + paramNameExt);
+                    Boolean exclude = UtilValidate.isEmpty(searchProdFeatureGroupExc) ? null : new Boolean(!"N".equals(searchProdFeatureGroupExc));
+                    searchAddConstraint(new ProductSearch.FeatureGroupConstraint(productFeatureGroupId, exclude), session);
+                    constraintsChanged = true;
+                }
+            }
+            // a shorter variation for feature group
+            if (parameterName.startsWith("S_FGI")) {
+                String productFeatureGroupId = (String) parameters.get(parameterName);
+                if (productFeatureGroupId != null && productFeatureGroupId.length() > 0) {
+                    String paramNameExt = parameterName.substring("S_FGI".length());
+                    String searchProdFeatureGroupExc = (String) parameters.get("S_FGX" + paramNameExt);
+                    Boolean exclude = UtilValidate.isEmpty(searchProdFeatureGroupExc) ? null : new Boolean(!"N".equals(searchProdFeatureGroupExc));
+                    searchAddConstraint(new ProductSearch.FeatureGroupConstraint(productFeatureGroupId, exclude), session);
+                    constraintsChanged = true;
+                }
+            }
         }
 
         // if features were selected add a constraint for each
@@ -773,6 +796,7 @@ public class ProductSearchSession {
         int categoriesCount = 0;
         int featuresCount = 0;
         int featureCategoriesCount = 0;
+        int featureGroupsCount = 0;
         int keywordsCount = 0;
         boolean isNotFirst = false;
         while (constraintIter.hasNext()) {
@@ -838,6 +862,24 @@ public class ProductSearchSession {
                     searchParamString.append(featureCategoriesCount);
                     searchParamString.append("=");
                     searchParamString.append(pfcc.exclude.booleanValue() ? "Y" : "N");
+                }
+            } else if (psc instanceof ProductSearch.FeatureGroupConstraint) {
+                ProductSearch.FeatureGroupConstraint pfgc = (ProductSearch.FeatureGroupConstraint) psc;
+                featureGroupsCount++;
+                if (isNotFirst) {
+                    searchParamString.append("&amp;");
+                } else {
+                    isNotFirst = true;
+                }
+                searchParamString.append("S_FGI");
+                searchParamString.append(featureGroupsCount);
+                searchParamString.append("=");
+                searchParamString.append(pfgc.productFeatureGroupId);
+                if (pfgc.exclude != null) {
+                    searchParamString.append("&amp;S_FGX");
+                    searchParamString.append(featureGroupsCount);
+                    searchParamString.append("=");
+                    searchParamString.append(pfgc.exclude.booleanValue() ? "Y" : "N");
                 }
             } else if (psc instanceof ProductSearch.KeywordConstraint) {
                 ProductSearch.KeywordConstraint kc = (ProductSearch.KeywordConstraint) psc;
