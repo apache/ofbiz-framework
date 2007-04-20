@@ -126,6 +126,7 @@ under the License.
                     <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
                         <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
+                    <set field="createDetailMap.reasonEnumId" from-field="parameters.reasonEnumId"/>
                     <set field="createDetailMap.description" from-field="parameters.description"/>
                     <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                     <clear-field field-name="createDetailMap"/>
@@ -156,6 +157,7 @@ under the License.
                     <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
                         <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
+                    <set field="createDetailMap.reasonEnumId" from-field="parameters.reasonEnumId"/>
                     <set field="createDetailMap.description" from-field="parameters.description"/>
                     <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                     <clear-field field-name="createDetailMap"/>
@@ -219,6 +221,7 @@ under the License.
                         <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
                             <calcop field-name="parameters.deductAmount" operator="negative"/>
                         </calculate>
+                        <set field="createDetailMap.reasonEnumId" from-field="parameters.reasonEnumId"/>
                         <set field="createDetailMap.description" from-field="parameters.description"/>
                         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                         <clear-field field-name="createDetailMap"/>

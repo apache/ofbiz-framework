@@ -619,6 +619,9 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="productionRunId"><hidden/></field>
         <field name="quantityOnHandDiff" title="${uiLabelMap.CommonQuantity}"><display/></field>
+        <field name="reasonEnumId">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
         <field name="description"><display/></field>
     </form>
     <form name="IssueProductionRunComponent" type="single" target="issueProductionRunTaskComponent" title="">
@@ -637,6 +640,14 @@ under the License.
         </field>
         <field name="productId">
             <lookup target-form-name="LookupProduct"/>
+        </field>
+        <field name="reasonEnumId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" description="${description}">
+                    <entity-constraint name="enumTypeId" value="IID_REASON"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
         </field>
         <field name="description"><text default-value="Replace Defective Part"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
