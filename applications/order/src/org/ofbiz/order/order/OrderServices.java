@@ -3523,7 +3523,7 @@ public class OrderServices {
             // create the payment
             Map paymentParams = new HashMap();
             double maxAmount = orderPaymentPreference.getDouble("maxAmount").doubleValue();
-            if (maxAmount > 0.0) {            
+            //if (maxAmount > 0.0) {            
                 paymentParams.put("paymentTypeId", "CUSTOMER_PAYMENT");
                 paymentParams.put("paymentMethodTypeId", orderPaymentPreference.getString("paymentMethodTypeId"));
                 paymentParams.put("paymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"));
@@ -3533,10 +3533,10 @@ public class OrderServices {
                 paymentParams.put("partyIdFrom", billToParty.getString("partyId"));
                 paymentParams.put("currencyUomId", productStore.getString("defaultCurrencyUomId"));
                 paymentParams.put("partyIdTo", payToPartyId);
-            }
+            /*}
             else {
                 paymentParams.put("paymentTypeId", "CUSTOMER_REFUND"); // JLR 17/7/4 from a suggestion of Si cf. https://issues.apache.org/jira/browse/OFBIZ-828#action_12483045
-                paymentParams.put("paymentMethodTypeId", orderPaymentPreference.getString("paymentMethodTypeId"));
+                paymentParams.put("paymentMethodTypeId", orderPaymentPreference.getString("paymentMethodTypeId")); // JLR 20/7/4 Finally reverted for now, I prefer to see an amount in payment, even negative
                 paymentParams.put("paymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"));
                 paymentParams.put("amount", new Double(Math.abs(maxAmount)));
                 paymentParams.put("statusId", "PMNT_RECEIVED");
@@ -3544,7 +3544,7 @@ public class OrderServices {
                 paymentParams.put("partyIdFrom", payToPartyId);
                 paymentParams.put("currencyUomId", productStore.getString("defaultCurrencyUomId"));
                 paymentParams.put("partyIdTo", billToParty.getString("partyId"));
-            }
+            }*/
             if (paymentRefNum != null) {
                 paymentParams.put("paymentRefNum", paymentRefNum);
             }
