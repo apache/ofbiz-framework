@@ -643,7 +643,7 @@ under the License.
         </field>
         <field name="reasonEnumId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
                     <entity-constraint name="enumTypeId" value="IID_REASON"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
