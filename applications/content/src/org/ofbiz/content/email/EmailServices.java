@@ -832,11 +832,15 @@ public class EmailServices {
             for (int x = 0 ; x < addressesTo.length ; x++) {
                 emailAddressesTo.add(((InternetAddress) addressesTo[x]).getAddress());
             }
-            for (int x = 0 ; x < addressesCC.length ; x++) {
-                emailAddressesCC.add(((InternetAddress) addressesCC[x]).getAddress());
+            if (addressesCC != null) {
+                for (int x = 0 ; x < addressesCC.length ; x++) {
+                    emailAddressesCC.add(((InternetAddress) addressesCC[x]).getAddress());
+                }
             }
-            for (int x = 0 ; x < addressesBCC.length ; x++) {
-                emailAddressesBCC.add(((InternetAddress) addressesBCC[x]).getAddress());
+            if (addressesBCC != null) {
+                for (int x = 0 ; x < addressesBCC.length ; x++) {
+                    emailAddressesBCC.add(((InternetAddress) addressesBCC[x]).getAddress());
+                }
             }
             String fromString = StringUtil.join(UtilMisc.toList(emailAddressesFrom), ",");
             String toString = StringUtil.join(UtilMisc.toList(emailAddressesTo), ",");
