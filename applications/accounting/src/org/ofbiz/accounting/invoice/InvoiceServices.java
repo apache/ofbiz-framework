@@ -106,6 +106,7 @@ public class InvoiceServices {
     private static int taxDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
     private static int taxRounding = UtilNumber.getBigDecimalScale("salestax.rounding");
     public static final int taxCalcScale = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
+    private static final int INVOICE_ITEM_SEQUENCE_ID_DIGITS = 4; // this is the number of digits used for invoiceItemSeqId: 0001, 0002...
 
     public static final String resource = "AccountingUiLabels";
 
@@ -354,7 +355,7 @@ public class InvoiceServices {
 
             // sequence for items - all OrderItems or InventoryReservations + all Adjustments
             int invoiceItemSeqNum = 1;
-            String invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
+            String invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, INVOICE_ITEM_SEQUENCE_ID_DIGITS);
 
             // create the item records
             if (billItems != null) {
@@ -472,7 +473,7 @@ public class InvoiceServices {
                     String parentInvoiceItemSeqId = invoiceItemSeqId;
                     // increment the counter
                     invoiceItemSeqNum++;
-                    invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
+                    invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, INVOICE_ITEM_SEQUENCE_ID_DIGITS);
 
                     // Get the original order item from the DB, in case the quantity has been overridden
                     GenericValue originalOrderItem = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.getString("orderItemSeqId")));
@@ -581,7 +582,7 @@ public class InvoiceServices {
     
                             // increment the counter
                             invoiceItemSeqNum++;
-                            invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
+                            invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, INVOICE_ITEM_SEQUENCE_ID_DIGITS);
                         }
                     }
                 }
@@ -631,7 +632,7 @@ public class InvoiceServices {
 
                     // increment the counter
                     invoiceItemSeqNum++;
-                    invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
+                    invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, INVOICE_ITEM_SEQUENCE_ID_DIGITS);
                 }
             }
 
@@ -667,7 +668,7 @@ public class InvoiceServices {
 
                 // Increment the counter
                 invoiceItemSeqNum++;
-                invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
+                invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, INVOICE_ITEM_SEQUENCE_ID_DIGITS);
             }
 
             // last do the tax adjustments
@@ -709,7 +710,7 @@ public class InvoiceServices {
 
                 // Increment the counter
                 invoiceItemSeqNum++;
-                invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
+                invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, INVOICE_ITEM_SEQUENCE_ID_DIGITS);
             }
 
             // check for previous order payments
@@ -1624,7 +1625,7 @@ public class InvoiceServices {
 
             // loop through shipment receipts to create invoice items and return item billings for each item and adjustment
             int invoiceItemSeqNum = 1;
-            String invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
+            String invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, INVOICE_ITEM_SEQUENCE_ID_DIGITS);
             for (Iterator iter = receipts.iterator(); iter.hasNext(); ) {
                 GenericValue receipt = (GenericValue) iter.next();
 
@@ -1674,7 +1675,7 @@ public class InvoiceServices {
 
                 // increment the seqId counter after creating the invoice item and return item billing
                 invoiceItemSeqNum += 1;  
-                invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
+                invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, INVOICE_ITEM_SEQUENCE_ID_DIGITS);
 
                 // keep a running total (note: a returnItem may have many receipts. hence, the promised total quantity is the receipt quantityAccepted + quantityRejected)
                 BigDecimal actualAmount = returnPrice.multiply(receipt.getBigDecimal("quantityAccepted")).setScale(decimals, rounding);
@@ -1733,7 +1734,7 @@ public class InvoiceServices {
 
                     // increment the seqId counter
                     invoiceItemSeqNum += 1;  
-                    invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
+                    invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, INVOICE_ITEM_SEQUENCE_ID_DIGITS);
 
                     // keep a running total (promised adjustment in this case is the same as the invoice adjustment)
                     invoiceTotal = invoiceTotal.add(amount).setScale(decimals, rounding);
@@ -1787,7 +1788,7 @@ public class InvoiceServices {
 
                 // increment the seqId counter
                 invoiceItemSeqNum += 1;  
-                invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
+                invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, INVOICE_ITEM_SEQUENCE_ID_DIGITS);
             }
         
             // Set the invoice to READY
