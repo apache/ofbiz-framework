@@ -1288,19 +1288,21 @@ display: inline; /* IE Fix */
 }
 
 #main-navigation ul li {
+background-image: url(/images/tabs/main_uns_right.gif);
+background-position: top right;
+background-repeat: no-repeat;
 float: left;
 }
 
 #main-navigation ul a {
-background-image: url(/images/tabs/tab_down_right.gif);
-background-position: top right;
+background-image: url(/images/tabs/main_uns_left.gif);
+background-position: top left;
 background-repeat: no-repeat;
-background-color: #B4B0AA;
-border-bottom: solid #909090 0.1em;
-border-left: solid #d0d0d0 0.1em;
+border-bottom: solid #989898 0.05em;
 color: #000000;
 display: block;
-padding: 0.1em 0.5em 0.1em 0.5em;
+float: left;
+padding: 0.3em 0.6em 0.1em 0.6em;
 text-align: center;
 }
 
@@ -1309,22 +1311,21 @@ text-align: center;
 color: #D4D0C8;
 }
 
-#main-navigation ul .selected {
+#main-navigation ul .selected,
+#main-navigation ul li:hover {
 /* selected tab */
-background-color: #D4D0C8;
+background-image: url(/images/tabs/main_sel_right.gif);
+background-position: top right;
+background-repeat: no-repeat;
 }
 
-#main-navigation ul .selected a, ui .selected a:hover {
-background-color: #D4D0C8;
-border-bottom: solid #D4D0C8 0.1em;
-border-left: solid #ffffff 0.1em;
-color: #000099;
-}
-
-#main-navigation ul a:hover {
-background-color: #D4D0C8;
-border-left: solid #ffffff 0.1em;
-border-bottom: solid #D4D0C8 0.1em;
+#main-navigation ul a:hover,
+#main-navigation ul .selected a,
+#main-navigation ui .selected a:hover {
+background-image: url(/images/tabs/main_sel_left.gif);
+background-position: top left;
+background-repeat: no-repeat;
+border-bottom: solid #D4D0C8 0.05em;
 color: #000099;
 text-decoration: none;
 }
