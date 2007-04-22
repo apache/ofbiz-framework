@@ -2189,6 +2189,8 @@ under the License.
         <field name="createdBy" type="id-vlong"></field>
         <field name="fromPartyId" type="id"></field>
         <field name="toPartyId" type="id"></field>
+        <field name="paymentMethodId" type="id"></field>
+        <field name="finAccountId" type="id"></field>
         <field name="billingAccountId" type="id"></field>
         <field name="entryDate" type="date-time"></field>
         <field name="originContactMechId" type="id"></field>
@@ -2207,6 +2209,12 @@ under the License.
         </relation>
         <relation type="one" fk-name="RTN_TO_BACT" rel-entity-name="BillingAccount">
             <key-map field-name="billingAccountId"/>
+        </relation>
+        <relation type="one" fk-name="RTN_TO_FACT" rel-entity-name="FinAccount">
+            <key-map field-name="finAccountId"/>
+        </relation>
+        <relation type="one" fk-name="RTN_TO_PAYMETH" rel-entity-name="PaymentMethod">
+            <key-map field-name="paymentMethodId"/>
         </relation>
         <relation type="one" fk-name="RTN_TO_FACILITY" rel-entity-name="Facility">
             <key-map field-name="destinationFacilityId" rel-field-name="facilityId"/>
