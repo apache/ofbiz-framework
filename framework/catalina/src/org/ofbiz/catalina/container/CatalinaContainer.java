@@ -514,6 +514,7 @@ public class CatalinaContainer implements Container {
         context.setCrossContext(crossContext);
         context.setManager(sessionMgr);
         context.getServletContext().setAttribute("_serverId", appInfo.server);
+        context.getServletContext().setAttribute("componentName", appInfo.componentConfig.getComponentName());
 
         // create the Default Servlet instance to mount
         StandardWrapper defaultServlet = new StandardWrapper();
