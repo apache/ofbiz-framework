@@ -1426,6 +1426,30 @@ under the License.
         <response name="success" type="view" value="EditProductMeters"/>
         <response name="error" type="view" value="EditProductMeters"/>
     </request-map>
+
+    <!-- ================ ProductGeo Requests ================= -->
+    <request-map uri="EditProductGeos">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductGeos"/>
+    </request-map>
+    <request-map uri="createProductGeo">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createProductGeo"/>
+        <response name="success" type="view" value="EditProductGeos"/>
+        <response name="error" type="view" value="EditProductGeos"/>
+    </request-map>
+    <request-map uri="updateProductGeo">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateProductGeo"/>
+        <response name="success" type="view" value="EditProductGeos"/>
+        <response name="error" type="view" value="EditProductGeos"/>
+    </request-map>
+    <request-map uri="deleteProductGeo">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteProductGeo"/>
+        <response name="success" type="view" value="EditProductGeos"/>
+        <response name="error" type="view" value="EditProductGeos"/>
+    </request-map>
     
     <!-- ================ ProductSubscriptionResources Requests ================= -->
     <request-map uri="EditProductSubscriptionResources"><security https="true" auth="true"/><response name="success" type="view" value="EditProductSubscriptionResources"/></request-map>
@@ -2356,6 +2380,7 @@ under the License.
     <view-map name="ProductBarCode.pdf" type="screenfop" page="component://product/widget/catalog/ProductScreens.xml#ProductBarCode.fo" content-type="application/pdf" encoding="none"/>
 
     <view-map name="EditProductContent" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductContent"/>
+    <view-map name="EditProductGeos" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductGeos"/>
     <view-map name="EditProductGoodIdentifications" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductGoodIdentifications"/>
     <view-map name="EditProductCategories" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductCategories"/>
     <view-map name="EditProductKeyword" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductKeyword"/>

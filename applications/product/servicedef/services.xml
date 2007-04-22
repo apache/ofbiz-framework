@@ -469,6 +469,23 @@ under the License.
         <description>Delete a ProductMeter</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="createProductGeo" default-entity-name="ProductGeo" engine="simple"
+        location="org/ofbiz/product/product/ProductServices.xml" invoke="createProductGeo" auth="true">
+        <description>Create a ProductGeo</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductGeo" default-entity-name="ProductGeo" engine="simple"
+        location="org/ofbiz/product/product/ProductServices.xml" invoke="updateProductGeo" auth="true">
+        <description>Update a ProductGeo</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductGeo" default-entity-name="ProductGeo" engine="simple"
+        location="org/ofbiz/product/product/ProductServices.xml" invoke="deleteProductGeo" auth="true">
+        <description>Delete a ProductGeo</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
     <service name="createCommunicationEventProduct" engine="simple"
         location="org/ofbiz/product/communication/CommunicationEventServices.xml" invoke="createCommunicationEventProduct" auth="true">
         <description>Create a Communication Event Product</description>
