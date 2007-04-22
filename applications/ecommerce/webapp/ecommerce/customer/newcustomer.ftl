@@ -48,6 +48,15 @@ under the License.
              // document.forms["newuserform"].elements["USERNAME"].disabled=false;
          }
      }
+     alert(document.getElementById("customerCountry").value);
+        if ( document.getElementById("customerCountry").value == "USA" 
+             || document.getElementById("customerCountry").value == "UMI" ) {
+            document.getElementById("customerState").style.display = "block";
+        }
+        else {
+            document.getElementById("customerState").style.display = "none";
+        } 
+     }     
 </script>
 </#if>
 
@@ -87,7 +96,18 @@ under the License.
             <div class="form-label">${uiLabelMap.CommonTitle}</div>
             <div class="form-field">
                 <@fieldErrors fieldName="USER_TITLE"/>
-                <input type="text" class='inputBox' name="USER_TITLE" value="${requestParameters.USER_TITLE?if_exists}" size="10" maxlength="30"/>
+                <select name="USER_TITLE" class="selectBox">
+                  <#if requestParameters.USER_TITLE?has_content >
+                      <option>${requestParameters.USER_TITLE}</option>
+                      <option value="${requestParameters.USER_TITLE}"> -- </option>
+                  <#else>
+                      <option value="">${uiLabelMap.CommonSelectOne}</option>
+                  </#if>
+                      <option>${uiLabelMap.CommonTitleMr}</option>
+                      <option>${uiLabelMap.CommonTitleMrs}</option>
+                      <option>${uiLabelMap.CommonTitleMs}</option>
+                      <option>${uiLabelMap.CommonTitleDr}</option>
+                </select>                
             </div>
         </div>
         <div class="form-row">
@@ -140,6 +160,23 @@ under the License.
             </div>
         </div>
         <div class="form-row">
+            <div class="form-label">${uiLabelMap.PartyZipCode}</div>
+            <div class="form-field">
+                <@fieldErrors fieldName="CUSTOMER_POSTAL_CODE"/>
+                <input type="text" class='inputBox' name="CUSTOMER_POSTAL_CODE" value="${requestParameters.CUSTOMER_POSTAL_CODE?if_exists}" size="12" maxlength="10"> *
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-label">${uiLabelMap.PartyCountry}</div>
+            <div class="form-field">
+                <@fieldErrors fieldName="CUSTOMER_COUNTRY"/>
+                <select name="CUSTOMER_COUNTRY" class='selectBox' onClick="javascript:hideShowUsaStates()" id="customerCountry">
+                    <#if requestParameters.CUSTOMER_COUNTRY?exists><option value='${requestParameters.CUSTOMER_COUNTRY}'>${selectedCountryName?default(requestParameters.CUSTOMER_COUNTRY)}</option></#if>
+                    ${screens.render("component://common/widget/CommonScreens.xml#countries")}
+                </select> *
+            </div>
+        </div>
+        <div class="form-row" id="customerState">
             <div class="form-label">${uiLabelMap.PartyState}</div>
             <div class="form-field">
                 <@fieldErrors fieldName="CUSTOMER_STATE"/>
@@ -151,27 +188,10 @@ under the License.
             </div>
         </div>
         <div class="form-row">
-            <div class="form-label">${uiLabelMap.PartyZipCode}</div>
-            <div class="form-field">
-                <@fieldErrors fieldName="CUSTOMER_POSTAL_CODE"/>
-                <input type="text" class='inputBox' name="CUSTOMER_POSTAL_CODE" value="${requestParameters.CUSTOMER_POSTAL_CODE?if_exists}" size="12" maxlength="10"> *
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-label">${uiLabelMap.PartyCountry}</div>
-            <div class="form-field">
-                <@fieldErrors fieldName="CUSTOMER_COUNTRY"/>
-                <select name="CUSTOMER_COUNTRY" class='selectBox'>
-                    <#if requestParameters.CUSTOMER_COUNTRY?exists><option value='${requestParameters.CUSTOMER_COUNTRY}'>${selectedCountryName?default(requestParameters.CUSTOMER_COUNTRY)}</option></#if>
-                    ${screens.render("component://common/widget/CommonScreens.xml#countries")}
-                </select> *
-            </div>
-        </div>
-        <div class="form-row">
             <div class="form-label">${uiLabelMap.PartyAllowAddressSolicitation}</div>
             <div class="form-field">
                 <select name="CUSTOMER_ADDRESS_ALLOW_SOL" class='selectBox'>
-                    <option>${requestParameters.CUSTOMER_ADDRESS_ALLOW_SOL?default("Y")}</option>
+                    <option>${requestParameters.CUSTOMER_ADDRESS_ALLOW_SOL?default("${uiLabelMap.CommonY}")}</option>
                     <option></option><option>${uiLabelMap.CommonY}</option><option>${uiLabelMap.CommonN}</option>
                 </select>
             </div>
@@ -201,7 +221,7 @@ under the License.
                 &nbsp;ext&nbsp;<input type="text" class='inputBox' name="CUSTOMER_HOME_EXT" value="${requestParameters.CUSTOMER_HOME_EXT?if_exists}" size="6" maxlength="10">
                 <br/>
                 <select name="CUSTOMER_HOME_ALLOW_SOL" class='selectBox'>
-                    <option>${requestParameters.CUSTOMER_HOME_ALLOW_SOL?default("Y")}</option>
+                    <option>${requestParameters.CUSTOMER_HOME_ALLOW_SOL?default("${uiLabelMap.CommonY}")}</option>
                     <option></option><option>${uiLabelMap.CommonY}</option><option>${uiLabelMap.CommonN}</option>
                 </select>
             </div>
@@ -216,7 +236,7 @@ under the License.
                 &nbsp;ext&nbsp;<input type="text" class='inputBox' name="CUSTOMER_WORK_EXT" value="${requestParameters.CUSTOMER_WORK_EXT?if_exists}" size="6" maxlength="10">
                 <br/>
                 <select name="CUSTOMER_WORK_ALLOW_SOL" class='selectBox'>
-                    <option>${requestParameters.CUSTOMER_WORK_ALLOW_SOL?default("Y")}</option>
+                    <option>${requestParameters.CUSTOMER_WORK_ALLOW_SOL?default("${uiLabelMap.CommonY}")}</option>
                     <option></option><option>${uiLabelMap.CommonY}</option><option>${uiLabelMap.CommonN}</option>
                 </select>
             </div>
@@ -230,7 +250,7 @@ under the License.
                 -&nbsp;<input type="text" class='inputBox' name="CUSTOMER_FAX_CONTACT" value="${requestParameters.CUSTOMER_FAX_CONTACT?if_exists}" size="15" maxlength="15">
                 <br/>
                 <select name="CUSTOMER_FAX_ALLOW_SOL" class='selectBox'>
-                    <option>${requestParameters.CUSTOMER_FAX_ALLOW_SOL?default("Y")}</option>
+                    <option>${requestParameters.CUSTOMER_FAX_ALLOW_SOL?default("${uiLabelMap.CommonY}")}</option>
                     <option></option><option>${uiLabelMap.CommonY}</option><option>${uiLabelMap.CommonN}</option>
                 </select>
             </div>
@@ -244,7 +264,7 @@ under the License.
                 -&nbsp;<input type="text" class='inputBox' name="CUSTOMER_MOBILE_CONTACT" value="${requestParameters.CUSTOMER_MOBILE_CONTACT?if_exists}" size="15" maxlength="15">
                 <br/>
                 <select name="CUSTOMER_MOBILE_ALLOW_SOL" class='selectBox'>
-                    <option>${requestParameters.CUSTOMER_MOBILE_ALLOW_SOL?default("Y")}</option>
+                    <option>${requestParameters.CUSTOMER_MOBILE_ALLOW_SOL?default("${uiLabelMap.CommonY}")}</option>
                     <option></option><option>${uiLabelMap.CommonY}</option><option>${uiLabelMap.CommonN}</option>
                 </select>
             </div>
@@ -265,7 +285,7 @@ under the License.
                 <div><input type="text" class='inputBox' name="CUSTOMER_EMAIL" value="${requestParameters.CUSTOMER_EMAIL?if_exists}" size="40" maxlength="255" onchange="changeEmail()" onkeyup="changeEmail()"> *</div>
                 <div>
                     <select name="CUSTOMER_EMAIL_ALLOW_SOL" class='selectBox'>
-                        <option>${requestParameters.CUSTOMER_EMAIL_ALLOW_SOL?default("Y")}</option>
+                        <option>${requestParameters.CUSTOMER_EMAIL_ALLOW_SOL?default("${uiLabelMap.CommonY}")}</option>
                         <option></option><option>${uiLabelMap.CommonY}</option><option>${uiLabelMap.CommonN}</option>
                     </select>
                 </div>
@@ -339,3 +359,7 @@ under the License.
 </div>
 
 <br/>
+
+<script language="JavaScript" type="text/javascript">
+    hideShowUsaStates();
+</script>
