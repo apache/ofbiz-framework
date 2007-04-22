@@ -210,6 +210,7 @@ under the License.
                   </td>
                 </#if>
               </tr>
+
               <#-- show info from workeffort -->
               <#assign workOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment")?if_exists>
               <#if workOrderItemFulfillments?has_content>
@@ -230,6 +231,7 @@ under the License.
                       <#break><#-- need only the first one -->
                   </#list>
               </#if>
+
               <#-- show linked order lines -->
               <#assign linkedOrderItemsTo = delegator.findByAnd("OrderItemAssoc", Static["org.ofbiz.base.util.UtilMisc"].toMap("orderId", orderItem.getString("orderId"),
                                                                                                                                "orderItemSeqId", orderItem.getString("orderItemSeqId")))>
@@ -265,6 +267,7 @@ under the License.
                   </tr>
                 </#list>
               </#if>
+
               <#-- show linked requirements -->
               <#assign linkedRequirements = orderItem.getRelated("OrderRequirementCommitment")?if_exists>
 
@@ -378,7 +381,7 @@ under the License.
                 </#list>
               </#if>
 
-              <!-- display the ship before/after dates -->
+              <#-- display the ship before/after dates -->
               <#if orderItem.shipAfterDate?exists>
               <tr>
                 <td align="right" colspan="2">
@@ -464,7 +467,7 @@ under the License.
                 </#list>
               </#if>
 
-              <#-- now show item issuances per line item -->
+              <#-- now show item issuances (shipment) per line item -->
               <#assign itemIssuances = itemIssuancesPerItem.get(orderItem.get("orderItemSeqId"))?if_exists>
               <#if itemIssuances?has_content>
                 <#list itemIssuances as itemIssuance>
@@ -476,6 +479,32 @@ under the License.
                           <a target="facility" href="/facility/control/ViewShipment?shipmentId=${itemIssuance.shipmentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext" style="font-size: xx-small;">${itemIssuance.shipmentId}</a>:${itemIssuance.shipmentItemSeqId?if_exists}
                         <#else>
                           <b><i>${uiLabelMap.OrderIssuedWithoutShipment}</i></b>
+                        </#if>
+                      </div>
+                    </td>
+                    <td align="center">
+                      <div class="tabletext" style="font-size: xx-small;">${itemIssuance.quantity?string.number}&nbsp;</div>
+                    </td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </#list>
+              </#if>
+
+               <#-- now show item issuances (inventory item) per line item -->
+               <#if itemIssuances?has_content>
+                <#list itemIssuances as itemIssuance>
+                  <tr>
+                    <td align="right" colspan="2">
+                      <div class="tabletext" style="font-size: xx-small;">
+                        <#if itemIssuance.inventoryItemId?has_content>
+                          <#assign inventoryItem = itemIssuance.getRelatedOne("InventoryItem")/>
+                          <b><i>${uiLabelMap.FacilityInventory}</i>:</b>
+                            <a href="/facility/control/EditInventoryItem?inventoryItemId=${itemIssuance.inventoryItemId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext" style="font-size: xx-small;">${itemIssuance.inventoryItemId}</a>
+                            <b><i>${uiLabelMap.OrderShipGroup}</i>:</b> ${itemIssuance.shipGroupSeqId}
+                            <#if (inventoryItem.serialNumber?has_content)><br><b><i>${uiLabelMap.SerialNumber}</li>:</b> ${inventoryItem.serialNumber}&nbsp;</#if>                                                      
+
                         </#if>
                       </div>
                     </td>
