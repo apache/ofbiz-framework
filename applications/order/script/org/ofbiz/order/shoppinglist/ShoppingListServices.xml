@@ -47,7 +47,8 @@ under the License.
         </if-empty>
                 
         <if-empty field-name="listName" map-name="newEntity">
-            <set value="New Shopping List" field="newEntity.listName"/>
+            <property-to-field field-name="newEntity.listName" 
+                resource="EcommerceUiLabels" property="EcommerceNewShoppingList" default="New Shopping List"/>
         </if-empty>
         
         <if-empty field-name="isPublic" map-name="newEntity">
