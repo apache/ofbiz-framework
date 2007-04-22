@@ -1365,11 +1365,13 @@ public class OrderReturnServices {
                                 newItem.set("correspondingPoId", orderItem.get("correspondingPoId"));
                                 newItem.set("statusId", "ITEM_CREATED");
                                 orderItems.add(newItem);
+
                                 // Set the order item ship group information
                                 // TODO: only the first ship group associated to the item 
                                 //       of the original order is considered and cloned,
-                                //       and the returned units are assigned to it.
-                                //       Is there a better way to handle this?
+                                //       anIs there a better way to handle this?d the returned units are assigned to it.
+                                //
+
                                 try {
                                     GenericValue orderItemShipGroupAssoc = EntityUtil.getFirst(orderItem.getRelated("OrderItemShipGroupAssoc"));
                                     if (orderItemShipGroupAssoc != null) {
@@ -1388,11 +1390,8 @@ public class OrderReturnServices {
                                 }
                                 // Create an association between the replacement order item and the order item of the original order
                                 GenericValue newOrderItemAssoc = delegator.makeValue("OrderItemAssoc", UtilMisc.toMap("orderId", orderHeader.getString("orderId"),
-                                                                                                                      "orderItemSeqId", orderItem.getString("orderItemSeqId"),
-                                                                                                                      "shipGroupSeqId", "_NA_",
-                                                                                                                      "toOrderItemSeqId", newItem.getString("orderItemSeqId"),
-                                                                                                                      "toShipGroupSeqId", "_NA_",
-                                                                                                                      "orderItemAssocTypeId", "REPLACEMENT"));
+                                        "orderItemSeqId", orderItem.getString("orderItemSeqId"), "shipGroupSeqId", "_NA_",
+                                        "toOrderItemSeqId", newItem.getString("orderItemSeqId"), "toShipGroupSeqId", "_NA_", "orderItemAssocTypeId", "REPLACEMENT"));
                                 orderItemAssocs.add(newOrderItemAssoc);
                             }
                         }
