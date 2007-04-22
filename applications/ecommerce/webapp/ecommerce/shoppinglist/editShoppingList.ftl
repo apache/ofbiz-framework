@@ -54,6 +54,7 @@ under the License.
           </form>
         <#else>
           <div class="tabletext">${uiLabelMap.EcommerceNoShoppingListsCreate}.</div>
+          <a href="<@ofbizUrl>createEmptyShoppingList?productStoreId=${productStoreId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonCreateNew}</a>          
         </#if>
     </div>
 </div>
@@ -101,10 +102,10 @@ under the License.
                 <td><div class="tableheadtext">${uiLabelMap.EcommercePublic}?</div></td>
                 <td>
                   <select name="isPublic" class="selectBox">
-                    <option>${shoppingList.isPublic}</option>
+                    <option value="${shoppingList.isPublic}"><#if shoppingList.isPublic == "Y">${uiLabelMap.CommonY}<#else>${uiLabelMap.CommonN}</#if></option>
                     <option value="${shoppingList.isPublic}">--</option>
-                    <option>${uiLabelMap.CommonY}</option>
-                    <option>N</option>
+                    <option value="Y">${uiLabelMap.CommonY}</option>
+                    <option value="N">${uiLabelMap.CommonN}</option>
                   </select>
                 </td>
               </tr>
@@ -112,10 +113,10 @@ under the License.
                 <td><div class="tableheadtext">${uiLabelMap.EcommerceActive}?</div></td>
                 <td>
                   <select name="isActive" class="selectBox">
-                    <option>${shoppingList.isActive}</option>
+                    <option value="${shoppingList.isActive}"><#if shoppingList.isActive == "Y">${uiLabelMap.CommonY}<#else>${uiLabelMap.CommonN}</#if></option>
                     <option value="${shoppingList.isActive}">--</option>
-                    <option>${uiLabelMap.CommonY}</option>
-                    <option>N</option>
+                    <option value="Y">${uiLabelMap.CommonY}</option>
+                    <option value="N">${uiLabelMap.CommonN}</option>
                   </select>
                 </td>
               </tr>
