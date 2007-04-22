@@ -29,7 +29,6 @@ import javax.servlet.ServletContext;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.KeyStoreUtil;
 
 /**
  * RequestManager - Manages request, config and view mappings.
@@ -314,53 +313,7 @@ public class RequestManager implements Serializable {
             return false;
 
     }
-
-    public URL get509CertKeyStore(String uriStr) {
-        String defaultTrustStore = "file://" + KeyStoreUtil.getTrustStoreFileName();
-        Map uri = getRequestMapMap(uriStr);
-
-        if (uri != null) {
-            String value = (String) uri.get(ConfigXMLReader.SECURITY_KEYSTORE);
-            if (UtilValidate.isNotEmpty(value)) {
-                if (value.indexOf(";") > -1) {
-                    value = value.substring(0, value.indexOf(";"));
-                }
-                if (value.indexOf(".") == -1) {
-                    value = value + ".jks"; // append .jks if no extension is set
-                }
-
-                try {
-                    return new URL(webInfUrl.toExternalForm() + "/" + value);
-                } catch (MalformedURLException e) {
-                    Debug.logError(e, module);
-                }
-            }
-        }
-
-        // make a url from the default
-        URL url = null;
-        try {
-            url = new URL(defaultTrustStore);
-        } catch (MalformedURLException e) {
-            Debug.logError(e, module);
-        }
-
-        return url;
-    }
-
-    public String get509CertKeyStorePass(String uriStr) {
-        Map uri = getRequestMapMap(uriStr);
-
-        if (uri != null) {
-            String value = (String) uri.get(ConfigXMLReader.SECURITY_KEYSTORE);
-            if (value != null && value.indexOf(";") > -1) {            
-                return value.substring(value.indexOf(";") + 1);
-            }
-        }
-
-        return KeyStoreUtil.getTrustStorePassword();
-    }
-
+       
     public boolean allowExtView(String uriStr) {
         Map uri = getRequestMapMap(uriStr);
 

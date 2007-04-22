@@ -29,14 +29,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
 import javax.transaction.Transaction;
+import javax.security.auth.x500.X500Principal;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
@@ -532,40 +537,81 @@ public class LoginWorker {
             }
 
             if (clientCerts != null) {
+                String userLoginId = null;
+
                 for (int i = 0; i < clientCerts.length; i++) {
-                    String certKeyHex = StringUtil.toHexString(clientCerts[i].getPublicKey().getEncoded());
-                    String certSn = clientCerts[i].getSerialNumber().toString(16);
-                    List userLogins = null;
-                    try {
-                        userLogins = delegator.findByAnd("UserLogin", UtilMisc.toMap("x509CertSn", certSn));
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e, module);
+                    X500Principal x500 = clientCerts[i].getSubjectX500Principal();
+                    Debug.log("Checking client certification for authentication: " + x500.getName(), module);
+                    
+                    Map x500Map = FastMap.newInstance();
+                    String[] x500Opts = x500.getName().split("\\,");
+                    for (int x = 0; x < x500Opts.length; x++) {
+                        String[] nv = x500Opts[x].split("\\=");
+                        x500Map.put(nv[0], nv[1]);
+                    }
+                    if (i == 0) {
+                        userLoginId = (String) x500Map.get("CN");
                     }
 
-                    if (userLogins != null && userLogins.size() > 0) {                        
-                        Iterator it = userLogins.iterator();
-                        while (it.hasNext()) {
-                            GenericValue ul = (GenericValue) it.next();
-                            String certKey = ul.getString("x509CertKey");
-                            String enabled = ul.getString("enabled");
+                    try {
+                        // check for a valid issuer (or generated cert data)
+                        if (LoginWorker.checkValidIssuer(delegator, x500Map)) {
+                            Debug.log("Looking up userLogin from CN: " + userLoginId, module);
+                            
+                            // CN should match the userLoginId
+                            GenericValue userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
+                            if (userLogin != null) {
+                                String enabled = userLogin.getString("enabled");
+                                if (enabled == null || "Y".equals(enabled)) {
+                                    userLogin.set("hasLoggedOut", "N");
+                                    userLogin.store();
 
-                            if ((enabled == null || "Y".equals(enabled)) && certKey.equals(certKeyHex)) {
-                                ul.set("hasLoggedOut", "N");
-                                try {
-                                    ul.store();
-                                } catch (GenericEntityException e) {
-                                    Debug.logWarning(e, module);
+                                    // login the user
+                                    Map ulSessionMap = LoginServices.getUserLoginSession(userLogin);
+                                    return doMainLogin(request, response, userLogin, ulSessionMap); // doing the main login
                                 }
-                                Map ulSessionMap = LoginServices.getUserLoginSession(ul);
-                                return doMainLogin(request, response, ul, ulSessionMap); // doing the main login                                                                
                             }
                         }
+                    } catch (GeneralException e) {
+                        Debug.logError(e, module);
                     }
                 }
             }            
         }
 
         return "success";
+    }
+
+    protected static boolean checkValidIssuer(GenericDelegator delegator, Map x500Map) throws GeneralException {
+        List conds = FastList.newInstance();
+        conds.add(new EntityConditionList(UtilMisc.toList(new EntityExpr("commonName", EntityOperator.EQUALS, x500Map.get("CN")),
+                new EntityExpr("commonName", EntityOperator.EQUALS, null),
+                new EntityExpr("commonName", EntityOperator.EQUALS, "")), EntityOperator.OR));
+
+        conds.add(new EntityConditionList(UtilMisc.toList(new EntityExpr("organizationalUnit", EntityOperator.EQUALS, x500Map.get("OU")),
+                new EntityExpr("organizationalUnit", EntityOperator.EQUALS, null),
+                new EntityExpr("organizationalUnit", EntityOperator.EQUALS, "")), EntityOperator.OR));
+
+        conds.add(new EntityConditionList(UtilMisc.toList(new EntityExpr("organizationName", EntityOperator.EQUALS, x500Map.get("O")),
+                new EntityExpr("organizationName", EntityOperator.EQUALS, null),
+                new EntityExpr("organizationName", EntityOperator.EQUALS, "")), EntityOperator.OR));
+
+        conds.add(new EntityConditionList(UtilMisc.toList(new EntityExpr("cityLocality", EntityOperator.EQUALS, x500Map.get("L")),
+                new EntityExpr("cityLocality", EntityOperator.EQUALS, null),
+                new EntityExpr("cityLocality", EntityOperator.EQUALS, "")), EntityOperator.OR));
+
+        conds.add(new EntityConditionList(UtilMisc.toList(new EntityExpr("stateProvince", EntityOperator.EQUALS, x500Map.get("ST")),
+                new EntityExpr("stateProvince", EntityOperator.EQUALS, null),
+                new EntityExpr("stateProvince", EntityOperator.EQUALS, "")), EntityOperator.OR));
+
+        conds.add(new EntityConditionList(UtilMisc.toList(new EntityExpr("country", EntityOperator.EQUALS, x500Map.get("C")),
+                new EntityExpr("country", EntityOperator.EQUALS, null),
+                new EntityExpr("country", EntityOperator.EQUALS, "")), EntityOperator.OR));
+
+        EntityConditionList condition = new EntityConditionList(conds, EntityOperator.AND);
+        Debug.log("Doing issuer lookup: " + condition.toString(), module);
+        long count = delegator.findCountByCondition("X509IssuerProvision", condition, null, null);
+        return count > 0;
     }
 
     public static String checkExternalLoginKey(HttpServletRequest request, HttpServletResponse response) {

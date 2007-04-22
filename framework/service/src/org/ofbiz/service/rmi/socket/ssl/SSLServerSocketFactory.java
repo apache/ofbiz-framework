@@ -34,6 +34,7 @@ import javax.net.ssl.SSLServerSocket;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.SSLUtil;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.config.GenericConfigException;
 
 /**
  * RMI SSL Server Socket Factory
@@ -42,47 +43,65 @@ public class SSLServerSocketFactory implements RMIServerSocketFactory, Serializa
 
     public static final String module =  SSLServerSocketFactory.class.getName();
     protected boolean clientAuth = false;
+    protected String keystore = null;
+    protected String ksType = null;
+    protected String ksPass = null;
+    protected String alias = null;
 
     public void setNeedClientAuth(boolean clientAuth) {
         this.clientAuth = clientAuth;
     }
 
+    public void setKeyStore(String location, String type, String password) {
+        this.keystore = location;
+        this.ksType = type;
+        this.ksPass = password;
+        this.alias = alias;
+    }
+
+    public void setKeyStoreAlias(String alias) {
+        this.alias = alias;
+    }
+
     public ServerSocket createServerSocket(int port) throws IOException {
-        String storeType = UtilProperties.getPropertyValue("jsse.properties", "ofbiz.rmi.keyStore.type", "jks");
-        String storeFile = UtilProperties.getPropertyValue("jsse.properties", "ofbiz.rmi.keyStore", null);
-        String storeAlias = UtilProperties.getPropertyValue("jsse.properties", "ofbiz.rmi.keyStore.alias", null);
-        String storePass = UtilProperties.getPropertyValue("jsse.properties", "ofbiz.rmi.keyStore.password", null);
         char[] passphrase = null;
-        if (storePass != null) {
-            passphrase = storePass.toCharArray();
+        if (ksPass != null) {
+            passphrase = ksPass.toCharArray();
         }
 
         KeyStore ks = null;
-        try {
-            ks = KeyStore.getInstance(storeType);
-            ks.load(new FileInputStream(storeFile), passphrase);
-        } catch (NoSuchAlgorithmException e) {
-            Debug.logError(e, module);
-            throw new IOException(e.getMessage());
-        } catch (CertificateException e) {
-            Debug.logError(e, module);
-            throw new IOException(e.getMessage());
-        } catch (KeyStoreException e) {
-            Debug.logError(e, module);
-            throw new IOException(e.getMessage());
+        if (keystore != null) {
+            try {
+                ks = KeyStore.getInstance(ksType);
+                ks.load(new FileInputStream(keystore), passphrase);
+            } catch (NoSuchAlgorithmException e) {
+                Debug.logError(e, module);
+                throw new IOException(e.getMessage());
+            } catch (CertificateException e) {
+                Debug.logError(e, module);
+                throw new IOException(e.getMessage());
+            } catch (KeyStoreException e) {
+                Debug.logError(e, module);
+                throw new IOException(e.getMessage());
+            }
         }
 
-        if (ks == null) {
-            throw new IOException("Unable to load KeyStore containing Service Engine RMI SSL certificate");
+        if (alias == null) {
+            throw new IOException("SSL certificate alias cannot be null; MUST be set for SSLServerSocketFactory!");
         }
-
-
+        
         javax.net.ssl.SSLServerSocketFactory factory = null;
         try {
-            factory = SSLUtil.getSSLServerSocketFactory(ks, storePass, storeAlias);
+            if (ks != null) {
+                factory = SSLUtil.getSSLServerSocketFactory(ks, ksPass, alias);
+            } else {
+                factory = SSLUtil.getSSLServerSocketFactory(alias);
+            }
         } catch (GeneralSecurityException e) {
             Debug.logError(e, "Error getting javax.net.ssl.SSLServerSocketFactory instance for Service Engine RMI calls: " + e.toString(), module);
             throw new IOException(e.toString());
+        } catch (GenericConfigException e) {
+            Debug.logError(e, "Error getting javax.net.ssl.SSLServerSocketFactory instance for Service Engine RMI calls: " + e.toString(), module);
         }
 
         if (factory == null) {

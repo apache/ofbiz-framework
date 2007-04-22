@@ -79,6 +79,10 @@ public class RmiServiceContainer implements Container {
         String useCtx = initialCtxProp == null || initialCtxProp.value == null ? "false" : initialCtxProp.value;
         String host = lookupHostProp == null || lookupHostProp.value == null ? "localhost" : lookupHostProp.value;
         String port = lookupPortProp == null || lookupPortProp.value == null ? "1099" : lookupPortProp.value;
+        String keystore = ContainerConfig.getPropertyValue(cfg, "ssl-keystore", null);
+        String ksType = ContainerConfig.getPropertyValue(cfg, "ssl-keystore-type", "JKS");
+        String ksPass = ContainerConfig.getPropertyValue(cfg, "ssl-keystore-pass", null);
+        String ksAlias = ContainerConfig.getPropertyValue(cfg, "ssl-keystore-alias", null);
         boolean clientAuth = ContainerConfig.getPropertyValue(cfg, "ssl-client-auth", false);
 
         // setup the factories
@@ -109,6 +113,10 @@ public class RmiServiceContainer implements Container {
         // set the client auth flag on our custom SSL socket factory
         if (ssf != null && ssf instanceof org.ofbiz.service.rmi.socket.ssl.SSLServerSocketFactory) {
             ((org.ofbiz.service.rmi.socket.ssl.SSLServerSocketFactory) ssf).setNeedClientAuth(clientAuth);
+            ((org.ofbiz.service.rmi.socket.ssl.SSLServerSocketFactory) ssf).setKeyStoreAlias(ksAlias);
+            if (keystore != null) {
+                ((org.ofbiz.service.rmi.socket.ssl.SSLServerSocketFactory) ssf).setKeyStore(keystore, ksType, ksPass);
+            }
         }
 
         // get the delegator for this container

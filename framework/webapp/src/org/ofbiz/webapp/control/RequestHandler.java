@@ -151,53 +151,23 @@ public class RequestHandler implements Serializable {
                 }
 
                 // check if the client has a valid certificate (in our db store)
-                String keyStorePass = requestManager.get509CertKeyStorePass(requestUri);
-                URL keyStoreUrl = requestManager.get509CertKeyStore(requestUri);    
-                boolean foundValidCert = false;
+                boolean foundTrustedCert = false;
 
                 if (clientCerts == null) {
                     throw new RequestHandlerException("Unknown request [" + requestUri + "]; this request does not exist or cannot be called directly.");
                 } else {
-                    // load the trust store
-                    KeyStore keyStore;
-                    try {
-                        keyStore = KeyStoreUtil.getStore(keyStoreUrl, keyStorePass);
-                    } catch (IOException e) {
-                       throw new RequestHandlerException("Unable to open keystore", e);
-                    } catch (GeneralSecurityException e) {
-                        throw new RequestHandlerException("Keystore security problem", e);
+                    for (int i = 0; i < clientCerts.length; i++) {
+                        Debug.log(clientCerts[i].getSubjectX500Principal().getName(), module);
                     }
-
-                    // get all cert aliases
-                    Enumeration en;
-                    try {
-                        en = keyStore.aliases();
-                    } catch (KeyStoreException e) {
-                        throw new RequestHandlerException("Unable to read keystore aliases", e);
-                    }
-
-                    // check for valid client cert
-                    while (en.hasMoreElements() && !foundValidCert) {
-                        String alias = (String) en.nextElement();
-                        X509Certificate trustedCert;
-                        try {
-                            trustedCert = (X509Certificate) keyStore.getCertificate(alias);
-                        } catch (KeyStoreException e) {
-                            throw new RequestHandlerException("Unable to read certificate from keystore", e);
-                        }
-
-                        for (int ci = 0; ci < clientCerts.length; ci++) {                            
-                            if (!foundValidCert && trustedCert.equals(clientCerts[ci])) {
-                                Debug.log("Found valid certificate for request; allowing: " + clientCerts[ci].getSerialNumber().toString(16), module);
-                                foundValidCert = true;
-                                break;
-                            }
-                        }
+                   
+                    // check if this is a trusted cert
+                    if (SSLUtil.isClientTrusted(clientCerts, null)) {
+                        foundTrustedCert = true;
                     }
                 }
 
-                if (!foundValidCert) {
-                    Debug.logWarning("No client certification found for request [" + requestUri + "] : " + keyStoreUrl.toExternalForm(), module);
+                if (!foundTrustedCert) {
+                    Debug.logWarning("No trusted certificate found for request [" + requestUri + "]", module);
                     throw new RequestHandlerException("Unknown request [" + requestUri + "]; this request does not exist or cannot be called directly.");
                 }
             }

@@ -22,6 +22,12 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitygroup.xsd">
 
   <!-- ========================================================= -->
+  <!-- org.ofbiz.security.cert -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="X509IssuerProvision" />
+
+  <!-- ========================================================= -->
   <!-- org.ofbiz.security.login -->
   <!-- ========================================================= -->
     

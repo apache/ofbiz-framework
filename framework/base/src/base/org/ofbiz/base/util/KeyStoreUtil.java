@@ -18,35 +18,20 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
+import org.apache.commons.codec.binary.Base64;
+import org.ofbiz.base.component.ComponentConfig;
+import org.ofbiz.base.config.GenericConfigException;
+
 import java.io.*;
-import java.security.AlgorithmParameterGenerator;
-import java.security.AlgorithmParameters;
-import java.security.GeneralSecurityException;
-import java.security.Key;
-import java.security.KeyFactory;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.UnrecoverableKeyException;
+import java.net.URL;
+import java.security.*;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.X509EncodedKeySpec;
 import java.util.Collection;
-import java.net.URL;
-
-import javax.crypto.KeyAgreement;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.DHParameterSpec;
-
-import org.apache.commons.codec.binary.Base64;
 
 /**
  * KeyStoreUtil - Utilities for getting KeyManagers and TrustManagers
@@ -56,28 +41,9 @@ public class KeyStoreUtil {
 
     public static final String module = KeyStoreUtil.class.getName();
 
-    public static String getKeyStoreFileName() {
-        return UtilProperties.getPropertyValue("jsse.properties", "ofbiz.client.keyStore", null);
-    }
-
-    public static String getKeyStorePassword() {
-        return UtilProperties.getPropertyValue("jsse.properties", "ofbiz.client.keyStore.password", null);
-    }
-
-    public static String getKeyStoreType() {
-        return UtilProperties.getPropertyValue("jsse.properties", "ofbiz.client.keyStore.type", "jks");
-    }
-
-    public static String getTrustStoreFileName() {
-        return UtilProperties.getPropertyValue("jsse.properties", "ofbiz.trustStore", null);
-    }
-
-    public static String getTrustStorePassword() {
-        return UtilProperties.getPropertyValue("jsse.properties", "ofbiz.trustStore.password", null);
-    }
-
-    public static String getTrustStoreType() {
-        return UtilProperties.getPropertyValue("jsse.properties", "ofbiz.trustStore.type", "jks");
+    public static KeyStore getComponentKeyStore(String componentName, String keyStoreName) throws IOException, GeneralSecurityException, GenericConfigException {
+        ComponentConfig.KeystoreInfo ks = ComponentConfig.getKeystoreInfo(componentName, keyStoreName);
+        return getStore(ks.createResourceHandler().getURL(), ks.getType(), ks.getPassword());
     }
 
     public static KeyStore getStore(URL url, String password) throws IOException, GeneralSecurityException {
@@ -93,70 +59,18 @@ public class KeyStoreUtil {
         return ks;
     }
 
-    public static KeyStore getKeyStore() throws IOException, GeneralSecurityException {
-        if (getKeyStoreFileName() != null && !keyStoreExists(getKeyStoreFileName())) {
-            return null;
-        }
-        FileInputStream fis = new FileInputStream(getKeyStoreFileName());
-        KeyStore ks = KeyStore.getInstance(getKeyStoreType());
-        ks.load(fis, getKeyStorePassword().toCharArray());
-        fis.close();
-        return ks;
-    }
-
-    public static void saveKeyStore(KeyStore ks) throws IOException, KeyStoreException, NoSuchAlgorithmException, CertificateException {
-        ks.store(new FileOutputStream(getKeyStoreFileName()), getKeyStorePassword().toCharArray());
-    }
-
-    public static KeyStore getTrustStore() throws IOException, GeneralSecurityException {
-        if (getTrustStoreFileName() != null && !keyStoreExists(getTrustStoreFileName())) {
-            return null;
-        }
-        FileInputStream fis = new FileInputStream(getTrustStoreFileName());
-        KeyStore ks = KeyStore.getInstance(getTrustStoreType());
-        ks.load(fis, getTrustStorePassword().toCharArray());
-        fis.close();
-        return ks;
-    }
-
-    public static void saveTrustStore(KeyStore ks) throws IOException, KeyStoreException, NoSuchAlgorithmException, CertificateException {
-        ks.store(new FileOutputStream(getTrustStoreFileName()), getTrustStorePassword().toCharArray());
-    }
-
-    public static boolean keyStoreExists(String fileName) {
-        File keyFile = new File(fileName);
-        return keyFile.exists();
-    }
-
-    public static KeyStore createKeyStore(String fileName, String password) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
-        KeyStore ks = null;
-        ks = KeyStore.getInstance("jks");
-        ks.load(null, password.toCharArray());
-        ks.store(new FileOutputStream(fileName), password.toCharArray());
-        ks.load(new FileInputStream(fileName), password.toCharArray());
-        return ks;
-    }
-
-    public static void renameKeyStoreEntry(String fromAlias, String toAlias) throws GeneralSecurityException, IOException {
-        KeyStore ks = getKeyStore();
-        String pass = getKeyStorePassword();
-        renameEntry(ks, pass, fromAlias, toAlias);
-        saveKeyStore(ks);
-    }
-
-    private static void renameEntry(KeyStore ks, String pass, String fromAlias, String toAlias) throws KeyStoreException, UnrecoverableKeyException, NoSuchAlgorithmException {
-        if (ks.isKeyEntry(fromAlias)) {
-            Key fromKey = ks.getKey(fromAlias, pass.toCharArray());
-            if (fromKey instanceof PrivateKey) {
-                Certificate[] certs = ks.getCertificateChain(fromAlias);
-                ks.deleteEntry(fromAlias);
-                ks.setKeyEntry(toAlias, fromKey, pass.toCharArray(), certs);
+    public static KeyStore getSystemTrustStore() throws IOException, GeneralSecurityException {
+        String fileName = System.getProperty("javax.net.ssl.trustStore");
+        String password = System.getProperty("javax.net.ssl.trustStorePassword");
+        if (fileName != null && password != null) {
+            File file = new File(fileName);
+            if (file.exists() && file.canRead()) {
+                KeyStore ks = KeyStore.getInstance("jks");
+                ks.load(new FileInputStream(file), password.toCharArray());
+                return ks;
             }
-        } else if (ks.isCertificateEntry(fromAlias)) {
-            Certificate cert = ks.getCertificate(fromAlias);
-            ks.deleteEntry(fromAlias);
-            ks.setCertificateEntry(toAlias, cert);
         }
+        return null;
     }
 
     public static void importPKCS8CertChain(KeyStore ks, String alias, byte[] keyBytes, String keyPass, byte[] certChain) throws InvalidKeySpecException, NoSuchAlgorithmException, CertificateException, KeyStoreException {
@@ -182,50 +96,6 @@ public class KeyStoreUtil {
         }
 
         ks.setKeyEntry(alias, pk, keyPass.toCharArray(), certs);
-    }
-
-    // key pair generation methods
-    public static KeyPair createDHKeyPair() throws Exception {
-        AlgorithmParameterGenerator apGen = AlgorithmParameterGenerator.getInstance("DH");
-        apGen.init(1024);
-
-        AlgorithmParameters algParams = apGen.generateParameters();
-        DHParameterSpec dhParamSpec = (DHParameterSpec) algParams.getParameterSpec(DHParameterSpec.class);
-
-        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DH");
-        keyGen.initialize(dhParamSpec);
-
-        KeyPair keypair = keyGen.generateKeyPair();
-        return keypair;
-    }
-
-    public static KeyPair getKeyPair(String alias, String password) throws Exception {
-        KeyStore ks = getKeyStore();
-        Key key = ks.getKey(alias, password.toCharArray());
-        if (key instanceof PrivateKey) {
-            Certificate cert = ks.getCertificate(alias);
-            PublicKey publicKey = cert.getPublicKey();
-            return new KeyPair(publicKey, (PrivateKey) key);
-        } else {
-            Debug.logError("Key is not an instance of PrivateKey", module);
-        }
-        return null;
-    }
-
-    public static void storeCertificate(String alias, Certificate cert) throws Exception {
-        KeyStore ks = getKeyStore();
-        ks.setCertificateEntry(alias, cert);
-        ks.store(new FileOutputStream(getKeyStoreFileName()), getKeyStorePassword().toCharArray());
-    }
-
-    public static void storeKeyPair(KeyPair keyPair, String alias, String password) throws Exception {
-        KeyStore ks = getKeyStore();
-        CertificateFactory cf = CertificateFactory.getInstance("X.509");
-        PrivateKey privateKey = keyPair.getPrivate();
-        PublicKey publicKey = keyPair.getPublic();
-        // not sure what to do here. Do we need to create a cert to assoc with the private key?
-        // cannot find methods for just setting the private/public key; missing something
-        ks.store(new FileOutputStream(getKeyStoreFileName()), getKeyStorePassword().toCharArray());
     }
 
     public static String certToString(Certificate cert) throws CertificateEncodingException {
@@ -261,7 +131,6 @@ public class KeyStoreUtil {
 
         // ignore up to the header
         while ((line = reader.readLine()) != null && !line.equals(header)) {
-            continue;
         }
 
         // no header found
@@ -292,24 +161,4 @@ public class KeyStoreUtil {
         Certificate cert = pemToCert(certString);
         return StringUtil.toHexString(cert.getPublicKey().getEncoded());
     }
-
-    public static SecretKey generateSecretKey(PrivateKey ourKey, PublicKey theirKey) throws Exception {
-        KeyAgreement ka = KeyAgreement.getInstance("DH");
-        ka.init(ourKey);
-        ka.doPhase(theirKey, true);
-        return ka.generateSecret("TripleDES");
-    }
-
-    public static PublicKey readDHPublicKey(byte[] keyBytes) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
-        KeyFactory keyFactory = KeyFactory.getInstance("DH");
-        return keyFactory.generatePublic(x509KeySpec);
-    }
-
-    public static PrivateKey readDHPrivateKey(byte[] keyBytes) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
-        KeyFactory keyFactory = KeyFactory.getInstance("DH");
-        return keyFactory.generatePrivate(x509KeySpec);
-    }
-
 }

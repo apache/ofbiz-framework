@@ -107,8 +107,7 @@ public class ConfigXMLReader {
     public static final String SECURITY = "security";
     public static final String SECURITY_HTTPS = "https";
     public static final String SECURITY_AUTH = "auth";
-    public static final String SECURITY_CERT = "x509";
-    public static final String SECURITY_KEYSTORE = "keystore";
+    public static final String SECURITY_CERT = "cert";    
     public static final String SECURITY_EXTVIEW = "external-view";
     public static final String SECURITY_DIRECT = "direct-request";
 
@@ -210,7 +209,6 @@ public class ConfigXMLReader {
                 String securityHttps = securityElement.getAttribute(SECURITY_HTTPS);
                 String securityAuth = securityElement.getAttribute(SECURITY_AUTH);
                 String securityCert = securityElement.getAttribute(SECURITY_CERT);
-                String securityKeystore = securityElement.getAttribute(SECURITY_KEYSTORE);
                 String securityExtView = securityElement.getAttribute(SECURITY_EXTVIEW);
                 String securityDirectRequest = securityElement.getAttribute(SECURITY_DIRECT);
 
@@ -221,8 +219,7 @@ public class ConfigXMLReader {
                 
                 uriMap.put(SECURITY_HTTPS, securityHttps);
                 uriMap.put(SECURITY_AUTH, securityAuth);
-                uriMap.put(SECURITY_CERT, securityCert);
-                uriMap.put(SECURITY_KEYSTORE, securityKeystore);
+                uriMap.put(SECURITY_CERT, securityCert);               
                 uriMap.put(SECURITY_EXTVIEW, securityExtView);
                 uriMap.put(SECURITY_DIRECT, securityDirectRequest);
             }

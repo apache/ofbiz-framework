@@ -28,6 +28,7 @@ import javax.net.ssl.SSLSocketFactory;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.SSLUtil;
+import org.ofbiz.base.config.GenericConfigException;
 
 /**
  * RMI SSL Client Socket Factory
@@ -42,6 +43,8 @@ public class SSLClientSocketFactory implements RMIClientSocketFactory, Serializa
             return factory.createSocket(host, port);
         } catch (GeneralSecurityException e) {
             Debug.logError(e, module);
+            throw new IOException(e.getMessage());
+        } catch (GenericConfigException e) {
             throw new IOException(e.getMessage());
         }
     }
