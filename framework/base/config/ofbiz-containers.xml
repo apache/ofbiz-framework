@@ -45,6 +45,10 @@ under the License.
         <property name="delegator-name" value="default"/>
         <property name="client-factory" value="org.ofbiz.service.rmi.socket.ssl.SSLClientSocketFactory"/>
         <property name="server-factory" value="org.ofbiz.service.rmi.socket.ssl.SSLServerSocketFactory"/>
+        <property name="ssl-keystore" value="framework/base/config/ofbizrmi.jks"/>
+        <property name="ssl-keystore-type" value="JKS"/>
+        <property name="ssl-keystore-pass" value="changeit"/>
+        <property name="ssl-keystore-alias" value="rmissl"/> 
         <property name="ssl-client-auth" value="true"/>
     </container>
 
@@ -227,7 +231,8 @@ under the License.
             <property name="strategy" value="lf"/>
             <property name="tcpNoDelay" value="true"/>
             <property name="threadPriority" value="java.lang.Thread#NORM_PRIORITY"/>
-            <!-- SSL connector attributes -->
+            <!-- SSL connector attributes -->            
+            <property name="sSLImplementation" value="org.ofbiz.catalina.container.SSLImpl"/>
             <property name="algorithm" value="SunX509"/>
             <property name="clientAuth" value="want"/>
             <property name="keystoreFile" value="framework/base/config/ofbizssl.jks"/>

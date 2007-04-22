@@ -18,14 +18,20 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
+import org.ofbiz.base.config.GenericConfigException;
+import org.ofbiz.base.component.ComponentConfig;
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.SecureRandom;
-import java.util.Map;
-import java.util.HashMap;
+import java.security.cert.X509Certificate;
+import java.security.cert.CertificateException;
+import java.util.*;
 
 import javax.net.ssl.*;
+
+import javolution.util.FastList;
 
 /**
  * KeyStoreUtil - Utilities for setting up SSL connections with specific client certificates
@@ -43,6 +49,76 @@ public class SSLUtil {
 
     static {
         SSLUtil.loadJsseProperties();
+    }
+
+    public static boolean isClientTrusted(X509Certificate[] chain, String authType) {
+        TrustManager[] mgrs = new TrustManager[0];
+        try {
+            mgrs = SSLUtil.getTrustManagers();
+        } catch (IOException e) {
+            Debug.logError(e, module);
+        } catch (GeneralSecurityException e) {
+            Debug.logError(e, module);
+        } catch (GenericConfigException e) {
+            Debug.logError(e, module);
+        }
+
+        if (mgrs != null) {
+            for (int i = 0; i < mgrs.length; i++) {
+                if (mgrs[i] instanceof X509TrustManager) {
+                    try {
+                        ((X509TrustManager) mgrs[i]).checkClientTrusted(chain, authType);
+                        return true;
+                    } catch (CertificateException e) {
+                        // do nothing; just loop
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public static KeyManager[] getKeyManagers(String alias) throws IOException, GeneralSecurityException, GenericConfigException {
+        Iterator i = ComponentConfig.getAllKeystoreInfos().iterator();
+        List keyMgrs = FastList.newInstance();
+        while (i.hasNext()) {
+            ComponentConfig.KeystoreInfo ksi = (ComponentConfig.KeystoreInfo) i.next();
+            if (ksi.isCertStore()) {
+                KeyStore ks = KeyStoreUtil.getComponentKeyStore(ksi.componentConfig.getComponentName(), ksi.getName());
+                keyMgrs.addAll(Arrays.asList(getKeyManagers(ks, ksi.getPassword(), alias)));
+            }
+        }
+
+        KeyManager[] arr = new KeyManager[keyMgrs.size()];
+        for (int x = 0; x < arr.length; x++) {
+            arr[x] = (KeyManager) keyMgrs.get(x);
+        }
+        return arr;
+    }
+
+    public static KeyManager[] getKeyManagers() throws IOException, GeneralSecurityException, GenericConfigException {
+        return getKeyManagers(null);
+    }
+
+    public static TrustManager[] getTrustManagers() throws IOException, GeneralSecurityException, GenericConfigException {
+        KeyStore trustStore = KeyStoreUtil.getSystemTrustStore();
+        List trustMgrs = FastList.newInstance();
+        trustMgrs.addAll(Arrays.asList(getTrustManagers(trustStore)));
+
+        Iterator i = ComponentConfig.getAllKeystoreInfos().iterator();
+        while (i.hasNext()) {
+            ComponentConfig.KeystoreInfo ksi = (ComponentConfig.KeystoreInfo) i.next();
+            if (ksi.isCertStore()) {
+                KeyStore ks = KeyStoreUtil.getComponentKeyStore(ksi.componentConfig.getComponentName(), ksi.getName());
+                trustMgrs.addAll(Arrays.asList(getTrustManagers(ks)));
+            }
+        }
+
+        TrustManager[] arr = new TrustManager[trustMgrs.size()];
+        for (int x = 0; x < arr.length; x++) {
+            arr[x] = (TrustManager) trustMgrs.get(x);
+        }
+        return arr;
     }
 
     public static KeyManager[] getKeyManagers(KeyStore ks, String password, String alias) throws GeneralSecurityException {
@@ -65,28 +141,41 @@ public class SSLUtil {
         return factory.getTrustManagers();
     }
 
-    public static SSLSocketFactory getSSLSocketFactory(KeyStore ks, String password, String alias) throws IOException, GeneralSecurityException {
-        KeyStore trustStore = KeyStoreUtil.getTrustStore();
-        TrustManager[] tm = getTrustManagers(trustStore);
-        KeyManager[] km = getKeyManagers(ks, password, alias);
+    public static SSLSocketFactory getSSLSocketFactory(KeyStore ks, String password, String alias) throws IOException, GeneralSecurityException, GenericConfigException {
+        KeyManager[] km = SSLUtil.getKeyManagers(ks, password, alias);
+        TrustManager[] tm = SSLUtil.getTrustManagers();
 
         SSLContext context = SSLContext.getInstance("SSL");
         context.init(km, tm, new SecureRandom());
         return context.getSocketFactory();
     }
 
-    public static SSLSocketFactory getSSLSocketFactory(String alias) throws IOException, GeneralSecurityException {
-        return getSSLSocketFactory(KeyStoreUtil.getKeyStore(), KeyStoreUtil.getKeyStorePassword(), alias);
+    public static SSLSocketFactory getSSLSocketFactory(String alias) throws IOException, GeneralSecurityException, GenericConfigException {
+        KeyManager[] km = SSLUtil.getKeyManagers(alias);
+        TrustManager[] tm = SSLUtil.getTrustManagers();
+
+        SSLContext context = SSLContext.getInstance("SSL");
+        context.init(km, tm, new SecureRandom());
+        return context.getSocketFactory();
     }
 
-    public static SSLSocketFactory getSSLSocketFactory() throws IOException, GeneralSecurityException {
+    public static SSLSocketFactory getSSLSocketFactory() throws IOException, GeneralSecurityException, GenericConfigException {
+
         return getSSLSocketFactory(null);
     }
 
-    public static SSLServerSocketFactory getSSLServerSocketFactory(KeyStore ks, String password, String alias) throws IOException, GeneralSecurityException {
-        KeyStore trustStore = KeyStoreUtil.getTrustStore();
-        TrustManager[] tm = getTrustManagers(trustStore);
-        KeyManager[] km = getKeyManagers(ks, password, alias);
+    public static SSLServerSocketFactory getSSLServerSocketFactory(KeyStore ks, String password, String alias) throws IOException, GeneralSecurityException, GenericConfigException {
+        TrustManager[] tm = SSLUtil.getTrustManagers();
+        KeyManager[] km = SSLUtil.getKeyManagers(ks, password, alias);
+
+        SSLContext context = SSLContext.getInstance("SSL");
+        context.init(km, tm, null);
+        return context.getServerSocketFactory();
+    }
+
+    public static SSLServerSocketFactory getSSLServerSocketFactory(String alias) throws IOException, GeneralSecurityException, GenericConfigException {
+        TrustManager[] tm = SSLUtil.getTrustManagers();
+        KeyManager[] km = SSLUtil.getKeyManagers(alias);
 
         SSLContext context = SSLContext.getInstance("SSL");
         context.init(km, tm, null);
@@ -164,11 +253,6 @@ public class SSLUtil {
                 System.setProperty("https.cipherSuites", cypher);
             }
 
-            // set up the keystore properties
-            System.setProperty("javax.net.ssl.keyStore", KeyStoreUtil.getKeyStoreFileName());
-            System.setProperty("javax.net.ssl.keyStorePassword", KeyStoreUtil.getKeyStorePassword());
-            System.setProperty("javax.net.ssl.trustStore", KeyStoreUtil.getTrustStoreFileName());
-            System.setProperty("javax.net.ssl.trustStorePassword", KeyStoreUtil.getTrustStorePassword());
             if (debug) {
                 System.setProperty("javax.net.debug","ssl:handshake");
             }

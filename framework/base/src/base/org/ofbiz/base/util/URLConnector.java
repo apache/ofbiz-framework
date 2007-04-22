@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
+import org.ofbiz.base.config.GenericConfigException;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -101,8 +103,10 @@ public class URLConnector {
                         if (hv != null) {
                             scon.setHostnameVerifier(hv);
                         }
-                    } catch (GeneralSecurityException gse) {
-                        Debug.logError(gse, module);
+                    } catch (GeneralSecurityException e) {
+                        Debug.logError(e, module);
+                    } catch (GenericConfigException e) {
+                        Debug.logError(e, module);
                     }
                 }
             } catch (IOException e) {

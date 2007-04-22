@@ -128,6 +128,40 @@ under the License.
         <xs:attribute type="xs:string" name="loader" use="required"/>
         <xs:attribute type="xs:string" name="location" use="required"/>
     </xs:attributeGroup>
+    <xs:element name="keystore">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.keystore"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.keystore">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="type" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="jks"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="password" type="xs:string" use="required"/>        
+        <xs:attribute name="is-truststore" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="is-certstore" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="loader" use="required"/>
+        <xs:attribute type="xs:string" name="location" use="required"/>
+    </xs:attributeGroup>
     <xs:element name="webapp">
         <xs:complexType>
             <xs:sequence>

@@ -180,18 +180,56 @@ public class ComponentConfig {
             }
         }
         return testSuiteInfos;
+    }
 
+    public static List getAllKeystoreInfos() {
+        return getAllKeystoreInfos(null);
+    }
+
+    public static List getAllKeystoreInfos(String componentName) {
+        List keystoreInfos = FastList.newInstance();
+        Iterator i = getAllComponents().iterator();
+        while (i.hasNext()) {
+            ComponentConfig cc = (ComponentConfig) i.next();
+            if (componentName == null || componentName.equals(cc.getComponentName())) {
+                keystoreInfos.addAll(cc.getKeystoreInfos());
+            }
+        }
+        return keystoreInfos;
+    }
+
+    public static KeystoreInfo getKeystoreInfo(String componentName, String keystoreName) {
+        Iterator i = getAllComponents().iterator();
+        while (i.hasNext()) {
+            ComponentConfig cc = (ComponentConfig) i.next();
+            if (componentName != null && componentName.equals(cc.getComponentName())) {
+                Iterator ki = cc.getKeystoreInfos().iterator();
+                while (ki.hasNext()) {
+                    KeystoreInfo ks = (KeystoreInfo) ki.next();
+                    if (keystoreName != null && keystoreName.equals(ks.getName())) {
+                        return ks;
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
     public static List getAllWebappResourceInfos() {
+        return getAllWebappResourceInfos(null);
+    }
+
+    public static List getAllWebappResourceInfos(String componentName) {
         List webappInfos = FastList.newInstance();
         Iterator i = getAllComponents().iterator();
         while (i.hasNext()) {
             ComponentConfig cc = (ComponentConfig) i.next();
-            webappInfos.addAll(cc.getWebappInfos());
+            if (componentName == null || componentName.equals(cc.getComponentName())) {
+                webappInfos.addAll(cc.getWebappInfos());
+            }
         }
         return webappInfos;
-
     }
 
     public static boolean isFileResourceLoader(String componentName, String resourceLoaderName) throws ComponentException {
@@ -304,6 +342,7 @@ public class ComponentConfig {
     protected List entityResourceInfos = FastList.newInstance();
     protected List serviceResourceInfos = FastList.newInstance();
     protected List testSuiteInfos = FastList.newInstance();
+    protected List keystoreInfos = FastList.newInstance();
     protected List webappInfos = FastList.newInstance();
 
     protected ComponentConfig() {}
@@ -386,6 +425,14 @@ public class ComponentConfig {
             Element curElement = (Element) elementIter.next();
             TestSuiteInfo testSuiteInfo = new TestSuiteInfo(this, curElement);
             this.testSuiteInfos.add(testSuiteInfo);
+        }
+
+        // keystore - (cert/trust store infos)
+        elementIter = UtilXml.childElementList(ofbizComponentElement, "keystore").iterator();
+        while (elementIter.hasNext()) {
+            Element curElement = (Element) elementIter.next();
+            KeystoreInfo keystoreInfo = new KeystoreInfo(this, curElement);
+            this.keystoreInfos.add(keystoreInfo);
         }
 
         // webapp - webappInfos
@@ -517,6 +564,10 @@ public class ComponentConfig {
         return this.testSuiteInfos;
     }
 
+    public List getKeystoreInfos() {
+        return this.keystoreInfos;
+    }
+    
     public List getWebappInfos() {
         return this.webappInfos;
     }
@@ -590,6 +641,44 @@ public class ComponentConfig {
     public static class TestSuiteInfo extends ResourceInfo {
         public TestSuiteInfo(ComponentConfig componentConfig, Element element) {
             super(componentConfig, element);
+        }
+    }
+
+    public static class KeystoreInfo extends ResourceInfo {
+        public ComponentConfig componentConfig;
+        public String name;
+        public String type;
+        public String password;
+        public boolean isCertStore;
+        public boolean isTrustStore;
+
+        public KeystoreInfo(ComponentConfig componentConfig, Element element) {
+            super(componentConfig, element);
+            this.name = element.getAttribute("name");
+            this.type = element.getAttribute("type");
+            this.password = element.getAttribute("password");
+            this.isCertStore = "true".equalsIgnoreCase(element.getAttribute("is-certstore"));
+            this.isTrustStore = "true".equalsIgnoreCase(element.getAttribute("is-truststore"));
+        }
+
+        public String getName() {
+            return name;
+        }
+        
+        public String getType() {
+            return type;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public boolean isCertStore() {
+            return isCertStore;
+        }
+
+        public boolean isTrustStore() {
+            return isTrustStore;
         }
     }
 

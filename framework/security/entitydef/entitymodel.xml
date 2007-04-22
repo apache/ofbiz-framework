@@ -32,10 +32,28 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
-  <!--  - org.ofbiz.security.login -->
-  <!--  - org.ofbiz.security.securitygroup -->
+  <!--  - org.ofbiz.security.cert                                -->
+  <!--  - org.ofbiz.security.login                               -->
+  <!--  - org.ofbiz.security.securitygroup                       -->
   <!-- ========================================================= -->
 
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.security.cert -->
+  <!-- ========================================================= -->
+    <entity entity-name="X509IssuerProvision"
+            package-name="org.ofbiz.security.cert"
+            never-cache="true"
+            title="Valid issuer data for authentication of x.509 certificates">
+      <field name="certProvisionId" type="id-ne"></field>
+      <field name="commonName" type="value"></field>
+      <field name="organizationalUnit" type="value"></field>
+      <field name="organizationName" type="value"></field>
+      <field name="cityLocality" type="value"></field>
+      <field name="stateProvince" type="value"></field>
+      <field name="country" type="value"></field>
+      <prim-key field="certProvisionId"/>
+    </entity>
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.security.login -->
@@ -54,9 +72,7 @@ under the License.
       <field name="lastLocale" type="very-short"></field>
       <field name="disabledDateTime" type="date-time"></field>
       <field name="successiveFailedLogins" type="numeric"></field>
-      <field name="x509CertKey" type="very-long"></field>
-      <field name="x509CertSn" type="long-varchar"></field>
-        <prim-key field="userLoginId"/>
+      <prim-key field="userLoginId"/>
     </entity>
     <entity entity-name="UserLoginHistory"
             package-name="org.ofbiz.security.login"
