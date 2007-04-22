@@ -1047,7 +1047,58 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="AddProductFeatureApplAttr" type="single" target="createProductFeatureApplAttr" title="" 
+
+    <!-- create and update a ProductGeo -->
+    <form name="AddProductGeo" type="single" target="createProductGeo" title=""
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="createProductGeo" />
+        <field name="productId"><display also-hidden="true"/></field>
+        <field name="geoId" widget-style="selectBox">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
+                    <entity-order-by field-name="geoTypeId"/>
+                    <entity-order-by field-name="geoName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productGeoEnumId" widget-style="selectBox">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="PROD_GEO"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="description"><text size="20" /></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListProductGeos" type="list" list-name="productGeos" target="updateProductGeo"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <actions>
+            <entity-condition entity-name="ProductGeo">
+                <condition-expr field-name="productId" env-name="productId"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateProductGeo"/>
+        <field name="productId"><display also-hidden="true"/></field>
+        <field name="geoId"><display also-hidden="true"/></field>
+        <field name="productGeoEnumId" widget-style="selectBox">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="PROD_GEO"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="description"><text size="20" /></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteProductGeo?productId=${productId}&amp;geoId=${geoId}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="AddProductFeatureApplAttr" type="single" target="createProductFeatureApplAttr" title=""
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createProductFeatureApplAttr" /> 
         <field name="productId"><hidden/></field>

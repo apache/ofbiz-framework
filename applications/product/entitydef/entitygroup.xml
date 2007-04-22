@@ -159,6 +159,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="ProductContent" />
     <entity-group group="org.ofbiz" entity="ProductContentAndInfo" />
     <entity-group group="org.ofbiz" entity="ProductContentType" />
+    <entity-group group="org.ofbiz" entity="ProductGeo" />
     <entity-group group="org.ofbiz" entity="ProductGlAccount" />
     <entity-group group="org.ofbiz" entity="ProductInventoryItem" />
     <entity-group group="org.ofbiz" entity="ProductKeyword" />

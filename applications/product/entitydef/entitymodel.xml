@@ -2173,6 +2173,26 @@ under the License.
         <key-map field-name="parentTypeId" rel-field-name="productContentTypeId"/>
       </relation>
     </entity>
+    <entity entity-name="ProductGeo"
+            package-name="org.ofbiz.product.product"
+			default-resource-name="ProductEntityLabels"
+            title="Product Geo Entity">
+      <field name="productId" type="id-ne"></field>
+      <field name="geoId" type="id"></field>
+      <field name="productGeoEnumId" type="id"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="productId"/>
+      <prim-key field="geoId"/>
+      <relation type="one" fk-name="PRDGEO_PRODUCT" rel-entity-name="Product">
+        <key-map field-name="productId"/>
+      </relation>
+      <relation type="one" fk-name="PRDGEO_GEO" rel-entity-name="Geo">
+        <key-map field-name="geoId"/>
+      </relation>
+      <relation type="one" fk-name="PRDGEO_ENUM" rel-entity-name="Enumeration">
+        <key-map field-name="productGeoEnumId" rel-field-name="enumId"/>
+      </relation>
+    </entity>
     <entity entity-name="ProductGlAccount"
             package-name="org.ofbiz.product.product"
             title="Product GlAccount Entity">

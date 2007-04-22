@@ -860,7 +860,7 @@ under the License.
     <screen name="EditProductMeters">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditProductMeter"/>
+                <set field="titleProperty" value="PageTitleEditProductMeters"/>
                 <set field="tabButtonItem" value="EditProductMeters"/>
                 <set field="productId" from-field="parameters.productId"/>
             </actions>
@@ -869,6 +869,27 @@ under the License.
                     <decorator-section name="body">
                         <include-form name="ListProductMeters" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                         <include-form name="AddProductMeter" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductGeos">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductGeos"/>
+                <set field="tabButtonItem" value="EditProductGeos"/>
+                <set field="productId" from-field="parameters.productId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="widget-container">
+                            <include-form name="ListProductGeos" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        </container>
+                        <container style="widget-container">
+                            <include-form name="AddProductGeo" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

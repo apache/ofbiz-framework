@@ -26,6 +26,7 @@ under the License.
         <a href="<@ofbizUrl>EditProduct?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProduct?default(unselectedClassName)}">${uiLabelMap.ProductProduct}</a>
         <a href="<@ofbizUrl>EditProductPrices?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductPrices?default(unselectedClassName)}">${uiLabelMap.ProductPrices}</a>
         <a href="<@ofbizUrl>EditProductContent?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductContent?default(unselectedClassName)}">${uiLabelMap.ProductContent}</a>
+        <a href="<@ofbizUrl>EditProductGeos?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductGeos?default(unselectedClassName)}">${uiLabelMap.CommonGeos}</a>
         <a href="<@ofbizUrl>EditProductGoodIdentifications?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductGoodIdentifications?default(unselectedClassName)}">${uiLabelMap.CommonIds}</a>
         <a href="<@ofbizUrl>EditProductCategories?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductCategories?default(unselectedClassName)}">${uiLabelMap.ProductCategories}</a>
         <a href="<@ofbizUrl>EditProductKeyword?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductKeyword?default(unselectedClassName)}">${uiLabelMap.ProductKeywords}</a>

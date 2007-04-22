@@ -771,7 +771,24 @@ under the License.
         <entity-one entity-name="ProductMeter" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
-    
+
+    <!-- ProductGeo Services -->
+    <simple-method method-name="createProductGeo" short-description="Create an Product Geo">
+        <make-value value-name="newEntity" entity-name="ProductGeo"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateProductGeo" short-description="Update an existing Product Geo">
+        <entity-one entity-name="ProductGeo" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteProductGeo" short-description="Delete an existing Product Geo">
+        <entity-one entity-name="ProductGeo" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
     <!-- a method to centralize product security code, meant to be called in-line with
         call-simple-method, and the checkAction and callingMethodName attributes should be in the method context -->
     <simple-method method-name="checkProductRelatedPermission" short-description="Check Product Related Permission">
