@@ -32,6 +32,26 @@ under the License.
             <set from-field="finAccountId" field="newEntity.finAccountId"/>
         </if-empty>
 
+        <!-- set the refundable flag from the type; if not set -->
+        <if-empty field-name="newEntity.isRefundable">
+            <entity-one entity-name="FinAccountType" value-name="finAccountType">
+                <field-map field-name="finAccountTypeId" env-name="parameters.finAccountTypeId"/>
+            </entity-one>
+            <if>
+                <condition>
+                    <and>
+                        <not>
+                            <if-empty field-name="finAccountType.isRefundable"/>
+                        </not>
+                        <if-compare field-name="finAccountType.isRefundable" value="Y" operator="equals"/>
+                    </and>
+                </condition>
+                <then>
+                    <set field="newEntity.isRefundable" value="Y"/>
+                </then>
+            </if>
+        </if-empty>
+
         <create-value value-name="newEntity"/>
         <field-to-result field-name="finAccountId" map-name="newEntity" result-name="finAccountId"/>
     </simple-method>

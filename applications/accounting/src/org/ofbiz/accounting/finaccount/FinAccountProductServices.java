@@ -126,6 +126,20 @@ public class FinAccountProductServices {
             partyId = billToParty.getString("partyId");
         }
 
+        // payment method info
+        List payPrefs = orh.getPaymentPreferences();
+        String paymentMethodId = null;
+        if (payPrefs != null) {
+            Iterator i = payPrefs.iterator();
+            while (i.hasNext()) {
+                // needs to be a CC or EFT account
+                GenericValue pref = (GenericValue) i.next();
+                String type = pref.getString("paymentMethodTypeId");
+                if ("CREDIT_CARD".equals(type) || "EFT_ACCOUNT".equals(type)) {
+                    paymentMethodId = pref.getString("paymentMethodId");
+                }
+            }
+        }
         // some person data for expanding
         GenericValue partyGroup = null;
         GenericValue person = null;
@@ -179,6 +193,7 @@ public class FinAccountProductServices {
         // if we auto-replenish this type; set the level to the initial deposit
         if (replenishEnumId != null && "FARP_AUTOMATIC".equals(replenishEnumId)) {
             createCtx.put("replenishLevel", new Double(deposit.doubleValue()));
+            createCtx.put("replenishPaymentId", paymentMethodId);
         }
 
         Map createResp;

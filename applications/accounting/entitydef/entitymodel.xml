@@ -338,7 +338,9 @@ under the License.
         <field name="postToGlAccountId" type="id"></field>
         <field name="fromDate" type="date-time"><description>Describes when account will be valid. If null, valid immediately.</description></field>
         <field name="thruDate" type="date-time"><description>Expiration date of the account. If null, will never expire.</description></field>
-        <field name="isFrozen" type="indicator"></field>        
+        <field name="isFrozen" type="indicator"></field>
+        <field name="isRefundable" type="indicator"></field>
+        <field name="replenishPaymentId" type="id"></field>
         <field name="replenishLevel" type="currency-amount"></field>
         <field name="actualBalance" type="currency-amount"><description>Calculated as the sum of FinAccountTrans.amount</description></field>
         <field name="availableBalance" type="currency-amount"><description>Calculated as actualBalance minus sum of outstanding FinAccountAuth.amount</description></field>
@@ -357,6 +359,9 @@ under the License.
         </relation>
         <relation type="one" fk-name="FINACCT_GLAC" title="PostTo" rel-entity-name="GlAccount">
             <key-map field-name="postToGlAccountId" rel-field-name="glAccountId"/>
+        </relation>
+        <relation type="one" fk-name="FINACCT_PAYMETH" title="Replenish" rel-entity-name="PaymentMethod">
+            <key-map field-name="replenishPaymentId" rel-field-name="paymentMethodId"/>
         </relation>
         <relation type="many" rel-entity-name="FinAccountTypeAttr">
             <key-map field-name="finAccountTypeId"/>
@@ -504,6 +509,7 @@ under the License.
         <field name="finAccountTypeId" type="id-ne"></field>
         <field name="parentTypeId" type="id-ne"></field>
         <field name="replenishEnumId" type="id-ne"></field>
+        <field name="isRefundable" type="indicator"></field> 
         <field name="hasTable" type="indicator"></field>
         <field name="description" type="description"></field>
         <prim-key field="finAccountTypeId"/>
