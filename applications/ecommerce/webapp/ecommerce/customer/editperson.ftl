@@ -31,7 +31,18 @@ under the License.
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.CommonTitle}</div></td>
       <td width="74%" align="left">
-        <input type="text" class='inputBox' size="10" maxlength="30" name="personalTitle" value="${personData.personalTitle?if_exists}"/>
+        <select name="personalTitle" class="selectBox">
+            <#if personData.personalTitle?has_content >
+              <option>${personData.personalTitle}</option>
+              <option value="${personData.personalTitle}"> -- </option>
+            <#else>
+              <option value="">${uiLabelMap.CommonSelectOne}</option>
+            </#if>
+            <option>${uiLabelMap.CommonTitleMr}</option>
+            <option>${uiLabelMap.CommonTitleMrs}</option>
+            <option>${uiLabelMap.CommonTitleMs}</option>
+            <option>${uiLabelMap.CommonTitleDr}</option>
+        </select>              
       </td>
     </tr>
     <tr>
@@ -68,10 +79,17 @@ under the License.
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyGender}</div></td>
       <td width="74%" align="left">
         <select name="gender" class='selectBox'>
-          <option>${personData.gender?if_exists}</option>
-          <option></option>
-          <option>M</option>
-          <option>F</option>
+          <#if personData.gender?has_content >
+            <option value="${personData.gender}">
+                <#if personData.gender == "M" >${uiLabelMap.CommonMale}</#if>
+                <#if personData.gender == "F" >${uiLabelMap.CommonFemale}</#if>
+            </option>
+            <option value="${personData.gender}"> -- </option>
+          <#else>
+            <option value="">${uiLabelMap.CommonSelectOne}</option>
+          </#if>
+          <option value="M">${uiLabelMap.CommonMale}</option>
+          <option value="F">${uiLabelMap.CommonFemale}</option>
         </select>
       </td>
     </tr>
@@ -79,7 +97,7 @@ under the License.
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyBirthDate}</div></td>
       <td width="74%" align="left">
         <input type="text" class='inputBox' size="11" maxlength="20" name="birthDate" value="${personData.birthDate?if_exists}"/>
-        (yyyy-MM-dd)
+        <div class="tabletext">${uiLabelMap.CommonFormatDate}</div>
       </td>
     </tr>
     <tr>
@@ -105,8 +123,16 @@ under the License.
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyMaritalStatus}</div></td>
       <td width="74%" align="left">
         <select name="maritalStatus" class='selectBox'>
-          <option>${personData.maritalStatus?if_exists}</option>
+          <#if personData.maritalStatus?has_content>
+             <option value="${personData.maritalStatus}">
+               <#if personData.maritalStatus == "S">${uiLabelMap.PartySingle}</#if>
+               <#if personData.maritalStatus == "M">${uiLabelMap.PartyMarried}</#if>
+               <#if personData.maritalStatus == "D">${uiLabelMap.PartyDivorced}</#if>
+             </option>            
+          <option value="${personData.maritalStatus}"> -- </option>
+          <#else>
           <option></option>
+          </#if>
           <option value="S">${uiLabelMap.PartySingle}</option>
           <option value="M">${uiLabelMap.PartyMarried}</option>
           <option value="D">${uiLabelMap.PartyDivorced}</option>
@@ -129,7 +155,7 @@ under the License.
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyPassportExpireDate}</div></td>
       <td width="74%" align="left">
         <input type="text" class='inputBox' size="11" maxlength="20" name="passportExpireDate" value="${personData.passportExpireDate?if_exists}"/>
-        (yyyy-MM-dd)
+        <div class="tabletext">${uiLabelMap.CommonFormatDate}</div>
       </td>
     </tr>
     <tr>
