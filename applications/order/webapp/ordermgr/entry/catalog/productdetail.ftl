@@ -349,7 +349,7 @@ ${virtualJavaScript?if_exists}
         <#list disFeatureList as currentFeature>
             <#assign disFeatureType = currentFeature.getRelatedOneCache("ProductFeatureType")/>
             <div class="tabletext">
-                <#if disFeatureType.description?exists>${disFeatureType.description}<#else>${currentFeature.productFeatureTypeId}</#if>:&nbsp;${currentFeature.description}
+                <#if disFeatureType.description?exists>${disFeatureType.get("description", locale)}<#else>${currentFeature.productFeatureTypeId}</#if>:&nbsp;${currentFeature.description}
             </div>
         </#list>
             <div class="tabletext">&nbsp;</div>
