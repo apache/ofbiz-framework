@@ -39,187 +39,195 @@ under the License.
         <set from-field="parameters.containerId" field="lookupFieldMap.containerId"/>
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
-        <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
-
-        <!-- before we do the find, put together the orderBy list based on which reserveOrderEnumId is specified -->
-        <!-- FIFO=first in first out, so it should be order by ASCending receive or expire date
-             LIFO=last in first out, so it means order by DESCending receive or expire date
-             -->
-        <if-compare value="INVRO_GUNIT_COST" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
-            <set value="unitCost DESC" field="orderByString"/>
-        <else>
-            <if-compare value="INVRO_LUNIT_COST" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
-                <set value="unitCost ASC" field="orderByString"/>
+        <!-- check the product; make sure its a physical item -->
+        <entity-one entity-name="Product" value-name="product"/>
+        <get-related-one value-name="product" relation-name="ProductType" to-value-name="productType"/>
+        <if-compare field-name="productType.isPhysical" operator="equals" value="N">
+            <set field="parameters.quantityNotReserved" value="0" type="Double"/>
             <else>
-                <if-compare value="INVRO_FIFO_EXP" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
-                    <set value="expireDate ASC" field="orderByString"/>
+                <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
+
+                <!-- before we do the find, put together the orderBy list based on which reserveOrderEnumId is specified -->
+                <!-- FIFO=first in first out, so it should be order by ASCending receive or expire date
+                     LIFO=last in first out, so it means order by DESCending receive or expire date
+                     -->
+                <if-compare value="INVRO_GUNIT_COST" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
+                    <set value="unitCost DESC" field="orderByString"/>
                 <else>
-                    <if-compare value="INVRO_LIFO_EXP" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
-                        <set value="expireDate DESC" field="orderByString"/>
+                    <if-compare value="INVRO_LUNIT_COST" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
+                        <set value="unitCost ASC" field="orderByString"/>
                     <else>
-                        <if-compare value="INVRO_LIFO_REC" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
-                            <set value="datetimeReceived DESC" field="orderByString"/>
+                        <if-compare value="INVRO_FIFO_EXP" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
+                            <set value="expireDate ASC" field="orderByString"/>
                         <else>
-                            <!-- the default reserveOrderEnumId is INVRO_FIFO_REC, ie FIFO based on date received -->
-                            <set value="datetimeReceived ASC" field="orderByString"/>
-                            <set value="INVRO_FIFO_REC" field="parameters.reserveOrderEnumId"/>
+                            <if-compare value="INVRO_LIFO_EXP" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
+                                <set value="expireDate DESC" field="orderByString"/>
+                            <else>
+                                <if-compare value="INVRO_LIFO_REC" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
+                                    <set value="datetimeReceived DESC" field="orderByString"/>
+                                <else>
+                                    <!-- the default reserveOrderEnumId is INVRO_FIFO_REC, ie FIFO based on date received -->
+                                    <set value="datetimeReceived ASC" field="orderByString"/>
+                                    <set value="INVRO_FIFO_REC" field="parameters.reserveOrderEnumId"/>
+                                </else>
+                                </if-compare>
+                            </else>
+                            </if-compare>
                         </else>
                         </if-compare>
                     </else>
                     </if-compare>
                 </else>
                 </if-compare>
-            </else>
-            </if-compare>
-        </else>
-        </if-compare>
-        <set field="orderByList[]" from-field="orderByString"/>
+                <set field="orderByList[]" from-field="orderByString"/>
 
-        <set from-field="parameters.quantity" field="parameters.quantityNotReserved"/>
+                <set from-field="parameters.quantity" field="parameters.quantityNotReserved"/>
 
-        <!-- first reserve against InventoryItems in FLT_PICKLOC type locations, then FLT_BULK locations, then InventoryItems with no locations -->
-        <find-by-and entity-name="InventoryItemAndLocation" map-name="lookupFieldMap" list-name="inventoryItemAndLocations" use-iterator="true" order-by-list-name="orderByList"/>
-        <iterate entry-name="inventoryItemAndLocation" list-name="inventoryItemAndLocations">
-            <if-compare field-name="inventoryItemAndLocation.locationTypeEnumId" operator="equals" value="FLT_PICKLOC">
-                <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
-                <make-value entity-name="InventoryItem" map-name="inventoryItemAndLocation" value-name="inventoryItem"/>
-                <call-simple-method method-name="reserveForInventoryItemInline"/>
-            </if-compare>
-        </iterate>
+                <!-- first reserve against InventoryItems in FLT_PICKLOC type locations, then FLT_BULK locations, then InventoryItems with no locations -->
+                <find-by-and entity-name="InventoryItemAndLocation" map-name="lookupFieldMap" list-name="inventoryItemAndLocations" use-iterator="true" order-by-list-name="orderByList"/>
+                <iterate entry-name="inventoryItemAndLocation" list-name="inventoryItemAndLocations">
+                    <if-compare field-name="inventoryItemAndLocation.locationTypeEnumId" operator="equals" value="FLT_PICKLOC">
+                        <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
+                        <make-value entity-name="InventoryItem" map-name="inventoryItemAndLocation" value-name="inventoryItem"/>
+                        <call-simple-method method-name="reserveForInventoryItemInline"/>
+                    </if-compare>
+                </iterate>
 
-        <!-- still some left? try the FLT_BULK locations -->
-        <if-compare field-name="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
-            <find-by-and entity-name="InventoryItemAndLocation" map-name="lookupFieldMap" list-name="inventoryItemAndLocations" use-iterator="true" order-by-list-name="orderByList"/>
-            <iterate entry-name="inventoryItemAndLocation" list-name="inventoryItemAndLocations">
-                <if-compare field-name="inventoryItemAndLocation.locationTypeEnumId" operator="equals" value="FLT_BULK">
-                    <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
-                    <make-value entity-name="InventoryItem" map-name="inventoryItemAndLocation" value-name="inventoryItem"/>
-                    <call-simple-method method-name="reserveForInventoryItemInline"/>
+                <!-- still some left? try the FLT_BULK locations -->
+                <if-compare field-name="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
+                    <find-by-and entity-name="InventoryItemAndLocation" map-name="lookupFieldMap" list-name="inventoryItemAndLocations" use-iterator="true" order-by-list-name="orderByList"/>
+                    <iterate entry-name="inventoryItemAndLocation" list-name="inventoryItemAndLocations">
+                        <if-compare field-name="inventoryItemAndLocation.locationTypeEnumId" operator="equals" value="FLT_BULK">
+                            <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
+                            <make-value entity-name="InventoryItem" map-name="inventoryItemAndLocation" value-name="inventoryItem"/>
+                            <call-simple-method method-name="reserveForInventoryItemInline"/>
+                        </if-compare>
+                    </iterate>
                 </if-compare>
-            </iterate>
-        </if-compare>
 
-        <!-- last of all try reserving in InventoryItems that have no locationSeqId, ie are not in any particular location -->
-        <if-compare field-name="parameters.quantityNotReserved" operator="greater" value="0" type="Double">            
-            <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItems" use-iterator="true" order-by-list-name="orderByList"/>
-            <iterate entry-name="inventoryItem" list-name="inventoryItems">
-                <if-empty field-name="inventoryItem.locationSeqId">
-                    <call-simple-method method-name="reserveForInventoryItemInline"/>
-                </if-empty>
-            </iterate>
-        </if-compare>
+                <!-- last of all try reserving in InventoryItems that have no locationSeqId, ie are not in any particular location -->
+                <if-compare field-name="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
+                    <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItems" use-iterator="true" order-by-list-name="orderByList"/>
+                    <iterate entry-name="inventoryItem" list-name="inventoryItems">
+                        <if-empty field-name="inventoryItem.locationSeqId">
+                            <call-simple-method method-name="reserveForInventoryItemInline"/>
+                        </if-empty>
+                    </iterate>
+                </if-compare>
 
-        <!--
-            if inventory is not required for purchase and quantityNotReserved != 0:
-                - subtract the remaining quantityNotReserved from the availableToPromise of the last non-serialized inventory item
-                - or if none was found create a non-ser InventoryItem with availableToPromise = -quantityNotReserved
-        -->
-        <if-compare field-name="parameters.quantityNotReserved" operator="not-equals" value="0" type="Double">
-            <if-compare field-name="parameters.requireInventory" operator="equals" value="Y">
-                <!-- use this else pattern to accomplish the anything but Y logic, ie if not specified default to inventory NOT required -->
-            <else>
-                <if-not-empty field-name="lastNonSerInventoryItem">
-                    <!-- subtract from quantityNotReserved from the availableToPromise of existing inventory item -->
-                    <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
-                    <set from-field="lastNonSerInventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
-                    <set from-field="parameters.orderId" field="createDetailMap.orderId"/>
-                    <set from-field="parameters.orderItemSeqId" field="createDetailMap.orderItemSeqId"/>
-                    <set from-field="parameters.shipGroupSeqId" field="createDetailMap.shipGroupSeqId"/>
-                    <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
-                        <calcop field-name="parameters.quantityNotReserved" operator="negative"/>
-                    </calculate>
-                    <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
-                    <clear-field field-name="createDetailMap"/>
+                <!--
+                    if inventory is not required for purchase and quantityNotReserved != 0:
+                        - subtract the remaining quantityNotReserved from the availableToPromise of the last non-serialized inventory item
+                        - or if none was found create a non-ser InventoryItem with availableToPromise = -quantityNotReserved
+                -->
+                <if-compare field-name="parameters.quantityNotReserved" operator="not-equals" value="0" type="Double">
+                    <if-compare field-name="parameters.requireInventory" operator="equals" value="Y">
+                        <!-- use this else pattern to accomplish the anything but Y logic, ie if not specified default to inventory NOT required -->
+                    <else>
+                        <if-not-empty field-name="lastNonSerInventoryItem">
+                            <!-- subtract from quantityNotReserved from the availableToPromise of existing inventory item -->
+                            <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
+                            <set from-field="lastNonSerInventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
+                            <set from-field="parameters.orderId" field="createDetailMap.orderId"/>
+                            <set from-field="parameters.orderItemSeqId" field="createDetailMap.orderItemSeqId"/>
+                            <set from-field="parameters.shipGroupSeqId" field="createDetailMap.shipGroupSeqId"/>
+                            <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
+                                <calcop field-name="parameters.quantityNotReserved" operator="negative"/>
+                            </calculate>
+                            <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+                            <clear-field field-name="createDetailMap"/>
 
-                    <!-- get the promiseDatetime -->
-                    <get-related-one value-name="lastNonSerInventoryItem" relation-name="ProductFacility" to-value-name="productFacility"/>
-                    <set field="daysToShip" from-field="productFacility.daysToShip"/>
-                    <if-empty field-name="daysToShip">
-                        <set field="daysToShip" value="30" type="Long"/>
-                    </if-empty>
-                    <call-bsh><![CDATA[
-                    java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate");
-                    java.util.Calendar cal = java.util.Calendar.getInstance();
-                    cal.setTimeInMillis(orderDate.getTime());
-                    cal.add(java.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
-                    return org.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
-                    ]]></call-bsh>
+                            <!-- get the promiseDatetime -->
+                            <get-related-one value-name="lastNonSerInventoryItem" relation-name="ProductFacility" to-value-name="productFacility"/>
+                            <set field="daysToShip" from-field="productFacility.daysToShip"/>
+                            <if-empty field-name="daysToShip">
+                                <set field="daysToShip" value="30" type="Long"/>
+                            </if-empty>
+                            <call-bsh><![CDATA[
+                            java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate");
+                            java.util.Calendar cal = java.util.Calendar.getInstance();
+                            cal.setTimeInMillis(orderDate.getTime());
+                            cal.add(java.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
+                            return org.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
+                            ]]></call-bsh>
 
-                    <!-- create or update OrderItemShipGrpInvRes record -->
-                    <set from-field="parameters.orderId" field="reserveOisgirMap.orderId"/>
-                    <set from-field="parameters.orderItemSeqId" field="reserveOisgirMap.orderItemSeqId"/>
-                    <set from-field="parameters.shipGroupSeqId" field="reserveOisgirMap.shipGroupSeqId"/>
-                    <set from-field="lastNonSerInventoryItem.inventoryItemId" field="reserveOisgirMap.inventoryItemId"/>
-                    <set from-field="parameters.reserveOrderEnumId" field="reserveOisgirMap.reserveOrderEnumId"/>
-                    <set from-field="parameters.quantityNotReserved" field="reserveOisgirMap.quantity"/>
-                    <set from-field="parameters.quantityNotReserved" field="reserveOisgirMap.quantityNotAvailable"/>
-                    <set from-field="parameters.reservedDatetime" field="reserveOisgirMap.reservedDatetime"/>
-                    <set from-field="promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
-                    <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
-                    <clear-field field-name="reserveOisgirMap"/>
-                <else>
-                    <!-- no non-ser inv item, create a non-ser InventoryItem with availableToPromise = -quantityNotReserved -->
-                    <clear-field field-name="createInventoryItemInMap"/>
-                    <clear-field field-name="createInventoryItemOutMap"/>
-                    <!-- the createInventoryItem service is run by the the system user here -->
-                    <entity-one entity-name="UserLogin" value-name="permUserLogin">
-                        <field-map field-name="userLoginId" value="system"/>
-                    </entity-one>
-                    <set from-field="parameters.productId" field="createInventoryItemInMap.productId"/>
-                    <set from-field="parameters.facilityId" field="createInventoryItemInMap.facilityId"/>
-                    <set from-field="parameters.containerId" field="createInventoryItemInMap.containerId"/>
-                    <set value="NON_SERIAL_INV_ITEM" field="createInventoryItemInMap.inventoryItemTypeId"/>
-                    <set from-field="permUserLogin" field="createInventoryItemInMap.userLogin"/>
-                    <call-service service-name="createInventoryItem" in-map-name="createInventoryItemInMap" include-user-login="false">
-                        <result-to-field result-name="inventoryItemId" field-name="createInventoryItemOutMap.inventoryItemId"/>
-                    </call-service>
-                    <entity-one entity-name="InventoryItem" value-name="newNonSerInventoryItem">
-                        <field-map field-name="inventoryItemId" env-name="createInventoryItemOutMap.inventoryItemId"/>
-                    </entity-one>
+                            <!-- create or update OrderItemShipGrpInvRes record -->
+                            <set from-field="parameters.orderId" field="reserveOisgirMap.orderId"/>
+                            <set from-field="parameters.orderItemSeqId" field="reserveOisgirMap.orderItemSeqId"/>
+                            <set from-field="parameters.shipGroupSeqId" field="reserveOisgirMap.shipGroupSeqId"/>
+                            <set from-field="lastNonSerInventoryItem.inventoryItemId" field="reserveOisgirMap.inventoryItemId"/>
+                            <set from-field="parameters.reserveOrderEnumId" field="reserveOisgirMap.reserveOrderEnumId"/>
+                            <set from-field="parameters.quantityNotReserved" field="reserveOisgirMap.quantity"/>
+                            <set from-field="parameters.quantityNotReserved" field="reserveOisgirMap.quantityNotAvailable"/>
+                            <set from-field="parameters.reservedDatetime" field="reserveOisgirMap.reservedDatetime"/>
+                            <set from-field="promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
+                            <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
+                            <clear-field field-name="reserveOisgirMap"/>
+                        <else>
+                            <!-- no non-ser inv item, create a non-ser InventoryItem with availableToPromise = -quantityNotReserved -->
+                            <clear-field field-name="createInventoryItemInMap"/>
+                            <clear-field field-name="createInventoryItemOutMap"/>
+                            <!-- the createInventoryItem service is run by the the system user here -->
+                            <entity-one entity-name="UserLogin" value-name="permUserLogin">
+                                <field-map field-name="userLoginId" value="system"/>
+                            </entity-one>
+                            <set from-field="parameters.productId" field="createInventoryItemInMap.productId"/>
+                            <set from-field="parameters.facilityId" field="createInventoryItemInMap.facilityId"/>
+                            <set from-field="parameters.containerId" field="createInventoryItemInMap.containerId"/>
+                            <set value="NON_SERIAL_INV_ITEM" field="createInventoryItemInMap.inventoryItemTypeId"/>
+                            <set from-field="permUserLogin" field="createInventoryItemInMap.userLogin"/>
+                            <call-service service-name="createInventoryItem" in-map-name="createInventoryItemInMap" include-user-login="false">
+                                <result-to-field result-name="inventoryItemId" field-name="createInventoryItemOutMap.inventoryItemId"/>
+                            </call-service>
+                            <entity-one entity-name="InventoryItem" value-name="newNonSerInventoryItem">
+                                <field-map field-name="inventoryItemId" env-name="createInventoryItemOutMap.inventoryItemId"/>
+                            </entity-one>
 
-                    <!-- also create a detail record with the quantities -->
-                    <set from-field="newNonSerInventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
-                    <set from-field="parameters.orderId" field="createDetailMap.orderId"/>
-                    <set from-field="parameters.orderItemSeqId" field="createDetailMap.orderItemSeqId"/>
-                    <set from-field="parameters.shipGroupSeqId" field="createDetailMap.shipGroupSeqId"/>
-                    <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
-                        <calcop field-name="parameters.quantityNotReserved" operator="negative"/>
-                    </calculate>
-                    <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
-                    <clear-field field-name="createDetailMap"/>
+                            <!-- also create a detail record with the quantities -->
+                            <set from-field="newNonSerInventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
+                            <set from-field="parameters.orderId" field="createDetailMap.orderId"/>
+                            <set from-field="parameters.orderItemSeqId" field="createDetailMap.orderItemSeqId"/>
+                            <set from-field="parameters.shipGroupSeqId" field="createDetailMap.shipGroupSeqId"/>
+                            <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
+                                <calcop field-name="parameters.quantityNotReserved" operator="negative"/>
+                            </calculate>
+                            <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+                            <clear-field field-name="createDetailMap"/>
 
-                    <!-- get the promiseDatetime -->
-                    <get-related-one value-name="newNonSerInventoryItem" relation-name="ProductFacility" to-value-name="productFacility"/>
-                    <set field="daysToShip" from-field="productFacility.daysToShip"/>
-                    <if-empty field-name="daysToShip">
-                        <set field="daysToShip" value="30" type="Long"/>
-                    </if-empty>
-                    <call-bsh><![CDATA[
-                    java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate");
-                    java.util.Calendar cal = java.util.Calendar.getInstance();
-                    cal.setTimeInMillis(orderDate.getTime());
-                    cal.add(java.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
-                    return org.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
-                    ]]></call-bsh>
+                            <!-- get the promiseDatetime -->
+                            <get-related-one value-name="newNonSerInventoryItem" relation-name="ProductFacility" to-value-name="productFacility"/>
+                            <set field="daysToShip" from-field="productFacility.daysToShip"/>
+                            <if-empty field-name="daysToShip">
+                                <set field="daysToShip" value="30" type="Long"/>
+                            </if-empty>
+                            <call-bsh><![CDATA[
+                            java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate");
+                            java.util.Calendar cal = java.util.Calendar.getInstance();
+                            cal.setTimeInMillis(orderDate.getTime());
+                            cal.add(java.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
+                            return org.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
+                            ]]></call-bsh>
 
-                    <!-- create OrderItemShipGrpInvRes record -->
-                    <set from-field="parameters.orderId" field="reserveOisgirMap.orderId"/>
-                    <set from-field="parameters.orderItemSeqId" field="reserveOisgirMap.orderItemSeqId"/>
-                    <set from-field="parameters.shipGroupSeqId" field="reserveOisgirMap.shipGroupSeqId"/>
-                    <set from-field="newNonSerInventoryItem.inventoryItemId" field="reserveOisgirMap.inventoryItemId"/>
-                    <set from-field="parameters.reserveOrderEnumId" field="reserveOisgirMap.reserveOrderEnumId"/>
-                    <set from-field="parameters.quantityNotReserved" field="reserveOisgirMap.quantity"/>
-                    <set from-field="parameters.quantityNotReserved" field="reserveOisgirMap.quantityNotAvailable"/>
-                    <set from-field="parameters.reservedDatetime" field="reserveOisgirMap.reservedDatetime"/>
-                    <set from-field="parameters.promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
-                    <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
-                    <clear-field field-name="reserveOisgirMap"/>
-                </else>
-                </if-not-empty>
+                            <!-- create OrderItemShipGrpInvRes record -->
+                            <set from-field="parameters.orderId" field="reserveOisgirMap.orderId"/>
+                            <set from-field="parameters.orderItemSeqId" field="reserveOisgirMap.orderItemSeqId"/>
+                            <set from-field="parameters.shipGroupSeqId" field="reserveOisgirMap.shipGroupSeqId"/>
+                            <set from-field="newNonSerInventoryItem.inventoryItemId" field="reserveOisgirMap.inventoryItemId"/>
+                            <set from-field="parameters.reserveOrderEnumId" field="reserveOisgirMap.reserveOrderEnumId"/>
+                            <set from-field="parameters.quantityNotReserved" field="reserveOisgirMap.quantity"/>
+                            <set from-field="parameters.quantityNotReserved" field="reserveOisgirMap.quantityNotAvailable"/>
+                            <set from-field="parameters.reservedDatetime" field="reserveOisgirMap.reservedDatetime"/>
+                            <set from-field="parameters.promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
+                            <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
+                            <clear-field field-name="reserveOisgirMap"/>
+                        </else>
+                        </if-not-empty>
 
-                <set field="parameters.quantityNotReserved" value="0" type="Double"/>
+                        <set field="parameters.quantityNotReserved" value="0" type="Double"/>
+                    </else>
+                    </if-compare>
+                </if-compare>
             </else>
-            </if-compare>
         </if-compare>
 
         <field-to-result field-name="quantityNotReserved" map-name="parameters"/>
