@@ -33,7 +33,7 @@ function lookupInventory() {
     <td width='100%'>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
         <tr>
-          <td><div class='boxhead'></div></td>
+          <td class='boxhead'></td>
           <td align='right'>
             <p>
               <#if requestParameters.hideFields?default("N") == "Y">
@@ -108,7 +108,7 @@ document.lookupinventory.productId.focus();
        <#assign rowClass = "viewManyTR2">
          <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
           <tr>
-           <td width="50%"><div class="boxhead">${uiLabelMap.CommonElementsFound}</div></td>
+           <td width="50%" class="boxhead">${uiLabelMap.CommonElementsFound}</td>
             <td width="50%">
              <div class="boxhead" align="right">
                
