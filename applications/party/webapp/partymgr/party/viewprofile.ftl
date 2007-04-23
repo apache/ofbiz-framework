@@ -103,7 +103,7 @@ under the License.
         <div>${uiLabelMap.PartyInformationNotFound}</div>
       </#if>
       <#if partyNameHistoryList?has_content>
-        <div><hr class="sepbar"/></div>
+        <div><hr/></div>
         <div>${uiLabelMap.PartyHistoryName}</div>
         <#list partyNameHistoryList as partyNameHistory>
           <#if lookupPerson?has_content>
@@ -152,7 +152,7 @@ under the License.
           <#list contactMeches as contactMechMap>
             <#assign contactMech = contactMechMap.contactMech>
             <#assign partyContactMech = contactMechMap.partyContactMech>
-            <tr><td colspan="4"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="4"><hr/></td></tr>
             <tr>
               <td class="label align-top">${contactMechMap.contactMechType.get("description",locale)}</td>
               <td>
@@ -603,7 +603,7 @@ under the License.
       <#else>
         ${uiLabelMap.PartyNoContent}
       </#if>
-      <hr class="sepbar"/>
+      <hr/>
       <div class="label">${uiLabelMap.PartyAttachContent}</div>
       <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>uploadPartyContent</@ofbizUrl>">
         <input type="hidden" name="dataCategoryId" value="PERSONAL"/>
@@ -655,7 +655,7 @@ under the License.
               </td>
             </tr>
             <#if noteRef_has_next>
-              <tr><td colspan="2"><hr class="sepbar"></td></tr>
+              <tr><td colspan="2"><hr></td></tr>
             </#if>
           </#list>
         </table>

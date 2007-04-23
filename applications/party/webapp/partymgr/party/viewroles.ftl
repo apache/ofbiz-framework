@@ -44,7 +44,7 @@ under the License.
         ${uiLabelMap.PartyNoPartyRolesFound}
       </#if>
       <#if hasUpdatePermission>
-        <tr><td colspan="3"><hr class="sepbar"></td></tr>
+        <tr><td colspan="3"><hr></td></tr>
         <tr>
           <td class="label">
             ${uiLabelMap.PartyAddToRole}
