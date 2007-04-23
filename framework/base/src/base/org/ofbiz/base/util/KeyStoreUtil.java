@@ -25,13 +25,16 @@ import org.ofbiz.base.config.GenericConfigException;
 import java.io.*;
 import java.net.URL;
 import java.security.*;
+import java.security.cert.*;
 import java.security.cert.Certificate;
-import java.security.cert.CertificateEncodingException;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Collection;
+import java.util.Map;
+
+import javolution.util.FastMap;
+
+import javax.security.auth.x500.X500Principal;
 
 /**
  * KeyStoreUtil - Utilities for getting KeyManagers and TrustManagers
@@ -40,6 +43,13 @@ import java.util.Collection;
 public class KeyStoreUtil {
 
     public static final String module = KeyStoreUtil.class.getName();
+
+    public static void storeComponentKeyStore(String componentName, String keyStoreName, KeyStore store) throws IOException, GenericConfigException, NoSuchAlgorithmException, CertificateException, KeyStoreException {
+        ComponentConfig.KeystoreInfo ks = ComponentConfig.getKeystoreInfo(componentName, keyStoreName);
+        File file = new File(ks.createResourceHandler().getFullLocation());
+        FileOutputStream out = new FileOutputStream(file);
+        store.store(out, ks.getPassword().toCharArray());
+    }
 
     public static KeyStore getComponentKeyStore(String componentName, String keyStoreName) throws IOException, GeneralSecurityException, GenericConfigException {
         ComponentConfig.KeystoreInfo ks = ComponentConfig.getKeystoreInfo(componentName, keyStoreName);
@@ -73,6 +83,25 @@ public class KeyStoreUtil {
         return null;
     }
 
+    public static X509Certificate readCertificate(byte[] certChain) throws CertificateException {
+        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+        ByteArrayInputStream bais = new ByteArrayInputStream(certChain);
+        return (X509Certificate) cf.generateCertificate(bais);
+    }
+
+    public static Map getCertX500Map(X509Certificate cert) {
+        X500Principal x500 = cert.getSubjectX500Principal();
+        Map x500Map = FastMap.newInstance();
+
+        String[] x500Opts = x500.getName().split("\\,");
+        for (int x = 0; x < x500Opts.length; x++) {
+            String[] nv = x500Opts[x].split("\\=");
+            x500Map.put(nv[0], nv[1]);
+        }
+
+        return x500Map;
+    }
+    
     public static void importPKCS8CertChain(KeyStore ks, String alias, byte[] keyBytes, String keyPass, byte[] certChain) throws InvalidKeySpecException, NoSuchAlgorithmException, CertificateException, KeyStoreException {
         // load the private key
         KeyFactory kf = KeyFactory.getInstance("RSA");

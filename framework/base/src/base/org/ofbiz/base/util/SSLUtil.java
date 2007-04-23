@@ -89,11 +89,7 @@ public class SSLUtil {
             }
         }
 
-        KeyManager[] arr = new KeyManager[keyMgrs.size()];
-        for (int x = 0; x < arr.length; x++) {
-            arr[x] = (KeyManager) keyMgrs.get(x);
-        }
-        return arr;
+        return (KeyManager[]) keyMgrs.toArray(new KeyManager[keyMgrs.size()]);
     }
 
     public static KeyManager[] getKeyManagers() throws IOException, GeneralSecurityException, GenericConfigException {
@@ -114,11 +110,7 @@ public class SSLUtil {
             }
         }
 
-        TrustManager[] arr = new TrustManager[trustMgrs.size()];
-        for (int x = 0; x < arr.length; x++) {
-            arr[x] = (TrustManager) trustMgrs.get(x);
-        }
-        return arr;
+        return (TrustManager[]) trustMgrs.toArray(new TrustManager[trustMgrs.size()]);
     }
 
     public static KeyManager[] getKeyManagers(KeyStore ks, String password, String alias) throws GeneralSecurityException {
