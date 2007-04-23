@@ -18,8 +18,6 @@ under the License.
 -->
 
 <#assign selected = headerItem?default("void")>
-
-<!-- begin appHeader.ftl -->
 <div id="app-navigation">
   <h2>${uiLabelMap.PartyManagerApplication}</h2>
   <ul>
@@ -38,12 +36,10 @@ under the License.
       <li<#if selected == "security"> class="selected"</#if>><a href="<@ofbizUrl>FindSecurityGroup</@ofbizUrl>">${uiLabelMap.CommonSecurity}</a></li>
     </#if>
     <li<#if selected == "addrmap"> class="selected"</#if>><a href="<@ofbizUrl>addressMatchMap</@ofbizUrl>">${uiLabelMap.PageTitleAddressMatchMap}</a></li>
-  </ul>
-  <ul class="opposed">
     <#if userLogin?has_content>
-      <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
+      <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
     <#else>
-      <li><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
+      <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
     </#if>
   </ul>
   <br class="clear" />

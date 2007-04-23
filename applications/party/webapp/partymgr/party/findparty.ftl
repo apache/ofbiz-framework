@@ -84,7 +84,7 @@ under the License.
             </td>
           </tr>
           <#if extInfo == "P">
-            <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             <tr>
               <td class="label">${uiLabelMap.CommonAddress1} :</td>
               <td><input type="text" name="address1" value="${parameters.address1?if_exists}"/></td>
@@ -116,7 +116,7 @@ under the License.
             </tr>
           </#if>
           <#if extInfo == "T">
-            <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             <tr>
               <td class="label">${uiLabelMap.PartyCountryCode} :</td>
               <td><input type="text" name="countryCode" value="${parameters.countryCode?if_exists}"/></td>
@@ -131,13 +131,13 @@ under the License.
             </tr>
           </#if>
           <#if extInfo == "O">
-            <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             <tr>
               <td class="label">${uiLabelMap.PartyContactInfoList} :</td>
               <td><input type="text" name="infoString" value="${parameters.infoString?if_exists}"/></td>
             </tr>
           </#if>
-          <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="3"><hr/></td></tr>
           <tr>
             <td>&nbsp;</td>
             <td>
