@@ -86,7 +86,7 @@ public class TestRunContainer implements Container {
         // dispay the results
         Debug.log("[JUNIT] Pass: " + results.wasSuccessful() + " | # Tests: " + results.runCount() + " | # Failed: " +
                 results.failureCount() + " # Errors: " + results.errorCount(), module);
-        if (Debug.infoOn()) {
+        if (Debug.importantOn()) {
             Debug.log("[JUNIT] ----------------------------- ERRORS ----------------------------- [JUNIT]", module);
             Enumeration err = results.errors();
             if (!err.hasMoreElements()) {
