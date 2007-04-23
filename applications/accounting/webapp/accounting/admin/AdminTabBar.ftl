@@ -16,26 +16,30 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if (requestAttributes.uiLabelMap)?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
 <#if (parameters.organizationPartyId)?exists><#assign organizationPartyId = parameters.organizationPartyId></#if>
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
-<div class="head1">${title?if_exists} ${labelTitleProperty?if_exists} ${uiLabelMap.CommonFor} ${uiLabelMap.Organization}: ${organizationPartyId}</div>
-<div class="tabContainer">
-    <a href="<@ofbizUrl>TimePeriods?organizationPartyId=${organizationPartyId}</@ofbizUrl>" class="${selectedClassMap.TimePeriods?default(unselectedClassName)}">${uiLabelMap.TimePeriod}</a>
-    <a href="<@ofbizUrl>PartyAcctgPreference?organizationPartyId=${organizationPartyId}</@ofbizUrl>" class="${selectedClassMap.PartyAcctgPreference?default(unselectedClassName)}">${uiLabelMap.AccountingPreference}</a>
-    <a href="<@ofbizUrl>listChecksToPrint?organizationPartyId=${organizationPartyId}</@ofbizUrl>" class="${selectedClassMap.ChecksTabButton?default(unselectedClassName)}">${uiLabelMap.AccountingChecks}</a>
-    <a href="<@ofbizUrl>viewFXConversions?organizationPartyId=${organizationPartyId}</@ofbizUrl>" class="${selectedClassMap.ViewFXConversions?default(unselectedClassName)}">${uiLabelMap.AccountingFX}</a>
-    <a href="<@ofbizUrl>EditGlJournalEntry?organizationPartyId=${organizationPartyId}</@ofbizUrl>" class="${selectedClassMap.EditGlJournalEntry?default(unselectedClassName)}">${uiLabelMap.AccountingManualJournalEntry}</a>
-    <a href="<@ofbizUrl>ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}</@ofbizUrl>" class="${selectedClassMap.ListUnpostedAcctgTrans?default(unselectedClassName)}">${uiLabelMap.AccountingManualPostTrans}</a>
-    <a href="<@ofbizUrl>GlAccountAssignment?organizationPartyId=${organizationPartyId}</@ofbizUrl>" class="${selectedClassMap.GlAccountAssignment?default(unselectedClassName)}">${uiLabelMap.AccountingGlAccountDefault}</a>
+<#assign selected = page.tabButtonItem?default("void")>
+<h1>${title?if_exists} ${labelTitleProperty?if_exists} ${uiLabelMap.CommonFor} ${uiLabelMap.Organization}: ${organizationPartyId}</h1>
+<div class="button-bar button-style-1">
+  <ul>
+    <li<#if selected == "TimePeriods"> class="selected"</#if>><a href="<@ofbizUrl>TimePeriods?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.TimePeriod}</a></li>
+    <li<#if selected == "PartyAcctgPreference"> class="selected"</#if>><a href="<@ofbizUrl>PartyAcctgPreference?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingPreference}</a></li>
+    <li<#if selected == "ChecksTabButton"> class="selected"</#if>><a href="<@ofbizUrl>listChecksToPrint?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingChecks}</a></li>
+    <li<#if selected == "ViewFXConversions"> class="selected"</#if>><a href="<@ofbizUrl>viewFXConversions?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingFX}</a></li>
+    <li<#if selected == "EditGlJournalEntry"> class="selected"</#if>><a href="<@ofbizUrl>EditGlJournalEntry?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingManualJournalEntry}</a></li>
+    <li<#if selected == "ListUnpostedAcctgTrans"> class="selected"</#if>><a href="<@ofbizUrl>ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingManualPostTrans}</a></li>
+    <li<#if selected == "GlAccountAssignment"> class="selected"</#if>><a href="<@ofbizUrl>GlAccountAssignment?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingGlAccountDefault}</a></li>
+  </ul>
+  <br class="clear"/>
 </div>
-<#if (page.tabButtonItem)?exists && page.tabButtonItem == "GlAccountAssignment">
-<div>
-    <a href="<@ofbizUrl>GlAccountSalInvoice?organizationPartyId=${organizationPartyId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.AccountingInvoiceSales}]</a>
-    <a href="<@ofbizUrl>GlAccountPurInvoice?organizationPartyId=${organizationPartyId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.AccountingInvoicePurchase}]</a>
-    <a href="<@ofbizUrl>GlAccountTypePaymentType?organizationPartyId=${organizationPartyId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.AccountingPaymentType}/${uiLabelMap.FormFieldTitle_glAccountTypeId}]</a>
-    <a href="<@ofbizUrl>GlAccountNrPaymentMethod?organizationPartyId=${organizationPartyId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.AccountingPaymentMethodId}/${uiLabelMap.AccountingGlAccountId}]</a>
-</div>
-<br/>
+<#if selected == "GlAccountAssignment">
+  <div class="button-bar button-style-2">
+    <ul>
+      <li><a href="<@ofbizUrl>GlAccountSalInvoice?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingInvoiceSales}</a></li>
+      <li><a href="<@ofbizUrl>GlAccountPurInvoice?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingInvoicePurchase}</a></li>
+      <li><a href="<@ofbizUrl>GlAccountTypePaymentType?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingPaymentType}/${uiLabelMap.FormFieldTitle_glAccountTypeId}</a></li>
+      <li><a href="<@ofbizUrl>GlAccountNrPaymentMethod?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingPaymentMethodId}/${uiLabelMap.AccountingGlAccountId}</a></li>
+    </ul>
+    <br class="clear"/>
+  </div>
+  <br/>
 </#if>

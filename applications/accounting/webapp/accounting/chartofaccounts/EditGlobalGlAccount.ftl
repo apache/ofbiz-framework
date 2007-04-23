@@ -17,21 +17,20 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign uiLabelMap = requestAttributes.uiLabelMap>
 <#if hasPermission>
-
-<#if glAccountId?has_content>
-  <div class='tabContainer'>
-  <a href="<@ofbizUrl>EditGlobalGlAccount?glAccountId=${glAccountId}</@ofbizUrl>" class="tabButtonSelected">GL Account</a>
-  <a href="<@ofbizUrl>EditGlobalGlAccountOrganizations?glAccountId=${glAccountId}</@ofbizUrl>" class="tabButton">Organizations</a>
-  <a href="<@ofbizUrl>EditGlobalGlAccountRoles?glAccountId=${glAccountId}</@ofbizUrl>" class="tabButton">Roles</a>
-  </div>
-</#if>
-<div class="head1">GL Account <span class='head2'><#if (glAccount.accountName)?has_content>"${glAccount.accountName}"</#if> [${uiLabelMap.CommonId}:${glAccountId?if_exists}]</span></div>
-<a href="<@ofbizUrl>EditGlobalGlAccount</@ofbizUrl>" class="buttontext">[New Global GL Account]</a>
-
-${editGlAccountWrapper.renderFormString()}
-
+  <#if glAccountId?has_content>
+    <div class="button-bar button-style-1">
+      <ul>
+        <li class="selected"><a href="<@ofbizUrl>EditGlobalGlAccount?glAccountId=${glAccountId}</@ofbizUrl>">GL Account</a></li>
+        <li><a href="<@ofbizUrl>EditGlobalGlAccountOrganizations?glAccountId=${glAccountId}</@ofbizUrl>">Organizations</a></li>
+        <li><a href="<@ofbizUrl>EditGlobalGlAccountRoles?glAccountId=${glAccountId}</@ofbizUrl>">Roles</a></li>
+      </ul>
+      <br class="clear"/>
+    </div>
+  </#if>
+  <span class="head1">GL Account </span><span class='head2'><#if (glAccount.accountName)?has_content>"${glAccount.accountName}"</#if> [${uiLabelMap.CommonId}:${glAccountId?if_exists}]</span><br/>
+  <a href="<@ofbizUrl>EditGlobalGlAccount</@ofbizUrl>" class="buttontext">[New Global GL Account]</a>
+  ${editGlAccountWrapper.renderFormString()}
 <#else>
   <h3>${uiLabelMap.AccountingViewPermissionError}</h3>
 </#if>

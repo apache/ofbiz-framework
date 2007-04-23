@@ -63,7 +63,7 @@ under the License.
             <hyperlink description="${paymentId}" target="paymentOverview?paymentId=${paymentId}"/>
         </field>
         <field name="paymentTypeId"><display-entity entity-name="PaymentType" description="${description}"/></field>
-        <field name="statusId" widget-style="tabletext"><display-entity entity-name="StatusItem"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="comments"><display/></field>
         <field name="partyIdFrom"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName},${firstName}[${partyId}]"/></field>
         <field name="partyIdTo"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName},${firstName}[${partyId}]"/></field>
@@ -90,7 +90,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="statusId" use-when="payment!=null" position="1" widget-style="tabletext"><display-entity entity-name="StatusItem"/></field>
+        <field name="statusId" use-when="payment!=null" position="1"><display-entity entity-name="StatusItem"/></field>
         <field name="statusId" use-when="payment==null"><hidden value="PMNT_NOT_PAID"/></field>
         <field position="2" name="paymentMethodId" use-when="(payment==null)||(payment.get(&quot;partyIdFrom&quot;)==null)">
             <text/>
@@ -199,7 +199,7 @@ under the License.
         <field name="invoiceDate"><display/></field>
         <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="amountApplied" parameter-name="dummy"><display  type="currency" currency="${currencyUomId}"/></field>
-        <field name="amountToApply" widget-style="inputBox" parameter-name="amountApplied"><text size="10"/></field>
+        <field name="amountToApply" parameter-name="amountApplied"><text size="10"/></field>
         <field name="invoiceProcessing" use-when="&quot;${uiConfigMap.invoiceProcessing}&quot;.equals(&quot;Y&quot;)"><check/></field>
         <field name="invoiceProcessing" use-when="&quot;${uiConfigMap.invoiceProcessing}&quot;.equals(&quot;N&quot;)"><check/></field>
         <field name="applyButton" widget-style="smallSubmit">
@@ -213,7 +213,7 @@ under the License.
         <field name="effectiveDate"><display/></field>
         <field name="amount"><display  type="currency" currency="${currencyUomId}"/></field>
         <field name="amountApplied" parameter-name="dummy"><display  type="currency" currency="${currencyUomId}"/></field>
-        <field name="amountToApply" widget-style="inputBox" parameter-name="amountApplied"><text size="10"/></field>
+        <field name="amountToApply" parameter-name="amountApplied"><text size="10"/></field>
         <field name="applyButton" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>

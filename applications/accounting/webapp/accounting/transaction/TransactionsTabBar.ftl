@@ -17,13 +17,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if (requestAttributes.uiLabelMap)?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
-
-<div class="tabContainer">
-    <a href="<@ofbizUrl>/AuthorizeTransaction</@ofbizUrl>" class="${selectedClassMap.authorizetransactiontab?default(unselectedClassName)}">${uiLabelMap.AccountingAuthorize}</a>
-    <a href="<@ofbizUrl>/CaptureTransaction</@ofbizUrl>" class="${selectedClassMap.capturetransactiontab?default(unselectedClassName)}">${uiLabelMap.AccountingCapture}</a>
-    <a href="<@ofbizUrl>/FindGatewayResponses</@ofbizUrl>" class="${selectedClassMap.gatewayresponsestab?default(unselectedClassName)}">${uiLabelMap.AccountingGatewayResponses}</a>
-    <a href="<@ofbizUrl>/ManualTransaction</@ofbizUrl>" class="${selectedClassMap.manualtransactiontab?default(unselectedClassName)}">${uiLabelMap.AccountingManualTransaction}</a>
+<#assign selected = page.tabButtonItem?default("void")>
+<div class="button-bar button-style-1">
+  <ul>
+    <li<#if selected == "authorizetransactiontab"> class="selected"</#if>><a href="<@ofbizUrl>/AuthorizeTransaction</@ofbizUrl>">${uiLabelMap.AccountingAuthorize}</a></li>
+    <li<#if selected == "capturetransactiontab"> class="selected"</#if>><a href="<@ofbizUrl>/CaptureTransaction</@ofbizUrl>">${uiLabelMap.AccountingCapture}</a></li>
+    <li<#if selected == "gatewayresponsestab"> class="selected"</#if>><a href="<@ofbizUrl>/FindGatewayResponses</@ofbizUrl>">${uiLabelMap.AccountingGatewayResponses}</a></li>
+    <li<#if selected == "manualtransactiontab"> class="selected"</#if>><a href="<@ofbizUrl>/ManualTransaction</@ofbizUrl>">${uiLabelMap.AccountingManualTransaction}</a></li>
+  </ul>
+  <br class="clear"/>
 </div>

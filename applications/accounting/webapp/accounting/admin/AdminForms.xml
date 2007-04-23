@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
         
     <form name="ListCompanies" type="list" title="Internal Organizations" list-name="parties">
-        <field name="partyId" title="${uiLabelMap.AccountingCompanies}" widget-style="tabletext"><display-entity entity-name="PartyGroup" description="${groupName}"/></field>
+        <field name="partyId" title="${uiLabelMap.AccountingCompanies}"><display-entity entity-name="PartyGroup" description="${groupName}"/></field>
         <field name="admin" title="${uiLabelMap.AccountingAdmin}"><hyperlink target="AdminMain?organizationPartyId=${partyId}" description="${uiLabelMap.AccountingAdmin}"/></field>
         <field name="accounts" title="${uiLabelMap.AccountingAccounts}"><hyperlink target="ListGlAccountOrganization?organizationPartyId=${partyId}" description="${uiLabelMap.AccountingAccounts}"/></field>
     </form>
@@ -312,8 +312,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
     <!-- forms for payment method Type to GLAccounts -->
-    <form name="ListPaymentMethodTypeGlAssignments" type="list" 
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="ListPaymentMethodTypeGlAssignments" type="list">
         <actions>
             <entity-condition entity-name="PaymentMethodTypeGlAccount">
                 <condition-expr field-name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
@@ -356,7 +355,7 @@ under the License.
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
           <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId"/>
         </field>
-        <field name="amount" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="amount" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="effectiveDate"><display/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
         <field name="submitButton" title="${uiLabelMap.CommonPrint}" widget-style="smallSubmit">
@@ -371,7 +370,7 @@ under the License.
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
           <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId"/>
         </field>
-        <field name="amount" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="amount" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="effectiveDate"><display/></field>
         <field name="paymentRefNum"><text/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>

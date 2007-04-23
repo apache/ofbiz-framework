@@ -57,9 +57,9 @@ under the License.
         <alt-target use-when="finAccount==null" target="createFinAccount"/>
         <auto-fields-service service-name="updateFinAccount"/>
         
-        <field name="finAccountId" use-when="finAccountId!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field name="finAccountId" use-when="finAccountId!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="finAccountId" use-when="finAccount==null&amp;&amp;finAccountId==null"><ignored/></field>
-        <field name="finAccountId" use-when="finAccount==null&amp;&amp;finAccountId!=null" tooltip="${uiLabelMap.CommonCannotBeFound}: [${finAccountId}]" widget-style="tabletext"><display also-hidden="false"/></field>
+        <field name="finAccountId" use-when="finAccount==null&amp;&amp;finAccountId!=null" tooltip="${uiLabelMap.CommonCannotBeFound}: [${finAccountId}]"><display also-hidden="false"/></field>
         
         <field name="finAccountCode"><text size="20"/></field>
         <field name="finAccountPin"><text size="10"/></field>
@@ -77,9 +77,9 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="organizationPartyId" widget-style="tabletext"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="ownerPartyId" widget-style="tabletext"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="postToGlAccountId" widget-style="selectBox"><lookup target-form-name="LookupGlAccount"/></field>
+        <field name="organizationPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="ownerPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="postToGlAccountId"><lookup target-form-name="LookupGlAccount"/></field>
         <field name="isFrozen">
             <drop-down no-current-selected-key="N"><option key="N"/><option key="Y"/></drop-down>
         </field>
@@ -96,10 +96,10 @@ under the License.
             </entity-condition>
         </actions>
         <field name="finAccountId"><hidden/></field>
-        <field name="roleTypeId" widget-style="tabletext"><display/></field>
-        <field name="partyId" widget-style="tabletext"> <display/></field>
-        <field name="fromDate" widget-style="tabletext"><display/></field>        
-        <field name="thruDate" widget-style="inputBox"><date-time/></field>        
+        <field name="roleTypeId"><display/></field>
+        <field name="partyId"> <display/></field>
+        <field name="fromDate"><display/></field>        
+        <field name="thruDate"><date-time/></field>        
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
             <hyperlink target="deleteFinAccountRole?finAccountId=${finAccountId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}"

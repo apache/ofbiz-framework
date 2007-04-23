@@ -278,7 +278,7 @@ under the License.
             <widgets>
                 <decorator-screen name="GenericDecorator">
                     <decorator-section name="body">
-                        <container>
+                        <container style="button-bar">
                             <link target="ListGlAccountsReport" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
                             <link target="ListGlAccountsExport" text="${uiLabelMap.CommonExport}" style="buttontext"/>
                         </container>

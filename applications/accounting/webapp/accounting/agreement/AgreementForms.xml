@@ -177,7 +177,7 @@ under the License.
         <field name="termTypeId" title="${uiLabelMap.AccountingTermTypeId}">
             <display-entity entity-name="TermType"/>
         </field>
-        <field name="invoiceItemTypeId" widget-style="selectBox">
+        <field name="invoiceItemTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="InvoiceItemType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -199,7 +199,7 @@ under the License.
         </field>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
         <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
-        <field name="invoiceItemTypeId" widget-style="selectBox">
+        <field name="invoiceItemTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="InvoiceItemType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -221,7 +221,7 @@ under the License.
         </field>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
         <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
-        <field name="invoiceItemTypeId" widget-style="selectBox">
+        <field name="invoiceItemTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="InvoiceItemType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -242,7 +242,7 @@ under the License.
         <field name="internalName" entry-name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
-        <field name="price" widget-area-style="tabletextright"><display/></field>
+        <field name="price" widget-area-style="align-text"><display/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
             <hyperlink target="removeAgreementItemProduct?productId=${productId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}" description="[${uiLabelMap.CommonRemove}]" also-hidden="false"/>
         </field>
@@ -261,8 +261,7 @@ under the License.
         <field name="agreementItemSeqId"><display/></field>
         <field name="currencyUomId"><display/></field>
     </form>
-    <form name="ListAgreementItemProductsForReport" list-name="agreementProducts" target="" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+    <form name="ListAgreementItemProductsForReport" list-name="agreementProducts" target="" title="" type="list">
         <field name="productId" title-area-style="tableheadmedium"><display/></field>
         <field name="internalName" entry-name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
