@@ -396,9 +396,11 @@ public class PackingSession implements java.io.Serializable {
             Iterator i = res.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
+                Double not = v.getDouble("quantityNotAvailable");
                 Double qty = v.getDouble("quantity");
+                if (not == null) not = new Double(0);
                 if (qty == null) qty = new Double(0);
-                reserved += qty.doubleValue();
+                reserved += (qty.doubleValue() - not.doubleValue());
             }
         }
 
