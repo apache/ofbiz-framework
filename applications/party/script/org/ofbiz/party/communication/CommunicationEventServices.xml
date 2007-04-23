@@ -94,6 +94,7 @@ under the License.
                     <get-related value-name="contentAssoc" relation-name="FromContent" list-name="contents"/>
                     <if-not-empty field-name="contents">
                         <iterate entry-name="content" list-name="contents">
+                            <remove-related value-name="content" relation-name="ContentRole"/>
                             <remove-value value-name="content"/>
                             <get-related-one value-name="content" relation-name="DataResource" to-value-name="dataResource"/>
                             <if-not-empty field-name="dataResource">
@@ -105,6 +106,7 @@ under the License.
                                 <if-not-empty field-name="electronicText">
                                     <remove-value value-name="electronicText"/>
                                 </if-not-empty>
+                                <remove-related value-name="dataResource" relation-name="DataResourceRole"/>
                                 <remove-value value-name="dataResource"/>
                             </if-not-empty>
                         </iterate>
