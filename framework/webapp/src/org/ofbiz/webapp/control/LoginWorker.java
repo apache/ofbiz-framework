@@ -543,12 +543,7 @@ public class LoginWorker {
                     X500Principal x500 = clientCerts[i].getSubjectX500Principal();
                     Debug.log("Checking client certification for authentication: " + x500.getName(), module);
                     
-                    Map x500Map = FastMap.newInstance();
-                    String[] x500Opts = x500.getName().split("\\,");
-                    for (int x = 0; x < x500Opts.length; x++) {
-                        String[] nv = x500Opts[x].split("\\=");
-                        x500Map.put(nv[0], nv[1]);
-                    }
+                    Map x500Map = KeyStoreUtil.getCertX500Map(clientCerts[i]);                    
                     if (i == 0) {
                         userLoginId = (String) x500Map.get("CN");
                     }
