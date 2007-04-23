@@ -17,28 +17,27 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign unselectedLeftClassName = "headerButtonLeft">
-<#assign unselectedRightClassName = "headerButtonRight">
-<#assign selectedLeftClassMap = {page.headerItem?default("void") : "headerButtonLeftSelected"}>
-<#assign selectedRightClassMap = {page.headerItem?default("void") : "headerButtonRightSelected"}>
+<#assign selected = headerItem?default("void")>
 
-<div class="apptitle">&nbsp;${uiLabelMap.ManufacturingManagerApplication}&nbsp;</div>
-<div class="row">
-  <#if security.hasEntityPermission("MANUFACTURING", "_CREATE", session)>
-    <div class="col"><a href="<@ofbizUrl>FindProductionRun</@ofbizUrl>" class="${selectedLeftClassMap.jobshop?default(unselectedLeftClassName)}">${uiLabelMap.ManufacturingJobShop}</a></div>
-    <div class="col"><a href="<@ofbizUrl>FindRouting</@ofbizUrl>" class="${selectedLeftClassMap.routing?default(unselectedLeftClassName)}">${uiLabelMap.ManufacturingRouting}</a></div>
-    <div class="col"><a href="<@ofbizUrl>FindRoutingTask</@ofbizUrl>" class="${selectedLeftClassMap.routingTask?default(unselectedLeftClassName)}">${uiLabelMap.ManufacturingRoutingTask}</a></div>
-    <div class="col"><a href="<@ofbizUrl>FindCalendar</@ofbizUrl>" class="${selectedLeftClassMap.calendar?default(unselectedLeftClassName)}">${uiLabelMap.ManufacturingCalendar}</a></div>
-    <div class="col"><a href="<@ofbizUrl>EditCostCalcs</@ofbizUrl>" class="${selectedLeftClassMap.costs?default(unselectedLeftClassName)}">${uiLabelMap.ManufacturingCostCalcs}</a></div>
-    <div class="col"><a href="<@ofbizUrl>BomSimulation</@ofbizUrl>" class="${selectedLeftClassMap.bom?default(unselectedLeftClassName)}">${uiLabelMap.ManufacturingBillOfMaterials}</a></div>
-    <div class="col"><a href="<@ofbizUrl>FindInventoryEventPlan</@ofbizUrl>" class="${selectedLeftClassMap.mrp?default(unselectedLeftClassName)}">${uiLabelMap.ManufacturingMrp}</a></div>
-    <div class="col"><a href="<@ofbizUrl>WorkWithShipmentPlans</@ofbizUrl>" class="${selectedLeftClassMap.ShipmentPlans?default(unselectedLeftClassName)}">${uiLabelMap.ManufacturingShipmentPlans}</a></div>
-    <div class="col"><a href="<@ofbizUrl>ManufacturingReports</@ofbizUrl>" class="${selectedLeftClassMap.ManufacturingReports?default(unselectedLeftClassName)}">${uiLabelMap.ManufacturingReports}</a></div>
-  </#if>  
-  <#if userLogin?has_content>
-    <div class="col-right"><a href="<@ofbizUrl>logout</@ofbizUrl>" class="${selectedRightClassMap.logout?default(unselectedRightClassName)}">${uiLabelMap.CommonLogout}</a></div>
-  <#else>
-    <div class="col-right"><a href='<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>' class='${selectedRightClassMap.login?default(unselectedRightClassName)}'>${uiLabelMap.CommonLogin}</a></div>
-  </#if>
-  <div class="col-fill">&nbsp;</div>
+<div id="app-navigation">
+  <h2>${uiLabelMap.ManufacturingManagerApplication}</h2>
+  <ul>
+    <#if security.hasEntityPermission("MANUFACTURING", "_CREATE", session)>
+      <li<#if selected = "jobshop"> class="selected"</#if>><a href="<@ofbizUrl>FindProductionRun</@ofbizUrl>">${uiLabelMap.ManufacturingJobShop}</a></li>
+      <li<#if selected = "routing"> class="selected"</#if>><a href="<@ofbizUrl>FindRouting</@ofbizUrl>">${uiLabelMap.ManufacturingRouting}</a></li>
+      <li<#if selected = "routingTask"> class="selected"</#if>><a href="<@ofbizUrl>FindRoutingTask</@ofbizUrl>">${uiLabelMap.ManufacturingRoutingTask}</a></li>
+      <li<#if selected = "calendar"> class="selected"</#if>><a href="<@ofbizUrl>FindCalendar</@ofbizUrl>">${uiLabelMap.ManufacturingCalendar}</a></li>
+      <li<#if selected = "costs"> class="selected"</#if>><a href="<@ofbizUrl>EditCostCalcs</@ofbizUrl>">${uiLabelMap.ManufacturingCostCalcs}</a></li>
+      <li<#if selected = "bom"> class="selected"</#if>><a href="<@ofbizUrl>BomSimulation</@ofbizUrl>">${uiLabelMap.ManufacturingBillOfMaterials}</a></li>
+      <li<#if selected = "mrp"> class="selected"</#if>><a href="<@ofbizUrl>FindInventoryEventPlan</@ofbizUrl>">${uiLabelMap.ManufacturingMrp}</a></li>
+      <li<#if selected = "ShipmentPlans"> class="selected"</#if>><a href="<@ofbizUrl>WorkWithShipmentPlans</@ofbizUrl>">${uiLabelMap.ManufacturingShipmentPlans}</a></li>
+      <li<#if selected = "ManufacturingReports"> class="selected"</#if>><a href="<@ofbizUrl>ManufacturingReports</@ofbizUrl>">${uiLabelMap.ManufacturingReports}</a></li>
+    </#if>  
+    <#if userLogin?has_content>
+      <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
+    <#else>
+      <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
+    </#if>
+  </ul>
+  <br class="clear" />
 </div>
