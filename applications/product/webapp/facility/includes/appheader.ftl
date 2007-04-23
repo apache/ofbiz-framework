@@ -16,26 +16,24 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign unselectedLeftClassName = "headerButtonLeft">
-<#assign unselectedRightClassName = "headerButtonRight">
-<#assign selectedLeftClassMap = {(page.headerItem)?default("void") : "headerButtonLeftSelected"}>
-<#assign selectedRightClassMap = {(page.headerItem)?default("void") : "headerButtonRightSelected"}>
 
-<div class="apptitle">&nbsp;${uiLabelMap.ProductFacilityManagerApplication}&nbsp;</div>
-<div class="row"> 
-  <div class="col"><a href="<@ofbizUrl>main</@ofbizUrl>" class="${selectedLeftClassMap.main?default(unselectedLeftClassName)}">${uiLabelMap.ProductMain}</a></div>
-  <div class="col"><a href="<@ofbizUrl>FindFacility</@ofbizUrl>" class="${selectedLeftClassMap.facility?default(unselectedLeftClassName)}">${uiLabelMap.ProductFacilities}</a></div> 
-  <div class="col"><a href="<@ofbizUrl>FindFacilityGroup</@ofbizUrl>" class="${selectedLeftClassMap.facilityGroup?default(unselectedLeftClassName)}">${uiLabelMap.ProductFacilityGroups}</a></div>
-  <div class="col"><a href="<@ofbizUrl>FindShipment</@ofbizUrl>" class="${selectedLeftClassMap.shipment?default(unselectedLeftClassName)}">${uiLabelMap.ProductShipments}</a></div> 
-  
-  <#if userLogin?has_content>
-    <div class="col-right"><a href="<@ofbizUrl>logout</@ofbizUrl>" class="${selectedRightClassMap.logout?default(unselectedRightClassName)}">${uiLabelMap.CommonLogout}</a></div>
-  <#else>
-    <div class="col-right"><a href='<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>' class='${selectedRightClassMap.login?default(unselectedRightClassName)}'>${uiLabelMap.CommonLogin}</a></div>
-  </#if>
-  <#if facilityId?has_content>
-    <div class="col-right"><a href="<@ofbizUrl>InventoryReports?facilityId=${facilityId}</@ofbizUrl>" class="${selectedRightClassMap.reports?default(unselectedRightClassName)}">${uiLabelMap.CommonReports}</a></div>  
-  </#if>
-  <div class="col-fill">&nbsp;</div>
+<#assign selected = headerItem?default("void")>
+
+<div id="app-navigation">
+  <h2>${uiLabelMap.ProductFacilityManagerApplication}</h2>
+  <ul>
+      <li<#if selected = "main"> class="selected"</#if>><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.ProductMain}</a></li>
+      <li<#if selected = "facility"> class="selected"</#if>><a href="<@ofbizUrl>FindFacility</@ofbizUrl>">${uiLabelMap.ProductFacilities}</a></li>
+      <li<#if selected = "facilityGroup"> class="selected"</#if>><a href="<@ofbizUrl>FindFacilityGroup</@ofbizUrl>">${uiLabelMap.ProductFacilityGroups}</a></li>
+      <li<#if selected = "shipment"> class="selected"</#if>><a href="<@ofbizUrl>FindShipment</@ofbizUrl>">${uiLabelMap.ProductShipments}</a></li>
+    <#if facilityId?has_content>
+      <li<#if selected = "reports"> class="selected"</#if>><a href="<@ofbizUrl>InventoryReports?facilityId=${facilityId}</@ofbizUrl>">${uiLabelMap.CommonReports}</a></li>
+    </#if>
+    <#if userLogin?has_content>
+      <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
+    <#else>
+      <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
+    </#if>
+  </ul>
+  <br class="clear" />
 </div>
-
