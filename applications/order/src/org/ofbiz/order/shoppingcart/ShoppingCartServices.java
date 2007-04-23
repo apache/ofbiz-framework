@@ -235,8 +235,9 @@ public class ShoppingCartServices {
             while (oppi.hasNext()) {
                 GenericValue opp = (GenericValue) oppi.next();
                 String paymentId = opp.getString("paymentMethodId");
-                if(paymentId==null)
+                if (paymentId == null) {
                     paymentId = opp.getString("paymentMethodTypeId");
+                }
                 Double maxAmount = opp.getDouble("maxAmount");
                 String overflow = opp.getString("overflowFlag");
                 if ((overflow == null || !"Y".equals(overflow)) && oppi.hasNext()) {

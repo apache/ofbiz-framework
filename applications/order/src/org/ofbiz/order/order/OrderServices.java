@@ -2417,7 +2417,6 @@ public class OrderServices {
 
     /** Service to create a order header note. */
     public static Map createOrderNote(DispatchContext dctx, Map context) {
-        Map result = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -2447,15 +2446,13 @@ public class OrderServices {
             delegator.create(v);
         } catch (GenericEntityException ee) {
             Debug.logError(ee, module);
-            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-            result.put(ModelService.ERROR_MESSAGE, "Problem associating note with order (" + ee.getMessage() + ").");
+            return ServiceUtil.returnError("Problem associating note with order (" + ee.getMessage() + ")");
         } catch (GenericServiceException se) {
             Debug.logError(se, module);
-            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-            result.put(ModelService.ERROR_MESSAGE, "Problem associating note with order (" + se.getMessage() + ").");
+            return ServiceUtil.returnError("Problem associating note with order (" + se.getMessage() + ")");
         }
                 
-        return result;
+        return ServiceUtil.returnSuccess();
     }
 
     public static Map allowOrderSplit(DispatchContext ctx, Map context) {
@@ -2968,6 +2965,14 @@ public class OrderServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
+        // log an order note
+        try {
+            dispatcher.runSync("createOrderNote", UtilMisc.toMap("orderId", orderId, "note", "Added item to order: " +
+                    productId + " (" + quantity + ")", "internalNote", "Y", "userLogin", userLogin));
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+        }
+
         Map result = ServiceUtil.returnSuccess();
         result.put("shoppingCart", cart);
         result.put("orderId", orderId);
@@ -3043,9 +3048,8 @@ public class OrderServices {
                 }
                 Debug.log("Set item quantity: [" + itemSeqId + "] " + qty, module);
 
-                if(cartItem.getIsModifiedPrice())
+                if (cartItem.getIsModifiedPrice()) // set price
                     cartItem.setBasePrice(priceSave);
-                // set price
 
                 if (overridePriceMap.containsKey(itemSeqId)) {
                     String priceStr = (String) itemPriceMap.get(itemSeqId);
@@ -3123,6 +3127,13 @@ public class OrderServices {
             saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId);
         } catch (GeneralException e) {
             return ServiceUtil.returnError(e.getMessage());
+        }
+
+        // log an order note
+        try {
+            dispatcher.runSync("createOrderNote", UtilMisc.toMap("orderId", orderId, "note", "Updated order.", "internalNote", "Y", "userLogin", userLogin));
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
         }
 
         Map result = ServiceUtil.returnSuccess();
@@ -4138,21 +4149,22 @@ public class OrderServices {
                 manualHold = Boolean.FALSE;
             }
 
-            String productStoreId = cart.getProductStoreId();
+            if (!"PURCHASE_ORDER".equals(cart.getOrderType())) {
+                String productStoreId = cart.getProductStoreId();
+                GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
+                CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
 
-            GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
-            CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
-    
-            // process payment
-            Map payResp;
-            try {
-                payResp = coh.processPayment(productStore, userLogin, false, manualHold.booleanValue());
-            } catch (GeneralException e) {
-                Debug.logError(e, module);
-                return ServiceUtil.returnError(e.getMessage());
-            }
-            if (ServiceUtil.isError(payResp)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(payResp));
+                // process payment
+                Map payResp;
+                try {
+                    payResp = coh.processPayment(productStore, userLogin, false, manualHold.booleanValue());
+                } catch (GeneralException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+                if (ServiceUtil.isError(payResp)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(payResp));
+                }
             }
 
             return ServiceUtil.returnSuccess();

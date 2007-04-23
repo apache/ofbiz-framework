@@ -100,6 +100,7 @@ under the License.
     <eca service="appendOrderItem" event="return">
         <action service="processOrderPayments" mode="sync"/>
     </eca>
+
     <!-- cancel order items -->
     <eca service="cancelOrderItem" event="commit">
         <action service="recreateOrderAdjustments" mode="sync"/>
