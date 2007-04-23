@@ -492,8 +492,13 @@ public class ProductSearchSession {
             }
         }
 
+        String prioritizeCategoryId = null;
         if (UtilValidate.isNotEmpty((String) parameters.get("PRIORITIZE_CATEGORY_ID"))) {
-            String prioritizeCategoryId = (String) parameters.get("PRIORITIZE_CATEGORY_ID");
+            prioritizeCategoryId = (String) parameters.get("PRIORITIZE_CATEGORY_ID");
+        } else if (UtilValidate.isNotEmpty((String) parameters.get("S_TPC"))) {
+            prioritizeCategoryId = (String) parameters.get("S_TPC");
+        }
+        if (UtilValidate.isNotEmpty(prioritizeCategoryId)) {
             ProductSearchOptions.setTopProductCategoryId(prioritizeCategoryId, session);
             constraintsChanged = true;
         }
@@ -1016,6 +1021,12 @@ public class ProductSearchSession {
             }
         }
         
+        String topProductCategoryId = productSearchOptions.getTopProductCategoryId();
+        if (topProductCategoryId != null) {
+            searchParamString.append("&amp;S_TPC");
+            searchParamString.append("=");
+            searchParamString.append(topProductCategoryId);
+        }
         ResultSortOrder resultSortOrder = productSearchOptions.getResultSortOrder();
         if (resultSortOrder != null) {
             if (resultSortOrder instanceof ProductSearch.SortKeywordRelevancy) {
