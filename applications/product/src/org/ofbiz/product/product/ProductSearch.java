@@ -1747,7 +1747,7 @@ public class ProductSearch {
         }
 
         public String prettyPrintSortOrder(boolean detailed, Locale locale) {
-            return UtilProperties.getMessage(resource, "ProductKeywordRelevency", locale);
+            return UtilProperties.getMessage(resource, "ProductKeywordRelevancy", locale);
         }
 
         public boolean isAscending() {

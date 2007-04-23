@@ -214,7 +214,7 @@ under the License.
       <td valign="middle">
         <div class="tabletext">
           <select name="sortOrder" class="selectBox">
-            <option value="SortKeywordRelevancy">${uiLabelMap.ProductKeywordRelevency}</option>
+            <option value="SortKeywordRelevancy">${uiLabelMap.ProductKeywordRelevancy}</option>
             <option value="SortProductField:productName">${uiLabelMap.ProductProductName}</option>
             <option value="SortProductField:internalName">${uiLabelMap.ProductInternalName}</option>
             <option value="SortProductField:totalQuantityOrdered">${uiLabelMap.ProductPopularityByOrders}</option>
