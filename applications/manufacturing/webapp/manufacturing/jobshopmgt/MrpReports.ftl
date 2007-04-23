@@ -19,7 +19,7 @@ under the License.
 
 <#if mrpName?exists>
   <h1>${uiLabelMap.ManufacturingMrpName}: ${mrpName?if_exists}</h1>
-  <!--
+  <#--
   <div><a href="<@ofbizUrl>MRPPRunsProductsByFeature.pdf?mrpName=${mrpName}&taskNamePar=O-LAV_01b&productCategoryIdPar=</@ofbizUrl>" class="buttontext" target="_report">[${uiLabelMap.ManufacturingMRPPRunsProductsByFeature}]</a></div>
   <div><a href="<@ofbizUrl>PRunsComponentsByFeature.pdf?showLocation=Y&mrpName=${mrpName}&taskNamePar=O-PREL_L&productCategoryIdPar=PANNELLI</@ofbizUrl>" class="buttontext" target="_report">[${uiLabelMap.ManufacturingPRunsComponentsByFeature}]</a></div>
   <div><a href="<@ofbizUrl>PRunsComponentsByFeature.pdf?showLocation=N&mrpName=${mrpName}&taskNamePar=O-PREL_L&productCategoryIdPar=PEZZI</@ofbizUrl>" class="buttontext" target="_report">[${uiLabelMap.ManufacturingPRunsComponentsByFeature1}]</a></div>

@@ -83,7 +83,7 @@ function lookupBom() {
     <hr/>
 
     
-    <form action="<@ofbizUrl>UpdateProductBom</@ofbizUrl>" method="post" style="margin: 0;" name="editProductAssocForm">
+    <form action="<@ofbizUrl>UpdateProductBom</@ofbizUrl>" method="post" name="editProductAssocForm">
     <#if !(productAssoc?exists)>
         <input type="hidden" name="UPDATE_MODE" value="CREATE"/>
         <table border="0" cellpadding="2" cellspacing="0">
@@ -255,10 +255,10 @@ function lookupBom() {
             <tr valign="middle">
                 <td><a href="<@ofbizUrl>EditProductBom?productId=${(assocFromProduct.productIdTo)?if_exists}&productAssocTypeId=${(assocFromProduct.productAssocTypeId)?if_exists}#components</@ofbizUrl>" class="buttontext">${(assocFromProduct.productIdTo)?if_exists}</a></td>
                 <td><#if listToProduct?exists><a href="<@ofbizUrl>EditProductBom?productId=${(assocFromProduct.productIdTo)?if_exists}&productAssocTypeId=${(assocFromProduct.productAssocTypeId)?if_exists}#components</@ofbizUrl>" class="buttontext">${(listToProduct.internalName)?if_exists}</a></#if>&nbsp;</td>
-                <td><div <#if (assocFromProduct.getTimestamp("fromDate"))?exists && nowDate.before(assocFromProduct.getTimestamp("fromDate"))> style="color: red;"</#if>>
-                ${(assocFromProduct.fromDate)?if_exists}&nbsp;</div></td>
-                <td><div <#if (assocFromProduct.getTimestamp("thruDate"))?exists && nowDate.after(assocFromProduct.getTimestamp("thruDate"))> style="color: red;"</#if>>
-                ${(assocFromProduct.thruDate)?if_exists}&nbsp;</div></td>
+                <td<#if (assocFromProduct.getTimestamp("fromDate"))?exists && nowDate.before(assocFromProduct.getTimestamp("fromDate"))> class="alert"</#if>>
+                ${(assocFromProduct.fromDate)?if_exists}&nbsp;</td>
+                <td<#if (assocFromProduct.getTimestamp("thruDate"))?exists && nowDate.after(assocFromProduct.getTimestamp("thruDate"))> class="alert"</#if>>
+                ${(assocFromProduct.thruDate)?if_exists}&nbsp;</td>
                 <td>&nbsp;${(assocFromProduct.sequenceNum)?if_exists}</td>
                 <td>&nbsp;${(assocFromProduct.quantity)?if_exists}</td>
                 <td>&nbsp;${(assocFromProduct.scrapFactor)?if_exists}</td>
@@ -306,5 +306,5 @@ function lookupBom() {
         </table>
 
         <br/>
-        NOTE: <b style="color: red;">Red</b> date/time entries denote that the current time is before the From Date or after the Thru Date. If the From Date is <b style="color: red;">red</b>, association has not started yet; if Thru Date is <b style="color: red;">red</b>, association has expired (<u>and should probably be deleted</u>).
+        NOTE: <b class="alert">Red</b> date/time entries denote that the current time is before the From Date or after the Thru Date. If the From Date is <b style="color: red;">red</b>, association has not started yet; if Thru Date is <b style="color: red;">red</b>, association has expired (<u>and should probably be deleted</u>).
     </#if>

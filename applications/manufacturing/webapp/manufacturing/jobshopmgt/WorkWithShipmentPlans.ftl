@@ -31,8 +31,8 @@ under the License.
   </#if>
 
   <div><a href="<@ofbizUrl>ShipmentLabel.pdf?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingPackageLabelsReport}</a></div>
-  <!-- new reports -->
-  <!--
+  <#-- new reports -->
+  <#--
   <div><a href="<@ofbizUrl>SPPRunsProductsByFeature.pdf?shipmentId=${shipmentId}&taskNamePar=O-LAV_01b&productFeatureTypeIdPar=Strutt&productCategoryIdPar=</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingSPPRunsProductsByFeature}</a></div>
   <div><a href="<@ofbizUrl>SPPRunsComponentsByFeature.pdf?showLocation=Y&shipmentId=${shipmentId}&taskNamePar=O-PREL_L&productFeatureTypeIdPar=Strutt&productCategoryIdPar=PANNELLI</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingSPPRunsComponentsByFeature2}</a></div>
   <div><a href="<@ofbizUrl>SPPRunsComponentsByFeature.pdf?showLocation=N&shipmentId=${shipmentId}&taskNamePar=O-PREL_L&productFeatureTypeIdPar=Strutt&productCategoryIdPar=PEZZI</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingSPPRunsComponentsByFeature3}</a></div>

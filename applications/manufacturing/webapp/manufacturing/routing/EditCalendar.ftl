@@ -36,7 +36,7 @@ under the License.
     </tr>
     <#else>
     <tr>
-      <td width='26%' align='right' valign="top">${uiLabelMap.ManufacturingCalendarId}</div></td>
+      <td width='26%' align='right' valign="top">${uiLabelMap.ManufacturingCalendarId}</td>
       <td width="5">&nbsp;</td>
       <td width="74%"><input type="text" size="12" name="calendarId" value="${calendarData.calendarId?if_exists}"></td>
     </tr>
