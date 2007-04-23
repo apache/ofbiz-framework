@@ -17,46 +17,39 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if (requestAttributes.uiLabelMap)?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
-<#if (requestAttributes.security)?exists><#assign security = requestAttributes.security></#if>
-<#if (requestAttributes.userLogin)?exists><#assign userLogin = requestAttributes.userLogin></#if>
-<#if (requestAttributes.checkLoginUrl)?exists><#assign checkLoginUrl = requestAttributes.checkLoginUrl></#if>
+<#assign selected = headerItem?default("void")>
 
-<#assign unselectedLeftClassName = "headerButtonLeft">
-<#assign unselectedRightClassName = "headerButtonRight">
-<#assign selectedLeftClassMap = {page.headerItem?default("void") : "headerButtonLeftSelected"}>
-<#assign selectedRightClassMap = {page.headerItem?default("void") : "headerButtonRightSelected"}>
+<div id="app-navigation">
+  <h2>${uiLabelMap.ManufacturingManagerApplication}</h2>
+  <ul>
+    <#if (security.hasEntityPermission("ORDERMGR", "_VIEW", session) || security.hasEntityPermission("ORDERMGR", "_PURCHASE_VIEW", session))>
+    <li<#if selected = "request"> class="selected"</#if>><a href="<@ofbizUrl>FindRequest</@ofbizUrl>">${uiLabelMap.OrderRequests}</a></li>
+    <li<#if selected = "quote"> class="selected"</#if>><a href="<@ofbizUrl>FindQuote</@ofbizUrl>">${uiLabelMap.OrderOrderQuotes}</a></li>
+    </#if>
+    <#if security.hasEntityPermission("ORDERMGR", "_VIEW", session)>
+    <li<#if selected = "orderlist"> class="selected"</#if>><a href="<@ofbizUrl>orderlist</@ofbizUrl>">${uiLabelMap.OrderOrderList}</a></li>
+    </#if>
+    <#if security.hasEntityPermission("ORDERMGR", "_VIEW", session)>
+    <li<#if selected = "findorders"> class="selected"</#if>><a href="<@ofbizUrl>findorders</@ofbizUrl>">${uiLabelMap.OrderFindOrder}</a></li>
+    </#if>
+    <#if (security.hasEntityPermission("ORDERMGR", "_CREATE", session) || security.hasEntityPermission("ORDERMGR", "_PURCHASE_CREATE", session))>
+    <li<#if selected = "orderentry"> class="selected"</#if>><a href="<@ofbizUrl>orderentry</@ofbizUrl>">${uiLabelMap.OrderOrderEntry}</a></li>
+    </#if>
+    <#if security.hasEntityPermission("ORDERMGR", "_RETURN", session)>
+    <li<#if selected = "return"> class="selected"</#if>><a href="<@ofbizUrl>findreturn</@ofbizUrl>">${uiLabelMap.OrderOrderReturns}</a></li>
+    </#if>
+    <#if security.hasRolePermission("ORDERMGR", "_VIEW", "", "", session) || security.hasRolePermission("ORDERMGR_ROLE", "_VIEW", "", "", session)>
+    <li<#if selected = "requirement"> class="selected"</#if>><a href="<@ofbizUrl>FindRequirements</@ofbizUrl>">${uiLabelMap.OrderRequirements}</a></li>
+    <li<#if selected = "tasklist"> class="selected"</#if>><a href="<@ofbizUrl>tasklist</@ofbizUrl>">${uiLabelMap.OrderOrderTasks}</a></li>
+    </#if>
+    <li<#if selected = "reports"> class="selected"</#if>><a href="<@ofbizUrl>OrderPurchaseReportOptions</@ofbizUrl>">${uiLabelMap.CommonReports}</a></li>
+    <li<#if selected = "stats"> class="selected"</#if>><a href="<@ofbizUrl>orderstats</@ofbizUrl>">${uiLabelMap.CommonStats}</a></li>
 
-<div class="apptitle">&nbsp;${uiLabelMap.OrderOrderManagerApplication}&nbsp;</div>
-<div class="row">
-  <#-- Just goes to Find Orders for now <div class="col"><a href="<@ofbizUrl>main</@ofbizUrl>" class="${selectedLeftClassMap.main?default(unselectedLeftClassName)}">${uiLabelMap.CommonMain}</a></div> -->
-  <#if (security.hasEntityPermission("ORDERMGR", "_VIEW", session) || security.hasEntityPermission("ORDERMGR", "_PURCHASE_VIEW", session))>
-  <div class="col"><a href="<@ofbizUrl>FindRequest</@ofbizUrl>" class="${selectedLeftClassMap.request?default(unselectedLeftClassName)}">${uiLabelMap.OrderRequests}</a></div>
-  <div class="col"><a href="<@ofbizUrl>FindQuote</@ofbizUrl>" class="${selectedLeftClassMap.quote?default(unselectedLeftClassName)}">${uiLabelMap.OrderOrderQuotes}</a></div>
-  </#if>
-  <#if security.hasEntityPermission("ORDERMGR", "_VIEW", session)>
-  <div class="col"><a href="<@ofbizUrl>orderlist</@ofbizUrl>" class="${selectedLeftClassMap.orderlist?default(unselectedLeftClassName)}">${uiLabelMap.OrderOrderList}</a></div>  
-  </#if>
-  <#if security.hasEntityPermission("ORDERMGR", "_VIEW", session)>
-  <div class="col"><a href="<@ofbizUrl>findorders</@ofbizUrl>" class="${selectedLeftClassMap.findorders?default(unselectedLeftClassName)}">${uiLabelMap.OrderFindOrder}</a></div>  
-  </#if>
-  <#if (security.hasEntityPermission("ORDERMGR", "_CREATE", session) || security.hasEntityPermission("ORDERMGR", "_PURCHASE_CREATE", session))>
-  <div class="col"><a href="<@ofbizUrl>orderentry</@ofbizUrl>" class="${selectedLeftClassMap.orderentry?default(unselectedLeftClassName)}">${uiLabelMap.OrderOrderEntry}</a></div>  
-  </#if>
-  <#if security.hasEntityPermission("ORDERMGR", "_RETURN", session)>
-  <div class="col"><a href="<@ofbizUrl>findreturn</@ofbizUrl>" class="${selectedLeftClassMap.return?default(unselectedLeftClassName)}">${uiLabelMap.OrderOrderReturns}</a></div>
-  </#if>
-  <#if security.hasRolePermission("ORDERMGR", "_VIEW", "", "", session) || security.hasRolePermission("ORDERMGR_ROLE", "_VIEW", "", "", session)>
-  <div class="col"><a href="<@ofbizUrl>FindRequirements</@ofbizUrl>" class="${selectedLeftClassMap.requirement?default(unselectedLeftClassName)}">${uiLabelMap.OrderRequirements}</a></div>
-  <div class="col"><a href="<@ofbizUrl>tasklist</@ofbizUrl>" class="${selectedLeftClassMap.tasklist?default(unselectedLeftClassName)}">${uiLabelMap.OrderOrderTasks}</a></div>
-  </#if>
-
-  <#if userLogin?has_content>
-    <div class="col-right"><a href="<@ofbizUrl>logout</@ofbizUrl>" class="${selectedRightClassMap.logout?default(unselectedRightClassName)}">${uiLabelMap.CommonLogout}</a></div>
-  <#else>
-    <div class="col-right"><a href='<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>' class='${selectedRightClassMap.login?default(unselectedRightClassName)}'>${uiLabelMap.CommonLogin}</a></div>
-  </#if>  
-  <div class="col-right"><a href='<@ofbizUrl>OrderPurchaseReportOptions</@ofbizUrl>' class="${selectedRightClassMap.reports?default(unselectedRightClassName)}">${uiLabelMap.CommonReports}</a></div>
-  <div class="col-right"><a href='<@ofbizUrl>orderstats</@ofbizUrl>' class="${selectedRightClassMap.stats?default(unselectedRightClassName)}">${uiLabelMap.CommonStats}</a></div>
-  <div class="col-fill">&nbsp;</div>
+    <#if userLogin?has_content>
+      <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
+    <#else>
+      <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
+    </#if>
+  </ul>
+  <br class="clear" />
 </div>
