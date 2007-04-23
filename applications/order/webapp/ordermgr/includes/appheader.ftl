@@ -20,7 +20,7 @@ under the License.
 <#assign selected = headerItem?default("void")>
 
 <div id="app-navigation">
-  <h2>${uiLabelMap.ManufacturingManagerApplication}</h2>
+  <h2>${uiLabelMap.OrderOrderManagerApplication}</h2>
   <ul>
     <#if (security.hasEntityPermission("ORDERMGR", "_VIEW", session) || security.hasEntityPermission("ORDERMGR", "_PURCHASE_VIEW", session))>
     <li<#if selected = "request"> class="selected"</#if>><a href="<@ofbizUrl>FindRequest</@ofbizUrl>">${uiLabelMap.OrderRequests}</a></li>
