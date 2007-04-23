@@ -43,23 +43,19 @@ under the License.
                 <td>${uiLabelMap.WebtoolsBytes}</td>
                 <td>&nbsp;</td>
             </tr>
-            <#assign alternateRow = false>
+            <#assign alt_row = false>
             <#list cacheElementsList as cacheElement>
-                <tr<#if alternateRow> class="alternate-row"</#if>>
+                <tr<#if alt_row> class="alternate-row"</#if>>
                     <td>${cacheElement.elementKey?if_exists}</td>
                     <td nowrap="nowrap">${cacheElement.expireTime?if_exists}</td>
                     <td>${cacheElement.lineSize?if_exists}</td>
-                    <td align="center">
+                    <td class="button-col">
                         <#if hasUtilCacheEdit>
-                            <a href="<@ofbizUrl>FindUtilCacheElementsRemoveElement?UTIL_CACHE_NAME=${cacheName?if_exists}&UTIL_CACHE_ELEMENT_NUMBER=${cacheElement.keyNum?if_exists}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonRemove}</a>
+                            <a href="<@ofbizUrl>FindUtilCacheElementsRemoveElement?UTIL_CACHE_NAME=${cacheName?if_exists}&UTIL_CACHE_ELEMENT_NUMBER=${cacheElement.keyNum?if_exists}</@ofbizUrl>">${uiLabelMap.CommonRemove}</a>
                         </#if>
                     </td>
                 </tr>
-                <#if alternateRow == false>
-                    <#assign alternateRow = true>
-                <#else>
-                    <#assign alternateRow = false>
-                </#if>
+                <#assign alt_row = !alt_row>
             </#list>
         </table>
     <#else>

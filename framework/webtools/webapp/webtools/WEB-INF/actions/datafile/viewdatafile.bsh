@@ -80,7 +80,7 @@ if (dataFile != null) {
 if (dataFile != null && dataFileSave != null && dataFileSave.length() > 0) {
     try {
         dataFile.writeDataFile(dataFileSave);
-        messages.add("Data File saved to: " + dataFileSave);
+        messages.add(uiLabelMap.get("WebtoolsDataFileSavedTo") + dataFileSave);
     }
     catch (Exception e) {
         messages.add(e.getMessage());
@@ -91,7 +91,7 @@ if (dataFile != null && entityXmlFileSave != null && entityXmlFileSave.length() 
     try {
         //dataFile.writeDataFile(entityXmlFileSave);
         DataFile2EntityXml.writeToEntityXml(entityXmlFileSave, dataFile);
-        messages.add("Entity File saved to: " + entityXmlFileSave);
+        messages.add(uiLabelMap.get("WebtoolsDataEntityFileSavedTo") + entityXmlFileSave);
     }
     catch (Exception e) {
         messages.add(e.getMessage());

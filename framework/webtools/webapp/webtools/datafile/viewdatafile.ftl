@@ -17,20 +17,20 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<h1>Work With Data Files</h1>
+<h1>${uiLabelMap.WebtoolsDataFileMainTitle}</h1>
 <br />
-<p>This page is used to view and export data from data files parsed by the configurable data file parser.</p>
+<p>${uiLabelMap.WebtoolsDataFileMessage1}.</p>
 <hr/>
 <#if security.hasPermission("DATAFILE_MAINT", session)>
   <form method="post" action="<@ofbizUrl>viewdatafile</@ofbizUrl>">
     <table class="basic-table form-widget-table">
       <tr>
-        <td class="label">Definition Filename or URL</td>
+        <td class="label">${uiLabelMap.WebtoolsDataDefinitionFileName}</td>
         <td><input name="DEFINITION_LOCATION" type="text" size="60" value="${parameters.DEFINITION_LOCATION?if_exists}"></td>
-        <td><span class="label">Is URL?</span><input type="checkbox" name="DEFINITION_IS_URL"<#if parameters.DEFINITION_IS_URL?has_content> checked="checked"</#if>></td>
+        <td><span class="label">${uiLabelMap.WebtoolsDataIsUrl}</span><input type="checkbox" name="DEFINITION_IS_URL"<#if parameters.DEFINITION_IS_URL?has_content> checked="checked"</#if>></td>
       </tr>
       <tr>
-        <td class="label">Data File Definition Name</td>
+        <td class="label">${uiLabelMap.WebtoolsDataDefinitionName}</td>
         <td>
           <#if definitionNames?has_content>
             <select name="DEFINITION_NAME">
@@ -47,23 +47,23 @@ under the License.
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td class="label">Data Filename or URL</td>
+        <td class="label">${uiLabelMap.WebtoolsDataFileName}</td>
         <td><input name="DATAFILE_LOCATION" type="text" size="60" value="${parameters.DATAFILE_LOCATION?if_exists}"></td>
-        <td><span class="label">Is URL?</span><input type="checkbox" name="DATAFILE_IS_URL"<#if parameters.DATAFILE_IS_URL?has_content> checked="checked"</#if>></td>
+        <td><span class="label">${uiLabelMap.WebtoolsDataIsUrl}</span><input type="checkbox" name="DATAFILE_IS_URL"<#if parameters.DATAFILE_IS_URL?has_content> checked="checked"</#if>></td>
       </tr>
       <tr>
-        <td class="label">Save to file</td>
+        <td class="label">${uiLabelMap.WebtoolsDataSaveToFile}</td>
         <td><input name="DATAFILE_SAVE" type="text" size="60" value="${parameters.DATAFILE_SAVE?if_exists}"/></td>
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td class="label">Save to entity xml file</td>
+        <td class="label">${uiLabelMap.WebtoolsDataSaveToXml}</td>
         <td><input name="ENTITYXML_FILE_SAVE" type="text" size="60" value="${parameters.ENTITYXML_FILE_SAVE?if_exists}"></td>
         <td>&nbsp;</td>
       </tr>
       <tr>
         <td>&nbsp;</td>
-        <td><input type="submit" value="Run"></td>
+        <td><input type="submit" value="${uiLabelMap.CommonRun}"></td>
         <td>&nbsp;</td>
       </tr>
     </table>
@@ -71,7 +71,7 @@ under the License.
 
   <#if messages?has_content>
     <hr/>
-    <h1>The following occurred:</h1>
+    <h1>${uiLabelMap.CommonFollowingOccurred}:</h1>
     <div>
       <#list messages as message>
         <p>${message}</p>
