@@ -19,7 +19,7 @@ under the License.
 
 <#-- TODO: probably some kind of permission checking to see that this userLogin can view such and such reports -->
 
-<div class="tabletext">
+<div>
 
 <script language="javascript">
 function submitReconcile(form) {

@@ -17,14 +17,14 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if (requestAttributes.uiLabelMap)?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
-
-<div class="tabContainer">
-    <a href="<@ofbizUrl>FindGlobalGlAccount</@ofbizUrl>" class="${selectedClassMap.FindGlobalGlAccount?default(unselectedClassName)}">${uiLabelMap.AcctgChartOfAcctsTabMenu}</a>
-    <a href="<@ofbizUrl>GlAccountNavigate</@ofbizUrl>" class="${selectedClassMap.GlAccountNavigate?default(unselectedClassName)}">${uiLabelMap.AcctgNavigateAccts}</a>
-    <a href="<@ofbizUrl>AssignGlAccount</@ofbizUrl>" class="${selectedClassMap.AssignGlAccount?default(unselectedClassName)}">${uiLabelMap.AcctgAssignGlAccount}</a>
-    <a href="<@ofbizUrl>EditGlJournalEntry</@ofbizUrl>" class="${selectedClassMap.EditGlJournalEntry?default(unselectedClassName)}">${uiLabelMap.AcctgEditGlJournalEntry}</a>
-    <a href="<@ofbizUrl>ListGlAccountOrganization</@ofbizUrl>" class="${selectedClassMap.ListGlAccountOrganization?default(unselectedClassName)}">${uiLabelMap.AcctgListGlAcctOrg}</a>
+<#assign selected = page.tabButtonItem?default("void")>
+<div class="button-bar button-style-1">
+  <ul>
+    <li<#if selected == "FindGlobalGlAccount"> class="selected"</#if>><a href="<@ofbizUrl>FindGlobalGlAccount</@ofbizUrl>">${uiLabelMap.AcctgChartOfAcctsTabMenu}</a></li>
+    <li<#if selected == "GlAccountNavigate"> class="selected"</#if>><a href="<@ofbizUrl>GlAccountNavigate</@ofbizUrl>">${uiLabelMap.AcctgNavigateAccts}</a></li>
+    <li<#if selected == "AssignGlAccount"> class="selected"</#if>><a href="<@ofbizUrl>AssignGlAccount</@ofbizUrl>">${uiLabelMap.AcctgAssignGlAccount}</a></li>
+    <li<#if selected == "EditGlJournalEntry"> class="selected"</#if>><a href="<@ofbizUrl>EditGlJournalEntry</@ofbizUrl>">${uiLabelMap.AcctgEditGlJournalEntry}</a></li>
+    <li<#if selected == "ListGlAccountOrganization"> class="selected"</#if>><a href="<@ofbizUrl>ListGlAccountOrganization</@ofbizUrl>">${uiLabelMap.AcctgListGlAcctOrg}</a></li>
+  </ul>
+  <br class="clear"/>
 </div>

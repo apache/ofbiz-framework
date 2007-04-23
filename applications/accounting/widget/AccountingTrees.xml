@@ -20,15 +20,8 @@ under the License.
 
 <trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-tree.xsd">
-       
-    <tree name="GlAccountTree" entity-name="GlAccount" root-node-name="node-root" default-render-style="expand-collapse" default-wrap-style="accountItem">      
-    <!-- tree name="GlAccountTree" root-node-name="node-root" render-style="expand-collapse" default-wrap-style="accountItem" -->      
+    <tree name="GlAccountTree" entity-name="GlAccount" root-node-name="node-root" default-render-style="expand-collapse" default-wrap-style="accountItem">
         <node name="node-root" render-style="simple">
-            <!-- entity-one entity-name="GlAccount" use-cache="true">
-                <field-map field-name="glAccountId" env-name="glAccountId"/>
-            </entity-one -->
-            <!-- include-screen name="GlAccountDetails" location="component://accounting/widget/AccountingScreens.xml" / -->     
-            <!-- label style="treeitem" text="${glAccountId}  ${}" / -->     
             <sub-node node-name="node-body">
                 <entity-and entity-name="GlAccount">
                     <field-map field-name="parentGlAccountId" env-name="null"/>
@@ -36,10 +29,8 @@ under the License.
                 </entity-and>
             </sub-node>
         </node>
-        <node name="node-body" wrap-style="treewrapper">
-            <!-- include-screen name="GlAccountDetails" location="component://accounting/widget/AccountingScreens.xml" / -->
-            <!-- label style="treeitem" text="${glAccountId} ${accountName} ${postedBalance}" / -->
-            <link style="treeitem" target="GlAccountNavigate?glAccountId=${glAccountId}&amp;trail=${currentNodeTrailPiped}" text="${glAccountId} ${accountName} ${postedBalance}"/>
+        <node name="node-body">
+            <link target="GlAccountNavigate?glAccountId=${glAccountId}&amp;trail=${currentNodeTrailPiped}" text="${glAccountId} ${accountName} ${postedBalance}"/>
             <sub-node node-name="node-body">
                 <entity-and entity-name="GlAccount">
                     <field-map field-name="parentGlAccountId" env-name="glAccountId"/>
@@ -59,7 +50,7 @@ under the License.
             </sub-node>
         </node>
         <node name="node-body" wrap-style="treewrapper">
-            <link style="treeitem" target="FixedAssetChildren?fixedAssetId=${fixedAssetId}&amp;trail=${fixedAssetId}" text="${fixedAssetId} ${fixedAssetName} ${instanceOfProductId} ${fixedAssetTypeId} "/>
+            <link target="FixedAssetChildren?fixedAssetId=${fixedAssetId}&amp;trail=${fixedAssetId}" text="${fixedAssetId} ${fixedAssetName} ${instanceOfProductId} ${fixedAssetTypeId} "/>
             <sub-node node-name="node-body">
                 <entity-and entity-name="FixedAsset">
                     <field-map field-name="parentFixedAssetId" env-name="fixedAssetId"/>

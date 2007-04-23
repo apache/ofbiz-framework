@@ -17,33 +17,29 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if (requestAttributes.uiLabelMap)?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
-<#if (requestAttributes.security)?exists><#assign security = requestAttributes.security></#if>
-<#if (requestAttributes.userLogin)?exists><#assign userLogin = requestAttributes.userLogin></#if>
-<#assign unselectedLeftClassName = "headerButtonLeft">
-<#assign unselectedRightClassName = "headerButtonRight">
-<#assign selectedLeftClassMap = {page.headerItem?default("void") : "headerButtonLeftSelected"}>
-<#assign selectedRightClassMap = {page.headerItem?default("void") : "headerButtonRightSelected"}>
+<#assign selected = page.headerItem?default("void")>
 
-<div class="apptitle">${uiLabelMap.AccountingManagerApplication}</div>
-<div class="row">
-  <div class="col"><a href="<@ofbizUrl>main</@ofbizUrl>" class="${selectedLeftClassMap.main?default(unselectedLeftClassName)}">${uiLabelMap.AccountingMainMenu}</a></div>  
-  <div class="col"><a href="<@ofbizUrl>FindAgreement</@ofbizUrl>" class="${selectedLeftClassMap.agreement?default(unselectedLeftClassName)}">${uiLabelMap.AccountingAgreements}</a></div>
-  <div class="col"><a href="<@ofbizUrl>FindBillingAccount</@ofbizUrl>" class="${selectedLeftClassMap.billingaccount?default(unselectedLeftClassName)}">${uiLabelMap.AccountingBillingMenu}</a></div>
-  <div class="col"><a href="<@ofbizUrl>findInvoices</@ofbizUrl>" class="${selectedLeftClassMap.invoices?default(unselectedLeftClassName)}">${uiLabelMap.AccountingInvoicesMenu}</a></div>
-  <div class="col"><a href="<@ofbizUrl>findPayments</@ofbizUrl>" class="${selectedLeftClassMap.payments?default(unselectedLeftClassName)}">${uiLabelMap.AccountingPaymentsMenu}</a></div>
-  <#if security.hasEntityPermission("MANUAL", "_PAYMENT", session)>
-    <div class="col"><a href="<@ofbizUrl>FindGatewayResponses</@ofbizUrl>" class="${selectedLeftClassMap.transaction?default(unselectedLeftClassName)}">${uiLabelMap.AccountingTransactions}</a></div>
-  </#if>
-  <div class="col"><a href="<@ofbizUrl>FindGlobalGlAccount</@ofbizUrl>" class="${selectedLeftClassMap.chartofaccounts?default(unselectedLeftClassName)}">${uiLabelMap.AccountingChartOfAcctsMenu}</a></div>
-  <div class="col"><a href="<@ofbizUrl>ListFixedAssets</@ofbizUrl>" class="${selectedLeftClassMap.ListFixedAssets?default(unselectedLeftClassName)}">${uiLabelMap.AccountingFixedAssets}</a></div>
-  <div class="col"><a href="<@ofbizUrl>FindTaxAuthority</@ofbizUrl>" class="${selectedLeftClassMap.TaxAuthorities?default(unselectedLeftClassName)}">${uiLabelMap.AccountingTaxAuthorities}</a></div>
-  <div class="col"><a href="<@ofbizUrl>ListCompanies</@ofbizUrl>" class="${selectedLeftClassMap.companies?default(unselectedLeftClassName)}">${uiLabelMap.AccountingCompanies}</a></div>
-  <div class="col"><a href="<@ofbizUrl>FindFinAccount</@ofbizUrl>" class="${selectedLeftClassMap.FindFinAccount?default(unselectedLeftClassName)}">${uiLabelMap.AccountingFinAccount}</a></div>
-  <#if userLogin?has_content>
-    <div class="col-right"><a href="<@ofbizUrl>logout</@ofbizUrl>" class="${selectedRightClassMap.logout?default(unselectedRightClassName)}">${uiLabelMap.CommonLogout}</a></div>
-  <#else>
-    <div class="col-right"><a href='<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>' class='${selectedRightClassMap.login?default(unselectedRightClassName)}'>${uiLabelMap.CommonLogin}</a></div>
-  </#if>
-  <div class="col-fill">&nbsp;</div>
+<div id="app-navigation">
+  <h2>${uiLabelMap.AccountingManagerApplication}</h2>
+  <ul>
+    <li<#if selected == "main"> class="selected"</#if>><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.CommonMain}</a></li>
+    <li<#if selected == "agreement"> class="selected"</#if>><a href="<@ofbizUrl>FindAgreement</@ofbizUrl>">${uiLabelMap.AccountingAgreements}</a></li>
+    <li<#if selected == "billingaccount"> class="selected"</#if>><a href="<@ofbizUrl>FindBillingAccount</@ofbizUrl>">${uiLabelMap.AccountingBillingMenu}</a></li>
+    <li<#if selected == "invoices"> class="selected"</#if>><a href="<@ofbizUrl>findInvoices</@ofbizUrl>">${uiLabelMap.AccountingInvoicesMenu}</a></li>
+    <li<#if selected == "payments"> class="selected"</#if>><a href="<@ofbizUrl>findPayments</@ofbizUrl>">${uiLabelMap.AccountingPaymentsMenu}</a></li>
+    <#if security.hasEntityPermission("MANUAL", "_PAYMENT", session)>
+      <li<#if selected == "transaction"> class="selected"</#if>><a href="<@ofbizUrl>FindGatewayResponses</@ofbizUrl>">${uiLabelMap.AccountingTransactions}</a></li>
+    </#if>
+    <li<#if selected == "chartofaccounts"> class="selected"</#if>><a href="<@ofbizUrl>FindGlobalGlAccount</@ofbizUrl>">${uiLabelMap.AccountingChartOfAcctsMenu}</a></li>
+    <li<#if selected == "ListFixedAssets"> class="selected"</#if>><a href="<@ofbizUrl>ListFixedAssets</@ofbizUrl>">${uiLabelMap.AccountingFixedAssets}</a></li>
+    <li<#if selected == "TaxAuthorities"> class="selected"</#if>><a href="<@ofbizUrl>FindTaxAuthority</@ofbizUrl>">${uiLabelMap.AccountingTaxAuthorities}</a></li>
+    <li<#if selected == "companies"> class="selected"</#if>><a href="<@ofbizUrl>ListCompanies</@ofbizUrl>">${uiLabelMap.AccountingCompanies}</a></li>
+    <li<#if selected == "FindFinAccount"> class="selected"</#if>><a href="<@ofbizUrl>FindFinAccount</@ofbizUrl>">${uiLabelMap.AccountingFinAccount}</a></li>
+    <#if userLogin?has_content>
+      <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
+    <#else>
+      <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
+    </#if>
+  </ul>
+  <br class="clear"/>
 </div>

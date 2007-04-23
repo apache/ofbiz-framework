@@ -17,28 +17,26 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.AccountingBillingAccountPayments}</div>
-
+<h1>${uiLabelMap.AccountingBillingAccountPayments}</h1>
 <br/>
-<table width="100%" border="0" cellpadding="0" cellspacing="0"> 
-    <tr>
-        <td><div class="tableheadtext">${uiLabelMap.AccountingPayment} #</div></td>
-        <td><div class="tableheadtext">${uiLabelMap.CommonType}</div></td>  
-        <td><div class="tableheadtext">${uiLabelMap.AccountingInvoice} #</div></td>
-        <td><div class="tableheadtext">${uiLabelMap.AccountingInvoiceItem}</div></td>
-        <td><div class="tableheadtext">${uiLabelMap.AccountingPaymentDate}</div></td>
-        <td align="right"><div class="tableheadtext">${uiLabelMap.AccountingAmount}</div></td>
+<table class="basic-table" cellspacing="0"> 
+    <tr class="header-row">
+        <td>${uiLabelMap.AccountingPayment} #</td>
+        <td>${uiLabelMap.CommonType}</td>
+        <td>${uiLabelMap.AccountingInvoice} #</td>
+        <td>${uiLabelMap.AccountingInvoiceItem}</td>
+        <td>${uiLabelMap.AccountingPaymentDate}</td>
+        <td class="align-text">${uiLabelMap.AccountingAmount}</td>
     </tr> 
-    <tr><td colspan="6"><hr class="sepbar"></td></tr>
     <#list payments as payment>
         <#assign paymentMethodType = payment.getRelatedOne("PaymentMethodType")>
         <tr>
-            <td><div class="tabletext">${payment.paymentId?if_exists}</div></td>
-            <td><div class="tabletext">${paymentMethodType.get("description",locale)?default(uiLabelMap.CommonNA)}</div></td>  
-            <td><div class="tabletext">${payment.invoiceId?default(uiLabelMap.CommonNA)}</div></td>
-            <td><div class="tabletext">${payment.invoiceItemSeqId?default(uiLabelMap.CommonNA)}</div></td>
-            <td><div class="tabletext">${payment.effectiveDate?string}</div></td>
-            <td align="right"><div class="tabletext"><@ofbizCurrency amount=payment.amountApplied isoCode=payment.currencyUomId?if_exists/> of <@ofbizCurrency amount=payment.amount isoCode=payment.currencyUomId?if_exists/></div></td>
+            <td>${payment.paymentId?if_exists}</td>
+            <td>${paymentMethodType.get("description",locale)?default(uiLabelMap.CommonNA)}</td>  
+            <td>${payment.invoiceId?default(uiLabelMap.CommonNA)}</td>
+            <td>${payment.invoiceItemSeqId?default(uiLabelMap.CommonNA)}</td>
+            <td>${payment.effectiveDate?string}</td>
+            <td class="align-text"><@ofbizCurrency amount=payment.amountApplied isoCode=payment.currencyUomId?if_exists/> of <@ofbizCurrency amount=payment.amount isoCode=payment.currencyUomId?if_exists/></td>
         </tr>
     </#list>
 </table>

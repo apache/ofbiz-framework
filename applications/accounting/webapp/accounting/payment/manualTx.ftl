@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.AccountingManualTransaction}</div>
+<h1>${uiLabelMap.AccountingManualTransaction}</h1>
 <br/>
 
 <#if security.hasEntityPermission("MANUAL", "_PAYMENT", session)>
@@ -29,28 +29,28 @@ under the License.
 
     <table border='0' cellpadding='2' cellspacing='0'>
       <tr>
-        <td width="26%" align="right" valign=middle><div class="tableheadtext">${uiLabelMap.AccountingPaymentMethodType}</div></td>
+        <td width="26%" align="right" valign="middle"><b>${uiLabelMap.AccountingPaymentMethodType}</b></td>
         <td width="5">&nbsp;</td>
         <td width='74%'>
           <#if paymentMethodType?has_content>
-            <div class="tabletext">${paymentMethodType.get("description",locale)}</div>
+            <div>${paymentMethodType.get("description",locale)}</div>
             <input type="hidden" name="paymentMethodTypeId" value="${paymentMethodType.paymentMethodTypeId}">
           <#else>
-            <select name="paymentMethodTypeId" class="selectBox">
+            <select name="paymentMethodTypeId">
               <option value="CREDIT_CARD">${uiLabelMap.AccountingCreditCard}</option>
             </select>
           </#if>
         </td>
       </tr>
       <tr>
-        <td width="26%" align="right" valign=middle><div class="tableheadtext">${uiLabelMap.ProductProductStore}</div></td>
+        <td width="26%" align="right" valign="middle"><b>${uiLabelMap.ProductProductStore}</b></td>
         <td width="5">&nbsp;</td>
         <td width='74%'>
           <#if currentStore?has_content>
-            <div class="tabletext">${currentStore.storeName}</div>
+            <div>${currentStore.storeName}</div>
             <input type="hidden" name="productStoreId" value="${currentStore.productStoreId}">
           <#else>
-            <select name="productStoreId" class="selectBox">
+            <select name="productStoreId">
               <#list productStores as productStore>
                 <option value="${productStore.productStoreId}">${productStore.storeName}</option>
               </#list>
@@ -59,14 +59,14 @@ under the License.
         </td>
       </tr>
       <tr>
-        <td width="26%" align="right" valign=middle><div class="tableheadtext">${uiLabelMap.AccountingTransactionType}</div></td>
+        <td width="26%" align="right" valign="middle"><b>${uiLabelMap.AccountingTransactionType}</b></td>
         <td width="5">&nbsp;</td>
         <td width='74%'>
           <#if currentTx?has_content>
-            <div class="tabletext">${currentTx.get("description",locale)}</div>
+            <div>${currentTx.get("description",locale)}</div>
             <input type="hidden" name="transactionType" value="${currentTx.enumId}">
           <#else>
-            <select name="transactionType" class="selectBox" onchange="javascript:document.manualTxForm.submit();">
+            <select name="transactionType" onchange="javascript:document.manualTxForm.submit();">
               <#list paymentSettings as setting>
                 <option value="${setting.enumId}">${setting.get("description",locale)}</option>
               </#list>
@@ -83,15 +83,15 @@ under the License.
       </#if>
 
      <#if requestAttributes.validTx?default("false") == "true">
-        <tr><td colspan="3"><hr class="sepbar"></td></tr>
+        <tr><td colspan="3"><hr></td></tr>
 
         <#-- amount field -->
         <#if txType != "PRDS_PAY_RELEASE">
           <tr>
-            <td width="26%" align="right" valign=middle><div class="tableheadtext">${uiLabelMap.CommonAmount}</div></td>
+            <td width="26%" align="right" valign="middle"><b>${uiLabelMap.CommonAmount}</b></td>
             <td width="5">&nbsp;</td>
             <td width="74%">
-              <input type="text" class="inputBox" size="20" maxlength="30" name="amount">
+              <input type="text" size="20" maxlength="30" name="amount">
             *</td>
           </tr>
         </#if>

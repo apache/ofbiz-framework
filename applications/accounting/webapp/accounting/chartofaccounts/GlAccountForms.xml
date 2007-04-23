@@ -22,21 +22,21 @@ under the License.
     xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     
     <form name="EditGlJournalEntry" type="single" target="createGlJournalEntry" title="" default-map-name="journal">
-        <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}" widget-style="selectBox">
+        <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
             <drop-down>
                 <entity-options entity-name="AcctgTransType" description="${description}">
                     <entity-order-by field-name="acctgTransTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="glFiscalTypeId" widget-style="selectBox">
+        <field name="glFiscalTypeId">
             <drop-down>
                 <entity-options entity-name="GlFiscalType" description="${description}">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="organizationPartyId" parameter-name="organizationPartyId" widget-style="selectBox">
+        <field name="organizationPartyId" parameter-name="organizationPartyId">
             <drop-down>
                 <entity-options entity-name="PartyRoleAndPartyDetail" key-field-name="partyId" description="${partyId}">
                 <!-- entity-options entity-name="PartyRoleAndPartyDetail" description="${organizationPartyId}" -->
@@ -45,14 +45,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="partyId" parameter-name="partyId" widget-style="selectBox">
+        <field name="partyId" parameter-name="partyId">
             <drop-down>
                 <entity-options entity-name="Party" key-field-name="partyId" description="${partyId}">
                     <entity-order-by field-name="partyId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="roleTypeId" parameter-name="roleTypeId" widget-style="selectBox">
+        <field name="roleTypeId" parameter-name="roleTypeId">
             <drop-down>
                 <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
                     <entity-order-by field-name="roleTypeId"/>
@@ -62,14 +62,14 @@ under the License.
         <field name="invoiceId"><text size="20" maxlength="20"/></field>
         <field name="paymentId"><text size="20" maxlength="20"/></field>
         <field name="produtId"><text size="20" maxlength="20"/></field>
-        <field name="debitGlAccountId" widget-style="selectBox">
+        <field name="debitGlAccountId">
             <drop-down>
                 <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}" key-field-name="glAccountId">
                     <entity-order-by field-name="glAccountId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="creditGlAccountId" widget-style="selectBox">
+        <field name="creditGlAccountId">
             <drop-down>
                 <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}" key-field-name="glAccountId">
                     <entity-order-by field-name="glAccountId"/>
@@ -101,15 +101,15 @@ under the License.
 
         <!-- field name="glAccountId" title="Edit" widget-style="buttontext" -->
 
-        <field name="glAccountId" widget-style="selectBox">
+        <field name="glAccountId">
             <drop-down>
                 <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}"> 
                     <entity-order-by field-name="glAccountId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <!-- field name="organizationPartyId" title="Party" widget-style="selectBox" -->
-        <field name="partyId" parameter-name="organizationPartyId" widget-style="selectBox"> 
+        <!-- field name="organizationPartyId" title="Party" -->
+        <field name="partyId" parameter-name="organizationPartyId"> 
             <drop-down>
                 <entity-options entity-name="PartyRoleAndPartyDetail" description="${partyId}" > 
                 <!-- entity-options entity-name="PartyRoleAndPartyDetail" description="${organizationPartyId}" --> 
@@ -134,17 +134,17 @@ under the License.
         </actions>
         
         <!--auto-fields-entity entity-name="GlAccount" default-field-type="display"/-->
-        <field name="glAccountId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext" title-area-style="tableheadsmall">
+        <field name="glAccountId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${glAccountId}" target="GlAccountNavigate?glAccountId=${glAccountId}"/>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display/></field>
+        <field name="accountName"><display/></field>
         <field name="glAccountTypeId"><display-entity entity-name="GlAccountType"/></field>
         <field name="glAccountClassId"><display-entity entity-name="GlAccountClass"/></field>
-        <field name="glResourceTypeId" title-area-style="tableheadsmall"><display-entity entity-name="GlResourceType"></display-entity></field>
-        <field name="glXbrlClassId" title-area-style="tableheadsmall"><display-entity entity-name="GlXbrlClass"></display-entity></field>
-        <field name="parentGlAccountId" title-area-style="tableheadwide"><display-entity entity-name="GlAccount" description="${accountName}[${glAccountId}]" key-field-name="glAccountId"></display-entity></field>
+        <field name="glResourceTypeId"><display-entity entity-name="GlResourceType"></display-entity></field>
+        <field name="glXbrlClassId"><display-entity entity-name="GlXbrlClass"></display-entity></field>
+        <field name="parentGlAccountId"><display-entity entity-name="GlAccount" description="${accountName}[${glAccountId}]" key-field-name="glAccountId"></display-entity></field>
         <field name="accountCode"><hidden/></field>
-        <field name="postedBalance" widget-area-style="tabletextright" widget-style="tabletext" title-area-style="tableheadsmall"><display type="currency" currency="${defaultCurrencyUomId}"/></field>
+        <field name="postedBalance" widget-area-style="align-text" title-area-style="align-text"><display type="currency" currency="${defaultCurrencyUomId}"/></field>
     </form>
 
     <form name="EditGlAccount" type="single" target="updateGlAccount" title="" default-map-name="glAccount">
@@ -156,35 +156,35 @@ under the License.
         <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
         <field use-when="glAccount==null&amp;&amp;glAccountId==null" name="glAccountId"><text size="20" maxlength="20"/></field>
 
-        <field name="glAccountTypeId" widget-style="selectBox">
+        <field name="glAccountTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="GlAccountType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options> 
             </drop-down>
         </field>
-        <field name="glAccountClassId" widget-style="selectBox">
+        <field name="glAccountClassId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="GlAccountClass" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="glResourceTypeId" widget-style="selectBox">
+        <field name="glResourceTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="GlResourceType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="glXbrlClassId" widget-style="selectBox">
+        <field name="glXbrlClassId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="GlXbrlClass" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="parentGlAccountId" widget-style="selectBox">
+        <field name="parentGlAccountId">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="glAccountId" entity-name="GlAccount" description="[${glAccountId}] ${accountName}-${accountCode}">
                     <entity-order-by field-name="glAccountId"/>
@@ -204,7 +204,7 @@ under the License.
         <field name="acctgTransEntrySeqId"><display/></field>     
         <field name="glAccountId">
             <display-entity entity-name="GlAccount" description="${accountName}">
-                <sub-hyperlink target="ListGlAccountEntries?glAccountId=${glAccountId}" description="[${glAccountId}]" link-style="tabletext"/>
+                <sub-hyperlink target="ListGlAccountEntries?glAccountId=${glAccountId}" description="[${glAccountId}]"/>
              </display-entity>
         </field>
         <field name="description"><display/></field>
@@ -235,7 +235,7 @@ under the License.
         <field name="glAccountId">
             <display-entity entity-name="GlAccount" description="${accountName}">
                 <sub-hyperlink target="ListGlAccountEntries?glAccountId=${glAccountId}&amp;amp;organizationPartyId=${organizationPartyId}" 
-                    description="[${glAccountId}]" link-style="tabletext"/>
+                    description="[${glAccountId}]"/>
             </display-entity>
         </field>
         <field name="reconciledBalance"><display/></field>

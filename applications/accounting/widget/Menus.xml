@@ -344,9 +344,8 @@ under the License.
             <link target="EditFixedAssetMaintOrders?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
         </menu-item>
     </menu>  
-    <menu name="FixedAssetTabBar" default-menu-item-name="EditFixedAsset" default-selected-style="tabButtonSelected" 
-        default-title-style="tabButton" default-tooltip-style="tabletext" default-widget-style="tabButton" 
-        orientation="horizontal" type="simple">
+    <menu name="FixedAssetTabBar" default-menu-item-name="EditFixedAsset" default-selected-style="selected"
+        menu-container-style="button-bar button-style-1" type="simple">
         <menu-item name="EditFixedAsset" title="${uiLabelMap.AccountingFixedAsset}">
             <link target="EditFixedAsset?fixedAssetId=${fixedAssetId}"/>
         </menu-item>
@@ -373,9 +372,8 @@ under the License.
         </menu-item>
     </menu>
     
-    <menu name="FinAccountTabBar" default-menu-item-name="EditFinAccount" default-selected-style="tabButtonSelected" 
-        default-title-style="tabButton" default-tooltip-style="tabletext" default-widget-style="tabButton" 
-        orientation="horizontal" type="simple">  
+    <menu name="FinAccountTabBar" default-menu-item-name="EditFinAccount" default-selected-style="selected"
+        menu-container-style="button-bar button-style-1" type="simple">  
         <menu-item name="EditFinAccount" title="${uiLabelMap.AccountingFinAccount}">
             <link target="EditFinAccount?finAccountId=${finAccountId}"/>
         </menu-item>

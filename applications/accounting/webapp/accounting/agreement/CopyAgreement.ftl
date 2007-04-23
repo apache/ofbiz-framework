@@ -17,14 +17,14 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if agreement?exists>
-<form action="<@ofbizUrl>copyAgreement</@ofbizUrl>" method="post" style="margin: 0;">
+<form action="<@ofbizUrl>copyAgreement</@ofbizUrl>" method="post">
     <input type="hidden" name="agreementId" value="${agreementId}"/>
-    <div class="tabletext">
+    <div>
         <b>${uiLabelMap.AccountingCopyAgreement}:</b>
-        ${uiLabelMap.AccountingAgreementTerms}&nbsp;<input type="checkbox" class="checkBox" name="copyAgreementTerms" value="Y" checked/>
-        ${uiLabelMap.ProductProducts}&nbsp;<input type="checkbox" class="checkBox" name="copyAgreementProducts" value="Y" checked/>
-        ${uiLabelMap.Party}&nbsp;<input type="checkbox" class="checkBox" name="copyAgreementParties" value="Y" checked/>
+        ${uiLabelMap.AccountingAgreementTerms}&nbsp;<input type="checkbox" name="copyAgreementTerms" value="Y" checked/>
+        ${uiLabelMap.ProductProducts}&nbsp;<input type="checkbox" name="copyAgreementProducts" value="Y" checked/>
+        ${uiLabelMap.Party}&nbsp;<input type="checkbox" name="copyAgreementParties" value="Y" checked/>
     </div>
-    <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonCopy}"/>
+    <input type="submit" value="${uiLabelMap.CommonCopy}"/>
 </form>
 </#if>

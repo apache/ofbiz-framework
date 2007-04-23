@@ -27,7 +27,7 @@ under the License.
  
         <field name="description"><text size="60"/></field> 
         
-        <field use-when="billingAccount!=null" name="billingAccountId" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field use-when="billingAccount!=null" name="billingAccountId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
                 
         <field name="accountCurrencyUomId">
             <drop-down allow-empty="false" no-current-selected-key="USD">
@@ -46,10 +46,10 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="netBalance" widget-style="tabletext" title="${uiLabelMap.AccountingBillingNetBalance}" tooltip="${uiLabelMap.AccountingBillingNetBalanceMessage}">
+        <field name="netBalance" title="${uiLabelMap.AccountingBillingNetBalance}" tooltip="${uiLabelMap.AccountingBillingNetBalanceMessage}">
             <display description="${bsh:org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountNetBalance(delegator, billingAccountId)}" type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
         </field>
-        <field name="availableBalance" widget-style="tabletext" title="${uiLabelMap.AccountingBillingAvailableBalance}" tooltip="${uiLabelMap.AccountingBillingAvailableBalanceMessage}">
+        <field name="availableBalance" title="${uiLabelMap.AccountingBillingAvailableBalance}" tooltip="${uiLabelMap.AccountingBillingAvailableBalanceMessage}">
             <display description="${bsh:org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountAvailableBalance(billingAccount)}" type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
         </field>
 
@@ -67,15 +67,15 @@ under the License.
         <auto-fields-service service-name="updateBillingAccountRole" default-field-type="edit"/>
 
         <field name="billingAccountId"><hidden/></field>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}" widget-style="tabletext">
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
                 <sub-hyperlink description="${partyId}" target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" link-style="buttontext"/>
             </display-entity>
         </field>
-        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}" widget-style="tabletext">
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}">
             <display-entity entity-name="RoleType" description="${description}"/>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" widget-style="tabletext"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="" widget-style="buttontext">

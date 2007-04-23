@@ -16,12 +16,13 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign unselectedClassName = "buttontext">
-<#assign selectedClassMap = {page.checksTabButtonItem?default("void") : "buttontext"}>
-
 <#if organizationPartyId?has_content>
-  <div class='tabContainer'>
-    <a href="<@ofbizUrl>listChecksToPrint?organizationPartyId=${organizationPartyId}</@ofbizUrl>" class="${selectedClassMap.PrintChecksTabButton?default(unselectedClassName)}">${uiLabelMap.AccountingPrintChecks}</a>
-    <a href="<@ofbizUrl>listChecksToSend?organizationPartyId=${organizationPartyId}</@ofbizUrl>" class="${selectedClassMap.SendChecksTabButton?default(unselectedClassName)}">${uiLabelMap.AccountingSendChecks}</a>
+  <#assign selected = page.checksTabButtonItem?default("void")>
+  <div class="button-bar button-style-1">
+    <ul>
+      <li<#if selected == "PrintChecksTabButton"> class="selected"</#if>><a href="<@ofbizUrl>listChecksToPrint?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingPrintChecks}</a></li>
+      <li<#if selected == "SendChecksTabButton"> class="selected"</#if>><a href="<@ofbizUrl>listChecksToSend?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingSendChecks}</a></li>
+    </ul>
+    <br class="clear"/>
   </div>
 </#if>
