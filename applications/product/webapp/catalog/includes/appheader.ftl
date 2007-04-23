@@ -17,33 +17,26 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if (requestAttributes.uiLabelMap)?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
-<#if (requestAttributes.security)?exists><#assign security = requestAttributes.security></#if>
-<#if (requestAttributes.userLogin)?exists><#assign userLogin = requestAttributes.userLogin></#if>
-<#if (requestAttributes.checkLoginUrl)?exists><#assign checkLoginUrl = requestAttributes.checkLoginUrl></#if>
+<#assign selected = headerItem?default("void")>
 
-<#assign unselectedLeftClassName = "headerButtonLeft">
-<#assign unselectedRightClassName = "headerButtonRight">
-<#assign selectedLeftClassMap = {page.headerItem?default("void") : "headerButtonLeftSelected"}>
-<#assign selectedRightClassMap = {page.headerItem?default("void") : "headerButtonRightSelected"}>
-
-<div class="apptitle">${uiLabelMap.ProductCatalogManagerApplication}</div>
-<div class="row">
-  <div class="col"><a href="<@ofbizUrl>main</@ofbizUrl>" class="${selectedLeftClassMap.main?default(unselectedLeftClassName)}">${uiLabelMap.ProductMain}</a></div>  
-  <div class="col"><a href="<@ofbizUrl>EditFeatureCategories</@ofbizUrl>" class="${selectedLeftClassMap.featurecats?default(unselectedLeftClassName)}">${uiLabelMap.ProductFeatureCats}</a></div>
-  <div class="col"><a href="<@ofbizUrl>FindProductPromo</@ofbizUrl>" class="${selectedLeftClassMap.promos?default(unselectedLeftClassName)}">${uiLabelMap.ProductPromos}</a></div>
-  <div class="col"><a href="<@ofbizUrl>FindProductPriceRules</@ofbizUrl>" class="${selectedLeftClassMap.pricerules?default(unselectedLeftClassName)}">${uiLabelMap.ProductPriceRules}</a></div>
-  <div class="col"><a href="<@ofbizUrl>FindProductStore</@ofbizUrl>" class="${selectedLeftClassMap.store?default(unselectedLeftClassName)}">${uiLabelMap.ProductStores}</a></div>
-  <div class="col"><a href="<@ofbizUrl>editKeywordThesaurus</@ofbizUrl>" class="${selectedLeftClassMap.thesaurus?default(unselectedLeftClassName)}">${uiLabelMap.ProductThesaurus}</a></div>
-  <div class="col"><a href="<@ofbizUrl>pendingReviews</@ofbizUrl>" class="${selectedLeftClassMap.reviews?default(unselectedLeftClassName)}">${uiLabelMap.ProductReviews}</a></div>
-  <div class="col"><a href="<@ofbizUrl>FindProductConfigItems</@ofbizUrl>" class="${selectedLeftClassMap.configs?default(unselectedLeftClassName)}">${uiLabelMap.ProductConfigItems}</a></div>
-  <div class="col"><a href="<@ofbizUrl>FindSubscription</@ofbizUrl>" class="${selectedLeftClassMap.Subscription?default(unselectedLeftClassName)}">${uiLabelMap.ProductSubscriptions}</a></div>
-  <div class="col"><a href="<@ofbizUrl>ListShipmentMethodTypes</@ofbizUrl>" class="${selectedLeftClassMap.shipping?default(unselectedLeftClassName)}">${uiLabelMap.ProductShipping}</a></div>
-
-  <#if userLogin?has_content>
-    <div class="col-right"><a href="<@ofbizUrl>logout</@ofbizUrl>" class="${selectedRightClassMap.logout?default(unselectedRightClassName)}">${uiLabelMap.CommonLogout}</a></div>
-  <#else>
-    <div class="col-right"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>" class="${selectedRightClassMap.login?default(unselectedRightClassName)}">${uiLabelMap.CommonLogin}</a></div>
-  </#if>
-  <div class="col-fill">&nbsp;</div>
+<div id="app-navigation">
+  <h2>${uiLabelMap.ProductCatalogManagerApplication}</h2>
+  <ul>
+    <li<#if selected = "main"> class="selected"</#if>><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.ProductMain}</a></li>
+    <li<#if selected = "featurecats"> class="selected"</#if>><a href="<@ofbizUrl>EditFeatureCategories</@ofbizUrl>">${uiLabelMap.ProductFeatureCats}</a></li>
+    <li<#if selected = "promos"> class="selected"</#if>><a href="<@ofbizUrl>FindProductPromo</@ofbizUrl>">${uiLabelMap.ProductPromos}</a></li>
+    <li<#if selected = "pricerules"> class="selected"</#if>><a href="<@ofbizUrl>FindProductPriceRules</@ofbizUrl>">${uiLabelMap.ProductPriceRules}</a></li>
+    <li<#if selected = "store"> class="selected"</#if>><a href="<@ofbizUrl>FindProductStore</@ofbizUrl>">${uiLabelMap.ProductStores}</a></li>
+    <li<#if selected = "thesaurus"> class="selected"</#if>><a href="<@ofbizUrl>editKeywordThesaurus</@ofbizUrl>">${uiLabelMap.ProductThesaurus}</a></li>
+    <li<#if selected = "reviews"> class="selected"</#if>><a href="<@ofbizUrl>pendingReviews</@ofbizUrl>">${uiLabelMap.ProductReviews}</a></li>
+    <li<#if selected = "configs"> class="selected"</#if>><a href="<@ofbizUrl>FindProductConfigItems</@ofbizUrl>">${uiLabelMap.ProductConfigItems}</a></li>
+    <li<#if selected = "Subscription"> class="selected"</#if>><a href="<@ofbizUrl>FindSubscription</@ofbizUrl>">${uiLabelMap.ProductSubscriptions}</a></li>
+    <li<#if selected = "shipping"> class="selected"</#if>><a href="<@ofbizUrl>ListShipmentMethodTypes</@ofbizUrl>">${uiLabelMap.ProductShipping}</a></li>
+    <#if userLogin?has_content>
+      <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
+    <#else>
+      <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
+    </#if>
+  </ul>
+  <br class="clear" />
 </div>
