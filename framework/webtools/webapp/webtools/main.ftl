@@ -17,18 +17,18 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<!-- begin main.ftl -->
 <#-- TODO: Remove embedded style during UI refactor -->
 <style type="text/css">
 .webToolList {
 list-style-type: none;
-padding: 1em;
+margin-left: 1em;
 }
 .webToolList li {
 padding: 0 1em 0 1em;
 }
 .webToolList h3 {
-padding: 1em 1em 0 0;
+padding: 1em 0 0 0;
+margin-left: -1em;
 }
 .webToolList li a {
 color: #000099;
@@ -41,22 +41,24 @@ text-decoration: underline;
 </style>
 
 <div class="screenlet">
-  <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
-    <tr>
-      <td><div class='boxhead'>${uiLabelMap.WebtoolsMainPage}</div></td>
-      <td align='right' class="lightbuttontextdisabled">${delegator.getDelegatorName()}</td>
-    </tr>
-  </table>
+  <div class="screenlet-title-bar">
+    <ul>
+      <h3>${uiLabelMap.WebtoolsMainPage}</h3>
+      <li class="disabled">${delegator.getDelegatorName()}</li>
+    </ul>
+    <br class="clear"/>
+  </div>
   <div class="screenlet-body">
     <#if !userLogin?has_content>
       <div>${uiLabelMap.WebtoolsMessage14}.</div>
       <br />
+      <div>${uiLabelMap.WebtoolsNote1}</div>
     </#if>
-    <div>${uiLabelMap.WebtoolsTitle1} ${uiLabelMap.WebtoolsTitle2} ${uiLabelMap.WebtoolsTitle3} ${uiLabelMap.WebtoolsTitle4} ${uiLabelMap.WebtoolsTitle5} ${uiLabelMap.WebtoolsTitle6}.
-      <br /><br />
-      ${uiLabelMap.WebtoolsMessage13}.
-    </div>
     <#if userLogin?has_content>
+      <div>${uiLabelMap.WebtoolsTitle1} ${uiLabelMap.WebtoolsTitle2} ${uiLabelMap.WebtoolsTitle3} ${uiLabelMap.WebtoolsTitle4} ${uiLabelMap.WebtoolsTitle5} ${uiLabelMap.WebtoolsTitle6}.
+        <br /><br />
+        ${uiLabelMap.WebtoolsMessage13}.
+      </div>
       <ul class="webToolList">
         <li><h3>${uiLabelMap.WebtoolsCacheDebugTools}</h3></li>
         <li><a href="<@ofbizUrl>FindUtilCache</@ofbizUrl>">${uiLabelMap.WebtoolsCacheMaintenance}</a></li>
@@ -125,12 +127,10 @@ text-decoration: underline;
           <li><h3>${uiLabelMap.WebtoolsServerHitStatisticsTools}</h3></li>
           <li><a href="<@ofbizUrl>StatsSinceStart</@ofbizUrl>">${uiLabelMap.WebtoolsStatsSinceServerStart}</a></li>
         </#if>
-        <li><h3>x.509 Certificates</h3></li>
+        <li><h3>${uiLabelMap.WebtoolsCertsX509}</h3></li>
         <li><a href="<@ofbizUrl>myCertificates</@ofbizUrl>">${uiLabelMap.WebtoolsMyCertificates}</a></li>
       </ul>
     </#if>
-    <br />
-    <div>${uiLabelMap.WebtoolsNote1}</div>
   </div>
 </div>
 <!-- end main.ftl -->

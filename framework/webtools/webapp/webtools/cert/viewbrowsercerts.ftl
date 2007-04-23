@@ -23,30 +23,44 @@ under the License.
     <#assign clientCerts = request.getAttribute("javax.net.ssl.peer_certificates")?if_exists/>
 </#if>
 
-<#if (isSecure)>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>${uiLabelMap.WebtoolsCertsX509}</h3>
+  </div>
+  <#if (isSecure)>
     <#if (clientCerts?has_content)>
+      <table class="basic-table">
         <#list clientCerts as cert>
-            <#assign certString = Static["org.ofbiz.base.util.KeyStoreUtil"].certToString(cert)?if_exists>
-            <#if (certString?has_content)>            
-                <div style="width: 60%">
-                    <div><b>Cert: ${cert.getType()} : ${cert.getSubjectX500Principal()}</b></div>
-                    <div><b>Serial Number: ${cert.getSerialNumber().toString(16)}</b></div>
-
-                    <textarea class="textBox" rows="4" cols="130">
+          <#assign certString = Static["org.ofbiz.base.util.KeyStoreUtil"].certToString(cert)?if_exists>
+          <#if (certString?has_content)>
+            <tr>
+              <td class="label">${uiLabelMap.WebtoolsCertsCert}:</td>
+              <td>${cert.getType()} : ${cert.getSubjectX500Principal()}</td>
+            </tr>
+            <tr>
+              <td class="label">${uiLabelMap.WebtoolsCertsSerialNum}:</td>
+              <td>${cert.getSerialNumber().toString(16)}</td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>
+                <textarea rows="4" cols="130">
 ${certString}
 
 -----BEGIN PUBLIC KEY HEX-----
 ${Static["org.ofbiz.base.util.KeyStoreUtil"].pemToPkHex(certString)}
 -----END PUBLIC KEY HEX-----
 
-                    </textarea>
-                </div>
-                <br>
-            </#if>
+                </textarea>
+              </td>
+            </tr>
+          </#if>
         </#list>
+      </table>
     <#else>
-         <p>No client certifications found.</p>
+      <div class="screenlet-body">${uiLabelMap.WebtoolsCertsNotFound}.</div>
     </#if>
-<#else>
-    <p>request can only obtain certifications when calls through SSL</p>
-</#if>
+  <#else>
+    <div class="screenlet-body">${uiLabelMap.WebtoolsCertsRequiresSSL}.</div>
+  </#if>
+</div>

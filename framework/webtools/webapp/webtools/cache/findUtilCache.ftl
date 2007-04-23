@@ -54,9 +54,9 @@ under the License.
             <td align="center">${uiLabelMap.WebtoolsUseFileStore}</td>
             <td align="center">${uiLabelMap.WebtoolsAdministration}</td>
         </tr>
-        <#assign alternateRow = false>
+        <#assign alt_row = false>
         <#list cacheList as cache>
-            <tr<#if alternateRow> class="alternate-row"</#if>>
+            <tr<#if alt_row> class="alternate-row"</#if>>
                 <td>${cache.cacheName?if_exists}</td>
                 <td>${cache.cacheSize?if_exists}</td>
                 <td>${cache.hitCount?if_exists}</td>
@@ -76,11 +76,7 @@ under the License.
                     </#if>
                 </td>
             </tr>
-            <#if alternateRow == false>
-                <#assign alternateRow = true>
-            <#else>
-                <#assign alternateRow = false>
-            </#if>
+            <#assign alt_row = !alt_row>
         </#list>
     </table>
 <#else>

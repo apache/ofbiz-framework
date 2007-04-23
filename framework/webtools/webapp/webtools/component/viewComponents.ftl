@@ -20,27 +20,27 @@ under the License.
 <#assign components = Static["org.ofbiz.base.component.ComponentConfig"].getAllComponents()?if_exists/>
 <div id="stats-bins-history" class="screenlet">
   <div class="screenlet-title-bar">
-    <h3>Loaded Components</h3>
+    <h3>${uiLabelMap.WebtoolsComponentsLoaded}</h3>
   </div>
   <#if (components?has_content)>
     <table class="basic-table" cellspacing="0">
       <tr class="header-row">
-        <td>Name</td>
-        <td>Path</td>
-        <td>Enabled</td>
-        <td colspan="3">WebApps (Name, Mount, Path)</td>
+        <td>${uiLabelMap.CommonName}</td>
+        <td>${uiLabelMap.WebtoolsComponentsPath}</td>
+        <td>${uiLabelMap.CommonEnabled}</td>
+        <td colspan="3">${uiLabelMap.WebtoolsComponentsWebApps}</td>
       </tr>
       <#list components as component>
         <#assign webinfos = component.getWebappInfos()?if_exists/>
-        <#assign firstRow = "true">
+        <#assign firstRow = true>
         <tr>
           <td>${component.getComponentName()?if_exists}</td>
           <td>${component.getRootLocation()?if_exists}</td>
           <td>${component.enabled()?string?if_exists}</td>
           <#if (webinfos?has_content)>
             <#list webinfos as webinfo>
-              <#if firstRow = "true">
-                <#assign firstRow = "false">
+              <#if firstRow>
+                <#assign firstRow = false>
               <#else>
                 <tr>
                   <td>&nbsp;</td>
@@ -61,6 +61,6 @@ under the License.
       </#list>
     </table>
   <#else>
-    <div class="screenlet-body">No components loaded.</div>
+    <div class="screenlet-body">${uiLabelMap.WebtoolsComponentsNoComponents}.</div>
   </#if>
 </div>
