@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.sql.Timestamp;
+
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +39,7 @@ import javax.servlet.http.HttpSession;
 import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -45,6 +48,11 @@ import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityFindOptions;
+import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.category.CategoryWorker;
@@ -67,6 +75,7 @@ public class ProductSearchSession {
 
     public static class ProductSearchOptions implements java.io.Serializable {
         protected List constraintList = null;
+        protected String topProductCategoryId = null;
         protected ResultSortOrder resultSortOrder = null;
         protected Integer viewIndex = null;
         protected Integer viewSize = null;
@@ -78,6 +87,7 @@ public class ProductSearchSession {
         public ProductSearchOptions(ProductSearchOptions productSearchOptions) {
             this.constraintList = FastList.newInstance();
             this.constraintList.addAll(productSearchOptions.constraintList);
+            this.topProductCategoryId = productSearchOptions.topProductCategoryId;
             this.resultSortOrder = productSearchOptions.resultSortOrder;
             this.viewIndex = productSearchOptions.viewIndex;
             this.viewSize = productSearchOptions.viewSize;
@@ -121,6 +131,7 @@ public class ProductSearchSession {
         public static void clearSearchOptions(HttpSession session) {
             ProductSearchOptions productSearchOptions = getProductSearchOptions(session); 
             productSearchOptions.constraintList = null;
+            productSearchOptions.topProductCategoryId = null;
             productSearchOptions.resultSortOrder = null;
         }
         
@@ -183,6 +194,29 @@ public class ProductSearchSession {
                 Debug.logError(e, "Error in formatting of VIEW_SIZE [" + viewSizeStr + "], setting to 20", module);
                 if (this.viewSize == null) {
                     this.setViewSize(new Integer(20));
+                }
+            }
+        }
+
+        public String getTopProductCategoryId() {
+            return topProductCategoryId;
+        }
+
+        public static void setTopProductCategoryId(String topProductCategoryId, HttpSession session) {
+            ProductSearchOptions productSearchOptions = getProductSearchOptions(session); 
+            productSearchOptions.setTopProductCategoryId(topProductCategoryId);
+        }
+
+        public void setTopProductCategoryId(String topProductCategoryId) {
+            if (this.topProductCategoryId != null && topProductCategoryId != null) {
+                if (!this.topProductCategoryId.equals(topProductCategoryId)) {
+                    this.topProductCategoryId = topProductCategoryId;
+                    this.changed = true;
+                }
+            } else {
+                if (this.topProductCategoryId != null || topProductCategoryId != null) {
+                    this.topProductCategoryId = topProductCategoryId;
+                    this.changed = true;
                 }
             }
         }
@@ -458,6 +492,12 @@ public class ProductSearchSession {
             }
         }
 
+        if (UtilValidate.isNotEmpty((String) parameters.get("PRIORITIZE_CATEGORY_ID"))) {
+            String prioritizeCategoryId = (String) parameters.get("PRIORITIZE_CATEGORY_ID");
+            ProductSearchOptions.setTopProductCategoryId(prioritizeCategoryId, session);
+            constraintsChanged = true;
+        }
+
         // if there is another category, add a constraint for it
         if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_CATEGORY_ID"))) {
             String searchCategoryId = (String) parameters.get("SEARCH_CATEGORY_ID");
@@ -725,6 +765,7 @@ public class ProductSearchSession {
         HttpSession session = request.getSession();
         ProductSearchOptions productSearchOptions = getProductSearchOptions(session);
         
+        String addOnTopProdCategoryId = productSearchOptions.getTopProductCategoryId();
         Integer viewIndexInteger = productSearchOptions.getViewIndex();
         if (viewIndexInteger != null) viewIndex = viewIndexInteger.intValue();
         Integer viewSizeInteger = productSearchOptions.getViewSize();
@@ -733,18 +774,60 @@ public class ProductSearchSession {
         lowIndex = viewIndex * viewSize;
         highIndex = (viewIndex + 1) * viewSize;
 
-        // setup resultOffset and maxResults, noting that resultOffset is 1 based, not zero based as these numbers
-        Integer resultOffset = new Integer(lowIndex + 1);
-        Integer maxResults = new Integer(viewSize);
-
         // ========== Do the actual search
-        ArrayList productIds = null;
+        List productIds = FastList.newInstance();
         String visitId = VisitHandler.getVisitId(session);
         List productSearchConstraintList = ProductSearchOptions.getConstraintList(session);
         // if no constraints, don't do a search...
         if (productSearchConstraintList != null && productSearchConstraintList.size() > 0) {
             // if the search options have changed since the last search, put at the beginning of the options history list
             checkSaveSearchOptionsHistory(session);
+
+            int addOnTopTotalListSize = 0;
+            int addOnTopListSize = 0;
+            List addOnTopProductCategoryMembers = FastList.newInstance();
+            if (UtilValidate.isNotEmpty(addOnTopProdCategoryId)) {
+                // always include the members of the addOnTopProdCategoryId
+                Timestamp now = UtilDateTime.nowTimestamp();
+                List addOnTopProdCondList = FastList.newInstance();
+                addOnTopProdCondList.add(new EntityExpr(new EntityExpr("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("thruDate", EntityOperator.GREATER_THAN, now)));
+                addOnTopProdCondList.add(new EntityExpr("fromDate", EntityOperator.LESS_THAN, now));
+                addOnTopProdCondList.add(new EntityExpr("productCategoryId", EntityOperator.EQUALS, addOnTopProdCategoryId));
+                EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
+                EntityListIterator pli = null;
+                try {
+                    pli = delegator.findListIteratorByCondition("ProductCategoryMember", new EntityConditionList(addOnTopProdCondList, EntityOperator.AND), null, UtilMisc.toList("productId"), UtilMisc.toList("sequenceNum"), findOpts);
+                    addOnTopProductCategoryMembers = pli.getPartialList(lowIndex, viewSize);
+                    addOnTopListSize = addOnTopProductCategoryMembers.size();
+                    for (int i = 0; i < addOnTopProductCategoryMembers.size(); i++) {
+                        GenericValue alwaysAddProductCategoryMember = (GenericValue)addOnTopProductCategoryMembers.get(i);
+                        productIds.add(alwaysAddProductCategoryMember.getString("productId"));
+                    }
+                    // attempt to get the full size
+                    pli.last();
+                    addOnTopTotalListSize = pli.currentIndex();
+                    listSize = listSize + addOnTopTotalListSize;
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                } finally {
+                    if (pli != null) {
+                        try {
+                            pli.close();
+                        } catch (GenericEntityException e) {
+                            Debug.logError(e, module);
+                        }
+                    }
+                }
+            }
+
+            // setup resultOffset and maxResults, noting that resultOffset is 1 based, not zero based as these numbers
+            int resultOffsetInt = lowIndex - addOnTopTotalListSize + 1;
+            if (resultOffsetInt < 1) {
+                resultOffsetInt = 1;
+            }
+            int maxResultsInt = viewSize - addOnTopListSize;
+            Integer resultOffset = new Integer(resultOffsetInt);
+            Integer maxResults = new Integer(maxResultsInt);
 
             ResultSortOrder resultSortOrder = ProductSearchOptions.getResultSortOrder(request);
 
@@ -754,11 +837,14 @@ public class ProductSearchSession {
             productSearchContext.setResultOffset(resultOffset);
             productSearchContext.setMaxResults(maxResults);
 
-            productIds = productSearchContext.doSearch();
+            List foundProductIds = productSearchContext.doSearch();
+            if (maxResultsInt > 0) {
+                productIds.addAll(foundProductIds);
+            }
 
             Integer totalResults = productSearchContext.getTotalResults();
             if (totalResults != null) {
-                listSize = totalResults.intValue();
+                listSize = listSize + totalResults.intValue();
             }
         }
 

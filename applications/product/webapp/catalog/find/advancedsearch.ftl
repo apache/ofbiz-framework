@@ -231,6 +231,15 @@ under the License.
         </div>
       </td>
     </tr>
+    <tr>
+      <td align="right" valign="middle">
+        ${uiLabelMap.ProductPrioritizeProductsinCategory}:
+      </td>
+      <td valign="middle">
+        <input type="text" class="inputBox" name="PRIORITIZE_CATEGORY_ID" size="20" maxlength="20" value="${requestParameters.PRIORITIZE_CATEGORY_ID?if_exists}"/>
+        <a href="javascript:call_fieldlookup2(document.advtokeywordsearchform.PRIORITIZE_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+      </td>
+    </tr>
     <#if searchConstraintStrings?has_content>
       <tr>
         <td align="right" valign="top">
