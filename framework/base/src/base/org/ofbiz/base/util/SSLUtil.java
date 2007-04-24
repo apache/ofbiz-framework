@@ -81,11 +81,16 @@ public class SSLUtil {
     public static KeyManager[] getKeyManagers(String alias) throws IOException, GeneralSecurityException, GenericConfigException {
         Iterator i = ComponentConfig.getAllKeystoreInfos().iterator();
         List keyMgrs = FastList.newInstance();
+        
         while (i.hasNext()) {
             ComponentConfig.KeystoreInfo ksi = (ComponentConfig.KeystoreInfo) i.next();
             if (ksi.isCertStore()) {
-                KeyStore ks = KeyStoreUtil.getComponentKeyStore(ksi.componentConfig.getComponentName(), ksi.getName());
-                keyMgrs.addAll(Arrays.asList(getKeyManagers(ks, ksi.getPassword(), alias)));
+                KeyStore ks = ksi.getKeyStore();
+                if (ks != null) {
+                    keyMgrs.addAll(Arrays.asList(getKeyManagers(ks, ksi.getPassword(), alias)));
+                } else {
+                    throw new IOException("Unable to load keystore: " + ksi.createResourceHandler().getFullLocation());
+                }
             }
         }
 
@@ -104,9 +109,13 @@ public class SSLUtil {
         Iterator i = ComponentConfig.getAllKeystoreInfos().iterator();
         while (i.hasNext()) {
             ComponentConfig.KeystoreInfo ksi = (ComponentConfig.KeystoreInfo) i.next();
-            if (ksi.isCertStore()) {
-                KeyStore ks = KeyStoreUtil.getComponentKeyStore(ksi.componentConfig.getComponentName(), ksi.getName());
-                trustMgrs.addAll(Arrays.asList(getTrustManagers(ks)));
+            if (ksi.isTrustStore()) {
+                KeyStore ks = ksi.getKeyStore();
+                if (ks != null) {
+                    trustMgrs.addAll(Arrays.asList(getTrustManagers(ks)));
+                } else {
+                    throw new IOException("Unable to load keystore: " + ksi.createResourceHandler().getFullLocation());
+                }
             }
         }
 

@@ -28,14 +28,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.security.KeyStore;
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilURL;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -644,8 +642,7 @@ public class ComponentConfig {
         }
     }
 
-    public static class KeystoreInfo extends ResourceInfo {
-        public ComponentConfig componentConfig;
+    public static class KeystoreInfo extends ResourceInfo {        
         public String name;
         public String type;
         public String password;
@@ -659,6 +656,18 @@ public class ComponentConfig {
             this.password = element.getAttribute("password");
             this.isCertStore = "true".equalsIgnoreCase(element.getAttribute("is-certstore"));
             this.isTrustStore = "true".equalsIgnoreCase(element.getAttribute("is-truststore"));
+        }
+
+        public KeyStore getKeyStore() {
+            ComponentResourceHandler rh = this.createResourceHandler();
+            if (rh != null) {
+                try {
+                    return KeyStoreUtil.getStore(rh.getURL(), this.getPassword(), this.getType());
+                } catch (Exception e) {
+                    Debug.logWarning(e, module);
+                }
+            }
+            return null;
         }
 
         public String getName() {
