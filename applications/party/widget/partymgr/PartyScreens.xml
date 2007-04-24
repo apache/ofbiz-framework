@@ -706,5 +706,65 @@ under the License.
             </widgets>            
         </section>
     </screen>    
-        
+
+    <screen name="FinAccountSummary">
+        <section>
+            <actions>
+                <entity-condition entity-name="FinAccount" list-name="ownedFinAccountList" filter-by-date="true">
+                    <condition-expr field-name="ownerPartyId" operator="equals" env-name="parameters.partyId"/>
+                    <order-by field-name="-fromDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not>
+                            <if-empty field-name="ownedFinAccountList"/>
+                        </not>
+                    </condition>
+                    <condition>
+                        <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                    </condition>
+                    <widgets>
+                        <container id="fin-account-summary" style="screenlet">
+                            <container style="screenlet-header">
+                                <label style="boxhead" text="${uiLabelMap.PageTitleFinancialAccountSummary}"/>
+                            </container>
+                            <container style="screenlet-body">
+                                <iterate-section entry-name="ownedFinAccount" list-name="ownedFinAccountList">
+                                    <section>
+                                        <actions>
+                                            <entity-condition entity-name="FinAccountTrans" list-name="ownedFinAccountTransList">
+                                                <condition-expr field-name="finAccountId" env-name="ownedFinAccount.finAccountId"/>
+                                                <order-by field-name="transactionDate"/>
+                                            </entity-condition>
+                                            <entity-condition entity-name="FinAccountAuth" list-name="ownedFinAccountAuthList" filter-by-date="true">
+                                                <condition-expr field-name="finAccountId" env-name="ownedFinAccount.finAccountId"/>
+                                                <order-by field-name="authorizationDate"/>
+                                            </entity-condition>
+                                            <entity-one entity-name="Uom" value-name="accountCurrencyUom" auto-field-map="false" use-cache="true">
+                                                <field-map field-name="uomId" env-name="ownedFinAccount.currencyUomId"/>
+                                            </entity-one>
+                                            <entity-one entity-name="FinAccountType" value-name="ownedFinAccountType" auto-field-map="false" use-cache="true">
+                                                <field-map field-name="finAccountTypeId" env-name="ownedFinAccount.finAccountTypeId"/>
+                                            </entity-one>
+                                        </actions>
+                                        <widgets>
+                                            <platform-specific>
+                                                <html>
+                                                    <html-template location="component://party/webapp/partymgr/party/FinAccountDetail.ftl"/>
+                                                </html>
+                                            </platform-specific>
+                                        </widgets>
+                                    </section>
+                                </iterate-section>
+                            </container>
+                        </container>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>
+
