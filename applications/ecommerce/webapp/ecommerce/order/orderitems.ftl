@@ -24,7 +24,9 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-header">
         <div class="boxlink">
+            <#assign numColumns = 8>
             <#if maySelectItems?default("N") == "Y">
+                <#assign numColumns = 11>
                 <a href="javascript:document.addCommonToCartForm.add_all.value='true';document.addCommonToCartForm.submit()" class="submenutext">${uiLabelMap.EcommerceAddAlltoCart}</a><a href="javascript:document.addCommonToCartForm.add_all.value='false';document.addCommonToCartForm.submit()" class="submenutext">${uiLabelMap.EcommerceAddCheckedToCart}</a><a href="<@ofbizUrl>createShoppingListFromOrder?orderId=${orderHeader.orderId}&frequency=6&intervalNumber=1&shoppingListTypeId=SLT_AUTO_REODR</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderSendMeThisEveryMonth}</a>
             </#if>
         </div>
@@ -42,13 +44,14 @@ under the License.
             <#else>
               <td width="10%" align="right">&nbsp;</td>
               <td width="10%" align="right">&nbsp;</td>
+              <td width="10%" align="right">&nbsp;</td>
               <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderQtyOrdered}</b></span></td>
             </#if>
             <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.EcommerceUnitPrice}</b></span></td>
             <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderAdjustments}</b></span></td>
             <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.CommonSubtotal}</b></span></td>
             <#if maySelectItems?default("N") == "Y">
-              <td width="5%" align="right">&nbsp;</td>
+              <td colspan="3" width="5%" align="right">&nbsp;</td>
             </#if>
           </tr>
           <#list orderItems as orderItem>
@@ -71,10 +74,10 @@ under the License.
                      </#list>
                   </#if>
             </#if>
-            <tr><td colspan="10"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="${numColumns}"><hr class="sepbar"/></td></tr>
             <tr>
               <#if !orderItem.productId?exists || orderItem.productId == "_?_">
-                <td colspan="1" valign="top">
+                <td valign="top">
                   <b><div class="tabletext"> &gt;&gt; ${orderItem.itemDescription}</div></b>
                 </td>
               <#else>
@@ -130,6 +133,7 @@ under the License.
                 <#if !(maySelectItems?default("N") == "Y")>
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>
+                  <td>&nbsp;</td>
                 </#if>
                 <td align="right" valign="top">
                   <div class="tabletext">${orderItem.quantity?string.number}</div>                        
@@ -160,7 +164,7 @@ under the License.
                    <div class="tabletext"><@ofbizCurrency amount=localOrderReadHelper.getOrderItemTotal(orderItem)*rentalQuantity isoCode=currencyUomId/></div>
                 <#else>                                          
                   <div class="tabletext"><@ofbizCurrency amount=localOrderReadHelper.getOrderItemTotal(orderItem) isoCode=currencyUomId/></div>
-                  </#if>
+                </#if>
                 </td>                    
                 <#if maySelectItems?default("N") == "Y">
                   <td>&nbsp;</td>
@@ -170,7 +174,7 @@ under the License.
                     <td>&nbsp;</td>
                   </#if>
                   <td>
-                    <input name="item_id" value="${orderItem.orderItemSeqId}" type="checkbox">
+                    <input name="item_id" value="${orderItem.orderItemSeqId}" type="checkbox"/>
                   </td>
                 </#if>
               </#if>
@@ -178,7 +182,7 @@ under the License.
             <#-- show info from workeffort if it was a rental item -->
             <#if orderItem.orderItemTypeId == "RENTAL_ORDER_ITEM">
                 <#if workEffortSave?exists>
-                      <tr><td>&nbsp;</td><td colspan="8"><div class="tabletext">${uiLabelMap.CommonFrom}: ${workEffortSave.estimatedStartDate?string("yyyy-MM-dd")} ${uiLabelMap.CommonUntil} ${workEffortSave.estimatedCompletionDate?string("yyyy-MM-dd")} ${uiLabelMap.CommonFor} ${workEffortSave.reservPersons} ${uiLabelMap.CommonPerson}(s).</div></td></tr>
+                      <tr><td>&nbsp;</td><td colspan="${numColumns}"><div class="tabletext">${uiLabelMap.CommonFrom}: ${workEffortSave.estimatedStartDate?string("yyyy-MM-dd")} ${uiLabelMap.CommonUntil} ${workEffortSave.estimatedCompletionDate?string("yyyy-MM-dd")} ${uiLabelMap.CommonFor} ${workEffortSave.reservPersons} ${uiLabelMap.CommonPerson}(s).</div></td></tr>
                   </#if>
             </#if>
             <#-- now show adjustment details per line item -->
@@ -207,14 +211,12 @@ under the License.
                     </#if>
                   </div>
                 </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td colspan="5">&nbsp;</td>
                 <td align="right">
                   <div class="tabletext" style="font-size: xx-small;"><@ofbizCurrency amount=localOrderReadHelper.getOrderItemAdjustmentTotal(orderItem, orderItemAdjustment) isoCode=currencyUomId/></div>
                 </td>
                 <td>&nbsp;</td>
-                <#if maySelectItems?default("N") == "Y"><td>&nbsp;</td></#if>
+                <#if maySelectItems?default("N") == "Y"><td colspan="3">&nbsp;</td></#if>
               </tr>
             </#list>
 
@@ -231,46 +233,55 @@ under the License.
                   <td align="right">
                     <div class="tabletext" style="font-size: xx-small;">${shipGroupAssoc.quantity?string.number}</div>
                   </td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td colspan="${numColumns - 2}">&nbsp;</td>
                 </tr>
               </#list>
             </#if>
 
            </#list>
            <#if orderItems?size == 0 || !orderItems?has_content>
-             <tr><td><font color="red">${uiLabelMap.OrderSalesOrderLookupFailed}.</font></td></tr>
+             <tr><td colspan="${numColumns}"><font color="red">${uiLabelMap.OrderSalesOrderLookupFailed}</font></td></tr>
            </#if>
 
-          <tr><td colspan="10"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="${numColumns}"><hr class="sepbar"/></td></tr>
           <tr>
-            <td align="right" colspan="6"><div class="tabletext"><b>${uiLabelMap.CommonSubtotal}</b></div></td>
+            <td align="right" colspan="7"><div class="tabletext"><b>${uiLabelMap.CommonSubtotal}</b></div></td>
             <td align="right"><div class="tabletext"><@ofbizCurrency amount=orderSubTotal isoCode=currencyUomId/></div></td>
+            <#if maySelectItems?default("N") == "Y"><td colspan="3">&nbsp;</td></#if>
           </tr>
           <#list headerAdjustmentsToShow as orderHeaderAdjustment>
             <tr>
-              <td align="right" colspan="6"><div class="tabletext"><b>${localOrderReadHelper.getAdjustmentType(orderHeaderAdjustment)}</b></div></td>
+              <td align="right" colspan="7"><div class="tabletext"><b>${localOrderReadHelper.getAdjustmentType(orderHeaderAdjustment)}</b></div></td>
               <td align="right"><div class="tabletext"><@ofbizCurrency amount=localOrderReadHelper.getOrderAdjustmentTotal(orderHeaderAdjustment) isoCode=currencyUomId/></div></td>
+              <#if maySelectItems?default("N") == "Y"><td colspan="3">&nbsp;</td></#if>
             </tr>
           </#list>
           <tr>
-            <td align="right" colspan="6"><div class="tabletext"><b>${uiLabelMap.OrderShippingAndHandling}</b></div></td>
+            <td align="right" colspan="7"><div class="tabletext"><b>${uiLabelMap.OrderShippingAndHandling}</b></div></td>
             <td align="right"><div class="tabletext"><@ofbizCurrency amount=orderShippingTotal isoCode=currencyUomId/></div></td>
+            <#if maySelectItems?default("N") == "Y"><td colspan="3">&nbsp;</td></#if>
           </tr>
           <tr>
-            <td align="right" colspan="6"><div class="tabletext"><b>${uiLabelMap.OrderSalesTax}</b></div></td>
+            <td align="right" colspan="7"><div class="tabletext"><b>${uiLabelMap.OrderSalesTax}</b></div></td>
             <td align="right"><div class="tabletext"><@ofbizCurrency amount=orderTaxTotal isoCode=currencyUomId/></div></td>
+            <#if maySelectItems?default("N") == "Y"><td colspan="3">&nbsp;</td></#if>
           </tr>
 
-          <tr><td colspan="2"></td><td colspan="9"><hr class="sepbar"/></td></tr>
           <tr>
-            <td align="right" colspan="6"><div class="tabletext"><b>${uiLabelMap.OrderGrandTotal}</b></div></td>
+            <td colspan="3"></td>
+            <#if maySelectItems?default("N") == "Y">
+                <td colspan="${numColumns - 6}"><hr class="sepbar"/></td>
+                <td colspan="3">&nbsp;</td>
+            <#else>
+                <td colspan="${numColumns - 3}"><hr class="sepbar"/></td>
+            </#if>
+          </tr>
+          <tr>
+            <td align="right" colspan="7"><div class="tabletext"><b>${uiLabelMap.OrderGrandTotal}</b></div></td>
             <td align="right">
               <div class="tabletext"><@ofbizCurrency amount=orderGrandTotal isoCode=currencyUomId/></div>
             </td>
+            <#if maySelectItems?default("N") == "Y"><td colspan="3">&nbsp;</td></#if>
           </tr>
         </table>
     </div>
