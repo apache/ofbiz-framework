@@ -19,25 +19,16 @@ under the License.
 
 <#if orderHeader?has_content>
 
-<table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-  <tr>
-    <td width='100%'>
-      <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
-        <tr>
-          <td valign="middle" align="left">
-            <div class="boxhead">&nbsp;${uiLabelMap.OrderNotes}</div>
-          </td>
-          <td valign="middle" align="right">
-            <#if security.hasEntityPermission("ORDERMGR", "_NOTE", session)>  
-              <a href="<@ofbizUrl>createnewnote?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesCreateNew}</a>
+<div class="screenlet">
+    <div class="screenlet-header">
+        <div class="boxlink">
+            <#if security.hasEntityPermission("ORDERMGR", "_NOTE", session)>
+                <a href="<@ofbizUrl>createnewnote?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesCreateNew}</a>
             </#if>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td width='100%'>
+        </div>
+        <div class="boxhead">&nbsp;${uiLabelMap.OrderNotes}</div>
+    </div>
+    <div class="screenlet-body">
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
         <tr>
           <td>
@@ -74,8 +65,6 @@ under the License.
           </td>
         </tr>
       </table>
-    </td>
-  </tr>
-</table>
-
+    </div>
+</div>
 </#if>
