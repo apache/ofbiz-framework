@@ -52,6 +52,7 @@ under the License.
       <field name="cityLocality" type="value"></field>
       <field name="stateProvince" type="value"></field>
       <field name="country" type="value"></field>
+      <field name="serialNumber" type="value"></field>
       <prim-key field="certProvisionId"/>
     </entity>
 
