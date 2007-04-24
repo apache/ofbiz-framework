@@ -1037,6 +1037,7 @@ under the License.
       <field name="orderItemSeqId" type="id"></field>
       <field name="statusDatetime" type="date-time"></field>
       <field name="statusUserLogin" type="id-vlong"></field>
+      <field name="changeReason" type="description"></field>
       <prim-key field="orderStatusId"/>
       <relation type="one" fk-name="ORDER_STTS_STTS" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>

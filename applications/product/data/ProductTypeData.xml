@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-    
-    http://www.apache.org/licenses/LICENSE-2.0
-    
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
 -->
 
 <entity-engine-xml>
@@ -429,14 +429,18 @@
     <StatusItem description="Available" sequenceId="02" statusCode="AVAILABLE" statusId="INV_AVAILABLE" statusTypeId="INV_SERIALIZED_STTS"/>
     <StatusItem description="Promised" sequenceId="03" statusCode="PROMISED" statusId="INV_PROMISED" statusTypeId="INV_SERIALIZED_STTS"/>
     <StatusItem description="Delivered" sequenceId="04" statusCode="DELIVERED" statusId="INV_DELIVERED" statusTypeId="INV_SERIALIZED_STTS"/>
+    <StatusItem description="On Hold" sequenceId="05" statusCode="ON_HOLD" statusId="INV_ON_HOLD" statusTypeId="INV_SERIALIZED_STTS"/>
     <StatusItem description="Being Transfered" sequenceId="10" statusCode="BEING_TRANSFERED" statusId="INV_BEING_TRANSFERED" statusTypeId="INV_SERIALIZED_STTS"/>
     <StatusItem description="Being Transfered (Promised)" sequenceId="11" statusCode="BEING_TRANS_PRM" statusId="INV_BEING_TRANS_PRM" statusTypeId="INV_SERIALIZED_STTS"/>
     <StatusItem description="Returned" sequenceId="20" statusCode="RETURNED" statusId="INV_RETURNED" statusTypeId="INV_SERIALIZED_STTS"/>
     <StatusItem description="Defective" sequenceId="21" statusCode="DEFECTIVE" statusId="INV_DEFECTIVE" statusTypeId="INV_SERIALIZED_STTS"/>
     <StatusValidChange condition="" statusId="INV_ON_ORDER" statusIdTo="INV_AVAILABLE" transitionName="Order Arrived"/>
     <StatusValidChange condition="" statusId="INV_AVAILABLE" statusIdTo="INV_PROMISED" transitionName="Promise"/>
+    <StatusValidChange condition="" statusId="INV_AVAILABLE" statusIdTo="INV_ON_HOLD" transitionName="Hold"/>
     <StatusValidChange condition="" statusId="INV_AVAILABLE" statusIdTo="INV_DEFECTIVE" transitionName="Mark As Defective"/>
     <StatusValidChange condition="" statusId="INV_AVAILABLE" statusIdTo="INV_BEING_TRANSFERED" transitionName="Being Transfered"/>
+    <StatusValidChange condition="" statusId="INV_ON_HOLD" statusIdTo="INV_AVAILABLE" transitionName="Release Hold"/>
+    <StatusValidChange condition="" statusId="INV_ON_HOLD" statusIdTo="INV_DEFECTIVE" transitionName="Mark Held Defective"/>
     <StatusValidChange condition="" statusId="INV_BEING_TRANSFERED" statusIdTo="INV_AVAILABLE" transitionName="Transfer Complete"/>
     <StatusValidChange condition="" statusId="INV_PROMISED" statusIdTo="INV_AVAILABLE" transitionName="Cancel Promise"/>
     <StatusValidChange condition="" statusId="INV_PROMISED" statusIdTo="INV_DELIVERED" transitionName="Deliver"/>
@@ -445,8 +449,9 @@
     <StatusValidChange condition="" statusId="INV_BEING_TRANS_PRM" statusIdTo="INV_PROMISED" transitionName="Transfer Complete (Promised)"/>
     <StatusValidChange condition="" statusId="INV_DELIVERED" statusIdTo="INV_RETURNED" transitionName="Return Status Pending"/>
     <StatusValidChange condition="" statusId="INV_RETURNED" statusIdTo="INV_AVAILABLE" transitionName="Make Return Available"/>
+    <StatusValidChange condition="" statusId="INV_RETURNED" statusIdTo="INV_ON_HOLD" transitionName="Make Return Held"/>
     <StatusValidChange condition="" statusId="INV_RETURNED" statusIdTo="INV_DEFECTIVE" transitionName="Mark Return Defective"/>
-
+    
     <!-- inventory transfer status -->
     <StatusType description="Inventory Transfer" hasTable="N" parentTypeId="" statusTypeId="INVENTORY_XFER_STTS"/>
     <StatusItem description="Requested" sequenceId="01" statusCode="REQUESTED" statusId="IXF_REQUESTED" statusTypeId="INVENTORY_XFER_STTS"/>
