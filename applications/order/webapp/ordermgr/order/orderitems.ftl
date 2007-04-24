@@ -503,7 +503,7 @@ under the License.
                           <b><i>${uiLabelMap.FacilityInventory}</i>:</b>
                             <a href="/facility/control/EditInventoryItem?inventoryItemId=${itemIssuance.inventoryItemId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext" style="font-size: xx-small;">${itemIssuance.inventoryItemId}</a>
                             <b><i>${uiLabelMap.OrderShipGroup}</i>:</b> ${itemIssuance.shipGroupSeqId}
-                            <#if (inventoryItem.serialNumber?has_content)><br><b><i>${uiLabelMap.SerialNumber}</li>:</b> ${inventoryItem.serialNumber}&nbsp;</#if>                                                      
+                            <#if (inventoryItem.serialNumber?has_content)><br><b><i>${uiLabelMap.ProductSerialNumber}</li>:</b> ${inventoryItem.serialNumber}&nbsp;</#if>                                                      
 
                         </#if>
                       </div>
