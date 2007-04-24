@@ -134,7 +134,7 @@ under the License.
               <td align="left" valign="top" width="80%">
                 <div class="tabletext">
                   <#if orderHeader.productStoreId?has_content>
-                    <a href="/catalog/control/EditProductStore?productStoreId=${orderHeader.productStoreId}" target="catalogmgr" class="buttontext">${orderHeader.productStoreId}</a>
+                    <a href="/catalog/control/EditProductStore?productStoreId=${orderHeader.productStoreId}${externalKeyParam}" target="catalogmgr" class="buttontext">${orderHeader.productStoreId}</a>
                   <#else>
                     ${uiLabelMap.CommonNA}
                   </#if>
@@ -166,7 +166,7 @@ under the License.
               <td align="left" valign="top" width="80%">
                 <div class="tabletext">
                   <#if orderHeader.createdBy?has_content>
-                    <a href="/partymgr/control/viewprofile?userlogin_id=${orderHeader.createdBy}" target="partymgr" class="buttontext">${orderHeader.createdBy}</a>
+                    <a href="/partymgr/control/viewprofile?userlogin_id=${orderHeader.createdBy}${externalKeyParam}" target="partymgr" class="buttontext">${orderHeader.createdBy}</a>
                   <#else>
                     [${uiLabelMap.CommonNotSet}]
                   </#if>
