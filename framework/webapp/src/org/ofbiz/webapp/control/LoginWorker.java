@@ -20,6 +20,7 @@ package org.ofbiz.webapp.control;
 
 import java.util.*;
 import java.security.cert.X509Certificate;
+import java.math.BigInteger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
@@ -543,14 +544,14 @@ public class LoginWorker {
                     X500Principal x500 = clientCerts[i].getSubjectX500Principal();
                     Debug.log("Checking client certification for authentication: " + x500.getName(), module);
                     
-                    Map x500Map = KeyStoreUtil.getCertX500Map(clientCerts[i]);                    
+                    Map x500Map = KeyStoreUtil.getCertX500Map(clientCerts[i]);
                     if (i == 0) {
                         userLoginId = (String) x500Map.get("CN");
                     }
 
                     try {
                         // check for a valid issuer (or generated cert data)
-                        if (LoginWorker.checkValidIssuer(delegator, x500Map)) {
+                        if (LoginWorker.checkValidIssuer(delegator, x500Map, clientCerts[i].getSerialNumber())) {
                             Debug.log("Looking up userLogin from CN: " + userLoginId, module);
                             
                             // CN should match the userLoginId
@@ -577,7 +578,7 @@ public class LoginWorker {
         return "success";
     }
 
-    protected static boolean checkValidIssuer(GenericDelegator delegator, Map x500Map) throws GeneralException {
+    protected static boolean checkValidIssuer(GenericDelegator delegator, Map x500Map, BigInteger serialNumber) throws GeneralException {
         List conds = FastList.newInstance();
         conds.add(new EntityConditionList(UtilMisc.toList(new EntityExpr("commonName", EntityOperator.EQUALS, x500Map.get("CN")),
                 new EntityExpr("commonName", EntityOperator.EQUALS, null),
@@ -602,6 +603,10 @@ public class LoginWorker {
         conds.add(new EntityConditionList(UtilMisc.toList(new EntityExpr("country", EntityOperator.EQUALS, x500Map.get("C")),
                 new EntityExpr("country", EntityOperator.EQUALS, null),
                 new EntityExpr("country", EntityOperator.EQUALS, "")), EntityOperator.OR));
+
+        conds.add(new EntityConditionList(UtilMisc.toList(new EntityExpr("serialNumber", EntityOperator.EQUALS, serialNumber.toString(16)),
+                new EntityExpr("serialNumber", EntityOperator.EQUALS, null),
+                new EntityExpr("serialNumber", EntityOperator.EQUALS, "")), EntityOperator.OR));
 
         EntityConditionList condition = new EntityConditionList(conds, EntityOperator.AND);
         Debug.log("Doing issuer lookup: " + condition.toString(), module);
