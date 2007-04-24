@@ -225,6 +225,7 @@ under the License.
     <ReturnHeaderType description="Return to Vendor" returnHeaderTypeId="VENDOR_RETURN"/>  <!-- not supported yet -->
     
     <!-- return item types for sales returns -->
+    <ReturnItemType description="Return Non-Product Item" returnItemTypeId="RET_NPROD_ITEM" parentTypeId=""/>
     <ReturnItemType description="Return Product Item" returnItemTypeId="RET_PROD_ITEM" parentTypeId=""/>
     <ReturnItemType description="Return Finished Good Item" returnItemTypeId="RET_FPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
     <ReturnItemType description="Return Digital Good Item" returnItemTypeId="RET_DPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
@@ -232,8 +233,8 @@ under the License.
     <ReturnItemType description="Return Product-Feature Item" returnItemTypeId="RET_PROD_FEATR_ITEM" parentTypeId="RET_PROD_ITEM"/>
     <ReturnItemType description="Return Service Product Item" returnItemTypeId="RET_SPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
 
-    <ReturnItemType description="Return Work-Effort Item" returnItemTypeId="RET_WE_ITEM" parentTypeId=""/>
-    <ReturnItemType description="Return Time-Entry Item" returnItemTypeId="RET_TE_ITEM" parentTypeId=""/>
+    <ReturnItemType description="Return Work-Effort Item" returnItemTypeId="RET_WE_ITEM" parentTypeId="RET_NPROD_ITEM"/>
+    <ReturnItemType description="Return Time-Entry Item" returnItemTypeId="RET_TE_ITEM" parentTypeId="RET_NPROD_ITEM"/>
 
     <!-- maps order item types and order adjustment types to return item types and return adjustment types -->
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="FINISHED_GOOD" returnItemTypeId="RET_FPROD_ITEM"/>
