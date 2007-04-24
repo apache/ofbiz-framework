@@ -27,6 +27,7 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="entity-resource"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="service-resource"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="test-suite"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="keystore"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="webapp"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.ofbiz-component"/>
