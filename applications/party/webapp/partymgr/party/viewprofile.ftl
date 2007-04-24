@@ -406,6 +406,9 @@ under the License.
     </div>
   </div>
 
+  <#-- Financial Account Summary -->
+  ${screens.render('component://party/widget/partymgr/PartyScreens.xml#FinAccountSummary')}
+
 <#-- UserLogins -->
   <div id="partyUserLogins" class="screenlet">
     <div class="screenlet-title-bar">
