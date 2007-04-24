@@ -67,6 +67,7 @@ public class SSLImpl extends JSSEImplementation {
             try {
                 tm = SSLUtil.getTrustManagers();
             } catch (Exception e) {
+                Debug.logError(e, module);
                 throw new ClassNotFoundException(e.getMessage());
             }
         }
