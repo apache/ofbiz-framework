@@ -693,19 +693,23 @@ public class FinAccountPaymentServices {
             return ServiceUtil.returnSuccess();
         }
 
-        // determine the payment method to use to replenish
-        List paymentMethods;
+        // get the payment method to use to replenish
+        String paymentMethodId = finAccount.getString("replenishPaymentId");
+        if (paymentMethodId == null) {
+            Debug.logWarning("No payment method attached to financial account [" + finAccountId + "] cannot auto-replenish", module);
+            return ServiceUtil.returnSuccess();
+        }
+
+        GenericValue paymentMethod;
         try {
-            paymentMethods = delegator.findByAnd("PaymentMethod", UtilMisc.toMap("partyId", ownerPartyId), UtilMisc.toList("-fromDate"));
+            paymentMethod = delegator.findByPrimaryKey("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-        paymentMethods = EntityUtil.filterByDate(paymentMethods);
-        GenericValue paymentMethod = EntityUtil.getFirst(paymentMethods);
         if (paymentMethod == null) {
             // no payment methods on file; cannot replenish
-            Debug.logWarning("No payment methods attached to party [" + ownerPartyId + "] cannot auto-replenish", module);
+            Debug.logWarning("No payment method found for ID [" + paymentMethodId + "] for party [" + ownerPartyId + "] cannot auto-replenish", module);
             return ServiceUtil.returnSuccess();
         }
 

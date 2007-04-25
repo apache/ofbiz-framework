@@ -21,12 +21,17 @@ package org.ofbiz.accounting.finaccount;
 
 import java.sql.Timestamp;
 import java.util.Map;
+import java.util.List;
 import java.math.BigDecimal;
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -35,6 +40,7 @@ import org.ofbiz.service.ServiceUtil;
 
 import org.ofbiz.order.finaccount.FinAccountHelper;
 import org.ofbiz.product.store.ProductStoreWorker;
+import javolution.util.FastMap;
 
 public class FinAccountServices {
     
@@ -186,5 +192,158 @@ public class FinAccountServices {
         }
 
         return ServiceUtil.returnSuccess();
-    }        
+    }
+
+    public static Map refundFinAccount(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String finAccountId = (String) context.get("finAccountId");
+        Map result = null;
+
+        GenericValue finAccount;
+        try {
+            finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        if (finAccount != null) {
+            // get the actual and available balance
+            BigDecimal availableBalance = finAccount.getBigDecimal("availableBalance");
+            BigDecimal actualBalance = finAccount.getBigDecimal("actualBalance");
+
+            // if they do not match, then there are outstanding authorizations which need to be settled first
+            if (!actualBalance.equals(availableBalance)) {
+                return ServiceUtil.returnError("Available balance does not match the actual balance; pending authorizations; cannot refund FinAccount at this time.");
+            }
+
+            // now we make sure there is something to refund
+            if (actualBalance.doubleValue() > 0) {
+                BigDecimal remainingBalance = new BigDecimal(actualBalance.toString());
+                BigDecimal refundAmount = new BigDecimal(0);
+
+                EntityCondition condition = new EntityExpr("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT");
+                EntityListIterator eli = null;
+                try {
+                    eli = delegator.findListIteratorByCondition("FinAccountTrans", condition, null, UtilMisc.toList("-transactionDate"));
+
+                    GenericValue trans;
+                    while (remainingBalance.compareTo(FinAccountHelper.ZERO) == 1 && (trans = (GenericValue) eli.next()) != null) {
+                        String orderId = trans.getString("orderId");
+                        String orderItemSeqId = trans.getString("orderItemSeqId");
+
+                        // make sure there is an order available to refund
+                        if (orderId != null && orderItemSeqId != null) {
+                            GenericValue orderItem = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
+                            if (!"ITEM_CANCELLED".equals(orderItem.getString("statusId"))) {
+                                
+                                // make sure the item hasn't already been returned
+                                List returnItems = orderItem.getRelated("ReturnItem");
+                                if (returnItems == null || returnItems.size() == 0) {
+                                    BigDecimal txAmt = trans.getBigDecimal("amount");
+                                    BigDecimal refAmt = txAmt;
+                                    if (remainingBalance.compareTo(txAmt) == -1) {
+                                        refAmt = remainingBalance;
+                                    }
+                                    remainingBalance = remainingBalance.subtract(refAmt);
+                                    refundAmount = refundAmount.add(refAmt);
+
+                                    // create the return header
+                                    Map rhCtx = UtilMisc.toMap("returnHeaderTypeId", "CUSTOMER_RETURN", "userLogin", userLogin);
+                                    Map rhResp = dispatcher.runSync("createReturnHeader", rhCtx);
+                                    if (ServiceUtil.isError(rhResp)) {
+                                        throw new GeneralException(ServiceUtil.getErrorMessage(rhResp));
+                                    }
+                                    String returnId = (String) rhResp.get("returnId");
+
+                                    // create the return item
+                                    Map returnItemCtx = FastMap.newInstance();
+                                    returnItemCtx.put("returnId", returnId);
+                                    returnItemCtx.put("orderId", orderId);
+                                    returnItemCtx.put("description", orderItem.getString("itemDescription"));
+                                    returnItemCtx.put("orderItemSeqId", orderItemSeqId);
+                                    returnItemCtx.put("returnQuantity", new Double(1));
+                                    returnItemCtx.put("receivedQuantity", new Double(1));
+                                    returnItemCtx.put("returnPrice", new Double(refAmt.doubleValue()));
+                                    returnItemCtx.put("returnReasonId", "RTN_NOT_WANT");
+                                    returnItemCtx.put("returnTypeId", "RTN_REFUND"); // refund return
+                                    returnItemCtx.put("returnItemTypeId", "RET_NPROD_ITEM");
+                                    returnItemCtx.put("userLogin", userLogin);
+
+                                    Map retItResp = dispatcher.runSync("createReturnItem", returnItemCtx);
+                                    if (ServiceUtil.isError(retItResp)) {
+                                        throw new GeneralException(ServiceUtil.getErrorMessage(retItResp));
+                                    }
+                                    String returnItemSeqId = (String) retItResp.get("returnItemSeqId");
+
+                                    // approve the return
+                                    Map appRet = UtilMisc.toMap("statusId", "RETURN_ACCEPTED", "returnId", returnId, "userLogin", userLogin);
+                                    Map appResp = dispatcher.runSync("updateReturnHeader", appRet);
+                                    if (ServiceUtil.isError(appResp)) {
+                                        throw new GeneralException(ServiceUtil.getErrorMessage(appResp));
+                                    }
+
+                                    // "receive" the return - should trigger the refund
+                                    Map recRet = UtilMisc.toMap("statusId", "RETURN_RECEIVED", "returnId", returnId, "userLogin", userLogin);
+                                    Map recResp = dispatcher.runSync("updateReturnHeader", recRet);
+                                    if (ServiceUtil.isError(recResp)) {
+                                        throw new GeneralException(ServiceUtil.getErrorMessage(recResp));
+                                    }
+
+                                    // get the return item
+                                    GenericValue returnItem = delegator.findByPrimaryKey("ReturnItem",
+                                            UtilMisc.toMap("returnId", returnId, "returnItemSeqId", returnItemSeqId));
+                                    GenericValue response = returnItem.getRelatedOne("ReturnItemResponse");
+                                    if (response == null) {
+                                        throw new GeneralException("No return response found for: " + returnItem.getPrimaryKey());
+                                    }
+                                    String paymentId = response.getString("paymentId");
+
+                                    // create the adjustment transaction
+                                    Map txCtx = FastMap.newInstance();
+                                    txCtx.put("finAccountTransTypeId", "ADJUSTMENT");
+                                    txCtx.put("finAccountId", finAccountId);
+                                    txCtx.put("orderId", orderId);
+                                    txCtx.put("orderItemSeqId", orderItemSeqId);
+                                    txCtx.put("paymentId", paymentId);
+                                    txCtx.put("amount", new Double(refAmt.doubleValue() * -1));
+                                    txCtx.put("partyId", finAccount.getString("ownerPartyId"));
+                                    txCtx.put("userLogin", userLogin);
+
+                                    Map txResp = dispatcher.runSync("createFinAccountTrans", txCtx);
+                                    if (ServiceUtil.isError(txResp)) {
+                                        throw new GeneralException(ServiceUtil.getErrorMessage(txResp));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (GeneralException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                } finally {
+                    if (eli != null) {
+                        try {
+                            eli.close();
+                        } catch (GenericEntityException e) {
+                            Debug.logWarning(e, module);
+                        }
+                    }
+                }
+
+                // check to make sure we balanced out
+                if (remainingBalance.compareTo(FinAccountHelper.ZERO) == 1) {
+                    result = ServiceUtil.returnSuccess("FinAccount partially refunded; not enough replenish deposits to refund!");
+                }
+            }
+        }
+
+        if (result == null) {
+            result = ServiceUtil.returnSuccess();
+        }
+
+        return result;
+    }
 }
