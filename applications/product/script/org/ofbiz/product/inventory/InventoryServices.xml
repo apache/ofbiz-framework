@@ -615,7 +615,8 @@ under the License.
             <!-- sort the list by date -->
             <string-to-list string="reservedDatetime" list-name="orderByList"/>
             <order-value-list list-name="reservations" order-by-list-name="orderByList"/>
-
+            <set field="orderByList[]" value="sequenceId"/>
+            
             <list-to-list list-name="privilegedReservations" to-list-name="allReservations"/>
             <list-to-list list-name="reservations" to-list-name="allReservations"/>
 
@@ -640,6 +641,7 @@ under the License.
                 <set from-field="oisgir.reserveOrderEnumId" field="resMap.reserveOrderEnumId"/>
                 <set field="resMap.requireInventory" value="N"/>
                 <set from-field="oisgir.shipGroupSeqId" field="resMap.shipGroupSeqId"/>
+                <set from-field="oisgir.sequenceId" field="resMap.sequenceId"/>
                 <call-service service-name="reserveProductInventory" in-map-name="resMap"/>
                 <clear-field field-name="resMap"/>
             </iterate>
