@@ -20,6 +20,7 @@
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.order.order.OrderReadHelper;
+import java.math.BigDecimal;
 
 dispatcher = request.getAttribute("dispatcher");
 delegator = request.getAttribute("delegator");
