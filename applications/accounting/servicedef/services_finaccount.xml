@@ -151,6 +151,11 @@ under the License.
         <attribute name="processResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="referenceNum" type="String" mode="OUT" optional="false"/>
     </service>
+    <service name="finAccountRefund" engine="java"
+            location="org.ofbiz.accounting.finaccount.FinAccountServices" invoke="refundFinAccount" auth="true">
+        <description>Refunds the deposits to a financial account back to the source</description>
+        <attribute name="finAccountId" type="String" mode="IN" optional="false"/> 
+    </service>
     <service name="finAccountReplenish" engine="java"
             location="org.ofbiz.accounting.finaccount.FinAccountPaymentServices" invoke="finAccountReplenish" auth="true">
         <description>Auto-replenish a financial account</description>

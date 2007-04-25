@@ -105,7 +105,7 @@ under the License.
     </eca>
     
     <!-- financial account transaction ecas -->
-    <eca service="finAccountWithdraw" event="return">
+    <eca service="finAccountWithdraw" event="return" run-on-error="true">
         <condition field-name="productStoreId" operator="is-not-empty"/>
         <action service="finAccountReplenish" mode="async" run-as-user="system"/>
     </eca>    

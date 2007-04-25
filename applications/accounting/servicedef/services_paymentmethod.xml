@@ -332,7 +332,7 @@ under the License.
         <attribute name="internalRespMsgs" type="List" mode="IN" optional="true"/>
     </service>
 
-    <service name="processPaymentServiceError" engine="java" require-new-transaction="true"
+    <service name="processPaymentServiceError" engine="java" require-new-transaction="true" max-retry="5"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="storePaymentErrorMessage" auth="true">
         <description>Process (store) error messages from payment service failures</description>
         <attribute name="paymentServiceTypeEnumId" type="String" mode="IN" optional="false"/>
