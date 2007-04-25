@@ -1905,6 +1905,7 @@ under the License.
         <field name="orderSequenceEnumId" type="id-ne"/>
         <field name="orderIdPrefix" type="very-short"/>
         <field name="lastOrderNumber" type="numeric"/>
+        <field name="refundPaymentMethodId" type="id"/>
         <prim-key field="partyId"/>
         <relation type="one" rel-entity-name="Party" fk-name="ACTG_PREF_PTY">
             <key-map field-name="partyId"/>
@@ -1926,6 +1927,9 @@ under the License.
         </relation>
         <relation type="one" fk-name="ACTGPREF_ODRSQ" title="OrderSequence" rel-entity-name="Enumeration">
             <key-map field-name="orderSequenceEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" rel-entity-name="PaymentMethod">
+            <key-map field-name="refundPaymentMethodId" rel-field-name="paymentMethodId"/>
         </relation>
     </entity>
     <entity entity-name="ProductAverageCost"
