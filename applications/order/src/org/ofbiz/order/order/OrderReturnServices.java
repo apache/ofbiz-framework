@@ -845,6 +845,27 @@ public class OrderReturnServices {
                 }
                 OrderReadHelper orderReadHelper = new OrderReadHelper(delegator, orderId);
 
+                // Determine the fall-through refund paymentMethodId from the PartyAcctgPreference of the owner of the productStore for the order
+                GenericValue refundPaymentMethod = null;
+                GenericValue productStore = orderReadHelper.getProductStore();
+                if (UtilValidate.isEmpty(productStore) || UtilValidate.isEmpty(productStore.get("payToPartyId"))) {
+                    Debug.logError("No payToPartyId found for orderId " + orderId, module);    
+                } else {
+                    GenericValue orgAcctgPref = null;
+                    try {
+                        orgAcctgPref = delegator.findByPrimaryKeyCache("PartyAcctgPreference", UtilMisc.toMap("partyId", productStore.get("payToPartyId")));
+                    } catch( GenericEntityException e ) {
+                        Debug.logError("Error retrieving PartyAcctgPreference for partyId " + productStore.get("payToPartyId"), module);    
+                    }
+                    if (UtilValidate.isNotEmpty(orgAcctgPref)) {
+                        try {
+                            refundPaymentMethod = orgAcctgPref.getRelatedOne("PaymentMethod");
+                        } catch( GenericEntityException e ) {
+                            Debug.logError("Error retrieving related refundPaymentMethod from PartyAcctgPreference for partyId " + productStore.get("payToPartyId"), module);    
+                        }
+                    }
+                }
+
                 // now; for all timestamps
                 Timestamp now = UtilDateTime.nowTimestamp();
 
@@ -1039,6 +1060,13 @@ public class OrderReturnServices {
                         input.put("partyIdTo", returnHeader.get("fromPartyId"));
                         input.put("partyIdFrom", returnHeader.get("toPartyId"));
                         input.put("paymentTypeId", "CUSTOMER_REFUND");
+                        if (UtilValidate.isNotEmpty(refundPaymentMethod)) {
+                            input.put("paymentMethodId", refundPaymentMethod.get("paymentMethodId"));
+                            input.put("paymentMethodTypeId", refundPaymentMethod.get("paymentMethodTypeId"));
+                        } else {
+                            Debug.logInfo("refundPaymentMethodId not configured in PartyAcctgPreference, not setting for remaining refund amount", module);
+                        }
+                        
                         Map results = dispatcher.runSync("createPayment", input);
                         if (ServiceUtil.isError(results)) return results;
 
