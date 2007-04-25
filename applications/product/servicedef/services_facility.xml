@@ -212,6 +212,7 @@ under the License.
         <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="false"/>
+        <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
         <attribute name="quantityNotReserved" type="Double" mode="OUT" optional="false"/>
     </service>
     <service name="reserveProductInventoryByFacility" engine="simple"
@@ -229,6 +230,7 @@ under the License.
         <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
+        <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
         <attribute name="quantityNotReserved" type="Double" mode="OUT" optional="false"/>
     </service>
     <service name="reserveProductInventoryByContainer" engine="simple"
@@ -246,6 +248,7 @@ under the License.
         <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
+        <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
         <attribute name="quantityNotReserved" type="Double" mode="OUT" optional="false"/>
     </service>
     <service name="reserveOrderItemInventory" engine="simple"
