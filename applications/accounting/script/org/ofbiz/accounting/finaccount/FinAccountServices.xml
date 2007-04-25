@@ -32,6 +32,13 @@ under the License.
             <set from-field="finAccountId" field="newEntity.finAccountId"/>
         </if-empty>
 
+        <!-- set the currency if none is already set -->
+        <if-empty field-name="newEntity.currencyUomId">
+            
+            <property-to-field resource="general" property="currency.uom.id.default" field-name="defaultCurrency"/>
+            <set field="newEntity.currencyUomId" from-field="defaultCurrency"/>  
+        </if-empty>
+
         <!-- set the refundable flag from the type; if not set -->
         <if-empty field-name="newEntity.isRefundable">
             <entity-one entity-name="FinAccountType" value-name="finAccountType">
