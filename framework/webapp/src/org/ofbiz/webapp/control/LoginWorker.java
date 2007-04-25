@@ -19,6 +19,8 @@
 package org.ofbiz.webapp.control;
 
 import java.util.*;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import java.security.cert.X509Certificate;
 import java.math.BigInteger;
 
@@ -33,7 +35,6 @@ import javax.transaction.Transaction;
 import javax.security.auth.x500.X500Principal;
 
 import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.util.*;
@@ -520,59 +521,74 @@ public class LoginWorker {
         return "success";
     }
 
+    // preprocessor method to login a user w/ client certificate see security.properties to configure the pattern of CN
     public static String check509CertLogin(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        HttpSession session = request.getSession();
-        GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
-        if (currentUserLogin != null) {
-            String hasLoggedOut = currentUserLogin.getString("hasLoggedOut");
-            if (hasLoggedOut != null && "Y".equals(hasLoggedOut)) {
-                currentUserLogin = null;
-            }
-        }
-
-        if (currentUserLogin == null) {
-            X509Certificate[] clientCerts = (X509Certificate[]) request.getAttribute("javax.servlet.request.X509Certificate"); // 2.2 spec
-            if (clientCerts == null) {
-                clientCerts = (X509Certificate[]) request.getAttribute("javax.net.ssl.peer_certificates"); // 2.1 spec
+        boolean doCheck = "true".equalsIgnoreCase(UtilProperties.getPropertyValue("security.properties", "security.login.cert.allow", "true"));
+        if (doCheck) {
+            GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+            HttpSession session = request.getSession();
+            GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
+            if (currentUserLogin != null) {
+                String hasLoggedOut = currentUserLogin.getString("hasLoggedOut");
+                if (hasLoggedOut != null && "Y".equals(hasLoggedOut)) {
+                    currentUserLogin = null;
+                }
             }
 
-            if (clientCerts != null) {
-                String userLoginId = null;
+            String cnPattern = UtilProperties.getPropertyValue("security.properties", "security.login.cert.pattern", "(.*)");
+            Pattern pattern = Pattern.compile(cnPattern);
+            Debug.log("CN Pattern: " + cnPattern, module);
 
-                for (int i = 0; i < clientCerts.length; i++) {
-                    X500Principal x500 = clientCerts[i].getSubjectX500Principal();
-                    Debug.log("Checking client certification for authentication: " + x500.getName(), module);
-                    
-                    Map x500Map = KeyStoreUtil.getCertX500Map(clientCerts[i]);
-                    if (i == 0) {
-                        userLoginId = (String) x500Map.get("CN");
-                    }
+            if (currentUserLogin == null) {
+                X509Certificate[] clientCerts = (X509Certificate[]) request.getAttribute("javax.servlet.request.X509Certificate"); // 2.2 spec
+                if (clientCerts == null) {
+                    clientCerts = (X509Certificate[]) request.getAttribute("javax.net.ssl.peer_certificates"); // 2.1 spec
+                }
 
-                    try {
-                        // check for a valid issuer (or generated cert data)
-                        if (LoginWorker.checkValidIssuer(delegator, x500Map, clientCerts[i].getSerialNumber())) {
-                            Debug.log("Looking up userLogin from CN: " + userLoginId, module);
-                            
-                            // CN should match the userLoginId
-                            GenericValue userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
-                            if (userLogin != null) {
-                                String enabled = userLogin.getString("enabled");
-                                if (enabled == null || "Y".equals(enabled)) {
-                                    userLogin.set("hasLoggedOut", "N");
-                                    userLogin.store();
+                if (clientCerts != null) {
+                    String userLoginId = null;
 
-                                    // login the user
-                                    Map ulSessionMap = LoginServices.getUserLoginSession(userLogin);
-                                    return doMainLogin(request, response, userLogin, ulSessionMap); // doing the main login
-                                }
+                    for (int i = 0; i < clientCerts.length; i++) {
+                        X500Principal x500 = clientCerts[i].getSubjectX500Principal();
+                        Debug.log("Checking client certification for authentication: " + x500.getName(), module);
+
+                        Map x500Map = KeyStoreUtil.getCertX500Map(clientCerts[i]);
+                        if (i == 0) {
+                            String cn = (String) x500Map.get("CN");
+                            cn = cn.replaceAll("\\\\", "");
+                            Matcher m = pattern.matcher(cn);
+                            if (m.matches()) {
+                                userLoginId = m.group(1);
+                            } else {
+                                Debug.log("Client certificate CN does not match pattern: [" + cnPattern + "]", module);
                             }
                         }
-                    } catch (GeneralException e) {
-                        Debug.logError(e, module);
+
+                        try {
+                            // check for a valid issuer (or generated cert data)
+                            if (LoginWorker.checkValidIssuer(delegator, x500Map, clientCerts[i].getSerialNumber())) {
+                                Debug.log("Looking up userLogin from CN: " + userLoginId, module);
+
+                                // CN should match the userLoginId
+                                GenericValue userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
+                                if (userLogin != null) {
+                                    String enabled = userLogin.getString("enabled");
+                                    if (enabled == null || "Y".equals(enabled)) {
+                                        userLogin.set("hasLoggedOut", "N");
+                                        userLogin.store();
+
+                                        // login the user
+                                        Map ulSessionMap = LoginServices.getUserLoginSession(userLogin);
+                                        return doMainLogin(request, response, userLogin, ulSessionMap); // doing the main login
+                                    }
+                                }
+                            }
+                        } catch (GeneralException e) {
+                            Debug.logError(e, module);
+                        }
                     }
                 }
-            }            
+            }
         }
 
         return "success";

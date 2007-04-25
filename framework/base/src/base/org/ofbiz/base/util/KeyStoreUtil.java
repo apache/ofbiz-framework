@@ -95,7 +95,7 @@ public class KeyStoreUtil {
 
         String[] x500Opts = x500.getName().split("\\,");
         for (int x = 0; x < x500Opts.length; x++) {
-            String[] nv = x500Opts[x].split("\\=");
+            String[] nv = x500Opts[x].split("\\=", 2);
             x500Map.put(nv[0], nv[1]);
         }
 
