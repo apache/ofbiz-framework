@@ -151,7 +151,7 @@ under the License.
                 <if-not-empty field-name="returnItem.orderId">
                     <set field="returnTotalCtx.orderId" from-field="returnItem.orderId"/>
                     <!-- no adjustment needed: adjustment is passed in to calculate the effect of an additional item on return total.  -->
-                    <calculate field-name="returnTotalCtx.adjustment"><number value="0.0"/></calculate>
+                    <calculate field-name="returnTotalCtx.adjustment" type="BigDecimal"><number value="0.0"/></calculate>
                     <call-service service-name="getOrderAvailableReturnedTotal" in-map-name="returnTotalCtx">
                         <result-to-field result-name="availableReturnTotal" field-name="availableReturnTotal"/>
                         <result-to-field result-name="returnTotal" field-name="returnTotal"/>
