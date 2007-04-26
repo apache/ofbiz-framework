@@ -27,6 +27,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.math.BigDecimal;
 
 import org.ofbiz.base.util.Debug;
@@ -51,6 +53,9 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 /**
  * Services for Production Run maintenance
@@ -2484,6 +2489,110 @@ public class ProductionRunServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         result.put("inventoryItemIds", inventoryItemIds);
+        return result;
+    }
+    
+    public static Map setEstimatedDeliveryDates(DispatchContext ctx, Map context) {
+        Map result = new HashMap();
+        GenericDelegator delegator = ctx.getDelegator();
+        Timestamp now = UtilDateTime.nowTimestamp();
+        
+        Map products = FastMap.newInstance();
+
+        try {
+            List resultList = delegator.findByAnd("WorkEffortAndGoods", UtilMisc.toMap("workEffortGoodStdTypeId", "PRUN_PROD_DELIV",
+                                                                                  "statusId", "WEGS_CREATED",
+                                                                                  "workEffortTypeId", "PROD_ORDER_HEADER"));
+            Iterator iteratorResult = resultList.iterator();
+            while (iteratorResult.hasNext()) {
+                GenericValue genericResult = (GenericValue) iteratorResult.next();
+                if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId")) ||
+                    "PRUN_CREATED".equals(genericResult.getString("currentStatusId"))) {
+                    continue;
+                }
+                Double qtyToProduce = genericResult.getDouble("quantityToProduce");
+                if (qtyToProduce == null) {
+                    qtyToProduce = new Double(0);
+                }
+                Double qtyProduced = genericResult.getDouble("quantityProduced");
+                if (qtyProduced == null) {
+                    qtyProduced = new Double(0);
+                }
+                if (qtyProduced.compareTo(qtyToProduce) >= 0) {
+                    continue;
+                }
+                double qtyDiff = qtyToProduce.doubleValue() - qtyProduced.doubleValue();
+                String productId =  genericResult.getString("productId");
+                Timestamp estimatedShipDate = genericResult.getTimestamp("estimatedCompletionDate");
+                if (estimatedShipDate == null) {
+                    estimatedShipDate = now;
+                }
+                if (!products.containsKey(productId)) {
+                    products.put("productId", new TreeMap());
+                }
+                TreeMap productMap = (TreeMap)products.get(productId);
+                if (!productMap.containsKey(estimatedShipDate)) {
+                    productMap.put(estimatedShipDate, UtilMisc.toMap("remainingQty", new Double(0.0), "reservations", FastList.newInstance()));
+                }
+                Map dateMap = (Map)productMap.get(estimatedShipDate);
+                Double remainingQty = (Double)productMap.get("remainingQty");
+                //List reservations = (List)productMap.get("reservations");
+                remainingQty = new Double(remainingQty.doubleValue() + qtyDiff);
+            }
+
+            // backorders
+            List backordersCondList = FastList.newInstance();
+            backordersCondList.add(new EntityExpr("quantityNotAvailable", EntityOperator.NOT_EQUAL, null));
+            backordersCondList.add(new EntityExpr("quantityNotAvailable", EntityOperator.GREATER_THAN, new Double(0.0)));
+            backordersCondList.add(new EntityExpr(new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_CREATED"), EntityOperator.OR, new EntityExpr("statusId", EntityOperator.LESS_THAN, "ITEM_APPROVED")));
+
+            List backorders = delegator.findByCondition("OrderItemAndShipGrpInvResAndItem", new EntityConditionList(backordersCondList, EntityOperator.AND), null, UtilMisc.toList("shipBeforeDate"));
+            Iterator backordersIt = resultList.iterator();
+            while (backordersIt.hasNext()) {
+                GenericValue genericResult = (GenericValue) backordersIt.next();
+                String productId = genericResult.getString("productId");
+                Timestamp requiredByDate = genericResult.getTimestamp("shipBeforeDate");
+                Double quantityNotAvailable = genericResult.getDouble("quantityNotAvailable");
+                double quantityNotAvailableRem = quantityNotAvailable.doubleValue();
+                if (requiredByDate == null) {
+                    // TODO: what happens if requiredByDate is null?
+                    continue;
+                }
+                if (!products.containsKey(productId)) {
+                    continue;
+                }
+                TreeMap productMap = (TreeMap)products.get(productId);
+                SortedMap subsetMap = productMap.headMap(requiredByDate);
+                // iterate and 'reserve'
+                Iterator subsetMapKeysIt = subsetMap.keySet().iterator();
+                while (subsetMapKeysIt.hasNext()) {
+                    Timestamp currentDate = (Timestamp)subsetMapKeysIt.next();
+                    Map currentDateMap = (Map) subsetMap.get(currentDate);
+                    //List reservations = (List)currentDateMap.get("reservations");
+                    Double remainingQty = (Double)currentDateMap.get("remainingQty");
+                    if (remainingQty.doubleValue() == 0) {
+                        continue;
+                    }
+                    if (remainingQty.doubleValue() >= quantityNotAvailableRem) {
+                        remainingQty = new Double(remainingQty.doubleValue() - quantityNotAvailableRem);
+                        GenericValue orderItemShipGrpInvRes = delegator.findByPrimaryKey("OrderItemShipGrpInvRes", UtilMisc.toMap("orderId", genericResult.getString("orderId"),
+                                                                                                                                  "shipGroupSeqId", genericResult.getString("shipGroupSeqId"),
+                                                                                                                                  "orderItemSeqId", genericResult.getString("orderItemSeqId"),
+                                                                                                                                  "inventoryItemId", genericResult.getString("inventoryItemId")));
+                        orderItemShipGrpInvRes.set("promisedDatetime", currentDate);
+                        orderItemShipGrpInvRes.store();
+                        // Todo: set the reservation
+                        break;
+                    } else {
+                        quantityNotAvailableRem = quantityNotAvailableRem - remainingQty.doubleValue();
+                        remainingQty = new Double(0.0);
+                    }
+                }
+            }
+        } catch(GenericEntityException e) {
+            Debug.logError(e, "Error", module);
+            return ServiceUtil.returnError("Problem running the setEstimatedDeliveryDates service");
+        }
         return result;
     }
 }
