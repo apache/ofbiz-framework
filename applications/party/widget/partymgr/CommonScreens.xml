@@ -165,6 +165,7 @@ under the License.
                                 </container>
                                 <container style="button-bar">
                                     <link target="EditSecurityGroup" style="smallSubmit" text="${uiLabelMap.PartyNewSecurityGroup}"/>
+                                    <link target="EditCertIssuerProvisions" style="smallSubmit" text="Cert Issuers"/>
                                 </container>
                                 
                                 <decorator-section-include name="body"/>

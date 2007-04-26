@@ -500,6 +500,21 @@ under the License.
         <response name="error" type="view" value="EditSecurityGroupUserLogins"/>
     </request-map>
 
+    <request-map uri="EditCertIssuerProvisions">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CertIssuerProvisions"/> 
+    </request-map>
+    <request-map uri="ViewCertificate">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewCertificate"/>
+    </request-map>
+    <request-map uri="importIssuerProvision">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="importIssuerProvision"/>
+        <response name="success" type="view" value="CertIssuerProvisions"/>
+        <response name="error" type="view" value="ViewCertificate"/>
+    </request-map>
+
     <request-map uri="AddPartyNote"><security https="true" auth="true"/><response name="success" type="view" value="AddPartyNote"/></request-map>
     <request-map uri="createPartyNote">
         <security https="true" auth="true"/>
@@ -951,6 +966,9 @@ under the License.
     <view-map name="EditSecurityGroup" type="screen" page="component://party/widget/partymgr/SecurityScreens.xml#EditSecurityGroup"/>
     <view-map name="EditSecurityGroupPermissions" type="screen" page="component://party/widget/partymgr/SecurityScreens.xml#EditSecurityGroupPermissions"/>
     <view-map name="EditSecurityGroupUserLogins" type="screen" page="component://party/widget/partymgr/SecurityScreens.xml#EditSecurityGroupUserLogins"/>
+
+    <view-map name="CertIssuerProvisions" type="screen" page="component://party/widget/partymgr/SecurityScreens.xml#EditX509IssuerProvisions"/>
+    <view-map name="ViewCertificate" type="screen" page="component://party/widget/partymgr/SecurityScreens.xml#ViewCertificate"/>
 
     <view-map name="showvisits" type="screen" page="component://party/widget/partymgr/VisitScreens.xml#showvisits"/>
     <view-map name="visitdetail" type="screen" page="component://party/widget/partymgr/VisitScreens.xml#visitdetail"/>
