@@ -147,4 +147,19 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
+    <form name="CertIssuerList" type="list" list-name="issuerProvisions">
+        <actions>
+            <entity-condition entity-name="X509IssuerProvision">
+                <order-by field-name="commonName"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-entity entity-name="X509IssuerProvision" default-field-type="display"/>
+    </form>
+
+    <form name="ViewCertificate" type="single" target="ViewCertificate">
+        <field name="certString">
+            <textarea rows="10"/>
+        </field>
+        <field name="View Cert"><submit/></field>
+    </form>
 </forms>
