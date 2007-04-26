@@ -65,6 +65,9 @@ under the License.
                                     <condition><not><if-empty field-name="contactListId"/></not></condition>
                                     <widgets>
                                         <include-menu name="ContactListTabBar" location="component://marketing/webapp/marketing/contact/ContactListMenus.xml"/>
+                                        <container>
+                                            <label style="head1">Contact List ${contactList.contactListName} [ID:${contactListId}]</label>
+                                        </container>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
