@@ -959,8 +959,9 @@ public class OrderReturnServices {
                                 try {
                                     // for electronic types such as CREDIT_CARD and EFT_ACCOUNT, use refundPayment service
                                     serviceResult = dispatcher.runSync("refundPayment", UtilMisc.toMap("orderPaymentPreference", orderPaymentPreference, "refundAmount", new Double(amountToRefund.setScale(decimals, rounding).doubleValue()), "userLogin", userLogin));
-                                    if (ServiceUtil.isError(serviceResult)) {
-                                        return ServiceUtil.returnError("Error in refund payment", null, null, serviceResult);
+                                    if (ServiceUtil.isError(serviceResult) || ServiceUtil.isFailure(serviceResult)) {
+                                        Debug.logError("Error in refund payment: " + ServiceUtil.getErrorMessage(serviceResult), module);
+                                        continue;
                                     }
                                     paymentId = (String) serviceResult.get("paymentId");
                                 } catch (GenericServiceException e) {
@@ -971,8 +972,9 @@ public class OrderReturnServices {
                                 try {
                                     // for Billing Account refunds
                                     serviceResult = dispatcher.runSync("refundBillingAccountPayment", UtilMisc.toMap("orderPaymentPreference", orderPaymentPreference, "refundAmount", new Double(amountToRefund.setScale(decimals, rounding).doubleValue()), "userLogin", userLogin));
-                                    if (ServiceUtil.isError(serviceResult)) {
-                                        return ServiceUtil.returnError("Error in refund payment", null, null, serviceResult);
+                                    if (ServiceUtil.isError(serviceResult) || ServiceUtil.isFailure(serviceResult)) {
+                                        Debug.logError("Error in refund payment: " + ServiceUtil.getErrorMessage(serviceResult), module);
+                                        continue;
                                     }
                                     paymentId = (String) serviceResult.get("paymentId");
                                 } catch (GenericServiceException e) {

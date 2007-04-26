@@ -2115,7 +2115,7 @@ public class PaymentGatewayServices {
                     result.put("paymentId", paymentId);
                     return result;
                 } else {
-                    return ServiceUtil.returnError("The refund failed");
+                    return ServiceUtil.returnFailure("The refund failed");
                 }
             } else {
                 return ServiceUtil.returnError("No refund service defined");
