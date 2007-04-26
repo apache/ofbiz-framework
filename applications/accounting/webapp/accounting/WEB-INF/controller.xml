@@ -184,6 +184,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="invoiceOverview"/>
     </request-map>
+    <request-map uri="newInvoice">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="newInvoice"/>
+    </request-map> 
     <request-map uri="editInvoice">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="editInvoice"/>
@@ -191,8 +195,8 @@ under the License.
     <request-map uri="createInvoice">
         <security https="true" auth="true"/>
         <event type="service" invoke="createInvoice"/>
-        <response name="success" type="view" value="listInvoiceItems"/>
-        <response name="error" type="view" value="editInvoice"/>
+        <response name="success" type="request" value="editInvoice"/>
+        <response name="error" type="view" value="newInvoice"/>
     </request-map>
     <request-map uri="copyInvoice">
         <security https="true" auth="true"/>
@@ -1332,6 +1336,7 @@ under the License.
     <!-- Invoice -->
     <view-map name="invoiceOverview" type="screen" page="component://accounting/widget/InvoiceScreens.xml#invoiceOverview"/>
     <view-map name="findInvoices" type="screen" page="component://accounting/widget/InvoiceScreens.xml#FindInvoices"/>
+    <view-map name="newInvoice" type="screen" page="component://accounting/widget/InvoiceScreens.xml#NewInvoice"/>
     <view-map name="editInvoice" type="screen" page="component://accounting/widget/InvoiceScreens.xml#EditInvoice"/>
     <view-map name="listInvoiceItems" type="screen" page="component://accounting/widget/InvoiceScreens.xml#EditInvoiceItems"/>
     <view-map name="editInvoiceItem" type="screen" page="component://accounting/widget/InvoiceScreens.xml#EditInvoiceItem"/>

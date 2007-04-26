@@ -21,7 +21,7 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
     
-    <menu name="InvoiceTabBar" default-menu-item-name="overview"> 
+    <menu name="InvoiceTabBar" menu-container-style="button-bar button-style-1" default-selected-style="selected"> 
         <menu-item name="find" title="${uiLabelMap.CommonFind}" >
             <condition>
                 <if-compare field-name="tabButtonItem" operator="not-equals" value="find"/>
@@ -106,13 +106,10 @@ under the License.
             <link target="sendPerEmail?invoiceId=${invoice.invoiceId}"/>
         </menu-item>
     </menu>
-    <menu name="InvoiceSubTabBar" default-title-style="buttontext"> 
+    <menu name="InvoiceSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">  
         
-        <menu-item name="createNew" title="${uiLabelMap.CommonCreateNew}">
-            <condition>
-                <not><if-empty field-name="invoice.invoiceId"/></not>
-            </condition>
-            <link target="editInvoice"/>
+        <menu-item name="createNew" title="${uiLabelMap.CommonCreateNew}" >
+            <link target="newInvoice"/>
         </menu-item>
         <menu-item name="copyInvoice" title="${uiLabelMap.CommonCopy}">
             <condition>
@@ -232,7 +229,7 @@ under the License.
         
     </menu>
 
-    <menu name="PaymentTabBar" default-menu-item-name="overview"> 
+    <menu name="PaymentTabBar" menu-container-style="button-bar button-style-1" default-selected-style="selected">  
         <menu-item name="find" title="${uiLabelMap.CommonFind}" >
             <condition>
                 <if-compare field-name="tabButtonItem" operator="not-equals" value="find"/>
@@ -272,7 +269,7 @@ under the License.
         </menu-item>
     </menu>  
           
-    <menu name="PaymentSubTabBar" default-title-style="buttontext">
+    <menu name="PaymentSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected"> 
         <actions>
             <set field="isDisbursement" value="${bsh:org.ofbiz.accounting.util.UtilAccounting.isDisbursement(payment)}"/>
         </actions> 

@@ -22,7 +22,7 @@ under the License.
     xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     <!-- Invoice forms -->
     <form name="FindInvoices" type="single" target="findInvoices" title="Find and list invoices">
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="noConditionFind"><hidden value="Y"/></field> 
         <field name="hideSearch"><hidden value="Y"/></field>
         <field name="invoiceId"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="description"><text-find default-option="contains" ignore-case="true"/></field>
@@ -180,6 +180,51 @@ under the License.
         <field name="paymentId"><hidden/></field>
     </form>
     
+    <form name="NewSalesInvoice" type="single" target="createInvoice" title="Edit Invoice Header" default-map-name="invoice">
+        <field name="statusId"><hidden value="INVOICE_IN_PROCESS"/></field>
+        <field position="2" name="invoiceTypeId">
+            <drop-down allow-empty="false" no-current-selected-key="SALES_INVOICE">
+                <entity-options description="${description}" entity-name="InvoiceType">
+                    <entity-constraint name="parentTypeId" value="SALES_INVOICE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field> 
+        <field position="1" name="organizationPartyId" parameter-name="partyIdFrom">
+            <drop-down allow-empty="false">
+                <entity-options description="${partyId}" entity-name="PartyAcctgPreference" key-field-name="partyId">
+                    <entity-order-by field-name="partyId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field position="2" name="partyIdTo" parameter-name="partyId" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field position="1" name="createButton" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="NewPurchaseInvoice" type="single" target="createInvoice" title="Edit Invoice Header" default-map-name="invoice">
+        <field name="statusId"><hidden value="INVOICE_IN_PROCESS"/></field>
+        <field position="2" name="invoiceTypeId">
+            <drop-down allow-empty="false" no-current-selected-key="PURCHASE_INVOICE">
+                <entity-options description="${description}" entity-name="InvoiceType">
+                    <entity-constraint name="parentTypeId" value="PURCHASE_INVOICE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field> 
+        <field position="1" name="organizationPartyId" parameter-name="partyId">
+            <drop-down allow-empty="false">
+                <entity-options description="${partyId}" entity-name="PartyAcctgPreference" key-field-name="partyId">
+                    <entity-order-by field-name="partyId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field position="2" name="partyIdFrom" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field position="1" name="createButton" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
     <form name="EditInvoice" type="single" target="updateInvoice" title="Edit Invoice Header" default-map-name="invoice">
         <alt-target use-when="invoice==null" target="createInvoice"/>
         <field name="invoiceId"><hidden/></field>
@@ -187,7 +232,7 @@ under the License.
         <field position="2" name="dueDate"><date-time/></field>
         <field position="1" name="invoiceTypeId" use-when="invoice!=null"><display-entity entity-name="InvoiceType" description="${description}"/></field>
         <field position="1" name="invoiceTypeId" use-when="invoice==null">
-                <drop-down allow-empty="false" no-current-selected-key="SALES_INVOICE">
+            <drop-down allow-empty="false" no-current-selected-key="SALES_INVOICE">
                 <entity-options description="${description}" entity-name="InvoiceType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -196,8 +241,10 @@ under the License.
         <field name="statusId" use-when="invoice==null"><hidden value="INVOICE_IN_PROCESS"/></field>
         <field position="2" name="statusId" use-when="invoice!=null"><display-entity entity-name="StatusItem"/></field>
         <field position="1" name="description"><text size="100"/></field>
-        <field position="1" name="partyIdFrom"><lookup target-form-name="LookupPartyName"/></field>
-        <field position="2" name="partyIdTo" entry-name="partyId" parameter-name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field position="1" name="partyIdFrom" use-when="invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;SALES_INVOICE&quot;)"><display description="${invoice.partyIdFrom}"/></field>
+        <field position="1" name="partyIdFrom" use-when="invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;PURCHASE_INVOICE&quot;)"><lookup target-form-name="LookupPartyName"/></field>
+        <field position="1" name="partyIdTo" entry-name="partyId" parameter-name="partyId" use-when="invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;PURCHASE_INVOICE&quot;)"><display description="${invoice.partyId}"/></field>
+        <field position="1" name="partyIdTo" entry-name="partyId" parameter-name="partyId" use-when="invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;SALES_INVOICE&quot;)"><lookup target-form-name="LookupPartyName"/></field>
         <field position="1" name="roleTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="RoleType">
@@ -216,10 +263,7 @@ under the License.
         </field>
         <field position="1" name="invoiceMessage"><text size="100"/></field>
         <!--field position="2" name="invoiceAmount" use-when="invoiceId!=null"><display/></field-->
-        <field position="1" use-when="invoice==null" name="createButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit">
-            <submit button-type="button"/>
-        </field>
-        <field position="1" use-when="invoice!=null" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+        <field position="1" name="updateButton" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
