@@ -33,10 +33,33 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><link target="editInvoice" text="${uiLabelMap.AccountingCreateNewInvoice}" style="buttontext"/></container>                        
+                        <include-menu name="InvoiceSubTabBar" location="component://accounting/widget/Menus.xml"/>
                         <container><label style="head1" text="${uiLabelMap.AccountingFindInvoices}"/></container>
                         <include-form name="FindInvoices" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                         <include-form name="ListInvoices"  location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="NewInvoice">
+        <section>
+            <actions>
+                <set field="title" value="New Invoice"/>
+                <set field="titleProperty" value="PageTitleEditInvoice"/>
+                <entity-one entity-name="Invoice" value-name="invoice"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonInvoiceDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <label style="head1" text="${uiLabelMap.AccountingCreateNewSalesInvoice}"></label>
+                                <include-form name="NewSalesInvoice" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                <label style="head1" text="${uiLabelMap.AccountingCreateNewPurchaseInvoice}"/>
+                                <include-form name="NewPurchaseInvoice" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -51,13 +74,15 @@ under the License.
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
                 <entity-one entity-name="Invoice" value-name="invoice"/>
+                <entity-one entity-name="InvoiceType" value-name="invoiceType">
+                    <field-map field-name="invoiceTypeId" env-name="invoice.invoiceTypeId"/>
+                </entity-one>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <label style="head1" text="${uiLabelMap.AccountingInvoiceHeaderDetailedInformation}"/>
                                 <include-form name="EditInvoice" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                             </widgets>
                         </section>
