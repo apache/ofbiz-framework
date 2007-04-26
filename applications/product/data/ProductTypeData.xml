@@ -162,7 +162,9 @@ under the License.
     <ProductAssocType description="Product Variant" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_VARIANT"/>
     <ProductAssocType description="Unique Item" hasTable="N" parentTypeId="" productAssocTypeId="UNIQUE_ITEM"/>
     <ProductAssocType description="Accessory" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_ACCESSORY"/>
-
+    <ProductAssocType description="Refurbished Equivalent" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_REFURB"/>
+    <ProductAssocType description="Repair Service" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_REPAIR_SRV"/>
+    
     <ProductAssocType description="Revision" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_REVISION"/>
     <ProductAssocType description="Manufacturing Bill of Materials" hasTable="N" parentTypeId="PRODUCT_COMPONENT" productAssocTypeId="MANUF_COMPONENT"/>
     <ProductAssocType description="Engineering Bill of Materials" hasTable="N" parentTypeId="PRODUCT_COMPONENT" productAssocTypeId="ENGINEER_COMPONENT"/>

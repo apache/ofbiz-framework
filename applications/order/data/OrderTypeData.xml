@@ -262,9 +262,10 @@ under the License.
     <!-- Return Types -->
     <ReturnType sequenceId="01" returnTypeId="RTN_CREDIT" description="Store Credit"/>
     <ReturnType sequenceId="02" returnTypeId="RTN_REFUND" description="Refund"/>
-    <ReturnType sequenceId="03" returnTypeId="RTN_REPLACE" description="Replacement"/>
+    <ReturnType sequenceId="03" returnTypeId="RTN_REPLACE" description="Wait Replacement"/>
     <ReturnType sequenceId="04" returnTypeId="RTN_CSREPLACE" description="Cross-Ship Replacement"/>
-
+    <ReturnType sequenceId="05" returnTypeId="RTN_REPAIR_REPLACE" description="Repair Replacement"/>
+    
     <WorkReqFulfType description="Implements" workReqFulfTypeId="WRF_IMPLEMENTS"/>
     <WorkReqFulfType description="Fixes" workReqFulfTypeId="WRF_FIXES"/>
     <WorkReqFulfType description="Deploys" workReqFulfTypeId="WRF_DEPLOYS"/>
