@@ -31,6 +31,8 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Collection;
 import java.util.Map;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 import javolution.util.FastMap;
 
@@ -53,7 +55,7 @@ public class KeyStoreUtil {
 
     public static KeyStore getComponentKeyStore(String componentName, String keyStoreName) throws IOException, GeneralSecurityException, GenericConfigException {
         ComponentConfig.KeystoreInfo ks = ComponentConfig.getKeystoreInfo(componentName, keyStoreName);
-        return getStore(ks.createResourceHandler().getURL(), ks.getType(), ks.getPassword());
+        return getStore(ks.createResourceHandler().getURL(), ks.getPassword(), ks.getType());
     }
 
     public static KeyStore getStore(URL url, String password) throws IOException, GeneralSecurityException {
@@ -92,11 +94,14 @@ public class KeyStoreUtil {
     public static Map getCertX500Map(X509Certificate cert) {
         X500Principal x500 = cert.getSubjectX500Principal();
         Map x500Map = FastMap.newInstance();
-
-        String[] x500Opts = x500.getName().split("\\,");
+        
+        String name = x500.getName().replaceAll("\\\\,", "&com;");
+        String[] x500Opts = name.split("\\,");
         for (int x = 0; x < x500Opts.length; x++) {
-            String[] nv = x500Opts[x].split("\\=", 2);
-            x500Map.put(nv[0], nv[1]);
+            if (x500Opts[x].indexOf("=") > -1) {
+                String[] nv = x500Opts[x].split("\\=", 2);                
+                x500Map.put(nv[0].replaceAll("&com;", ","), nv[1].replaceAll("&com;", ","));
+            }
         }
 
         return x500Map;
