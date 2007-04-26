@@ -106,6 +106,22 @@ public class FinAccountServices {
                     if (UtilValidate.isNotEmpty(creditAccountId)) {
                         creditAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", creditAccountId));
 
+                        // create the owner role
+                        Map roleCtx = FastMap.newInstance();
+                        roleCtx.put("partyId", partyId);
+                        roleCtx.put("roleTypeId", "OWNER");
+                        roleCtx.put("finAccountId", finAccountId);
+                        roleCtx.put("userLogin", userLogin);
+                        roleCtx.put("fromDate", UtilDateTime.nowTimestamp());
+                        Map roleResp;
+                        try {
+                            roleResp = dispatcher.runSync("createFinAccountRole", roleCtx);
+                        } catch (GenericServiceException e) {                            
+                            return ServiceUtil.returnError(e.getMessage());
+                        }
+                        if (ServiceUtil.isError(roleResp)) {
+                            return roleResp;
+                        }
                     }
                 }
                 if (creditAccount == null) {
