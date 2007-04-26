@@ -602,6 +602,10 @@ public class ComponentConfig {
         public ComponentResourceHandler createResourceHandler() {
             return new ComponentResourceHandler(componentConfig.getGlobalName(), loader, location);
     	}
+
+        public String getLocation() {
+            return location;
+        }
     }
 
     public static class ClasspathInfo {
