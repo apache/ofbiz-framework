@@ -33,6 +33,7 @@ import javax.servlet.jsp.PageContext;
 import org.apache.commons.collections.map.LinkedMap;
 
 import org.ofbiz.base.util.*;
+import org.ofbiz.common.geo.GeoWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -76,7 +77,52 @@ public class ProductWorker {
             throw new IllegalArgumentException(errMsg);
         }                
     }
-    
+
+    public static boolean isShippableToAddress(GenericValue product, GenericValue postalAddress) {
+        if (UtilValidate.isNotEmpty(product) && UtilValidate.isNotEmpty(postalAddress)) {
+            GenericDelegator delegator = product.getDelegator();
+            List productGeos = null;
+            try {
+                productGeos = product.getRelated("ProductGeo");
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+            if (UtilValidate.isEmpty(productGeos)) {
+                // If no GEOs are configured the default is TRUE
+                return true;
+            }
+            List excludeGeos = EntityUtil.filterByAnd(productGeos, UtilMisc.toMap("productGeoEnumId", "PG_PURCH_EXCLUDE"));
+            List includeGeos = EntityUtil.filterByAnd(productGeos, UtilMisc.toMap("productGeoEnumId", "PG_PURCH_INCLUDE"));
+            Iterator productGeosIt = null;
+            // exclusion
+            productGeosIt = excludeGeos.iterator();
+            while (productGeosIt.hasNext()) {
+                GenericValue productGeo = (GenericValue)productGeosIt.next();
+                List includeGeoGroup = GeoWorker.expandGeoGroup(productGeo.getString("geoId"), delegator);
+                if (GeoWorker.containsGeo(includeGeoGroup, postalAddress.getString("countryGeoId"), delegator) ||
+                      GeoWorker.containsGeo(includeGeoGroup, postalAddress.getString("stateProvinceGeoId"), delegator) ||
+                      GeoWorker.containsGeo(includeGeoGroup, postalAddress.getString("postalCodeGeoId"), delegator)) {
+                    return false;
+                }
+            }
+            // inclusion
+            productGeosIt = includeGeos.iterator();
+            while (productGeosIt.hasNext()) {
+                GenericValue productGeo = (GenericValue)productGeosIt.next();
+                List includeGeoGroup = GeoWorker.expandGeoGroup(productGeo.getString("geoId"), delegator);
+                if (GeoWorker.containsGeo(includeGeoGroup, postalAddress.getString("countryGeoId"), delegator) ||
+                      GeoWorker.containsGeo(includeGeoGroup, postalAddress.getString("stateProvinceGeoId"), delegator) ||
+                      GeoWorker.containsGeo(includeGeoGroup, postalAddress.getString("postalCodeGeoId"), delegator)) {
+                    return true;
+                }
+            }
+            
+        } else {
+            throw new IllegalArgumentException("product and postalAddress cannot be null.");
+        }
+        return false;
+    }
+
     public static boolean taxApplies(GenericValue product) {
         String errMsg = null;
         if (product != null) {        
