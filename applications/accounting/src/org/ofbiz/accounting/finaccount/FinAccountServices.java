@@ -76,7 +76,7 @@ public class FinAccountServices {
             // check for an existing account
             GenericValue creditAccount;
             if (finAccountId != null) {
-                creditAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccoutId", finAccountId));
+                creditAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
             } else {
                 List creditAccounts = delegator.findByAnd("FinAccount", lookupMap, UtilMisc.toList("-fromDate"));
                 creditAccount = EntityUtil.getFirst(EntityUtil.filterByDate(creditAccounts));
@@ -110,13 +110,13 @@ public class FinAccountServices {
                         Map roleCtx = FastMap.newInstance();
                         roleCtx.put("partyId", partyId);
                         roleCtx.put("roleTypeId", "OWNER");
-                        roleCtx.put("finAccountId", finAccountId);
+                        roleCtx.put("finAccountId", creditAccountId);
                         roleCtx.put("userLogin", userLogin);
                         roleCtx.put("fromDate", UtilDateTime.nowTimestamp());
                         Map roleResp;
                         try {
                             roleResp = dispatcher.runSync("createFinAccountRole", roleCtx);
-                        } catch (GenericServiceException e) {                            
+                        } catch (GenericServiceException e) {
                             return ServiceUtil.returnError(e.getMessage());
                         }
                         if (ServiceUtil.isError(roleResp)) {

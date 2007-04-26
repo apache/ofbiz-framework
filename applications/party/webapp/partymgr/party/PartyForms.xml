@@ -441,4 +441,34 @@ under the License.
         </field>
     </form>    
 
+    <form name="ApplyServiceCredit" type="single" target="applyServiceCredit" default-map-name="serviceCredit" focus-field-name="amount">
+        <auto-fields-service service-name="createServiceCredit" map-name="serviceCredit"/>
+        <field name="finAccountId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="FinAccount" description="${finAccountName} [${finAccountId}]" key-field-name="finAccountId" filter-by-date="true">
+                    <entity-constraint name="ownerPartyId" value="${partyId}"/>
+                    <entity-constraint name="finAccountTypeId" value="SVCCRED_ACCOUNT"/>
+                    <entity-order-by field-name="-fromDate"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="currencyUomId">
+            <drop-down allow-empty="false" no-current-selected-key="USD">
+                <entity-options entity-name="Uom" description="[${abbreviation}] ${description}" key-field-name="uomId">
+                    <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="abbreviation"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productStoreId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]" key-field-name="productStoreId">
+                    <entity-order-by field-name="productStoreId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="partyId"><hidden value="${partyId}"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+
 </forms>

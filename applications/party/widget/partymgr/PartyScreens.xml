@@ -758,6 +758,10 @@ under the License.
                                         </widgets>
                                     </section>
                                 </iterate-section>
+                                <container id="apply-service-credit">
+                                    <label style="head2" text="${uiLabelMap.AccountingApplyServiceCredit}"/>
+                                    <include-form name="ApplyServiceCredit" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                </container>
                             </container>
                         </container>
                     </widgets>
