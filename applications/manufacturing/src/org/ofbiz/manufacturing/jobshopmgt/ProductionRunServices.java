@@ -2528,26 +2528,27 @@ public class ProductionRunServices {
                     estimatedShipDate = now;
                 }
                 if (!products.containsKey(productId)) {
-                    products.put("productId", new TreeMap());
+                    products.put(productId, new TreeMap());
                 }
                 TreeMap productMap = (TreeMap)products.get(productId);
                 if (!productMap.containsKey(estimatedShipDate)) {
                     productMap.put(estimatedShipDate, UtilMisc.toMap("remainingQty", new Double(0.0), "reservations", FastList.newInstance()));
                 }
                 Map dateMap = (Map)productMap.get(estimatedShipDate);
-                Double remainingQty = (Double)productMap.get("remainingQty");
-                //List reservations = (List)productMap.get("reservations");
+                Double remainingQty = (Double)dateMap.get("remainingQty");
+                //List reservations = (List)dateMap.get("reservations");
                 remainingQty = new Double(remainingQty.doubleValue() + qtyDiff);
+                dateMap.put("remainingQty", remainingQty);
             }
 
             // backorders
             List backordersCondList = FastList.newInstance();
             backordersCondList.add(new EntityExpr("quantityNotAvailable", EntityOperator.NOT_EQUAL, null));
             backordersCondList.add(new EntityExpr("quantityNotAvailable", EntityOperator.GREATER_THAN, new Double(0.0)));
-            backordersCondList.add(new EntityExpr(new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_CREATED"), EntityOperator.OR, new EntityExpr("statusId", EntityOperator.LESS_THAN, "ITEM_APPROVED")));
+            //backordersCondList.add(new EntityExpr(new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_CREATED"), EntityOperator.OR, new EntityExpr("statusId", EntityOperator.LESS_THAN, "ITEM_APPROVED")));
 
             List backorders = delegator.findByCondition("OrderItemAndShipGrpInvResAndItem", new EntityConditionList(backordersCondList, EntityOperator.AND), null, UtilMisc.toList("shipBeforeDate"));
-            Iterator backordersIt = resultList.iterator();
+            Iterator backordersIt = backorders.iterator();
             while (backordersIt.hasNext()) {
                 GenericValue genericResult = (GenericValue) backordersIt.next();
                 String productId = genericResult.getString("productId");
@@ -2575,6 +2576,7 @@ public class ProductionRunServices {
                     }
                     if (remainingQty.doubleValue() >= quantityNotAvailableRem) {
                         remainingQty = new Double(remainingQty.doubleValue() - quantityNotAvailableRem);
+                        currentDateMap.put("remainingQty", remainingQty);
                         GenericValue orderItemShipGrpInvRes = delegator.findByPrimaryKey("OrderItemShipGrpInvRes", UtilMisc.toMap("orderId", genericResult.getString("orderId"),
                                                                                                                                   "shipGroupSeqId", genericResult.getString("shipGroupSeqId"),
                                                                                                                                   "orderItemSeqId", genericResult.getString("orderItemSeqId"),
@@ -2586,6 +2588,7 @@ public class ProductionRunServices {
                     } else {
                         quantityNotAvailableRem = quantityNotAvailableRem - remainingQty.doubleValue();
                         remainingQty = new Double(0.0);
+                        currentDateMap.put("remainingQty", remainingQty);
                     }
                 }
             }
@@ -2593,6 +2596,7 @@ public class ProductionRunServices {
             Debug.logError(e, "Error", module);
             return ServiceUtil.returnError("Problem running the setEstimatedDeliveryDates service");
         }
-        return result;
+        return ServiceUtil.returnSuccess();
     }
+
 }
