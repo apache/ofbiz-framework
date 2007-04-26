@@ -1274,6 +1274,8 @@ under the License.
       <field name="inventoryItemId" type="id-ne"></field>
       <field name="statusId" type="id-ne"></field>
       <field name="statusDatetime" type="date-time"></field>
+      <field name="ownerPartyId" type="id"><description>Used to track a changed (new) ownerPartyId as a status changes.</description></field>
+      <field name="productId" type="id"><description>Used to track a changed (new) productId as a status changes. In other words over time the item may be represented by a different Product (like new versus refurbished).</description></field>
       <prim-key field="inventoryItemId"/>
       <prim-key field="statusId"/>
       <prim-key field="statusDatetime"/>
