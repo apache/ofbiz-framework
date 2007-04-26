@@ -272,7 +272,6 @@ under the License.
 
         <field name="contactMechIdFrom" title="${uiLabelMap.PartyFromContactMech}">
             <lookup target-form-name="LookupPreferredContactMech" target-parameter="partyIdFrom"/>
-            <text default-value="${thisUserPrimaryEmail.contactMechId}"/>          <!-- this default value is the logged in user's primary email and is useful for comm events which are emails -->
         </field>
         <field name="contactListId"><lookup size="20" target-form-name="LookupContactList"/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><date-time/></field>
@@ -312,7 +311,7 @@ under the License.
             </service>
         </actions>
         <field name="communicationEventId" title="${uiLabelMap.ContactListCommEventId}">
-            <hyperlink description="${communicationEventId}" target="EditContactListCommEvent?communicationEventId=${communicationEventId}&amp;DONE_PAGE=${donePage}" target-type="intra-app"/>
+            <hyperlink description="${communicationEventId}" target="EditContactListCommEvent?contactListId=${contactListId}&amp;communicationEventId=${communicationEventId}&amp;DONE_PAGE=${donePage}" target-type="intra-app"/>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}">
             <display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/>
