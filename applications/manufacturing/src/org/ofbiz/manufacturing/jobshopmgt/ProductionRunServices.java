@@ -2541,6 +2541,55 @@ public class ProductionRunServices {
                 dateMap.put("remainingQty", remainingQty);
             }
 
+            // Approved purchase orders
+            resultList = delegator.findByAnd("OrderHeaderAndItems", UtilMisc.toMap("orderTypeId", "PURCHASE_ORDER",
+                                                                                   "itemStatusId", "ITEM_APPROVED"), UtilMisc.toList("orderId"));
+            iteratorResult = resultList.iterator();
+            String orderId = null;
+            GenericValue orderDeliverySchedule = null;
+            while (iteratorResult.hasNext()){
+                GenericValue genericResult = (GenericValue) iteratorResult.next();
+                String newOrderId =  genericResult.getString("orderId");
+                if (!newOrderId.equals(orderId)) {
+                    orderDeliverySchedule = null;
+                    orderId = newOrderId;
+                    try {
+                        orderDeliverySchedule = delegator.findByPrimaryKey("OrderDeliverySchedule", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", "_NA_"));
+                    } catch (GenericEntityException e) {
+                    }
+                }
+                String productId =  genericResult.getString("productId");
+                double orderQuantity = genericResult.getDouble("quantity").doubleValue();
+                GenericValue orderItemDeliverySchedule = null;
+                try {
+                    orderItemDeliverySchedule = delegator.findByPrimaryKey("OrderDeliverySchedule", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", genericResult.getString("orderItemSeqId")));
+                } catch (GenericEntityException e) {
+                }
+                Timestamp estimatedShipDate = null;
+                if (orderItemDeliverySchedule != null && orderItemDeliverySchedule.get("estimatedReadyDate") != null) {
+                    estimatedShipDate = orderItemDeliverySchedule.getTimestamp("estimatedReadyDate");
+                } else if (orderDeliverySchedule != null && orderDeliverySchedule.get("estimatedReadyDate") != null) {
+                    estimatedShipDate = orderDeliverySchedule.getTimestamp("estimatedReadyDate");
+                } else {
+                    estimatedShipDate = genericResult.getTimestamp("estimatedDeliveryDate");
+                }
+                if (estimatedShipDate == null) {
+                    estimatedShipDate = now;
+                }
+                if (!products.containsKey(productId)) {
+                    products.put(productId, new TreeMap());
+                }
+                TreeMap productMap = (TreeMap)products.get(productId);
+                if (!productMap.containsKey(estimatedShipDate)) {
+                    productMap.put(estimatedShipDate, UtilMisc.toMap("remainingQty", new Double(0.0), "reservations", FastList.newInstance()));
+                }
+                Map dateMap = (Map)productMap.get(estimatedShipDate);
+                Double remainingQty = (Double)dateMap.get("remainingQty");
+                //List reservations = (List)dateMap.get("reservations");
+                remainingQty = new Double(remainingQty.doubleValue() + orderQuantity);
+                dateMap.put("remainingQty", remainingQty);
+            }
+
             // backorders
             List backordersCondList = FastList.newInstance();
             backordersCondList.add(new EntityExpr("quantityNotAvailable", EntityOperator.NOT_EQUAL, null));
@@ -2597,6 +2646,115 @@ public class ProductionRunServices {
             return ServiceUtil.returnError("Problem running the setEstimatedDeliveryDates service");
         }
         return ServiceUtil.returnSuccess();
+    }
+
+    public static Map autoCreateInventoryTransfers(DispatchContext ctx, Map context) {
+        Map result = new HashMap();
+        GenericDelegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Timestamp now = UtilDateTime.nowTimestamp();
+        String warehouseFacilityId = (String)context.get("warehouseFacilityId");
+        String productionFacilityId = (String)context.get("productionFacilityId");
+        Timestamp fromDate = (Timestamp)context.get("fromDate");
+        Timestamp thruDate = (Timestamp)context.get("thruDate");
+        
+        Map products = FastMap.newInstance();
+
+        try {
+            List findOutgoingProductionRunsConds = new LinkedList();
+            findOutgoingProductionRunsConds.add(new EntityExpr("workEffortGoodStdTypeId", EntityOperator.EQUALS, "PRUNT_PROD_NEEDED"));
+            findOutgoingProductionRunsConds.add(new EntityExpr("statusId", EntityOperator.EQUALS, "WEGS_CREATED"));
+            findOutgoingProductionRunsConds.add(new EntityExpr("estimatedStartDate", EntityOperator.GREATER_THAN, fromDate));
+            findOutgoingProductionRunsConds.add(new EntityExpr("estimatedStartDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
+            List findOutgoingProductionRunsStatusConds = new LinkedList();
+            findOutgoingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_CREATED"));
+            findOutgoingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_SCHEDULED"));
+            findOutgoingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_DOC_PRINTED"));
+            findOutgoingProductionRunsConds.add(new EntityConditionList(findOutgoingProductionRunsStatusConds, EntityOperator.OR));
+
+            List resultList = delegator.findByCondition("WorkEffortAndGoods", new EntityConditionList(findOutgoingProductionRunsConds, EntityOperator.AND), null, UtilMisc.toList("-estimatedStartDate"));
+            
+            Iterator iteratorResult = resultList.iterator();
+            while (iteratorResult.hasNext()) {
+                GenericValue genericResult = (GenericValue) iteratorResult.next();
+                Double estimatedQuantity = genericResult.getDouble("estimatedQuantity");
+                if (estimatedQuantity == null) {
+                    estimatedQuantity = new Double(0);
+                }
+                String productId =  genericResult.getString("productId");
+                if (!products.containsKey(productId)) {
+                    products.put(productId, new Double(0.0));
+                }
+                Double totalQuantity = (Double)products.get(productId);
+                totalQuantity = new Double(totalQuantity.doubleValue() + estimatedQuantity.doubleValue());
+                products.put(productId, totalQuantity);
+            }
+            Iterator productsIt = products.keySet().iterator();
+            while (productsIt.hasNext()) {
+                String productId = (String)productsIt.next();
+                Double totalQuantity = (Double)products.get(productId);
+                double existingQoh = 0.0;
+                try {
+                    Map tmpResults = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", productId, "facilityId", productionFacilityId, "userLogin", userLogin));
+                    if (tmpResults.get("availableToPromiseTotal") != null) {
+                        existingQoh = ((Double) tmpResults.get("quantityOnHandTotal")).doubleValue();
+                    }
+                } catch(GenericServiceException e) {
+                    Debug.logError(e, "Error counting inventory, assuming qoh = 0 for product [" + productId + "] in facility [" + productionFacilityId + "].", module);
+                }
+                totalQuantity = new Double(totalQuantity.doubleValue() - existingQoh);
+                products.put("productId", totalQuantity);
+            }
+
+            productsIt = products.keySet().iterator();
+            while (productsIt.hasNext()) {
+                String productId = (String)productsIt.next();
+                double totalQuantity = ((Double)products.get(productId)).doubleValue();
+                if (totalQuantity > 0) {
+                    List inventoryItemConds = new LinkedList();
+                    inventoryItemConds.add(new EntityExpr("availableToPromiseTotal", EntityOperator.GREATER_THAN, new Double(0.0)));
+                    inventoryItemConds.add(new EntityExpr("facilityId", EntityOperator.EQUALS, warehouseFacilityId));
+                    inventoryItemConds.add(new EntityExpr("productId", EntityOperator.EQUALS, productId));
+                    List inventoryItemList = delegator.findByCondition("InventoryItemAndLocation", new EntityConditionList(inventoryItemConds, EntityOperator.AND), null, UtilMisc.toList("-locationTypeEnumId", "inventoryItemTypeId", "locationSeqId", "-availableToPromiseTotal"));
+                    Iterator inventoryItemIt = inventoryItemList.iterator();
+                    while (inventoryItemIt.hasNext()) {
+                        GenericValue inventoryItem = (GenericValue)inventoryItemIt.next();
+                        double availableToPromiseTotal = ((Double)inventoryItem.getDouble("availableToPromiseTotal")).doubleValue();
+                        double xferQty = 0.0;
+                        if (availableToPromiseTotal >= totalQuantity) {
+                            xferQty = totalQuantity;
+                        } else {
+                            xferQty = availableToPromiseTotal;
+                        }
+                        try {
+                            Map tmpInputMap = UtilMisc.toMap("inventoryItemId", inventoryItem.getString("inventoryItemId"),
+                                                             "facilityId", warehouseFacilityId,
+                                                             "facilityIdTo", productionFacilityId,
+                                                             "xferQty", new Double(xferQty));
+                            tmpInputMap.put("statusId", "IXF_REQUESTED");
+                            tmpInputMap.put("userLogin", userLogin);
+                            Map tmpResults = dispatcher.runSync("createInventoryTransfer", tmpInputMap);
+                        } catch(GenericServiceException e) {
+                            Debug.logError(e, "Error creating inventory trasfer for inventoryItemId [" + inventoryItem.getString("inventoryItemId") + "].", module);
+                            return ServiceUtil.returnError("Problem running the autoCreateInventoryTransfers service");
+                        }
+                        totalQuantity = totalQuantity - xferQty;
+                        if (totalQuantity == 0) {
+                            break;
+                        }
+                    }
+                    if (totalQuantity > 0) {
+                        // TODO: Log error/warning?
+                    }
+                }
+            }
+
+        } catch(GenericEntityException e) {
+            Debug.logError(e, "Error", module);
+            return ServiceUtil.returnError("Problem running the autoCreateInventoryTransfers service");
+        }
+        return result;
     }
 
 }
