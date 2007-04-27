@@ -501,6 +501,17 @@ public class ShoppingCart implements Serializable {
            throw new CartItemModifyException("Cart items cannot be changed");
         }
         if (!cartLines.contains(item)) {
+            // If the billing address is already set, verify if the new product
+            // is available in the address' geo
+            GenericValue product = item.getProduct();
+            if (product != null) {
+                GenericValue billingAddress = this.getBillingAddress();
+                if (billingAddress != null) {
+                    if (!ProductWorker.isBillableToAddress(product, billingAddress)) {
+                        throw new CartItemModifyException("The billing address is not compatible with ProductGeos rules of this product.");
+                    }
+                }
+            }
             cartLines.add(index, item);
             return index;
         } else {
@@ -520,15 +531,7 @@ public class ShoppingCart implements Serializable {
 
     /** Add an item to the shopping cart. */
     public int addItemToEnd(ShoppingCartItem item) throws CartItemModifyException {
-        if (isReadOnlyCart()) {
-           throw new CartItemModifyException("Cart items cannot be changed");
-        }
-        if (!cartLines.contains(item)) {
-            cartLines.add(item);
-            return cartLines.size() - 1;
-        } else {
-            return this.getItemIndex(item);
-        }
+        return addItem(cartLines.size(), item);
     }
 
     /** Get a ShoppingCartItem from the cart object. */
