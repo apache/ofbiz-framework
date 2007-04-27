@@ -78,7 +78,13 @@ public class ProductWorker {
         }                
     }
 
+    public static boolean isBillableToAddress(GenericValue product, GenericValue postalAddress) {
+        return isAllowedToAddress(product, postalAddress, "PG_PURCH_");
+    }
     public static boolean isShippableToAddress(GenericValue product, GenericValue postalAddress) {
+        return isAllowedToAddress(product, postalAddress, "PG_SHIP_");
+    }
+    private static boolean isAllowedToAddress(GenericValue product, GenericValue postalAddress, String productGeoPrefix) {
         if (UtilValidate.isNotEmpty(product) && UtilValidate.isNotEmpty(postalAddress)) {
             GenericDelegator delegator = product.getDelegator();
             List productGeos = null;
@@ -91,8 +97,8 @@ public class ProductWorker {
                 // If no GEOs are configured the default is TRUE
                 return true;
             }
-            List excludeGeos = EntityUtil.filterByAnd(productGeos, UtilMisc.toMap("productGeoEnumId", "PG_PURCH_EXCLUDE"));
-            List includeGeos = EntityUtil.filterByAnd(productGeos, UtilMisc.toMap("productGeoEnumId", "PG_PURCH_INCLUDE"));
+            List excludeGeos = EntityUtil.filterByAnd(productGeos, UtilMisc.toMap("productGeoEnumId", productGeoPrefix + "EXCLUDE"));
+            List includeGeos = EntityUtil.filterByAnd(productGeos, UtilMisc.toMap("productGeoEnumId", productGeoPrefix + "INCLUDE"));
             Iterator productGeosIt = null;
             // exclusion
             productGeosIt = excludeGeos.iterator();
