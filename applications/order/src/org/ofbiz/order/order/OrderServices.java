@@ -2827,7 +2827,12 @@ public class OrderServices {
                     // try looking up the parent product if the product has no content and is a variant
                     if (((allProductContent == null) || allProductContent.size() == 0) && ("Y".equals(product.getString("isVariant")))) {
                         GenericValue parentProduct = ProductWorker.getParentProduct(product.getString("productId"), delegator);
-                        allProductContent.addAll(parentProduct.getRelated("ProductContent"));
+                        if (allProductContent == null) {
+                            allProductContent = FastList.newInstance();
+                        }
+                        if (parentProduct != null) {
+                            allProductContent.addAll(parentProduct.getRelated("ProductContent"));
+                        }
                     }
                     
                     if (allProductContent != null && allProductContent.size() > 0) {
