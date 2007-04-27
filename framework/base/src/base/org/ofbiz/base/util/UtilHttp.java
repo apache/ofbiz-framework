@@ -287,6 +287,27 @@ public class UtilHttp {
         }
         return appName;
     }
+    
+    public static void setInitialRequestInfo(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (UtilValidate.isNotEmpty((String) session.getAttribute("_WEBAPP_NAME_"))) {
+            // oops, info already in place...
+            return;
+        }
+        
+        StringBuffer fullRequestUrl = UtilHttp.getFullRequestUrl(request);
+
+        session.setAttribute("_WEBAPP_NAME_", UtilHttp.getApplicationName(request));
+        session.setAttribute("_CLIENT_LOCALE_", request.getLocale());
+        session.setAttribute("_CLIENT_REQUEST_", fullRequestUrl.toString());
+        session.setAttribute("_CLIENT_USER_AGENT_", request.getHeader("User-Agent") != null ? request.getHeader("User-Agent") : "");
+        session.setAttribute("_CLIENT_REFERER_", request.getHeader("Referer") != null ? request.getHeader("Referer") : "");
+        
+        session.setAttribute("_CLIENT_FORWARDED_FOR_", request.getHeader("X-Forwarded-For"));
+        session.setAttribute("_CLIENT_REMOTE_ADDR_", request.getRemoteAddr());
+        session.setAttribute("_CLIENT_REMOTE_HOST_", request.getRemoteHost());
+        session.setAttribute("_CLIENT_REMOTE_USER_", request.getRemoteUser());
+    }
 
     /**
      * Put request parameters in request object as attributes.

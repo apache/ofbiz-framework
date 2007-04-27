@@ -43,6 +43,7 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.stats.ServerHitBin;
+import org.ofbiz.webapp.stats.VisitHandler;
 
 /**
  * ControlServlet.java - Master servlet for the web application.
@@ -81,8 +82,10 @@ public class ControlServlet extends HttpServlet {
      * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        long requestStartTime = System.currentTimeMillis();
         RequestHandler requestHandler = this.getRequestHandler(); 
-        
+        HttpSession session = request.getSession();
+
         // setup DEFAULT chararcter encoding and content type, this will be overridden in the RequestHandler for view rendering
         String charset = getServletContext().getInitParameter("charset");
         if (charset == null || charset.length() == 0) charset = request.getCharacterEncoding();
@@ -101,9 +104,6 @@ public class ControlServlet extends HttpServlet {
         } else {
             response.setContentType(contentType);
         }
-
-        long requestStartTime = System.currentTimeMillis();
-        HttpSession session = request.getSession();
 
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         //Debug.log("Cert Chain: " + request.getAttribute("javax.servlet.request.X509Certificate"), module);
@@ -172,6 +172,10 @@ public class ControlServlet extends HttpServlet {
         request.setAttribute("security", security);
         
         request.setAttribute("_REQUEST_HANDLER_", requestHandler);
+
+        // setup some things that should always be there
+        UtilHttp.setInitialRequestInfo(request);
+        VisitHandler.getVisitor(request, response);
 
         // display details on the servlet objects
         if (Debug.verboseOn()) {
@@ -252,6 +256,10 @@ public class ControlServlet extends HttpServlet {
             Debug.logWarning(e, module);
         }
 
+        // run these two again before the ServerHitBin.countRequest call because on a logout this will end up creating a new visit
+        UtilHttp.setInitialRequestInfo(request);
+        VisitHandler.getVisitor(request, response);
+        
         ServerHitBin.countRequest(webappName + "." + rname, request, requestStartTime, System.currentTimeMillis() - requestStartTime, userLogin, delegator);
         if (Debug.timingOn()) timer.timerString("[" + rname + "] Done rendering page, Servlet Finished", module);
     }
