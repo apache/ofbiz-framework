@@ -30,84 +30,66 @@ under the License.
     <#assign shoppingCartSize = 0>
 </#if>
 
-<table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-  <tr>
-    <td width='100%'>
-      <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
-        <tr>
-          <td valign="middle" align="center">
-            <div class='boxhead'><b>${uiLabelMap.OrderOrderHeaderInfo}</b></div>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td width='100%'>
-      <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
-        <tr>
-          <td>
-            <table width="100%" border="0" cellpadding="2" cellspacing="0">
-              <tr valign="top">
-                <td class="tabletext"><b>${uiLabelMap.OrderOrderName}</b>:</td> 
-                <td class="tabletext">
-                  <form method="post" action="setOrderName" name="setCartOrderNameForm">
-                    <input type="text" name="orderName" class="inputBox" size="15" maxlength="200" value='${shoppingCart.getOrderName()?default("")}'/>
-                    <input type="submit" value="${uiLabelMap.CommonSet}" class="smallSubmit"/>
-                  </form>
-                </td>
-              </tr>
-                <tr>
-                  <td><div class="tabletext"><b>${uiLabelMap.Party}</b>:</div></td>
-                  <td>
-                    <div class="tabletext">
-                      <a href="${customerDetailLink}${partyId}&${externalKeyParam?if_exists}" target="partymgr" class="buttontext">${partyId}</a>
-                      <#if partyMap.person?exists>
-                        ${partyMap.person.firstName?if_exists}&nbsp;${partyMap.person.lastName?if_exists}
-                      </#if>
-                      <#if partyMap.partyGroup?exists>
-                        ${partyMap.partyGroup.groupName?if_exists}
-                      </#if>
-                    </div>
-                  </td>
-                </tr>
-                <#if shoppingCart.getOrderType() != "PURCHASE_ORDER">
-                <tr valign="top">
-                  <td class="tabletext"><b>${uiLabelMap.OrderPONumber}</b>:</td> 
-                  <td class="tabletext">
-                    <form method="post" action="setPoNumber" name="setCartPoNumberForm">
-                      <input type="text" name="correspondingPoId" class="inputBox" size="15" value='${shoppingCart.getPoNumber()?default("")}'/>
-                      <input type="submit" value="${uiLabelMap.CommonSet}" class="smallSubmit"/>
-                    </form>
-                  </td>
-                </tr>
-                </#if>
-                <tr>
-                  <td valign="bottom"><div class="tabletext"><b>${uiLabelMap.CommonCurrency}</b>:</div></td>
-                  <td valign="bottom"><div class="tabletext">${currencyUomId}</div></td>
-                </tr>
-                <#if agreementId?has_content>
-                <tr>
-                  <td valign="bottom"><div class="tabletext"><b>${uiLabelMap.AccountingAgreement}</b>:</div></td>
-                  <td valign="bottom"><div class="tabletext">${agreementId}</div></td>
-                </tr>
-                </#if>
-                <#if quoteId?has_content>
-                <tr>
-                  <td valign="bottom"><div class="tabletext"><b>${uiLabelMap.OrderOrderQuote}</b>:</div></td>
-                  <td valign="bottom"><div class="tabletext">${quoteId}</div></td>
-                </tr>
-                </#if>
-                <tr>
-                  <td colspan="2" align="right">
-                    <div class="tabletext"><b>${uiLabelMap.CommonTotal}: <@ofbizCurrency amount=shoppingCart.getGrandTotal() isoCode=currencyUomId/></b></div>
-                  </td>
-                </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
+<div class="screenlet">
+    <div class="screenlet-header">
+        <div class="boxhead">${uiLabelMap.OrderOrderHeaderInfo}</div>
+    </div>
+    <div class="screenlet-body">
+        <table width="100%" border="0" cellpadding="2" cellspacing="0">
+          <tr valign="top">
+            <td><b>${uiLabelMap.OrderOrderName}</b>:</td> 
+            <td>
+              <form method="post" action="setOrderName" name="setCartOrderNameForm">
+                <input type="text" name="orderName" size="15" maxlength="200" value='${shoppingCart.getOrderName()?default("")}'/>
+                <input type="submit" value="${uiLabelMap.CommonSet}"/>
+              </form>
+            </td>
+          </tr>
+            <tr>
+              <td><b>${uiLabelMap.Party}</b>:</td>
+              <td>
+                  <a href="${customerDetailLink}${partyId}&${externalKeyParam?if_exists}" target="partymgr" class="buttontext">${partyId}</a>
+                  <#if partyMap.person?exists>
+                    ${partyMap.person.firstName?if_exists}&nbsp;${partyMap.person.lastName?if_exists}
+                  </#if>
+                  <#if partyMap.partyGroup?exists>
+                    ${partyMap.partyGroup.groupName?if_exists}
+                  </#if>
+              </td>
+            </tr>
+            <#if shoppingCart.getOrderType() != "PURCHASE_ORDER">
+            <tr valign="top">
+              <td><b>${uiLabelMap.OrderPONumber}</b>:</td> 
+              <td>
+                <form method="post" action="setPoNumber" name="setCartPoNumberForm">
+                  <input type="text" name="correspondingPoId" size="15" value='${shoppingCart.getPoNumber()?default("")}'/>
+                  <input type="submit" value="${uiLabelMap.CommonSet}"/>
+                </form>
+              </td>
+            </tr>
+            </#if>
+            <tr>
+              <td valign="bottom"><b>${uiLabelMap.CommonCurrency}</b>:</td>
+              <td valign="bottom">${currencyUomId}</td>
+            </tr>
+            <#if agreementId?has_content>
+            <tr>
+              <td valign="bottom"><b>${uiLabelMap.AccountingAgreement}</b>:</td>
+              <td valign="bottom">${agreementId}</td>
+            </tr>
+            </#if>
+            <#if quoteId?has_content>
+            <tr>
+              <td valign="bottom"><b>${uiLabelMap.OrderOrderQuote}</b>:</td>
+              <td valign="bottom">${quoteId}</td>
+            </tr>
+            </#if>
+            <tr>
+              <td colspan="2" align="right">
+                <b>${uiLabelMap.CommonTotal}: <@ofbizCurrency amount=shoppingCart.getGrandTotal() isoCode=currencyUomId/></b>
+              </td>
+            </tr>
+        </table>
+    </div>
+</div>
 <br/>
