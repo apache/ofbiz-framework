@@ -954,6 +954,9 @@ under the License.
       <relation type="one" fk-name="ORDER_PMPRF_PMETH" rel-entity-name="PaymentMethod">
         <key-map field-name="paymentMethodId"/>
       </relation>
+      <relation type="one" fk-name="ORDER_PMPRF_FINACCT" rel-entity-name="FinAccount">
+        <key-map field-name="finAccountId"/>
+      </relation>
       <relation type="one" fk-name="ORDER_PMPRF_STTS" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>
       </relation>
