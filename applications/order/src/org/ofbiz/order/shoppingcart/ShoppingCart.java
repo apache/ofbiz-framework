@@ -48,6 +48,7 @@ import org.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper;
 import org.ofbiz.order.shoppinglist.ShoppingListEvents;
 import org.ofbiz.product.category.CategoryWorker;
 import org.ofbiz.product.config.ProductConfigWrapper;
+import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.LocalDispatcher;
 
@@ -1436,6 +1437,19 @@ public class ShoppingCart implements Serializable {
     /** adds a payment method/payment method type */
     public CartPaymentInfo addPaymentAmount(String id, Double amount, String refNum, String authCode, boolean isSingleUse, boolean isPresent, boolean replace) {
         CartPaymentInfo inf = this.getPaymentInfo(id, refNum, authCode, amount, true);
+        GenericValue billingAddress = inf.getBillingAddress(this.getDelegator());
+        if (billingAddress != null) {
+            // this payment method will set the billing address for the order;
+            // before it is set we have to verify if the billing address is
+            // compatible with the ProductGeos
+            Iterator products = (this.getItemsProducts(this.cartLines)).iterator();
+            while (products.hasNext()) {
+                GenericValue product = (GenericValue)products.next();
+                if (!ProductWorker.isBillableToAddress(product, billingAddress)) {
+                    throw new IllegalArgumentException("The billing address is not compatible with ProductGeos rules.");            
+                }
+            }
+        }
         inf.singleUse = isSingleUse;
         if (replace) {
             paymentInfo.remove(inf);
@@ -1709,6 +1723,19 @@ public class ShoppingCart implements Serializable {
         } else {
             return true;
         }
+    }
+
+    public GenericValue getBillingAddress() {
+        GenericValue billingAddress = null;
+        Iterator i = paymentInfo.iterator();
+        while (i.hasNext()) {
+            CartPaymentInfo inf = (CartPaymentInfo) i.next();
+            billingAddress = inf.getBillingAddress(this.getDelegator());
+            if (billingAddress != null) {
+                break;
+            }
+        }
+        return billingAddress;
     }
 
     /**
