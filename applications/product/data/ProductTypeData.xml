@@ -185,6 +185,8 @@ under the License.
     <EnumerationType description="Product Geo Data" enumTypeId="PROD_GEO" hasTable="N" parentTypeId=""/>
     <Enumeration description="Purchase Include Geo" enumCode="PURCHASE_INCLUDE" enumId="PG_PURCH_INCLUDE" sequenceId="01" enumTypeId="PROD_GEO"/>
     <Enumeration description="Purchase Exclude Geo" enumCode="PURCHASE_EXCLUDE" enumId="PG_PURCH_EXCLUDE" sequenceId="02" enumTypeId="PROD_GEO"/>
+    <Enumeration description="Shipment Include Geo" enumCode="SHIPMENT_INCLUDE" enumId="PG_SHIP_INCLUDE" sequenceId="03" enumTypeId="PROD_GEO"/>
+    <Enumeration description="Shipment Exclude Geo" enumCode="SHIPMENT_EXCLUDE" enumId="PG_SHIP_EXCLUDE" sequenceId="04" enumTypeId="PROD_GEO"/>
     
     <ProductCategoryContentType description="Category Name" hasTable="N" parentTypeId="" prodCatContentTypeId="CATEGORY_NAME"/>
     <ProductCategoryContentType description="Description" hasTable="N" parentTypeId="" prodCatContentTypeId="DESCRIPTION"/>
