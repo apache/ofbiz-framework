@@ -23,24 +23,6 @@ under the License.
   </div>
   <div class="screenlet-body">
      <table width="100%" border="0" cellpadding="1" cellspacing="0">
-     <#if billingAddress?has_content>
-       <tr>
-         <td align="right" valign="top" width="15%">
-           <b>${uiLabelMap.OrderBillingAddress}</b>
-         </td>
-         <td width="5">&nbsp;</td>
-         <td align="left" valign="top" width="80%">
-             <#if billingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b> ${billingAddress.toName}<br/></#if>
-             <#if billingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b> ${billingAddress.attnName}<br/></#if>
-             ${billingAddress.address1}<br/>
-             <#if billingAddress.address2?has_content>${billingAddress.address2}<br/></#if>
-             ${billingAddress.city}<#if billingAddress.stateProvinceGeoId?has_content>, ${billingAddress.stateProvinceGeoId} </#if>
-             ${billingAddress.postalCode?if_exists}<br/>
-             ${billingAddress.countryGeoId?if_exists}
-         </td>
-       </tr>
-       <tr><td colspan="7"><hr></td></tr>
-     </#if>
      <#if orderPaymentPreferences?has_content || billingAccount?has_content || invoices?has_content>
         <#list orderPaymentPreferences as orderPaymentPreference>
           <#assign pmBillingAddress = {}>
