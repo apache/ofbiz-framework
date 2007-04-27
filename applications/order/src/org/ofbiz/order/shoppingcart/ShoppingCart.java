@@ -4223,6 +4223,9 @@ public class ShoppingCart implements Serializable {
         public int compareTo(Object o) {
             CartPaymentInfo that = (CartPaymentInfo) o;
             Debug.logInfo("Compare [" + this.toString() + "] to [" + that.toString() + "]", module);
+            if (!this.finAccountId.equals(that.finAccountId)) {
+                return -1;    
+            }
             if (this.paymentMethodId != null) {
                 if (that.paymentMethodId == null) {
                     return 1;
