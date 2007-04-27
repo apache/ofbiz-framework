@@ -37,6 +37,66 @@ under the License.
             <#assign paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType")>
             <#if paymentMethodType.paymentMethodTypeId == "EXT_BILLACT">
               <#assign outputted = "false">
+            <#elseif paymentMethodType.paymentMethodTypeId == "FIN_ACCOUNT">
+              <#assign finAccount = orderPaymentPreference.getRelatedOne("FinAccount")?if_exists/>
+              <#if (finAccount?has_content)>
+                <#assign gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse")>
+                <#assign finAccountType = finAccount.getRelatedOne("FinAccountType")?if_exists/>
+                <tr>
+                  <td align="right" valign="top" width="15%">
+                    <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingFinAccount}</b>
+                    <#if orderPaymentPreference.maxAmount?has_content>
+                       <br/>${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
+                    </#if>
+                    </div>
+                  </td>
+                  <td width="5">&nbsp;</td>
+                  <td align="left" valign="top" width="80%">
+                    <div class="tabletext">
+                      <#if (finAccountType?has_content)>
+                        <b>${finAccountType.description?default(finAccountType.finAccountTypeId)}</b>&nbsp;                        
+                      </#if>
+                      #${finAccount.finAccountCode?default(finAccount.finAccountId)} (<a href="/accounting/control/EditFinAccount?finAccountId=${finAccount.finAccountId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${finAccount.finAccountId}</a>)
+                      <br/>
+                      ${finAccount.finAccountName?if_exists}
+                      <br/>
+
+                      <#-- Authorize and Capture transactions -->
+                      <div class="tabletext">
+                        <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
+                          <a href="/accounting/control/AuthorizeTransaction?orderId=${orderId?if_exists}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.AccountingAuthorize}</a>
+                        </#if>
+                        <#if orderPaymentPreference.statusId == "PAYMENT_AUTHORIZED">
+                          <a href="/accounting/control/CaptureTransaction?orderId=${orderId?if_exists}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.AccountingCapture}</a>
+                        </#if>
+                      </div>
+                    </div>
+                    <#if gatewayResponses?has_content>
+                      <div class="tabletext">
+                        <hr class="sepbar"/>
+                        <#list gatewayResponses as gatewayResponse>
+                          <#assign transactionCode = gatewayResponse.getRelatedOne("TranCodeEnumeration")>
+                          ${(transactionCode.get("description",locale))?default("Unknown")}:
+                          ${gatewayResponse.transactionDate.toString()}
+                          <@ofbizCurrency amount=gatewayResponse.amount isoCode=currencyUomId/><br/>
+                          (<b>${uiLabelMap.OrderReference}:</b> ${gatewayResponse.referenceNum?if_exists}
+                          <b>${uiLabelMap.OrderAvs}:</b> ${gatewayResponse.gatewayAvsResult?default("N/A")}
+                          <b>${uiLabelMap.OrderScore}:</b> ${gatewayResponse.gatewayScoreResult?default("N/A")})
+                          <a href="/accounting/control/ViewGatewayResponse?paymentGatewayResponseId=${gatewayResponse.paymentGatewayResponseId}&externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.CommonDetails}</a>
+                          <#if gatewayResponse_has_next><hr class="sepbar"/></#if>
+                        </#list>
+                      </div>
+                    </#if>
+                  </td>
+                  <td>
+                     <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
+                     <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
+                        <a href="<@ofbizUrl>updateOrderPaymentPreference?orderId=${orderId}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&statusId=PAYMENT_CANCELLED&checkOutPaymentId=${paymentMethod.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a>&nbsp;
+                     </#if>
+                     </#if>
+                  </td>
+                </tr>
+              </#if>
             <#else>
               <tr>
                 <td align="right" valign="top" width="15%">
