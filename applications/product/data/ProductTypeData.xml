@@ -397,7 +397,7 @@ under the License.
     <ProductStoreGroup productStoreGroupName="Not Applicable" description="Not Applicable" productStoreGroupId="_NA_" productStoreGroupTypeId="" primaryParentGroupId=""/>
 
     <ProductType description="Fixed Asset Usage" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="" productTypeId="ASSET_USAGE"/>
-    <ProductType description="Service" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="" productTypeId="SERVICE"/>
+    <ProductType description="Service" isPhysical="N" isDigital="N" hasTable="N" parentTypeId="" productTypeId="SERVICE"/>
     <ProductType description="Good" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="" productTypeId="GOOD"/>
     <ProductType description="Raw Material" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="RAW_MATERIAL"/>
     <ProductType description="Subassembly" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="SUBASSEMBLY"/>
