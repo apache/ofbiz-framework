@@ -3728,6 +3728,9 @@ public class ShoppingCart implements Serializable {
                 double dropShipQuantity = 0;
 
                 GenericValue product = cartItem.getProduct();
+                if (product == null) {
+                    continue;
+                }
                 String productId = product.getString("productId");
                 String requirementMethodEnumId = product.getString("requirementMethodEnumId");
 
