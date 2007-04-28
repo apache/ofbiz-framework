@@ -413,13 +413,13 @@ under the License.
             <#list partyContent as contentRole>
               <#assign content = contentRole.getRelatedOne("Content")>
               <#assign contentType = content.getRelatedOneCache("ContentType")>
-              <#assign mimeType = content.getRelatedOneCache("MimeType")>
+              <#assign mimeType = content.getRelatedOneCache("MimeType")?if_exists>
               <#assign status = content.getRelatedOneCache("StatusItem")>
               <tr>
                 <td><a href="<@ofbizUrl>img/${content.contentName}?imgId=${content.dataResourceId}</@ofbizUrl>" class="buttontext">${content.contentId}</a>
                 <td><div class="tabletext">${content.contentName?if_exists}</div></td>
                 <td><div class="tabletext">${(contentType.get("description",locale))?if_exists}</div></td>
-                <td><div class="tabletext">${(mimeType.description)?if_exists}</div></td>
+                <td><div class="tabletext">${mimeType?if_exists.description?if_exists}</div></td>
                 <td><div class="tabletext">${(status.get("description",locale))?if_exists}</div></td>
                 <td><div class="tabletext">${contentRole.fromDate?if_exists}</div></td>
                 <td align="right">
