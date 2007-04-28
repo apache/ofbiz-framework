@@ -347,15 +347,16 @@ public class RequestHandler implements Serializable {
 
         // if previous request exists, and a login just succeeded, do that now.
         if (previousRequest != null && loginPass != null && loginPass.equalsIgnoreCase("TRUE")) {
+            request.getSession().removeAttribute("_PREVIOUS_REQUEST_");
             // special case to avoid login/logout looping: if request was "logout" before the login, change to null for default success view; do the same for "login" to avoid going back to the same page
             if ("logout".equals(previousRequest) || "/logout".equals(previousRequest) || "login".equals(previousRequest) || "/login".equals(previousRequest) || "checkLogin".equals(previousRequest) || "/checkLogin".equals(previousRequest)) {
-                Debug.logWarning("Found special _PREVIOUS_REQUEST_ of [" + previousRequest + "], setting to null to avoid problems", module);
+                Debug.logWarning("Found special _PREVIOUS_REQUEST_ of [" + previousRequest + "], setting to null to avoid problems, not running request again", module);
                 previousRequest = null;
+            } else {
+                if (Debug.infoOn()) Debug.logInfo("[Doing Previous Request]: " + previousRequest + " sessionId=" + UtilHttp.getSessionId(request), module);
+                doRequest(request, response, previousRequest, userLogin, delegator);
+                return; // this is needed or else we will run the view twice
             }
-            request.getSession().removeAttribute("_PREVIOUS_REQUEST_");
-            if (Debug.infoOn()) Debug.logInfo("[Doing Previous Request]: " + previousRequest + " sessionId=" + UtilHttp.getSessionId(request), module);
-            doRequest(request, response, previousRequest, userLogin, delegator);
-            return; // this is needed or else we will run the view twice
         }
 
         String successView = requestManager.getViewName(requestUri);
