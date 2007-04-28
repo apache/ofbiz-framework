@@ -504,7 +504,7 @@ public class ShoppingCart implements Serializable {
             // If the billing address is already set, verify if the new product
             // is available in the address' geo
             GenericValue product = item.getProduct();
-            if (product != null) {
+            if (product != null && isSalesOrder()) {
                 GenericValue billingAddress = this.getBillingAddress();
                 if (billingAddress != null) {
                     if (!ProductWorker.isBillableToAddress(product, billingAddress)) {
@@ -1440,16 +1440,18 @@ public class ShoppingCart implements Serializable {
     /** adds a payment method/payment method type */
     public CartPaymentInfo addPaymentAmount(String id, Double amount, String refNum, String authCode, boolean isSingleUse, boolean isPresent, boolean replace) {
         CartPaymentInfo inf = this.getPaymentInfo(id, refNum, authCode, amount, true);
-        GenericValue billingAddress = inf.getBillingAddress(this.getDelegator());
-        if (billingAddress != null) {
-            // this payment method will set the billing address for the order;
-            // before it is set we have to verify if the billing address is
-            // compatible with the ProductGeos
-            Iterator products = (this.getItemsProducts(this.cartLines)).iterator();
-            while (products.hasNext()) {
-                GenericValue product = (GenericValue)products.next();
-                if (!ProductWorker.isBillableToAddress(product, billingAddress)) {
-                    throw new IllegalArgumentException("The billing address is not compatible with ProductGeos rules.");            
+        if (isSalesOrder()) {
+            GenericValue billingAddress = inf.getBillingAddress(this.getDelegator());
+            if (billingAddress != null) {
+                // this payment method will set the billing address for the order;
+                // before it is set we have to verify if the billing address is
+                // compatible with the ProductGeos
+                Iterator products = (this.getItemsProducts(this.cartLines)).iterator();
+                while (products.hasNext()) {
+                    GenericValue product = (GenericValue)products.next();
+                    if (!ProductWorker.isBillableToAddress(product, billingAddress)) {
+                        throw new IllegalArgumentException("The billing address is not compatible with ProductGeos rules.");
+                    }
                 }
             }
         }
@@ -1832,7 +1834,9 @@ public class ShoppingCart implements Serializable {
     // ----------------------------------------
 
     public int addShipInfo() {
-        shipInfo.add(new CartShipInfo());
+        CartShipInfo csi = new CartShipInfo();
+        csi.orderTypeId = getOrderType();
+        shipInfo.add(csi);
         return (shipInfo.size() - 1);
     }
 
@@ -1866,7 +1870,9 @@ public class ShoppingCart implements Serializable {
         }
 
         if (shipInfo.size() == 0) {
-            shipInfo.add(new CartShipInfo());
+            CartShipInfo csi = new CartShipInfo();
+            csi.orderTypeId = getOrderType();
+            shipInfo.add(csi);
         }
 
         return (CartShipInfo) shipInfo.get(idx);
@@ -1988,6 +1994,7 @@ public class ShoppingCart implements Serializable {
         CartShipInfo toGroup = null;
         if (toIndex == -1) {
             toGroup = new CartShipInfo();
+            toGroup.orderTypeId = getOrderType();
             this.shipInfo.add(toGroup);
             toIndex = this.shipInfo.size() - 1;
         } else {
@@ -2043,6 +2050,31 @@ public class ShoppingCart implements Serializable {
     /** Sets the shipping contact mech id. */
     public void setShippingContactMechId(int idx, String shippingContactMechId) {
         CartShipInfo csi = this.getShipInfo(idx);
+        if (isSalesOrder()) {
+            // Verify if the new address is compatible with the ProductGeos rules of
+            // the products already in the cart
+            GenericValue shippingAddress = null;
+            try {
+                shippingAddress = this.getDelegator().findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMechId));
+            } catch(GenericEntityException gee) {
+                Debug.logError(gee, "Error retrieving the shipping address for contactMechId [" + shippingContactMechId + "].", module);
+            }
+            if (shippingAddress != null) {
+                Set shipItems = csi.getShipItems();
+                if (UtilValidate.isNotEmpty(shipItems)) {
+                    Iterator siit = shipItems.iterator();
+                    while (siit.hasNext()) {
+                        ShoppingCartItem cartItem = (ShoppingCartItem) siit.next();
+                        GenericValue product = cartItem.getProduct();
+                        if (UtilValidate.isNotEmpty(product)) {
+                            if (!ProductWorker.isShippableToAddress(product, shippingAddress)) {
+                                throw new IllegalArgumentException("The shipping address is not compatible with ProductGeos rules.");
+                            }
+                        }
+                    }
+                }
+            }
+        }
         csi.contactMechId = shippingContactMechId;
     }
 
@@ -3913,6 +3945,7 @@ public class ShoppingCart implements Serializable {
     public static class CartShipInfo implements Serializable {
         public LinkedMap shipItemInfo = new LinkedMap();
         public List shipTaxAdj = new LinkedList();
+        public String orderTypeId = null;
         public String contactMechId = null;
         public String shipmentMethodTypeId = null;
         public String supplierPartyId = null;
@@ -3926,6 +3959,7 @@ public class ShoppingCart implements Serializable {
         public Timestamp shipBeforeDate = null;
         public Timestamp shipAfterDate = null;
 
+        public String getOrderTypeId() { return orderTypeId; }
         public String getContactMechId() { return contactMechId; }
         public String getCarrierPartyId() { return carrierPartyId; }
         public String getSupplierPartyId() { return supplierPartyId; }
@@ -4015,6 +4049,9 @@ public class ShoppingCart implements Serializable {
         public CartShipItemInfo setItemInfo(ShoppingCartItem item, double quantity, List taxAdj) {
             CartShipItemInfo itemInfo = (CartShipItemInfo) shipItemInfo.get(item);
             if (itemInfo == null) {
+                if (!isShippableToAddress(item)) {
+                    throw new IllegalArgumentException("The shipping address is not compatible with ProductGeos rules.");
+                }
                 itemInfo = new CartShipItemInfo();
                 itemInfo.item = item;
                 shipItemInfo.put(item, itemInfo);
@@ -4031,6 +4068,9 @@ public class ShoppingCart implements Serializable {
         public CartShipItemInfo setItemInfo(ShoppingCartItem item, List taxAdj) {
             CartShipItemInfo itemInfo = (CartShipItemInfo) shipItemInfo.get(item);
             if (itemInfo == null) {
+                if (!isShippableToAddress(item)) {
+                    throw new IllegalArgumentException("The shipping address is not compatible with ProductGeos rules.");
+                }
                 itemInfo = new CartShipItemInfo();
                 itemInfo.item = item;
                 shipItemInfo.put(item, itemInfo);
@@ -4046,6 +4086,9 @@ public class ShoppingCart implements Serializable {
         public CartShipItemInfo setItemInfo(ShoppingCartItem item, double quantity) {
             CartShipItemInfo itemInfo = (CartShipItemInfo) shipItemInfo.get(item);
             if (itemInfo == null) {
+                if (!isShippableToAddress(item)) {
+                    throw new IllegalArgumentException("The shipping address is not compatible with ProductGeos rules.");
+                }
                 itemInfo = new CartShipItemInfo();
                 itemInfo.item = item;
                 shipItemInfo.put(item, itemInfo);
@@ -4060,6 +4103,26 @@ public class ShoppingCart implements Serializable {
 
         public Set getShipItems() {
             return shipItemInfo.keySet();
+        }
+
+        private boolean isShippableToAddress(ShoppingCartItem item) {
+            if ("SALES_ORDER".equals(getOrderTypeId())) {
+                // Verify if the new address is compatible with the ProductGeos rules of
+                // the products already in the cart
+                GenericValue shippingAddress = null;
+                try {
+                    shippingAddress = item.getDelegator().findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", contactMechId));
+                } catch(GenericEntityException gee) {
+                    Debug.logError(gee, "Error retrieving the shipping address for contactMechId [" + contactMechId + "].", module);
+                }
+                if (shippingAddress != null) {
+                    GenericValue product = item.getProduct();
+                    if (UtilValidate.isNotEmpty(product)) {
+                        return ProductWorker.isShippableToAddress(product, shippingAddress);
+                    }
+                }
+            }
+            return true;
         }
 
         /**
