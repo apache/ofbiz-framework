@@ -78,13 +78,13 @@ public class UtilFormatOut {
     public static String formatCurrency(double price, String isoCode, Locale locale, int maximumFractionDigits) {
         //Debug.logInfo("formatting currency: " + price + ", isoCode: " + isoCode + ", locale: " + locale, module);
         com.ibm.icu.text.NumberFormat nf = com.ibm.icu.text.NumberFormat.getCurrencyInstance(locale);
-        if (maximumFractionDigits >= 0) {
-            nf.setMaximumFractionDigits(maximumFractionDigits);
-        }
         if (isoCode != null && isoCode.length() > 1) {
             nf.setCurrency(com.ibm.icu.util.Currency.getInstance(isoCode));
         } else {
             Debug.logWarning("No isoCode specified to format currency value:" + price, module);
+        }
+        if (maximumFractionDigits >= 0) {
+            nf.setMaximumFractionDigits(maximumFractionDigits);
         }
         return nf.format(price);
     }
