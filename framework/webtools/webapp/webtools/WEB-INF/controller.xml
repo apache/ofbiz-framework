@@ -27,9 +27,9 @@ under the License.
     <handler name="java" type="request" class="org.ofbiz.webapp.event.JavaEventHandler"/>
     <handler name="soap" type="request" class="org.ofbiz.webapp.event.SOAPEventHandler"/>
     <handler name="xmlrpc" type="request" class="org.ofbiz.webapp.event.XmlRpcEventHandler"/>
-    <handler name="stream" type="request" class="org.ofbiz.webapp.event.ServiceStreamHandler"/>
     <handler name="service" type="request" class="org.ofbiz.webapp.event.ServiceEventHandler"/>
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
+    <handler name="service-stream" type="request" class="org.ofbiz.webapp.event.ServiceStreamHandler"/>
     <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
 
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
@@ -104,7 +104,7 @@ under the License.
         <response name="success" type="view" value="error"/>
     </request-map>
     <request-map uri="streamTest">
-        <event type="stream" invoke="serviceStreamTest"/>
+        <event type="service-stream" invoke="serviceStreamTest"/>
         <response name="success" type="none"/>
         <response name="error" type="none"/>
     </request-map>
