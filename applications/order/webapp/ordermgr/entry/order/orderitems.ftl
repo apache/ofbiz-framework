@@ -37,7 +37,7 @@ under the License.
             <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderSubTotal}</b></span></td>
           </tr>
           <#list orderItems?if_exists as orderItem>
-            <#assign itemType = orderItem.getRelatedOne("OrderItemType")>
+            <#assign itemType = orderItem.getRelatedOne("OrderItemType")?if_exists>
             <tr><td colspan="6"><hr class="sepbar"/></td></tr>
             <tr>     
               <#if orderItem.productId?exists && orderItem.productId == "_?_">           
@@ -50,7 +50,7 @@ under the License.
                     <#if orderItem.productId?exists>                       
                       <a href="<@ofbizUrl>product?product_id=${orderItem.productId}</@ofbizUrl>" class="buttontext">${orderItem.productId} - ${orderItem.itemDescription}</a>
                     <#else>                                                    
-                      <b>${itemType.description}</b> : ${orderItem.itemDescription?if_exists}
+                      <b>${itemType?if_exists.description?if_exists}</b> : ${orderItem.itemDescription?if_exists}
                     </#if>
                   </div>
                   
@@ -75,7 +75,7 @@ under the License.
               </#if>
             </tr>
             <#-- show info from workeffort if it was a rental item -->
-            <#if orderItem.orderItemTypeId == "RENTAL_ORDER_ITEM">
+            <#if orderItem.orderItemTypeId?exists && orderItem.orderItemTypeId == "RENTAL_ORDER_ITEM">
                 <#assign WorkOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment")?if_exists>
                 <#if WorkOrderItemFulfillments?has_content>
                     <#list WorkOrderItemFulfillments as WorkOrderItemFulfillment>
