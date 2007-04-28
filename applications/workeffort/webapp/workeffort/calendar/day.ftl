@@ -17,23 +17,16 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-  <tr> 
-    <td width="100%"> 
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
-        <tr>
-          <td align="left" class="boxhead">${uiLabelMap.WorkEffortCalendarDayView}</td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="monthheadertable">
-  <tr>
-    <td width="100%" class="monthheadertext">${start?date?string("EEEE")?cap_first} ${start?date?string.long}</td>
-    <td nowrap class="previousnextmiddle"><a href="<@ofbizUrl>day?start=${prev.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>" class="previousnext">${uiLabelMap.WorkEffortPreviousDay}</a> | <a href="<@ofbizUrl>day?start=${next.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>" class="previousnext">${uiLabelMap.WorkEffortNextDay}</a> | <a href="<@ofbizUrl>day?start=${now.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>" class="previousnext">${uiLabelMap.CommonToday}</a></td>
-  </tr>
-</table>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <ul>
+      <h2>${start?date?string("EEEE")?cap_first} ${start?date?string.long}</h2>
+      <li><a href="<@ofbizUrl>day?start=${next.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.WorkEffortNextDay}</a></li>
+      <li><a href="<@ofbizUrl>day?start=${now.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.CommonToday}</a></li>
+      <li><a href="<@ofbizUrl>day?start=${prev.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.WorkEffortPreviousDay}</a></li>
+    </ul>
+    <br class="clear"/>
+  </div>
 <#if periods?has_content>
 
 <#if (maxConcurrentEntries = 0)>
@@ -82,5 +75,6 @@ under the License.
   </#list>                  
 </table>
 <#else>               
-  <p>${uiLabelMap.WorkEffortFailedCalendarEntries}!</p>
+  <div class="screenlet-body">${uiLabelMap.WorkEffortFailedCalendarEntries}!</div
 </#if>
+</div>

@@ -22,23 +22,16 @@ Please see https://issues.apache.org/jira/browse/OFBIZ-392-->
 <#setting locale="en"> 
 <#assign locale="en"> 
 
-<table border='0' width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-  <tr> 
-    <td width='100%'> 
-      <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
-        <tr> 
-          <td align="left" class="boxhead">${uiLabelMap.WorkEffortCalendarMonthView}</td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="monthheadertable">
-  <tr>
-    <td width="100%" class="monthheadertext">${start?date?string("MMMM yyyy")?cap_first}</td>
-    <td nowrap class="previousnextmiddle"><a href='<@ofbizUrl>month?start=${prev.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>' class="previousnext">${uiLabelMap.WorkEffortPreviousMonth}</a> | <a href='<@ofbizUrl>month?start=${next.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>' class="previousnext">${uiLabelMap.WorkEffortNextMonth}</a> | <a href='<@ofbizUrl>month?start=${now.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>' class="previousnext">${uiLabelMap.WorkEffortThisMonth}</a></td>
-  </tr>
-</table>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <ul>
+      <h2>${start?date?string("MMMM yyyy")?cap_first}</h2>
+      <li><a href='<@ofbizUrl>month?start=${next.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>'>${uiLabelMap.WorkEffortNextMonth}</a></li>
+      <li><a href='<@ofbizUrl>month?start=${now.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>'>${uiLabelMap.WorkEffortThisMonth}</a></li>
+      <li><a href='<@ofbizUrl>month?start=${prev.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>'>${uiLabelMap.WorkEffortPreviousMonth}</a></li>
+    </ul>
+    <br class="clear"/>
+  </div>
 <#if periods?has_content> 
 <table width="100%" cellspacing="1" border="0" cellpadding="1" class="calendar">
   <tr class="bg">
@@ -93,5 +86,6 @@ Please see https://issues.apache.org/jira/browse/OFBIZ-392-->
 </table>
 
 <#else> 
-<p>${uiLabelMap.WorkEffortFailedCalendarEntries}!</p>
+  <div class="screenlet-body">${uiLabelMap.WorkEffortFailedCalendarEntries}!</div>
 </#if>
+</div>
