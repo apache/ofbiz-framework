@@ -93,23 +93,27 @@ public class ProductWorker {
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
-            if (UtilValidate.isEmpty(productGeos)) {
+            List excludeGeos = EntityUtil.filterByAnd(productGeos, UtilMisc.toMap("productGeoEnumId", productGeoPrefix + "EXCLUDE"));
+            List includeGeos = EntityUtil.filterByAnd(productGeos, UtilMisc.toMap("productGeoEnumId", productGeoPrefix + "INCLUDE"));
+            if (UtilValidate.isEmpty(excludeGeos) && UtilValidate.isEmpty(includeGeos)) {
                 // If no GEOs are configured the default is TRUE
                 return true;
             }
-            List excludeGeos = EntityUtil.filterByAnd(productGeos, UtilMisc.toMap("productGeoEnumId", productGeoPrefix + "EXCLUDE"));
-            List includeGeos = EntityUtil.filterByAnd(productGeos, UtilMisc.toMap("productGeoEnumId", productGeoPrefix + "INCLUDE"));
             Iterator productGeosIt = null;
             // exclusion
             productGeosIt = excludeGeos.iterator();
             while (productGeosIt.hasNext()) {
                 GenericValue productGeo = (GenericValue)productGeosIt.next();
-                List includeGeoGroup = GeoWorker.expandGeoGroup(productGeo.getString("geoId"), delegator);
-                if (GeoWorker.containsGeo(includeGeoGroup, postalAddress.getString("countryGeoId"), delegator) ||
-                      GeoWorker.containsGeo(includeGeoGroup, postalAddress.getString("stateProvinceGeoId"), delegator) ||
-                      GeoWorker.containsGeo(includeGeoGroup, postalAddress.getString("postalCodeGeoId"), delegator)) {
+                List excludeGeoGroup = GeoWorker.expandGeoGroup(productGeo.getString("geoId"), delegator);
+                if (GeoWorker.containsGeo(excludeGeoGroup, postalAddress.getString("countryGeoId"), delegator) ||
+                      GeoWorker.containsGeo(excludeGeoGroup, postalAddress.getString("stateProvinceGeoId"), delegator) ||
+                      GeoWorker.containsGeo(excludeGeoGroup, postalAddress.getString("postalCodeGeoId"), delegator)) {
                     return false;
                 }
+            }
+            if (UtilValidate.isEmpty(includeGeos)) {
+                // If no GEOs are configured the default is TRUE
+                return true;
             }
             // inclusion
             productGeosIt = includeGeos.iterator();
