@@ -60,6 +60,6 @@ under the License.
         <div><a href="<@ofbizUrl>FastLoadCache</@ofbizUrl>" class="buttontext"> ${uiLabelMap.ProductFastLoadCatalogIntoCache}</a></div>
         <br/>
         </#if>
-        <div class="tabletext"> ${uiLabelMap.ProductCatalogManagerIsFor}.</div>
+        <!--<div class="tabletext"> ${uiLabelMap.ProductCatalogManagerIsFor}.</div>-->
     </div>
 </div>
