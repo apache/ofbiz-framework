@@ -103,6 +103,9 @@ under the License.
           <td valign='middle'>
             <div class='tabletext' valign='top'>
               <input type="text" class="inputBox" name="userLoginId" value="${requestParameters.userLoginId?if_exists}"/>
+              <a href="javascript:call_fieldlookup2(document.salesentryform.userLoginId,'LookupUserLoginAndPartyDetails');">
+                <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
+              </a>
             </div>
           </td>
         </tr>
@@ -198,6 +201,9 @@ under the License.
           <td valign='middle'>
             <div class='tabletext' valign='top'>
               <input type='text' class='inputBox' name='userLoginId' value='${requestParameters.userLoginId?if_exists}'/>
+              <a href="javascript:call_fieldlookup2(document.poentryform.userLoginId,'LookupUserLoginAndPartyDetails');">
+                <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
+              </a>
             </div>
           </td>
         </tr>
