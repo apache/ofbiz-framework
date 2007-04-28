@@ -403,7 +403,7 @@ public class OrderReturnServices {
                 ), EntityOperator.AND); 
             EntityConditionList havingConditions = new EntityConditionList(UtilMisc.toList(
                     new EntityExpr("quantityIssued", EntityOperator.GREATER_THAN, new Double(0))
-                ), EntityOperator.AND); 
+                ), EntityOperator.AND);
             List orderItemQuantitiesIssued = null;
             try {
                 orderItemQuantitiesIssued = delegator.findByCondition("OrderItemQuantityReportGroupByItem", whereConditions, havingConditions, UtilMisc.toList("orderId", "orderItemSeqId"), UtilMisc.toList("orderItemSeqId"), null);
@@ -455,7 +455,7 @@ public class OrderReturnServices {
                         }
                         if (product != null) {
                             itemTypeKey = product.getString("productTypeId");
-                        } else if (item != null) {
+                        } else if (item != null && item.getString("orderItemTypeId") != null) {
                             itemTypeKey = item.getString("orderItemTypeId");
                         }
                         returnInfo.put("itemTypeKey", itemTypeKey);
