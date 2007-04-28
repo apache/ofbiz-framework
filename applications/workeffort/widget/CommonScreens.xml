@@ -146,10 +146,10 @@
                             </actions>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://workeffort/webapp/workeffort/calendar/CalendarTabBar.ftl"/></html>
+                                    <html><html-template location="component://workeffort/webapp/workeffort/calendar/eventsByForms.ftl"/></html>
                                 </platform-specific>
                                 <platform-specific>
-                                    <html><html-template location="component://workeffort/webapp/workeffort/calendar/eventsByForms.ftl"/></html>
+                                    <html><html-template location="component://workeffort/webapp/workeffort/calendar/CalendarTabBar.ftl"/></html>
                                 </platform-specific>
                                 <decorator-section-include name="body"/>
                             </widgets>

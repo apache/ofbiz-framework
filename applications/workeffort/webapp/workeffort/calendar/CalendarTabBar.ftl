@@ -16,17 +16,20 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
 
-<div class="tabContainer">
-    <a href="<@ofbizUrl>day<#if eventsParam?has_content>?${eventsParam}</#if></@ofbizUrl>" class="${selectedClassMap.day?default(unselectedClassName)}">${uiLabelMap.WorkEffortDayView}</a>
-    <a href="<@ofbizUrl>week<#if eventsParam?has_content>?${eventsParam}</#if></@ofbizUrl>" class="${selectedClassMap.week?default(unselectedClassName)}">${uiLabelMap.WorkEffortWeekView}</a>
-    <a href="<@ofbizUrl>month<#if eventsParam?has_content>?${eventsParam}</#if></@ofbizUrl>" class="${selectedClassMap.month?default(unselectedClassName)}">${uiLabelMap.WorkEffortMonthView}</a>
-    <a href="<@ofbizUrl>upcoming<#if eventsParam?has_content>?${eventsParam}</#if></@ofbizUrl>" class="${selectedClassMap.upcoming?default(unselectedClassName)}">${uiLabelMap.WorkEffortUpcomingEvents}</a>
-</div>
+<#assign selected = page.tabButtonItem?default("void")>
 
 <div>
     <a href="<@ofbizUrl>EditWorkEffort?workEffortTypeId=EVENT&currentStatusId=CAL_TENTATIVE</@ofbizUrl>" class="buttontext">${uiLabelMap.WorkEffortNewEvent}</a>
 </div>
 <br/>
+
+<div class="button-bar button-style-1">
+    <ul>
+      <li<#if selected = "day"> class="selected"</#if>><a href="<@ofbizUrl>day<#if eventsParam?has_content>?${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.WorkEffortDayView}</a></li>
+      <li<#if selected = "week"> class="selected"</#if>><a href="<@ofbizUrl>week<#if eventsParam?has_content>?${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.WorkEffortWeekView}</a></li>
+      <li<#if selected = "month"> class="selected"</#if>><a href="<@ofbizUrl>month<#if eventsParam?has_content>?${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.WorkEffortMonthView}</a></li>
+      <li<#if selected = "upcoming"> class="selected"</#if>><a href="<@ofbizUrl>upcoming<#if eventsParam?has_content>?${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.WorkEffortUpcomingEvents}</a></li>
+    </ul>
+    <br class="clear"/>
+</div>

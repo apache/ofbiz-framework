@@ -17,23 +17,16 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-  <tr> 
-    <td width="100%"> 
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
-        <tr> 
-          <td align="left" class="boxhead">${uiLabelMap.WorkEffortCalendarWeekView}</td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="monthheadertable">
-  <tr>
-    <td width="100%" class="monthheadertext">${uiLabelMap.CommonWeek} ${start?date?string("w")}</td>
-    <td nowrap class="previousnextmiddle"><a href="<@ofbizUrl>week?start=${prev.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>" class="previousnext">${uiLabelMap.WorkEffortPreviousWeek}</a> | <a href="<@ofbizUrl>week?start=${next.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>" class="previousnext">${uiLabelMap.WorkEffortNextWeek}</a> | <a href="<@ofbizUrl>week?start=${now.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>" class="previousnext">${uiLabelMap.WorkEffortThisWeek}</a></td>
-  </tr>
-</table>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <ul>
+      <h2>${uiLabelMap.CommonWeek} ${start?date?string("w")}</h2>
+      <li><a href="<@ofbizUrl>week?start=${next.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.WorkEffortNextWeek}</a></li>
+      <li><a href="<@ofbizUrl>week?start=${now.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.WorkEffortThisWeek}</a></li>
+      <li><a href="<@ofbizUrl>week?start=${prev.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.WorkEffortPreviousWeek}</a></li>
+    </ul>
+    <br class="clear"/>
+  </div>
 <#if periods?has_content> 
 <#if maxConcurrentEntries = 0>
   <#assign entryWidth = 100>
@@ -84,5 +77,6 @@ under the License.
   </#list>
 </table>
 <#else>               
-  <p>${uiLabelMap.WorkEffortFailedCalendarEntries}!</p>
+  <div class="screenlet-body">${uiLabelMap.WorkEffortFailedCalendarEntries}!</div>
 </#if>
+</div>
