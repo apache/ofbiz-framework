@@ -2579,7 +2579,7 @@ public class OrderReadHelper {
             if (Debug.verboseOn()) Debug.logVerbose("Unit Price : " + unitPrice + " / " + "Quantity : " + quantity, module);
             result = unitPrice.multiply(quantity);
 
-            if (orderItem.getString("orderItemTypeId").compareTo("RENTAL_ORDER_ITEM") == 0)    { // retrieve related work effort when required.
+            if ("RENTAL_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId")))    { // retrieve related work effort when required.
                 List WorkOrderItemFulfillments = null;
                 try {
                     WorkOrderItemFulfillments = orderItem.getRelatedCache("WorkOrderItemFulfillment");
