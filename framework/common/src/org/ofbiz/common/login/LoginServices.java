@@ -263,6 +263,7 @@ public class LoginServices {
                                             ulhCreateMap.put("passwordUsed", password);
                                         }
                                         
+                                        //Debug.logInfo(new Exception(), "=================== Creating new UserLoginHistory at " + UtilDateTime.nowTimestamp(), module);
                                         delegator.create("UserLoginHistory", ulhCreateMap);
                                     }
                                 }
