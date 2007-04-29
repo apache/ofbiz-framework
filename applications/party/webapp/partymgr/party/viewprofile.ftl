@@ -239,7 +239,7 @@ under the License.
                 </#if>
               </td>
               <td valign="top"><b>(${partyContactMech.allowSolicitation?if_exists})</b></td>
-              <td class="button-col align-float">
+              <td class="button-col">
                 <#if security.hasEntityPermission("PARTYMGR", "_UPDATE", session)>
                   <a href="<@ofbizUrl>editcontactmech?partyId=${party.partyId}&contactMechId=${contactMech.contactMechId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
                 </#if>
@@ -300,7 +300,7 @@ under the License.
                   <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate?if_exists})</#if>
                   <#if paymentMethod.thruDate?has_content><b>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate})</#if>
                 </td>
-                <td class="button-col align-float">
+                <td class="button-col">
                   <#if security.hasEntityPermission("MANUAL", "_PAYMENT", session)>
                     <a href="/accounting/control/manualETx?paymentMethodId=${paymentMethod.paymentMethodId}${externalKeyParam}">Manual Tx</a>
                   </#if>
@@ -339,7 +339,7 @@ under the License.
                   <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate?if_exists})</#if>
                   <#if paymentMethod.thruDate?has_content><b>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate.toString()}</b></#if>
                 </td>
-                <td class="button-col align-float">
+                <td class="button-col">
                   <#if security.hasEntityPermission("PAY_INFO", "_UPDATE", session)>
                     <a href="<@ofbizUrl>editgiftcard?partyId=${party.partyId}&paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
                   </#if>
@@ -355,7 +355,7 @@ under the License.
                   <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate?if_exists})</#if>
                   <#if paymentMethod.thruDate?has_content><b>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate.toString()}</#if>
                 </td>
-                <td class="button-col align-float">
+                <td class="button-col">
                   <#if security.hasEntityPermission("PAY_INFO", "_UPDATE", session)>
                     <a href="<@ofbizUrl>editeftaccount?partyId=${party.partyId}&paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
                   </#if>
@@ -371,7 +371,7 @@ under the License.
                   <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate?if_exists})</#if>
                   <#if paymentMethod.thruDate?has_content>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate.toString()}</#if>
                 </td>
-                <td class="button-col align-float">
+                <td class="button-col">
                   &nbsp;
                 <#-- </td> -->
               </#if>
@@ -439,7 +439,7 @@ under the License.
                 </#if>
                 ${enabled}
               </td>
-              <td class="button-col align-float">
+              <td class="button-col">
                 <#if security.hasEntityPermission("PARTYMGR", "_CREATE", session)>
                   <a href="<@ofbizUrl>editlogin?partyId=${party.partyId}&userLoginId=${userUserLogin.userLoginId}</@ofbizUrl>">${uiLabelMap.CommonEdit}</a>
                 </#if>
@@ -478,7 +478,7 @@ under the License.
               <td>
                 ${uiLabelMap.CommonValue}: ${attr.attrValue}
               </td>
-              <td class="button-col align-float">
+              <td class="button-col">
                 <a href="<@ofbizUrl>editPartyAttribute?partyId=${partyId}&attrName=${attr.attrName}</@ofbizUrl>">${uiLabelMap.CommonEdit}</a>
               </td>
             </tr>
@@ -596,7 +596,7 @@ under the License.
               <td>${(mimeType.description)?if_exists}</td>
               <td>${(status.get("description",locale))?if_exists}</td>
               <#-- <td>${contentRole.fromDate?if_exists}</td> -->
-              <td class="button-col align-float">
+              <td class="button-col">
                 <a href="<@ofbizUrl>img/${content.contentName}?imgId=${content.dataResourceId}</@ofbizUrl>">${uiLabelMap.CommonView}</a>
                 <a href="<@ofbizUrl>removePartyContent/viewprofile?contentId=${pContent.contentId}&partyId=${pContent.partyId}</@ofbizUrl>">${uiLabelMap.CommonRemove}</a>
               </td>
