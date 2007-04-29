@@ -51,7 +51,7 @@ ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-jta_1.0.1B_spec-1.0.jar
 ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-qname_1.1_spec-1.0.jar
 ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-saaj_1.1_spec-1.0.jar
 ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-servlet_2.4_spec-1.0.jar
-ofbiz/trunk/framework/base/lib/scripting/bsf.jar
+ofbiz/trunk/framework/base/lib/scripting/bsf-2.4.0.jar
 ofbiz/trunk/framework/base/lib/scripting/oro.jar
 ofbiz/trunk/framework/catalina/lib/catalina-cluster.jar
 ofbiz/trunk/framework/catalina/lib/catalina-optional.jar
@@ -1261,7 +1261,7 @@ W3C¨ SOFTWARE NOTICE AND LICENSE
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the 
 Sun Public License:
-ofbiz/trunk/framework/base/lib/scripting/bsh.jar
+ofbiz/trunk/framework/base/lib/scripting/bsh-2.0b4.jar
 =========================================================================
 SUN PUBLIC LICENSE Version 1.0
 
