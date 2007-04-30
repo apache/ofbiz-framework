@@ -736,11 +736,13 @@ under the License.
                                         <actions>
                                             <entity-condition entity-name="FinAccountTrans" list-name="ownedFinAccountTransList">
                                                 <condition-expr field-name="finAccountId" env-name="ownedFinAccount.finAccountId"/>
-                                                <order-by field-name="transactionDate"/>
+                                                <order-by field-name="-transactionDate"/>
+                                                <limit-range start="0" size="5"/>
                                             </entity-condition>
                                             <entity-condition entity-name="FinAccountAuth" list-name="ownedFinAccountAuthList" filter-by-date="true">
                                                 <condition-expr field-name="finAccountId" env-name="ownedFinAccount.finAccountId"/>
-                                                <order-by field-name="authorizationDate"/>
+                                                <order-by field-name="-authorizationDate"/>
+                                                <limit-range start="0" size="5"/>
                                             </entity-condition>
                                             <entity-one entity-name="Uom" value-name="accountCurrencyUom" auto-field-map="false" use-cache="true">
                                                 <field-map field-name="uomId" env-name="ownedFinAccount.currencyUomId"/>
