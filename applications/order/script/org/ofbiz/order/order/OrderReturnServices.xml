@@ -136,7 +136,19 @@ under the License.
 
             <!-- check them all to make sure that the return total does not exceed order total.  -->
             <iterate entry-name="returnItem" list-name="returnItems">
-
+              <!-- check, for cross-ship returns, if a payment method is set to guarantee the cross-shipped item(s)..  -->
+              <if>
+                  <condition>
+                      <and>
+                          <if-empty field-name="returnHeader.paymentMethodId"/>
+                          <if-compare field-name="returnItem.returnTypeId" operator="equals" value="RTN_CSREPLACE"/>
+                      </and>
+                  </condition>
+                  <then>
+                      <add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnPaymentMethodNotSetForCrossShip"/></add-error>
+                  </then>
+              </if>
+              <check-errors/>
                <!-- tally up the return total amount -->
                <calculate field-name="returnTotalAmount">
                    <calcop field-name="returnTotalAmount" operator="add">

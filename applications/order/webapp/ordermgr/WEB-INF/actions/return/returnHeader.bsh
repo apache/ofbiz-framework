@@ -42,6 +42,17 @@ if (returnId != null) {
         postalAddressFrom = returnHeader.getRelatedOne("PostalAddress");            
         currentAccount = returnHeader.getRelatedOne("BillingAccount");
         context.put("currentAccount", currentAccount);
+        currentPaymentMethod = returnHeader.getRelatedOne("PaymentMethod");
+        if (currentPaymentMethod != null) {
+            currentCreditCard = currentPaymentMethod.getRelatedOne("CreditCard");
+            if (currentCreditCard != null) {
+                context.put("currentCreditCard", currentCreditCard);
+            } else {
+                currentEftAccount = currentPaymentMethod.getRelatedOne("EftAccount");
+                context.put("currentEftAccount", currentEftAccount);
+            }
+        }
+        context.put("currentPaymentMethod", currentPaymentMethod);
         currentFacility = returnHeader.getRelatedOne("Facility");
         context.put("currentFacility", currentFacility);     
         context.put("entryDate", returnHeader.getTimestamp("entryDate"));
@@ -74,6 +85,18 @@ if (partyId != null) {
     billingAccountList = EntityUtil.filterByDate(billingAccountList);
 }
 context.put("billingAccountList", billingAccountList);
+
+// payment method info
+if (partyId != null) {
+    List creditCardList = EntityUtil.filterByDate(delegator.findByAnd("PaymentMethodAndCreditCard", UtilMisc.toMap("partyId", partyId)));
+    if (UtilValidate.isNotEmpty(creditCardList)) {
+        context.put("creditCardList", creditCardList);
+    }
+    List eftAccountList = EntityUtil.filterByDate(delegator.findByAnd("PaymentMethodAndEftAccount", UtilMisc.toMap("partyId", partyId)));
+    if (UtilValidate.isNotEmpty(eftAccountList)) {
+        context.put("eftAccountList", eftAccountList);
+    }
+}
 
 facilityList = delegator.findAll("Facility", UtilMisc.toList("facilityName"));
 context.put("facilityList", facilityList);
