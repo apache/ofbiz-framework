@@ -52,7 +52,7 @@ ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-qname_1.1_spec-1.0.jar
 ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-saaj_1.1_spec-1.0.jar
 ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-servlet_2.4_spec-1.0.jar
 ofbiz/trunk/framework/base/lib/scripting/bsf-2.4.0.jar
-ofbiz/trunk/framework/base/lib/scripting/oro-2.0.8.jar
+ofbiz/trunk/framework/base/lib/scripting/jakarta-oro-2.0.8.jar
 ofbiz/trunk/framework/catalina/lib/catalina-cluster.jar
 ofbiz/trunk/framework/catalina/lib/catalina-optional.jar
 ofbiz/trunk/framework/catalina/lib/catalina.jar
