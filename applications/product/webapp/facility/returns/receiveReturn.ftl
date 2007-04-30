@@ -24,9 +24,12 @@ under the License.
 
 <#-- Receiving Results -->
 <#if receivedItems?has_content>
+  <h3>${uiLabelMap.ProductReceiptForReturn} <a href="/ordermgr/control/returnMain?returnId=${returnHeader.returnId}${externalKeyParam?if_exists}" class="buttontext">#${returnHeader.returnId}</a></h3>
+  <#if "RETURN_RECEIVED" == returnHeader.getString("statusId")>
+    <h3>${uiLabelMap.ProductReturnCompletelyReceived}</h3>
+  </#if>
+  <br/>
   <table width="100%" border='0' cellpadding='2' cellspacing='0'>
-    <tr><td colspan="7"><div class="head3">${uiLabelMap.ProductReceiptForReturn} <a href="/ordermgr/control/returnMain?returnId=${returnHeader.returnId}${externalKeyParam?if_exists}" class="buttontext">#${returnHeader.returnId}</a></div></td></tr>
-    <tr><td colspan="7"><hr class="sepbar"></td></tr>
     <tr>
       <td><div class="tableheadtext">${uiLabelMap.ProductReceipt}</div></td>
       <td><div class="tableheadtext">${uiLabelMap.CommonDate}</div></td>
