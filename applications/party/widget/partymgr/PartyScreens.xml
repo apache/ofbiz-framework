@@ -770,5 +770,38 @@ under the License.
         </section>
     </screen>
 
+    <screen name="SerializedInventorySummary">
+        <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <entity-condition entity-name="InventoryItem" list-name="inventoryItemList">
+                    <condition-list>
+                        <condition-expr field-name="inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM"/>
+                        <condition-expr field-name="ownerPartyId" operator="equals" env-name="parameters.partyId"/>
+                    </condition-list>
+                    <order-by field-name="-createdStamp"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not>
+                            <if-empty field-name="inventoryItemList"/>
+                        </not>
+                    </condition>
+                    <widgets>
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://party/webapp/partymgr/party/SerializedInventorySummary.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>
 
