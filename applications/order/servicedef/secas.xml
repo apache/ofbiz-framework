@@ -140,13 +140,14 @@ under the License.
     <eca service="updateReturnHeader" event="commit">
         <condition field-name="statusId" operator="equals" value="RETURN_ACCEPTED"/>
         <condition field-name="currentStatusId" operator="not-equals" value="RETURN_ACCEPTED"/>
+        <action service="processCrossShipReplacementReturn" mode="sync"/>
         <action service="createTrackingCodeOrderReturns" mode="sync"/>
         <action service="sendReturnAcceptNotification" mode="async" persist="true"/>
     </eca>
     <eca service="updateReturnHeader" event="commit">
         <condition field-name="statusId" operator="equals" value="RETURN_RECEIVED"/>
         <condition field-name="currentStatusId" operator="not-equals" value="RETURN_RECEIVED"/>
-        <action service="processReplacementReturn" mode="sync"/>
+        <action service="processWaitReplacementReturn" mode="sync"/>
         <action service="processCreditReturn" mode="sync"/>
         <action service="processRefundReturn" mode="sync"/>
     </eca>
@@ -171,7 +172,7 @@ under the License.
 
     <eca service="updateReturnStatusFromReceipt" event="global-commit">
         <condition field-name="returnHeaderStatus" operator="equals" value="RETURN_RECEIVED"/>
-        <action service="processReplacementReturn" mode="sync" persist="true"/>
+        <action service="processWaitReplacementReturn" mode="sync" persist="true"/>
         <action service="processCreditReturn" mode="sync" persist="true"/>
         <action service="processRefundReturn" mode="sync" persist="true"/>
     </eca>

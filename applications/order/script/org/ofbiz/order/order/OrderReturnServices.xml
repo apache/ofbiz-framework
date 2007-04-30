@@ -747,4 +747,15 @@ under the License.
             <call-service service-name="updateReturnItem" in-map-name="returnItemMap"/>
         </iterate>
     </simple-method>
+
+    <simple-method method-name="processWaitReplacementReturn" short-description="Process the replacements in a wait return">
+        <set field="inMap.returnId" from-field="parameters.returnId"/>
+        <set field="inMap.returnTypeId" value="RTN_REPLACE"/>
+        <call-service service-name="processReplacementReturn" in-map-name="inMap"/>
+    </simple-method>
+    <simple-method method-name="processCrossShipReplacementReturn" short-description="Process the replacements in a cross-ship return">
+        <set field="inMap.returnId" from-field="parameters.returnId"/>
+        <set field="inMap.returnTypeId" value="RTN_CSREPLACE"/>
+        <call-service service-name="processReplacementReturn" in-map-name="inMap"/>
+    </simple-method>
 </simple-methods>
