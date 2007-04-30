@@ -50,11 +50,18 @@ for the definition of character entities used in the software's documentation.
 ==  Apache Derby Notice                                                ==
 =========================================================================
 
-Portions of Derby were orginally developed by
+Portions of Derby were originally developed by
 International Business Machines Corporation and are
 licensed to the Apache Software Foundation under the
 "Software Grant and Corporate Contribution License Agreement",
 informally known as the "Derby CLA".
+The following copyright notice(s) were affixed to portions of the code
+with which this file is now or was at one time distributed
+and are placed here unaltered.
+
+(C) Copyright 1997,2004 International Business Machines Corporation.  All rights reserved.
+
+(C) Copyright IBM Corp. 2003. 
 
 The portion of the functionTests under 'nist' was originally 
 developed by the National Institute of Standards and Technology (NIST), 
