@@ -1427,10 +1427,20 @@ padding: 0.2em 0.5em 0.2em 0.5em;
 .screenlet-title-bar ul .head2,
 .screenlet-title-bar ul .head3 {
 /* h1 - h3 deprecated, fails validation */
-background-color: #000099;
 border-left: none;
 float: left;
-padding: 0.2em 0.5em 0.2em 0.5em;
+}
+
+.screenlet-title-bar ul .head1 {
+font-size: 1.6em;
+}
+
+.screenlet-title-bar ul .head2 {
+font-size: 1.3em;
+}
+
+.screenlet-title-bar ul .head3 {
+font-size: 1.1em;
 }
 
 .screenlet-title-bar ul .disabled {
