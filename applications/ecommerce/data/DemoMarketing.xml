@@ -21,11 +21,11 @@ under the License.
 <entity-engine-xml>
     <MarketingCampaign statusId="MKTG_CAMP_INPROGRESS" marketingCampaignId="9000" parentCampaignId="" campaignName="eCommerce Site Internal Campaign" campaignSummary=""/>
         
-    <ContactList contactListId="9000" contactListTypeId="ANNOUNCEMENT" contactMechTypeId="EMAIL_ADDRESS" statusId="MKTG_CAMP_INPROGRESS" marketingCampaignId="9000" 
+    <ContactList contactListId="9000" contactListTypeId="ANNOUNCEMENT" contactMechTypeId="EMAIL_ADDRESS" marketingCampaignId="9000" 
         contactListName="New Product Announcements" description="New Product Announcements Mailing List (email)" comments="" isPublic="Y" ownerPartyId="Company" 
         verifyEmailFrom="ofbiztest@yahoo.com" verifyEmailScreen="component://ecommerce/widget/EmailContactListScreens.xml#ContactListVerifyEmail" 
         verifyEmailSubject="Subscription Verify Email" verifyEmailWebSiteId="WebStore"/>
-    <ContactList contactListId="9010" contactListTypeId="NEWSLETTER" contactMechTypeId="EMAIL_ADDRESS" statusId="MKTG_CAMP_INPROGRESS" marketingCampaignId="9000" 
+    <ContactList contactListId="9010" contactListTypeId="NEWSLETTER" contactMechTypeId="EMAIL_ADDRESS" marketingCampaignId="9000" 
         contactListName="Product Tips Newsletter" description="Product Tips Newsletter Mailing List (email)" comments="" isPublic="Y" ownerPartyId="Company" 
         verifyEmailFrom="ofbiztest@yahoo.com" verifyEmailScreen="component://ecommerce/widget/EmailContactListScreens.xml#ContactListVerifyEmail" 
         verifyEmailSubject="Subscription Verify Email" verifyEmailWebSiteId="WebStore"/>
@@ -39,12 +39,12 @@ under the License.
     <MarketingCampaign statusId="MKTG_CAMP_INPROGRESS" marketingCampaignId="9002" campaignName="Affiliate Sites"/>
     
     <!-- tracking codes are used in URLs to track specific campaigns.  The lifetimes are defined in seconds -->
-    <TrackingCode trackingCodeId="9000" trackingCodeTypeId="EXTERNAL" description ="PPC Campaign 1" statusId="MKTG_CAMP_INPROGRESS" marketingCampaignId="9001" trackableLifetime="2592000" billableLifetime="2592000"/>
-    <TrackingCode trackingCodeId="9001" trackingCodeTypeId="EXTERNAL" description ="PPC Campaign 2" statusId="MKTG_CAMP_INPROGRESS" marketingCampaignId="9001" trackableLifetime="2592000" billableLifetime="2592000"/>
-    <TrackingCode trackingCodeId="9002" trackingCodeTypeId="EXTERNAL" description ="PPC Campaign 3" statusId="MKTG_CAMP_INPROGRESS" marketingCampaignId="9001" trackableLifetime="2592000" billableLifetime="2592000"/>
+    <TrackingCode trackingCodeId="9000" trackingCodeTypeId="EXTERNAL" description ="PPC Campaign 1" marketingCampaignId="9001" trackableLifetime="2592000" billableLifetime="2592000"/>
+    <TrackingCode trackingCodeId="9001" trackingCodeTypeId="EXTERNAL" description ="PPC Campaign 2" marketingCampaignId="9001" trackableLifetime="2592000" billableLifetime="2592000"/>
+    <TrackingCode trackingCodeId="9002" trackingCodeTypeId="EXTERNAL" description ="PPC Campaign 3" marketingCampaignId="9001" trackableLifetime="2592000" billableLifetime="2592000"/>
 
-    <TrackingCode trackingCodeId="9010" trackingCodeTypeId="EXTERNAL" description ="Affiliate 1" statusId="MKTG_CAMP_INPROGRESS" marketingCampaignId="9002" trackableLifetime="2592000" billableLifetime="2592000"/>
-    <TrackingCode trackingCodeId="9011" trackingCodeTypeId="EXTERNAL" description ="Affiliate 2" statusId="MKTG_CAMP_INPROGRESS" marketingCampaignId="9002" trackableLifetime="2592000" billableLifetime="2592000"/>
-    <TrackingCode trackingCodeId="9012" trackingCodeTypeId="EXTERNAL" description ="Affiliate 3" statusId="MKTG_CAMP_INPROGRESS" marketingCampaignId="9002" trackableLifetime="2592000" billableLifetime="2592000"/>
+    <TrackingCode trackingCodeId="9010" trackingCodeTypeId="EXTERNAL" description ="Affiliate 1" marketingCampaignId="9002" trackableLifetime="2592000" billableLifetime="2592000"/>
+    <TrackingCode trackingCodeId="9011" trackingCodeTypeId="EXTERNAL" description ="Affiliate 2" marketingCampaignId="9002" trackableLifetime="2592000" billableLifetime="2592000"/>
+    <TrackingCode trackingCodeId="9012" trackingCodeTypeId="EXTERNAL" description ="Affiliate 3" marketingCampaignId="9002" trackableLifetime="2592000" billableLifetime="2592000"/>
     
 </entity-engine-xml>
