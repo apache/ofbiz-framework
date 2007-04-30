@@ -1422,7 +1422,11 @@ padding: 0.2em 0.5em 0.2em 0.5em;
 
 .screenlet-title-bar ul h1,
 .screenlet-title-bar ul h2,
-.screenlet-title-bar ul h3 {
+.screenlet-title-bar ul h3,
+.screenlet-title-bar ul .head1,
+.screenlet-title-bar ul .head2,
+.screenlet-title-bar ul .head3 {
+/* h1 - h3 deprecated, fails validation */
 background-color: #000099;
 border-left: none;
 float: left;

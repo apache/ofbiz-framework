@@ -17,11 +17,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<!-- begin addressMatchMap.ftl -->
 <div id="address-match-map" class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <h3>${uiLabelMap.PageTitleAddressMatchMap}</h3>
+      <li class="head3">${uiLabelMap.PageTitleAddressMatchMap}</li>
       <li><a href="<@ofbizUrl>findAddressMatch</@ofbizUrl>">${uiLabelMap.PageTitleFindMatches}</a></li>
     </ul>
     <br class="clear" />

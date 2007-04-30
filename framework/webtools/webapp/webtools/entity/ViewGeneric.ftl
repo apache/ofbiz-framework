@@ -213,7 +213,7 @@ under the License.
       <div class="screenlet">
         <div class="screenlet-title-bar">
           <ul>
-            <h3>${relation.title} ${uiLabelMap.WebtoolsRelatedEntity}: ${relation.relatedTable}</h3>
+            <li class="head3">${relation.title} ${uiLabelMap.WebtoolsRelatedEntity}: ${relation.relatedTable}</li>
             <#if relation.valueRelated?has_content>
               <li><a href='<@ofbizUrl>ViewGeneric?${relation.encodeRelatedEntityFindString}</@ofbizUrl>'>${uiLabelMap.CommonView}</a></li>
             <#else>
