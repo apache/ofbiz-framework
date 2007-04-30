@@ -150,6 +150,11 @@ context.put("orderList", orderList);
 orderListSize = request.getAttribute("orderListSize");
 context.put("orderListSize", orderListSize);
 
+context.put("filterInventoryProblems", request.getAttribute("filterInventoryProblemsList"));
+context.put("filterPOsWithRejectedItems", request.getAttribute("filterPOsWithRejectedItemsList"));
+context.put("filterPOsOpenPastTheirETA", request.getAttribute("filterPOsOpenPastTheirETAList"));
+context.put("filterPartiallyReceivedPOs", request.getAttribute("filterPartiallyReceivedPOsList"));   
+
 lowIndex = request.getAttribute("lowIndex");
 context.put("lowIndex", lowIndex);
 
