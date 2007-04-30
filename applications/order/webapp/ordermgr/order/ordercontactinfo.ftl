@@ -55,7 +55,7 @@ under the License.
                 <span>&nbsp;(<a href="${customerDetailLink}${partyId}" target="partymgr" class="buttontext">${partyId}</a>)</span>
                 <span>
                    <a href="<@ofbizUrl>/orderentry?partyId=${partyId}&amp;orderTypeId=${orderHeader.orderTypeId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNewOrder}</a>
-                   <a href="<@ofbizUrl>/findorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderOtherOrders}</a>
+                   <a href="<@ofbizUrl>/searchorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}&amp;viewIndex=0&amp;viewSize=10</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderOtherOrders}</a>
                 </span>
               </#if>
             </div>

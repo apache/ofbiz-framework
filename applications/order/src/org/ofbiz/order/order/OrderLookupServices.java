@@ -113,6 +113,7 @@ public class OrderLookupServices {
                     orExprs.add(new EntityExpr("orderTypeId", EntityOperator.EQUALS, orderTypeId));
                 }
             }
+            conditions.add(new EntityConditionList(orExprs, EntityOperator.OR));
         }
 
         String orderName = (String) context.get("orderName");
@@ -225,7 +226,7 @@ public class OrderLookupServices {
         }
 
         String maxDate = (String) context.get("maxDate");
-        if (UtilValidate.isNotEmpty(minDate) && maxDate.length() > 8) {
+        if (UtilValidate.isNotEmpty(maxDate) && maxDate.length() > 8) {
             maxDate = maxDate.trim();
             if (maxDate.length() < 14) maxDate = maxDate + " " + "23:59:59.999";
             paramList.add("maxDate=" + maxDate);

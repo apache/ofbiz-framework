@@ -246,7 +246,7 @@ under the License.
           <td class="button-col align-float">
               <a href="<@ofbizUrl>viewprofile?partyId=${partyRow.partyId}</@ofbizUrl>">${uiLabelMap.CommonDetails}</a>
               <#if security.hasRolePermission("ORDERMGR", "_VIEW", "", "", session)>
-                <a href="/ordermgr/control/findorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyRow.partyId + externalKeyParam}">${uiLabelMap.OrderOrders}</a>
+                <a href="/ordermgr/control/searchorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyRow.partyId + externalKeyParam}&amp;viewIndex=0&amp;viewSize=10">${uiLabelMap.OrderOrders}</a>
                 <a href="/ordermgr/control/FindQuote?partyId=${partyRow.partyId + externalKeyParam}">${uiLabelMap.OrderOrderQuotes}</a>
               </#if>
               <#if security.hasEntityPermission("ORDERMGR", "_CREATE", session)>

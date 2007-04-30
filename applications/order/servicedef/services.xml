@@ -700,6 +700,7 @@ under the License.
         <attribute name="useEntryDate" type="String" mode="IN" optional="true"/> <!-- Y/N use entryDate instead of orderDate -->
         <attribute name="minDate" type="String" mode="IN" optional="true"/> <!-- converted to Timestamp -->
         <attribute name="maxDate" type="String" mode="IN" optional="true"/> <!-- converted to Timestamp -->
+        <attribute name="hasBackOrders" type="String" mode="IN" optional="true"/> <!-- Y to only show orders with items on backorder -->
 
         <!-- order role fields -->
         <attribute name="userLoginId" type="String" mode="IN" optional="true"/>
