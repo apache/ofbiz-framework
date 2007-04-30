@@ -214,6 +214,17 @@ under the License.
             location="org.ofbiz.order.order.OrderReturnServices" invoke="processReplacementReturn">
         <description>Process the replacements in a return</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
+        <attribute name="returnTypeId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="processWaitReplacementReturn" engine="simple" auth="true"
+            location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="processWaitReplacementReturn">
+        <description>Process the replacements in a wait return</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="processCrossShipReplacementReturn" engine="simple" auth="true"
+            location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="processCrossShipReplacementReturn">
+        <description>Process the replacements in a cross-ship return</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="updateReturnStatusFromReceipt" engine="simple"
             location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="updateReturnStatusFromReceipt">

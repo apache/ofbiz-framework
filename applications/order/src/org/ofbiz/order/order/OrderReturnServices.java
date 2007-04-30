@@ -1267,6 +1267,7 @@ public class OrderReturnServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         String returnId = (String) context.get("returnId");
+        String returnTypeId = (String) context.get("returnTypeId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
 
@@ -1275,7 +1276,7 @@ public class OrderReturnServices {
         try {
             returnHeader = delegator.findByPrimaryKey("ReturnHeader", UtilMisc.toMap("returnId", returnId));
             if (returnHeader != null) {
-                returnItems = returnHeader.getRelatedByAnd("ReturnItem", UtilMisc.toMap("returnTypeId", "RTN_REPLACE"));
+                returnItems = returnHeader.getRelatedByAnd("ReturnItem", UtilMisc.toMap("returnTypeId", returnTypeId));
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems looking up return information", module);
