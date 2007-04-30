@@ -29,9 +29,9 @@ under the License.
     <a href="<@ofbizUrl>return.pdf?returnId=${returnId?if_exists}</@ofbizUrl>" class="buttontext">PDF</a>
 </div>
 <#else>
-  <div class="head1">${uiLabelMap.OrderCreateNewReturn}</div>
+  <h1>${uiLabelMap.OrderCreateNewReturn}</h1>
   <#if requestParameters.returnId?has_content>
-    <div class="head2">${uiLabelMap.OrderNoReturnFoundWithId} : ${requestParameters.returnId}</div>
+    <h2>${uiLabelMap.OrderNoReturnFoundWithId} : ${requestParameters.returnId}</h2>
   </#if>
   <br/>
 </#if>
@@ -141,6 +141,40 @@ under the License.
         <input type='text' class='inputBox' size='20' name='billingAccountId'>
       </#if>
     </td>                
+  </tr>
+  <tr>
+    <td width='14%'>&nbsp;</td>
+    <td width='6%' align='right' nowrap>${uiLabelMap.FormFieldTitle_paymentMethodId}</td>
+    <td width='6%'>&nbsp;</td>
+    <td width='74%'>
+      <#if creditCardList?exists || eftAccountList?exists>
+        <select name='paymentMethodId'>
+          <#if currentCreditCard?exists>
+            <option value="${currentCreditCard.paymentMethodId}">CC:&nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(currentCreditCard)}</option>
+          </#if>
+          <#if currentEftAccount?exists>
+            <option value="${currentEftAccount.paymentMethodId}">EFT:&nbsp;${currentEftAccount.nameOnAccount?if_exists}, ${currentEftAccount.accountNumber?if_exists}</option>
+          </#if>
+          <option value=""></option>
+          <#if creditCardList?has_content>
+            <#list creditCardList as creditCardPm>
+              <#assign creditCard = creditCardPm.getRelatedOne("CreditCard")>
+              <option value="${creditCard.paymentMethodId}">CC:&nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}</option>
+            </#list>
+          </#if>
+          <#if eftAccountList?has_content>
+            <#list eftAccountList as eftAccount>
+              <option value="${eftAccount.paymentMethodId}">EFT:&nbsp;${eftAccount.nameOnAccount?if_exists}, ${eftAccount.accountNumber?if_exists}</option>
+            </#list>
+          </#if>
+        </select>
+      <#else>
+        <input type='text' size='20' name='paymentMethodId'>
+      </#if>
+      <#if returnHeader.fromPartyId?has_content>
+        <a href="/partymgr/control/editcreditcard?partyId=${returnHeader.fromPartyId}${externalKeyParam}" target="partymgr" class="smallSubmit">${uiLabelMap.AccountingCreateNewCreditCard}</a>
+      </#if>
+    </td>
   </tr>
   <tr>
     <td width='14%'>&nbsp;</td>
