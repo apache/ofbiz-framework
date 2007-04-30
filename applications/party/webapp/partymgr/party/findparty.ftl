@@ -19,11 +19,10 @@ under the License.
 
 <#assign extInfo = parameters.extInfo?default("N")>
 
-<!-- begin findParty.ftl -->
 <div id="findPartyParameters" class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <h3>${uiLabelMap.PartyFindParty}</h3>
+      <li class="head3">${uiLabelMap.PartyFindParty}</li>
       <#if parameters.hideFields?default("N") == "Y">
         <li><a href="<@ofbizUrl>findparty?hideFields=N${paramList}</@ofbizUrl>">${uiLabelMap.CommonShowLookupFields}</a></li>
       <#else>
@@ -163,7 +162,7 @@ under the License.
   <div id="findPartyResults" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <h3>${uiLabelMap.PartyPartiesFound}</h3>
+        <li class="head3">${uiLabelMap.PartyPartiesFound}</li>
           <#if (partyListSize > 0)>
             <#if (partyListSize > highIndex)>
               <li><a class="nav-next" href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}&amp;hideFields=${parameters.hideFields?default("N")}${paramList}</@ofbizUrl>">${uiLabelMap.CommonNext}</a></li>

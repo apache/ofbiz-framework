@@ -21,7 +21,6 @@ under the License.
 <#assign partyId = requestParameters.partyId?if_exists>
 <#assign partyIdTo = requestParameters.partyIdTo?if_exists>
 
-<!-- begin linkparty.ftl -->
 <br/>
 <#if hasUpdatePermission>
   <div id="linkParty" class="screenlet">

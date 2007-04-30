@@ -18,7 +18,6 @@ under the License.
 -->
 
 <#-- Party Roles -->
-<!-- begin viewroles.ftl -->
 <br/>
 <div id="partyRoles" class="screenlet">
   <div class="screenlet-title-bar">

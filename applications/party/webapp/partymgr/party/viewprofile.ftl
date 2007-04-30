@@ -17,7 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<!-- begin viewProfile.ftl -->
 <#if party?has_content>
   <div class="align-float">
     <#if showOld>
@@ -32,14 +31,14 @@ under the License.
     <div class="screenlet-title-bar">
       <ul>
         <#if lookupPerson?has_content>
-          <h3>${uiLabelMap.PartyPersonalInformation}</h3>
+          <li class="head3">${uiLabelMap.PartyPersonalInformation}</li>
           <#if security.hasEntityPermission("PARTYMGR", "_UPDATE", session)>
             <li><a href="<@ofbizUrl>editperson?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a></li>
           </#if>
         </#if>
         <#if lookupGroup?has_content>
           <#assign lookupPartyType = party.getRelatedOneCache("PartyType")>
-          <h3>${uiLabelMap.PartyPartyGroupInformation}</h3>
+          <li class="head3">${uiLabelMap.PartyPartyGroupInformation}</li>
           <#if security.hasEntityPermission("PARTYMGR", "_UPDATE", session)>
             <li><a href="<@ofbizUrl>editpartygroup?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a></li>
           </#if>
@@ -133,7 +132,7 @@ under the License.
   <div id="partyContactInfo" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <h3>${uiLabelMap.PartyContactInformation}</h3>
+        <li class="head3">${uiLabelMap.PartyContactInformation}</li>
         <#if security.hasEntityPermission("PARTYMGR", "_CREATE", session)>
           <li><a href="<@ofbizUrl>editcontactmech?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.CommonCreateNew}</a></li>
         </#if>
@@ -260,7 +259,7 @@ under the License.
   <div id="partyPaymentMethod" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <h3>${uiLabelMap.PartyPaymentMethodInformation}</h3>
+        <li class="head3">${uiLabelMap.PartyPaymentMethodInformation}</li>
         <#if security.hasEntityPermission("PAY_INFO", "_CREATE", session)>
           <li><a href="<@ofbizUrl>editeftaccount?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateNewEftAccount}</a></li>
           <li><a href="<@ofbizUrl>editgiftcard?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateNewGiftCard}</a></li>
@@ -413,7 +412,7 @@ under the License.
   <div id="partyUserLogins" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <h3>${uiLabelMap.PartyUserName}</h3>
+        <li class="head3">${uiLabelMap.PartyUserName}</li>
         <#if security.hasEntityPermission("PARTYMGR", "_CREATE", session)>
           <li><a href="<@ofbizUrl>createnewlogin?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.CommonCreateNew}</a></li>
         </#if>
@@ -460,7 +459,7 @@ under the License.
   <div id="partyAttributes" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <h3>${uiLabelMap.PartyAttributes}</h3>
+        <li class="head3">${uiLabelMap.PartyAttributes}</li>
         <#if security.hasEntityPermission("PARTYMGR", "_CREATE", session)>
           <li><a href="<@ofbizUrl>editPartyAttribute?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.CommonCreateNew}</a></li>
         </#if>
@@ -494,7 +493,7 @@ under the License.
   <div id="partyVisits" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <h3>${uiLabelMap.PartyLastVisit}</h3>
+        <li class="head3">${uiLabelMap.PartyLastVisit}</li>
         <li><a href="<@ofbizUrl>showvisits?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.CommonListAll}</a></li>
       </ul>
       <br class="clear" />
@@ -537,7 +536,7 @@ under the License.
     <div id="partyShoppingCart" class="screenlet">
       <div class="screenlet-title-bar">
         <ul>
-          <h3>${uiLabelMap.PartyCurrentShoppingCart}</h3>
+          <li class="head3">${uiLabelMap.PartyCurrentShoppingCart}</li>
           <#if security.hasEntityPermission("PARTYMGR", "_UPDATE", session)>
             <#if savedCartListId?has_content>
               <#assign listParam = "&shoppingListId=" + savedCartListId>
@@ -637,7 +636,7 @@ under the License.
   <div id="partyNotes" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <h3>${uiLabelMap.CommonNotes}</h3>
+        <li class="head3">${uiLabelMap.CommonNotes}</li>
         <#if security.hasEntityPermission("PARTYMGR", "_NOTE", session)>
           <li><a href="<@ofbizUrl>AddPartyNote?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.CommonCreateNew}</a></li>
         </#if>

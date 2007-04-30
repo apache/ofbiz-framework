@@ -17,7 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<!-- begin EditPartyRelationships.ftl -->
 <br />
 <div class="screenlet">
   <div class="screenlet-title-bar">

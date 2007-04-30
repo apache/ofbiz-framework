@@ -34,7 +34,7 @@ under the License.
     <div class="screenlet-title-bar">
       <#if currentCustomTimePeriod?has_content>
         <ul>
-          <h3>Current Custom Time Period</h3>
+          <li class="head3">Current Custom Time Period</li>
           <li><a href="<@ofbizUrl>EditCustomTimePeriod?findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>">Clear Current</a></li>
         </ul>
         <br class="clear" />
