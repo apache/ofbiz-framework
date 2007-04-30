@@ -667,6 +667,9 @@ under the License.
     </div>
   </div>
 
+  <#-- Serialized Inventory Summary -->
+  ${screens.render('component://party/widget/partymgr/PartyScreens.xml#SerializedInventorySummary')}
+
 <#else>
   ${uiLabelMap.PartyNoPartyFoundWithPartyId}: ${parameters.partyId?if_exists}
 </#if>
