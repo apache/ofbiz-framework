@@ -35,10 +35,11 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateHashModel;
-import javolution.lang.Text;
+import javolution.text.CharArray;
+import javolution.text.Text;
 import javolution.util.FastMap;
+import javolution.xml.sax.XMLReaderImpl;
 import javolution.xml.sax.Attributes;
-import javolution.xml.sax.RealtimeParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -217,7 +218,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
         }
         */
 
-        RealtimeParser parser = new RealtimeParser(16384);
+        XMLReaderImpl parser = new XMLReaderImpl();
 
         parser.setContentHandler(this);
         parser.setErrorHandler(this);
@@ -280,7 +281,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
 
     public void endDocument() throws org.xml.sax.SAXException {}
 
-    public void endElement(CharSequence namespaceURI, CharSequence localName, CharSequence fullName) throws org.xml.sax.SAXException {
+    public void endElement(CharArray namespaceURI, CharArray localName, CharArray fullName) throws org.xml.sax.SAXException {
         if (Debug.verboseOn()) Debug.logVerbose("endElement: localName=" + localName + ", fullName=" + fullName + ", numberRead=" + numberRead, module);
         String fullNameString = fullName.toString();
         if ("entity-engine-xml".equals(fullNameString)) {
@@ -402,24 +403,24 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
         }
     }
 
-    public void endPrefixMapping(CharSequence prefix) throws org.xml.sax.SAXException {}
+    public void endPrefixMapping(CharArray prefix) throws org.xml.sax.SAXException {}
 
     public void ignorableWhitespace(char[] values, int offset, int count) throws org.xml.sax.SAXException {
         // String value = new String(values, offset, count);
         // Debug.logInfo("ignorableWhitespace: value=" + value, module);
     }
 
-    public void processingInstruction(CharSequence target, CharSequence instruction) throws org.xml.sax.SAXException {}
+    public void processingInstruction(CharArray target, CharArray instruction) throws org.xml.sax.SAXException {}
 
     public void setDocumentLocator(org.xml.sax.Locator locator) {
         this.locator = locator;
     }
 
-    public void skippedEntity(CharSequence name) throws org.xml.sax.SAXException {}
+    public void skippedEntity(CharArray name) throws org.xml.sax.SAXException {}
 
     public void startDocument() throws org.xml.sax.SAXException {}
 
-    public void startElement(CharSequence namepsaceURI, CharSequence localName, CharSequence fullName, Attributes attributes) throws org.xml.sax.SAXException {
+    public void startElement(CharArray namepsaceURI, CharArray localName, CharArray fullName, Attributes attributes) throws org.xml.sax.SAXException {
         if (Debug.verboseOn()) Debug.logVerbose("startElement: localName=" + localName + ", fullName=" + fullName + ", attributes=" + attributes, module);
         String fullNameString = fullName.toString();
         if ("entity-engine-xml".equals(fullNameString)) {
@@ -534,7 +535,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
     }
 
     //public void startPrefixMapping(String prefix, String uri) throws org.xml.sax.SAXException {}
-    public void startPrefixMapping(CharSequence arg0, CharSequence arg1) throws SAXException {}
+    public void startPrefixMapping(CharArray arg0, CharArray arg1) throws SAXException {}
 
     // ======== ErrorHandler interface implementations ========
 

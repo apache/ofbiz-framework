@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import javolution.lang.Reusable;
-import javolution.realtime.ObjectFactory;
+import javolution.context.ObjectFactory;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
