@@ -41,7 +41,7 @@ import java.sql.Time;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-String entityName = request.getParameter("entityName");
+String entityName = parameters.get("entityName");
 
 ModelReader reader = delegator.getModelReader();
 ModelEntity modelEntity = reader.getModelEntity(entityName);
@@ -59,7 +59,7 @@ context.put("hasCreatePermission", hasCreatePermission);
 context.put("hasUpdatePermission", hasUpdatePermission);
 context.put("hasDeletePermission", hasDeletePermission);
 
-String find = request.getParameter("find");
+String find = parameters.get("find");
 if (find == null) {
     find = "false";
 }
@@ -69,7 +69,7 @@ String curFindString = "entityName=" + entityName + "&amp;find=" + find;
 GenericEntity findByEntity = delegator.makeValue(entityName, null);
 for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
     ModelField field = modelEntity.getField(fnum);
-    String fval = request.getParameter(field.getName());
+    String fval = parameters.get(field.getName());
     if (fval != null) {
         if (fval.length() > 0) {
             curFindString = curFindString + "&amp;" + field.getName() + "=" + fval;
@@ -80,7 +80,7 @@ for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
 curFindString = UtilFormatOut.encodeQuery(curFindString);
 context.put("curFindString", curFindString);
 
-String viewIndexString = (String)request.getParameter("VIEW_INDEX");
+String viewIndexString = (String)parameters.get("VIEW_INDEX");
 if (viewIndexString == null || viewIndexString.length() == 0) { 
     viewIndexString = "0"; 
 }
@@ -95,15 +95,15 @@ context.put("viewIndex", viewIndex);
 context.put("viewIndexPrevious", viewIndex-1);
 context.put("viewIndexNext", viewIndex+1);
 
-String viewSizeString = (String)request.getParameter("VIEW_SIZE");
+String viewSizeString = (String)parameters.get("VIEW_SIZE");
 if (viewSizeString == null || viewSizeString.length() == 0) { 
-    viewSizeString = "10"; 
+    viewSizeString = "10";
 }
-  
+
 int viewSize = 10;
-try { 
-    viewSize = Integer.valueOf(viewSizeString).intValue(); 
-} catch (NumberFormatException nfe) { 
+try {
+    viewSize = Integer.valueOf(viewSizeString).intValue();
+} catch (NumberFormatException nfe) {
     viewSize = 10; 
 }
 context.put("viewSize", viewSize);
@@ -178,7 +178,7 @@ for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
     fieldMap.put("isPk", (field.getIsPk() == true) ? "Y" : "N");
     fieldMap.put("javaType", type.getJavaType());
     fieldMap.put("sqlType", type.getSqlType());
-    fieldMap.put("param", (request.getParameter(field.getName()) != null ? request.getParameter(field.getName()) : ""));
+    fieldMap.put("param", (parameters.get(field.getName()) != null ? parameters.get(field.getName()) : ""));
     
     fieldList.add(fieldMap);
 }
