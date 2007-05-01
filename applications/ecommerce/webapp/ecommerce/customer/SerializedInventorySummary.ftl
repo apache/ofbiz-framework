@@ -22,15 +22,15 @@ under the License.
         <span class="boxhead">${uiLabelMap.ProductSerializedInventorySummary}</span>
     </div>
     <div class="screenlet-body">
-        <table id="serialized-inventory" class="basic-table" cellspacing="0" cellpadding="2">
+        <table width="100%" cellspacing="0" cellpadding="2">
             <thead>
                 <tr class="header-row">
-                    <td>${uiLabelMap.ProductInventoryItemId}</td>
-                    <td>${uiLabelMap.ProductProductName}</td>
-                    <td>${uiLabelMap.ProductSerialNumber}</td>
-                    <td>${uiLabelMap.ProductSoftIdentifier}</td>
-                    <td>${uiLabelMap.ProductActivationNumber}</td>
-                    <td>${uiLabelMap.ProductActivationNumber} ${uiLabelMap.CommonValidThruDate}</td>
+                    <td><div class="tableheadtext">${uiLabelMap.ProductInventoryItemId}</div></td>
+                    <td><div class="tableheadtext">${uiLabelMap.ProductProductName}</div></td>
+                    <td><div class="tableheadtext">${uiLabelMap.ProductSerialNumber}</div></td>
+                    <td><div class="tableheadtext">${uiLabelMap.ProductSoftIdentifier}</div></td>
+                    <td><div class="tableheadtext">${uiLabelMap.ProductActivationNumber}</div></td>
+                    <td><div class="tableheadtext">${uiLabelMap.ProductActivationNumber} ${uiLabelMap.CommonValidThruDate}</div></td>
                 </tr>
             </thead>
             <tbody>
@@ -45,7 +45,7 @@ under the License.
                                 </#if>
                                 <#if product?has_content>
                                     <#assign productName = Static['org.ofbiz.product.product.ProductContentWrapper'].getProductContentAsText(product, 'PRODUCT_NAME', request)?if_exists>
-                                    <a href="<@ofbizUrl>product?product_id=${product.productId}</@ofbizUrl>">${productName?default(product.productId)}</a>
+                                    <a href="<@ofbizUrl>product?product_id=${product.productId}</@ofbizUrl>" class="linktext">${productName?default(product.productId)}</a>
                                 </#if>
                             </#if>
                         </td>
