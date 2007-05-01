@@ -33,7 +33,6 @@ import org.apache.log4j.PatternLayout;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.RollingFileAppender;
 import org.apache.log4j.Appender;
-import org.apache.log4j.Priority;
 import org.apache.log4j.spi.LoggerRepository;
 
 import org.ofbiz.base.util.collections.FlexibleProperties;
@@ -358,7 +357,7 @@ public final class Debug {
             if (maxSize > 0) {
                 newAppender.setMaximumFileSize(maxSize);
             }
-            newAppender.setThreshold(Priority.DEBUG);
+            newAppender.setThreshold(Level.DEBUG);
             newAppender.activateOptions();
             newAppender.setName(name);            
         }
