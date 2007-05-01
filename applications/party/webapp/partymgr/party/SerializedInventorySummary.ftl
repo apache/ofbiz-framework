@@ -37,7 +37,7 @@ under the License.
                 <#list inventoryItemList as inventoryItem>
                     <#assign product = inventoryItem.getRelatedOne('Product')?if_exists>
                     <tr>
-                        <td>${inventoryItem.inventoryItemId}</td>
+                        <td><a href="/facility/control/EditInventoryItem?inventoryItemId=${inventoryItem.inventoryItemId}&externalLoginKey=${requestAttributes.externalLoginKey?if_exists}" class="linktext">${inventoryItem.inventoryItemId}</a></td>
                         <td>
                             <#if product?has_content>
                                 <#if product.isVariant?default('N') == 'Y'>

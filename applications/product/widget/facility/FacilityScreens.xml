@@ -454,8 +454,11 @@ under the License.
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
                 <set field="displayWithNoFacility" value="Y"/>
-
-                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/EditInventoryItem.bsh"/>
+                <set field="facilityId" from-field="parameters.facilityId"/> 
+                <set field="inventoryItemId" from-field="parameters.inventoryItemId"/>
+                
+                <entity-one entity-name="Facility" value-name="facility" auto-field-map="true"/>
+                <entity-one entity-name="InventoryItem" value-name="inventoryItem" auto-field-map="true"/>
                 <entity-condition entity-name="OrderItemShipGrpInvRes" list-name="inventoryItemReservations">
                     <condition-list combine="and">
                         <condition-expr field-name="inventoryItemId" operator="equals" env-name="inventoryItemId"/>
@@ -464,25 +467,68 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
+                <section>
+                    <condition>
+                        <and>
+                            <not>
+                                <if-empty field-name="inventoryItem"/>
+                            </not>
+                            <if-empty field-name="facility"/>
+                        </and>
+                    </condition>
+                    <actions>
+                        <set field="parameters.facilityId" from-field="inventoryItem.facilityId"/>
+                        <set field="facilityId" from-field="inventoryItem.facilityId"/>
+                        <entity-one entity-name="Facility" value-name="facility"/>
+                    </actions>
+                    <widgets/>
+                </section>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/inventory/EditInventoryItem.ftl"/></html>
-                        </platform-specific>
-                        <container>
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="inventoryItem"/></not>
+                            </condition>
+                            <widgets>
+                                <container style="widget-container">
+                                    <link target="EditInventoryItem?facilityId=${facilityId}" text="${uiLabelMap.ProductNewInventoryItem}" style="buttontext"/>
+                                    <link target="TransferInventoryItem?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}" text="${uiLabelMap.ProductTransferItem}" style="buttontext"/>
+                                    <link target="ViewInventoryItemDetail?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}" text="${uiLabelMap.ProductInventoryDetails}" style="buttontext"/>
+                                </container>
+                            </widgets>
+                            <fail-widgets>
+                                <container style="widget-container">
+                                    <link target="EditInventoryItem?facilityId=${facilityId}" text="${uiLabelMap.ProductNewInventoryItem}" style="buttontext"/>
+                                </container>
+                            </fail-widgets>
+                        </section>
+
+                        <container style="widget-container">
+                            <include-form name="EditInventoryItem" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>   
+                        </container>
+                        <container style="widget-container">
                             <label style="head2">${uiLabelMap.ProductInventoryItemReservations}</label>
                         </container>
-                        <include-form name="InventoryItemReservations" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
+                        <container style="widget-container">
+                            <include-form name="InventoryItemReservations" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
+                        </container>
                         <section> 
                             <condition>
                                 <if-compare field-name="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM"/>
                             </condition>
+                            <actions>
+                                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/PhysicalInventoryVariance.bsh"/>
+                            </actions>
                             <widgets>
-                                <container>
+                                <container style="widget-container">
                                     <label style="head2">${uiLabelMap.ProductPhysicalInventoryVariances}</label>
                                 </container>
-                                <include-form name="CreatePhysicalInventoryAndVariance" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
-                                <include-form name="ViewPhysicalInventoryAndVariance" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
+                                <container style="widget-container">
+                                    <include-form name="CreatePhysicalInventoryAndVariance" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
+                                </container>
+                                <container style="widget-container">
+                                    <include-form name="ViewPhysicalInventoryAndVariance" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>
