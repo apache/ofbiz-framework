@@ -34,7 +34,12 @@ under the License.
   </div>
   <#if parameters.hideFields?default("N") != "Y">
     <div class="screenlet-body">
-      <form method="post" name="lookupparty" action="<@ofbizUrl>findparty</@ofbizUrl>" class="basic-form" onsubmit="javascript:lookupParty('<@ofbizUrl>viewprofile</@ofbizUrl>');">
+      <#-- NOTE: this form is setup to allow a search by partial partyId or userLoginId; to change it to go directly to 
+          the viewprofile page when these are entered add the follow attribute to the form element:
+           
+           onsubmit="javascript:lookupParty('<@ofbizUrl>viewprofile</@ofbizUrl>');"
+       -->
+      <form method="post" name="lookupparty" action="<@ofbizUrl>findparty</@ofbizUrl>" class="basic-form">
         <input type="hidden" name="lookupFlag" value="Y"/>
         <input type="hidden" name="hideFields" value="Y"/>
         <table cellspacing="0">
