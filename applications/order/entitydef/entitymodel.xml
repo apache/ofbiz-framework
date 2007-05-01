@@ -439,6 +439,7 @@ under the License.
       <field name="orderItemTypeId" type="id-ne"></field>
       <field name="orderItemGroupSeqId" type="id-ne"></field>
       <field name="isItemGroupPrimary" type="indicator"></field>
+      <field name="fromInventoryItemId" type="id"></field>
       <field name="budgetId" type="id"></field>
       <field name="budgetItemSeqId" type="id"></field>
       <field name="productId" type="id"></field>
@@ -491,6 +492,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="ORDER_ITEM_PRODUCT" rel-entity-name="Product">
         <key-map field-name="productId"/>
+      </relation>
+      <relation type="one" fk-name="ORDER_ITEM_FMINV" title="From" rel-entity-name="InventoryItem">
+        <key-map field-name="fromInventoryItemId" rel-field-name="inventoryItemId"/>
       </relation>
       <relation type="one" fk-name="ORDER_ITEM_RFUOM" title="RecurringFreq" rel-entity-name="Uom">
         <key-map field-name="recurringFreqUomId" rel-field-name="uomId"/>

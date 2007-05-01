@@ -71,7 +71,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     public static final String resource = "OrderUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
     public static String[] attributeNames = { "shoppingListId", "shoppingListItemSeqId", "surveyResponses",
-                                              "itemDesiredDeliveryDate", "itemComment"};
+                                              "itemDesiredDeliveryDate", "itemComment", "fromInventoryItemId"};
 
     private transient GenericDelegator delegator = null;
     /** the actual or variant product */
