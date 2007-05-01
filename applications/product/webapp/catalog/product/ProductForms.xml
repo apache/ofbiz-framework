@@ -25,13 +25,13 @@ under the License.
         <auto-fields-service service-name="updateProduct" map-name="product"/>
     </form>
     <form name="EditProduct" type="single" target="updateProduct" title="" default-map-name="product"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        default-title-style="tableheadtext" default-widget-style="inputBox">
 
         <alt-target use-when="product==null" target="createProduct"/>
 
         <field use-when="product==null" name="isCreate"><hidden value="true"/></field>
 
-        <field use-when="product!=null" name="productId" title="${uiLabelMap.ProductProductId}" tooltip="${uiLabelMap.ProductNotModificationRecreatingProduct}" widget-style="tabletext"><display/></field>
+        <field use-when="product!=null" name="productId" title="${uiLabelMap.ProductProductId}" tooltip="&amp;nbsp;${uiLabelMap.ProductNotModificationRecreatingProduct}" widget-style="tabletext"><display/></field>
         <field use-when="product==null&amp;&amp;productId==null" name="productId" title="${uiLabelMap.ProductProductId}"><text size="20" maxlength="20"/></field>
         <field use-when="product==null&amp;&amp;productId!=null" name="productId" title="${uiLabelMap.ProductProductId}" tooltip="${uiLabelMap.ProductNotFindProductId} [${productId}]"><text size="20" maxlength="20"/></field>
 

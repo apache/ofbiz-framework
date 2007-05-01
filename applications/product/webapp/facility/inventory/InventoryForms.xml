@@ -20,8 +20,79 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="EditInventoryItem" type="single" target="UpdateInventoryItem" title="">
+        <actions>
+            <set field="inventoryItemTypeId" from-field="inventoryItem.inventoryItemTypeId"/>
+            <set field="productId" from-field="inventoryItem.productId"/>
+            <set field="facilityId" from-field="inventoryItem.facilityId"/> 
+            <set field="locationSeqId" from-field="inventoryItem.locationSeqId"/>
+            <entity-one entity-name="FacilityLocation" value-name="facilityLocation">
+                <field-map field-name="locationSeqId" env-name="locationSeqId"/>
+                <field-map field-name="facilityId" env-name="facilityId"/>                 
+            </entity-one>
+        </actions>
+        <alt-target use-when="inventoryItemId==null" target="CreateInventoryItem"/>
+        <auto-fields-service service-name="updateInventoryItem" map-name="inventoryItem"/>
+
+        <!-- ignored fields -->
+        <field name="oldAvailableToPromise"><ignored/></field>
+        <field name="oldQuantityOnHand"><ignored/></field>
+
+        <!-- custom formatted fields -->
+        <field use-when="inventoryItem!=null" name="inventoryItemId" tooltip="&amp;nbsp;${uiLabelMap.ProductNotModificationRecrationInventoryItem}"><display/></field>
+        <field use-when="inventoryItem==null" name="inventoryItemId"><text/></field>
+        <field name="inventoryItemTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="InventoryItemType" description="${description}" key-field-name="inventoryItemTypeId"/>
+            </drop-down>
+        </field>
+        <field name="productId">
+            <text>
+                <sub-hyperlink use-when="productId!=null" target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="Edit Product [${productId}]"/>
+            </text>
+        </field> 
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="INV_SERIALIZED_STTS"/> 
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="facilityId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Facility" description="${facilityName}" key-field-name="facilityId">
+                    <entity-order-by field-name="facilityName"/>
+                </entity-options>
+                <sub-hyperlink use-when="facilityId!=null" target="EditFacility?facilityId=${facilityId}" description="Edit Facility [${facilityId}]"/>
+            </drop-down>                         
+        </field>
+        <field name="locationSeqId" title="${uiLabelMap.ProductFacilityLocation}">
+            <lookup target-form-name="LookupFacilityLocation">
+                <sub-hyperlink use-when="locationSeqId!=null" target="EditFacilityLocation?facilityId=${facilityId}&amp;locationSeqId=${locationSeqId}"></sub-hyperlink>
+            </lookup>
+        </field>        
+        <field name="partyId">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="ownerPartyId">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="unitCost"><text/></field>
+
+        <field use-when="inventoryItemTypeId.equals(&quot;NON_SERIAL_INV_ITEM&quot;)" name="totals" title="${uiLabelMap.ProductAvailablePromiseQuantityHand}">
+            <display description="${inventoryItem.availableToPromiseTotal} / ${inventoryItem.quantityOnHandTotal}"/>
+        </field>
+        
+        <field use-when="inventoryItem!=null" name="submit" title="Update">
+            <submit/>
+        </field>
+        <field use-when="inventoryItem==null" name="submit" title="Create">
+            <submit/>
+        </field>
+    </form>
+
     <form name="CreatePhysicalInventoryAndVariance" type="single" target="createPhysicalInventoryAndVariance" title=""
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createPhysicalInventoryAndVariance"/>
         <field name="physicalInventoryId"><ignored/></field>
         <field name="physicalInventoryDate"><ignored/></field>
