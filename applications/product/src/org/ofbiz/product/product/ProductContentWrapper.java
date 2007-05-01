@@ -158,8 +158,7 @@ public class ProductContentWrapper implements ContentWrapper {
                     return;
                 } else if ("Y".equals(product.getString("isVariant"))) {
                     // look up the virtual product
-                    GenericValue parent = ProductWorker.getParentProduct(productId, delegator);
-                    Debug.log("Parent product: " + parent, module);
+                    GenericValue parent = ProductWorker.getParentProduct(productId, delegator);                    
                     if (parent != null) {
                         candidateValue = parent.getString(candidateFieldName);
                         if (UtilValidate.isNotEmpty(candidateValue)) {
