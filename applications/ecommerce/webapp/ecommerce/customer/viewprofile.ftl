@@ -564,6 +564,9 @@ ${screens.render("component://ecommerce/widget/CustomerScreens.xml#FinAccountLis
 <#-- Serialized Inventory Summary -->
 ${screens.render('component://ecommerce/widget/CustomerScreens.xml#SerializedInventorySummary')}
 
+<#-- Subscription Summary -->
+${screens.render('component://ecommerce/widget/CustomerScreens.xml#SubscriptionSummary')}
+
 <#else>
     <div class="head3">${uiLabelMap.PartyNoPartyForCurrentUserName}: ${userLogin.userLoginId}</div>
 </#if>
