@@ -27,6 +27,7 @@ under the License.
                 <tr class="header-row">
                     <td>${uiLabelMap.ProductSubscription} ${uiLabelMap.CommonId}</td>
                     <td>${uiLabelMap.ProductSubscription} ${uiLabelMap.CommonType}</td>
+                    <td>${uiLabelMap.ProductSubscriptionResource}</td>
                     <td>${uiLabelMap.CommonDescription}</td>
                     <td>${uiLabelMap.ProductProductName}</td>
                     <td>${uiLabelMap.CommonFromDate}</td>
@@ -41,6 +42,7 @@ under the License.
                             <#assign subscriptionType = subscription.getRelatedOne('SubscriptionType')?if_exists>
                             ${(subscriptionType.description)?default(subscription.subscriptionTypeId?default('N/A'))}
                         </td>
+                        <td>${subscription.subscriptionResourceId}</td>
                         <td>${subscription.description?if_exists}</td>
                         <td>
                             <#assign product = subscription.getRelatedOne('Product')?if_exists>                            
