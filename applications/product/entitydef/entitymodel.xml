@@ -455,6 +455,9 @@ under the License.
       <relation type="many" title="Sibling" rel-entity-name="ProductCategoryRollup">
         <key-map field-name="parentProductCategoryId"/>
       </relation>
+        <index name="PRDCR_PARPC">
+            <index-field name="parentProductCategoryId"/>
+        </index>
     </entity>
     <view-entity entity-name="ProductCategoryRollupAndRole"
             package-name="org.ofbiz.product.category"
