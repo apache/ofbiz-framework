@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javolution.lang.Reusable;
-import javolution.realtime.ObjectFactory;
+import javolution.context.ObjectFactory;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;

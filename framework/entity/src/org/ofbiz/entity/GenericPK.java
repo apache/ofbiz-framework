@@ -20,7 +20,7 @@ package org.ofbiz.entity;
 
 import java.util.Map;
 
-import javolution.realtime.ObjectFactory;
+import javolution.context.ObjectFactory;
 
 import org.ofbiz.entity.model.ModelEntity;
 
