@@ -19,6 +19,21 @@ under the License.
 
 <#assign enableEdit = parameters.enableEdit?default("false")>
 
+<style>
+  .topouter { overflow: visible; border-style: none; }
+  .topcontainer { POSITION: absolute; VISIBILITY: visible; width: 90%; border-style: none; }
+  .topcontainerhidden { POSITION: absolute; VISIBILITY: hidden; }
+</style>
+
+<script language="JavaScript" type="text/javascript">  
+var numTabs=${(entity.getRelationsSize()+1)};
+function ShowTab(lname) {
+  for(inc=1; inc <= numTabs; inc++) {
+    document.getElementById('area' + inc).className = (lname == 'tab' + inc) ? 'topcontainer' : 'topcontainerhidden';
+  }
+}
+</script>
+
 <h1>${uiLabelMap.WebtoolsViewValue}</h1>
 <br />
 <h2>${uiLabelMap.WebtoolsForEntity}: ${entityName}</h2>
@@ -42,17 +57,20 @@ under the License.
 <br />
 
 <#if value?has_content>
-  <form name="relationForm" action='<@ofbizUrl>ViewGeneric?entityName=${entityName}&contactMechId=${parameters.contactMechId?if_exists}</@ofbizUrl>' method="POST">
+  <form name="relationForm">
     <p>${uiLabelMap.CommonView}:</p>
-    <select name="viewRelated" onchange='javascript:document.relationForm.submit();'>
-      <option value="void">${entityName}</option>
-      <#list relations as relation>
-        <option value="${relation.tab}"<#if relation.tab = parameters.viewRelated?default("void")> selected="selected"</#if>>${relation.title}${relation.relEntityName} (${relation.type})</option>
+    <select name="viewRelated" onchange="javascript:ShowTab(this.options[this.selectedIndex].value)">
+      <option value="tab1">${entityName}</option>
+      <#list relationFieldList as relation>
+        <option value="tab${(relation_index+2)}">${relation.title}${relation.relEntityName} (${relation.type})</option>
       </#list>
     </select>
   </form>
   <br />
 </#if> 
+
+<div class="topouter">
+<div id="area1" class="topcontainer" width="1%"> 
 
 <div class="screenlet">
   <div class="screenlet-title-bar">
@@ -76,7 +94,6 @@ under the License.
 
 <#if enableEdit = "true">
   <#if hasUpdatePermission || hasCreatePermission>
-    <br />
     <#assign alt_row = false>
     <div id="area2" class="screenlet">
       <div class="screenlet-title-bar">
@@ -203,24 +220,22 @@ under the License.
     </div>
   </#if>
 </#if>
+</div>
 
 <#if relationFieldList?has_content>
-  <#assign viewRelated = parameters.viewRelated?default("void")>
   <#list relationFieldList as relation>
-    <#assign tabName = "tab" + relation.relIndex>
-    <#if tabName = viewRelated>
-      <br />
+      <div id="area${(relation_index + 2)}" class="topcontainerhidden" width="100%"> 
       <div class="screenlet">
         <div class="screenlet-title-bar">
           <ul>
-            <li class="head3">${relation.title} ${uiLabelMap.WebtoolsRelatedEntity}: ${relation.relatedTable}</li>
+            <li class="head3">${uiLabelMap.WebtoolsRelatedEntity}: ${relation.title}${relation.relatedTable} (${relation.type})</li>
+            <li><a href="<@ofbizUrl>FindGeneric?${relation.encodeRelatedEntityFindString}&amp;find=true</@ofbizUrl>">${uiLabelMap.CommonFind}</a></li>
             <#if relation.valueRelated?has_content>
-              <li><a href='<@ofbizUrl>ViewGeneric?${relation.encodeRelatedEntityFindString}</@ofbizUrl>'>${uiLabelMap.CommonView}</a></li>
-            <#else>
-              <#if hasAllCreate || relCreate>
-                <li><a href='<@ofbizUrl>ViewGeneric?${relation.encodeRelatedEntityFindString}&enableEdit=true</@ofbizUrl>'>${uiLabelMap.CommonCreate}</a></li>
-              </#if>
+              <li><a href="<@ofbizUrl>ViewGeneric?${relation.encodeRelatedEntityFindString}</@ofbizUrl>">${uiLabelMap.CommonView}</a></li>
             </#if>    
+            <#if hasAllCreate || relCreate>
+              <li><a href="<@ofbizUrl>ViewGeneric?${relation.encodeRelatedEntityFindString}&amp;enableEdit=true</@ofbizUrl>">${uiLabelMap.CommonCreate}</a></li>
+            </#if>
           </ul>
           <br class="clear"/>
         </div>
@@ -240,9 +255,15 @@ under the License.
             </#list>
           </table>
         <#else>
-          ${uiLabelMap.WebtoolsSpecifiedEntity1} ${relation.relatedTable} ${uiLabelMap.WebtoolsSpecifiedEntity2}.
+          <#if "one" = relation.type>
+          <div>${uiLabelMap.WebtoolsNoValueFoundFor}: ${relation.title}${relation.relatedTable}.</div>
+          <#else/>
+          <div><a href="<@ofbizUrl>FindGeneric?${relation.encodeRelatedEntityFindString}&amp;find=true</@ofbizUrl>">${uiLabelMap.CommonFind}</a></div>
+          </#if>
         </#if> 
       </div>    
-    </#if>
+      </div>    
   </#list>
 </#if>
+<br class="clear"/>
+</div>
