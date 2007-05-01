@@ -22,6 +22,8 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.security.Security;
 import org.ofbiz.webapp.stats.*;
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 String clearBins = request.getParameter("clear");
 if (UtilValidate.isNotEmpty(clearBins) && "true".equals(clearBin)) {
@@ -31,11 +33,11 @@ if (UtilValidate.isNotEmpty(clearBins) && "true".equals(clearBin)) {
 }
 
 // Requests
-Iterator iterator = UtilMisc.toIterator(ServerHitBin.requestSinceStarted.keySet());
-if(iterator!=null && iterator.hasNext()){
-    List requestList = new ArrayList();
+Iterator iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.requestSinceStarted.keySet()));
+if(iterator != null && iterator.hasNext()){
+    List requestList = FastList.newInstance();
     while(iterator.hasNext()){
-        Map requestIdMap = new HashMap();
+        Map requestIdMap = FastMap.newInstance();
         String statsId = (String)iterator.next();
         ServerHitBin bin = (ServerHitBin) ServerHitBin.requestSinceStarted.get(statsId);
         if (bin != null) {
@@ -56,11 +58,11 @@ if(iterator!=null && iterator.hasNext()){
 }
 
 // Events
-iterator = UtilMisc.toIterator(ServerHitBin.eventSinceStarted.keySet());
-if(iterator!=null && iterator.hasNext()){
-    List eventList = new ArrayList();
+iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.eventSinceStarted.keySet()));
+if(iterator != null && iterator.hasNext()){
+    List eventList = FastList.newInstance();
     while(iterator.hasNext()){
-        Map requestIdMap = new HashMap();
+        Map requestIdMap = FastMap.newInstance();
         String statsId = (String)iterator.next();
         ServerHitBin bin = (ServerHitBin) ServerHitBin.requestSinceStarted.get(statsId);
         if (bin != null) {
@@ -81,11 +83,11 @@ if(iterator!=null && iterator.hasNext()){
 }
 
 // Views
-iterator = UtilMisc.toIterator(ServerHitBin.viewSinceStarted.keySet());
-if(iterator!=null && iterator.hasNext()){
-    List viewList = new ArrayList();
+iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.viewSinceStarted.keySet()));
+if(iterator != null && iterator.hasNext()){
+    List viewList = FastList.newInstance();
     while(iterator.hasNext()){
-        Map requestIdMap = new HashMap();
+        Map requestIdMap = FastMap.newInstance();
         String statsId = (String)iterator.next();
         ServerHitBin bin = (ServerHitBin) ServerHitBin.requestSinceStarted.get(statsId);
         if (bin != null) {
