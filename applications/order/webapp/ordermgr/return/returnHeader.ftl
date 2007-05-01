@@ -171,7 +171,7 @@ under the License.
       <#else>
         <input type='text' size='20' name='paymentMethodId'>
       </#if>
-      <#if returnHeader.fromPartyId?has_content>
+      <#if (returnHeader.fromPartyId)?has_content>
         <a href="/partymgr/control/editcreditcard?partyId=${returnHeader.fromPartyId}${externalKeyParam}" target="partymgr" class="smallSubmit">${uiLabelMap.AccountingCreateNewCreditCard}</a>
       </#if>
     </td>
