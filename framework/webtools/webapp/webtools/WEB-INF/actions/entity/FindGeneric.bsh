@@ -26,7 +26,9 @@ import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelFieldType;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityFieldMap;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.transaction.TransactionUtil;
@@ -36,9 +38,8 @@ import org.ofbiz.base.util.Debug;
 import java.sql.Timestamp;
 import java.sql.Date;
 import java.sql.Time;
-
-delegator = request.getAttribute("delegator");
-security = request.getAttribute("security");
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 String entityName = request.getParameter("entityName");
 
@@ -87,8 +88,7 @@ if (viewIndexString == null || viewIndexString.length() == 0) {
 int viewIndex = 0;
 try { 
     viewIndex = Integer.valueOf(viewIndexString).intValue(); 
-}
-catch (NumberFormatException nfe) { 
+} catch (NumberFormatException nfe) { 
     viewIndex = 0; 
 }
 context.put("viewIndex", viewIndex);
@@ -103,8 +103,7 @@ if (viewSizeString == null || viewSizeString.length() == 0) {
 int viewSize = 10;
 try { 
     viewSize = Integer.valueOf(viewSizeString).intValue(); 
-}
-catch (NumberFormatException nfe) { 
+} catch (NumberFormatException nfe) { 
     viewSize = 10; 
 }
 context.put("viewSize", viewSize);
@@ -117,8 +116,23 @@ int arraySize = 0;
 List resultPartialList = null;
 
 if ("true".equals(find)) {
-    EntityCondition condition = new EntityFieldMap(findByEntity, EntityOperator.AND);
-    arraySize = (int) delegator.findCountByCondition(findByEntity.getEntityName(), condition, null);
+    //EntityCondition condition = new EntityFieldMap(findByEntity, EntityOperator.AND);
+    
+    // small variation to support LIKE if a wildcard (%) is found in a String
+    conditionList = FastList.newInstance();
+    findByKeySet = findByEntity.keySet();
+    fbksIter = findByKeySet.iterator();
+    while (fbksIter.hasNext()) {
+        findByKey = fbksIter.next();
+        if (findByEntity.getString(findByKey).indexOf("%") >= 0) {
+            conditionList.add(new EntityExpr(findByKey, EntityOperator.LIKE, findByEntity.getString(findByKey)));
+        } else {
+            conditionList.add(new EntityExpr(findByKey, EntityOperator.EQUALS, findByEntity.get(findByKey)));
+        }
+    }
+    condition = new EntityConditionList(conditionList, EntityOperator.AND);
+    
+    arraySize = (int) delegator.findCountByCondition(entityName, condition, null);
     if (arraySize < highIndex) {
         highIndex = arraySize;
     }
@@ -131,23 +145,20 @@ if ("true".equals(find)) {
             EntityFindOptions efo = new EntityFindOptions();
             efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
             EntityListIterator resultEli = null;
-            resultEli = delegator.findListIteratorByCondition(findByEntity.getEntityName(), condition, null, null, null, efo);
+            resultEli = delegator.findListIteratorByCondition(entityName, condition, null, null, null, efo);
             resultPartialList = resultEli.getPartialList(lowIndex, highIndex - lowIndex + 1);
             resultEli.close();
-        } 
-        catch (GenericEntityException e) {
+        } catch (GenericEntityException e) {
             Debug.logError(e, "Failure in operation, rolling back transaction", "FindGeneric.bsh");
             try {
                 // only rollback the transaction if we started one...
                 TransactionUtil.rollback(beganTransaction, "Error looking up entity values in WebTools Entity Data Maintenance", e);
-            } 
-            catch (GenericEntityException e2) {
+            } catch (GenericEntityException e2) {
                 Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), "FindGeneric.bsh");
             }
             // after rolling back, rethrow the exception
             throw e;
-        } 
-        finally {
+        } finally {
             // only commit the transaction if we started one... this will throw an exception if it fails
             TransactionUtil.commit(beganTransaction);
         }
@@ -157,12 +168,12 @@ context.put("highIndex", highIndex);
 context.put("arraySize", arraySize);
 context.put("resultPartialList", resultPartialList);
 
-List fieldList = new ArrayList();
+List fieldList = FastList.newInstance();
 for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
     ModelField field = modelEntity.getField(fnum);
     ModelFieldType type = delegator.getEntityFieldType(modelEntity, field.getType());
     
-    Map fieldMap = new HashMap();
+    Map fieldMap = FastMap.newInstance();
     fieldMap.put("name", field.getName());
     fieldMap.put("isPk", (field.getIsPk() == true) ? "Y" : "N");
     fieldMap.put("javaType", type.getJavaType());
@@ -174,11 +185,11 @@ for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
 context.put("fieldList", fieldList);
 context.put("columnCount", (fieldList.size())+2);
 
-List records = new ArrayList();
+List records = FastList.newInstance();
 if (resultPartialList != null) {
     Iterator resultPartialIter = resultPartialList.iterator();
-      while (resultPartialIter.hasNext()) {
-         Map record = new HashMap(); 
+    while (resultPartialIter.hasNext()) {
+        Map record = FastMap.newInstance(); 
              
         GenericValue value = (GenericValue)resultPartialIter.next();
         String findString = "entityName=" + entityName;
@@ -189,36 +200,8 @@ if (resultPartialList != null) {
         }
         record.put("findString", findString);
         
-        List fields = new ArrayList();
-        for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
-            String fieldValue = "";
-            ModelField field = modelEntity.getField(fnum);
-            ModelFieldType type = delegator.getEntityFieldType(modelEntity, field.getType());
-            
-            if(type.getJavaType().equals("Timestamp") || type.getJavaType().equals("java.sql.Timestamp")) {
-                Timestamp dtVal = value.getTimestamp(field.getName());
-                fieldValue = (dtVal == null) ? "" : dtVal.toString();
-            } else if(type.getJavaType().equals("Date") || type.getJavaType().equals("java.sql.Date")) {
-                Date dateVal = value.getDate(field.getName());
-                fieldValue = (dateVal == null) ? "" : dateVal.toString();
-            } else if(type.getJavaType().equals("Time") || type.getJavaType().equals("java.sql.Time")) {
-                Time timeVal = value.getTime(field.getName());
-                fieldValue = (timeVal == null) ? "" : timeVal.toString();
-            } else if(type.getJavaType().indexOf("Integer") >= 0) {
-                fieldValue = UtilFormatOut.safeToString((Integer)value.get(field.getName()));
-            } else if(type.getJavaType().indexOf("Long") >= 0) {
-                fieldValue = UtilFormatOut.safeToString((Long)value.get(field.getName()));
-            } else if(type.getJavaType().indexOf("Double") >= 0) {
-                fieldValue = UtilFormatOut.safeToString((Double)value.get(field.getName()));
-            } else if(type.getJavaType().indexOf("Float") >= 0) {
-                fieldValue = UtilFormatOut.safeToString((Float)value.get(field.getName()));
-            } else if(type.getJavaType().indexOf("String") >= 0) {
-                fieldValue = UtilFormatOut.checkNull((String)value.get(field.getName()));
-            }
-            fields.add(fieldValue);
-       }
-       record.put("fields", fields);
-       records.add(record);
+        record.put("fields", value);
+        records.add(record);
     }
 }
 context.put("records", records);
