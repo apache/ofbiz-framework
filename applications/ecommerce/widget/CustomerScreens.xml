@@ -481,4 +481,36 @@ under the License.
         </section>
     </screen>
 
+    <screen name="SubscriptionSummary">
+        <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <entity-condition entity-name="Subscription" list-name="subscriptionList" filter-by-date="true">
+                    <condition-list>
+                        <condition-expr field-name="partyId" operator="equals" env-name="userLogin.partyId"/>
+                    </condition-list>
+                    <order-by field-name="-fromDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not>
+                            <if-empty field-name="subscriptionList"/>
+                        </not>
+                    </condition>
+                    <widgets>
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://ecommerce/webapp/ecommerce/customer/SubscriptionSummary.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>
