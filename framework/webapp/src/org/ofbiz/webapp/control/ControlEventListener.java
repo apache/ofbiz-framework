@@ -70,10 +70,13 @@ public class ControlEventListener implements HttpSessionListener {
         try {
             beganTransaction = TransactionUtil.begin();
         
-            GenericValue visit = VisitHandler.getVisit(session);
+            // instead of using this message, get directly from session attribute so it won't create a new one: GenericValue visit = VisitHandler.getVisit(session);
+            GenericValue visit = (GenericValue) session.getAttribute("visit");
             if (visit != null) {
                 visit.set("thruDate", new Timestamp(session.getLastAccessedTime()));
                 visit.store();
+            } else {
+                Debug.logWarning("Could not find visit value object in session [" + session.getId() + "] that is being destroyed", module);
             }
 
             // Store the UserLoginSession
