@@ -38,6 +38,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.common.uom.UomWorker;
 
 /**
  * Subscription Services
@@ -84,7 +85,8 @@ public class SubscriptionServices {
         } else {
             newSubscription = lastSubscription;
         }
-        
+        newSubscription.set("inventoryItemId", context.get("inventoryItemId"));
+
         Timestamp thruDate = lastSubscription != null ? (Timestamp) lastSubscription.get("thruDate") : null;
         if (thruDate == null) {
             // no thruDate? start with NOW
@@ -101,19 +103,13 @@ public class SubscriptionServices {
         }
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(thruDate);
-        int field = Calendar.MONTH;
-        if ("TF_day".equals(useTimeUomId)) {
-            field = Calendar.DAY_OF_YEAR;   
-        } else if ("TF_wk".equals(useTimeUomId)) {
-            field = Calendar.WEEK_OF_YEAR;   
-        } else if ("TF_mon".equals(useTimeUomId)) {
-            field = Calendar.MONTH;   
-        } else if ("TF_yr".equals(useTimeUomId)) {
-            field = Calendar.YEAR;   
+        int[] times = UomWorker.uomTimeToCalTime(useTimeUomId);
+        if (times != null) {
+            calendar.add(times[0], (useTime.intValue() * times[1]));
         } else {
             Debug.logWarning("Don't know anything about useTimeUomId [" + useTimeUomId + "], defaulting to month", module);
         }
-        calendar.add(field, useTime.intValue());
+       
         thruDate = new Timestamp(calendar.getTimeInMillis());
         newSubscription.set("thruDate", thruDate);
         
@@ -193,8 +189,6 @@ public class SubscriptionServices {
                 context.put("useTimeUomId", productSubscriptionResource.get("useTimeUomId"));
                 context.put("useRoleTypeId", productSubscriptionResource.get("useRoleTypeId"));
                 context.put("subscriptionResourceId", productSubscriptionResource.get("subscriptionResourceId"));
-                context.put("productId", productId);
-                context.put("orderId", context.get("orderId"));
                 
                 Map ctx = dctx.getModelService("processExtendSubscription").makeValid(context, ModelService.IN_PARAM);
                 Map processExtendSubscriptionResult = dispatcher.runSync("processExtendSubscription", ctx);
@@ -206,8 +200,8 @@ public class SubscriptionServices {
             Debug.logError(e, e.toString(), module);
             return ServiceUtil.returnError(e.toString());
         }
-        Map result = ServiceUtil.returnSuccess();
-        return result;
+        
+        return ServiceUtil.returnSuccess();
     }
     
     public static Map processExtendSubscriptionByOrder(DispatchContext dctx, Map context) throws GenericServiceException{
@@ -249,9 +243,11 @@ public class SubscriptionServices {
                 List productSubscriptionResourceList = delegator.findByAndCache("ProductSubscriptionResource", UtilMisc.toMap("productId", productId));
                 List productSubscriptionResourceListFiltered = EntityUtil.filterByDate(productSubscriptionResourceList, true);
                 if (productSubscriptionResourceListFiltered.size() > 0) {
+                    context.put("subscriptionTypeId", "PRODUCT_SUBSCR");
                     context.put("productId", productId);
                     context.put("orderId", orderId);
                     context.put("orderItemSeqId", orderItem.get("orderItemSeqId"));
+                    context.put("inventoryItemId", orderItem.get("fromInventoryItemId"));
                     context.put("quantity", new Integer(qty.intValue()));
                     Map ctx = dctx.getModelService("processExtendSubscriptionByProduct").makeValid(context, ModelService.IN_PARAM);
                     Map thisResult = dispatcher.runSync("processExtendSubscriptionByProduct", ctx);
@@ -264,7 +260,7 @@ public class SubscriptionServices {
             Debug.logError(e.toString(), module);
             return ServiceUtil.returnError(e.toString());
         }
-        Map result = ServiceUtil.returnSuccess();
-        return result;
+
+        return ServiceUtil.returnSuccess();
     }
 }

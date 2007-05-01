@@ -156,6 +156,17 @@ public class ProductContentWrapper implements ContentWrapper {
                 if (UtilValidate.isNotEmpty(candidateValue)) {
                     outWriter.write(candidateValue);
                     return;
+                } else if ("Y".equals(product.getString("isVariant"))) {
+                    // look up the virtual product
+                    GenericValue parent = ProductWorker.getParentProduct(productId, delegator);
+                    Debug.log("Parent product: " + parent, module);
+                    if (parent != null) {
+                        candidateValue = parent.getString(candidateFieldName);
+                        if (UtilValidate.isNotEmpty(candidateValue)) {
+                            outWriter.write(candidateValue);
+                            return;
+                        }
+                    }
                 }
             }
         }
