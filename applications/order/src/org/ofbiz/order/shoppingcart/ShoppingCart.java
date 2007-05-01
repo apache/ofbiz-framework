@@ -3212,6 +3212,11 @@ public class ShoppingCart implements Serializable {
                 orderItem.set("shipBeforeDate", item.getShipBeforeDate());
                 orderItem.set("shipAfterDate", item.getShipAfterDate());
 
+                String fromInventoryItemId = (String) item.getAttribute("fromInventoryItemId");
+                if (fromInventoryItemId != null) {
+                    orderItem.set("fromInventoryItemId", fromInventoryItemId);
+                }
+                
                 result.add(orderItem);
                 // don't do anything with adjustments here, those will be added below in makeAllAdjustments
             }
