@@ -23,6 +23,7 @@ import java.io.PrintWriter;
 import java.io.Writer;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
 import org.apache.log4j.Priority;
 
 /**
@@ -32,7 +33,7 @@ import org.apache.log4j.Priority;
 public class Log4jLoggerWriter extends PrintWriter {
 
     public Log4jLoggerWriter(Logger logger) {
-        this(logger, Priority.INFO);
+        this(logger, Level.INFO);
     }
 
     public Log4jLoggerWriter(Logger logger, Priority priority) {

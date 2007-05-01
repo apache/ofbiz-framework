@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.mortbay.http.NCSARequestLog;
@@ -468,14 +469,14 @@ class Log4jSink implements LogSink {
 
         Logger log = Logger.getLogger(class_name);
 
-        Priority priority = Priority.INFO;
+        Priority priority = Level.INFO;
 
         if (Log.DEBUG.equals(tag)) {
-            priority = Priority.DEBUG;
+            priority = Level.DEBUG;
         } else if (Log.WARN.equals(tag) || Log.ASSERT.equals(tag)) {
-            priority = Priority.ERROR;
+            priority = Level.ERROR;
         } else if (Log.FAIL.equals(tag)) {
-            priority = Priority.FATAL;
+            priority = Level.FATAL;
         }
 
         if (!log.isEnabledFor(priority)) {
@@ -486,6 +487,6 @@ class Log4jSink implements LogSink {
     }
 
     public synchronized void log(String s) {
-        Logger.getRootLogger().log("jetty.log4jSink", Priority.INFO, s, null);
+        Logger.getRootLogger().log("jetty.log4jSink", Level.INFO, s, null);
     }
 }
