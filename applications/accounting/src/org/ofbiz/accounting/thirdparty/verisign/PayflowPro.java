@@ -18,10 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.accounting.thirdparty.verisign;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.net.URLEncoder;
+import java.io.UnsupportedEncodingException;
 
 import com.Verisign.payment.PFProAPI;
 
@@ -129,11 +128,16 @@ public class PayflowPro {
         StringBuffer params = makeBaseParams(configString);
 
         // parse the context parameters
-        params.append("&" + parseContext(data));
+        params.append("&").append(parseContext(data));
 
         // transmit the request
         if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
-        String resp = pn.SubmitTransaction(params.toString());
+        String resp;
+        if (UtilProperties.propertyValueEqualsIgnoreCase(configString, "payment.verisign.enable_transmit", "true")) {
+            resp = pn.SubmitTransaction(params.toString());
+        } else {
+            resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
+        } 
 
         if (Debug.verboseOn()) Debug.logVerbose("Response from Verisign: " + resp, module);
 
@@ -187,11 +191,16 @@ public class PayflowPro {
         StringBuffer params = makeBaseParams(configString);
 
         // parse the context parameters
-        params.append("&" + parseContext(data));
+        params.append("&").append(parseContext(data));
 
         // transmit the request
         if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
-        String resp = pn.SubmitTransaction(params.toString());
+        String resp;
+        if (UtilProperties.propertyValueEqualsIgnoreCase(configString, "payment.verisign.enable_transmit", "true")) {
+            resp = pn.SubmitTransaction(params.toString());
+        } else {
+            resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
+        }
 
         if (Debug.verboseOn()) Debug.logVerbose("Response from Verisign: " + resp, module);
 
@@ -200,7 +209,7 @@ public class PayflowPro {
 
         // check the response
         Map result = ServiceUtil.returnSuccess();
-        parseCaptureResponse(resp, result, configString);
+        parseCaptureResponse(resp, result);
         result.put("captureAmount", amount);
         return result;
     }
@@ -245,11 +254,16 @@ public class PayflowPro {
         StringBuffer params = makeBaseParams(configString);
 
         // parse the context parameters
-        params.append("&" + parseContext(data));
+        params.append("&").append(parseContext(data));
 
         // transmit the request
         if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
-        String resp = pn.SubmitTransaction(params.toString());
+        String resp;
+        if (UtilProperties.propertyValueEqualsIgnoreCase(configString, "payment.verisign.enable_transmit", "true")) {
+            resp = pn.SubmitTransaction(params.toString());
+        } else {
+            resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
+        }
 
         if (Debug.verboseOn()) Debug.logVerbose("Response from Verisign: " + resp, module);
 
@@ -258,7 +272,7 @@ public class PayflowPro {
 
         // check the response
         Map result = ServiceUtil.returnSuccess();
-        parseVoidResponse(resp, result, configString);
+        parseVoidResponse(resp, result);
         result.put("releaseAmount", amount);
         return result;
     }
@@ -301,11 +315,16 @@ public class PayflowPro {
         StringBuffer params = makeBaseParams(configString);
 
         // parse the context parameters
-        params.append("&" + parseContext(data));
+        params.append("&").append(parseContext(data));
 
         // transmit the request
         if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
-        String resp = pn.SubmitTransaction(params.toString());
+        String resp;
+        if (UtilProperties.propertyValueEqualsIgnoreCase(configString, "payment.verisign.enable_transmit", "true")) {
+            resp = pn.SubmitTransaction(params.toString());
+        } else {
+            resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
+        } 
 
         if (Debug.verboseOn()) Debug.logVerbose("Response from Verisign: " + resp, module);
 
@@ -314,7 +333,7 @@ public class PayflowPro {
 
         // check the response
         Map result = ServiceUtil.returnSuccess();
-        parseRefundResponse(resp, result, configString);
+        parseRefundResponse(resp, result);
         result.put("refundAmount", amount);
         return result;
     }
@@ -395,7 +414,7 @@ public class PayflowPro {
         result.put("authMessage", parameters.get("RESPMSG"));
     }
 
-    private static void parseCaptureResponse(String resp, Map result, String resource) {
+    private static void parseCaptureResponse(String resp, Map result) {
         Map parameters = new LinkedMap();
         List params = StringUtil.split(resp, "&");
         Iterator i = params.iterator();
@@ -418,6 +437,8 @@ public class PayflowPro {
             result.put("captureResult", Boolean.TRUE);
             result.put("captureCode", parameters.get("AUTHCODE"));
         } else {
+            Debug.logWarning("In PayflowPro failing authorization; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
+
             result.put("captureResult", Boolean.FALSE);
         }
         result.put("captureRefNum", parameters.get("PNREF"));
@@ -425,7 +446,7 @@ public class PayflowPro {
         result.put("captureMessage", parameters.get("RESPMSG"));
     }
 
-    private static void parseVoidResponse(String resp, Map result, String resource) {
+    private static void parseVoidResponse(String resp, Map result) {
         Map parameters = new LinkedMap();
         List params = StringUtil.split(resp, "&");
         Iterator i = params.iterator();
@@ -455,7 +476,7 @@ public class PayflowPro {
         result.put("releaseMessage", parameters.get("RESPMSG"));
     }
 
-    private static void parseRefundResponse(String resp, Map result, String resource) {
+    private static void parseRefundResponse(String resp, Map result) {
         Map parameters = new LinkedMap();
         List params = StringUtil.split(resp, "&");
         Iterator i = params.iterator();
@@ -491,14 +512,28 @@ public class PayflowPro {
         Iterator i = keySet.iterator();
 
         while (i.hasNext()) {
-            Object name = i.next();
-            Object value = context.get(name);
+            String name = (String) i.next();
+            Object valueObj = context.get(name);
 
-            if (value != null && (value instanceof String) && ((String) value).length() == 0) continue;
-            buf.append(name + "=");
-            buf.append(value);
-            if (i.hasNext())
-                buf.append("&");
+            if (valueObj == null || (valueObj instanceof String) && ((String) valueObj).length() == 0) {
+                // not valid; do nothing
+            } else {
+                String value = valueObj.toString();
+
+                // URL enocde each field to make sure it can pass to payflow properly
+                try {
+                    name = URLEncoder.encode(name, "UTF-8");
+                    value = URLEncoder.encode(value, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    Debug.logError(e, module);
+                    continue;
+                }
+
+                buf.append(name).append("=");
+                buf.append(value);
+                if (i.hasNext())
+                    buf.append("&");
+            }
         }
         return buf.toString();
     }
@@ -558,58 +593,58 @@ from an unknown IP address. See VeriSign Manager online help for details on how
 to use Manager to update the allowed IP addresses. 
 You are using a test (not active) account to submit a transaction to the live VeriSign 
 servers. Change the URL from test-payflow.verisign.com to payflow.verisign.com. 
-2 Invalid tender type. Your merchant bank account does not support the following 
+2 Invalid tender type. Your merchant bank account does not support the following
 credit card type that was submitted. 
-3 Invalid transaction type. Transaction type is not appropriate for this transaction. For 
+3 Invalid transaction type. Transaction type is not appropriate for this transaction. For
 example, you cannot credit an authorization-only transaction. 
-4 Invalid amount format. Use the format: Ò#####.##Ó  Do not include currency 
+4 Invalid amount format. Use the format: Ò#####.##Ó  Do not include currency
 symbols or commas. 
-5 Invalid merchant information. Processor does not recognize your merchant account 
+5 Invalid merchant information. Processor does not recognize your merchant account
 information. Contact your bank account acquirer to resolve this problem. 
-6 Invalid or unsupported currency code 
-7 Field format error. Invalid information entered. See RESPMSG. 
-8 Not a transaction server 
-9 Too many parameters or invalid stream 
-10 Too many line items 
-11 Client time-out waiting for response 
-12 Declined. Check the credit card number, expiration date, and transaction information to 
+6 Invalid or unsupported currency code
+7 Field format error. Invalid information entered. See RESPMSG.
+8 Not a transaction server
+9 Too many parameters or invalid stream
+10 Too many line items
+11 Client time-out waiting for response
+12 Declined. Check the credit card number, expiration date, and transaction information to
 make sure they were entered correctly. If this does not resolve the problem, have the 
 customer call their card issuing bank to resolve. 
-13 Referral. Transaction cannot be approved electronically but can be approved with a 
+13 Referral. Transaction cannot be approved electronically but can be approved with a
 verbal authorization. Contact your merchant bank to obtain an authorization and submit 
 a manual Voice Authorization transaction.  
-14 Invalid Client Certification ID. Check the HTTP header. If the tag, X-VPS-VIT- 
+14 Invalid Client Certification ID. Check the HTTP header. If the tag, X-VPS-VIT-
 CLIENT-CERTIFICATION-ID, is missing, RESULT code 14 is returned. 
-19 Original transaction ID not found. The transaction ID you entered for this 
+19 Original transaction ID not found. The transaction ID you entered for this
 transaction is not valid. See RESPMSG. 
-20 Cannot find the customer reference number 
-22 Invalid ABA number 
+20 Cannot find the customer reference number
+22 Invalid ABA number
 
 23 Invalid account number. Check credit card number and re-submit. 
-24 Invalid expiration date. Check and re-submit. 
-25 Invalid Host Mapping. You are trying to process a tender type such as Discover Card, 
+24 Invalid expiration date. Check and re-submit.
+25 Invalid Host Mapping. You are trying to process a tender type such as Discover Card,
 but you are not set up with your merchant bank to accept this card type. 
-26 Invalid vendor account 
-27 Insufficient partner permissions 
-28 Insufficient user permissions 
-29 Invalid XML document. This could be caused by an unrecognized XML tag or a bad 
+26 Invalid vendor account
+27 Insufficient partner permissions
+28 Insufficient user permissions
+29 Invalid XML document. This could be caused by an unrecognized XML tag or a bad
 XML format that cannot be parsed by the system. 
-30 Duplicate transaction 
-31 Error in adding the recurring profile 
-32 Error in modifying the recurring profile 
-33 Error in canceling the recurring profile 
-34 Error in forcing the recurring profile 
-35 Error in reactivating the recurring profile 
-36 OLTP Transaction failed 
-37 Invalid recurring profile ID 
-50 Insufficient funds available in account 
-99 General error. See RESPMSG. 
-100 Transaction type not supported by host 
-101 Time-out value too small 
-102 Processor not available 
-103 Error reading response from host 
-104 Timeout waiting for processor response. Try your transaction again. 
-105 Credit error. Make sure you have not already credited this transaction, or that this 
+30 Duplicate transaction
+31 Error in adding the recurring profile
+32 Error in modifying the recurring profile
+33 Error in canceling the recurring profile
+34 Error in forcing the recurring profile
+35 Error in reactivating the recurring profile
+36 OLTP Transaction failed
+37 Invalid recurring profile ID
+50 Insufficient funds available in account
+99 General error. See RESPMSG.
+100 Transaction type not supported by host
+101 Time-out value too small
+102 Processor not available
+103 Error reading response from host
+104 Timeout waiting for processor response. Try your transaction again.
+105 Credit error. Make sure you have not already credited this transaction, or that this
 transaction ID is for a creditable transaction. (For example, you cannot credit an 
 authorization.) 
 106 Host not available 
