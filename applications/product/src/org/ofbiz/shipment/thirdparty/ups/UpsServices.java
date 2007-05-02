@@ -26,7 +26,6 @@ import java.math.BigDecimal;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.velocity.test.MiscTestCase;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
