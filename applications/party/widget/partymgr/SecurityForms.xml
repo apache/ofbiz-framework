@@ -160,6 +160,6 @@ under the License.
         <field name="certString">
             <textarea rows="10"/>
         </field>
-        <field name="View Cert"><submit/></field>
+        <field name="View Cert" title="${uiLabelMap.PartyViewCert}"><submit/></field>
     </form>
 </forms>
