@@ -169,6 +169,7 @@ under the License.
     <RoleType description="Association" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="ASSOCIATION"/>
     <RoleType description="Bill-From Vendor" hasTable="N" parentTypeId="VENDOR" roleTypeId="BILL_FROM_VENDOR"/>
     <RoleType description="Bill-To Customer" hasTable="N" parentTypeId="CUSTOMER" roleTypeId="BILL_TO_CUSTOMER"/>
+    <RoleType description="Bulk Customer" hasTable="N" parentTypeId="CUSTOMER" roleTypeId="BULK_CUSTOMER"/>
     <RoleType description="Calendar Attendee" hasTable="N" parentTypeId="CALENDAR_ROLE" roleTypeId="CAL_ATTENDEE"/>
     <RoleType description="Calendar Delegate" hasTable="N" parentTypeId="CALENDAR_ROLE" roleTypeId="CAL_DELEGATE"/>
     <RoleType description="Calendar Organizer" hasTable="N" parentTypeId="CALENDAR_ROLE" roleTypeId="CAL_ORGANIZER"/>
