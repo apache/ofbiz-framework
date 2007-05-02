@@ -994,7 +994,7 @@ under the License.
         <xs:attribute type="xs:string" name="key-name" />
         <xs:attribute type="xs:string" name="view-size" />
         <xs:attribute type="xs:string" name="paginate-target" />
-        <xs:attribute name="paginate" default="true">
+        <xs:attribute name="paginate" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
