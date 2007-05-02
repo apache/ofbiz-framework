@@ -65,6 +65,10 @@ under the License.
             <div class='tabletext' valign='top'>
               <select class="selectBox" name="productStoreId"<#if sessionAttributes.orderMode?exists> disabled</#if>>
                 <#assign currentStore = shoppingCartProductStore>
+                <#if defaultProductStore?has_content>
+                   <option value="${defaultProductStore.productStoreId}">${defaultProductStore.storeName?if_exists}</option>
+                   <option value="${defaultProductStore.productStoreId}">----</option>
+                </#if>               
                 <#list productStores as productStore>
                   <option value="${productStore.productStoreId}"<#if productStore.productStoreId == currentStore> selected</#if>>${productStore.storeName?if_exists}</option>
                 </#list>
@@ -82,7 +86,11 @@ under the License.
             <div class='tabletext' valign='top'>
               <select class="selectBox" name="salesChannelEnumId">
                 <#assign currentChannel = shoppingCartChannelType>
-                <option value="">${uiLabelMap.OrderNoChannel}</option>
+                <#if defaultSalesChannel?has_content>
+                   <option value="${defaultSalesChannel.enumId}">${defaultSalesChannel.description?if_exists}</option>
+                   <option value="${defaultSalesChannel.enumId}"> ---- </option>
+                </#if>                
+                <option value="">${uiLabelMap.OrderNoChannel}</option>                
                 <#list salesChannels as salesChannel>
                   <option value="${salesChannel.enumId}" <#if (salesChannel.enumId == currentChannel)>selected</#if>>${salesChannel.get("description",locale)}</option>
                 </#list>

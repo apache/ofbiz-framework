@@ -36,6 +36,13 @@ userLogin = session.getAttribute("userLogin");
 
 context.put("dispatcher",dispatcher);
 
+productStore = ProductStoreWorker.getProductStore(request);
+if( productStore != null ){
+    context.put("defaultProductStore", productStore);
+    if( productStore.getString("defaultSalesChannelEnumId") != null )
+        context.put("defaultSalesChannel", delegator.findByPrimaryKeyCache("Enumeration",
+                UtilMisc.toMap("enumId",productStore.getString("defaultSalesChannelEnumId"))));
+}
 // Get the Cart
 shoppingCart = session.getAttribute("shoppingCart");
 context.put("shoppingCart", shoppingCart);
