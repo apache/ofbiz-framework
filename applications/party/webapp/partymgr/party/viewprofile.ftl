@@ -614,17 +614,15 @@ under the License.
         <input type="hidden" name="partyId" value="${partyId}"/>
         <input type="file" name="uploadedFile" size="20"/>
         <select name="contentPurposeEnumId">
-          <#-- TODO: Convert hard-coded text to UI label properties -->
-          <option value="">Select Purpose</option>
+          <option value="">${uiLabelMap.PartySelectPurpose}</option>
           <#list contentPurposes as contentPurpose>
-            <option value="${contentPurpose.enumId}">${contentPurpose.description?default(contentPurpose.enumId)}</option>          
+            <option value="${contentPurpose.enumId}">${contentPurpose.get("description", locale)?default(contentPurpose.enumId)}</option>          
           </#list>
         </select>
         <select name="roleTypeId">
-          <#-- TODO: Convert hard-coded text to UI label properties -->
-          <option value="">Select Role</option>
+          <option value="">${uiLabelMap.PartySelectRole}</option>
           <#list roles as role>
-            <option value="${role.roleTypeId}">${role.description?default(role.roleTypeId)}</option>
+            <option value="${role.roleTypeId}">${role.get("description", locale)?default(role.roleTypeId)}</option>
           </#list>
         </select>
         <input type="submit" value="${uiLabelMap.CommonUpload}"/>

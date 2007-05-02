@@ -44,7 +44,7 @@ under the License.
                                 </container>
                                 <container style="button-bar">
                                     <link target="EditSecurityGroup" style="smallSubmit" text="${uiLabelMap.PartyNewSecurityGroup}"/>
-                                    <link target="EditCertIssuerProvisions" style="smallSubmit" text="Cert Issuers"/>
+                                    <link target="EditCertIssuerProvisions" style="smallSubmit" text="${uiLabelMap.PartyCertIssuers}"/>
                                 </container>
                                 <include-form name="ListSecurityGroups" location="component://party/widget/partymgr/SecurityForms.xml"/>
                             </widgets>
@@ -144,7 +144,7 @@ under the License.
                                 </container>
                                 <container style="button-bar">
                                     <link target="EditSecurityGroup" style="smallSubmit" text="${uiLabelMap.PartyNewSecurityGroup}"/>
-                                    <link target="EditCertIssuerProvisions" style="smallSubmit" text="Cert Issuers"/>
+                                    <link target="EditCertIssuerProvisions" style="smallSubmit" text="${uiLabelMap.PartyCertIssuers}"/>
                                 </container>
                                 <container style="widget-container">
                                     <include-form name="CertIssuerList" location="component://party/widget/partymgr/SecurityForms.xml"/>
