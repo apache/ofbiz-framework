@@ -362,6 +362,7 @@ public class EntityFinderUtil {
             int size = getSize(context);
             try {
                 listAcsr.put(context, eli.getPartialList(start, size));
+                eli.close();
             } catch (GenericEntityException e) {
                 String errMsg = "Error getting partial list in limit-range with start=" + start + " and size=" + size + ": " + e.toString();
                 Debug.logError(e, errMsg, module);
@@ -416,6 +417,7 @@ public class EntityFinderUtil {
             
             try {
                 listAcsr.put(context, eli.getPartialList(((index - 1) * size) + 1, size));
+                eli.close();
             } catch (GenericEntityException e) {
                 String errMsg = "Error getting partial list in limit-view with index=" + index + " and size=" + size + ": " + e.toString();
                 Debug.logError(e, errMsg, module);
