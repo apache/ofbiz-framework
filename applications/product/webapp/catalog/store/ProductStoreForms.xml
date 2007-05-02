@@ -444,10 +444,10 @@
         <field name="shipmentMethodTypeId" title="${uiLabelMap.ProductMethod}">
             <display-entity entity-name="ShipmentMethodType" description="${description}" cache="true" also-hidden="true"/>
         </field>
-        <field name="geoIdFrom">
+        <field name="geoIdFrom" title="${uiLabelMap.ProductFromGeo}">
             <display-entity entity-name="Geo" key-field-name="geoId" description="${geoName} [${geoId}]"/>
         </field>
-        <field name="geoIdTo">
+        <field name="geoIdTo" title="${uiLabelMap.ProductToGeo}">
             <display-entity entity-name="Geo" key-field-name="geoId" description="${geoName} [${geoId}]"/>
         </field>
         <field name="weightBreakId">
