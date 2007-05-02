@@ -38,7 +38,7 @@
 	<classpathentry kind="lib" path="framework/webapp/lib/velocity-dep-1.3.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/velocity-1.3.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/MinML2.jar"/>
-	<classpathentry kind="lib" path="framework/webapp/lib/DataVision.jar"/>
+	<classpathentry kind="lib" path="framework/webapp/lib/DataVision-0.7.8.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/batik-all-1.6.jar"/>
 	<classpathentry kind="lib" path="framework/service/lib/wsdl4j.jar"/>
 	<classpathentry kind="lib" path="framework/service/lib/axis-ant.jar"/>
