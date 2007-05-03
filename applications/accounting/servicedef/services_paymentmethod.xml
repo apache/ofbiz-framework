@@ -285,7 +285,13 @@ under the License.
         <attribute name="paymentId" type="String" mode="OUT" optional="false"/>
         <attribute name="paymentGatewayResponseId" type="String" mode="OUT" optional="true"/>
     </service>
-        
+
+    <service name="processCaptureSplitPayment" engine="java" require-new-transaction="true"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="captureBillingAccountPayment" auth="true">
+        <description>Handles the creation of new OrderPaymentPreference record (and Auth) for partial captures</description>
+        <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="splitAmount" type="BigDecimal" mode="IN" optional="false"/> 
+    </service>
 
     <service name="refundPayment" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="refundPayment" auth="true">
@@ -332,6 +338,40 @@ under the License.
         <attribute name="internalRespMsgs" type="List" mode="IN" optional="true"/>
     </service>
 
+   <service name="processReleaseResult" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processReleaseResult" auth="true">
+        <description>Process the payment release result(s)</description>
+        <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="releaseAmount" type="Double" mode="IN" optional="false"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="releaseResult" type="Boolean" mode="IN" optional="false"/>
+        <attribute name="releaseAltRefNum" type="String" mode="IN" optional="true"/>
+        <attribute name="releaseRefNum" type="String" mode="IN" optional="false"/>
+        <attribute name="releaseCode" type="String" mode="IN" optional="true"/>
+        <attribute name="releaseFlag" type="String" mode="IN" optional="true"/>
+        <attribute name="releaseMessage" type="String" mode="IN" optional="true"/>
+        <attribute name="internalRespMsgs" type="List" mode="IN" optional="true"/>
+    </service>
+
+    <service name="processRefundResult" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processRefundResult" auth="true">
+        <description>Process the payment refund result(s)</description>
+        <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="serviceTypeEnum" type="String" mode="IN" optional="true"/>
+        <attribute name="payFromPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="payToPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="refundAmount" type="Double" mode="IN" optional="false"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="refundResult" type="Boolean" mode="IN" optional="false"/>
+        <attribute name="refundAltRefNum" type="String" mode="IN" optional="true"/>
+        <attribute name="refundRefNum" type="String" mode="IN" optional="false"/>
+        <attribute name="refundCode" type="String" mode="IN" optional="true"/>
+        <attribute name="refundFlag" type="String" mode="IN" optional="true"/>
+        <attribute name="refundMessage" type="String" mode="IN" optional="true"/>
+        <attribute name="internalRespMsgs" type="List" mode="IN" optional="true"/>
+    </service>
+
     <service name="processPaymentServiceError" engine="java" require-new-transaction="true" max-retry="5"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="storePaymentErrorMessage" auth="true">
         <description>Process (store) error messages from payment service failures</description>
@@ -339,6 +379,12 @@ under the License.
         <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
         <attribute name="transCodeEnumId" type="String" mode="IN" optional="false"/>
         <attribute name="serviceResultMap" type="Map" mode="IN" optional="false"/>
+    </service>
+
+    <service name="savePaymentGatewayResponse" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="storePaymentErrorMessage" auth="false">
+        <description>Method to make sure PaymentGatewayResponse records get stored (uses XA wrapper on rollback)</description>
+        <attribute name="paymentGatewayResponse" type="GenericValue" mode="IN" optional="false"/>
     </service>
 
     <!-- Payment Gateway Interfaces -->
