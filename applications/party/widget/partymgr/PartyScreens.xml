@@ -718,12 +718,10 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not>
-                            <if-empty field-name="ownedFinAccountList"/>
-                        </not>
-                    </condition>
-                    <condition>
-                        <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                        <and>
+                            <not><if-empty field-name="ownedFinAccountList"/></not>
+                            <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                        </and>
                     </condition>
                     <widgets>
                         <container id="fin-account-summary" style="screenlet">
