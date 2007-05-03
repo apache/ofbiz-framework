@@ -36,4 +36,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
 
     <test-suite loader="main" location="testdef/servicetests.xml"/>
+
+    <keystore name="rmitrust" type="jks" password="changeit" is-truststore="true"
+              is-certstore="false" loader="main" location="config/rmitrust.jks"/>
 </ofbiz-component>
