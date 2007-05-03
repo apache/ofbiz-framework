@@ -471,6 +471,9 @@ public class ProductSearchSession {
         } else {
             request.setAttribute("processSearchParametersAlreadyRun", Boolean.TRUE);
         }
+        
+        Debug.logInfo("Processing Product Search parameters: " + parameters, module);
+        
         HttpSession session = request.getSession();
         boolean constraintsChanged = false;
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
@@ -491,7 +494,7 @@ public class ProductSearchSession {
                 }
             }
         }
-
+        
         String prioritizeCategoryId = null;
         if (UtilValidate.isNotEmpty((String) parameters.get("PRIORITIZE_CATEGORY_ID"))) {
             prioritizeCategoryId = (String) parameters.get("PRIORITIZE_CATEGORY_ID");
@@ -681,8 +684,17 @@ public class ProductSearchSession {
         if (UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_RANGE")) || UtilValidate.isNotEmpty((String) parameters.get("S_LPR"))) {
             String listPriceRangeStr = (String) parameters.get("LIST_PRICE_RANGE");
             if (UtilValidate.isEmpty(listPriceRangeStr)) listPriceRangeStr = (String) parameters.get("S_LPR");
-            String listPriceLowStr = listPriceRangeStr.substring(0, listPriceRangeStr.indexOf("_")); 
-            String listPriceHighStr = listPriceRangeStr.substring(listPriceRangeStr.indexOf("_") + 1); 
+            int underscoreIndex = listPriceRangeStr.indexOf("_");
+            String listPriceLowStr; 
+            String listPriceHighStr; 
+            if (underscoreIndex >= 0) {
+                listPriceLowStr = listPriceRangeStr.substring(0, listPriceRangeStr.indexOf("_")); 
+                listPriceHighStr = listPriceRangeStr.substring(listPriceRangeStr.indexOf("_") + 1); 
+            } else {
+                // no underscore: assume it is a low range with no high range, ie the ending underscore was left off
+                listPriceLowStr = listPriceRangeStr; 
+                listPriceHighStr = null; 
+            }
 
             Double listPriceLow = null;
             Double listPriceHigh = null;
