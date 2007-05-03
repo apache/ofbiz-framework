@@ -120,7 +120,7 @@
 
     <!-- log minerva to the special log -->
     <category name="org.ofbiz.minerva">
-        <priority value="debug"/>
+        <priority value="trace"/>
         <appender-ref ref="minerva-log"/>
     </category>
 
