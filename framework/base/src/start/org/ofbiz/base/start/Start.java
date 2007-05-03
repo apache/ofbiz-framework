@@ -541,7 +541,7 @@ public class Start implements Runnable {
             // base jar file
             baseJar = System.getProperty("ofbiz.base.jar");
             if (baseJar == null) {
-                baseJar = ofbizHome + "/" + props.getProperty("ofbiz.base.jar", "base/build/lib/ofbiz-base.jar");
+                baseJar = ofbizHome + "/" + props.getProperty("ofbiz.base.jar", "framework/base/build/lib/ofbiz-base.jar");
             }
 
             // tools jar
@@ -569,7 +569,7 @@ public class Start implements Runnable {
             // container configuration
             containerConfig = System.getProperty("ofbiz.container.config");
             if (containerConfig == null) {
-                containerConfig = ofbizHome + "/" + props.getProperty("ofbiz.container.config", "base/config/ofbiz-containers.xml");
+                containerConfig = ofbizHome + "/" + props.getProperty("ofbiz.container.config", "framework/base/config/ofbiz-containers.xml");
             }
 
             // get the admin server info
@@ -614,7 +614,7 @@ public class Start implements Runnable {
 
             // build a default log4j configuration based on ofbizHome
             if (log4jConfig == null) {
-                log4jConfig = ofbizHome + "/base/config/debug.properties";
+                log4jConfig = "log4j.xml";
             }
 
             // set the log4j configuration property so we don't pick up one inside jars by mistake
