@@ -126,7 +126,7 @@
 
     <!-- root logger -->
     <root>
-        <priority value="info"></priority>
+        <priority value="all"></priority>
         <appender-ref ref="stdout"/>
         <appender-ref ref="async"/>
     </root>
