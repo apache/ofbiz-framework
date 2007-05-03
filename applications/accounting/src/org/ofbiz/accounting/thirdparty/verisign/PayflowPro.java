@@ -389,10 +389,23 @@ public class PayflowPro {
         }
 
         String respCode = (String) parameters.get("RESULT");
-        if ("0".equals(respCode) && avsCheckOkay && cvv2CheckOkay) {
+        int codeInt = -999; // custom response code -- not from payflow docs
+        try {
+            codeInt = Integer.parseInt(respCode);
+        } catch (NumberFormatException e) {
+            Debug.logError(e, "Unable to parse response code; not a number!", module);
+        }
+
+        if (codeInt == 0 && avsCheckOkay && cvv2CheckOkay) {
             result.put("authResult", Boolean.TRUE);
             result.put("authCode", parameters.get("AUTHCODE"));
+        } else if (codeInt < 0) {
+            // communications error
+            Debug.logWarning("In PayflowPro failing authorization; respCode/RESULT=" + respCode + ", avsCheckOkay=" + avsCheckOkay + ", cvv2CheckOkay=" + cvv2CheckOkay + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
+            result.put("authResult", Boolean.FALSE);
+            result.put("authRefNum", respCode);
         } else {
+            // other error
             Debug.logWarning("In PayflowPro failing authorization; respCode/RESULT=" + respCode + ", avsCheckOkay=" + avsCheckOkay + ", cvv2CheckOkay=" + cvv2CheckOkay + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
             result.put("authResult", Boolean.FALSE);
             
@@ -432,13 +445,23 @@ public class PayflowPro {
             }
         }
         String respCode = (String) parameters.get("RESULT");
+        int codeInt = -999; // custom response code -- not from payflow docs
+        try {
+            codeInt = Integer.parseInt(respCode);
+        } catch (NumberFormatException e) {
+            Debug.logError(e, "Unable to parse response code; not a number!", module);
+        }
 
-        if (respCode.equals("0")) {
+        if (codeInt == 0) {
             result.put("captureResult", Boolean.TRUE);
             result.put("captureCode", parameters.get("AUTHCODE"));
+        } else if (codeInt < 0) {
+            // communications error
+            Debug.logWarning("In PayflowPro failing capture; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
+            result.put("captureResult", Boolean.FALSE);
+            result.put("captureRefNum", respCode);
         } else {
-            Debug.logWarning("In PayflowPro failing authorization; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
-
+            Debug.logWarning("In PayflowPro failing capture; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
             result.put("captureResult", Boolean.FALSE);
         }
         result.put("captureRefNum", parameters.get("PNREF"));
@@ -464,11 +487,23 @@ public class PayflowPro {
             }
         }
         String respCode = (String) parameters.get("RESULT");
+        int codeInt = -999; // custom response code -- not from payflow docs
+        try {
+            codeInt = Integer.parseInt(respCode);
+        } catch (NumberFormatException e) {
+            Debug.logError(e, "Unable to parse response code; not a number!", module);
+        }
 
-        if (respCode.equals("0")) {
+        if (codeInt == 0) {
             result.put("releaseResult", Boolean.TRUE);
             result.put("releaseCode", parameters.get("AUTHCODE"));
+        } else if (codeInt < 0) {
+            // communications error
+            Debug.logWarning("In PayflowPro failing void; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
+            result.put("releaseResult", Boolean.FALSE);
+            result.put("releaseRefNum", respCode);
         } else {
+            Debug.logWarning("In PayflowPro failing void; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
             result.put("releaseResult", Boolean.FALSE);
         }
         result.put("releaseRefNum", parameters.get("PNREF"));
@@ -494,13 +529,25 @@ public class PayflowPro {
             }
         }
         String respCode = (String) parameters.get("RESULT");
+        int codeInt = -999; // custom response code -- not from payflow docs
+        try {
+            codeInt = Integer.parseInt(respCode);
+        } catch (NumberFormatException e) {
+            Debug.logError(e, "Unable to parse response code; not a number!", module);
+        }
 
-        if (respCode.equals("0")) {
+        if (codeInt == 0) {
             result.put("refundResult", Boolean.TRUE);
             result.put("refundCode", parameters.get("AUTHCODE"));
-        } else {
+        } else if (codeInt < 0) {
+            // communications error
+            Debug.logWarning("In PayflowPro failing refund; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
             result.put("refundResult", Boolean.FALSE);
-        }
+            result.put("refundRefNum", respCode);
+        } else {
+            Debug.logWarning("In PayflowPro failing refund; respCode/RESULT=" + respCode + "; PNREF=" + parameters.get("PNREF") + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
+            result.put("refundResult", Boolean.FALSE);
+        }          
         result.put("refundRefNum", parameters.get("PNREF"));
         result.put("refundFlag", parameters.get("RESULT"));
         result.put("refundMessage", parameters.get("RESPMSG"));
