@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+  -->
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="true">
+
+    <!-- root logger -->
+    <root>
+		<priority value="debug"></priority>
+		<appender-ref ref="stdout"/>
+        <appender-ref ref="async"/>
+    </root>
+
+    <!-- log minerva to the special log -->
+    <category name="org.ofbiz.minerva">
+        <appender-ref ref="minerva-log"/>
+    </category>
+
+    <!-- stdout appender -->
+    <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+        <param name="threshold" value="info"/>
+        <layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
+		</layout>
+	</appender>
+
+    <!-- file logging done async -->
+    <appender name="async" class="org.apache.log4j.AsyncAppender">
+	    <appender-ref ref="ofbiz-file"/>
+        <appender-ref ref="ofbiz-html"/>
+        <appender-ref ref="debug"/>
+        <appender-ref ref="error"/>
+        <!-- <appender-ref ref="email"/> -->
+    </appender>
+
+    <!-- ofbiz file appender -->
+    <appender name="ofbiz-file" class="org.apache.log4j.RollingFileAppender">
+        <param name="maxFileSize" value="1000KB" />
+		<param name="maxBackupIndex" value="10" />
+		<param name="File" value="runtime/logs/ofbiz.log" />
+		<param name="threshold" value="info"/>
+        <layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
+		</layout>
+	</appender>
+
+    <!-- ofbiz web file appender -->
+    <appender name="ofbiz-html" class="org.apache.log4j.RollingFileAppender">
+        <param name="maxFileSize" value="200KB" />
+		<param name="maxBackupIndex" value="1" />
+		<param name="File" value="runtime/logs/ofbiz.html" />
+		<param name="threshold" value="info"/>
+        <layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="&lt;div class=%p&gt;%d (%t) [%24F:%-3L:%-5p]%x %m &lt;/div&gt;%n"/>
+		</layout>
+	</appender>
+
+    <!-- debug log -->
+    <appender name="debug" class="org.apache.log4j.FileAppender">
+        <param name="File" value="runtime/logs/debug.log" />
+        <param name="Append" value="false"/>
+        <layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
+		</layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMax" value="info"/>
+            <param name="LevelMin" value="trace"/>
+            <param name="AcceptOnMatch" value="true"/>
+        </filter>
+    </appender>
+
+    <!-- error log -->
+    <appender name="error" class="org.apache.log4j.FileAppender">
+        <param name="File" value="runtime/logs/error.log" />
+        <param name="Append" value="false"/>
+        <layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
+		</layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMax" value="fatal"/>
+            <param name="LevelMin" value="error"/>
+            <param name="AcceptOnMatch" value="true"/>
+        </filter>
+    </appender>
+
+    <!-- special minerva log -->
+    <appender name="minerva-log" class="org.apache.log4j.FileAppender">
+        <param name="File" value="runtime/logs/minerva.log" />
+        <param name="Append" value="false"/>
+        <layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
+		</layout>
+    </appender>
+
+    <!-- fatal error SMTP notification -->
+    <appender name="email"  class="org.apache.log4j.net.SMTPAppender">
+        <param name="BufferSize" value="512" />
+        <param name="SMTPHost" value="localhost" />
+        <param name="From" value="ofbiz-error@localhost" />
+        <param name="To" value="neo@foobar.com" />
+        <param name="Subject" value="[OFBiz-Error] Application message" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="fatal"/>
+            <param name="LevelMax" value="fatal"/>
+        </filter>
+    </appender>
+</log4j:configuration>
