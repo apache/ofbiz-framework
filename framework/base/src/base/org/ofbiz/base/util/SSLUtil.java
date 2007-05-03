@@ -161,7 +161,6 @@ public class SSLUtil {
     }
 
     public static SSLSocketFactory getSSLSocketFactory() throws IOException, GeneralSecurityException, GenericConfigException {
-
         return getSSLSocketFactory(null);
     }
 
@@ -170,7 +169,7 @@ public class SSLUtil {
         KeyManager[] km = SSLUtil.getKeyManagers(ks, password, alias);
 
         SSLContext context = SSLContext.getInstance("SSL");
-        context.init(km, tm, null);
+        context.init(km, tm, new SecureRandom());
         return context.getServerSocketFactory();
     }
 
@@ -179,7 +178,7 @@ public class SSLUtil {
         KeyManager[] km = SSLUtil.getKeyManagers(alias);
 
         SSLContext context = SSLContext.getInstance("SSL");
-        context.init(km, tm, null);
+        context.init(km, tm, new SecureRandom());
         return context.getServerSocketFactory();
     }
 
