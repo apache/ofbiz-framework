@@ -76,7 +76,7 @@ under the License.
                                             <section>
                                                 <condition><if-has-permission permission="ORDERMGR" action="_VIEW"/></condition>
                                                 <widgets>
-                                                    <link target="/ordermgr/control/searchorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}&amp;externalLoginKey=${externalLoginKey}&amp;viewIndex=0&amp;viewSize=10" url-mode="inter-app" 
+                                                    <link target="/ordermgr/control/searchorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}&amp;externalLoginKey=${externalLoginKey}&amp;viewIndex=1&amp;viewSize=20" url-mode="inter-app" 
                                                         text="${uiLabelMap.OrderOrders}"/>
                                                     <link target="/ordermgr/control/FindQuote?partyId=${partyId}&amp;externalLoginKey=${externalLoginKey}" url-mode="inter-app" 
                                                         text="${uiLabelMap.OrderOrderQuotes}" style="buttontext"/>
@@ -224,7 +224,7 @@ under the License.
                                             <section>
                                                 <condition><if-has-permission permission="ORDERMGR" action="_VIEW"/></condition>
                                                 <widgets>
-                                                    <link target="/ordermgr/control/searchorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}&amp;viewIndex=0&amp;viewSize=10" url-mode="inter-app" 
+                                                    <link target="/ordermgr/control/searchorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}&amp;viewIndex=1&amp;viewSize=20" url-mode="inter-app" 
                                                         text="${uiLabelMap.OrderOrders}"/>
                                                 </widgets>
                                             </section>
