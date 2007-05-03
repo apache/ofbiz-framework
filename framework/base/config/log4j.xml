@@ -21,18 +21,6 @@
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="true">
 
-    <!-- root logger -->
-    <root>
-		<priority value="debug"></priority>
-		<appender-ref ref="stdout"/>
-        <appender-ref ref="async"/>
-    </root>
-
-    <!-- log minerva to the special log -->
-    <category name="org.ofbiz.minerva">
-        <appender-ref ref="minerva-log"/>
-    </category>
-
     <!-- stdout appender -->
     <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
         <param name="threshold" value="info"/>
@@ -124,4 +112,22 @@
             <param name="LevelMax" value="fatal"/>
         </filter>
     </appender>
+
+    <!-- log4j category -->
+    <category name="org.apache.log4j">
+        <priority value="warn"/>
+    </category>
+
+    <!-- log minerva to the special log -->
+    <category name="org.ofbiz.minerva">
+        <priority value="debug"/>
+        <appender-ref ref="minerva-log"/>
+    </category>
+
+    <!-- root logger -->
+    <root>
+        <priority value="info"></priority>
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="async"/>
+    </root>
 </log4j:configuration>
