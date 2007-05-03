@@ -452,14 +452,8 @@ public class ProductionRunServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        /* TODO: security management  and finishing cleaning (ex copy from PartyServices.java)
-        if (!security.hasEntityPermission(secEntity, secOperation, userLogin)) {
-            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-            result.put(ModelService.ERROR_MESSAGE, "You do not have permission to perform this operation for this party");
-            return partyId;
-        }
-         */
         String productionRunId = (String) context.get("productionRunId");
+
         if (!UtilValidate.isEmpty(productionRunId)) {
             ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
             if (productionRun.exist()){
@@ -470,24 +464,33 @@ public class ProductionRunServices {
                 }
 
                 Double quantity = (Double) context.get("quantity");
-                if (quantity != null &&  ! quantity.equals(productionRun.getQuantity()))
+                if (quantity != null &&  ! quantity.equals(productionRun.getQuantity())) {
                     productionRun.setQuantity(quantity);
+                }
                 
                 Timestamp  estimatedStartDate =  (Timestamp) context.get("estimatedStartDate");
-                if (estimatedStartDate != null && ! estimatedStartDate.equals(productionRun.getEstimatedStartDate()))
+                if (estimatedStartDate != null && ! estimatedStartDate.equals(productionRun.getEstimatedStartDate())) {
                     productionRun.setEstimatedStartDate(estimatedStartDate);
+                }
                 
                 String  workEffortName = (String) context.get("workEffortName");
-                if (workEffortName != null) productionRun.setProductionRunName(workEffortName);
+                if (workEffortName != null) {
+                    productionRun.setProductionRunName(workEffortName);
+                }
                 
                 String  description = (String) context.get("description");
-                if (description != null) productionRun.setDescription(description);
+                if (description != null) {
+                    productionRun.setDescription(description);
+                }
                 
                 String  facilityId = (String) context.get("facilityId");
-                if (facilityId != null) productionRun.getGenericValue().set("facilityId", facilityId);
+                if (facilityId != null) {
+                    productionRun.getGenericValue().set("facilityId", facilityId);
+                }
 
-                if (productionRun.store()) return ServiceUtil.returnSuccess();
-                else {
+                if (productionRun.store()) {
+                    return ServiceUtil.returnSuccess();
+                } else {
                     Debug.logError("productionRun.store() fail for productionRunId ="+productionRunId,module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotUpdated", locale));
                 }
