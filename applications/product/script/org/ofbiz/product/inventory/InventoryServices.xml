@@ -496,6 +496,7 @@ under the License.
                         <or>
                             <if-compare field-name="inventoryItem.statusId" value="INV_AVAILABLE" operator="equals"/>
                             <if-compare field-name="inventoryItem.statusId" value="INV_PROMISED" operator="equals"/>
+                            <if-compare field-name="inventoryItem.statusId" value="INV_BEING_TRANSFERED" operator="equals"/>
                         </or>
                     </condition>
                     <then>
