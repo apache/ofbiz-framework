@@ -2039,6 +2039,7 @@ under the License.
       <field name="instruction" type="long-varchar"></field>
       <field name="routingWorkEffortId" type="id"></field>
       <field name="estimateCalcMethod" type="id"></field>
+      <field name="recurrenceInfoId" type="id"></field>
       <prim-key field="productId"/>
       <prim-key field="productIdTo"/>
       <prim-key field="productAssocTypeId"/>
@@ -2058,6 +2059,9 @@ under the License.
       <relation type="one" fk-name="PROD_ASSOC_CUSM" rel-entity-name="CustomMethod">
         <key-map field-name="estimateCalcMethod" rel-field-name="customMethodId"/>
       </relation>
+        <relation type="one" fk-name="PROD_ASSOC_RECINFO" rel-entity-name="RecurrenceInfo">
+            <key-map field-name="recurrenceInfoId"/>
+        </relation>
     </entity>
     <entity entity-name="ProductAssocType"
             package-name="org.ofbiz.product.product"

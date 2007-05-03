@@ -164,6 +164,7 @@ under the License.
     <ProductAssocType description="Accessory" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_ACCESSORY"/>
     <ProductAssocType description="Refurbished Equivalent" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_REFURB"/>
     <ProductAssocType description="Repair Service" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_REPAIR_SRV"/>
+    <ProductAssocType description="Auto Reorder (needs recurrenceInfoId)" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_AUTORO"/>
     
     <ProductAssocType description="Revision" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_REVISION"/>
     <ProductAssocType description="Manufacturing Bill of Materials" hasTable="N" parentTypeId="PRODUCT_COMPONENT" productAssocTypeId="MANUF_COMPONENT"/>
