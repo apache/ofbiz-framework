@@ -117,8 +117,8 @@ public class ProductionRun {
      *     <li> the productComponent list related data
      * @return true if success false otherwise
      **/
-    public boolean store(){
-        if (exist()){
+    public boolean store() {
+        if (exist()) {
             if (updateCompletionDate){
                 this.estimatedCompletionDate = recalculateEstimatedCompletionDate();
             }
@@ -434,4 +434,7 @@ public class ProductionRun {
         return (long) totalTaskTime;
     }
 
+    public boolean isUpdateCompletionDate() {
+        return updateCompletionDate;
+    }
 }

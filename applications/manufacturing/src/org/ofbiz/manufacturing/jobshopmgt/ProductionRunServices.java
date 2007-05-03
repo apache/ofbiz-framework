@@ -488,7 +488,17 @@ public class ProductionRunServices {
                     productionRun.getGenericValue().set("facilityId", facilityId);
                 }
 
+                boolean updateEstimatedOrderDates = productionRun.isUpdateCompletionDate();
                 if (productionRun.store()) {
+                    if (updateEstimatedOrderDates && "PRUN_SCHEDULED".equals(productionRun.getGenericValue().getString("currentStatusId"))) {
+                        try {
+                            Map resultService = dispatcher.runSync("setEstimatedDeliveryDates",
+                                                                   UtilMisc.toMap("userLogin", userLogin));
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, "Problem calling the setEstimatedDeliveryDates service", module);
+                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotUpdated", locale));
+                        }
+                    }
                     return ServiceUtil.returnSuccess();
                 } else {
                     Debug.logError("productionRun.store() fail for productionRunId ="+productionRunId,module);
