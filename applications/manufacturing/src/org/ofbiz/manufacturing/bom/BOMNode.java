@@ -621,7 +621,14 @@ public class BOMNode {
     }
 
     public boolean isManufactured() {
-        return childrenNodes.size() > 0;
+        List supplierProducts = null;
+        try {
+            supplierProducts = product.getRelated("SupplierProduct", UtilMisc.toMap("supplierPrefOrderId", "10_MAIN_SUPPL"), UtilMisc.toList("minimumOrderQuantity"));
+        } catch(GenericEntityException gee) {
+            Debug.logError("Problem in BOMNode.isManufactured()", module);
+        }
+        supplierProducts = EntityUtil.filterByDate(supplierProducts, UtilDateTime.nowTimestamp(), "availableFromDate", "availableThruDate", true);
+        return childrenNodes.size() > 0 && UtilValidate.isEmpty(supplierProducts);
     }
     
     public boolean isVirtual() {
