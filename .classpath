@@ -70,7 +70,6 @@
 	<classpathentry kind="lib" path="framework/base/lib/junitperf.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/junit.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/jdbm.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/javolution.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/jakarta-regexp-1.5.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/icu4j-3_6.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/httpunit.jar"/>
@@ -79,23 +78,7 @@
 	<classpathentry kind="lib" path="framework/base/lib/avalon-util-exception-1.0.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/ant-launcher.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/ant.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-vfs-providers.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-vfs.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-primitives.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-pool.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-net-1.4.1.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-modeler.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-logging.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-lang-2.1.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-fileupload.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-el.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-discovery.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-digester-1.7.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-dbcp.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-collections.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-codec.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-cli.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-beanutils.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-servlet_2.4_spec-1.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-saaj_1.1_spec-1.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-qname_1.1_spec-1.0.jar"/>
@@ -113,13 +96,11 @@
 	<classpathentry kind="lib" path="framework/base/lib/xml-apis-2.8.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xercesImpl-2.8.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/resolver-2.8.1.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-validator-1.3.0.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/json-lib-0.9.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/ezmorph-0.9.1.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/looks-2.0.2.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/jpos18-controls.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/jcl.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-io-1.1.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlgraphics-commons-1.1.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/rome-0.9.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/jdom-1.0.jar"/>
@@ -130,5 +111,23 @@
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-common-3.0.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-server-3.0.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-client-3.0.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/javolution-4.2.8.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-vfs-1.0.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-validator-1.3.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-primitives-1.0.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-pool-1.3.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-modeler-2.0.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-lang-2.3.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-io-1.3.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-fileupload-1.2.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-el-1.0.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-discovery-0.4.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-digester-1.8.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-dbcp-1.2.2.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-collections-3.2.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-cli-1.0.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-beanutils-1.7.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
