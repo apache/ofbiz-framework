@@ -49,11 +49,7 @@ import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.security.Security;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ModelService;
-import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.service.*;
 
 /**
  * PaymentGatewayServices
@@ -127,6 +123,7 @@ public class PaymentGatewayServices {
         orderPaymentPreference.set("processAttempt", new Long(procAttempt.longValue() + 1));
         try {
             orderPaymentPreference.store();
+            orderPaymentPreference.refresh();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError("Unable to update OrderPaymentPreference record!");
@@ -162,11 +159,6 @@ public class PaymentGatewayServices {
 
             // handle the response
             if (authPaymentResult != null) {
-                // get the customer messages
-                if (authPaymentResult.get("customerRespMsgs") != null) {
-                    // NOTE DEJ20060911: hmmm... was something supposed to be done here?
-                }
-
                 // not null result means either an approval or decline; null would mean error
                 Double thisAmount = (Double) authPaymentResult.get("processAmount");
 
@@ -526,6 +518,7 @@ public class PaymentGatewayServices {
                 
                 // at this point if we have a successful result, let's save the new creditCard expireDate
                 if (!ServiceUtil.isError(processorResult) && Boolean.TRUE.equals((Boolean) processorResult.get("authResult"))) {
+                    // TODO: this is bad; we should be expiring the old card and creating a new one instead of editing it
                     creditCard.store();
                 }
             }
@@ -811,86 +804,17 @@ public class PaymentGatewayServices {
 
         // get the release result code
         if (releaseResult != null && !ServiceUtil.isError(releaseResult)) {
-            Boolean releaseResponse = (Boolean) releaseResult.get("releaseResult");
-
-            // create the PaymentGatewayResponse
-            String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
-            GenericValue pgResponse = delegator.makeValue("PaymentGatewayResponse", null);
-            pgResponse.set("paymentGatewayResponseId", responseId);
-            pgResponse.set("paymentServiceTypeEnumId", RELEASE_SERVICE_TYPE);
-            pgResponse.set("orderPaymentPreferenceId", paymentPref.get("orderPaymentPreferenceId"));
-            pgResponse.set("paymentMethodTypeId", paymentPref.get("paymentMethodTypeId"));
-            pgResponse.set("paymentMethodId", paymentPref.get("paymentMethodId"));
-            pgResponse.set("transCodeEnumId", "PGT_RELEASE");
-
-            // set the release info
-            pgResponse.set("referenceNum", releaseResult.get("releaseRefNum"));
-            pgResponse.set("altReference", releaseResult.get("releaseAltRefNum"));
-            pgResponse.set("gatewayCode", releaseResult.get("releaseCode"));
-            pgResponse.set("gatewayFlag", releaseResult.get("releaseFlag"));
-            pgResponse.set("gatewayMessage", releaseResult.get("releaseMessage"));
-            pgResponse.set("transactionDate", UtilDateTime.nowTimestamp());
-
-            // store the gateway response
+            Map releaseResRes;
             try {
-                pgResponse.create();
-            } catch (GenericEntityException e) {
-                Debug.logError(e, "Problem storing PaymentGatewayResponse entity; authorization was released! : " + pgResponse, module);
+                ModelService model = dctx.getModelService("processReleaseResult");
+                Map resCtx = model.makeValid(result, ModelService.IN_PARAM);
+                releaseResRes = dispatcher.runSync(model.name,  resCtx);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError("Trouble processing the release results: " + e.getMessage());
             }
-
-            // create the internal messages
-            List messages = (List) releaseResult.get("internalRespMsgs");
-            if (messages != null && messages.size() > 0) {
-                Iterator i = messages.iterator();
-                while (i.hasNext()) {
-                    GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg", null);
-                    String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
-                    String message = (String) i.next();
-                    respMsg.set("paymentGatewayRespMsgId", respMsgId);
-                    respMsg.set("paymentGatewayResponseId", responseId);
-                    respMsg.set("pgrMessage", message);
-                    try {
-                        delegator.create(respMsg);
-                    } catch (GenericEntityException e) {
-                        String errMsg = "Unable to create PaymentGatewayRespMsg record"; 
-                        Debug.logError(e, errMsg, module);
-                        return ServiceUtil.returnError(errMsg);
-                    }
-                }
-            }
-
-            if (releaseResponse != null && releaseResponse.booleanValue()) {
-                paymentPref.set("statusId", "PAYMENT_CANCELLED");
-                try {
-                    paymentPref.store();
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, "Problem storing updated payment preference; authorization was released!", module);
-                }
-
-                // cancel any payment records
-                List paymentList = null;
-                try {
-                    paymentList = paymentPref.getRelated("Payment");
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, "Unable to get Payment records from OrderPaymentPreference : " + paymentPref, module);
-                }
-
-                if (paymentList != null) {
-                    Iterator pi = paymentList.iterator();
-                    while (pi.hasNext()) {
-                        GenericValue pay = (GenericValue) pi.next();
-                        pay.set("statusId", "PMNT_CANCELLED");
-                        try {
-                            pay.store();
-                        } catch (GenericEntityException e) {
-                            Debug.logError(e, "Unable to store Payment : " + pay, module);
-                        }
-                    }
-                }
-            } else {
-                String errMsg = "Release failed for pref : " + paymentPref; 
-                Debug.logError(errMsg, module);
-                result = ServiceUtil.returnFailure(errMsg);
+            if (releaseResRes != null && ServiceUtil.isError(releaseResRes)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(releaseResRes));
             }
         } else if (ServiceUtil.isError(releaseResult)) {
             saveError(dispatcher, userLogin, paymentPref, releaseResult, RELEASE_SERVICE_TYPE, "PGT_RELEASE");
@@ -898,6 +822,87 @@ public class PaymentGatewayServices {
         }
 
         return result;
+    }
+
+    public static Map processReleaseResult(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+
+        GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
+        Boolean releaseResponse = (Boolean) context.get("releaseResult");
+
+        // create the PaymentGatewayResponse
+        String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
+        GenericValue pgResponse = delegator.makeValue("PaymentGatewayResponse", null);
+        pgResponse.set("paymentGatewayResponseId", responseId);
+        pgResponse.set("paymentServiceTypeEnumId", RELEASE_SERVICE_TYPE);
+        pgResponse.set("orderPaymentPreferenceId", paymentPref.get("orderPaymentPreferenceId"));
+        pgResponse.set("paymentMethodTypeId", paymentPref.get("paymentMethodTypeId"));
+        pgResponse.set("paymentMethodId", paymentPref.get("paymentMethodId"));
+        pgResponse.set("transCodeEnumId", "PGT_RELEASE");
+
+        // set the release info
+        pgResponse.set("referenceNum", context.get("releaseRefNum"));
+        pgResponse.set("altReference", context.get("releaseAltRefNum"));
+        pgResponse.set("gatewayCode", context.get("releaseCode"));
+        pgResponse.set("gatewayFlag", context.get("releaseFlag"));
+        pgResponse.set("gatewayMessage", context.get("releaseMessage"));
+        pgResponse.set("transactionDate", UtilDateTime.nowTimestamp());
+
+        // store the gateway response
+        savePgr(dctx, pgResponse);
+
+        // create the internal messages
+        List messages = (List) context.get("internalRespMsgs");
+        if (messages != null && messages.size() > 0) {
+            Iterator i = messages.iterator();
+            while (i.hasNext()) {
+                GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg", null);
+                String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
+                String message = (String) i.next();
+                respMsg.set("paymentGatewayRespMsgId", respMsgId);
+                respMsg.set("paymentGatewayResponseId", responseId);
+                respMsg.set("pgrMessage", message);
+
+                // store the messages
+                savePgr(dctx, respMsg);
+            }
+        }
+
+        if (releaseResponse != null && releaseResponse.booleanValue()) {
+            paymentPref.set("statusId", "PAYMENT_CANCELLED");
+            try {
+                paymentPref.store();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Problem storing updated payment preference; authorization was released!", module);
+            }
+
+            // cancel any payment records
+            List paymentList = null;
+            try {
+                paymentList = paymentPref.getRelated("Payment");
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Unable to get Payment records from OrderPaymentPreference : " + paymentPref, module);
+            }
+
+            if (paymentList != null) {
+                Iterator pi = paymentList.iterator();
+                while (pi.hasNext()) {
+                    GenericValue pay = (GenericValue) pi.next();
+                    pay.set("statusId", "PMNT_CANCELLED");
+                    try {
+                        pay.store();
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, "Unable to store Payment : " + pay, module);
+                    }
+                }
+            }
+        } else {
+            String errMsg = "Release failed for pref : " + paymentPref;
+            Debug.logError(errMsg, module);
+            return ServiceUtil.returnFailure(errMsg);
+        }
+
+        return ServiceUtil.returnSuccess();
     }
 
     /**
@@ -1079,19 +1084,19 @@ public class PaymentGatewayServices {
 
         BigDecimal totalPayments = PaymentWorker.getPaymentsTotal(orh.getOrderPayments());
         totalPayments = totalPayments.setScale(2, BigDecimal.ROUND_HALF_UP);
+
         BigDecimal remainingTotalBd = orderGrandTotal.subtract(totalPayments);
         if (Debug.infoOn()) Debug.logInfo("Capture Remaining Total: " + remainingTotalBd, module);
 
-        double amountToCapture = 0.0;
+        BigDecimal amountToCapture = ZERO;
         if (captureAmountBd == null) {
-            amountToCapture = remainingTotalBd.doubleValue();
+            amountToCapture = remainingTotalBd;
         } else {
-            amountToCapture = captureAmountBd.doubleValue();
+            amountToCapture = captureAmountBd;
         }
         if (Debug.infoOn()) Debug.logInfo("Actual Expected Capture Amount : " + amountToCapture, module);
 
         // iterate over the prefs and capture each one until we meet our total
-        List finished = new ArrayList();
         Iterator payments = paymentPrefs.iterator();
         while (payments.hasNext()) {
             // DEJ20060708: Do we really want to just log and ignore the errors like this? I've improved a few of these in a review today, but it is being done all over...
@@ -1101,64 +1106,78 @@ public class PaymentGatewayServices {
                 continue;
             }
 
-            Double authAmount = authTrans.getDouble("amount");
-            if (authAmount == null) authAmount = new Double(0.00);
-            if (authAmount.doubleValue() == 0.00) {
+            // check for an existing capture
+            GenericValue captureTrans = getCaptureTransaction(paymentPref);
+            if (captureTrans != null) {
+                Debug.logWarning("Attempt to capture and already captured preference: " + captureTrans, module);
+                continue;
+            }
+
+            BigDecimal authAmount = authTrans.getBigDecimal("amount");
+            if (authAmount == null) authAmount = new BigDecimal(0.00);
+            authAmount = authAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
+
+            if (authAmount.compareTo(ZERO) == 0) {
                 // nothing to capture
                 Debug.logInfo("Nothing to capture; authAmount = 0", module);
                 continue;
             }
-            //Debug.log("Actual Auth amount : " + authAmount, module);
  
             // if the authAmount is more then the remaining total; just use remaining total
-            if (authAmount.doubleValue() > remainingTotalBd.doubleValue()) {
-                authAmount = new Double(remainingTotalBd.doubleValue());
+            if (authAmount.compareTo(remainingTotalBd) == 1) {
+                authAmount = new BigDecimal(remainingTotalBd.doubleValue());
             }
 
             // if we have a billing account; total up auth + account available
-            double amountToBillAccount = 0.00;
+            BigDecimal amountToBillAccount = ZERO;
             if (billingAccountAvail != null) {
-                amountToBillAccount = authAmount.doubleValue() + billingAccountAvail.doubleValue();
+                amountToBillAccount = authAmount.add(billingAccountAvail).setScale(2, BigDecimal.ROUND_HALF_UP);
             }
 
             // the amount for *this* capture
-            double amountThisCapture = 0.00;
+            BigDecimal amountThisCapture;
 
             // determine how much for *this* capture
-            if (authAmount.doubleValue() >= amountToCapture) {
+            if (authAmount.compareTo(amountToCapture) >= 0) {
                 // if the auth amount is more then expected capture just capture what is expected
                 amountThisCapture = amountToCapture;
             } else if (payments.hasNext()) {
                 // if we have more payments to capture; just capture what was authorized
-                amountThisCapture = authAmount.doubleValue();
-            } else if (billingAccountAvail != null && amountToBillAccount >= amountToCapture) {
+                amountThisCapture = authAmount;
+            } else if (billingAccountAvail != null && amountToBillAccount.compareTo(amountToCapture) >= 0) {
                 // the provided billing account will cover the remaining; just capture what was autorized
-                amountThisCapture = authAmount.doubleValue();
+                amountThisCapture = authAmount;
             } else {
                 // we need to capture more then what was authorized; re-auth for the new amount
                 // TODO: add what the billing account cannot support to the re-auth amount
                 // TODO: add support for re-auth for additional funds
                 // just in case; we will capture the authorized amount here; until this is implemented
                 Debug.logError("The amount to capture was more then what was authorized; we only captured the authorized amount : " + paymentPref, module);
-                amountThisCapture = authAmount.doubleValue();
+                amountThisCapture = authAmount;
             }
            
             Debug.logInfo("Payment preference = [" + paymentPref + "] amount to capture = [" + amountToCapture +"] amount of this capture = [" + amountThisCapture +"] actual auth amount =[" + authAmount + "] amountToBillAccount = [" + amountToBillAccount + "]", module); 
-            Map captureResult = capturePayment(dctx, userLogin, orh, paymentPref, amountThisCapture);
+            Map captureResult = capturePayment(dctx, userLogin, orh, paymentPref, amountThisCapture.doubleValue());
             if (captureResult != null) {
                 // credit card processors return captureAmount, but gift certificate processors return processAmount
                 Double amountCaptured = (Double) captureResult.get("captureAmount");
                 if (amountCaptured == null) {
                     amountCaptured = (Double) captureResult.get("processAmount");
                 }
+
+                // big decimal reference to the capture amount
+                BigDecimal amountCapturedBd = new BigDecimal(amountCaptured.doubleValue());
+                amountCapturedBd = amountCapturedBd.setScale(2, BigDecimal.ROUND_HALF_UP);
+
                 // decrease amount of next payment preference to capture
-                if (amountCaptured != null) amountToCapture -= amountCaptured.doubleValue();
-                finished.add(captureResult);
+                if (amountCaptured != null) {
+                    amountToCapture = amountToCapture.subtract(amountCapturedBd);                
+                }
 
                 // add the invoiceId to the result for processing
                 captureResult.put("invoiceId", invoiceId);
 
-               // process the capture's results
+                // process the capture's results
                 try {
                     processResult(dctx, captureResult, userLogin, paymentPref);
                 } catch (GeneralException e) {
@@ -1167,58 +1186,27 @@ public class PaymentGatewayServices {
                 }
 
                 // create any splits which are needed
-                BigDecimal totalAmountCaptured = new BigDecimal(amountThisCapture);
-                if (authAmount.doubleValue() > totalAmountCaptured.doubleValue()) {
-                    // create a new payment preference and authorize it
-                    double newAmount = authAmount.doubleValue() - totalAmountCaptured.doubleValue(); // TODO: use BigDecimal arithmetic here (and everywhere else for that matter)
-                    Debug.logInfo("Creating payment preference split", module);
-                    String newPrefId = delegator.getNextSeqId("OrderPaymentPreference");
-                    GenericValue newPref = delegator.makeValue("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", newPrefId));
-                    newPref.set("orderId", paymentPref.get("orderId"));
-                    newPref.set("paymentMethodTypeId", paymentPref.get("paymentMethodTypeId"));
-                    newPref.set("paymentMethodId", paymentPref.get("paymentMethodId"));
-                    newPref.set("maxAmount", paymentPref.get("maxAmount"));
-                    newPref.set("statusId", "PAYMENT_NOT_AUTH");
-                    newPref.set("createdDate", UtilDateTime.nowTimestamp());
-                    if (userLogin != null) {
-                        newPref.set("createdByUserLogin", userLogin.getString("userLoginId"));
-                    }
-                    Debug.logInfo("New preference : " + newPref, module);
-                    Map processorResult = null;
+                if (authAmount.compareTo(amountThisCapture) == 1) {
+                    BigDecimal splitAmount = authAmount.subtract(amountThisCapture);
+                    Map splitResp = null;
                     try {
-                        // create the new payment preference
-                        delegator.create(newPref);
-
-                        // authorize the new preference
-                        processorResult = authPayment(dispatcher, userLogin, orh, newPref, newAmount, false, null);
-                        if (processorResult != null) {
-                            // process the auth results
-                            boolean authResult = processResult(dctx, processorResult, userLogin, newPref);
-                            if (!authResult) {
-                                Debug.logError("Authorization failed : " + newPref + " : " + processorResult, module);
-                            }
-                        } else {
-                            Debug.logError("Payment not authorized : " + newPref + " : " + processorResult, module);
-                        }
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e, "ERROR: cannot create new payment preference : " + newPref, module);
-                    } catch (GeneralException e) {
-                        if (processorResult != null) {
-                            Debug.logError(e, "Trouble processing the auth result: " + newPref + " : " + processorResult, module);
-                        } else {
-                            Debug.logError(e, "Trouble authorizing the payment: " + newPref, module);
-                        }
+                        Map splitCtx = UtilMisc.toMap("userLogin", userLogin, "orderPaymentPreference", paymentPref, "splitAmount", splitAmount);
+                        dispatcher.addCommitService("processCaptureSplitPayment", splitCtx, true);
+                    } catch (GenericServiceException e) {
+                        Debug.logWarning(e, "Problem processing the capture split payment", module);
+                    }
+                    if (ServiceUtil.isError(splitResp)) {
+                        Debug.logWarning("Problem processing the capture split payment: " + ServiceUtil.getErrorMessage(splitResp), module);
                     }
                 }
             } else {
                 Debug.logError("Payment not captured", module);
-                continue;
             }
         }
 
-        if (amountToCapture > 0.00) {
+        if (amountToCapture.compareTo(ZERO) == 1) {
             GenericValue productStore = orh.getProductStore();
-            if (! UtilValidate.isEmpty(productStore)) {
+            if (!UtilValidate.isEmpty(productStore)) {
                 boolean shipIfCaptureFails = UtilValidate.isEmpty(productStore.get("shipIfCaptureFails")) || "Y".equalsIgnoreCase(productStore.getString("shipIfCaptureFails"));
                 if(! shipIfCaptureFails) {
                     return ServiceUtil.returnError("Cannot ship order because credit card captures were unsuccessful");
@@ -1232,6 +1220,61 @@ public class PaymentGatewayServices {
             result.put("processResult", "COMPLETE");
             return result;
         }
+    }
+
+    public static Map processCaptureSplitPayment(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
+        BigDecimal splitAmount = (BigDecimal) context.get("splitAmount");
+
+        String orderId = paymentPref.getString("orderId");
+        OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
+
+        // create a new payment preference and authorize it
+        Debug.logInfo("Creating payment preference split", module);
+        String newPrefId = delegator.getNextSeqId("OrderPaymentPreference");
+        GenericValue newPref = delegator.makeValue("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", newPrefId));
+        newPref.set("orderId", paymentPref.get("orderId"));
+        newPref.set("paymentMethodTypeId", paymentPref.get("paymentMethodTypeId"));
+        newPref.set("paymentMethodId", paymentPref.get("paymentMethodId"));
+        newPref.set("maxAmount", paymentPref.get("maxAmount"));
+        newPref.set("statusId", "PAYMENT_NOT_AUTH");
+        newPref.set("createdDate", UtilDateTime.nowTimestamp());
+        if (userLogin != null) {
+            newPref.set("createdByUserLogin", userLogin.getString("userLoginId"));
+        }
+        if (Debug.verboseOn()) Debug.logVerbose("New preference : " + newPref, module);
+
+        Map processorResult = null;
+        try {
+            // create the new payment preference
+            delegator.create(newPref);
+
+            // authorize the new preference
+            processorResult = authPayment(dispatcher, userLogin, orh, newPref, splitAmount.doubleValue(), false, null);
+            if (processorResult != null) {
+                // process the auth results
+                boolean authResult = processResult(dctx, processorResult, userLogin, newPref);
+                if (!authResult) {
+                    Debug.logError("Authorization failed : " + newPref + " : " + processorResult, module);
+                }
+            } else {
+                Debug.logError("Payment not authorized : " + newPref + " : " + processorResult, module);
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "ERROR: cannot create new payment preference : " + newPref, module);
+        } catch (GeneralException e) {
+            if (processorResult != null) {
+                Debug.logError(e, "Trouble processing the auth result: " + newPref + " : " + processorResult, module);
+            } else {
+                Debug.logError(e, "Trouble authorizing the payment: " + newPref, module);
+            }
+        }
+
+        return ServiceUtil.returnSuccess();
     }
 
     public static Map captureBillingAccountPayment(DispatchContext dctx, Map context) {
@@ -1296,7 +1339,9 @@ public class PaymentGatewayServices {
                         // referenceNum holds the relation to the order.
                         // todo: Extend PaymentGatewayResponse with a billingAccountId field?
                         pgResponse.set("referenceNum", billingAccountId);
-                        pgResponse.create();
+
+                        // save the response
+                        savePgr(dctx, pgResponse);
 
                         // Update the orderPaymentPreference
                         orderPaymentPreference.set("statusId", "PAYMENT_SETTLED");
@@ -1505,17 +1550,21 @@ public class PaymentGatewayServices {
         result.put("orderPaymentPreference", paymentPreference);
         ModelService model = dctx.getModelService("processAuthResult");
         Map context = model.makeValid(result, ModelService.IN_PARAM);
-        Map svcResp = null;
+
+        // in case we rollback make sure this service gets called
+        dispatcher.addRollbackService(model.name, context, true);
+
+        // invoke the service 
+        Map resResp;
         try {
-            svcResp = dispatcher.runSync("processAuthResult", context);
+            resResp = dispatcher.runSync(model.name, context);
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             throw e;
         }
-        if (svcResp != null && ServiceUtil.isError(svcResp)) {
-           Debug.logError(ServiceUtil.getErrorMessage(svcResp), module);
-           throw new GeneralException(ServiceUtil.getErrorMessage(svcResp));
-        }
+        if (ServiceUtil.isError(resResp)) {
+            throw new GeneralException(ServiceUtil.getErrorMessage(resResp));
+        }        
     }
 
     public static Map processAuthResult(DispatchContext dctx, Map context) {
@@ -1525,6 +1574,14 @@ public class PaymentGatewayServices {
         String authType = (String) context.get("serviceTypeEnum");
         String currencyUomId = (String) context.get("currencyUomId");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
+
+        // refresh the payment preference
+        try {
+            orderPaymentPreference.refresh();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
 
         // type of auth this was can be determined by the previous status
         if (UtilValidate.isEmpty(authType)) {
@@ -1567,8 +1624,9 @@ public class PaymentGatewayServices {
             if (Boolean.TRUE.equals((Boolean) context.get("resultNsf"))) response.set("resultNsf", "Y");
             if (Boolean.TRUE.equals((Boolean) context.get("resultBadExpire"))) response.set("resultBadExpire", "Y");
             if (Boolean.TRUE.equals((Boolean) context.get("resultBadCardNumber"))) response.set("resultBadCardNumber", "Y");
-            
-            response.create();
+
+            // save the response
+            savePgr(dctx, response);
     
             // create the internal messages
             List messages = (List) context.get("internalRespMsgs");
@@ -1581,7 +1639,7 @@ public class PaymentGatewayServices {
                     respMsg.set("paymentGatewayRespMsgId", respMsgId);
                     respMsg.set("paymentGatewayResponseId", responseId);
                     respMsg.set("pgrMessage", message);
-                    delegator.create(respMsg);
+                    savePgr(dctx, respMsg);
                 }
             }
     
@@ -1607,8 +1665,8 @@ public class PaymentGatewayServices {
             }
 
             orderPaymentPreference.store();
-            
-            // if the payment was declined and this is a CreditCard, save that information on the CreditCard entity  
+
+            // if the payment was declined and this is a CreditCard, save that information on the CreditCard entity
             if (!authResult.booleanValue()) {
                 if (creditCard != null) {
                     Long consecutiveFailedAuths = creditCard.getLong("consecutiveFailedAuths");
@@ -1628,7 +1686,6 @@ public class PaymentGatewayServices {
                         }
                         creditCard.set("lastFailedNsfDate", nowTimestamp);
                     }
-                    
                     creditCard.store();
                 }
             }
@@ -1640,7 +1697,6 @@ public class PaymentGatewayServices {
                     creditCard.set("lastFailedAuthDate", null);
                     creditCard.set("consecutiveFailedNsf", new Long(0));
                     creditCard.set("lastFailedNsfDate", null);
-                    
                     creditCard.store();
                 }
             }
@@ -1692,6 +1748,10 @@ public class PaymentGatewayServices {
     }
 
     private static void processCaptureResult(DispatchContext dctx, Map result, GenericValue userLogin, GenericValue paymentPreference, String authServiceType) throws GeneralException {
+        if (result == null) {
+            throw new GeneralException("Null capture result sent to processCaptureResult; fatal error");
+        }
+
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Boolean captureResult = (Boolean) result.get("captureResult");
         Double amount = null;
@@ -1706,14 +1766,19 @@ public class PaymentGatewayServices {
             throw new GeneralException("Unable to process null capture amount");
         }
 
-        if (result != null && captureResult.booleanValue()) {
+        // setup the amount big decimal
+        BigDecimal amtBd = new BigDecimal(amount.doubleValue());
+        amtBd = amtBd.setScale(2, BigDecimal.ROUND_HALF_UP);
+
+        if (captureResult.booleanValue()) {
+            // capture returned true (passed)
             result.put("orderPaymentPreference", paymentPreference);
             result.put("userLogin", userLogin);
             result.put("serviceTypeEnum", authServiceType);
 
             ModelService model = dctx.getModelService("processCaptureResult");
             Map context = model.makeValid(result, ModelService.IN_PARAM);
-            Map capRes = null;
+            Map capRes;
             try {
                 capRes = dispatcher.runSync("processCaptureResult", context);
             } catch (GenericServiceException e) {
@@ -1723,66 +1788,77 @@ public class PaymentGatewayServices {
             if (capRes != null && ServiceUtil.isError(capRes)) {
                 throw new GeneralException(ServiceUtil.getErrorMessage(capRes));
             }
-        } else if (result != null && !captureResult.booleanValue()) {
-            // problem with the capture lets get some needed info
-            OrderReadHelper orh = null;
+        } else {
+            // capture returned false (error)
             try {
-                GenericValue orderHeader = paymentPreference.getRelatedOne("OrderHeader");
-                if (orderHeader != null)
-                    orh = new OrderReadHelper(orderHeader);
-            } catch (GenericEntityException e) {
-                Debug.logError(e, "Problems getting OrderHeader; cannot re-auth the payment", module);
+                processReAuthFromCaptureFailure(dctx, result, amtBd, userLogin, paymentPreference);
+            } catch (GeneralException e) {
+                // just log this for now (same as previous implementation)
+                Debug.logError(e, module);
             }
+        }
+    }
 
-            if (amount != null && amount.doubleValue() == new Double(0.00).doubleValue()) {
-                amount = paymentPreference.getDouble("maxAmount");
-                Debug.log("resetting payment amount from 0.00 to correctMax amount", module);
-            }
-            Debug.log("reauth with amount: " + amount, module);
-            if (orh != null) {
-                // first lets re-auth the card
-                Map authPayRes = authPayment(dispatcher, userLogin, orh, paymentPreference, amount.doubleValue(), true, null);
-                Debug.log("authPayRes: " + authPayRes, module);
-                if (authPayRes != null) {
-                    Boolean authResp = (Boolean) authPayRes.get("authResult");
-                    Boolean capResp = (Boolean) authPayRes.get("captureResult");
-                    if (authResp != null) {
-                        GenericValue authTrans = processAuthRetryResult(dctx, authPayRes, userLogin, paymentPreference);
+    private static void processReAuthFromCaptureFailure(DispatchContext dctx, Map result, BigDecimal amount, GenericValue userLogin, GenericValue paymentPreference) throws GeneralException {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
 
-                        if (authResp.booleanValue()) {
-                            // first make sure we didn't already capture - probably not
-                            if (capResp != null && capResp.booleanValue()) {
-                                processCaptureResult(dctx, result, userLogin, paymentPreference);
-                            } else {
-                                // lets try to capture the funds now
-                                Map capPayRes = capturePayment(dctx, userLogin, orh, paymentPreference, amount.doubleValue(), authTrans);
-                                if (capPayRes != null) {
-                                    Boolean capPayResp = (Boolean) capPayRes.get("captureResult");
-                                    if (capPayResp != null && capPayResp.booleanValue()) {
-                                        // it was successful
-                                        processCaptureResult(dctx, capPayRes, userLogin, paymentPreference);
-                                    } else {
-                                        // not successful; log it
-                                        Debug.logError("Capture of authorized payment failed: " + paymentPreference, module);
-                                    }
-                                } else {
-                                    Debug.logError("Problems trying to capture payment (null result): " + paymentPreference, module);
-                                }
-                            }
-                        } else {
-                            Debug.logError("Payment authorization failed:  " + paymentPreference, module);
-                        }
-                    } else {
-                        Debug.logError("Payment authorization failed (null result):  " + paymentPreference, module);
-                    }
-                } else {
-                    Debug.logError("Problems trying to re-authorize the payment (null result): " + paymentPreference, module);
-                }
+        // lookup the order header
+        OrderReadHelper orh = null;
+        try {
+            GenericValue orderHeader = paymentPreference.getRelatedOne("OrderHeader");
+            if (orderHeader != null)
+                orh = new OrderReadHelper(orderHeader);
+        } catch (GenericEntityException e) {
+            throw new GeneralException("Problems getting OrderHeader; cannot re-auth the payment", e);
+        }
+
+        // make sure the order exists
+        if (orh == null) {
+            throw new GeneralException("No order found for payment preference #" + paymentPreference.get("orderPaymentPreferenceId"));
+        }
+
+        // set the re-auth amount
+        if (amount == null) {
+            amount = ZERO;
+        }
+        if (amount.compareTo(ZERO) == 0) {
+            amount = paymentPreference.getBigDecimal("maxAmount");
+            Debug.log("resetting payment amount from 0.00 to correctMax amount", module);
+        }
+        Debug.log("reauth with amount: " + amount, module);
+
+        // first re-auth the card
+        Map authPayRes = authPayment(dispatcher, userLogin, orh, paymentPreference, amount.doubleValue(), true, null);
+        if (authPayRes == null) {
+            throw new GeneralException("Null result returned from payment re-authorization");
+        }
+
+        // check the auth-response
+        Boolean authResp = (Boolean) authPayRes.get("authResult");
+        Boolean capResp = (Boolean) authPayRes.get("captureResult");
+        if (authResp != null && Boolean.TRUE.equals(authResp)) {
+            GenericValue authTrans = processAuthRetryResult(dctx, authPayRes, userLogin, paymentPreference);
+            // check if auto-capture was enabled; process if so
+            if (capResp != null && capResp.booleanValue()) {
+                processCaptureResult(dctx, result, userLogin, paymentPreference);
             } else {
-                Debug.logError("Null OrderReadHelper cannot process", module);
+                // no auto-capture; do manual capture now
+                Map capPayRes = capturePayment(dctx, userLogin, orh, paymentPreference, amount.doubleValue(), authTrans);
+                if (capPayRes == null) {
+                    throw new GeneralException("Problems trying to capture payment (null result)");
+                }
+
+                // process the capture result
+                Boolean capPayResp = (Boolean) capPayRes.get("captureResult");
+                if (capPayResp != null && capPayResp.booleanValue()) {
+                    // process the capture result
+                    processCaptureResult(dctx, capPayRes, userLogin, paymentPreference);
+                } else {
+                    throw new GeneralException("Capture of authorized payment failed");
+                }
             }
         } else {
-            Debug.logError("Result pass is null, no capture available", module);
+            throw new GeneralException("Payment re-authorization failed");
         }
     }
 
@@ -1800,6 +1876,23 @@ public class PaymentGatewayServices {
         
         if (UtilValidate.isEmpty(serviceType)) {
             serviceType = CAPTURE_SERVICE_TYPE;
+        }
+
+        // refresh the payment preference
+        try {
+            paymentPreference.refresh();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        // update the status
+        paymentPreference.set("statusId", "PAYMENT_SETTLED");
+        try {
+            paymentPreference.store();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
         }
 
         // create the PaymentGatewayResponse record
@@ -1826,12 +1919,9 @@ public class PaymentGatewayServices {
         response.set("gatewayFlag", context.get("captureFlag"));
         response.set("gatewayMessage", context.get("captureMessage"));
         response.set("transactionDate", UtilDateTime.nowTimestamp());
-        try {
-            delegator.create(response);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError("Error creating response information");
-        }
+
+        // save the response
+        savePgr(dctx, response);
 
         // create the internal messages
         List messages = (List) context.get("internalRespMsgs");
@@ -1844,12 +1934,9 @@ public class PaymentGatewayServices {
                 respMsg.set("paymentGatewayRespMsgId", respMsgId);
                 respMsg.set("paymentGatewayResponseId", responseId);
                 respMsg.set("pgrMessage", message);
-                try {
-                    delegator.create(respMsg);
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                    return ServiceUtil.returnError("Error creating response message information");
-                }
+
+                // save the message
+                savePgr(dctx, respMsg);
             }
         }
 
@@ -1879,7 +1966,7 @@ public class PaymentGatewayServices {
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
-            if (orl.size() > 0) {
+            if (orl != null && orl.size() > 0) {
                 GenericValue orderRole = EntityUtil.getFirst(orl);
                 partyIdFrom = orderRole.getString("partyId");
             }
@@ -1914,24 +2001,18 @@ public class PaymentGatewayServices {
         paymentCtx.put("userLogin", userLogin);
         paymentCtx.put("paymentRefNum", context.get("captureRefNum"));
 
-        Map payRes = null;
+        Map payRes;
         try {
             payRes = dispatcher.runSync("createPayment", paymentCtx);
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError("Error creating payment record");
         }
-        if (payRes != null && ServiceUtil.isError(payRes)) {
+        if (ServiceUtil.isError(payRes)) {
             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(payRes));
         }
 
         String paymentId = (String) payRes.get("paymentId");
-        paymentPreference.set("statusId", "PAYMENT_SETTLED");
-        try {
-            paymentPreference.store();
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-        }
 
         // create the PaymentApplication if invoiceId is available
         if (invoiceId != null) {
@@ -1939,7 +2020,7 @@ public class PaymentGatewayServices {
             Map paCtx = UtilMisc.toMap("paymentId", paymentId, "invoiceId", invoiceId);
             paCtx.put("amountApplied", context.get("captureAmount"));
             paCtx.put("userLogin", userLogin);
-            Map paRes = null;
+            Map paRes;
             try {
                 paRes = dispatcher.runSync("createPaymentApplication", paCtx);
             } catch (GenericServiceException e) {
@@ -1955,7 +2036,6 @@ public class PaymentGatewayServices {
     }
 
     public static Map refundPayment(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -2022,101 +2102,24 @@ public class PaymentGatewayServices {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(refundResponse));
                 }
 
-                //Debug.log("Called Electronic Refund Service : " + refundResponse, module);
-
-                // get the pay-from party
-                if (paymentConfig == null || paymentConfig.length() == 0) {
-                    paymentConfig = "payment.properties";
-                }
+                // get the pay to party ID for the order (will be the payFrom)
                 String payFromPartyId = getPayToPartyId(orderHeader);
 
-                // create the PaymentGatewayResponse record
-                String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
-                GenericValue response = delegator.makeValue("PaymentGatewayResponse", null);
-                response.set("paymentGatewayResponseId", responseId);
-                response.set("paymentServiceTypeEnumId", REFUND_SERVICE_TYPE);
-                response.set("orderPaymentPreferenceId", paymentPref.get("orderPaymentPreferenceId"));
-                response.set("paymentMethodTypeId", paymentPref.get("paymentMethodTypeId"));
-                response.set("paymentMethodId", paymentPref.get("paymentMethodId"));
-                response.set("transCodeEnumId", "PGT_REFUND");
-
-                // set the capture info
-                response.set("amount", refundResponse.get("refundAmount"));
-                response.set("referenceNum", refundResponse.get("refundRefNum"));
-                response.set("altReference", refundResponse.get("refundAltRefNum"));
-                response.set("gatewayCode", refundResponse.get("refundCode"));
-                response.set("gatewayFlag", refundResponse.get("refundFlag"));
-                response.set("gatewayMessage", refundResponse.get("refundMessage"));
-                response.set("transactionDate", UtilDateTime.nowTimestamp());
+                // process the refund result
+                Map refundResRes;
                 try {
-                    delegator.create(response);
-                } catch (GenericEntityException e) {
+                    ModelService model = dctx.getModelService("processRefundResult");
+                    Map refundResCtx = model.makeValid(context, ModelService.IN_PARAM);
+                    refundResCtx.put("currencyUomId", orh.getCurrency());
+                    refundResCtx.put("payToPartyId", payToPartyId);
+                    refundResCtx.put("payFromPartyId", payFromPartyId);
+                    refundResRes = dispatcher.runSync(model.name, refundResCtx);
+                } catch (GenericServiceException e) {
                     Debug.logError(e, module);
-                    return ServiceUtil.returnError("Unable to create PaymentGatewayResponse record");
+                    return ServiceUtil.returnError("Problem processing refund result: " + e.getMessage());
                 }
 
-                // create the internal messages
-                List messages = (List) refundResponse.get("internalRespMsgs");
-                if (messages != null && messages.size() > 0) {
-                    Iterator i = messages.iterator();
-                    while (i.hasNext()) {
-                        GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg", null);
-                        String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
-                        String message = (String) i.next();
-                        respMsg.set("paymentGatewayRespMsgId", respMsgId);
-                        respMsg.set("paymentGatewayResponseId", responseId);
-                        respMsg.set("pgrMessage", message);
-                        try {
-                            delegator.create(respMsg);
-                        } catch (GenericEntityException e) {
-                            Debug.logError(e, module);
-                            return ServiceUtil.returnError("Unable to create PaymentGatewayRespMsg record");
-                        }
-                    }
-                }
-
-                // handle the (reverse) payment
-                Boolean refundResult = (Boolean) refundResponse.get("refundResult");
-                if (refundResult != null && refundResult.booleanValue()) {
-                    // create a payment record
-                    Map paymentCtx = UtilMisc.toMap("paymentTypeId", "CUSTOMER_REFUND");
-                    paymentCtx.put("paymentMethodTypeId", paymentPref.get("paymentMethodTypeId"));
-                    paymentCtx.put("paymentMethodId", paymentPref.get("paymentMethodId"));
-                    paymentCtx.put("paymentGatewayResponseId", responseId);
-                    paymentCtx.put("partyIdTo", payToPartyId);
-                    paymentCtx.put("partyIdFrom", payFromPartyId);
-                    paymentCtx.put("statusId", "PMNT_SENT");
-                    paymentCtx.put("paymentPreferenceId", paymentPref.get("orderPaymentPreferenceId"));
-                    paymentCtx.put("currencyUomId", orh.getCurrency());   
-                    paymentCtx.put("amount", refundResponse.get("refundAmount"));
-                    paymentCtx.put("userLogin", userLogin);
-                    paymentCtx.put("paymentRefNum", refundResponse.get("refundRefNum"));
-                    paymentCtx.put("comments", "Refund");
-
-                    String paymentId = null;
-                    try {
-                        Map payRes = dispatcher.runSync("createPayment", paymentCtx);
-                        if (ModelService.RESPOND_ERROR.equals(payRes.get(ModelService.RESPONSE_MESSAGE))) {
-                            return ServiceUtil.returnError((String) payRes.get(ModelService.ERROR_MESSAGE));
-                        } else {
-                            paymentId = (String) payRes.get("paymentId");
-                        }
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, "Problem creating Payment", module);
-                        return ServiceUtil.returnError("Problem creating Payment");
-                    }
-                    //Debug.log("Payment created : " + paymentId, module);
-
-                    if (paymentId == null) {
-                        return ServiceUtil.returnError("Create payment failed");
-                    }
-
-                    Map result = ServiceUtil.returnSuccess();
-                    result.put("paymentId", paymentId);
-                    return result;
-                } else {
-                    return ServiceUtil.returnFailure("The refund failed");
-                }
+                return refundResRes;
             } else {
                 return ServiceUtil.returnError("No refund service defined");
             }
@@ -2125,6 +2128,98 @@ public class PaymentGatewayServices {
         }
     }
 
+    public static Map processRefundResult(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
+        String currencyUomId = (String) context.get("currencyUomId");
+        String payToPartyId = (String) context.get("payToPartyId");
+        String payFromPartyId = (String) context.get("payFromPartyId");
+
+        // create the PaymentGatewayResponse record
+        String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
+        GenericValue response = delegator.makeValue("PaymentGatewayResponse", null);
+        response.set("paymentGatewayResponseId", responseId);
+        response.set("paymentServiceTypeEnumId", REFUND_SERVICE_TYPE);
+        response.set("orderPaymentPreferenceId", paymentPref.get("orderPaymentPreferenceId"));
+        response.set("paymentMethodTypeId", paymentPref.get("paymentMethodTypeId"));
+        response.set("paymentMethodId", paymentPref.get("paymentMethodId"));
+        response.set("transCodeEnumId", "PGT_REFUND");
+
+        // set the capture info
+        response.set("amount", context.get("refundAmount"));
+        response.set("referenceNum", context.get("refundRefNum"));
+        response.set("altReference", context.get("refundAltRefNum"));
+        response.set("gatewayCode", context.get("refundCode"));
+        response.set("gatewayFlag", context.get("refundFlag"));
+        response.set("gatewayMessage", context.get("refundMessage"));
+        response.set("transactionDate", UtilDateTime.nowTimestamp());
+
+        // save the response
+        savePgr(dctx, response);
+
+        // create the internal messages
+        List messages = (List) context.get("internalRespMsgs");
+        if (messages != null && messages.size() > 0) {
+            Iterator i = messages.iterator();
+            while (i.hasNext()) {
+                GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg", null);
+                String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
+                String message = (String) i.next();
+                respMsg.set("paymentGatewayRespMsgId", respMsgId);
+                respMsg.set("paymentGatewayResponseId", responseId);
+                respMsg.set("pgrMessage", message);
+
+                // save the message
+                savePgr(dctx, respMsg);
+            }
+        }
+
+        // handle the (reverse) payment
+        Boolean refundResult = (Boolean) context.get("refundResult");
+        if (refundResult != null && refundResult.booleanValue()) {
+            // create a payment record
+            Map paymentCtx = UtilMisc.toMap("paymentTypeId", "CUSTOMER_REFUND");
+            paymentCtx.put("paymentMethodTypeId", paymentPref.get("paymentMethodTypeId"));
+            paymentCtx.put("paymentMethodId", paymentPref.get("paymentMethodId"));
+            paymentCtx.put("paymentGatewayResponseId", responseId);
+            paymentCtx.put("partyIdTo", payToPartyId);
+            paymentCtx.put("partyIdFrom", payFromPartyId);
+            paymentCtx.put("statusId", "PMNT_SENT");
+            paymentCtx.put("paymentPreferenceId", paymentPref.get("orderPaymentPreferenceId"));
+            paymentCtx.put("currencyUomId", currencyUomId);
+            paymentCtx.put("amount", context.get("refundAmount"));
+            paymentCtx.put("userLogin", userLogin);
+            paymentCtx.put("paymentRefNum", context.get("refundRefNum"));
+            paymentCtx.put("comments", "Refund");
+
+            String paymentId = null;
+            try {
+                Map payRes = dispatcher.runSync("createPayment", paymentCtx);
+                if (ModelService.RESPOND_ERROR.equals(payRes.get(ModelService.RESPONSE_MESSAGE))) {
+                    return ServiceUtil.returnError((String) payRes.get(ModelService.ERROR_MESSAGE));
+                } else {
+                    paymentId = (String) payRes.get("paymentId");
+                }
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Problem creating Payment", module);
+                return ServiceUtil.returnError("Problem creating Payment");
+            }
+            //Debug.log("Payment created : " + paymentId, module);
+
+            if (paymentId == null) {
+                return ServiceUtil.returnError("Create payment failed");
+            }
+
+            Map result = ServiceUtil.returnSuccess();
+            result.put("paymentId", paymentId);
+            return result;
+        } else {
+            return ServiceUtil.returnFailure("The refund failed");
+        }
+    }
 
     public static Map retryFailedOrderAuth(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
@@ -2393,6 +2488,33 @@ public class PaymentGatewayServices {
         }
 
         return true;
+    }
+
+    // safe payment gateway store
+    private static void savePgr(DispatchContext dctx, GenericValue pgr) {        
+        Map context = UtilMisc.toMap("paymentGatewayResponse", pgr);
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+
+        try {
+            dispatcher.addRollbackService("savePaymentGatewayResponse", context, true);
+            delegator.create(pgr);
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+    }
+
+    public static Map savePaymentGatewayResponse(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        GenericValue pgr = (GenericValue) context.get("paymentGatewayResponse");
+
+        try {
+            delegator.create(pgr);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+
+        return ServiceUtil.returnSuccess();
     }
 
     // manual processing service
