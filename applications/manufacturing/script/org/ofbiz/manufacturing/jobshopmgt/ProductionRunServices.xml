@@ -120,9 +120,11 @@ under the License.
                     <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
                     <set from-field="lastNonSerInventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
                     <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
+                    <!--
                     <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
                         <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
+                    -->
                     <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
                         <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
@@ -151,9 +153,11 @@ under the License.
                     <!-- also create a detail record with the quantities -->
                     <set field="createDetailMap.inventoryItemId" from-field="createInvItemOutMap.inventoryItemId"/>
                     <set field="createDetailMap.workEffortId" from-field="parameters.workEffortId"/>
+                    <!--
                     <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
                         <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
+                    -->
                     <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
                         <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
