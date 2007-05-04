@@ -79,11 +79,11 @@ under the License.
         <attribute name="returnItemSeqId" type="String" mode="OUT" optional="false"/>
         <override name="returnReasonId" optional="true"/>
     </service>
-    <service name="updateReturnItem" engine="simple"
+    <service name="updateReturnItem" engine="simple" default-entity-name="ReturnItem"
             location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="updateReturnItem">
         <description>Update a ReturnItem and related adjustments</description>
-        <implements service="returnItemInterface"/>
-        <attribute entity-name="ReturnItem" name="returnItemSeqId" type="String" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="currentStatusId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="updateReturnItemsStatus" engine="simple"
