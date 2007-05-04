@@ -72,17 +72,30 @@ public class KeyStoreUtil {
     }
 
     public static KeyStore getSystemTrustStore() throws IOException, GeneralSecurityException {
+        String javaHome = System.getProperty("java.home");
         String fileName = System.getProperty("javax.net.ssl.trustStore");
         String password = System.getProperty("javax.net.ssl.trustStorePassword");
-        if (fileName != null && password != null) {
-            File file = new File(fileName);
-            if (file.exists() && file.canRead()) {
-                KeyStore ks = KeyStore.getInstance("jks");
-                ks.load(new FileInputStream(file), password.toCharArray());
-                return ks;
+        if (password == null) {
+            password = "changeit";
+        }
+        
+        KeyStore ks = KeyStore.getInstance("jks");
+        File keyFile = null;
+        if (fileName != null) {
+            keyFile = new File(fileName);
+        } else {
+            keyFile = new File(javaHome + "/lib/security/jssecacerts");
+            if (!keyFile.exists() || !keyFile.canRead()) {
+                keyFile = new File(javaHome + "/lib/security/cacerts");
             }
         }
-        return null;
+
+        if (keyFile.exists() && keyFile.canRead()) {
+            ks.load(new FileInputStream(keyFile), password.toCharArray());
+        } else {
+            ks.load(null, "changeit".toCharArray());
+        }
+        return ks;        
     }
 
     public static X509Certificate readCertificate(byte[] certChain) throws CertificateException {
