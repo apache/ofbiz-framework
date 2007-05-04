@@ -230,6 +230,8 @@ public class ProposedOrder {
         if (isBuilt) {
             try {
                 BOMTree tree = new BOMTree(productId, "MANUF_COMPONENT", null, BOMTree.EXPLOSION_MANUFACTURING, delegator, dispatcher, userLogin);
+                tree.setRootQuantity(quantity);
+                tree.print(new ArrayList());
                 requirementStartDate = tree.getRoot().getStartDate(manufacturingFacilityId, requiredByDate, true);
             } catch (Exception e) {
                 Debug.logError(e,"Error : computing the requirement start date. " + e.getMessage(), module);
