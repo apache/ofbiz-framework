@@ -2613,7 +2613,7 @@ public class OrderReadHelper {
         Iterator itemIter = UtilMisc.toIterator(orderItems);
 
         while (itemIter != null && itemIter.hasNext()) {
-            result = result.add(getOrderItemTotalBd((GenericValue) itemIter.next(), adjustments)).setScale(scale, rounding);
+            result = result.add(getOrderItemTotalBd((GenericValue) itemIter.next(), adjustments));
         }
         return result.setScale(scale,  rounding);
     }
@@ -2625,7 +2625,7 @@ public class OrderReadHelper {
 
     public static BigDecimal getOrderItemTotalBd(GenericValue orderItem, List adjustments) {
         // add tax and shipping to subtotal
-        return getOrderItemSubTotalBd(orderItem, adjustments).add(getOrderItemAdjustmentsTotalBd(orderItem, adjustments, false, true, true)).setScale(scale, rounding);
+        return getOrderItemSubTotalBd(orderItem, adjustments).add(getOrderItemAdjustmentsTotalBd(orderItem, adjustments, false, true, true));
     }
 
     /** @deprecated */
@@ -2676,7 +2676,7 @@ public class OrderReadHelper {
         Iterator itemIter = UtilMisc.toIterator(orderItems);
 
         while (itemIter != null && itemIter.hasNext()) {
-            result = result.add(getOrderItemAdjustmentsTotalBd((GenericValue) itemIter.next(), adjustments, includeOther, includeTax, includeShipping)).setScale(scale, rounding);
+            result = result.add(getOrderItemAdjustmentsTotalBd((GenericValue) itemIter.next(), adjustments, includeOther, includeTax, includeShipping));
         }
         return result;
     }
@@ -2729,7 +2729,7 @@ public class OrderReadHelper {
             while (adjIt.hasNext()) {
                 GenericValue orderAdjustment = (GenericValue) adjIt.next();
 
-                adjTotal = adjTotal.add(OrderReadHelper.calcItemAdjustmentBd(orderAdjustment, quantity, unitPrice)).setScale(scale, rounding);
+                adjTotal = adjTotal.add(OrderReadHelper.calcItemAdjustmentBd(orderAdjustment, quantity, unitPrice));
             }
         }
         return adjTotal;
@@ -2774,7 +2774,7 @@ public class OrderReadHelper {
             adjustment = adjustment.add(setScaleByType("SALES_TAX".equals(itemAdjustment.get("orderAdjustmentTypeId")), itemAdjustment.getBigDecimal("sourcePercentage").multiply(quantity).multiply(unitPrice).multiply(percentage)));
         }
         if (Debug.verboseOn()) Debug.logVerbose("calcItemAdjustment: " + itemAdjustment + ", quantity=" + quantity + ", unitPrice=" + unitPrice + ", adjustment=" + adjustment, module);
-        return adjustment.setScale(scale, rounding);
+        return adjustment;
     }
 
     public static BigDecimal calcItemAdjustmentRecurringBd(GenericValue itemAdjustment, BigDecimal quantity, BigDecimal unitPrice) {

@@ -104,7 +104,7 @@ public class InvoiceServices {
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
     private static int taxDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
-    private static int taxRounding = UtilNumber.getBigDecimalScale("salestax.rounding");
+    private static int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
     public static final int taxCalcScale = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
     private static final int INVOICE_ITEM_SEQUENCE_ID_DIGITS = 5; // this is the number of digits used for invoiceItemSeqId: 00001, 00002...
 
@@ -510,7 +510,12 @@ public class InvoiceServices {
                             // set decimals = 100 means we don't round this intermediate value, which is very important
                             amount = adj.getBigDecimal("amount").divide(originalOrderItem.getBigDecimal("quantity"), 100, rounding);
                             amount = amount.multiply(billingQuantity);
-                            amount = amount.setScale(decimals, rounding);
+                            // Tax needs to be rounded differently from other order adjustments
+                            if (adj.getString("orderAdjustmentTypeId").equals("SALES_TAX")) {
+                                amount = amount.setScale(taxDecimals, taxRounding);
+                            } else {
+                                amount = amount.setScale(decimals, rounding);
+                            }
                         }
                         else if (adj.get("sourcePercentage") != null) { 
                             // pro-rate the amount
@@ -566,7 +571,7 @@ public class InvoiceServices {
                             }
 
                             // this adjustment amount
-                            BigDecimal thisAdjAmount = new BigDecimal(amount.doubleValue()).setScale(decimals, rounding);
+                            BigDecimal thisAdjAmount = new BigDecimal(amount.doubleValue());
     
                             // adjustments only apply to totals when they are not tax or shipping adjustments
                             if (!"SALES_TAX".equals(adj.getString("orderAdjustmentTypeId")) &&

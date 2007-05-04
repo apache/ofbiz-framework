@@ -1031,7 +1031,7 @@ under the License.
       <field name="uomId" type="id"></field>
       <field name="taxableFlag" type="indicator"></field>
       <field name="quantity" type="floating-point"></field>
-      <field name="amount" type="currency-amount"></field>
+      <field name="amount" type="currency-precise"></field>
       <field name="description" type="description"></field>
       <field name="taxAuthPartyId" type="id-ne"/>
       <field name="taxAuthGeoId" type="id-ne"/>

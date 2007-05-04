@@ -45,6 +45,8 @@ public class InvoiceWorker {
     private static BigDecimal ZERO = new BigDecimal("0");
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
+    private static int taxDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
+    private static int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
 
     /**
      * Method to return the total amount of an invoice
@@ -134,6 +136,7 @@ public class InvoiceWorker {
         
         public static BigDecimal getInvoiceTotalBd(GenericValue invoice) {
         BigDecimal invoiceTotal = ZERO;
+        BigDecimal invoiceTaxTotal = ZERO;
         List invoiceItems = null;
         try {
             invoiceItems = invoice.getRelated("InvoiceItem");
@@ -150,10 +153,14 @@ public class InvoiceWorker {
                     amount = ZERO;
                 if (quantity == null)
                     quantity = new BigDecimal("1");
-                invoiceTotal = invoiceTotal.add( amount.multiply(quantity)).setScale(decimals,rounding);
+                if ("ITM_SALES_TAX".equals(invoiceItem.get("invoiceItemTypeId"))) {
+                    invoiceTaxTotal = invoiceTaxTotal.add( amount.multiply(quantity)).setScale(taxDecimals, taxRounding);
+                } else {
+                    invoiceTotal = invoiceTotal.add( amount.multiply(quantity)).setScale(decimals,rounding);
+                }
             }
         }
-        return invoiceTotal;        
+        return invoiceTotal.add(invoiceTaxTotal).setScale(decimals, rounding);
     }
 
     /**
