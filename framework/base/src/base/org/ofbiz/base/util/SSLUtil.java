@@ -102,9 +102,8 @@ public class SSLUtil {
     }
 
     public static TrustManager[] getTrustManagers() throws IOException, GeneralSecurityException, GenericConfigException {
-        KeyStore trustStore = KeyStoreUtil.getSystemTrustStore();
-        List trustMgrs = FastList.newInstance();
-        trustMgrs.addAll(Arrays.asList(getTrustManagers(trustStore)));
+        MultiTrustManager tm = new MultiTrustManager();
+        tm.add(KeyStoreUtil.getSystemTrustStore());
 
         Iterator i = ComponentConfig.getAllKeystoreInfos().iterator();
         while (i.hasNext()) {
@@ -112,14 +111,14 @@ public class SSLUtil {
             if (ksi.isTrustStore()) {
                 KeyStore ks = ksi.getKeyStore();
                 if (ks != null) {
-                    trustMgrs.addAll(Arrays.asList(getTrustManagers(ks)));
+                    tm.add(ks);
                 } else {
                     throw new IOException("Unable to load keystore: " + ksi.createResourceHandler().getFullLocation());
                 }
             }
         }
 
-        return (TrustManager[]) trustMgrs.toArray(new TrustManager[trustMgrs.size()]);
+        return new TrustManager[] { tm };
     }
 
     public static KeyManager[] getKeyManagers(KeyStore ks, String password, String alias) throws GeneralSecurityException {
@@ -137,9 +136,7 @@ public class SSLUtil {
     }
 
     public static TrustManager[] getTrustManagers(KeyStore ks) throws GeneralSecurityException {
-        TrustManagerFactory factory = TrustManagerFactory.getInstance("SunX509");
-        factory.init(ks);
-        return factory.getTrustManagers();
+        return new TrustManager[] { new MultiTrustManager(ks) };        
     }
 
     public static SSLSocketFactory getSSLSocketFactory(KeyStore ks, String password, String alias) throws IOException, GeneralSecurityException, GenericConfigException {
@@ -186,8 +183,7 @@ public class SSLUtil {
         switch(level) {           
             case HOSTCERT_MIN_CHECK:
                 return new HostnameVerifier() {
-                    public boolean verify(String hostname, SSLSession session) {
-                        Debug.log("Checking: " + hostname + " :: " + session.getPeerHost(), module);
+                    public boolean verify(String hostname, SSLSession session) {                        
                         javax.security.cert.X509Certificate[] peerCerts;
                         try {
                             peerCerts = session.getPeerCertificateChain();
