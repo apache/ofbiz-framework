@@ -159,7 +159,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <container>
-                                    <label style="head2" text="${uiLabelMap.RequirementList}"/>
+                                    <label style="head2" text="${uiLabelMap.OrderRequirementsList}"/>
                                 </container>
                                 <include-form name="ApprovedProductRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
                                 <container style="screenlet">
