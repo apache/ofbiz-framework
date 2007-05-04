@@ -25,7 +25,7 @@ under the License.
     <div class="screenlet-header">
         <div class="boxlink">
             <#assign numColumns = 8>
-            <#if maySelectItems?default("N") == "Y">
+            <#if maySelectItems?default("N") == "Y" && roleTypeId?if_exists == "PLACING_CUSTOMER">
                 <#assign numColumns = 11>
                 <a href="javascript:document.addCommonToCartForm.add_all.value='true';document.addCommonToCartForm.submit()" class="submenutext">${uiLabelMap.EcommerceAddAlltoCart}</a><a href="javascript:document.addCommonToCartForm.add_all.value='false';document.addCommonToCartForm.submit()" class="submenutext">${uiLabelMap.EcommerceAddCheckedToCart}</a><a href="<@ofbizUrl>createShoppingListFromOrder?orderId=${orderHeader.orderId}&frequency=6&intervalNumber=1&shoppingListTypeId=SLT_AUTO_REODR</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderSendMeThisEveryMonth}</a>
             </#if>
@@ -50,7 +50,7 @@ under the License.
             <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.EcommerceUnitPrice}</b></span></td>
             <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderAdjustments}</b></span></td>
             <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.CommonSubtotal}</b></span></td>
-            <#if maySelectItems?default("N") == "Y">
+            <#if maySelectItems?default("N") == "Y" && roleTypeId?if_exists == "PLACING_CUSTOMER">
               <td colspan="3" width="5%" align="right">&nbsp;</td>
             </#if>
           </tr>
@@ -166,7 +166,7 @@ under the License.
                   <div class="tabletext"><@ofbizCurrency amount=localOrderReadHelper.getOrderItemTotal(orderItem) isoCode=currencyUomId/></div>
                 </#if>
                 </td>                    
-                <#if maySelectItems?default("N") == "Y">
+                <#if maySelectItems?default("N") == "Y" && roleTypeId?if_exists == "PLACING_CUSTOMER">
                   <td>&nbsp;</td>
                   <#if (orderHeader.statusId != "ORDER_SENT" && orderItem.statusId != "ITEM_COMPLETED" && orderItem.statusId != "ITEM_CANCELLED" && pickedQty == 0)>
                     <td><a href="<@ofbizUrl>cancelOrderItem?orderId=${orderItem.orderId}&amp;orderItemSeqId=${orderItem.orderItemSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a></td>
