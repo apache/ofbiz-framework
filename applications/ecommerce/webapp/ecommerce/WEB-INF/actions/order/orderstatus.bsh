@@ -45,11 +45,18 @@ orderHeader = null;
 boolean isDemoStore = true;
 if (orderId != null && orderId.length() > 0) {
     orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
-    
+    if((orderHeader != null) && (orderHeader.get("orderTypeId").equals("PURCHASE_ORDER"))){
+        //drop shipper or supplier
+        roleTypeId = "SUPPLIER_AGENT";
+    }else{
+        //customer
+        roleTypeId = "PLACING_CUSTOMER";
+    }
+    context.put("roleTypeId",roleTypeId);
     // check OrderRole to make sure the user can view this order.  This check must be done for any order which is not anonymously placed and
     // any anonymous order when the allowAnonymousView security flag (see above) is not set to Y, to prevent peeking
     if ((orderHeader != null) && (!("anonymous".equals(orderHeader.getString("createdBy"))) || ("anonymous".equals(orderHeader.getString("createdBy")) && !"Y".equals(allowAnonymousView)))) {
-        orderRole = EntityUtil.getFirst(delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "partyId", partyId, "roleTypeId", "PLACING_CUSTOMER")));
+        orderRole = EntityUtil.getFirst(delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "partyId", partyId, "roleTypeId", roleTypeId)));
         
         if (userLogin == null || orderRole == null) {
             context.remove("orderHeader");
@@ -77,7 +84,7 @@ if (orderHeader != null) {
     orderTaxTotal = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, true, false);
     orderTaxTotal += OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, true, false);
     
-    placingCustomerOrderRoles = delegator.findByAnd("OrderRole",UtilMisc.toMap("orderId", orderId, "roleTypeId", "PLACING_CUSTOMER"));
+    placingCustomerOrderRoles = delegator.findByAnd("OrderRole",UtilMisc.toMap("orderId", orderId, "roleTypeId", roleTypeId));
     placingCustomerOrderRole = EntityUtil.getFirst(placingCustomerOrderRoles);        
     placingCustomerPerson = placingCustomerOrderRole == null ? null : delegator.findByPrimaryKey("Person",UtilMisc.toMap("partyId", placingCustomerOrderRole.getString("partyId")));
 

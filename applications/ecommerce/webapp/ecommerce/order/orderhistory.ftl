@@ -24,7 +24,7 @@ under the License.
             <a href="<@ofbizUrl>main</@ofbizUrl>" class="lightbuttontext">[${uiLabelMap.OrderBackHome}]</a>
         </div>
         -->
-        <div class="boxhead">${uiLabelMap.OrderHistory}</div>
+        <div class="boxhead">${uiLabelMap.OrderSalesHistory}</div>
     </div>
     <div class="screenlet-body">
         <table width="100%" cellpadding="1" cellspacing="0" border="0">
@@ -78,7 +78,64 @@ under the License.
         </table>
     </div>
 </div>
-
+    <div class="screenlet">
+        <div class="screenlet-header">
+        <div class="boxhead">${uiLabelMap.OrderPurchaseHistory}</div>
+    </div>
+    <div class="screenlet-body">
+        <table width="100%" cellpadding="1" cellspacing="0" border="0">
+          <tr>
+            <td width="30%">
+              <div class="tabletext"><b>${uiLabelMap.CommonDate}</b></div>
+            </td>
+            <td width="10">&nbsp;</td>
+            <td width="15%">
+              <div class="tabletext"><b><span style="white-space: nowrap;">${uiLabelMap.OrderOrder} ${uiLabelMap.OrderNbr}</span></b></div>
+            </td>
+            <td width="10">&nbsp;</td>
+            <td width="15%">
+              <div class="tabletext"><b>${uiLabelMap.CommonAmount}</b></div>
+            </td>
+            <td width="10">&nbsp;</td>
+            <td width="15%">
+              <div class="tabletext"><b>${uiLabelMap.CommonStatus}</b></div>
+            </td>
+            <td width="10">&nbsp;</td>
+            <td width="15%"><b></b></td>                
+          </tr>
+		<#if porderHeaderList?has_content>
+          <#list porderHeaderList as porderHeader>
+            <#assign pstatus = porderHeader.getRelatedOneCache("StatusItem")>                               
+            <tr><td colspan="9"><hr class="sepbar"/></td></tr>
+            <tr>
+              <td>
+                <div class="tabletext"><span style="white-space: nowrap;">${porderHeader.orderDate.toString()}</span></div>
+              </td>
+              <td width="10">&nbsp;</td>
+              <td>
+                <div class="tabletext">${porderHeader.orderId}</div>
+              </td>
+              <td width="10">&nbsp;</td>
+              <td>
+                <div class="tabletext"><@ofbizCurrency amount=porderHeader.grandTotal isoCode=porderHeader.currencyUom/></div>
+              </td>
+              <td width="10">&nbsp;</td>
+              <td>
+                <div class="tabletext">${pstatus.get("description",locale)}</div>
+              </td>
+              <td width="10">&nbsp;</td>
+              <td align="right">
+                <a href="<@ofbizUrl>orderstatus?orderId=${porderHeader.orderId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonView}</a>
+              </td>
+            </tr>
+          </#list>
+		</#if>
+          <#if !porderHeaderList?has_content>
+            <tr><td colspan="9"><div class="head3">${uiLabelMap.OrderNoOrderFound}</div></td></tr>
+          </#if>
+        </table>
+    </div>
+</div>
 <div class="screenlet">
     <div class="screenlet-header">
         <div class="boxhead">${uiLabelMap.EcommerceDownloadsAvailableTitle}</div>
