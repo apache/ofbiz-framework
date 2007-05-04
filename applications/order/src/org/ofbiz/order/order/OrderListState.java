@@ -102,6 +102,11 @@ public class OrderListState {
         orderStatusState.put("viewcreated", "Y");
         orderStatusState.put("viewprocessing", "Y");
         orderStatusState.put("viewapproved", "Y");
+        orderStatusState.put("viewhold", "N");
+        orderStatusState.put("viewcompleted", "N");
+        orderStatusState.put("viewsent", "N");
+        orderStatusState.put("viewrejected", "N");
+        orderStatusState.put("viewcancelled", "N");
         orderTypeState.put("view_SALES_ORDER", "Y");
     }
 
