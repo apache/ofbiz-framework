@@ -37,12 +37,38 @@ under the License.
           <input type="hidden" name="currencyUomId" value="${orderHeader.currencyUom}"/>
           </#if>
           <#include "returnItemInc.ftl"/>
+          <hr/>
+          <h3>${uiLabelMap.FormFieldTitle_paymentMethodId}:</h3>
+          <table cellspacing="1" cellpadding="2" width="100%">
+            <tr><td>
+              <#if creditCardList?exists || eftAccountList?exists>
+                <select name='paymentMethodId'>
+                  <option value=""></option>
+                  <#if creditCardList?has_content>
+                    <#list creditCardList as creditCardPm>
+                      <#assign creditCard = creditCardPm.getRelatedOne("CreditCard")>
+                      <option value="${creditCard.paymentMethodId}">CC:&nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}</option>
+                    </#list>
+                  </#if>
+                  <#if eftAccountList?has_content>
+                    <#list eftAccountList as eftAccount>
+                      <option value="${eftAccount.paymentMethodId}">EFT:&nbsp;${eftAccount.nameOnAccount?if_exists}, ${eftAccount.accountNumber?if_exists}</option>
+                    </#list>
+                  </#if>
+                </select>
+              <#else>
+                <input type='text' size='20' name='paymentMethodId'>
+              </#if>
+              <#if (party.partyId)?has_content>
+                <a href="/partymgr/control/editcreditcard?partyId=${party.partyId}${externalKeyParam}" target="partymgr" class="smallSubmit">${uiLabelMap.AccountingCreateNewCreditCard}</a>
+              </#if>
+            </td></tr>
+          </table>
           <table border="0" width="100%" cellpadding="2" cellspacing="0">
             <tr><td colspan="8"><hr class="sepbar"></td></tr>
             <tr>
               <td colspan="8"><div class="head3">${uiLabelMap.OrderReturnShipFromAddress}:</td>
             </tr>
-            <tr><td colspan="8"><hr class="sepbar"></td></tr>
             <tr>
               <td colspan="8">
                 <table cellspacing="1" cellpadding="2" width="100%">

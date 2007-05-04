@@ -19,6 +19,7 @@
  
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
 import org.ofbiz.order.order.*;
 import org.ofbiz.party.contact.*;
 import org.ofbiz.product.store.*;
@@ -52,6 +53,19 @@ if (orderId != null) {
     context.put("toPartyId", productStore.getString("payToPartyId"));
     context.put("orderHeaderAdjustments", orh.getAvailableOrderHeaderAdjustments());
 }
+
+// payment method info
+if (partyId != null) {
+    List creditCardList = EntityUtil.filterByDate(delegator.findByAnd("PaymentMethodAndCreditCard", UtilMisc.toMap("partyId", partyId)));
+    if (UtilValidate.isNotEmpty(creditCardList)) {
+        context.put("creditCardList", creditCardList);
+    }
+    List eftAccountList = EntityUtil.filterByDate(delegator.findByAnd("PaymentMethodAndEftAccount", UtilMisc.toMap("partyId", partyId)));
+    if (UtilValidate.isNotEmpty(eftAccountList)) {
+        context.put("eftAccountList", eftAccountList);
+    }
+}
+
 
 returnTypes = delegator.findAll("ReturnType", UtilMisc.toList("sequenceId"));
 context.put("returnTypes", returnTypes);
