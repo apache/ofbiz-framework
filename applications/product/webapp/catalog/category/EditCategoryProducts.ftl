@@ -147,8 +147,8 @@ under the License.
             <br/>
             ${uiLabelMap.ProductIncludeSubCategories}?
             <select name="recurse" class="selectBox">
-                <option>${uiLabelMap.CommonN}</option>
-                <option>${uiLabelMap.CommonY}</option>
+                <option value="N">${uiLabelMap.CommonN}</option>
+                <option value="Y">${uiLabelMap.CommonY}</option>
             </select>
             <input type="submit" value="${uiLabelMap.CommonCopy}">
         </div>
