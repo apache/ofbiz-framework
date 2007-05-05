@@ -15,7 +15,7 @@ software distributed under the License is distributed on an
 KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
---%><%@ page import="java.io.*, java.util.*, java.net.*, org.w3c.dom.*, org.ofbiz.security.*, org.ofbiz.entity.*, org.ofbiz.entity.condition.*, org.ofbiz.entity.util.*, org.ofbiz.base.util.*, org.ofbiz.entity.model.*" %><%@ taglib uri="ofbizTags" prefix="ofbiz" %><jsp:useBean id="security" type="org.ofbiz.security.Security" scope="request" /><jsp:useBean id="delegator" type="org.ofbiz.entity.GenericDelegator" scope="request" /><%
+--%><%@ page import="java.io.*, java.util.*, java.net.*, org.w3c.dom.*, org.ofbiz.security.*, org.ofbiz.entity.*, org.ofbiz.entity.condition.*, org.ofbiz.entity.util.*, org.ofbiz.base.util.*, org.ofbiz.entity.model.*, org.ofbiz.entity.transaction.*" %><%@ taglib uri="ofbizTags" prefix="ofbiz" %><jsp:useBean id="security" type="org.ofbiz.security.Security" scope="request" /><jsp:useBean id="delegator" type="org.ofbiz.entity.GenericDelegator" scope="request" /><%
   if(security.hasPermission("ENTITY_MAINT", session)) {
       String[] entityName = (String[]) session.getAttribute("xmlrawdump_entitylist");
       session.removeAttribute("xmlrawdump_entitylist");
@@ -51,19 +51,41 @@ under the License.
 
             writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             writer.println("<entity-engine-xml>");
-            
-            Iterator i = passedEntityNames.iterator();
-            while(i.hasNext()) { 
-                String curEntityName = (String)i.next();
-                EntityListIterator values = delegator.findListIteratorByCondition(curEntityName, entityDateCond, null, null);
 
-                GenericValue value = null;
-                while ((value = (GenericValue) values.next()) != null) {
-                    value.writeXmlText(writer, "");
-                    numberWritten++;
+            boolean beganTransaction = false;
+            try {
+                beganTransaction = TransactionUtil.begin();
+
+          		Iterator i = passedEntityNames.iterator();
+            	while(i.hasNext()) { 
+                    String curEntityName = (String)i.next();
+                    EntityListIterator values = delegator.findListIteratorByCondition(curEntityName, entityDateCond, null, null);
+
+                    GenericValue value = null;
+                    while ((value = (GenericValue) values.next()) != null) {
+                        value.writeXmlText(writer, "");
+                        numberWritten++;
+                    }
+                    values.close();
                 }
-                values.close();
+                TransactionUtil.commit(beganTransaction);
+            } catch (GenericEntityException e) {
+                String errMsg = "Failure in operation, rolling back transaction";
+                String module = "xmldsrawdump.jsp";
+                Debug.logError(e, errMsg, module);
+                try {
+                    // only rollback the transaction if we started one...
+                    TransactionUtil.rollback(beganTransaction, errMsg, e);
+                } catch (GenericEntityException e2) {
+                    Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
+                }
+                // after rolling back, rethrow the exception
+                throw e;
+            } finally {
+                // only commit the transaction if we started one... this will throw an exception if it fails
+                TransactionUtil.commit(beganTransaction);
             }
+
             writer.println("</entity-engine-xml>");
           }
           

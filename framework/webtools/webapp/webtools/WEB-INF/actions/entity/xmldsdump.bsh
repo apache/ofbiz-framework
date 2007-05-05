@@ -166,6 +166,7 @@ if (UtilValidate.isNotEmpty(entitySyncId)) {
 }
 boolean checkAll = "true".equals(request.getParameter("checkAll"));
 boolean tobrowser = request.getParameter("tobrowser")!=null?true:false;
+context.put("tobrowser", tobrowser);
   
 EntityExpr entityFromCond = null;
 EntityExpr entityThruCond = null;
@@ -183,6 +184,11 @@ if ((entityFromCond!=null) && (entityThruCond!=null)) {
 } else if(entityThruCond!=null) {
     entityDateCond = entityThruCond;
 }
+
+ModelReader reader = delegator.getModelReader();
+Collection ec = reader.getEntityNames();
+TreeSet entityNames = new TreeSet(ec);
+context.put("entityNames", entityNames);
   
 if (tobrowser) {
     session.setAttribute("xmlrawdump_entitylist", entityName);
