@@ -16,7 +16,17 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
+<#if tobrowser?exists && tobrowser>
+<h1>XML Export from DataSource(s)</h1>
+<br />
+<p>This page can be used to export data from the database. The exported documents will have a root tag of "&lt;entity-engine-xml&gt;".</p>
+<hr/>
+<#if security.hasPermission("ENTITY_MAINT", session)>
+    <a href="<@ofbizUrl>xmldsrawdump</@ofbizUrl>" class="buttontext" target="_blank">Click Here to Get Data (or save to file)</a>
+<#else>
+    <div>You do not have permission to use this page (ENTITY_MAINT needed)</div>
+</#if>
+<#else>
 <#macro displayButtonBar>
   <div class="button-bar">
     <input type="submit" value="Export"/>
@@ -111,4 +121,5 @@ under the License.
     </form>
 <#else>
     <div>You do not have permission to use this page (ENTITY_MAINT needed)</div>
+</#if>
 </#if>
