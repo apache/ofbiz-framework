@@ -25,13 +25,13 @@
     <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
         <param name="threshold" value="info"/>
         <layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
-		</layout>
-	</appender>
+            <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
+        </layout>
+    </appender>
 
     <!-- file logging done async -->
     <appender name="async" class="org.apache.log4j.AsyncAppender">
-	    <appender-ref ref="ofbiz-file"/>
+        <appender-ref ref="ofbiz-file"/>
         <appender-ref ref="ofbiz-html"/>
         <appender-ref ref="debug"/>
         <appender-ref ref="error"/>
@@ -41,32 +41,32 @@
     <!-- ofbiz file appender -->
     <appender name="ofbiz-file" class="org.apache.log4j.RollingFileAppender">
         <param name="maxFileSize" value="1000KB" />
-		<param name="maxBackupIndex" value="10" />
-		<param name="File" value="runtime/logs/ofbiz.log" />
-		<param name="threshold" value="info"/>
+        <param name="maxBackupIndex" value="10" />
+        <param name="File" value="runtime/logs/ofbiz.log" />
+        <param name="threshold" value="info"/>
         <layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
-		</layout>
-	</appender>
+            <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
+        </layout>
+    </appender>
 
     <!-- ofbiz web file appender -->
     <appender name="ofbiz-html" class="org.apache.log4j.RollingFileAppender">
         <param name="maxFileSize" value="200KB" />
-		<param name="maxBackupIndex" value="1" />
-		<param name="File" value="runtime/logs/ofbiz.html" />
-		<param name="threshold" value="info"/>
+        <param name="maxBackupIndex" value="1" />
+        <param name="File" value="runtime/logs/ofbiz.html" />
+        <param name="threshold" value="info"/>
         <layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="&lt;div class=%p&gt;%d (%t) [%24F:%-3L:%-5p]%x %m &lt;/div&gt;%n"/>
-		</layout>
-	</appender>
+            <param name="ConversionPattern" value="&lt;div class=%p&gt;%d (%t) [%24F:%-3L:%-5p]%x %m &lt;/div&gt;%n"/>
+        </layout>
+    </appender>
 
     <!-- debug log -->
     <appender name="debug" class="org.apache.log4j.FileAppender">
         <param name="File" value="runtime/logs/debug.log" />
         <param name="Append" value="false"/>
         <layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
-		</layout>
+            <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
+        </layout>
         <filter class="org.apache.log4j.varia.LevelRangeFilter">
             <param name="LevelMax" value="info"/>
             <param name="LevelMin" value="trace"/>
@@ -79,8 +79,8 @@
         <param name="File" value="runtime/logs/error.log" />
         <param name="Append" value="false"/>
         <layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
-		</layout>
+            <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
+        </layout>
         <filter class="org.apache.log4j.varia.LevelRangeFilter">
             <param name="LevelMax" value="fatal"/>
             <param name="LevelMin" value="error"/>
@@ -93,8 +93,8 @@
         <param name="File" value="runtime/logs/minerva.log" />
         <param name="Append" value="false"/>
         <layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
-		</layout>
+            <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
+        </layout>
     </appender>
 
     <!-- fatal error SMTP notification -->
