@@ -29,6 +29,11 @@ userLogin = session.getAttribute("userLogin");
 party = userLogin.getRelatedOne("Party");
 productStoreId = ProductStoreWorker.getProductStoreId(request);
 
+String shippingContactMechId = request.getParameter("shipping_contact_mech_id");
+for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
+    supplierPartyId = cart.getSupplierPartyId(shipGroupIndex);
+    context.put(shipGroupIndex+"_supplierPartyId",supplierPartyId);
+}
 
 context.put("shoppingCart", cart);
 context.put("userLogin", userLogin);

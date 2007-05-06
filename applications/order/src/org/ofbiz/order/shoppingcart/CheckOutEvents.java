@@ -80,10 +80,21 @@ public class CheckOutEvents {
         ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
+
         GenericValue userLogin = cart.getUserLogin();
         if (userLogin == null) userLogin = (GenericValue) session.getAttribute("userLogin");
-
+        if (curPage == null) {
+            try {
+                cart.createDropShipGroups(dispatcher);
+            } catch (CartItemModifyException e) {
+                Debug.logError(e, module);
+            }
+        }else if ("shippingoptions".equals(curPage) == true){
+            //remove empty ship group
+            cart.cleanUpShipGroups();
+        }
+        CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
+        
         if ("shippingaddress".equals(curPage) == true) {
             // Set the shipping address options
             String shippingContactMechId = request.getParameter("shipping_contact_mech_id");
@@ -92,6 +103,18 @@ public class CheckOutEvents {
             String partyTaxId = request.getParameter("partyTaxId");
             String isExempt = request.getParameter("isExempt");
             
+            List errorMessages = new ArrayList();
+            Map errorMaps = new HashMap();
+            for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
+                // set the shipping method
+                if (shippingContactMechId == null) {
+                    shippingContactMechId = (String) request.getAttribute("contactMechId"); // FIXME
+                }
+                String supplierPartyId = (String) request.getAttribute(shipGroupIndex + "_supplierPartyId");
+                Map callResult = checkOutHelper.finalizeOrderEntryShip(shipGroupIndex, shippingContactMechId, supplierPartyId);
+                ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
+            }
+
             // if taxAuthPartyGeoIds is not empty drop that into the database
             if (UtilValidate.isNotEmpty(taxAuthPartyGeoIds)) {
                 try {
@@ -124,13 +147,14 @@ public class CheckOutEvents {
             String giftMessage = request.getParameter("gift_message");
             String isGift = request.getParameter("is_gift");
             String internalCode = request.getParameter("internalCode");
-            String shipBeforeDate = request.getParameter("shipBeforeDate");
+            String shipBeforeDate =  request.getParameter("shipBeforeDate");
             String shipAfterDate = request.getParameter("shipAfterDate");
-            Map callResult = checkOutHelper.setCheckOutShippingOptions(shippingMethod, shippingInstructions, 
-                    orderAdditionalEmails, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate);
-
-            ServiceUtil.getMessages(request, callResult, null);
-
+            Map callResult = ServiceUtil.returnSuccess();
+            
+            for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
+                callResult = checkOutHelper.finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate, orderAdditionalEmails);
+                ServiceUtil.getMessages(request, callResult, null);
+            }
             if (!(callResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))) {
                 // No errors so push the user onto the next page
                 curPage = "payment";

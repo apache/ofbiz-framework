@@ -33,6 +33,18 @@ orderItems = cart.makeOrderItems();
 context.put("orderItems", orderItems);
 
 orderAdjustments = cart.makeAllAdjustments();
+
+List orderItemShipGroupInfo = cart.makeAllShipGroupInfos();
+if (orderItemShipGroupInfo != null && orderItemShipGroupInfo.size() > 0) {
+    Iterator osiInfos = orderItemShipGroupInfo.iterator();
+    while (osiInfos.hasNext()) {
+        GenericValue valueObj = (GenericValue) osiInfos.next();
+        if ("OrderAdjustment".equals(valueObj.getEntityName())) {
+            // shipping / tax adjustment(s)
+            orderAdjustments.add(valueObj);
+        }
+    }
+}
 context.put("orderAdjustments", orderAdjustments);
 
 workEfforts = cart.makeWorkEfforts();   // if required make workefforts for rental fixed assets too.
