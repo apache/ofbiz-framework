@@ -49,6 +49,7 @@ import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.product.product.ProductContentWrapper;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -1342,6 +1343,8 @@ public class OrderReturnServices {
                 }
 
                 // make the shipment prefs
+                /*
+                 * OrderShipmentPreference is a deprecated entity
                 List shipmentPrefs = new ArrayList();
                 List orderSp = null;
                 try {
@@ -1357,9 +1360,11 @@ public class OrderReturnServices {
                     }
                     orderMap.put("orderShipmentPreferences", shipmentPrefs);
                 }
+                 */
 
                 // make the order items
                 double itemTotal = 0.00;
+                double additionalItemTotal = 0.00;
                 List orderItems = new ArrayList();
                 List orderItemShipGroupInfo = new ArrayList();
                 List orderItemShipGroupIds = new ArrayList(); // this is used to store the ship group ids of the groups already added to the orderItemShipGroupInfo list
@@ -1380,8 +1385,8 @@ public class OrderReturnServices {
                             Double quantity = returnItem.getDouble("returnQuantity");
                             Double unitPrice = returnItem.getDouble("returnPrice");
                             if (quantity != null && unitPrice != null) {
-                                itemTotal = (quantity.doubleValue() * unitPrice.doubleValue());
-                                GenericValue newItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", UtilFormatOut.formatPaddedNumber(itemCount, 5)));
+                                itemTotal = itemTotal + (quantity.doubleValue() * unitPrice.doubleValue());
+                                GenericValue newItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", UtilFormatOut.formatPaddedNumber(itemCount++, 5)));
 
                                 newItem.set("orderItemTypeId", orderItem.get("orderItemTypeId"));
                                 newItem.set("productId", orderItem.get("productId"));
@@ -1402,9 +1407,9 @@ public class OrderReturnServices {
                                 //       of the original order is considered and cloned,
                                 //       anIs there a better way to handle this?d the returned units are assigned to it.
                                 //
-
+                                GenericValue orderItemShipGroupAssoc = null;
                                 try {
-                                    GenericValue orderItemShipGroupAssoc = EntityUtil.getFirst(orderItem.getRelated("OrderItemShipGroupAssoc"));
+                                    orderItemShipGroupAssoc = EntityUtil.getFirst(orderItem.getRelated("OrderItemShipGroupAssoc"));
                                     if (orderItemShipGroupAssoc != null) {
                                         if (!orderItemShipGroupIds.contains(orderItemShipGroupAssoc.getString("shipGroupSeqId"))) {
                                             GenericValue orderItemShipGroup = orderItemShipGroupAssoc.getRelatedOne("OrderItemShipGroup");
@@ -1424,6 +1429,97 @@ public class OrderReturnServices {
                                         "orderItemSeqId", orderItem.getString("orderItemSeqId"), "shipGroupSeqId", "_NA_",
                                         "toOrderItemSeqId", newItem.getString("orderItemSeqId"), "toShipGroupSeqId", "_NA_", "orderItemAssocTypeId", "REPLACEMENT"));
                                 orderItemAssocs.add(newOrderItemAssoc);
+
+                                // For repair replacement orders, add to the order also the repair items
+                                if ("RTN_REPAIR_REPLACE".equals(returnTypeId)) {
+                                    List repairItems = null;
+                                    try {
+                                        GenericValue product = orderItem.getRelatedOne("Product");
+                                        if (UtilValidate.isNotEmpty(product)) {
+                                            repairItems = EntityUtil.filterByDate(product.getRelated("MainProductAssoc",
+                                                                                                       UtilMisc.toMap("productAssocTypeId", "PRODUCT_REPAIR_SRV"),
+                                                                                                       UtilMisc.toList("sequenceNum")));
+                                        }
+                                    } catch (GenericEntityException e) {
+                                        Debug.logError(e, module);
+                                        continue;
+                                    }
+                                    if (UtilValidate.isNotEmpty(repairItems)) {
+                                        Iterator repairItemIt = repairItems.iterator();
+                                        while (repairItemIt.hasNext()) {
+                                            GenericValue repairItem = (GenericValue)repairItemIt.next();
+                                            GenericValue repairItemProduct = null;
+                                            try {
+                                                repairItemProduct = repairItem.getRelatedOne("AssocProduct");
+                                            } catch (GenericEntityException e) {
+                                                Debug.logError(e, module);
+                                                continue;
+                                            }
+                                            if (UtilValidate.isNotEmpty(repairItemProduct)) {
+                                                Double repairUnitQuantity = repairItem.getDouble("quantity");
+                                                if (UtilValidate.isEmpty(repairUnitQuantity)) {
+                                                    repairUnitQuantity = new Double(1.0);
+                                                }
+                                                Double repairQuantity = new Double(quantity.doubleValue() * repairUnitQuantity.doubleValue());
+                                                newItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", UtilFormatOut.formatPaddedNumber(itemCount++, 5)));
+
+                                                // price
+                                                Map priceContext = FastMap.newInstance();
+                                                priceContext.put("currencyUomId", orderHeader.get("currencyUom"));
+                                                if (placingPartyId != null) {
+                                                    priceContext.put("partyId", placingPartyId);
+                                                }
+                                                priceContext.put("quantity", repairUnitQuantity);
+                                                priceContext.put("product", repairItemProduct);
+                                                priceContext.put("webSiteId", orderHeader.get("webSiteId"));
+                                                priceContext.put("productStoreId", orderHeader.get("productStoreId"));
+                                                // TODO: prodCatalogId, agreementId
+                                                priceContext.put("productPricePurposeId", "PURCHASE");
+                                                priceContext.put("checkIncludeVat", "Y"); 
+                                                Map priceResult = null;
+                                                try {
+                                                    priceResult = dispatcher.runSync("calculateProductPrice", priceContext);
+                                                } catch(GenericServiceException gse) {
+                                                    Debug.logError(gse, module);
+                                                    continue;
+                                                }
+                                                if (ServiceUtil.isError(priceResult)) {
+                                                    Debug.logError(ServiceUtil.getErrorMessage(priceResult), module);
+                                                    continue;
+                                                }
+                                                Boolean validPriceFound = (Boolean) priceResult.get("validPriceFound");
+                                                if (Boolean.FALSE.equals(validPriceFound)) {
+                                                    Debug.logError("Could not find a valid price for the product with ID [" + repairItemProduct.get("productId") + "].", module);
+                                                    continue;
+                                                }
+
+                                                if (priceResult.get("listPrice") != null) {
+                                                    newItem.set("unitListPrice", (Double)priceResult.get("listPrice"));
+                                                }
+
+                                                Double repairUnitPrice = null;
+                                                if (priceResult.get("basePrice") != null) {
+                                                    repairUnitPrice = (Double)priceResult.get("basePrice");
+                                                } else {
+                                                    repairUnitPrice = new Double(0.0);
+                                                }
+                                                newItem.set("unitPrice", repairUnitPrice);
+
+                                                newItem.set("productId", repairItemProduct.get("productId"));
+                                                // TODO: orderItemTypeId, prodCatalogId, productCategoryId
+                                                newItem.set("quantity", repairQuantity);
+                                                newItem.set("itemDescription", ProductContentWrapper.getProductContentAsText(repairItemProduct, "PRODUCT_NAME", locale, null));
+                                                newItem.set("statusId", "ITEM_CREATED");
+                                                orderItems.add(newItem);
+                                                additionalItemTotal = additionalItemTotal + (repairQuantity.doubleValue() * repairUnitPrice.doubleValue());
+                                                if (UtilValidate.isNotEmpty(orderItemShipGroupAssoc)) {
+                                                    GenericValue newOrderItemShipGroupAssoc = delegator.makeValue("OrderItemShipGroupAssoc", UtilMisc.toMap("orderItemSeqId", newItem.getString("orderItemSeqId"), "shipGroupSeqId", orderItemShipGroupAssoc.getString("shipGroupSeqId"), "quantity", repairQuantity));
+                                                    orderItemShipGroupInfo.add(newOrderItemShipGroupAssoc);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -1447,6 +1543,36 @@ public class OrderReturnServices {
                 adj.set("createdDate", UtilDateTime.nowTimestamp());
                 adj.set("createdByUserLogin", userLogin.getString("userLoginId"));
                 orderMap.put("orderAdjustments", UtilMisc.toList(adj));
+
+                // Payment preference
+                if (additionalItemTotal > 0) {
+                    GenericValue paymentMethod = null;
+                    try {
+                        paymentMethod = returnHeader.getRelatedOne("PaymentMethod");
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
+                    }
+                    if (UtilValidate.isNotEmpty(paymentMethod)) {
+                        String paymentMethodId = paymentMethod.getString("paymentMethodId");
+                        String paymentMethodTypeId = paymentMethod.getString("paymentMethodTypeId");
+                        GenericValue opp = delegator.makeValue("OrderPaymentPreference", new HashMap());
+                        opp.set("paymentMethodTypeId", paymentMethodTypeId);
+                        opp.set("paymentMethodId", paymentMethodId);
+                        // TODO: manualRefNum, manualAuthCode, securityCode, presentFlag, overflowFlag
+                        if (paymentMethodId != null || "FIN_ACCOUNT".equals(paymentMethodTypeId)) {
+                            opp.set("statusId", "PAYMENT_NOT_AUTH");
+                        } else if (paymentMethodTypeId != null) {
+                            // external payment method types require notification when received
+                            // internal payment method types are assumed to be in-hand
+                            if (paymentMethodTypeId.startsWith("EXT_")) {
+                                opp.set("statusId", "PAYMENT_NOT_RECEIVED");
+                            } else {
+                                opp.set("statusId", "PAYMENT_RECEIVED");
+                            }
+                        }
+                        orderMap.put("orderPaymentInfo", UtilMisc.toList(opp));
+                    }
+                }
 
                 // we'll assume new order is under same terms as original.  note orderTerms is a required parameter of storeOrder
                 try {

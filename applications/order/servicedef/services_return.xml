@@ -226,6 +226,11 @@ under the License.
         <description>Process the replacements in a cross-ship return</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="processRepairReplacementReturn" engine="simple" auth="true"
+            location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="processRepairReplacementReturn">
+        <description>Process the replacements in a repair return</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+    </service>
     <service name="updateReturnStatusFromReceipt" engine="simple"
             location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="updateReturnStatusFromReceipt">
         <description>Update return/item status when items have been received</description>
