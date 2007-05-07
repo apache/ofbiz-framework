@@ -770,4 +770,9 @@ under the License.
         <set field="inMap.returnTypeId" value="RTN_CSREPLACE"/>
         <call-service service-name="processReplacementReturn" in-map-name="inMap"/>
     </simple-method>
+    <simple-method method-name="processRepairReplacementReturn" short-description="Process the replacements in a repair return">
+        <set field="inMap.returnId" from-field="parameters.returnId"/>
+        <set field="inMap.returnTypeId" value="RTN_REPAIR_REPLACE"/>
+        <call-service service-name="processReplacementReturn" in-map-name="inMap"/>
+    </simple-method>
 </simple-methods>
