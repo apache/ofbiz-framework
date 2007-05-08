@@ -382,7 +382,7 @@ under the License.
     </service>
 
     <service name="savePaymentGatewayResponse" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="storePaymentErrorMessage" auth="false">
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="savePaymentGatewayResponse" auth="false">
         <description>Method to make sure PaymentGatewayResponse records get stored (uses XA wrapper on rollback)</description>
         <attribute name="paymentGatewayResponse" type="GenericValue" mode="IN" optional="false"/>
     </service>
