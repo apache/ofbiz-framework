@@ -931,8 +931,8 @@ public class ShoppingCartHelper {
                            String termTypeId = (String) agreementTerm.get("termTypeId");
                            Double termValue = (Double) agreementTerm.get("termValue");
                            Long termDays = (Long) agreementTerm.get("termDays");
-                           String description = agreementTerm.getString("description");
-                           cart.addOrderTerm(termTypeId, termValue, termDays, description);
+                           String textValue = agreementTerm.getString("textValue");
+                           cart.addOrderTerm(termTypeId, termValue, termDays, textValue);
                       }
                   }
             } catch (GenericEntityException e) {
@@ -961,9 +961,9 @@ public class ShoppingCartHelper {
         return addOrderTerm(termTypeId, termValue, termDays, null);
     }
 
-    public Map addOrderTerm(String termTypeId,Double termValue,Long termDays, String description) {
+    public Map addOrderTerm(String termTypeId,Double termValue,Long termDays, String textValue) {
         Map result = null;
-        this.cart.addOrderTerm(termTypeId,termValue,termDays,description);
+        this.cart.addOrderTerm(termTypeId,termValue,termDays,textValue);
         result = ServiceUtil.returnSuccess();
         return result;
     }

@@ -318,6 +318,7 @@ under the License.
       <field name="thruDate" type="date-time"></field>
       <field name="termValue" type="currency-amount"></field>
       <field name="termDays" type="numeric"></field>
+      <field name="textValue" type="description"></field>
       <field name="minQuantity" type="floating-point"></field>
       <field name="maxQuantity" type="floating-point"></field>
       <field name="description" type="description"></field>

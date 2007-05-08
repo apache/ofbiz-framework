@@ -120,7 +120,7 @@ under the License.
              <#if orderTerms?has_content>
              <fo:table-row>
                <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.OrderOrderTerms}: </fo:block></fo:table-cell>
-               <fo:table-cell white-space-collapse="false"><#list orderTerms as orderTerm><fo:block>${orderTerm.getRelatedOne("TermType").get("description",locale)} ${orderTerm.termValue?default("")} ${orderTerm.termDays?default("")} ${orderTerm.description?default("")}
+               <fo:table-cell white-space-collapse="false"><#list orderTerms as orderTerm><fo:block>${orderTerm.getRelatedOne("TermType").get("description",locale)} ${orderTerm.termValue?default("")} ${orderTerm.termDays?default("")} ${orderTerm.textValue?default("")}
 </fo:block></#list></fo:table-cell>
              </fo:table-row>
              </#if>

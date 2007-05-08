@@ -46,7 +46,7 @@ under the License.
                   <td><div class="tabletext">${orderTerm.getRelatedOne("TermType").get("description",locale)}</div></td>
                   <td><div class="tabletext">${orderTerm.termValue?default("")}</div></td>
                   <td><div class="tabletext">${orderTerm.termDays?default("")}</div></td>
-                  <td><div class="tabletext">${orderTerm.description?default("")}</div></td>
+                  <td><div class="tabletext">${orderTerm.textValue?default("")}</div></td>
                   <td align="right">
                     <a href="<@ofbizUrl>setOrderTerm?termIndex=${index}&createNew=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonUpdate}</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -113,7 +113,7 @@ under the License.
                     </td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" class="inputBox" size="30" maxlength="255" name="description" value="${description?if_exists}"/>
+                      <input type="text" class="inputBox" size="30" maxlength="255" name="textValue" value="${textValue?if_exists}"/>
                     </td>
                   </tr>
                   <tr><td colspan="3" align="middle"><input type="submit" class="smallSubmit" value="${uiLabelMap.CommonAdd}"/></td></tr>

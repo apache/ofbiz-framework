@@ -79,7 +79,7 @@ under the License.
                             <td width="35%"><div class="tabletext">${orderTerm.getRelatedOne("TermType").get("description",locale)}</div></td>
                             <td width="10%"><div class="tabletext">${orderTerm.termValue?default("")}</div></td>
                             <td width="10%"><div class="tabletext">${orderTerm.termDays?default("")}</div></td>
-                            <td width="45%"><div class="tabletext">${orderTerm.description?default("")}</div></td>
+                            <td width="45%"><div class="tabletext">${orderTerm.textValue?default("")}</div></td>
                         </tr>
                             <#if orderTerms.size()&lt;index>
                         <tr><td colspan="4"><hr class="sepbar"/></td></tr>
