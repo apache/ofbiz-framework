@@ -141,11 +141,14 @@ under the License.
                   <condition>
                       <and>
                           <if-empty field-name="returnHeader.paymentMethodId"/>
-                          <if-compare field-name="returnItem.returnTypeId" operator="equals" value="RTN_CSREPLACE"/>
+                          <or>
+                              <if-compare field-name="returnItem.returnTypeId" operator="equals" value="RTN_CSREPLACE"/>
+                              <if-compare field-name="returnItem.returnTypeId" operator="equals" value="RTN_REPAIR_REPLACE"/>
+                          </or>
                       </and>
                   </condition>
                   <then>
-                      <add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnPaymentMethodNotSetForCrossShip"/></add-error>
+                      <add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnPaymentMethodNeededForThisTypeOfReturn"/></add-error>
                   </then>
               </if>
               <check-errors/>
