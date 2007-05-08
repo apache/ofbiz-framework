@@ -170,7 +170,7 @@ public class UtilMisc {
             theBuf.append(entry.getKey());
             theBuf.append(" --> ");
             theBuf.append(entry.getValue());
-            theBuf.append("\n");
+            theBuf.append(System.getProperty("line.separator"));            
         }
         return theBuf.toString();
     }
