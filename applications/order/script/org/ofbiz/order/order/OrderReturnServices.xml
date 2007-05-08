@@ -233,6 +233,23 @@ under the License.
             <check-errors/>
         </if-empty>
 
+        <if>
+            <condition>
+                <and>
+                    <if-empty field-name="returnHeader.paymentMethodId"/>
+                    <if-compare field-name="returnHeader.statusId" operator="equals" value="RETURN_ACCEPTED"/>
+                    <or>
+                        <if-compare field-name="parameters.returnTypeId" operator="equals" value="RTN_CSREPLACE"/>
+                        <if-compare field-name="parameters.returnTypeId" operator="equals" value="RTN_REPAIR_REPLACE"/>
+                    </or>
+                </and>
+            </condition>
+            <then>
+                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnPaymentMethodNeededForThisTypeOfReturn"/></add-error>
+            </then>
+        </if>
+        <check-errors/>
+
         <if-compare field-name="returnQuantity" map-name="parameters" operator="equals" value="0" type="Double">
             <add-error><fail-property resource="OrderErrorUiLabels" property="OrderNoReturnQuantityAvailablePreviousReturnsMayExist"/></add-error>
             <check-errors/>
