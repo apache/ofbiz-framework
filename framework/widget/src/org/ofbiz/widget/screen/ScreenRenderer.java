@@ -20,7 +20,6 @@ package org.ofbiz.widget.screen;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -36,7 +35,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
@@ -158,69 +156,7 @@ public class ScreenRenderer {
         attrNamesToSkip.add("security");
         attrNamesToSkip.add("webSiteId");
 
-        Map parameterMap = UtilHttp.getParameterMap(request);
-        // go through all request attributes and for each name that is not already in the parameters Map add the attribute value
-        Enumeration requestAttrNames = request.getAttributeNames();
-        while (requestAttrNames.hasMoreElements()) {
-            String attrName = (String) requestAttrNames.nextElement();
-            Object attrValue = request.getAttribute(attrName);
-
-            // NOTE: this is being set to false by default now 
-            //this change came after the realization that it is common to want a request attribute to override a request parameter, but I can't think of even ONE reason why a request parameter should override a request attribute...
-            final boolean preserveRequestParameters = false;
-            if (preserveRequestParameters) {
-                Object param = parameterMap.get(attrName);
-                if (param == null) {
-                    parameterMap.put(attrName, attrValue);
-                } else if (param instanceof String && ((String) param).length() == 0) {
-                    // also put the attribute value in if the parameter is empty
-                    parameterMap.put(attrName, attrValue);
-                } else {
-                    // do nothing, just log something
-                    Debug.logInfo("Found request attribute that conflicts with parameter name, leaving request parameter in place for name: " + attrName, module);
-                }
-            } else {
-                parameterMap.put(attrName, attrValue);
-            }
-        }
-
-        // do the same for session attributes, for convenience
-        Enumeration sessionAttrNames = session.getAttributeNames();
-        while (sessionAttrNames.hasMoreElements()) {
-            String attrName = (String) sessionAttrNames.nextElement();
-            if (attrNamesToSkip.contains(attrName)) continue;
-            Object attrValue = session.getAttribute(attrName);
-            Object param = parameterMap.get(attrName);
-            if (param == null) {
-                parameterMap.put(attrName, attrValue);
-            } else if (param instanceof String && ((String) param).length() == 0) {
-                // also put the attribute value in if the parameter is empty
-                parameterMap.put(attrName, attrValue);
-            } else {
-                // do nothing, just log something
-                Debug.logInfo("Found session attribute that conflicts with parameter name, leaving request parameter in place for name: " + attrName, module);
-            }
-        }
-
-        // do the same for servlet context (application) attribute, for convenience
-        Enumeration applicationAttrNames = servletContext.getAttributeNames();
-        while (applicationAttrNames.hasMoreElements()) {
-            String attrName = (String) applicationAttrNames.nextElement();
-            if (attrNamesToSkip.contains(attrName)) continue;
-            Object param = parameterMap.get(attrName);
-            Object attrValue = servletContext.getAttribute(attrName);
-            if (Debug.verboseOn()) Debug.logVerbose("Getting parameter from application attrbute with name [" + attrName + "] and value [" + attrValue + "]", module);
-            if (param == null) {
-                parameterMap.put(attrName, attrValue);
-            } else if (param instanceof String && ((String) param).length() == 0) {
-                // also put the attribute value in if the parameter is empty
-                parameterMap.put(attrName, attrValue);
-            } else {
-                // do nothing, just log something
-                Debug.logInfo("Found servlet context (application) attribute that conflicts with parameter name, leaving request parameter in place for name: " + attrName, module);
-            }
-        }
-
+        Map parameterMap = UtilHttp.getCombinedMap(request, attrNamesToSkip);      
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         
         populateBasicContext(context, screens, parameterMap, (GenericDelegator) request.getAttribute("delegator"),
@@ -320,7 +256,7 @@ public class ScreenRenderer {
             context.put("isError", Boolean.FALSE);
         }
         // if a parameter was passed saying this is an error, it is an error
-        if ("true".equals((String) parameterMap.get("isError"))) {
+        if ("true".equals(parameterMap.get("isError"))) {
             context.put("isError", Boolean.TRUE);
         }
         context.put("nowTimestamp", UtilDateTime.nowTimestamp());
