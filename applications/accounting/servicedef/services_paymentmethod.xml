@@ -287,7 +287,7 @@ under the License.
     </service>
 
     <service name="processCaptureSplitPayment" engine="java" require-new-transaction="true"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="captureBillingAccountPayment" auth="true">
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processCaptureSplitPayment" auth="true">
         <description>Handles the creation of new OrderPaymentPreference record (and Auth) for partial captures</description>
         <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
         <attribute name="splitAmount" type="BigDecimal" mode="IN" optional="false"/> 
