@@ -807,7 +807,9 @@ public class PaymentGatewayServices {
             Map releaseResRes;
             try {
                 ModelService model = dctx.getModelService("processReleaseResult");
-                Map resCtx = model.makeValid(result, ModelService.IN_PARAM);
+                releaseResult.put("orderPaymentPreference", paymentPref);
+                releaseResult.put("userLogin", userLogin);
+                Map resCtx = model.makeValid(releaseResult, ModelService.IN_PARAM);
                 releaseResRes = dispatcher.runSync(model.name,  resCtx);
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
@@ -1018,7 +1020,16 @@ public class PaymentGatewayServices {
         }
 
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
-        
+
+        BigDecimal orderGrandTotal = orh.getOrderGrandTotalBd();
+        orderGrandTotal = orderGrandTotal.setScale(2, BigDecimal.ROUND_HALF_UP);
+
+        BigDecimal totalPayments = PaymentWorker.getPaymentsTotal(orh.getOrderPayments());
+        totalPayments = totalPayments.setScale(2, BigDecimal.ROUND_HALF_UP);
+
+        BigDecimal remainingTotalBd = orderGrandTotal.subtract(totalPayments);
+        if (Debug.infoOn()) Debug.logInfo("Capture Remaining Total: " + remainingTotalBd, module);
+
         // See if there is a billing account first.  If so, just charge the captureAmount to the billing account via PaymentApplication
         GenericValue billingAccount = null;
         BigDecimal billingAccountAvail = null;
@@ -1078,15 +1089,6 @@ public class PaymentGatewayServices {
             result.put("processResult", "COMPLETE");
             return result;
         }
-
-        BigDecimal orderGrandTotal = orh.getOrderGrandTotalBd();
-        orderGrandTotal = orderGrandTotal.setScale(2, BigDecimal.ROUND_HALF_UP);
-
-        BigDecimal totalPayments = PaymentWorker.getPaymentsTotal(orh.getOrderPayments());
-        totalPayments = totalPayments.setScale(2, BigDecimal.ROUND_HALF_UP);
-
-        BigDecimal remainingTotalBd = orderGrandTotal.subtract(totalPayments);
-        if (Debug.infoOn()) Debug.logInfo("Capture Remaining Total: " + remainingTotalBd, module);
 
         BigDecimal amountToCapture = ZERO;
         if (captureAmountBd == null) {
@@ -2113,6 +2115,10 @@ public class PaymentGatewayServices {
                     refundResCtx.put("currencyUomId", orh.getCurrency());
                     refundResCtx.put("payToPartyId", payToPartyId);
                     refundResCtx.put("payFromPartyId", payFromPartyId);
+                    refundResCtx.put("refundRefNum", refundResponse.get("refundRefNum"));
+                    refundResCtx.put("refundResult", refundResponse.get("refundResult"));
+                    // TODO: should we uncomment the following line?
+                    //refundResCtx.put("refundAmount", (Double)refundResponse.get("refundAmount"));
                     refundResRes = dispatcher.runSync(model.name, refundResCtx);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
