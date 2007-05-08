@@ -44,12 +44,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 /**
  * HttpUtil - Misc TTP Utility Functions
@@ -65,18 +67,51 @@ public class UtilHttp {
     public static final int ROW_SUBMIT_PREFIX_LENGTH = ROW_SUBMIT_PREFIX.length();
     public static final int COMPOSITE_DELIMITER_LENGTH = COMPOSITE_DELIMITER.length();
     
+    /**
+     * Create a combined map from servlet context, session, attributes and parameters
+     * @return The resulting Map
+     */
+    public static Map getCombinedMap(HttpServletRequest request) {
+        return getCombinedMap(request, null);
+    }
 
     /**
-     * Create a map from an HttpServletRequest object
+     * Create a combined map from servlet context, session, attributes and parameters
+     * -- this method will only use the skip names for session and servlet context attributes
+     * @return The resulting Map
+     */
+    public static Map getCombinedMap(HttpServletRequest request, Set namesToSkip) {
+        FastMap combinedMap = FastMap.newInstance();
+        combinedMap.putAll(getServletContextMap(request, namesToSkip)); // bottom level application attributes
+        combinedMap.putAll(getSessionMap(request, namesToSkip));        // session overrides application
+        combinedMap.putAll(getParameterMap(request));                   // parameters override session
+        combinedMap.putAll(getAttributeMap(request));                   // attributes trump them all
+                         
+        return combinedMap;
+    }
+
+    /**
+     * Create a map from a HttpServletRequest (parameters) object
      * @return The resulting Map
      */
     public static Map getParameterMap(HttpServletRequest request) {
+        return getParameterMap(request, null);
+    }
+
+    /**
+     * Create a map from a HttpServletRequest (parameters) object
+     * @return The resulting Map
+     */
+    public static Map getParameterMap(HttpServletRequest request, Set<String> namesToSkip) {
         Map paramMap = FastMap.newInstance();
 
         // add all the actual HTTP request parameters
         Enumeration e = request.getParameterNames();
         while (e.hasMoreElements()) {
             String name = (String) e.nextElement();
+            if (namesToSkip != null && namesToSkip.contains(name))
+                continue;
+
             Object value = null;
             String[] paramArr = request.getParameterValues(name);
             if (paramArr != null) {
@@ -133,18 +168,117 @@ public class UtilHttp {
                 paramMap.putAll(multiPartMap);
             }
         }
-        
-        //Debug.logInfo("Made parameterMap: \n" + UtilMisc.printMap(paramMap), module);
+
         if (Debug.verboseOn()) {
             Debug.logVerbose("Made Request Parameter Map with [" + paramMap.size() + "] Entries", module);
-            Iterator entryIter = paramMap.entrySet().iterator();
-            while (entryIter.hasNext()) {
-                Map.Entry entry = (Map.Entry) entryIter.next();
-                Debug.logVerbose("Request Parameter Map Entry: [" + entry.getKey() + "] --> " + entry.getValue(), module);
-            }
+            Debug.logVerbose("Request Parameter Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(paramMap), module);
         }
         
         return paramMap;
+    }
+
+    /**
+     * Create a map from a HttpRequest (attributes) object
+     * @return The resulting Map
+     */
+    public static Map getAttributeMap(HttpServletRequest request) {
+        return getAttributeMap(request, null);
+    }
+
+    /**
+     * Create a map from a HttpRequest (attributes) object
+     * @return The resulting Map
+     */
+    public static Map getAttributeMap(HttpServletRequest request, Set<String> namesToSkip) {
+        Map attributeMap = FastMap.newInstance();
+
+        // look at all request attributes
+        Enumeration requestAttrNames = request.getAttributeNames();
+        while (requestAttrNames.hasMoreElements()) {
+            String attrName = (String) requestAttrNames.nextElement();
+            if (namesToSkip != null && namesToSkip.contains(attrName))
+                continue;
+
+            Object attrValue = request.getAttribute(attrName);
+            attributeMap.put(attrName, attrValue);
+        }
+
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Made Request Attribute Map with [" + attributeMap.size() + "] Entries", module);
+            Debug.logVerbose("Request Attribute Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(attributeMap), module);
+        }
+
+        return attributeMap;
+    }
+
+    /**
+     * Create a map from a HttpSession object
+     * @return The resulting Map
+     */
+    public static Map getSessionMap(HttpServletRequest request) {
+        return getSessionMap(request, null);
+    }
+
+    /**
+     * Create a map from a HttpSession object
+     * @return The resulting Map
+     */
+    public static Map getSessionMap(HttpServletRequest request, Set<String> namesToSkip) {
+        Map sessionMap = FastMap.newInstance();
+        HttpSession session = request.getSession();
+
+        // look at all the session attributes
+        Enumeration sessionAttrNames = session.getAttributeNames();
+        while (sessionAttrNames.hasMoreElements()) {
+            String attrName = (String) sessionAttrNames.nextElement();
+            if (namesToSkip != null && namesToSkip.contains(attrName))
+                continue;
+
+            Object attrValue = session.getAttribute(attrName);
+            sessionMap.put(attrName, attrValue);
+        }
+
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Made Session Attribute Map with [" + sessionMap.size() + "] Entries", module);
+            Debug.logVerbose("Session Attribute Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(sessionMap), module);
+        }
+
+        return sessionMap;
+    }
+
+    /**
+     * Create a map from a ServletContext object
+     * @return The resulting Map
+     */
+    public static Map getServletContextMap(HttpServletRequest request) {
+        return getServletContextMap(request, null);
+    }
+
+    /**
+     * Create a map from a ServletContext object
+     * @return The resulting Map
+     */
+    public static Map getServletContextMap(HttpServletRequest request, Set<String> namesToSkip) {
+        Map servletCtxMap = FastMap.newInstance();
+
+        // look at all servlet context attributes
+        ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
+        Enumeration applicationAttrNames = servletContext.getAttributeNames();
+        while (applicationAttrNames.hasMoreElements()) {
+            String attrName = (String) applicationAttrNames.nextElement();
+            if (namesToSkip != null && namesToSkip.contains(attrName))
+                continue;
+
+            Object attrValue = servletContext.getAttribute(attrName);
+            servletCtxMap.put(attrName, attrValue);
+        }
+
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Made ServletContext Attribute Map with [" + servletCtxMap.size() + "] Entries", module);
+            Debug.logVerbose("ServletContext Attribute Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(servletCtxMap), module);            
+        }
+
+        return servletCtxMap;
     }
 
     public static Map makeParamMapWithPrefix(HttpServletRequest request, String prefix, String suffix) {
@@ -906,4 +1040,5 @@ public class UtilHttp {
         HttpSession session = request.getSession();
         return (session == null ? "unknown" : session.getId());
     }
+    
 }

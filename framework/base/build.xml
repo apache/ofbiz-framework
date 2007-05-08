@@ -71,12 +71,12 @@ under the License.
     </target>
     
     <!-- ================================================================== -->
-    <!-- Compilation of the source files                                                                                                                         -->
+    <!-- Compilation of the source files                                    -->
     <!-- ================================================================== -->               
 
     <target name="classes" depends="prepare,classpath">
         <!-- compile start -->
-    	<javac debug="on" source="1.4" deprecation="on" destdir="${build.dir}/classes/start">
+    	<javac debug="on" source="1.5" deprecation="on" destdir="${build.dir}/classes/start">
             <src path="${src.dir}/start"/>
         </javac>
         <copy todir="${build.dir}/classes/start">
@@ -91,7 +91,7 @@ under the License.
         </condition>
 
         <!-- compile base -->
-    	<javac debug="on" source="1.4" deprecation="on" destdir="${build.dir}/classes/base">
+    	<javac debug="on" source="1.5" deprecation="on" destdir="${build.dir}/classes/base">            
             <classpath>
                 <path refid="local.class.path"/>
                 <pathelement path="${build.dir}/classes/start"/>
