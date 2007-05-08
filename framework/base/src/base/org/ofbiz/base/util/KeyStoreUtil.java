@@ -104,8 +104,15 @@ public class KeyStoreUtil {
         return (X509Certificate) cf.generateCertificate(bais);
     }
 
-    public static Map getCertX500Map(X509Certificate cert) {
-        X500Principal x500 = cert.getSubjectX500Principal();
+    public static Map getCertX500Map(java.security.cert.X509Certificate cert) {
+        return getX500Map(cert.getSubjectX500Principal());
+    }
+
+    public static Map getCertX500Map(javax.security.cert.X509Certificate cert) {
+        return getX500Map(cert.getSubjectDN());
+    }
+
+    public static Map getX500Map(Principal x500) {
         Map x500Map = FastMap.newInstance();
         
         String name = x500.getName().replaceAll("\\\\,", "&com;");

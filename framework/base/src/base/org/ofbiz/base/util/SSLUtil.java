@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.SecureRandom;
+import java.security.Principal;
 import java.security.cert.X509Certificate;
 import java.security.cert.CertificateException;
 import java.util.*;
@@ -193,17 +194,12 @@ public class SSLUtil {
                             return false;
                         }
                         for (int i = 0; i < peerCerts.length; i++) {
-                            Map certMap = new HashMap();
-                            String name = peerCerts[i].getSubjectDN().getName();
-                            String[] sections = name.split("\\,");
-                            for (int si = 0; si < sections.length; si++) {
-                                String[] nv = sections[si].split("\\=");
-                                for (int nvi = 0; nvi < nv.length; nvi++) {
-                                    certMap.put(nv[0], nv[1]);
-                                }
-                            }
+                            Principal x500s = peerCerts[i].getSubjectDN();
+                            Map subjectMap = KeyStoreUtil.getX500Map(x500s);                            
 
-                            Debug.log(peerCerts[i].getSerialNumber().toString(16) + " :: " + certMap.get("CN"), module);
+                            if (Debug.infoOn())
+                                Debug.logInfo(peerCerts[i].getSerialNumber().toString(16) + " :: " + subjectMap.get("CN"), module);
+                            
                             try {
                                 peerCerts[i].checkValidity();
                             } catch (Exception e) {
