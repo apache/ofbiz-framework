@@ -370,6 +370,7 @@ under the License.
         <attribute name="refundFlag" type="String" mode="IN" optional="true"/>
         <attribute name="refundMessage" type="String" mode="IN" optional="true"/>
         <attribute name="internalRespMsgs" type="List" mode="IN" optional="true"/>
+        <attribute name="paymentId" type="String" mode="OUT" optional="true"/>
     </service>
 
     <service name="processPaymentServiceError" engine="java" require-new-transaction="true" max-retry="5"
