@@ -35,6 +35,7 @@
         <appender-ref ref="ofbiz-html"/>
         <appender-ref ref="debug"/>
         <appender-ref ref="error"/>
+        <appender-ref ref="socket"/>
         <!-- <appender-ref ref="email"/> -->
     </appender>
 
@@ -95,6 +96,11 @@
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
         </layout>
+    </appender>
+
+    <!-- chainsaw remote socket log monitor -->
+    <appender name="socket" class="org.apache.log4j.net.SocketHubAppender">        
+        <param name="port" value="4445"/>        
     </appender>
 
     <!-- fatal error SMTP notification -->
