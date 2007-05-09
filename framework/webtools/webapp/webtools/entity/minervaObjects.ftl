@@ -29,6 +29,8 @@ under the License.
         <td>Helper Name</td>
         <td>Pool</td>
         <td>Thread</td>
+        <td>In Tx</td>
+        <td>Timeout</td>
         <td>Object</td>
         <td>Created</td>
         <td>Last Used</td>
@@ -42,15 +44,23 @@ under the License.
                 <#assign pooledObjs = Static["org.ofbiz.entity.transaction.MinervaConnectionFactory"].getPooledData(helper)?if_exists/>
                 <#assign pool = Static["org.ofbiz.entity.transaction.MinervaConnectionFactory"].getPoolName(helper)?if_exists/>
                 <#if (pooledObjs?has_content)>
-                    <#list pooledObjs as obj>                        
+                    <#list pooledObjs as obj>
+                        <#assign isTx = (obj.getCurrentXid()?has_content)/>
+                        <#if ((obj.isInUse())?default(false))>
+                            <#assign color = "red"/>
+                        <#else>
+                            <#assign color = "green"/>
+                        </#if>
                         <tr<#if alt_row> class="alternate-row"</#if>>
                             <td>${helper}</td>
                             <td>${pool}</td>
                             <td>${(obj.getThread().getName())?default("n/a")}</td>
+                            <td>${(isTx)?default("n/a")?string}</td>
+                            <td>${(obj.getTransactionTimeout())?default(-1)?string}</td>
                             <td>${(obj.getObject().toString())?default("n/a")}</td>
                             <td>${obj.getCreationDate()?datetime?default("n/a")?string}</td>
                             <td>${obj.getLastUsedDate()?datetime?default("n/a")?string}</td>
-                            <td>${obj.isInUse()?default(false)?string}</td>
+                            <td><font color="${color}">${obj.isInUse()?default(false)?string}</font></td>
                         </tr>
                         <#assign alt_row = !alt_row>
                     </#list>
