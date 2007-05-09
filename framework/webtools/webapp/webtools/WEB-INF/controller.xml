@@ -154,6 +154,11 @@ under the License.
         <response name="success" type="view" value="sitemap"/>
     </request-map>
 
+    <request-map uri="minervainfo">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="minervaobjects"/>        
+    </request-map>
+
     <request-map uri="entitymaint">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="entitymaint"/>
@@ -609,7 +614,8 @@ under the License.
     <view-map name="EntityImportReaders" page="component://webtools/widget/EntityScreens.xml#EntityImportReaders" type="screen"/>
     
     <view-map name="ViewComponents" page="component://webtools/widget/MiscScreens.xml#ViewComponents" type="screen"/>
-
+    <view-map name="minervaobjects" page="component://webtools/widget/EntityScreens.xml#minervaobjects" type="screen"/>
+    
     <!-- cert views -->
     <view-map name="viewbrowsercerts" type="screen" page="component://webtools/widget/CommonScreens.xml#browsercerts"/> 
     <!-- end of view mappings -->
