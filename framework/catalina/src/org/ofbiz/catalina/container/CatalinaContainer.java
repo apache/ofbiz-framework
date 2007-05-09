@@ -186,7 +186,7 @@ public class CatalinaContainer implements Container {
 
         // create the engines
         List engineProps = cc.getPropertiesWithValue("engine");
-        if (engineProps == null && engineProps.size() == 0) {
+        if (engineProps == null || engineProps.size() == 0) {
             throw new ContainerException("Cannot load CatalinaContainer; no engines defined!");
         }
         Iterator ei = engineProps.iterator();
@@ -200,7 +200,7 @@ public class CatalinaContainer implements Container {
 
         // create the connectors
         List connectorProps = cc.getPropertiesWithValue("connector");
-        if (connectorProps == null && connectorProps.size() == 0) {
+        if (connectorProps == null || connectorProps.size() == 0) {
             throw new ContainerException("Cannot load CatalinaContainer; no connectors defined!");
         }
         Iterator ci = connectorProps.iterator();
@@ -630,7 +630,7 @@ public class CatalinaContainer implements Container {
         URL xmlUrl = UtilURL.fromResource("mime-type.xml");
 
         // read the document
-        Document mimeTypeDoc = null;
+        Document mimeTypeDoc;
         try {
             mimeTypeDoc = UtilXml.readXmlDocument(xmlUrl, true);
         } catch (SAXException e) {
