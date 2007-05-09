@@ -62,7 +62,7 @@ public class ServiceDispatcher {
     public static final String module = ServiceDispatcher.class.getName();
     public static final int lruLogSize = 200;
 
-    protected static Map runLog = new LRUMap(lruLogSize);
+    protected static final Map runLog = new LRUMap(lruLogSize);
     protected static Map dispatchers = FastMap.newInstance();
     protected static boolean enableJM = true;
     protected static boolean enableJMS = true;
@@ -904,17 +904,20 @@ public class ServiceDispatcher {
         // set up the running service log
         RunningService rs = new RunningService(localName, modelService, mode);
         if (runLog == null) {
-            runLog = new LRUMap(lruLogSize);
-        }
-        try {
-            runLog.put(rs, this);
-        } catch (Throwable t) {
-            Debug.logWarning("LRUMap problem; resetting LRU [" + runLog.size() + "]", module);
-            runLog = new LRUMap(lruLogSize);
-            try {
-                runLog.put(rs, this);
-            } catch (Throwable t2) {
-                Debug.logError(t2, "Unable to put() in reset LRU map!", module);
+            Debug.logWarning("LRUMap is null", module);
+        } else {
+            synchronized(runLog) {
+                try {
+                    runLog.put(rs, this);
+                } catch (Throwable t) {
+                    Debug.logWarning("LRUMap problem; resetting LRU [" + runLog.size() + "]", module);
+                    runLog.clear();
+                    try {
+                        runLog.put(rs, this);
+                    } catch (Throwable t2) {
+                        Debug.logError(t2, "Unable to put() in reset LRU map!", module);
+                    }
+                }
             }
         }
         return rs;
