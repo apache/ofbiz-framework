@@ -28,12 +28,12 @@ import javax.transaction.*;
 /**
  * GenericXaResource - Abstract XA Resource implementation supporting a single transaction
  */
-public abstract class GenericXaResource implements XAResource {
+public abstract class GenericXaResource extends Thread implements XAResource {
 
     public static final String module = GenericXaResource.class.getName();
 
     protected boolean active = false;
-    protected int timeout = 0;
+    protected int timeout = 30;
     protected Xid xid = null;
 
     /**
@@ -75,8 +75,11 @@ public abstract class GenericXaResource implements XAResource {
             throw new XAException(XAException.XAER_NOTA);
         }
 
-        this.xid = xid;
+        this.setName("GenericXaResource-Thread");
+        this.setDaemon(true);
         this.active = true;
+        this.xid = xid;        
+        this.start();
     }
 
     /**
@@ -147,7 +150,7 @@ public abstract class GenericXaResource implements XAResource {
      * Note: the valus is saved but in the current implementation this is not used.
      */
     public boolean setTransactionTimeout(int seconds) throws XAException {
-        this.timeout = seconds;
+        this.timeout = seconds == 0 ? 30 : seconds;
         return true;
     }
 
@@ -164,4 +167,37 @@ public abstract class GenericXaResource implements XAResource {
      * @see javax.transaction.xa.XAResource#rollback(javax.transaction.xa.Xid xid)
      */
     public abstract void rollback(Xid xid) throws XAException;
+
+    /**
+     * Method which will run when the transaction times out
+     */
+    public void runOnTimeout() {
+    }
+
+    // thread run method
+    public void run() {
+        try {
+            // sleep until the transaction times out
+            sleep(timeout * 1000);
+
+            if (active) {
+                // get the current status
+                int status = Status.STATUS_UNKNOWN;
+                try {
+                    status = TransactionUtil.getStatus();
+                } catch (GenericTransactionException e) {
+                    Debug.logWarning(e, module);
+                }
+
+                // log a warning message
+                String statusString = TransactionUtil.getTransactionStateString(status);
+                Debug.logWarning("Transaction timeout [" + timeout + "] Status: " + statusString + " Xid: " + getXid(), module);
+
+                // run the abstract method
+                runOnTimeout();
+            }
+        } catch (InterruptedException e) {
+            Debug.logWarning(e, "InterruptedException thrown", module);
+        }
+    }
 }
