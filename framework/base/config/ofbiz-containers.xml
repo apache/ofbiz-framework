@@ -183,7 +183,7 @@ under the License.
             <property name="maxHttpHeaderSize" value="4096"/>
             <property name="maxKeepAliveRequests" value="100"/>
             <property name="maxSpareThreads" value="50"/>
-            <property name="maxThreads" value="200"/>
+            <property name="maxThreads" value="100"/>
             <property name="minSpareThreads" value="4"/>
             <property name="noCompressionUserAgents" value=""/>
             <property name="port" value="8080"/>
@@ -221,7 +221,7 @@ under the License.
             <property name="maxHttpHeaderSize" value="4096"/>
             <property name="maxKeepAliveRequests" value="100"/>
             <property name="maxSpareThreads" value="50"/>
-            <property name="maxThreads" value="200"/>
+            <property name="maxThreads" value="100"/>
             <property name="minSpareThreads" value="4"/>
             <property name="noCompressionUserAgents" value=""/>
             <property name="port" value="8443"/>
