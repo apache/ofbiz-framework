@@ -39,8 +39,8 @@ public class MinervaConnectionFactory {
     public static final String module = MinervaConnectionFactory.class.getName();                
         
     protected static Map dsCache = new HashMap();
-    
-    public static Connection getConnection(String helperName, Element jotmJdbcElement) throws SQLException, GenericEntityException {                               
+
+    public static Connection getConnection(String helperName, Element jotmJdbcElement) throws SQLException, GenericEntityException {
         XAPoolDataSource pds = (XAPoolDataSource) dsCache.get(helperName);        
         if (pds != null) {                                  
             return TransactionFactory.getCursorConnection(helperName, pds.getConnection());
@@ -121,5 +121,21 @@ public class MinervaConnectionFactory {
             XAPoolDataSource pds = (XAPoolDataSource) dsCache.remove(helperName);
             pds.close();   
         }                                                                             
+    }
+
+    public static Set getPooledData(String helperName) throws GenericEntityException {
+        XAPoolDataSource pds = (XAPoolDataSource) dsCache.get(helperName);
+        if (pds == null) {
+            throw new GenericEntityException("No pool found for helper name [" + helperName + "]");
+        }
+        return pds.getPooledObjectRecords(0); // 0 to return all (in use and waiting)
+    }
+
+    public static String getPoolName(String helperName) throws GenericEntityException {
+        XAPoolDataSource pds = (XAPoolDataSource) dsCache.get(helperName);
+        if (pds == null) {
+            throw new GenericEntityException("No pool found for helper name [" + helperName + "]");
+        }
+        return pds.getPoolDataString();
     }
 }
