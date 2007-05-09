@@ -186,7 +186,7 @@ public class TransactionUtil implements Status {
 
                     Debug.logVerbose("[TransactionUtil.commit] transaction committed", module);
                 } else {
-                    Debug.logInfo("[TransactionUtil.commit] Not committing transaction, status is STATUS_NO_TRANSACTION", module);
+                    Debug.logWarning("[TransactionUtil.commit] Not committing transaction, status is STATUS_NO_TRANSACTION", module);
                 }
             } catch (RollbackException e) {
                 RollbackOnlyCause rollbackOnlyCause = getSetRollbackOnlyCause();
@@ -203,6 +203,9 @@ public class TransactionUtil implements Status {
                     Throwable t = e.getCause() == null ? e : e.getCause();
                     throw new GenericTransactionException("Roll back error (with no rollbackOnly cause found), could not commit transaction, was rolled back instead: " + t.toString(), t);
                 }
+            } catch (IllegalStateException e) {
+                Throwable t = e.getCause() == null ? e : e.getCause();
+                throw new GenericTransactionException("Could not commit transaction, IllegalStateException exception: " + t.toString(), t);
             } catch (HeuristicMixedException e) {
                 Throwable t = e.getCause() == null ? e : e.getCause();
                 throw new GenericTransactionException("Could not commit transaction, HeuristicMixed exception: " + t.toString(), t);
@@ -261,11 +264,14 @@ public class TransactionUtil implements Status {
                     ut.rollback();
                     Debug.logInfo("[TransactionUtil.rollback] transaction rolled back", module);
                 } else {
-                    Debug.logInfo("[TransactionUtil.rollback] transaction not rolled back, status is STATUS_NO_TRANSACTION", module);
+                    Debug.logWarning("[TransactionUtil.rollback] transaction not rolled back, status is STATUS_NO_TRANSACTION", module);
                 }
+            } catch (IllegalStateException e) {
+                Throwable t = e.getCause() == null ? e : e.getCause();
+                throw new GenericTransactionException("Could not rollback transaction, IllegalStateException exception: " + t.toString(), t);
             } catch (SystemException e) {
-                //This is Java 1.4 only, but useful for certain debuggins: Throwable t = e.getCause() == null ? e : e.getCause();
-                throw new GenericTransactionException("System error, could not rollback transaction", e);
+                Throwable t = e.getCause() == null ? e : e.getCause();
+                throw new GenericTransactionException("System error, could not rollback transaction: " + t.toString(), t);
             }
         } else {
             Debug.logInfo("[TransactionUtil.rollback] No UserTransaction, transaction not rolled back", module);
@@ -289,11 +295,14 @@ public class TransactionUtil implements Status {
                         Debug.logInfo("[TransactionUtil.setRollbackOnly] transaction rollback only not set, rollback only is already set.", module);
                     }
                 } else {
-                    Debug.logInfo("[TransactionUtil.setRollbackOnly] transaction rollback only not set, status is STATUS_NO_TRANSACTION", module);
-                }
+                    Debug.logWarning("[TransactionUtil.setRollbackOnly] transaction rollback only not set, status is STATUS_NO_TRANSACTION", module);
+                }            
+            } catch (IllegalStateException e) {
+                Throwable t = e.getCause() == null ? e : e.getCause();
+                throw new GenericTransactionException("Could not set rollback only on transaction, IllegalStateException exception: " + t.toString(), t);
             } catch (SystemException e) {
-                //This is Java 1.4 only, but useful for certain debuggins: Throwable t = e.getCause() == null ? e : e.getCause();
-                throw new GenericTransactionException("System error, could not set rollback only on transaction", e);
+                Throwable t = e.getCause() == null ? e : e.getCause();
+                throw new GenericTransactionException("System error, could not set rollback only on transaction: " + t.toString(), t);
             }
         } else {
             Debug.logInfo("[TransactionUtil.setRollbackOnly] No UserTransaction, transaction rollback only not set", module);
