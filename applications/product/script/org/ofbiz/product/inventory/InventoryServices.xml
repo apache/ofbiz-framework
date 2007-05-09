@@ -572,10 +572,16 @@ under the License.
             </condition-list>
             <!-- TODO: order the list of inventory items in a useful way, since operations occur below based on the first item -->
         </entity-condition>
-
-        <if-compare field-name="inventoryItemTypeId" map-name="inventoryItem" operator="equals" value="NON_SERIAL_INV_ITEM">
-            <!--  find their current reservations -->
-            <iterate list-name="inventoryItems" entry-name="item">
+        <!--  find their current reservations -->
+        <iterate list-name="inventoryItems" entry-name="item">
+            <!-- If quantityOnHandTotal is not equal to availableToPromiseTotal this means that 
+                 there are pending reservations on the item that cause availableToPromiseTotal
+                 to be lower than the quantityOnHandTotal (the opposite can never happen).
+                 In fact, if availableToPromiseTotal is negative, this doesn't mean that there are reservations;
+                 for example, if we have a negative quantityOnHandTotal and quantityOnHandTotal equal to 
+                 availableToPromiseTotal, then no reservations are present.
+            -->
+            <if-compare-field field-name="item.quantityOnHandTotal" operator="not-equals" to-field-name="item.availableToPromiseTotal">
                 <get-related value-name="item" relation-name="OrderItemShipGrpInvRes" list-name="relatedRes"/>
                 <!--<list-to-list list-name="relatedRes" to-list-name="reservations"/>-->
 
@@ -611,108 +617,49 @@ under the License.
                         </if>
                     </if-empty>
                 </iterate>
-            </iterate>
+            </if-compare-field>
+        </iterate>
 
-            <!-- sort the list by date -->
-            <string-to-list string="reservedDatetime" list-name="orderByList"/>
-            <order-value-list list-name="reservations" order-by-list-name="orderByList"/>
-            <set field="orderByList[]" value="sequenceId"/>
-            
-            <list-to-list list-name="privilegedReservations" to-list-name="allReservations"/>
-            <list-to-list list-name="reservations" to-list-name="allReservations"/>
+        <!-- sort the list by date -->
+        <string-to-list string="reservedDatetime" list-name="orderByList"/>
+        <order-value-list list-name="reservations" order-by-list-name="orderByList"/>
+        <set field="orderByList[]" value="sequenceId"/>
 
-            <!-- FIRST, cancel all the reservation -->
-            <iterate list-name="allReservations" entry-name="oisgir">
-                <set from-field="oisgir.orderId" field="cancelOisgirMap.orderId"/>
-                <set from-field="oisgir.orderItemSeqId" field="cancelOisgirMap.orderItemSeqId"/>
-                <set from-field="oisgir.inventoryItemId" field="cancelOisgirMap.inventoryItemId"/>
-                <set from-field="oisgir.shipGroupSeqId" field="cancelOisgirMap.shipGroupSeqId"/>
-                <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOisgirMap"/>
-                <clear-field field-name="cancelOisgirMap"/>
-            </iterate>
-            
-            <!-- THEN, re-reserve the cancelled item -->
-            <iterate list-name="allReservations" entry-name="oisgir">
-                <!-- require inventory is N because it had to be N to begin with to have a negative ATP -->
-                <set from-field="inventoryItem.productId" field="resMap.productId"/>
-                <set from-field="oisgir.orderId" field="resMap.orderId"/>
-                <set from-field="oisgir.orderItemSeqId" field="resMap.orderItemSeqId"/>
-                <set from-field="oisgir.quantity" field="resMap.quantity"/>
-                <set from-field="oisgir.reservedDatetime" field="resMap.reservedDatetime"/>
-                <set from-field="oisgir.reserveOrderEnumId" field="resMap.reserveOrderEnumId"/>
-                <set field="resMap.requireInventory" value="N"/>
-                <set from-field="oisgir.shipGroupSeqId" field="resMap.shipGroupSeqId"/>
-                <set from-field="oisgir.sequenceId" field="resMap.sequenceId"/>
-                <call-service service-name="reserveProductInventory" in-map-name="resMap"/>
-                <clear-field field-name="resMap"/>
-            </iterate>
-            
-            <else>
-                <if-compare field-name="inventoryItemTypeId" map-name="inventoryItem" operator="equals" value="SERIALIZED_INV_ITEM">
-                    <now-timestamp-to-env env-name="nowTimestamp"/>
-                    
-                    <!-- Get the first non-serialized inventory item with a negative ATP -->
-                    <first-from-list entry-name="nonSerInvItem" list-name="inventoryItems"/>                    
-                    <if-not-empty field-name="nonSerInvItem">
+        <list-to-list list-name="privilegedReservations" to-list-name="allReservations"/>
+        <list-to-list list-name="reservations" to-list-name="allReservations"/>
 
-                        <!-- Change the serialized inventoryItem's status to promised -->
-                        <set field="inventoryItem.statusId" value="INV_PROMISED"/> 
-                        <store-value value-name="inventoryItem" do-cache-clear="true"/>
-                        <check-errors/>
-
-                        <!-- Update the first negative non-serialized inventoryItem's ATP and QOH values -->
-                        <calculate field-name="nonSerInvItem.availableToPromiseTotal" type="Double">
-                            <calcop operator="add" field-name="nonSerInvItem.availableToPromiseTotal">
-                                <calcop operator="get" field-name="inventoryItem.availableToPromiseTotal"/>
-                            </calcop>
-                        </calculate>
-                        <calculate field-name="nonSerInvItem.quantityOnHandTotal" type="Double">
-                            <calcop operator="add" field-name="nonSerInvItem.quantityOnHandTotal">
-                                <calcop operator="get" field-name="inventoryItem.quantityOnHandTotal"/>
-                            </calcop>
-                        </calculate>
-                        <store-value value-name="nonSerInvItem"/>
-                        <check-errors/>
-                        
-                        <!-- Get list of reservations ordered by reservedDatetime, oldest one first -->
-                        <string-to-list string="reservedDatetime" list-name="orderByList"/>
-                        <get-related value-name="nonSerInvItem" relation-name="OrderItemShipGrpInvRes" list-name="nonSerInvRes"
-                             order-by-list-name="orderByList"/>
-                        <first-from-list entry-name="inventoryReservation" list-name="nonSerInvRes"/>                    
-                        <if-not-empty field-name="inventoryReservation">
-        
-                            <!-- Make a new reservation for the serialized unit quantity for the order -->
-                            <make-value value-name="newReservation" entity-name="OrderItemShipGrpInvRes" map-name="inventoryReservation"/>
-                            <set from-field="inventoryItem.availableToPromiseTotal" field="newReservation.quantity"/>
-                            <set from-field="inventoryItem.inventoryItemId" field="newReservation.inventoryItemId"/>
-                            <create-value value-name="newReservation"/>
-                            <check-errors/>
-                            
-                            <!-- Reduce the previous reservation by 1 unit -->
-                            <calculate field-name="inventoryReservation.quantity" type="Double">
-                                <calcop operator="subtract" field-name="inventoryReservation.quantity">
-                                    <calcop operator="get" field-name="inventoryItem.availableToPromiseTotal"/>
-                                </calcop>
-                            </calculate>
-
-                            <!-- If the previous reservation quantity is now zero then cancel it, otherwise store it -->
-                            <if-compare field-name="inventoryReservation.quantity" value="0" operator="less-equals" type="Double">
-                                <set from-field="inventoryReservation.orderId" field="cancelOisgirMap.orderId"/>
-                                <set from-field="inventoryReservation.orderItemSeqId" field="cancelOisgirMap.orderItemSeqId"/>
-                                <set from-field="inventoryReservation.inventoryItemId" field="cancelOisgirMap.inventoryItemId"/>
-                                <set from-field="inventoryReservation.shipGroupSeqId" field="cancelOisgirMap.shipGroupSeqId"/>
-                                <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOisgirMap"/>
-                                <check-errors/>
-                                <else>
-                                    <store-value value-name="inventoryReservation"/>
-                                </else>
-                            </if-compare>
-                            <check-errors/>
-                        </if-not-empty>                    
-                    </if-not-empty>                    
-                </if-compare>
-            </else>
+        <if-compare field-name="inventoryItemTypeId" map-name="inventoryItem" operator="equals" value="SERIALIZED_INV_ITEM">
+            <!-- if the new item is serialized, i.e. qoh is 1, we just need the first reservation -->
+            <first-from-list entry-name="inventoryReservation" list-name="allReservations"/>
+            <clear-field field-name="allReservations"/>
+            <field-to-list field-name="inventoryReservation" list-name="allReservations"/>
         </if-compare>
+
+        <!-- FIRST, cancel all the reservations -->
+        <iterate list-name="allReservations" entry-name="oisgir">
+            <set from-field="oisgir.orderId" field="cancelOisgirMap.orderId"/>
+            <set from-field="oisgir.orderItemSeqId" field="cancelOisgirMap.orderItemSeqId"/>
+            <set from-field="oisgir.inventoryItemId" field="cancelOisgirMap.inventoryItemId"/>
+            <set from-field="oisgir.shipGroupSeqId" field="cancelOisgirMap.shipGroupSeqId"/>
+            <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOisgirMap"/>
+            <clear-field field-name="cancelOisgirMap"/>
+        </iterate>
+
+        <!-- THEN, re-reserve the cancelled items -->
+        <iterate list-name="allReservations" entry-name="oisgir">
+            <!-- require inventory is N because it had to be N to begin with to have a negative ATP -->
+            <set from-field="inventoryItem.productId" field="resMap.productId"/>
+            <set from-field="oisgir.orderId" field="resMap.orderId"/>
+            <set from-field="oisgir.orderItemSeqId" field="resMap.orderItemSeqId"/>
+            <set from-field="oisgir.quantity" field="resMap.quantity"/>
+            <set from-field="oisgir.reservedDatetime" field="resMap.reservedDatetime"/>
+            <set from-field="oisgir.reserveOrderEnumId" field="resMap.reserveOrderEnumId"/>
+            <set field="resMap.requireInventory" value="N"/>
+            <set from-field="oisgir.shipGroupSeqId" field="resMap.shipGroupSeqId"/>
+            <set from-field="oisgir.sequenceId" field="resMap.sequenceId"/>
+            <call-service service-name="reserveProductInventory" in-map-name="resMap"/>
+            <clear-field field-name="resMap"/>
+        </iterate>
     </simple-method>
 
     <!-- Inventory Transfer Services -->

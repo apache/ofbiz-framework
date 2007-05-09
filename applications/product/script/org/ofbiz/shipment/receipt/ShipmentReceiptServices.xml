@@ -100,10 +100,6 @@ under the License.
             <set-service-fields service-name="createShipmentReceipt" map-name="parameters" to-map-name="serviceInMap"/>
             <call-service service-name="createShipmentReceipt" in-map-name="serviceInMap"/>
             <check-errors/>
-            <clear-field field-name="serviceInMap"/>
-            <set-service-fields service-name="balanceInventoryItems" map-name="parameters" to-map-name="serviceInMap"/>
-            <call-service service-name="balanceInventoryItems" in-map-name="serviceInMap"/>
-            <check-errors/>
             <!-- update serialized items to AVAILABLE (only if this is not a return), which then triggers other SECA chains -->
             <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field-name="parameters.inventoryItemTypeId">
                 <if-compare value="INV_RETURNED" operator="not-equals" field-name="parameters.statusId">
@@ -121,6 +117,10 @@ under the License.
                     </if-compare>
                 </if-compare>
             </if-compare>
+            <clear-field field-name="serviceInMap"/>
+            <set-service-fields service-name="balanceInventoryItems" map-name="parameters" to-map-name="serviceInMap"/>
+            <call-service service-name="balanceInventoryItems" in-map-name="serviceInMap"/>
+            <check-errors/>
             <set value="Received ${parameters.quantityAccepted} of ${parameters.productId} in inventory item ${parameters.inventoryItemId}" field="successMessageList[]"/>
         </loop>
         <!-- return the last inventory item received -->
