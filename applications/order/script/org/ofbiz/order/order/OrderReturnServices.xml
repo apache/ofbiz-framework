@@ -780,6 +780,33 @@ under the License.
         </iterate>
     </simple-method>
 
+    <simple-method method-name="cancelReplacementOrderItems" short-description="Cancel the associated OrderItems of the replacement order, if any.">
+        <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCancelReturnItems"/></check-permission>
+        <check-errors/>
+        <entity-one entity-name="ReturnItem" value-name="returnItem"/>
+        <if>
+            <condition>
+                <or>
+                    <if-compare field-name="returnItem.returnTypeId" operator="equals" value="RTN_REPLACE"/>
+                    <if-compare field-name="returnItem.returnTypeId" operator="equals" value="RTN_CSREPLACE"/>
+                    <if-compare field-name="returnItem.returnTypeId" operator="equals" value="RTN_REPAIR_REPLACE"/>
+                </or>
+            </condition>
+            <then>
+                <!-- get the returned order item -->
+                <get-related-one value-name="returnItem" relation-name="OrderItem" to-value-name="orderItem"/>
+                <!-- get the order items of the replacement order associated to the returned item  -->
+                <set field="oiaMap.orderItemAssocTypeId" value="REPLACEMENT"/>
+                <get-related value-name="orderItem" relation-name="FromOrderItemAssoc" map-name="oiaMap" list-name="replacementOrderItems"/>
+                <iterate list-name="replacementOrderItems" entry-name="replacementOrderItem">
+                    <set field="orderItemMap.orderId" from-field="replacementOrderItem.toOrderId"/>
+                    <set field="orderItemMap.orderItemSeqId" from-field="replacementOrderItem.toOrderItemSeqId"/>
+                    <call-service service-name="cancelOrderItem" in-map-name="orderItemMap"/>
+                </iterate>
+            </then>
+        </if>
+    </simple-method>
+
     <simple-method method-name="processWaitReplacementReturn" short-description="Process the replacements in a wait return">
         <set field="inMap.returnId" from-field="parameters.returnId"/>
         <set field="inMap.returnTypeId" value="RTN_REPLACE"/>

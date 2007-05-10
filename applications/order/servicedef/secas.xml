@@ -171,6 +171,12 @@ under the License.
         <action service="resetGrandTotal" mode="sync"/>
     </eca>
 
+    <eca service="updateReturnItem" event="commit">
+        <condition field-name="statusId" operator="equals" value="RETURN_CANCELLED"/>
+        <condition field-name="currentStatusId" operator="not-equals" value="RETURN_CANCELLED"/>
+        <action service="cancelReplacementOrderItems" mode="sync"/>
+    </eca>
+
     <eca service="updateReturnStatusFromReceipt" event="global-commit">
         <condition field-name="returnHeaderStatus" operator="equals" value="RETURN_RECEIVED"/>
         <action service="processWaitReplacementReturn" mode="sync" persist="true"/>
