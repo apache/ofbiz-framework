@@ -24,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -491,6 +492,44 @@ public class PdfSurveyServices {
             System.err.println(e.getMessage());
             ServiceUtil.returnError(e.getMessage());
         } catch (DocumentException e) {
+            System.err.println(e.getMessage());
+            ServiceUtil.returnError(e.getMessage());
+        }
+        
+        return results;
+    }
+    
+    /**
+     * Returns list of maps with "question"->SurveyQuestion and "response"->SurveyResponseAnswer
+     */
+    public static Map buildSurveyQuestionsAndAnswers(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        //LocalDispatcher dispatcher = dctx.getDispatcher();
+        Map results = ServiceUtil.returnSuccess();
+        String surveyResponseId = (String)context.get("surveyResponseId");
+        String surveyId = null;
+        List qAndA = new ArrayList();
+
+        Document document = new Document();
+        try {
+            if (UtilValidate.isNotEmpty(surveyResponseId)) {
+                GenericValue surveyResponse = delegator.findByPrimaryKey("SurveyResponse", UtilMisc.toMap("surveyResponseId", surveyResponseId));
+                if (surveyResponse != null) {
+                    surveyId = surveyResponse.getString("surveyId");
+                }
+            }
+         
+            List responses = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId));
+            Iterator iter = responses.iterator();
+            while (iter.hasNext()) {
+                String value = null;
+                GenericValue surveyResponseAnswer = (GenericValue) iter.next();
+                String surveyQuestionId = (String) surveyResponseAnswer.get("surveyQuestionId");
+                GenericValue surveyQuestion = delegator.findByPrimaryKey("SurveyQuestion", UtilMisc.toMap("surveyQuestionId", surveyQuestionId));
+                qAndA.add(UtilMisc.toMap("question", surveyQuestion, "response", surveyResponseAnswer));
+            }
+            results.put("questionsAndAnswers", qAndA);
+        } catch (GenericEntityException e) {
             System.err.println(e.getMessage());
             ServiceUtil.returnError(e.getMessage());
         }
