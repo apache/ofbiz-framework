@@ -55,7 +55,6 @@
 	<classpathentry kind="lib" path="framework/catalina/lib/servlets-default.jar"/>
 	<classpathentry kind="lib" path="framework/catalina/lib/catalina-optional.jar"/>
 	<classpathentry kind="lib" path="framework/catalina/lib/catalina.jar"/>
-	<classpathentry kind="lib" path="framework/catalina/lib/jmx.jar"/>
 	<classpathentry kind="lib" path="framework/catalina/lib/catalina-cluster.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/itext-2.0.1.jar"/>
 	<classpathentry kind="lib" path="framework/geronimo/lib/geronimo-transaction-1.0.jar"/>
@@ -72,7 +71,7 @@
 	<classpathentry kind="lib" path="framework/base/lib/jakarta-regexp-1.5.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/icu4j-3_6.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/httpunit.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.8.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.10.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/avalon-framework-4.2.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/avalon-util-exception-1.0.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/ant-launcher.jar"/>
