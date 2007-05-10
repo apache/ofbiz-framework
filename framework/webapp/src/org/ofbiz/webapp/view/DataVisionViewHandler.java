@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.webapp.view;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.servlet.ServletContext;
@@ -83,7 +84,7 @@ public class DataVisionViewHandler implements ViewHandler {
             */
 
             Debug.logInfo("before reading file", module);
-            report.readFile(context.getRealPath(page)); // Must be after password
+            report.read(new File(context.getRealPath(page))); // Must be after password
 
             /* NO support for param file yet... need to pull in page params or something
              if (there_are_params_in_report) {
