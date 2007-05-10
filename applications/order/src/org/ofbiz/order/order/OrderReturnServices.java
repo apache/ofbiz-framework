@@ -1516,6 +1516,11 @@ public class OrderReturnServices {
                                                     GenericValue newOrderItemShipGroupAssoc = delegator.makeValue("OrderItemShipGroupAssoc", UtilMisc.toMap("orderItemSeqId", newItem.getString("orderItemSeqId"), "shipGroupSeqId", orderItemShipGroupAssoc.getString("shipGroupSeqId"), "quantity", repairQuantity));
                                                     orderItemShipGroupInfo.add(newOrderItemShipGroupAssoc);
                                                 }
+                                                // Create an association between the repair order item and the order item of the original order
+                                                newOrderItemAssoc = delegator.makeValue("OrderItemAssoc", UtilMisc.toMap("orderId", orderHeader.getString("orderId"),
+                                                        "orderItemSeqId", orderItem.getString("orderItemSeqId"), "shipGroupSeqId", "_NA_",
+                                                        "toOrderItemSeqId", newItem.getString("orderItemSeqId"), "toShipGroupSeqId", "_NA_", "orderItemAssocTypeId", "REPLACEMENT"));
+                                                orderItemAssocs.add(newOrderItemAssoc);
                                             }
                                         }
                                     }
