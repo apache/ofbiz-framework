@@ -93,7 +93,7 @@ public class EmailServices {
      *@return Map with the result of the service, the output parameters
      */
     public static Map sendMail(DispatchContext ctx, Map context) {
-          Map results = ServiceUtil.returnSuccess();
+        Map results = ServiceUtil.returnSuccess();
         String subject = (String) context.get("subject");
         String partyId = (String) context.get("partyId");
         String body = (String) context.get("body");
@@ -297,10 +297,11 @@ public class EmailServices {
         String attachmentName = (String) serviceContext.remove("attachmentName");
         Map bodyParameters = (Map) serviceContext.remove("bodyParameters");
         Locale locale = (Locale) serviceContext.get("locale");
-        if( ! bodyParameters.containsKey("locale") )
+        if (!bodyParameters.containsKey("locale")) {
             bodyParameters.put("locale", locale);
-        else
+        } else {
             locale = (Locale) bodyParameters.get("locale");
+        }
         String partyId = (String) bodyParameters.get("partyId");
         NotificationServices.setBaseUrl(dctx.getDelegator(), webSiteId, bodyParameters);
         String contentType = (String) serviceContext.remove("contentType");
