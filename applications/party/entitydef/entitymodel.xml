@@ -156,7 +156,7 @@ under the License.
       <field name="agreementItemSeqId" type="id-ne"></field>
       <field name="agreementItemTypeId" type="id"></field>
       <field name="currencyUomId" type="id"></field>
-      <field name="agreementText" type="long-varchar"></field>
+      <field name="agreementText" type="very-long"></field>
       <field name="agreementImage" type="blob"></field>
       <prim-key field="agreementId"/>
       <prim-key field="agreementItemSeqId"/>
@@ -316,7 +316,7 @@ under the License.
       <field name="invoiceItemTypeId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
-      <field name="termValue" type="currency-amount"></field>
+      <field name="termValue" type="currency-precise"></field>
       <field name="termDays" type="numeric"></field>
       <field name="textValue" type="description"></field>
       <field name="minQuantity" type="floating-point"></field>
