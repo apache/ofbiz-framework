@@ -241,12 +241,14 @@ under the License.
                 <#list linkedOrderItemsTo as linkedOrderItem>
                   <#assign linkedOrderId = linkedOrderItem.toOrderId>
                   <#assign linkedOrderItemSeqId = linkedOrderItem.toOrderItemSeqId>
+                  <#assign linkedOrderItemValue = linkedOrderItem.getRelatedOne("ToOrderItem")>
+                  <#assign linkedOrderItemValueStatus = linkedOrderItemValue.getRelatedOne("StatusItem")>
                   <tr>
                     <td>&nbsp;</td>
                     <td colspan="9">
                       <div class="tabletext">
                         <b><i>${uiLabelMap.OrderLinkedToOrderItem} (${linkedOrderItem.orderItemAssocTypeId})</i>:</b>
-                        <a href="/ordermgr/control/orderview?orderId=${linkedOrderId}" class="buttontext" style="font-size: xx-small;">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;
+                        <a href="/ordermgr/control/orderview?orderId=${linkedOrderId}" class="buttontext" style="font-size: xx-small;">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;${linkedOrderItemValueStatus.description?if_exists}
                       </div>
                     </td>
                   </tr>
@@ -256,12 +258,14 @@ under the License.
                 <#list linkedOrderItemsFrom as linkedOrderItem>
                   <#assign linkedOrderId = linkedOrderItem.orderId>
                   <#assign linkedOrderItemSeqId = linkedOrderItem.orderItemSeqId>
+                  <#assign linkedOrderItemValue = linkedOrderItem.getRelatedOne("FromOrderItem")>
+                  <#assign linkedOrderItemValueStatus = linkedOrderItemValue.getRelatedOne("StatusItem")>
                   <tr>
                     <td>&nbsp;</td>
                     <td colspan="9">
                       <div class="tabletext">
                         <b><i>${uiLabelMap.OrderLinkedFromOrderItem} (${linkedOrderItem.orderItemAssocTypeId})</i>:</b>
-                        <a href="/ordermgr/control/orderview?orderId=${linkedOrderId}" class="buttontext" style="font-size: xx-small;">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;
+                        <a href="/ordermgr/control/orderview?orderId=${linkedOrderId}" class="buttontext" style="font-size: xx-small;">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;${linkedOrderItemValueStatus.description?if_exists}
                       </div>
                     </td>
                   </tr>
