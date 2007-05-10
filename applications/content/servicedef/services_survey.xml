@@ -357,4 +357,10 @@ under the License.
         <attribute name="surveyResponseId" type="String" mode="IN" optional="false" />
         <attribute name="outByteWrapper" type="org.ofbiz.entity.util.ByteWrapper" mode="OUT" optional="false" />
     </service>    
+    <service name="buildSurveyQuestionsAndAnswers" engine="java" 
+            location="org.ofbiz.content.survey.PdfSurveyServices" invoke="buildSurveyQuestionsAndAnswers" auth="false">
+        <description>Build list of questions and answers From Survey Response</description>
+        <attribute name="surveyResponseId" type="String" mode="IN" optional="false" />
+        <attribute name="questionsAndAnswers" type="List" mode="OUT" optional="false" />
+    </service>    
 </services>
