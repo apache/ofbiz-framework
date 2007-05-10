@@ -290,14 +290,17 @@ public class EmailServices {
      */
     public static Map sendMailFromScreen(DispatchContext dctx, Map serviceContext) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Locale locale = (Locale) serviceContext.get("locale");
         String webSiteId = (String) serviceContext.remove("webSiteId");
         String bodyText = (String) serviceContext.remove("bodyText");
         String bodyScreenUri = (String) serviceContext.remove("bodyScreenUri");
         String xslfoAttachScreenLocation = (String) serviceContext.remove("xslfoAttachScreenLocation");
         String attachmentName = (String) serviceContext.remove("attachmentName");
         Map bodyParameters = (Map) serviceContext.remove("bodyParameters");
-        bodyParameters.put("locale", locale);
+        Locale locale = (Locale) serviceContext.get("locale");
+        if( ! bodyParameters.containsKey("locale") )
+            bodyParameters.put("locale", locale);
+        else
+            locale = (Locale) bodyParameters.get("locale");
         String partyId = (String) bodyParameters.get("partyId");
         NotificationServices.setBaseUrl(dctx.getDelegator(), webSiteId, bodyParameters);
         String contentType = (String) serviceContext.remove("contentType");
