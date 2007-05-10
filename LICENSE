@@ -301,7 +301,7 @@ ofbiz/trunk/framework/catalina/lib/jasper-compiler.jar
 ofbiz/trunk/framework/jetty/lib/jasper-compiler.jar
 ofbiz/trunk/framework/catalina/lib/jasper-runtime.jar
 ofbiz/trunk/framework/jetty/lib/jasper-runtime.jar
-ofbiz/trunk/framework/webapp/lib/DataVision-0.7.8.jar
+ofbiz/trunk/framework/webapp/lib/DataVision-1.0.0.jar
 =========================================================================
 Apache Software License
 
@@ -418,7 +418,6 @@ ofbiz/trunk/framework/base/lib/httpunit.jar
 ofbiz/trunk/framework/base/lib/freemarker-2.3.10.jar
 ofbiz/trunk/framework/base/lib/junitperf.jar
 ofbiz/trunk/specialpurpose/pos/lib/looks-2.0.2.jar
-ofbiz/trunk/framework/webapp/lib/MinML2.jar
 ofbiz/trunk/framework/base/lib/javolution-4.2.8.jar
 ofbiz/trunk/framework/images/webapp/images/dojo/*
 =========================================================================
