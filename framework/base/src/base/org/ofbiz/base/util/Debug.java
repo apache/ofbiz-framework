@@ -30,12 +30,9 @@ import org.apache.avalon.util.exception.ExceptionHelper;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
-import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.RollingFileAppender;
 import org.apache.log4j.Appender;
 import org.apache.log4j.spi.LoggerRepository;
-
-import org.ofbiz.base.util.collections.FlexibleProperties;
 
 /**
  * Configurable Debug logging wrapper class
@@ -57,37 +54,39 @@ public final class Debug {
     public static final int WARNING = 5;
     public static final int ERROR = 6;
     public static final int FATAL = 7;
+    public static final int NOTIFY = 8;
 
-    public static final String[] levels = {"Always", "Verbose", "Timing", "Info", "Important", "Warning", "Error", "Fatal"};
-    public static final String[] levelProps = {"", "print.verbose", "print.timing", "print.info", "print.important", "print.warning", "print.error", "print.fatal"};
-    public static final Level[] levelObjs = {Level.INFO, Level.DEBUG, Level.DEBUG, Level.INFO, Level.INFO, Level.WARN, Level.ERROR, Level.FATAL};
+    public static final String[] levels = {"Always", "Verbose", "Timing", "Info", "Important", "Warning", "Error", "Fatal", "Notify"};
+    public static final String[] levelProps = {"", "print.verbose", "print.timing", "print.info", "print.important", "print.warning", "print.error", "print.fatal", "print.notify"};
+    public static final Level[] levelObjs = {Level.INFO, Level.DEBUG, Level.DEBUG, Level.INFO, Level.INFO, Level.WARN, Level.ERROR, Level.FATAL, NotifyLevel.NOTIFY};
 
     protected static Map levelStringMap = new HashMap();
     
     protected static PrintStream printStream = System.out;
     protected static PrintWriter printWriter = new PrintWriter(printStream);
 
-    protected static boolean levelOnCache[] = new boolean[8];
+    protected static boolean levelOnCache[] = new boolean[9];
     protected static boolean packException = true;
     protected static final boolean useLevelOnCache = true;
     
     protected static Logger root = Logger.getRootLogger();
 
     static {
-        levelStringMap.put("verbose", new Integer(Debug.VERBOSE));
-        levelStringMap.put("timing", new Integer(Debug.TIMING));
-        levelStringMap.put("info", new Integer(Debug.INFO));
-        levelStringMap.put("important", new Integer(Debug.IMPORTANT));
-        levelStringMap.put("warning", new Integer(Debug.WARNING));
-        levelStringMap.put("error", new Integer(Debug.ERROR));
-        levelStringMap.put("fatal", new Integer(Debug.FATAL));
-        levelStringMap.put("always", new Integer(Debug.ALWAYS));
+        levelStringMap.put("verbose", Debug.VERBOSE);
+        levelStringMap.put("timing", Debug.TIMING);
+        levelStringMap.put("info", Debug.INFO);
+        levelStringMap.put("important", Debug.IMPORTANT);
+        levelStringMap.put("warning", Debug.WARNING);
+        levelStringMap.put("error", Debug.ERROR);
+        levelStringMap.put("fatal", Debug.FATAL);
+        levelStringMap.put("always", Debug.ALWAYS);
+        levelStringMap.put("notify", Debug.NOTIFY);
         
         // initialize Log4J
-        PropertyConfigurator.configure(FlexibleProperties.makeFlexibleProperties(UtilURL.fromResource("debug.properties")));
+        org.apache.log4j.xml.DOMConfigurator.configure(UtilURL.fromResource("log4j.xml"));
 
         // initialize levelOnCache
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 9; i++) {
             levelOnCache[i] = (i == Debug.ALWAYS || UtilProperties.propertyValueEqualsIgnoreCase("debug.properties", levelProps[i], "true"));
         }
         
@@ -140,7 +139,7 @@ public final class Debug {
         if (levelInt == null) {
             return Debug.INFO;
         } else {
-            return levelInt.intValue();
+            return levelInt;
         }
     }
     
@@ -327,6 +326,18 @@ public final class Debug {
 
     public static void logFatal(Throwable t, String msg, String module) {
         log(Debug.FATAL, t, msg, module);
+    }
+
+    public static void logNotify(String msg, String module) {
+        log(Debug.NOTIFY, null, msg, module);
+    }
+
+    public static void logNotify(Throwable t, String module) {
+        log(Debug.NOTIFY, t, null, module);
+    }
+
+    public static void logNotify(Throwable t, String msg, String module) {
+        log(Debug.NOTIFY, t, msg, module);    
     }
 
     public static void set(int level, boolean on) {
