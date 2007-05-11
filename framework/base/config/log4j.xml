@@ -62,7 +62,9 @@
     </appender>
 
     <!-- debug log -->
-    <appender name="debug" class="org.apache.log4j.FileAppender">
+    <appender name="debug" class="org.apache.log4j.RollingFileAppender">
+        <param name="maxFileSize" value="10000KB" />
+        <param name="maxBackupIndex" value="10" />
         <param name="File" value="runtime/logs/debug.log" />
         <param name="Append" value="false"/>
         <layout class="org.apache.log4j.PatternLayout">
@@ -76,7 +78,9 @@
     </appender>
 
     <!-- error log -->
-    <appender name="error" class="org.apache.log4j.FileAppender">
+    <appender name="error" class="org.apache.log4j.RollingFileAppender">
+        <param name="maxFileSize" value="10000KB" />
+        <param name="maxBackupIndex" value="10" />
         <param name="File" value="runtime/logs/error.log" />
         <param name="Append" value="false"/>
         <layout class="org.apache.log4j.PatternLayout">
@@ -90,7 +94,9 @@
     </appender>
 
     <!-- special minerva log -->
-    <appender name="minerva-log" class="org.apache.log4j.FileAppender">
+    <appender name="minerva-log" class="org.apache.log4j.RollingFileAppender">
+        <param name="maxFileSize" value="5000KB" />
+        <param name="maxBackupIndex" value="10" />
         <param name="File" value="runtime/logs/minerva.log" />
         <param name="Append" value="false"/>
         <layout class="org.apache.log4j.PatternLayout">
@@ -105,18 +111,15 @@
 
     <!-- fatal error SMTP notification -->
     <appender name="email"  class="org.apache.log4j.net.SMTPAppender">
+        <param name="threshold" value="fatal"/>
         <param name="BufferSize" value="512" />
         <param name="SMTPHost" value="localhost" />
         <param name="From" value="ofbiz-error@localhost" />
-        <param name="To" value="neo@foobar.com" />
-        <param name="Subject" value="[OFBiz-Error] Application message" />
+        <param name="To" value="neo@foobar.com" />  <!-- at least change this field! -->
+        <param name="Subject" value="[OFBiz-Notify] Application message" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
         </layout>
-        <filter class="org.apache.log4j.varia.LevelRangeFilter">
-            <param name="LevelMin" value="fatal"/>
-            <param name="LevelMax" value="fatal"/>
-        </filter>
     </appender>
 
     <!-- log4j category -->
@@ -126,7 +129,13 @@
 
     <!-- log minerva to the special log -->
     <category name="org.ofbiz.minerva">
-        <priority value="trace"/>
+        <priority value="warn"/>
+        <appender-ref ref="minerva-log"/>
+    </category>
+
+    <!-- geronimo transaction logging -->
+    <category name="org.apache.geronimo.transaction">
+        <priority value="warn"/>
         <appender-ref ref="minerva-log"/>
     </category>
 
