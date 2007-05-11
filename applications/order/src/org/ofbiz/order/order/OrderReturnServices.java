@@ -1375,8 +1375,10 @@ public class OrderReturnServices {
                     while (ri.hasNext()) {
                         GenericValue returnItem = (GenericValue) ri.next();
                         GenericValue orderItem = null;
+                        GenericValue product = null;
                         try {
                             orderItem = returnItem.getRelatedOne("OrderItem");
+                            product = orderItem.getRelatedOne("Product");
                         } catch (GenericEntityException e) {
                             Debug.logError(e, module);
                             continue;
@@ -1386,17 +1388,58 @@ public class OrderReturnServices {
                             Double unitPrice = returnItem.getDouble("returnPrice");
                             if (quantity != null && unitPrice != null) {
                                 itemTotal = itemTotal + (quantity.doubleValue() * unitPrice.doubleValue());
+                                // Check if the product being returned has a Refurbished Equivalent and if so
+                                // (and there is inventory for the assoc product) use that product instead
+                                GenericValue refurbItem = null;
+                                try {
+                                    if (UtilValidate.isNotEmpty(product)) {
+                                        GenericValue refurbItemAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(product.getRelated("MainProductAssoc",
+                                                                                                   UtilMisc.toMap("productAssocTypeId", "PRODUCT_REFURB"),
+                                                                                                   UtilMisc.toList("sequenceNum"))));
+                                        if (UtilValidate.isNotEmpty(refurbItemAssoc)) {
+                                            refurbItem = refurbItemAssoc.getRelatedOne("AssocProduct");
+                                        }
+                                    }
+                                } catch (GenericEntityException e) {
+                                    Debug.logError(e, module);
+                                }
+                                if (UtilValidate.isNotEmpty(refurbItem)) {
+                                    boolean inventoryAvailable = false;
+                                    try {
+                                        Map invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.toMap("productStoreId", orderHeader.get("productStoreId"),
+                                                                                                                                       "productId", refurbItem.getString("productId"),
+                                                                                                                                       "product", refurbItem, "quantity", quantity));
+                                        if (ServiceUtil.isError(invReqResult)) {
+                                            Debug.logError("Error calling isStoreInventoryAvailableOrNotRequired service, result is: " + invReqResult, module);
+                                        } else {
+                                            inventoryAvailable = "Y".equals((String) invReqResult.get("availableOrNotRequired"));
+                                        }
+                                    } catch (GenericServiceException e) {
+                                        Debug.logError(e, "Fatal error calling inventory checking services: " + e.toString(), module);
+                                    }
+                                    if (!inventoryAvailable) {
+                                        // If the Refurbished Equivalent is not available,
+                                        // then use the original product.
+                                        refurbItem = null;
+                                    }
+                                }
+                                
+                                
                                 GenericValue newItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", UtilFormatOut.formatPaddedNumber(itemCount++, 5)));
-
+                                if (UtilValidate.isEmpty(refurbItem)) {
+                                    newItem.set("productId", orderItem.get("productId"));
+                                    newItem.set("itemDescription", orderItem.get("itemDescription"));
+                                } else {
+                                    newItem.set("productId", refurbItem.get("productId"));
+                                    newItem.set("itemDescription", ProductContentWrapper.getProductContentAsText(refurbItem, "PRODUCT_NAME", locale, null));
+                                }
                                 newItem.set("orderItemTypeId", orderItem.get("orderItemTypeId"));
-                                newItem.set("productId", orderItem.get("productId"));
                                 newItem.set("productFeatureId", orderItem.get("productFeatureId"));
                                 newItem.set("prodCatalogId", orderItem.get("prodCatalogId"));
                                 newItem.set("productCategoryId", orderItem.get("productCategoryId"));
                                 newItem.set("quantity", quantity);
                                 newItem.set("unitPrice", unitPrice);
                                 newItem.set("unitListPrice", orderItem.get("unitListPrice"));
-                                newItem.set("itemDescription", orderItem.get("itemDescription"));
                                 newItem.set("comments", orderItem.get("comments"));
                                 newItem.set("correspondingPoId", orderItem.get("correspondingPoId"));
                                 newItem.set("statusId", "ITEM_CREATED");
@@ -1434,7 +1477,6 @@ public class OrderReturnServices {
                                 if ("RTN_REPAIR_REPLACE".equals(returnTypeId)) {
                                     List repairItems = null;
                                     try {
-                                        GenericValue product = orderItem.getRelatedOne("Product");
                                         if (UtilValidate.isNotEmpty(product)) {
                                             repairItems = EntityUtil.filterByDate(product.getRelated("MainProductAssoc",
                                                                                                        UtilMisc.toMap("productAssocTypeId", "PRODUCT_REPAIR_SRV"),
