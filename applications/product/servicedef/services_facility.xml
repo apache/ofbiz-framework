@@ -182,7 +182,24 @@ under the License.
         <attribute name="mktgPkgQOHMap" type="Map" mode="OUT" optional="false"/>
         <attribute name="mktgPkgATPMap" type="Map" mode="OUT" optional="false"/>
     </service>
-
+    <service name="getProductInventoryAndFacilitySummary" engine="java"
+                location="org.ofbiz.product.inventory.InventoryServices" invoke="getProductInventoryAndFacilitySummary" auth="false" use-transaction="false">
+        <description>Get ATP/QOH Availability for a list of OrderItems by summing over all facilities.  If the item is a MARKETING_PKG_AUTO, then put its quantity available from components
+            in the mktgPkgATPMap and mktgPkgQOHMap.</description>
+        <attribute name="checkTime" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="minimumStock" mode="IN" type="String" optional="true"/>
+        <attribute name="totalQuantityOnHand" mode="OUT" type="String" optional="true"/>
+        <attribute name="totalAvailableToPromise" mode="OUT" type="String" optional="true"/>
+        <attribute name="quantityOnOrder" mode="OUT" type="Double" optional="true"/>
+        <attribute name="offsetQOHQtyAvailable" mode="OUT" type="Integer" optional="true"/>
+        <attribute name="offsetATPQtyAvailable" mode="OUT" type="Integer" optional="true"/>
+        <attribute name="defultPrice" mode="OUT" type="Double" optional="true"/>
+        <attribute name="listPrice" mode="OUT" type="Double" optional="true"/>
+        <attribute name="wholeSalePrice" mode="OUT" type="Double" optional="true"/>
+        <attribute name="usageQuantity" mode="OUT" type="Double" optional="true"/>
+    </service>
     <service name="checkInventoryAvailability" engine="java"
             location="org.ofbiz.product.inventory.InventoryServices" invoke="checkInventoryAvailability">
         <description>Batch service for checking and sending backorder notifications.  Will also set an autoCancelDate for sales orders to 30 days (hard coded)

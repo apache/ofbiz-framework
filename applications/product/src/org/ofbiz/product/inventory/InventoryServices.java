@@ -30,11 +30,16 @@ import java.util.Set;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.model.DynamicViewEntity;
+import org.ofbiz.entity.model.ModelKeyMap;
+import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -786,4 +791,206 @@ public class InventoryServices {
         results.put("mktgPkgQOHMap", mktgPkgQohMap);
         return results;
     }
+    
+
+    public static Map getProductInventoryAndFacilitySummary(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Timestamp checkTime = (Timestamp)context.get("checkTime");
+        String facilityId = (String)context.get("facilityId");
+        String productId = (String)context.get("productId");
+        String minimumStock = (String)context.get("minimumStock");
+
+        Map result = new HashMap();
+        Map resultOutput = new HashMap();
+
+        Map contextInput = UtilMisc.toMap("productId", productId, "facilityId", facilityId);
+        GenericValue product = null;
+        try {
+            product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+        } catch (GenericEntityException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if ("MARKETING_PKG_AUTO".equals(product.getString("productTypeId"))) {
+            try {
+                resultOutput = dispatcher.runSync("getMktgPackagesAvailable", contextInput);
+            } catch (GenericServiceException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", contextInput);
+            } catch (GenericServiceException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        // filter for quantities
+        int minimumStockInt = 0;
+        if (minimumStock != null) {
+            minimumStockInt = new Double(minimumStock).intValue();
+        }
+
+        int quantityOnHandTotalInt = 0;
+        if (resultOutput.get("quantityOnHandTotal") != null) {
+            quantityOnHandTotalInt = ((Double)resultOutput.get("quantityOnHandTotal")).intValue();
+        }
+        int offsetQOHQtyAvailable = quantityOnHandTotalInt - minimumStockInt;
+
+        int availableToPromiseTotalInt = 0;
+        if (resultOutput.get("availableToPromiseTotal") != null) {
+            availableToPromiseTotalInt = ((Double)resultOutput.get("availableToPromiseTotal")).intValue();
+        }
+        int offsetATPQtyAvailable = availableToPromiseTotalInt - minimumStockInt;
+    
+        double quantityOnOrder = InventoryWorker.getOutstandingPurchasedQuantity(productId, delegator);
+        result.put("totalQuantityOnHand", resultOutput.get("quantityOnHandTotal").toString());
+        result.put("totalAvailableToPromise", resultOutput.get("availableToPromiseTotal").toString());
+        result.put("quantityOnOrder", new Double(quantityOnOrder));
+    
+        result.put("offsetQOHQtyAvailable", new Integer(offsetQOHQtyAvailable));
+        result.put("offsetATPQtyAvailable", new Integer(offsetATPQtyAvailable));
+    
+        List productPrices = null;
+        try {
+            productPrices = (List)delegator.findByAndCache("ProductPrice", UtilMisc.toMap("productId",productId), UtilMisc.toList("-fromDate"));
+        } catch (GenericEntityException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        Iterator pricesIt = productPrices.iterator();
+        //change this for product price
+        while (pricesIt.hasNext()) {
+            GenericValue onePrice = (GenericValue)pricesIt.next();
+            if(onePrice.getString("productPriceTypeId").equals("DEFAULT_PRICE")){ //defaultPrice
+                result.put("defultPrice", onePrice.getDouble("price"));
+            }else if(onePrice.getString("productPriceTypeId").equals("WHOLESALE_PRICE")){//
+                result.put("wholeSalePrice", onePrice.getDouble("price"));
+            }else if(onePrice.getString("productPriceTypeId").equals("LIST_PRICE")){//listPrice
+                result.put("listPrice", onePrice.getDouble("price"));
+            }else{
+                result.put("defultPrice", onePrice.getDouble("price"));
+                result.put("listPrice", onePrice.getDouble("price"));
+                result.put("wholeSalePrice", onePrice.getDouble("price"));
+            }
+        }
+    
+        DynamicViewEntity salesUsageViewEntity = new DynamicViewEntity();
+        DynamicViewEntity productionUsageViewEntity = new DynamicViewEntity();
+        if (! UtilValidate.isEmpty(checkTime)) {
+    
+            // Construct a dynamic view entity to search against for sales usage quantities
+            salesUsageViewEntity.addMemberEntity("OI", "OrderItem");
+            salesUsageViewEntity.addMemberEntity("OH", "OrderHeader");
+            salesUsageViewEntity.addMemberEntity("ItIss", "ItemIssuance");
+            salesUsageViewEntity.addMemberEntity("InvIt", "InventoryItem");
+            salesUsageViewEntity.addViewLink("OI", "OH", new Boolean(false), ModelKeyMap.makeKeyMapList("orderId"));
+            salesUsageViewEntity.addViewLink("OI", "ItIss", new Boolean(false), ModelKeyMap.makeKeyMapList("orderId", "orderId", "orderItemSeqId", "orderItemSeqId"));
+            salesUsageViewEntity.addViewLink("ItIss", "InvIt", new Boolean(false), ModelKeyMap.makeKeyMapList("inventoryItemId"));
+            salesUsageViewEntity.addAlias("OI", "productId");
+            salesUsageViewEntity.addAlias("OH", "statusId");
+            salesUsageViewEntity.addAlias("OH", "orderTypeId");
+            salesUsageViewEntity.addAlias("OH", "orderDate");
+            salesUsageViewEntity.addAlias("ItIss", "inventoryItemId");
+            salesUsageViewEntity.addAlias("ItIss", "quantity");
+            salesUsageViewEntity.addAlias("InvIt", "facilityId");
+        
+            // Construct a dynamic view entity to search against for production usage quantities
+            productionUsageViewEntity.addMemberEntity("WEIA", "WorkEffortInventoryAssign");
+            productionUsageViewEntity.addMemberEntity("WE", "WorkEffort");
+            productionUsageViewEntity.addMemberEntity("II", "InventoryItem");
+            productionUsageViewEntity.addViewLink("WEIA", "WE", new Boolean(false), ModelKeyMap.makeKeyMapList("workEffortId"));
+            productionUsageViewEntity.addViewLink("WEIA", "II", new Boolean(false), ModelKeyMap.makeKeyMapList("inventoryItemId"));
+            productionUsageViewEntity.addAlias("WEIA", "quantity");
+            productionUsageViewEntity.addAlias("WE", "actualCompletionDate");
+            productionUsageViewEntity.addAlias("WE", "workEffortTypeId");
+            productionUsageViewEntity.addAlias("II", "facilityId");
+            productionUsageViewEntity.addAlias("II", "productId");
+
+        }
+        if (! UtilValidate.isEmpty(checkTime)) {
+            
+            // Make a query against the sales usage view entity
+            EntityListIterator salesUsageIt = null;
+            try {
+                salesUsageIt = delegator.findListIteratorByCondition(salesUsageViewEntity, 
+                        new EntityConditionList(
+                            UtilMisc.toList(
+                                new EntityExpr("facilityId", EntityOperator.EQUALS, "WebStoreWarehouse"),
+                                new EntityExpr("productId", EntityOperator.EQUALS, productId),
+                                new EntityExpr("statusId", EntityOperator.IN, UtilMisc.toList("ORDER_COMPLETED", "ORDER_APPROVED", "ORDER_HELD")),
+                                new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
+                                new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
+                            ),
+                        EntityOperator.AND),
+                    null, null, null, null);
+            } catch (GenericEntityException e2) {
+                // TODO Auto-generated catch block
+                e2.printStackTrace();
+            }
+    
+            // Sum the sales usage quantities found
+            double salesUsageQuantity = 0;
+            GenericValue salesUsageItem = null;
+            while((salesUsageItem = (GenericValue) salesUsageIt.next()) != null) {
+                if (salesUsageItem.get("quantity") != null) {
+                    try {
+                        salesUsageQuantity += salesUsageItem.getDouble("quantity").doubleValue();
+                    } catch (Exception e) {
+                        // Ignore
+                    }
+                }
+            }
+            try {
+                salesUsageIt.close();
+            } catch (GenericEntityException e2) {
+                // TODO Auto-generated catch block
+                e2.printStackTrace();
+            }
+    
+            // Make a query against the production usage view entity
+            EntityListIterator productionUsageIt = null;
+            try {
+                productionUsageIt = delegator.findListIteratorByCondition(productionUsageViewEntity, 
+                        new EntityConditionList(
+                            UtilMisc.toList(
+                                new EntityExpr("facilityId", EntityOperator.EQUALS, "WebStoreWarehouse"),
+                                new EntityExpr("productId", EntityOperator.EQUALS, productId),
+                                new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"),
+                                new EntityExpr("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
+                            ),
+                        EntityOperator.AND),
+                    null, null, null, null);
+            } catch (GenericEntityException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+    
+            // Sum the production usage quantities found
+            double productionUsageQuantity = 0;
+            GenericValue productionUsageItem = null;
+            while((productionUsageItem = (GenericValue) productionUsageIt.next()) != null) {
+                if (productionUsageItem.get("quantity") != null) {
+                    try {
+                        productionUsageQuantity += productionUsageItem.getDouble("quantity").doubleValue();
+                    } catch (Exception e) {
+                        // Ignore
+                    }
+                }
+            }
+            try {
+                productionUsageIt.close();
+            } catch (GenericEntityException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+    
+            result.put("usageQuantity", new Double((salesUsageQuantity + productionUsageQuantity)));
+
+        }
+        return result;
+    }
+
 }
