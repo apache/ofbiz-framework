@@ -32,6 +32,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
 
     public static final String module = GenericXaResource.class.getName();
 
+    protected Transaction trans = null;
     protected boolean active = false;
     protected int timeout = 30;
     protected Xid xid = null;
@@ -46,6 +47,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
             if (tm != null && tm.getStatus() == Status.STATUS_ACTIVE) {
                 Transaction tx = tm.getTransaction();
                 if (tx != null) {
+                    this.setTransaction(tx);
                     tx.enlistResource(this);
                 } else {
                     throw new XAException(XAException.XAER_NOTA);
@@ -154,6 +156,14 @@ public abstract class GenericXaResource extends Thread implements XAResource {
         return true;
     }
 
+    public Transaction getTransaction() {
+        return this.trans;
+    }
+
+    public void setTransaction(Transaction t) {
+        this.trans = t;
+    }
+
     public Xid getXid() {
         return this.xid;
     }
@@ -183,10 +193,12 @@ public abstract class GenericXaResource extends Thread implements XAResource {
             if (active) {
                 // get the current status
                 int status = Status.STATUS_UNKNOWN;
-                try {
-                    status = TransactionUtil.getStatus();
-                } catch (GenericTransactionException e) {
-                    Debug.logWarning(e, module);
+                if (trans != null) {
+                    try {
+                        status = trans.getStatus();
+                    } catch (SystemException e) {
+                        Debug.logWarning(e, module);
+                    }
                 }
 
                 // log a warning message
