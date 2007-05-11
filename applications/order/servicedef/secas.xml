@@ -138,6 +138,9 @@ under the License.
 
     <!-- Return ECAs -->
     <eca service="updateReturnHeader" event="commit">
+        <action service="checkReturnComplete" mode="sync"/>
+    </eca>
+    <eca service="updateReturnHeader" event="commit">
         <condition field-name="statusId" operator="equals" value="RETURN_ACCEPTED"/>
         <condition field-name="currentStatusId" operator="not-equals" value="RETURN_ACCEPTED"/>
         <action service="processCrossShipReplacementReturn" mode="sync"/>
@@ -153,24 +156,17 @@ under the License.
         <action service="processRefundReturn" mode="sync"/>
     </eca>
     <eca service="updateReturnHeader" event="commit">
-        <action service="checkReturnComplete" mode="sync"/>
-    </eca>
-    <eca service="updateReturnHeader" event="commit">
         <condition field-name="statusId" operator="equals" value="RETURN_CANCELLED"/>
         <condition field-name="currentStatusId" operator="not-equals" value="RETURN_CANCELLED"/>
+        <action service="cancelReturnItems" mode="sync"/>
         <action service="sendReturnCancelNotification" mode="async" persist="true"/>
     </eca>
-    <eca service="updateReturnHeader" event="commit">
-        <condition field-name="statusId" operator="equals" value="RETURN_CANCELLED"/>
-        <action service="cancelReturnItems" mode="sync" persist="true"/>
-    </eca>
-	
+
     <eca service="updateReturnItem" event="commit">
         <condition field-name="statusId" operator="equals" value="RETURN_RECEIVED"/>
         <condition field-name="currentStatusId" operator="not-equals" value="RETURN_RECEIVED"/>
         <action service="resetGrandTotal" mode="sync"/>
     </eca>
-
     <eca service="updateReturnItem" event="commit">
         <condition field-name="statusId" operator="equals" value="RETURN_CANCELLED"/>
         <condition field-name="currentStatusId" operator="not-equals" value="RETURN_CANCELLED"/>
