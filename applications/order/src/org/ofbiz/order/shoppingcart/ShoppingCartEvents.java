@@ -139,7 +139,7 @@ public class ShoppingCartEvents {
         NumberFormat nf = NumberFormat.getNumberInstance(locale);
 
         // Get the parameters as a MAP, remove the productId and quantity params.
-        Map paramMap = UtilHttp.getParameterMap(request);
+        Map paramMap = UtilHttp.getCombinedMap(request);
 
         String itemGroupNumber = (String) paramMap.get("itemGroupNumber");
 
