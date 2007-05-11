@@ -108,6 +108,14 @@ under the License.
     <form name="ListFacilityInventoryByProduct" type="list" target="" title="" list-name="inventoryByProduct" 
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
         paginate-target="${facilityInventoryByProductScreen}" override-list-size="${overrideListSize}">
+        <row-actions>
+            <service service-name="getProductInventoryAndFacilitySummary" result-map-name="resultMap">
+                <field-map field-name="minimumStock" env-name="minimumStock"/>
+                <field-map field-name="productId" env-name="productId"/>
+                <field-map field-name="facilityId" env-name="facilityId"/>
+                <field-map field-name="checkTime" env-name="checkTime"/>
+            </service>
+        </row-actions>
         <field name="items" title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
             <hyperlink target="EditFacilityInventoryItems?productId=${productId}&amp;facilityId=${facilityId}" description="${productId}"/>     
         </field>
@@ -116,15 +124,18 @@ under the License.
                 <sub-hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${uiLabelMap.ProductCatalog}" link-style="buttontext"/>
             </display-entity>
         </field>
-        <field name="totalAvailableToPromise" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductAtp}" widget-area-style="tabletextright"><display/></field>
-        <field name="totalQuantityOnHand" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductQoh}" widget-area-style="tabletextright"><display/></field>
-        <field name="quantityOnOrder" title="${uiLabelMap.ProductOrderedQuantity}"  widget-area-style="tabletextright"><display/></field>
-        <field name="minimumStock" title="${uiLabelMap.ProductMinimumStock}" widget-area-style="tabletextright"><display/></field>
+        <field name="totalAvailableToPromise" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductAtp}" widget-area-style="tabletextright"><display description="${resultMap.totalAvailableToPromise}"/></field>
+        <field name="totalQuantityOnHand" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductQoh}" widget-area-style="tabletextright"><display description="${resultMap.totalQuantityOnHand}"/></field>
+        <field name="quantityOnOrder" title="${uiLabelMap.ProductOrderedQuantity}"  widget-area-style="tabletextright"><display description="${resultMap.quantityOnOrder}"/></field>
+        <field name="minimumStock" title="${uiLabelMap.ProductMinimumStock}" widget-area-style="tabletextright"><display /></field>
         <field name="reorderQuantity" title="${uiLabelMap.ProductReorderQuantity}" widget-area-style="tabletextright"><display/></field>
         <field name="daysToShip" title="${uiLabelMap.ProductDaysToShip}" widget-area-style="tabletextright"><display/></field>
-        <field name="offsetQOHQtyAvailable" title="${uiLabelMap.ProductQtyOffsetQOH}" widget-area-style="tabletextright"><display/></field>
-        <field name="offsetATPQtyAvailable" title="${uiLabelMap.ProductQtyOffsetATP}" widget-area-style="tabletextright"><display/></field>
-        <field name="usageQuantity" title="${uiLabelMap.ProductUsage}" widget-area-style="tabletextright"><display/></field>
+        <field name="offsetQOHQtyAvailable" title="${uiLabelMap.ProductQtyOffsetQOH}" widget-area-style="tabletextright"><display description="${resultMap.offsetQOHQtyAvailable}"/></field>
+        <field name="offsetATPQtyAvailable" title="${uiLabelMap.ProductQtyOffsetATP}" widget-area-style="tabletextright"><display description="${resultMap.offsetATPQtyAvailable}"/></field>
+        <field name="usageQuantity" title="${uiLabelMap.ProductUsage}" widget-area-style="tabletextright"><display description="${resultMap.usageQuantity}"/></field>
+        <field name="defultPrice" title="Default Price" widget-area-style="tabletextright"><display description="${resultMap.defultPrice}"/></field>
+        <field name="listPrice" title="List Price" widget-area-style="tabletextright"><display description="${resultMap.listPrice}"/></field>
+        <field name="wholeSalePrice" title="Whole Sale Price" widget-area-style="tabletextright"><display description="${resultMap.wholeSalePrice}"/></field>
     </form>
 
     <form name="SearchInventoryItemsParams" type="single" target="SearchInventoryItems"
