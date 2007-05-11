@@ -50,6 +50,7 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.product.ProductContentWrapper;
+import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -405,6 +406,7 @@ public class OrderReturnServices {
             EntityConditionList havingConditions = new EntityConditionList(UtilMisc.toList(
                     new EntityExpr("quantityIssued", EntityOperator.GREATER_THAN, new Double(0))
                 ), EntityOperator.AND);
+            havingConditions = null;
             List orderItemQuantitiesIssued = null;
             try {
                 orderItemQuantitiesIssued = delegator.findByCondition("OrderItemQuantityReportGroupByItem", whereConditions, havingConditions, UtilMisc.toList("orderId", "orderItemSeqId"), UtilMisc.toList("orderItemSeqId"), null);
@@ -478,8 +480,9 @@ public class OrderReturnServices {
 
     // check return items status and update return header status
     public static Map checkReturnComplete(DispatchContext dctx, Map context) {
-        //appears to not be used: LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String returnId = (String) context.get("returnId");
         Locale locale = (Locale) context.get("locale");
 
@@ -496,8 +499,9 @@ public class OrderReturnServices {
         }
 
         // if already completed just return
+        String currentStatus = null;
         if (returnHeader != null && returnHeader.get("statusId") != null) {
-            String currentStatus = returnHeader.getString("statusId");
+            currentStatus = returnHeader.getString("statusId");
             if ("RETURN_COMPLETED".equals(currentStatus) || "RETURN_CANCELLED".equals(currentStatus)) {
                 return ServiceUtil.returnSuccess();
             }
@@ -516,28 +520,48 @@ public class OrderReturnServices {
                     // both completed and cancelled items qualify for completed status change
                     if ("RETURN_COMPLETED".equals(itemStatus) || "RETURN_CANCELLED".equals(itemStatus)) {
                         completedItems.add(item);
+                    } else {
+                        // Non-physical items don't need an inventory receive and so are 
+                        // considered completed after the return is accepted
+                        if ("RETURN_ACCEPTED".equals(returnHeader.getString("statusId"))) {
+                            try {
+                                GenericValue itemProduct = item.getRelatedOne("Product");
+                                if (!ProductWorker.isPhysical(itemProduct)) {
+                                    completedItems.add(item);
+                                }
+                            } catch (GenericEntityException e) {
+                                Debug.logError(e, "Problems looking up returned product type information", module);
+                                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorGettingReturnHeaderItemInformation", locale));
+                            }
+                        }
                     }
                 }
             }
 
             // if all items are completed/cancelled these should match
             if (completedItems.size() == returnItems.size()) {
-                List toStore = new LinkedList();
-                returnHeader.set("statusId", "RETURN_COMPLETED");
-                toStore.add(returnHeader);
-
-                // create the status change history and set it to be stored
-                String returnStatusId = delegator.getNextSeqId("ReturnStatus");
-                GenericValue returnStatus = delegator.makeValue("ReturnStatus", UtilMisc.toMap("returnStatusId", returnStatusId));
-                returnStatus.set("statusId", "RETURN_COMPLETED");
-                returnStatus.set("returnId", returnId);
-                returnStatus.set("statusDatetime", now);
-                toStore.add(returnStatus);
-                try {
-                    delegator.storeAll(toStore);
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToCreateReturnStatusHistory", locale));
+                // The return is just moved to its next status by calling the
+                // updateReturnHeader service; this will trigger all the appropriate ecas
+                // including this service again, so that the return is moved 
+                // to the final status
+                if (currentStatus != null && "RETURN_ACCEPTED".equals(currentStatus)) {
+                    try {
+                        dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("returnId", returnId,
+                                                                                "statusId", "RETURN_RECEIVED",
+                                                                                "userLogin", userLogin));
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToCreateReturnStatusHistory", locale));
+                    }
+                } else if (currentStatus != null && "RETURN_RECEIVED".equals(currentStatus)) {
+                    try {
+                        dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("returnId", returnId,
+                                                                                "statusId", "RETURN_COMPLETED",
+                                                                                "userLogin", userLogin));
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToCreateReturnStatusHistory", locale));
+                    }
                 }
             }
 
