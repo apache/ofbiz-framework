@@ -406,7 +406,6 @@ public class OrderReturnServices {
             EntityConditionList havingConditions = new EntityConditionList(UtilMisc.toList(
                     new EntityExpr("quantityIssued", EntityOperator.GREATER_THAN, new Double(0))
                 ), EntityOperator.AND);
-            havingConditions = null;
             List orderItemQuantitiesIssued = null;
             try {
                 orderItemQuantitiesIssued = delegator.findByCondition("OrderItemQuantityReportGroupByItem", whereConditions, havingConditions, UtilMisc.toList("orderId", "orderItemSeqId"), UtilMisc.toList("orderItemSeqId"), null);
