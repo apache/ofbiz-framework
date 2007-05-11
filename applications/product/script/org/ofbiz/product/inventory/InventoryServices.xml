@@ -569,9 +569,15 @@ under the License.
                     <condition-expr field-name="availableToPromiseTotal" operator="equals" value=""/>
                     <condition-expr field-name="availableToPromiseTotal" operator="less" value="0"/>
                 </condition-list>
+                <!-- Exclude the current item from the selection, because it will be added to the list anyway -->
+                <condition-expr field-name="inventoryItemId" operator="not-equals" env-name="inventoryItem.inventoryItemId"/>
             </condition-list>
             <!-- TODO: order the list of inventory items in a useful way, since operations occur below based on the first item -->
         </entity-condition>
+        <!-- the current item is added to the list, even if its atp is greater than zero, because there could be
+             negative reservations (backorders) on it, if the atp has been increased by an inventory variance -->
+        <field-to-list field-name="inventoryItem" list-name="inventoryItems"/>
+
         <!--  find their current reservations -->
         <iterate list-name="inventoryItems" entry-name="item">
             <!-- If quantityOnHandTotal is not equal to availableToPromiseTotal this means that 
