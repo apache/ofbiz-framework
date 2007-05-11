@@ -403,12 +403,14 @@ public class OrderReturnServices {
                     new EntityExpr("orderId", EntityOperator.EQUALS, orderHeader.getString("orderId")),
                     new EntityExpr("orderItemStatusId", EntityOperator.IN, UtilMisc.toList("ITEM_APPROVED", "ITEM_COMPLETED"))
                 ), EntityOperator.AND); 
+            /*
             EntityConditionList havingConditions = new EntityConditionList(UtilMisc.toList(
                     new EntityExpr("quantityIssued", EntityOperator.GREATER_THAN, new Double(0))
                 ), EntityOperator.AND);
+             */
             List orderItemQuantitiesIssued = null;
             try {
-                orderItemQuantitiesIssued = delegator.findByCondition("OrderItemQuantityReportGroupByItem", whereConditions, havingConditions, UtilMisc.toList("orderId", "orderItemSeqId"), UtilMisc.toList("orderItemSeqId"), null);
+                orderItemQuantitiesIssued = delegator.findByCondition("OrderItemQuantityReportGroupByItem", whereConditions, null, UtilMisc.toList("orderId", "orderItemSeqId"), UtilMisc.toList("orderItemSeqId"), null);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToGetReturnHeaderFromItem", locale));
@@ -423,6 +425,21 @@ public class OrderReturnServices {
                     } catch( GenericEntityException e ) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToGetOrderItemInformation", locale));
+                    }
+                    // items not issued/shipped are considered as returnable only if they are 
+                    // not physical items
+                    Double quantityIssued = orderItemQuantityIssued.getDouble("quantityIssued");
+                    if (UtilValidate.isEmpty(quantityIssued) || quantityIssued.doubleValue() == 0) {
+                        try {
+                            GenericValue itemProduct = item.getRelatedOne("Product");
+                            if (ProductWorker.isPhysical(itemProduct)) {
+                                continue;
+                            }
+                        } catch (GenericEntityException e) {
+                            Debug.logError(e, "Problems looking up returnable product type information", module);
+                            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToGetTheItemReturnableProduct", locale));
+                        }
+                        
                     }
                     Map serviceResult = null;
                     try {
