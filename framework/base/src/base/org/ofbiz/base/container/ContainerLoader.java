@@ -22,6 +22,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import org.ofbiz.base.start.StartupException;
 import org.ofbiz.base.start.StartupLoader;
@@ -91,7 +93,7 @@ public class ContainerLoader implements StartupLoader {
      */
     public void unload() throws StartupException {
         Debug.logInfo("Shutting down containers", module);
-
+        printThreadDump();
         // shutting down in reverse order
         for (int i = loadedContainers.size(); i > 0; i--) {
             Container container = (Container) loadedContainers.get(i-1);
@@ -101,6 +103,32 @@ public class ContainerLoader implements StartupLoader {
                 Debug.logError(e, module);
             }
         }
+    }
+
+    private void printThreadDump() {
+        Thread currentThread = Thread.currentThread();
+        ThreadGroup group = currentThread.getThreadGroup();
+        while (group.getParent() != null) {
+            group = group.getParent();
+        }
+        Thread threadArr[] = new Thread[1000];
+        group.enumerate(threadArr);
+
+        StringWriter writer = new StringWriter();
+        PrintWriter out = new PrintWriter(writer);
+        out.println("Thread dump:");
+        for (int i = 0; i < threadArr.length; i++) {
+            if (threadArr[i] != null) {
+                ThreadGroup g = threadArr[i].getThreadGroup();
+                out.println("Thread: " + threadArr[i].getName() + " [" + threadArr[i].getId() + "] @ " + (g != null ? g.getName() : "[none]") + " : " + threadArr[i].getPriority() + " [" + threadArr[i].getState().name() + "]");
+                out.println("--- Alive: " + threadArr[i].isAlive() + " Daemon: " + threadArr[i].isDaemon());
+                StackTraceElement[] stacks = threadArr[i].getStackTrace();
+                for (int x = 0; x < stacks.length; x++) {
+                    out.println("### " + stacks[x].toString());
+                }
+            }
+        }
+        Debug.logInfo(writer.toString(), module);
     }
 
     private Container loadContainer(ContainerConfig.Container containerCfg, String[] args) throws StartupException {
