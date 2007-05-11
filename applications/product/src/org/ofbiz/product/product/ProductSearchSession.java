@@ -813,7 +813,7 @@ public class ProductSearchSession {
                 EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
                 EntityListIterator pli = null;
                 try {
-                    pli = delegator.findListIteratorByCondition("ProductCategoryMember", new EntityConditionList(addOnTopProdCondList, EntityOperator.AND), null, UtilMisc.toList("productId"), UtilMisc.toList("sequenceNum"), findOpts);
+                    pli = delegator.findListIteratorByCondition("ProductCategoryMember", new EntityConditionList(addOnTopProdCondList, EntityOperator.AND), null, UtilMisc.toList("productId", "sequenceNum"), UtilMisc.toList("sequenceNum"), findOpts);
                     addOnTopProductCategoryMembers = pli.getPartialList(lowIndex, viewSize);
                     addOnTopListSize = addOnTopProductCategoryMembers.size();
                     for (int i = 0; i < addOnTopProductCategoryMembers.size(); i++) {
