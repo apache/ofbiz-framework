@@ -19,15 +19,21 @@
 
 package org.ofbiz.party.communication;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.*;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.*;
+import org.ofbiz.content.data.DataResourceWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
@@ -73,12 +79,39 @@ public class CommunicationEventServices {
                         
             // prepare the email
             Map sendMailParams = new HashMap();
+            //attachment
+            List bodyParts = FastList.newInstance();
+            List commEventContentAssocs = communicationEvent.getRelated("CommEventContentAssoc");
+            Iterator contentItr = commEventContentAssocs.iterator();
+            ByteWrapper byteWrapper = null;
+            while (contentItr.hasNext()) {
+            	
+            	GenericValue content = (GenericValue) contentItr.next();
+            	GenericValue fromContent = content.getRelatedOne("FromContent");
+                GenericValue dataResources = fromContent.getRelatedOne("DataResource");
+                try {
+					byteWrapper = DataResourceWorker.getContentAsByteWrapper(delegator, dataResources.getString("dataResourceId"), null, null, locale, null);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (GeneralException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				bodyParts.add(UtilMisc.toMap("content", byteWrapper.getBytes(), "type", dataResources.getString("mimeTypeId"), "filename", dataResources.getString("dataResourceName")));
+
+
+            }
+            
             sendMailParams.put("sendFrom", communicationEvent.getRelatedOne("FromContactMech").getString("infoString"));
             sendMailParams.put("subject", communicationEvent.getString("subject"));
             sendMailParams.put("body", communicationEvent.getString("content"));
+            // check attachment
+            if(bodyParts != null)
+            	sendMailParams.put("bodyParts",bodyParts);
             sendMailParams.put("contentType", communicationEvent.getString("contentMimeTypeId"));
             sendMailParams.put("userLogin", userLogin);
-            
+                        
             // if there is no contact list, then send look for a contactMechIdTo and partyId
             if ((communicationEvent.getString("contactListId") == null) ||
                 (communicationEvent.getString("contactListId").equals(""))) {

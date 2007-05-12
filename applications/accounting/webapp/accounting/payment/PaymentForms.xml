@@ -55,7 +55,7 @@ under the License.
             </service>
         </actions>
         <row-actions>
-            <set field="amountToApply" value="${bsh:
+            <set field="balanceamountToApply" value="${bsh:
                 import java.text.NumberFormat;
                 return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotAppliedBd(delegator,paymentId)));}"/>
         </row-actions>
@@ -70,7 +70,7 @@ under the License.
         <field name="effectiveDate"><display/></field>
         <field name="currencyUomId"><hidden/></field>
         <field name="amount"><display also-hidden="false" type="currency" currency="${currencyUomId}"/></field>
-        <field name="amountToApply"><display also-hidden="false" type="currency" currency="${currencyUomId}"/></field>
+        <field name="balance"><display also-hidden="false" type="currency" currency="${currencyUomId}"/></field>
     </form>
 
     <form name="EditPayment" type="single" target="updatePayment" default-map-name="payment">
