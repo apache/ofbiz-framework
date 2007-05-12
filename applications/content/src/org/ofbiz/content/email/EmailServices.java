@@ -22,14 +22,7 @@ import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.HttpClient;
-import org.ofbiz.base.util.HttpClientException;
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericDelegator;
@@ -56,14 +49,7 @@ import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -625,7 +611,7 @@ public class EmailServices {
                     emailAddress = (InternetAddress)addr;
                     
                     if (!UtilValidate.isEmpty(emailAddress)) {
-                        result = dispatcher.runSync("findPartyFromEmailAddressCompany", 
+                        result = dispatcher.runSync("findPartyFromEmailAddress", 
                                 UtilMisc.toMap("address", emailAddress.getAddress(), "userLogin", userLogin));
                         if (result.get("partyId") != null) {
                             tempResults.add(result);
@@ -739,6 +725,7 @@ public class EmailServices {
         MimeMessageWrapper wrapper = (MimeMessageWrapper) context.get("messageWrapper");
         MimeMessage message = wrapper.getMessage();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String partyIdTo = null;
         String partyIdFrom = null;
         String contentType = null;
@@ -748,8 +735,6 @@ public class EmailServices {
         
         Map result = null;
         try {
-        	// run as system Id
-            GenericValue userLogin = (GenericValue) delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
             String contentTypeRaw = message.getContentType();
             int idx = contentTypeRaw.indexOf(";");
             if (idx == -1) idx = contentTypeRaw.length();
@@ -759,13 +744,6 @@ public class EmailServices {
             Address [] addressesTo = message.getRecipients(MimeMessage.RecipientType.TO);
             Address [] addressesCC = message.getRecipients(MimeMessage.RecipientType.CC);
             Address [] addressesBCC = message.getRecipients(MimeMessage.RecipientType.BCC);
-
-            // if no 'from' addresses specified ignore the message
-            if (addressesFrom == null) {
-                Debug.logInfo("Incoming Email message ignored, had not 'from' email address", module);
-                return ServiceUtil.returnSuccess(" Message Ignored: no 'From' address specified");
-            }
-
             Debug.logInfo("Processing Incoming Email message from: " + 
                     (addressesFrom[0] == null? "not found" : addressesFrom[0].toString()) + " to: " + 
                             (addressesTo[0] == null? "not found" : addressesTo[0].toString()), module);
@@ -782,29 +760,26 @@ public class EmailServices {
                 }
             }
 
-            // get the 'To' partyId (should be in the partyAcctgPreference table
+            // if no 'from' addresses specified ignore the message
+            if (addressesFrom == null) {
+                Debug.logInfo("Incoming Email message ignored, had not 'from' email address", module);
+                return ServiceUtil.returnSuccess(" Message Ignored: no 'From' address specified");
+            }
+
+            // get the 'To' partyId
             List allResults = getListOfParyInfoFromEmailAddresses(addressesTo, addressesCC, addressesBCC, userLogin, dispatcher);
-            //Get the first address from the list - this is the partyIdTo field of the CommunicationEvent
             Iterator itr = allResults.iterator();
-            Debug.logInfo("====before userloginId: " + userLogin.get("userLoginId") + " party: " + userLogin.get("partyId"), module);
-            if (userLogin.get("userLoginId").equals("system")) userLogin.remove("partyId"); // make sure to search all users
-            Debug.logInfo("====after userloginId: " + userLogin.get("userLoginId") + " party: " + userLogin.get("partyId"), module);
+            //Get the first address from the list - this is the partyIdTo field of the CommunicationEvent
             if ((allResults != null) && (allResults.size() > 0)) {
-            	while (itr.hasNext()) {
-                    Map addressTo = (Map) itr.next();
-                    partyIdTo = (String)addressTo.get("partyId");
-                    contactMechIdTo = (String)addressTo.get("contactMechId");
-                    Debug.logInfo("====try to find:" + partyIdTo, module);
-                    if (delegator.findByPrimaryKey("PartyAcctgPreference", UtilMisc.toMap("partyId", partyIdTo)) != null)
-                    		break;
-            	}
+                Map firstAddressTo = (Map) itr.next();
+                partyIdTo = (String)firstAddressTo.get("partyId");
+                contactMechIdTo = (String)firstAddressTo.get("contactMechId");
             }
             
             
             String deliveredTo = null;
-            if (message.getHeader("Delivered-To") != null && message.getHeader("Delivered-To").length > 0) {
-                if (message.getHeader("Delivered-To").length > 1) deliveredTo = message.getHeader("Delivered-To")[1]; 
-		else deliveredTo = message.getHeader("Delivered-To")[0]; 
+            if (message.getHeader("Delivered-To") != null) {
+                deliveredTo = message.getHeader("Delivered-To")[0];
                 // check if started with the domain name if yes remove including the dash.
                 String dn = deliveredTo.substring(deliveredTo.indexOf("@")+1, deliveredTo.length());
                 if (deliveredTo.startsWith(dn)) {
@@ -814,7 +789,7 @@ public class EmailServices {
             
             // if partyIdTo not found try to find the "to" address using the delivered-to header
             if ((partyIdTo == null) && (deliveredTo != null)) {
-                result = dispatcher.runSync("findPartyFromEmailAddressCompany", UtilMisc.toMap("address", deliveredTo, "userLogin", userLogin));          
+                result = dispatcher.runSync("findPartyFromEmailAddress", UtilMisc.toMap("address", deliveredTo, "userLogin", userLogin));          
                 partyIdTo = (String)result.get("partyId");
                 contactMechIdTo = (String)result.get("contactMechId");
             }
@@ -850,7 +825,6 @@ public class EmailServices {
                 commEventMap = addMessageBody(commEventMap, (Multipart) message.getContent());
             }                
             
-/*
             // Retrieve all the addresses from the email
             Set emailAddressesFrom = new TreeSet();
             Set emailAddressesTo = new TreeSet();
@@ -881,7 +855,7 @@ public class EmailServices {
             if (UtilValidate.isNotEmpty(ccString)) commEventMap.put("ccString", ccString);
             if (UtilValidate.isNotEmpty(ccString)) commEventMap.put("fromString", fromString);
             if (UtilValidate.isNotEmpty(bccString)) commEventMap.put("bccString", bccString);
-*/
+
             // store from/to parties, but when not found make a note of the email to/from address in the workEffort Note Section.
             String commNote = "";
             if (partyIdFrom != null) {
@@ -895,11 +869,12 @@ public class EmailServices {
             if (partyIdTo != null) {
                 commEventMap.put("partyIdTo", partyIdTo);               
                 commEventMap.put("contactMechIdTo", contactMechIdTo);
-            }
+            } else {
                 commNote += "Sent to: " + ((InternetAddress)addressesTo[0]).getAddress()  + "; ";
                 if (deliveredTo != null) {
                     commNote += "Delivered-To: " + deliveredTo + "; ";
                 }
+            }
             
             commNote += "Sent to: " + ((InternetAddress)addressesTo[0]).getAddress()  + "; ";
             commNote += "Delivered-To: " + deliveredTo + "; ";
@@ -915,6 +890,16 @@ public class EmailServices {
             }
             
             commEventMap.put("userLogin", userLogin);
+            
+            // Populate the CommunicationEvent.headerString field with the email headers
+            String headerString = "";
+            Enumeration headerLines = message.getAllHeaderLines();
+            while (headerLines.hasMoreElements()) {
+                headerString += System.getProperty("line.separator");
+                headerString += headerLines.nextElement();
+            }
+            commEventMap.put("headerString", headerString);
+
             result = dispatcher.runSync("createCommunicationEvent", commEventMap);
             communicationEventId = (String)result.get("communicationEventId");
             
