@@ -47,7 +47,6 @@ under the License.
             <actions>
                 <set field="title" value="New Invoice"/>
                 <set field="titleProperty" value="PageTitleEditInvoice"/>
-                <entity-one entity-name="Invoice" value-name="invoice"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.mainDecoratorLocation}">

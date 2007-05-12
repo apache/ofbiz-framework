@@ -46,6 +46,7 @@ under the License.
             but are passed down to storeEmailAsCommunication during the SECA chain.  See sednMailInterface for more comments.</description>
         <implements service="sendMailInterface"/>
         <attribute name="body" type="String" mode="INOUT" optional="false"/>
+        <attribute name="bodyParts" type="java.util.List" mode="INOUT" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="INOUT" optional="true"/>
         <override name="contentType" mode="INOUT"/>
         <override name="subject" mode="INOUT" optional="false"/>
