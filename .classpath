@@ -73,8 +73,8 @@
 	<classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.10.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/avalon-framework-4.2.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/avalon-util-exception-1.0.0.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/ant-launcher.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/ant.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/ant-launcher-1.7.0.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/ant-1.7.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-net-1.4.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-servlet_2.4_spec-1.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-saaj_1.1_spec-1.0.jar"/>
