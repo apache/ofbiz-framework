@@ -2614,12 +2614,15 @@ public class ProductionRunServices {
             while (backordersIt.hasNext()) {
                 GenericValue genericResult = (GenericValue) backordersIt.next();
                 String productId = genericResult.getString("productId");
-                Timestamp requiredByDate = genericResult.getTimestamp("shipBeforeDate");
+                GenericValue orderItemShipGroup = delegator.findByPrimaryKey("OrderItemShipGroup", UtilMisc.toMap("orderId", genericResult.get("orderId"), 
+                                                                                                                  "shipGroupSeqId", genericResult.get("shipGroupSeqId")));
+                Timestamp requiredByDate = orderItemShipGroup.getTimestamp("shipByDate");
+
                 Double quantityNotAvailable = genericResult.getDouble("quantityNotAvailable");
                 double quantityNotAvailableRem = quantityNotAvailable.doubleValue();
                 if (requiredByDate == null) {
-                    // TODO: what happens if requiredByDate is null?
-                    continue;
+                    // If shipByDate is not set, 'now' is assumed.
+                    requiredByDate = now;
                 }
                 if (!products.containsKey(productId)) {
                     continue;
