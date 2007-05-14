@@ -35,7 +35,7 @@ under the License.
         <#assign carrier = (shipGroup.carrierPartyId)?default("N/A")>
         <fo:page-sequence master-reference="main">
         <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
-
+            <#if packages?has_content>
             <#list packages as package>
 
             <fo:block>
@@ -179,6 +179,11 @@ under the License.
 
             <#if package_has_next><fo:block break-before="page"/></#if>
             </#list> <#-- packages -->
+            <#else>
+                <fo:block font-size="14pt">
+                    ${uiLabelMap.ProductErrorNoPackagesFoundForShipment}
+                </fo:block>
+            </#if>
 
         </fo:flow>
         </fo:page-sequence>
