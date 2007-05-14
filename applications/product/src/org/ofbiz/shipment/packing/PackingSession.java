@@ -141,18 +141,23 @@ public class PackingSession implements java.io.Serializable {
             while (i.hasNext() && qtyRemain > 0) {
                 GenericValue res = (GenericValue) i.next();
                 double resQty = res.getDouble("quantity").doubleValue();
+                PackingSessionLine line = this.findLine(orderId, orderItemSeqId, shipGroupSeqId, res.getString("inventoryItemId"), packageSeqId);
+                if (UtilValidate.isNotEmpty(line) && !update) {
+                    resQty -= line.getQuantity();
+                }
+                
                 double thisQty = resQty > qtyRemain ? qtyRemain : resQty;
 
                 int thisCheck = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, thisQty, packageSeqId, update);
                 switch (thisCheck) {
                     case 2:
                         Debug.log("Packing check returned '2' - new pack line will be created!", module);
-                        toCreateMap.put(res, new Double(resQty));
-                        qtyRemain -= resQty;
+                        toCreateMap.put(res, new Double(thisQty));
+                        qtyRemain -= thisQty;
                         break;
                     case 1:
                         Debug.log("Packing check returned '1' - existing pack line has been updated!", module);
-                        qtyRemain -= resQty;
+                        qtyRemain -= thisQty;
                         break;
                     case 0:
                         Debug.log("Packing check returned '0' - doing nothing.", module);
@@ -277,18 +282,16 @@ public class PackingSession implements java.io.Serializable {
         Debug.log("Packed quantity [" + packedQty + "] + [" + quantity + "]", module);
 
         if (line == null) {
-            double checkQty = packedQty + quantity;
-            Debug.log("No current line found testing [" + invItemId + "] R: " + resQty + " / Q: " + checkQty, module);
-            if (resQty < checkQty) {
+            Debug.log("No current line found testing [" + invItemId + "] R: " + resQty + " / Q: " + quantity, module);
+            if (resQty < quantity) {
                 return 0;
             } else {
                 return 2;
             }
         } else {
-            double checkQty = update ? ((packedQty - line.getQuantity()) + quantity) : packedQty + quantity;
-            double newQty = update ? quantity : (line.getQuantity() + quantity);            
+            double newQty = update ? quantity : (line.getQuantity() + quantity);
             Debug.log("Existing line found testing [" + invItemId + "] R: " + resQty + " / Q: " + newQty, module);
-            if (resQty < checkQty) {
+            if (resQty < newQty) {
                 return 0;
             } else {
                 line.setQuantity(newQty);
