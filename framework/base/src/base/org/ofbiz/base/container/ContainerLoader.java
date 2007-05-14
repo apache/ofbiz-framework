@@ -93,7 +93,9 @@ public class ContainerLoader implements StartupLoader {
      */
     public void unload() throws StartupException {
         Debug.logInfo("Shutting down containers", module);
-        printThreadDump();
+        if (Debug.verboseOn())
+            printThreadDump();
+        
         // shutting down in reverse order
         for (int i = loadedContainers.size(); i > 0; i--) {
             Container container = (Container) loadedContainers.get(i-1);
@@ -128,7 +130,7 @@ public class ContainerLoader implements StartupLoader {
                 }
             }
         }
-        Debug.logInfo(writer.toString(), module);
+        Debug.log(writer.toString(), module);
     }
 
     private Container loadContainer(ContainerConfig.Container containerCfg, String[] args) throws StartupException {
