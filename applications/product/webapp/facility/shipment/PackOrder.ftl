@@ -73,6 +73,30 @@ under the License.
         </tr>
       </table>
     </form>
+    <br/>
+
+    <!-- select picklist bin form -->
+    <form name="selectPicklistBinForm" method="post" action="<@ofbizUrl>PackOrder</@ofbizUrl>" style="margin: 0;">
+      <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
+      <table border='0' cellpadding='2' cellspacing='0'>
+        <tr>
+          <td width="25%" align='right'><div class="tabletext">Picklist Bin #</div></td>
+          <td width="1">&nbsp;</td>
+          <td width="25%">
+            <input type="text" class="inputBox" name="picklistBinId" size="29" maxlength="60" value="${picklistBinId?if_exists}"/>            
+          </td>
+          <td><div class="tabletext">${uiLabelMap.ProductHideGrid}:&nbsp;<input type="checkbox" name="hideGrid" value="Y" <#if (hideGrid == "Y")>checked=""</#if>></div></td>
+          <td><div class='tabletext'>&nbsp;</div></td>
+        </tr>
+        <tr>
+          <td colspan="2">&nbsp;</td>
+          <td colspan="1">
+            <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onClick="javascript:document.selectPicklistBinForm.submit();">
+            <a href="javascript:document.selectPicklistBinForm.submit();" class="buttontext">${uiLabelMap.ProductPackOrder}</a>
+          </td>
+        </tr>
+      </table>
+    </form>
 
     <form name="clearPackForm" method="post" action="<@ofbizUrl>ClearPackAll</@ofbizUrl>" style='margin: 0;'>
       <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
@@ -85,7 +109,7 @@ under the License.
       <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
     </form>
 
-    <#if showInput != "N" && orderHeader?exists && orderHeader?has_content>
+    <#if showInput != "N" && ((orderHeader?exists && orderHeader?has_content) || picklistItemInfos?has_content)>
       <hr class="sepbar"/>
       <div class='head2'>${uiLabelMap.ProductOrderId} #<a href="/ordermgr/control/orderview?orderId=${orderId}" class="buttontext">${orderId}</a> / ${uiLabelMap.ProductOrderShipGroupId} #${shipGroupSeqId}</div>
       <div>&nbsp;</div>
@@ -213,41 +237,80 @@ under the License.
               </td>
             </tr>
 
-            <#list itemInfos as orderItem>
-              <#assign shippedQuantity = orderReadHelper.getItemShippedQuantityBd(orderItem)?if_exists>
-              <#if orderItem.cancelQuantity?exists>
-                <#assign orderItemQuantity = orderItem.quantity - orderItem.cancelQuantity>
-              <#else>
-                <#assign orderItemQuantity = orderItem.quantity>
-              </#if>
-              <#assign inputQty = (orderItemQuantity - shippedQuantity - packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId))>
-              <tr>
-                <td><input type="checkbox" name="sel_${orderItem.orderItemSeqId}" value="Y" <#if (inputQty >0)>checked=""</#if>/></td>
-                <td><div class="tabletext">${orderItem.orderItemSeqId}</td>
-                <td><div class="tabletext">${orderItem.productId?default("N/A")}</td>
-                <td><div class="tabletext">${orderItem.itemDescription?if_exists}</td>
-                <td align="right"><div class="tabletext">${orderItemQuantity}</td>
-                <td align="right"><div class="tabletext">${shippedQuantity?default(0)}</td>
-                <td align="right"><div class="tabletext">${packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId)}</td>
-                <td>&nbsp;&nbsp;</td>
-                <td align="center">
-                  <input type="text" class="inputBox" size="7" name="qty_${orderItem.orderItemSeqId}" value="${inputQty}">
-                </td>
-                <#--td align="center">
-                  <input type="text" class="inputBox" size="7" name="wgt_${orderItem.orderItemSeqId}" value="">
-                </td-->
-                <td align="center">
-                  <select name="pkg_${orderItem.orderItemSeqId}">
-                    <option value="1">${uiLabelMap.ProductPackage} 1</option>
-                    <option value="2">${uiLabelMap.ProductPackage} 2</option>
-                    <option value="3">${uiLabelMap.ProductPackage} 3</option>
-                    <option value="4">${uiLabelMap.ProductPackage} 4</option>
-                    <option value="5">${uiLabelMap.ProductPackage} 5</option>
-                  </select>
-                </td>
-                <input type="hidden" name="prd_${orderItem.orderItemSeqId}" value="${orderItem.productId?if_exists}">
-              </tr>
-            </#list>
+            <#if (picklistItemInfos?has_content)>
+              <#list picklistItemInfos as pickItem>
+                <#assign orderItem = pickItem.getRelatedOne("OrderItem")/>
+                <#assign shippedQuantity = orderReadHelper.getItemShippedQuantityBd(orderItem)?if_exists>
+                <#if orderItem.cancelQuantity?exists>
+                  <#assign orderItemQuantity = orderItem.quantity - orderItem.cancelQuantity>
+                <#else>
+                  <#assign orderItemQuantity = orderItem.quantity>
+                </#if>
+                <#assign inputQty = (orderItemQuantity - shippedQuantity - packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId))>
+                <tr>
+                  <td><input type="checkbox" name="sel_${orderItem.orderItemSeqId}" value="Y" <#if (inputQty >0)>checked=""</#if>/></td>
+                  <td><div class="tabletext">${orderItem.orderItemSeqId}</td>
+                  <td><div class="tabletext">${orderItem.productId?default("N/A")}</td>
+                  <td><div class="tabletext">${orderItem.itemDescription?if_exists}</td>
+                  <td align="right"><div class="tabletext">${orderItemQuantity}</td>
+                  <td align="right"><div class="tabletext">${shippedQuantity?default(0)}</td>
+                  <td align="right"><div class="tabletext">${packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId)}</td>
+                  <td>&nbsp;&nbsp;</td>
+                  <td align="center">
+                    <input type="text" class="inputBox" size="7" name="qty_${orderItem.orderItemSeqId}" value="${inputQty}">
+                  </td>
+                  <#--td align="center">
+                    <input type="text" class="inputBox" size="7" name="wgt_${orderItem.orderItemSeqId}" value="">
+                  </td-->
+                  <td align="center">
+                    <select name="pkg_${orderItem.orderItemSeqId}">
+                      <option value="1">${uiLabelMap.ProductPackage} 1</option>
+                      <option value="2">${uiLabelMap.ProductPackage} 2</option>
+                      <option value="3">${uiLabelMap.ProductPackage} 3</option>
+                      <option value="4">${uiLabelMap.ProductPackage} 4</option>
+                      <option value="5">${uiLabelMap.ProductPackage} 5</option>
+                    </select>
+                  </td>
+                  <input type="hidden" name="prd_${orderItem.orderItemSeqId}" value="${orderItem.productId?if_exists}">
+                </tr>              
+              </#list>
+            <#else>
+              <#list itemInfos as orderItem>
+                <#assign shippedQuantity = orderReadHelper.getItemShippedQuantityBd(orderItem)?if_exists>
+                <#if orderItem.cancelQuantity?exists>
+                  <#assign orderItemQuantity = orderItem.quantity - orderItem.cancelQuantity>
+                <#else>
+                  <#assign orderItemQuantity = orderItem.quantity>
+                </#if>
+                <#assign inputQty = (orderItemQuantity - shippedQuantity - packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId))>
+                <tr>
+                  <td><input type="checkbox" name="sel_${orderItem.orderItemSeqId}" value="Y" <#if (inputQty >0)>checked=""</#if>/></td>
+                  <td><div class="tabletext">${orderItem.orderItemSeqId}</td>
+                  <td><div class="tabletext">${orderItem.productId?default("N/A")}</td>
+                  <td><div class="tabletext">${orderItem.itemDescription?if_exists}</td>
+                  <td align="right"><div class="tabletext">${orderItemQuantity}</td>
+                  <td align="right"><div class="tabletext">${shippedQuantity?default(0)}</td>
+                  <td align="right"><div class="tabletext">${packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId)}</td>
+                  <td>&nbsp;&nbsp;</td>
+                  <td align="center">
+                    <input type="text" class="inputBox" size="7" name="qty_${orderItem.orderItemSeqId}" value="${inputQty}">
+                  </td>
+                  <#--td align="center">
+                    <input type="text" class="inputBox" size="7" name="wgt_${orderItem.orderItemSeqId}" value="">
+                  </td-->
+                  <td align="center">
+                    <select name="pkg_${orderItem.orderItemSeqId}">
+                      <option value="1">${uiLabelMap.ProductPackage} 1</option>
+                      <option value="2">${uiLabelMap.ProductPackage} 2</option>
+                      <option value="3">${uiLabelMap.ProductPackage} 3</option>
+                      <option value="4">${uiLabelMap.ProductPackage} 4</option>
+                      <option value="5">${uiLabelMap.ProductPackage} 5</option>
+                    </select>
+                  </td>
+                  <input type="hidden" name="prd_${orderItem.orderItemSeqId}" value="${orderItem.productId?if_exists}">
+                </tr>
+              </#list>
+            </#if>
             <tr><td colspan="10">&nbsp;</td></tr>
             <tr>
               <td colspan="10" align="right">
