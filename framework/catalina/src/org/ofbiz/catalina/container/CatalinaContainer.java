@@ -595,7 +595,8 @@ public class CatalinaContainer implements Container {
                 if (!loadedMounts.contains(mount)) {
                     createContext(appInfo);
                     loadedMounts.add(mount);
-                } else {
+                } else {                    
+                    appInfo.appBarDisplay = false; // disable app bar display on overrided apps
                     Debug.logInfo("Duplicate webapp mount; not loading : " + appInfo.getName() + " / " + appInfo.getLocation(), module);
                 }
             }
