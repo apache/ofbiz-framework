@@ -21,7 +21,6 @@ package org.ofbiz.catalina.container;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -66,6 +65,7 @@ import org.apache.coyote.http11.Http11Protocol;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
+import javolution.util.FastList;
 
 /*
  * --- Access Log Pattern Information - From Tomcat 5 AccessLogValve.java
@@ -586,19 +586,20 @@ public class CatalinaContainer implements Container {
         }
 
         // load the applications
-        Collection componentConfigs = ComponentConfig.getAllComponents();
-        if (componentConfigs != null) {
-            Iterator components = componentConfigs.iterator();
-            while (components.hasNext()) {
-                ComponentConfig component = (ComponentConfig) components.next();
-                Iterator appInfos = component.getWebappInfos().iterator();
-                while (appInfos.hasNext()) {
-                    ComponentConfig.WebappInfo appInfo = (ComponentConfig.WebappInfo) appInfos.next();
+        List webResourceInfos = ComponentConfig.getAllWebappResourceInfos();
+        List loadedMounts = FastList.newInstance();
+        if (webResourceInfos != null) {
+            for (int i = webResourceInfos.size(); i > 0; i--) {
+                ComponentConfig.WebappInfo appInfo = (ComponentConfig.WebappInfo) webResourceInfos.get(i - 1);
+                String mount = appInfo.getContextRoot();
+                if (!loadedMounts.contains(mount)) {
                     createContext(appInfo);
+                    loadedMounts.add(mount);
+                } else {
+                    Debug.logInfo("Duplicate webapp mount; not loading : " + appInfo.getName() + " / " + appInfo.getLocation(), module);
                 }
             }
-        }
-
+        }        
     }
 
     public void stop() throws ContainerException {
