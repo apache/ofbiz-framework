@@ -61,7 +61,7 @@ public class FinAccountProductServices {
         try {
             orderHeader = orderItem.getRelatedOne("OrderHeader");
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Unable to get OrderHeader from OrderItem",module);
+            Debug.logError(e, "Unable to get OrderHeader from OrderItem", module);
             return ServiceUtil.returnError("Unable to get OrderHeader from OrderItem");
         }
 
@@ -116,7 +116,9 @@ public class FinAccountProductServices {
             productStoreId = orh.getProductStoreId();
         }
         if (productStoreId == null) {
-            return ServiceUtil.returnError("Unable to create financial account; no productStoreId on OrderHeader : " + orderId);
+            String errMsg = "Unable to create financial accout; no productStoreId on OrderHeader : " + orderId;
+            Debug.logFatal(errMsg, module);
+            return ServiceUtil.returnError(errMsg);
         }
 
         // party ID (owner)
@@ -204,6 +206,7 @@ public class FinAccountProductServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         if (ServiceUtil.isError(createResp)) {
+            Debug.logFatal(ServiceUtil.getErrorMessage(createResp), module);
             return createResp;
         } else {
             finAccountId = (String) createResp.get("finAccountId");
@@ -224,6 +227,7 @@ public class FinAccountProductServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         if (ServiceUtil.isError(roleResp)) {
+            Debug.logFatal(ServiceUtil.getErrorMessage(roleResp), module);
             return roleResp;
         }
 
@@ -246,6 +250,7 @@ public class FinAccountProductServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         if (ServiceUtil.isError(depositResp)) {
+            Debug.logFatal(ServiceUtil.getErrorMessage(depositResp), module);
             return depositResp;
         }
 
