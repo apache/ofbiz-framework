@@ -50,6 +50,11 @@ under the License.
     <eca entity="InventoryItem" operation="create" event="return">
         <action service="createInventoryItemCheckSetAtpQoh" mode="sync"/>
     </eca>
+    <!-- Create the initial status record -->
+    <eca entity="InventoryItem" operation="create" event="return">
+        <condition field-name="statusId" operator="is-not-empty"/>
+        <action service="createInventoryItemStatus" mode="sync"/>
+    </eca>
     <!-- The InventoryItemDetail entity should never be updated/stored or deleted/removed, but we'll catch those too anyway... -->
     <eca entity="InventoryItemDetail" operation="create-store-remove" event="return">
         <action service="updateInventoryItemFromDetail" mode="sync"/>

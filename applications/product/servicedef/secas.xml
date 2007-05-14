@@ -20,7 +20,24 @@ under the License.
 
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/service-eca.xsd">
-    <!-- Inventory Transfer ECAs -->
+    <!-- update inventory item -->    
+    <eca service="updateInventoryItem" event="commit">
+        <condition field-name="statusId" operator="is-not-empty"/>
+        <condition-field field-name="oldStatusId" operator="not-equals" to-field-name="statusId"/>
+        <action service="createInventoryItemStatus" mode="sync"/>
+    </eca>
+    <eca service="updateInventoryItem" event="commit">
+        <condition field-name="productId" operator="is-not-empty"/>
+        <condition-field field-name="oldProductId" operator="not-equals" to-field-name="productId"/>
+        <action service="createInventoryItemStatus" mode="sync"/>
+    </eca>
+    <eca service="updateInventoryItem" event="commit">
+        <condition field-name="ownerPartyId" operator="is-not-empty"/>
+        <condition-field field-name="oldOwnerPartyId" operator="not-equals" to-field-name="ownerPartyId"/>
+        <action service="createInventoryItemStatus" mode="sync"/>
+    </eca>
+
+    <!-- inventory transfer -->
     <eca service="createInventoryTransfer" event="invoke">
         <condition field-name="statusId" operator="not-equals" value="IXF_CANCELLED"/>
         <action service="prepareInventoryTransfer" mode="sync"/>

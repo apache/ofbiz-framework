@@ -254,7 +254,7 @@ under the License.
             <if-compare value="INV_AVAILABLE" operator="equals" field-name="inventoryItem.statusId">
                 <!-- change status on inventoryItem -->
                 <set field="inventoryItem.statusId" value="INV_DELIVERED"/>
-                <store-value value-name="inventoryItem"/>
+                <call-service service-name="updateInventoryItem" in-map-name="updateContext"/>
 
                 <!-- create ItemIssuance record -->
                 <set field="issuanceCreateMap.workEffortId" from-field="parameters.workEffortId"/>

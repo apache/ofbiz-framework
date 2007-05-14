@@ -55,8 +55,18 @@ under the License.
             <exclude field-name="quantityOnHandTotal"/>
         </auto-attributes>
         <attribute name="oldOwnerPartyId" mode="OUT" optional="false" type="String"/>
+        <attribute name="oldProductId" mode="OUT" optional="true" type="String"/>
         <attribute name="oldStatusId" mode="OUT" optional="true" type="String"/>
     </service>
+
+    <service name="createInventoryItemStatus" engine="simple" default-entity-name="InventoryItemStatus"
+            location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemStatus">
+        <description>Create an inventory item status record</description>
+        <auto-attributes mode="IN" include="all" optional="true"/>
+        <override name="inventoryItemId" optional="false"/>
+        <override name="statusId" optional="false"/>
+    </service>
+
     <service name="checkProductInventoryDiscontinuation" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="checkProductInventoryDiscontinuation" auth="false">
         <description>Check Product Inventory Discontinuation</description>
