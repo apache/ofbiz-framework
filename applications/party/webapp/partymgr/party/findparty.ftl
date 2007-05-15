@@ -18,6 +18,9 @@ under the License.
 -->
 
 <#assign extInfo = parameters.extInfo?default("N")>
+<#assign inventoryItemId = parameters.inventoryItemId?default("")>
+<#assign serialNumber = parameters.serialNumber?default("")>
+<#assign softIdentifier = parameters.softIdentifier?default("")>
 
 <div id="findPartyParameters" class="screenlet">
   <div class="screenlet-title-bar">
@@ -86,6 +89,18 @@ under the License.
                 </#list>
               </select>
             </td>
+          </tr>
+          <tr>
+            <td class="label">${uiLabelMap.ProductInventoryItemId} :</td>
+            <td><input type="text" name="inventoryItemId" value="${parameters.inventoryItemId?if_exists}"/></td>
+          </tr>
+          <tr>
+            <td class="label">${uiLabelMap.ProductSerialNumber} :</td>
+            <td><input type="text" name="serialNumber" value="${parameters.serialNumber?if_exists}"/></td>
+          </tr>
+          <tr>
+            <td class="label">${uiLabelMap.ProductSoftIdentifier} :</td>
+            <td><input type="text" name="softIdentifier" value="${parameters.softIdentifier?if_exists}"/></td>
           </tr>
           <#if extInfo == "P">
             <tr><td colspan="3"><hr/></td></tr>
@@ -199,6 +214,15 @@ under the License.
           <#if extInfo?default("") == "T">
             <td>${uiLabelMap.PartyAreaCode}</td>
           </#if>
+          <#if inventoryItemId?default("") != "">
+            <td>${uiLabelMap.ProductInventoryItemId}</td>
+          </#if>
+          <#if serialNumber?default("") != "">
+            <td>${uiLabelMap.ProductSerialNumber}</td>
+          </#if>
+          <#if softIdentifier?default("") != "">
+            <td>${uiLabelMap.ProductSoftIdentifier}</td>
+          </#if>
           <td>${uiLabelMap.PartyType}</td>
           <td>&nbsp;</td>
         </tr>
@@ -246,6 +270,15 @@ under the License.
             </#if>
             <#if extInfo?default("") == "P">
               <td>${partyRow.postalCode?if_exists}</td>
+            </#if>
+            <#if inventoryItemId?default("") != "">
+              <td>${partyRow.inventoryItemId?if_exists}</td>
+            </#if>
+            <#if serialNumber?default("") != "">
+              <td>${partyRow.serialNumber?if_exists}</td>
+            </#if>
+            <#if softIdentifier?default("") != "">
+              <td>${partyRow.softIdentifier?if_exists}</td>
             </#if>
             <td><#if partyType.description?exists>${partyType.get("description", locale)}<#else>???</#if></td>
           <td class="button-col align-float">
