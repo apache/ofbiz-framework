@@ -1,0 +1,346 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+  -->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+
+    <screen name="Party">
+        <section>
+            <actions>
+                <entity-and entity-name="PartyNameHistory" list-name="partyNameHistoryList">
+                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                    <order-by field-name="-changeDate"/>
+                </entity-and>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getPartyInfo.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://party/webapp/partymgr/party/profileblocks/Party.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="Contact">
+        <section>
+            <actions>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getContactMechs.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://party/webapp/partymgr/party/profileblocks/Contact.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="PaymentMethods">
+        <section>
+            <actions>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getPaymentMethods.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://party/webapp/partymgr/party/profileblocks/PaymentMethods.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="Attributes">
+        <section>
+            <actions>
+                <entity-and entity-name="PartyAttribute" list-name="attributes">
+                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://party/webapp/partymgr/party/profileblocks/Attributes.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="AvsSettings">
+        <section>
+            <actions>
+                <entity-and entity-name="PartyIcsAvsOverride" list-name="avsOverride">
+                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://party/webapp/partymgr/party/profileblocks/AvsSettings.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="Cart">
+        <section>
+            <actions>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getCurrentCart.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://party/webapp/partymgr/party/profileblocks/Cart.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="LoyaltyPoints">
+        <section>
+            <actions>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getLoyaltyPoints.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://party/webapp/partymgr/party/profileblocks/LoyaltyPoints.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="UserLogin">
+        <section>
+            <actions>
+                <entity-and entity-name="UserLogin" list-name="userLogins">
+                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://party/webapp/partymgr/party/profileblocks/UserLogin.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="Visits">
+        <section>
+            <actions>
+                <entity-and entity-name="Visit" list-name="visits">
+                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                    <order-by field-name="-fromDate"/>
+                    <limit-range start="0" size="5"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://party/webapp/partymgr/party/profileblocks/Visits.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="FinAccounts">
+        <section>
+            <actions>
+                <entity-condition entity-name="FinAccount" list-name="ownedFinAccountList" filter-by-date="true">
+                    <condition-expr field-name="ownerPartyId" operator="equals" env-name="parameters.partyId"/>
+                    <order-by field-name="-fromDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <and>
+                            <not><if-empty field-name="ownedFinAccountList"/></not>
+                            <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                        </and>
+                    </condition>
+                    <widgets>
+                        <container id="fin-account-summary" style="screenlet">
+                            <container style="screenlet-header">
+                                <label style="boxhead" text="${uiLabelMap.PageTitleFinancialAccountSummary}"/>
+                            </container>
+                            <container style="screenlet-body">
+                                <iterate-section entry-name="ownedFinAccount" list-name="ownedFinAccountList">
+                                    <section>
+                                        <actions>
+                                            <entity-condition entity-name="FinAccountTrans" list-name="ownedFinAccountTransList">
+                                                <condition-expr field-name="finAccountId" env-name="ownedFinAccount.finAccountId"/>
+                                                <order-by field-name="-transactionDate"/>
+                                                <limit-range start="0" size="5"/>
+                                            </entity-condition>
+                                            <entity-condition entity-name="FinAccountAuth" list-name="ownedFinAccountAuthList" filter-by-date="true">
+                                                <condition-expr field-name="finAccountId" env-name="ownedFinAccount.finAccountId"/>
+                                                <order-by field-name="-authorizationDate"/>
+                                                <limit-range start="0" size="5"/>
+                                            </entity-condition>
+                                            <entity-one entity-name="Uom" value-name="accountCurrencyUom" auto-field-map="false" use-cache="true">
+                                                <field-map field-name="uomId" env-name="ownedFinAccount.currencyUomId"/>
+                                            </entity-one>
+                                            <entity-one entity-name="FinAccountType" value-name="ownedFinAccountType" auto-field-map="false" use-cache="true">
+                                                <field-map field-name="finAccountTypeId" env-name="ownedFinAccount.finAccountTypeId"/>
+                                            </entity-one>
+                                        </actions>
+                                        <widgets>
+                                            <platform-specific>
+                                                <html>
+                                                    <html-template location="component://party/webapp/partymgr/party/profileblocks/FinAccounts.ftl"/>
+                                                </html>
+                                            </platform-specific>
+                                        </widgets>
+                                    </section>
+                                </iterate-section>
+                                <container id="apply-service-credit">
+                                    <label style="head2" text="${uiLabelMap.AccountingApplyServiceCredit}"/>
+                                    <include-form name="ApplyServiceCredit" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                </container>
+                            </container>
+                        </container>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="SerializedInventory">
+        <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <entity-condition entity-name="InventoryItem" list-name="inventoryItemList">
+                    <condition-list>
+                        <condition-expr field-name="inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM"/>
+                        <condition-expr field-name="ownerPartyId" operator="equals" env-name="parameters.partyId"/>
+                    </condition-list>
+                    <order-by field-name="-createdStamp"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not>
+                            <if-empty field-name="inventoryItemList"/>
+                        </not>
+                    </condition>
+                    <widgets>
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://party/webapp/partymgr/party/profileblocks/SerializedInventory.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="Subscriptions">
+        <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <entity-condition entity-name="Subscription" list-name="subscriptionList" filter-by-date="true">
+                    <condition-list>
+                        <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId"/>
+                    </condition-list>
+                    <order-by field-name="-fromDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not>
+                            <if-empty field-name="subscriptionList"/>
+                        </not>
+                    </condition>
+                    <widgets>
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://party/webapp/partymgr/party/profileblocks/Subscriptions.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="Content">
+        <section>
+            <actions>
+                <entity-and entity-name="PartyContent" list-name="partyContent">
+                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                </entity-and>
+                <entity-and entity-name="Enumeration" list-name="contentPurposes">
+                    <field-map field-name="enumTypeId" value="PTYCNT_PRP"/>
+                    <order-by field-name="sequenceId"/>
+                </entity-and>
+                <entity-condition entity-name="MimeType" list-name="mimeTypes">
+                    <order-by field-name="description"/>
+                    <order-by field-name="mimeTypeId"/>
+                </entity-condition>
+                <entity-condition entity-name="RoleType" list-name="roles">
+                    <order-by field-name="description"/>
+                    <order-by field-name="roleTypeId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://party/webapp/partymgr/party/profileblocks/Content.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="Notes">
+        <section>
+            <actions>
+                <entity-and entity-name="PartyNoteView" list-name="notes">
+                    <field-map field-name="targetPartyId" env-name="parameters.partyId"/>
+                    <order-by field-name="-noteDateTime"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://party/webapp/partymgr/party/profileblocks/Notes.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+</screens>
