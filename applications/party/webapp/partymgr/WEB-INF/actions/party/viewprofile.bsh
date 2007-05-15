@@ -68,6 +68,9 @@ if (custRole != null) {
 roles = delegator.findAll("RoleType", UtilMisc.toList("description", "roleTypeId"));
 context.put("roles", roles);
 
+mimeTypes = delegator.findAll("MimeType", UtilMisc.toList("description", "mimeTypeId"));
+context.put("mimeTypes", mimeTypes);
+
 relateTypes = delegator.findAll("PartyRelationshipType", UtilMisc.toList("description", "partyRelationshipTypeId"));
 context.put("relateTypes", relateTypes);
 
