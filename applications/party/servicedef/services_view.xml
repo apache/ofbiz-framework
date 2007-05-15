@@ -48,6 +48,9 @@ under the License.
         <attribute name="countryCode" type="String" mode="IN" optional="true"/>
         <attribute name="areaCode" type="String" mode="IN" optional="true"/>
         <attribute name="contactNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/> <!-- does a LIKE compare on this -->
+        <attribute name="serialNumber" type="String" mode="IN" optional="true"/> <!-- does a LIKE compare on this -->
+        <attribute name="softIdentifier" type="String" mode="IN" optional="true"/> <!-- does a LIKE compare on this -->
         
         <attribute name="roleTypes" type="List" mode="OUT" optional="false"/>
         <attribute name="currentRole" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>

@@ -1158,6 +1158,45 @@ public class PartyServices {
                 }
 
                 // ----
+                // InventoryItem Fields
+                // ----
+
+                // filter on inventory item's fields
+                String inventoryItemId = (String) context.get("inventoryItemId");
+                String serialNumber = (String) context.get("serialNumber");
+                String softIdentifier = (String) context.get("softIdentifier");
+                if (UtilValidate.isNotEmpty(inventoryItemId) ||
+                    UtilValidate.isNotEmpty(serialNumber) ||
+                    UtilValidate.isNotEmpty(softIdentifier)) {
+                    
+                    // add role to view
+                    dynamicView.addMemberEntity("II", "InventoryItem");
+                    dynamicView.addAlias("II", "ownerPartyId");
+                    dynamicView.addViewLink("PT", "II", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId", "ownerPartyId"));
+                }
+                if (UtilValidate.isNotEmpty(inventoryItemId)) {
+                    paramList = paramList + "&inventoryItemId=" + inventoryItemId;
+                    dynamicView.addAlias("II", "inventoryItemId");
+                    // add the expr
+                    andExprs.add(new EntityExpr("inventoryItemId", true, EntityOperator.LIKE, "%" + inventoryItemId + "%", true));
+                    fieldsToSelect.add("inventoryItemId");
+                }
+                if (UtilValidate.isNotEmpty(serialNumber)) {
+                    paramList = paramList + "&serialNumber=" + serialNumber;
+                    dynamicView.addAlias("II", "serialNumber");
+                    // add the expr
+                    andExprs.add(new EntityExpr("serialNumber", true, EntityOperator.LIKE, "%" + serialNumber + "%", true));
+                    fieldsToSelect.add("serialNumber");
+                }
+                if (UtilValidate.isNotEmpty(softIdentifier)) {
+                    paramList = paramList + "&softIdentifier=" + softIdentifier;
+                    dynamicView.addAlias("II", "softIdentifier");
+                    // add the expr
+                    andExprs.add(new EntityExpr("softIdentifier", true, EntityOperator.LIKE, "%" + softIdentifier + "%", true));
+                    fieldsToSelect.add("softIdentifier");
+                }
+
+                // ----
                 // PostalAddress fields
                 // ----
                 if ("P".equals(extInfo)) {
