@@ -117,7 +117,7 @@ under the License.
     
     <EnumerationType description="Party Content Purpose" enumTypeId="PTYCNT_PRP" hasTable="N" parentTypeId=""/>
     <Enumeration description="Internal Content" enumCode="INTERNAL" enumId="PCPRP_INTERNAL" sequenceId="01" enumTypeId="PTYCNT_PRP"/>
-    <Enumeration description="User Definied Content" enumCode="USERDEF" enumId="PCPRP_USERDEF" sequenceId="02" enumTypeId="PTYCNT_PRP"/>
+    <Enumeration description="User Defined Content" enumCode="USERDEF" enumId="PCPRP_USERDEF" sequenceId="02" enumTypeId="PTYCNT_PRP"/>
     <Enumeration description="Logo Image URL" enumCode="LGOIMGURL" enumId="PCPRP_LGOIMGURL" sequenceId="03" enumTypeId="PTYCNT_PRP"/>
 
     <EnumerationType description="Employment Status" enumTypeId="EMPLOY_STTS" hasTable="N" parentTypeId=""/>
