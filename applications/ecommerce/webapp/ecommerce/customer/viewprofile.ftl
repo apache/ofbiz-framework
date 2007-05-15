@@ -416,14 +416,14 @@ under the License.
               <#assign mimeType = content.getRelatedOneCache("MimeType")?if_exists>
               <#assign status = content.getRelatedOneCache("StatusItem")>
               <tr>
-                <td><a href="<@ofbizUrl>img/${content.contentName}?imgId=${content.dataResourceId}</@ofbizUrl>" class="buttontext">${content.contentId}</a>
+                <td><a href="<@ofbizUrl>img/${content.contentName?if_exists}?imgId=${content.dataResourceId}</@ofbizUrl>" class="buttontext">${content.contentId}</a>
                 <td><div class="tabletext">${content.contentName?if_exists}</div></td>
                 <td><div class="tabletext">${(contentType.get("description",locale))?if_exists}</div></td>
                 <td><div class="tabletext">${mimeType?if_exists.description?if_exists}</div></td>
                 <td><div class="tabletext">${(status.get("description",locale))?if_exists}</div></td>
                 <td><div class="tabletext">${contentRole.fromDate?if_exists}</div></td>
                 <td align="right">
-                  <a href="<@ofbizUrl>img/${content.contentName}?imgId=${content.dataResourceId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonView}</a>
+                  <a href="<@ofbizUrl>img/${content.contentName?if_exists}?imgId=${content.dataResourceId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonView}</a>
                   <a href="<@ofbizUrl>removePartyAsset?contentId=${contentRole.contentId}&partyId=${contentRole.partyId}&roleTypeId=${contentRole.roleTypeId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>
                 </td>
               </tr>
