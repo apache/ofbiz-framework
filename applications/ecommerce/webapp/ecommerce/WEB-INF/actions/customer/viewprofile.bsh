@@ -69,6 +69,12 @@ if (userLogin != null) {
     partyContent = EntityUtil.filterByDate(partyContent);
     context.put("partyContent", partyContent);
 
+    mimeTypes = delegator.findAll("MimeType", UtilMisc.toList("description", "mimeTypeId"));
+    context.put("mimeTypes", mimeTypes);
+
+    contentPurposes = delegator.findByAnd("Enumeration", UtilMisc.toMap("enumTypeId", "PTYCNT_PRP"), UtilMisc.toList("sequenceId"));
+    context.put("contentPurposes", contentPurposes);
+
     // call the getOrderedSummaryInformation service to get the sub-total of valid orders in last X months
     monthsToInclude = new Integer(12);
     Map serviceIn = UtilMisc.toMap("partyId", partyId, "roleTypeId", "PLACING_CUSTOMER", "orderTypeId", "SALES_ORDER", "statusId", "ORDER_COMPLETED", "monthsToInclude", monthsToInclude, "userLogin", userLogin);
@@ -79,12 +85,12 @@ if (userLogin != null) {
     
     contactListPartyList = delegator.findByAnd("ContactListParty", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-fromDate"));
     // show all, including history, ie don't filter: contactListPartyList = EntityUtil.filterByDate(contactListPartyList, true);
-	context.put("contactListPartyList", contactListPartyList);
-	
-	publicContactLists = delegator.findByAnd("ContactList", UtilMisc.toMap("isPublic", "Y"), UtilMisc.toList("contactListName"));
-	context.put("publicContactLists", publicContactLists);
-	
-	partyAndContactMechList = delegator.findByAnd("PartyAndContactMech", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-fromDate"));
-	partyAndContactMechList = EntityUtil.filterByDate(partyAndContactMechList, true);
-	context.put("partyAndContactMechList", partyAndContactMechList);
+    context.put("contactListPartyList", contactListPartyList);
+
+    publicContactLists = delegator.findByAnd("ContactList", UtilMisc.toMap("isPublic", "Y"), UtilMisc.toList("contactListName"));
+    context.put("publicContactLists", publicContactLists);
+
+    partyAndContactMechList = delegator.findByAnd("PartyAndContactMech", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-fromDate"));
+    partyAndContactMechList = EntityUtil.filterByDate(partyAndContactMechList, true);
+    context.put("partyAndContactMechList", partyAndContactMechList);
 }

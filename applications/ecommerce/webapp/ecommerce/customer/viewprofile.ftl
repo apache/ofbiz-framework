@@ -433,13 +433,27 @@ under the License.
           </#if>
         </table>
         <div>&nbsp;</div>
-        <div align="right" class="head3"><b><u>${uiLabelMap.EcommerceUploadNewFile}</u></b>
-          <div>&nbsp;</div>
-          <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>createPartyAsset</@ofbizUrl>" style="margin: 0;">
+        <div class="tableheadtext">${uiLabelMap.EcommerceUploadNewFile}</div>
+        <div>
+          <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>uploadPartyContent</@ofbizUrl>" style="margin: 0;">
+            <input type="hidden" name="partyId" value="${party.partyId}"/>
             <input type="hidden" name="dataCategoryId" value="PERSONAL"/>
             <input type="hidden" name="contentTypeId" value="DOCUMENT"/>
             <input type="hidden" name="statusId" value="CTNT_PUBLISHED"/>
+            <input type="hidden" name="roleTypeId" value="OWNER"/>
             <input type="file" name="uploadedFile" size="50" class="inputBox"/>
+            <select name="contentPurposeEnumId" class="selectBox">
+              <option value="">${uiLabelMap.PartySelectPurpose}</option>
+              <#list contentPurposes as contentPurpose>
+                <option value="${contentPurpose.enumId}">${contentPurpose.get("description", locale)?default(contentPurpose.enumId)}</option>          
+              </#list>
+            </select>
+            <select name="mimeTypeId" class="selectBox">
+              <option value="">${uiLabelMap.PartySelectMimeType}</option>
+              <#list mimeTypes as mimeType>
+                <option value="${mimeType.mimeTypeId}">${mimeType.get("description", locale)?default(mimeType.mimeTypeId)}</option>
+              </#list>
+            </select>
             <input type="submit" value="${uiLabelMap.CommonUpload}" class="smallSubmit"/>
           </form>
         </div>

@@ -1422,9 +1422,9 @@ under the License.
         <response name="success" type="view" value="searchContent"/>
     </request-map>
 
-    <request-map uri="createPartyAsset">
+    <request-map uri="uploadPartyContent">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createPartyContent"/>
+        <event type="service" invoke="uploadPartyContentFile"/>
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
