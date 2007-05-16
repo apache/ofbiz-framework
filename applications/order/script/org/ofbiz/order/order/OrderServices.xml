@@ -315,7 +315,8 @@ under the License.
         <if-compare field-name="requirementMethodId" operator="equals" value="PRODRQM_ATP">
             <!-- get the ATP, QOH quantities and the product facility's minimum stock -->
             <call-simple-method method-name="getProductFacilityAndQuantities"/>
-            
+
+            <if-not-empty field-name="productFacility">
             <!-- are we below minimum stock?  this service is supposed to be called after inventory is reserved, so inventory should have been updated already -->
             <if-compare-field field-name="availableToPromiseTotal" to-field-name="productFacility.minimumStock" operator="less" type="Double">
                 <!-- what is the right quantity?  It is the lesser of the actual quantity and the quantity required to bring us back up to minimum stock -->
@@ -338,6 +339,7 @@ under the License.
                 <set from-field="inventoryItem.facilityId" field="inputMap.facilityId"/>
                 <call-simple-method method-name="createRequirementAndCommitment"/>
             </if-compare-field>
+            </if-not-empty>
         </if-compare>
     </simple-method>
 
