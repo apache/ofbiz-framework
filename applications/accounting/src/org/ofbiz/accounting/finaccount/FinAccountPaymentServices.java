@@ -26,7 +26,6 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.*;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.finaccount.FinAccountHelper;
@@ -34,7 +33,6 @@ import org.ofbiz.accounting.payment.PaymentGatewayServices;
 import org.ofbiz.product.store.ProductStoreWorker;
 
 import java.util.Map;
-import java.util.List;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
@@ -108,10 +106,16 @@ public class FinAccountPaymentServices {
             // fin the store requires a pin number; validate the PIN with the code
             GenericValue finAccountSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting",
                     UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId));
+
+            BigDecimal minBalance = FinAccountHelper.ZERO;
             String allowAuthToNegative = "N";
 
             if (finAccountSettings != null) {
                 allowAuthToNegative = finAccountSettings.getString("allowAuthToNegative");
+                minBalance = finAccountSettings.getBigDecimal("minBalance");
+                if (minBalance == null) {
+                    minBalance = FinAccountHelper.ZERO;
+                }
 
                 // validate the PIN if the store requires it
                 if ("Y".equals(finAccountSettings.getString("requirePinCode"))) {
@@ -186,7 +190,7 @@ public class FinAccountPaymentServices {
 
             Debug.log("Allow auth to negative: " + allowAuthToNegative + " :: available: " + availableBalance + " comp: " + FinAccountHelper.ZERO + " = " + availableBalance.compareTo(FinAccountHelper.ZERO) + " :: req: " + amountBd, module);
             // check the available balance to see if we can auth this tx
-            if (("Y".equals(allowAuthToNegative) && availableBalance.compareTo(FinAccountHelper.ZERO) > -1)
+            if (("Y".equals(allowAuthToNegative) && availableBalance.compareTo(minBalance) > -1)
                     || (availableBalance.compareTo(amountBd) > -1)) {
                 Timestamp thruDate;
                 
