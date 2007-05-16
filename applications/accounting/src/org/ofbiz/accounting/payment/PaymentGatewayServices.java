@@ -1505,6 +1505,10 @@ public class PaymentGatewayServices {
 
         String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
         GenericValue response = delegator.makeValue("PaymentGatewayResponse", null);
+        String message = ServiceUtil.getErrorMessage(result);
+        if (message.length() > 255) {
+            message = message.substring(0, 255);
+        }
         response.set("paymentGatewayResponseId", responseId);
         response.set("paymentServiceTypeEnumId", serviceType);
         response.set("orderPaymentPreferenceId", paymentPref.get("orderPaymentPreferenceId"));
@@ -1512,7 +1516,7 @@ public class PaymentGatewayServices {
         response.set("paymentMethodId", paymentPref.get("paymentMethodId"));
         response.set("transCodeEnumId", transactionCode);
         response.set("referenceNum", "ERROR");
-        response.set("gatewayMessage", ServiceUtil.getErrorMessage(result));
+        response.set("gatewayMessage", message);
         response.set("transactionDate", UtilDateTime.nowTimestamp());
 
         try {
@@ -2513,6 +2517,10 @@ public class PaymentGatewayServices {
     public static Map savePaymentGatewayResponse(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue pgr = (GenericValue) context.get("paymentGatewayResponse");
+        String message = pgr.getString("gatewayMessage");
+        if (message.length() > 255) {
+            pgr.set("gatewayMessage", message.substring(0, 255));
+        }
 
         try {
             delegator.create(pgr);
