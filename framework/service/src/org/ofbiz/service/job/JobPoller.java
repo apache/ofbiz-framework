@@ -47,26 +47,28 @@ public class JobPoller implements Runnable {
      * Creates a new JobScheduler
      * @param jm JobManager associated with this scheduler
      */
-    public JobPoller(JobManager jm) {
+    public JobPoller(JobManager jm, boolean enabled) {
         this.jm = jm;
         this.run = new LinkedList();
 
         // create the thread pool
         this.pool = createThreadPool();
 
-        // re-load crashed jobs
-        this.jm.reloadCrashedJobs();
+        if (enabled) {
+            // re-load crashed jobs
+            this.jm.reloadCrashedJobs();
 
-        // start the thread only if polling is enabled
-        if (pollEnabled()) {
+            // start the thread only if polling is enabled
+            if (pollEnabled()) {
 
-            // create the poller thread
-            thread = new Thread(this, this.toString());
-            thread.setDaemon(false);
+                // create the poller thread
+                thread = new Thread(this, this.toString());
+                thread.setDaemon(false);
 
-            // start the poller
-            this.isRunning = true;
-            thread.start();
+                // start the poller
+                this.isRunning = true;
+                thread.start();
+            }
         }
     }
 

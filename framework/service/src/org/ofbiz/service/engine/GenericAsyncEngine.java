@@ -42,6 +42,7 @@ import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.service.job.GenericServiceJob;
 import org.ofbiz.service.job.Job;
 import org.ofbiz.service.job.JobManagerException;
+import org.ofbiz.service.job.JobManager;
 
 /**
  * Generic Asynchronous Engine
@@ -141,13 +142,18 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
                 Debug.logInfo("Persisted job queued : " + jobV.getString("jobName"), module);
             }
         } else {
-            String name = Long.toString(new Date().getTime());
-            String jobId = modelService.name + "." + name;
-            job = new GenericServiceJob(dctx, jobId, name, modelService.name, context, requester);
-            try {
-                dispatcher.getJobManager().runJob(job);
-            } catch (JobManagerException jse) {
-                throw new GenericServiceException("Cannot run job.", jse);
+            JobManager jMgr = dispatcher.getJobManager();
+            if (jMgr != null) {
+                String name = Long.toString(new Date().getTime());
+                String jobId = modelService.name + "." + name;
+                job = new GenericServiceJob(dctx, jobId, name, modelService.name, context, requester);
+                try {
+                    dispatcher.getJobManager().runJob(job);
+                } catch (JobManagerException jse) {
+                    throw new GenericServiceException("Cannot run job.", jse);
+                }
+            } else {
+                throw new GenericServiceException("Cannot get JobManager instance to invoke the job");
             }
         }
     }

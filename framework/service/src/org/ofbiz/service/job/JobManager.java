@@ -69,6 +69,10 @@ public class JobManager {
 
     /** Creates a new JobManager object. */
     public JobManager(GenericDelegator delegator) {
+        this(delegator, true);
+    }
+
+    public JobManager(GenericDelegator delegator, boolean enabled) {
         if (delegator == null) {
             throw new GeneralRuntimeException("ERROR: null delegator passed, cannot create JobManager");
         }
@@ -77,7 +81,7 @@ public class JobManager {
         }
 
         this.delegator = delegator;
-        jp = new JobPoller(this);
+        jp = new JobPoller(this, enabled);
         JobManager.registeredManagers.put(delegator.getDelegatorName(), this);
     }
 

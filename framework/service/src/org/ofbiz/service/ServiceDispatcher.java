@@ -94,15 +94,14 @@ public class ServiceDispatcher {
             }
         }
 
-        // make sure we haven't disabled these features from running
-        if (enableJM) {
-            try {
-                this.jm = new JobManager(this.delegator);
-            } catch (GeneralRuntimeException e) {
-                Debug.logWarning(e.getMessage(), module);
-            }
+        // job manager needs to always be running, but the poller thread does not              
+        try {
+            this.jm = new JobManager(this.delegator, enableJM);
+        } catch (GeneralRuntimeException e) {
+            Debug.logWarning(e.getMessage(), module);
         }
 
+        // make sure we haven't disabled these features from running
         if (enableJMS) {
             this.jlf = new JmsListenerFactory(this);
         }
