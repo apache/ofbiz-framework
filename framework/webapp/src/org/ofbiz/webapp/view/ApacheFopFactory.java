@@ -49,7 +49,7 @@ public class ApacheFopFactory {
             fopFactory.setUserConfig(userConfigFile);
             String ofbizHome = System.getProperty("ofbiz.home");
             String fopFontBaseUrl = UtilProperties.getPropertyValue("fop.properties", "fop.font.base.url",
-                                    "file://" + ofbizHome + "/framework/widget/config/");
+                                    "file:///" + ofbizHome + "/framework/widget/config/");
             Debug.log("FOP-FontBaseURL: " + fopFontBaseUrl, module);
             fopFactory.setFontBaseURL(fopFontBaseUrl);
         } catch (Exception e) {
