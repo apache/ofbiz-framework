@@ -1200,6 +1200,7 @@ public class PaymentGatewayServices {
                     if (ServiceUtil.isError(splitResp)) {
                         Debug.logWarning("Problem processing the capture split payment: " + ServiceUtil.getErrorMessage(splitResp), module);
                     }
+                    Debug.logInfo("Captured: " + amountThisCapture + " Remaining (re-auth): " + splitAmount, module);
                 }
             } else {
                 Debug.logError("Payment not captured", module);
