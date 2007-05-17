@@ -841,9 +841,6 @@ public class CheckOutHelper {
         double orderTotal = this.cart.getGrandTotal();
         String orderId = this.cart.getOrderId();
 
-        // Get the paymentMethodTypeIds - this will need to change when ecom supports multiple payments
-        List paymentMethodTypeIds = this.cart.getPaymentMethodTypeIds();
-
         // Check the payment preferences; if we have ANY w/ status PAYMENT_NOT_AUTH invoke payment service.
         boolean requireAuth = false;
         List allPaymentPreferences = null;
@@ -1014,43 +1011,47 @@ public class CheckOutHelper {
                     return ServiceUtil.returnError(ERROR_MESSAGE);
                 }
             }
-        } else if (paymentMethodTypeIds.contains("CASH") || paymentMethodTypeIds.contains("EXT_COD") || paymentMethodTypeIds.contains("EXT_BILLACT")) {
-            boolean hasOther = false;
-            // TODO: this is set but not checked anywhere
-            boolean validAmount = false;
+        } else {
+            // Get the paymentMethodTypeIds - this will need to change when ecom supports multiple payments
+            List paymentMethodTypeIds = this.cart.getPaymentMethodTypeIds();
+            if (paymentMethodTypeIds.contains("CASH") || paymentMethodTypeIds.contains("EXT_COD") || paymentMethodTypeIds.contains("EXT_BILLACT")) {
+                boolean hasOther = false;
+                // TODO: this is set but not checked anywhere
+                boolean validAmount = false;
 
-            Iterator pmti = paymentMethodTypeIds.iterator();
-            while (pmti.hasNext()) {
-                String type = (String) pmti.next();
-                if (!"CASH".equals(type) && !"EXT_COD".equals(type) && !"EXT_BILLACT".equals(type)) {
-                    hasOther = true;
-                    break;
-                }
-            }
-
-            if (!hasOther) {
-                if (!paymentMethodTypeIds.contains("CASH") && !paymentMethodTypeIds.contains("EXT_COD")) {
-                    // only billing account, make sure we have enough to cover
-                    String billingAccountId = cart.getBillingAccountId();
-                    double billAcctCredit = this.availableAccountBalance(billingAccountId);
-                    double billingAcctAmt = cart.getBillingAccountAmount();
-                    if (billAcctCredit >= billingAcctAmt) {
-                        if (cart.getGrandTotal() > billAcctCredit) {
-                            validAmount = false;
-                        } else {
-                            validAmount = true;
-                        }
+                Iterator pmti = paymentMethodTypeIds.iterator();
+                while (pmti.hasNext()) {
+                    String type = (String) pmti.next();
+                    if (!"CASH".equals(type) && !"EXT_COD".equals(type) && !"EXT_BILLACT".equals(type)) {
+                        hasOther = true;
+                        break;
                     }
                 }
 
-                // approve this as long as there are only COD and Billing Account types
-                boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
-                if (!ok) {
-                    throw new GeneralException("Problem with order change; see above error");
+                if (!hasOther) {
+                    if (!paymentMethodTypeIds.contains("CASH") && !paymentMethodTypeIds.contains("EXT_COD")) {
+                        // only billing account, make sure we have enough to cover
+                        String billingAccountId = cart.getBillingAccountId();
+                        double billAcctCredit = this.availableAccountBalance(billingAccountId);
+                        double billingAcctAmt = cart.getBillingAccountAmount();
+                        if (billAcctCredit >= billingAcctAmt) {
+                            if (cart.getGrandTotal() > billAcctCredit) {
+                                validAmount = false;
+                            } else {
+                                validAmount = true;
+                            }
+                        }
+                    }
+
+                    // approve this as long as there are only COD and Billing Account types
+                    boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
+                    if (!ok) {
+                        throw new GeneralException("Problem with order change; see above error");
+                    }
                 }
+            } else {
+                // There is nothing to do, we just treat this as a success
             }
-        } else {
-            // There is nothing to do, we just treat this as a success
         }
 
         // check to see if we should auto-invoice/bill
