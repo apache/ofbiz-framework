@@ -59,7 +59,6 @@ text-decoration: underline;
 }
 
 .disabled {
-background-color: #cccccc;
 color: #333366;
 text-decoration: none;
 }
@@ -1096,6 +1095,8 @@ margin-bottom: 1em;
 
 DIV.screenlet-header {
 background-color: #000099;
+background-image: url(/images/gradient_sub_uns.gif);
+background-repeat: repeat-x;
 height: auto !important;
 height: 1%;
 padding: 0.1em 0.4em 0.3em 0.4em;
@@ -1335,14 +1336,16 @@ text-decoration: none;
 /* ========================================================= */
 
 #app-navigation {
-background-color: #B4B0AA;
+background-color: #5f9fcf;
+background-image: url(/images/gradient_main.gif);
+background-repeat: repeat-y;
+border: 0.1em solid #69a9d9;
 height: 1%; /* IE fix */
 }
 
 #app-navigation h1,
 #app-navigation h2,
 #app-navigation h3 {
-background-color: #000099;
 color: #ffffff;
 padding: 0.4em;
 }
@@ -1352,7 +1355,11 @@ display: inline; /* IE Fix */
 }
 
 #app-navigation ul li {
-border-right: solid #ffffff 0.1em;
+background-color: #000099;
+background-image: url(/images/gradient_sub_uns.gif);
+background-repeat: repeat-x;
+border-right: 0.1em solid #69a9d9;
+border-top: 0.1em solid #69a9d9;
 float: left;
 }
 
@@ -1360,7 +1367,7 @@ float: left;
 #app-navigation ul .opposed,
 #app-navigation ul .col-right {
 /* .col-right deprecated - use .opposed */
-border-left: solid #ffffff 0.1em;
+border-left: 0.1em solid #69a9d9;
 border-right: none;
 float: right;
 }
@@ -1370,8 +1377,8 @@ color: #D4D0C8;
 }
 
 #app-navigation ul a {
-background-color: #B4B0AA;
-color: #000099;
+border-bottom: 0.05em solid #000099;
+color: #ffff66;
 display: block;
 font-size: 1em;
 padding: 0 1em 0 1em;
@@ -1379,13 +1386,19 @@ padding: 0 1em 0 1em;
 
 #app-navigation ul .selected,
 #app-navigation ul .selected a {
-background-color: #D4D0C8;
+background-color: #2626c1;
+background-image: url(/images/gradient_sub_sel.gif);
+background-repeat: repeat-x;
+color: #ffffff;
 }
 
 #app-navigation ul a:hover {
-background-color: #D4D0C8;
-color: #000000;
+background-color: #2626c1;
+background-image: url(/images/gradient_sub_sel.gif);
+background-repeat: repeat-x;
+border-bottom: 0.05em solid #2626c1;
 text-decoration: none;
+color: #ffffff;
 }
 
 /* ================================================= */
@@ -1394,6 +1407,8 @@ text-decoration: none;
 
 .screenlet-title-bar {
 background-color: #000099;
+background-image: url(/images/gradient_sub_uns.gif);
+background-repeat: repeat-x;
 color: #ffffff;
 height: 1%; /* IE fix */
 }
@@ -1401,9 +1416,8 @@ height: 1%; /* IE fix */
 .screenlet-title-bar h1,
 .screenlet-title-bar h2,
 .screenlet-title-bar h3 {
-background-color: #000099;
 color: #ffffff;
-padding: 0.2em 0.5em 0.2em 0.5em;
+padding: 0.1em 0.5em 0.2em 0.5em;
 }
 
 .screenlet-title-bar ul {
@@ -1411,13 +1425,13 @@ display: inline; /* IE Fix */
 }
 
 .screenlet-title-bar ul li {
-background-color: #000099;
-border-left: 0.1em solid #5886C6;
+background: none;
+border-left: 0.1em solid #5f9fcf;
 color: #ffffff;
 float: right;
 font-size: 1em;
 font-weight: bold;
-padding: 0.2em 0.5em 0.2em 0.5em;
+padding: 0.1em 0.5em 0.2em 0.5em;
 }
 
 .screenlet-title-bar ul h1,
@@ -1443,18 +1457,31 @@ font-size: 1.3em;
 font-size: 1.1em;
 }
 
+.screenlet-title-bar ul a {
+color: #ffff66;
+display: block;
+}
+
+.screenlet-title-bar ul li:hover {
+background-color: #2626c1;
+background-image: url(/images/gradient_sub_sel.gif);
+background-repeat: repeat-x;
+}
+
+.screenlet-title-bar ul a:hover {
+color: #ffffff;
+text-decoration: none;
+}
+
 .screenlet-title-bar ul .disabled {
 color: #CCCCCC;
 }
 
-.screenlet-title-bar ul a {
+.screenlet-title-bar ul .head1:hover,
+.screenlet-title-bar ul .head2:hover,
+.screenlet-title-bar ul .head3:hover {
 background-color: #000099;
-color: #ffff00;
-display: block;
-}
-
-.screenlet-title-bar ul a:hover {
-/* placeholder */
+background-image: url(/images/gradient_sub_uns.gif);
 }
 
 /* login screenlet decorator */
@@ -1638,20 +1665,20 @@ padding: 0;
 
 .tab-bar ul a {
 background-color: #000099;
-border-right: solid #ffffff 0.1em;
-color: #ffffff;
+background-image: url(/images/gradient_sub_uns.gif);
+background-repeat: repeat-x;
+border-left: 0.1em solid #5f9fcf;
+color: #ffff66;
 }
 
+.tab-bar ul a:hover,
 .tab-bar ul .selected,
-.tab-bar ul .selected a {
-background-color: #ffffff;
-border-bottom: none;
-color: #000099;
-}
-
-.tab-bar ul a:hover {
-background-color: #ffffff;
-color: #000099;
+.tab-bar ul .selected a,
+.tab-bar ul .selected a:hover {
+background-color: #2626c1;
+background-image: url(/images/gradient_sub_sel.gif);
+background-repeat: repeat-x;
+color: #ffffff;
 text-decoration: none;
 }
 
