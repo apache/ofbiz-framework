@@ -217,7 +217,7 @@ under the License.
              location="org.ofbiz.accounting.finaccount.FinAccountPaymentServices" invoke="finAccountRefund" auth="true">
         <description>Return funds back to a financial account.</description>
         <implements service="paymentRefundInterface"/>
-        <attribute name="finAccountId" type="String" mode="IN" optional="false"/>
+        <attribute name="finAccountId" type="String" mode="IN" optional="true"/>
     </service>
 
     <!-- Gift Certificate -->

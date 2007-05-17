@@ -69,6 +69,9 @@ public class FinAccountPaymentServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
+        if (finAccountId == null && paymentPref != null) {
+            finAccountId = paymentPref.getString("finAccountId");
+        }
 
         // obtain the order information
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
@@ -412,6 +415,13 @@ public class FinAccountPaymentServices {
                     partyId = billToParty.getString("partyId");
                 }
             }
+            if (finAccountId == null) {
+                finAccountId = orderPaymentPreference.getString("finAccountId");
+            }
+        }
+
+        if (finAccountId == null) {
+            return ServiceUtil.returnError("No finAccountId found");
         }
 
         // call the deposit service
