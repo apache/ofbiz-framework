@@ -94,7 +94,8 @@ public class SubscriptionServices {
             newSubscription.set("fromDate", nowTimestamp);
         } else {
             // there is a thru date... if it is in the past, bring it up to NOW before adding on the time period
-            //don't want to penalize for skipping time, in other words if they had a subscription last year for a month and buy another month, we want that second month to start now and not last year
+            // don't want to penalize for skipping time, in other words if they had a subscription last year for a
+            // month and buy another month, we want that second month to start now and not last year
             if (thruDate.before(nowTimestamp)) {
                 thruDate = nowTimestamp;
             } else {
