@@ -81,8 +81,14 @@ under the License.
         <action service="processExtendSubscriptionByOrder" mode="sync"/>
     </eca>
 
-    <!-- create adjustment change -->
+    <!-- order adjustments -->
     <eca service="createOrderAdjustment" event="commit">
+        <action service="resetGrandTotal" mode="sync"/>
+    </eca>
+    <eca service="updateOrderAdjustment" event="commit">
+        <action service="resetGrandTotal" mode="sync"/>
+    </eca>
+    <eca service="deleteOrderAdjustment" event="commit">
         <action service="resetGrandTotal" mode="sync"/>
     </eca>
 
