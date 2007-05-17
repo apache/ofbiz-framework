@@ -3417,37 +3417,19 @@ public class OrderServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
         String orderId = (String) context.get("orderId");
 
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
         String productStoreId = orh.getProductStoreId();
 
-        if (cart == null) {
-            // load the order into a shopping cart
-            Map loadCartResp = null;
-            try {
-                loadCartResp = dispatcher.runSync("loadCartFromOrder", UtilMisc.toMap("orderId", orderId, "skipInventoryChecks", Boolean.TRUE, "skipProductChecks", Boolean.TRUE, "userLogin", userLogin));
-            } catch (GenericServiceException e) {
-                return ServiceUtil.returnError(e.getMessage());
-            }
-            cart = (ShoppingCart) loadCartResp.get("shoppingCart");
-
-            if (cart == null) {
-                return ServiceUtil.returnError("ERROR: Null shopping cart object returned!");
-            }
-            
-            cart.setOrderId(orderId);
-        }
-        CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
         // process the payments
-        if (!"PURCHASE_ORDER".equals(cart.getOrderType())) {
+        if (!"PURCHASE_ORDER".equals(orh.getOrderTypeId())) {
             GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
             Map paymentResp = null;
             try {
                 Debug.log("Calling process payments...", module);
                 //Debug.set(Debug.VERBOSE, true);
-                paymentResp = coh.processPayment(productStore, userLogin);
+                paymentResp = CheckOutHelper.processPayment(orderId, orh.getOrderGrandTotal(), orh.getCurrency(), productStore, userLogin, false, false, dispatcher, delegator);
                 //Debug.set(Debug.VERBOSE, false);
             } catch (GeneralException e) {
                 Debug.logError(e, module);

@@ -821,14 +821,18 @@ public class CheckOutHelper {
     }
 
     public Map processPayment(GenericValue productStore, GenericValue userLogin) throws GeneralException {
-        return processPayment(productStore, userLogin, false, false);
+        return CheckOutHelper.processPayment(this.cart.getOrderId(), this.cart.getGrandTotal(), this.cart.getCurrency(), productStore, userLogin, false, false, dispatcher, delegator);
     }
 
     public Map processPayment(GenericValue productStore, GenericValue userLogin, boolean faceToFace) throws GeneralException {
-        return processPayment(productStore, userLogin, faceToFace, false);
+        return CheckOutHelper.processPayment(this.cart.getOrderId(), this.cart.getGrandTotal(), this.cart.getCurrency(), productStore, userLogin, faceToFace, false, dispatcher, delegator);
     }
 
     public Map processPayment(GenericValue productStore, GenericValue userLogin, boolean faceToFace, boolean manualHold) throws GeneralException {
+        return CheckOutHelper.processPayment(this.cart.getOrderId(), this.cart.getGrandTotal(), this.cart.getCurrency(), productStore, userLogin, faceToFace, manualHold, dispatcher, delegator);
+    }
+
+    public static Map processPayment(String orderId, double orderTotal, String currencyUomId, GenericValue productStore, GenericValue userLogin, boolean faceToFace, boolean manualHold, LocalDispatcher dispatcher, GenericDelegator delegator) throws GeneralException {
         // Get some payment related strings
         String DECLINE_MESSAGE = productStore.getString("authDeclinedMessage");
         String ERROR_MESSAGE = productStore.getString("authErrorMessage");
@@ -837,15 +841,11 @@ public class CheckOutHelper {
             RETRY_ON_ERROR = "Y";
         }
 
-        // Get the orderId/total from the cart.
-        double orderTotal = this.cart.getGrandTotal();
-        String orderId = this.cart.getOrderId();
-
         // Check the payment preferences; if we have ANY w/ status PAYMENT_NOT_AUTH invoke payment service.
         boolean requireAuth = false;
         List allPaymentPreferences = null;
         try {
-            allPaymentPreferences = this.delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId));
+            allPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId));
         } catch (GenericEntityException e) {
             throw new GeneralException("Problems getting payment preferences", e);
         }
@@ -870,7 +870,7 @@ public class CheckOutHelper {
                 authCtx.put("authRefNum", opp.getString("manualRefNum"));
                 authCtx.put("authResult", Boolean.TRUE);
                 authCtx.put("userLogin", userLogin);
-                authCtx.put("currencyUomId", cart.getCurrency());
+                authCtx.put("currencyUomId", currencyUomId);
 
                 Map authResp = dispatcher.runSync("processAuthResult", authCtx);
                 if (authResp != null && ServiceUtil.isError(authResp)) {
@@ -891,7 +891,7 @@ public class CheckOutHelper {
                     captCtx.put("captureAmount", opp.getDouble("maxAmount"));
                     captCtx.put("captureRefNum", opp.getString("manualRefNum"));
                     captCtx.put("userLogin", userLogin);
-                    captCtx.put("currencyUomId", cart.getCurrency());
+                    captCtx.put("currencyUomId", currencyUomId);
 
                     Map capResp = dispatcher.runSync("processCaptureResult", captCtx);
                     if (capResp != null && ServiceUtil.isError(capResp)) {
@@ -950,12 +950,6 @@ public class CheckOutHelper {
                     if (!ok) {
                         throw new GeneralException("Problem with order change; see above error");
                     }
-
-                    // clear out the rejected payment methods from the cart, so they don't get re-authorized
-                    cart.clearDeclinedPaymentMethodsFromOrder(delegator, orderId);
-
-                    // null out the orderId for next pass.
-                    cart.setOrderId(null);
                     if (messages == null || messages.size() == 0) {
                         return ServiceUtil.returnError(DECLINE_MESSAGE);
                     } else {
@@ -983,8 +977,6 @@ public class CheckOutHelper {
                         if (!ok) {
                             throw new GeneralException("Problem with order change; see above error");
                         }
-                        // null out orderId for next pass
-                        this.cart.setOrderId(null);
                         if (messages == null || messages.size() == 0) {
                             return ServiceUtil.returnError(ERROR_MESSAGE);
                         } else {
@@ -993,7 +985,7 @@ public class CheckOutHelper {
                     }
                 } else {
                     // should never happen
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderPleaseContactCustomerService;PaymentReturnCodeUnknown.", (cart != null ? cart.getLocale() : Locale.getDefault())));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderPleaseContactCustomerService;PaymentReturnCodeUnknown.", Locale.getDefault()));
                 }
             } else {
                 // result returned null == service failed
@@ -1006,48 +998,23 @@ public class CheckOutHelper {
                     if (!ok) {
                         throw new GeneralException("Problem with order change; see above error");
                     }
-                    // null out orderId for next pass
-                    this.cart.setOrderId(null);
                     return ServiceUtil.returnError(ERROR_MESSAGE);
                 }
             }
         } else {
             // Get the paymentMethodTypeIds - this will need to change when ecom supports multiple payments
-            List paymentMethodTypeIds = this.cart.getPaymentMethodTypeIds();
-            if (paymentMethodTypeIds.contains("CASH") || paymentMethodTypeIds.contains("EXT_COD") || paymentMethodTypeIds.contains("EXT_BILLACT")) {
-                boolean hasOther = false;
-                // TODO: this is set but not checked anywhere
-                boolean validAmount = false;
+            List cashCodBaExpr = UtilMisc.toList(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "CASH"),
+                                           new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_COD"),
+                                           new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"));
+            List cashCodBaPaymentPreferences = EntityUtil.filterByAnd(allPaymentPreferences, cashCodBaExpr);
 
-                Iterator pmti = paymentMethodTypeIds.iterator();
-                while (pmti.hasNext()) {
-                    String type = (String) pmti.next();
-                    if (!"CASH".equals(type) && !"EXT_COD".equals(type) && !"EXT_BILLACT".equals(type)) {
-                        hasOther = true;
-                        break;
-                    }
-                }
-
-                if (!hasOther) {
-                    if (!paymentMethodTypeIds.contains("CASH") && !paymentMethodTypeIds.contains("EXT_COD")) {
-                        // only billing account, make sure we have enough to cover
-                        String billingAccountId = cart.getBillingAccountId();
-                        double billAcctCredit = this.availableAccountBalance(billingAccountId);
-                        double billingAcctAmt = cart.getBillingAccountAmount();
-                        if (billAcctCredit >= billingAcctAmt) {
-                            if (cart.getGrandTotal() > billAcctCredit) {
-                                validAmount = false;
-                            } else {
-                                validAmount = true;
-                            }
-                        }
-                    }
-
-                    // approve this as long as there are only COD and Billing Account types
-                    boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
-                    if (!ok) {
-                        throw new GeneralException("Problem with order change; see above error");
-                    }
+            if (UtilValidate.isNotEmpty(cashCodBaPaymentPreferences) && 
+                    UtilValidate.isNotEmpty(allPaymentPreferences) &&
+                    cashCodBaPaymentPreferences.size() == allPaymentPreferences.size()) {
+                // approve this as long as there are only CASH, COD and Billing Account types
+                boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
+                if (!ok) {
+                    throw new GeneralException("Problem with order change; see above error");
                 }
             } else {
                 // There is nothing to do, we just treat this as a success
@@ -1057,7 +1024,7 @@ public class CheckOutHelper {
         // check to see if we should auto-invoice/bill
         if (faceToFace) {
             Debug.log("Face-To-Face Sale - " + orderId, module);
-            this.adjustFaceToFacePayment(allPaymentPreferences, userLogin);
+            CheckOutHelper.adjustFaceToFacePayment(orderId, orderTotal, allPaymentPreferences, userLogin, delegator);
             boolean ok = OrderChangeHelper.completeOrder(dispatcher, userLogin, orderId);
             Debug.log("Complete Order Result - " + ok, module);
             if (!ok) {
@@ -1067,11 +1034,10 @@ public class CheckOutHelper {
         return ServiceUtil.returnSuccess();
     }
 
-    public void adjustFaceToFacePayment(List allPaymentPrefs, GenericValue userLogin) throws GeneralException {
+    public static void adjustFaceToFacePayment(String orderId, double cartTotal, List allPaymentPrefs, GenericValue userLogin, GenericDelegator delegator) throws GeneralException {
         String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
         DecimalFormat formatter = new DecimalFormat(currencyFormat);
 
-        double cartTotal = this.cart.getGrandTotal();
         String grandTotalString = formatter.format(cartTotal);
         Double grandTotal = null;
         try {
@@ -1113,7 +1079,7 @@ public class CheckOutHelper {
             }
             GenericValue newPref = delegator.makeValue("OrderPaymentPreference", null);
             newPref.set("orderPaymentPreferenceId", delegator.getNextSeqId("OrderPaymentPreference"));
-            newPref.set("orderId", cart.getOrderId());
+            newPref.set("orderId", orderId);
             newPref.set("paymentMethodTypeId", "CASH");
             newPref.set("statusId", "PAYMENT_RECEIVED");
             newPref.set("maxAmount", change);
