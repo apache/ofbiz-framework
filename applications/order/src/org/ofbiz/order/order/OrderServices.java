@@ -19,7 +19,6 @@
 package org.ofbiz.order.order;
 
 import java.math.BigDecimal;
-import java.lang.Math;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -4066,7 +4065,11 @@ public class OrderServices {
         }
 
         // set the payment method
-        cart.addPayment(paymentMethodId);
+        try {
+            cart.addPayment(paymentMethodId);
+        } catch (IllegalArgumentException e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
 
         // save the order (new tx)
         Map createResp;
