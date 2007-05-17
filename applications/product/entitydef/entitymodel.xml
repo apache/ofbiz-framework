@@ -3343,6 +3343,7 @@ under the License.
         <description>Whether the BCC on ProductStoreEmailSetting should be copied for email notifications</description>
       </field>
       <field name="allowAuthToNegative" type="indicator"></field>
+      <field name="minBalance" type="currency-amount"></field>        
       <field name="replenishThreshold" type="currency-amount"></field> 
       <prim-key field="productStoreId"/>
       <prim-key field="finAccountTypeId"/>
@@ -3724,7 +3725,9 @@ under the License.
     <!-- org.ofbiz.product.subscription -->
     <!-- ========================================================= -->
     
-    <entity entity-name="ProductSubscriptionResource" package-name="org.ofbiz.product.subscription" title="Product Subscription Resource Entity">
+    <entity entity-name="ProductSubscriptionResource"
+            package-name="org.ofbiz.product.subscription"
+            title="Product Subscription Resource Entity">
         <field name="productId" type="id-ne"></field>
         <field name="subscriptionResourceId" type="id-ne"></field>
         <field name="fromDate" type="date-time"></field>
@@ -3761,7 +3764,9 @@ under the License.
             <key-map field-name="maxLifeTimeUomId" rel-field-name="uomId"/>
         </relation>
     </entity>
-    <entity entity-name="Subscription" package-name="org.ofbiz.product.subscription" title="Subscription Entity">
+    <entity entity-name="Subscription"
+            package-name="org.ofbiz.product.subscription"
+            title="Subscription Entity">
         <field name="subscriptionId" type="id-ne"></field>
         <field name="description" type="description"></field>
         <field name="subscriptionResourceId" type="id"></field>
@@ -3861,7 +3866,9 @@ under the License.
             <key-map field-name="attrName"/>
         </relation>
     </entity>
-    <entity entity-name="SubscriptionFulfillmentPiece" package-name="org.ofbiz.product.subscription" title="Subscription Fulfillment Piece Entity">
+    <entity entity-name="SubscriptionFulfillmentPiece"
+            package-name="org.ofbiz.product.subscription"
+            title="Subscription Fulfillment Piece Entity">
         <field name="subscriptionActivityId" type="id-ne"></field>
         <field name="subscriptionId" type="id-ne"></field>
         <prim-key field="subscriptionActivityId"/>
@@ -3873,7 +3880,9 @@ under the License.
             <key-map field-name="subscriptionActivityId"/>
         </relation>
     </entity>
-    <entity entity-name="SubscriptionResource" package-name="org.ofbiz.product.subscription" title="Subscription Resource Entity">
+    <entity entity-name="SubscriptionResource"
+            package-name="org.ofbiz.product.subscription"
+            title="Subscription Resource Entity">
         <field name="subscriptionResourceId" type="id-ne"></field>
         <field name="parentResourceId" type="id"></field>
         <field name="description" type="description"></field>
@@ -3890,7 +3899,9 @@ under the License.
             <key-map field-name="webSiteId"/>
         </relation>
     </entity>
-    <entity entity-name="SubscriptionType" package-name="org.ofbiz.product.subscription" default-resource-name="ProductEntityLabels"
+    <entity entity-name="SubscriptionType"
+            package-name="org.ofbiz.product.subscription"
+            default-resource-name="ProductEntityLabels"
             title="Subscription Type Entity">
         <field name="subscriptionTypeId" type="id-ne"></field>
         <field name="parentTypeId" type="id"></field>
@@ -3901,7 +3912,9 @@ under the License.
             <key-map field-name="parentTypeId" rel-field-name="subscriptionTypeId"/>
         </relation>
     </entity>
-    <entity entity-name="SubscriptionTypeAttr" package-name="org.ofbiz.product.subscription" title="Subscription Type Attribute Entity">
+    <entity entity-name="SubscriptionTypeAttr"
+            package-name="org.ofbiz.product.subscription"
+            title="Subscription Type Attribute Entity">
         <field name="subscriptionTypeId" type="id-ne"></field>
         <field name="attrName" type="id-long-ne"></field>
         <prim-key field="subscriptionTypeId"/>
@@ -3917,7 +3930,9 @@ under the License.
         </relation>
     </entity>
     
-    <entity entity-name="SubscriptionCommEvent" package-name="org.ofbiz.product.subscription" title="Subscription Communication Event  Entity">
+    <entity entity-name="SubscriptionCommEvent"
+            package-name="org.ofbiz.product.subscription"
+            title="Subscription Communication Event  Entity">
       <field name="subscriptionId" type="id-ne"></field>
       <field name="communicationEventId" type="id-ne"></field>
       <prim-key field="subscriptionId"/>
@@ -3929,7 +3944,9 @@ under the License.
         <key-map field-name="subscriptionId"/>
       </relation>
     </entity>
-    <view-entity entity-name="SubscriptionAndCommEvent" package-name="org.ofbiz.product.subscription" title="Subscription And Communication Event   View Entity">
+    <view-entity entity-name="SubscriptionAndCommEvent"
+                 package-name="org.ofbiz.product.subscription"
+                 title="Subscription And Communication Event   View Entity">
       <member-entity entity-alias="SC" entity-name="SubscriptionCommEvent"/>
       <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
       <alias-all entity-alias="SC"/>
