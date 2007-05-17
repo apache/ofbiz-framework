@@ -896,8 +896,6 @@ public class CheckOutEvents {
         }
         
         String customerPartyId = cart.getPartyId();
-        List paymentMethodIds = cart.getPaymentMethodIds();
-        List paymentMethodTypeIds = cart.getPaymentMethodTypeIds();
 
         String[] processOrder = {"customer", "shipping", "shipGroups", "options", "term", "payment",
                                  "addparty", "paysplit"};
@@ -942,6 +940,8 @@ public class CheckOutEvents {
                 }
             }
             else if (currProcess.equals("payment")) {
+                List paymentMethodIds = cart.getPaymentMethodIds();
+                List paymentMethodTypeIds = cart.getPaymentMethodTypeIds();
                 if (requirePayment && (paymentMethodIds == null || paymentMethodIds.size() == 0) && (paymentMethodTypeIds == null || paymentMethodTypeIds.size() == 0)) {
                     return "payment";
                 }
