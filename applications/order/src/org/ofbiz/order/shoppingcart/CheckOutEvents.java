@@ -528,6 +528,13 @@ public class CheckOutEvents {
         GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
         Map callResult = checkOutHelper.processPayment(productStore, userLogin, false, holdOrder);
 
+        if (ServiceUtil.isError(callResult)) {
+            // clear out the rejected payment methods (if any) from the cart, so they don't get re-authorized
+            cart.clearDeclinedPaymentMethods(delegator);
+            // null out the orderId for next pass
+            cart.setOrderId(null);
+        }
+
         // generate any messages required
         ServiceUtil.getMessages(request, callResult, null);
 
