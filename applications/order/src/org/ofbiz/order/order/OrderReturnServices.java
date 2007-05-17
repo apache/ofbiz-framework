@@ -275,11 +275,11 @@ public class OrderReturnServices {
                 }
 
                 // check for errors
-                if (sendResp != null && !ServiceUtil.isError(sendResp)) {
+                if (sendResp != null && ServiceUtil.isError(sendResp)) {
                     sendResp.put("emailType", emailType);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderProblemSendingEmail", locale), null, null, sendResp);
                 }
-                return sendResp;
+                return ServiceUtil.returnSuccess();
             }
         }
 
@@ -956,13 +956,15 @@ public class OrderReturnServices {
                 BigDecimal amountLeftToRefund = new BigDecimal(orderTotal.doubleValue()).setScale(decimals, rounding);
 
                 // This can be extended to support additional electronic types
-                List electronicTypes = UtilMisc.toList("CREDIT_CARD", "EFT_ACCOUNT", "GIFT_CARD");
+                List electronicTypes = UtilMisc.toList("CREDIT_CARD", "EFT_ACCOUNT", "FIN_ACCOUNT", "GIFT_CARD");
 
                 // This defines the ordered part of the sequence of refund processing
                 List orderedRefundPaymentMethodTypes = new ArrayList();
                 orderedRefundPaymentMethodTypes.add("EXT_BILLACT");
+                orderedRefundPaymentMethodTypes.add("FIN_ACCOUNT");
                 orderedRefundPaymentMethodTypes.add("GIFT_CARD");
                 orderedRefundPaymentMethodTypes.add("CREDIT_CARD");
+                orderedRefundPaymentMethodTypes.add("EFT_ACCOUNT");
 
                 // Add all the other paymentMethodTypes, in no particular order
                 EntityConditionList pmtConditionList = new EntityConditionList(UtilMisc.toList(new EntityExpr("paymentMethodTypeId", EntityOperator.NOT_IN, orderedRefundPaymentMethodTypes)), EntityOperator.AND);
@@ -1725,6 +1727,62 @@ public class OrderReturnServices {
         }
 
         return ServiceUtil.returnSuccess(successMessage.toString());
+    }
+
+    public static Map processSubscriptionReturn(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        String returnId = (String) context.get("returnId");
+        Timestamp now = UtilDateTime.nowTimestamp();
+
+        GenericValue returnHeader;
+        List returnItems = null;
+        try {
+            returnHeader = delegator.findByPrimaryKey("ReturnHeader", UtilMisc.toMap("returnId", returnId));
+            if (returnHeader != null) {
+                returnItems = returnHeader.getRelatedByAnd("ReturnItem", UtilMisc.toMap("returnTypeId", "RTN_REFUND"));
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        if (returnItems != null) {
+            Iterator ri = returnItems.iterator();
+            while (ri.hasNext()) {
+                GenericValue returnItem = (GenericValue) ri.next();
+                String orderItemSeqId = returnItem.getString("orderItemSeqId");
+                String orderId = returnItem.getString("orderId");
+
+                // lookup subscriptions
+                List subscriptions;
+                try {
+                    subscriptions = delegator.findByAnd("Subscription", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+
+                // cancel all current subscriptions
+                if (subscriptions != null) {
+                    Iterator si = subscriptions.iterator();
+                    while (si.hasNext()) {
+                        GenericValue subscription = (GenericValue) si.next();
+                        Timestamp thruDate = subscription.getTimestamp("thruDate");
+                        if (thruDate == null || thruDate.after(now)) {
+                            subscription.set("thruDate", now);
+                            try {
+                                delegator.store(subscription);
+                            } catch (GenericEntityException e) {
+                                Debug.logError(e, module);
+                                return ServiceUtil.returnError(e.getMessage());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return ServiceUtil.returnSuccess();
     }
 
     /**

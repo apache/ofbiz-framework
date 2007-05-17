@@ -190,6 +190,7 @@ under the License.
         <attribute name="statusId" type="String" mode="OUT" optional="true"/>
     </service>
 
+    <!-- return notification services -->
     <service name="sendReturnAcceptNotification" engine="java" max-retry="3"
             location="org.ofbiz.order.order.OrderReturnServices" invoke="sendReturnAcceptNotification">
         <description>Send a notification that a return has been accepted</description>
@@ -206,6 +207,7 @@ under the License.
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
 
+    <!-- return processing services -->
     <service name="processCreditReturn" engine="java" auth="true"
             location="org.ofbiz.order.order.OrderReturnServices" invoke="processCreditReturn">
         <description>Process the credits in a return</description>
@@ -237,6 +239,13 @@ under the License.
         <description>Process the replacements in a repair return</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="processSubscriptionReturn" engine="java" auth="true"
+            location="org.ofbiz.order.order.OrderReturnServices" invoke="processSubscriptionReturn">
+        <description>Process subscription changes from a return</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/> 
+    </service>
+
+    <!-- other return services -->
     <service name="updateReturnStatusFromReceipt" engine="simple"
             location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="updateReturnStatusFromReceipt">
         <description>Update return/item status when items have been received</description>
