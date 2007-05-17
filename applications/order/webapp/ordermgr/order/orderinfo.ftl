@@ -18,23 +18,25 @@ under the License.
 -->
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxlink">
+    <div class="screenlet-title-bar">
+        <ul>
+            <#if orderHeader.externalId?has_content>
+               <#assign externalOrder = "(" + orderHeader.externalId + ")"/>
+            </#if>
+            <li class="head3">&nbsp;${uiLabelMap.OrderOrder}&nbsp;#<a href="<@ofbizUrl>/orderview?orderId=${orderId}</@ofbizUrl>">${orderId}</a> ${externalOrder?if_exists} ${uiLabelMap.CommonInformation} [&nbsp;<a href="<@ofbizUrl>order.pdf?orderId=${orderId}</@ofbizUrl>" target="_blank">PDF</a>&nbsp;]</li>
+                       
             <#if currentStatus.statusId == "ORDER_CREATED" || currentStatus.statusId == "ORDER_PROCESSING">
-                <div class="tabletext"><a href="<@ofbizUrl>changeOrderItemStatus?statusId=ITEM_APPROVED&amp;${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderApproveOrder}</a></div>
+                <li><a href="<@ofbizUrl>changeOrderItemStatus?statusId=ITEM_APPROVED&amp;${paramString}</@ofbizUrl>">${uiLabelMap.OrderApproveOrder}</a></li>
             <#elseif currentStatus.statusId == "ORDER_APPROVED">
-                <div class="tabletext"><a href="<@ofbizUrl>changeOrderStatus/orderview?statusId=ORDER_HOLD&amp;${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderHold}</a></div>
+                <li><a href="<@ofbizUrl>changeOrderStatus/orderview?statusId=ORDER_HOLD&amp;${paramString}</@ofbizUrl>">${uiLabelMap.OrderHold}</a></li>
             <#elseif currentStatus.statusId == "ORDER_HOLD">
-                <div class="tabletext"><a href="<@ofbizUrl>changeOrderItemStatus?statusId=ITEM_APPROVED&amp;${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderApproveOrder}</a></div>
+                <li><a href="<@ofbizUrl>changeOrderItemStatus?statusId=ITEM_APPROVED&amp;${paramString}</@ofbizUrl>">${uiLabelMap.OrderApproveOrder}</a></li>
             </#if>
             <#if setOrderCompleteOption>
-                  <div class="tabletext"><a href="<@ofbizUrl>changeOrderStatus?orderId=${orderId}&statusId=ORDER_COMPLETED</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCompleteOrder}</a></div>
+              <li><a href="<@ofbizUrl>changeOrderStatus?orderId=${orderId}&statusId=ORDER_COMPLETED</@ofbizUrl>">${uiLabelMap.OrderCompleteOrder}</a></li>
             </#if>
-        </div>
-        <#if orderHeader.externalId?has_content>
-          <#assign externalOrder = "(" + orderHeader.externalId + ")"/>
-        </#if>
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderOrder}&nbsp;#<a href="<@ofbizUrl>/orderview?orderId=${orderId}</@ofbizUrl>" class="lightbuttontext">${orderId}</a>&nbsp;${externalOrder?if_exists} ${uiLabelMap.CommonInformation} [<a href="<@ofbizUrl>order.pdf?orderId=${orderId}</@ofbizUrl>" class="buttontext" target="_blank">PDF</a> ]</div>
+        </ul>
+        <br class="clear" />
     </div>
     <div class="screenlet-body">
           <table width="100%" border="0" cellpadding="1" cellspacing="0">

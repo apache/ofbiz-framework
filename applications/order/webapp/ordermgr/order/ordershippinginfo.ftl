@@ -22,11 +22,12 @@ under the License.
   <#assign shipmentMethodType = shipGroup.getRelatedOne("ShipmentMethodType")?if_exists>
   <#assign shipGroupAddress = shipGroup.getRelatedOne("PostalAddress")?if_exists>
   <div class="screenlet">
-    <div class="screenlet-header">
-       <div class="boxlink">
-         <div class="tabletext"><a href="<@ofbizUrl>shipGroups.pdf?orderId=${orderId}&shipGroupSeqId=${shipGroup.shipGroupSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderShipGroup} PDF</a></div>
-       </div>
-       <div class="boxhead">&nbsp;${uiLabelMap.OrderShipmentInformation} - ${shipGroup.shipGroupSeqId}</div>
+    <div class="screenlet-title-bar">
+       <ul>
+         <li class="head3">&nbsp;${uiLabelMap.OrderShipmentInformation} - ${shipGroup.shipGroupSeqId}</li>
+         <li><a href="<@ofbizUrl>shipGroups.pdf?orderId=${orderId}&shipGroupSeqId=${shipGroup.shipGroupSeqId}</@ofbizUrl>">${uiLabelMap.OrderShipGroup} PDF</a></li>
+       </ul>
+       <br class="clear" />
     </div>
     <div class="screenlet-body">
         <form name="updateOrderItemShipGroup" method="post" action="<@ofbizUrl>updateOrderItemShipGroup</@ofbizUrl>">

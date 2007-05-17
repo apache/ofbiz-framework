@@ -18,8 +18,9 @@ under the License.
 -->
 
 <div class="screenlet">
-  <div class="screenlet-header">
-      <div class="boxhead">&nbsp;${uiLabelMap.AccountingPaymentInformation}</div>
+  <div class="screenlet-title-bar">
+      <ul><li class="head3">&nbsp;${uiLabelMap.AccountingPaymentInformation}</li></ul>
+      <br class="clear" />
   </div>
   <div class="screenlet-body">
      <table width="100%" border="0" cellpadding="1" cellspacing="0">
@@ -203,7 +204,7 @@ under the License.
                     </div>
                   </#if>
                 </td>
-                <td>
+                <td align="right" valign="top" width="20%">
                    <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
                    <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">                        
                       <a href="<@ofbizUrl>updateOrderPaymentPreference?orderId=${orderId}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&statusId=PAYMENT_CANCELLED&checkOutPaymentId=${paymentMethod.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a>&nbsp;

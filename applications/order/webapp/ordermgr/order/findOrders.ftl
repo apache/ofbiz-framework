@@ -68,26 +68,23 @@ function runAction() {
 <input type="hidden" name="viewSize" value="${viewSize}"/>
 <input type="hidden" name="viewIndex" value="${viewIndex}"/>
 
-<table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-  <tr>
-    <td width='100%'>
-      <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
-        <tr>
-          <td><div class='boxhead'>${uiLabelMap.OrderFindOrder}</div></td>
-          <td align='right'>
-            <div class="tabletext">
-              <#if requestParameters.hideFields?default("N") == "Y">
-                <a href="<@ofbizUrl>searchorders?hideFields=N&viewSize=${viewSize}&viewIndex=${viewIndex}&${paramList}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonShowLookupFields}</a>
-              <#else>
-                <#if orderList?exists><a href="<@ofbizUrl>searchorders?hideFields=Y&viewSize=${viewSize}&viewIndex=${viewIndex}&${paramList}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonHideFields}</a></#if>
-                <a href="javascript:lookupOrders(true);" class="buttontext">${uiLabelMap.OrderLookupOrder}</a>
-                <a href="/partymgr/control/findparty?externalLoginKey=${requestAttributes.externalLoginKey?if_exists}" class="buttontext">${uiLabelMap.PartyLookupParty}</a>
-              </#if>
-            </div>
-          </td>
-        </tr>
-      </table>
-      <#if requestParameters.hideFields?default("N") != "Y">
+<div id="findOrders" class="screenlet">
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="head3">${uiLabelMap.OrderFindOrder}</li>
+      <#if requestParameters.hideFields?default("N") == "Y">
+        <li><a href="<@ofbizUrl>searchorders?hideFields=N&viewSize=${viewSize}&viewIndex=${viewIndex}&${paramList}</@ofbizUrl>">${uiLabelMap.CommonShowLookupFields}</a></li>
+      <#else>
+        <#if orderList?exists><li><a href="<@ofbizUrl>searchorders?hideFields=Y&viewSize=${viewSize}&viewIndex=${viewIndex}&${paramList}</@ofbizUrl>">${uiLabelMap.CommonHideFields}</a></li></#if>
+        <li><a href="/partymgr/control/findparty?externalLoginKey=${requestAttributes.externalLoginKey?if_exists}">${uiLabelMap.PartyLookupParty}</a></li>
+        <li><a href="javascript:lookupOrders(true);">${uiLabelMap.OrderLookupOrder}</a></li>
+
+      </#if>      
+    </ul>
+	<br class="clear" />
+  </div>
+  <#if parameters.hideFields?default("N") != "Y">
+    <div class="screenlet-body">
       <table width='100%' border='0' cellspacing='0' cellpadding='2' class='boxbottom'>
         <tr>
           <td align='center' width='100%'>
@@ -369,9 +366,8 @@ function runAction() {
         </tr>
       </table>
       </#if>
-    </td>
-  </tr>
-</table>
+    </div>
+</div>
 <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onClick="javascript:lookupOrders(true);"/>
 </form>
 <#if requestParameters.hideFields?default("N") != "Y">
@@ -383,36 +379,31 @@ document.lookuporder.orderId.focus();
 </#if>
 
 <br/>
-<form name="massOrderChangeForm" method="post" action="javascript:void();">
-<table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-  <tr>
-    <td width='100%'>
-      <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
-        <tr>
-          <td width="50%"><div class="boxhead">${uiLabelMap.OrderOrderFound}</div></td>
-          <td width="50%">
-            <div class="boxhead" align="right">
-              <#if (orderList?has_content && 0 < orderList?size)>
-                <#if (viewIndex > 1)>
-                  <a href="<@ofbizUrl>searchorders?viewSize=${viewSize}&viewIndex=${viewIndex-1}&hideFields=${requestParameters.hideFields?default("N")}&${paramList}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a>
-                <#else>
-                  <span class="buttontextdisabled">${uiLabelMap.CommonPrevious}</span>
-                </#if>
-                <#if (orderListSize > 0)>
-                  <span class="submenutextinfo">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${orderListSize}</span>
-                </#if>
-                <#if (orderListSize > highIndex)>
-                  <a href="<@ofbizUrl>searchorders?viewSize=${viewSize}&viewIndex=${viewIndex+1}&hideFields=${requestParameters.hideFields?default("N")}&${paramList}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
-                <#else>
-                  <span class="buttontextdisabled">${uiLabelMap.CommonNext}</span>
-                </#if>
-              </#if>
-              &nbsp;
-            </div>
-          </td>
-        </tr>
-      </table>
 
+<div id="findOrdersList" class="screenlet">
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="head3">${uiLabelMap.OrderOrderFound}</li>
+      <#if (orderList?has_content && 0 < orderList?size)>
+        <#if (viewIndex > 1)>
+          <li><a href="<@ofbizUrl>searchorders?viewSize=${viewSize}&viewIndex=${viewIndex-1}&hideFields=${requestParameters.hideFields?default("N")}&${paramList}</@ofbizUrl>">${uiLabelMap.CommonPrevious}</a></li>
+        <#else>
+          <li><span class="disabled">${uiLabelMap.CommonPrevious}</span></li>
+        </#if>
+        <#if (orderListSize > 0)>
+          <li><span>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${orderListSize}</span></li>
+        </#if>
+        <#if (orderListSize > highIndex)>
+          <li><a href="<@ofbizUrl>searchorders?viewSize=${viewSize}&viewIndex=${viewIndex+1}&hideFields=${requestParameters.hideFields?default("N")}&${paramList}</@ofbizUrl>">${uiLabelMap.CommonNext}</a></li>
+        <#else>
+          <li><span class="disabled">${uiLabelMap.CommonNext}</span></li>
+        </#if>
+      </#if>
+    </ul>
+	<br class="clear" />
+  </div>
+  <div class="screenlet-body">
+    <form name="massOrderChangeForm" method="post" action="javascript:void();">      
       <div>&nbsp;</div>
       <div align="right" class="tabletext">
         <input type="hidden" name="orderIdList" value=""/>
@@ -569,11 +560,9 @@ document.lookuporder.orderId.focus();
           </tr>
         </#if>
       </table>
-    </td>
-  </tr>
-</table>
-</form>
-
+    </form>
+  </div>
+</div>
 <#else>
   <h3>${uiLabelMap.OrderViewPermissionError}</h3>
 </#if>

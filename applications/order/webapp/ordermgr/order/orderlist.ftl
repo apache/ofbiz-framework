@@ -58,10 +58,14 @@ under the License.
   
 
 <#-- order list -->
-
-<table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-  <tr>
-    <td width="100%">
+<div id="findOrdersList" class="screenlet">
+    <div class="screenlet-title-bar">
+      <ul>
+        <li class="head3">${uiLabelMap.OrderLookupOrder}</li>
+      </ul>
+	  <br class="clear" />
+    </div>
+    <div class="screenlet-body">
       <form method="post" name="findorder" action="<@ofbizUrl>orderlist</@ofbizUrl>">
         <input type="hidden" name="changeStatusAndTypeState" value="Y">
         <table border="0" cellspacing="0" cellpadding="0" class="boxbottom">
@@ -132,20 +136,17 @@ under the License.
         </table>
         <br/>&nbsp;
       </form>
-    </td>
-  </tr>
+    </div>
+ </div>
 <#if hasPermission>
-  <tr>
-    <td width="100%">
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
-        <tr>
-          <td align="left"><div class="boxhead">${uiLabelMap.OrderOrderList}</div></td>
-        </tr>
-      </table>      
-    </td>
-  </tr>
-  <tr>
-    <td width="100%">
+  <div id="findOrdersList" class="screenlet">
+    <div class="screenlet-title-bar">
+      <ul>
+        <li class="head3">${uiLabelMap.OrderOrderList}</li>
+      </ul>
+	  <br class="clear" />
+    </div>
+    <div class="screenlet-body">
       <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
         <tr>
           <td>
@@ -264,8 +265,8 @@ under the License.
           </td>
         </tr>
       </table>
-    </td>
-  </tr>
+    </div>
+  </div>
 
   <@pagination/>
 
