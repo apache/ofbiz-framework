@@ -1457,6 +1457,11 @@ font-size: 1.3em;
 font-size: 1.1em;
 }
 
+.screenlet-title-bar ul .head3 a {
+color: #ffff66;
+display: inline;
+}
+
 .screenlet-title-bar ul a {
 color: #ffff66;
 display: block;
