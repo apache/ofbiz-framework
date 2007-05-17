@@ -20,27 +20,27 @@ under the License.
 <#if orderHeader?has_content>
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxlink">
-            <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session)>
-                <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED">
-                    <div class="tabletext">
-                      <#if orderHeader.statusId != "ORDER_COMPLETED">
-                        <#--
-                        <a href="<@ofbizUrl>cancelOrderItem?${paramString}</@ofbizUrl>" class="submenutext">${uiLabelMap.OrderCancelAllItems}</a>
-                        -->
-                        <a href="<@ofbizUrl>editOrderItems?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderEditItems}</a>
-                      </#if>
-                      <a href="<@ofbizUrl>loadCartFromOrder?${paramString}&finalizeMode=init</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateAsNewOrder}</a>
-                      <#if returnableItems?has_content>
-                        <a href="<@ofbizUrl>quickreturn?orderId=${orderId}&amp;party_id=${partyId?if_exists}&amp;returnHeaderTypeId=${returnHeaderTypeId}</@ofbizUrl>"  class="buttontext">${uiLabelMap.OrderCreateReturn}</a>
-                      </#if>
-                    </div>
-                </#if>
-            </#if>
-        </div>
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderOrderItems}</div>
-    </div>
+    <div class="screenlet-title-bar">
+    <ul>
+      <li class="head3">&nbsp;${uiLabelMap.OrderOrderItems}</li>
+      <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session)>
+        <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED">
+          <#if orderHeader.statusId != "ORDER_COMPLETED">
+            <#--
+            <a href="<@ofbizUrl>cancelOrderItem?${paramString}</@ofbizUrl>" class="submenutext">${uiLabelMap.OrderCancelAllItems}</a>
+            -->
+            <li><a href="<@ofbizUrl>editOrderItems?${paramString}</@ofbizUrl>">${uiLabelMap.OrderEditItems}</a></li>
+          </#if>
+          <li><a href="<@ofbizUrl>loadCartFromOrder?${paramString}&finalizeMode=init</@ofbizUrl>">${uiLabelMap.OrderCreateAsNewOrder}</a></li>
+          <#if returnableItems?has_content>
+            <li><a href="<@ofbizUrl>quickreturn?orderId=${orderId}&amp;party_id=${partyId?if_exists}&amp;returnHeaderTypeId=${returnHeaderTypeId}</@ofbizUrl>">${uiLabelMap.OrderCreateReturn}</a></li>
+          </#if>
+        </#if>
+      </#if>
+    </ul>
+	<br class="clear" />
+  </div>
+        
     <div class="screenlet-body">
         <table width="100%" border="0" cellpadding="0" cellspacing="0">
           <tr align="left" valign=bottom>

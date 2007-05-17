@@ -20,13 +20,14 @@ under the License.
 <#if orderHeader?has_content>
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxlink">
-            <#if security.hasEntityPermission("ORDERMGR", "_NOTE", session)>
-                <a href="<@ofbizUrl>createnewnote?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesCreateNew}</a>
-            </#if>
-        </div>
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderNotes}</div>
+    <div class="screenlet-title-bar">
+      <ul>
+        <li class="head3">&nbsp;${uiLabelMap.OrderNotes}</li>
+        <#if security.hasEntityPermission("ORDERMGR", "_NOTE", session)>
+          <li><a href="<@ofbizUrl>createnewnote?${paramString}</@ofbizUrl>">${uiLabelMap.OrderNotesCreateNew}</a></li>
+        </#if>
+      </ul>
+      <br class="clear" />
     </div>
     <div class="screenlet-body">
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>

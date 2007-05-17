@@ -20,15 +20,18 @@ under the License.
 <#if orderHeader?has_content>
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxlink">
-            <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session)>
-                <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED">
-                    <div class="tabletext"><a href="<@ofbizUrl>cancelOrderItem?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCancelAllItems}</a><a href="<@ofbizUrl>orderview?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewOrder}</a></div>
-                </#if>
-            </#if>
-        </div>
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderOrderItems}</div>
+    <div class="screenlet-title-bar">
+        <ul>
+          <li class="head3">&nbsp;${uiLabelMap.OrderOrderItems}</li>
+
+          <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session)>
+              <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED">
+                  <li><a href="<@ofbizUrl>cancelOrderItem?${paramString}</@ofbizUrl>">${uiLabelMap.OrderCancelAllItems}</a></li>
+                  <li><a href="<@ofbizUrl>orderview?${paramString}</@ofbizUrl>">${uiLabelMap.OrderViewOrder}</a></li>
+              </#if>
+          </#if>
+        </ul>
+        <br class="clear" />
     </div>
     <div class="screenlet-body">
             <#if !orderItemList?has_content>
