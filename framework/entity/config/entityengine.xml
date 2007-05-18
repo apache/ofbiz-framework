@@ -22,7 +22,7 @@ under the License.
 access. For a detailed description see the core/docs/entityconfig.html file.
 -->
 <entity-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entity-config.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entity-config.xsd">
     <resource-loader name="fieldfile" class="org.ofbiz.base.config.FileLoader"
             prepend-env="ofbiz.home" prefix="/framework/entity/fieldtype/"/>
 

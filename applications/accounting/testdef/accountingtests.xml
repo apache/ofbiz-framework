@@ -19,6 +19,6 @@
 
 <test-suite suite-name="accountingtests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/test-suite.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
     <test-case case-name="accounting-tests"><junit-test-suite class-name="org.ofbiz.accounting.test.FinAccountTests"/></test-case>
 </test-suite>

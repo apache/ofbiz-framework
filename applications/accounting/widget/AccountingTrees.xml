@@ -19,7 +19,7 @@ under the License.
 -->
 
 <trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-tree.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-tree.xsd">
     <tree name="GlAccountTree" entity-name="GlAccount" root-node-name="node-root" default-render-style="expand-collapse" default-wrap-style="accountItem">
         <node name="node-root" render-style="simple">
             <sub-node node-name="node-body">

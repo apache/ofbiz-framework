@@ -19,7 +19,7 @@
 -->
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- Person Lookup forms -->
     <form name="lookupPerson" default-title-style="tableheadtext"
         default-tooltip-style="tabletext" default-widget-style="inputBox"

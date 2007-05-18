@@ -19,7 +19,7 @@ under the License.
 -->
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="ListExamples" type="list" list-name="examples"
          paginate-target="FindExample">
         <actions>
@@ -72,6 +72,16 @@ under the License.
         </field>
 
         <field name="description" title="${uiLabelMap.CommonDescription}"/>
+        
+        <field name="anotherText">
+            <drop-down allow-empty="true">
+                <option key="Explicit Option" description="Explicit Option"/>
+                <entity-options entity-name="ProductType" description="${description}" key-field-name="description">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="displayAnotherText"><display description="${example.anotherText}"/></field>
         <field name="submitButton" use-when="example==null" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
         <field name="submitButton" use-when="example!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>

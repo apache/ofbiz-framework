@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
         
   <form name="LevelSwitch" type="single" target="AdjustDebugLevels" default-map-name="activeDebugLevel">
     <field name="fatal" title="${uiLabelMap.WebtoolsFatalLogLevel}" tooltip="${uiLabelMap.WebtoolsFatalLogLevelTooltip}"><check/></field>

@@ -19,7 +19,7 @@ under the License.
 -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- SecurityGroup methods -->
     <simple-method method-name="createSecurityGroup" short-description="Create an SecurityGroup">
         <check-permission permission="SECURITY" action="_CREATE"><fail-message message="Security Error: to run createSecurityGroup you must have the SECURITY_CREATE or SECURITY_ADMIN permission"/></check-permission>

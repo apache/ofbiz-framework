@@ -16,7 +16,7 @@ under the License.
 -->
 
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Assetmaint Services: Fixed Asset </description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>

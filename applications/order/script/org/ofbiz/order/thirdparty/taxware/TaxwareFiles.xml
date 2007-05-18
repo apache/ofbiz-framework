@@ -19,7 +19,7 @@ under the License.
 -->
 
 <data-files xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/datafiles.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/datafiles.xsd">
     <data-file name="TaxwareOutHead" type-code="001" record-length="60" separator-style="fixed-record">
         <record name="outHead">
             <field name="NUMBER_RECORDS" position="0" length="6" type="Long"/>

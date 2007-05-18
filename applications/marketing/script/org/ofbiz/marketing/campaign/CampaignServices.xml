@@ -19,7 +19,7 @@ under the License.
 -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- MarketingCampaign methods -->
     <simple-method method-name="createMarketingCampaign" short-description="Create an MarketingCampaign">
         <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run createMarketingCampaign you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>

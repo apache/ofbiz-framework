@@ -19,7 +19,7 @@ under the License.
 -->
 
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/service-eca.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
     <!-- if new statusId of a SALES_SHIPMENT is SHIPMENT_PACKED, create invoice -->
     <eca service="updateShipment" event="commit">
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
