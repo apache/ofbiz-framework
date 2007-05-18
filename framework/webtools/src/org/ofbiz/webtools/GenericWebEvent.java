@@ -189,6 +189,8 @@ public class GenericWebEvent {
                             "genericWebEvent.conversion_failed", messageMap, locale) + type.getJavaType() + ".";
                     Debug.logWarning("[updateGeneric] " + field.getColName() + " conversion failed: \"" + fval + "\" is not a valid " + type.getJavaType() + "; entityName: " + entityName, module);
                 }
+            } else {
+                findByEntity.set(field.getName(), null);
             }
         }
         
