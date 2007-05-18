@@ -296,14 +296,17 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             <!-- use this attribute to make the EntityListIterator more effective for pgjdbc 7.5devel and later:
                 result-fetch-size="50"
             -->
+            <!--
+            jdbc-uri="jdbc:postgresql://192.168.1.102/marqueevvond"
+            -->    
         <read-data reader-name="seed"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
         <inline-jdbc
                 jdbc-driver="org.postgresql.Driver"
-                jdbc-uri="jdbc:postgresql://127.0.0.1/ofbiz"
+                jdbc-uri="jdbc:postgresql://192.168.1.102/steelerubber"
                 jdbc-username="ofbiz"
-                jdbc-password="ofbiz"
+                jdbc-password="ofbiz11986"
                 isolation-level="ReadCommitted"
                 pool-minsize="2"
                 pool-maxsize="250"/>
@@ -320,6 +323,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             field-type-name="oracle"
             check-on-start="true"
             add-missing-on-start="true"
+            alias-view-columns="false"
             join-style="ansi">
         <read-data reader-name="seed"/>
         <read-data reader-name="demo"/>
