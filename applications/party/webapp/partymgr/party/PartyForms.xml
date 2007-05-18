@@ -468,6 +468,7 @@ under the License.
             </drop-down>
         </field>
         <field name="partyId"><hidden value="${partyId}"/></field>
+        <field name="finAccountTypeId"><ignored/></field> 
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 

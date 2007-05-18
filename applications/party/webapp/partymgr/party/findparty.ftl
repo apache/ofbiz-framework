@@ -152,7 +152,7 @@ under the License.
           <#if extInfo == "O">
             <tr><td colspan="3"><hr/></td></tr>
             <tr>
-              <td class="label">${uiLabelMap.PartyContactInfoList} :</td>
+              <td class="label">${uiLabelMap.PartyContactInformation} :</td>
               <td><input type="text" name="infoString" value="${parameters.infoString?if_exists}"/></td>
             </tr>
           </#if>
@@ -303,13 +303,23 @@ under the License.
       </table>
     <#else>
       <div class="screenlet-body">
-        <span class="head3">${uiLabelMap.PartyNoPartiesFound}</span>
-        <a href="<@ofbizUrl>createnew</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCreateNew}</a>
+        <span class="head3">${uiLabelMap.PartyNoPartiesFound}</span>        
       </div>
     </#if>
     <#if lookupErrorMessage?exists>
       <div><h3>${lookupErrorMessage}</h3></div>
     </#if>
+    <#if (parameters.firstName?has_content || parameters.lastName?has_content)>
+        <#assign createUrl = "editperson?create_new=Y&lastName=${parameters.lastName?if_exists}&firstName=${parameters.firstName?if_exists}"/>
+    <#elseif (parameters.groupName?has_content)>
+        <#assign createUrl = "editpartygroup?create_new=Y&groupName=${parameters.groupName?if_exists}"/>
+    <#else>
+        <#assign createUrl = "createnew"/>
+    </#if>
+    
+    <div>&nbsp;</div>
+    <div align='right' valign="top"><a href="<@ofbizUrl>${createUrl}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCreateNew}</a></div>
+    <br/>
   </div>
 </#if>
 <!-- end findParty.ftl -->
