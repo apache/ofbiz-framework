@@ -19,22 +19,7 @@ under the License.
 
 <#if security.hasEntityPermission("ORDERMGR", "_CREATE", session) || security.hasEntityPermission("ORDERMGR", "_PURCHASE_CREATE", session)>
 
-<table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-  <tr>
-    <td width='100%'>
-
-      <#-- header table for company shipping addresses -->
-
-      <br/>
-      <table width="100%" border='0' cellspacing='0' cellpadding='0' class='boxtop'>
-        <tr>
-          <td><div class="boxhead">${uiLabelMap.OrderSelectAShippingAddress}</div></td>
-          <td valign="middle" align="right">
-            <a href="javascript:document.checkoutsetupform.submit();" class="buttontext">${uiLabelMap.CommonContinue}</a>
-          </td>
-        </tr>
-      </table>
-
+   <div class="screenlet-body">
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
         <tr>
           <td>
@@ -138,10 +123,7 @@ under the License.
           </td>
         </tr>
       </table>
-    </td>
-  </tr>
-</table>
-
+   </div>
 <#else>
   <h3>${uiLabelMap.OrderViewPermissionError}</h3>
 </#if>

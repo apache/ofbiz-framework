@@ -17,33 +17,35 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="button-bar">
-        <a href="<@ofbizUrl>emptycart</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderClearOrder}</a>
-        <#if (shoppingCart.size() > 0)>
-        <a href="javascript:document.cartform.submit()" class="buttontext">${uiLabelMap.OrderRecalculateOrder}</a>
-        <a href="javascript:removeSelected();" class="buttontext">${uiLabelMap.OrderRemoveSelected}</a>
-        <#else>
-        <span class="buttontextdisabled">${uiLabelMap.OrderRecalculateOrder}</span>
-        <span class="buttontextdisabled">${uiLabelMap.OrderRemoveSelected}</span>
-        </#if>
-        <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
-            <#if shoppingCart.getOrderPartyId() == "_NA_" || (shoppingCart.size() = 0)>
-                <span class="buttontextdisabled">${uiLabelMap.OrderFinalizeOrder}</span>
-            <#else>
-                <a href="<@ofbizUrl>finalizeOrder?finalizeMode=purchase&finalizeReqCustInfo=false&finalizeReqShipInfo=false&finalizeReqOptions=false&finalizeReqPayInfo=false</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderFinalizeOrder}</a>
-            </#if>
-        <#else>
-            <#if shoppingCart.size() = 0>
-            <span class="buttontextdisabled">${uiLabelMap.OrderQuickFinalizeOrder}</span>
-            <span class="buttontextdisabled">${uiLabelMap.OrderFinalizeOrderDefault}</span>
-            <span class="buttontextdisabled">${uiLabelMap.OrderFinalizeOrder}</span>
-            <#else>
-            <a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickFinalizeOrder}</a>
-            <a href="<@ofbizUrl>finalizeOrder?finalizeMode=default</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderFinalizeOrderDefault}</a>
-            <a href="<@ofbizUrl>finalizeOrder?finalizeMode=init</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderFinalizeOrder}</a>
-            </#if>
-        </#if>
+<div class="button-bar tab-bar">
+  <ul>
+    <li><a href="<@ofbizUrl>emptycart</@ofbizUrl>">${uiLabelMap.OrderClearOrder}</a></li>
+    <#if (shoppingCart.size() > 0)>
+      <li><a href="javascript:document.cartform.submit()">${uiLabelMap.OrderRecalculateOrder}</a></li>
+      <li><a href="javascript:removeSelected();">${uiLabelMap.OrderRemoveSelected}</a></li>
+    <#else>
+      <li><span class="disabled">${uiLabelMap.OrderRecalculateOrder}</span></li>
+      <li><span class="disabled">${uiLabelMap.OrderRemoveSelected}</span></li>
+    </#if>
+    <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
+      <#if shoppingCart.getOrderPartyId() == "_NA_" || (shoppingCart.size() = 0)>
+        <li><span class="disabled">${uiLabelMap.OrderFinalizeOrder}</span></li>
+      <#else>
+        <li><a href="<@ofbizUrl>finalizeOrder?finalizeMode=purchase&finalizeReqCustInfo=false&finalizeReqShipInfo=false&finalizeReqOptions=false&finalizeReqPayInfo=false</@ofbizUrl>">${uiLabelMap.OrderFinalizeOrder}</a></li>
+      </#if>
+    <#else>
+      <#if shoppingCart.size() = 0>
+        <li><span class="disabled">${uiLabelMap.OrderQuickFinalizeOrder}</span></li>
+        <li><span class="disabled">${uiLabelMap.OrderFinalizeOrderDefault}</span></li>
+        <li><span class="disabled">${uiLabelMap.OrderFinalizeOrder}</span></li>
+      <#else>
+        <li><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>">${uiLabelMap.OrderQuickFinalizeOrder}</a></li>
+        <li><a href="<@ofbizUrl>finalizeOrder?finalizeMode=default</@ofbizUrl>">${uiLabelMap.OrderFinalizeOrderDefault}</a></li>
+        <li><a href="<@ofbizUrl>finalizeOrder?finalizeMode=init</@ofbizUrl>">${uiLabelMap.OrderFinalizeOrder}</a></li>
+      </#if>
+    </#if>
 </div>
+<br/>
 <div class="screenlet-title-bar">
     <h3>
         ${uiLabelMap.CommonCreate}

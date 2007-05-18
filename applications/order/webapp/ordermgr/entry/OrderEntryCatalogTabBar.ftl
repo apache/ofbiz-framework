@@ -17,9 +17,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="boxtop">
+<div class="screenlet-title-bar">
      <div class="boxhead-right">
-        <a href="<@ofbizUrl>orderentry</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderOrderItems}</a>
+        <a href="<@ofbizUrl>orderentry</@ofbizUrl>" class="lightbuttontext">${uiLabelMap.OrderOrderItems}</a>
     </div>
     <div class="boxhead-left">
         &nbsp;${uiLabelMap.CommonCreate}
@@ -31,3 +31,4 @@ under the License.
     </div>
     <div class="boxhead-fill">&nbsp;</div>
 </div>
+

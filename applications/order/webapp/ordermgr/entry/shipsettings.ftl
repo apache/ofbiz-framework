@@ -192,44 +192,38 @@ under the License.
 
 
 
-      <#-- select a party id to ship to instead -->
+    <#-- select a party id to ship to instead -->
 
-      <br/>
-      <form method="post" action="chooseOrderPartyAddress" name="partyshipform">
-
-        <table width="100%" border='0' cellspacing='0' cellpadding='0' class='boxtop'>
-          <tr>
-           <td><div class="boxhead">${uiLabelMap.OrderShipToAnotherParty}</div></td>
-            <td valign="middle" align="right">
-              <a href="javascript:document.partyshipform.submit();" class="buttontext">${uiLabelMap.CommonContinue}</a>
-           </td>
-          </tr>
-        </table>
-
-        <table width="100%" border="0" align="center" cellspacing='0' cellpadding='0' class='boxoutside'>
-          <tr><td>
-              <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
-              <table width="100%" border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
-                <tr><td colspan="4">&nbsp;</td></tr>
-                <tr>
-                <td>&nbsp;</td>
-                <td align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.PartyPartyId}</div></td>
-                <td>&nbsp;</td>
-                <td valign='middle'>
-                  <div class='tabletext'>
-                    <input type='text' class='inputBox' name='partyId' value='${thisPartyId?if_exists}'/>
-                    <a href="javascript:call_fieldlookup2(document.partyshipform.partyId,'LookupPartyName');">
-                    <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr><td colspan="4">&nbsp;</td></tr>
-            </table>
-          </td></tr>
-        </table>
-      </form>
-
+    <br/>
+    <form method="post" action="chooseOrderPartyAddress" name="partyshipform">
+      <div class="screenlet">
+        <div class="screenlet-title-bar">
+          <ul>
+            <li class="head3">${uiLabelMap.OrderShipToAnotherParty}</li>
+          </ul>
+          <br class="clear" />
+        </div>
+        <div class="screenlet-body">
+          <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
+          <table width="100%" border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
+            <tr><td colspan="4">&nbsp;</td></tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.PartyPartyId}</div></td>
+              <td>&nbsp;</td>
+              <td valign='middle'>
+                <div class='tabletext'>
+                  <input type='text' class='inputBox' name='partyId' value='${thisPartyId?if_exists}'/>
+                  <a href="javascript:call_fieldlookup2(document.partyshipform.partyId,'LookupPartyName');">
+                  <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+                  <input type="submit" class="smallSubmit" value="Continue">
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </form>
 <#else>
   <h3>${uiLabelMap.OrderViewPermissionError}</h3>
 </#if>

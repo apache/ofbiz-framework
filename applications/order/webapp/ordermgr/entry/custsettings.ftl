@@ -18,28 +18,7 @@ under the License.
 -->
 
 <#if security.hasEntityPermission("ORDERMGR", "_CREATE", session) || security.hasEntityPermission("ORDERMGR", "_PURCHASE_CREATE", session)>
-<table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-  <tr>
-    <td width="100%">
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
-        <tr>
-          <td align="left">
-            <div class="boxhead">&nbsp;${uiLabelMap.OrderOrderEntryCustomerInfo}</div>
-          </td> 
-          <td nowrap align="right">
-            <div class="tabletext">
-              <a href="<@ofbizUrl>orderentry</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderOrderItems}</a>
-
-              <a href="<@ofbizUrl>setCustomer</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefresh}</a>
-              <a href="javascript:document.checkoutsetupform.submit();" class="buttontext">${uiLabelMap.CommonContinue}</a>
-            </div>
-          </td>         
-        </tr>
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td width="100%">
+  <div class="screenlet-body">
       <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
         <form name="checkoutsetupform" method="post" action="<@ofbizUrl>createCustomer</@ofbizUrl>">
         <input type="hidden" name="finalizeMode" value="cust">
@@ -168,10 +147,7 @@ under the License.
           </td>
         </tr>
       </table>
-    </td>
-  </tr>
-</table>
-
+   </div>
 <br/>
 <#else>
   <h3>${uiLabelMap.OrderViewPermissionError}</h3>
