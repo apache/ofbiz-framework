@@ -33,26 +33,16 @@ under the License.
 <!-- Sales Order Entry -->
 <#if security.hasEntityPermission("ORDERMGR", "_CREATE", session)>
 <#if shoppingCartOrderType != "PURCHASE_ORDER">
-<table width="100%" border="0" align="center" cellspacing='0' cellpadding='0' class='boxoutside'>
-  <tr>
-    <td>
-      <table width="100%" border='0' cellspacing='0' cellpadding='0' class='boxtop'>
-        <tr>
-          <td valign="middle" align="left">
-            <div class="boxhead">
-              ${uiLabelMap.OrderSalesOrder}<#if shoppingCart?exists>&nbsp;${uiLabelMap.OrderInProgress}</#if>
-            </div>
-          </td>
-          <td valign="middle" align="right">
-            <a href="/partymgr/control/findparty?externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.PartyFindParty}</a>
-            <a href="javascript:document.salesentryform.submit();" class="buttontext">${uiLabelMap.CommonContinue}</a>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="head3">${uiLabelMap.OrderSalesOrder}<#if shoppingCart?exists>&nbsp;${uiLabelMap.OrderInProgress}</#if></li>
+      <li><a href="javascript:document.salesentryform.submit();">${uiLabelMap.CommonContinue}</li>
+      <li><a href="/partymgr/control/findparty?externalLoginKey=${externalLoginKey}">${uiLabelMap.PartyFindParty}</a></li>
+    </ul>
+	<br class="clear" />
+  </div>
+  <div class="screenlet-body">
       <form method="post" name="salesentryform" action="<@ofbizUrl>initorderentry</@ofbizUrl>">
       <input type="hidden" name="finalizeMode" value="type"/>
       <input type="hidden" name="orderMode" value="SALES_ORDER"/>
@@ -131,36 +121,24 @@ under the License.
           </td>
         </tr>
       </table>
-      </form>
-    </td>
-  </tr>
-</table>
+  </div>
+</div>
 </#if>
 </#if>
 <br/>
 <!-- Purchase Order Entry -->
 <#if security.hasEntityPermission("ORDERMGR", "_PURCHASE_CREATE", session)>
   <#if shoppingCartOrderType != "SALES_ORDER">
-<table width="100%" border="0" align="center" cellspacing='0' cellpadding='0' class='boxoutside'>
-  <tr>
-    <td>
-      <table width="100%" border='0' cellspacing='0' cellpadding='0' class='boxtop'>
-        <tr>
-          <td valign="middle" align="left">
-            <div class="boxhead">
-              ${uiLabelMap.OrderPurchaseOrder}<#if shoppingCart?exists>&nbsp;${uiLabelMap.OrderInProgress}</#if>
-            </div>
-          </td>
-          <td valign="middle" align="right">
-            <a href="/partymgr/control/findparty?externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.PartyFindParty}</a>
-            <a href="javascript:document.poentryform.submit();" class="buttontext">${uiLabelMap.CommonContinue}</a>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td>
+  <div class="screenlet">
+    <div class="screenlet-title-bar">
+      <ul>
+        <li class="head3">${uiLabelMap.OrderPurchaseOrder}<#if shoppingCart?exists>&nbsp;${uiLabelMap.OrderInProgress}</#if></li>
+        <li><a href="javascript:document.poentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
+        <li><a href="/partymgr/control/findparty?externalLoginKey=${externalLoginKey}">${uiLabelMap.PartyFindParty}</a></li>
+      </ul>
+	  <br class="clear" />
+    </div>
+    <div class="screenlet-body">
       <form method="post" name="poentryform" action="<@ofbizUrl>initorderentry</@ofbizUrl>">
       <input type='hidden' name='finalizeMode' value='type'/>
       <input type='hidden' name='orderMode' value='PURCHASE_ORDER'/>
@@ -217,8 +195,7 @@ under the License.
         </tr>
       </table>
       </form>
-    </td>
-  </tr>
-</table>
+    </div>
+  </div>
   </#if>
 </#if>

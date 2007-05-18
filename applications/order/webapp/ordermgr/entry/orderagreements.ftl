@@ -20,16 +20,12 @@ under the License.
 
 <form method="post" name="agreementForm" action="<@ofbizUrl>setOrderCurrencyAgreementShipDates</@ofbizUrl>">
 <div class="screenlet">
-  <div class="screenlet-header">
-      <div class="boxtop">
-          <div class="boxhead-right" align="right">
-              <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonContinue}">
-          </div>
-          <div class="boxhead-left">
-              &nbsp;${uiLabelMap.OrderOrderEntryCurrencyAgreementShipDates}
-          </div>
-          <div class="boxhead-fill">&nbsp;</div>
-      </div>
+  <div class="screenlet-title-bar">
+      <ul>
+        <li class="head3">${uiLabelMap.OrderOrderEntryCurrencyAgreementShipDates}</li>
+        <li><a href="javascript:document.agreementForm.submit()">${uiLabelMap.CommonContinue}</a></li>
+      </ul>
+      <br class="clear" />
   </div>
   <div class="screenlet-body">
     <table>
