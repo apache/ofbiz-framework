@@ -19,6 +19,7 @@
 package org.ofbiz.shipment.packing;
 
 import java.util.*;
+import java.math.BigDecimal;
 
 import javolution.util.FastMap;
 import javolution.util.FastList;
@@ -58,6 +59,7 @@ public class PackingSession implements java.io.Serializable {
     protected Map packageWeights = null;
     protected List packEvents = null;
     protected List packLines = null;
+    protected List itemInfos = null;
     protected int packageSeq = -1;
     protected int status = 1;
 
@@ -76,10 +78,11 @@ public class PackingSession implements java.io.Serializable {
         this.picklistBinId = binId;
         this.userLogin = userLogin;
         this.facilityId = facilityId;
-        this.packLines = new ArrayList();
-        this.packEvents = new ArrayList();
+        this.packLines = FastList.newInstance();
+        this.packEvents = FastList.newInstance();
+        this.itemInfos = FastList.newInstance();
         this.packageSeq = 1;
-        this.packageWeights = new HashMap();
+        this.packageWeights = FastMap.newInstance();
     }
 
     public PackingSession(LocalDispatcher dispatcher, GenericValue userLogin, String facilityId) {
@@ -298,6 +301,29 @@ public class PackingSession implements java.io.Serializable {
                 return 1;
             }
         }
+    }
+
+    public void addItemInfo(List infos) {
+        Iterator i = infos.iterator();
+        while (i.hasNext()) {
+            GenericValue v = (GenericValue) i.next();
+            ItemDisplay newItem = new ItemDisplay(v);
+            int currentIdx = itemInfos.indexOf(newItem);
+            if (currentIdx != -1) {
+                ItemDisplay existingItem = (ItemDisplay) itemInfos.get(currentIdx);
+                existingItem.quantity = existingItem.quantity.add(newItem.quantity);
+            } else {
+                itemInfos.add(newItem);
+            }
+        }
+    }
+
+    public List getItemInfos() {
+        return itemInfos;
+    }
+
+    public void clearItemInfos() {
+        itemInfos.clear();
     }
 
     public String getShipmentId() {
@@ -917,5 +943,61 @@ public class PackingSession implements java.io.Serializable {
         Double newPackageWeight = UtilValidate.isEmpty(packageWeight) ? weight : new Double(weight.doubleValue() + packageWeight.doubleValue());
         setPackageWeight(packageSeqId, newPackageWeight);
     }
-    
+
+    class ItemDisplay extends AbstractMap {
+
+        public GenericValue orderItem;
+        public BigDecimal quantity;
+        public String productId;
+
+        public ItemDisplay(GenericValue v) {
+            if ("PicklistItem".equals(v.getEntityName())) {
+                quantity = v.getBigDecimal("quantity").setScale(2, BigDecimal.ROUND_HALF_UP);
+                try {
+                    orderItem = v.getRelatedOne("OrderItem");
+                    productId = orderItem.getString("productId");
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+            } else {
+                orderItem = v;
+                productId = v.getString("productId");
+                double reserved = getCurrentReservedQuantity(orderItem.getString("orderId"), orderItem.getString("orderItemSeqId"), primaryShipGrp);
+                quantity = new BigDecimal(reserved).setScale(2, BigDecimal.ROUND_HALF_UP);
+            }
+            Debug.log("created item display object quanttiy: " + quantity + " (" + productId + ")", module);
+        }
+
+        public GenericValue getOrderItem() {
+            return orderItem;
+        }
+
+        public BigDecimal getQuantity() {
+            return quantity;
+        }
+
+        public Set entrySet() {
+            return null;
+        }
+
+        public Object get(Object name) {
+            if ("orderItem".equals(name.toString())) {
+                return orderItem;
+            } else if ("quantity".equals(name.toString())) {
+                return quantity;
+            } else if ("productId".equals(name.toString())) {
+                return productId;
+            }
+            return null;
+        }
+
+        public boolean equals(Object o) {
+            if (o instanceof ItemDisplay) {
+                ItemDisplay d = (ItemDisplay) o;
+                return (d.productId.equals(productId));
+            } else {
+                return false;
+            }            
+        }
+    }
 }
