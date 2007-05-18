@@ -155,7 +155,7 @@ public class PaymentGatewayServices {
 
         try {
             // call the authPayment method
-            Map authPaymentResult = authPayment(dispatcher, userLogin, orh, orderPaymentPreference, totalRemaining, reAuth, overrideAmount);
+            Map authPaymentResult = authPayment(dispatcher, userLogin, orh, orderPaymentPreference, totalRemaining, reAuth, transAmount);
 
             // handle the response
             if (authPaymentResult != null) {
@@ -211,7 +211,7 @@ public class PaymentGatewayServices {
                                             
                                             // change OrderPaymentPreference in memory only and call auth service
                                             orderPaymentPreference.set("paymentMethodId", otherPaymentMethodAndCreditCard.getString("paymentMethodId"));
-                                            Map authRetryResult = authPayment(dispatcher, userLogin, orh, orderPaymentPreference, totalRemaining, reAuth, overrideAmount);
+                                            Map authRetryResult = authPayment(dispatcher, userLogin, orh, orderPaymentPreference, totalRemaining, reAuth, transAmount);
                                             try {
                                                 boolean processRetryResult = processResult(dctx, authPaymentResult, userLogin, orderPaymentPreference);
                                                 
