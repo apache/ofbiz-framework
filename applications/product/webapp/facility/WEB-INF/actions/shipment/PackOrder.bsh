@@ -84,6 +84,7 @@ if (packSession == null) {
         packSession.clear();
     }
 }
+packSession.clearItemInfos();
 
 // picklist based packing information
 picklistBinId = parameters.get("picklistBinId");
@@ -96,7 +97,8 @@ if (UtilValidate.isNotEmpty(picklistBinId)) {
     if (bin != null) {
         orderId = bin.getString("primaryOrderId");
         shipGroupSeqId = bin.getString("primaryShipGroupSeqId");
-        context.put("picklistItemInfos", bin.getRelatedByAnd("PicklistItem", UtilMisc.toMap("itemStatusId", "PICKITEM_PENDING")));
+        packSession.addItemInfo(bin.getRelatedByAnd("PicklistItem", UtilMisc.toMap("itemStatusId", "PICKITEM_PENDING")));
+        //context.put("picklistItemInfos", bin.getRelatedByAnd("PicklistItem", UtilMisc.toMap("itemStatusId", "PICKITEM_PENDING")));
     }
 } else {
     picklistBinId = null;
@@ -137,7 +139,10 @@ if (UtilValidate.isNotEmpty(orderId)) {
                 context.put("shipmentCostEstimateForShipGroup", shipmentCostEstimate);
                 context.put("productStoreId", productStoreId);
 
-                context.put("itemInfos", shippableItemInfo);
+                if (picklistBinId == null) {
+                    packSession.addItemInfo(shippableItemInfo);
+                    //context.put("itemInfos", shippableItemInfo);
+                }
             } else {
                 request.setAttribute("errorMessageList", UtilMisc.toList("No ship group sequence ID. Cannot process."));
             }
