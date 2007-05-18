@@ -24,20 +24,20 @@ under the License.
       <li><a href="javascript:document.cartform.submit()">${uiLabelMap.OrderRecalculateOrder}</a></li>
       <li><a href="javascript:removeSelected();">${uiLabelMap.OrderRemoveSelected}</a></li>
     <#else>
-      <li><span class="disabled">${uiLabelMap.OrderRecalculateOrder}</span></li>
-      <li><span class="disabled">${uiLabelMap.OrderRemoveSelected}</span></li>
+      <li class="disabled">${uiLabelMap.OrderRecalculateOrder}</li>
+      <li class="disabled">${uiLabelMap.OrderRemoveSelected}</li>
     </#if>
     <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
       <#if shoppingCart.getOrderPartyId() == "_NA_" || (shoppingCart.size() = 0)>
-        <li><span class="disabled">${uiLabelMap.OrderFinalizeOrder}</span></li>
+        <li class="disabled">${uiLabelMap.OrderFinalizeOrder}</li>
       <#else>
         <li><a href="<@ofbizUrl>finalizeOrder?finalizeMode=purchase&finalizeReqCustInfo=false&finalizeReqShipInfo=false&finalizeReqOptions=false&finalizeReqPayInfo=false</@ofbizUrl>">${uiLabelMap.OrderFinalizeOrder}</a></li>
       </#if>
     <#else>
       <#if shoppingCart.size() = 0>
-        <li><span class="disabled">${uiLabelMap.OrderQuickFinalizeOrder}</span></li>
-        <li><span class="disabled">${uiLabelMap.OrderFinalizeOrderDefault}</span></li>
-        <li><span class="disabled">${uiLabelMap.OrderFinalizeOrder}</span></li>
+        <li class="disabled">${uiLabelMap.OrderQuickFinalizeOrder}</li>
+        <li class="disabled">${uiLabelMap.OrderFinalizeOrderDefault}</li>
+        <li class="disabled">${uiLabelMap.OrderFinalizeOrder}</li>
       <#else>
         <li><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>">${uiLabelMap.OrderQuickFinalizeOrder}</a></li>
         <li><a href="<@ofbizUrl>finalizeOrder?finalizeMode=default</@ofbizUrl>">${uiLabelMap.OrderFinalizeOrderDefault}</a></li>

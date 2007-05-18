@@ -1561,6 +1561,10 @@ font-weight: bold;
 padding: 0.1em 0.4em 0.1em 0.4em;
 }
 
+.button-bar ul .opposed {
+float: right;
+}
+
 .button-bar ul a,
 .tabContainer ul a {
 display: block;
@@ -1664,15 +1668,21 @@ padding: 0;
 }
 
 .tab-bar ul li {
+background-color: #000099;
+background-image: url(/images/gradient_sub_uns.gif);
+background-repeat: repeat-x;
+border-right: 0.1em solid #69a9d9;
 margin: 0;
 padding: 0;
 }
 
+#app-navigation .opposed li,
+#app-navigation ul .opposed {
+border-left: 0.1em solid #69a9d9;
+border-right: none;
+}
+
 .tab-bar ul a {
-background-color: #000099;
-background-image: url(/images/gradient_sub_uns.gif);
-background-repeat: repeat-x;
-border-left: 0.1em solid #5f9fcf;
 color: #ffff66;
 }
 
@@ -1689,6 +1699,7 @@ text-decoration: none;
 
 .tab-bar ul .disabled {
 color: #D4D0C8;
+padding: 0.1em 0.4em 0.1em 0.4em;
 }
 
 /* ======================== */
