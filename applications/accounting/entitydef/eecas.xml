@@ -19,7 +19,7 @@
   -->
 
 <entity-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entity-eca.xsd">
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entity-eca.xsd">
     
     <!-- To maintain FinAccount.actualBalance and FinAccount.availableBalance -->
     <eca entity="FinAccountTrans" operation="create-store" event="return">

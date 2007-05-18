@@ -19,7 +19,7 @@ under the License.
 -->
 
 <entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitymodel.xsd">
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
     <!-- ========================================================= -->
     <!-- ======================== Defaults ======================= -->
     <!-- ========================================================= -->
@@ -50,6 +50,8 @@ under the License.
         <field name="comments" type="comment"></field>
         <field name="exampleSize" type="numeric"></field>
         <field name="exampleDate" type="date-time"></field>
+        <field name="anotherDate" type="date-time"></field>
+        <field name="anotherText" type="long-varchar"></field>
         <prim-key field="exampleId"/>
         <relation type="one" fk-name="EXMPL_TYP" rel-entity-name="ExampleType">
             <key-map field-name="exampleTypeId"/>

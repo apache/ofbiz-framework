@@ -19,7 +19,7 @@ under the License.
 -->
 
 <data-files xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/datafiles.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/datafiles.xsd">
     <data-file name="FlatTaxTable" type-code="001" record-length="182" separator-style="fixed-length">
         <record name="taxEntry">
             <field name="zipCode" position="0" length="5" type="String"/>

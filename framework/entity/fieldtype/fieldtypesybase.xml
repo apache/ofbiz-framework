@@ -19,7 +19,7 @@ under the License.
 -->
 
 <fieldtypemodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/fieldtypemodel.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/fieldtypemodel.xsd">
   <!-- ===================== field-type-def ==================== --> 
     <!-- General Types --> 
     <field-type-def type="blob" sql-type="IMAGE" java-type="java.lang.Object"></field-type-def> 

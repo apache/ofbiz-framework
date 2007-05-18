@@ -19,7 +19,7 @@
 -->
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="FindFixedAssets" type="single" target="findFixedAssets" title="${uiLabelMap.AccountingFindFixedAssets}">
         <field name="hideSearch"><hidden value="Y"/></field>
         <field name="fixedAssetId"  title="${uiLabelMap.AccountingFixedAssetId}"><text-find default-option="contains" ignore-case="true"/></field>

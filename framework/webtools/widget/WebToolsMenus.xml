@@ -19,7 +19,7 @@ under the License.
 -->
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+ xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     
     <menu name="WebtoolsAppBar" default-menu-item-name="main" default-selected-style="selected" selected-menuitem-context-field-name="appButtonItem"
         menu-id="app-navigation" type="simple">

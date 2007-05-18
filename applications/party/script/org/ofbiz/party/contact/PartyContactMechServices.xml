@@ -19,7 +19,7 @@ under the License.
 -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+ xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createPartyContactMech" short-description="Create a PartyContactMech">
         <make-value entity-name="PartyContactMech" value-name="newValue"/>
         <make-value entity-name="PartyContactMech" value-name="newPartyContactMech"/><!-- DEJ20061016: is this really needed? doesn't seem to be used... -->

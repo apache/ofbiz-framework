@@ -19,7 +19,7 @@ under the License.
 -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createRequirement" short-description="Create a new requirement">
         <make-value value-name="newEntity" entity-name="Requirement"/>
         <sequenced-id-to-env sequence-name="Requirement" env-name="requirementId"/>

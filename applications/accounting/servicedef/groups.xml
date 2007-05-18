@@ -19,7 +19,7 @@ under the License.
 -->
 
 <service-group xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/service-group.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-group.xsd">
     
     <group name="createCreditCardAndAddress" send-mode="all">
         <invoke name="createPostalAddress" mode="sync" result-to-context="true"/>

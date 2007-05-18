@@ -19,7 +19,7 @@
 -->
 
 <component-loader xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/component-loader.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/component-loader.xsd">
     <load-component component-location="${ofbiz.home}/specialpurpose/pos"/>
     <load-component component-location="${ofbiz.home}/specialpurpose/hhfacility"/>
     <load-component component-location="${ofbiz.home}/specialpurpose/assetmaint"/>

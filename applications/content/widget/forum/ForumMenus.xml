@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="ForumGroupTabBar" type="simple">
         <menu-item name="forumGroups" title="${uiLabelMap.FormFieldTitle_forumGroups}"><link target="findForumGroups"/></menu-item>
         <menu-item name="forums" title="${uiLabelMap.FormFieldTitle_forums}"><link target="findForums?forumGroupId=${parameters.forumGroupId}"/></menu-item>

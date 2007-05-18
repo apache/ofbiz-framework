@@ -19,7 +19,7 @@ under the License.
 -->
 
 <jndi-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/jndi-config.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/jndi-config.xsd">
 
     <!-- this jndi-server has no parameters so the factory will use the default
         InitialContext constructor which gets these values from the jndi.properties file -->

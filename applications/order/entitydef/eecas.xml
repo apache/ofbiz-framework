@@ -19,7 +19,7 @@ under the License.
 -->
 
 <entity-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entity-eca.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entity-eca.xsd">
     <!-- Inventory Issue ECAs for Immediately Fulfilled Orders -->
     <eca entity="OrderHeader" operation="create-store" event="return">
         <condition field-name="statusId" operator="equals" value="ORDER_COMPLETED"/>

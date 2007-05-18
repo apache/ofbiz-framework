@@ -19,7 +19,7 @@ under the License.
 -->
 
 <service-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/service-config.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-config.xsd">
 
     <service-engine name="default">
         <!-- Name of the service to use for authorization -->

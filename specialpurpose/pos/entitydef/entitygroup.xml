@@ -19,7 +19,7 @@ under the License.
 -->
 
 <entitygroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitygroup.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitygroup.xsd">
 
     <!-- ========================================================= -->
     <!-- org.ofbiz.pos.terminal -->

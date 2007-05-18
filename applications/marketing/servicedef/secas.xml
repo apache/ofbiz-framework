@@ -19,7 +19,7 @@ under the License.
 -->
 
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/service-eca.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
     <eca service="createContactListPartyStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="CLPT_PENDING"/>
         <action service="sendContactListPartyVerifyEmail" mode="async" persist="true"/>

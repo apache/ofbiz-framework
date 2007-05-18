@@ -19,7 +19,7 @@
 -->
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/site-conf.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://product/webapp/facility/WEB-INF/controller.xml"/>    
     <include location="component://accounting/webapp/accounting/WEB-INF/controller.xml"/>    
     <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>    

@@ -19,7 +19,7 @@ under the License.
 -->
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">      
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">      
     <menu name="EditSubscription" default-title-style="tabButton" default-selected-style="tabButtonSelected"
             default-tooltip-style="tabletext" default-widget-style="tabButton"
             selected-menuitem-context-field-name="tabButtonItem"
