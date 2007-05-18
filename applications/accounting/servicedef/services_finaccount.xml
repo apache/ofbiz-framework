@@ -179,12 +179,26 @@ under the License.
 
     <!-- service credit account w/ transaction -->
     <service name="createServiceCredit" engine="java"
-            location="org.ofbiz.accounting.finaccount.FinAccountServices" invoke="createServiceCredit" auth="true">
-        <attribute name="finAccountId" type="String" mode="INOUT" optional="true"/> 
+            location="org.ofbiz.accounting.finaccount.FinAccountServices" invoke="createAccountAndCredit" auth="true">
+        <attribute name="finAccountId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="finAccountName" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="amount" type="Double" mode="IN" optional="false"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
+        <attribute name="finAccountTypeId" type="String" mode="IN" default-value="SVCCRED_ACCOUNT"/>
+    </service>
+
+    <!-- financial account w/ transaction -->
+    <service name="createFinAccountAndCredit" engine="java"
+            location="org.ofbiz.accounting.finaccount.FinAccountServices" invoke="createAccountAndCredit" auth="true">
+        <attribute name="finAccountId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="finAccountName" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="amount" type="Double" mode="IN" optional="false"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
+        <attribute name="finAccountTypeId" type="String" mode="IN" optional="false"/>
     </service>
 
     <!-- balance account created from product purchase -->

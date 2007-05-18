@@ -47,16 +47,30 @@ public class FinAccountServices {
     
     public static final String module = FinAccountServices.class.getName();
 
-    public static Map createServiceCredit(DispatchContext dctx, Map context) {
+    public static Map createAccountAndCredit(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
+        String finAccountTypeId = (String) context.get("finAccountTypeId");
+        String accountName = (String) context.get("accountName");
         String finAccountId = (String) context.get("finAccountId");
+
+        // check the type
+        if (finAccountTypeId == null) {
+            finAccountTypeId = "SVCCRED_ACCOUNT";            
+        }
+        if (accountName == null) {
+            if ("SVCCRED_ACCOUNT".equals(finAccountTypeId)) {
+                accountName = "Customer Service Credit Account";
+            } else {
+                accountName = "Financial Account";
+            }
+        }
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         try {
             // find the most recent (active) service credit account for the specified party
             String partyId = (String) context.get("partyId");
-            Map lookupMap = UtilMisc.toMap("finAccountTypeId", "SVCCRED_ACCOUNT", "ownerPartyId", partyId);
+            Map lookupMap = UtilMisc.toMap("finAccountTypeId", finAccountTypeId, "ownerPartyId", partyId);
 
             // if a productStoreId is present, restrict the accounts returned using the store's payToPartyId
             String productStoreId = (String) context.get("productStoreId");
@@ -91,8 +105,8 @@ public class FinAccountServices {
                 // automatically set the parameters
                 ModelService createAccountService = dctx.getModelService(createAccountServiceName);
                 Map createAccountContext = createAccountService.makeValid(context, ModelService.IN_PARAM);
-                createAccountContext.put("finAccountTypeId", "SVCCRED_ACCOUNT");
-                createAccountContext.put("finAccountName", "Customer Service Credit Account");
+                createAccountContext.put("finAccountTypeId", finAccountTypeId);
+                createAccountContext.put("finAccountName", accountName);
                 createAccountContext.put("ownerPartyId", partyId);
                 createAccountContext.put("userLogin", userLogin);
 
