@@ -304,9 +304,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext"/>
         <inline-jdbc
                 jdbc-driver="org.postgresql.Driver"
-                jdbc-uri="jdbc:postgresql://192.168.1.102/steelerubber"
+                jdbc-uri="jdbc:postgresql://127.0.0.1/ofbiz"
                 jdbc-username="ofbiz"
-                jdbc-password="ofbiz11986"
+                jdbc-password="ofbiz"
                 isolation-level="ReadCommitted"
                 pool-minsize="2"
                 pool-maxsize="250"/>
