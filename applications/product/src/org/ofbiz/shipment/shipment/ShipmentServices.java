@@ -214,6 +214,9 @@ public class ShipmentServices {
         if (shippableWeight == null) {
             shippableWeight = new Double(0.00);
         }
+        if (initialEstimateAmt == null) {
+            initialEstimateAmt = new Double(0.00);
+        }
 
         // get the ShipmentCostEstimate(s)
         Map estFields = UtilMisc.toMap("productStoreId", productStoreId, "shipmentMethodTypeId", shipmentMethodTypeId,
@@ -227,7 +230,7 @@ public class ShipmentServices {
             return ServiceUtil.returnError("Unable to locate estimates from database");
         }
         if (estimates == null || estimates.size() < 1) {
-            if (initialEstimateAmt == null || initialEstimateAmt.doubleValue() == 0.00) {
+            if (initialEstimateAmt.doubleValue() == 0.00) {
                 Debug.logWarning("Using the passed context : " + context, module);
                 Debug.logWarning("No shipping estimates found; the shipping amount returned is 0!", module);
             }
