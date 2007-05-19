@@ -22,7 +22,7 @@ under the License.
 
 <div class="screenlet">
   <div class="screenlet-title-bar">
-    <h3>Service Engine Threads</h3>
+    <h3>${uiLabelMap.WebtoolsServiceEngineThreads}</h3>
   </div>
 <table class="basic-table" cellspacing="0">
   <tr class="header-row">
@@ -46,20 +46,21 @@ under the License.
 <br />
 <div class="screenlet">
   <div class="screenlet-title-bar">
-    <h3>General Java Threads</h3>
+    <h3>${uiLabelMap.WebtoolsGeneralJavaThreads}</h3>
   </div>
 <br />
 <p>This thread: <b>${Static["java.lang.Thread"].currentThread().getName()} (${Static["java.lang.Thread"].currentThread().getId()})</b>
 <p>Note: certain things only work in Java 5. Java Version is ${javaVer}; is Java 5? ${isJava5?string}}<p>
+<p>${uiLabelMap.WebtoolsNote4} ${javaVer}; ${uiLabelMap.WebtoolsNote5}? ${isJava5?string}}<p>
 <br />
 <table class="basic-table" cellspacing="0">
   <tr class="header-row">
-    <td>Group</td>
-    <td>ID</td>
+    <td>${uiLabelMap.WebtoolsGroup}</td>
+    <td>${uiLabelMap.WebtoolsThreadId}</td>
     <td>${uiLabelMap.WebtoolsThread}</td>
     <td>${uiLabelMap.CommonStatus}</td>
-    <td>Priority</td>
-    <td>Daemon</td>
+    <td>${uiLabelMap.WebtoolsPriority}</td>
+    <td>${uiLabelMap.WebtoolsDaemon}</td>
   </tr>
   <#list allThreadList as javaThread>
     <#if javaThread?exists>
@@ -84,10 +85,3 @@ under the License.
   </#list>
 </table>
 </div>
-
-
-
-
-
-
-
