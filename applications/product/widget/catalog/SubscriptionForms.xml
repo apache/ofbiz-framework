@@ -346,20 +346,20 @@ under the License.
         <field name="communicationEventId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${communicationEventId}" target="/partymgr/control/EditCommunicationEvent?communicationEventId=${communicationEventId}" target-type="inter-app"/>
         </field>
-		<field name="partyIdFrom" title="${uiLabelMap.CommonParty} ${uiLabelMap.CommonFrom}">
+		<field name="partyIdFrom">
             <display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/>
         </field>
-        <field name="partyIdTo" title="${uiLabelMap.CommonParty} ${uiLabelMap.CommonTo}">
+        <field name="partyIdTo">
             <display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/>
         </field>
         <field name="communicationEventTypeId" ><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
-        <field name="statusId" title="${uiLabelMap.Status}"><display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="contactMechTypeId"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
         <field name="roleTypeIdFrom"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="roleTypeIdTo"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
-        <field name="deleteLink" title="Delete" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="removeSubscriptionCommEvent?subscriptionId=${subscriptionId}&amp;communicationEventId=${communicationEventId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>

@@ -518,8 +518,8 @@
         
         <field name="WeightTitle1" title="${uiLabelMap.ProductWeight}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="WeightTitle2" title=" " tooltip="${uiLabelMap.ProductMinMax}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
-        <field name="wmin" title="${uiLabelMap.ProductMin}"><text/></field>
-        <field name="wmax" title="${uiLabelMap.ProductMax}"><text/></field>
+        <field name="wmin" title="${uiLabelMap.ProductMinWt}"><text/></field>
+        <field name="wmax" title="${uiLabelMap.ProductMaxWt}"><text/></field>
         <field name="weightBreakId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="QuantityBreak" key-field-name="quantityBreakId" description="${fromQuantity} - ${thruQuantity}">
@@ -541,8 +541,8 @@
         
         <field name="QuantityTitle1" title="${uiLabelMap.ProductQuantity}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="QuantityTitle2" title=" " tooltip="${uiLabelMap.ProductMinMax}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
-        <field name="qmin" title="${uiLabelMap.ProductMin}"><text/></field>
-        <field name="qmax" title="${uiLabelMap.ProductMax}"><text/></field>
+        <field name="qmin" title="${uiLabelMap.ProductMinQt}"><text/></field>
+        <field name="qmax" title="${uiLabelMap.ProductMaxQt}"><text/></field>
         <field name="quantityBreakId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="QuantityBreak" key-field-name="quantityBreakId" description="${fromQuantity} - ${thruQuantity}">
@@ -563,8 +563,8 @@
         
         <field name="PriceTitle1" title="${uiLabelMap.ProductPrice}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="PriceTitle2" title=" " tooltip="${uiLabelMap.ProductMinMax}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
-        <field name="pmin" title="${uiLabelMap.ProductMin}"><text/></field>
-        <field name="pmax" title="${uiLabelMap.ProductMax}"><text/></field>
+        <field name="pmin" title="${uiLabelMap.ProductMinPr}"><text/></field>
+        <field name="pmax" title="${uiLabelMap.ProductMaxPr}"><text/></field>
         <field name="priceBreakId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="QuantityBreak" key-field-name="quantityBreakId" description="${fromQuantity} - ${thruQuantity}">
