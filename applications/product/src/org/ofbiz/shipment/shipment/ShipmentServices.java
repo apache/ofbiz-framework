@@ -438,8 +438,7 @@ public class ShipmentServices {
         double orderPercentage = shippableTotal.doubleValue() * (orderPercent / 100);
 
         // flat total
-        double flatTotal = orderFlat + itemFlatAmount + orderPercentage;
-        flatTotal = flatTotal + flatTotal * (shippingPricePercent / 100);
+        double flatTotal = orderFlat + itemFlatAmount + orderPercentage;        
 
         // spans
         double weightUnit = 0.00;
