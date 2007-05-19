@@ -193,6 +193,8 @@ public class ShipmentServices {
         String carrierPartyId = (String) context.get("carrierPartyId");
         String shipmentMethodTypeId = (String) context.get("shipmentMethodTypeId");
         String shippingContactMechId = (String) context.get("shippingContactMechId");
+        String shippingPostalCode = (String) context.get("shippingPostalCode");
+        String shippingCountryCode = (String) context.get("shippingCountryCode");
 
         List shippableItemInfo = (List) context.get("shippableItemInfo");
         //Map shippableFeatureMap = (Map) context.get("shippableFeatureMap");
@@ -237,7 +239,6 @@ public class ShipmentServices {
 
         // Get the PostalAddress
         GenericValue shipAddress = null;
-
         try {
             shipAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMechId));
         } catch (GenericEntityException e) {
@@ -245,6 +246,20 @@ public class ShipmentServices {
             return ServiceUtil.returnError("Cannot get shipping address entity");
         }
 
+        if (shippingContactMechId != null) {
+            try {
+                shipAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMechId));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError("Cannot get shipping address entity");
+            }
+        } else if ( shippingPostalCode != null) {
+            shipAddress = delegator.makeValue("PostalAddress", null);
+            shipAddress.set("countryGeoId", shippingCountryCode);
+            shipAddress.set("postalCodeGeoId", shippingPostalCode);
+        } else {
+            return ServiceUtil.returnError("Must have either shippingContactMechId or postalCode to run this service");
+        }
         // Get the possible estimates.
         ArrayList estimateList = new ArrayList();
         Iterator i = estimates.iterator();
