@@ -296,9 +296,6 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             <!-- use this attribute to make the EntityListIterator more effective for pgjdbc 7.5devel and later:
                 result-fetch-size="50"
             -->
-            <!--
-            jdbc-uri="jdbc:postgresql://192.168.1.102/marqueevvond"
-            -->    
         <read-data reader-name="seed"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
