@@ -1652,9 +1652,9 @@ under the License.
     <view-map name="LookupBulkAddProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#LookupBulkAddProducts"/>
     <view-map name="LookupBulkAddSupplierProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#LookupBulkAddSupplierProducts"/>
     <!-- PDFs  -->
-    <view-map name="OrderPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintForms.xml#OrderPDF" content-type="application/pdf" encoding="none"/>
-    <view-map name="ReturnPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintForms.xml#ReturnPDF" content-type="application/pdf" encoding="none"/>
-    <view-map name="ShipGroupsPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintForms.xml#ShipGroupsPDF" content-type="application/pdf" encoding="none"/>
+    <view-map name="OrderPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintScreens.xml#OrderPDF" content-type="application/pdf" encoding="none"/>
+    <view-map name="ReturnPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintScreens.xml#ReturnPDF" content-type="application/pdf" encoding="none"/>
+    <view-map name="ShipGroupsPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintScreens.xml#ShipGroupsPDF" content-type="application/pdf" encoding="none"/>
 
     <view-map name="SendConfirmationMail" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#SendOrderConfirmation"/>
 

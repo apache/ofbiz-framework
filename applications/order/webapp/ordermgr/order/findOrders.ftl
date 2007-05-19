@@ -407,7 +407,7 @@ document.lookuporder.orderId.focus();
       <div>&nbsp;</div>
       <div align="right" class="tabletext">
         <input type="hidden" name="orderIdList" value=""/>
-        <input type="hidden" name="screenLocation" value="component://order/widget/ordermgr/OrderPrintForms.xml#OrderPDF"/>
+        <input type="hidden" name="screenLocation" value="component://order/widget/ordermgr/OrderPrintScreens.xml#OrderPDF"/>
         <select name="serviceName" class="selectBox" onchange="javascript:setServiceName(this);">
            <option value="javascript:void();">&nbsp;</option>
            <option value="<@ofbizUrl>massApproveOrders?hideFields=${requestParameters.hideFields?default("N")}${paramList}</@ofbizUrl>">${uiLabelMap.OrderApproveOrder}</option>

@@ -36,7 +36,7 @@ under the License.
             fo:page-sequence -->
        <fo:static-content flow-name="xsl-region-before">
             <fo:block space-after=".10in">
-              ${screens.render("component://order/widget/ordermgr/OrderPrintForms.xml#CompanyLogo")}
+              ${screens.render("component://order/widget/ordermgr/OrderPrintScreens.xml#CompanyLogo")}
             </fo:block>
        <fo:block white-space-collapse="false" > 
        </fo:block> 

@@ -40,7 +40,7 @@ under the License.
                 </fo:static-content>
                 <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
                     <fo:block>
-                         ${screens.render("component://order/widget/ordermgr/OrderPrintForms.xml#CompanyLogo")}
+                         ${screens.render("component://order/widget/ordermgr/OrderPrintScreens.xml#CompanyLogo")}
                     </fo:block>
                     <fo:block text-align="right">
                         <fo:instream-foreign-object>
