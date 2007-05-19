@@ -37,7 +37,7 @@ under the License.
   <div class="screenlet-title-bar">
     <ul>
       <li class="head3">${uiLabelMap.OrderSalesOrder}<#if shoppingCart?exists>&nbsp;${uiLabelMap.OrderInProgress}</#if></li>
-      <li><a href="javascript:document.salesentryform.submit();">${uiLabelMap.CommonContinue}</li>
+      <li><a href="javascript:document.salesentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
       <li><a href="/partymgr/control/findparty?externalLoginKey=${externalLoginKey}">${uiLabelMap.PartyFindParty}</a></li>
     </ul>
 	<br class="clear" />
