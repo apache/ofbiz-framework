@@ -39,7 +39,7 @@ under the License.
             <#list packages as package>
 
             <fo:block>
-                 ${screens.render("component://order/widget/ordermgr/OrderPrintForms.xml#CompanyLogo")}
+                 ${screens.render("component://order/widget/ordermgr/OrderPrintScreens.xml#CompanyLogo")}
             </fo:block>
             <fo:block text-align="right">
                 <fo:instream-foreign-object>
