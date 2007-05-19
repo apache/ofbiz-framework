@@ -756,7 +756,11 @@ public class SqlJdbcUtil {
                 break;
 
             case 14:
-                sqlP.setValue(new java.sql.Date(((java.util.Date) fieldValue).getTime()));
+                if (fieldValue != null) {
+                    sqlP.setValue(new java.sql.Date(((java.util.Date) fieldValue).getTime()));
+                } else {
+                    sqlP.setValue((java.sql.Date) null);
+                }
                 break;
 
             case 15:
