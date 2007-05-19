@@ -315,7 +315,7 @@ ${virtualJavaScript?if_exists}
               <div class="tabletext">[${uiLabelMap.EcommerceProductNotConfigured}]&nbsp;
               <input type="text" class="inputBox" size="5" name="quantity" value="0" disabled></div>
             <#else>
-              <a href="javascript:addItem()" class="buttontext"><span style="white-space: nowrap;">[${uiLabelMap.EcommerceAddtoCart}]</span></a>&nbsp;
+              <a href="javascript:addItem()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.EcommerceAddtoCart}</span></a>&nbsp;
               <input type="text" class="inputBox" size="5" name="quantity" value="1" >
             </#if>
           </#if>
