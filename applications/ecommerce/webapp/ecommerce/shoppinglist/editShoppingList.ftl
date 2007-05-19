@@ -183,6 +183,7 @@ under the License.
                   &nbsp;
                   <select name="frequency" class="selectBox">
                     <option value="">${uiLabelMap.EcommerceSelectFrequency}</option>
+                    <option value="4" <#if (recurrenceRule.frequency)?default("") == "DAILY">selected</#if>>${uiLabelMap.CommonDay}</option>
                     <option value="5" <#if (recurrenceRule.frequency)?default("") == "WEEKLY">selected</#if>>${uiLabelMap.CommonWeek}</option>
                     <option value="6" <#if (recurrenceRule.frequency)?default("") == "MONTHLY">selected</#if>>${uiLabelMap.CommonMonth}</option>
                     <option value="7" <#if (recurrenceRule.frequency)?default("") == "YEARLY">selected</#if>>${uiLabelMap.CommonYear}</option>
