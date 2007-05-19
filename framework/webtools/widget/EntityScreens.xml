@@ -351,7 +351,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
-<!--                <set field="titleProperty" value="insertTitleHere"/> -->
+                <set field="titleProperty" value="WebtoolsPerformanceTests"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityPerformanceTest.bsh"/>                            
             </actions>
             <widgets>  
@@ -368,8 +368,9 @@ under the License.
     <screen name="xmldsdump">
         <section>
             <actions>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="headerItem" value="main"/>
-<!--                <set field="titleProperty" value="insertTitleHere"/> -->
+                <set field="titleProperty" value="PageTitleEntityExport"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/xmldsdump.bsh"/>
             </actions>
             <widgets>

@@ -27,9 +27,9 @@ under the License.
   <ul>
     <li<#if selected == "main"> class="selected"</#if>><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.CommonMain}</a></li>
     <#if userLogin?has_content>
-      <li<#if selected == "stats"> class="selected"</#if>><a href="<@ofbizUrl>StatsSinceStart</@ofbizUrl>">Stats</a></li>
-      <li<#if selected == "jobs"> class="selected"</#if>><a href="<@ofbizUrl>jobList</@ofbizUrl>">Jobs</a></li>
-      <li<#if selected == "cache"> class="selected"</#if>><a href="<@ofbizUrl>FindUtilCache</@ofbizUrl>">Cache</a></li>
+      <li<#if selected == "stats"> class="selected"</#if>><a href="<@ofbizUrl>StatsSinceStart</@ofbizUrl>">${uiLabelMap.WebtoolsStatsSinceServerStart}</a></li>
+      <li<#if selected == "jobs"> class="selected"</#if>><a href="<@ofbizUrl>jobList</@ofbizUrl>">${uiLabelMap.WebtoolsJobList}</a></li>
+      <li<#if selected == "cache"> class="selected"</#if>><a href="<@ofbizUrl>FindUtilCache</@ofbizUrl>">${uiLabelMap.WebtoolsCacheMaintenance}</a></li>
       <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
     <#else>
       <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>

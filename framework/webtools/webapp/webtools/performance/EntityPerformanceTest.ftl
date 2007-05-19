@@ -17,28 +17,29 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<h1>Entity Engine Performance Tests</h1>
+<h1>${uiLabelMap.WebtoolsEntityEnginePerformanceTests}</h1>
 <br />
 <div class="screenlet">
   <div class="screenlet-title-bar">
-    <h3>Test Results</h3>
+    <h3>${uiLabelMap.WebtoolsTestResults}</h3>
   </div>
   <div class="screenlet-body">  
     <#if security.hasPermission("ENTITY_MAINT", session)>
-      <p>NOTE: These performance results may vary a great deal for different
-      databases, JDBC drivers, JTA implementations (transaction managers), connection pools, 
-      local vs. remote deployment configurations, and hardware (app server hardware, database 
-      server hardware, network connections).</p>
+      <p>${uiLabelMap.WebtoolsMessage29}
+      ${uiLabelMap.WebtoolsMessage30}
+      ${uiLabelMap.WebtoolsMessage31}
+      ${uiLabelMap.WebtoolsMessage32}
+      </p>
       <br/>
       <#if performanceList?has_content>
         <table class="basic-table" cellspacing="0">
           <tr class="header-row">
-            <td>Operation</td>
-            <td>Entity</td>
-            <td>Calls</td>
-            <td>Seconds</td>
-            <td>Seconds/Call</td>
-            <td>Calls/Second</td>
+            <td>${uiLabelMap.WebtoolsPerformanceOperation}</td>
+            <td>${uiLabelMap.WebtoolsEntity}</td>
+            <td>${uiLabelMap.WebtoolsPerformanceCalls}</td>
+            <td>${uiLabelMap.WebtoolsPerformanceSeconds}</td>
+            <td>${uiLabelMap.WebtoolsPerformanceSecondsCall}</td>
+            <td>${uiLabelMap.WebtoolsPerformanceCallsSecond}</td>
           </tr>
           <#assign rowNum = "2">
           <#list performanceList as perfRow>
@@ -53,10 +54,10 @@ under the License.
           </#list>
         </table>
       <#else>
-        No performance tests found.
+        ${uiLabelMap.WebtoolsPerformanceNotFound}.
       </#if>
     <#else>
-      ERROR: You do not have permission to use this page (ENTITY_MAINT needed)
+      ${uiLabelMap.WebtoolsPermissionMaint}
     </#if>
   </div>
 </div>

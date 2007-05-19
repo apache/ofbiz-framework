@@ -24,7 +24,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
-<!--                <set field="titleProperty" value="insertTitleHere"/> -->
+                <set field="titleProperty" value="WebtoolsViewComponents"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -40,7 +40,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
-<!--                <set field="titleProperty" value="insertTitleHere"/> -->
+                <set field="titleProperty" value="WebtoolsEditCustomTimePeriods"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/period/EditCustomTimePeriod.bsh"/>
             </actions>
             <widgets>
@@ -57,7 +57,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
-<!--                <set field="titleProperty" value="insertTitleHere"/> -->
+                <set field="titleProperty" value="WebtoolsDataFileMainTitle"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/datafile/viewdatafile.bsh"/>
             </actions>
             <widgets>
@@ -74,7 +74,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
-<!--                <set field="titleProperty" value="insertTitleHere"/> -->
+                <set field="titleProperty" value="WebtoolsReadXPDLFile"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/workflow/readxpdl.bsh"/>
             </actions>
             <widgets>
@@ -91,7 +91,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
-<!--                <set field="titleProperty" value="insertTitleHere"/> -->
+                <set field="titleProperty" value="WebtoolsActiveWorkflowMonitor"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/workflow/workflowMonitor.bsh"/>
             </actions>
             <widgets>

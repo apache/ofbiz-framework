@@ -19,14 +19,14 @@ under the License.
 
 <#assign nowDate = Static["org.ofbiz.base.util.UtilDateTime"].nowDate()>
 
-<h1>Custom Time Period Maintenance</h1>
+<h1>${uiLabelMap.WebtoolsEditCustomTimePeriods}</h1>
 <br />
 <#if security.hasPermission("PERIOD_MAINT", session)>
   <form method="post" action="<@ofbizUrl>EditCustomTimePeriod</@ofbizUrl>" name="setOrganizationPartyIdForm">
     <input type="hidden" name="currentCustomTimePeriodId" value="${currentCustomTimePeriodId?if_exists}">
-    <span class="label">Show Only Periods with Organization Party ID</span>
+    <span class="label">${uiLabelMap.WebtoolsShowOnlyPeriodsWithOrganization}</span>
     <input type="text" size="20" name="findOrganizationPartyId" value="${findOrganizationPartyId?if_exists}">
-    <input type="submit" value='Update'>
+    <input type="submit" value='${uiLabelMap.CommonUpdate}'>
   </form>
 
   <br/>
@@ -34,25 +34,25 @@ under the License.
     <div class="screenlet-title-bar">
       <#if currentCustomTimePeriod?has_content>
         <ul>
-          <li class="head3">Current Custom Time Period</li>
-          <li><a href="<@ofbizUrl>EditCustomTimePeriod?findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>">Clear Current</a></li>
+          <li class="head3">${uiLabelMap.WebtoolsCurrentCustomTimePeriod}</li>
+          <li><a href="<@ofbizUrl>EditCustomTimePeriod?findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>">${uiLabelMap.WebtoolsClearCurrent}</a></li>
         </ul>
         <br class="clear" />
       <#else>
-        <h3>Current Custom Time Period</h3>
+        <h3>${uiLabelMap.WebtoolsCurrentCustomTimePeriod}</h3>
       </#if>
     </div>
     <#if currentCustomTimePeriod?has_content>
       <table class="basic-table" cellspacing="0">
         <tr class="header-row">
-          <td>ID</td>
-          <td>Parent ID</td>
-          <td>Org Party ID</td>
-          <td>Period Type</td>
+          <td>${uiLabelMap.CommonId}</td>
+          <td>${uiLabelMap.WebtoolsParent}</td>
+          <td>${uiLabelMap.WebtoolsOrgPartyId}</td>
+          <td>${uiLabelMap.WebtoolsPeriodType}</td>
           <td>#</td>
-          <td>Name</td>
-          <td>From Date</td>
-          <td>Thru Date</td>
+          <td>${uiLabelMap.WebtoolsPeriodName}</td>
+          <td>${uiLabelMap.CommonFromDate}</td>
+          <td>${uiLabelMap.CommonThruDate}</td>
           <td>&nbsp;</td>
         </tr>
         <form method="post" action="<@ofbizUrl>updateCustomTimePeriod</@ofbizUrl>" name="updateCustomTimePeriodForm">
@@ -72,7 +72,7 @@ under the License.
                     </#if>
                   </#if>
                   <option value='${allCustomTimePeriod.customTimePeriodId}'<#if isDefault> selected="selected"</#if>>
-                    Pty:${allCustomTimePeriod.organizationPartyId}
+                    ${allCustomTimePeriod.organizationPartyId}
                     <#if allPeriodType != null>${allPeriodType.description}:</#if>
                     ${allCustomTimePeriod.periodNum}
                     [${allCustomTimePeriod.customTimePeriodId}]
@@ -81,7 +81,7 @@ under the License.
               </select>
               <#if (currentCustomTimePeriod.parentPeriodId)?exists>
                 <a href='<@ofbizUrl>EditCustomTimePeriod?currentCustomTimePeriodId=${currentCustomTimePeriod.parentPeriodId}&findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>'>
-	            Set As Current</a>
+	            ${uiLabelMap.WebtoolsSetAsCurrent}</a>
 	          </#if>
             </td>
             <td><input type="text" size='12' name="currentCustomTimePeriod" value="${currentCustomTimePeriod.organizationPartyId?if_exists}"></td>
@@ -119,34 +119,34 @@ under the License.
               <input type="text" size='13' name="thruDate" value="${currentCustomTimePeriod.thruDate?string("yyyy-MM-dd")}"<#if hasntStarted> class="alert"</#if>>
             </td>
             <td class="button-col">
-              <input type="submit" value='Update'>
+              <input type="submit" value='${uiLabelMap.CommonUpdate}'>
               <a href='<@ofbizUrl>deleteCustomTimePeriod?customTimePeriodId=${currentCustomTimePeriod.customTimePeriodId}</@ofbizUrl>'>
-              Delete</a>
+              ${uiLabelMap.CommonDelete}</a>
             </td>
           </tr>
         </form>
       </table>
     <#else>
-      <div class="screenlet-body">No Current Custom Time Period Selected; "Children" below have no Parent Period.</div>
+      <div class="screenlet-body">${uiLabelMap.WebtoolsMessage27}</div>
     </#if>
   </div>
   <br/>
 
   <div class="screenlet">
     <div class="screenlet-title-bar">
-      <h3>Child Periods</h3>
+      <h3>${uiLabelMap.WebtoolsChildPeriods}</h3>
     </div>
     <#if customTimePeriods?has_content>
       <table class="basic-table" cellspacing="0">
         <tr class="header-row">
-          <td>ID</td>
-          <td>Parent ID</td>
-          <td>Org Party ID</td>
-          <td>Period Type</td>
+          <td>${uiLabelMap.CommonId}</td>
+          <td>${uiLabelMap.WebtoolsParent}</td>
+          <td>${uiLabelMap.WebtoolsOrgPartyId}</td>
+          <td>${uiLabelMap.WebtoolsPeriodType}</td>
           <td>#</td>
-          <td>Name</td>
-          <td>From Date</td>
-          <td>Thru Date</td>
+          <td>${uiLabelMap.WebtoolsPeriodName}</td>
+          <td>${uiLabelMap.CommonFromDate}</td>
+          <td>${uiLabelMap.CommonThruDate}</td>
           <td>&nbsp;</td>
         </tr>
         <#assign line = 0>
@@ -171,7 +171,7 @@ under the License.
                     </#if>
                   </#if>
                   <option value='${allCustomTimePeriod.customTimePeriodId}'<#if isDefault> selected="selected"</#if>>
-                    Pty:${allCustomTimePeriod.organizationPartyId}
+                    ${allCustomTimePeriod.organizationPartyId}
                     <#if allPeriodType != null> ${allPeriodType.description}: </#if>
                     ${allCustomTimePeriod.periodNum}
                     [${allCustomTimePeriod.customTimePeriodId}]
@@ -212,25 +212,25 @@ under the License.
               <input type="text" size='13' name="thruDate" value="${customTimePeriod.thruDate?if_exists}"<#if hasExpired> class="alert"</#if>>
              </td>
              <td class="button-col">
-              <input type="submit" value='Update'>
+              <input type="submit" value='${uiLabelMap.CommonUpdate}'>
               <a href='<@ofbizUrl>deleteCustomTimePeriod?customTimePeriodId=${customTimePeriod.customTimePeriodId?if_exists}&currentCustomTimePeriodId=${currentCustomTimePeriodId?if_exists}&findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>'>
-              Delete</a>
+              ${uiLabelMap.CommonDelete}</a>
               <a href='<@ofbizUrl>EditCustomTimePeriod?currentCustomTimePeriodId=${customTimePeriod.customTimePeriodId?if_exists}&findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>'>
-              Set As Current</a>
+              ${uiLabelMap.WebtoolsSetAsCurrent}</a>
             </td>
             </form>
           </tr>
         </#list>
       </table>
     <#else>
-      <div class="screenlet-body">No child periods found</div>
+      <div class="screenlet-body">${uiLabelMap.WebtoolsMessage28}</div>
     </#if>
   </div>
   <br/>
 
   <div class="screenlet">
     <div class="screenlet-title-bar">
-      <h3>Add Custom Time Period</h3>
+      <h3>${uiLabelMap.WebtoolsAddCustomTimePeriod}</h3>
     </div>
     <div class="screenlet-body">
       <form method="POST" action="<@ofbizUrl>createCustomTimePeriod</@ofbizUrl>" name="createCustomTimePeriodForm">
@@ -238,7 +238,7 @@ under the License.
         <input type="hidden" name="currentCustomTimePeriodId" value="${currentCustomTimePeriodId?if_exists}">
         <input type="hidden" name="useValues" value="true">
         <div>
-          <span class="label">Parent Period</span>
+          <span class="label">${uiLabelMap.WebtoolsParent}</span>
           <select name="parentPeriodId">
             <option value=''>&nbsp;</option>
             <#list allCustomTimePeriods as allCustomTimePeriod>
@@ -250,7 +250,7 @@ under the License.
                 </#if>
               </#if>
               <option value="${allCustomTimePeriod.customTimePeriodId}"<#if isDefault> selected="selected"</#if>>
-                Pty:${allCustomTimePeriod.organizationPartyId}
+                ${allCustomTimePeriod.organizationPartyId}
                 <#if (allCustomTimePeriod.parentPeriodId)?exists>Par:${allCustomTimePeriod.parentPeriodId}</#if>
                 <#if allPeriodType != null> ${allPeriodType.description}:</#if>
                 ${allCustomTimePeriod.periodNum}
@@ -260,9 +260,9 @@ under the License.
           </select>
         </div>
         <div>
-          <span class="label">Organization Party ID</span>
+          <span class="label">${uiLabelMap.WebtoolsOrgPartyId}</span>
           <input type="text" size='20' name='organizationPartyId'>
-          <span class="label">Period Type</span>
+          <span class="label">${uiLabelMap.WebtoolsPeriodType}</span>
           <select name="periodTypeId">
             <#list periodTypes as periodType>
               <#assign isDefault = false>
@@ -274,21 +274,21 @@ under the License.
               <option value="${periodType.periodTypeId}" <#if isDefault>selected="selected"</#if>>${periodType.description} [${periodType.periodTypeId}]</option>
             </#list>
           </select>
-          <span class="label">Period Number</span>
+          <span class="label">${uiLabelMap.WebtoolsPeriodNumber}</span>
           <input type="text" size='4' name='periodNum'>
-          <span class="label">Period Name</span>
+          <span class="label">${uiLabelMap.WebtoolsPeriodName}</span>
           <input type="text" size='10' name='periodName'>
         </div>
         <div>
-          <span class="label">From Date</span>
+          <span class="label">${uiLabelMap.CommonFromDate}</span>
           <input type="text" size='14' name='fromDate'>
-          <span class="label">Thru Date</span>
+          <span class="label">${uiLabelMap.CommonThruDate}</span>
           <input type="text" size='14' name='thruDate'>
-          <input type="submit" value="Add">
+          <input type="submit" value="${uiLabelMap.CommonAdd}">
         </div>
       </form>
     </div>
   </div>
 <#else>
-  <h3>You do not have permission to view this page (PERIOD_MAINT needed).</h3>
+  <h3>${uiLabelMap.WebtoolsPermissionPeriod}.</h3>
 </#if>
