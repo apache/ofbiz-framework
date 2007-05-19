@@ -434,10 +434,6 @@ public class ShipmentServices {
         if (estimate.getDouble("orderPricePercent") != null)
             orderPercent = estimate.getDouble("orderPricePercent").doubleValue();
 
-        double shippingPricePercent = 0.00;
-        if (estimate.getDouble("shippingPricePercent") != null)
-            shippingPricePercent = estimate.getDouble("shippingPricePercent").doubleValue();
-
         double itemFlatAmount = shippableQuantity.doubleValue() * orderItemFlat;
         double orderPercentage = shippableTotal.doubleValue() * (orderPercent / 100);
 
@@ -517,8 +513,16 @@ public class ShipmentServices {
         // surcharges total
         double surchargeTotal = featureSurcharge + sizeSurcharge;
 
+        // shipping subtotal
+        double subTotal = spanTotal + flatTotal + surchargeTotal;
+
+        // percent add-on
+        double shippingPricePercent = 0.00;
+        if (estimate.getDouble("shippingPricePercent") != null)
+            shippingPricePercent = estimate.getDouble("shippingPricePercent").doubleValue();
+
         // shipping total
-        double shippingTotal = spanTotal + flatTotal + surchargeTotal;
+        double shippingTotal = subTotal + ((subTotal + initialEstimateAmt.doubleValue()) * (shippingPricePercent / 100));
 
         // prepare the return result
         Map responseResult = ServiceUtil.returnSuccess();
