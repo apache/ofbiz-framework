@@ -256,6 +256,7 @@ public class ModelReader implements Serializable {
                         Element extendEntityElement = (Element) tempExtendEntityElementIter.next();
                         String entityName = UtilXml.checkEmpty(extendEntityElement.getAttribute("entity-name"));
                         ModelEntity modelEntity = (ModelEntity) entityCache.get(entityName);
+                        if (modelEntity == null) throw new GenericEntityConfException("Entity to extend does not exist: " + entityName);
                         modelEntity.addExtendEntity(this, extendEntityElement);
                     }
 
