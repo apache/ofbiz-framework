@@ -29,22 +29,20 @@ under the License.
     <a href="<@ofbizUrl>showvisits?showAll=true</@ofbizUrl>" class="smallSubmit">[${uiLabelMap.PartyShowAll}]</a>
   </#if>
   <br/>
-  <#if visitList?has_content>
     <div class="align-float">
       <b>
-        <#if 0 < viewIndex>
-          <a href="<@ofbizUrl>showvisits?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}<#if sort?has_content>&sort=${sort}</#if><#if partyId?has_content>&partyId=${partyId}</#if>&showAll=${showAll}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonPrevious}</a> |
-        </#if>
-        <#if 0 < listSize>
-          ${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${visitSize}
-        </#if>
-        <#if highIndex < listSize>
-          | <a href="<@ofbizUrl>showvisits?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex+1}<#if sort?has_content>&sort=${sort}</#if><#if partyId?has_content>&partyId=${partyId}</#if>&showAll=${showAll}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonNext}</a>              
+        <#if (visitSize > 0)>
+          <#if (viewIndex > 1)>
+            <a href="<@ofbizUrl>showvisits?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}<#if sort?has_content>&sort=${sort}</#if><#if partyId?has_content>&partyId=${partyId}</#if>&showAll=${showAll}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonPrevious}</a> |
+          </#if>
+          ${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${visitSize}
+          <#if highIndex < visitSize>
+            | <a href="<@ofbizUrl>showvisits?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex+1}<#if sort?has_content>&sort=${sort}</#if><#if partyId?has_content>&partyId=${partyId}</#if>&showAll=${showAll}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonNext}</a>              
+          </#if>
         </#if>
       </b>
     </div>
     <br class="clear" />
-  </#if>
   <br/>
   
   <table class="basic-table" cellspacing="0">
@@ -82,20 +80,18 @@ under the License.
     </#list>
   </table>
 
-  <#if visitList?has_content>
     <br />
     <div class="align-float">
       <b>
-        <#if 0 < viewIndex>
-          <a href="<@ofbizUrl>showvisits?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}<#if sort?has_content>&sort=${sort}</#if><#if partyId?has_content>&partyId=${partyId}</#if>&showAll=${showAll}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonPrevious}</a> |
-        </#if>
-        <#if 0 < listSize>
-          ${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${visitSize}
-        </#if>
-        <#if highIndex < listSize>
-          | <a href="<@ofbizUrl>showvisits?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex+1}<#if sort?has_content>&sort=${sort}</#if><#if partyId?has_content>&partyId=${partyId}</#if>&showAll=${showAll}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonNext}</a>              
+        <#if (visitSize > 0)>
+          <#if (viewIndex > 1)>
+            <a href="<@ofbizUrl>showvisits?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}<#if sort?has_content>&sort=${sort}</#if><#if partyId?has_content>&partyId=${partyId}</#if>&showAll=${showAll}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonPrevious}</a> |
+          </#if>
+          ${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${visitSize}
+          <#if highIndex < visitSize>
+            | <a href="<@ofbizUrl>showvisits?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex+1}<#if sort?has_content>&sort=${sort}</#if><#if partyId?has_content>&partyId=${partyId}</#if>&showAll=${showAll}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonNext}</a>              
+          </#if>
         </#if>
       </b>
     </div>
     <br class="clear" />
-  </#if>  

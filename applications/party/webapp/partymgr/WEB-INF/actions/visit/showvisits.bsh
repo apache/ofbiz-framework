@@ -52,12 +52,12 @@ try {
         visitListIt = delegator.findListIteratorByCondition("Visit", new EntityExpr("thruDate", EntityOperator.EQUALS, null), null, null, sortList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));  
     }
     
-    viewIndex = 0;
+    viewIndex = 1;
     viewSize = 20;    
     try {
         viewIndex = Integer.valueOf((String) parameters.get("VIEW_INDEX")).intValue();
     } catch (Exception e) {
-        viewIndex = 0;
+        viewIndex = 1;
     }
     context.put("viewIndex", viewIndex);
     
@@ -67,20 +67,24 @@ try {
         viewSize = 20;
     }
     context.put("viewSize", viewSize);
-        
-    lowIndex = viewIndex * viewSize;
-    highIndex = (viewIndex + 1) * viewSize;
-        
+     
+    // get the indexes for the partial list
+    lowIndex = (((viewIndex - 1) * viewSize) + 1);
+    highIndex = viewIndex * viewSize;
+   
+    // get the partial list for this page
+    visitList = visitListIt.getPartialList(lowIndex, viewSize);
+    if (visitList == null) {
+        visitList = new ArrayList();
+    }
+    
     // attempt to get the full size
     visitListIt.last();
-    visitSize = visitListIt.currentIndex();
-    context.put("visitSize", visitSize);
-    visitListIt.first();
-                
-    visitList = new ArrayList();
-    if (visitSize > 0) {
-        visitList = visitListIt.getPartialList(lowIndex + 1, viewSize + 1);
+    visitListSize = visitListIt.currentIndex();
+    if (highIndex > visitListSize) {
+        highIndex = visitListSize;
     }
+    context.put("visitSize", visitListSize);
     
     visitListIt.close();
 } catch (GenericEntityException e) {
