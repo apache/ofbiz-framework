@@ -1776,6 +1776,7 @@ under the License.
     </entity>
     <entity entity-name="QuantityBreakType"
             package-name="org.ofbiz.product.price"
+            default-resource-name="ProductEntityLabels"
             title="Quantity Break Type Entity">
       <field name="quantityBreakTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>

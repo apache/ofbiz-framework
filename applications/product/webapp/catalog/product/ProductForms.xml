@@ -616,7 +616,7 @@ under the License.
         <field name="availableFromDate" title="${uiLabelMap.ProductAvailableFromDate}" red-when="after-now"><display/></field>
         <field name="availableThruDate" title="${uiLabelMap.ProductAvailableThruDate}" red-when="before-now"><display/></field>
         <field name="quantityUomId"><display-entity entity-name="Uom" key-field-name="uomId"/></field>
-        <field name="supplierCommissionPerc" title="Comm. Perc."><display/></field>
+        <field name="supplierCommissionPerc"><display/></field>
         <field name="lastPrice" widget-area-style="tabletextright"
             header-link="EditProductSuppliers?productId=${productId}&amp;orderBy=lastPrice" header-link-style="buttontext">
                 <display type="currency" currency="${currencyUomId}"/>
@@ -1223,7 +1223,7 @@ under the License.
             <hyperlink target="/accounting/control/EditAgreementItemProduct?agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;productId=${productId}" target-type="inter-app" 
                 description="${agreementId}/${agreementItemSeqId}" also-hidden="false"/>
         </field>
-        <field name="partyIdFrom" title="${uiLabelMap.PartyCustomer}"><display/></field>
+        <field name="partyIdFrom" title="${uiLabelMap.ProductPartyCustomer}"><display/></field>
         <field name="agreementText"><display/></field>
         <field name="description"><display/></field>
         <field name="fromDate"><display/></field>

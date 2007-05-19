@@ -19,7 +19,7 @@ under the License.
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div class="boxhead">&nbsp;Return Items</div>
+        <div class="boxhead">${uiLabelMap.OrderReturnItems}</div>
     </div>
     <div class="screenlet-body">
         <#-- DO NOT CHANGE THE NAME OF THIS FORM, it will break the some of the multi-service pattern features -->
