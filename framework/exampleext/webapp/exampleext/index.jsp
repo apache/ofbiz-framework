@@ -1,0 +1,1 @@
+<%response.sendRedirect("control/main");%>

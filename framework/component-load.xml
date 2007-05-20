@@ -40,4 +40,5 @@ under the License.
     <load-component component-location="${ofbiz.home}/framework/webtools"/>
     <load-component component-location="${ofbiz.home}/framework/images"/>
     <load-component component-location="${ofbiz.home}/framework/example"/>
+    <load-component component-location="${ofbiz.home}/framework/exampleext"/>
 </component-loader>
