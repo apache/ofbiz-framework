@@ -86,9 +86,19 @@ under the License.
         <check-errors/>
         
         <if-compare field-name="payment.statusId" value="PMNT_NOT_PAID" operator="not-equals">
-            <add-error>
-                <fail-property resource="AccountingUiLabels" property="AccountingPSUpdateNotAllowedBecauseOfStatus"/>
-            </add-error>
+            <!-- check if only status change -->
+            <make-value value-name="newPayment" entity-name="Payment"/>
+            <make-value value-name="oldPayment" entity-name="Payment"/>
+            <set-nonpk-fields value-name="newPayment" map-name="payment"/>
+            <set-nonpk-fields value-name="oldPayment" map-name="payment"/>
+            <set-nonpk-fields value-name="newPayment" map-name="parameters"/>
+            <set field="newPayment.statusId" from-field="oldPayment.statusId"/>
+            <if-compare-field field-name="oldPayment"  to-field-name="newPayment" operator="not-equals">
+                <log level="always" message="=========Old: ${oldPayment} ============New: ${newPayment}"></log>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingPSUpdateNotAllowedBecauseOfStatus"/>
+                </add-error>
+            </if-compare-field>
         </if-compare>
         <check-errors/>
         
@@ -101,9 +111,9 @@ under the License.
         </if-empty>
         <store-value value-name="payment"/>
         
-        <if-not-empty field-name="parameters.StatusId">
+        <if-not-empty field-name="parameters.statusId">
             <if-compare-field field-name="parameters.statusId" operator="not-equals" to-field-name="statusIdSave">
-                <set-service-fields service-name="setPaymentSatus" map-name="parameters" to-map-name="param"/>
+                <set-service-fields service-name="setPaymentStatus" map-name="parameters" to-map-name="param"/>
                 <call-service service-name="setPaymentStatus" in-map-name="param"/>
                 <check-errors/>
             </if-compare-field>

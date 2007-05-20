@@ -298,6 +298,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="findPayments"/>
     </request-map>
+    <request-map uri="newPayment">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="newPayment"/>
+    </request-map> 
     <request-map uri="editPayment">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="editPayment"/>
@@ -305,8 +309,8 @@ under the License.
     <request-map uri="createPayment">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPayment"/>
-        <response name="success" type="view" value="editPaymentApplications"/>
-        <response name="error" type="view" value="editPayment"/>
+        <response name="success" type="view" value="editPayment"/>
+        <response name="error" type="view" value="newPayment"/>
     </request-map>
     <request-map uri="updatePayment">
         <security https="true" auth="true"/>
@@ -1355,6 +1359,7 @@ under the License.
     <!-- Payment -->
     <view-map name="findPayments" type="screen" page="component://accounting/widget/PaymentScreens.xml#FindPayments"/>
     <view-map name="paymentOverview" type="screen" page="component://accounting/widget/PaymentScreens.xml#PaymentOverview"/>
+    <view-map name="newPayment" type="screen" page="component://accounting/widget/PaymentScreens.xml#NewPayment"/>
     <view-map name="editPayment" type="screen" page="component://accounting/widget/PaymentScreens.xml#EditPayment"/>
     <view-map name="editPaymentApplications" type="screen" page="component://accounting/widget/PaymentScreens.xml#EditPaymentApplications"/>
     <view-map name="ManualTransaction" type="screen" page="component://accounting/widget/PaymentScreens.xml#ManualTransaction"/>

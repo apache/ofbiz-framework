@@ -249,6 +249,8 @@ under the License.
                     <not><if-empty field-name="payment.paymentId"/></not>
                     <or>
                         <if-compare field-name="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                        <if-compare field-name="payment.statusId" operator="equals" value="PMNT_RECEIVED"/>
+                        <if-compare field-name="payment.statusId" operator="equals" value="PMNT_SENT"/>
                     </or>                
                 </and>
             </condition>
@@ -277,7 +279,7 @@ under the License.
             <condition>
                 <not><if-empty field-name="payment.paymentId"/></not>
             </condition>
-            <link target="editPayment"/>
+            <link target="newPayment"/>
         </menu-item>
         <menu-item name="statusToSend" title="${uiLabelMap.AccountingPaymentTabStatusToSent}">
             <condition>

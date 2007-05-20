@@ -73,8 +73,88 @@ under the License.
         <field name="amountToApply"><display also-hidden="false" type="currency" currency="${currencyUomId}"/></field>
     </form>
 
+    <form name="NewPaymentOut" type="single" target="createPayment" default-map-name="payment">
+        <field name="statusId"><hidden value="PMNT_NOT_PAID"/></field>
+        <field position="1" name="organizationPartyId" parameter-name="partyIdFrom">
+            <drop-down allow-empty="false">
+                <entity-options description="${partyId}" entity-name="PartyAcctgPreference" key-field-name="partyId">
+                    <entity-order-by field-name="partyId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="partyIdTo" position="2"><lookup target-form-name="LookupPartyName"/></field>
+        <field position="1" name="paymentTypeId">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="PaymentType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field position="2" name="paymentMethodTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="PaymentMethodType"  description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="amount" position="1"><text/></field>
+        <field position="2" name="currencyUomId" >
+            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field position="1" name="createButton" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="NewPaymentIn" type="single" target="createPayment" default-map-name="payment">
+        <field name="statusId"><hidden value="PMNT_NOT_PAID"/></field>
+        <field position="1" name="organizationPartyId" parameter-name="partyIdTo">
+            <drop-down allow-empty="false">
+                <entity-options description="${partyId}" entity-name="PartyAcctgPreference" key-field-name="partyId">
+                    <entity-order-by field-name="partyId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="partyIdFrom" position="2"><lookup target-form-name="LookupPartyName"/></field>
+        <field position="1" name="paymentTypeId">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="PaymentType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field position="2" name="paymentMethodTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="PaymentMethodType"  description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="amount" position="1"><text/></field>
+        <field position="2" name="currencyUomId" >
+            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field position="1" name="createButton" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    
     <form name="EditPayment" type="single" target="updatePayment" default-map-name="payment">
-        <alt-target use-when="payment==null" target="createPayment"/>
+        <actions>
+            <entity-one entity-name="StatusItem" value-name="currentStatus">
+                <field-map field-name="statusId" env-name="payment.statusId"/>
+            </entity-one>
+        </actions>
+        <auto-fields-entity entity-name="Payment"/>
         <field name="paymentId"><hidden/></field>
         <field position="1" name="paymentTypeId">
             <drop-down allow-empty="false">
@@ -90,12 +170,15 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="statusId" use-when="payment!=null" position="1"><display-entity entity-name="StatusItem"/></field>
-        <field name="statusId" use-when="payment==null"><hidden value="PMNT_NOT_PAID"/></field>
-        <field position="2" name="paymentMethodId" use-when="(payment==null)||(payment.get(&quot;partyIdFrom&quot;)==null)">
-            <text/>
+        <field name="statusId" position="1">
+            <drop-down allow-empty="false" current-description="${currentStatus.description}">
+                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
+                    <entity-constraint name="statusId" value="${payment.statusId}"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
         </field>
-        <field position="2" name="paymentMethodId" use-when="(payment!=null)&amp;&amp;(payment.get(&quot;partyIdFrom&quot;)!=null)">
+        <field position="1" name="paymentMethodId">
             <drop-down allow-empty="false">
                 <entity-options  key-field-name="paymentMethodId" entity-name="PaymentMethod" description="${paymentMethodTypeId} (${paymentMethodId})">
                     <entity-constraint name="partyId" operator="equals" value="${payment.partyIdFrom}"/>
@@ -103,10 +186,17 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="roleTypeIdTo" position="2">
+            <drop-down allow-empty="true">
+                <entity-options  key-field-name="roleTypeId" description="${description}" entity-name="RoleType">
+                    <entity-order-by field-name="roleTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="partyIdFrom" position="1"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyIdTo" position="2"><lookup target-form-name="LookupPartyName"/></field>
         <field name="amount" position="1"><text/></field>
-        <field position="2" name="currencyUomId" >
+        <field position="2" name="currencyUomId">
             <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
@@ -114,22 +204,25 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="effectiveDate" position="1"><date-time/></field>
-        <field name="comments" position="2"><text/></field>
-        <field name="paymentRefNum" position="1"><text/></field>
-        <field name="paymentPreferenceId" position="2"><text/></field>
-        <!--field name="paymentGatewayResponseId" title="Paym Gatw Resp." position="2"><display/></field-->
-        <field name="roleTypeIdTo">
-            <drop-down allow-empty="true">
-                <entity-options  key-field-name="roleTypeId" description="${description}" entity-name="RoleType">
-                    <entity-order-by field-name="roleTypeId"/>
+        <field name="actualAmount" position="1"><text/></field>
+        <field position="2" name="actualCurrencyUomId">
+            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
+        <field name="effectiveDate" position="2"><date-time/></field>
+        <field name="comments" position="2"><text/></field>
+        <field name="paymentRefNum" position="1"><text/></field>
+        <field name="paymentPreferenceId"><ignored/></field>
+        <field name="paymentGatewayResponseId"><ignored/></field>
         <field name="finAccountTransId" position="1"><text/></field>
         <field name="overrideGlAccountId" position="2"><lookup target-form-name="LookupGlAccount"/></field>
-        <field position="1" use-when="payment==null" name="createButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field position="1" use-when="payment!=null" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="finAccountTransId"><ignored/></field>
+        <field name="actualAmount"><ignored/></field>
+        <field position="1" name="updateButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
     <form name="editPaymentApplicationsInv" default-entity-name="PaymentApplication" list-name="paymentApplicationsInv" target="updatePaymentApplication" type="list" separate-columns="false">
