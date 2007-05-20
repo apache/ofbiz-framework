@@ -118,7 +118,7 @@ under the License.
         <alt-target use-when="currentValue==null" target="createContent"/>
         <auto-fields-entity entity-name="Content" />
         <field use-when="currentValue!=null" name="contentId" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
-        <field use-when="currentValue==null&amp;&amp;contentId==null" name="contentId"><ignored/></field>
+        <field use-when="currentValue==null&amp;&amp;contentId==null" name="contentId"><text/></field>
         <field use-when="currentValue==null&amp;&amp;contentId!=null" name="contentId" widget-style="tabletext"><display description="${uiLabelMap.CommonCannotBeFound}: [${contentId}]" also-hidden="false"/></field>
         <field name="contentTypeId">
             <drop-down allow-empty="false">
@@ -156,7 +156,7 @@ under the License.
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" use-when="currentValue!=null" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <!--form name="AddContent" target="createContent" title="" type="single"
+    <!-- form name="AddContent" target="createContent" title="" type="single"
         default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="Content" />
         <field name="contentId"><text/></field>
@@ -189,9 +189,8 @@ under the License.
         <field name="createdDate" position="2"><display/></field>
         <field name="lastModifiedByUserLogin" position="1"><display/></field>
         <field name="lastModifiedDate" position="2"><display/></field>
-    </form-->
-    
-    
+    </form -->
+        
     <!-- Content Lookup forms -->
     <form name="mruLookupContent" default-entity-name="Content" list-name="mruList" target="" title="" type="list">
         
