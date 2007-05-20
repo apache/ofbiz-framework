@@ -41,6 +41,14 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     
+    <simple-method method-name="updatePartyAcctgPreference"
+        short-description="Update the accounting preference settings for a party">
+        <!-- permission checking is done in the services definition file (services_other.xml) -->
+        <entity-one entity-name="PartyAcctgPreference" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <store-value value-name="newEntity"/>
+    </simple-method>
+    
     <!-- update currency conversion rates in the UomConversionDated entity -->
     <simple-method method-name="updateFXConversion" short-description="Update Foreign Exchange conversion rate">
         <!-- set the FX rate changes as of now -->

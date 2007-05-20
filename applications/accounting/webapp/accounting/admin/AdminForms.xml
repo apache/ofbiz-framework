@@ -28,6 +28,7 @@ under the License.
     </form>
     
     <form name="PartyAcctgPreference" type="single" target="createPartyAcctgPreference" default-service-name="createPartyAcctgPreference" default-map-name="partyAcctgPreference">
+        <alt-target use-when="partyAcctgPreference!=null" target="updatePartyAcctgPreference"/>
         <auto-fields-service service-name="createPartyAcctgPreference"/>
         <field name="organizationPartyId"><hidden value="${parameters.organizationPartyId}"/></field>
         <!-- the partyId is always displayed -->
@@ -118,7 +119,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}" use-when="partyAcctgPreference==null"><submit/></field>
+        <field name="createButton" use-when="partyAcctgPreference==null"><submit/></field>
+        <field name="updateButton" use-when="partyAcctgPreference!=null"><submit/></field>
         
         <!-- otherwise, we just display the fields.  there is no submit button because we shouldn't try to create it again and don't support an update option right now-->
         <field name="fiscalYearStartMonth" use-when="partyAcctgPreference!=null"><display/></field>
@@ -147,6 +149,14 @@ under the License.
         <!-- these 2 are ONLY displayed, never allow manual editing -->
         <field name="lastInvoiceNumber"><display/></field>
         <field name="lastInvoiceRestartDate"><display/></field>
+        
+        <field name="refundPaymentMethodId">
+            <drop-down>
+                <entity-options entity-name="PaymentMethod" description="${description}" key-field-name="paymentMethodId">
+                    <entity-constraint name="partyId" operator="equals" env-name="organizationPartyId"/>
+                </entity-options>
+            </drop-down>
+        </field>
     </form>
     
     <form name="ListUnpostedAcctgTrans" type="list" title="Unposted Accounting Transactions" list-name="transactions">
