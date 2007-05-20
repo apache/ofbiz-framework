@@ -108,13 +108,12 @@ public class ModelMenu {
         // check if there is a parent menu to inherit from
         String parentResource = menuElement.getAttribute("extends-resource");
         String parentMenu = menuElement.getAttribute("extends");
-        //TODO: Modify this to allow for extending a menu with the same name but different resource
-        if (parentMenu.length() > 0 && !parentMenu.equals(menuElement.getAttribute("name"))) {
+        if (parentMenu.length() > 0 && !(parentMenu.equals(menuElement.getAttribute("name")) && UtilValidate.isEmpty(parentResource))) {
             ModelMenu parent = null;
             // check if we have a resource name (part of the string before the ?)
-            if (parentResource.length() > 0) {
+            if (UtilValidate.isNotEmpty(parentResource)) {
                 try {
-                    parent = MenuFactory.getMenuFromClass(parentResource, parentMenu, delegator, dispatcher);
+                    parent = MenuFactory.getMenuFromLocation(parentResource, parentMenu, delegator, dispatcher);
                 } catch (Exception e) {
                     Debug.logError(e, "Failed to load parent menu definition '" + parentMenu + "' at resource '" + parentResource + "'", module);
                 }
