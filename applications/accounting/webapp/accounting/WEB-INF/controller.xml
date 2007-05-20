@@ -1075,6 +1075,13 @@ under the License.
         <response name="error" type="view" value="PartyAcctgPreference"/>
     </request-map>
     
+    <request-map uri="updatePartyAcctgPreference">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePartyAcctgPreference"/>
+        <response name="success" type="view" value="PartyAcctgPreference"/>
+        <response name="error" type="view" value="PartyAcctgPreference"/>
+    </request-map>
+    
     <request-map uri="GlAccountAssignment">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="GlAccountSalInvoice"/>

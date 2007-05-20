@@ -80,6 +80,9 @@ under the License.
     <SecurityPermission description="Set organization accounting preferences" permissionId="ACCTG_PREF_CREATE"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCTG_PREF_CREATE"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_PREF_CREATE"/>
+    <SecurityPermission description="Update organization accounting preferences" permissionId="ACCTG_PREF_UPDATE"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCTG_PREF_UPDATE"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_PREF_UPDATE"/>
     
     <SecurityPermission description="Set foreign exchange rates" permissionId="ACCTG_FX_ENTRY"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCTG_FX_ENTRY"/>
