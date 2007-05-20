@@ -131,7 +131,7 @@ under the License.
         <xs:attribute type="xs:string" name="type">
             <xs:annotation>
                 <xs:documentation>
-                    Type of the value put in the field.
+                    Type of the value put in the field. If this is a method call or object creation and the type in the method signature being called is for a parent class or interface, then it should be the type in that parent class or interface and not the type of the object being passed in. 
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
