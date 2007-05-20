@@ -39,7 +39,26 @@ under the License.
             <check-permission permission="ACCTG_PREF_UPDATE"/>
         </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true">
+            <!-- the following fields should not be updated because can cause big problems.
+                this allows for the local addition of fields with will appear automagically on the update screen. -->
+            <exclude field-name="fiscalYearStartMonth"/>
+            <exclude field-name="fiscalYearStartDay"/>
+            <exclude field-name="taxFormId"/>
+            <exclude field-name="cogsMethodId"/>
+            <exclude field-name="baseCurrencyUomId"/>
+            <exclude field-name="invoiceSequenceEnumId"/>
+            <exclude field-name="invoiceIdPrefix"/>
+            <exclude field-name="lastInvoiceNumber"/>
+            <exclude field-name="lastInvoiceRestartDate"/>
+            <exclude field-name="useInvoiceIdForReturns"/>
+            <exclude field-name="quoteSequenceEnumId"/>
+            <exclude field-name="quoteIdPrefix"/>
+            <exclude field-name="lastQuoteNumber"/>
+            <exclude field-name="orderSequenceEnumId"/>
+            <exclude field-name="orderIdPrefix"/>
+            <exclude field-name="lastOrderNumber"/>
+        </auto-attributes>
     </service>
     
     <service name="updateFXConversion" engine="simple" 
