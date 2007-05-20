@@ -27,7 +27,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindExampleFeature"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://example/widget/example/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -50,50 +50,6 @@ under the License.
         </section>
     </screen>
     
-    <screen name="CommonExampleFeatureDecorator">
-        <section>
-            <actions>
-                <set field="headerItem" value="ExampleFeature"/>
-
-                <set field="exampleFeatureId" from-field="parameters.exampleFeatureId"/>
-                <entity-one entity-name="ExampleFeature" value-name="exampleFeature"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="component://example/widget/example/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <section>
-                            <!-- do check for EXAMPLE, _VIEW permission -->
-                            <condition>
-                                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <section>
-                                    <condition>
-                                        <not><if-empty field-name="exampleFeature"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <include-menu name="EditExampleFeature" location="component://example/widget/example/ExampleMenus.xml"/>
-                                        <container style="button-bar">
-                                            <link target="EditExampleFeature" text="${uiLabelMap.ExampleNewExampleFeature}" style="buttontext"/>
-                                        </container>
-                                        <container style="button-bar">
-                                            <label style="head1">${uiLabelMap.${titleProperty}}</label><label style="head2"> ${uiLabelMap.CommonFor} "${exampleFeature.description}" [${exampleFeatureId}]</label>
-                                        </container>
-                                    </widgets>
-                                </section>
-
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="head3">${uiLabelMap.ExampleViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>                    
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="EditExampleFeature">
         <section>
             <actions>
@@ -104,7 +60,7 @@ under the License.
                 <entity-one entity-name="ExampleFeature" value-name="exampleFeature"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonExampleFeatureDecorator">
+                <decorator-screen name="CommonExampleFeatureDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="EditExampleFeature" location="component://example/widget/example/ExampleFeatureForms.xml"/>
                     </decorator-section>
@@ -121,7 +77,7 @@ under the License.
                 <set field="exampleFeatureId" from-field="parameters.exampleFeatureId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonExampleFeatureDecorator">
+                <decorator-screen name="CommonExampleFeatureDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="ListExampleFeatureAppls" location="component://example/widget/example/ExampleFeatureForms.xml"/>
                         <include-form name="AddExampleFeatureAppl" location="component://example/widget/example/ExampleFeatureForms.xml"/>

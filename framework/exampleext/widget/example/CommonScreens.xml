@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <!-- Decorator Screens Copied from CatalogCommonScreens.xml, since the mainDecoratorLocation now points here -->
+    <screen name="main-decorator">
+        <section>
+            <actions>
+                <!-- can add additional info here, like another UiLabels file: <property-map resource="ExampleExtUiLabels" map-name="uiLabelMap" global="true"/> -->
+            </actions>
+            <widgets>
+                <include-screen name="main-decorator" location="component://example/widget/example/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="CommonExampleDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="Example"/>
+                
+                <set field="exampleId" from-field="parameters.exampleId"/>
+                <entity-one entity-name="Example" value-name="example"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for EXAMPLE, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="example"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="EditExample" location="component://exampleext/widget/example/ExampleMenus.xml"/>
+                                        <container style="button-bar"><link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext"/></container>
+                                        <container style="button-bar"><label style="head1">${uiLabelMap.${titleProperty}}</label><label style="head2"> ${uiLabelMap.CommonFor} "${example.exampleName}" [${exampleId}]</label></container>
+                                    </widgets>
+                                </section>
+                                
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ExampleViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonExampleFeatureDecorator">
+        <section>
+            <widgets>
+                <include-screen name="CommonExampleFeatureDecorator" location="component://example/widget/example/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+</screens>
