@@ -238,15 +238,20 @@ public class ModelForm {
                 this.defaultWidgetStyle = parent.defaultWidgetStyle;
                 this.defaultTooltipStyle = parent.defaultTooltipStyle;
                 this.itemIndexSeparator = parent.itemIndexSeparator;
-                //this.fieldList = parent.fieldList;
-                //this.fieldMap = parent.fieldMap;
                 this.separateColumns = parent.separateColumns;
                 this.targetType = parent.targetType;
                 this.defaultMapName = parent.defaultMapName;
                 this.targetWindowExdr = parent.targetWindowExdr;
                 this.hideHeader = parent.hideHeader;
+
+                this.altTargets = parent.altTargets;
+                this.actions = parent.actions;
+                this.rowActions = parent.rowActions;
                 
-                
+                //these are done below in a special way...
+                //this.fieldList = parent.fieldList;
+                //this.fieldMap = parent.fieldMap;
+
                 // Create this fieldList/Map from clones of parent's
                 Iterator fieldListIter = parent.fieldList.iterator();
                 while (fieldListIter.hasNext()) {
