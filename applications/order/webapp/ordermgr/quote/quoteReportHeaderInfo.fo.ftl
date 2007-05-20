@@ -21,7 +21,7 @@ under the License.
 <fo:list-block provisional-distance-between-starts="35mm" font-size="10pt">
     <fo:list-item>
         <fo:list-item-label>
-            <fo:block font-weight="bold">${uiLabelMap.OrderQuoteType}</fo:block>
+            <fo:block font-weight="bold">${uiLabelMap.OrderOrderQuoteType}</fo:block>
         </fo:list-item-label>
         <fo:list-item-body start-indent="body-start()">
             <fo:block font-weight="bold">${(quoteType.get("description",locale))?default(quote.quoteTypeId?if_exists)}</fo:block>
