@@ -30,6 +30,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericDelegator;
@@ -47,36 +48,8 @@ public class MenuFactory {
     
     public static final String module = MenuFactory.class.getName();
 
-    public static final UtilCache menuClassCache = new UtilCache("widget.menu.classResource", 0, 0, false);
     public static final UtilCache menuWebappCache = new UtilCache("widget.menu.webappResource", 0, 0, false);
     public static final UtilCache menuLocationCache = new UtilCache("widget.menu.locationResource", 0, 0, false);
-    
-    public static ModelMenu getMenuFromClass(String resourceName, String menuName, GenericDelegator delegator, LocalDispatcher dispatcher) 
-            throws IOException, SAXException, ParserConfigurationException {
-        Map modelMenuMap = (Map) menuClassCache.get(resourceName);
-        if (modelMenuMap == null) {
-            synchronized (MenuFactory.class) {
-                modelMenuMap = (Map) menuClassCache.get(resourceName);
-                if (modelMenuMap == null) {
-                    ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                    if (loader == null) {
-                        loader = MenuFactory.class.getClassLoader();
-                    }
-                    
-                    URL menuFileUrl = loader.getResource(resourceName);
-                    Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true);
-                    modelMenuMap = readMenuDocument(menuFileDoc, delegator, dispatcher);
-                    menuClassCache.put(resourceName, modelMenuMap);
-                }
-            }
-        }
-        
-        ModelMenu modelMenu = (ModelMenu) modelMenuMap.get(menuName);
-        if (modelMenu == null) {
-            throw new IllegalArgumentException("Could not find menu with name [" + menuName + "] in class resource [" + resourceName + "]");
-        }
-        return modelMenu;
-    }
     
     public static ModelMenu getMenuFromWebappContext(String resourceName, String menuName, HttpServletRequest request) 
             throws IOException, SAXException, ParserConfigurationException {
@@ -99,6 +72,10 @@ public class MenuFactory {
                     menuWebappCache.put(cacheKey, modelMenuMap);
                 }
             }
+        }
+        
+        if (UtilValidate.isEmpty(modelMenuMap)) {
+            throw new IllegalArgumentException("Could not find menu file in webapp resource [" + resourceName + "] in the webapp [" + webappName + "]");
         }
         
         ModelMenu modelMenu = (ModelMenu) modelMenuMap.get(menuName);
@@ -144,10 +121,14 @@ public class MenuFactory {
                 }
             }
         }
+
+        if (UtilValidate.isEmpty(modelMenuMap)) {
+            throw new IllegalArgumentException("Could not find menu file in location [" + resourceName + "]");
+        }
         
         ModelMenu modelMenu = (ModelMenu) modelMenuMap.get(menuName);
         if (modelMenu == null) {
-            throw new IllegalArgumentException("Could not find menu with name [" + menuName + "] in class resource [" + resourceName + "]");
+            throw new IllegalArgumentException("Could not find menu with name [" + menuName + "] in location [" + resourceName + "]");
         }
         return modelMenu;
     }
