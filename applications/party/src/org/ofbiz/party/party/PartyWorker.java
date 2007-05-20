@@ -129,22 +129,26 @@ public class PartyWorker {
 
     public static GenericValue findPartyLatestPostalAddress(String partyId, GenericDelegator delegator) {
         GenericValue pcm = findPartyLatestContactMech(partyId, "POSTAL_ADDRESS", delegator);
-        try {
-            return pcm.getRelatedOne("PostalAddress");
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Error while finding latest PostalAddress for party with ID [" + partyId + "]: " + e.toString(), module);
-            return null;
+        if (pcm != null) {
+            try {
+                return pcm.getRelatedOne("PostalAddress");
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error while finding latest PostalAddress for party with ID [" + partyId + "]: " + e.toString(), module);
+            }
         }
+        return null;
     }
 
     public static GenericValue findPartyLatestTelecomNumber(String partyId, GenericDelegator delegator) {
         GenericValue pcm = findPartyLatestContactMech(partyId, "TELECOM_NUMBER", delegator);
-        try {
-            return pcm.getRelatedOne("TelecomNumber");
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Error while finding latest TelecomNumber for party with ID [" + partyId + "]: " + e.toString(), module);
-            return null;
+        if (pcm != null) {
+            try {
+                return pcm.getRelatedOne("TelecomNumber");
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error while finding latest TelecomNumber for party with ID [" + partyId + "]: " + e.toString(), module);
+            }
         }
+        return null;
     }
 
     public static GenericValue findPartyLatestUserLogin(String partyId, GenericDelegator delegator) {
