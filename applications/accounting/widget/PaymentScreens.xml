@@ -32,10 +32,35 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><link target="editPayment" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingPayment}" style="buttontext"/></container>
+                        <container><link target="newPayment" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingPayment}" style="buttontext"/></container>
                         <container><label style="head1" text="${uiLabelMap.AccountingFindPayments}"/></container>
                         <include-form name="FindPayments" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
                         <include-form name="ListPayments"  location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="NewPayment">
+        <section>
+            <actions>
+                <set field="title" value="Create Payment"/>
+                <set field="titleProperty" value="PageTitleEditPayment"/>
+                <set field="tabButtonItem" value="editPayment"/>
+                <set field="paymentId" from-field="parameters.paymentId"/>
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <label style="head1" text="${uiLabelMap.AccountingNewPaymentIncoming}"/>
+                                <include-form name="NewPaymentIn" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                <label style="head1" text="${uiLabelMap.AccountingNewPaymentOutgoing}"/>
+                                <include-form name="NewPaymentOut" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
