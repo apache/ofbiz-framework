@@ -111,7 +111,7 @@ under the License.
         <alt-target use-when="currentValue==null" target="createDataResource"/>
         <auto-fields-entity entity-name="DataResource" default-field-type="edit"/>
         <field use-when="currentValue!=null" name="dataResourceId" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
-        <field use-when="currentValue==null&amp;&amp;dataResourceId==null" name="dataResourceId"><ignored/></field>
+        <field use-when="currentValue==null&amp;&amp;dataResourceId==null" name="dataResourceId"><text/></field>
         <field use-when="currentValue==null&amp;&amp;dataResourceId!=null" name="dataResourceId" widget-style="tabletext"><display description="${uiLabelMap.CommonCannotBeFound}: [${dataResourceId}]" also-hidden="false"/></field>
         <field name="dataResourceTypeId">
             <drop-down allow-empty="true">
