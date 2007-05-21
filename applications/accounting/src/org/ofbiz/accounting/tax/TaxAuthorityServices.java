@@ -374,6 +374,7 @@ public class TaxAuthorityServices {
     }
     
     private static void handlePartyTaxExempt(GenericValue adjValue, Set billToPartyIdSet, String taxAuthGeoId, String taxAuthPartyId, BigDecimal taxAmount, Timestamp nowTimestamp, GenericDelegator delegator) throws GenericEntityException {
+        Debug.log("Checking for tax exemption : " + taxAuthGeoId + " / " + taxAuthPartyId, module);
         List ptiConditionList = UtilMisc.toList(
                 new EntityExpr("partyId", EntityOperator.IN, billToPartyIdSet),
                 new EntityExpr("taxAuthGeoId", EntityOperator.EQUALS, taxAuthGeoId),
@@ -383,22 +384,29 @@ public class TaxAuthorityServices {
         EntityCondition ptiCondition = new EntityConditionList(ptiConditionList, EntityOperator.AND);
         // sort by -fromDate to get the newest (largest) first, just in case there is more than one, we only want the most recent valid one, should only be one per jurisdiction...
         List partyTaxInfos = delegator.findByCondition("PartyTaxAuthInfo", ptiCondition, null, UtilMisc.toList("-fromDate"));
+
+        boolean foundExemption = false;
         if (partyTaxInfos.size() > 0) {
             GenericValue partyTaxInfo = (GenericValue) partyTaxInfos.get(0);
             adjValue.set("customerReferenceId", partyTaxInfo.get("partyTaxId"));
             if ("Y".equals(partyTaxInfo.getString("isExempt"))) {
                 adjValue.set("amount", new Double(0));
                 adjValue.set("exemptAmount", taxAmount);
-            } else {
-                // try the "parent" TaxAuthority
-                List taxAuthorityAssocList = delegator.findByAndCache("TaxAuthorityAssoc", 
-                        UtilMisc.toMap("toTaxAuthGeoId", taxAuthGeoId, "toTaxAuthPartyId", taxAuthPartyId, "taxAuthorityAssocTypeId", "EXEMPT_INHER"), 
-                        UtilMisc.toList("-fromDate"));
-                taxAuthorityAssocList = EntityUtil.filterByDate(taxAuthorityAssocList, true);
-                GenericValue taxAuthorityAssoc = EntityUtil.getFirst(taxAuthorityAssocList);
-                if (taxAuthorityAssoc != null) {
-                    handlePartyTaxExempt(adjValue, billToPartyIdSet, taxAuthorityAssoc.getString("taxAuthGeoId"), taxAuthorityAssoc.getString("taxAuthPartyId"), taxAmount, nowTimestamp, delegator);
-                }
+                foundExemption = true;
+            }
+        }
+
+        // if no exceptions were found for the current; try the parent
+        if (!foundExemption) {
+            // try the "parent" TaxAuthority
+            List taxAuthorityAssocList = delegator.findByAndCache("TaxAuthorityAssoc",
+                    UtilMisc.toMap("toTaxAuthGeoId", taxAuthGeoId, "toTaxAuthPartyId", taxAuthPartyId, "taxAuthorityAssocTypeId", "EXEMPT_INHER"),
+                    UtilMisc.toList("-fromDate"));
+            taxAuthorityAssocList = EntityUtil.filterByDate(taxAuthorityAssocList, true);
+            GenericValue taxAuthorityAssoc = EntityUtil.getFirst(taxAuthorityAssocList);
+            Debug.log("Parent assoc to " + taxAuthGeoId + " : " + taxAuthorityAssoc, module);
+            if (taxAuthorityAssoc != null) {
+                handlePartyTaxExempt(adjValue, billToPartyIdSet, taxAuthorityAssoc.getString("taxAuthGeoId"), taxAuthorityAssoc.getString("taxAuthPartyId"), taxAmount, nowTimestamp, delegator);
             }
         }
     }
