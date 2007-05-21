@@ -183,7 +183,7 @@ public class KeywordSearchUtil {
         Set keywords = new TreeSet();
         if (str.length() > 0) {
             // strip off weird characters
-            str = str.replaceAll("\\\302\\\240|\\\240", "\\s");
+            str = str.replaceAll("\\\302\\\240|\\\240", " ");
             
             if (forSearch) {
                 // remove %_*? from separators if is for a search
