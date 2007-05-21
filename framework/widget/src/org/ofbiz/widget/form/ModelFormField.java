@@ -639,14 +639,14 @@ public class ModelFormField {
             if (this.entryAcsr != null && !this.entryAcsr.isEmpty()) {
                 //Debug.logInfo("Getting entry, using entryAcsr for field " + this.getName() + " of form " + this.modelForm.getName(), module);
                 if (dataMap instanceof GenericEntity) {
-                	GenericEntity genEnt = (GenericEntity) dataMap;
-                	if (genEnt.getModelEntity().isField(this.entryAcsr.getOriginalName())) {
-                		retVal = genEnt.get(this.entryAcsr.getOriginalName());
-                	} else {
-                            retVal = this.entryAcsr.get(dataMap);
-                        }
+                    GenericEntity genEnt = (GenericEntity) dataMap;
+                    if (genEnt.getModelEntity().isField(this.entryAcsr.getOriginalName())) {
+                        retVal = genEnt.get(this.entryAcsr.getOriginalName());
+                    } else {
+                        retVal = this.entryAcsr.get(dataMap);
+                    }
                 } else {
-                	retVal = this.entryAcsr.get(dataMap);
+                    retVal = this.entryAcsr.get(dataMap);
                 }
             } else {
                 //Debug.logInfo("Getting entry, no entryAcsr so using field name " + this.name + " for field " + this.getName() + " of form " + this.modelForm.getName(), module);
