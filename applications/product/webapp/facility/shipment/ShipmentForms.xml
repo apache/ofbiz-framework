@@ -20,8 +20,7 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="EditShipment" type="single" target="updateShipment" title="" default-map-name="shipment"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditShipment" type="single" target="updateShipment" title="" default-map-name="shipment">
         
         <alt-target use-when="shipment==null" target="createShipment"/>
         
@@ -31,12 +30,12 @@ under the License.
         <field use-when="shipment==null&amp;&amp;shipmentId!=null" name="shipmentId" title="${uiLabelMap.ProductShipmentId}" tooltip="${uiLabelMap.ProductCouldNotFindProductShipmentWithId} [${shipmentId}]"><display description="" also-hidden="false"/></field>
         <field use-when="shipment==null&amp;&amp;shipmentId==null" name="shipmentId" title="${uiLabelMap.ProductShipmentId}" ><ignored/></field>
 
-        <field name="shipmentTypeId" title="${uiLabelMap.ProductShipmentTypeId}" widget-style="selectBox">
+        <field name="shipmentTypeId" title="${uiLabelMap.ProductShipmentTypeId}">
             <drop-down allow-empty="false" current="first-in-list">
                 <entity-options entity-name="ShipmentType" description="${description}"/>
             </drop-down>
         </field>        
-        <field use-when="shipment==null" name="statusId" title="${uiLabelMap.ProductStatusId}" widget-style="selectBox">
+        <field use-when="shipment==null" name="statusId" title="${uiLabelMap.ProductStatusId}">
             <drop-down allow-empty="false" current="first-in-list">
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" value="${statusItemType}"/>
@@ -44,7 +43,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field use-when="shipment!=null" name="statusId" title="${uiLabelMap.ProductStatusId}" widget-style="selectBox">
+        <field use-when="shipment!=null" name="statusId" title="${uiLabelMap.ProductStatusId}">
             <drop-down allow-empty="false" current="first-in-list" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" value="${shipment.statusId}"/>
@@ -57,7 +56,7 @@ under the License.
         <field name="estimatedReadyDate" title="${uiLabelMap.ProductEstimatedReadyDate}"><date-time/></field>
         <field name="estimatedShipDate" title="${uiLabelMap.ProductEstimatedShipDate}"><date-time/></field>
         
-        <field use-when="productStoreId!=null" name="originFacilityId" title="${uiLabelMap.ProductOriginFacility} [${shipment.primaryOrderId}]" widget-style="selectBox">
+        <field use-when="productStoreId!=null" name="originFacilityId" title="${uiLabelMap.ProductOriginFacility} [${shipment.primaryOrderId}]">
             <drop-down allow-empty="true" current="first-in-list">
                 <entity-options entity-name="ProductStoreFacilityByOrder" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
                     <entity-constraint name="orderId" value="${orderHeader.orderId}"/>
@@ -65,7 +64,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="originFacilityId" title="${uiLabelMap.ProductOriginFacility}" widget-style="selectBox">
+        <field name="originFacilityId" title="${uiLabelMap.ProductOriginFacility}">
             <drop-down allow-empty="true" current="first-in-list">
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
                     <entity-order-by field-name="facilityName"/>
@@ -73,7 +72,7 @@ under the License.
             </drop-down>
         </field>        
         
-        <field name="destinationFacilityId" title="${uiLabelMap.ProductDestinationFacility}" widget-style="selectBox">
+        <field name="destinationFacilityId" title="${uiLabelMap.ProductDestinationFacility}">
             <drop-down allow-empty="true" current="first-in-list">
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
                     <entity-order-by field-name="facilityName"/>
@@ -97,37 +96,36 @@ under the License.
         <field name="handlingInstructions" title="${uiLabelMap.ProductHandlingInstructions}"><text/></field>
          
         <field name="originContactMechId" title="${uiLabelMap.ProductOriginPostalAddressId}" 
-                tooltip="${uiLabelMap.CommonTo}: ${originPostalAddress.toName}, ${uiLabelMap.CommonAttn}: ${originPostalAddress.attnName}, ${originPostalAddress.address1}, ${originPostalAddress.address2}, ${originPostalAddress.city}, ${originPostalAddress.stateProvinceGeoId}, ${originPostalAddress.postalCode}, ${originPostalAddress.countryGeoId}" tooltip-style="tabletext">
+                tooltip="${uiLabelMap.CommonTo}: ${originPostalAddress.toName}, ${uiLabelMap.CommonAttn}: ${originPostalAddress.attnName}, ${originPostalAddress.address1}, ${originPostalAddress.address2}, ${originPostalAddress.city}, ${originPostalAddress.stateProvinceGeoId}, ${originPostalAddress.postalCode}, ${originPostalAddress.countryGeoId}">
         </field>
         <field name="destinationContactMechId" title="${uiLabelMap.ProductDestinationPostalAddressId}" 
-                tooltip="${uiLabelMap.CommonTo}: ${destinationPostalAddress.toName}, ${uiLabelMap.CommonAttn}: ${destinationPostalAddress.attnName}, ${destinationPostalAddress.address1}, ${destinationPostalAddress.address2}, ${destinationPostalAddress.city}, ${destinationPostalAddress.stateProvinceGeoId}, ${destinationPostalAddress.postalCode}, ${destinationPostalAddress.countryGeoId}" tooltip-style="tabletext">
+                tooltip="${uiLabelMap.CommonTo}: ${destinationPostalAddress.toName}, ${uiLabelMap.CommonAttn}: ${destinationPostalAddress.attnName}, ${destinationPostalAddress.address1}, ${destinationPostalAddress.address2}, ${destinationPostalAddress.city}, ${destinationPostalAddress.stateProvinceGeoId}, ${destinationPostalAddress.postalCode}, ${destinationPostalAddress.countryGeoId}">
         </field>
         <field name="originTelecomNumberId" title="${uiLabelMap.ProductOriginPhoneNumberId}" 
-                tooltip="${originTelecomNumber.countryCode}  ${originTelecomNumber.areaCode} ${originTelecomNumber.contactNumber}" tooltip-style="tabletext">
+                tooltip="${originTelecomNumber.countryCode}  ${originTelecomNumber.areaCode} ${originTelecomNumber.contactNumber}">
         </field>
         <field name="destinationTelecomNumberId" title="${uiLabelMap.ProductDestinationPhoneNumberId}" 
-                tooltip="${destinationTelecomNumber.countryCode}  ${destinationTelecomNumber.areaCode} ${destinationTelecomNumber.contactNumber}" tooltip-style="tabletext">
+                tooltip="${destinationTelecomNumber.countryCode}  ${destinationTelecomNumber.areaCode} ${destinationTelecomNumber.contactNumber}">
         </field>
 
-        <field name="partyIdTo" title="${uiLabelMap.ProductToParty}" tooltip="${toPerson.firstName} ${toPerson.middleName} ${toPerson.lastName} ${toPartyGroup.groupName}" tooltip-style="tabletext"/>
-        <field name="partyIdFrom" title="${uiLabelMap.ProductFromParty}" tooltip="${fromPerson.firstName} ${fromPerson.middleName} ${fromPerson.lastName} ${fromPartyGroup.groupName}" tooltip-style="tabletext"/>
+        <field name="partyIdTo" title="${uiLabelMap.ProductToParty}" tooltip="${toPerson.firstName} ${toPerson.middleName} ${toPerson.lastName} ${toPartyGroup.groupName}"/>
+        <field name="partyIdFrom" title="${uiLabelMap.ProductFromParty}" tooltip="${fromPerson.firstName} ${fromPerson.middleName} ${fromPerson.lastName} ${fromPartyGroup.groupName}"/>
 
         <field name="additionalShippingCharge" title="${uiLabelMap.ProductAdditionalShippingCharge}"><text/></field>
         
-        <field use-when="shipment!=null" name="createdDate" title="${uiLabelMap.ProductCreatedDate}" widget-style="tabletext"><display also-hidden="false" description="${shipment.createdDate}"/></field>
-        <field use-when="shipment!=null" name="createdByUserLogin" title="${uiLabelMap.ProductCreatedByUserLogin}" widget-style="tabletext"><display also-hidden="false" description="${shipment.createdByUserLogin}"/></field>
-        <field use-when="shipment!=null" name="lastModifiedDate" title="${uiLabelMap.ProductLastModifiedDate}" widget-style="tabletext"><display also-hidden="false" description="${shipment.lastModifiedDate}"/></field>
-        <field use-when="shipment!=null" name="lastModifiedByUserLogin" title="${uiLabelMap.ProductLastModifiedByUserLogin}" widget-style="tabletext"><display also-hidden="false" description="${shipment.lastModifiedByUserLogin}"/></field>
+        <field use-when="shipment!=null" name="createdDate" title="${uiLabelMap.ProductCreatedDate}"><display also-hidden="false" description="${shipment.createdDate}"/></field>
+        <field use-when="shipment!=null" name="createdByUserLogin" title="${uiLabelMap.ProductCreatedByUserLogin}"><display also-hidden="false" description="${shipment.createdByUserLogin}"/></field>
+        <field use-when="shipment!=null" name="lastModifiedDate" title="${uiLabelMap.ProductLastModifiedDate}"><display also-hidden="false" description="${shipment.lastModifiedDate}"/></field>
+        <field use-when="shipment!=null" name="lastModifiedByUserLogin" title="${uiLabelMap.ProductLastModifiedByUserLogin}"><display also-hidden="false" description="${shipment.lastModifiedByUserLogin}"/></field>
         
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 
     <!-- ******************* -->
     <!-- Shipment Plan Forms -->
     <!-- ******************* -->
     <!-- List for Shipment Plan -->
-    <form name="listShipmentPlan" type="list" target="" title="" list-name="shipmentPlan"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="listShipmentPlan" type="list" target="" title="" list-name="shipmentPlan">
         <field name="shipmentItemSeqId" title="${uiLabelMap.ProductShipmentItemSeqId}"><display/></field>
         <field name="orderId" title="${uiLabelMap.ProductOrderId}"><display/></field>
         <field name="orderItemSeqId" title="${uiLabelMap.ProductOrderItem}"><display/></field>
@@ -155,8 +153,7 @@ under the License.
         </field>
     </form>
     <!-- Add entries to Shipment Plan -->
-    <form name="addToShipmentPlan" type="multi" target="addToShipmentPlan" title="" list-name="shipmentPlan"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+    <form name="addToShipmentPlan" type="multi" target="addToShipmentPlan" title="" list-name="shipmentPlan">
         <field name="shipmentId"><hidden/></field>
         <field name="orderId"><hidden/></field>
         <field name="orderItemSeqId"><hidden/></field>
@@ -180,22 +177,20 @@ under the License.
     </form>
     
     <!-- Search by Order Id -->
-    <form name="findOrderItems" type="single" target="EditShipmentPlan" title="" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="findOrderItems" type="single" target="EditShipmentPlan" title="">
         <field name="action"><hidden value="search"/></field>
         <field name="shipmentId"><hidden/></field>
         <field name="orderId" title="${uiLabelMap.ProductOrderId}">
             <lookup target-form-name="LookupOrderHeaderAndShipInfo"/>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="shipmentPlanToOrderItems" type="single" target="AddItemsFromOrder" title="" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="shipmentPlanToOrderItems" type="single" target="AddItemsFromOrder" title="">
         <field name="selectFromShipmentPlan"><hidden value="true"/></field>
         <field name="shipmentId"><hidden/></field>
-        <field name="submitButton" title="${uiLabelMap.ProductShipmentPlanToOrderItems}" widget-style="smallSubmit">
+        <field name="submitButton" title="${uiLabelMap.ProductShipmentPlanToOrderItems}">
             <submit button-type="button"/>
         </field>
     </form>
