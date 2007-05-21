@@ -18,8 +18,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<!-- NOTE: Portions still licensed under the MIT license until iCLA received from Brett Palmer -->
-
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <description>Accounting Manager Module Site Configuration File</description>
