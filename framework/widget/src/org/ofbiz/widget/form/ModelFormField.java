@@ -641,8 +641,10 @@ public class ModelFormField {
                 if (dataMap instanceof GenericEntity) {
                 	GenericEntity genEnt = (GenericEntity) dataMap;
                 	if (genEnt.getModelEntity().isField(this.entryAcsr.getOriginalName())) {
-                		genEnt.get(this.entryAcsr.getOriginalName());
-                	}
+                		retVal = genEnt.get(this.entryAcsr.getOriginalName());
+                	} else {
+                            retVal = this.entryAcsr.get(dataMap);
+                        }
                 } else {
                 	retVal = this.entryAcsr.get(dataMap);
                 }
