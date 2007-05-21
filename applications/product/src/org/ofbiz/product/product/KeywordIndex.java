@@ -82,21 +82,33 @@ public class KeywordIndex {
 
         int pidWeight = 1;
         try {
-            pidWeight = Integer.parseInt(UtilProperties.getPropertyValue("prodsearch", "index.weight.Product.productId", "1"));
+            pidWeight = Integer.parseInt(UtilProperties.getPropertyValue("prodsearch", "index.weight.Product.productId", "0"));
         } catch (Exception e) {
             Debug.logWarning("Could not parse weight number: " + e.toString(), module);
         }
         keywords.put(product.getString("productId").toLowerCase(), new Long(pidWeight));
 
-        addWeightedKeywordSourceString(product, "productName", strings);
-        addWeightedKeywordSourceString(product, "internalName", strings);
-        addWeightedKeywordSourceString(product, "brandName", strings);
-        addWeightedKeywordSourceString(product, "description", strings);
-        addWeightedKeywordSourceString(product, "longDescription", strings);
+        // Product fields - default is 0 if not found in the properties file
+        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Product.productName", "0"))) {
+            addWeightedKeywordSourceString(product, "productName", strings);
+        }
+        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Product.internalName", "0"))) {
+            addWeightedKeywordSourceString(product, "internalName", strings);
+        }
+        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Product.brandName", "0"))) {
+            addWeightedKeywordSourceString(product, "brandName", strings);
+        }
+        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Product.description", "0"))) {
+            addWeightedKeywordSourceString(product, "description", strings);
+        }
+        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Product.longDescription", "0"))) {
+            addWeightedKeywordSourceString(product, "longDescription", strings);
+        }
 
-        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.description", "1")) ||
-            !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.abbrev", "1")) ||
-            !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.idCode", "1"))) {
+        // ProductFeatureAppl
+        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.description", "0")) ||
+            !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.abbrev", "0")) ||
+            !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.idCode", "0"))) {
             // get strings from attributes and features
             Iterator productFeatureAndAppls = UtilMisc.toIterator(delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId)));
             while (productFeatureAndAppls != null && productFeatureAndAppls.hasNext()) {
@@ -108,8 +120,8 @@ public class KeywordIndex {
         }
 
         // ProductAttribute
-        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrName", "1")) ||
-                !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrValue", "1"))) {
+        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrName", "0")) ||
+                !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrValue", "0"))) {
             Iterator productAttributes = UtilMisc.toIterator(delegator.findByAnd("ProductAttribute", UtilMisc.toMap("productId", productId)));
             while (productAttributes != null && productAttributes.hasNext()) {
                 GenericValue productAttribute = (GenericValue) productAttributes.next();
@@ -119,7 +131,7 @@ public class KeywordIndex {
         }
 
         // GoodIdentification
-        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.GoodIdentification.idValue", "1"))) {
+        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.GoodIdentification.idValue", "0"))) {
             Iterator goodIdentifications = UtilMisc.toIterator(delegator.findByAnd("GoodIdentification", UtilMisc.toMap("productId", productId)));
             while (goodIdentifications != null && goodIdentifications.hasNext()) {
                 GenericValue goodIdentification = (GenericValue) goodIdentifications.next();
@@ -129,13 +141,13 @@ public class KeywordIndex {
         
         // Variant Product IDs
         if ("Y".equals(product.getString("isVirtual"))) {
-            if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "1"))) {
+            if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "0"))) {
                 Iterator variantProductAssocs = UtilMisc.toIterator(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT")));
                 while (variantProductAssocs != null && variantProductAssocs.hasNext()) {
                     GenericValue variantProductAssoc = (GenericValue) variantProductAssocs.next();
                     int weight = 1;
                     try {
-                        weight = Integer.parseInt(UtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "1"));
+                        weight = Integer.parseInt(UtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "0"));
                     } catch (Exception e) {
                         Debug.logWarning("Could not parse weight number: " + e.toString(), module);
                     }
@@ -154,6 +166,7 @@ public class KeywordIndex {
 
             int weight = 1;
             try {
+                // this is defaulting to a weight of 1 because you specified you wanted to index this type
                 weight = Integer.parseInt(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductContent." + productContentTypeId, "1"));
             } catch (Exception e) {
                 Debug.logWarning("Could not parse weight number: " + e.toString(), module);
