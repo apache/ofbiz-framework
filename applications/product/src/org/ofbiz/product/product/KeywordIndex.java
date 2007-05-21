@@ -191,6 +191,12 @@ public class KeywordIndex {
         }
         if (toBeStored.size() > 0) {
             if (Debug.verboseOn()) Debug.logVerbose("[KeywordSearch.induceKeywords] Storing " + toBeStored.size() + " keywords for productId " + product.getString("productId"), module);
+
+            if ("true".equals(UtilProperties.getPropertyValue("prodsearch", "index.delete.on_index", "false"))) {
+                // delete all keywords if the properties file says to
+                delegator.removeByAnd("ProductKeyword", UtilMisc.toMap("productId", product.getString("productId")));
+            }
+
             delegator.storeAll(toBeStored);
         }
     }
