@@ -133,7 +133,7 @@ public class PayflowPro {
         // transmit the request
         if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
         String resp;
-        if (UtilProperties.propertyValueEqualsIgnoreCase(configString, "payment.verisign.enable_transmit", "true")) {
+        if (!UtilProperties.propertyValueEqualsIgnoreCase(configString, "payment.verisign.enable_transmit", "false")) {
             resp = pn.SubmitTransaction(params.toString());
         } else {
             resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
@@ -196,7 +196,7 @@ public class PayflowPro {
         // transmit the request
         if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
         String resp;
-        if (UtilProperties.propertyValueEqualsIgnoreCase(configString, "payment.verisign.enable_transmit", "true")) {
+        if (!UtilProperties.propertyValueEqualsIgnoreCase(configString, "payment.verisign.enable_transmit", "false")) {
             resp = pn.SubmitTransaction(params.toString());
         } else {
             resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
@@ -259,7 +259,7 @@ public class PayflowPro {
         // transmit the request
         if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
         String resp;
-        if (UtilProperties.propertyValueEqualsIgnoreCase(configString, "payment.verisign.enable_transmit", "true")) {
+        if (!UtilProperties.propertyValueEqualsIgnoreCase(configString, "payment.verisign.enable_transmit", "false")) {
             resp = pn.SubmitTransaction(params.toString());
         } else {
             resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
@@ -320,7 +320,7 @@ public class PayflowPro {
         // transmit the request
         if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
         String resp;
-        if (UtilProperties.propertyValueEqualsIgnoreCase(configString, "payment.verisign.enable_transmit", "true")) {
+        if (!UtilProperties.propertyValueEqualsIgnoreCase(configString, "payment.verisign.enable_transmit", "false")) {
             resp = pn.SubmitTransaction(params.toString());
         } else {
             resp = "RESULT=0&AUTHCODE=T&PNREF=" + (new Date()).getTime() + "&RESPMSG=Testing";
