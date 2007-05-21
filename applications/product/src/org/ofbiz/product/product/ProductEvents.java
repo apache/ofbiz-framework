@@ -306,49 +306,52 @@ public class ProductEvents {
 
 
         EntityListIterator entityListIterator = null;
-        try {
-            if (Debug.infoOn()) {
-                long count = delegator.findCountByCondition("Product", condition, null);
-                Debug.logInfo("========== Found " + count + " products to index ==========", module);
-            }
-            entityListIterator = delegator.findListIteratorByCondition("Product", condition, null, null);
-        } catch (GenericEntityException gee) {
-            Debug.logWarning(gee, gee.getMessage(), module);
-            Map messageMap = UtilMisc.toMap("gee", gee.toString());
-            errMsg = UtilProperties.getMessage(resource,"productevents.error_getting_product_list", messageMap, UtilHttp.getLocale(request));
-            request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return "error";
-        }
-
         int numProds = 0;
         int errProds = 0;
 
-        GenericValue product = null;
-        while ((product = (GenericValue) entityListIterator.next()) != null) {
+        try {
             try {
-                KeywordSearch.induceKeywords(product, "Y".equals(doAll));
-            } catch (GenericEntityException e) {
-                errMsg = UtilProperties.getMessage(resource,"productevents.could_not_create_keywords_write", UtilHttp.getLocale(request));
+                if (Debug.infoOn()) {
+                    long count = delegator.findCountByCondition("Product", condition, null);
+                    Debug.logInfo("========== Found " + count + " products to index ==========", module);
+                }
+                entityListIterator = delegator.findListIteratorByCondition("Product", condition, null, null);
+            } catch (GenericEntityException gee) {
+                Debug.logWarning(gee, gee.getMessage(), module);
+                Map messageMap = UtilMisc.toMap("gee", gee.toString());
+                errMsg = UtilProperties.getMessage(resource,"productevents.error_getting_product_list", messageMap, UtilHttp.getLocale(request));
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                Debug.logWarning("[ProductEvents.updateAllKeywords] Could not create product-keyword (write error); message: " + e.getMessage(), module);
+                throw gee;
+            }
+
+            GenericValue product;
+            while ((product = (GenericValue) entityListIterator.next()) != null) {
+                try {
+                    KeywordSearch.induceKeywords(product, "Y".equals(doAll));
+                } catch (GenericEntityException e) {
+                    //errMsg = UtilProperties.getMessage(resource,"productevents.could_not_create_keywords_write", UtilHttp.getLocale(request));
+                    //request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                    Debug.logWarning("[ProductEvents.updateAllKeywords] Could not create product-keyword (write error); message: " + e.getMessage(), module);
+                    errProds++;                    
+                }
+                numProds++;
+                if (numProds % 500 == 0) {
+                    Debug.logInfo("Keywords indexed for " + numProds + " so far", module);
+                }
+            }
+        } catch (GenericEntityException e) {
+            return "error";
+        } catch (Throwable t) {
+            Debug.logError(t, module);
+            request.setAttribute("_ERROR_MESSAGE_", t.getMessage());
+            return "error";
+        } finally {
+            if (entityListIterator != null) {
                 try {
                     entityListIterator.close();
                 } catch (GenericEntityException gee) {
                     Debug.logError(gee, "Error closing EntityListIterator when indexing product keywords.", module);
                 }
-                errProds++;
-            }
-            numProds++;
-            if (numProds % 500 == 0) {
-                Debug.logInfo("Keywords indexed for " + numProds + " so far", module);
-            }
-        }
-
-        if (entityListIterator != null) {
-            try {
-                entityListIterator.close();
-            } catch (GenericEntityException gee) {
-                Debug.logError(gee, "Error closing EntityListIterator when indexing product keywords.", module);
             }
         }
 
