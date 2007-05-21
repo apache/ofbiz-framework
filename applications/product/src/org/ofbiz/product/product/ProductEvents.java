@@ -309,7 +309,10 @@ public class ProductEvents {
         int numProds = 0;
         int errProds = 0;
 
+        boolean beganTx = false;
         try {
+            // begin the transaction
+            beganTx = TransactionUtil.begin(7200);
             try {
                 if (Debug.infoOn()) {
                     long count = delegator.findCountByCondition("Product", condition, null);
@@ -340,10 +343,20 @@ public class ProductEvents {
                 }
             }
         } catch (GenericEntityException e) {
+            try {
+                TransactionUtil.rollback(beganTx, e.getMessage(), e);
+            } catch (Exception e1) {
+                Debug.logError(e1, module);
+            }
             return "error";
         } catch (Throwable t) {
             Debug.logError(t, module);
             request.setAttribute("_ERROR_MESSAGE_", t.getMessage());
+            try {
+                TransactionUtil.rollback(beganTx, t.getMessage(), t);
+            } catch (Exception e2) {
+                Debug.logError(e2, module);
+            }
             return "error";
         } finally {
             if (entityListIterator != null) {
@@ -352,6 +365,13 @@ public class ProductEvents {
                 } catch (GenericEntityException gee) {
                     Debug.logError(gee, "Error closing EntityListIterator when indexing product keywords.", module);
                 }
+            }
+
+            // commit the transaction
+            try {
+                TransactionUtil.commit(beganTx);
+            } catch (Exception e) {
+                Debug.logError(e, module);
             }
         }
 
