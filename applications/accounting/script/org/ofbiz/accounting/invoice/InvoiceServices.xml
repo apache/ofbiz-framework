@@ -180,6 +180,7 @@ under the License.
         <set field="invoice.invoiceDate" from-field="nowTimestamp"/>
         <set field="invoice.statusId" value="INVOICE_IN_PROCESS"/>
         <set-service-fields service-name="createInvoice" map-name="invoice" to-map-name="newInvoice"/>
+        <clear-field field-name="newInvoice.invoiceId"/>
         <call-service service-name="createInvoice" in-map-name="newInvoice">
             <result-to-field result-name="invoiceId" field-name="invoiceId"/>
         </call-service>
