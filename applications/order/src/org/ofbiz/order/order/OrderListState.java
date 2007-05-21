@@ -227,11 +227,9 @@ public class OrderListState {
             if (!hasType(type)) continue;
             typeConditions.add( new EntityExpr("orderTypeId", EntityOperator.EQUALS, parameterToOrderTypeId.get(type)) );
         }
-        List filterConditions = new ArrayList();
                 
         EntityCondition statusConditionsList = new EntityConditionList(statusConditions,  EntityOperator.OR);
         EntityCondition typeConditionsList = new EntityConditionList(typeConditions, EntityOperator.OR);
-        EntityCondition filterConditionsList = new EntityConditionList(filterConditions, EntityOperator.OR);
         if ((typeConditions.size() > 0) && (statusConditions.size() > 0)) {
             allConditions.add(statusConditionsList);
             allConditions.add(typeConditionsList);
