@@ -190,6 +190,7 @@ public class OrderListState {
     
     public boolean hasStatus(String param) { return ("Y".equals(orderStatusState.get(param))); }
     public boolean hasType(String param) { return ("Y".equals(orderTypeState.get(param))); }
+    public boolean hasFilter(String param) { return ("Y".equals(orderFilterState.get(param))); }
     
     public boolean hasAllStatus() {
         for (Iterator iter = orderStatusState.values().iterator(); iter.hasNext(); ) {
