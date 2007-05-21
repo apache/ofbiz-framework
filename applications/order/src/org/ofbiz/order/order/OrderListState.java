@@ -190,7 +190,6 @@ public class OrderListState {
     
     public boolean hasStatus(String param) { return ("Y".equals(orderStatusState.get(param))); }
     public boolean hasType(String param) { return ("Y".equals(orderTypeState.get(param))); }
-    public boolean hasFilter(String param) { return ("Y".equals(orderFilterState.get(param))); }
     
     public boolean hasAllStatus() {
         for (Iterator iter = orderStatusState.values().iterator(); iter.hasNext(); ) {
@@ -229,11 +228,6 @@ public class OrderListState {
             typeConditions.add( new EntityExpr("orderTypeId", EntityOperator.EQUALS, parameterToOrderTypeId.get(type)) );
         }
         List filterConditions = new ArrayList();
-        for (Iterator iter = orderFilterState.keySet().iterator(); iter.hasNext(); ) {
-            String type = (String) iter.next();
-            if (!hasType(type)) continue;
-            filterConditions.add( new EntityExpr("orderFiltersStateId", EntityOperator.EQUALS, parameterToFilterId.get(type)) );
-        }
                 
         EntityCondition statusConditionsList = new EntityConditionList(statusConditions,  EntityOperator.OR);
         EntityCondition typeConditionsList = new EntityConditionList(typeConditions, EntityOperator.OR);
@@ -241,9 +235,6 @@ public class OrderListState {
         if ((typeConditions.size() > 0) && (statusConditions.size() > 0)) {
             allConditions.add(statusConditionsList);
             allConditions.add(typeConditionsList);
-        }
-        if (filterConditions.size() > 0) {
-            allConditions.add(filterConditionsList);
         }
 
         EntityCondition queryConditionsList = new EntityConditionList(allConditions, EntityOperator.AND);
