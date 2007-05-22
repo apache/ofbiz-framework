@@ -828,7 +828,6 @@ public class OrderReturnServices {
     }
 
     // refund (cash/charge) return
-    //TODO add adjustment total
     public static Map processRefundReturn(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -848,7 +847,9 @@ public class OrderReturnServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorGettingReturnHeaderItemInformation", locale));
         }
 
-        if (returnHeader != null && returnItems != null && returnItems.size() > 0) {
+        BigDecimal adjustments = new BigDecimal(getReturnAdjustmentTotal(delegator, UtilMisc.toMap("returnId", returnId, "returnTypeId", "RTN_REFUND")));
+
+        if (returnHeader != null && ((returnItems != null && returnItems.size() > 0) || adjustments.compareTo(ZERO) > 0)) {
             Map itemsByOrder = new HashMap();
             Map totalByOrder = new HashMap();
 
@@ -864,7 +865,7 @@ public class OrderReturnServices {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
             }                                    
 
-            groupReturnItemsByOrder(returnItems, itemsByOrder, totalByOrder, delegator, returnId);
+            groupReturnItemsByOrder(returnItems, itemsByOrder, totalByOrder, delegator, returnId, "RTN_REFUND");
             
             // process each one by order
             Set itemSet = itemsByOrder.entrySet();
@@ -1332,7 +1333,7 @@ public class OrderReturnServices {
         if (returnHeader != null && returnItems != null && returnItems.size() > 0) {
             Map itemsByOrder = new HashMap();
             Map totalByOrder = new HashMap();
-            groupReturnItemsByOrder(returnItems, itemsByOrder, totalByOrder, delegator, returnId);
+            groupReturnItemsByOrder(returnItems, itemsByOrder, totalByOrder, delegator, returnId, returnTypeId);
 
             // process each one by order
             Set itemSet = itemsByOrder.entrySet();
@@ -1795,7 +1796,7 @@ public class OrderReturnServices {
      * @param delegator
      * @param returnId
      */
-    public static void groupReturnItemsByOrder(List returnItems, Map itemsByOrder, Map totalByOrder, GenericDelegator delegator, String returnId) {
+    public static void groupReturnItemsByOrder(List returnItems, Map itemsByOrder, Map totalByOrder, GenericDelegator delegator, String returnId, String returnTypeId) {
         Iterator itemIt = returnItems.iterator();
         while (itemIt.hasNext()) {
             GenericValue item = (GenericValue) itemIt.next();
@@ -1844,7 +1845,9 @@ public class OrderReturnServices {
             while (orderIterator.hasNext()) {
                 String orderId = (String) orderIterator.next();                
                 // find returnAdjustment for returnHeader
-                Map condition = UtilMisc.toMap("returnId", returnId, "returnItemSeqId", org.ofbiz.common.DataModelConstants.SEQ_ID_NA);
+                Map condition = UtilMisc.toMap("returnId", returnId,
+                                               "returnItemSeqId", org.ofbiz.common.DataModelConstants.SEQ_ID_NA,
+                                               "returnTypeId", returnTypeId);
                 double existingTotal = ((Double) totalByOrder.get(orderId)).doubleValue() + getReturnAdjustmentTotal(delegator, condition);
                 totalByOrder.put(orderId, new Double(existingTotal));
             }
