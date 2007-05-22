@@ -20,8 +20,10 @@ under the License.
 <#macro displayReturnAdjustment returnAdjustment adjEditable>
     <#assign returnHeader = returnAdjustment.getRelatedOne("ReturnHeader")>
     <#assign adjReturnType = returnAdjustment.getRelatedOne("ReturnType")?if_exists>
-    <input type="hidden" name="_rowSubmit_o_${rowCount}" value="Y" />
-    <input type="hidden" name="returnAdjustmentId_o_${rowCount}" value="${returnAdjustment.returnAdjustmentId}" />
+    <#if (adjEditable)>
+        <input type="hidden" name="_rowSubmit_o_${rowCount}" value="Y" />
+        <input type="hidden" name="returnAdjustmentId_o_${rowCount}" value="${returnAdjustment.returnAdjustmentId}" />
+    </#if>
     <tr class="tabletext">
         <td colspan="2">&nbsp;</td>
         <td colspan="3" class="tabletext">${returnAdjustment.get("description",locale)?default("N/A")}
@@ -56,7 +58,9 @@ under the License.
        <#else>
        <td>&nbsp;</td>
        </#if>
-       <#assign rowCount = rowCount + 1>
+       <#if (adjEditable)>
+           <#assign rowCount = rowCount + 1>
+       </#if>
        <#assign returnTotal = returnTotal + returnAdjustment.get("amount")>
     </tr>    
 </#macro>
@@ -258,9 +262,8 @@ under the License.
     </tr>
   </#if>
    <tr><td colspan="10"><hr class="sepbar"></td></tr>
-
 <#-- these are general return adjustments not associated with a particular item (itemSeqId = "_NA_" -->
-<#if (returnAdjustments?has_content)>                  
+<#if (returnAdjustments?has_content)>
     <#list returnAdjustments as returnAdjustment>
         <#assign adjEditable = !readOnly> <#-- they are editable if the rest of the return items are -->
         <@displayReturnAdjustment returnAdjustment=returnAdjustment adjEditable=adjEditable/>

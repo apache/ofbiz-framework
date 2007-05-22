@@ -410,11 +410,12 @@ public class OrderReturnServices {
              */
             List orderItemQuantitiesIssued = null;
             try {
-                orderItemQuantitiesIssued = delegator.findByCondition("OrderItemQuantityReportGroupByItem", whereConditions, null, UtilMisc.toList("orderId", "orderItemSeqId"), UtilMisc.toList("orderItemSeqId"), null);
+                orderItemQuantitiesIssued = delegator.findByCondition("OrderItemQuantityReportGroupByItem", whereConditions, null, UtilMisc.toList("orderId", "orderItemSeqId", "quantityIssued"), UtilMisc.toList("orderItemSeqId"), null);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToGetReturnHeaderFromItem", locale));
             }
+
             if (orderItemQuantitiesIssued != null) {
                 Iterator i = orderItemQuantitiesIssued.iterator();
                 while (i.hasNext()) {
@@ -607,8 +608,10 @@ public class OrderReturnServices {
             Debug.logError(e, "Problems looking up return information", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorGettingReturnHeaderItemInformation", locale));
         }
+        
+        BigDecimal adjustments = new BigDecimal(getReturnAdjustmentTotal(delegator, UtilMisc.toMap("returnId", returnId, "returnTypeId", "RTN_CREDIT")));
 
-        if (returnHeader != null && returnItems != null && returnItems.size() > 0) {
+        if (returnHeader != null && ((returnItems != null && returnItems.size() > 0) || adjustments.compareTo(ZERO) > 0)) {
             String billingAccountId = returnHeader.getString("billingAccountId");
             String fromPartyId = returnHeader.getString("fromPartyId");
             String toPartyId = returnHeader.getString("toPartyId");
@@ -655,7 +658,6 @@ public class OrderReturnServices {
             }
 
             // add the adjustments to the total
-            BigDecimal adjustments = new BigDecimal(getReturnAdjustmentTotal(delegator, UtilMisc.toMap("returnId", returnId)));
             creditTotal = creditTotal.add(adjustments.setScale(decimals, rounding));
 
             // create a Payment record for this credit; will look just like a normal payment
@@ -2015,7 +2017,7 @@ public class OrderReturnServices {
             if (orderAdjustment != null && orderAdjustment.get("taxAuthorityRateSeqId") != null) {
                 newReturnAdjustment.set("taxAuthorityRateSeqId", orderAdjustment.getString("taxAuthorityRateSeqId"));
             }
-            newReturnAdjustment.set("amount", amount);
+            newReturnAdjustment.set("amount", (UtilValidate.isEmpty(amount)? new Double(0.0): amount));
             newReturnAdjustment.set("returnAdjustmentTypeId", returnAdjustmentTypeId);
             newReturnAdjustment.set("description", description);
             newReturnAdjustment.set("returnItemSeqId", UtilValidate.isEmpty(returnItemSeqId) ? "_NA_" : returnItemSeqId);
@@ -2041,7 +2043,6 @@ public class OrderReturnServices {
 
         try {
             returnAdjustment = delegator.findByPrimaryKey("ReturnAdjustment", UtilMisc.toMap("returnAdjustmentId", context.get("returnAdjustmentId")));
-
             if (returnAdjustment != null) {
                 returnItem = delegator.findByPrimaryKey("ReturnItem",
                         UtilMisc.toMap("returnId", returnAdjustment.get("returnId"), "returnItemSeqId", returnAdjustment.get("returnItemSeqId")));
@@ -2064,11 +2065,16 @@ public class OrderReturnServices {
                 amount = (Double) context.get("amount");
             }
 
-            returnAdjustment.setNonPKFields(context);
-            returnAdjustment.set("amount", amount);
-            delegator.store(returnAdjustment);
-            Debug.logInfo("Update ReturnAdjustment with Id:" + context.get("returnAdjustmentId") + " to amount " + amount +" successfully.", module);
-            Map result = ServiceUtil.returnSuccess("Update ReturnAdjustment with Id:" + context.get("returnAdjustmentId") + " to amount " + amount +" successfully.");
+            Map result = null;
+            if (UtilValidate.isNotEmpty(amount)) {
+                returnAdjustment.setNonPKFields(context);
+                returnAdjustment.set("amount", amount);
+                delegator.store(returnAdjustment);
+                Debug.logInfo("Update ReturnAdjustment with Id:" + context.get("returnAdjustmentId") + " to amount " + amount +" successfully.", module);
+                result = ServiceUtil.returnSuccess("Update ReturnAdjustment with Id:" + context.get("returnAdjustmentId") + " to amount " + amount +" successfully.");
+            } else {
+                result = ServiceUtil.returnSuccess();
+            }
             return result;
         } catch (GenericEntityException e) {
             Debug.logError(e, "Failed to store returnAdjustment", module);
@@ -2107,7 +2113,7 @@ public class OrderReturnServices {
         } catch (org.ofbiz.service.GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
-        }        
+        }
     }
     
     /**
@@ -2192,7 +2198,12 @@ public class OrderReturnServices {
         int finalDecimals = isSalesTax ? UtilNumber.getBigDecimalScale(settingPrefix + ".final.decimals") : decimals;
         returnTotal = returnTotal.setScale(decimals, rounding);
         originalTotal = originalTotal.setScale(decimals, rounding);
-        BigDecimal newAmount = returnTotal.divide(originalTotal, decimals, rounding).multiply(amount).setScale(finalDecimals, rounding);
+        BigDecimal newAmount = null;
+        if (ZERO.compareTo(originalTotal) != 0) {
+            newAmount = returnTotal.divide(originalTotal, decimals, rounding).multiply(amount).setScale(finalDecimals, rounding);
+        } else {
+            newAmount = ZERO;
+        }
         return new Double(newAmount.doubleValue());
     }
 }
