@@ -94,14 +94,8 @@ under the License.
         <action service="resetGrandTotal" mode="sync"/>
         <action service="sendOrderChangeNotification" mode="async" persist="true"/>
     </eca>
-    <eca service="updateOrderItems" event="return">
-        <action service="processOrderPayments" mode="sync"/>
-    </eca>
     <eca service="appendOrderItem" event="commit">
         <action service="resetGrandTotal" mode="sync"/>
-    </eca>
-    <eca service="appendOrderItem" event="return">
-        <action service="processOrderPayments" mode="sync"/>
     </eca>
 
     <!-- cancel order items -->
@@ -110,10 +104,12 @@ under the License.
         <action service="resetGrandTotal" mode="sync"/>
         <action service="sendOrderChangeNotification" mode="async" persist="true"/>
     </eca>
-    <eca service="cancelOrderItem" event="return">
+
+    <!-- order grand total -->
+    <eca service="resetGrandTotal" event="return">
         <action service="processOrderPayments" mode="sync"/>
     </eca>
-
+    
     <!-- order confirmation/notification email ECAs -->
     <eca service="sendOrderConfirmation" event="commit">
         <action service="createOrderNotificationLog" mode="sync"/>
