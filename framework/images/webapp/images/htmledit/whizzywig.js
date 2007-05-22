@@ -35,7 +35,7 @@ var dobut = new Array();
 
 function makeWhizzyWig(txtArea, controls){ // make a WhizzyWig from the textarea
  if ((navigator.userAgent.indexOf('Safari') != -1 ) || !document.getElementById || !document.designMode ) {//no designMode
-  alert("Whizzywig "+t("editor not available for your browser"));
+  // alert("Whizzywig "+t("editor not available for your browser"));
   return;
  }
  idTa = txtArea;
