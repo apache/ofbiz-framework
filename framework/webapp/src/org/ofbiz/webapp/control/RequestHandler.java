@@ -525,7 +525,7 @@ public class RequestHandler implements Serializable {
                 if (i == 1) {
                     nextPage = element;
                 } else {
-                    nextPage = nextPage + "/" + element;
+                    nextPage = (nextPage == null ? element : nextPage + "/" + element);
                 }
             }
         }
