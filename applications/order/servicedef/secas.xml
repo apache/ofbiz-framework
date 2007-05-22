@@ -175,10 +175,10 @@ under the License.
 
     <eca service="updateReturnStatusFromReceipt" event="global-commit">
         <condition field-name="returnHeaderStatus" operator="equals" value="RETURN_RECEIVED"/>
-        <action service="processWaitReplacementReturn" mode="sync" persist="true"/>
+        <action service="processWaitReplacementReturn" mode="sync"/>
         <action service="processRepairReplacementReturn" mode="sync"/>
-        <action service="processCreditReturn" mode="sync" persist="true"/>
-        <action service="processRefundReturn" mode="sync" persist="true"/>
+        <action service="processCreditReturn" mode="sync"/>
+        <action service="processRefundReturn" mode="sync"/>
     </eca>
 
     <eca service="processReplacementReturn" event="commit">
