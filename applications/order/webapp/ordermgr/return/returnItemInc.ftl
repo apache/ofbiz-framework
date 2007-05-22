@@ -177,7 +177,7 @@ under the License.
             </#if>
 
             <#assign manualAdjRowNum = rowCount/>
-            <input type="hidden" name="returnItemTypeId_o_${rowCount}" value="RET_MAN_ADJ"/>            
+            <input type="hidden" name="returnItemTypeId_o_${rowCount}" value="RET_MAN_ADJ"/>
             <tr><td colspan="9"><hr class="sepbar"></td></tr>
             <tr>
               <td colspan="9">
@@ -191,6 +191,14 @@ under the License.
               <td>
                 <input type="text" class="inputBox" size="8" name="amount_o_${rowCount}" value="${0.00?string("##0.00")}"/>
               </td>
+              <td>
+                <select name="returnTypeId_o_${rowCount}" class="selectBox">
+                  <#list returnTypes as type>
+                  <option value="${type.returnTypeId}" <#if type.returnTypeId == "RTN_REFUND">selected</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
+                  </#list>
+                </select>
+              </td>
+
               <td align="right">
                 <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, '${selectAllFormName}');"/>
               </td>
