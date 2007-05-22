@@ -314,7 +314,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         String value = modelFormField.getEntry(context, textareaField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
-            buffer.append(value);
+            buffer.append(UtilFormatOut.encodeXmlValue(value));
         }
 
         buffer.append("</textarea>");
