@@ -35,7 +35,7 @@ under the License.
 <p class="tabletext">To complete your subscription use the verify form in your <a href="${baseEcommerceSecureUrl}viewprofile">online profile</a>, or use the following link:</p>
 <#if (contactListPartyStatus.optInVerifyCode)?has_content><p class="tabletext">Your verify code is: ${contactListPartyStatus.optInVerifyCode}</p></#if>
 
-<#assign verifyUrl = baseEcommerceSecureUrl + "updateContactListParty?contactListId=" + contactListParty.contactListId + "&amp;partyId=" + contactListParty.partyId + "&amp;fromDate=" + contactListParty.fromDate/>
+<#assign verifyUrl = baseEcommerceSecureUrl + "updateContactListParty?contactListId=" + contactListParty.contactListId + "&amp;partyId=" + contactListParty.partyId + "&amp;statusId=CLPT_ACCEPTED&amp;fromDate=" + contactListParty.fromDate/>
 <#if (contactListPartyStatus.optInVerifyCode)?has_content><#assign verifyUrl = verifyUrl + "&amp;optInVerifyCode=" + contactListPartyStatus.optInVerifyCode/></#if>
 <p class="tabletext"><a href="${verifyUrl}" class="linktext">${verifyUrl}</a></p>
 </body>
