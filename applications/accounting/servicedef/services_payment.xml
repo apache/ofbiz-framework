@@ -45,19 +45,6 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     
-    <service name="createPaymentApplication" engine="simple" 
-            location="org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createPaymentApplication" auth="true">
-        <description>Create a payment application</description>
-        <attribute name="paymentId" type="String" mode="IN" optional="false"/>
-        <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
-        <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="true"/>
-        <attribute name="billingAccountId" type="String" mode="IN" optional="true"/>
-        <attribute name="overrideGlAccountId" type="String" mode="IN" optional="true"/>
-        <attribute name="taxAuthGeoId" type="String" mode="IN" optional="true"/>
-        <attribute name="amountApplied" type="Double" mode="IN" optional="false"/>
-        <attribute name="paymentApplicationId" type="String" mode="OUT" optional="false"/>
-    </service>
-    
     <service name="setPaymentStatus" engine="simple" default-entity-name="Payment"
         location="org/ofbiz/accounting/payment/PaymentServices.xml" invoke="setPaymentStatus" auth="true">
         <description>Change the status of a Payment</description>
@@ -78,5 +65,45 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    
+
+    <service name="createPaymentApplication" engine="simple" 
+            location="org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createPaymentApplication" auth="true">
+        <description>Create a payment application</description>
+        <attribute name="paymentId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="billingAccountId" type="String" mode="IN" optional="true"/>
+        <attribute name="overrideGlAccountId" type="String" mode="IN" optional="true"/>
+        <attribute name="taxAuthGeoId" type="String" mode="IN" optional="true"/>
+        <attribute name="amountApplied" type="Double" mode="IN" optional="false"/>
+        <attribute name="paymentApplicationId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="updatePaymentApplication" default-entity-name="PaymentApplication" engine="java"
+        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="updatePaymentApplication">
+        <description>
+            Apply a payment to a Invoice or other payment or Billing account or  Taxauthority,
+            create/update paymentApplication records.
+        </description>
+        <auto-attributes mode="IN" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <attribute name="invoiceProcessing" type="String" mode="IN" optional="true"/>
+        <override name="paymentId" optional="false"/>        
+    </service>
+    <service name="updatePaymentApplicationDef" default-entity-name="PaymentApplication" engine="java"
+        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="updatePaymentApplicationDef">
+        <description>
+            Apply a payment to a Invoice or other payment or Billing account or Taxauthority,
+            If no ammountApplied is supplied the system will calculate and use the maximum possible value.
+        </description>
+        <auto-attributes mode="IN" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <attribute name="invoiceProcessing" type="String" mode="IN" optional="true"/>
+        <override name="paymentId" optional="false"/>        
+    </service>
+    <service name="removePaymentApplication" default-entity-name="PaymentApplication" engine="simple"
+        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="removePaymentApplication">
+        <description>Delete a paymentApplication record.</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="OUT" include="nonpk" optional="true"/>
+    </service>
 </services>
