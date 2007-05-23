@@ -352,15 +352,15 @@ public class UpsServices {
             } else {
 
                 // Paid by another shipper (may be receiver or not)
-                GenericValue thirdPartyPostalAddress = shipmentRouteSegment.getRelatedOne("ThirdPartyPostalAddress");
     
                 // UPS requires the postal code and country code of the third party
-                if (UtilValidate.isEmpty(thirdPartyPostalAddress)) {
-                    return ServiceUtil.returnError("ThirdPartyPostalAddress not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
+                String thirdPartyPostalCode = shipmentRouteSegment.getString("thirdPartyPostalCode");
+                if (UtilValidate.isEmpty(thirdPartyPostalCode)) {
+                    return ServiceUtil.returnError("Third-party postal code not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
                 }
-                GenericValue thirdPartyCountryGeo = thirdPartyPostalAddress.getRelatedOne("CountryGeo");
-                if (UtilValidate.isEmpty(thirdPartyCountryGeo)) {
-                    return ServiceUtil.returnError("ThirdPartyCountryGeo not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
+                String thirdPartyCountryGeoCode = shipmentRouteSegment.getString("thirdPartyCountryGeoCode");
+                if (UtilValidate.isEmpty(thirdPartyCountryGeoCode)) {
+                    return ServiceUtil.returnError("Third-party country not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
                 }
 
                 Element billThirdPartyElement = UtilXml.addChildElement(paymentInformationElement, "BillThirdParty", shipmentConfirmRequestDoc);
@@ -368,8 +368,8 @@ public class UpsServices {
                 UtilXml.addChildElementValue(billThirdPartyShipperElement, "AccountNumber", thirdPartyAccountNumber, shipmentConfirmRequestDoc);
                 Element thirdPartyElement = UtilXml.addChildElement(billThirdPartyShipperElement, "ThirdParty", shipmentConfirmRequestDoc);
                 Element addressElement = UtilXml.addChildElement(thirdPartyElement, "Address", shipmentConfirmRequestDoc);
-                UtilXml.addChildElementValue(addressElement, "PostalCode", thirdPartyPostalAddress.getString("postalCode"), shipmentConfirmRequestDoc);
-                UtilXml.addChildElementValue(addressElement, "CountryCode", thirdPartyCountryGeo.getString("geoCode"), shipmentConfirmRequestDoc);
+                UtilXml.addChildElementValue(addressElement, "PostalCode", thirdPartyPostalCode, shipmentConfirmRequestDoc);
+                UtilXml.addChildElementValue(addressElement, "CountryCode", thirdPartyCountryGeoCode, shipmentConfirmRequestDoc);
             }
 
             // Child of Shipment: Service
