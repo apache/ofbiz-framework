@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="cdynePostalAddressFillInCounty" short-description="Cdyne PostalAddress Fill In County">
         <entity-one entity-name="PostalAddress" value-name="postalAddress"/>
-        <log level="always" message="In cdynePostalAddressFillInCounty contactMechId=${parameters.contactMechId}; postalAddress=${postalAddress}"/>
+        <log level="verbose" message="In cdynePostalAddressFillInCounty contactMechId=${parameters.contactMechId}; postalAddress=${postalAddress}"/>
         <if>
             <condition>
                 <and>
@@ -37,7 +37,7 @@ under the License.
                 <call-service service-name="cdyneReturnCityState" in-map-name="cdyneReturnCityStateMap">
                     <results-to-map map-name="cdyneResultMap"/>
                 </call-service>
-                <log level="always" message="Got result from CDyne service: ${cdyneResultMap}"/>
+                <log level="verbose" message="Got result from CDyne service: ${cdyneResultMap}"/>
                 
                 <!-- Now try to find the county based on what was returned -->
                 <entity-condition entity-name="GeoAssocAndGeoTo" list-name="geoList">

@@ -63,12 +63,12 @@ public class RenderContentAsText implements TemplateTransformModel {
         final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
         final HttpServletResponse response = (HttpServletResponse) FreeMarkerWorker.getWrappedObject("response", env);
         final Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
-                if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(0):" + templateRoot.get("contentId"), module);
+        if (Debug.verboseOn()) Debug.logVerbose("in RenderSubContent, contentId(0):" + templateRoot.get("contentId"), module);
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
         final Map savedValuesUp = new HashMap();
         FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
-                if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), module);
+        if (Debug.verboseOn()) Debug.logVerbose("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), module);
         // not used yet: final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
         // not used yet: List trail = (List)templateRoot.get("globalNodeTrail");
         //if (Debug.infoOn()) Debug.logInfo("in Render(0), globalNodeTrail ." + trail , module);
@@ -78,7 +78,7 @@ public class RenderContentAsText implements TemplateTransformModel {
         final String thisContentId =  (String)templateRoot.get("contentId");
         final String xmlEscape =  (String)templateRoot.get("xmlEscape");
         final boolean directAssocMode = UtilValidate.isNotEmpty(thisContentId) ? true : false;
-        if (Debug.infoOn()) Debug.logInfo("in Render(0), directAssocMode ." + directAssocMode , module);
+        if (Debug.verboseOn()) Debug.logVerbose("in Render(0), directAssocMode ." + directAssocMode , module);
         /*
         if (Debug.infoOn()) Debug.logInfo("in Render(0), thisSubContentId ." + thisSubContentId , module);
         String thisSubContentId =  (String)templateRoot.get("subContentId");
@@ -133,9 +133,9 @@ public class RenderContentAsText implements TemplateTransformModel {
 
             public void close() throws IOException {
                 List globalNodeTrail = (List)templateRoot.get("globalNodeTrail");
-                if (Debug.infoOn()) Debug.logInfo("Render close, globalNodeTrail(2a):" + ContentWorker.nodeTrailToCsv(globalNodeTrail), "");
+                if (Debug.verboseOn()) Debug.logVerbose("Render close, globalNodeTrail(2a):" + ContentWorker.nodeTrailToCsv(globalNodeTrail), "");
                 renderSubContent();
-                //if (Debug.infoOn()) Debug.logInfo("in Render(2), globalNodeTrail ." + getWrapped(env, "globalNodeTrail") , module);
+                //if (Debug.verboseOn()) Debug.logVerbose("in Render(2), globalNodeTrail ." + getWrapped(env, "globalNodeTrail") , module);
             }
 
             public void renderSubContent() throws IOException {
@@ -152,7 +152,7 @@ public class RenderContentAsText implements TemplateTransformModel {
                 // Timestamp fromDate = UtilDateTime.nowTimestamp();
                 // List passedGlobalNodeTrail = (List)templateRoot.get("globalNodeTrail");
                 String editRequestName = (String)templateRoot.get("editRequestName");
-                 if (Debug.infoOn()) Debug.logInfo("in Render(3), editRequestName ." + editRequestName , module);
+                 if (Debug.verboseOn()) Debug.logVerbose("in Render(3), editRequestName ." + editRequestName , module);
                  /*
                 GenericValue thisView = null;
                 if (view != null) {
@@ -163,8 +163,8 @@ public class RenderContentAsText implements TemplateTransformModel {
                     if (map != null)
                         thisView = (GenericValue)map.get("value");
                 }
-                if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, subContentId:" + templateRoot.get("subContentId"), module);
-                if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId:" + templateRoot.get("contentId"), module);
+                if (Debug.verboseOn()) Debug.logVerbose("in RenderSubContent, subContentId:" + templateRoot.get("subContentId"), module);
+                if (Debug.verboseOn()) Debug.logVerbose("in RenderSubContent, contentId:" + templateRoot.get("contentId"), module);
                 */
 
                 if (UtilValidate.isNotEmpty(editRequestName)) {
@@ -172,8 +172,8 @@ public class RenderContentAsText implements TemplateTransformModel {
                     openEditWrap(out, editStyle);
                 }
 
-                if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), module);
-                if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, subContentId(2):" + templateRoot.get("subContentId"), module);
+                if (Debug.verboseOn()) Debug.logVerbose("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), module);
+                if (Debug.verboseOn()) Debug.logVerbose("in RenderSubContent, subContentId(2):" + templateRoot.get("subContentId"), module);
                 FreeMarkerWorker.saveContextValues(templateRoot, saveKeyNames, savedValues);
                 //if (thisView != null) {
                     try {

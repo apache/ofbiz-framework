@@ -81,7 +81,7 @@ public class UtilFormatOut {
         if (isoCode != null && isoCode.length() > 1) {
             nf.setCurrency(com.ibm.icu.util.Currency.getInstance(isoCode));
         } else {
-            Debug.logWarning("No isoCode specified to format currency value:" + price, module);
+            if (Debug.verboseOn()) Debug.logVerbose("No isoCode specified to format currency value:" + price, module);
         }
         if (maximumFractionDigits >= 0) {
             nf.setMaximumFractionDigits(maximumFractionDigits);
