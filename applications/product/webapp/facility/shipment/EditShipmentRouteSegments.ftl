@@ -26,7 +26,8 @@ under the License.
             <div class="tableheadtext">${uiLabelMap.ProductOriginDestinationAddressId}</div>
             <div class="tableheadtext">${uiLabelMap.ProductOriginDestinationPhoneId}</div>
             <div class="tableheadtext">${uiLabelMap.ProductShipmentThirdPartyAccountNumber}</div>
-            <div class="tableheadtext">${uiLabelMap.ProductShipmentThirdPartyAddress}</div>
+            <div class="tableheadtext">${uiLabelMap.ProductShipmentThirdPartyPostalCode}</div>
+            <div class="tableheadtext">${uiLabelMap.ProductShipmentThirdPartyCountryCode}</div>
         </td>
         <td>
             <div class="tableheadtext">${uiLabelMap.ProductShipmentFedexHomeDeliveryTypeDate}</div>
@@ -62,7 +63,6 @@ under the License.
     <#assign currencyUom = shipmentRouteSegmentData.currencyUom?if_exists>
     <#assign billingWeightUom = shipmentRouteSegmentData.billingWeightUom?if_exists>
     <#assign carrierServiceStatusValidChangeToDetails = shipmentRouteSegmentData.carrierServiceStatusValidChangeToDetails?if_exists>
-    <#assign thirdPartyPostalAddress = shipmentRouteSegmentData.thirdPartyPostalAddress?if_exists>
     <form action="<@ofbizUrl>updateShipmentRouteSegment</@ofbizUrl>" name="updateShipmentRouteSegmentForm${shipmentRouteSegmentData_index}">
     <input type="hidden" name="shipmentId" value="${shipmentId}"/>
     <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRouteSegment.shipmentRouteSegmentId}"/>
@@ -135,8 +135,10 @@ under the License.
                 <input type="text" size="15" name="thirdPartyAccountNumber" value="${shipmentRouteSegment.thirdPartyAccountNumber?if_exists}" class="inputBox"/>
             </div>
             <div class="tabletext">
-                <input type="text" size="15" name="thirdPartyContactMechId" value="${shipmentRouteSegment.thirdPartyContactMechId?if_exists}" class="inputBox"/>
-                <#if thirdPartyPostalAddress?has_content>[${uiLabelMap.CommonTo}: ${thirdPartyPostalAddress.toName?if_exists}, ${uiLabelMap.CommonAttn}: ${thirdPartyPostalAddress.attnName?if_exists}, ${thirdPartyPostalAddress.address1?if_exists}, ${thirdPartyPostalAddress.address2?if_exists}, ${thirdPartyPostalAddress.city?if_exists}, ${thirdPartyPostalAddress.stateProvinceGeoId?if_exists}, ${thirdPartyPostalAddress.postalCode?if_exists}, ${thirdPartyPostalAddress.countryGeoId?if_exists}]</#if>
+                <input type="text" size="15" name="thirdPartyPostalCode" value="${shipmentRouteSegment.thirdPartyPostalCode?if_exists}" class="inputBox"/>
+            </div>
+            <div class="tabletext">
+                <input type="text" size="15" name="thirdPartyCountryGeoCode" value="${shipmentRouteSegment.thirdPartyCountryGeoCode?if_exists}" class="inputBox"/>
             </div>
         </td>
         <td>

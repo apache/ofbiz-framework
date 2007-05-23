@@ -1113,7 +1113,8 @@ under the License.
       <field name="homeDeliveryType" type="id"></field> 
       <field name="homeDeliveryDate" type="date-time"></field> 
       <field name="thirdPartyAccountNumber" type="id"></field>
-      <field name="thirdPartyContactMechId" type="id"></field>
+      <field name="thirdPartyPostalCode" type="id"></field>
+      <field name="thirdPartyCountryGeoCode" type="id"></field>
       <prim-key field="shipmentId"/>
       <prim-key field="shipmentRouteSegmentId"/>
       <relation type="one" fk-name="SHPMT_RTSEG_SHPMT" rel-entity-name="Shipment">
@@ -1166,9 +1167,6 @@ under the License.
       </relation>
       <relation type="one" fk-name="SHPKRTSG_BWUOM" title="BillingWeight" rel-entity-name="Uom">
         <key-map field-name="billingWeightUomId" rel-field-name="uomId"/>
-      </relation>
-      <relation type="one" fk-name="SHPMT_RTSEG_TPPAD" title="ThirdParty" rel-entity-name="PostalAddress">
-        <key-map field-name="thirdPartyContactMechId" rel-field-name="contactMechId"/>
       </relation>
     </entity>
     <view-entity entity-name="ShipmentPackageRouteDetail"
