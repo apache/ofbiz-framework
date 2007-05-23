@@ -74,10 +74,10 @@ under the License.
                 <#list availableLocales as availableLocale>
                     <#assign langAttr = availableLocale.toString()?replace("_", "-")>
                     <#assign langDir = "ltr">
-                    <#if "ar.iw"?contains(langAttr?substring(0, 2)) && langAttr?substring(0, 2) = docLangAttr?substring(0, 2)>
+                    <#if "ar.iw"?contains(langAttr?substring(0, 2))>
                         <#assign langDir = "rtl">
                     </#if>
-                    <option lang="${langAttr}" dir="${langDir}" value="${availableLocale.toString()}"<#if locale.toString() = availableLocale.toString()> selected="selected"</#if>>${availableLocale.getDisplayName(locale)}</option>
+                    <option lang="${langAttr}" dir="${langDir}" value="${availableLocale.toString()}"<#if locale.toString() = availableLocale.toString()> selected="selected"</#if>>${availableLocale.getDisplayName(availableLocale)}</option>
                 </#list>
               </select>
               <input type="submit" value="${uiLabelMap.CommonSet}"/>
