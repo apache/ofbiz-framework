@@ -210,6 +210,7 @@ public class UpsServices {
             boolean codSurchargeApplyToFirstPackage = false;
             boolean codSurchargeApplyToAllPackages = false;
             boolean codSurchargeSplitBetweenPackages = false;
+            boolean codSurchargeApplyToNoPackages = false;
 
             BigDecimal codSurchargePackageAmount = null;
             
@@ -235,7 +236,9 @@ public class UpsServices {
                 codSurchargeApplyToFirstPackage = "first".equalsIgnoreCase(codSurchargeApplyToPackages);
                 codSurchargeApplyToAllPackages = "all".equalsIgnoreCase(codSurchargeApplyToPackages);
                 codSurchargeSplitBetweenPackages = "split".equalsIgnoreCase(codSurchargeApplyToPackages);
+                codSurchargeApplyToNoPackages = "none".equalsIgnoreCase(codSurchargeApplyToPackages);
                 
+                if (codSurchargeApplyToNoPackages) codSurchargeAmount = "0";
                 codSurchargePackageAmount = new BigDecimal(codSurchargeAmount).setScale(decimals, rounding);
                 if (codSurchargeSplitBetweenPackages) {
                     codSurchargePackageAmount = codSurchargePackageAmount.divide(new BigDecimal(shipmentPackageRouteSegs.size()), decimals, rounding);
