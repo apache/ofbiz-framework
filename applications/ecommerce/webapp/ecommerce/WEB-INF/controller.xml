@@ -1220,6 +1220,13 @@ under the License.
         <response name="error" type="view" value="contactus"/>
     </request-map>
 
+    <request-map uri="signUpForContactList">
+        <security https="false" auth="false"/>
+        <event type="service" invoke="signUpForContactList"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+
     <!-- ======================= Content Requests: Forums/Content/Articles ======================= -->
     
     <!-- used in new forum -->
