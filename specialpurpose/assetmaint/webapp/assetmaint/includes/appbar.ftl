@@ -16,77 +16,14 @@
     specific language governing permissions and limitations
     under the License.
 -->
-
-<#if (requestAttributes.externalLoginKey)?exists><#assign externalKeyParam = "?externalLoginKey=" + requestAttributes.externalLoginKey?if_exists></#if>
-<#if (externalLoginKey)?exists><#assign externalKeyParam = "?externalLoginKey=" + requestAttributes.externalLoginKey?if_exists></#if>
-<#assign ofbizServerName = application.getAttribute("_serverId")?default("default-server")>
-<#assign contextPath = request.getContextPath()>
-
 <#if userLogin?has_content>
-<#assign unselectedClass = {"col" : "tabdownblock", "left" : "tabdownleft", "center" : "tabdowncenter", "right" : "tabdownright", "link" : "tablink"}>
-<#assign selectedClass = {"col" : "mainblock", "left" : "tabupleft", "center" : "tabupcenter", "right" : "tabupright", "link" : "tablinkselected"}>
-<#--Just for now Later fix -->
-<#assign class = selectedClass>
-
-<table align="center" width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr bgcolor="#FFFFFF">
-    <td><div class="appbarleft"></div></td>
-    <td height="15" width="100%">
-      <table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <#if appbarItem?if_exists != "fixedAssets"><#assign class = unselectedClass><#else><#assign class = selectedClass></#if>
-          <td height="15" class="${class.col}">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">                
-              <tr>
-                <td class="${class.left}"><a href="<@ofbizUrl>/findFixedAssets</@ofbizUrl>"  title="${uiLabelMap.AccountingFixedAssets}" class="${class.link}"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" width="10" height="15" border="0"></a></td>
-                <td nowrap="nowrap" class="${class.center}"><a href="<@ofbizUrl>/findFixedAssets</@ofbizUrl>" class="${class.link}">${uiLabelMap.AccountingFixedAssets}</a></td>
-                <td class="${class.right}"><a href="<@ofbizUrl>/findFixedAssets</@ofbizUrl>" title="${uiLabelMap.AccountingFixedAssets}" class="${class.link}"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" width="10" height="15" border="0"></a></td>
-              </tr>
-              <#if appbarItem?if_exists != "fixedAssets">            
-              <tr><td colspan="3" class="blackarea"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1"></td></tr>
-              <tr><td colspan="3" class="whitearea"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1"></td></tr>               
-              </#if>
-            </table>
-          </td>
-          <#if appbarItem?if_exists != "fixedAssetMaints"><#assign class = unselectedClass><#else><#assign class = selectedClass></#if>
-          <td height="15" class="${class.col}">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">                
-              <tr>
-                <td class="${class.left}"><a href="<@ofbizUrl>/findFixedAssetMaints</@ofbizUrl>"  title="${uiLabelMap.AccountingFixedAssetMaints}" class="${class.link}"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" width="10" height="15" border="0"></a></td>
-                <td nowrap="nowrap" class="${class.center}"><a href="<@ofbizUrl>/findFixedAssetMaints</@ofbizUrl>" class="${class.link}">${uiLabelMap.AccountingFixedAssetMaints}</a></td>
-                <td class="${class.right}"><a href="<@ofbizUrl>/findFixedAssetMaints</@ofbizUrl>" title="${uiLabelMap.AccountingFixedAssetMaints}" class="${class.link}"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" width="10" height="15" border="0"></a></td>
-              </tr>
-              <#if appbarItem?if_exists != "fixedAssetMaints">            
-              <tr><td colspan="3" class="blackarea"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1"></td></tr>
-              <tr><td colspan="3" class="whitearea"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1"></td></tr>               
-              </#if>
-            </table>
-          </td>
-          <#if appbarItem?if_exists != "facility"><#assign class = unselectedClass><#else><#assign class = selectedClass></#if>
-          <td height="15" class="${class.col}">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">                
-              <tr>
-                <td class="${class.left}"><a href="<@ofbizUrl>/FindFacility?facilityTypeId=WAREHOUSE</@ofbizUrl>"  title="${uiLabelMap.ProductWarehouse}" class="${class.link}"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" width="10" height="15" border="0"></a></td>
-                <td nowrap="nowrap" class="${class.center}"><a href="<@ofbizUrl>/FindFacility?facilityTypeId=WAREHOUSE</@ofbizUrl>" class="${class.link}">${uiLabelMap.ProductWarehouse}</a></td>
-                <td class="${class.right}"><a href="<@ofbizUrl>/FindFacility?facilityTypeId=WAREHOUSE</@ofbizUrl>" title="${uiLabelMap.ProductWarehouse}" class="${class.link}"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" width="10" height="15" border="0"></a></td>
-              </tr>
-              <#if appbarItem?if_exists != "facility">            
-              <tr><td colspan="3" class="blackarea"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1"></td></tr>
-              <tr><td colspan="3" class="whitearea"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1"></td></tr>               
-              </#if>
-            </table>
-          </td>
-          <td><div class="appbarright"></div></td>            
-          <td width="100%" class="appbarresize">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">                
-              <tr>
-                <td class="whitearea"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1"></td>               
-              </tr>               
-            </table>
-          </td>           
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
+    <div id="main-navigation">    
+        <ul>                               
+            <li<#if appbarItem?if_exists == "fixedAssets"> class="selected"</#if>><a href="<@ofbizUrl>/findFixedAssets</@ofbizUrl>">${uiLabelMap.AccountingFixedAssets}</a></li>     
+            <li<#if appbarItem?if_exists == "fixedAssetMaints"> class="selected"</#if>><a href="<@ofbizUrl>/findFixedAssetMaints</@ofbizUrl>">${uiLabelMap.AccountingFixedAssetMaints}</a></li>      
+            <li<#if appbarItem?if_exists == "facility"> class="selected"</#if>><a href="<@ofbizUrl>/FindFacility?facilityTypeId=WAREHOUSE</@ofbizUrl>">${uiLabelMap.ProductWarehouse}</a></li>
+        </ul>
+        <br class="clear"/>
+    </div> 
 </#if>
+
