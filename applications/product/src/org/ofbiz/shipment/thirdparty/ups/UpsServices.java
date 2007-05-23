@@ -189,17 +189,17 @@ public class UpsServices {
             }
             
             // COD Support
-            boolean applyCODSurcharge = "true".equalsIgnoreCase(UtilProperties.getPropertyValue("shipment", "shipment.ups.cod.applyCODSurcharge"));
+            boolean allowCOD = "true".equalsIgnoreCase(UtilProperties.getPropertyValue("shipment", "shipment.ups.cod.allowCOD"));
 
             // COD only applies if all orders involved with the shipment were paid only with EXT_COD - anything else becomes too complicated
-            if (applyCODSurcharge) {
+            if (allowCOD) {
 
                 // Get the paymentMethodTypeIds of all the orderPaymentPreferences involved with the shipment
                 List opps = delegator.findByCondition("OrderPaymentPreference", new EntityExpr("orderId", EntityOperator.IN, orderIdSet), null, null);
                 List paymentMethodTypeIds = EntityUtil.getFieldListFromEntityList(opps, "paymentMethodTypeId", true);
                 
                 if (paymentMethodTypeIds.size() > 1 || ! paymentMethodTypeIds.contains("EXT_COD")) {
-                    applyCODSurcharge = false;
+                    allowCOD = false;
                 }
             }
 
@@ -214,7 +214,7 @@ public class UpsServices {
 
             BigDecimal codSurchargePackageAmount = null;
             
-            if (applyCODSurcharge) {
+            if (allowCOD) {
 
                 codSurchargeAmount = UtilProperties.getPropertyValue("shipment", "shipment.ups.cod.surcharge.amount");
                 if (UtilValidate.isEmpty(codSurchargeAmount)) {
@@ -458,7 +458,7 @@ public class UpsServices {
                     UtilXml.addChildElementValue(insuredValueElement, "CurrencyCode", currencyCode, shipmentConfirmRequestDoc);
                 }
 
-                if (applyCODSurcharge) {
+                if (allowCOD) {
                     Element codElement = UtilXml.addChildElement(packageServiceOptionsElement, "COD", shipmentConfirmRequestDoc);
                     UtilXml.addChildElementValue(codElement, "CODCode", "3", shipmentConfirmRequestDoc); // "3" is the only valid value for package-level COD
                     UtilXml.addChildElementValue(codElement, "CODFundsCode", codFundsCode, shipmentConfirmRequestDoc);
