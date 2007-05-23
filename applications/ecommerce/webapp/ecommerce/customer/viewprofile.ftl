@@ -473,20 +473,23 @@ under the License.
               <td width="15%" nowrap><div class="tableheadtext">${uiLabelMap.CommonFromDate}</div></td>
               <td width="15%" nowrap><div class="tableheadtext">${uiLabelMap.CommonThruDate}</div></td>
               <td width="15%" nowrap><div class="tableheadtext">${uiLabelMap.CommonStatus}</div></td>
+              <td width="15%" nowrap><div class="tableheadtext">${uiLabelMap.CommonEmail}</div></td>
               <td width="5">&nbsp;</td>
               <td width="20%" nowrap><div class="tableheadtext"><b>&nbsp;</b></div></td>
             </tr>
           <#list contactListPartyList as contactListParty>
             <#assign contactList = contactListParty.getRelatedOne("ContactList")/>
             <#assign statusItem = contactListParty.getRelatedOneCache("StatusItem")?if_exists/>
+            <#assign emailAddress = contactListParty.getRelatedOneCache("PreferredContactMech")/>
             <#-- <#assign contactListType = contactList.getRelatedOneCache("ContactListType")/> -->
-            <tr><td colspan="6"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
             <tr>
               <td width="15%"><div class="tabletext"><b>${contactList.contactListName?if_exists}</b><#if contactList.description?has_content>&nbsp;-&nbsp;${contactList.description}</#if></div></td>
               <#-- <td width="15%"><div class="tabletext">${contactListType.get("description",locale)?if_exists}</div></td> -->
               <td width="15%"><div class="tabletext">${contactListParty.fromDate?if_exists}</div></td>
               <td width="15%"><div class="tabletext">${contactListParty.thruDate?if_exists}</div></td>
               <td width="15%"><div class="tabletext">${(statusItem.get("description",locale))?if_exists}</div></td>
+              <td width="15%"><div class="tabletext">${emailAddress.infoString?if_exists}</div></td>
               <td width="5">&nbsp;</td>
               <td width="20%" nowrap>
               <#if (contactListParty.statusId?if_exists == "CLPT_ACCEPTED")>
