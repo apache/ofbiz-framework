@@ -191,10 +191,20 @@ under the License.
                         </if-compare>
                     </if-compare>    
                     
-                    <!-- if new status is cancelled delete existing payment applications. -->
                     <if-compare field-name="parameters.statusId" operator="equals" value="PMNT_CANCELLED">
-                        <set field="removePaymentApplicationMap.paymentId" from-field="parameters.paymentId"/>
-                        <remove-by-and entity-name="PaymentApplication" map-name="removePaymentApplicationMap"/>
+                        <!-- if new status is cancelled delete existing payment applications. -->
+                        <get-related value-name="payment" relation-name="PaymentApplication" list-name="paymentApplications"/>
+                        <iterate list-name="paymentApplications" entry-name="paymentApplication">
+                            <set field="removePaymentApplicationMap.paymentApplicationId" from-field="paymentApplication.paymentApplicationId"/>
+                            <call-service service-name="removePaymentApplication" in-map-name="removePaymentApplicationMap"/>
+                        </iterate>
+                        <!-- if new status is cancelled and the payment is associated to an OrderPaymentPreference, update the status of that record too. -->
+                        <get-related-one value-name="payment" relation-name="OrderPaymentPreference" to-value-name="orderPaymentPreference"/>
+                        <if-not-empty field-name="orderPaymentPreference">
+                            <set field="updateOrderPaymentPreferenceMap.orderPaymentPreferenceId" from-field="orderPaymentPreference.orderPaymentPreferenceId"/>
+                            <set field="updateOrderPaymentPreferenceMap.cancelThis" value="true"/>
+                            <call-service service-name="updateOrderPaymentPreference" in-map-name="updateOrderPaymentPreferenceMap"/>
+                        </if-not-empty>
                     </if-compare>
                     
                     <!-- everything ok so now change the status field -->
@@ -203,7 +213,6 @@ under the License.
                     
                 </else>   
             </if-empty>
-            
         </if-compare-field>
     </simple-method>
     
