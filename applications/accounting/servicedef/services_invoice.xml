@@ -110,34 +110,6 @@ under the License.
         <description>Remove an existing Invoice Role Record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-    <service name="updatePaymentApplication" default-entity-name="PaymentApplication" engine="java"
-        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="updatePaymentApplication">
-        <description>
-            Apply a payment to a Invoice or other payment or Billing account or  Taxauthority,
-            create/update paymentApplication records.
-        </description>
-        <auto-attributes mode="IN" include="pk" optional="true"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <attribute name="invoiceProcessing" type="String" mode="IN" optional="true"/>
-        <override name="paymentId" optional="false"/>        
-    </service>
-    <service name="updatePaymentApplicationDef" default-entity-name="PaymentApplication" engine="java"
-        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="updatePaymentApplicationDef">
-        <description>
-            Apply a payment to a Invoice or other payment or Billing account or Taxauthority,
-            If no ammountApplied is supplied the system will calculate and use the maximum possible value.
-        </description>
-        <auto-attributes mode="IN" include="pk" optional="true"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <attribute name="invoiceProcessing" type="String" mode="IN" optional="true"/>
-        <override name="paymentId" optional="false"/>        
-    </service>
-    <service name="removePaymentApplication" default-entity-name="PaymentApplication" engine="simple"
-        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="removePaymentApplication">
-        <description>Delete a paymentApplication record.</description>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-        <auto-attributes mode="OUT" include="nonpk" optional="true"/>
-    </service>
     <service name="createInvoiceTerm" engine="simple" default-entity-name="InvoiceTerm"
         location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceTerm">
         <description>Create Invoice (Item) Term Record</description>
