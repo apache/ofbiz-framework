@@ -83,6 +83,7 @@ under the License.
                     <include-screen name="keywordsearchbox" location="component://ecommerce/widget/CatalogScreens.xml"/>
                     <include-screen name="sidedeepcategory" location="component://ecommerce/widget/CatalogScreens.xml"/>
                     <include-screen name="minireorderprods" location="component://ecommerce/widget/CatalogScreens.xml"/>
+                    <include-screen name="signupforcontactlist" location="component://ecommerce/widget/EmailContactListScreens.xml"/>
                     <include-screen name="minipoll" location="component://ecommerce/widget/ContentScreens.xml"/>
                     <include-screen name="forums" location="component://ecommerce/widget/ForumScreens.xml"/>
                     <include-screen name="content_categories" location="component://ecommerce/widget/ContentScreens.xml"/>
