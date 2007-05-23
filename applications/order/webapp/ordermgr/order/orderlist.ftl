@@ -42,12 +42,12 @@ under the License.
         <tr>
           <td>
             <#if state.hasPrevious()>
-            <a href="<@ofbizUrl>orderlist?viewIndex=${state.getViewIndex() - 1}&viewSize=${state.getViewSize()}</@ofbizUrl>" class="buttontext">Previous</a>
+            <a href="<@ofbizUrl>orderlist?viewIndex=${state.getViewIndex() - 1}&viewSize=${state.getViewSize()}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a>
             </#if>
           </td>
           <td align="right">
             <#if state.hasNext()>
-            <a href="<@ofbizUrl>orderlist?viewIndex=${state.getViewIndex() + 1}&viewSize=${state.getViewSize()}</@ofbizUrl>" class="buttontext">Next</a>
+            <a href="<@ofbizUrl>orderlist?viewIndex=${state.getViewIndex() + 1}&viewSize=${state.getViewSize()}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
             </#if>
           </td>
         </tr>
@@ -63,7 +63,7 @@ under the License.
       <ul>
         <li class="head3">${uiLabelMap.OrderLookupOrder}</li>
       </ul>
-	  <br class="clear" />
+      <br class="clear" />
     </div>
     <div class="screenlet-body">
       <form method="post" name="findorder" action="<@ofbizUrl>orderlist</@ofbizUrl>">
@@ -144,7 +144,7 @@ under the License.
       <ul>
         <li class="head3">${uiLabelMap.OrderOrderList}</li>
       </ul>
-	  <br class="clear" />
+      <br class="clear" />
     </div>
     <div class="screenlet-body">
       <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
