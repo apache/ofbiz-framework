@@ -121,6 +121,7 @@ under the License.
           </td>
         </tr>
       </table>
+      </form>
   </div>
 </div>
 </#if>
