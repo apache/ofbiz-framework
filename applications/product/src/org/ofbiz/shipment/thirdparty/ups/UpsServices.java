@@ -2045,7 +2045,7 @@ public class UpsServices {
         StringBuffer xmlString = new StringBuffer();
         xmlString.append(accessRequestString);
         xmlString.append(rateRequestString);
-        Debug.logInfo(xmlString.toString(), module);       
+        if (Debug.verboseOn()) Debug.logVerbose(xmlString.toString(), module);       
         // send the request
         String rateResponseString = null;
         try {
