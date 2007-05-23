@@ -21,9 +21,7 @@
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="EditProduct" type="single"
-            target="updateProduct" title="" default-map-name="product"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditProduct" type="single" target="updateProduct" title="" default-map-name="product">
 
         <alt-target use-when="product==null" target="createProduct"/>
 
@@ -41,7 +39,7 @@
         <field name="comments" title="${uiLabelMap.CommonComments}"><text size="60" maxlength="250"/></field>
         <field name="requireInventory"><hidden value="N"/></field>
         <field name="autoCreateKeywords"><hidden value="N"/></field>
-        <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}" widget-style="selectBox">
+        <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductCategory" key-field-name="productCategoryId" description="${description} [${productCategoryId}]">
                     <entity-constraint name="productCategoryTypeId" value="CATALOG_CATEGORY"/>
@@ -49,19 +47,17 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="Update" use-when="product!=null" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="submitButton" title="Create" use-when="product==null" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field use-when="product!=null" name="lastUpdatedByText" title="${uiLabelMap.ProductLastModifiedBy}:" widget-style="tabletext">
+        <field name="submitButton" title="Update" use-when="product!=null"><submit button-type="button"/></field>
+        <field name="submitButton" title="Create" use-when="product==null"><submit button-type="button"/></field>
+        <field use-when="product!=null" name="lastUpdatedByText" title="${uiLabelMap.ProductLastModifiedBy}:">
             <display description="[${product.lastModifiedByUserLogin}] ${uiLabelMap.CommonOn} ${product.lastModifiedDate}" also-hidden="false"/>
         </field>
-        <field use-when="product!=null" name="createdByText" title="${uiLabelMap.ProductCreatedBy}:" widget-style="tabletext">
+        <field use-when="product!=null" name="createdByText" title="${uiLabelMap.ProductCreatedBy}:">
             <display description="[${product.createdByUserLogin}] ${uiLabelMap.CommonOn} ${product.createdDate}" also-hidden="false"/>
         </field>
     </form>
     <!-- List Product  -->
-    <form name="ListProducts" type="list" list-name="listIt" paginate-target="${submitTarget}"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        default-title-area-style="viewOneTR1" even-row-style="viewManyTR2" odd-row-style="viewManyTR1">
+    <form name="ListProducts" type="list" list-name="listIt" paginate-target="${submitTarget}">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -77,22 +73,17 @@
             <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct?productId=${productId}"/>
         </field>
     </form>
-    <form name="lookupProduct"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="${submitTarget}" type="single">
+    <form name="lookupProduct" target="${submitTarget}" type="single">
         <!-- <auto-fields-entity entity-name="Product" default-field-type="hidden" /> -->
         <field name="productId" title="${uiLabelMap.CommonId}"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
        <!-- <field name="isVariant"><hidden value="N"/></field>  -->
-        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
-    <form name="listLookupProduct"
-        default-title-style="tableheadtext"  default-tooltip-style="tabletext" default-widget-style="tabletext"
-        list-name="listIt" paginate-target="${submitTarget}"
-        title="" type="list">
+    <form name="listLookupProduct" list-name="listIt" paginate-target="${submitTarget}" title="" type="list">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>

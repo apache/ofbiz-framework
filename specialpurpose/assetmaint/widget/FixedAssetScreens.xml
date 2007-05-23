@@ -30,16 +30,15 @@
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="boxoutside">
+                        <container style="screenlet">
                            <container style="screenlet-header">
                               <label style="boxhead">${uiLabelMap.AccountingFixedAssets}</label>
                            </container>
-                           <container style="boxbottom">
+                           <container style="screenlet-body">
                               <include-form name="FindFixedAssets" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
                            </container>
                         </container>
-                        <label>&lt;br/&gt;</label>
-                        <container>
+                        <container style="button-bar">
                             <link target="EditFixedAsset" text="${uiLabelMap.AccountingNewFixedAsset}" style="buttontext" />
                         </container>
                         <include-form name="ListFixedAssets" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
@@ -63,15 +62,16 @@
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
+                        <container style="button-bar">
                             <link target="EditFixedAsset" text="${uiLabelMap.AccountingNewFixedAsset}" style="buttontext" />
                         </container>
-                        <label>&lt;br/&gt;</label>
-                        <container style="boxoutside">
+                        <container style="screenlet">
                             <container style="screenlet-header">
                                 <label style="boxhead">${uiLabelMap.AccountingEditFixedAsset}</label>
                             </container>
-                            <include-form name="EditFixedAsset" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
+                            <container style="screenlet-body">
+                                <include-form name="EditFixedAsset" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
+                            </container>
                         </container>
                         <!--platform-specific>
                             <html><html-template location="component://assetmaint/webapp/assetmaint/includes/EquipmentsFocus.ftl"/></html>

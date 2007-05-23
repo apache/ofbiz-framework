@@ -29,11 +29,11 @@
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="boxoutside">
+                        <container style="screenlet">
                             <container style="screenlet-header">
                                 <label style="boxhead">${uiLabelMap.PageTitleFindFixedAssetMaints}</label>
                             </container>
-                            <container style="boxbottom">
+                            <container style="screenlet-body">
                                 <include-form name="FindFixedAssetMaint" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
                             </container>
                         </container>
@@ -70,11 +70,11 @@
                     <decorator-section name="body">
                         <container><link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetId}" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/></container>
                         <container><link target="printFixedAssetMaint.pdf?fixedAssetId=${fixedAssetId}&amp;maintHistSeqId=${maintHistSeqId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/></container>
-                        <container style="boxoutside">
+                        <container style="screenlet">
                             <container style="screenlet-header">
                                 <label style="boxhead">${uiLabelMap.AccountingNewFixedAssetMaint}</label>
                             </container>
-                            <container style="boxbottom">
+                            <container style="screenlet-body">
                                 <include-form name="EditFixedAssetMaint" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
                             </container>
                         </container>
