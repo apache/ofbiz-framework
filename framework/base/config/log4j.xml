@@ -21,22 +21,26 @@
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
 
+    <!-- async appender -->
+    <appender name="async" class="org.apache.log4j.AsyncAppender">
+        <param name="locationInfo" value="true"/>
+        <param name="blocking" value="false"/>
+        <param name="bufferSize" value="128"/>
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="ofbiz-file"/>
+        <appender-ref ref="ofbiz-html"/>
+        <appender-ref ref="debug"/>
+        <appender-ref ref="error"/>
+        <!--<appender-ref ref="socket"/>-->
+        <!-- <appender-ref ref="email"/> -->
+    </appender>
+
     <!-- stdout appender -->
     <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
         <param name="threshold" value="info"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
         </layout>
-    </appender>
-
-    <!-- file logging done async -->
-    <appender name="async" class="org.apache.log4j.AsyncAppender">
-        <appender-ref ref="ofbiz-file"/>
-        <appender-ref ref="ofbiz-html"/>
-        <appender-ref ref="debug"/>
-        <appender-ref ref="error"/>
-        <appender-ref ref="socket"/>
-        <!-- <appender-ref ref="email"/> -->
     </appender>
 
     <!-- ofbiz file appender -->
@@ -142,7 +146,6 @@
     <!-- root logger -->
     <root>
         <priority value="all"></priority>
-        <appender-ref ref="stdout"/>
         <appender-ref ref="async"/>
     </root>
 </log4j:configuration>
