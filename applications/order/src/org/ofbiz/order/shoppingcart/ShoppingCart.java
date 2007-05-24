@@ -3385,14 +3385,17 @@ public class ShoppingCart implements Serializable {
     }
 
     /** make a list of all OrderPaymentPreferences and Billing info including all payment methods and types */
-    public List makeAllOrderPaymentInfos() {
+    public List makeAllOrderPaymentInfos(LocalDispatcher dispatcher) {
         List allOpPrefs = new LinkedList();
-        Iterator i = paymentInfo.iterator();
-        while (i.hasNext()) {
-            CartPaymentInfo inf = (CartPaymentInfo) i.next();
-            allOpPrefs.addAll(inf.makeOrderPaymentInfos(this.getDelegator()));
-        }
+        double remainingAmount = this.getGrandTotal() - this.getPaymentTotal();
         if (getBillingAccountId() != null) {
+            double billingAccountAvailableAmount = billingAccountAvailableAmount = CheckOutHelper.availableAccountBalance(getBillingAccountId(), dispatcher);
+            if (remainingAmount < getBillingAccountAmount()) {
+                this.billingAccountAmt = remainingAmount;
+            }
+            if (billingAccountAvailableAmount < getBillingAccountAmount()) {
+                this.billingAccountAmt = billingAccountAvailableAmount;
+            }
             GenericValue opp = delegator.makeValue("OrderPaymentPreference", new HashMap());
             opp.set("paymentMethodTypeId", "EXT_BILLACT");
             opp.set("presentFlag", "N");
@@ -3400,6 +3403,19 @@ public class ShoppingCart implements Serializable {
             opp.set("maxAmount", new Double(getBillingAccountAmount()));
             opp.set("statusId", "PAYMENT_NOT_RECEIVED");
             allOpPrefs.add(opp);
+            remainingAmount = remainingAmount - getBillingAccountAmount();
+            if (remainingAmount < 0) {
+                remainingAmount = 0;
+            }
+        }
+        Iterator i = paymentInfo.iterator();
+        while (i.hasNext()) {
+            CartPaymentInfo inf = (CartPaymentInfo) i.next();
+            if (inf.amount == null) {
+                inf.amount = new Double(remainingAmount);
+                remainingAmount = 0;
+            }
+            allOpPrefs.addAll(inf.makeOrderPaymentInfos(this.getDelegator()));
         }
         return allOpPrefs;
     }
@@ -3636,7 +3652,7 @@ public class ShoppingCart implements Serializable {
         result.put("orderItemAttributes", this.makeAllOrderItemAttributes());
         result.put("orderContactMechs", this.makeAllOrderContactMechs());
         result.put("orderItemContactMechs", this.makeAllOrderItemContactMechs());
-        result.put("orderPaymentInfo", this.makeAllOrderPaymentInfos());
+        result.put("orderPaymentInfo", this.makeAllOrderPaymentInfos(dispatcher));
         result.put("orderItemShipGroupInfo", this.makeAllShipGroupInfos());
         result.put("orderItemSurveyResponses", this.makeAllOrderItemSurveyResponses());
         result.put("orderAdditionalPartyRoleMap", this.getAdditionalPartyRoleMap());
