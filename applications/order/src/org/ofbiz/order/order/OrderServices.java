@@ -3147,12 +3147,47 @@ public class OrderServices {
     }
     
     /*
-     *  Warning: this method will remove all the existing reservations of the order
+     *  Warning: loadCartForUpdate(...) and saveUpdatedCartToOrder(...) must always
+     *           be used together in this sequence.
+     *           In fact loadCartForUpdate(...) will remove or cancel data associated to the order,
      *           before returning the ShoppingCart object; for this reason, the cart
-     *           must be stored back using the method saveUpdatedCartToOrder(...).
+     *           must be stored back using the method saveUpdatedCartToOrder(...),
+     *           because that method will recreate the data.
      */
     private static ShoppingCart loadCartForUpdate(LocalDispatcher dispatcher, GenericDelegator delegator, GenericValue userLogin, String orderId) throws GeneralException {
-        // find ship group associations
+        // load the order into a shopping cart
+        Map loadCartResp = null;
+        try {
+            loadCartResp = dispatcher.runSync("loadCartFromOrder", UtilMisc.toMap("orderId", orderId,
+                                                                                  "skipInventoryChecks", Boolean.TRUE, // the items are already reserved, no need to check again
+                                                                                  "skipProductChecks", Boolean.TRUE, // the products are already in the order, no need to check their validity now
+                                                                                  "userLogin", userLogin));
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            throw new GeneralException(e.getMessage());
+        }
+        if (ServiceUtil.isError(loadCartResp)) {
+            throw new GeneralException(ServiceUtil.getErrorMessage(loadCartResp));
+        }
+
+        ShoppingCart cart = (ShoppingCart) loadCartResp.get("shoppingCart");
+        if (cart == null) {
+            throw new GeneralException("Error loading shopping cart from order [" + orderId + "]");
+        } else {
+            cart.setOrderId(orderId);
+        }
+
+        // Now that the cart is loaded, all the data that will be re-created 
+        // when the method saveUpdatedCartToOrder(...) will be called, are
+        // removed and cancelled:
+        // - inventory reservations are cancelled
+        // - promotional items are cancelled
+        // - order payments are released (cancelled)
+        // - offline non received payments are cancelled
+        // - promotional, shipping and tax adjustments are removed
+        
+        // Inventory reservations
+        // find ship group associations 
         List shipGroupAssocs = null;
         try {
             shipGroupAssocs = delegator.findByAnd("OrderItemShipGroupAssoc", UtilMisc.toMap("orderId", orderId));
@@ -3160,7 +3195,6 @@ public class OrderServices {
             Debug.logError(e, module);
             throw new GeneralException(e.getMessage());
         }
-
         // cancel existing inventory reservations
         if (shipGroupAssocs != null) {
             Iterator iri = shipGroupAssocs.iterator();
@@ -3185,105 +3219,6 @@ public class OrderServices {
                 }
             }
         }
-
-        // load the order into a shopping cart
-        Map loadCartResp = null;
-        try {
-            loadCartResp = dispatcher.runSync("loadCartFromOrder", UtilMisc.toMap("orderId", orderId, "skipInventoryChecks", Boolean.TRUE, "skipProductChecks", Boolean.TRUE, "userLogin", userLogin));
-        } catch (GenericServiceException e) {
-            Debug.logError(e, module);
-            throw new GeneralException(e.getMessage());
-        }
-        if (ServiceUtil.isError(loadCartResp)) {
-            throw new GeneralException(ServiceUtil.getErrorMessage(loadCartResp));
-        }
-
-        ShoppingCart cart = (ShoppingCart) loadCartResp.get("shoppingCart");
-        if (cart == null) {
-            throw new GeneralException("Error loading shopping cart from order [" + orderId + "]");
-        } else {
-            cart.setOrderId(orderId);
-        }
-
-        return cart;
-    }
-
-    private static void saveUpdatedCartToOrder(LocalDispatcher dispatcher, GenericDelegator delegator, ShoppingCart cart, Locale locale, GenericValue userLogin, String orderId) throws GeneralException {
-        // get/set the shipping estimates.  if it's a SALES ORDER, then return an error if there are no ship estimates
-        int shipGroups = cart.getShipGroupSize();
-        for (int gi = 0; gi < shipGroups; gi++) {
-            String shipmentMethodTypeId = cart.getShipmentMethodTypeId(gi);
-            String carrierPartyId = cart.getCarrierPartyId(gi);
-            Debug.log("Getting ship estimate for group #" + gi + " [" + shipmentMethodTypeId + " / " + carrierPartyId + "]", module);
-            Map result = ShippingEvents.getShipGroupEstimate(dispatcher, delegator, cart, gi);
-            if (("SALES_ORDER".equals(cart.getOrderType())) && (ServiceUtil.isError(result))) {
-                Debug.logError(ServiceUtil.getErrorMessage(result), module);
-                throw new GeneralException(ServiceUtil.getErrorMessage(result));
-            }
-
-            Double shippingTotal = (Double) result.get("shippingTotal");
-            if (shippingTotal == null) {
-                shippingTotal = new Double(0.00);
-            }
-            cart.setItemShipGroupEstimate(shippingTotal.doubleValue(), gi);
-        }
-        
-        // calc the sales tax
-        CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
-        try {
-            coh.calcAndAddTax();
-        } catch (GeneralException e) {
-            Debug.logError(e, module);
-            throw new GeneralException(e.getMessage());
-        }
-
-        // validate the payment methods
-        Map validateResp = coh.validatePaymentMethods();
-        if (ServiceUtil.isError(validateResp)) {
-            throw new GeneralException(ServiceUtil.getErrorMessage(validateResp));
-        }
-
-        // get the new orderItems, adjustments, shipping info and payments from the cart
-        List toStore = new LinkedList();
-        toStore.addAll(cart.makeOrderItems());
-        toStore.addAll(cart.makeAllAdjustments());
-        toStore.addAll(cart.makeAllShipGroupInfos());
-        toStore.addAll(cart.makeAllOrderPaymentInfos());
-
-        // set the orderId & other information on all new value objects
-        List dropShipGroupIds = FastList.newInstance(); // this list will contain the ids of all the ship groups for drop shipments (no reservations)
-        Iterator tsi = toStore.iterator();
-        while (tsi.hasNext()) {
-            GenericValue valueObj = (GenericValue) tsi.next();
-            valueObj.set("orderId", orderId);
-            if ("OrderItemShipGroup".equals(valueObj.getEntityName())) {
-                // ship group
-                if (valueObj.get("carrierRoleTypeId") == null) {
-                    valueObj.set("carrierRoleTypeId", "CARRIER");
-                }
-                if (!UtilValidate.isEmpty(valueObj.get("supplierPartyId"))) {
-                    dropShipGroupIds.add(valueObj.getString("shipGroupSeqId"));
-                }
-            } else if ("OrderAdjustment".equals(valueObj.getEntityName())) {
-                // shipping / tax adjustment(s)
-                if (valueObj.get("orderItemSeqId") == null || valueObj.getString("orderItemSeqId").length() == 0) {
-                    valueObj.set("orderItemSeqId", DataModelConstants.SEQ_ID_NA);
-                }
-                valueObj.set("orderAdjustmentId", delegator.getNextSeqId("OrderAdjustment"));
-                valueObj.set("createdDate", UtilDateTime.nowTimestamp());
-                valueObj.set("createdByUserLogin", userLogin.getString("userLoginId"));
-            } else if ("OrderPaymentPreference".equals(valueObj.getEntityName())) {
-                if (valueObj.get("orderPaymentPreferenceId") == null) {
-                    valueObj.set("orderPaymentPreferenceId", delegator.getNextSeqId("OrderPaymentPreference"));
-                    valueObj.set("createdDate", UtilDateTime.nowTimestamp());
-                    valueObj.set("createdByUserLogin", userLogin.getString("userLoginId"));
-                }
-                if (valueObj.get("statusId") == null) {
-                    valueObj.set("statusId", "PAYMENT_NOT_RECEIVED");
-                }
-            }
-        }
-        Debug.log("To Store Contains: " + toStore, module);
 
         // cancel promo items -- if the promo still qualifies it will be added by the cart
         List promoItems = null;
@@ -3372,6 +3307,86 @@ public class OrderServices {
             Debug.logError(e, module);
             throw new GeneralException(e.getMessage());
         }
+
+        return cart;
+    }
+
+    private static void saveUpdatedCartToOrder(LocalDispatcher dispatcher, GenericDelegator delegator, ShoppingCart cart, Locale locale, GenericValue userLogin, String orderId) throws GeneralException {
+        // get/set the shipping estimates.  if it's a SALES ORDER, then return an error if there are no ship estimates
+        int shipGroups = cart.getShipGroupSize();
+        for (int gi = 0; gi < shipGroups; gi++) {
+            String shipmentMethodTypeId = cart.getShipmentMethodTypeId(gi);
+            String carrierPartyId = cart.getCarrierPartyId(gi);
+            Debug.log("Getting ship estimate for group #" + gi + " [" + shipmentMethodTypeId + " / " + carrierPartyId + "]", module);
+            Map result = ShippingEvents.getShipGroupEstimate(dispatcher, delegator, cart, gi);
+            if (("SALES_ORDER".equals(cart.getOrderType())) && (ServiceUtil.isError(result))) {
+                Debug.logError(ServiceUtil.getErrorMessage(result), module);
+                throw new GeneralException(ServiceUtil.getErrorMessage(result));
+            }
+
+            Double shippingTotal = (Double) result.get("shippingTotal");
+            if (shippingTotal == null) {
+                shippingTotal = new Double(0.00);
+            }
+            cart.setItemShipGroupEstimate(shippingTotal.doubleValue(), gi);
+        }
+        
+        // calc the sales tax
+        CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
+        try {
+            coh.calcAndAddTax();
+        } catch (GeneralException e) {
+            Debug.logError(e, module);
+            throw new GeneralException(e.getMessage());
+        }
+
+        // validate the payment methods
+        Map validateResp = coh.validatePaymentMethods();
+        if (ServiceUtil.isError(validateResp)) {
+            throw new GeneralException(ServiceUtil.getErrorMessage(validateResp));
+        }
+
+        // get the new orderItems, adjustments, shipping info and payments from the cart
+        List toStore = new LinkedList();
+        toStore.addAll(cart.makeOrderItems());
+        toStore.addAll(cart.makeAllAdjustments());
+        toStore.addAll(cart.makeAllShipGroupInfos());
+        toStore.addAll(cart.makeAllOrderPaymentInfos(dispatcher));
+
+        // set the orderId & other information on all new value objects
+        List dropShipGroupIds = FastList.newInstance(); // this list will contain the ids of all the ship groups for drop shipments (no reservations)
+        Iterator tsi = toStore.iterator();
+        while (tsi.hasNext()) {
+            GenericValue valueObj = (GenericValue) tsi.next();
+            valueObj.set("orderId", orderId);
+            if ("OrderItemShipGroup".equals(valueObj.getEntityName())) {
+                // ship group
+                if (valueObj.get("carrierRoleTypeId") == null) {
+                    valueObj.set("carrierRoleTypeId", "CARRIER");
+                }
+                if (!UtilValidate.isEmpty(valueObj.get("supplierPartyId"))) {
+                    dropShipGroupIds.add(valueObj.getString("shipGroupSeqId"));
+                }
+            } else if ("OrderAdjustment".equals(valueObj.getEntityName())) {
+                // shipping / tax adjustment(s)
+                if (valueObj.get("orderItemSeqId") == null || valueObj.getString("orderItemSeqId").length() == 0) {
+                    valueObj.set("orderItemSeqId", DataModelConstants.SEQ_ID_NA);
+                }
+                valueObj.set("orderAdjustmentId", delegator.getNextSeqId("OrderAdjustment"));
+                valueObj.set("createdDate", UtilDateTime.nowTimestamp());
+                valueObj.set("createdByUserLogin", userLogin.getString("userLoginId"));
+            } else if ("OrderPaymentPreference".equals(valueObj.getEntityName())) {
+                if (valueObj.get("orderPaymentPreferenceId") == null) {
+                    valueObj.set("orderPaymentPreferenceId", delegator.getNextSeqId("OrderPaymentPreference"));
+                    valueObj.set("createdDate", UtilDateTime.nowTimestamp());
+                    valueObj.set("createdByUserLogin", userLogin.getString("userLoginId"));
+                }
+                if (valueObj.get("statusId") == null) {
+                    valueObj.set("statusId", "PAYMENT_NOT_RECEIVED");
+                }
+            }
+        }
+        Debug.log("To Store Contains: " + toStore, module);
 
         // store the new items/adjustments
         try {
