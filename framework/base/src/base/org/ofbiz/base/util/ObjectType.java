@@ -1009,7 +1009,7 @@ public class ObjectType {
             if (noTypeFail) {
                 throw new GeneralException("Conversion from " + obj.getClass().getName() + " to " + type + " not currently supported");
             } else {
-                Debug.logWarning("No type conversion available for " + obj.getClass().getName() + " to " + type + ", returning original object.", module);
+                if (Debug.infoOn()) Debug.logInfo("No type conversion available for " + obj.getClass().getName() + " to " + type + ", returning original object.", module);
                 return obj;
             }
         }
