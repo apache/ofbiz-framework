@@ -1752,7 +1752,7 @@ public class ModelFormField {
                 }
                 try {
                     Double parsedRetVal = (Double) ObjectType.simpleTypeConvert(retVal, "Double", null, locale, false);
-                    retVal = UtilFormatOut.formatCurrency(parsedRetVal, isoCode, locale);
+                    retVal = UtilFormatOut.formatCurrency(parsedRetVal, isoCode, locale, 10); // we set the max to 10 digits as an hack to not round numbers in the ui
                 } catch (GeneralException e) {
                     String errMsg = "Error formatting currency value [" + retVal + "]: " + e.toString();
                     Debug.logError(e, errMsg, module);

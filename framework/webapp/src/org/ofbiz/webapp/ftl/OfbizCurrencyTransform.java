@@ -115,12 +115,12 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
                         BeanModel req = (BeanModel) env.getVariable("request");
                         if (req != null) {
                             HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
-                            out.write(UtilFormatOut.formatCurrency(amount, isoCode, UtilHttp.getLocale(request)));
+                            out.write(UtilFormatOut.formatCurrency(amount, isoCode, UtilHttp.getLocale(request), 10)); // we set the max to 10 digits as an hack to not round numbers in the ui
                         } else {
-                            out.write(UtilFormatOut.formatCurrency(amount, isoCode, env.getLocale()));
+                            out.write(UtilFormatOut.formatCurrency(amount, isoCode, env.getLocale(), 10)); // we set the max to 10 digits as an hack to not round numbers in the ui
                         }
                     } else {
-                        out.write(UtilFormatOut.formatCurrency(amount.doubleValue(), isoCode, new Locale(locale)));
+                        out.write(UtilFormatOut.formatCurrency(amount.doubleValue(), isoCode, new Locale(locale), 10)); // we set the max to 10 digits as an hack to not round numbers in the ui
                     }
                 } catch (TemplateModelException e) {
                     throw new IOException(e.getMessage());
