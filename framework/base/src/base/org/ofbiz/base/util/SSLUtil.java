@@ -105,7 +105,10 @@ public class SSLUtil {
     public static TrustManager[] getTrustManagers() throws IOException, GeneralSecurityException, GenericConfigException {
         MultiTrustManager tm = new MultiTrustManager();
         tm.add(KeyStoreUtil.getSystemTrustStore());
-
+        if (tm.getNumberOfKeyStores() < 1) {
+            Debug.logWarning("System truststore not found!", module);
+        }
+        
         Iterator i = ComponentConfig.getAllKeystoreInfos().iterator();
         while (i.hasNext()) {
             ComponentConfig.KeystoreInfo ksi = (ComponentConfig.KeystoreInfo) i.next();
@@ -120,6 +123,10 @@ public class SSLUtil {
         }
 
         return new TrustManager[] { tm };
+    }
+
+    public static TrustManager[] getTrustAnyManagers() {
+        return new TrustManager[] { new TrustAnyManager() };
     }
 
     public static KeyManager[] getKeyManagers(KeyStore ks, String password, String alias) throws GeneralSecurityException {
@@ -149,13 +156,22 @@ public class SSLUtil {
         return context.getSocketFactory();
     }
 
-    public static SSLSocketFactory getSSLSocketFactory(String alias) throws IOException, GeneralSecurityException, GenericConfigException {
+    public static SSLSocketFactory getSSLSocketFactory(String alias, boolean trustAny) throws IOException, GeneralSecurityException, GenericConfigException {
         KeyManager[] km = SSLUtil.getKeyManagers(alias);
-        TrustManager[] tm = SSLUtil.getTrustManagers();
+        TrustManager[] tm;
+        if (trustAny) {
+            tm = SSLUtil.getTrustAnyManagers();
+        } else {
+            tm = SSLUtil.getTrustManagers();
+        }
 
         SSLContext context = SSLContext.getInstance("SSL");
         context.init(km, tm, new SecureRandom());
         return context.getSocketFactory();
+    }
+
+    public static SSLSocketFactory getSSLSocketFactory(String alias) throws IOException, GeneralSecurityException, GenericConfigException {
+        return getSSLSocketFactory(alias, false);
     }
 
     public static SSLSocketFactory getSSLSocketFactory() throws IOException, GeneralSecurityException, GenericConfigException {
@@ -249,6 +265,28 @@ public class SSLUtil {
                 System.setProperty("javax.net.debug","ssl:handshake");
             }
             loadedProps = true;
+        }
+    }
+
+    static class TrustAnyManager implements X509TrustManager {
+
+        public void checkClientTrusted(X509Certificate[] cert, String string) throws CertificateException {
+            Debug.logImportant("Trusting (un-trusted) client certificate chain:", module);
+            for (int i = 0; i < cert.length; i++) {
+                Debug.logImportant("---- " + cert[i].getSubjectX500Principal().getName() + " valid: " + cert[i].getNotAfter(), module);
+
+            }
+        }
+
+        public void checkServerTrusted(X509Certificate[] cert, String string) throws CertificateException {
+            Debug.logImportant("Trusting (un-trusted) server certificate chain:", module);
+            for (int i = 0; i < cert.length; i++) {
+                Debug.logImportant("---- " + cert[i].getSubjectX500Principal().getName() + " valid: " + cert[i].getNotAfter(), module);
+            }
+        }
+
+        public X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[0];
         }
     }
 }

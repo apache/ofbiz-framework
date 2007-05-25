@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.security.cert.CertificateException;
 
 /**
  * Send HTTP GET/POST requests.
@@ -38,10 +39,12 @@ import java.util.Set;
 public class HttpClient {
     
     public static final String module = HttpClient.class.getName();
-    
+
+    private int hostVerification = SSLUtil.HOSTCERT_NORMAL_CHECK;
     private int timeout = 30000;
     private boolean debug = false;
     private boolean lineFeed = true;
+    private boolean trustAny = false;
     private boolean followRedirects = true;
     
     private String url = null;
@@ -176,6 +179,26 @@ public class HttpClient {
         return this.clientCertAlias;
     }
 
+    /** Sets the server hostname verification level */
+    public void setHostVerificationLevel(int level) {
+        this.hostVerification = level;
+    }
+
+    /** Returns the current server hostname verification level */
+    public int getHostVerificationLevel() {
+        return this.hostVerification;
+    }
+
+    /** Allow untrusted server certificates */
+    public void setAllowUntrusted(boolean trustAny) {
+        this.trustAny = trustAny;
+    }
+
+    /** Do we trust any certificate */
+    public boolean getAllowUntrusted() {
+        return this.trustAny;
+    }
+    
     /** Invoke HTTP request GET. */
     public String get() throws HttpClientException {
         return sendHttpRequest("get");
@@ -331,7 +354,11 @@ public class HttpClient {
         return buf.toString();
     }
 
-    private InputStream sendHttpRequestStream(String method) throws HttpClientException {                
+    private InputStream sendHttpRequestStream(String method) throws HttpClientException {
+        return sendHttpRequestStream(method, false);
+    }
+
+    private InputStream sendHttpRequestStream(String method, boolean overrideTrust) throws HttpClientException {
         // setup some SSL variables
         SSLUtil.loadJsseProperties();
             
@@ -356,7 +383,11 @@ public class HttpClient {
         // Create the URL and open the connection.
         try {
             requestUrl = new URL(url);
-            con = URLConnector.openConnection(requestUrl, timeout, clientCertAlias, SSLUtil.HOSTCERT_NORMAL_CHECK);
+            if (overrideTrust) {
+                con = URLConnector.openUntrustedConnection(requestUrl, timeout, clientCertAlias, SSLUtil.HOSTCERT_NORMAL_CHECK);
+            } else {
+                con = URLConnector.openConnection(requestUrl, timeout, clientCertAlias, SSLUtil.HOSTCERT_NORMAL_CHECK);
+            }
             if (Debug.verboseOn() || debug) Debug.log("Connection opened to : " + requestUrl.toExternalForm(), module);
 
             if ((con instanceof HttpURLConnection)) {
@@ -407,6 +438,10 @@ public class HttpClient {
 
             in = con.getInputStream();
         } catch (IOException ioe) {
+            if ((trustAny && !overrideTrust) && (ioe.getCause() instanceof CertificateException)) {
+                Debug.logWarning(ioe.getCause(), module);
+                return sendHttpRequestStream(method, true);
+            }
             throw new HttpClientException("IO Error processing request", ioe);
         } catch (Exception e) {
             throw new HttpClientException("Error processing request", e);

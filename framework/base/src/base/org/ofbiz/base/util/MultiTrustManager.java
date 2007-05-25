@@ -55,6 +55,10 @@ public class MultiTrustManager implements X509TrustManager {
         }
     }
 
+    public int getNumberOfKeyStores() {
+        return keystores.size();
+    }
+
     public void checkClientTrusted(X509Certificate[] certs, String alg) throws CertificateException {
         if (!isTrusted(certs)) {
             throw new CertificateException("No trusted certificate found");
