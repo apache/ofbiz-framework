@@ -23,10 +23,6 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.security.cert.X509Certificate;
-import java.security.KeyStore;
-import java.security.GeneralSecurityException;
-import java.security.KeyStoreException;
-import java.net.URL;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -77,6 +73,13 @@ public class RequestHandler implements Serializable {
         this.requestManager = new RequestManager(context);
         this.viewFactory = new ViewFactory(this);
         this.eventFactory = new EventFactory(this);
+    }
+
+    public void doRequest(HttpServletRequest request, HttpServletResponse response, String requestUri) throws RequestHandlerException {
+        HttpSession session = request.getSession();
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        doRequest(request, response, requestUri, userLogin, delegator);
     }
 
     public void doRequest(HttpServletRequest request, HttpServletResponse response, String chain,
