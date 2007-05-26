@@ -28,8 +28,8 @@ under the License.
 
                 <#-- Picklist -->
                 <div class="tabletext">
-                    <b>Picklist</b> <span class="head2">${picklist.picklistId}</span>
-                    <b>date</b> ${picklist.picklistDate}
+                    <b>${uiLabelMap.ProductPickList}</b> <span class="head2">${picklist.picklistId}</span>
+                    <b>${uiLabelMap.CommonDate}</b> ${picklist.picklistDate}
                     <form method="post" action="<@ofbizUrl>updatePicklist</@ofbizUrl>" style="display: inline;">
                         <input type="hidden" name="facilityId" value="${facilityId}"/>
                         <input type="hidden" name="picklistId" value="${picklist.picklistId}"/>
@@ -42,7 +42,7 @@ under the License.
                         </select>
                         <input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/>
                     </form>
-                    <b>created/modified by</b> ${picklist.createdByUserLogin}/${picklist.lastModifiedByUserLogin}
+                    <b>${uiLabelMap.ProductCreatedModifiedBy}</b> ${picklist.createdByUserLogin}/${picklist.lastModifiedByUserLogin}
                     <a href="<@ofbizUrl>PicklistReport.pdf?picklistId=${picklist.picklistId}</@ofbizUrl>" target="_blank" class="buttontext">[${uiLabelMap.ProductPick}/${uiLabelMap.ProductPacking} ${uiLabelMap.CommonReports}]</a>
                 </div>
                 <#if picklistInfo.shipmentMethodType?has_content>
@@ -106,33 +106,55 @@ under the License.
                                 <select name="picklistId" class="smallSelect">
                                     <#list picklistActiveList as picklistActive>
                                         <#assign picklistActiveStatusItem = picklistActive.getRelatedOneCache("StatusItem")>
-                                        <option value="${picklistActive.picklistId}"<#if picklistActive.picklistId == picklist.picklistId> selected</#if>>${picklistActive.picklistId} [${uiLabelMap.CommonDate}:${picklistActive.picklistDate},${uiLabelMap.CommonStatus}:${picklistActiveStatusItem.description}]</option>
+                                        <option value="${picklistActive.picklistId}"<#if picklistActive.picklistId == picklist.picklistId> selected</#if>>${picklistActive.picklistId} [${uiLabelMap.CommonDate}:${picklistActive.picklistDate},${uiLabelMap.CommonStatus}:${picklistActiveStatusItem.get("description",locale)}]</option>
                                     </#list>
                                 </select>
                                 <input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/>
                             </form>
                         </div>
-                        <#list picklistBinInfo.picklistItemInfoList?if_exists as picklistItemInfo>
-                            <#assign picklistItem = picklistItemInfo.picklistItem>
-                            <#assign inventoryItemAndLocation = picklistItemInfo.inventoryItemAndLocation>
-                            <div class="tabletext" style="margin-left: 30px;">
-                                <b>${uiLabelMap.ProductOrderId}:${uiLabelMap.OrderShipGroup}:${uiLabelMap.ProductOrderItem}</b> ${picklistItem.orderId}:${picklistItem.shipGroupSeqId}:${picklistItem.orderItemSeqId}
-                                <b>${uiLabelMap.ProductProduct}</b> ${picklistItemInfo.orderItem.productId}
-                                <b>${uiLabelMap.ProductInventoryItem}</b> ${inventoryItemAndLocation.inventoryItemId}
-                                <b>${uiLabelMap.ProductLocation}</b> ${inventoryItemAndLocation.areaId?if_exists}-${inventoryItemAndLocation.aisleId?if_exists}-${inventoryItemAndLocation.sectionId?if_exists}-${inventoryItemAndLocation.levelId?if_exists}-${inventoryItemAndLocation.positionId?if_exists}
-                                <b>${uiLabelMap.ProductQuantity}</b> ${picklistItem.quantity}<#-- of ${picklistItemInfo.orderItem.quantity}-->
-                                <#if !picklistItemInfo.itemIssuanceList?has_content><a href="<@ofbizUrl>deletePicklistItem?picklistBinId=${picklistItemInfo.picklistItem.picklistBinId}&amp;orderId=${picklistItemInfo.picklistItem.orderId}&amp;orderItemSeqId=${picklistItemInfo.picklistItem.orderItemSeqId}&amp;shipGroupSeqId=${picklistItemInfo.picklistItem.shipGroupSeqId}&amp;inventoryItemId=${picklistItemInfo.picklistItem.inventoryItemId}&amp;facilityId=${facilityId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a></#if>
+                        <#if picklistBinInfo.picklistItemInfoList?has_content>
+                            <div style="margin-left: 30px;">
+                                <table class="basic-table" cellspacing="0">
+                                    <tr>
+                                        <b>
+                                            <th>${uiLabelMap.ProductOrderId}</th>
+                                            <th>${uiLabelMap.OrderShipGroup}</th>
+                                            <th>${uiLabelMap.ProductOrderItem}</th>
+                                            <th>${uiLabelMap.ProductProduct}</th>
+                                            <th>${uiLabelMap.ProductInventoryItem}</th>
+                                            <th>${uiLabelMap.ProductLocation}</th>
+                                            <th>${uiLabelMap.ProductQuantity}</th>
+                                            <th>&nbsp;</th>
+                                        </b>
+                                    </tr>
+                                <#list picklistBinInfo.picklistItemInfoList?if_exists as picklistItemInfo>
+                                <#assign picklistItem = picklistItemInfo.picklistItem>
+                                <#assign inventoryItemAndLocation = picklistItemInfo.inventoryItemAndLocation>
+                                    <tr>
+                                        <td>${picklistItem.orderId}</td>
+                                        <td>${picklistItem.shipGroupSeqId}</td>
+                                        <td>${picklistItem.orderItemSeqId}</td>
+                                        <td>${picklistItemInfo.orderItem.productId}<#if picklistItemInfo.orderItem.productId != inventoryItemAndLocation.productId>&nbsp;[${inventoryItemAndLocation.productId}]</#if></td>
+                                        <td>${inventoryItemAndLocation.inventoryItemId}</td>
+                                        <td>${inventoryItemAndLocation.areaId?if_exists}-${inventoryItemAndLocation.aisleId?if_exists}-${inventoryItemAndLocation.sectionId?if_exists}-${inventoryItemAndLocation.levelId?if_exists}-${inventoryItemAndLocation.positionId?if_exists}</td>
+                                        <td>${picklistItem.quantity}</td>
+                                        <#if !picklistItemInfo.itemIssuanceList?has_content>
+                                            <td><a href="<@ofbizUrl>deletePicklistItem?picklistBinId=${picklistItemInfo.picklistItem.picklistBinId}&amp;orderId=${picklistItemInfo.picklistItem.orderId}&amp;orderItemSeqId=${picklistItemInfo.picklistItem.orderItemSeqId}&amp;shipGroupSeqId=${picklistItemInfo.picklistItem.shipGroupSeqId}&amp;inventoryItemId=${picklistItemInfo.picklistItem.inventoryItemId}&amp;facilityId=${facilityId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a></td>
+                                        </#if>
+                                        <td>
+                                            <#-- picklistItem.orderItemShipGrpInvRes (do we want to display any of this info?) -->
+                                            <#-- picklistItemInfo.itemIssuanceList -->
+                                            <#list picklistItemInfo.itemIssuanceList?if_exists as itemIssuance>
+                                                <b>${uiLabelMap.ProductIssue} ${uiLabelMap.CommonTo} ${uiLabelMap.ProductShipmentItemSeqId}:</b> ${itemIssuance.shipmentId}:${itemIssuance.shipmentItemSeqId}
+                                                <b>${uiLabelMap.ProductQuantity}:</b> ${itemIssuance.quantity}
+                                                <b>${uiLabelMap.CommonDate}: </b> ${itemIssuance.issuedDateTime}
+                                            </#list>
+                                        </td>
+                                    </tr>
+                                </#list>
+                                </table>
                             </div>
-                            <#-- picklistItem.orderItemShipGrpInvRes (do we want to display any of this info?) -->
-                            <#-- picklistItemInfo.itemIssuanceList -->
-                            <#list picklistItemInfo.itemIssuanceList?if_exists as itemIssuance>
-                                <div class="tabletext" style="margin-left: 40px;">
-                                    <b>${uiLabelMap.ProductIssue} ${uiLabelMap.CommonTo} ${uiLabelMap.ProductShipmentItemSeqId}:</b> ${itemIssuance.shipmentId}:${itemIssuance.shipmentItemSeqId}
-                                    <b>${uiLabelMap.ProductQuantity}:</b> ${itemIssuance.quantity}
-                                    <b>${uiLabelMap.CommonDate}: </b> ${itemIssuance.issuedDateTime}
-                                </div>
-                            </#list>
-                        </#list>
+                        </#if>
                     </#if>
                 </#list>
 
