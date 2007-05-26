@@ -184,7 +184,7 @@ under the License.
     </service>
     <service name="getProductInventorySummaryForItems" engine="java"
                 location="org.ofbiz.product.inventory.InventoryServices" invoke="getProductInventorySummaryForItems" auth="false" use-transaction="false">
-        <description>Get ATP/QOH Availability for a list of OrderItems by summing over all facilities.  If the item is a MARKETING_PKG_AUTO, then put its quantity available from components
+        <description>Get ATP/QOH Availability for a list of OrderItems by summing over all facilities.  If the item is a MARKETING_PKG_AUTO/PICK, then put its quantity available from components
             in the mktgPkgATPMap and mktgPkgQOHMap.</description>
         <attribute name="orderItems" type="List" mode="IN" optional="false"/>
         <attribute name="quantityOnHandMap" type="Map" mode="OUT" optional="false"/>
@@ -194,7 +194,7 @@ under the License.
     </service>
     <service name="getProductInventoryAndFacilitySummary" engine="java"
                 location="org.ofbiz.product.inventory.InventoryServices" invoke="getProductInventoryAndFacilitySummary" auth="false" use-transaction="false">
-        <description>Get ATP/QOH Availability for a list of OrderItems by summing over all facilities.  If the item is a MARKETING_PKG_AUTO, then put its quantity available from components
+        <description>Get ATP/QOH Availability for a list of OrderItems by summing over all facilities.  If the item is a MARKETING_PKG_AUTO/PICK, then put its quantity available from components
             in the mktgPkgATPMap and mktgPkgQOHMap.</description>
         <attribute name="checkTime" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>

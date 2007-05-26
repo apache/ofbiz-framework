@@ -89,8 +89,9 @@ if (product.getString("isVirtual") != null && "Y".equals(product.getString("isVi
         quantitySummary.put("totalQuantityOnHand", resultOutput.get("quantityOnHandTotal"));
         quantitySummary.put("totalAvailableToPromise", resultOutput.get("availableToPromiseTotal"));
 
-        // if the product is a MARKETING_PKG_AUTO, then also get the quantity which can be produced from components
-        if ("MARKETING_PKG_AUTO".equals(product.getString("productTypeId"))) {
+        // if the product is a MARKETING_PKG_AUTO/PICK, then also get the quantity which can be produced from components
+        if ("MARKETING_PKG_AUTO".equals(product.getString("productTypeId")) ||
+                "MARKETING_PKG_PICK".equals(product.getString("productTypeId"))) {
             contextInput = UtilMisc.toMap("productId",productId, "facilityId", facility.getString("facilityId"));
             resultOutput = dispatcher.runSync("getMktgPackagesAvailable", contextInput);
             quantitySummary.put("mktgPkgQOH", resultOutput.get("quantityOnHandTotal"));

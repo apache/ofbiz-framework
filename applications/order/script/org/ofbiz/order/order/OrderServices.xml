@@ -172,6 +172,7 @@ under the License.
                 <condition>
                     <and>
                         <if-compare field-name="product.productTypeId" operator="not-equals" value="MARKETING_PKG_AUTO"/>
+                        <if-compare field-name="product.productTypeId" operator="not-equals" value="MARKETING_PKG_PICK"/>
                         <if-compare field-name="product.productTypeId" operator="not-equals" value="DIGITAL_GOOD"/>
                     </and>
                 </condition>

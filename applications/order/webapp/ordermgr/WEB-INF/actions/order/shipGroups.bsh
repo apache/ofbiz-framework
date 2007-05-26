@@ -36,9 +36,9 @@ shipGroups = delegator.findByAnd("OrderItemShipGroup", findMap, UtilMisc.toList(
 context.put("shipGroups", shipGroups);
 
 // method to expand the marketing packages
-FastList expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen) {
+FastList expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen, assocType) {
     sublines = FastList.newInstance();
-    associations = product.getRelatedByAnd("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "MANUF_COMPONENT"));
+    associations = product.getRelatedByAnd("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", assocType));
     associations = EntityUtil.filterByDate( associations );
     for (iter = associations.iterator(); iter.hasNext(); ) {
         association = iter.next();
@@ -111,8 +111,10 @@ for (iter = shipGroups.iterator(); iter.hasNext(); ) {
         line.put("quantityShipped", quantityShipped);
         line.put("quantityOpen", quantityOpen);
 
-        if ("MARKETING_PKG_AUTO".equals(product.get("productTypeId"))) {
-            sublines = expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen);
+        if ("MARKETING_PKG_AUTO".equals(product.get("productTypeId")) ||
+                "MARKETING_PKG_PICK".equals(product.get("productTypeId"))) {
+            String assocType = ("MARKETING_PKG_AUTO".equals(product.get("productTypeId"))? "MANUF_COMPONENT": "PRODUCT_COMPONENT");
+            sublines = expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen, assocType);
             line.put("expandedList", sublines);
         }
 

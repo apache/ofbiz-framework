@@ -545,11 +545,17 @@ under the License.
         <set field="availableToPromiseTotal" value="0" type="Double"/>
         <set field="quantityOnHandTotal" value="0" type="Double"/>
         <set from-field="parameters.productId" field="lookupMktgPkgParams.productId"/>
-        <set value="MANUF_COMPONENT" field="lookupMktgPkgParams.type"/>
+        <entity-one entity-name="Product" value-name="product"/>
+        <if-compare field-name="product.productTypeId" operator="equals" value="MARKETING_PKG_AUTO">
+            <set value="MANUF_COMPONENT" field="lookupMktgPkgParams.type"/>
+        <else>
+            <set value="PRODUCT_COMPONENT" field="lookupMktgPkgParams.type"/>
+        </else>
+        </if-compare>
         <call-service service-name="getAssociatedProducts" in-map-name="lookupMktgPkgParams">
             <result-to-field result-name="assocProducts"/>
         </call-service>
-        <!-- if there are any MANUF_COMPONENT components, then the ATP and QOH are based on the quantities of those component
+        <!-- if there are any components, then the ATP and QOH are based on the quantities of those component
             products and found with another service -->
         <if-not-empty field-name="assocProducts">
             <set from-field="assocProducts" field="inventoryByAssocProductsParams.assocProducts"/>
