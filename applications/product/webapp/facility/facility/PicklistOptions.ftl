@@ -126,38 +126,46 @@ under the License.
 <#if toPickList?has_content>
 <div class="screenlet">
     <div class="screenlet-header">
-        <div class="boxhead">${shipmentMethodType.description?if_exists} Detail</div>
+        <div class="boxhead">${shipmentMethodType.description?if_exists} ${uiLabelMap.ProductPickingDetail}</div>
     </div>
     <div class="screenlet-body">
         <table class="basic-table">
             <tr>
-                <th>Order ID</th>
-                <th>Order Date</th>
-                <th>Channel</th>
-                <th>Order Item Id</th>
-                <th>Description</th>
-                <th>Ship Grp Id</th>
-                <th>Quantity</th>
+                <th>${uiLabelMap.ProductOrderId}</th>
+                <th>${uiLabelMap.FormFieldTitle_orderDate}</th>
+                <th>${uiLabelMap.ProductChannel}</th>
+                <th>${uiLabelMap.ProductOrderItem}</th>
+                <th>${uiLabelMap.ProductDescription}</th>
+                <th>${uiLabelMap.OrderShipGroup}</th>
+                <th>${uiLabelMap.ProductQuantity}</th>
+                <th>${uiLabelMap.ProductQuantityNotAvailable}</th>
             </tr>
             <#list toPickList as toPick>
-                <#assign oiasgal = toPick.orderItemAndShipGroupAssocList>
+                <#assign oiasgal = toPick.orderItemShipGrpInvResList>
                 <#assign header = toPick.orderHeader>
                 <#assign channel = header.getRelatedOne("SalesChannelEnumeration")?if_exists>
 
                 <#list oiasgal as oiasga>
-                    <#assign product = oiasga.getRelatedOne("Product")?if_exists>
+                    <#assign orderProduct = oiasga.getRelatedOne("OrderItem").getRelatedOne("Product")?if_exists>
+                    <#assign product = oiasga.getRelatedOne("InventoryItem").getRelatedOne("Product")?if_exists>
                     <tr>
                         <td><a href="/ordermgr/control/orderview?orderId=${oiasga.orderId}${externalKeyParam}" class="linktext" target="_blank">${oiasga.orderId}</a></td>
                         <td>${header.orderDate?string}</td>
                         <td>${(channel.description)?if_exists}</td>
                         <td>${oiasga.orderItemSeqId}</td>
-                        <td><a href="/catalog/control/EditProduct?productId=${oiasga.productId?if_exists}${externalKeyParam}" class="linktext" target="_blank">${(product.internalName)?if_exists}</a></td>
+                        <td>
+                            <a href="/catalog/control/EditProduct?productId=${orderProduct.productId?if_exists}${externalKeyParam}" class="linktext" target="_blank">${(orderProduct.internalName)?if_exists}</a>
+                            <#if orderProduct.productId != product.productId>
+                                &nbsp;[<a href="/catalog/control/EditProduct?productId=${product.productId?if_exists}${externalKeyParam}" class="linktext" target="_blank">${(product.internalName)?if_exists}</a>]
+                            </#if>
+                        </td>
                         <td>${oiasga.shipGroupSeqId}</td>
                         <td>${oiasga.quantity}</td>
+                        <td>${oiasga.quantityNotAvailable?if_exists}</td>
                     </tr>
                 </#list>
                 <tr>
-                    <td colspan="7"><hr/></td>
+                    <td colspan="8"><hr/></td>
                 </tr>
             </#list>
         </table>
