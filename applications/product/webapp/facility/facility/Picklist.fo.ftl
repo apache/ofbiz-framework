@@ -235,17 +235,21 @@ under the License.
                         <#assign picklistItem = picklistItemInfo.picklistItem>
                         <#assign orderItem = picklistItemInfo.orderItem>
                         <#assign product = picklistItemInfo.product>
+                        <#assign picklistItemProduct = picklistItemInfo.inventoryItemAndLocation.getRelatedOne("InventoryItem").getRelatedOne("Product")>
                         <#assign orderItemShipGrpInvRes = picklistItemInfo.orderItemShipGrpInvRes?if_exists>
                         <fo:table-row>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
                                 <fo:block><#--${picklistItem.orderId}:${picklistItem.shipGroupSeqId}:-->${picklistItem.orderItemSeqId}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
+                                <fo:block>
                                 <#if product?has_content>
-                                    <fo:block>${product.internalName?default("Internal Name Not Set!")} [${product.productId}]</fo:block>
-                                <#else/>
-                                    <fo:block>&nbsp;</fo:block>
+                                    ${product.internalName?default("Internal Name Not Set!")} [${product.productId}]
                                 </#if>
+                                <#if picklistItemProduct?has_content && product?has_content && picklistItemProduct.productId != product.productId>
+                                    ${picklistItemProduct.internalName?default("Internal Name Not Set!")} [${picklistItemProduct.productId}]
+                                </#if>
+                                </fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
                                 <fo:block>${picklistItem.quantity}</fo:block>
