@@ -315,4 +315,28 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <!-- ===========Party Fixed Asset Assignment Screen========== -->
+    <screen name="EditPartyFixedAssetAssignments">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditPartyFixedAssetAssignments"/>
+                <set field="tabButtonItem" value="EditPartyFixedAssetAssignments"/>                
+                <set field="labelTitleProperty" value="PageTitleEditPartyFixedAssetAssignments"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="roleTypeId" from-field="parameters.roleTypeId"/>
+                <set field="fromDate" from-field="parameters.fromDate"/>
+                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <entity-one entity-name="PartyFixedAssetAssignment" value-name="partyFixedAssetAssignment"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListPartyFixedAssetAssignments" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <include-form name="AddPartyFixedAssetAssignment" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

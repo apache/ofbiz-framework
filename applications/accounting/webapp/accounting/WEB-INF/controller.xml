@@ -1291,6 +1291,34 @@ under the License.
         <response name="error" type="view" value="EditFinAccountAuths"/>
     </request-map>
     
+    <!-- =================== Assignment ====================== -->
+    <request-map uri="EditPartyFixedAssetAssignments">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPartyFixedAssetAssignments"/>
+        <response name="error" type="view" value="EditPartyFixedAssetAssignments"/>
+    </request-map>
+    
+    <request-map uri="createPartyFixedAssetAssignment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPartyFixedAssetAssignment"/>
+        <response name="success" type="view" value="EditPartyFixedAssetAssignments"/>
+        <response name="error" type="view" value="EditPartyFixedAssetAssignments"/>
+    </request-map>
+    
+    <request-map uri="deletePartyFixedAssetAssignment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePartyFixedAssetAssignment"/>
+        <response name="success" type="view" value="EditPartyFixedAssetAssignments"/>
+        <response name="error" type="view" value="EditPartyFixedAssetAssignments"/>
+    </request-map>
+    
+    <request-map uri="updatePartyFixedAssetAssignment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePartyFixedAssetAssignment"/>
+        <response name="success" type="view" value="EditPartyFixedAssetAssignments"/>
+        <response name="error" type="view" value="EditPartyFixedAssetAssignments"/>
+    </request-map>
+    
     <!-- ================ Entity Lookup Requests ================= -->
     <request-map uri="LookupProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
     <request-map uri="LookupVariantProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupVariantProduct"/></request-map>
@@ -1492,6 +1520,8 @@ under the License.
     <view-map name="FinancialSummaryReportOptions" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#FinancialSummaryReportOptions"/>
     <view-map name="SalesInvoiceByProductCategorySummary" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#SalesInvoiceByProductCategorySummary"/>
     
+    <!-- Assignment Mappings -->
+    <view-map name="EditPartyFixedAssetAssignments" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditPartyFixedAssetAssignments"/>
     
     <!-- end of view mappings -->
 </site-conf>

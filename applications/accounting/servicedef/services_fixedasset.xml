@@ -253,4 +253,27 @@ under the License.
         <description>Remove a FixedAsset Maintenance Order</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    
+    <!-- =========Party Fixed Asset Assignment Services========= -->
+    <service name="createPartyFixedAssetAssignment" engine="simple" default-entity-name="PartyFixedAssetAssignment"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createPartyFixedAssetAssignment" auth="true">
+        <description>Add Party to a Fixed Asset</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    
+    <service name="updatePartyFixedAssetAssignment" engine="simple" default-entity-name="PartyFixedAssetAssignment"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updatePartyFixedAssetAssignment" auth="true">
+        <description>Update Party to Fixed Asset</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="deletePartyFixedAssetAssignment" engine="simple" default-entity-name="PartyFixedAssetAssignment"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deletePartyFixedAssetAssignment" auth="true">
+        <description>Delete Party to Fixed Asset</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    
 </services>
