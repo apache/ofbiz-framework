@@ -61,7 +61,7 @@ public class PriceServices {
     public static final BigDecimal PERCENT_SCALE = new BigDecimal("100.000"); 
 
     public static final int taxCalcScale = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
-    public static final int taxFinalScale = UtilNumber.getBigDecimalRoundingMode("salestax.final.decimals");
+    public static final int taxFinalScale = UtilNumber.getBigDecimalScale("salestax.final.decimals");
     public static final int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
 
     /**
