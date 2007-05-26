@@ -1383,6 +1383,41 @@ under the License.
         <key-map field-name="communicationEventId"/>
       </view-link>
     </view-entity>
+   
+    <view-entity entity-name="OrderItemAndShipGrpInvResAndItemSum"
+            package-name="org.ofbiz.order.order"
+            never-cache="true"
+            title="Order Item and Inventory Reservation View Entity">
+      <member-entity entity-alias="OI" entity-name="OrderItem"/>
+      <member-entity entity-alias="OISGIR" entity-name="OrderItemShipGrpInvRes"/>
+      <member-entity entity-alias="II" entity-name="InventoryItem"/>
+      <alias entity-alias="OI" name="orderId" group-by="true"/>
+      <alias entity-alias="OI" name="orderItemSeqId" group-by="true"/>
+      <alias entity-alias="OI" name="productId" group-by="true"/>
+      <alias entity-alias="II" name="inventoryProductId" field="productId" group-by="true"/>
+      <alias entity-alias="OISGIR" name="shipGroupSeqId" group-by="true"/>
+      <alias entity-alias="OI" name="quantityOrdered" function="sum">
+          <complex-alias operator="-">
+              <complex-alias-field entity-alias="OI" field="quantity" default-value="0"/>
+              <complex-alias-field entity-alias="OI" field="cancelQuantity" default-value="0"/>
+          </complex-alias>
+      </alias>
+      <alias entity-alias="OISGIR" name="totQuantityReserved" field="quantity" function="sum"/>
+      <alias entity-alias="OISGIR" name="totQuantityNotAvailable" field="quantityNotAvailable" function="sum"/>
+      <alias entity-alias="OISGIR" name="totQuantityAvailable" function="sum">
+          <complex-alias operator="-">
+              <complex-alias-field entity-alias="OISGIR" field="quantity" default-value="0"/>
+              <complex-alias-field entity-alias="OISGIR" field="quantityNotAvailable" default-value="0"/>
+          </complex-alias>
+      </alias>
+      <view-link entity-alias="OI" rel-entity-alias="OISGIR">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+      </view-link>
+      <view-link entity-alias="OISGIR" rel-entity-alias="II">
+        <key-map field-name="inventoryItemId"/>
+      </view-link>
+    </view-entity>
 
 </entitymodel>
 

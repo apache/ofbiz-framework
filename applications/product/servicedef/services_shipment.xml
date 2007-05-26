@@ -406,6 +406,7 @@ under the License.
         <attribute name="qtyInfo" type="Map" string-map-prefix="qty_" mode="IN" optional="true"/>
         <attribute name="pkgInfo" type="Map" string-map-prefix="pkg_" mode="IN" optional="true"/>
         <attribute name="selInfo" type="Map" string-map-prefix="sel_" mode="IN" optional="true"/>
+        <attribute name="iteInfo" type="Map" string-map-prefix="ite_" mode="IN" optional="true"/>
         <attribute name="wgtInfo" type="Map" string-map-prefix="wgt_" mode="IN" optional="true"/>
     </service>
 
@@ -448,6 +449,7 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
         <attribute name="packageSeqId" type="Integer" mode="IN" optional="false"/>
     </service>
