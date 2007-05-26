@@ -239,6 +239,7 @@ under the License.
             </tr>
                         
             <#if (itemInfos?has_content)>              
+              <#assign rowKey = 1>
               <#list itemInfos as itemInfo>                                            
               <#-- <#list itemInfos as orderItem>  -->
                 <#assign orderItem = itemInfo.orderItem/>
@@ -252,24 +253,24 @@ under the License.
                 </#if>
                 -->
 
-                <#assign inputQty = (orderItemQuantity - shippedQuantity - packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId))>
+                <#assign inputQty = (orderItemQuantity - shippedQuantity - packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId, itemInfo.productId))>
                 <tr>
-                  <td><input type="checkbox" name="sel_${orderItem.orderItemSeqId}" value="Y" <#if (inputQty >0)>checked=""</#if>/></td>
+                  <td><input type="checkbox" name="sel_${rowKey}" value="Y" <#if (inputQty >0)>checked=""</#if>/></td>
                   <td><div class="tabletext">${orderItem.orderItemSeqId}</td>
-                  <td><div class="tabletext">${orderItem.productId?default("N/A")}</td>
+                  <td><div class="tabletext"><#if itemInfo.productId?exists && orderItem.productId?exists && orderItem.productId != itemInfo.productId>${orderItem.productId?default("N/A")}&nbsp;</#if>${itemInfo.productId?default("N/A")}</td>
                   <td><div class="tabletext">${orderItem.itemDescription?if_exists}</td>
                   <td align="right"><div class="tabletext">${orderItemQuantity}</td>
                   <td align="right"><div class="tabletext">${shippedQuantity?default(0)}</td>
-                  <td align="right"><div class="tabletext">${packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId)}</td>
+                  <td align="right"><div class="tabletext">${packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId, itemInfo.productId)}</td>
                   <td>&nbsp;&nbsp;</td>
                   <td align="center">
-                    <input type="text" class="inputBox" size="7" name="qty_${orderItem.orderItemSeqId}" value="${inputQty}">
+                    <input type="text" class="inputBox" size="7" name="qty_${rowKey}" value="${inputQty}">
                   </td>
                   <#--td align="center">
-                    <input type="text" class="inputBox" size="7" name="wgt_${orderItem.orderItemSeqId}" value="">
+                    <input type="text" class="inputBox" size="7" name="wgt_${rowKey}" value="">
                   </td-->
                   <td align="center">
-                    <select name="pkg_${orderItem.orderItemSeqId}">
+                    <select name="pkg_${rowKey}">
                       <option value="1">${uiLabelMap.ProductPackage} 1</option>
                       <option value="2">${uiLabelMap.ProductPackage} 2</option>
                       <option value="3">${uiLabelMap.ProductPackage} 3</option>
@@ -277,8 +278,10 @@ under the License.
                       <option value="5">${uiLabelMap.ProductPackage} 5</option>
                     </select>
                   </td>
-                  <input type="hidden" name="prd_${orderItem.orderItemSeqId}" value="${orderItem.productId?if_exists}">
+                  <input type="hidden" name="prd_${rowKey}" value="${itemInfo.productId?if_exists}"/>
+                  <input type="hidden" name="ite_${rowKey}" value="${orderItem.orderItemSeqId}"/>
                 </tr>
+                <#assign rowKey = rowKey + 1>
               </#list>
             </#if>
             <tr><td colspan="10">&nbsp;</td></tr>
@@ -389,7 +392,7 @@ under the License.
               <td align="right"><div class="tabletext">${line.getQuantity()}</td>
               <#--td align="right"><div class="tabletext">${line.getWeight()}</td-->
               <td align="right"><div class="tabletext">${line.getPackageSeq()}</td>
-              <td align="right"><a href="<@ofbizUrl>ClearPackLine?facilityId=${facilityId}&orderId=${line.getOrderId()}&orderItemSeqId=${line.getOrderItemSeqId()}&shipGroupSeqId=${line.getShipGroupSeqId()}&inventoryItemId=${line.getInventoryItemId()}&packageSeqId=${line.getPackageSeq()}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClear}</a></td>
+              <td align="right"><a href="<@ofbizUrl>ClearPackLine?facilityId=${facilityId}&orderId=${line.getOrderId()}&orderItemSeqId=${line.getOrderItemSeqId()}&shipGroupSeqId=${line.getShipGroupSeqId()}&amp;productId=${line.getProductId()?default("")}&inventoryItemId=${line.getInventoryItemId()}&packageSeqId=${line.getPackageSeq()}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClear}</a></td>
             </tr>
           </#list>
         </table>

@@ -133,7 +133,7 @@ public class PackingSession implements java.io.Serializable {
         // find the inventoryItemId to use
         if (reservations.size() == 1) {
             GenericValue res = EntityUtil.getFirst(reservations);
-            int checkCode = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, quantity, packageSeqId, update);
+            int checkCode = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, packageSeqId, update);
             this.createPackLineItem(checkCode, res, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, weight, packageSeqId);
         } else {
             // more than one reservation found
@@ -143,15 +143,21 @@ public class PackingSession implements java.io.Serializable {
 
             while (i.hasNext() && qtyRemain > 0) {
                 GenericValue res = (GenericValue) i.next();
+
+                // Check that the inventory item product match with the current product to pack
+                if (!productId.equals(res.getRelatedOne("InventoryItem").getString("productId"))) {
+                    continue;
+                }
+
                 double resQty = res.getDouble("quantity").doubleValue();
-                PackingSessionLine line = this.findLine(orderId, orderItemSeqId, shipGroupSeqId, res.getString("inventoryItemId"), packageSeqId);
+                PackingSessionLine line = this.findLine(orderId, orderItemSeqId, shipGroupSeqId, productId, res.getString("inventoryItemId"), packageSeqId);
                 if (UtilValidate.isNotEmpty(line) && !update) {
                     resQty -= line.getQuantity();
                 }
                 
                 double thisQty = resQty > qtyRemain ? qtyRemain : resQty;
 
-                int thisCheck = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, thisQty, packageSeqId, update);
+                int thisCheck = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, productId, thisQty, packageSeqId, update);
                 switch (thisCheck) {
                     case 2:
                         Debug.log("Packing check returned '2' - new pack line will be created!", module);
@@ -192,7 +198,7 @@ public class PackingSession implements java.io.Serializable {
         this.addOrIncreaseLine(null, null, null, productId, quantity, packageSeqId, 0, false);
     }
 
-    public PackingSessionLine findLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String inventoryItemId, int packageSeq) {
+    public PackingSessionLine findLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, int packageSeq) {
         List lines = this.getLines();
         Iterator i = lines.iterator();
         while (i.hasNext()) {
@@ -200,6 +206,7 @@ public class PackingSession implements java.io.Serializable {
             if (orderId.equals(line.getOrderId()) &&
                     orderItemSeqId.equals(line.getOrderItemSeqId()) &&
                     shipGroupSeqId.equals(line.getShipGroupSeqId()) &&
+                    productId.equals(line.getProductId()) &&
                     inventoryItemId.equals(line.getInventoryItemId()) && 
                     packageSeq == line.getPackageSeq()) {
                 return line;
@@ -274,13 +281,13 @@ public class PackingSession implements java.io.Serializable {
         }
     }
 
-    protected int checkLineForAdd(GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId, double quantity, int packageSeqId, boolean update) {
+    protected int checkLineForAdd(GenericValue res, String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, double quantity, int packageSeqId, boolean update) {
         // check to see if the reservation can hold the requested quantity amount
         String invItemId = res.getString("inventoryItemId");
         double resQty = res.getDouble("quantity").doubleValue();
 
-        PackingSessionLine line = this.findLine(orderId, orderItemSeqId, shipGroupSeqId, invItemId, packageSeqId);
-        double packedQty = this.getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId);
+        PackingSessionLine line = this.findLine(orderId, orderItemSeqId, shipGroupSeqId, productId, invItemId, packageSeqId);
+        double packedQty = this.getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId, productId);
 
         Debug.log("Packed quantity [" + packedQty + "] + [" + quantity + "]", module);
 
@@ -342,22 +349,22 @@ public class PackingSession implements java.io.Serializable {
         return packageSeq;
     }
 
-    public double getPackedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId) {
-        return getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId, null, -1);
+    public double getPackedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId) {
+        return getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId,  productId, null, -1);
     }
 
-    public double getPackedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, int packageSeq) {
-        return getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId, null, packageSeq);
+    public double getPackedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, int packageSeq) {
+        return getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId,  productId, null, packageSeq);
     }
 
-    public double getPackedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String inventoryItemId, int packageSeq) {
+    public double getPackedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, int packageSeq) {
         double total = 0.0;
         List lines = this.getLines();
         Iterator i = lines.iterator();
         while (i.hasNext()) {
             PackingSessionLine line = (PackingSessionLine) i.next();
             if (orderId.equals(line.getOrderId()) && orderItemSeqId.equals(line.getOrderItemSeqId()) &&
-                    shipGroupSeqId.equals(line.getShipGroupSeqId())) {
+                    shipGroupSeqId.equals(line.getShipGroupSeqId()) && productId.equals(line.getProductId())) {
                 if (inventoryItemId == null || inventoryItemId.equals(line.getInventoryItemId())) {
                     if (packageSeq == -1 || packageSeq == line.getPackageSeq()) {
                         total += line.getQuantity();
@@ -410,29 +417,19 @@ public class PackingSession implements java.io.Serializable {
         return getPackedQuantity(productId, -1);
     }
 
-    public double getCurrentReservedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId) {
+    public double getCurrentReservedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId) {
         double reserved = -1;
-        List res = null;
         try {
-            res = this.getDelegator().findByAnd("OrderItemShipGrpInvRes", UtilMisc.toMap("orderId", orderId,
-                    "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId));
+            GenericValue res = EntityUtil.getFirst(this.getDelegator().findByAnd("OrderItemAndShipGrpInvResAndItemSum", UtilMisc.toMap("orderId", orderId,
+                    "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId, "inventoryProductId", productId)));
+            Double reservedDbl = res.getDouble("totQuantityAvailable");
+            if (reservedDbl == null) {
+                reservedDbl = new Double(-1);
+            }
+            reserved = reservedDbl.doubleValue();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-
-        if (res != null) {
-            reserved = 0.0;
-            Iterator i = res.iterator();
-            while (i.hasNext()) {
-                GenericValue v = (GenericValue) i.next();
-                Double not = v.getDouble("quantityNotAvailable");
-                Double qty = v.getDouble("quantity");
-                if (not == null) not = new Double(0);
-                if (qty == null) qty = new Double(0);
-                reserved += (qty.doubleValue() - not.doubleValue());
-            }
-        }
-
         return reserved;
     }
 
@@ -626,8 +623,8 @@ public class PackingSession implements java.io.Serializable {
         Iterator i = this.getLines().iterator();
         while (i.hasNext()) {
             PackingSessionLine line = (PackingSessionLine) i.next();
-            double reservedQty =  this.getCurrentReservedQuantity(line.getOrderId(), line.getOrderItemSeqId(), line.getShipGroupSeqId());
-            double packedQty = this.getPackedQuantity(line.getOrderId(), line.getOrderItemSeqId(), line.getShipGroupSeqId());
+            double reservedQty =  this.getCurrentReservedQuantity(line.getOrderId(), line.getOrderItemSeqId(), line.getShipGroupSeqId(), line.getProductId());
+            double packedQty = this.getPackedQuantity(line.getOrderId(), line.getOrderItemSeqId(), line.getShipGroupSeqId(), line.getProductId());
 
             if (packedQty != reservedQty) {
                 errors.add("Packed amount does not match reserved amount for item (" + line.getProductId() + ") [" + packedQty + " / " + reservedQty + "]");
@@ -717,7 +714,7 @@ public class PackingSession implements java.io.Serializable {
             PackingSessionLine line = (PackingSessionLine) i.next();
             if (this.checkLine(processedLines, line)) {
                 double totalPacked = this.getPackedQuantity(line.getOrderId(),  line.getOrderItemSeqId(),
-                        line.getShipGroupSeqId(), line.getInventoryItemId(), -1);
+                        line.getShipGroupSeqId(), line.getProductId(), line.getInventoryItemId(), -1);
 
                 line.issueItemToShipment(shipmentId, picklistBinId, userLogin, new Double(totalPacked), getDispatcher());
                 processedLines.add(line);
@@ -955,15 +952,15 @@ public class PackingSession implements java.io.Serializable {
                 quantity = v.getBigDecimal("quantity").setScale(2, BigDecimal.ROUND_HALF_UP);
                 try {
                     orderItem = v.getRelatedOne("OrderItem");
-                    productId = orderItem.getString("productId");
+                    productId = v.getRelatedOne("InventoryItem").getString("productId");
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
             } else {
+                // this is an OrderItemAndShipGrpInvResAndItemSum
                 orderItem = v;
-                productId = v.getString("productId");
-                double reserved = getCurrentReservedQuantity(orderItem.getString("orderId"), orderItem.getString("orderItemSeqId"), primaryShipGrp);
-                quantity = new BigDecimal(reserved).setScale(2, BigDecimal.ROUND_HALF_UP);
+                productId = v.getString("inventoryProductId");
+                quantity = v.getBigDecimal("totQuantityAvailable").setScale(2, BigDecimal.ROUND_HALF_UP);
             }
             Debug.log("created item display object quanttiy: " + quantity + " (" + productId + ")", module);
         }
@@ -994,7 +991,13 @@ public class PackingSession implements java.io.Serializable {
         public boolean equals(Object o) {
             if (o instanceof ItemDisplay) {
                 ItemDisplay d = (ItemDisplay) o;
-                return (d.productId.equals(productId));
+                boolean sameOrderItemProduct = true;
+                if (d.getOrderItem().getString("productId") != null && orderItem.getString("productId") != null) {
+                    sameOrderItemProduct = d.getOrderItem().getString("productId").equals(orderItem.getString("productId"));
+                } else if (d.getOrderItem().getString("productId") != null || orderItem.getString("productId") != null) {
+                    sameOrderItemProduct = false;
+                }
+                return (d.productId.equals(productId) && sameOrderItemProduct);
             } else {
                 return false;
             }            

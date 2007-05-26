@@ -132,15 +132,16 @@ if (UtilValidate.isNotEmpty(orderId)) {
                 // Generate the shipment cost estimate for the ship group
                 productStoreId = orh.getProductStoreId();
                 shippableItemInfo = orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId);
+                shippableItems = delegator.findByAnd("OrderItemAndShipGrpInvResAndItemSum", UtilMisc.toMap("orderId", orderId, "shipGroupSeqId", shipGroupSeqId));
                 shippableTotal = new Double(orh.getShippableTotalBd(shipGroupSeqId).doubleValue());
                 shippableWeight = new Double(orh.getShippableWeightBd(shipGroupSeqId).doubleValue());
                 shippableQuantity = new Double(orh.getShippableQuantityBd(shipGroupSeqId).doubleValue());
-                shipmentCostEstimate = packSession.getShipmentCostEstimate(orderItemShipGroup, productStoreId, shippableItemInfo, shippableTotal, shippableWeight, shippableQuantity);                
+                shipmentCostEstimate = packSession.getShipmentCostEstimate(orderItemShipGroup, productStoreId, shippableItemInfo, shippableTotal, shippableWeight, shippableQuantity);
                 context.put("shipmentCostEstimateForShipGroup", shipmentCostEstimate);
                 context.put("productStoreId", productStoreId);
 
                 if (picklistBinId == null) {
-                    packSession.addItemInfo(shippableItemInfo);
+                    packSession.addItemInfo(shippableItems);
                     //context.put("itemInfos", shippableItemInfo);
                 }
             } else {

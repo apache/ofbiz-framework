@@ -88,6 +88,7 @@ public class PackingServices {
         session.setPickerPartyId(pickerPartyId);
 
         Map selInfo = (Map) context.get("selInfo");
+        Map iteInfo = (Map) context.get("iteInfo");
         Map prdInfo = (Map) context.get("prdInfo");
         Map qtyInfo = (Map) context.get("qtyInfo");
         Map pkgInfo = (Map) context.get("pkgInfo");
@@ -96,17 +97,18 @@ public class PackingServices {
         if (selInfo != null) {
             Iterator i = selInfo.keySet().iterator();
             while (i.hasNext()) {
-                String orderItemSeqId = (String) i.next();
-                String prdStr = (String) prdInfo.get(orderItemSeqId);
+                String rowKey = (String) i.next();
+                String orderItemSeqId = (String) iteInfo.get(rowKey);
+                String prdStr = (String) prdInfo.get(rowKey);
                 if (UtilValidate.isEmpty(prdStr)) {
                     // set the productId to null if empty
                     prdStr = null;
                 }
 
                 // base package/quantity/weight strings
-                String pkgStr = (String) pkgInfo.get(orderItemSeqId);
-                String qtyStr = (String) qtyInfo.get(orderItemSeqId);
-                String wgtStr = (String) wgtInfo.get(orderItemSeqId);
+                String pkgStr = (String) pkgInfo.get(rowKey);
+                String qtyStr = (String) qtyInfo.get(rowKey);
+                String wgtStr = (String) wgtInfo.get(rowKey);
 
                 Debug.log("Item: " + orderItemSeqId + " / Product: " + prdStr + " / Quantity: " + qtyStr + " /  Package: " + pkgStr + " / Weight: " + wgtStr, module);
 
@@ -132,7 +134,7 @@ public class PackingServices {
                 if (qtyStr == null) {
                     quantities = new String[packages.length];
                     for (int p = 0; p < packages.length; p++) {
-                        quantities[p] = (String) qtyInfo.get(orderItemSeqId + ":" + packages[p]);
+                        quantities[p] = (String) qtyInfo.get(rowKey + ":" + packages[p]);
                     }
                     if (quantities.length != packages.length) {
                         return ServiceUtil.returnError("Packages and quantities do not match.");
@@ -192,10 +194,11 @@ public class PackingServices {
         String orderItemSeqId = (String) context.get("orderItemSeqId");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String inventoryItemId = (String) context.get("inventoryItemId");
+        String productId = (String) context.get("productId");
         Integer packageSeqId = (Integer) context.get("packageSeqId");
 
         PackingSessionLine line = session.findLine(orderId, orderItemSeqId, shipGroupSeqId,
-                inventoryItemId, packageSeqId.intValue());
+                productId, inventoryItemId, packageSeqId.intValue());
 
         // remove the line
         if (line != null) {
