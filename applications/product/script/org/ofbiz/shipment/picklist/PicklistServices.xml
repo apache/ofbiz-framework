@@ -862,7 +862,7 @@ under the License.
                     <!-- handle case where an InventoryItem is not associated with a location -->
                     <if-not-empty field-name="picklistItemInfo.orderItem.productId">
                         <clear-field field-name="productValueTemp"/>
-                        <set field="productId" from-field="picklistItemInfo.orderItem.productId"/>
+                        <set field="productId" from-field="picklistItemInfo.inventoryItemAndLocation.productId"/>
                         <entity-one entity-name="Product" value-name="productValueTemp" use-cache="true">
                             <field-map field-name="productId"/>
                         </entity-one>
