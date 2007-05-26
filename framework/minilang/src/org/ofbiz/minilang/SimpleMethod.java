@@ -616,6 +616,8 @@ public class SimpleMethod {
                     Debug.logInfo("No response code string or errors found, assuming success; returning code [" + defaultSuccessCode + "]", module);
                     response = defaultSuccessCode;
                 }
+            } else if ("null".equalsIgnoreCase(response)) {
+                response = null;
             }
             returnValue = response;
         } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
