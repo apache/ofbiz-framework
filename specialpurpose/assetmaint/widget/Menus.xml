@@ -43,6 +43,9 @@
         <menu-item name="ListFixedAssetMaints" title="${uiLabelMap.AccountingFixedAssetMaints}">
             <link target="ListFixedAssetMaints?fixedAssetId=${fixedAssetId}"/>
         </menu-item>
+        <menu-item name="EditPartyFixedAssetAssignments" title="${uiLabelMap.AccountingPartyFixedAssetAssignments}">
+            <link target="EditPartyFixedAssetAssignments?fixedAssetId=${fixedAssetId}"/>
+        </menu-item>
     </menu>
 
     <menu name="FixedAssetMaintTabBar" selected-menuitem-context-field-name="tabButtonItemFixedAssetMaint" default-menu-item-name="EditFixedAssetMaint"> 

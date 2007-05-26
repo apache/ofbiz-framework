@@ -676,4 +676,27 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
+    <!-- ==============Party Fixed Asset Assignment============= -->
+    <simple-method method-name="createPartyFixedAssetAssignment" short-description="Associate Party to Fixed Asset">
+        <make-value entity-name="PartyFixedAssetAssignment" value-name="newEntity"/>
+        <set-pk-fields value-name="newEntity" map-name="parameters"/>
+        <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
+        <if-empty field-name="fromDate" map-name="newEntity">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
+        </if-empty>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+        
+    <simple-method method-name="updatePartyFixedAssetAssignment" short-description="Update Party to Fixed Asset">
+        <entity-one entity-name="PartyFixedAssetAssignment" value-name="newEntity"/>
+        <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
+        <store-value value-name="newEntity"/>
+    </simple-method>
+        
+    <simple-method method-name="deletePartyFixedAssetAssignment" short-description="Delete Party to Fixed Asset">
+        <entity-one entity-name="PartyFixedAssetAssignment" value-name="newEntity"/>
+        <remove-value value-name="newEntity"/>
+    </simple-method>
+        
 </simple-methods>
