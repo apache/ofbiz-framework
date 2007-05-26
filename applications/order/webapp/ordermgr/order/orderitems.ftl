@@ -114,7 +114,7 @@ under the License.
                                 <td style="padding-left: 15px; text-align: left;">${requiredQuantity}</td></tr>
                               <tr><td align="left">${uiLabelMap.ProductInInventory} ${uiLabelMap.ProductQoh}</td>
                                 <td style="padding-left: 15px; text-align: left;">${qohQuantity} (${uiLabelMap.ProductAtp}: ${atpQuantity})</td></tr>
-                              <#if (product != null) && (product.productTypeId != null) && (product.productTypeId == "MARKETING_PKG_AUTO")>
+                              <#if (product != null) && (product.productTypeId != null) && (product.productTypeId == "MARKETING_PKG_AUTO" || product.productTypeId == "MARKETING_PKG_PICK")>
                                 <tr><td align="left">${uiLabelMap.ProductMarketingPackageQOH}</td>
                                   <td style="padding-left: 15px; text-align: left;">${mktgPkgQOH} (${uiLabelMap.ProductAtp}: ${mktgPkgATP})</td></tr>
                               </#if>

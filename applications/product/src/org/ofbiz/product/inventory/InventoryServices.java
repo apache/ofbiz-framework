@@ -754,9 +754,10 @@ public class InventoryServices {
 
                 // get both the real ATP/QOH available and the quantities available from marketing packages
                 try {
-                    if ("MARKETING_PKG_AUTO".equals(product.getString("productTypeId"))) {
+                    if ("MARKETING_PKG_AUTO".equals(product.getString("productTypeId")) ||
+                            "MARKETING_PKG_PICK".equals(product.getString("productTypeId"))) {
                         mktgPkgInvResult = dispatcher.runSync("getMktgPackagesAvailable", UtilMisc.toMap("productId", productId, "facilityId", facility.getString("facilityId")));
-                    } 
+                    }
                     invResult = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", productId, "facilityId", facility.getString("facilityId")));
                 } catch (GenericServiceException e) {
                     String msg = "Could not find inventory for facility [" + facility.getString("facilityId") + "]";
@@ -771,7 +772,7 @@ public class InventoryServices {
                     if (fatp != null) atp += fatp.doubleValue();
                     if (fqoh != null) qoh += fqoh.doubleValue();
                 }
-                if (("MARKETING_PKG_AUTO".equals(product.getString("productTypeId"))) && (!ServiceUtil.isError(mktgPkgInvResult))) {
+                if (("MARKETING_PKG_AUTO".equals(product.getString("productTypeId")) || "MARKETING_PKG_PICK".equals(product.getString("productTypeId"))) && (!ServiceUtil.isError(mktgPkgInvResult))) {
                     Double fatp = (Double) mktgPkgInvResult.get("availableToPromiseTotal");
                     Double fqoh = (Double) mktgPkgInvResult.get("quantityOnHandTotal");
                     if (fatp != null) mktgPkgAtp += fatp.doubleValue();
@@ -812,7 +813,8 @@ public class InventoryServices {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        if ("MARKETING_PKG_AUTO".equals(product.getString("productTypeId"))) {
+        if ("MARKETING_PKG_AUTO".equals(product.getString("productTypeId")) ||
+                "MARKETING_PKG_PICK".equals(product.getString("productTypeId"))) {
             try {
                 resultOutput = dispatcher.runSync("getMktgPackagesAvailable", contextInput);
             } catch (GenericServiceException e) {
