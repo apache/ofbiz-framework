@@ -1030,35 +1030,72 @@ public class OrderServices {
                             Debug.logInfo("Order item [" + orderItem.getString("orderId") + " / " + orderItem.getString("orderItemSeqId") + "] is not in a proper status for reservation", module);
                             continue;
                         }
-                        if (UtilValidate.isNotEmpty(orderItem.getString("productId")) && // only reserve product items, ignore non-product items
-                                !"RENTAL_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId")) // ignore for rental
-                                ) {
+                        if (UtilValidate.isNotEmpty(orderItem.getString("productId")) &&   // only reserve product items, ignore non-product items
+                            !"RENTAL_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId"))) {  // ignore for rental
                             try {
-                                Map reserveInput = new HashMap();
-                                reserveInput.put("productStoreId", productStoreId);
-                                reserveInput.put("productId", orderItem.getString("productId"));
-                                reserveInput.put("orderId", orderItem.getString("orderId"));
-                                reserveInput.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
-                                reserveInput.put("shipGroupSeqId", orderItemShipGroupAssoc.getString("shipGroupSeqId"));
-                                // use the quantity from the orderItemShipGroupAssoc, NOT the orderItem, these are reserved by item-group assoc
-                                reserveInput.put("quantity", orderItemShipGroupAssoc.getDouble("quantity"));
-                                reserveInput.put("userLogin", userLogin);
-                                Map reserveResult = dispatcher.runSync("reserveStoreInventory", reserveInput);
+                                // get the product of the order item
+                                GenericValue product = orderItem.getRelatedOne("Product");
+                                if (product == null) {
+                                    Debug.logError("Error when looking up product in reserveInventory service", module);
+                                    resErrorMessages.add("Error when looking up product in reserveInventory service");
+                                    continue;
+                                }
+                                
+                                // for MARKETING_PKG_PICK reserve the components
+                                if ("MARKETING_PKG_PICK".equals(product.get("productTypeId"))) {
+                                    Map componentsRes = dispatcher.runSync("getAssociatedProducts", UtilMisc.toMap("productId", orderItem.getString("productId"), "type", "PRODUCT_COMPONENT"));
+                                    if (ServiceUtil.isError(componentsRes)) {
+                                        resErrorMessages.add(componentsRes.get(ModelService.ERROR_MESSAGE));
+                                        continue;
+                                    } else {
+                                        List assocProducts = (List) componentsRes.get("assocProducts"); 
+                                        Iterator assocProductsIter = assocProducts.iterator();
+                                        while (assocProductsIter.hasNext()) {
+                                            GenericValue productAssoc = (GenericValue) assocProductsIter.next();
+                                            Double quantityOrd = productAssoc.getDouble("quantity");
+                                            Double quantityKit = orderItemShipGroupAssoc.getDouble("quantity");
+                                            Double quantity = new Double(quantityOrd.doubleValue() * quantityKit.doubleValue());
+                                            Map reserveInput = new HashMap();
+                                            reserveInput.put("productStoreId", productStoreId);
+                                            reserveInput.put("productId", productAssoc.getString("productIdTo"));
+                                            reserveInput.put("orderId", orderItem.getString("orderId"));
+                                            reserveInput.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
+                                            reserveInput.put("shipGroupSeqId", orderItemShipGroupAssoc.getString("shipGroupSeqId"));
+                                            reserveInput.put("quantity", quantity);
+                                            reserveInput.put("userLogin", userLogin);
+                                            Map reserveResult = dispatcher.runSync("reserveStoreInventory", reserveInput);
 
-                                if (ServiceUtil.isError(reserveResult)) {
-                                    GenericValue product = null;
-                                    try {
-                                        product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", orderItem.getString("productId")));
-                                    } catch (GenericEntityException e) {
-                                        Debug.logError(e, "Error when looking up product in createOrder service, product failed inventory reservation", module);
+                                            if (ServiceUtil.isError(reserveResult)) {
+                                                String invErrMsg = "The product ";
+                                                if (product != null) {
+                                                    invErrMsg += getProductName(product, orderItem);
+                                                }
+                                                invErrMsg += " with ID " + orderItem.getString("productId") + " is no longer in stock. Please try reducing the quantity or removing the product from this order.";
+                                                resErrorMessages.add(invErrMsg);
+                                            }
+                                        }
                                     }
+                                } else {
+                                    // reserve the product
+                                    Map reserveInput = new HashMap();
+                                    reserveInput.put("productStoreId", productStoreId);
+                                    reserveInput.put("productId", orderItem.getString("productId"));
+                                    reserveInput.put("orderId", orderItem.getString("orderId"));
+                                    reserveInput.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
+                                    reserveInput.put("shipGroupSeqId", orderItemShipGroupAssoc.getString("shipGroupSeqId"));
+                                    // use the quantity from the orderItemShipGroupAssoc, NOT the orderItem, these are reserved by item-group assoc
+                                    reserveInput.put("quantity", orderItemShipGroupAssoc.getDouble("quantity"));
+                                    reserveInput.put("userLogin", userLogin);
+                                    Map reserveResult = dispatcher.runSync("reserveStoreInventory", reserveInput);
 
-                                    String invErrMsg = "The product ";
-                                    if (product != null) {
-                                        invErrMsg += getProductName(product, orderItem);
+                                    if (ServiceUtil.isError(reserveResult)) {
+                                        String invErrMsg = "The product ";
+                                        if (product != null) {
+                                            invErrMsg += getProductName(product, orderItem);
+                                        }
+                                        invErrMsg += " with ID " + orderItem.getString("productId") + " is no longer in stock. Please try reducing the quantity or removing the product from this order.";
+                                        resErrorMessages.add(invErrMsg);
                                     }
-                                    invErrMsg += " with ID " + orderItem.getString("productId") + " is no longer in stock. Please try reducing the quantity or removing the product from this order.";
-                                    resErrorMessages.add(invErrMsg);
                                 }
                             } catch (GenericServiceException e) {
                                 String errMsg = "Fatal error calling reserveStoreInventory service: " + e.toString();
