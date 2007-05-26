@@ -257,6 +257,17 @@ under the License.
     <ProductAssoc productId="GZ-BASKET" productIdTo="GZ-1001" productAssocTypeId="MANUF_COMPONENT" quantity="2" fromDate="2001-05-13 12:00:00.0"/>
     <ProductAssoc productId="GZ-BASKET" productIdTo="GZ-1004" productAssocTypeId="MANUF_COMPONENT" quantity="3" fromDate="2001-05-13 12:00:00.0"/>
     
+    <!-- test for marketing package pick assembly -->
+    <Product productId="GZ-BASKET-PICK" productTypeId="MARKETING_PKG_PICK" productName="Gizmo Basket Assembly Pick" internalName="Assembled Pick Gizmo Basket" 
+        description="Assembled Pick Gizmo Basket.  Assembled during picking."
+        longDescription="Assembled Pick Gizmo Basket.  This item will be assembled during picking."
+        taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" />
+    <ProductPrice productId="GZ-BASKET-PICK" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" price="150" fromDate="2007-01-01 12:00:00.0"/>
+    <ProductPrice productId="GZ-BASKET-PICK" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" price="165" fromDate="2007-01-01 12:00:00.0"/>
+    <ProductAssoc productId="GZ-BASKET-PICK" productIdTo="GZ-1000" productAssocTypeId="PRODUCT_COMPONENT" quantity="1" fromDate="2007-01-01 12:00:00.0"/>
+    <ProductAssoc productId="GZ-BASKET-PICK" productIdTo="GZ-1001" productAssocTypeId="PRODUCT_COMPONENT" quantity="2" fromDate="2007-01-01 12:00:00.0"/>
+    <ProductAssoc productId="GZ-BASKET-PICK" productIdTo="GZ-1004" productAssocTypeId="PRODUCT_COMPONENT" quantity="3" fromDate="2007-01-01 12:00:00.0"/>
+    
     <ProductFeatureCategory productFeatureCategoryId="8000" description="License Features"/>
     <ProductFeatureCategoryAppl productFeatureCategoryId="8000" productCategoryId="CATALOG1_SEARCH" fromDate="2001-05-13 12:00:00.0"/>
 
@@ -359,6 +370,7 @@ under the License.
     <ProductCategoryMember productCategoryId="100" productId="GZ-DIG" sequenceNum="4" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-NEWS-1MO" sequenceNum="5" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-BASKET" sequenceNum="6" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryMember productCategoryId="100" productId="GZ-BASKET-PICK" sequenceNum="8" fromDate="2007-01-01 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-1000" sequenceNum="10" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-1001" sequenceNum="11" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-1004" sequenceNum="14" fromDate="2001-05-13 12:00:00.0"/>
