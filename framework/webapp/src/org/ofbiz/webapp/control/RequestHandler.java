@@ -327,22 +327,20 @@ public class RequestHandler implements Serializable {
 
         // restore previous redirected request's attribute, so redirected page can display previous request's error msg etc.
         String preReqAttStr = (String) request.getSession().getAttribute("_REQ_ATTR_MAP_");
-        Map preRequestMap;
         if (preReqAttStr != null) {
             request.getSession().removeAttribute("_REQ_ATTR_MAP_");
-            byte [] reqAttrMapBytes = StringUtil.fromHexString(preReqAttStr);
-            preRequestMap = (java.util.Map)org.ofbiz.base.util.UtilObject.getObject(reqAttrMapBytes);
-            java.util.Iterator keys= preRequestMap.keySet().iterator();
-            while(keys.hasNext()){
-                String key = (String) keys.next();
-                if("_ERROR_MESSAGE_LIST_".equals(key) ||
-                        "_ERROR_MESSAGE_MAP_".equals(key) ||
-                        "_ERROR_MESSAGE_".equals(key) ||
-                        "_EVENT_MESSAGE_LIST_".equals(key) ||
-                        "_EVENT_MESSAGE_".equals(key)){
-                    Object value = preRequestMap.get(key);
-                    request.setAttribute(key, value);
-               }
+            byte[] reqAttrMapBytes = StringUtil.fromHexString(preReqAttStr);
+            Map preRequestMap = (Map) UtilObject.getObject(reqAttrMapBytes);
+            if (preRequestMap != null && preRequestMap.size() > 0) {
+                Iterator keys = preRequestMap.keySet().iterator();
+                while (keys.hasNext()){
+                    String key = (String) keys.next();
+                    if("_ERROR_MESSAGE_LIST_".equals(key) || "_ERROR_MESSAGE_MAP_".equals(key) || "_ERROR_MESSAGE_".equals(key) ||
+                            "_EVENT_MESSAGE_LIST_".equals(key) || "_EVENT_MESSAGE_".equals(key)) {
+                        Object value = preRequestMap.get(key);
+                        request.setAttribute(key, value);
+                   }
+                }
             }
         }
 
@@ -384,7 +382,7 @@ public class RequestHandler implements Serializable {
         } else { // handle views
             // first invoke the post-processor events.
             Collection postProcEvents = requestManager.getPostProcessor();
-            if (postProcEvents != null) {
+            if (chain == null && postProcEvents != null) { // don't run post-proc events on chained requests
                 Iterator i = postProcEvents.iterator();
 
                 while (i.hasNext()) {
