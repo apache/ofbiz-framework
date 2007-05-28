@@ -110,6 +110,7 @@ public class PartyServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         String partyId = (String) context.get("partyId");
+        String description = (String) context.get("description");
 
         // if specified partyId starts with a number, return an error
         if (partyId != null && partyId.length() > 0 && Character.isDigit(partyId.charAt(0))) {
@@ -144,7 +145,7 @@ public class PartyServices {
             if (statusId == null) {
                 statusId = "PARTY_ENABLED";
             }
-            Map newPartyMap = UtilMisc.toMap("partyId", partyId, "partyTypeId", "PERSON", "createdDate", now, "lastModifiedDate", now, "statusId", statusId);
+            Map newPartyMap = UtilMisc.toMap("partyId", partyId, "partyTypeId", "PERSON", "description", description, "createdDate", now, "lastModifiedDate", now, "statusId", statusId);
             if (userLogin != null) {
                 newPartyMap.put("createdByUserLogin", userLogin.get("userLoginId"));
                 newPartyMap.put("lastModifiedByUserLogin", userLogin.get("userLoginId"));
