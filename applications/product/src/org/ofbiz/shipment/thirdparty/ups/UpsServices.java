@@ -1830,11 +1830,12 @@ public class UpsServices {
         
         HttpClient http = new HttpClient(conStr);
         http.setTimeout(timeout * 1000);
+        http.setAllowUntrusted(true);
         String response = null;
         try {            
             response = http.post(xmlString);
         } catch (HttpClientException e) {            
-            Debug.logError(e, "Problem connecting with UPS server", module);
+            Debug.logError(e, "Problem connecting with UPS server [" + conStr + "]", module);
             throw new UpsConnectException("URL Connection problem", e);
         }
         
@@ -2079,7 +2080,145 @@ public class UpsServices {
 
     
     }
-    
+
+    public static Map upsAddressValidation(DispatchContext dctx, Map context) {
+
+        String city = (String) context.get("city");
+        String stateProvinceGeoId = (String) context.get("stateProvinceGeoId");
+        String postalCode = (String) context.get("postalCode");
+
+        if (UtilValidate.isEmpty(city) && UtilValidate.isEmpty(postalCode)) {
+            return ServiceUtil.returnError("Address Validation requires either a city or postalCode");
+        }
+
+        // prepare the XML Document
+        Document avRequestDoc = UtilXml.makeEmptyXmlDocument("AddressValidationRequest");
+        Element avRequestElement = avRequestDoc.getDocumentElement();
+        avRequestElement.setAttribute("xml:lang", "en-US");
+
+        // XML request header
+        Element requestElement = UtilXml.addChildElement(avRequestElement, "Request", avRequestDoc);
+        Element transactionReferenceElement = UtilXml.addChildElement(requestElement, "TransactionReference", avRequestDoc);
+        UtilXml.addChildElementValue(transactionReferenceElement, "CustomerContext", "Rating and Service", avRequestDoc);
+        UtilXml.addChildElementValue(transactionReferenceElement, "XpciVersion", "1.0001", avRequestDoc);
+        UtilXml.addChildElementValue(requestElement, "RequestAction", "AV", avRequestDoc);
+
+        // Address
+        Element addressElement = UtilXml.addChildElement(avRequestElement, "Address", avRequestDoc);
+        if (UtilValidate.isNotEmpty(city)) {
+            UtilXml.addChildElementValue(addressElement, "City", city, avRequestDoc);
+        }
+        if (UtilValidate.isNotEmpty(stateProvinceGeoId)) {
+            UtilXml.addChildElementValue(addressElement, "StateProvinceCode", stateProvinceGeoId, avRequestDoc);    
+        }
+        if (UtilValidate.isNotEmpty(postalCode)) {
+            UtilXml.addChildElementValue(addressElement, "PostalCode", postalCode, avRequestDoc);    
+        }
+
+        String avRequestString = null;
+        try {
+            avRequestString = UtilXml.writeXmlDocument(avRequestDoc);
+        } catch (IOException e) {
+            String ioeErrMsg = "Error writing the AddressValidationRequest XML Document to a String: " + e.toString();
+            Debug.logError(e, ioeErrMsg, module);
+            return ServiceUtil.returnError(ioeErrMsg);
+        }
+
+        // create AccessRequest XML doc
+        Document accessRequestDocument = createAccessRequestDocument();
+
+        String accessRequestString = null;
+        try {
+            accessRequestString = UtilXml.writeXmlDocument(accessRequestDocument);
+        } catch (IOException e) {
+            String ioeErrMsg = "Error writing the AccessRequest XML Document to a String: " + e.toString();
+            Debug.logError(e, ioeErrMsg, module);
+            return ServiceUtil.returnError(ioeErrMsg);
+        }
+
+        // prepare the request string
+        StringBuffer xmlString = new StringBuffer();
+        xmlString.append(accessRequestString);
+        xmlString.append(avRequestString);
+        Debug.logInfo(xmlString.toString(), module);
+
+        // send the request
+        String avResponseString = null;
+        try {
+            avResponseString = sendUpsRequest("AV", xmlString.toString());
+        } catch (UpsConnectException e) {
+            String uceErrMsg = "Error sending UPS request: " + e.toString();
+            Debug.logError(e, uceErrMsg, module);
+            return ServiceUtil.returnError(uceErrMsg);
+        }
+
+        Debug.logInfo(avResponseString, module);
+
+        Document avResponseDocument = null;
+        try {
+            avResponseDocument = UtilXml.readXmlDocument(avResponseString, false);
+        } catch (SAXException e2) {
+            String excErrMsg = "Error parsing the UPS response: " + e2.toString();
+            Debug.logError(e2, excErrMsg, module);
+            return ServiceUtil.returnError(excErrMsg);
+        } catch (ParserConfigurationException e2) {
+            String excErrMsg = "Error parsing the UPS response: " + e2.toString();
+            Debug.logError(e2, excErrMsg, module);
+            return ServiceUtil.returnError(excErrMsg);
+        } catch (IOException e2) {
+            String excErrMsg = "Error parsing the UPS response: " + e2.toString();
+            Debug.logError(e2, excErrMsg, module);
+            return ServiceUtil.returnError(excErrMsg);
+        }
+
+        return handleUpsAddressValidationResponse(avResponseDocument);
+
+    }
+
+    public static Map handleUpsAddressValidationResponse(Document rateResponseDocument) {
+
+        Element avResponseElement = rateResponseDocument.getDocumentElement();
+        Element responseElement = UtilXml.firstChildElement(avResponseElement, "Response");
+        String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
+
+        List errorList = new LinkedList();
+        UpsServices.handleErrors(responseElement, errorList);
+
+        if ("1".equals(responseStatusCode)) {
+            List matches = new LinkedList();
+
+            List avResultList = UtilXml.childElementList(avResponseElement, "AddressValidationResult");
+            // TODO: return error if there are no matches?
+            if (UtilValidate.isNotEmpty(avResultList)) {
+                Iterator i = avResultList.iterator();
+                while (i.hasNext()) {
+                    Element avResultElement = (Element) i.next();
+
+                    Map match = new HashMap();
+
+                    match.put("Rank", UtilXml.childElementValue(avResultElement, "Rank"));
+                    match.put("Quality", UtilXml.childElementValue(avResultElement, "Quality"));
+
+                    Element addressElement = UtilXml.firstChildElement(avResultElement, "Address");
+                    match.put("City", UtilXml.childElementValue(addressElement, "City"));
+                    match.put("StateProvinceCode", UtilXml.childElementValue(addressElement, "StateProvinceCode"));
+
+                    match.put("PostalCodeLowEnd", UtilXml.childElementValue(avResultElement, "PostalCodeLowEnd"));
+                    match.put("PostalCodeHighEnd", UtilXml.childElementValue(avResultElement, "PostalCodeHighEnd"));
+
+                    matches.add(match);
+                }
+            }
+
+            Map result = ServiceUtil.returnSuccess();
+            result.put("matches", matches);
+            return result;
+        } else {
+            errorList.add("Error status code : " + responseStatusCode);
+            return ServiceUtil.returnError(errorList);
+        }
+    }
+
 }
 
 class UpsConnectException extends GeneralException {
@@ -2636,5 +2775,87 @@ Rates & Service Request/Response
         </RatedPackage>
     </RatedShipment>
 </RatingServiceSelectionResponse>
+
+=======================================
+Address Validation Request/Response
+=======================================
+
+<AddressValidationRequest xml:lang="en-US">
+    <Request>
+        <TransactionReference>
+            <CustomerContext>Maryam Dennis-Customer Data</CustomerContext>
+            <XpciVersion>1.0001</XpciVersion>
+        </TransactionReference>
+        <RequestAction>AV</RequestAction>
+    </Request>
+    <Address>
+        <City>MIAMI</City>
+        <StateProvinceCode>FL</StateProvinceCode>
+    </Address>
+</AddressValidationRequest>
+
+=======================================
+
+<AddressValidationResponse>
+    <Response>
+        <TransactionReference>
+            <XpciVersion>1.0001</XpciVersion>
+        </TransactionReference>
+        <ResponseStatusCode>1</ResponseStatusCode>
+        <ResponseStatusDescription>Success</ResponseStatusDescription>
+    </Response>
+    <AddressValidationResult>
+        <Rank>1</Rank>
+        <Quality>1.0</Quality>
+        <Address>
+            <City>TIMONIUM</City>
+            <StateProvinceCode>MD</StateProvinceCode>
+        </Address>
+        <PostalCodeLowEnd>21093</PostalCodeLowEnd>
+        <PostalCodeHighEnd>21094</PostalCodeHighEnd>
+    </AddressValidationResult>
+</AddressValidationResponse>
+
+=======================================
+
+<AddressValidationResponse>
+    <Response>
+        <TransactionReference>
+            <XpciVersion>1.0001</XpciVersion>
+        </TransactionReference>
+        <ResponseStatusCode>1</ResponseStatusCode>
+        <ResponseStatusDescription>Success</ResponseStatusDescription>
+    </Response>
+    <AddressValidationResult>
+        <Rank>1</Rank>
+        <Quality>0.9975000023841858</Quality>
+        <Address>
+            <City>TIMONIUM</City>
+            <StateProvinceCode>MD</StateProvinceCode>
+        </Address>
+        <PostalCodeLowEnd>21093</PostalCodeLowEnd>
+        <PostalCodeHighEnd>21094</PostalCodeHighEnd>
+    </AddressValidationResult>
+    <AddressValidationResult>
+        <Rank>2</Rank>
+        <Quality>0.8299999833106995</Quality>
+        <Address>
+            <City>LUTHERVILLE TIMONIUM</City>
+            <StateProvinceCode>MD</StateProvinceCode>
+        </Address>
+        <PostalCodeLowEnd>21093</PostalCodeLowEnd>
+        <PostalCodeHighEnd>21094</PostalCodeHighEnd>
+    </AddressValidationResult>
+    <AddressValidationResult>
+        <Rank>3</Rank>
+        <Quality>0.8299999833106995</Quality>
+        <Address>
+            <City>LUTHERVILLE</City>
+            <StateProvinceCode>MD</StateProvinceCode>
+        </Address>
+        <PostalCodeLowEnd>21093</PostalCodeLowEnd>
+        <PostalCodeHighEnd>21094</PostalCodeHighEnd>
+    </AddressValidationResult>
+</AddressValidationResponse>
 
  */
