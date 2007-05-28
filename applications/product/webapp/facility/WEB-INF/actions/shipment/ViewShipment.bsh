@@ -21,11 +21,11 @@ import java.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 
-delegator = request.getAttribute("delegator");
-security = request.getAttribute("security");
-userLogin = session.getAttribute("userLogin");
+//delegator = request.getAttribute("delegator");
+//security = request.getAttribute("security");
+//userLogin = session.getAttribute("userLogin");
 
-shipmentId = request.getParameter("shipmentId");
+shipmentId = parameters.get("shipmentId");
 if (shipmentId == null) {
     shipmentId = request.getAttribute("shipmentId");
 }
@@ -50,7 +50,7 @@ if (shipment != null) {
 
 // check permission
 hasPermission = false;
-if (security.hasEntityPermission("FACILITY", "_VIEW", session)) {
+if (security.hasEntityPermission("FACILITY", "_VIEW", userLogin)) {
     hasPermission = true;
 } else {
     if (shipment != null) {
