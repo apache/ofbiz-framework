@@ -82,4 +82,14 @@ under the License.
         <attribute name="isResidentialAddress" type="String" mode="IN" optional="true"/>
         <attribute name="shippingCountryCode" type="String" mode="IN" optional="true"/>
     </service>
+
+    <!-- UPS Address Validation -->
+    <service name="upsAddressValidation" engine="java"
+        location="org.ofbiz.shipment.thirdparty.ups.UpsServices" invoke="upsAddressValidation" auth="false">
+        <attribute name="city" type="String" mode="IN" optional="true"/>
+        <attribute name="stateProvinceGeoId" type="String" mode="IN" optional="true"/>
+        <attribute name="postalCode" type="String" mode="IN" optional="true"/>
+        <attribute name="matches" type="List" mode="OUT" optional="true"/>
+    </service>
+
 </services>
