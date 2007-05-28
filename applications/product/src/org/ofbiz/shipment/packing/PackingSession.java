@@ -997,7 +997,9 @@ public class PackingSession implements java.io.Serializable {
                 } else if (d.getOrderItem().getString("productId") != null || orderItem.getString("productId") != null) {
                     sameOrderItemProduct = false;
                 }
-                return (d.productId.equals(productId) && sameOrderItemProduct);
+                return (d.productId.equals(productId) &&
+                        d.getOrderItem().getString("orderItemSeqId").equals(orderItem.getString("orderItemSeqId")) && 
+                        sameOrderItemProduct);
             } else {
                 return false;
             }            
