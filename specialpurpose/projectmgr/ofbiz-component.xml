@@ -26,8 +26,6 @@ under the License.
     <classpath type="dir" location="config"/>
     <classpath type="jar" location="build/lib/*"/>
 
-    <service-resource type="model" loader="main" location="servicedef/services.xml"/>
-
     <webapp name="projectmgr"
         title="Project"
         server="default-server"
