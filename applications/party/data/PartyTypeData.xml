@@ -31,7 +31,8 @@ under the License.
     <AgreementType agreementTypeId="EMPLOYMENT_AGREEMENT" description="Employment" hasTable="N" parentTypeId=""/>
     <AgreementType agreementTypeId="OTHER_AGREEMENT" description="Other" hasTable="N" parentTypeId=""/>
     <AgreementType agreementTypeId="COMMISSION_AGREEMENT" description="Commission" hasTable="N" parentTypeId=""/>
-
+    <AgreementType agreementTypeId="EULA" description="End User License Agreement" hasTable="N" parentTypeId=""/>
+    
     <CommunicationEventPrpTyp communicationEventPrpTypId="ACTIVITY_REQUEST" description="Activity Request" hasTable="N" parentTypeId=""/>
     <CommunicationEventPrpTyp communicationEventPrpTypId="CONFERENCE" description="Conference" hasTable="N" parentTypeId=""/>
     <CommunicationEventPrpTyp communicationEventPrpTypId="CUSTOMER_SERVICE_CAL" description="Customer Service Call" hasTable="N" parentTypeId=""/>
