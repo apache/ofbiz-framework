@@ -147,7 +147,7 @@ public class DatasourceInfo {
             // anything but true is false
             this.checkIndicesOnStart = "true".equals(datasourceElement.getAttribute("check-indices-on-start"));
             this.joinStyle = datasourceElement.getAttribute("join-style");
-            this.aliasViews = !"false".equals(datasourceElement.getAttribute("alias-view-columns"));
+            this.aliasViews = "true".equals(datasourceElement.getAttribute("alias-view-columns"));
             // anything but true is false
             this.alwaysUseConstraintKeyword = "true".equals(datasourceElement.getAttribute("always-use-constraint-keyword"));
             this.dropFkUseForeignKeyKeyword = "true".equals(datasourceElement.getAttribute("drop-fk-use-foreign-key-keyword"));
