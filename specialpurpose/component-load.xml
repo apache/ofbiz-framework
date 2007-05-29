@@ -24,4 +24,5 @@
     <load-component component-location="${ofbiz.home}/specialpurpose/hhfacility"/>
     <load-component component-location="${ofbiz.home}/specialpurpose/assetmaint"/>
     <load-component component-location="${ofbiz.home}/specialpurpose/cmssite"/>
+    <load-component component-location="${ofbiz.home}/specialpurpose/projectmgr"/>
 </component-loader>
