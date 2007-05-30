@@ -1,8 +1,11 @@
+DESCRIPTION
+This file contains information about libraries that are supported
+by code in OFBiz but that are left out of SVN because of licensing issues. 
+What is below is a list of jar files and where to put them, and the file(s)
+to change to include them in the OFBiz build and/or run-time configuration.
 
-DESCRIPTION: This file contains information about libraries that are supported by code in OFBiz but that are left out of SVN because of licensing issues. 
-What is below is a list of jar files and where to put them, and the file(s) to change to include them in the OFBiz build and/or run-time configuration.
-
-NOTE: While these aren't included in the main SVN repository they are available on the old Undersun SVN server in the specialized/libraries component directory.
+NOTE: While these aren't included in the main SVN repository they are available
+on the old Undersun SVN server in the specialized/libraries component directory.
 
 -=- Workflow __________________________________________________________________________________________________________________________________________________
 
@@ -47,15 +50,22 @@ NOTE: While these aren't included in the main SVN repository they are available 
      sharkwebservice-wfxmlutils-1.2_1.jar
      sharkxpdl-standard-1.2_1.jar
      wrd-1.2_1.jar  
-    NOTE: these jars based on a build from version 1.2_1 may be found attached in https://issues.apache.org/jira/browse/OFBIZ-552  
-    For an updated version some changes to the integration code in the shark component may be necessary.
-  TO BUILD: once the jars are in place you can build from the ofbiz/framework/shark directory, or
-    you can add it to the build list in the ofbiz/build.xml file in the framework-builds file list.
-  TO DEPLOY: once the build is done the Shark container must be setup in the ofbiz-containers.xml
-    file or other containers file being used. The shark-container container should be un-commented.
-  TO DEPLOY, PART 2: to get the component to load on startup, and get the webapp in place and such
-    the shark component needs to be uncommented in the framework/component-load.xml file.
-  You may experiment online with Jawe XPDL editor : http://www.enhydra.org/workflow/jawe/index.html
+  NOTE: these jars based on a build from version 1.2_1 may be found attached
+     in https://issues.apache.org/jira/browse/OFBIZ-552  
+     For an updated version some changes to the integration code in the
+     shark component may be necessary.
+  TO BUILD: once the jars are in place you can build from the 
+     ofbiz/framework/shark directory, or you can add it to the build
+     list in the ofbiz/build.xml file in the framework-builds file list.
+  TO DEPLOY: once the build is done the Shark container must be setup in the
+     ofbiz-containers.xml file or other containers file being used.
+     The shark-container container should be un-commented.
+  TO DEPLOY, PART 2: to get the component to load on startup, and get the webapp
+     in place and such the shark component needs to be uncommented in the 
+     framework/component-load.xml file.
+
+  You may experiment online with Jawe XPDL editor:
+  http://www.enhydra.org/workflow/jawe/index.html
   There is an example XPDL file in https://issues.apache.org/jira/browse/OFBIZ-552
   it came from http://www.wfmc.org/standards/docs/xpdl_sample/sample%20workflow%20process.xpdl
   For the moment Shark engine in OFBiz refuses to load it (OK in Jawe) 
@@ -63,7 +73,8 @@ NOTE: While these aren't included in the main SVN repository they are available 
 -=- Web Presentation: ________________________________________________________________________________________________________________________________________________
 
 -JPublish/EdenLib (Apache):
-  NOTE: these were removed for library compatibility reasons, not for license reasons; working these back in may be tricky
+  NOTE: these were removed for library compatibility reasons, not for license
+        reasons; working these back in may be tricky
   http://sourceforge.net/projects/jpublish
   http://edenlib.sourceforge.net/
   framework/webapp/lib:
