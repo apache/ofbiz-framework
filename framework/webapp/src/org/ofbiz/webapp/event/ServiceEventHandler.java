@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.webapp.event;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -31,10 +32,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
@@ -127,12 +129,24 @@ public class ServiceEventHandler implements EventHandler {
             Debug.logError(e, "Unable to obtain the max upload size from general.properties; using default -1", module);
             maxUploadSize = -1;
         }
+        // get the http size threshold configuration - files bigger than this will be 
+        // temporarly stored on disk during upload
+        String sizeThresholdStr = UtilProperties.getPropertyValue("general.properties", "http.upload.max.sizethreshold", "10240");
+        int sizeThreshold = 10240; // 10K
+        try {
+            sizeThreshold = Integer.parseInt(sizeThresholdStr);
+        } catch (NumberFormatException e) {
+            Debug.logError(e, "Unable to obtain the threshold size from general.properties; using default 10K", module);
+            sizeThreshold = -1;
+        }
+        // directory used to temporarily store files that are larger than the configured size threshold
+        String tmpUploadRepository = UtilProperties.getPropertyValue("general.properties", "http.upload.tmprepository", "runtime/tmp");
 
         // check for multipart content types which may have uploaded items
-        boolean isMultiPart = FileUpload.isMultipartContent(request);
+        boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
         Map multiPartMap = new HashMap();
         if (isMultiPart) {
-            DiskFileUpload upload = new DiskFileUpload();
+            ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, new File(tmpUploadRepository)));
             upload.setSizeMax(maxUploadSize);
 
             List uploadedItems = null;
