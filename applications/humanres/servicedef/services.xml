@@ -23,16 +23,511 @@ under the License.
     <description>Human Resources Services</description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
-
+    <!-- Ability Group -->
     <service name="createPartyQual" engine="java" default-entity-name="PartyQual"
             location="org.ofbiz.humanres.HumanResServices" invoke="createPartyQual" auth="true">
-        <description>Create a Party Qualification entry</description>
+        <description>Create a Party Qualification entry</description>        
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="partyId" optional="false"/>
         <override name="partyQualTypeId" optional="false"/>
         <override name="institutionPartyId" optional="false"/>
         <override name="fromDate" optional="false"/>
+    </service>
+    
+    <service name="updatePartyQual" engine="simple" default-entity-name="PartyQual"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updatePartyQual" auth="true">
+        <description>Update Qualification of Party</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deletePartyQual" engine="simple" default-entity-name="PartyQual"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deletePartyQual" auth="true">
+        <description>Delete Qualification of Party</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createPartyResume" engine="simple" default-entity-name="PartyResume"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createPartyResume" auth="true">
+        <description>Create Resume for a Party</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="updatePartyResume" engine="simple" default-entity-name="PartyResume"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updatePartyResume" auth="true">
+        <description>Update a Resume of Party</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deletePartyResume" engine="simple" default-entity-name="PartyResume"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deletePartyResume" auth="true">
+        <description>Delete a Resume of Party</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createPartySkill" engine="simple" default-entity-name="PartySkill"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createPartySkill" auth="true">
+        <description>Create Skill for a Party</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>        
+    </service>
+    
+    <service name="updatePartySkill" engine="simple" default-entity-name="PartySkill"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updatePartySkill" auth="true">
+        <description>Update a PartySkill</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deletePartySkill" engine="simple" default-entity-name="PartySkill"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deletePartySkill" auth="true">
+        <description>Delete a PartySkill</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+            
+    <service name="createPerfReview" engine="simple" default-entity-name="PerfReview"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createPerfReview" auth="true">
+        <description>Create an Performance Review</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>        
+        <override type="String" mode="IN" name="perfReviewId" optional="true"/>
+    </service>
+    
+    <service name="updatePerfReview" engine="simple" default-entity-name="PerfReview"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updatePerfReview" auth="true">
+        <description>Update a Performance Review</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deletePerfReview" engine="simple" default-entity-name="PerfReview"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deletePerfReview" auth="true">             
+        <description>Delete a Performance Review</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createPerfReviewItem" engine="simple" default-entity-name="PerfReviewItem"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createPerfReviewItem" auth="true">
+        <description>Create Performance Review Item</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>        
+        <override type="String" mode="IN" name="perfReviewItemSeqId" optional="true"/>
+    </service>
+    
+    <service name="updatePerfReviewItem" engine="simple" default-entity-name="PerfReviewItem"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updatePerfReviewItem" auth="true">
+        <description>Update a Performance Review Item</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deletePerfReviewItem" engine="simple" default-entity-name="PerfReviewItem"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deletePerfReviewItem" auth="true">
+        <description>Delete a Performance Review Item</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createPerformanceNote" engine="simple" default-entity-name="PerformanceNote"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createPerformanceNote" auth="true">
+        <description>Create Performance Note</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override type="Timestamp" mode="IN" name="fromDate" optional="true"/>
+    </service>
+    
+    <service name="updatePerformanceNote" engine="simple" default-entity-name="PerformanceNote"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updatePerformanceNote" auth="true">
+        <description>Update a Performance Note</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deletePerformanceNote" engine="simple" default-entity-name="PerformanceNote"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deletePerformanceNote" auth="true">
+        <description>Delete a Performance Note</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createPersonTraining" engine="simple" default-entity-name="PersonTraining"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createPersonTraining" auth="true">
+        <description>Create Training for a party</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override type="Timestamp" mode="IN" name="fromDate" optional="true"/>
+    </service>
+    
+    <service name="updatePersonTraining" engine="simple" default-entity-name="PersonTraining"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updatePersonTraining" auth="true">
+        <description>Update a Person Training</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deletePersonTraining" engine="simple" default-entity-name="PersonTraining"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deletePersonTraining" auth="true">
+        <description>Delete a Person Training</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <!-- Employment Group -->
+    <service name="createEmployment" engine="simple" default-entity-name="Employment"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createEmployment" auth="true">
+        <description>Create Employment</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override type="Timestamp" mode="IN" name="fromDate" optional="true"/>
+    </service>
+    
+    <service name="updateEmployment" engine="simple" default-entity-name="Employment"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updateEmployment" auth="true">
+        <description>Update an Employment</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deleteEmployment" engine="simple" default-entity-name="Employment"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deleteEmployment" auth="true">
+        <description>Delete an Employment</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createEmploymentApp" engine="simple" default-entity-name="EmploymentApp"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createEmploymentApp" auth="true">
+        <description>Create an Employment Application</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>        
+    </service>
+    
+    <service name="updateEmploymentApp" engine="simple" default-entity-name="EmploymentApp"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updateEmploymentApp" auth="true">
+        <description>Update an Employment Application</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deleteEmploymentApp" engine="simple" default-entity-name="EmploymentApp"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deleteEmploymentApp" auth="true">
+        <description>Delete an Employment Application</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createPartyBenefit" engine="simple" default-entity-name="PartyBenefit"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createPartyBenefit" auth="true">
+        <description>Create Party Benefit</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override type="Timestamp" mode="IN" name="fromDate" optional="true"/>
+    </service>
+    
+    <service name="updatePartyBenefit" engine="simple" default-entity-name="PartyBenefit"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updatePartyBenefit" auth="true">
+        <description>Update Party Benefit</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deletePartyBenefit" engine="simple" default-entity-name="PartyBenefit"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deletePartyBenefit" auth="true">
+        <description>Delete Party Benefit</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createPayGrade" engine="simple" default-entity-name="PayGrade"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createPayGrade" auth="true">
+        <description>Create a Pay Grade</description>
+        <!-- permission-service service-name="humanResManagerPermission" main-action="CREATE"/> -->
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>        
+    </service>
+    
+    <service name="updatePayGrade" engine="simple" default-entity-name="PayGrade"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updatePayGrade" auth="true">
+        <description>Update a Pay Grade</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deletePayGrade" engine="simple" default-entity-name="PayGrade"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deletePayGrade" auth="true">
+        <description>Delete a Pay Grade</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createPayHistory" engine="simple" default-entity-name="PayHistory"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createPayHistory" auth="true">
+        <description>Create Pay History</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override type="Timestamp" mode="IN" name="fromDate" optional="true"/>
+    </service>
+    
+    <service name="updatePayHistory" engine="simple" default-entity-name="PayHistory"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updatePayHistory" auth="true">
+        <description>Update Pay History</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deletePayHistory" engine="simple" default-entity-name="PayHistory"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deletePayHistory" auth="true">
+        <description>Delete Pay History</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createPayrollPreference" engine="simple" default-entity-name="PayrollPreference"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createPayrollPreference" auth="true">
+        <description>Create Payroll Preference</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <!-- <attribute name="payrollPreferenceSeqId" mode="OUT" type="String" optional="false"/> -->
+        <override type="String" mode="IN" name="payrollPreferenceSeqId" optional="true"/>
+    </service>
+    
+    <service name="updatePayrollPreference" engine="simple" default-entity-name="PayrollPreference"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updatePayrollPreference" auth="true">
+        <description>Update Payroll Preference</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deletePayrollPreference" engine="simple" default-entity-name="PayrollPreference"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deletePayrollPreference" auth="true">
+        <description>Delete Payroll Preference</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createSalaryStep" engine="simple" default-entity-name="SalaryStep"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createSalaryStep" auth="true">
+        <description>Create Salary Step</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>        
+        <override type="String" mode="IN" name="salaryStepSeqId" optional="true"/>
+    </service>
+    
+    <service name="updateSalaryStep" engine="simple" default-entity-name="SalaryStep"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updateSalaryStep" auth="true">
+        <description>Update Salary Step</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deleteSalaryStep" engine="simple" default-entity-name="SalaryStep"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deleteSalaryStep" auth="true">
+        <description>Delete Salary Step</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createTerminationReason" engine="simple" default-entity-name="TerminationReason"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createTerminationReason" auth="true">
+        <description>Create an Termination Reason</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>                
+    </service>
+    
+    <service name="updateTerminationReason" engine="simple" default-entity-name="TerminationReason"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updateTerminationReason" auth="true">
+        <description>Update an Termination Reason</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deleteTerminationReason" engine="simple" default-entity-name="TerminationReason"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deleteTerminationReason" auth="true">
+        <description>Delete an Termination Reason</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createUnemploymentClaim" engine="simple" default-entity-name="UnemploymentClaim"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createUnemploymentClaim" auth="true">
+        <description>Create an Unemployment Claim</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>        
+    </service>
+    
+    <service name="updateUnemploymentClaim" engine="simple" default-entity-name="UnemploymentClaim"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updateUnemploymentClaim" auth="true">
+        <description>Update an Unemployment Claim</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deleteUnemploymentClaim" engine="simple" default-entity-name="UnemploymentClaim"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deleteUnemploymentClaim" auth="true">
+        <description>Delete an Unemployment Claim</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <!-- Position Group -->    
+    <service name="createEmplPosition" engine="simple" default-entity-name="EmplPosition"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createEmplPosition" auth="true">
+        <description>Create an Employee Position</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>        
+    </service>
+    
+    <service name="updateEmplPosition" engine="simple" default-entity-name="EmplPosition"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updateEmplPosition" auth="true">
+        <description>Update an Employee Position</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deleteEmplPosition" engine="simple" default-entity-name="EmplPosition"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deleteEmplPosition" auth="true">
+        <description>Delete an Employee Position</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>                
+    </service>
+    
+    <service name="createEmplPositionFulfillment" engine="simple" default-entity-name="EmplPositionFulfillment"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createEmplPositionFulfillment" auth="true">
+        <description>Create Employee Position Fulfillment</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override type="Timestamp" mode="IN" name="fromDate" optional="true"/>
+    </service>
+    
+    <service name="updateEmplPositionFulfillment" engine="simple" default-entity-name="EmplPositionFulfillment"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updateEmplPositionFulfillment" auth="true">
+        <description>Update Employee Position Fulfillment</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deleteEmplPositionFulfillment" engine="simple" default-entity-name="EmplPositionFulfillment"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deleteEmplPositionFulfillment" auth="true">
+        <description>Delete Employee Position Fulfillment</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createEmplPositionReportingStruct" engine="simple" default-entity-name="EmplPositionReportingStruct"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createEmplPositionReportingStruct" auth="true">
+        <description>Create Employee Position Reporting Structure</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override type="Timestamp" mode="IN" name="fromDate" optional="true"/>
+    </service>
+    
+    <service name="updateEmplPositionReportingStruct" engine="simple" default-entity-name="EmplPositionReportingStruct"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updateEmplPositionReportingStruct" auth="true">
+        <description>Update Employee Position Reporting Structure</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deleteEmplPositionReportingStruct" engine="simple" default-entity-name="EmplPositionReportingStruct"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deleteEmplPositionReportingStruct" auth="true">
+        <description>Delete Employee Position Reporting Structure</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createEmplPositionResponsibility" engine="simple" default-entity-name="EmplPositionResponsibility"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createEmplPositionResponsibility" auth="true">
+        <description>Create Employee Position Responsibility</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override type="Timestamp" mode="IN" name="fromDate" optional="true"/>
+    </service>
+    
+    <service name="updateEmplPositionResponsibility" engine="simple" default-entity-name="EmplPositionResponsibility"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updateEmplPositionResponsibility" auth="true">
+        <description>Update Employee Position Responsibility</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deleteEmplPositionResponsibility" engine="simple" default-entity-name="EmplPositionResponsibility"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deleteEmplPositionResponsibility" auth="true">
+        <description>Delete Employee Position Responsibility</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="createValidResponsibility" engine="simple" default-entity-name="ValidResponsibility"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createValidResponsibility" auth="true">
+        <description>Create Valid Responsibility</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override type="Timestamp" mode="IN" name="fromDate" optional="true"/>
+    </service>
+    
+    <service name="updateValidResponsibility" engine="simple" default-entity-name="ValidResponsibility"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updateValidResponsibility" auth="true">
+        <description>Update Valid Responsibility</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    
+    </service>
+    <service name="deleteValidResponsibility" engine="simple" default-entity-name="ValidResponsibility"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deleteValidResponsibility" auth="true">
+        <description>Delete Valid Responsibility</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>        
+    <service name="humanResManagerPermission" engine="simple"
+        location="org/ofbiz/humanres/permission/HumanResPermissionServices.xml" invoke="humanResManagerPermission" auth="true">
+        <implements service="permissionInterface"/>
     </service>
 </services>
 

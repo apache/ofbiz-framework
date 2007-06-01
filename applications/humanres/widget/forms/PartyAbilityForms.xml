@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="ListPartyQuals" type="list" title="" paginate-target="findPartyQuals">
+        <actions>
+            <entity-condition entity-name="PartyQual"><order-by field-name="partyQualId"/></entity-condition>
+        </actions>        
+        <auto-fields-service service-name="updatePartyQual"/>        
+        <field name="partyQualId" title="PartyQualId" widget-style="linktext">
+            <hyperlink also-hidden="false" description="${partyQualId}" target="EditPartyQual?partyQualId=${partyQualId}"/>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
+               <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" description="${partyId}"/>
+            </display-entity>
+        </field>
+    </form>      
+    <form name="EditPartyQual" type="single" target="updatePartyQual" title="" default-map-name="partyQual">
+        <alt-target use-when="partyQual==null" target="createPartyQual"/>
+        <auto-fields-service service-name="updatePartyQual" map-name="partyQual"/>
+        <field use-when="partyQual!=null" name="partyQualId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>        
+        <field use-when="partyQual==null&amp;&amp;partyQualId!=null" name="partyQualId" tooltip="${uiLabelMap.CommonCannotBeFound}:[${partyQualId}]"><text size="20" maxlength="20"/></field>
+        <field name="partyQualId" use-when="partyQual!=null" title="partyQualId"><display/></field>
+        <field name="partyQualId" use-when="partyQual==null" title="partyQualId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyQualTypeId" title="partyQualType Id">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="partyQualTypeId" entity-name="PartyQualType">
+                    <entity-constraint name="partyQualTypeId" operator="equals" value="PARTYQUAL_VERIFY"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="partyQualTypeId" use-when="partyQual!=null" title="partyQualTypeId"><display/></field>
+        <field name="submitButton" use-when="partyQual==null" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>        
+        <field name="submitButton" use-when="partyQual!=null" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>    
+    <form name="ListPartyResumes" type="list" title="" paginate-target="findPartyResumes">  
+         <actions>
+            <entity-condition entity-name="PartyResume"><order-by field-name="resumeId"/></entity-condition>
+        </actions>
+        <auto-fields-service service-name="updatePartyResume"/>        
+        <field name="resumeId" title="ResumeId" widget-style="linktext">
+                <hyperlink also-hidden="false" description="${resumeId}" target="EditPartyResume?resumeId=${resumeId}"/>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+           <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
+               <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" description="${partyId}"/>
+           </display-entity>
+       </field>
+       <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deletePartyResume?resumeId=${resumeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+       </field>
+    </form>     
+    <form name="EditPartyResume" type="single" target="updatePartyResume" title="" default-map-name="partyResume">
+        <alt-target use-when="partyResume==null" target="createpartyResume"/>
+        <auto-fields-service service-name="updatePartyResume" map-name="partyResume"/>
+        <field use-when="partyResume!=null" name="resumeId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="resumeId" use-when="partyResume!=null" title="resumeId"><display/></field>
+        <field name="partyId" use-when="partyResume!=null" title="partyId"><display/></field>                
+        <field name="partyId" use-when="partyResume==null" title="partyId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="submitButton" use-when="partyResume==null" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>        
+        <field name="submitButton" use-when="partyResume!=null" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>     
+    <form name="ListPartySkills" type="list" title="" paginate-target="findPartySkills">  
+        <actions>
+            <entity-condition entity-name="PartySkill"/>
+        </actions>
+        <auto-fields-service default-field-type="display" service-name="updatePartySkill"/>        
+        <field name="partyId" title="PartyId"><display/></field>                
+        <field name="skillTypeId" title="skillTypeId"><display/></field>
+        <field name="submitButton" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deletePartySkill?partyId=${partyId}&amp;skillTypeId=${skillTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>      
+    <form name="EditPartySkill" type="single" target="updatePartySkill" title="createPartySkill" default-map-name="partySkill">        
+        <auto-fields-service service-name="createPartySkill"/>
+        <field name="partyId" title="partyId"><hidden/></field>        
+        <field name="skillTypeId" title="skillType Id" tooltip="${uiLabelMap.CommonRequired}">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="skillTypeId" entity-name="SkillType">
+                    <entity-constraint name="skillTypeId" operator="equals" value="PARTYQUAL_VERIFY"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>        
+    </form>
+    <form name="ListPerfReviews" type="list" title="" paginate-target="findPerfReviews">
+        <actions>
+            <entity-condition entity-name="PerfReview"><order-by field-name="perfReviewId"/></entity-condition>
+        </actions>  
+        <auto-fields-service default-field-type="display" service-name="updatePerfReview"/>        
+        <field name="perfReviewId" title="PerfReviewId" widget-style="linktext">
+            <hyperlink also-hidden="false" description="${perfReviewId}" target="EditPerfReviews?perfReviewId=${perfReviewId}&amp;employeePartyId=${employeePartyId}&amp;employeeRoleTypeId=${employeeRoleTypeId}"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deletePerfReview?perfReviewId=${perfReviewId}&amp;employeePartyId=${employeePartyId}&amp;employeeRoleTypeId=${employeeRoleTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>     
+    <form name="EditPerfReview" type="single" target="updatePerfReview" title="" default-map-name="perfReview">
+        <alt-target use-when="perfReview==null" target="createPerfReview"/>
+        <auto-fields-service service-name="updatePerfReview" map-name="perfReview"/>
+        <field use-when="perfReview!=null" name="perfReviewId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>        
+        <field use-when="perfReview==null" name="perfReviewId"><ignored/></field>                
+        <field use-when="perfReview==null&amp;&amp;perfReviewId!=null" name="perfReviewId" tooltip="${uiLabelMap.CommonCannotBeFound}:[${perfReviewId}]"><text size="20" maxlength="20"/></field>        
+        <field name="employeePartyId" title="employeePartyId"><hidden/></field>
+        <field name="employeeRoleTypeId" title="employeeRoleType Id"><hidden/></field>        
+        <field name="managerPartyId" use-when="perfReview==null" title="managerPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="paymentId" use-when="perfReview==null" title="paymentId"><lookup target-form-name="LookupPayment"/></field>
+        <field name="emplPositionId" use-when="perfReview==null" title="emplPositionId"><lookup target-form-name="LookupEmplPosition"/></field>
+        <field name="payHistoryPartyIdFrom" use-when="perfReview==null" title="payHistoryParty Id"><lookup target-form-name="LookupPartyName"/></field>        
+        <field name="payHistoryPartyIdTo" use-when="perfReview==null" title="payHistoryParty Id"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="managerRoleTypeId" title="managerRoleType Id">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="roleTypeId" entity-name="RoleType">
+                    <entity-order-by field-name="roleTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="payHistoryRoleTypeIdFrom" title="payHistoryRoleType Id">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="roleTypeId" entity-name="RoleType">
+                    <entity-order-by field-name="roleTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>        
+       <field name="payHistoryRoleTypeIdTo" title="payHistoryRoleType Id">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="roleTypeId" entity-name="RoleType">                   
+                    <entity-order-by field-name="roleTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>                
+        <field name="submitButton" use-when="perfReview==null" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>        
+        <field name="submitButton" use-when="perfReview!=null" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>        
+    <form name="ListPerfReviewItems" type="list" target="updatePerfReviewItem" title="updatePerfReviewItem" paginate-target="findPerfReviewItems">  
+        <actions>
+            <entity-condition entity-name="PerfReviewItem">
+                <condition-expr field-name="perfReviewId" env-name="perfReviewId"/>
+                <order-by field-name="perfReviewItemSeqId"/>
+            </entity-condition>
+            <!-- <entity-condition entity-name="PerfReviewItem"><order-by field-name="perfReviewItemSeqId"/></entity-condition> -->
+        </actions>
+        <auto-fields-service default-field-type="display" service-name="updatePerfReviewItem"/>        
+        <field name="perfReviewItemSeqId" title="perfReviewItemSeqId" widget-style="linktext">
+            <hyperlink also-hidden="false" description="${perfReviewItemSeqId}" target="EditPerfReviewItem?perfReviewItemSeqId=${perfReviewItemSeqId}&amp;employeePartyId=${employeePartyId}&amp;employeeRoleTypeId=${employeeRoleTypeId}&amp;perfReviewId=${perfReviewId}"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deletePerfReviewItem?perfReviewId=${perfReviewId}&amp;employeePartyId=${employeePartyId}&amp;employeeRoleTypeId=${employeeRoleTypeId}&amp;perfReviewItemSeqId=${perfReviewItemSeqId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>      
+    <form name="EditPerfReviewItem" type="single" target="createPerfReviewItem" title="">
+        <auto-fields-service service-name="createPerfReviewItem"/>
+
+        <field name="perfReviewId"><hidden/></field>
+        <field name="perfReviewItemSeqId"><ignored/></field>        
+        <field name="employeePartyId" title="employeePartyId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="employeeRoleTypeId" title="employeeRoleType Id" tooltip="${uiLabelMap.CommonRequired}">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="roleTypeId" entity-name="PartyRole">
+                    <entity-constraint name="roleTypeId" operator="equals" value="PARTYQUAL_VERIFY"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="perfReviewItemTypeId" title="perfReviewItemType Id">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="perfReviewItemTypeId" entity-name="PerfReviewItemType">
+                    <entity-order-by field-name="${description}"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+    
+    <!-- <form name="EditPerfReviewItem" type="single" target="updatePerfReviewItem" title="" default-map-name="perfReviewItem">
+        <alt-target use-when="perfReviewItem=null" target="createPerfReviewItem"/>
+        <auto-fields-service service-name="updatePerfReviewItem" map-name="perfReviewItem"/>
+        <field use-when="perfReviewItem!=null" name="perfReviewId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>        
+        <field use-when="perfReviewItem==null&amp;&amp;perfReviewId!=null" name="perfReviewId" tooltip="${uiLabelMap.CommonCannotBeFound}:[${perfReviewId}]"><text size="20" maxlength="20"/></field>
+        <field name="perfReviewId" use-when="perfReviewItem!=null" title="perfReviewId"><display/></field>
+        <field name="perfReviewId" use-when="perfReviewItem==null" title="perfReviewId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="perfReviewItemSeqId" use-when="perfReviewItem!=null" title="perfReviewItemSeqId"><display/></field>
+        <field name="employeePartyId" use-when="perfReviewItem==null" title="employeePartyId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="employeeRoleTypeId" title="employeeRoleType Id">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="employeeRoleTypeId" entity-name="PartyRole">
+                    <entity-constraint name="employeeRoleTypeId" operator="equals" value="PARTYQUAL_VERIFY"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="perfRatingTypeId" title="perfRatingType Id">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="perfRatingTypeId" entity-name="PerfRatingType">                    
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+         <field name="perfReviewItemTypeId" title="perfReviewItemType Id">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="perfReviewItemTypeId" entity-name="PerfReviewItemType">
+                    <entity-order-by field-name="${description}"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" use-when="perfReviewItem==null" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>        
+        <field name="submitButton" use-when="perfReviewItem!=null" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>     -->
+    <form name="ListPerformanceNotes" type="list" target="updatePerformanceNote" title="" paginate-target="findPerformanceNotes">
+        <actions>
+            <entity-condition entity-name="PerformanceNote"/>
+        </actions>  
+        <auto-fields-service default-field-type="display" service-name="updatePerformanceNote"/>
+        <field name="partyId" title="PartyId" widget-style="linktext">
+                <hyperlink also-hidden="false" description="${partyId}" target="EditPerformanceNote?partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}"/>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+           <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
+               <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" description="${partyId}"/>
+           </display-entity>
+       </field>
+    </form>      
+    <form name="EditPerformanceNote" type="single" target="updatePerformanceNote" title="" default-map-name="performanceNote">
+        <alt-target use-when="performanceNote==null" target="createPerformanceNote"/>
+        <auto-fields-service service-name="updatePerformanceNote" map-name="performanceNote"/>
+        <field use-when="performanceNote!=null" name="partyId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>        
+        <field use-when="performanceNote==null&amp;&amp;partyId!=null" name="partyId" tooltip="${uiLabelMap.CommonCannotBeFound}:[${partyId}]"><text size="20" maxlength="20"/></field>
+        <field name="partyId" use-when="performanceNote!=null" title="partyId"><display/></field>
+        <field name="partyId" use-when="performanceNote==null" title="partyId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId" title="roleType Id">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="roleTypeId" entity-name="PartyRole">
+                    <entity-constraint name="roleTypeId" operator="equals" value="PARTYQUAL_VERIFY"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" use-when="performanceNote==null" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>        
+        <field name="submitButton" use-when="performanceNote!=null" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>    
+    <form name="ListPersonTrainings" type="list" target="updatePersonTraining" title="" paginate-target="findPersonTrainings">  
+        <actions>
+            <entity-condition entity-name="PersonTraining"/>
+        </actions>
+        <auto-fields-service default-field-type="display" service-name="updatePersonTraining"/>        
+        <field name="partyId" title="PartyId" widget-style="linktext">
+                <hyperlink also-hidden="false" description="${partyId}" target="EditPersonTraining?partyId=${partyId}&amp;trainingClassTypeId=${trainingClassTypeId}&amp;fromDate=${fromDate}"/>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+           <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
+               <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" description="${partyId}"/>
+           </display-entity>
+       </field>
+       <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deletePersonTraining?partyId=${partyId}&amp;trainingClassTypeId=${trainingClassTypeId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>          
+    <form name="EditPersonTraining" type="single" target="updatePersonTraining" title="" default-map-name="personTraining">
+        <alt-target use-when="PersonTraining=null" target="createPersonTraining"/>
+        <auto-fields-service service-name="updatePersonTraining" map-name="PersonTraining"/>
+        <field use-when="PersonTraining!=null" name="partyId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>        
+        <field use-when="PersonTraining==null&amp;&amp;partyId!=null" name="partyId" tooltip="${uiLabelMap.CommonCannotBeFound}:[${partyId}]"><text size="20" maxlength="20"/></field>
+        <field name="partyId" use-when="PersonTraining!=null" title="partyId"><display/></field>
+        <field name="partyId" use-when="personTraining==null" title="partyId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="trainingClassTypeId" title="trainingClassType Id">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="trainingClassTypeId" entity-name="TrainingClassType">
+                    <entity-constraint name="trainingClassTypeId" operator="equals" value="PARTYQUAL_VERIFY"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" use-when="personTraining==null" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>        
+        <field name="submitButton" use-when="personTraining!=null" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+     </form>      
+</forms>

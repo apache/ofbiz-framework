@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">    
+    <menu name="EmploymentBar" default-menu-item-name="EditPartyBenifit" type="simple">
+        <menu-item name="EditPartyBenefit" title="${uiLabelMap.HumanResEditPartyBenefit}">
+            <link target="EditPartyBenefits?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
+        </menu-item>
+        <menu-item name="EditPerfReview" title="${uiLabelMap.HumanResEditPartyReview}">
+            <!-- <link target="EditPerfReviews?roleTypeIdTo=${roleTypeIdTo}&amp;partyIdTo=${partyIdTo}"/>-->
+            <link target="EditPerfReviews?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
+        </menu-item>
+        <menu-item name="EditPayrollPreference" title="${uiLabelMap.HumanResEditPayrollPreference}">
+            <link target="EditPayrollPreferences?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
+        </menu-item>        
+        <menu-item name="EditPayHistory" title="${uiLabelMap.HumanResEditPayHistory}">
+            <link target="ListPayHistories?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
+        </menu-item>
+    </menu>
+    <menu name="EmplPostionBar" default-menu-item-name="EditEmplPosition" type="simple">
+        <menu-item name="EditEmplPositionFulfillment" title="${uiLabelMap.HumanResEditEmplPositionFulfillment}">
+            <link target="EditEmplPositionFulfillments?emplPositionId=${emplPositionId}"/>
+        </menu-item>
+        <menu-item name="EditEmplPositionResponsibility" title="${uiLabelMap.HumanResEditEmplPositionResponsibility}">
+            <link target="EditEmplPositionResponsibilities?emplPositionId=${emplPositionId}"/>
+        </menu-item>
+        <menu-item name="EditEmplPositionReportingStruct" title="${uiLabelMap.HumanResEditEmplPositionReportingStruct}">
+            <link target="EditEmplPositionReportingStructs?emplPositionId=${emplPositionId}"/>
+        </menu-item>
+    </menu>
+    <menu name="PartyBar" default-menu-item-name="EditPerfReviewItems" type="simple">
+        <menu-item name="EditPerfReviewItems" title="${uiLabelMap.HumanResEditPerfReviewItems}">
+            <link target="EditPerfReviewItems?perfReviewId=${perfReviewId}"/>
+        </menu-item>
+        <menu-item name="EditPartySkill" title="${uiLabelMap.HumanResListPartySkill}">
+            <link target="EditPartySkills?employeePartyId=${employeePartyId}"/>
+        </menu-item>
+        <menu-item name="EditPartyQual" title="${uiLabelMap.HumanResListPartyQual}">
+            <link target="EditPartyQuals?employeePartyId=${employeePartyId}"/>
+        </menu-item>
+    </menu>
+    <menu name="SalaryBar" default-menu-item-name="EditSalaryStep" type="simple">
+        <menu-item name="EditSalaryStep" title="${uiLabelMap.HumanResEditSalaryStep}">
+            <link target="EditSalarySteps?PayGradeId=${payGradeId}"/>
+        </menu-item>        
+    </menu>
+    
+</menus>    

@@ -23,9 +23,19 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <resource-loader name="main" type="component"/>
     <classpath type="jar" location="build/lib/*"/>
+    <classpath type="dir" location="script"/>
     <classpath type="dir" location="config"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
     <entity-resource type="group" reader-name="main" loader="main" location="entitydef/entitygroup.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/HumanResTypeData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/HumanResSecurityData.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+    
+    <webapp name="humanres"
+        title="HR"
+        server="default-server"
+        location="webapp/humanres"
+        base-permission="OFBTOOLS"
+        mount-point="/humanres"
+        app-bar-display="true"/>
 </ofbiz-component>
