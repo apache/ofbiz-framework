@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.content.content;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -50,9 +51,10 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceAuthException;
 import org.ofbiz.service.ServiceUtil;
 
-import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 
 /**
@@ -78,8 +80,7 @@ public class UploadContentAndImage {
             HttpSession session = request.getSession();
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
 
-            DiskFileUpload dfu = new DiskFileUpload();
-            //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]DiskFileUpload " + dfu, module);
+            ServletFileUpload dfu = new ServletFileUpload(new DiskFileItemFactory(10240, new File("runtime/tmp")));
             java.util.List lst = null;
             try {
                 lst = dfu.parseRequest(request);
@@ -343,7 +344,7 @@ public class UploadContentAndImage {
             HttpSession session = request.getSession();
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
 
-            DiskFileUpload dfu = new DiskFileUpload();
+            ServletFileUpload dfu = new ServletFileUpload(new DiskFileItemFactory(10240, new File("runtime/tmp")));
             //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]DiskFileUpload " + dfu, module);
             java.util.List lst = null;
             try {

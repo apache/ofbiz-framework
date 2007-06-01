@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.content.layout;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -29,9 +30,10 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.service.ServiceUtil;
 
-import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  * LayoutWorker Class
@@ -54,7 +56,7 @@ public class LayoutWorker {
         HashMap results = new HashMap();
         HashMap formInput = new HashMap();
         results.put("formInput", formInput);
-        DiskFileUpload fu = new DiskFileUpload();
+        ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, new File("runtime/tmp")));
         java.util.List lst = null;
         try {
            lst = fu.parseRequest(request);

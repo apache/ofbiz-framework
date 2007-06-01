@@ -33,9 +33,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilHttp;
@@ -176,7 +177,7 @@ public class DataResourceWorker {
         //GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
 
         //String idFieldValue = null;
-        DiskFileUpload fu = new DiskFileUpload();
+        ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, new File("runtime/tmp")));
         List lst = null;
         Locale locale = UtilHttp.getLocale(request);
 
