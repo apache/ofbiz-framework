@@ -1417,11 +1417,11 @@ under the License.
         <key-map field-name="orderItemSeqId"/>
       </view-link>
       <view-link entity-alias="OISGIR" rel-entity-alias="II">
+        <key-map field-name="inventoryItemId"/>
+      </view-link>
       <relation type="one-nofk" rel-entity-name="Product">
         <key-map field-name="productId"/>
       </relation>
-        <key-map field-name="inventoryItemId"/>
-      </view-link>
     </view-entity>
 
 </entitymodel>
