@@ -499,9 +499,19 @@
         <get-related value-name="surveyResponse" relation-name="SurveyResponseAnswer" list-name="existingAnswers"/>
         <iterate entry-name="existingAnswer" list-name="existingAnswers">
             <set field="currentAnswersFieldName" from-field="existingAnswer.surveyQuestionId"/>
-            <if-not-empty field-name="existingAnswer.surveyMultiRespColId">
-                <set field="currentAnswersFieldName" value="${currentAnswersFieldName}_${existingAnswer.surveyMultiRespColId}"/>
-            </if-not-empty>
+            <if>
+                <condition>
+                    <and>
+                        <not>
+                            <if-empty field-name="existingAnswer.surveyMultiRespColId"/>
+                        </not>
+                        <if-compare operator="not-equals" field-name="existingAnswer.surveyMultiRespColId" value="_NA_"/>
+                    </and>
+                </condition>
+                <then>
+                    <set field="currentAnswersFieldName" value="${currentAnswersFieldName}_${existingAnswer.surveyMultiRespColId}"/>
+                </then>
+            </if>
             <set field="currentAnswers.${currentAnswersFieldName}" from-field="existingAnswer"/>
         </iterate>
 
@@ -613,12 +623,17 @@
             <set field="responseAnswer" from-field="currentAnswers.${currentFieldName}"/>
         </if-not-empty>
         
-        <if>
+       <if>
             <condition>
                 <or>
                     <if-empty field-name="responseAnswer"/>
                     <if-compare-field field-name="responseAnswer.surveyQuestionId" operator="not-equals" to-field-name="surveyQuestionAndAppl.surveyQuestionId"/>
-                    <if-compare-field field-name="responseAnswer.surveyMultiRespColId" operator="not-equals" to-field-name="surveyMultiRespColumn.surveyMultiRespColId"/>
+                    <and>
+                        <not>
+                            <if-empty field-name="surveyMultiRespColumn"/>
+                        </not>
+                        <if-compare-field field-name="responseAnswer.surveyMultiRespColId" operator="not-equals" to-field-name="surveyMultiRespColumn.surveyMultiRespColId" />
+                    </and>
                 </or>
             </condition>
             <then>
@@ -638,7 +653,6 @@
                 <create-value value-name="responseAnswer"/>
             </then>
         </if>
-        
         <if-not-empty field-name="answers.${currentFieldName}">
             <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="BOOLEAN">
                 <set field="responseAnswer.booleanResponse" from-field="answers.${currentFieldName}"/>
