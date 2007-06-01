@@ -80,7 +80,7 @@ under the License.
       <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
       <table border='0' cellpadding='2' cellspacing='0'>
         <tr>
-          <td width="25%" align='right'><div class="tabletext">Picklist Bin #</div></td>
+          <td width="25%" align='right'><div class="tabletext">${uiLabelMap.FormFieldTitle_picklistBinId} #</div></td>
           <td width="1">&nbsp;</td>
           <td width="25%">
             <input type="text" class="inputBox" name="picklistBinId" size="29" maxlength="60" value="${picklistBinId?if_exists}"/>            
@@ -245,6 +245,8 @@ under the License.
                 <#assign orderItem = itemInfo.orderItem/>
                 <#assign shippedQuantity = orderReadHelper.getItemShippedQuantityBd(orderItem)?if_exists>
                 <#assign orderItemQuantity = itemInfo.quantity/>
+                <#assign orderProduct = orderItem.getRelatedOne("Product")?if_exists/>
+                <#assign product = Static["org.ofbiz.product.product.ProductWorker"].findProduct(delegator, itemInfo.productId)?if_exists/>
                 <#--
                 <#if orderItem.cancelQuantity?exists>
                   <#assign orderItemQuantity = orderItem.quantity - orderItem.cancelQuantity>
@@ -257,8 +259,22 @@ under the License.
                 <tr>
                   <td><input type="checkbox" name="sel_${rowKey}" value="Y" <#if (inputQty >0)>checked=""</#if>/></td>
                   <td><div class="tabletext">${orderItem.orderItemSeqId}</td>
-                  <td><div class="tabletext"><#if itemInfo.productId?exists && orderItem.productId?exists && orderItem.productId != itemInfo.productId>${orderItem.productId?default("N/A")}&nbsp;</#if>${itemInfo.productId?default("N/A")}</td>
-                  <td><div class="tabletext">${orderItem.itemDescription?if_exists}</td>
+                  <td>
+                      <div class="tabletext">
+                          ${orderProduct.productId?default("N/A")}
+                          <#if orderProduct.productId != product.productId>
+                              &nbsp;${product.productId?default("N/A")}
+                          </#if>
+                      </div>
+                  </td>
+                  <td>
+                      <div class="tabletext">
+                          <a href="/catalog/control/EditProduct?productId=${orderProduct.productId?if_exists}${externalKeyParam}" class="linktext" target="_blank">${(orderProduct.internalName)?if_exists}</a>
+                          <#if orderProduct.productId != product.productId>
+                              &nbsp;[<a href="/catalog/control/EditProduct?productId=${product.productId?if_exists}${externalKeyParam}" class="linktext" target="_blank">${(product.internalName)?if_exists}</a>]
+                          </#if>
+                      </div>
+                  </td>
                   <td align="right"><div class="tabletext">${orderItemQuantity}</td>
                   <td align="right"><div class="tabletext">${shippedQuantity?default(0)}</td>
                   <td align="right"><div class="tabletext">${packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId, itemInfo.productId)}</td>
@@ -383,11 +399,15 @@ under the License.
             </td>
           </tr>
           <#list packedLines as line>
-            <#assign orderItem = orderReadHelper.getOrderItem(line.getOrderItemSeqId())?if_exists>
+            <#assign product = Static["org.ofbiz.product.product.ProductWorker"].findProduct(delegator, line.getProductId())/>
             <tr>
               <td><div class="tabletext">${line.getOrderItemSeqId()}</td>
               <td><div class="tabletext">${line.getProductId()?default("N/A")}</td>
-              <td><div class="tabletext">${(orderItem.itemDescription)?default("[N/A]")}</td>
+              <td>
+                  <div class="tabletext">
+                      <a href="/catalog/control/EditProduct?productId=${line.getProductId()?if_exists}${externalKeyParam}" class="linktext" target="_blank">${product.internalName?if_exists?default("[N/A]")}</a>
+                  </div>       
+              </td>
               <td><div class="tabletext">${line.getInventoryItemId()}</td>
               <td align="right"><div class="tabletext">${line.getQuantity()}</td>
               <#--td align="right"><div class="tabletext">${line.getWeight()}</td-->
