@@ -49,7 +49,6 @@ import org.apache.axis.message.RPCElement;
 import org.apache.axis.message.RPCParam;
 import org.apache.axis.message.SOAPEnvelope;
 import org.apache.axis.server.AxisServer;
-import org.apache.log4j.Category;
 import org.w3c.dom.Document;
 
 /**
@@ -58,7 +57,6 @@ import org.w3c.dom.Document;
 public class SOAPEventHandler implements EventHandler {
 
     public static final String module = SOAPEventHandler.class.getName();
-    public static Category category = Category.getInstance(SOAPEventHandler.class.getName());
 
     /**
      * @see org.ofbiz.webapp.event.EventHandler#init(javax.servlet.ServletContext)
