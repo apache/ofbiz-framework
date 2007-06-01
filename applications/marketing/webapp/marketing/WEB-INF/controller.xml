@@ -152,6 +152,12 @@ under the License.
     <request-map uri="FindTrackingCodeVisits"><security https="true" auth="true"/><response name="success" type="view" value="FindTrackingCodeVisits"/></request-map>
     <request-map uri="FindTrackingCodeType"><security https="true" auth="true"/><response name="success" type="view" value="FindTrackingCodeType"/></request-map>
     <request-map uri="EditTrackingCodeType"><security https="true" auth="true"/><response name="success" type="view" value="EditTrackingCodeType"/></request-map>
+    <request-map uri="createTrackingCodeType">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createTrackingCodeType"/>
+        <response name="success" type="view" value="EditTrackingCodeType"/>
+        <response name="error" type="view" value="EditTrackingCodeType"/>
+    </request-map>
     <request-map uri="updateTrackingCodeType">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updateTrackingCodeType"/>
