@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="ListEmplPositions" type="list" title="" paginate-target="findEmplPositions">
+        <actions>
+            <entity-condition entity-name="EmplPosition"><order-by field-name="emplPositionId"/></entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateEmplPosition" default-field-type="display"/>        
+        <field name="emplPositionId" title="${uiLabelMap.HumanResEmployeePositionId}" widget-style="linktext">
+            <hyperlink also-hidden="false" description="${emplPositionId}" target="EditEmplPosition?emplPositionId=${emplPositionId}"/>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
+                <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
+            </display-entity>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteEmplPosition?emplPositionId=${emplPositionId}&amp;partyId=${partyId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>            
+    <form name="EditEmplPosition" type="single" target="updateEmplPosition" title="" default-map-name="emplPosition">
+        <alt-target use-when="emplPosition==null" target="createEmplPosition"/>
+        <auto-fields-service service-name="createEmplPosition"/>
+        <field use-when="emplPosition!=null" name="emplPositionId" title="${uiLabelMap.HumanResEmplPositionId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="emplPosition==null&amp;&amp;emplPositionId==null" name="emplPositionId" title="${uiLabelMap.HumanResEmplPositionId}"><ignored/></field>
+        <field use-when="emplPosition==null&amp;&amp;emplPositionId!=null" name="emplPositionId" title="${uiLabelMap.HumanResEmplPositionId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${emplPositionId}]"><display/></field>        
+        <field name="partyId" use-when="emplPosition==null" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" use-when="emplPosition!=null" title="${uiLabelMap.PartyPartyId}"><display/></field>
+        <field name="statusId" title="status Id">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="POSITION_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="budgetId" use-when="emplPosition!=null" title="budgetId"><display/></field>
+        <field name="budgetId" use-when="emplPosition==null" title="budgetId"><lookup target-form-name="LookupBudget"/></field>
+        <field name="budgetItemSeqId" use-when="emplPosition!=null" title="budgetItemSeqId"><display/></field>
+        <field name="budgetItemSeqId" use-when="emplPosition==null" title="budgetItemSeqId"><lookup target-form-name="LookupBudgetItem"/></field>
+        <field name="emplPositionTypeId" use-when="emplPosition!=null" title="${uiLabelMap.HumanResEmployeePositionTypeId}"><display/></field>
+        <field name="estimatedFromDate" use-when="emplPosition!=null" title="${uiLabelMap.HumanResEstimatedFromDate}"><display/></field>
+        <field name="emplPositionTypeId" use-when="emplPosition==null" title="${uiLabelMap.HumanResEmployeePositionTypeId}">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="emplPositionTypeId" entity-name="EmplPositionType">                    
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>                       
+        <field name="submitButton" use-when="emplPosition==null" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="submitButton" use-when="emplPosition!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>        
+    <form name="ListEmplPositionFulfillments" type="list" target="updateEmplPositionFulfillment" title="" paginate-target="findEmplPositionFulfillments">
+        <actions>
+            <entity-condition entity-name="EmplPositionFulfillment"><order-by field-name="emplPositionId"/></entity-condition>
+        </actions>        
+        <auto-fields-service service-name="updateEmplPositionFulfillment"/>        
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
+                <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" description="${partyId}"/>
+            </display-entity>
+        </field>
+        <field name="emplPositionId" title="{uiLabelMap.HumanResEmployeePositionId}"><display /></field>
+        <field name="fromDate" title="${uiLabelMap.CommonDate}"><display /></field>        
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteEmplPositionFulfillment?emplPositionId=${emplPositionId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditEmplPositionFulfillment" type="single" target="createEmplPositionFulfillment" title="">
+        <auto-fields-service service-name="createEmplPosition"/>
+        <field name="partyId" title="${PartyPartyId}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="emplPositionId" title="${uiLabelMap.HumanResEmployeePositionId}" tooltip="${uiLabelMap.CommonRequired}"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListEmplPositionReportingStructs" type="list" target="updateEmplPositionReportingStruct" title="" paginate-target="findEmplPositionReportingStructs">
+        <actions>
+            <entity-condition entity-name="EmplPositionReportingStruct"/>
+        </actions>
+        <auto-fields-service service-name="updateEmplPositionReportingStruct"/>        
+        <field name="emplPositionIdReportingTo" title="${uiLabelMap.HumanResEmplPositionIdReportingTo}"><display /></field>        
+        <field name="emplPositionIdReportingFrom" title="${uiLabelMap.HumanResEmplPositionIdReportingFrom}"><display /></field>
+        <field name="fromDate" title="fromDate"><display /></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteEmplPositionReportingStruct?emplPositionIdReportingTo=${emplPositionIdReportingTo}&amp;emplPositionIdReportingFrom=${emplPositionIdReportingFrom}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>        
+    </form>
+    <form name="EditEmplPositionReportingStruct" type="single" target="createEmplPositionReportingStruct" title="">
+        <auto-fields-service service-name="createEmplPositionReportingStruct"/>
+        <field name="emplPositionIdReportingTo" title="${uiLabelMap.HumanResEmplPositionIdReportingTo}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupEmplPosition"/></field>
+        <field name="emplPositionIdManagedBy" title="${uiLabelMap.HumanResEmplPositionIdManagedBy}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupEmplPosition"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonDate}" tooltip="${uiLabelMap.CommonRequired}"/>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>       
+    
+    <form name="ListEmplPositionResponsibilities" type="list" target="updateEmplPositionResponsibility" title="" paginate-target="findEmplPositionResponsibilities">
+        <actions>
+            <entity-condition entity-name="EmplPositionResponsibility"><order-by field-name="emplPositionId"/></entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateEmplPositionResponsibility"/>        
+        <field name="emplPositionId" title="${uiLabelMap.HumanResEmployeePositionId}"><display /></field>        
+        <field name="responsibilityTypeId" title="${uiLabelMap.HumanResResponsibilityTypeId}"><display /></field>
+        <field name="fromDate" title="fromDate"><display /></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteEmplPositionResponsibility?emplPositionId=${emplPositionId}&amp;responsibilityTypeId=${responsibilityTypeId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>        
+    </form>
+    <form name="EditEmplPositionResponsibility" type="single" target="createEmplPositionResponsibility" title="">
+        <auto-fields-service service-name="createEmplPositionResponsibility"/>
+        <field name="emplPositionId" title="${uiLabelMap.HumanResEmplPositionId}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupEmplPosition"/></field>
+        <field name="responsibilityTypeId">
+            <drop-down allow-empty="false">                
+                <entity-options entity-name="ResponsibilityType" key-field-name="responsibilityTypeId" description=" ${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>                
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>    
+    <form name="ListValidResponsibilities" type="list" target="updateValidResponsibility" title="" paginate-target="findValidResponsibilities">
+        <actions>
+            <entity-condition entity-name="EmplPositionResponsibility"/>
+        </actions>
+        <auto-fields-service service-name="updateValidResponsibility"/>        
+        <field name="emplPositionTypeId" title="${uiLabelMap.HumanResEmplPositionTypeId}"><display /></field>        
+        <field name="responsibilityTypeId" title="${uiLabelMap.ResponsibilityTypeId}"><display /></field>
+        <field name="fromDate" title="fromDates"><display /></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteValidResponsibility?emplPositionTypeId=${emplPositionId}&amp;responsibilityTypeId=${responsibilityTypeId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditValidResponsibility" type="single" target="createValidResponsibility" title="">
+        <auto-fields-service service-name="createValidResponsibility"/>        
+        <field name="emplPositionTypeId">
+            <drop-down allow-empty="false">                
+                <entity-options entity-name="emplPositionType" key-field-name="emplPositionTypeId" description=" ${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>                
+            </drop-down>
+        </field>
+        <field name="responsibilityTypeId">
+            <drop-down allow-empty="false">                
+                <entity-options entity-name="responsibilityType" key-field-name="responsibilityTypeId" description=" ${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>                
+            </drop-down>            
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>                           
+</forms>

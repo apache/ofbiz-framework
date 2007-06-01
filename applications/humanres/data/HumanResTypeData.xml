@@ -36,4 +36,4 @@ under the License.
     <StatusType description="PartyQual verification status" hasTable="N" parentTypeId="" statusTypeId="PARTYQUAL_VERIFY"/>
     <StatusItem description="Not verified" sequenceId="01" statusCode="NOT_VERIFIED" statusId="PQV_NOT_VERIFIED" statusTypeId="PARTYQUAL_VERIFY"/>
     <StatusItem description="Verified" sequenceId="02" statusCode="VERIFIED" statusId="PQV_VERIFIED" statusTypeId="PARTYQUAL_VERIFY"/>
- </entity-engine-xml>
+</entity-engine-xml>

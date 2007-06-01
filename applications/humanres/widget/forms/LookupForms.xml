@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="LookupBudget" type="single" target="LookupBudget">
+        <auto-fields-entity entity-name="Budget" default-field-type="hidden"/>
+        <field name="budgetId" title="${uiLabelMap.HumanResBudgetID}"><text-find/></field>
+        <field name="budgetTypeId">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="budgetTypeId" entity-name="BudgetType"></entity-options>
+            </drop-down>
+        </field>
+        <field name="customTimePeriodId"><lookup target-form-name="LookupCustomTimePeriod"/></field>        
+        <field name="noConditionFind"><hidden value="Y"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListBudgets" type="list" list-name="listIt" paginate-target="LookupBudget">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="Budget"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="Budget" default-field-type="display"/>
+        <field name="budgetId" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${budgetId}" target="javascript:set_value('${budgetId}')"/>
+        </field>        
+    </form>
+    <form name="LookupBudgetItem" type="single" target="LookupBudgetItem">
+        <auto-fields-entity entity-name="BudgetItem" default-field-type="hidden"/>
+        <field name="budgetItemSeqId" title="${uiLabelMap.HumanResBudgetItemSeqId}"><text-find/></field>
+        <field name="budgetItemTypeId">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="budgetItemTypeId" entity-name="BudgetItemType"></entity-options>
+            </drop-down>
+        </field>
+        <field name="budgetId"><lookup target-form-name="LookupBudget"/></field>        
+        <field name="noConditionFind"><hidden value="Y"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListBudgetItems" type="list" list-name="listIt" paginate-target="LookupBudgetItem">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="BudgetItem"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="BudgetItem" default-field-type="display"/>        
+        <field name="budgetItemSeqId" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${budgetItemSeqId}" target="javascript:set_value('${budgetItemSeqId}')"/>
+        </field>        
+    </form>
+    <form name="LookupEmplPosition" type="single" target="LookupEmplPosition">
+        <auto-fields-entity entity-name="EmplPosition" default-field-type="hidden"/>
+        <field name="emplPositionId" title="${uiLabelMap.HumanResEmplPositionId}"><text-find/></field>
+        <field name="statusId">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem"></entity-options>
+            </drop-down>
+        </field>
+        <field name="emplPositionTypeId">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="emplPositionTypeId" entity-name="EmplPositionType"></entity-options>
+            </drop-down>
+        </field>
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="budgetId"><lookup target-form-name="LookupBudget"/></field>
+        <field name="budgetItemSeqId"><lookup target-form-name="LookupBudgetItem"/></field>
+        <field name="noConditionFind"><hidden value="Y"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListEmplPositions" type="list" list-name="listIt" paginate-target="LookupEmplPosition">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="EmplPosition"/>
+            </service>
+        </actions>        
+        <field name="emplPositionId" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${emplPositionId}" target="javascript:set_value('${emplPositionId}')"/>
+        </field>
+        <field name="statusId"><display/></field>
+        <field name="partyId"><display/></field>
+        <field name="budgetId"><display/></field>
+        <field name="budgetItemSeqId"><display/></field>
+        <field name="emplPositionTypeId"><display/></field>
+    </form>
+    <form name="LookupTerminationReason" type="single" target="LookupTerminationReason">
+        <auto-fields-entity entity-name="TerminationReason" default-field-type="hidden"/>
+        <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><text-find/></field>                
+        <field name="noConditionFind"><hidden value="Y"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListTerminationReasons" type="list" list-name="listIt" paginate-target="LookupEmplPosition">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="TerminationReason"/>
+            </service>
+        </actions>
+        <field name="terminationReasonId" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${terminationReasonId}" target="javascript:set_value('${terminationReasonId}')"/>
+        </field>        
+        <field name="description"><display/></field>        
+    </form>
+    <form name="LookupSalaryStep" type="single" target="LookupSalaryStep">
+        <auto-fields-entity entity-name="SalaryStep" default-field-type="hidden"/>
+        <field name="salaryStepSeqId" title="${uiLabelMap.HumanResLookupSalaryStepSeqId}"><text-find/></field>                
+        <field name="noConditionFind"><hidden value="Y"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListSalarySteps" type="list" list-name="listIt" paginate-target="LookupSalaryStep">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="SalaryStep"/>
+            </service>
+        </actions>
+        <field name="salaryStepId" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${salaryStepId}" target="javascript:set_value('${salaryStepId}')"/>
+        </field>        
+        <field name="description"><display/></field>        
+    </form>
+    <form name="LookupPayGrade" type="single" target="LookupPayGrade">
+        <auto-fields-entity entity-name="SalaryStep" default-field-type="hidden"/>
+        <field name="payGradeId" title="${uiLabelMap.HumanResLookupPayGradeId}"><text-find/></field>                
+        <field name="noConditionFind"><hidden value="Y"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListPayGrades" type="list" list-name="listIt" paginate-target="LookupPayGrade">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="PayGrade"/>
+            </service>
+        </actions>
+        <field name="payGradeId" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${payGradeId}" target="javascript:set_value('${payGradeId}')"/>
+        </field>        
+        <field name="description"><display/></field>        
+    </form>    
+</forms>        
