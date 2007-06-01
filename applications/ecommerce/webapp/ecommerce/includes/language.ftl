@@ -24,18 +24,13 @@ under the License.
     <div class="screenlet-body" style="text-align: center;">
         <form method="post" name="chooseLanguage" action="<@ofbizUrl>setSessionLocale</@ofbizUrl>" style="margin: 0;">
           <select name="locale" class="selectBox">
-            <#assign initialDisplayName = locale.getDisplayName(locale)>
-            <#if 18 < initialDisplayName?length>
-              <#assign initialDisplayName = initialDisplayName[0..15] + "...">
-            </#if>
-            <option value="${locale.toString()}">${initialDisplayName}</option>
-            <option value="${locale.toString()}">----</option>
             <#list availableLocales as availableLocale>
-              <#assign displayName = availableLocale.getDisplayName(locale)>
-              <#if 18 < displayName?length>
-                <#assign displayName = displayName[0..15] + "...">
+              <#assign langAttr = availableLocale.toString()?replace("_", "-")>
+              <#assign langDir = "ltr">
+              <#if "ar.iw"?contains(langAttr?substring(0, 2))>
+                 <#assign langDir = "rtl">
               </#if>
-              <option value="${availableLocale.toString()}">${displayName}</option>
+              <option lang="${langAttr}" dir="${langDir}" value="${availableLocale.toString()}"<#if locale.toString() = availableLocale.toString()> selected="selected"</#if>>${availableLocale.getDisplayName(availableLocale)}</option>
             </#list>
           </select>
           <div><a href="javascript:document.chooseLanguage.submit()" class="buttontext">${uiLabelMap.CommonChange}</a></div>
