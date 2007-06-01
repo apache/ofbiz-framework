@@ -856,6 +856,8 @@ under the License.
       <alias entity-alias="OH" name="orderId"/>
       <alias entity-alias="OH" name="orderTypeId"/>
       <alias entity-alias="OH" name="orderDate"/>
+      <alias entity-alias="OH" name="billingAccountId"/>
+      <alias entity-alias="OPP" name="preferenceStatusId" field="statusId"/>
       <view-link entity-alias="OH" rel-entity-alias="OPP">
         <key-map field-name="orderId"/>
       </view-link>
@@ -1415,6 +1417,9 @@ under the License.
         <key-map field-name="orderItemSeqId"/>
       </view-link>
       <view-link entity-alias="OISGIR" rel-entity-alias="II">
+      <relation type="one-nofk" rel-entity-name="Product">
+        <key-map field-name="productId"/>
+      </relation>
         <key-map field-name="inventoryItemId"/>
       </view-link>
     </view-entity>
