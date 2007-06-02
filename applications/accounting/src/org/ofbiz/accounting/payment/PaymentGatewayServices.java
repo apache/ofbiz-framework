@@ -1181,8 +1181,8 @@ public class PaymentGatewayServices {
                     }
 
                     // create any splits which are needed
-                    if (authAmount.compareTo(amountThisCapture) == 1) {
-                        BigDecimal splitAmount = authAmount.subtract(amountThisCapture);
+                    if (authAmount.compareTo(amountCapturedBd) == 1) {
+                        BigDecimal splitAmount = authAmount.subtract(amountCapturedBd);
                         try {
                             Map splitCtx = UtilMisc.toMap("userLogin", userLogin, "orderPaymentPreference", paymentPref, "splitAmount", splitAmount);
                             dispatcher.addCommitService("processCaptureSplitPayment", splitCtx, true);
