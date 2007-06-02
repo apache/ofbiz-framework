@@ -1091,11 +1091,7 @@ public class PaymentGatewayServices {
         }
 
         BigDecimal amountToCapture = ZERO;
-        if (captureAmountBd == null) {
-            amountToCapture = remainingTotalBd;
-        } else {
-            amountToCapture = captureAmountBd;
-        }
+        amountToCapture = captureAmountBd;
         if (Debug.infoOn()) Debug.logInfo("Actual Expected Capture Amount : " + amountToCapture, module);
 
         // iterate over the prefs and capture each one until we meet our total
