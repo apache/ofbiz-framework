@@ -1226,15 +1226,16 @@ public class PaymentGatewayServices {
         String orderId = paymentPref.getString("orderId");
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
 
-        // create a new payment preference and authorize it
+        String statusId = ("EXT_BILLACT".equals(paymentPref.getString("paymentMethodTypeId"))? "PAYMENT_NOT_RECEIVED": "PAYMENT_NOT_AUTH");
+        // create a new payment preference
         Debug.logInfo("Creating payment preference split", module);
         String newPrefId = delegator.getNextSeqId("OrderPaymentPreference");
         GenericValue newPref = delegator.makeValue("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", newPrefId));
         newPref.set("orderId", paymentPref.get("orderId"));
         newPref.set("paymentMethodTypeId", paymentPref.get("paymentMethodTypeId"));
         newPref.set("paymentMethodId", paymentPref.get("paymentMethodId"));
-        newPref.set("maxAmount", paymentPref.get("maxAmount"));
-        newPref.set("statusId", "PAYMENT_NOT_AUTH");
+        newPref.set("maxAmount", splitAmount);
+        newPref.set("statusId", statusId);
         newPref.set("createdDate", UtilDateTime.nowTimestamp());
         if (userLogin != null) {
             newPref.set("createdByUserLogin", userLogin.getString("userLoginId"));
@@ -1246,16 +1247,18 @@ public class PaymentGatewayServices {
             // create the new payment preference
             delegator.create(newPref);
 
-            // authorize the new preference
-            processorResult = authPayment(dispatcher, userLogin, orh, newPref, splitAmount.doubleValue(), false, null);
-            if (processorResult != null) {
-                // process the auth results
-                boolean authResult = processResult(dctx, processorResult, userLogin, newPref);
-                if (!authResult) {
-                    Debug.logError("Authorization failed : " + newPref + " : " + processorResult, module);
+            if ("PAYMENT_NOT_AUTH".equals(statusId)) {
+                // authorize the new preference
+                processorResult = authPayment(dispatcher, userLogin, orh, newPref, splitAmount.doubleValue(), false, null);
+                if (processorResult != null) {
+                    // process the auth results
+                    boolean authResult = processResult(dctx, processorResult, userLogin, newPref);
+                    if (!authResult) {
+                        Debug.logError("Authorization failed : " + newPref + " : " + processorResult, module);
+                    }
+                } else {
+                    Debug.logError("Payment not authorized : " + newPref + " : " + processorResult, module);
                 }
-            } else {
-                Debug.logError("Payment not authorized : " + newPref + " : " + processorResult, module);
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "ERROR: cannot create new payment preference : " + newPref, module);
@@ -1266,7 +1269,6 @@ public class PaymentGatewayServices {
                 Debug.logError(e, "Trouble authorizing the payment: " + newPref, module);
             }
         }
-
         return ServiceUtil.returnSuccess();
     }
 
@@ -1871,6 +1873,8 @@ public class PaymentGatewayServices {
         String serviceType = (String) context.get("serviceTypeEnum");
         String currencyUomId = (String) context.get("currencyUomId");
         
+        String paymentMethodTypeId = paymentPreference.getString("paymentMethodTypeId");
+
         if (UtilValidate.isEmpty(serviceType)) {
             serviceType = CAPTURE_SERVICE_TYPE;
         }
@@ -1883,8 +1887,9 @@ public class PaymentGatewayServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        // update the status
-        paymentPreference.set("statusId", "PAYMENT_SETTLED");
+        // update the status and maxAmount
+        paymentPreference.set("statusId", ("EXT_BILLACT".equals(paymentMethodTypeId)? "PAYMENT_RECEIVED": "PAYMENT_SETTLED"));
+        paymentPreference.set("maxAmount", amount);
         try {
             paymentPreference.store();
         } catch (GenericEntityException e) {
@@ -1892,143 +1897,144 @@ public class PaymentGatewayServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        // create the PaymentGatewayResponse record
-        String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
-        GenericValue response = delegator.makeValue("PaymentGatewayResponse", null);
-        response.set("paymentGatewayResponseId", responseId);
-        response.set("paymentServiceTypeEnumId", serviceType);
-        response.set("orderPaymentPreferenceId", paymentPreference.get("orderPaymentPreferenceId"));
-        response.set("paymentMethodTypeId", paymentPreference.get("paymentMethodTypeId"));
-        response.set("paymentMethodId", paymentPreference.get("paymentMethodId"));
-        response.set("transCodeEnumId", "PGT_CAPTURE");
-        response.set("currencyUomId", currencyUomId);
-        if (context.get("authRefNum") != null) {
-            response.set("subReference", context.get("authRefNum"));
-            response.set("altReference", context.get("authAltRefNum"));
-        } else {
-            response.set("altReference", context.get("captureAltRefNum"));
-        }
-
-        // set the capture info
-        response.set("amount", amount);
-        response.set("referenceNum", context.get("captureRefNum"));
-        response.set("gatewayCode", context.get("captureCode"));
-        response.set("gatewayFlag", context.get("captureFlag"));
-        response.set("gatewayMessage", context.get("captureMessage"));
-        response.set("transactionDate", UtilDateTime.nowTimestamp());
-
-        // save the response
-        savePgr(dctx, response);
-
-        // create the internal messages
-        List messages = (List) context.get("internalRespMsgs");
-        if (messages != null && messages.size() > 0) {
-            Iterator i = messages.iterator();
-            while (i.hasNext()) {
-                GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg", null);
-                String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
-                String message = (String) i.next();
-                respMsg.set("paymentGatewayRespMsgId", respMsgId);
-                respMsg.set("paymentGatewayResponseId", responseId);
-                respMsg.set("pgrMessage", message);
-
-                // save the message
-                savePgr(dctx, respMsg);
+        if (!"EXT_BILLACT".equals(paymentMethodTypeId)) {
+            // create the PaymentGatewayResponse record
+            String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
+            GenericValue response = delegator.makeValue("PaymentGatewayResponse", null);
+            response.set("paymentGatewayResponseId", responseId);
+            response.set("paymentServiceTypeEnumId", serviceType);
+            response.set("orderPaymentPreferenceId", paymentPreference.get("orderPaymentPreferenceId"));
+            response.set("paymentMethodTypeId", paymentMethodTypeId);
+            response.set("paymentMethodId", paymentPreference.get("paymentMethodId"));
+            response.set("transCodeEnumId", "PGT_CAPTURE");
+            response.set("currencyUomId", currencyUomId);
+            if (context.get("authRefNum") != null) {
+                response.set("subReference", context.get("authRefNum"));
+                response.set("altReference", context.get("authAltRefNum"));
+            } else {
+                response.set("altReference", context.get("captureAltRefNum"));
             }
-        }
 
-        // get the invoice
-        GenericValue invoice = null;
-        if (invoiceId != null) {
+            // set the capture info
+            response.set("amount", amount);
+            response.set("referenceNum", context.get("captureRefNum"));
+            response.set("gatewayCode", context.get("captureCode"));
+            response.set("gatewayFlag", context.get("captureFlag"));
+            response.set("gatewayMessage", context.get("captureMessage"));
+            response.set("transactionDate", UtilDateTime.nowTimestamp());
+
+            // save the response
+            savePgr(dctx, response);
+
+            // create the internal messages
+            List messages = (List) context.get("internalRespMsgs");
+            if (messages != null && messages.size() > 0) {
+                Iterator i = messages.iterator();
+                while (i.hasNext()) {
+                    GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg", null);
+                    String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
+                    String message = (String) i.next();
+                    respMsg.set("paymentGatewayRespMsgId", respMsgId);
+                    respMsg.set("paymentGatewayResponseId", responseId);
+                    respMsg.set("pgrMessage", message);
+
+                    // save the message
+                    savePgr(dctx, respMsg);
+                }
+            }
+
+            // get the invoice
+            GenericValue invoice = null;
+            if (invoiceId != null) {
+                try {
+                    invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
+                } catch (GenericEntityException e) {
+                    String message = "Failed to process capture result:  Could not find invoice ["+invoiceId+"] due to entity error: " + e.getMessage();
+                    Debug.logError(e, message, module);
+                    return ServiceUtil.returnError(message );
+                }
+            } 
+
+            // determine the partyIdFrom for the payment, which is who made the payment
+            String partyIdFrom = null;
+            if (invoice != null) {
+                // get the party from the invoice, which is the bill-to party (partyId)
+                partyIdFrom = invoice.getString("partyId");
+            } else {
+                // otherwise get the party from the order's OrderRole
+                String orderId = paymentPreference.getString("orderId");
+                List orl = null;
+                try {
+                    orl = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "BILL_TO_CUSTOMER"));
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+                if (orl != null && orl.size() > 0) {
+                    GenericValue orderRole = EntityUtil.getFirst(orl);
+                    partyIdFrom = orderRole.getString("partyId");
+                }
+            }
+
+            // get the partyIdTo for the payment, which is who is receiving it
+            String partyIdTo = null;
+            if (!UtilValidate.isEmpty(payTo)) {
+                // use input pay to party
+                partyIdTo = payTo;
+            } else if (invoice != null) {
+                // ues the invoice partyIdFrom as the pay to party (which is who supplied the invoice)
+                partyIdTo = invoice.getString("partyIdFrom");
+            } else {
+                // otherwise default to Company and print a big warning about this
+                partyIdTo = "Company";
+                Debug.logWarning("Using default value of [" + partyIdTo + "] for payTo on invoice [" + invoiceId + "] and orderPaymentPreference [" + 
+                        paymentPreference.getString("orderPaymentPreferenceId") + "]", module);
+            }
+
+
+            Map paymentCtx = UtilMisc.toMap("paymentTypeId", "CUSTOMER_PAYMENT");
+            paymentCtx.put("paymentMethodTypeId", paymentPreference.get("paymentMethodTypeId"));
+            paymentCtx.put("paymentMethodId", paymentPreference.get("paymentMethodId"));
+            paymentCtx.put("paymentGatewayResponseId", responseId);
+            paymentCtx.put("partyIdTo", partyIdTo);
+            paymentCtx.put("partyIdFrom", partyIdFrom);
+            paymentCtx.put("statusId", "PMNT_RECEIVED");
+            paymentCtx.put("paymentPreferenceId", paymentPreference.get("orderPaymentPreferenceId"));
+            paymentCtx.put("amount", amount);
+            paymentCtx.put("currencyUomId", currencyUomId);
+            paymentCtx.put("userLogin", userLogin);
+            paymentCtx.put("paymentRefNum", context.get("captureRefNum"));
+
+            Map payRes;
             try {
-                invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
-            } catch (GenericEntityException e) {
-                String message = "Failed to process capture result:  Could not find invoice ["+invoiceId+"] due to entity error: " + e.getMessage();
-                Debug.logError(e, message, module);
-                return ServiceUtil.returnError(message );
-            }
-        } 
-
-        // determine the partyIdFrom for the payment, which is who made the payment
-        String partyIdFrom = null;
-        if (invoice != null) {
-            // get the party from the invoice, which is the bill-to party (partyId)
-            partyIdFrom = invoice.getString("partyId");
-        } else {
-            // otherwise get the party from the order's OrderRole
-            String orderId = paymentPreference.getString("orderId");
-            List orl = null;
-            try {
-                orl = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "BILL_TO_CUSTOMER"));
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
-            }
-            if (orl != null && orl.size() > 0) {
-                GenericValue orderRole = EntityUtil.getFirst(orl);
-                partyIdFrom = orderRole.getString("partyId");
-            }
-        }
-
-        // get the partyIdTo for the payment, which is who is receiving it
-        String partyIdTo = null;
-        if (!UtilValidate.isEmpty(payTo)) {
-            // use input pay to party
-            partyIdTo = payTo;
-        } else if (invoice != null) {
-            // ues the invoice partyIdFrom as the pay to party (which is who supplied the invoice)
-            partyIdTo = invoice.getString("partyIdFrom");
-        } else {
-            // otherwise default to Company and print a big warning about this
-            partyIdTo = "Company";
-            Debug.logWarning("Using default value of [" + partyIdTo + "] for payTo on invoice [" + invoiceId + "] and orderPaymentPreference [" + 
-                    paymentPreference.getString("orderPaymentPreferenceId") + "]", module);
-        }
-
-
-        Map paymentCtx = UtilMisc.toMap("paymentTypeId", "CUSTOMER_PAYMENT");
-        paymentCtx.put("paymentMethodTypeId", paymentPreference.get("paymentMethodTypeId"));
-        paymentCtx.put("paymentMethodId", paymentPreference.get("paymentMethodId"));
-        paymentCtx.put("paymentGatewayResponseId", responseId);
-        paymentCtx.put("partyIdTo", partyIdTo);
-        paymentCtx.put("partyIdFrom", partyIdFrom);
-        paymentCtx.put("statusId", "PMNT_RECEIVED");
-        paymentCtx.put("paymentPreferenceId", paymentPreference.get("orderPaymentPreferenceId"));
-        paymentCtx.put("amount", amount);
-        paymentCtx.put("currencyUomId", currencyUomId);
-        paymentCtx.put("userLogin", userLogin);
-        paymentCtx.put("paymentRefNum", context.get("captureRefNum"));
-
-        Map payRes;
-        try {
-            payRes = dispatcher.runSync("createPayment", paymentCtx);
-        } catch (GenericServiceException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError("Error creating payment record");
-        }
-        if (ServiceUtil.isError(payRes)) {
-            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(payRes));
-        }
-
-        String paymentId = (String) payRes.get("paymentId");
-
-        // create the PaymentApplication if invoiceId is available
-        if (invoiceId != null) {
-            Debug.logInfo("Processing Invoice #" + invoiceId, module);
-            Map paCtx = UtilMisc.toMap("paymentId", paymentId, "invoiceId", invoiceId);
-            paCtx.put("amountApplied", context.get("captureAmount"));
-            paCtx.put("userLogin", userLogin);
-            Map paRes;
-            try {
-                paRes = dispatcher.runSync("createPaymentApplication", paCtx);
+                payRes = dispatcher.runSync("createPayment", paymentCtx);
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
-                return ServiceUtil.returnError("Error creating invoice application");
+                return ServiceUtil.returnError("Error creating payment record");
             }
-            if (paRes != null && ServiceUtil.isError(paRes)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(paRes));
+            if (ServiceUtil.isError(payRes)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(payRes));
+            }
+
+            String paymentId = (String) payRes.get("paymentId");
+
+            // create the PaymentApplication if invoiceId is available
+            if (invoiceId != null) {
+                Debug.logInfo("Processing Invoice #" + invoiceId, module);
+                Map paCtx = UtilMisc.toMap("paymentId", paymentId, "invoiceId", invoiceId);
+                paCtx.put("amountApplied", context.get("captureAmount"));
+                paCtx.put("userLogin", userLogin);
+                Map paRes;
+                try {
+                    paRes = dispatcher.runSync("createPaymentApplication", paCtx);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError("Error creating invoice application");
+                }
+                if (paRes != null && ServiceUtil.isError(paRes)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(paRes));
+                }
             }
         }
-
         return ServiceUtil.returnSuccess();
     }
 
