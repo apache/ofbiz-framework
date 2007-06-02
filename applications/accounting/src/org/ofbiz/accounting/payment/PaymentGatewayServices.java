@@ -996,7 +996,7 @@ public class PaymentGatewayServices {
         String invoiceId = (String) context.get("invoiceId");
         String billingAccountId = (String) context.get("billingAccountId");
         Double captureAmount = (Double) context.get("captureAmount");
-        BigDecimal captureAmountBd = new BigDecimal(captureAmount.doubleValue());
+        BigDecimal amountToCapture = new BigDecimal(captureAmount.doubleValue());
 
         // get the order header and payment preferences
         GenericValue orderHeader = null;
@@ -1055,7 +1055,7 @@ public class PaymentGatewayServices {
                 // the amount to be "charged" to the billing account, which is the minimum of the amount the order wants to charge to the billing account 
                 // or the amount still available for capturing from the billing account or the total amount to be captured on the order 
                 BigDecimal billingAccountMaxAmount = new BigDecimal(orh.getBillingAccountMaxAmount());
-                billingAccountCaptureAmount = billingAccountMaxAmount.min(billingAccountAvail).min(captureAmountBd);
+                billingAccountCaptureAmount = billingAccountMaxAmount.min(billingAccountAvail).min(amountToCapture);
                 Debug.logInfo("billing account avail = [" + billingAccountAvail + "] capture amount = [" + billingAccountCaptureAmount + "] maxAmount = ["+billingAccountMaxAmount+"]", module);
                 // capturing to a billing account if amount is greater than zero
                 if (billingAccountCaptureAmount.compareTo(ZERO) == 1) {
@@ -1067,11 +1067,11 @@ public class PaymentGatewayServices {
 
                     // now, if the full amount had not been captured, then capture
                     // it from other methods, otherwise return
-                    if (billingAccountCaptureAmount.compareTo(captureAmountBd) == -1) {
-                        BigDecimal outstandingAmount = captureAmountBd.subtract(billingAccountCaptureAmount).setScale(decimals, rounding);
-                        captureAmountBd = outstandingAmount;
+                    if (billingAccountCaptureAmount.compareTo(amountToCapture) == -1) {
+                        BigDecimal outstandingAmount = amountToCapture.subtract(billingAccountCaptureAmount).setScale(decimals, rounding);
+                        amountToCapture = outstandingAmount;
                     } else {
-                        Debug.logInfo("Amount to capture [" + captureAmountBd + "] was fully captured in Payment [" + tmpResult.get("paymentId") + "].", module);
+                        Debug.logInfo("Amount to capture [" + amountToCapture + "] was fully captured in Payment [" + tmpResult.get("paymentId") + "].", module);
                         Map result = ServiceUtil.returnSuccess();
                         result.put("processResult", "COMPLETE");
                         return result;
@@ -1090,8 +1090,6 @@ public class PaymentGatewayServices {
             return result;
         }
 
-        BigDecimal amountToCapture = ZERO;
-        amountToCapture = captureAmountBd;
         if (Debug.infoOn()) Debug.logInfo("Actual Expected Capture Amount : " + amountToCapture, module);
 
         // iterate over the prefs and capture each one until we meet our total
