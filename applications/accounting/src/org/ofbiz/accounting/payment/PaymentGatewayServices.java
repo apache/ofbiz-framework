@@ -1085,6 +1085,9 @@ public class PaymentGatewayServices {
         }            
         
         // return complete if no payment prefs were found
+        // JAC20070602: Is this correct? Shouldn't we check if the 
+        // amountToCapture is > 0 as we are doing
+        // at the bottom of this method?
         if (paymentPrefs == null || paymentPrefs.size() == 0) {
             Debug.logWarning("No orderPaymentPreferences available to capture", module);
             Map result = ServiceUtil.returnSuccess();
