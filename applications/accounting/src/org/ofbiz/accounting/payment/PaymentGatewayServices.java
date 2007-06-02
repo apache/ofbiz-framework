@@ -1167,9 +1167,7 @@ public class PaymentGatewayServices {
                     amountCapturedBd = amountCapturedBd.setScale(2, BigDecimal.ROUND_HALF_UP);
 
                     // decrease amount of next payment preference to capture
-                    if (amountCaptured != null) {
-                        amountToCapture = amountToCapture.subtract(amountCapturedBd);                
-                    }
+                    amountToCapture = amountToCapture.subtract(amountCapturedBd);                
 
                     // add the invoiceId to the result for processing
                     captureResult.put("invoiceId", invoiceId);
