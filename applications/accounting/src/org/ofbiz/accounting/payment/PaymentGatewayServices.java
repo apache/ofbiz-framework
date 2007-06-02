@@ -1155,7 +1155,7 @@ public class PaymentGatewayServices {
 
                 Debug.logInfo("Payment preference = [" + paymentPref + "] amount to capture = [" + amountToCapture +"] amount of this capture = [" + amountThisCapture +"] actual auth amount =[" + authAmount + "] amountToBillAccount = [" + amountToBillAccount + "]", module); 
                 Map captureResult = capturePayment(dctx, userLogin, orh, paymentPref, amountThisCapture.doubleValue());
-                if (captureResult != null) {
+                if (captureResult != null && !ServiceUtil.isError(captureResult)) {
                     // credit card processors return captureAmount, but gift certificate processors return processAmount
                     Double amountCaptured = (Double) captureResult.get("captureAmount");
                     if (amountCaptured == null) {
