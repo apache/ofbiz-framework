@@ -1093,107 +1093,109 @@ public class PaymentGatewayServices {
         if (Debug.infoOn()) Debug.logInfo("Actual Expected Capture Amount : " + amountToCapture, module);
 
         // iterate over the prefs and capture each one until we meet our total
-        Iterator payments = paymentPrefs.iterator();
-        while (payments.hasNext()) {
-            // DEJ20060708: Do we really want to just log and ignore the errors like this? I've improved a few of these in a review today, but it is being done all over...
-            GenericValue paymentPref = (GenericValue) payments.next();
-            GenericValue authTrans = getAuthTransaction(paymentPref);
-            if (authTrans == null) {
-                continue;
-            }
-
-            // check for an existing capture
-            GenericValue captureTrans = getCaptureTransaction(paymentPref);
-            if (captureTrans != null) {
-                Debug.logWarning("Attempt to capture and already captured preference: " + captureTrans, module);
-                continue;
-            }
-
-            BigDecimal authAmount = authTrans.getBigDecimal("amount");
-            if (authAmount == null) authAmount = new BigDecimal(0.00);
-            authAmount = authAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
-
-            if (authAmount.compareTo(ZERO) == 0) {
-                // nothing to capture
-                Debug.logInfo("Nothing to capture; authAmount = 0", module);
-                continue;
-            }
- 
-            // if the authAmount is more then the remaining total; just use remaining total
-            if (authAmount.compareTo(remainingTotalBd) == 1) {
-                authAmount = new BigDecimal(remainingTotalBd.doubleValue());
-            }
-
-            // if we have a billing account; total up auth + account available
-            BigDecimal amountToBillAccount = ZERO;
-            if (billingAccountAvail != null) {
-                amountToBillAccount = authAmount.add(billingAccountAvail).setScale(2, BigDecimal.ROUND_HALF_UP);
-            }
-
-            // the amount for *this* capture
-            BigDecimal amountThisCapture;
-
-            // determine how much for *this* capture
-            if (authAmount.compareTo(amountToCapture) >= 0) {
-                // if the auth amount is more then expected capture just capture what is expected
-                amountThisCapture = amountToCapture;
-            } else if (payments.hasNext()) {
-                // if we have more payments to capture; just capture what was authorized
-                amountThisCapture = authAmount;
-            } else if (billingAccountAvail != null && amountToBillAccount.compareTo(amountToCapture) >= 0) {
-                // the provided billing account will cover the remaining; just capture what was autorized
-                amountThisCapture = authAmount;
-            } else {
-                // we need to capture more then what was authorized; re-auth for the new amount
-                // TODO: add what the billing account cannot support to the re-auth amount
-                // TODO: add support for re-auth for additional funds
-                // just in case; we will capture the authorized amount here; until this is implemented
-                Debug.logError("The amount to capture was more then what was authorized; we only captured the authorized amount : " + paymentPref, module);
-                amountThisCapture = authAmount;
-            }
-           
-            Debug.logInfo("Payment preference = [" + paymentPref + "] amount to capture = [" + amountToCapture +"] amount of this capture = [" + amountThisCapture +"] actual auth amount =[" + authAmount + "] amountToBillAccount = [" + amountToBillAccount + "]", module); 
-            Map captureResult = capturePayment(dctx, userLogin, orh, paymentPref, amountThisCapture.doubleValue());
-            if (captureResult != null) {
-                // credit card processors return captureAmount, but gift certificate processors return processAmount
-                Double amountCaptured = (Double) captureResult.get("captureAmount");
-                if (amountCaptured == null) {
-                    amountCaptured = (Double) captureResult.get("processAmount");
+        if (UtilValidate.isNotEmpty(paymentPrefs)) {
+            Iterator payments = paymentPrefs.iterator();
+            while (payments.hasNext()) {
+                // DEJ20060708: Do we really want to just log and ignore the errors like this? I've improved a few of these in a review today, but it is being done all over...
+                GenericValue paymentPref = (GenericValue) payments.next();
+                GenericValue authTrans = getAuthTransaction(paymentPref);
+                if (authTrans == null) {
+                    continue;
                 }
 
-                // big decimal reference to the capture amount
-                BigDecimal amountCapturedBd = new BigDecimal(amountCaptured.doubleValue());
-                amountCapturedBd = amountCapturedBd.setScale(2, BigDecimal.ROUND_HALF_UP);
-
-                // decrease amount of next payment preference to capture
-                if (amountCaptured != null) {
-                    amountToCapture = amountToCapture.subtract(amountCapturedBd);                
+                // check for an existing capture
+                GenericValue captureTrans = getCaptureTransaction(paymentPref);
+                if (captureTrans != null) {
+                    Debug.logWarning("Attempt to capture and already captured preference: " + captureTrans, module);
+                    continue;
                 }
 
-                // add the invoiceId to the result for processing
-                captureResult.put("invoiceId", invoiceId);
+                BigDecimal authAmount = authTrans.getBigDecimal("amount");
+                if (authAmount == null) authAmount = new BigDecimal(0.00);
+                authAmount = authAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
 
-                // process the capture's results
-                try {
-                    processResult(dctx, captureResult, userLogin, paymentPref);
-                } catch (GeneralException e) {
-                    Debug.logError(e, "Trouble processing the result; captureResult: " + captureResult, module);
-                    return ServiceUtil.returnError("Trouble processing the capture results");
+                if (authAmount.compareTo(ZERO) == 0) {
+                    // nothing to capture
+                    Debug.logInfo("Nothing to capture; authAmount = 0", module);
+                    continue;
                 }
 
-                // create any splits which are needed
-                if (authAmount.compareTo(amountThisCapture) == 1) {
-                    BigDecimal splitAmount = authAmount.subtract(amountThisCapture);
-                    try {
-                        Map splitCtx = UtilMisc.toMap("userLogin", userLogin, "orderPaymentPreference", paymentPref, "splitAmount", splitAmount);
-                        dispatcher.addCommitService("processCaptureSplitPayment", splitCtx, true);
-                    } catch (GenericServiceException e) {
-                        Debug.logWarning(e, "Problem processing the capture split payment", module);
+                // if the authAmount is more then the remaining total; just use remaining total
+                if (authAmount.compareTo(remainingTotalBd) == 1) {
+                    authAmount = new BigDecimal(remainingTotalBd.doubleValue());
+                }
+
+                // if we have a billing account; total up auth + account available
+                BigDecimal amountToBillAccount = ZERO;
+                if (billingAccountAvail != null) {
+                    amountToBillAccount = authAmount.add(billingAccountAvail).setScale(2, BigDecimal.ROUND_HALF_UP);
+                }
+
+                // the amount for *this* capture
+                BigDecimal amountThisCapture;
+
+                // determine how much for *this* capture
+                if (authAmount.compareTo(amountToCapture) >= 0) {
+                    // if the auth amount is more then expected capture just capture what is expected
+                    amountThisCapture = amountToCapture;
+                } else if (payments.hasNext()) {
+                    // if we have more payments to capture; just capture what was authorized
+                    amountThisCapture = authAmount;
+                } else if (billingAccountAvail != null && amountToBillAccount.compareTo(amountToCapture) >= 0) {
+                    // the provided billing account will cover the remaining; just capture what was autorized
+                    amountThisCapture = authAmount;
+                } else {
+                    // we need to capture more then what was authorized; re-auth for the new amount
+                    // TODO: add what the billing account cannot support to the re-auth amount
+                    // TODO: add support for re-auth for additional funds
+                    // just in case; we will capture the authorized amount here; until this is implemented
+                    Debug.logError("The amount to capture was more then what was authorized; we only captured the authorized amount : " + paymentPref, module);
+                    amountThisCapture = authAmount;
+                }
+
+                Debug.logInfo("Payment preference = [" + paymentPref + "] amount to capture = [" + amountToCapture +"] amount of this capture = [" + amountThisCapture +"] actual auth amount =[" + authAmount + "] amountToBillAccount = [" + amountToBillAccount + "]", module); 
+                Map captureResult = capturePayment(dctx, userLogin, orh, paymentPref, amountThisCapture.doubleValue());
+                if (captureResult != null) {
+                    // credit card processors return captureAmount, but gift certificate processors return processAmount
+                    Double amountCaptured = (Double) captureResult.get("captureAmount");
+                    if (amountCaptured == null) {
+                        amountCaptured = (Double) captureResult.get("processAmount");
                     }
-                    Debug.logInfo("Captured: " + amountThisCapture + " Remaining (re-auth): " + splitAmount, module);
+
+                    // big decimal reference to the capture amount
+                    BigDecimal amountCapturedBd = new BigDecimal(amountCaptured.doubleValue());
+                    amountCapturedBd = amountCapturedBd.setScale(2, BigDecimal.ROUND_HALF_UP);
+
+                    // decrease amount of next payment preference to capture
+                    if (amountCaptured != null) {
+                        amountToCapture = amountToCapture.subtract(amountCapturedBd);                
+                    }
+
+                    // add the invoiceId to the result for processing
+                    captureResult.put("invoiceId", invoiceId);
+
+                    // process the capture's results
+                    try {
+                        processResult(dctx, captureResult, userLogin, paymentPref);
+                    } catch (GeneralException e) {
+                        Debug.logError(e, "Trouble processing the result; captureResult: " + captureResult, module);
+                        return ServiceUtil.returnError("Trouble processing the capture results");
+                    }
+
+                    // create any splits which are needed
+                    if (authAmount.compareTo(amountThisCapture) == 1) {
+                        BigDecimal splitAmount = authAmount.subtract(amountThisCapture);
+                        try {
+                            Map splitCtx = UtilMisc.toMap("userLogin", userLogin, "orderPaymentPreference", paymentPref, "splitAmount", splitAmount);
+                            dispatcher.addCommitService("processCaptureSplitPayment", splitCtx, true);
+                        } catch (GenericServiceException e) {
+                            Debug.logWarning(e, "Problem processing the capture split payment", module);
+                        }
+                        Debug.logInfo("Captured: " + amountThisCapture + " Remaining (re-auth): " + splitAmount, module);
+                    }
+                } else {
+                    Debug.logError("Payment not captured", module);
                 }
-            } else {
-                Debug.logError("Payment not captured", module);
             }
         }
 
