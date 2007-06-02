@@ -269,7 +269,6 @@ public class TrackingCodeEvents {
                 siteIdCookie.setVersion(1);
                 if (cookieDomain.length() > 0) siteIdCookie.setDomain(cookieDomain);
                     response.addCookie(siteIdCookie);
-            
                 // if trackingCode.siteId is  not null  write a trackable cookie with name in the form: Ofbiz.TKCSiteId and timeout will be 60 * 60 * 24 * 365
                 Cookie updatedTimeStampCookie = new Cookie("Ofbiz.TKCD.UpdatedTimeStamp" ,UtilDateTime.nowTimestamp().toString());
                 updatedTimeStampCookie.setMaxAge(siteIdCookieAge);
@@ -377,11 +376,14 @@ public class TrackingCodeEvents {
         Cookie[] cookies = request.getCookies();
         String affiliateReferredTimeStamp = null;
         String siteId = null;
-
+        String isBillable = null;
+        String trackingCodeId = null; 
         if (cookies != null && cookies.length > 0) {
             for (int i = 0; i < cookies.length; i++) {
                 String cookieName = cookies[i].getName();
 
+                Debug.logInfo(" cookieName is " + cookieName, module);
+                Debug.logInfo(" cookieValue is " + cookies[i].getValue(), module);
                 // find the siteId cookie if it exists
                 if ("Ofbiz.TKCD.SiteId".equals(cookieName)) {
                     siteId = cookies[i].getValue();
@@ -394,58 +396,41 @@ public class TrackingCodeEvents {
 
                 // find any that start with TKCDB_ for billable tracking code cookies with isBillable=Y
                 // also and for each TKCDT_ cookie that doesn't have a corresponding billable code add it to the list with isBillable=N
-                String isBillable = null;
+                // This cookie value keeps trackingCodeId
                 if (cookieName.startsWith("TKCDB_")) {
                     isBillable = "Y";
+                    trackingCodeId = cookies[i].getValue();
                 } else if (cookieName.startsWith("TKCDT_")) {
                     isBillable = "N";
+                    trackingCodeId = cookies[i].getValue();
                 }
                 
-                if (isBillable != null) {
-                    String trackingCodeId = cookies[i].getValue();
-                    GenericValue trackingCode;
-                    try {
-                        trackingCode = delegator.findByPrimaryKeyCache("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId));
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e, "Error looking up TrackingCode with trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId", module);
-                        continue;
-                    }
-
-                    if (trackingCode == null) {
-                        Debug.logError("TrackingCode not found for trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId.", module);
-                        //this return value will be ignored, but we'll designate this as an error anyway
-                        continue;
-                    }
-
-                    //check effective dates
-                    if (trackingCode.get("fromDate") != null && nowStamp.before(trackingCode.getTimestamp("fromDate"))) {
-                        if (Debug.infoOn()) Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has not yet gone into effect, ignoring this trackingCodeId", module);
-                        continue;
-                    }
-                    if (trackingCode.get("thruDate") != null && nowStamp.after(trackingCode.getTimestamp("thruDate"))) {
-                        if (Debug.infoOn()) Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has expired, ignoring this trackingCodeId", module);
-                        continue;
-                    }
-                    
-                    // a quick sanity check here on the trackingCodeTypeId, will just display a warning if this happens but not do anythin about it for now
-                    
-                    // note: using TKCDB_ only for length because both TKCDB_ and TKCDT_ are the same length
-                    String cookieTrackingCodeTypeId = cookieName.substring("TKCDB_".length());
-                    if (cookieTrackingCodeTypeId == null || cookieTrackingCodeTypeId.length() == 0) {
-                        Debug.logWarning("The trackingCodeTypeId as part of the cookie name was null or empty", module);
-                    } else if (!cookieTrackingCodeTypeId.equals(trackingCode.getString("trackingCodeTypeId"))) {
-                        Debug.logWarning("The trackingCodeTypeId [" + cookieTrackingCodeTypeId + "] as part of the cookie name was equal to the current trackingCodeTypeId [" + trackingCode.getString("trackingCodeTypeId") + "] associated with the trackingCodeId [" + trackingCodeId + "]", module);
-                    }
-                    
-                    // this will have everything except the orderId set, that will be set by the createOrder service
-                    GenericValue trackingCodeOrder = delegator.makeValue("TrackingCodeOrder", 
-                            UtilMisc.toMap("trackingCodeTypeId", trackingCode.get("trackingCodeTypeId"), 
-                            "trackingCodeId", trackingCodeId, "isBillable", isBillable, "siteId", siteId,
-                            "hasExported", "N", "affiliateReferredTimeStamp", affiliateReferredTimeStamp));
-                    
-                    trackingCodeOrders.add(trackingCodeOrder);
-                }
             }
+        }
+        GenericValue trackingCode = null;
+        try {
+            trackingCode = delegator.findByPrimaryKeyCache("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error looking up TrackingCode with trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId", module);
+        }
+
+        if (trackingCode != null) {
+            //check effective dates
+            if (trackingCode.get("fromDate") != null && nowStamp.before(trackingCode.getTimestamp("fromDate"))) {
+                if (Debug.infoOn()) Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has not yet gone into effect, ignoring this trackingCodeId", module);
+            }
+            if (trackingCode.get("thruDate") != null && nowStamp.after(trackingCode.getTimestamp("thruDate"))) {
+                if (Debug.infoOn()) Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has expired, ignoring this trackingCodeId", module);
+            }
+            GenericValue trackingCodeOrder = delegator.makeValue("TrackingCodeOrder", 
+                    UtilMisc.toMap("trackingCodeTypeId", trackingCode.get("trackingCodeTypeId"), 
+                    "trackingCodeId", trackingCodeId, "isBillable", isBillable, "siteId", siteId,
+                    "hasExported", "N", "affiliateReferredTimeStamp", affiliateReferredTimeStamp));
+            
+            Debug.logInfo(" trackingCodeOrder is " + trackingCodeOrder, module);
+            trackingCodeOrders.add(trackingCodeOrder);
+        } else {
+            Debug.logError("TrackingCode not found for trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId.", module);
         }
 
         return trackingCodeOrders;
