@@ -1019,16 +1019,18 @@ public class PaymentGatewayServices {
             return ServiceUtil.returnError("Could not find OrderHeader with orderId: " + orderId + "; not processing payments.");
         }
 
+        // Check if the outstanding amount for the order is greater than the
+        // amount that we are going to capture.
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
-
         BigDecimal orderGrandTotal = orh.getOrderGrandTotalBd();
         orderGrandTotal = orderGrandTotal.setScale(2, BigDecimal.ROUND_HALF_UP);
-
         BigDecimal totalPayments = PaymentWorker.getPaymentsTotal(orh.getOrderPayments());
         totalPayments = totalPayments.setScale(2, BigDecimal.ROUND_HALF_UP);
-
         BigDecimal remainingTotalBd = orderGrandTotal.subtract(totalPayments);
-        if (Debug.infoOn()) Debug.logInfo("Capture Remaining Total: " + remainingTotalBd, module);
+        if (Debug.infoOn()) Debug.logInfo("The Remaining Total for order: " + orderId + " is: " + remainingTotalBd, module);
+        // The amount to capture cannot be greater than the remaining total
+        amountToCapture = amountToCapture.min(remainingTotalBd);
+        if (Debug.infoOn()) Debug.logInfo("Actual Expected Capture Amount : " + amountToCapture, module);
 
         // See if there is a billing account first.  If so, just charge the captureAmount to the billing account via PaymentApplication
         GenericValue billingAccount = null;
@@ -1118,11 +1120,6 @@ public class PaymentGatewayServices {
                     // nothing to capture
                     Debug.logInfo("Nothing to capture; authAmount = 0", module);
                     continue;
-                }
-
-                // if the authAmount is more then the remaining total; just use remaining total
-                if (authAmount.compareTo(remainingTotalBd) == 1) {
-                    authAmount = new BigDecimal(remainingTotalBd.doubleValue());
                 }
 
                 // if we have a billing account; total up auth + account available
