@@ -3387,7 +3387,6 @@ public class ShoppingCart implements Serializable {
     /** make a list of all OrderPaymentPreferences and Billing info including all payment methods and types */
     public List makeAllOrderPaymentInfos(LocalDispatcher dispatcher) {
         List allOpPrefs = new LinkedList();
-        //double remainingAmount = this.getGrandTotal() - this.getPaymentTotal();
         BigDecimal remainingAmount = new BigDecimal(this.getGrandTotal() - this.getPaymentTotal());
         remainingAmount = remainingAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
         if (getBillingAccountId() != null) {
