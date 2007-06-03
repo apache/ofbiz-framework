@@ -223,7 +223,7 @@ under the License.
         <implements service="ccCaptureInterface"/>
     </service>
     <service name="ofbFaRelease" engine="java"
-             location="org.ofbiz.accounting.finaccount.FinAccountPaymentServices" invoke="finAccountRelease" auth="true">
+             location="org.ofbiz.accounting.finaccount.FinAccountPaymentServices" invoke="finAccountReleaseAuth" auth="true">
         <description>Release authorizations back to a financial account.</description>
         <implements service="paymentReleaseInterface"/>
     </service>
