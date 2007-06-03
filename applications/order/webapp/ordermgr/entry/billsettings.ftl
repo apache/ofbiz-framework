@@ -87,7 +87,7 @@ function makeExpDate() {
                 </tr>
                 <tr><td colspan="3"><hr class="sepbar"/></td></tr>
                 <#list billingAccountList as billingAccount>
-                  <#assign availableAmount = billingAccount.accountLimit?double - billingAccount.accountBalance?double>
+                  <#assign availableAmount = billingAccount.accountBalance?double>
                   <tr>
                     <td align="left" valign="top" width="1%">
                       <input type="radio" onClick="javascript:toggleBillingAccount(this);" name="billingAccountId" value="${billingAccount.billingAccountId}" <#if (billingAccount.billingAccountId == selectedBillingAccountId?default(""))>checked="checked"</#if>/>

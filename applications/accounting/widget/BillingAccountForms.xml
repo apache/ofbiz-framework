@@ -46,11 +46,13 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <!--
         <field name="netBalance" title="${uiLabelMap.AccountingBillingNetBalance}" tooltip="${uiLabelMap.AccountingBillingNetBalanceMessage}">
             <display description="${bsh:org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountNetBalance(delegator, billingAccountId)}" type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
         </field>
+        -->
         <field name="availableBalance" title="${uiLabelMap.AccountingBillingAvailableBalance}" tooltip="${uiLabelMap.AccountingBillingAvailableBalanceMessage}">
-            <display description="${bsh:org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountAvailableBalance(billingAccount)}" type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
+            <display description="${bsh:org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountBalance(billingAccount)}" type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
         </field>
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
