@@ -24,41 +24,30 @@ under the License.
 <table class="basic-table" cellspacing="0"> 
   <tr class="header-row">
     <td>${uiLabelMap.AccountingAccountId}</td>
+    <td>${uiLabelMap.CommonDescription}</td>
     <td>${uiLabelMap.AccountingAccountLimit}</td>
     <#if billingAccountRolesByParty?has_content>
-      <#assign colSpan = "4">
       <td>${uiLabelMap.PartyRoleTypeId}</td>
-    <#else>
-      <#assign colSpan = "3">
     </#if>
-    <td>&nbsp;</td>
   </tr>  
   <#if billingAccountRolesByParty?has_content>
     <#list billingAccountRolesByParty as role>
       <#assign billingAccount = role.getRelatedOne("BillingAccount")>
       <#assign roleType = role.getRelatedOne("RoleType")>
       <tr>
-        <td>${billingAccount.billingAccountId}</td>
+        <td><a href="<@ofbizUrl>EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}</@ofbizUrl>" class="buttontext">${billingAccount.billingAccountId}</a></td>
+        <td>${billingAccount.description?if_exists}</td>
         <td><@ofbizCurrency amount=billingAccount.accountLimit isoCode=billingAccount.accountCurrencyUomId/></td>
         <td>${roleType.get("description",locale)}</td>
-        <td class="button-col">
-          <a href="<@ofbizUrl>EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}</@ofbizUrl>">${uiLabelMap.CommonEdit}</a>
-        </td>
       </tr>
     </#list>
   <#elseif billingAccounts?has_content>
     <#list billingAccounts as billingAccount>
       <tr>
-        <td>${billingAccount.billingAccountId}</td>
+        <td><a href="<@ofbizUrl>EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}</@ofbizUrl>" class="buttontext">${billingAccount.billingAccountId}</a></td>
+        <td>${billingAccount.description?if_exists}</td>
         <td><@ofbizCurrency amount=billingAccount.accountLimit isoCode=billingAccount.accountCurrencyUomId/></td>
-        <td class="button-col">
-          <a href="<@ofbizUrl>EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}</@ofbizUrl>">${uiLabelMap.CommonEdit}</a>
-        </td>        
       </tr>
     </#list>
-  <#else>
-    <tr>
-      <td colspan='3'>${uiLabelMap.AccountingNoBillingAccountFound}</td>
-    </tr>    
   </#if>
 </table>
