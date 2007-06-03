@@ -34,7 +34,6 @@ under the License.
                 
                 <set field="titleProperty" value="PageTitleFindSegmentGroup"/>
                 <set field="headerItem" value="Segment"/>
-                <set field="tabButtonItem" value="Segment"/>
                 
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
@@ -84,9 +83,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field-name="segmentGroupId"/></not></condition>
                                     <widgets>
-                                        <platform-specific>
-                                            <html><html-template location="component://marketing/webapp/marketing/segment/SegmentTabBar.ftl"/></html>
-                                        </platform-specific>
+                                        <include-menu location="component://marketing/webapp/marketing/segment/SegmentMenus.xml" name="SegmentGroupTabBar"/>
                                         <container><link text="${uiLabelMap.SegmentGroupCreate}" target="viewSegmentGroup" style="buttontext"/></container>
                                     </widgets>
                                 </section>
@@ -108,7 +105,7 @@ under the License.
             <actions>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleEditSegmentGroup"/>
-                <set field="tabButtonItem" value="viewSegmentGroup"/>
+                <set field="segmentTabButtonItem" value="SegmentGroup"/>
                 <set field="labelTitleProperty" value="PageTitleEditSegmentGroup"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/LookupSegmentGroup"/>
@@ -139,7 +136,7 @@ under the License.
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <set field="titleProperty" value="PageTitleFindSegmentGroup"/>
-                <set field="tabButtonItem" value="listSegmentGroupClassification"/>
+                <set field="segmentTabButtonItem" value="SegmentGroupClassification"/>
 
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
@@ -182,7 +179,7 @@ under the License.
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <set field="titleProperty" value="PageTitleListSegmentGroupGeo"/>
-                <set field="tabButtonItem" value="listSegmentGroupGeo"/>
+                <set field="segmentTabButtonItem" value="SegmentGroupGeo"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
@@ -224,7 +221,7 @@ under the License.
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <set field="titleProperty" value="PageTitleListSegmentGroupRole"/>
-                <set field="tabButtonItem" value="listSegmentGroupRole"/>
+                <set field="segmentTabButtonItem" value="SegmentGroupRole"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>

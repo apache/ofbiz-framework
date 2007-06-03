@@ -59,7 +59,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditTrackingCode"/>
-                <set field="tabButtonItem" value="TrackingCode"/>
+                <set field="trackingCodeTabButtonItem" value="TrackingCode"/>
                 <set field="labelTitleProperty" value="PageTitleEditTrackingCode"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListTrackingCode"/>
@@ -92,7 +92,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListTrackingCode"/>
-                <set field="tabButtonItem" value="TrackingCode"/>
+                <set field="trackingCodeTabButtonItem" value="TrackingCode"/>
                 <set field="labelTitleProperty" value="PageTitleListTrackingCode"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListTrackingCode"/>
@@ -130,7 +130,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditTrackingCodeOrder"/>
-                <set field="tabButtonItem" value="TrackingCodeOrder"/>
+                <set field="trackingCodeTabButtonItem" value="TrackingCodeOrder"/>
                 <set field="labelTitleProperty" value="PageTitleEditTrackingCodeOrder"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListTrackingCode"/>
@@ -154,7 +154,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListTrackingCodeOrder"/>
-                <set field="tabButtonItem" value="TrackingCodeOrder"/>
+                <set field="trackingCodeTabButtonItem" value="TrackingCodeOrder"/>
                 <set field="labelTitleProperty" value="PageTitleListTrackingCodeOrder"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListTrackingCode"/>
@@ -175,7 +175,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindTrackingCodeOrder"/>
-                <set field="tabButtonItem" value="TrackingCodeOrder"/>
+                <set field="trackingCodeTabButtonItem" value="TrackingCodeOrder"/>
                 <set field="labelTitleProperty" value="PageTitleFindTrackingCodeOrder"/>
 
                 <set field="trackingCodeId" from-field="parameters.trackingCodeId"/>
@@ -197,7 +197,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditTrackingCodeVisit"/>
-                <set field="tabButtonItem" value="TrackingCodeVisit"/>
+                <set field="trackingCodeTabButtonItem" value="TrackingCodeVisit"/>
                 <set field="labelTitleProperty" value="PageTitleEditTrackingCodeVisit"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListTrackingCode"/>
@@ -219,7 +219,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListTrackingCodeVisit"/>
-                <set field="tabButtonItem" value="TrackingCodeVisit"/>
+                <set field="trackingCodeTabButtonItem" value="TrackingCodeVisit"/>
                 <set field="labelTitleProperty" value="PageTitleListTrackingCodeVisit"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListTrackingCode"/>
@@ -240,7 +240,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindTrackingCodeVisits"/>
-                <set field="tabButtonItem" value="TrackingCodeVisit"/>
+                <set field="trackingCodeTabButtonItem" value="TrackingCodeVisit"/>
                 <set field="labelTitleProperty" value="PageTitleFindTrackingCodeVisits"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListTrackingCode"/>
@@ -261,7 +261,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleLookupVisit"/>
-                <set field="tabButtonItem" value="TrackingCode"/>
+                <set field="trackingCodeTabButtonItem" value="TrackingCode"/>
                 <set field="labelTitleProperty" value="PageTitleLookupVisit"/>
                 <set field="title" value="${uiLabelMap.PageTitleLookupVisit}" />
                 <set field="entityName" value="CommunicationEvent"/>                
@@ -282,7 +282,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleLookupTrackingCode"/>
-                <set field="tabButtonItem" value="TrackingCode"/>
+                <set field="trackingCodeTabButtonItem" value="TrackingCode"/>
                 <set field="labelTitleProperty" value="PageTitleLookupTrackingCode"/>
                 <set field="title" value="${uiLabelMap.PageTitleLookupTrackingCode}" />
                 <set field="entityName" value="TrackingCode"/>                
@@ -303,7 +303,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditTrackingCodeType"/>
-                <set field="tabButtonItem" value="TrackingCodeType"/>
+                <set field="trackingCodeTabButtonItem" value="TrackingCodeType"/>
                 <set field="labelTitleProperty" value="PageTitleEditTrackingCodeType"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListTrackingCodeType"/>
@@ -337,7 +337,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListTrackingCodeType"/>
-                <set field="tabButtonItem" value="TrackingCodeType"/>
+                <set field="trackingCodeTabButtonItem" value="TrackingCodeType"/>
                 <set field="labelTitleProperty" value="PageTitleListTrackingCodeType"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListTrackingCodeType"/>
@@ -359,7 +359,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleLookupTrackingCodeType"/>
-                <set field="tabButtonItem" value="TrackingCodeType"/>
+                <set field="trackingCodeTabButtonItem" value="TrackingCodeType"/>
                 <set field="labelTitleProperty" value="PageTitleLookupTrackingCodeType"/>
                 <set field="title" value="${uiLabelMap.PageTitleLookupTrackingCodeType}" />
                 <set field="entityName" value="TrackingCodeType"/>                

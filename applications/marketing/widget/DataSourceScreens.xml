@@ -61,7 +61,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataSource"/>
-                <set field="tabButtonItem" value="DataSource"/>
+                <set field="dataSourceTabButtonItem" value="DataSource"/>
                 <set field="labelTitleProperty" value="PageTitleEditDataSource"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListDataSource"/>
@@ -95,7 +95,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListDataSource"/>
-                <set field="tabButtonItem" value="DataSource"/>
+                <set field="dataSourceTabButtonItem" value="DataSource"/>
                 <set field="labelTitleProperty" value="PageTitleListDataSource"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListDataSource"/>
@@ -118,7 +118,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataSourceType"/>
-                <set field="tabButtonItem" value="DataSourceType"/>
+                <set field="dataSourceTabButtonItem" value="DataSourceType"/>
                 <set field="labelTitleProperty" value="PageTitleEditDataSourceType"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListDataSourceType"/>
@@ -152,7 +152,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListDataSourceType"/>
-                <set field="tabButtonItem" value="DataSourceType"/>
+                <set field="dataSourceTabButtonItem" value="DataSourceType"/>
                 <set field="labelTitleProperty" value="PageTitleListDataSourceType"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListDataSourceType"/>
