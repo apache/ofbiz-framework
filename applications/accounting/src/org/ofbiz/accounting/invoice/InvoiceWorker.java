@@ -130,11 +130,11 @@ public class InvoiceWorker {
      * @param invoice GenericValue object of the Invoice
      * @return the invoice total as double
      */
-        public static double getInvoiceTotal(GenericValue invoice) {
-            return getInvoiceTotalBd(invoice).doubleValue();
-        }
+    public static double getInvoiceTotal(GenericValue invoice) {
+        return getInvoiceTotalBd(invoice).doubleValue();
+    }
         
-        public static BigDecimal getInvoiceTotalBd(GenericValue invoice) {
+    public static BigDecimal getInvoiceTotalBd(GenericValue invoice) {
         BigDecimal invoiceTotal = ZERO;
         BigDecimal invoiceTaxTotal = ZERO;
         List invoiceItems = null;
