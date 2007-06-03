@@ -168,11 +168,16 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="BillingAccountInvoices"/>
     </request-map>      
+    <request-map uri="capturePaymentsByInvoice">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="capturePaymentsByInvoice"/>
+        <response name="success" type="view" value="BillingAccountInvoices"/>
+    </request-map>
     <request-map uri="BillingAccountPayments">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="BillingAccountPayments"/>
-    </request-map>       
-    
+    </request-map>
+
     <!-- invoice requests -->
     <request-map uri="findInvoices">
         <security https="true" auth="true"/>
