@@ -61,7 +61,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditMarketingCampaign"/>
-                <set field="tabButtonItem" value="MarketingCampaign"/>
+                <set field="campaignTabButtonItem" value="MarketingCampaign"/>
                 <set field="labelTitleProperty" value="PageTitleEditMarketingCampaign"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindMarketingCampaign"/>
@@ -95,7 +95,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListMarketingCampaign"/>
-                <set field="tabButtonItem" value="MarketingCampaign"/>
                 <set field="labelTitleProperty" value="PageTitleListMarketingCampaign"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindListMarketingCampaign"/>
@@ -117,7 +116,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditMarketingCampaignRole"/>
-                <set field="tabButtonItem" value="MarketingCampaignRole"/>
+                <set field="campaignTabButtonItem" value="MarketingCampaignRole"/>
                 <set field="labelTitleProperty" value="PageTitleEditMarketingCampaignRole"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindMarketingCampaignRoles"/>
@@ -143,7 +142,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListMarketingCampaignRole"/>
-                <set field="tabButtonItem" value="MarketingCampaignRole"/>
+                <set field="campaignTabButtonItem" value="MarketingCampaignRole"/>
                 <set field="labelTitleProperty" value="PageTitleListMarketingCampaignRole"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindMarketingCampaign"/>

@@ -19,12 +19,18 @@ under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
 
-    <menu name="DataSourceTabBar" default-menu-item-name="DataSource" type="simple" selected-menuitem-context-field-name="dataSourceTabButtonItem">
-        <menu-item name="DataSource" title="${uiLabelMap.DataSource}">
-            <link target="/FindDataSource"/>
+    <menu name="SegmentGroupTabBar" default-menu-item-name="Segment" type="simple" selected-menuitem-context-field-name="segmentTabButtonItem">
+        <menu-item name="SegmentGroup" title="${uiLabelMap.SegmentGroupSegmentGroup}">
+            <link target="viewSegmentGroup?segmentGroupId=${segmentGroupId}"/>
         </menu-item>
-        <menu-item name="DataSourceType" title="${uiLabelMap.DataSourceType}">
-            <link target="/FindDataSourceType"/>
+        <menu-item name="SegmentGroupClassification" title="${uiLabelMap.SegmentGroupSegmentGroupClassification}">
+            <link target="listSegmentGroupClass?segmentGroupId=${segmentGroupId}"/>
+        </menu-item>
+        <menu-item name="SegmentGroupGeo" title="${uiLabelMap.SegmentGroupSegmentGroupGeo}">
+            <link target="listSegmentGroupGeo?segmentGroupId=${segmentGroupId}"/>
+        </menu-item>
+        <menu-item name="SegmentGroupRole" title="${uiLabelMap.SegmentGroupSegmentGroupRole}">
+            <link target="listSegmentGroupRole?segmentGroupId=${segmentGroupId}"/>
         </menu-item>
     </menu>
 </menus>
