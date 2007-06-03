@@ -34,6 +34,7 @@ import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -968,7 +969,7 @@ public class PaymentGatewayServices {
         }
 
         // get the invoice amount (amount to bill)
-        double invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice);
+        double invoiceTotal = InvoiceWorker.getInvoiceNotApplied(invoice).doubleValue();
         if (Debug.infoOn()) Debug.logInfo("(Capture) Invoice [#" + invoiceId + "] total: " + invoiceTotal, module);
 
         // now capture the order
@@ -1001,6 +1002,7 @@ public class PaymentGatewayServices {
         // get the order header and payment preferences
         GenericValue orderHeader = null;
         List paymentPrefs = null;
+        List paymentPrefsBa = null;
 
         try {
             orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
@@ -1009,6 +1011,11 @@ public class PaymentGatewayServices {
             Map lookupMap = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_AUTHORIZED");
             List orderList = UtilMisc.toList("-maxAmount");
             paymentPrefs = delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList);
+
+            if (UtilValidate.isNotEmpty(billingAccountId)) {
+                lookupMap = UtilMisc.toMap("orderId", orderId, "paymentMethodTypeId", "EXT_BILLACT", "statusId", "PAYMENT_NOT_RECEIVED");
+                paymentPrefsBa = delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList);
+            }
         } catch (GenericEntityException gee) {
             Debug.logError(gee, "Problems getting entity record(s), see stack trace", module);
             return ServiceUtil.returnError("ERROR: Could not get order information (" + gee.toString() + ").");
@@ -1032,70 +1039,94 @@ public class PaymentGatewayServices {
         amountToCapture = amountToCapture.min(remainingTotalBd);
         if (Debug.infoOn()) Debug.logInfo("Actual Expected Capture Amount : " + amountToCapture, module);
 
-        // See if there is a billing account first.  If so, just charge the captureAmount to the billing account via PaymentApplication
-        GenericValue billingAccount = null;
-        BigDecimal billingAccountAvail = null;
-        BigDecimal billingAccountCaptureAmount = ZERO;
-        Map billingAccountInfo = null;
-        if (UtilValidate.isNotEmpty(billingAccountId)) {
-            try {
-                billingAccountInfo = dispatcher.runSync("calcBillingAccountBalance", UtilMisc.toMap("billingAccountId", billingAccountId));
-            } catch (GenericServiceException e) {
-                Debug.logError(e, "Unable to get billing account information for #" + billingAccountId, module);
-            }
-        }
-        if (billingAccountInfo != null) {
-            billingAccount = (GenericValue) billingAccountInfo.get("billingAccount");
-            // use available to capture because we want to know how much we can charge to a billing account
-            Double availableToCapture = (Double) billingAccountInfo.get("availableToCapture");  
-            billingAccountAvail = new BigDecimal(availableToCapture.doubleValue());
-        }
-        
-        // if a billing account is used to pay for an order, then charge as much as we can to it before proceeding to other payment methods.
-        if (billingAccount != null && billingAccountAvail != null) {
-            try {
-                // the amount to be "charged" to the billing account, which is the minimum of the amount the order wants to charge to the billing account 
-                // or the amount still available for capturing from the billing account or the total amount to be captured on the order 
-                BigDecimal billingAccountMaxAmount = new BigDecimal(orh.getBillingAccountMaxAmount());
-                billingAccountCaptureAmount = billingAccountMaxAmount.min(billingAccountAvail).min(amountToCapture);
-                Debug.logInfo("billing account avail = [" + billingAccountAvail + "] capture amount = [" + billingAccountCaptureAmount + "] maxAmount = ["+billingAccountMaxAmount+"]", module);
-                // capturing to a billing account if amount is greater than zero
-                if (billingAccountCaptureAmount.compareTo(ZERO) == 1) {
-                    Map tmpResult = dispatcher.runSync("captureBillingAccountPayment", UtilMisc.toMap("invoiceId", invoiceId, "billingAccountId", billingAccountId,
-                            "captureAmount", new Double(billingAccountCaptureAmount.doubleValue()), "orderId", orderId, "userLogin", userLogin));
-                    if (ServiceUtil.isError(tmpResult)) {
-                        return tmpResult;
-                    }
+        // Process billing accounts payments
+        if (UtilValidate.isNotEmpty(paymentPrefsBa)) {
+            Iterator paymentsBa = paymentPrefsBa.iterator();
+            while (paymentsBa.hasNext()) {
+                GenericValue paymentPref = (GenericValue) paymentsBa.next();
 
-                    // now, if the full amount had not been captured, then capture
-                    // it from other methods, otherwise return
-                    if (billingAccountCaptureAmount.compareTo(amountToCapture) == -1) {
-                        BigDecimal outstandingAmount = amountToCapture.subtract(billingAccountCaptureAmount).setScale(decimals, rounding);
-                        amountToCapture = outstandingAmount;
+                BigDecimal authAmount = paymentPref.getBigDecimal("maxAmount");
+                if (authAmount == null) authAmount = new BigDecimal(0.00);
+                authAmount = authAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
+
+                if (authAmount.compareTo(ZERO) == 0) {
+                    // nothing to capture
+                    Debug.logInfo("Nothing to capture; authAmount = 0", module);
+                    continue;
+                }
+                // the amount for *this* capture
+                BigDecimal amountThisCapture = amountToCapture.min(authAmount);
+
+                // decrease amount of next payment preference to capture
+                amountToCapture = amountToCapture.subtract(amountThisCapture);
+
+                // If we have an invoice, we find unapplied payments associated
+                // to the billing account and we apply them to the invoice
+                if (UtilValidate.isNotEmpty(invoiceId)) {
+                    // TODO: jacopo continue from here...
+                    // cercare le paymentapplication non applicate e associate al billing account e il cui
+                    // pagamento non abbia una orderPaymentPreferenceId
+                    // creare nuova payment application fino a raggiungere l'importo necessario o fino ad esaurimento
+                    // e associarle alla fattura; se la fattura non esiste, non fare nulla
+                    Map captureResult = null;
+                    try {
+                        captureResult = dispatcher.runSync("captureBillingAccountPayments", UtilMisc.toMap("invoiceId", invoiceId,
+                                                                                                          "billingAccountId", billingAccountId,
+                                                                                                          "captureAmount", new Double(amountThisCapture.doubleValue()),
+                                                                                                          "orderId", orderId,
+                                                                                                          "userLogin", userLogin));
+                        if (ServiceUtil.isError(captureResult)) {
+                            return captureResult;
+                        }
+                    } catch (GenericServiceException ex) {
+                        return ServiceUtil.returnError(ex.getMessage());
+                    }
+                    if (captureResult != null) {
+                        
+                        Double amountCaptured = (Double) captureResult.get("captureAmount");
+                        Debug.logInfo("Amount captured for order [" + orderId + "] from unapplied payments associated to billing account [" + billingAccountId + "] is: " + amountCaptured, module);
+
+                        // big decimal reference to the capture amount
+                        BigDecimal amountCapturedBd = new BigDecimal(amountCaptured.doubleValue());
+                        amountCapturedBd = amountCapturedBd.setScale(2, BigDecimal.ROUND_HALF_UP);
+
+                        if (amountCapturedBd.compareTo(BigDecimal.ZERO) == 0) {
+                            continue;
+                        }
+                        // add the invoiceId to the result for processing
+                        captureResult.put("invoiceId", invoiceId);
+                        captureResult.put("captureResult", Boolean.TRUE);
+                        captureResult.put("orderPaymentPreference", paymentPref);
+                        captureResult.put("captureRefNum", ""); // FIXME: this is an hack to avoid a service validation error for processCaptureResult (captureRefNum is mandatory, but it is not used for billing accounts)
+
+                        // process the capture's results
+                        try {
+                            // the following method will set on the OrderPaymentPreference:
+                            // maxAmount = amountCapturedBd and
+                            // statusId = PAYMENT_RECEIVED
+                            processResult(dctx, captureResult, userLogin, paymentPref);
+                        } catch (GeneralException e) {
+                            Debug.logError(e, "Trouble processing the result; captureResult: " + captureResult, module);
+                            return ServiceUtil.returnError("Trouble processing the capture results");
+                        }
+
+                        // create any splits which are needed
+                        if (authAmount.compareTo(amountCapturedBd) == 1) {
+                            BigDecimal splitAmount = authAmount.subtract(amountCapturedBd);
+                            try {
+                                Map splitCtx = UtilMisc.toMap("userLogin", userLogin, "orderPaymentPreference", paymentPref, "splitAmount", splitAmount);
+                                dispatcher.addCommitService("processCaptureSplitPayment", splitCtx, true);
+                            } catch (GenericServiceException e) {
+                                Debug.logWarning(e, "Problem processing the capture split payment", module);
+                            }
+                            Debug.logInfo("Captured: " + amountThisCapture + " Remaining (re-auth): " + splitAmount, module);
+                        }
                     } else {
-                        Debug.logInfo("Amount to capture [" + amountToCapture + "] was fully captured in Payment [" + tmpResult.get("paymentId") + "].", module);
-                        Map result = ServiceUtil.returnSuccess();
-                        result.put("processResult", "COMPLETE");
-                        return result;
+                        Debug.logError("Payment not captured for order [" + orderId + "] from billing account [" + billingAccountId + "]", module);
                     }
-               }
-            } catch (GenericServiceException ex) {
-                return ServiceUtil.returnError(ex.getMessage());
+                }
             }
-        }            
-        
-        // return complete if no payment prefs were found
-        // JAC20070602: Is this correct? Shouldn't we check if the 
-        // amountToCapture is > 0 as we are doing
-        // at the bottom of this method?
-        if (paymentPrefs == null || paymentPrefs.size() == 0) {
-            Debug.logWarning("No orderPaymentPreferences available to capture", module);
-            Map result = ServiceUtil.returnSuccess();
-            result.put("processResult", "COMPLETE");
-            return result;
         }
-
-        if (Debug.infoOn()) Debug.logInfo("Actual Expected Capture Amount : " + amountToCapture, module);
 
         // iterate over the prefs and capture each one until we meet our total
         if (UtilValidate.isNotEmpty(paymentPrefs)) {
@@ -1125,12 +1156,6 @@ public class PaymentGatewayServices {
                     continue;
                 }
 
-                // if we have a billing account; total up auth + account available
-                BigDecimal amountToBillAccount = ZERO;
-                if (billingAccountAvail != null) {
-                    amountToBillAccount = authAmount.add(billingAccountAvail).setScale(2, BigDecimal.ROUND_HALF_UP);
-                }
-
                 // the amount for *this* capture
                 BigDecimal amountThisCapture;
 
@@ -1141,9 +1166,6 @@ public class PaymentGatewayServices {
                 } else if (payments.hasNext()) {
                     // if we have more payments to capture; just capture what was authorized
                     amountThisCapture = authAmount;
-                } else if (billingAccountAvail != null && amountToBillAccount.compareTo(amountToCapture) >= 0) {
-                    // the provided billing account will cover the remaining; just capture what was autorized
-                    amountThisCapture = authAmount;
                 } else {
                     // we need to capture more then what was authorized; re-auth for the new amount
                     // TODO: add what the billing account cannot support to the re-auth amount
@@ -1153,7 +1175,6 @@ public class PaymentGatewayServices {
                     amountThisCapture = authAmount;
                 }
 
-                Debug.logInfo("Payment preference = [" + paymentPref + "] amount to capture = [" + amountToCapture +"] amount of this capture = [" + amountThisCapture +"] actual auth amount =[" + authAmount + "] amountToBillAccount = [" + amountToBillAccount + "]", module); 
                 Map captureResult = capturePayment(dctx, userLogin, orh, paymentPref, amountThisCapture.doubleValue());
                 if (captureResult != null && !ServiceUtil.isError(captureResult)) {
                     // credit card processors return captureAmount, but gift certificate processors return processAmount
@@ -1272,6 +1293,7 @@ public class PaymentGatewayServices {
         return ServiceUtil.returnSuccess();
     }
 
+    // Deprecated: use captureBillingAccountPayments instead of this.
     public static Map captureBillingAccountPayment(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -1352,6 +1374,66 @@ public class PaymentGatewayServices {
             return ServiceUtil.returnError(ex.getMessage());
         }
 
+        return results;
+    }
+
+    public static Map captureBillingAccountPayments(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String invoiceId = (String) context.get("invoiceId");
+        String billingAccountId = (String) context.get("billingAccountId");
+        Double captureAmountDbl = (Double) context.get("captureAmount");
+        BigDecimal captureAmount = new BigDecimal(captureAmountDbl.doubleValue());
+        String orderId = (String) context.get("orderId");
+        BigDecimal capturedAmount = BigDecimal.ZERO;
+        
+        try {
+            // Select all the unapplied payment applications associated to the billing account
+            List conditionList = UtilMisc.toList(new EntityExpr("billingAccountId", EntityOperator.EQUALS, billingAccountId),
+                                                  new EntityExpr("invoiceId", EntityOperator.EQUALS, GenericEntity.NULL_FIELD));
+            EntityCondition conditions = new EntityConditionList(conditionList, EntityOperator.AND);
+
+            List paymentApplications = delegator.findByCondition("PaymentApplication", conditions, null, UtilMisc.toList("-amountApplied"));
+            if (UtilValidate.isNotEmpty(paymentApplications)) {
+                Iterator paymentApplicationsIt = paymentApplications.iterator();
+                while (paymentApplicationsIt.hasNext()) {
+                    if (capturedAmount.compareTo(captureAmount) >= 0) {
+                        // we have captured all the amount required
+                        break;
+                    }
+                    GenericValue paymentApplication = (GenericValue)paymentApplicationsIt.next();
+                    GenericValue payment = paymentApplication.getRelatedOne("Payment");
+                    if (payment.getString("paymentPreferenceId") != null) {
+                        // if the payment is reserved for a specific OrderPaymentPreference,
+                        // we don't use it.
+                        continue;
+                    }
+                    // TODO: check the statusId of the payment
+                    BigDecimal paymentApplicationAmount = paymentApplication.getBigDecimal("amountApplied");
+                    BigDecimal amountToCapture = paymentApplicationAmount.min(captureAmount.subtract(capturedAmount));
+                    if (amountToCapture.compareTo(paymentApplicationAmount) == 0) {
+                        // apply the whole payment application to the invoice
+                        paymentApplication.set("invoiceId", invoiceId);
+                        paymentApplication.store();
+                    } else {
+                        // the amount to capture is lower than the amount available in this payment application:
+                        // split the payment application into two records and apply one to the invoice
+                        GenericValue newPaymentApplication = delegator.makeValue("PaymentApplication", paymentApplication);
+                        paymentApplication.set("invoiceId", invoiceId);
+                        paymentApplication.set("amountApplied", amountToCapture);
+                        paymentApplication.store();
+                        newPaymentApplication.set("amountApplied", paymentApplicationAmount.subtract(amountToCapture));
+                        newPaymentApplication.store();
+                    }
+                    capturedAmount = capturedAmount.add(amountToCapture);
+                }
+            }
+        } catch (GenericEntityException ex) {
+            return ServiceUtil.returnError(ex.getMessage());
+        }
+        Map results = ServiceUtil.returnSuccess();
+        results.put("captureAmount", new Double(capturedAmount.doubleValue()));
         return results;
     }
     

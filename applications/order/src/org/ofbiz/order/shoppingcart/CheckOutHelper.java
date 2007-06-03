@@ -1362,7 +1362,7 @@ public class CheckOutHelper {
         if (billingAccountId == null) return 0.0;
         try {
             Map res = dispatcher.runSync("calcBillingAccountBalance", UtilMisc.toMap("billingAccountId", billingAccountId));
-            Double availableBalance = (Double) res.get("availableBalance");
+            Double availableBalance = (Double) res.get("accountBalance");
             if (availableBalance != null) {
                 return availableBalance.doubleValue();
             }

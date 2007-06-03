@@ -275,6 +275,7 @@ under the License.
         <attribute name="processResult" type="String" mode="OUT" optional="false"/>
     </service>
 
+    <!-- deprecated in favour of captureBillingAccountPayments -->
     <service name="captureBillingAccountPayment" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="captureBillingAccountPayment" auth="true">
         <description>Records a settlement or payment of an invoice by a billing account for the given captureAmount</description>
@@ -284,6 +285,14 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentId" type="String" mode="OUT" optional="false"/>
         <attribute name="paymentGatewayResponseId" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="captureBillingAccountPayments" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="captureBillingAccountPayments" auth="true">
+        <description>Applies (part of) the unapplied payment applications associated to the billing account to the given invoice.</description>
+        <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
+        <attribute name="captureAmount" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="processCaptureSplitPayment" engine="java" require-new-transaction="true"
