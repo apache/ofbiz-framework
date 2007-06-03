@@ -1420,11 +1420,13 @@ public class PaymentGatewayServices {
                         // the amount to capture is lower than the amount available in this payment application:
                         // split the payment application into two records and apply one to the invoice
                         GenericValue newPaymentApplication = delegator.makeValue("PaymentApplication", paymentApplication);
+                        String paymentApplicationId = delegator.getNextSeqId("PaymentApplication");
                         paymentApplication.set("invoiceId", invoiceId);
                         paymentApplication.set("amountApplied", amountToCapture);
                         paymentApplication.store();
+                        newPaymentApplication.set("paymentApplicationId", paymentApplicationId);
                         newPaymentApplication.set("amountApplied", paymentApplicationAmount.subtract(amountToCapture));
-                        newPaymentApplication.store();
+                        newPaymentApplication.create();
                     }
                     capturedAmount = capturedAmount.add(amountToCapture);
                 }
