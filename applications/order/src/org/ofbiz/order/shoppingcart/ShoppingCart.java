@@ -3387,33 +3387,36 @@ public class ShoppingCart implements Serializable {
     /** make a list of all OrderPaymentPreferences and Billing info including all payment methods and types */
     public List makeAllOrderPaymentInfos(LocalDispatcher dispatcher) {
         List allOpPrefs = new LinkedList();
-        double remainingAmount = this.getGrandTotal() - this.getPaymentTotal();
+        //double remainingAmount = this.getGrandTotal() - this.getPaymentTotal();
+        BigDecimal remainingAmount = new BigDecimal(this.getGrandTotal() - this.getPaymentTotal());
+        remainingAmount = remainingAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
         if (getBillingAccountId() != null) {
-            double billingAccountAvailableAmount = billingAccountAvailableAmount = CheckOutHelper.availableAccountBalance(getBillingAccountId(), dispatcher);
-            if (remainingAmount < getBillingAccountAmount()) {
-                this.billingAccountAmt = remainingAmount;
+            double billingAccountAvailableAmount = CheckOutHelper.availableAccountBalance(getBillingAccountId(), dispatcher);
+            if (remainingAmount.doubleValue() < getBillingAccountAmount()) {
+                this.billingAccountAmt = remainingAmount.doubleValue();
             }
             if (billingAccountAvailableAmount < getBillingAccountAmount()) {
                 this.billingAccountAmt = billingAccountAvailableAmount;
             }
+            BigDecimal billingAccountAmountSelected = new BigDecimal(getBillingAccountAmount());
             GenericValue opp = delegator.makeValue("OrderPaymentPreference", new HashMap());
             opp.set("paymentMethodTypeId", "EXT_BILLACT");
             opp.set("presentFlag", "N");
             opp.set("overflowFlag", "N");
-            opp.set("maxAmount", new Double(getBillingAccountAmount()));
+            opp.set("maxAmount", new Double(billingAccountAmountSelected.doubleValue()));
             opp.set("statusId", "PAYMENT_NOT_RECEIVED");
             allOpPrefs.add(opp);
-            remainingAmount = remainingAmount - getBillingAccountAmount();
-            if (remainingAmount < 0) {
-                remainingAmount = 0;
+            remainingAmount = remainingAmount.subtract(billingAccountAmountSelected);
+            if (remainingAmount.compareTo(BigDecimal.ZERO) < 0) {
+                remainingAmount = BigDecimal.ZERO;
             }
         }
         Iterator i = paymentInfo.iterator();
         while (i.hasNext()) {
             CartPaymentInfo inf = (CartPaymentInfo) i.next();
             if (inf.amount == null) {
-                inf.amount = new Double(remainingAmount);
-                remainingAmount = 0;
+                inf.amount = new Double(remainingAmount.doubleValue());
+                remainingAmount = BigDecimal.ZERO;
             }
             allOpPrefs.addAll(inf.makeOrderPaymentInfos(this.getDelegator()));
         }
