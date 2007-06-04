@@ -228,25 +228,6 @@ color: #1E3C66;
 font-size: 1.1em;
 }
 
-.headerboxoutside {
-background-color: #FFFFFF;
-}
-
-.headerboxtop {
-background-color: #FFFFFF;
-border-color: #FFFFFF;
-border-style: solid;
-border-width: 0.1em 0.1em 0 0.1em;
-padding: 0.4em;
-}
-
-.headerboxbottom {
-background-color: #FFFFFF;
-border-color: #FFFFFF;
-border-style: solid;
-border-width: 0 0.1em 0.1em 0.1em;
-}
-
 .boxhead {
 color: #FFFFFF;
 font-size: 1.1em;
@@ -581,82 +562,6 @@ padding-right: 1em;
 padding-left: 1em;
 }
 
-.headerCenter {
-background-color: #B4B0AA;
-color: #000000;
-font-weight: bold;
-padding-right: 1em;
-padding-left: 1em;
-}
-
-A.headerCenter {
-background-color: #D4D0C8;
-color: #000099;
-font-weight: bold;
-padding-right: 1em;
-padding-left: 1em;
-}
-
-A.headerCenter:hover {
-background-color: #D4D0C8;
-color: #000000;
-}
-
-.headerCenterSelected {
-background-color: #D4D0C8;
-color: #000000;
-font-size: 1.1em;
-font-weight: bold;
-padding-right: 1em;
-padding-left: 1em;
-}
-
-.headerCompanyName {
-color: #000099;
-font-size: 1.6em;
-font-weight: bold;
-white-space: nowrap;
-}
-
-.headerCompanySubtitle {
-color: #330099;
-font-size: 0.8em;
-white-space: nowrap;
-}
-
-.insideHeaderText {
-color: #000000;
-font-weight: bold;
-}
-
-A.insideHeaderLink {
-color: #000099;
-}
-
-A.insideHeaderLink:hover {
-color: #000000;
-}
-
-.insideHeaderDisabled {
-color: #666666;
-font-weight: bold;
-}
-
-.headersmalltext {
-color: #000000;
-font-size: 1.1em;
-font-weight: bold;
-}
-
-a.headersmalllink {
-font-size: 1.1em;
-color: #000099;
-}
-
-a.headersmalllink:hover {
-color: #ff0000;
-}
-
 hr, .sepbar {
 /* .sepbar deprecated */
 background-color: #999999;
@@ -678,50 +583,6 @@ font-size: 1.1em;
 font-weight: bold;
 }
 
-.ontab {
-background-color: #000000;
-border-style: inset;
-border-width: 0.3em;
-font-size: 1.1em;
-padding: 0.2em;
-}
-
-a.onlnk {
-color: #FFFFFF;
-font-size: 1.1em;
-padding: 0.2em;
-}
-
-.offtab {
-background-color: #CCCCCC;
-border-style: outset;
-border-width: 0.3em;
-padding: 0.2em;
-}
-
-a.offlnk {
-color: #000099;
-padding: 0.2em;
-}
-
-a.offlnk:hover {
-color: #ff0000;
-}
-
-.areaheader {
-background-color: #000000;
-color: #FFFFFF;
-font-weight: bold;
-padding: 0.2em;
-width: 100%;
-}
-
-.edittable {
-border-color: #000000 #000000 #003333;
-border-style: solid;
-border-width: thin;
-}
-
 .viewOneTR1 {
 background-color: #B4B0AA;
 }
@@ -730,23 +591,12 @@ background-color: #B4B0AA;
 background-color: #D4D0C8;
 }
 
-.viewManyHeaderTR {
-background-color: #99CCFF;
-}
-
 .viewManyTR1 {
 background-color: #D4D0C8;
 }
 
 .viewManyTR2 {
 background-color: #FFFFFF;
-}
-
-.editInputBox {
-background-color: #ffffff;
-border: #999999 solid 0.1em;
-font-size: 1.1em;
-margin: 0.2em;
 }
 
 .radioButton {
@@ -786,25 +636,6 @@ color: #008000;
 
 .salePrice {
 color: #ff0000;
-}
-
-/* Form layout styles to simulate a table-style layout */
-.form-row {
-clear: both;
-padding-top: 0.2em;
-}
-
-.form-label {
-float: left;
-padding-top: 0.5em;
-text-align: right;
-width: 18em;
-}
-
-.form-field {
-float: left;
-margin-left: 1em;
-text-align: left;
 }
 
 /* ===== Product Summary Styles ===== */
@@ -947,12 +778,6 @@ font-size: 1.4em;
 font-weight: bold;
 }
 
-DIV.centerarea {
-margin-left: 1em;
-margin-right: 1em;
-margin-top: 1em;
-}
-
 .appbar {
 background-color: #ffffff;
 }
@@ -963,65 +788,6 @@ background-color: #FFFFFF;
 
 .blackarea {
 background-color: #000000;
-}
-
-.mainblock {
-background-color: #D4D0C8;
-vertical-align: top;
-}
-
-.tabdownblock {
-background-color: #B4B0AA;
-}
-
-.tabdowncenter {
-background-color: #B4B0AA;
-background-image: url(/images/tabs/tab_down_fill.gif);
-color: #000000;
-font-size: 1.05em;
-text-align: center;
-vertical-align: middle;
-}
-
-.tabdownleft {
-background-color: #B4B0AA;
-background-image: url(/images/tabs/tab_down_left.gif);
-}
-
-.tabdownright {
-background-color: #B4B0AA;
-background-image: url(/images/tabs/tab_down_right.gif);
-}
-
-.tabupcenter {
-background-color: #D4D0C8;
-background-image: url(/images/tabs/tab_up_fill.gif);
-color: #000000;
-font-size: 1.05em;
-text-align: center;
-vertical-align: middle;
-}
-
-.tabupleft {
-background-color: #D4D0C8;
-background-image: url(/images/tabs/tab_up_left.gif);
-border: 0;
-}
-
-.tabupright {
-background-color: #D4D0C8;
-background-image: url(/images/tabs/tab_up_right.gif);
-}
-
-A.tablink, A.tablink:hover, A.tablinkselected, A.tablinkselected:hover {
-color: #000000;
-font-size: 1.05em;
-text-align: center;
-text-decoration: none;
-}
-
-A.tablink:hover,A.tablink:active,A.tablinkselected {
-color: #000099;
 }
 
 .apptitle {
@@ -1064,7 +830,7 @@ width: auto;
 DIV.contentarea {
 background-color: #FFFFFF;
 border: solid #000000 0.1em;
-margin-top: 1em;
+margin: 1em;
 padding: 1em;
 }
 
@@ -1341,6 +1107,7 @@ background-image: url(/images/gradient_main.gif);
 background-repeat: repeat-y;
 border: 0.1em solid #69a9d9;
 height: 1%; /* IE fix */
+margin: 1em;
 }
 
 #app-navigation h1,
