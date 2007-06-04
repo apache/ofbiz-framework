@@ -203,13 +203,13 @@ public class CheckOutHelper {
         return errorMessages;
     }
 
-    public Map setCheckOutPayment(Map selectedPaymentMethods, List singleUsePayments, String billingAccountId, Double billingAccountAmt) {
+    public Map setCheckOutPayment(Map selectedPaymentMethods, List singleUsePayments, String billingAccountId) {
         List errorMessages = new ArrayList();
         Map result;
         String errMsg = null;
 
         if (this.cart != null && this.cart.size() > 0) {
-            errorMessages.addAll(setCheckOutPaymentInternal(selectedPaymentMethods, singleUsePayments, billingAccountId, billingAccountAmt));
+            errorMessages.addAll(setCheckOutPaymentInternal(selectedPaymentMethods, singleUsePayments, billingAccountId));
         } else {
             errMsg = UtilProperties.getMessage(resource,"checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
             errorMessages.add(errMsg);
@@ -226,7 +226,7 @@ public class CheckOutHelper {
         return result;
     }
 
-    public List setCheckOutPaymentInternal(Map selectedPaymentMethods, List singleUsePayments, String billingAccountId, Double billingAccountAmt) {
+    public List setCheckOutPaymentInternal(Map selectedPaymentMethods, List singleUsePayments, String billingAccountId) {
         List errorMessages = new ArrayList();
         String errMsg = null;
 
@@ -239,11 +239,12 @@ public class CheckOutHelper {
             // clear out the old payments
             cart.clearPayments();
 
-            if (billingAccountId != null && billingAccountAmt != null && !billingAccountId.equals("_NA_")) {
+            if (UtilValidate.isNotEmpty(billingAccountId)) {
+                Double billingAccountAmt = (Double)selectedPaymentMethods.get("EXT_BILLACT");
                 // set cart billing account data and generate a payment method containing the amount we will be charging
-                cart.setBillingAccount(billingAccountId, billingAccountAmt.doubleValue());
-            } else if ("_NA_".equals(billingAccountId)) {
-                // if _NA_ was supplied, erase all billing account data
+                cart.setBillingAccount(billingAccountId, (billingAccountAmt != null? billingAccountAmt.doubleValue(): 0.0));
+            } else {
+                // remove the billing account from the cart
                 cart.setBillingAccount(null, 0.0);
             }
 
@@ -346,7 +347,7 @@ public class CheckOutHelper {
 
 
     public Map setCheckOutOptions(String shippingMethod, String shippingContactMechId, Map selectedPaymentMethods,
-            List singleUsePayments, String billingAccountId, Double billingAccountAmt, String shippingInstructions, 
+            List singleUsePayments, String billingAccountId, String shippingInstructions, 
             String orderAdditionalEmails, String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate) {
         List errorMessages = new ArrayList();
         Map result = null;
@@ -362,7 +363,7 @@ public class CheckOutHelper {
             errorMessages.addAll(setCheckOutShippingAddressInternal(shippingContactMechId));
 
             // set the payment method(s) option
-            errorMessages.addAll(setCheckOutPaymentInternal(selectedPaymentMethods, singleUsePayments, billingAccountId, billingAccountAmt));
+            errorMessages.addAll(setCheckOutPaymentInternal(selectedPaymentMethods, singleUsePayments, billingAccountId));
 
         } else {
             errMsg = UtilProperties.getMessage(resource,"checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));

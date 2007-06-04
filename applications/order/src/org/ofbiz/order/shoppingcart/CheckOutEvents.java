@@ -160,22 +160,21 @@ public class CheckOutEvents {
                 curPage = "payment";
             }
         } else if ("payment".equals(curPage) == true) {
-            // get the currency format
-            String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
-            DecimalFormat formatter = new DecimalFormat(currencyFormat);
-
             // Set the payment options
             Map selectedPaymentMethods = getSelectedPaymentMethods(request);
-            if (selectedPaymentMethods == null) {
-                return "error";
-            }
 
             String billingAccountId = request.getParameter("billingAccountId");
-            Double billingAccountAmt = determineBillingAccountAmount(request, checkOutHelper, formatter);
-            if ((billingAccountId != null) && !"_NA_".equals(billingAccountId) && (billingAccountAmt == null)) {
-                Map messageMap = UtilMisc.toMap("billingAccountId", billingAccountId);
-                String errMsg = UtilProperties.getMessage(resource, "checkevents.invalid_amount_set_for_billing_account", messageMap, (cart != null ? cart.getLocale() : Locale.getDefault()));
-                request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            if (UtilValidate.isNotEmpty(billingAccountId)) {
+                Double billingAccountAmt = null;
+                billingAccountAmt = determineBillingAccountAmount(billingAccountId, request.getParameter("billingAccountAmount"), dispatcher);
+                if ((billingAccountId != null) && !"_NA_".equals(billingAccountId) && (billingAccountAmt == null)) { 
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
+                    return "error";
+                }
+                selectedPaymentMethods.put("EXT_BILLACT", billingAccountAmt);
+            }
+
+            if (UtilValidate.isEmpty(selectedPaymentMethods)) {
                 return "error";
             }
 
@@ -198,7 +197,7 @@ public class CheckOutEvents {
                 }
             }
 
-            Map callResult = checkOutHelper.setCheckOutPayment(selectedPaymentMethods, singleUsePayments, billingAccountId, billingAccountAmt);
+            Map callResult = checkOutHelper.setCheckOutPayment(selectedPaymentMethods, singleUsePayments, billingAccountId);
             ServiceUtil.getMessages(request, callResult, null);
 
             if (!(callResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))) {
@@ -307,13 +306,24 @@ public class CheckOutEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
 
-        // get the currency format
-        String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
-        DecimalFormat formatter = new DecimalFormat(currencyFormat);
-
         // Set the payment options
         Map selectedPaymentMethods = getSelectedPaymentMethods(request);
-        if (selectedPaymentMethods == null) {
+
+        CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
+
+        // get the billing account and amount
+        String billingAccountId = request.getParameter("billingAccountId");
+        if (UtilValidate.isNotEmpty(billingAccountId)) {
+            Double billingAccountAmt = null;
+            billingAccountAmt = determineBillingAccountAmount(billingAccountId, request.getParameter("billingAccountAmount"), dispatcher);
+            if (billingAccountAmt == null) { 
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
+                return "error";
+            }
+            selectedPaymentMethods.put("EXT_BILLACT", billingAccountAmt);
+        }
+
+        if (UtilValidate.isEmpty(selectedPaymentMethods)) {
             return "error";
         }
 
@@ -336,7 +346,6 @@ public class CheckOutEvents {
 
         // get a request map of parameters
         Map params = UtilHttp.getParameterMap(request);
-        CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
 
         // if taxAuthPartyGeoIds is not empty drop that into the database
         if (UtilValidate.isNotEmpty(taxAuthPartyGeoIds)) {
@@ -354,16 +363,6 @@ public class CheckOutEvents {
             }
         }
         
-        // get the billing account and amount
-        String billingAccountId = request.getParameter("billingAccountId");
-        Double billingAccountAmt = determineBillingAccountAmount(request, checkOutHelper, formatter);
-        if ((billingAccountId != null) && !"_NA_".equals(billingAccountId) && (billingAccountAmt == null)) {
-            Map messageMap = UtilMisc.toMap("billingAccountId", billingAccountId);
-            String errMsg = UtilProperties.getMessage(resource, "checkevents.invalid_amount_set_for_billing_account", messageMap, (cart != null ? cart.getLocale() : Locale.getDefault()));
-            request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return "error";
-        }
-
         // check for gift card not on file
         Map gcResult = checkOutHelper.checkGiftCard(params, selectedPaymentMethods);
         ServiceUtil.getMessages(request, gcResult, null);
@@ -381,7 +380,7 @@ public class CheckOutEvents {
         }
 
         Map optResult = checkOutHelper.setCheckOutOptions(shippingMethod, shippingContactMechId, selectedPaymentMethods,
-                singleUsePayments, billingAccountId, billingAccountAmt, shippingInstructions,
+                singleUsePayments, billingAccountId, shippingInstructions,
                 orderAdditionalEmails, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate);
 
         ServiceUtil.getMessages(request, optResult, null);
@@ -791,7 +790,20 @@ public class CheckOutEvents {
 
             // Set the payment options
             Map selectedPaymentMethods = getSelectedPaymentMethods(request);
-            if (selectedPaymentMethods == null) {
+
+            // Set the billing account (if any)
+            String billingAccountId = request.getParameter("billingAccountId");
+            if (UtilValidate.isNotEmpty(billingAccountId)) {
+                Double billingAccountAmt = null;
+                billingAccountAmt = determineBillingAccountAmount(billingAccountId, request.getParameter("billingAccountAmount"), dispatcher);
+                if (billingAccountAmt == null) { 
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
+                    return "error";
+                }
+                selectedPaymentMethods.put("EXT_BILLACT", billingAccountAmt);
+            }
+
+            if (UtilValidate.isEmpty(selectedPaymentMethods)) {
                 return "error";
             }
 
@@ -802,16 +814,8 @@ public class CheckOutEvents {
                 selectedPaymentMethods.put(newPaymentMethodId, null);
             }
             
-            String billingAccountId = request.getParameter("billingAccountId");
-            String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
-            DecimalFormat formatter = new DecimalFormat(currencyFormat);
-            Double billingAccountAmt = determineBillingAccountAmount(request, checkOutHelper, formatter);
-            if ((billingAccountId != null) && !"_NA_".equals(billingAccountId) && (billingAccountAmt == null)) { 
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
-                return "error";
-            }
             // The selected payment methods are set
-            errorMessages.addAll(checkOutHelper.setCheckOutPaymentInternal(selectedPaymentMethods, null, billingAccountId, billingAccountAmt));
+            errorMessages.addAll(checkOutHelper.setCheckOutPaymentInternal(selectedPaymentMethods, null, billingAccountId));
             // Verify if a gift card has been selected during order entry
             callResult = checkOutHelper.checkGiftCard(paramMap, selectedPaymentMethods);
             ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
@@ -994,37 +998,41 @@ public class CheckOutEvents {
      * This method returns the amount that will be charged to the billing account.
      *
      * An amount can be associated with the billingAccountId with a
-     * parameter amount_${billingAccountId}.  If no amount is specified, then
-     * the entire available ballance of the given billing account will be used.
+     * parameter billingAccountAmount.  If no amount is specified, then
+     * the entire available balance of the given billing account will be used.
      * If there is an error, a null will be returned.
      *
      * @return  Amount to charge billing account or null if there was an error
      */
-    private static Double determineBillingAccountAmount(HttpServletRequest request, CheckOutHelper checkOutHelper, DecimalFormat formatter) {
-        ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
-        String billingAccountId = request.getParameter("billingAccountId");
-        String billingAcctAmtStr = request.getParameter("amount_" + billingAccountId);
+    private static Double determineBillingAccountAmount(String billingAccountId, String billingAccountAmount, LocalDispatcher dispatcher) {
         Double billingAccountAmt = null;
 
-        // parse the amount to a decimal
-        if (billingAcctAmtStr != null) {
-            try {
-                billingAccountAmt = new Double(formatter.parse(billingAcctAmtStr).doubleValue());
-            } catch (ParseException e) {
-                return null;
-            }
-        }
-
         // set the billing account amount to the minimum of billing account available balance or amount input if less than balance
-        if ((cart != null) && (billingAccountId != null) && !("".equals(billingAccountId)) && !"_NA_".equals(billingAccountId)) {
-            double availableBalance = checkOutHelper.availableAccountBalance(billingAccountId);
+        if (UtilValidate.isNotEmpty(billingAccountId)) {
+            // parse the amount to a decimal
+            if (UtilValidate.isNotEmpty(billingAccountAmount)) {
+                String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
+                DecimalFormat formatter = new DecimalFormat(currencyFormat);
+                try {
+                    billingAccountAmt = new Double(formatter.parse(billingAccountAmount).doubleValue());
+                } catch (ParseException e) {
+                    return null;
+                }
+            }
+            if (billingAccountAmt == null) {
+                billingAccountAmt = new Double(0.0);
+            }
+            double availableBalance = CheckOutHelper.availableAccountBalance(billingAccountId, dispatcher);
 
             // set amount to be charged to entered amount unless it exceeds the available balance
             double chargeAmount = 0;
-            if ((billingAccountAmt != null) && (billingAccountAmt.doubleValue() < availableBalance)) {
+            if (billingAccountAmt.doubleValue() < availableBalance) {
                 chargeAmount = billingAccountAmt.doubleValue();
             } else {
                 chargeAmount = availableBalance;
+            }
+            if (chargeAmount < 0.0) {
+                chargeAmount = 0.0;
             }
 
             return new Double(chargeAmount);

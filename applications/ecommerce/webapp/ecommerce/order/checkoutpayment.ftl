@@ -54,18 +54,6 @@ function submitForm(form, mode, value) {
         form.submit();
 }
 
-function toggleBillingAccount(box) {
-    var amountName = "amount_" + box.value;
-    box.checked = true;
-    box.form.elements[amountName].disabled = false;
-
-    for (var i = 0; i < box.form.elements[box.name].length; i++) {
-        if (!box.form.elements[box.name][i].checked) {
-            box.form.elements["amount_" + box.form.elements[box.name][i].value].disabled = true;
-        }
-    }
-}
-
 // -->
 </script>
 
@@ -234,39 +222,29 @@ function toggleBillingAccount(box) {
               <#if billingAccountList?has_content>
                 <tr><td colspan="3"><hr class="sepbar"/></td></tr>
                 <tr>
-                  <td width="1%" nowrap>
-                    <input type="radio" name="checkOutPaymentId" value="EXT_BILLACT" <#if "EXT_BILLACT" == checkOutPaymentId>checked</#if>></hr>
+                  <td width="1%">
+                    <select name="billingAccountId">
+                      <option value=""></option>
+                        <#list billingAccountList as billingAccount>
+                          <#assign availableAmount = billingAccount.accountBalance?double>
+                          <#assign accountLimit = billingAccount.accountLimit?double>
+                          <option value="${billingAccount.billingAccountId}" <#if billingAccount.billingAccountId == selectedBillingAccountId?default("")>selected</#if>>${billingAccount.description?default("")} [${billingAccount.billingAccountId}] with available amount of <@ofbizCurrency amount=availableAmount isoCode=billingAccount.accountCurrencyUomId/> and account limit of <@ofbizCurrency amount=accountLimit isoCode=billingAccount.accountCurrencyUomId/></option>
+                        </#list>
+                    </select>
                   </td>
-                  <td width="50%" nowrap>
-                    <span class="tabletext">${uiLabelMap.AccountingPayOnlyWithBillingAccount}</span>
+                  <td width="50%">
+                    <span class="tabletext">${uiLabelMap.FormFieldTitle_billingAccountId}</span>
                   </td>
                   <td>&nbsp;</td>
                 </tr>
-                <tr><td colspan="3"><hr class="sepbar"/></td></tr>
-                <#list billingAccountList as billingAccount>
-                  <#assign availableAmount = billingAccount.accountLimit?double - billingAccount.accountBalance?double>
-                  <tr>
-                    <td align="left" valign="top" width="1%" nowrap>
-                      <input type="radio" onClick="javascript:toggleBillingAccount(this);" name="billingAccountId" value="${billingAccount.billingAccountId}" <#if (billingAccount.billingAccountId == selectedBillingAccountId?default(""))>checked</#if>>
-                    </td>
-                    <td align="left" valign="top" width="99%" nowrap>
-                      <div class="tabletext">
-                       ${billingAccount.description?default("Bill Account")} [${uiLabelMap.OrderNbr}<b>${billingAccount.billingAccountId}</b>]&nbsp;(<@ofbizCurrency amount=availableAmount isoCode=billingAccount.accountCurrencyUomId?default(cart.getCurrency())/>)<br/>
-                       <b>${uiLabelMap.OrderBillUpTo}:</b> <input type="text" size="8" class="inputBox" name="amount_${billingAccount.billingAccountId}" value="${availableAmount?double?string("##0.00")}" <#if !(billingAccount.billingAccountId == selectedBillingAccountId?default(""))>disabled</#if>>
-                      </div>
-                    </td>
-                    <td>&nbsp;</td>
-                  </tr>
-                </#list>
                 <tr>
-                  <td align="left" valign="top" width="1%" nowrap>
-                    <input type="radio" onClick="javascript:toggleBillingAccount(this);" name="billingAccountId" value="_NA_" <#if (selectedBillingAccountId?default("") == "N")>checked</#if>>
-                    <input type="hidden" name="_NA_amount" value="0.00">
+                  <td width="1%" align="right">
+                    <input type="text" size="5" name="billingAccountAmount" value=""/>
                   </td>
-                  <td align="left" valign="top" width="99%" nowrap>
-                    <div class="tabletext">${uiLabelMap.AccountingNoBillingAccount}</div>
-                   </td>
-                   <td>&nbsp;</td>
+                  <td width="50%">
+                    ${uiLabelMap.OrderBillUpTo}
+                  </td>
+                  <td>&nbsp;</td>
                 </tr>
               </#if>
             </#if>
