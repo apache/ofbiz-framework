@@ -17,6 +17,9 @@
  under the License.
  */
 
+/* This file has been modified by Open Source Strategies, Inc. */
+
+
 package org.ofbiz.webapp.event;
 
 import org.apache.xmlrpc.common.ServerStreamConnection;
@@ -218,6 +221,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
             }
             if (ServiceUtil.isError(resp)) {
                 Debug.logError(ServiceUtil.getErrorMessage(resp), module);                
+                throw new XmlRpcException(ServiceUtil.getErrorMessage(resp));
             }
 
             // return only definied parameters                        
