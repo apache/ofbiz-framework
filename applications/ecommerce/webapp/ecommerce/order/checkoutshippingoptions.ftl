@@ -55,18 +55,6 @@ function submitForm(form, mode, value) {
     }
 }
 
-function toggleBillingAccount(box) {
-    var amountName = box.value + "_amount";
-    box.checked = true;
-    box.form.elements[amountName].disabled = false;
-
-    for (var i = 0; i < box.form.elements[box.name].length; i++) {
-        if (!box.form.elements[box.name][i].checked) {
-            box.form.elements[box.form.elements[box.name][i].value + "_amount"].disabled = true;
-        }
-    }
-}
-
 // -->
 </script>
 

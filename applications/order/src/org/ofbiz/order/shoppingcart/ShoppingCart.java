@@ -3391,6 +3391,9 @@ public class ShoppingCart implements Serializable {
         remainingAmount = remainingAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
         if (getBillingAccountId() != null) {
             double billingAccountAvailableAmount = CheckOutHelper.availableAccountBalance(getBillingAccountId(), dispatcher);
+            if (this.billingAccountAmt == 0.0 && billingAccountAvailableAmount > 0) {
+                this.billingAccountAmt = billingAccountAvailableAmount;
+            }
             if (remainingAmount.doubleValue() < getBillingAccountAmount()) {
                 this.billingAccountAmt = remainingAmount.doubleValue();
             }

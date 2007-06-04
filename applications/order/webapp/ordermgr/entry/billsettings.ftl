@@ -26,18 +26,6 @@ function shipBillAddr() {
     }
 }
 
-function toggleBillingAccount(box) {
-    var amountName = "amount_" + box.value;
-    box.checked = true;
-    box.form.elements[amountName].disabled = false;
-
-    for (var i = 0; i < box.form.elements[box.name].length; i++) {
-        if (!box.form.elements[box.name][i].checked) {
-            box.form.elements["amount_" + box.form.elements[box.name][i].value].disabled = true;
-        }
-    }
-}
-
 function makeExpDate() {
     document.checkoutsetupform.expireDate.value = document.checkoutsetupform.expMonth.options[document.checkoutsetupform.expMonth.selectedIndex].value + "/" + document.checkoutsetupform.expYear.options[document.checkoutsetupform.expYear.selectedIndex].value;
 }
@@ -56,7 +44,35 @@ function makeExpDate() {
                   <a href="<@ofbizUrl>setBilling?createNew=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCreateNew}</a>
                 </td>
               </tr>
-              <tr><td colspan="3"><hr class="sepbar"/></td></tr>                      
+              <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+              <#if billingAccountList?has_content>
+                <tr>
+                  <td width="1%">
+                    <select name="billingAccountId">
+                      <option value=""></option>
+                        <#list billingAccountList as billingAccount>
+                          <#assign availableAmount = billingAccount.accountBalance?double>
+                          <#assign accountLimit = billingAccount.accountLimit?double>
+                          <option value="${billingAccount.billingAccountId}" <#if billingAccount.billingAccountId == selectedBillingAccountId?default("")>selected</#if>>${billingAccount.description?default("")} [${billingAccount.billingAccountId}] with available amount of <@ofbizCurrency amount=availableAmount isoCode=billingAccount.accountCurrencyUomId/> and account limit of <@ofbizCurrency amount=accountLimit isoCode=billingAccount.accountCurrencyUomId/></option>
+                        </#list>
+                    </select>
+                  </td>
+                  <td width="50%">
+                    <span class="tabletext">${uiLabelMap.FormFieldTitle_billingAccountId}</span>
+                  </td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td width="1%" align="right">
+                    <input type="text" size="5" name="billingAccountAmount" value=""/>
+                  </td>
+                  <td width="50%">
+                    ${uiLabelMap.OrderBillUpTo}
+                  </td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+              </#if>                                    
               <tr>
                 <td width="1%">
                   <input type="radio" name="checkOutPaymentId" value="EXT_OFFLINE" <#if checkOutPaymentId?exists && checkOutPaymentId == "EXT_OFFLINE">checked="checked"</#if>/>
@@ -74,43 +90,7 @@ function makeExpDate() {
                   <span class="tabletext">${uiLabelMap.OrderCOD}</span>
                 </td>
               </tr>
-             <tr><td colspan="3"><hr class="sepbar"/></td></tr>                  
-              <#if billingAccountList?has_content>
-                <tr>
-                  <td width="1%">
-                    <input type="radio" name="checkOutPaymentId" value="EXT_BILLACT"/>
-                  </td>
-                  <td width="50%">
-                    <span class="tabletext">${uiLabelMap.AccountingBillingAccountOnly}</span>
-                  </td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr><td colspan="3"><hr class="sepbar"/></td></tr>
-                <#list billingAccountList as billingAccount>
-                  <#assign availableAmount = billingAccount.accountBalance?double>
-                  <tr>
-                    <td align="left" valign="top" width="1%">
-                      <input type="radio" onClick="javascript:toggleBillingAccount(this);" name="billingAccountId" value="${billingAccount.billingAccountId}" <#if (billingAccount.billingAccountId == selectedBillingAccountId?default(""))>checked="checked"</#if>/>
-                    </td>
-                    <td align="left" valign="top" width="99%">
-                      <div class="tabletext">
-                       ${billingAccount.description?default("Bill Account")} #<b>${billingAccount.billingAccountId}</b>&nbsp;(<@ofbizCurrency amount=availableAmount isoCode=billingAccount.accountCurrencyUomId/>)<br/>
-                       <b>${uiLabelMap.AccountingBillUpTo}:</b> <input type="text" size="5" class="inputBox" name="amount_${billingAccount.billingAccountId}" value="${availableAmount?double?string("##0.00")}" <#if !(billingAccount.billingAccountId == selectedBillingAccountId?default(""))>disabled="disabled"</#if>/>
-                      </div>
-                    </td>
-                  </tr>
-                </#list>
-                <tr>
-                  <td align="left" valign="top" width="1%">
-                    <input type="radio" onClick="javascript:toggleBillingAccount(this);" name="billingAccountId" value="_NA_" <#if (selectedBillingAccountId?default("") == "N")>checked="checked"</#if>/>
-                    <input type="hidden" name="_NA_amount" value="0.00"/>
-                  </td>
-                  <td align="left" valign="top" width="99%">
-                    <div class="tabletext">${uiLabelMap.AccountingNoBillingAccount}</div>
-                   </td>
-                </tr>
-                <tr><td colspan="3"><hr class="sepbar"/></td></tr>
-              </#if>                                    
+             <tr><td colspan="3"><hr class="sepbar"/></td></tr>
               <#if paymentMethodList?has_content>
                 <#list paymentMethodList as paymentMethod>
                   <#if paymentMethod.paymentMethodTypeId == "CREDIT_CARD">
