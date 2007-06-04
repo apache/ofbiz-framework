@@ -998,6 +998,7 @@ public class PaymentGatewayServices {
         String billingAccountId = (String) context.get("billingAccountId");
         Double captureAmount = (Double) context.get("captureAmount");
         BigDecimal amountToCapture = new BigDecimal(captureAmount.doubleValue());
+        amountToCapture = amountToCapture.setScale(2, BigDecimal.ROUND_HALF_UP);
 
         // get the order header and payment preferences
         GenericValue orderHeader = null;
@@ -1385,6 +1386,7 @@ public class PaymentGatewayServices {
         String billingAccountId = (String) context.get("billingAccountId");
         Double captureAmountDbl = (Double) context.get("captureAmount");
         BigDecimal captureAmount = new BigDecimal(captureAmountDbl.doubleValue());
+        captureAmount = captureAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
         String orderId = (String) context.get("orderId");
         BigDecimal capturedAmount = BigDecimal.ZERO;
         
@@ -1412,6 +1414,7 @@ public class PaymentGatewayServices {
                     // TODO: check the statusId of the payment
                     BigDecimal paymentApplicationAmount = paymentApplication.getBigDecimal("amountApplied");
                     BigDecimal amountToCapture = paymentApplicationAmount.min(captureAmount.subtract(capturedAmount));
+                    amountToCapture = amountToCapture.setScale(2, BigDecimal.ROUND_HALF_UP);
                     if (amountToCapture.compareTo(paymentApplicationAmount) == 0) {
                         // apply the whole payment application to the invoice
                         paymentApplication.set("invoiceId", invoiceId);
@@ -1434,6 +1437,7 @@ public class PaymentGatewayServices {
         } catch (GenericEntityException ex) {
             return ServiceUtil.returnError(ex.getMessage());
         }
+        capturedAmount = capturedAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
         Map results = ServiceUtil.returnSuccess();
         results.put("captureAmount", new Double(capturedAmount.doubleValue()));
         return results;
