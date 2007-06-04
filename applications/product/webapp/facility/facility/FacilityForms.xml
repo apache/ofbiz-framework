@@ -35,9 +35,35 @@ under the License.
             <hyperlink target="EditFacility?facilityId=${facilityId}" description="${uiLabelMap.CommonEdit}"/>
         </field>
     </form>
-    <form name="ListFacilityInventoryItems" type="list"  target="" title="" list-name="inventoryItems" 
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+    <form name="SearchInventoryItemsParams" type="single" target="EditFacilityInventoryItems">
+        <field name="facilityId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
+                    <entity-order-by field-name="facilityName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="datetimeReceived"><date-find/></field>
+        <field name="productId"><text-find/></field>
+        <field name="internalName"><text-find/></field>
+        <field name="inventoryItemId"><text-find/></field>
+        <field name="serialNumber"><text-find/></field>
+        <field name="manufacturerPartyId">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="ListFacilityInventoryItems" type="list"  target="" title="" list-name="listIt" 
         paginate-target="EditFacilityInventoryItems">
+        <actions>
+            <service service-name="performFind" result-map-name="results" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="InventoryItemAndLocation"/>
+                <field-map field-name="orderBy" value="statusId|quantityOnHandTotal|serialNumber"/>
+            </service>
+        </actions>
         <field name="inventoryItemId" widget-style="buttontext">
             <hyperlink target="EditInventoryItem?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}" description="${inventoryItemId}"/>
         </field>
@@ -47,11 +73,10 @@ under the License.
         <field name="statusId"><display/></field>
         <field name="datetimeReceived"><display/></field>
         <field name="expireDate"><display/></field>
-        <field name="productId" widget-area-style="tabletext">
-            <display-entity entity-name="Product" description="${internalName}">
-                <sub-hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}" link-style="buttontext"/>
-            </display-entity>
+        <field name="productId">
+            <hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}"/>
         </field>
+        <field name="internalName"><display/></field>
         <field name="locationSeqId" widget-style="buttontext">
             <hyperlink target="EditFacilityLocation?facilityId=${facilityId}&amp;locationSeqId=${locationSeqId}" description="${areaId}:${aisleId}:${sectionId}:${levelId}:${positionId} [${locationSeqId}]"/>
         </field>
@@ -136,30 +161,6 @@ under the License.
         <field name="defultPrice" title="Default Price" widget-area-style="tabletextright"><display description="${resultMap.defultPrice}"/></field>
         <field name="listPrice" title="List Price" widget-area-style="tabletextright"><display description="${resultMap.listPrice}"/></field>
         <field name="wholeSalePrice" title="Whole Sale Price" widget-area-style="tabletextright"><display description="${resultMap.wholeSalePrice}"/></field>
-    </form>
-
-    <form name="SearchInventoryItemsParams" type="single" target="SearchInventoryItems"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
-        <field name="facilityId"><text/></field>
-        <field name="datetimeReceived"><date-find/></field>
-        <field name="manufacturerPartyId"><text/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
-            <submit button-type="button"/>
-        </field>
-    </form>
-    <form name="SearchInventoryItemsResults" type="list" list-name="listIt"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
-        <actions>
-           <service service-name="performFind" result-map-name="results" result-map-list-name="listIt">
-               <field-map field-name="inputFields" env-name="parameters"/>
-               <field-map field-name="entityName" value="ProductInventoryItem"/>
-           </service>
-        </actions>        
-        <field name="inventoryItemId"><display/></field>
-        <field name="productId"><display/></field>
-        <field name="manufacturerPartyId"><display/></field>
-        <field name="datetimeReceived"><display/></field>
-        <field name="serialNumber"><display/></field> 
     </form>
 
     <!-- multi-form for list of packages ready to be weighted and scheduled for shipment -->

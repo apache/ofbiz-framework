@@ -1174,12 +1174,17 @@ under the License.
             package-name="org.ofbiz.product.inventory"
             title="InventoryItem And FacilityLocation View Entity">
       <member-entity entity-alias="II" entity-name="InventoryItem"/>
+      <member-entity entity-alias="PR" entity-name="Product"/>
       <member-entity entity-alias="FL" entity-name="FacilityLocation"/>
       <alias-all entity-alias="II"/>
+      <alias-all entity-alias="PR"/>
       <alias-all entity-alias="FL"/>
       <view-link entity-alias="II" rel-entity-alias="FL" rel-optional="true">
         <key-map field-name="facilityId"/>
         <key-map field-name="locationSeqId"/>
+      </view-link>
+      <view-link entity-alias="II" rel-entity-alias="PR" rel-optional="true">
+        <key-map field-name="productId"/>
       </view-link>
       <relation type="one-nofk" rel-entity-name="ProductFacilityLocation">
         <key-map field-name="productId"/>

@@ -148,15 +148,6 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
                 <entity-one entity-name="Facility" value-name="facility"/>
-                <entity-condition entity-name="InventoryItemAndLocation" list-name="inventoryItems">
-                    <condition-list>
-                        <condition-expr field-name="facilityId" env-name="parameters.facilityId"/>
-                        <condition-expr field-name="productId" env-name="parameters.productId" ignore-if-empty="true"/>
-                    </condition-list>
-                    <order-by field-name="statusId"/>
-                    <order-by field-name="quantityOnHandTotal"/>
-                    <order-by field-name="serialNumber"/>
-                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -169,9 +160,8 @@ under the License.
                             <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
                             <link target="EditInventoryItem?facilityId=${parameters.facilityId}" text="${uiLabelMap.ProductCreateNewInventoryItemFacility}" style="buttontext"/>
                             <link target="ViewFacilityInventoryByProduct?facilityId=${parameters.facilityId}" text="${uiLabelMap.CommonView} ${uiLabelMap.ProductInventoryByProduct}" style="buttontext"/>
-                            <link target="SearchInventoryItems?facilityId=${parameters.facilityId}" text="${uiLabelMap.PageTitleSearchInventoryItems}" style="buttontext"/>
                         </container>
-
+                        <include-form name="SearchInventoryItemsParams" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                         <include-form name="ListFacilityInventoryItems" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
@@ -335,38 +325,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="SearchInventoryItems">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleSearchInventoryItems"/>
-                <set field="headerItem" value="facility"/>
-                <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
-                <set field="facilityId" from-field="parameters.facilityId"/>
-                <set field="manufacturerPartyId" from-field="parameters.manufacturerPartyId"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
-                    <decorator-section name="body">
-
-                        <container>
-                            <label style="head1">${uiLabelMap.PageTitleSearchInventoryItems} ${uiLabelMap.CommonFor}:</label>
-                            <label style="head2">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>                            
-                        </container>
-                        <container>
-                            <link target="EditFacilityInventoryItems?facilityId=${facilityId}" text="[${uiLabelMap.ProductInventoryItems}]" style="buttontext"/>
-                        </container>
-
-                        <include-form name="SearchInventoryItemsParams" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                        <include-form name="SearchInventoryItemsResults" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
- 
     <screen name="EditFacilityGroups">
         <section>
             <actions>
