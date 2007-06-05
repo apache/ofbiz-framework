@@ -304,6 +304,16 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="use-indices" default="true">
+            <xs:annotation><xs:documentation>Use manually declared indices (indexes)?</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="use-indices-unique" default="true">
+            <xs:annotation><xs:documentation>For manually declared indices (if used), use the unique constraint?</xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>

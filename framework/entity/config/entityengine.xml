@@ -140,6 +140,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             check-on-start="true"
             add-missing-on-start="true"
             use-pk-constraint-names="false"
+            use-indices-unique="false"
             alias-view-columns="false">
         <read-data reader-name="seed"/>
         <read-data reader-name="demo"/>
@@ -161,6 +162,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         check-on-start="true"
         add-missing-on-start="true"
         use-pk-constraint-names="false"
+        use-indices-unique="false"
         alias-view-columns="false">
         <inline-jdbc
             jdbc-driver="org.apache.derby.jdbc.EmbeddedDriver"
