@@ -649,7 +649,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="description"><text default-value="Replace Defective Part"/></field>
+        <field name="description"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
