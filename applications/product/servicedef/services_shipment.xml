@@ -628,7 +628,7 @@ under the License.
     </service>
 
     <service name="calcShipmentCostEstimate" engine="java"
-            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="calcShipmentCostEstimate" auth="false">
+            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="calcShipmentCostEstimate" auth="false" use-transaction="false">
         <description>Generic Shipment Cost Estimate Calc Service - Use ShipmentCostEstimate Entities</description>
         <implements service="calcShipmentEstimateInterface"/>
     </service>
@@ -652,7 +652,7 @@ under the License.
     </service>
 
     <service name="getShipmentPackageValueFromOrders" engine="java"
-            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="getShipmentPackageValueFromOrders" auth="true">
+            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="getShipmentPackageValueFromOrders" auth="true" use-transaction="false">
         <description>Calculates the total value of a shipment package by totalling the results of the getOrderItemValue service
             for the orderItem related to each ShipmentPackageContent, prorated by the quantity of the orderItem packed in the 
             ShipmentPackageContent. Value is converted according to the incoming currencyUomId.</description>
