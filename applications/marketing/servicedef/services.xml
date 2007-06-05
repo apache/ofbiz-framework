@@ -308,6 +308,22 @@ under the License.
         <attribute name="toRoleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="areRelated" type="String" mode="OUT" optional="false"><!-- will be Y or N --></attribute>
     </service>
+
+    <!-- Tracking Code Order return  -->
+    <service name="createTrackingCodeOrder" default-entity-name="TrackingCodeOrder" engine="simple"
+            location="org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCodeOrder">
+        <description>Create a TrackingCodeOrder record</description>
+        <permission-service service-name="marketingPermissionService" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateTrackingCodeOrder" default-entity-name="TrackingCodeOrder" engine="simple"
+            location="org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="updateTrackingCodeOrder">
+        <description>Update a TrackingCode record</description>
+        <permission-service service-name="marketingPermissionService" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
     
     <!-- Tracking Code Order return  -->
     <service name="createTrackingCodeOrderReturn" default-entity-name="TrackingCodeOrderReturn" engine="simple"
