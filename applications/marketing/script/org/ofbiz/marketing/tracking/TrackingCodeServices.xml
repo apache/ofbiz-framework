@@ -104,6 +104,31 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
+    <simple-method method-name="createTrackingCodeOrder" short-description="Create an TrackingCodeOrder">
+        <now-timestamp-to-env env-name="nowStamp"/>
+        <make-value value-name="newEntity" entity-name="TrackingCodeOrder"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        
+        <!-- set the history/audit info -->
+        <set from-field="nowStamp" field="newEntity.createdStamp"/>
+
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateTrackingCodeOrder" short-description="Update an TrackingCodeOrder">
+        <now-timestamp-to-env env-name="nowStamp"/>
+        
+        <make-value entity-name="TrackingCodeOrder" value-name="lookupPKMap"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="TrackingCodeOrder" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        
+        <!-- set the history/audit info -->
+        <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
+        <set from-field="lastModifiedDate" field="newEntity.createdDate"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+
     <!-- add service for tracking code return -->
     <simple-method method-name="createTrackingCodeOrderReturn" short-description="Create an TrackingCodeOrderReturn">
         <now-timestamp-to-env env-name="nowStamp"/>
