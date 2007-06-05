@@ -2571,7 +2571,7 @@ public class DatabaseUtil {
         }
 
         StringBuffer indexSqlBuf = new StringBuffer("CREATE ");
-        if (modelIndex.getUnique()) {
+        if (datasourceInfo.useIndicesUnique && modelIndex.getUnique()) {
             indexSqlBuf.append("UNIQUE ");
         }
         indexSqlBuf.append("INDEX ");

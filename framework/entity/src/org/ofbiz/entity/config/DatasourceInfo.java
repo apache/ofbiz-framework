@@ -65,6 +65,7 @@ public class DatasourceInfo {
     public String fkStyle = null;
     public boolean useFkInitiallyDeferred = true;
     public boolean useIndices = true;
+    public boolean useIndicesUnique = true;
     public boolean checkIndicesOnStart = false;
     public String joinStyle = null;
     public boolean aliasViews = true;
@@ -99,6 +100,7 @@ public class DatasourceInfo {
             Debug.logWarning("datasource def not found with name " + this.name + ", using default for fk-style (name_constraint)", module);
             Debug.logWarning("datasource def not found with name " + this.name + ", using default for use-fk-initially-deferred (true)", module);
             Debug.logWarning("datasource def not found with name " + this.name + ", using default for use-indices (true)", module);
+            Debug.logWarning("datasource def not found with name " + this.name + ", using default for use-indices-unique (true)", module);
             Debug.logWarning("datasource def not found with name " + this.name + ", using default for check-indices-on-start (false)", module);
             Debug.logWarning("datasource def not found with name " + this.name + ", using default for join-style (ansi)", module);
             Debug.logWarning("datasource def not found with name " + this.name + ", using default for always-use-constraint-keyword (false)", module);
@@ -144,6 +146,7 @@ public class DatasourceInfo {
             this.useFkInitiallyDeferred = "true".equals(datasourceElement.getAttribute("use-fk-initially-deferred"));
             // anything but false is true
             this.useIndices = !"false".equals(datasourceElement.getAttribute("use-indices"));
+            this.useIndices = !"false".equals(datasourceElement.getAttribute("use-indices-unique"));
             // anything but true is false
             this.checkIndicesOnStart = "true".equals(datasourceElement.getAttribute("check-indices-on-start"));
             this.joinStyle = datasourceElement.getAttribute("join-style");
