@@ -17,9 +17,6 @@
  under the License.
  */
 
-/* This file has been modified by Open Source Strategies, Inc. */
-
-
 package org.ofbiz.webapp.event;
 
 import org.apache.xmlrpc.common.ServerStreamConnection;
