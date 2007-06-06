@@ -1365,4 +1365,47 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-</forms>
+    <!-- ProductIDs -->
+    <form name="AddProductGoodIdentification" type="single" target="createGoodIdentification" title="">
+        <auto-fields-service service-name="createGoodIdentification"/>
+        <field name="productId"><hidden/></field>
+        <field name="goodIdentificationTypeId" title="${uiLabelMap.ProductIdType}">
+            <drop-down allow-empty="false" no-current-selected-key="ISBN">
+                <entity-options entity-name="GoodIdentificationType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+    </form>
+    <form name="UpdateProductGoodIdentifications" type="list" target="updateGoodIdentification" title="" list-name="goodIdentifications"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="updateGoodIdentification" map-name="updateGoodIdentification"/>
+        <field name="goodIdentificationTypeId" title="${uiLabelMap.ProductIdType}"><display-entity entity-name="GoodIdentificationType"/></field>
+        <field name="productId"><hidden/></field>
+        <field name="idValue"></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteGoodIdentification?productId=${productId}&amp;goodIdentificationTypeId=${goodIdentificationTypeId}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <!-- ProductKeywords -->
+    <form name="AddProductKeyword" type="single" target="UpdateProductKeyword" title=""> 
+        <field name="productId"><hidden/></field>
+        <field name="UPDATE_MODE"><hidden value="CREATE"/></field>
+        <field name="PRODUCT_ID" entry-name="productId"><hidden/></field>
+        <field name="KEYWORD" title="${uiLabelMap.Keyword}"><text/></field>
+        <field name="relevancyWeight" title="${uiLabelMap.Weight}"><text default-value="1"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+    </form>
+    <form name="UpdateProductKeyword" type="list" target="UpdateProductKeywords" title="" list-name="productKeywords">
+        <field name="productId"><hidden/></field>
+        <field name="relevancyWeight" title="${uiLabelMap.Weight}"><display/></field>
+        <field name="keyword" title="${uiLabelMap.keyword}"><display/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="UpdateProductKeyword?productId=${productId}&amp;keyword=${keyword}&amp;UPDATE_MODE=DELETE&amp;PRODUCT_ID=${productId}&amp;KEYWORD=${keyword}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+ </forms>
