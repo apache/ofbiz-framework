@@ -121,6 +121,7 @@ under the License.
                         <include-menu name="${applicationMenuName}" location="${applicationMenuLocation}"/>
                     </fail-widgets>
                 </section>
+                <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
                 <container style="contentarea">
                     <container id="column-container">
                         <!-- by default will render left-bar only if leftbarScreen value not empty -->
@@ -128,7 +129,6 @@ under the License.
 
                         <container id="content-main-section" style="${MainColumnStyle}">
                             <!-- render messages -->
-                            <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
                             <decorator-section-include name="body"/>
                         </container>
                         <container style="clear"></container>
