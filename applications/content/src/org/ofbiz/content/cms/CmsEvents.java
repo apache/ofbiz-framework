@@ -59,7 +59,7 @@ public class CmsEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ServletContext servletContext = request.getSession().getServletContext();
         HttpSession session = request.getSession();
-
+        
         String webSiteId = (String) session.getAttribute("webSiteId");
         if (webSiteId == null) {
             request.setAttribute("_ERROR_MESSAGE_", "Not able to run CMS application; no webSiteId defined for WebApp!");
@@ -222,14 +222,15 @@ public class CmsEvents {
                     throw new GeneralRuntimeException("Error rendering content: " + e.toString(), e);
                 }
 
-                return null;
+                return "success";
             } else {
                 Debug.log("No website [" + webSiteId + "] publish point found for contentId: " + contentId, module);
             }
         }
 
+        return "success";
         // throw an unknown request error
-        throw new GeneralRuntimeException("Unknown request; this request does not exist or cannot be called directly.");
+        //throw new GeneralRuntimeException("Unknown request; this request does not exist or cannot be called directly.");
     }
 
     protected static boolean verifyContentToWebSite(GenericDelegator delegator, String webSiteId, String contentId) throws GeneralException {
