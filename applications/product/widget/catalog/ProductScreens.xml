@@ -428,16 +428,24 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductKeywords"/>
                 <set field="tabButtonItem" value="EditProductKeyword"/>
                 <set field="labelTitleProperty" value="ProductKeywords"/>
-
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-name="product"/>
+                <set field="orderByList[]" value="-relevancyWeight"/>
+                <set field="orderByList[]" value="keyword"/>
+                <get-related value-name="product" relation-name="ProductKeyword" list-name="productKeywords" order-by-list-name="orderByList"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/product/EditProductKeyword.ftl"/></html>
-                        </platform-specific>
+                      <container>
+                          <link target="UpdateProductKeywords?UPDATE_MODE=CREATE&amp;PRODUCT_ID=${productId}&amp;productId=${productId}" text="${uiLabelMap.ProductReInduceKeywords}" style="buttontext"/>
+                          <link target="UpdateProductKeywords?UPDATE_MODE=DELETE&amp;PRODUCT_ID=${productId}&amp;productId=${productId}" text="${uiLabelMap.ProductDeleteAllKeywords}" style="buttontext"/>
+                      </container>
+                      <container>
+                          <label style="head2">${uiLabelMap.ProductAddProductKeyword}</label>
+                      </container>
+                      <include-form name="AddProductKeyword" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                      <include-form name="UpdateProductKeyword" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -489,7 +497,6 @@ under the License.
     
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-name="product"/>
-                
                 <entity-condition entity-name="GoodIdentification" list-name="goodIdentifications">
                     <condition-expr field-name="productId" env-name="productId"/>
                     <order-by field-name="goodIdentificationTypeId"/>
@@ -502,9 +509,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/product/EditProductGoodIdentifications.ftl"/></html>
-                        </platform-specific>
+                        <include-form name="UpdateProductGoodIdentifications" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <container>
+                            <label style="head2">${uiLabelMap.PageTitleCreateProductGoodIdentifications}</label>
+                        </container>
+                        <include-form name="AddProductGoodIdentification" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
