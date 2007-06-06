@@ -1231,18 +1231,29 @@ under the License.
     
     <!-- used in new forum -->
     <request-map uri="showforum">
-        <security https="true" auth="false"/>
+        <security https="false" auth="false"/>
         <response name="success" type="view" value="Showforum"/>
     </request-map>
-    <request-map uri="addForumMessage">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="AddForumMessage"/>
+    <request-map uri="ViewForumMessage">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="ViewForumMessage"/>
     </request-map>
+    <request-map uri="AddForumThread">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="AddForumThread"/>
+    </request-map>
+    <request-map uri="createForumMessage">
+        <security https="true" auth="true"/>
+        <event invoke="createArticleContent" type="service"/>
+        <response name="success" type="view" value="Showforum"/>
+        <response name="error" type="view" value="AddForumThread"/>
+    </request-map>
+    
     <request-map uri="updateForumMessage">
         <security https="true" auth="true"/>
         <event invoke="persistContentAndAssoc" type="service"/>
         <response name="success" type="view" value="Showforum"/>
-        <response name="error" type="view" value="AddForumMessage"/>
+        <response name="error" type="view" value="AddForumThread"/>
     </request-map>
     
 
@@ -1629,11 +1640,12 @@ under the License.
     <!-- Forum Views -->
     <!-- new -->
     <view-map name="Showforum" type="screen" page="component://ecommerce/widget/ForumScreens.xml#Showforum"/>
-    <view-map name="AddForumMessage" page="component://content/widget/forum/ForumScreens.xml#AddForumMessage" type="screen"/>
+    <view-map name="AddForumThread" page="component://ecommerce/widget/ForumScreens.xml#AddForumThread" type="screen"/>
     <!-- old -->    
     <view-map name="showforumarticle" type="screen" page="component://ecommerce/widget/ForumScreens.xml#showforumarticle"/>
     <view-map name="createforumarticle" type="screen" page="component://ecommerce/widget/ForumScreens.xml#createforumarticle"/>
     <view-map name="editforumarticle" type="screen" page="component://ecommerce/widget/ForumScreens.xml#editforumarticle"/>
+    <view-map name="ViewForumMessage" type="screen" page="component://ecommerce/widget/ForumScreens.xml#ViewForumMessage"/>
 
     <view-map name="showforumresponse" type="screen" page="component://ecommerce/widget/ForumScreens.xml#showforumresponse"/>
     <view-map name="createforumresponse" type="screen" page="component://ecommerce/widget/ForumScreens.xml#createforumresponse"/>

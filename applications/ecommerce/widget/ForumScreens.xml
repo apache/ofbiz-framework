@@ -61,61 +61,89 @@ under the License.
                     <field-map field-name="contentId" env-name="parameters.forumId"/>
                 </entity-one>
                 <!-- parameters for the performFind service -->
-                <set field="inpField.ownerContentId" from-field="parameters.forumId"/>
+                <set field="parameters.forumId" from-field="parameters.forumId" default-value="${parameters.contentId}"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
-                <service service-name="performFindList" result-map-name="result">
-                    <field-map field-name="viewIndex" env-name="viewIndex"/>
-                    <field-map field-name="viewSize" env-name="viewSize"/>
-                    <field-map field-name="inputFields" env-name="inpField"/>
-                    <field-map field-name="entityName" value="ContentAssocViewFrom"/>
-                    <field-map field-name="orderBy" value="createdDate"/>
-                </service>
-                <set field="forumMessages" from-field="result.list"/>
-                <set field="listSize" from-field="result.listSize"/>
+                <entity-condition list-name="forumMessages" entity-name="ContentAssocViewTo" >
+                    <condition-list combine="and">
+                        <condition-expr field-name="contentIdStart" env-name="parameters.forumId" />
+                        <condition-list combine="or">
+                            <condition-expr field-name="caContentAssocTypeId" value="PUBLISH_LINK"/>
+                            <condition-expr field-name="caContentAssocTypeId" value="RESPONSE"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="createdDate"/>
+                    
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <condition>
-                                <if-empty field-name="parameters.threadView"/>
-                            </condition>
                             <widgets>
                                 <label style="head1" text="${uiLabelMap.EcommerceMessageListForForum} ${forum.description}"/>
-                                <link style="buttontext" target="addForumMessage?forumId=${parameters.forumId}&amp;forumMessageIdTo=${parameters.forumId}&amp;threadView=${parameters.threadView?if_exists}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}" text="${uiLabelMap.PageTitleNewMessage}"/>
-                                <link style="buttontext" target="showforum?threadView=yes&amp;forumId=${parameters.forumId}" text="${uiLabelMap.EcommerceThreadView}"/>
+		                        <section>
+		                            <condition>
+		                                <if-has-permission permission="CONTENTMGR" action="CREATE"/>
+		                            </condition>
+		                            <widgets>
+		                                <link style="buttontext" target="AddForumThread?forumId=${parameters.forumId}&amp;forumMessageIdTo=&amp;threadView=${parameters.threadView?if_exists}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}" text="${uiLabelMap.PageTitleNewMessage}"/>
+		                            </widgets>
+		                        </section>
                                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/forumPaging.ftl"/></html></platform-specific>
                                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/showforum.ftl"/></html></platform-specific>
                                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/forumPaging.ftl"/></html></platform-specific>
                             </widgets>
-                            <fail-widgets>
-                                <label style="head1" text="${uiLabelMap.EcommerceMessageListForForum} ${forum.description}"/>
-                                <link style="buttontext" target="addForumMessage?forumId=${parameters.forumId}&amp;forumMessageIdTo=${parameters.forumId}&amp;threadView=${parameters.threadView?if_exists}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}" text="${uiLabelMap.PageTitleNewMessage}"/>
-                                <link style="buttontext" target="showforum?forumId=${parameters.forumId}" text="${uiLabelMap.EcommerceListView}"/>
-                                <include-tree name="MessageTree" location="component://content/widget/forum/ForumTrees.xml" /> 
-                            </fail-widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-    <screen name="showforumarticle">
+    <screen name="ViewForumMessage">
         <section>
             <actions>
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="center"/>
                 <set field="titleProperty" value="PageTitleForumArticle"/>
-                <entity-and entity-name="" list-name="">
-                    <field-map field-name=""/>
-                </entity-and>
+                <set field="contentAssoc.contentId" from-field="parameters.responseContentId"/>
+                <set field="contentAssoc.contentAssocTypeId" value="RESPONSE"/>
+                
+                <entity-one entity-name="Content" value-name="content">
+                    <field-map field-name="contentId" env-name="parameters.responseContentId"/>
+                </entity-one>
+                <entity-one entity-name="ElectronicText" value-name="electronicText">
+                    <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
+                </entity-one>
+                <!-- service service-name="getContentAndDataResource" result-map-name="contentData">
+                    <field-map field-name="contentId" env-name="parameters.responseContentId"/>
+                </service -->
+                <set field="contentText" from-field="electronicText.textData"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/showforumarticle.ftl"/></html></platform-specific>
+                        <label style="blogheader">Full message:</label>
+                        <container style="blogcontentwrapper">
+                        <label>${contentText}</label>
+                        </container>
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="CREATE"/>
+                            </condition>
+                            <widgets>
+		                        <label style="blogheader">Add response:</label>
+		                        <include-form name="AddForumMessage" location="component://ecommerce/widget/ForumForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+		                        <label style="blogheader">You must be logged in to add a response.</label>
+                            </fail-widgets>
+                        </section>
+                        <container>
+                        <label style="blogheader">Message tree:</label>
+                        </container>
+                        <include-tree name="ResponseTree" location="component://ecommerce/widget/ForumTrees.xml" /> 
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -449,6 +477,82 @@ under the License.
                         <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/editaddimage.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AddForumThread">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditForumMessage"/>
+                <set field="tabButtonItem" value="EditForumMessage"/>
+                <set field="labelTitleProperty" value="PageTitleEditForumMessage"/>
+                <set field="tabBar" value="ForumMessagesTabBar"/>
+                <set field="tabButtonItem" value=""/>
+                <set field="labelTitleProperty" value="PageTitleFindForumMessages"/>
+                <set field="contentAssoc.contentId" from-field="parameters.forumId"/>
+                <set field="contentAssoc.contentAssocTypeId" value="PUBLISH_LINK"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonForumDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <label text="Add a thread:"></label>
+                        <include-form name="AddForumMessage" location="component://ecommerce/widget/ForumForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AddForumResponse">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditForumMessage"/>
+                <set field="tabButtonItem" value="EditForumMessage"/>
+                <set field="labelTitleProperty" value="PageTitleEditForumMessage"/>
+                <set field="tabBar" value="ForumMessagesTabBar"/>
+                <set field="tabButtonItem" value=""/>
+                <set field="labelTitleProperty" value="PageTitleFindForumMessages"/>
+                <set field="contentAssoc.contentId" from-field="parameters.responseContentId"/>
+                <set field="contentAssoc.contentAssocTypeId" value="RESPONSE"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonForumDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <label text="Add a response:"></label>
+                        <include-form name="AddForumMessage" location="component://ecommerce/widget/ForumForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="responseTreeLine">
+        <section>
+            <condition>
+                <not>
+                    <if-empty field-name="rsp.contentName"/>
+                </not>
+            </condition>
+            <actions>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <if-compare-field field-name="responseContentId" operator="equals" to-field-name="rsp.contentId" />
+                    </condition>
+                    <widgets>
+                        <container style="responseSelected">
+                            <label text="${rsp.contentName}" style="responseheader" />
+                            <label text=" - ${rsp.description} [${rsp.contentId}]" style="responsetext" />
+                            <link  text="View" target="ViewForumMessage?forumId=${parameters.forumId}&amp;threadContentId=${parameters.threadContentId}&amp;responseContentId=${rsp.contentId}&amp;contentAssocTypeId=RESPONSE" style="buttontext"/>
+                        </container>    
+                    </widgets>
+                    <fail-widgets>
+                        <container>
+                            <label text="${rsp.contentName}" style="responseheader" />
+                            <label text=" - ${rsp.description} [${rsp.contentId}]" style="responsetext" />
+                            <link  text="View" target="ViewForumMessage?forumId=${parameters.forumId}&amp;threadContentId=${parameters.threadContentId}&amp;responseContentId=${rsp.contentId}&amp;contentAssocTypeId=RESPONSE" style="buttontext"/>
+                        </container>    
+                    </fail-widgets>
+                </section>
             </widgets>
         </section>
     </screen>
