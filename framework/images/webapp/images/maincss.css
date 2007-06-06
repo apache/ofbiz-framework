@@ -571,16 +571,21 @@ margin: 0.5em 0 0.5em 0;
 /*width: 100%;*/
 }
 
-.errorMessage {
-color: #ff0000;
+.eventMessage, .errorMessage {
+background-color: #FFFFFF;
+border: solid #000000 0.1em;
 font-size: 1.1em;
 font-weight: bold;
+margin: 1em;
+padding: 1em;
 }
 
 .eventMessage {
 color: #000099;
-font-size: 1.1em;
-font-weight: bold;
+}
+
+.errorMessage {
+color: #ff0000;
 }
 
 .viewOneTR1 {
