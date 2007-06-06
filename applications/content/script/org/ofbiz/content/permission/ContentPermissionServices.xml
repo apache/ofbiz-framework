@@ -37,7 +37,6 @@
         <!-- setting the roleEntity or this service -->
         <set field="roleEntityField" value="contentId"/>
         <set field="roleEntity" value="ContentRole"/>
-        
         <!-- here we can use contentIdTo to check parent(s) ownership -->
         <if>
             <condition>
@@ -132,14 +131,24 @@
                     <set field="parameters.contentOperationId" value="CONTENT_VIEW"/>
                 </if-empty>
 
+		        <!-- contentId is required for update checking -->
+		        <if-empty field-name="contentId">
+		            <set field="contentId" from-field="parameters.contentId"/>
+		        </if-empty>
+		        <if-empty field-name="contentId">
+		            <add-error><fail-message message="Content Permission Service VIEW requires a contentId!"/></add-error>
+		        </if-empty>
+		        <check-errors/>
+        
                 <!-- grab the current requested content record -->
                 <entity-one entity-name="Content" value-name="content">
-                    <field-map field-name="contentId" env-name="parameters.contentId"/>
+                    <field-map field-name="contentId" env-name="contentId"/>
                 </entity-one>
 
                 <!-- check the operation security -->
                 <set field="contentOperationId" from-field="parameters.contentOperationId"/>
                 <set field="content" from-field="content"/>
+                <set field="checkId" from-field="contentId"/>
                 <call-simple-method method-name="checkContentOperationSecurity"/>
             </then>
         </if>
