@@ -20,11 +20,13 @@ under the License.
 <#assign viewIndex = viewIndex?default(0)>
 <#assign lowIndex = viewIndex?int * viewSize?int + 1>
 <#assign highIndex = viewIndex?int * viewSize?int + viewSize>
-<#if highIndex gt listSize><#assign highIndex = listSize></#if> 
 <#--<br/>== viewIndex: ${viewIndex} ==viewSize: ${viewSize} ==lowIndex: ${lowIndex}== highIndex: ${highIndex} == ListSize: ${listSize}-->
 <#if forumMessages?has_content && forumMessages?size gt 0>
+    <#assign listSize = forumMessages?size/>
+    <#if highIndex gt listSize><#assign highIndex = listSize></#if> 
     <div class="product-prevnext">
-      <#assign viewIndexMax = Static["java.lang.Math"].ceil(listSize?double / viewSize?double)>
+      <#assign r = listSize?double / viewSize?double />
+      <#assign viewIndexMax = Static["java.lang.Math"].ceil(r?double)>
       <select name="pageSelect" class="selectBox" onchange="window.location=this[this.selectedIndex].value;">
         <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int+1} ${uiLabelMap.CommonOf} ${viewIndexMax}</option>
         <#list 1..viewIndexMax as curViewNum>
