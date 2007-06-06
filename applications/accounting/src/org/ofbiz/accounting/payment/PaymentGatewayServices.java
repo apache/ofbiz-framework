@@ -65,7 +65,7 @@ public class PaymentGatewayServices {
     public static final String REFUND_SERVICE_TYPE = "PRDS_PAY_REFUND";
     public static final String CREDIT_SERVICE_TYPE = "PRDS_PAY_CREDIT";
     private static final int TX_TIME = 300;
-    private static BigDecimal ZERO = new BigDecimal("0");
+    private static BigDecimal ZERO = BigDecimal.ZERO;
     private static int decimals = -1;
     private static int rounding = -1;
     static {
@@ -111,7 +111,7 @@ public class PaymentGatewayServices {
 
         // get the total remaining
         BigDecimal orderGrandTotal = orh.getOrderGrandTotalBd();
-        orderGrandTotal = orderGrandTotal.setScale(2, BigDecimal.ROUND_HALF_UP);
+        orderGrandTotal = orderGrandTotal.setScale(decimals, rounding);
         double totalRemaining = orderGrandTotal.doubleValue();
 
         // get the process attempts so far
@@ -321,7 +321,7 @@ public class PaymentGatewayServices {
         // get the order amounts
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
         BigDecimal orderGrandTotal = orh.getOrderGrandTotalBd();
-        orderGrandTotal = orderGrandTotal.setScale(2, BigDecimal.ROUND_HALF_UP);
+        orderGrandTotal = orderGrandTotal.setScale(decimals, rounding);
         double totalRemaining = orderGrandTotal.doubleValue();
 
         // loop through and auth each order payment preference
@@ -998,7 +998,7 @@ public class PaymentGatewayServices {
         String billingAccountId = (String) context.get("billingAccountId");
         Double captureAmount = (Double) context.get("captureAmount");
         BigDecimal amountToCapture = new BigDecimal(captureAmount.doubleValue());
-        amountToCapture = amountToCapture.setScale(2, BigDecimal.ROUND_HALF_UP);
+        amountToCapture = amountToCapture.setScale(decimals, rounding);
 
         // get the order header and payment preferences
         GenericValue orderHeader = null;
@@ -1031,9 +1031,9 @@ public class PaymentGatewayServices {
         // amount that we are going to capture.
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
         BigDecimal orderGrandTotal = orh.getOrderGrandTotalBd();
-        orderGrandTotal = orderGrandTotal.setScale(2, BigDecimal.ROUND_HALF_UP);
+        orderGrandTotal = orderGrandTotal.setScale(decimals, rounding);
         BigDecimal totalPayments = PaymentWorker.getPaymentsTotal(orh.getOrderPayments());
-        totalPayments = totalPayments.setScale(2, BigDecimal.ROUND_HALF_UP);
+        totalPayments = totalPayments.setScale(decimals, rounding);
         BigDecimal remainingTotalBd = orderGrandTotal.subtract(totalPayments);
         if (Debug.infoOn()) Debug.logInfo("The Remaining Total for order: " + orderId + " is: " + remainingTotalBd, module);
         // The amount to capture cannot be greater than the remaining total
@@ -1047,8 +1047,8 @@ public class PaymentGatewayServices {
                 GenericValue paymentPref = (GenericValue) paymentsBa.next();
 
                 BigDecimal authAmount = paymentPref.getBigDecimal("maxAmount");
-                if (authAmount == null) authAmount = new BigDecimal(0.00);
-                authAmount = authAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
+                if (authAmount == null) authAmount = ZERO;
+                authAmount = authAmount.setScale(decimals, rounding);
 
                 if (authAmount.compareTo(ZERO) == 0) {
                     // nothing to capture
@@ -1088,8 +1088,8 @@ public class PaymentGatewayServices {
                         Debug.logInfo("Amount captured for order [" + orderId + "] from unapplied payments associated to billing account [" + billingAccountId + "] is: " + amountCaptured, module);
 
                         // big decimal reference to the capture amount
-                        BigDecimal amountCapturedBd = new BigDecimal(amountCaptured.doubleValue());
-                        amountCapturedBd = amountCapturedBd.setScale(2, BigDecimal.ROUND_HALF_UP);
+                        BigDecimal amountCapturedBd = BigDecimal.valueOf(amountCaptured);
+                        amountCapturedBd = amountCapturedBd.setScale(decimals, rounding);
 
                         if (amountCapturedBd.compareTo(BigDecimal.ZERO) == 0) {
                             continue;
@@ -1148,8 +1148,8 @@ public class PaymentGatewayServices {
                 }
 
                 BigDecimal authAmount = authTrans.getBigDecimal("amount");
-                if (authAmount == null) authAmount = new BigDecimal(0.00);
-                authAmount = authAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
+                if (authAmount == null) authAmount = ZERO;
+                authAmount = authAmount.setScale(decimals, rounding);
 
                 if (authAmount.compareTo(ZERO) == 0) {
                     // nothing to capture
@@ -1186,7 +1186,7 @@ public class PaymentGatewayServices {
 
                     // big decimal reference to the capture amount
                     BigDecimal amountCapturedBd = new BigDecimal(amountCaptured.doubleValue());
-                    amountCapturedBd = amountCapturedBd.setScale(2, BigDecimal.ROUND_HALF_UP);
+                    amountCapturedBd = amountCapturedBd.setScale(decimals, rounding);
 
                     // decrease amount of next payment preference to capture
                     amountToCapture = amountToCapture.subtract(amountCapturedBd);                
@@ -1386,7 +1386,7 @@ public class PaymentGatewayServices {
         String billingAccountId = (String) context.get("billingAccountId");
         Double captureAmountDbl = (Double) context.get("captureAmount");
         BigDecimal captureAmount = new BigDecimal(captureAmountDbl.doubleValue());
-        captureAmount = captureAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
+        captureAmount = captureAmount.setScale(decimals, rounding);
         String orderId = (String) context.get("orderId");
         BigDecimal capturedAmount = BigDecimal.ZERO;
         
@@ -1414,7 +1414,7 @@ public class PaymentGatewayServices {
                     // TODO: check the statusId of the payment
                     BigDecimal paymentApplicationAmount = paymentApplication.getBigDecimal("amountApplied");
                     BigDecimal amountToCapture = paymentApplicationAmount.min(captureAmount.subtract(capturedAmount));
-                    amountToCapture = amountToCapture.setScale(2, BigDecimal.ROUND_HALF_UP);
+                    amountToCapture = amountToCapture.setScale(decimals, rounding);
                     if (amountToCapture.compareTo(paymentApplicationAmount) == 0) {
                         // apply the whole payment application to the invoice
                         paymentApplication.set("invoiceId", invoiceId);
@@ -1437,7 +1437,7 @@ public class PaymentGatewayServices {
         } catch (GenericEntityException ex) {
             return ServiceUtil.returnError(ex.getMessage());
         }
-        capturedAmount = capturedAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
+        capturedAmount = capturedAmount.setScale(decimals, rounding);
         Map results = ServiceUtil.returnSuccess();
         results.put("captureAmount", new Double(capturedAmount.doubleValue()));
         return results;
@@ -1855,7 +1855,7 @@ public class PaymentGatewayServices {
 
         // setup the amount big decimal
         BigDecimal amtBd = new BigDecimal(amount.doubleValue());
-        amtBd = amtBd.setScale(2, BigDecimal.ROUND_HALF_UP);
+        amtBd = amtBd.setScale(decimals, rounding);
 
         if (captureResult.booleanValue()) {
             // capture returned true (passed)
