@@ -124,7 +124,7 @@
         <section>
             <actions>
                 <set field="headerItem" value="Employment"/>                
-                <set field="tabButtonItem" value="EditPayHistories"/>                
+                <set field="tabButtonItem" value="EditPayHistory"/>                
             </actions>
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -259,10 +259,10 @@
             <actions>
                 <set field="headerItem" value="PayGrade"/>
                 <set field="tabButtonItem" value="EditSalaryStep"/>                
-                <set field="PayGradeId" from-field="parameters.PayGradeId"/>
+                <set field="payGradeId" from-field="parameters.payGradeId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPayGradeDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                        
                         <container>
                              <link target="EditSalaryStep" text="${uiLabelMap.HumanResNewSalaryStep}" style="buttontext"/>

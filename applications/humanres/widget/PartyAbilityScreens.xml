@@ -96,8 +96,7 @@
             <actions>
                 <set field="headerItem" value="Employment"/>
                 <set field="tabButtonItem" value="EditPerfReview"/>
-                <set field="titleProperty" value="PageTitleEditPartyReview"/>
-                <set field="tabButtonItem" value="EditPartySkill"/>
+                <set field="titleProperty" value="PageTitleEditPartyReview"/>                
                 <set field="perfReviewId" from-field="parameters.perfReviewId"/>
                 <set field="employeePartyId" from-field="parameters.partyIdTo"/>                
                 <set field="employeeRoleTypeId" from-field="parameters.roleTypeIdTo"/>                

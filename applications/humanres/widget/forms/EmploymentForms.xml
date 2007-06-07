@@ -25,7 +25,7 @@
         <actions>
             <entity-condition entity-name="Employment"/>
         </actions>
-        <auto-fields-service default-field-type="display" service-name="updateEmployment"/>
+        <auto-fields-service service-name="updateEmployment"/>
         
         <field name="roleTypeIdFrom" title="roleTypeIdFrom"><display/></field>
         <field name="roleTypeIdTo" title="roleTypeIdTo"><display/></field>
@@ -35,7 +35,7 @@
         <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><lookup target-form-name="LookupTerminationReasonId"/></field>
         <field name="terminationTypeId" title="${uiLabelMap.HumanResTerminationTypeId}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="terminationReasonId" entity-name="TerminationReason">
+                <entity-options description="${description}" key-field-name="terminationTypeId" entity-name="TerminationType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -237,7 +237,7 @@
             <entity-condition entity-name="PayGrade"><order-by field-name="payGradeId"/></entity-condition>
         </actions>
         <auto-fields-service default-field-type="display" service-name="updatePayGrade"/>       
-        <field name="payGradeId" title="PayGread Id" widget-style="buttontext">
+        <field name="payGradeId" title="PayGrade Id" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${payGradeId}" target="EditPayGrade?payGradeId=${payGradeId}"/>
         </field>
         <field name="deleteLink" title="" widget-style="buttontext">
@@ -256,31 +256,23 @@
         <field name="submitButton" use-when="payGrade==null" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>        
         <field name="submitButton" use-when="payGrade!=null" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListSalarySteps" type="list" title="" paginate-target="findSalarySteps">
+    <form name="ListSalarySteps" type="list" title="" target="updateSalaryStep" paginate-target="findSalarySteps">
         <actions>
             <entity-condition entity-name="SalaryStep"><order-by field-name="salaryStepSeqId"/></entity-condition>
         </actions>  
-        <auto-fields-service default-field-type="display" service-name="updateSalaryStep"/>       
-        <field name="salaryStepSeqId" title="${uiLabelMap.HumanResSalaryStepSeqId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${salaryStepSeqId}" target="EditSalaryStep?salaryStepSeqId=${salaryStepSeqId}&amp;payGradeId=${payGradeId}"/>
-        </field>
+        <auto-fields-service service-name="updateSalaryStep"/>       
+        <field name="salaryStepSeqId" title="${uiLabelMap.HumanResSalaryStepSeqId}"><display/></field>                   
+        <field name="payGradeId" title="${uiLabelMap.HumanResPayGradeId}"><display/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
             <hyperlink target="deleteSalaryStep?salaryStepSeqId=${salaryStepSeqId}&amp;payGradeId=${payGradeId}" description="${uiLabelMap.CommonDelete}"/>
         </field>
     </form>
-    <form name="EditSalaryStep" type="single" target="updateSalaryStep" title="">
-        <actions>
-            <entity-one entity-name="SalaryStep" value-name="salaryStep"/>
-        </actions>
-        <alt-target use-when="salaryStep==null" target="createSalaryStep"/>
-        <auto-fields-service service-name="updateSalaryStep" map-name="salaryStep"/>
-        <field use-when="salaryStep!=null" name="salaryStepSeqId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field> 
-        <field name="salaryStepSeqId" use-when="salaryStep==null"><ignored/></field>       
-        <field use-when="salaryStep==null&amp;&amp;salaryStepSeqId!=null" name="salaryStepSeqId" tooltip="${uiLabelMap.CommonCannotBeFound}:[${salaryStepSeqId}]"><text size="20" maxlength="20"/></field>
-        <field name="payGradeId" use-when="salaryStep!=null" title="payGradeId"><display/></field>
-        <field name="payGradeId" use-when="salaryStep==null" title="payGradeId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPayGrade"/></field>
-        <field name="submitButton" use-when="salaryStep==null" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>        
-        <field name="submitButton" use-when="salaryStep!=null" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>  
+    <form name="EditSalaryStep" type="single" target="createSalaryStep" title="">                
+        <auto-fields-service service-name="createSalaryStep"/>        
+        <field name="salaryStepSeqId"><ignored/></field>
+        <field name="payGradeId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListTerminationReasons" type="list" title="" paginate-target="findTerminationReasons">
         <actions>
@@ -294,14 +286,11 @@
             <hyperlink target="deleteTerminationReason?terminationReasonId=${terminationReasonId}" description="${uiLabelMap.CommonDelete}"/>
         </field>    
     </form>
-    <form name="EditTerminationReason" type="single" target="updateTerminationReason" title="" default-map-name = "terminationReason">
-        <actions>
-            <set field="terminationReasonId" from-field="parameters.terminationReasonId"/>
-            <entity-one entity-name="TerminationReason" value-name="terminationReason"/>
-        </actions>
+    <form name="EditTerminationReason" type="single" target="updateTerminationReason" title="" default-map-name = "terminationReason">        
         <alt-target use-when="terminationReason==null" target="createTerminationReason"/>
-        <auto-fields-service service-name="updateTerminationReason" map-name="terminationReason"/>
+        <auto-fields-service service-name="createTerminationReason"/>
         <field use-when="terminationReason!=null" name="terminationReasonId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>        
+        <field use-when="terminationReason==null" name="terminationReasonId"><ignored/></field>
         <field use-when="terminationReason==null&amp;&amp;terminationReasonId!=null" name="terminationReasonId" tooltip="${uiLabelMap.CommonCannotBeFound}:[${terminationReasonId}]"><text size="20" maxlength="20"/></field>
         <field name="submitButton" use-when="terminationReason==null" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>        
         <field name="submitButton" use-when="terminationReason!=null" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>  
