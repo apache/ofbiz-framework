@@ -120,6 +120,27 @@ under the License.
         <attribute name="productFeatureIdThree" type="String" mode="IN" optional="true"/>
     </service>
 
+    <!-- Product Keyword Services -->
+    <service name="createProductKeyword" default-entity-name="ProductKeyword" engine="simple"
+            location="org/ofbiz/product/product/ProductServices.xml" invoke="createProductKeyword" auth="true">
+        <description>Create a ProductKeyword</description>
+        <permission-service service-name="productGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductKeyword" default-entity-name="ProductKeyword" engine="simple"
+            location="org/ofbiz/product/product/ProductServices.xml" invoke="updateProductKeyword" auth="true">
+        <description>Update a ProductKeyword</description>
+        <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductKeyword" default-entity-name="ProductKeyword" engine="simple"
+            location="org/ofbiz/product/product/ProductServices.xml" invoke="deleteProductKeyword" auth="true">
+        <description>Delete a ProductKeyword</description>
+        <permission-service service-name="productGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
     <service name="indexProductKeywords" engine="simple"
                 location="org/ofbiz/product/product/ProductServices.xml" invoke="indexProductKeywords" auth="false">
         <description>Index the Keywords for a Product</description>
