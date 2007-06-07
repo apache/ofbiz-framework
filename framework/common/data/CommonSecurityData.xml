@@ -25,12 +25,10 @@
     <SecurityPermission description="Update operations in the Common Component." permissionId="COMMON_UPDATE"/>
     <SecurityPermission description="Delete operations in the Common Component." permissionId="COMMON_DELETE"/>
 
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="COMMON_ADMIN"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="COMMON_CREATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="COMMON_DELETE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="COMMON_UPDATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="COMMON_VIEW"/>
 
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="COMMON_VIEW"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="COMMON_ADMIN"/>
 </entity-engine-xml>
