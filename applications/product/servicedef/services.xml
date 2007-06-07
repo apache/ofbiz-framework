@@ -141,11 +141,23 @@ under the License.
         <permission-service service-name="productGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="deleteProductKeywords" engine="simple"
+            location="org/ofbiz/product/product/ProductServices.xml" invoke="deleteProductKeywords" auth="true">
+        <description>Delete all the keywords of a product</description>
+        <permission-service service-name="productGenericPermission" main-action="DELETE"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+    </service>
     <service name="indexProductKeywords" engine="simple"
                 location="org/ofbiz/product/product/ProductServices.xml" invoke="indexProductKeywords" auth="false">
         <description>Index the Keywords for a Product</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="productInstance" type="GenericValue" mode="IN" optional="true"/>
+    </service>
+    <service name="forceIndexProductKeywords" engine="simple"
+            location="org/ofbiz/product/product/ProductServices.xml" invoke="forceIndexProductKeywords" auth="true">
+        <description>Induce all the keywords of a product, ignoring the flag in the Product.autoCreateKeywords flag</description>
+        <permission-service service-name="productGenericPermission" main-action="CREATE"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="discontinueProductSales" engine="simple"

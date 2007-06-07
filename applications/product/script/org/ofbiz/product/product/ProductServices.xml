@@ -310,6 +310,16 @@ under the License.
         <entity-one entity-name="ProductKeyword" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    <simple-method method-name="forceIndexProductKeywords" short-description="induce all the keywords of a product">
+        <entity-one entity-name="Product" value-name="product"/>
+        <call-class-method class-name="org.ofbiz.product.product.KeywordIndex" method-name="forceIndexKeywords">
+            <field field-name="product" type="org.ofbiz.entity.GenericValue"/>
+        </call-class-method>
+    </simple-method>
+    <simple-method method-name="deleteProductKeywords" short-description="delete all the keywords of a product">
+        <entity-one entity-name="Product" value-name="product"/>
+        <remove-related value-name="product" relation-name="ProductKeyword"/>
+    </simple-method>
 
     <simple-method method-name="indexProductKeywords" short-description="Index the Keywords for a Product" login-required="false">
         <!-- this service is meant to be called from an entity ECA for entities that include a productId -->
@@ -330,7 +340,7 @@ under the License.
                 </or>
             </condition>
             <then>
-                <call-class-method class-name="org.ofbiz.product.product.KeywordSearch" method-name="induceKeywords">
+                <call-class-method class-name="org.ofbiz.product.product.KeywordIndex" method-name="indexKeywords">
                     <field field-name="productInstance" type="org.ofbiz.entity.GenericValue"/>
                 </call-class-method>
             </then>
