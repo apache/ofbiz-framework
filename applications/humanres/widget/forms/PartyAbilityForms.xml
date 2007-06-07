@@ -30,7 +30,7 @@ under the License.
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
-               <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" description="${partyId}"/>
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
             </display-entity>
         </field>
     </form>      
@@ -63,7 +63,7 @@ under the License.
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
-               <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" description="${partyId}"/>
+               <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
            </display-entity>
        </field>
        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
@@ -238,7 +238,7 @@ under the License.
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
-               <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" description="${partyId}"/>
+               <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
            </display-entity>
        </field>
     </form>      
@@ -270,7 +270,7 @@ under the License.
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
-               <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" description="${partyId}"/>
+               <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
            </display-entity>
        </field>
        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">

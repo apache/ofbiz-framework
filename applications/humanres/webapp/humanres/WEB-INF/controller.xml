@@ -379,12 +379,12 @@ under the License.
     </request-map>
     <request-map uri="createTerminationReason">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createUnemploymentClaim"/>
+        <event type="service" invoke="createTerminationReason"/>
         <response name="success" type="view" value="EditTerminationReason"/>
     </request-map>
     <request-map uri="updateTerminationReason">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateUnemploymentClaim"/>
+        <event type="service" invoke="updateTerminationReason"/>
         <response name="success" type="view" value="EditTerminationReason"/>
     </request-map>     
     <request-map uri="deleteTerminationReason">

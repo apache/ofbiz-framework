@@ -30,7 +30,7 @@ under the License.
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
-                <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
             </display-entity>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
@@ -76,20 +76,21 @@ under the License.
         <auto-fields-service service-name="updateEmplPositionFulfillment"/>        
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
-                <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" description="${partyId}"/>
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
             </display-entity>
         </field>
-        <field name="emplPositionId" title="{uiLabelMap.HumanResEmployeePositionId}"><display /></field>
-        <field name="fromDate" title="${uiLabelMap.CommonDate}"><display /></field>        
+        <field name="emplPositionId" title="${uiLabelMap.HumanResEmployeePositionId}"><display /></field>
+        <field name="fromDate" title="${uiLabelMap.CommonDate}"><display/></field>        
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteEmplPositionFulfillment?emplPositionId=${emplPositionId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
     <form name="EditEmplPositionFulfillment" type="single" target="createEmplPositionFulfillment" title="">
-        <auto-fields-service service-name="createEmplPosition"/>
-        <field name="partyId" title="${PartyPartyId}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="emplPositionId" title="${uiLabelMap.HumanResEmployeePositionId}" tooltip="${uiLabelMap.CommonRequired}"><hidden/></field>
+        <auto-fields-service service-name="createEmplPositionFulfillment"/>
+        <field name="emplPositionId"><hidden /></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" tooltip="${uiLabelMap.CommonRequired}"/>        
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     
@@ -108,6 +109,7 @@ under the License.
     </form>
     <form name="EditEmplPositionReportingStruct" type="single" target="createEmplPositionReportingStruct" title="">
         <auto-fields-service service-name="createEmplPositionReportingStruct"/>
+        <field name="emplPositionId"><hidden /></field>
         <field name="emplPositionIdReportingTo" title="${uiLabelMap.HumanResEmplPositionIdReportingTo}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupEmplPosition"/></field>
         <field name="emplPositionIdManagedBy" title="${uiLabelMap.HumanResEmplPositionIdManagedBy}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupEmplPosition"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonDate}" tooltip="${uiLabelMap.CommonRequired}"/>
@@ -129,8 +131,8 @@ under the License.
     </form>
     <form name="EditEmplPositionResponsibility" type="single" target="createEmplPositionResponsibility" title="">
         <auto-fields-service service-name="createEmplPositionResponsibility"/>
-        <field name="emplPositionId" title="${uiLabelMap.HumanResEmplPositionId}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupEmplPosition"/></field>
-        <field name="responsibilityTypeId">
+        <field name="emplPositionId"><hidden /></field>
+        <field name="responsibilityTypeId"  tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="false">                
                 <entity-options entity-name="ResponsibilityType" key-field-name="responsibilityTypeId" description=" ${description}">
                     <entity-order-by field-name="description"/>

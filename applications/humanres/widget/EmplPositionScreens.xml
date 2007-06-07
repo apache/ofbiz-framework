@@ -82,7 +82,7 @@
                 <decorator-screen name="CommonEmplPositionDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                             <link target="EditEmplPositionFulfillment" text="${uiLabelMap.HumanResNewEmplPositionFulfillment}" style="buttontext"/>
+                             <link target="EditEmplPositionFulfillments" text="${uiLabelMap.HumanResNewEmplPositionFulfillment}" style="buttontext"/>
                         </container>
                         <container style="boxoutside">
                             <container style="screenlet-header">
