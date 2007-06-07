@@ -24,7 +24,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.widget.form.FormStringRenderer;
@@ -75,19 +74,11 @@ public class FoFormRenderer implements FormStringRenderer {
         //buffer.append(' ');
     }
 
-    private String getFoStyle(String styleName) {
-        String value = UtilProperties.getPropertyValue("fo-styles.properties", styleName);
-        if (value.equals(styleName)) {
-            return "";
-        }
-        return value;
-    }
-
     private void makeBlockString(StringBuffer buffer, String widgetStyle, String text) {
         buffer.append("<fo:block");
         if (UtilValidate.isNotEmpty(widgetStyle)) {
             buffer.append(" ");
-            buffer.append(getFoStyle(widgetStyle));
+            buffer.append(FoScreenRenderer.getFoStyle(widgetStyle));
         }
         buffer.append(">");
         buffer.append(UtilFormatOut.encodeXmlValue(text));
@@ -204,7 +195,7 @@ public class FoFormRenderer implements FormStringRenderer {
             String areaStyle = childField.getTitleAreaStyle();
             if (UtilValidate.isNotEmpty(areaStyle)) {
                 buffer.append(" ");
-                buffer.append(getFoStyle(areaStyle));
+                buffer.append(FoScreenRenderer.getFoStyle(areaStyle));
             }
             buffer.append("/>");
             this.appendWhitespace(buffer);
@@ -272,7 +263,7 @@ public class FoFormRenderer implements FormStringRenderer {
         if (UtilValidate.isEmpty(areaStyle)) {
             areaStyle = "tabletext";
         }
-        buffer.append(getFoStyle(areaStyle));
+        buffer.append(FoScreenRenderer.getFoStyle(areaStyle));
         buffer.append(">");
         this.appendWhitespace(buffer);
     }

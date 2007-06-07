@@ -20,6 +20,7 @@ package org.ofbiz.widget.screen;
 
 import java.io.*;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.*;
@@ -33,16 +34,28 @@ import org.apache.fop.apps.FOPException;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.webapp.view.ApacheFopFactory;
 import org.ofbiz.widget.fo.FoFormRenderer;
+import org.ofbiz.widget.fo.FoScreenRenderer;
 
 /**
  * Uses XSL-FO formatted templates to generate PDF, PCL, POSTSCRIPT etc.  views
  * This handler will use JPublish to generate the XSL-FO
  */
-public class ScreenFopViewHandler extends ScreenWidgetViewHandler {
+public class ScreenFopViewHandler implements ViewHandler {
     public static final String module = ScreenFopViewHandler.class.getName();
+
+    protected ServletContext servletContext = null;
+    protected FoScreenRenderer foScreenRenderer = new FoScreenRenderer();
+
+    /**
+     * @see org.ofbiz.webapp.view.ViewHandler#init(javax.servlet.ServletContext)
+     */
+    public void init(ServletContext context) throws ViewHandlerException {
+        this.servletContext = context;
+    }
 
     /**
      * @see org.ofbiz.content.webapp.view.ViewHandler#render(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -59,7 +72,7 @@ public class ScreenFopViewHandler extends ScreenWidgetViewHandler {
         FopFactory fopFactory = ApacheFopFactory.instance();
 
         try {
-            ScreenRenderer screens = new ScreenRenderer(writer, null, htmlScreenRenderer);
+            ScreenRenderer screens = new ScreenRenderer(writer, null, foScreenRenderer);
             screens.populateContextForRequest(request, response, servletContext);
 
             // this is the object used to render forms from their definitions
