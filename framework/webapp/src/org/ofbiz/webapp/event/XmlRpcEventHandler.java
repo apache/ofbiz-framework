@@ -112,13 +112,13 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
 		XmlRpcHttpServerConfig serverConfig = (XmlRpcHttpServerConfig) getConfig();
 
         result.setBasicEncoding(serverConfig.getBasicEncoding());
-		result.setContentLengthOptional(serverConfig.isContentLengthOptional());
-		result.setEnabledForExtensions(serverConfig.isEnabledForExtensions());
-		result.setGzipCompressing(HttpUtil.isUsingGzipEncoding(req.getHeader("Content-Encoding")));
-		result.setGzipRequesting(HttpUtil.isUsingGzipEncoding(req.getHeaders("Accept-Encoding")));
-		result.setEncoding(req.getCharacterEncoding());
+        result.setContentLengthOptional(serverConfig.isContentLengthOptional());
+        result.setEnabledForExtensions(serverConfig.isEnabledForExtensions());
+        result.setGzipCompressing(HttpUtil.isUsingGzipEncoding(req.getHeader("Content-Encoding")));
+        result.setGzipRequesting(HttpUtil.isUsingGzipEncoding(req.getHeaders("Accept-Encoding")));
+        result.setEncoding(req.getCharacterEncoding());
         //result.setEnabledForExceptions(serverConfig.isEnabledForExceptions());
-		HttpUtil.parseAuthorization(result, req.getHeader("Authorization"));
+        HttpUtil.parseAuthorization(result, req.getHeader("Authorization"));
         
         return result;
     }
