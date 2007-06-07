@@ -48,6 +48,14 @@ public class KeywordIndex {
     
     public static final String module = KeywordIndex.class.getName();
 
+    public static void forceIndexKeywords(GenericValue product) throws GenericEntityException {
+        KeywordIndex.indexKeywords(product, true);
+    }
+
+    public static void indexKeywords(GenericValue product) throws GenericEntityException {
+        KeywordIndex.indexKeywords(product, false);
+    }
+
     public static void indexKeywords(GenericValue product, boolean doAll) throws GenericEntityException {
         if (product == null) return;
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
