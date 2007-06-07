@@ -1395,14 +1395,14 @@ under the License.
         <field name="productId"><hidden/></field>
         <field name="UPDATE_MODE"><hidden value="CREATE"/></field>
         <field name="PRODUCT_ID" entry-name="productId"><hidden/></field>
-        <field name="KEYWORD" title="${uiLabelMap.Keyword}"><text/></field>
+        <field name="KEYWORD" title="${uiLabelMap.ProductKeyword}"><text/></field>
         <field name="relevancyWeight" title="${uiLabelMap.Weight}"><text default-value="1"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateProductKeyword" type="list" target="UpdateProductKeywords" title="" list-name="productKeywords">
+    <form name="UpdateProductKeyword" type="list" target="UpdateProductKeyword" title="" list-name="productKeywords">
         <field name="productId"><hidden/></field>
         <field name="relevancyWeight" title="${uiLabelMap.Weight}"><display/></field>
-        <field name="keyword" title="${uiLabelMap.keyword}"><display/></field>
+        <field name="keyword" title="${uiLabelMap.ProductKeyword}"><display/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
             <hyperlink target="UpdateProductKeyword?productId=${productId}&amp;keyword=${keyword}&amp;UPDATE_MODE=DELETE&amp;PRODUCT_ID=${productId}&amp;KEYWORD=${keyword}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
