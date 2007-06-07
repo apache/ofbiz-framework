@@ -294,6 +294,23 @@ under the License.
         </if-not-empty>
     </simple-method>
 
+    <!-- Product Keyword Services -->
+    <simple-method method-name="createProductKeyword" short-description="create a ProductKeyword">
+        <make-value entity-name="ProductKeyword" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>   
+    <simple-method method-name="updateProductKeyword" short-description="update a ProductKeyword">
+        <entity-one entity-name="ProductKeyword" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteProductKeyword" short-description="delete a ProductKeyword">
+        <entity-one entity-name="ProductKeyword" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
     <simple-method method-name="indexProductKeywords" short-description="Index the Keywords for a Product" login-required="false">
         <!-- this service is meant to be called from an entity ECA for entities that include a productId -->
         <!-- if it is the Product entity itself triggering this action, then a [productInstance] parameter
