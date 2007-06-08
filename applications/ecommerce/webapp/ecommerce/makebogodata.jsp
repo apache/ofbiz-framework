@@ -30,7 +30,7 @@ under the License.
   while(prods.hasNext())
   {
     GenericValue prod1 = (GenericValue)prods.next();
-    KeywordSearch.induceKeywords(prod1);
+    KeywordIndex.indexKeywords(prod1);
   }
   
   if(request.getParameter("makeall") == null) {
@@ -61,7 +61,7 @@ under the License.
         }
         Double price = new Double(2.99 + prod);
         GenericValue product = delegator.create("Product", UtilMisc.toMap("productId", "" + (cat*100 + prod), "primaryProductCategoryId", "" + (cat), "productName", "Product " + "" + (cat*100 + prod), "description", desc, "longDescription", longDesc, "defaultPrice", price));
-        KeywordSearch.induceKeywords(product);
+        KeywordIndex.indexKeywords(product);
         delegator.create("ProductCategoryMember", UtilMisc.toMap("productId", "" + (cat*100 + prod), "productCategoryId", "" + (cat)));
       }
     }
