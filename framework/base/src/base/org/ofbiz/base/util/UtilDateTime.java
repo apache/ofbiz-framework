@@ -19,6 +19,7 @@
 package org.ofbiz.base.util;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * Utility class for handling java.util.Date, the java.sql data/time classes and related
@@ -695,6 +697,13 @@ public class UtilDateTime {
         }
     }
 
+    public static String toGMTTimeStampString(Timestamp timestamp) {
+        DateFormat df = DateFormat.getDateTimeInstance();
+        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return df.format(timestamp);
+    }
+
+    
     /**
      * Makes a Timestamp for the beginning of the month
      *
