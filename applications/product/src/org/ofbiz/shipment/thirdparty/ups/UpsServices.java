@@ -409,9 +409,12 @@ public class UpsServices {
                         // I guess we'll default to inches...
                         UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", "IN", shipmentConfirmRequestDoc);
                     }
-                    UtilXml.addChildElementValue(dimensionsElement, "Length", shipmentBoxType.get("boxLength").toString(), shipmentConfirmRequestDoc);
-                    UtilXml.addChildElementValue(dimensionsElement, "Width", shipmentBoxType.get("boxWidth").toString(), shipmentConfirmRequestDoc);
-                    UtilXml.addChildElementValue(dimensionsElement, "Height", shipmentBoxType.get("boxHeight").toString(), shipmentConfirmRequestDoc);
+                    Double boxLength = shipmentBoxType.getDouble("boxLength");
+                    Double boxWidth = shipmentBoxType.getDouble("boxWidth");
+                    Double boxHeight = shipmentBoxType.getDouble("boxHeight");
+                    UtilXml.addChildElementValue(dimensionsElement, "Length", UtilValidate.isNotEmpty(boxLength) ? ""+boxLength.intValue() : "", shipmentConfirmRequestDoc);
+                    UtilXml.addChildElementValue(dimensionsElement, "Width", UtilValidate.isNotEmpty(boxWidth) ? ""+boxWidth.intValue() : "", shipmentConfirmRequestDoc);
+                    UtilXml.addChildElementValue(dimensionsElement, "Height", UtilValidate.isNotEmpty(boxHeight) ? ""+boxHeight.intValue() : "", shipmentConfirmRequestDoc);
                 }
                 
                 Element packageWeightElement = UtilXml.addChildElement(packageElement, "PackageWeight", shipmentConfirmRequestDoc);
@@ -427,7 +430,8 @@ public class UpsServices {
                 if (shipmentPackage.getString("weight") == null) {
                     return ServiceUtil.returnError("Weight value not found for ShipmentRouteSegment with shipmentId " + shipmentId + ", shipmentRouteSegmentId " + shipmentRouteSegmentId + ", and shipmentPackageSeqId " + shipmentPackage.getString("shipmentPackageSeqId"));
                 }
-                UtilXml.addChildElementValue(packageWeightElement, "Weight", shipmentPackage.getString("weight"), shipmentConfirmRequestDoc);
+                Double boxWeight = shipmentPackage.getDouble("weight");
+                UtilXml.addChildElementValue(packageWeightElement, "Weight", UtilValidate.isNotEmpty(boxWeight) ? ""+boxWeight.intValue() : "", shipmentConfirmRequestDoc);
                 
                 Element referenceNumberElement = UtilXml.addChildElement(packageElement, "ReferenceNumber", shipmentConfirmRequestDoc);
                 UtilXml.addChildElementValue(referenceNumberElement, "Code", "MK", shipmentConfirmRequestDoc);
