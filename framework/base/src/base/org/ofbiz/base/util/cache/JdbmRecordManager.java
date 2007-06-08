@@ -20,28 +20,79 @@ package org.ofbiz.base.util.cache;
 
 import java.io.IOException;
 
+import jdbm.helper.Serializer;
+
 /**
  * Customer JDBM Record Manager
  * 
  */
-public class JdbmRecordManager extends jdbm.recman.BaseRecordManager {
+public class JdbmRecordManager implements jdbm.RecordManager {
 
+    protected jdbm.recman.BaseRecordManager manager = null;
     protected jdbm.helper.Serializer serial = null;
 
     public JdbmRecordManager(String name) throws IOException {
-        super(name);
+        manager = new jdbm.recman.BaseRecordManager(name);
         serial = new JdbmSerializer();
     }
 
     public long insert(Object o) throws IOException {
-        return this.insert(o, serial);
+        return manager.insert(o, serial);
     }
 
     public void update(long l, Object o) throws IOException {
-        this.update(l, o, serial);
+        manager.update(l, o, serial);
     }
 
     public Object fetch(long l) throws IOException {
-        return this.fetch(l, serial);
+        return manager.fetch(l, serial);
+    }
+
+    public void close() throws IOException {
+        manager.close();
+    }
+
+    public void commit() throws IOException {
+        manager.commit();
+    }
+
+    public void delete(long l) throws IOException {
+        manager.delete(l);
+    }
+
+    public Object fetch(long l, Serializer s) throws IOException {
+        return manager.fetch(l, s);
+    }
+
+    public long getNamedObject(String name) throws IOException {
+        return manager.getNamedObject(name);
+    }
+
+    public long getRoot(int i) throws IOException {
+        return manager.getRoot(i);
+    }
+
+    public int getRootCount() {
+        return manager.getRootCount();
+    }
+
+    public long insert(Object o, Serializer s) throws IOException {
+        return manager.insert(o, s);
+    }
+
+    public void rollback() throws IOException {
+        manager.rollback();
+    }
+
+    public void setNamedObject(String s, long l) throws IOException {
+        manager.setNamedObject(s, l);
+    }
+
+    public void setRoot(int i, long l) throws IOException {
+        manager.setRoot(i, l);
+    }
+
+    public void update(long l, Object o, Serializer s) throws IOException {
+        manager.update(l, o, s);
     }
 }
