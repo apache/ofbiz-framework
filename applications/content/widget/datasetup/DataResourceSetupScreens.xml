@@ -40,7 +40,7 @@ under the License.
     <screen name="EditCharacterSet">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditCharacterSet"/>
+                <set field="titleProperty" value="PageTitleEditDataResourceCharacterSet"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditCharacterSet"/>
             </actions>
@@ -74,7 +74,7 @@ under the License.
     <screen name="EditFileExtension">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditFileExtension"/>
+                <set field="titleProperty" value="PageTitleEditDataResourceFileExtension"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditFileExtension"/>
             </actions>
@@ -91,7 +91,7 @@ under the License.
     <screen name="EditMetaDataPredicate">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditMetaDataPredicate"/>
+                <set field="titleProperty" value="PageTitleEditDataResourceMetaDataPredicate"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditMetaDataPredicate"/>
             </actions>
@@ -108,7 +108,7 @@ under the License.
     <screen name="EditMimeType">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditMimeType"/>
+                <set field="titleProperty" value="PageTitleEditDataResourceMimeType"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditMimeType"/>
             </actions>
@@ -125,7 +125,7 @@ under the License.
     <screen name="EditMimeTypeHtmlTemplate">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditMimeTypeHtmlTemplate"/>
+                <set field="titleProperty" value="PageTitleEditDataResourceMimeTypeHtmlTemplate"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditMimeTypeHtmlTemplate"/>
             </actions>
@@ -142,7 +142,7 @@ under the License.
     <screen name="EditDataCategory">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditMimeType"/>
+                <set field="titleProperty" value="PageTitleEditDataResourceCategory"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditDataCategory"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/datasetup/datacategoryprep.bsh"/>

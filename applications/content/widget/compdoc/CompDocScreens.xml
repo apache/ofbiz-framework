@@ -45,12 +45,12 @@ under the License.
                 </service>
                 
                 <set field="contentApprovalList" from-field="result.contentApprovalList"/>
-                <set field="title" value="Content Approvals for ${contentId}, rev. ${contentRevisionSeqId}"/>
+                <set field="title" value="${uiLabelMap.ContentCompDocApprovalsFor} ${contentId}, ${uiLabelMap.ContentCompDocRev} ${contentRevisionSeqId}"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <container><link target="ListWaitingContentApproval?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}" text="View Waiting Approvals" style="buttontext"/></container>
+                        <container><link target="ListWaitingContentApproval?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}" text="${uiLabelMap.ContentCompDocViewWaitingApprovals}" style="buttontext"/></container>
                         <section>
                             <condition><if-compare field-name="content.contentTypeId" operator="equals" value="COMPDOC_INSTANCE"/></condition>
                             <widgets><include-screen name="rootInstanceApprovalStatus"/></widgets>
@@ -65,7 +65,7 @@ under the License.
                                 <set from-field="parameters.contentRevisionSeqId" default-value="${parameters.rootContentRevisionSeqId}" field="rootContentRevisionSeqId"/>
                             </actions>
                             <widgets>
-                                <label text="Add" style="head1"/>
+                                <label text="${uiLabelMap.CommonAdd}" style="head1"/>
                                 <include-form name="AddContentApproval" location="component://content/widget/compdoc/CompDocForms.xml"/>
                             </widgets>
                         </section>

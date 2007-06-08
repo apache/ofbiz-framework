@@ -28,8 +28,7 @@ under the License.
        obj.submit();
     }
 </script>
-
-
+<br/>
 <div class="screenlet">
     <div class="screenlet-header">
         <div class="boxlink">
@@ -158,7 +157,7 @@ under the License.
         <div class="boxhead">
             &nbsp;${uiLabelMap.EcommerceShoppingListReorder} - ${shoppingList.listName}
             <#if shoppingList.isActive?default("N") == "N">
-                <font color="yellow">[${uiLabelMap.OrderNotActive}]</font>
+                <font color="yellow">[${uiLabelMap.EcommerceOrderNotActive}]</font>
             </#if>
         </div>
     </div>

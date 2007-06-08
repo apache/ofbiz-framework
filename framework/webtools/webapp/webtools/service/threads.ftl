@@ -49,8 +49,7 @@ under the License.
     <h3>${uiLabelMap.WebtoolsGeneralJavaThreads}</h3>
   </div>
 <br />
-<p>This thread: <b>${Static["java.lang.Thread"].currentThread().getName()} (${Static["java.lang.Thread"].currentThread().getId()})</b>
-<p>Note: certain things only work in Java 5. Java Version is ${javaVer}; is Java 5? ${isJava5?string}}<p>
+<p>${uiLabelMap.WebtoolsThisThread}: <b>${Static["java.lang.Thread"].currentThread().getName()} (${Static["java.lang.Thread"].currentThread().getId()})</b>
 <p>${uiLabelMap.WebtoolsNote4} ${javaVer}; ${uiLabelMap.WebtoolsNote5}? ${isJava5?string}}<p>
 <br />
 <table class="basic-table" cellspacing="0">

@@ -309,7 +309,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="Mark Checks Sent"/>
+                <set field="titleProperty" value="AccountingSendChecks"/>
                 <set field="tabButtonItem" value="ChecksTabButton"/>
                 <set field="checksTabButtonItem" value="SendChecksTabButton"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />

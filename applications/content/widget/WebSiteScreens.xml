@@ -126,14 +126,14 @@ under the License.
                         <section>
                             <widgets>
                                 <container style="widget-container">
-                                    <label style="head1">WebSite Content</label>
+                                    <label style="head1">${uiLabelMap.PageTitleWebSiteContent}</label>
                                     <include-form name="ListWebSiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
                                 </container>
                                 <container style="widget-container">
                                     <include-form name="CreateWebSiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
                                 </container>
                                 <container style="widget-container">
-                                    <label style="head2">Auto-Create Content Publish Points</label>
+                                    <label style="head2">${uiLabelMap.PageTitleAutoCreateContentPublishPoints}</label>
                                     <include-form name="AutoCreateWebsiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
                                 </container> 
                             </widgets>
@@ -205,7 +205,7 @@ under the License.
                             </widgets>
                             <fail-widgets>
                                 <container id="norender" style="tableheadtext">
-                                    <label text="There is no Content PUBLISH_POINT for this WebSite!"/>
+                                    <label text="${uiLabelMap.ContentCMSNotExist}"/>
                                 </container>
                             </fail-widgets>
                         </section>

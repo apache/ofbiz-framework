@@ -22,10 +22,10 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     
     <form name="ListFacilities" type="list" list-name="facilities">
-        <field name="facilityId" title="ID" widget-style="buttontext">
+        <field name="facilityId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${facilityId}" target="EditFacility?facilityId=${facilityId}"/>
         </field>
-        <field name="facilityName" title="Name"><display/></field>
-        <field name="description" title="Description"><display/></field>
+        <field name="facilityName"><display/></field>
+        <field name="description"><display/></field>
     </form>
 </forms>

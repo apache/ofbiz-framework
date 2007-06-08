@@ -26,7 +26,7 @@ under the License.
         
     <menu name="find" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="content"
         default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
-        <menu-item name="find" title="Find">
+        <menu-item name="find" title="${uiLabelMap.CommonFind}">
             <link target="FindCompDocTemplate"/>
         </menu-item>
     </menu>

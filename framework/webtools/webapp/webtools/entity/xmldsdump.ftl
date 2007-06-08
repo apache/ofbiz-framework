@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if tobrowser?exists && tobrowser>
-<h1>XML Export from DataSource(s)</h1>
+<h1>${uiLabelMap.WebtoolsExportFromDataSource}</h1>
 <br />
 <p>This page can be used to export data from the database. The exported documents will have a root tag of "&lt;entity-engine-xml&gt;".</p>
 <hr/>
@@ -29,77 +29,79 @@ under the License.
 <#else>
 <#macro displayButtonBar>
   <div class="button-bar">
-    <input type="submit" value="Export"/>
-    <a href="<@ofbizUrl>xmldsdump?checkAll=true</@ofbizUrl>" class="smallSubmit">Check All</a>
-    <a href="<@ofbizUrl>xmldsdump</@ofbizUrl>" class="smallSubmit">Un-Check All</a>
+    <input type="submit" value="${uiLabelMap.WebtoolsExport}"/>
+    <a href="<@ofbizUrl>xmldsdump?checkAll=true</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsCheckAll}</a>
+    <a href="<@ofbizUrl>xmldsdump</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsUnCheckAll}</a>
   </div>
 </#macro>
 
-<h1>XML Export from DataSource(s)</h1>
+<h1>${uiLabelMap.PageTitleEntityExport}</h1>
 <br />
-<p>This page can be used to export data from the database. The exported documents will have a root tag of "&lt;entity-engine-xml&gt;".</p>
-
+<p> ${uiLabelMap.WebtoolsMessage1}. 
+    ${uiLabelMap.WebtoolsMessage2}.
+    ${uiLabelMap.WebtoolsMessage3}.
+</p>
 <hr/>
 
 <#if security.hasPermission("ENTITY_MAINT", session)>
-  <h2>Results:</h2>
+  <h2>${uiLabelMap.WebtoolsResults}:</h2>
   <#if Static["org.ofbiz.base.util.UtilValidate"].isNotEmpty(parameters.filename) && (numberOfEntities?number > 0)>
-    <p>Wrote XML for all data in ${numberOfEntities} entities.</p>
-    <p>Wrote ${numberWritten} records to XML file ${parameters.filename}</p>
+    <p>${uiLabelMap.WebtoolsMessage19} ${numberOfEntities} ${uiLabelMap.WebtoolsEntities}.</p>
+    <p>${uiLabelMap.WebtoolsMessage20} ${numberWritten} ${uiLabelMap.WebtoolsMessage21} ${parameters.filename}</p>
   <#elseif Static["org.ofbiz.base.util.UtilValidate"].isNotEmpty(parameters.outpath) && (numberOfEntities?number > 0)>
     <#list results as result>
       <p>${result}</p>
     </#list>
   <#else>
-    <p>No filename specified or no entity names specified, doing nothing.</p>
+    <p>${uiLabelMap.WebtoolsMessage22}</p>
   </#if>
     
   <hr/>
     
-  <h2>Export:</h2>
+  <h2>${uiLabelMap.WebtoolsExport}:</h2>
   <form method="post" action="<@ofbizUrl>xmldsdump</@ofbizUrl>" name="entityExport">
     <table class="basic-table">
       <tr>
-        <td class="label">Output Directory</td>
+        <td class="label">${uiLabelMap.WebtoolsOutputDirectory}</td>
         <td><input type="text" size="60" name="outpath" value="${parameters.outpath?if_exists}"/></td>
       </tr>
       <tr>
-        <td class="label">Max Records Per File</td>
+        <td class="label">${uiLabelMap.WebtoolsMaxRecordsPerFile}</td>
         <td><input type="text" size="10" name="maxrecords"/></td>
       </tr>
       <tr>
-        <td class="label">Single Filename</td>
+        <td class="label">${uiLabelMap.WebtoolsSingleFilename}</td>
         <td><input type="text" size="60" name="filename" value="${parameters.filename?if_exists}"/></td>
       </tr>
       <tr>
-        <td class="label">Records Updated Since</td>
+        <td class="label">${uiLabelMap.WebtoolsRecordsUpdatedSince}</td>
         <td><input type="text" size="25" name="entityFrom" />
         <a href="javascript:call_cal(document.entityExport.entityFrom, null);" title="View Calendar"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="View Calendar"></a></td>
       </tr>
       <tr>
-        <td class="label">Records Updated Before&nbsp</td>
+        <td class="label">${uiLabelMap.WebtoolsRecordsUpdatedBefore} </td>
         <td><input type="text" size="25" name="entityThru" />
         <a href="javascript:call_cal(document.entityExport.entityThru, null);" title="View Calendar"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="View Calendar"></a></td>
       </tr>
       <tr>
-        <td class="label">OR Out to Browser</td>
+        <td class="label">${uiLabelMap.WebtoolsOutToBrowser}</td>
         <td><input type="checkbox" name="tobrowser"<#if tobrowser?has_content> checked="checked"</#if>></td>
       </tr>
     </table>
     <br/>
-    <p>Entity Names:</p>
+    <p>${uiLabelMap.WebtoolsEntityNames}:</p>
     <@displayButtonBar/>
-      <div>Entity Sync Dump:
+      <div>${uiLabelMap.WebtoolsEntitySyncDump}:
         <input name="entitySyncId" size="30" value="${entitySyncId?if_exists}"/>
       </div>
-      Pre-configured set:
+      ${uiLabelMap.WebtoolsPreConfiguredSet}:
       <select name="preConfiguredSetName">
-        <option value="">None</option>
-        <option value="CatalogExport">Catalog Export</option>
-        <option value="Product1">Product Part 1</option>
-        <option value="Product2">Product Part 2</option>
-        <option value="Product3">Product Part 3</option>
-        <option value="Product4">Product Part 4</option>
+        <option value="">${uiLabelMap.CommonNone}</option>
+        <option value="CatalogExport">${uiLabelMap.WebtoolsPreConfiguredSet1}</option>
+        <option value="Product1">${uiLabelMap.WebtoolsPreConfiguredSet2}</option>
+        <option value="Product2">${uiLabelMap.WebtoolsPreConfiguredSet3}</option>
+        <option value="Product3">${uiLabelMap.WebtoolsPreConfiguredSet4}</option>
+        <option value="Product4">${uiLabelMap.WebtoolsPreConfiguredSet5}</option>
       </select>
       <br/>
 
@@ -120,6 +122,6 @@ under the License.
       <@displayButtonBar/>
     </form>
 <#else>
-    <div>You do not have permission to use this page (ENTITY_MAINT needed)</div>
+    <div>${uiLabelMap.WebtoolsPermissionMaint}</div>
 </#if>
 </#if>

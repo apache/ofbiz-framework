@@ -72,7 +72,7 @@ under the License.
         <field name="description" >
             <display/>
         </field>
-        <field name="drObjectInfo" title="File Path">
+        <field name="drObjectInfo" title="${uiLabelMap.ContentFilePath}">
             <display />
         </field>
         <!--
@@ -88,16 +88,16 @@ under the License.
         <field name="lastModifiedDate" position="2">
             <display/>
         </field>
-        <field name="submitButton" title="Update" widget-style="smallSubmit">
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
         <field name="createLink" title="" widget-style="buttontext" position="1">
-            <hyperlink also-hidden="false" description="Create New"  
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreateNew}"  
                 target="EditLayoutTemplate?mode=add&amp;contentIdTo=TEMPLATE_MASTER"/>
         </field>
         -->
         <field name="cloneLayout" title="" widget-style="buttontext" position="2" >
-            <hyperlink also-hidden="false" description="Clone Layout"  
+            <hyperlink also-hidden="false" description="${uiLabelMap.ContentCloneLayout}"  
                 target="cloneLayout?contentId=${currentValue.contentId}"/>
         </field>
     </form>
@@ -184,19 +184,19 @@ under the License.
             
         <field name="contentId" position="1" >
         </field>
-        <field name="contentTypeIdDisplay"  title="Content Type" position="2" map-name="dummy">
+        <field name="contentTypeIdDisplay"  title="${uiLabelMap.ContentType}" position="2" map-name="dummy">
             <display description="DOCUMENT"/>
         </field>
-        <field name="contentIdToDisplay"  title="Parent Content" position="3" map-name="dummy">
+        <field name="contentIdToDisplay"  title="${uiLabelMap.ContentParent}" position="3" map-name="dummy">
             <display description="${contentIdTo}"/>
         </field>
-        <field name="mapKeyDisplay"  title="MapKey" position="4" map-name="dummy">
+        <field name="mapKeyDisplay"  title="${uiLabelMap.ContentMapKey}" position="4" map-name="dummy">
             <display description="${mapKey}"/>
         </field>
         <field name="contentTypeId"  >
             <hidden value="DOCUMENT"/>
         </field>
-        <field name="drDataResourceId" title="Data Resource Id" >
+        <field name="drDataResourceId" title="${uiLabelMap.FormFieldTitle_dataResourceId}" >
             <display/>
         </field>
         <field name="contentName">

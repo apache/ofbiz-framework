@@ -132,7 +132,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-header">
-                                <label style="boxhead" text="Example Main Page"/>
+                                <label style="boxhead" text="${uiLabelMap.ExampleMainPage}"/>
                             </container>
                             <container style="screenlet-body">
                                 <section>

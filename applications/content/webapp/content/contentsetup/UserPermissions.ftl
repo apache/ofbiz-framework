@@ -66,7 +66,7 @@ function call_fieldlookup3(view_name) {
           <td valign="middle" align="left">
             <div class="boxhead">
              <input type="text" name="webSitePublishPoint" size="20" value="${webSitePublishPoint?if_exists}">
-             <input type="submit" value="ReGet"/>
+             <input type="submit" value="${uiLabelMap.CommonRefresh}"/>
              <input type="hidden" name="partyId" value="${partyId?if_exists}"/>
              <input type="hidden" name="userLoginId" value="${userLoginId?if_exists}"/>
             </div>
@@ -81,7 +81,7 @@ function call_fieldlookup3(view_name) {
       <form name="siteRoleForm" mode="POST" action="<@ofbizUrl>updateSiteRoles</@ofbizUrl>">
       <table width='100%' border='0' cellspacing='0' cellpadding='4' class='boxoutside'>
         <tr>
-            <td class="">Site</td>
+            <td class="">${uiLabelMap.ContentWebSite}</td>
             <#list blogRoleIdList as roleTypeId>
               <td class="">${roleTypeId}</td>
             </#list>
@@ -104,7 +104,7 @@ function call_fieldlookup3(view_name) {
         </#list>
           <tr>
             <td>
-<div class="smallSubmit" ><a href="javascript:submitRows('${rowCount?if_exists}')">Update</a></div>
+              <div class="smallSubmit" ><a href="javascript:submitRows('${rowCount?if_exists}')">${uiLabelMap.CommonUpdate}</a></div>
             </td>
           </tr>
       </table>

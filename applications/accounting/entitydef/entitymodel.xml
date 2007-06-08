@@ -480,7 +480,10 @@ under the License.
             <key-map field-name="attrName"/>
         </relation>
     </entity>
-    <entity entity-name="FinAccountTransType" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Transaction Type Entity">
+    <entity entity-name="FinAccountTransType" 
+            package-name="org.ofbiz.accounting.finaccount" 
+            default-resource-name="AccountingEntityLabels"
+            title="Financial Account Transaction Type Entity">
         <field name="finAccountTransTypeId" type="id-ne"></field>
         <field name="parentTypeId" type="id-ne"></field>
         <field name="hasTable" type="indicator"></field>
@@ -505,7 +508,10 @@ under the License.
             <key-map field-name="finAccountTransTypeId"/>
         </relation>
     </entity>
-    <entity entity-name="FinAccountType" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Type Entity">
+    <entity entity-name="FinAccountType" 
+            package-name="org.ofbiz.accounting.finaccount" 
+            default-resource-name="AccountingEntityLabels"
+            title="Financial Account Type Entity">
         <field name="finAccountTypeId" type="id-ne"></field>
         <field name="parentTypeId" type="id-ne"></field>
         <field name="replenishEnumId" type="id-ne"></field>

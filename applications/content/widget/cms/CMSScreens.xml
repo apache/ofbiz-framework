@@ -24,7 +24,7 @@ under the License.
     <screen name="CMSContentFind">
         <section>
             <actions>
-                <set field="title" value="CMS Content Find Page"/>
+                <set field="titleProperty" value="PageTitleFindCMSContent"/>
                 <set field="entityName" value="ContentAssocDataResourceViewFrom"/>
                 <service service-name="urlEncodeArgs" result-map-name="result">
                     <field-map env-name="requestParameters" field-name="mapIn"/>
@@ -48,8 +48,7 @@ under the License.
         <section>
             <actions>
                 <script location="component://content/widget/getMenuContext.bsh"/>
-                <set field="title" value="CMS Content Edit Page"/>
-                <set field="titleProperty" value="PageTitleEditContent"/>
+                <set field="titleProperty" value="PageTitleEditCMSContent"/>
                 <entity-one entity-name="Content" value-name="currentValue">
                     <field-map field-name="contentId" env-name="parameters.contentId"/>
                 </entity-one>

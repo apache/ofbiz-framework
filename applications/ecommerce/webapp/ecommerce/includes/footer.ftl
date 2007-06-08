@@ -30,6 +30,6 @@ under the License.
     <div class="tabletext">Powered by <a href="http://ofbiz.apache.org" class="tabletext" target="_blank">Apache OFBiz</a></div>
 </div>
 <br/>
-<div class="tabletext" align="center"><a href="<@ofbizUrl>policies</@ofbizUrl>">See Store Policies Here</a></div>
+<div class="tabletext" align="center"><a href="<@ofbizUrl>policies</@ofbizUrl>">${uiLabelMap.EcommerceSeeStorePoliciesHere}</a></div>
 </body>
 </html>
