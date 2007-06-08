@@ -49,7 +49,6 @@ if (invoice != null) {
         invoiceAppl = q.next();
         Map itemmap = new HashMap();
         itemmap.put("invoiceId",invoiceId);
-        itemmap.put("uomId",invoice.getString("currencyUomId"));
         itemmap.put("invoiceItemSeqId",invoiceAppl.getString("invoiceItemSeqId"));
         itemmap.put("total",InvoiceWorker.getInvoiceTotalBd(invoice).doubleValue());
         itemmap.put("paymentApplicationId",invoiceAppl.getString("paymentApplicationId"));
