@@ -113,6 +113,7 @@ public class InvoiceServices {
     // service to create an invoice for a complete order by the system userid
     public static Map createInvoiceForOrderAllItems(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
             List orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", (String) context.get("orderId")));
             if (orderItems != null && orderItems.size() > 0) {
@@ -123,13 +124,18 @@ public class InvoiceServices {
             if (userLogin != null) {
                 context.put("userLogin", userLogin);
             }
-            
+
+            return dispatcher.runSync("createInvoiceForOrder", context);
+        }
+        catch(GenericServiceException e) {
+            String errMsg = UtilProperties.getMessage(resource,"AccountingEntityDataProblemCreatingInvoiceFromOrderItems",UtilMisc.toMap("reason",e.toString()),(Locale) context.get("locale"));
+            Debug.logError (e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);            
         } catch (GenericEntityException e) {
             String errMsg = UtilProperties.getMessage(resource,"AccountingEntityDataProblemCreatingInvoiceFromOrderItems",UtilMisc.toMap("reason",e.toString()),(Locale) context.get("locale"));
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
-        return createInvoiceForOrder(dctx, context);
     }
 
     /* Service to create an invoice for an order */
