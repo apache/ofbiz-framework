@@ -211,7 +211,7 @@ public class KeywordIndex {
             toBeStored.add(productKeyword);
         }
         if (toBeStored.size() > 0) {
-            if (Debug.verboseOn()) Debug.logVerbose("[KeywordSearch.induceKeywords] Storing " + toBeStored.size() + " keywords for productId " + product.getString("productId"), module);
+            if (Debug.verboseOn()) Debug.logVerbose("[KeywordIndex.indexKeywords] Storing " + toBeStored.size() + " keywords for productId " + product.getString("productId"), module);
 
             if ("true".equals(UtilProperties.getPropertyValue("prodsearch", "index.delete.on_index", "false"))) {
                 // delete all keywords if the properties file says to
