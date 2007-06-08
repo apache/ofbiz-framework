@@ -103,7 +103,10 @@ under the License.
             <key-map field-name="exampleId"/>
         </view-link>
     </view-entity>
-    <entity entity-name="ExampleType" package-name="org.ofbiz.example.example" title="Example Type Entity">
+    <entity entity-name="ExampleType" 
+            package-name="org.ofbiz.example.example" 
+            default-resource-name="ExampleEntityLabels"
+            title="Example Type Entity">
         <field name="exampleTypeId" type="id-ne"></field>
         <field name="parentTypeId" type="id"></field>
         <field name="description" type="description"></field>
@@ -152,6 +155,7 @@ under the License.
     </entity>
     <entity entity-name="ExampleFeatureApplType"
         package-name="org.ofbiz.example.feature"
+        default-resource-name="ExampleEntityLabels"
         title="Example Feature Application Type Entity">
         <field name="exampleFeatureApplTypeId" type="id-ne"></field>
         <field name="parentTypeId" type="id"></field>

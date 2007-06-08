@@ -119,8 +119,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="createButton" use-when="partyAcctgPreference==null"><submit/></field>
-        <field name="updateButton" use-when="partyAcctgPreference!=null"><submit/></field>
+        <field name="createButton" use-when="partyAcctgPreference==null" title="${uiLabelMap.CommonAdd}"><submit/></field>
+        <field name="updateButton" use-when="partyAcctgPreference!=null" title="${uiLabelMap.CommonUpdate}"><submit/></field>
         
         <!-- otherwise, we just display the fields.  there is no submit button because we shouldn't try to create it again and don't support an update option right now-->
         <field name="fiscalYearStartMonth" use-when="partyAcctgPreference!=null"><display/></field>

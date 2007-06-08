@@ -89,10 +89,10 @@ under the License.
         <div class="screenlet-body">
           <div class="tabletext" align="center">${uiLabelMap.CommonCheckoutAnonymousMsg}:</div>
           <form method="post" action="<@ofbizUrl>setCustomer</@ofbizUrl>" style="margin: 0;">
-            <div align="center"><input type="submit" class="smallSubmit" value="Checkout"/></div>
+            <div align="center"><input type="submit" class="smallSubmit" value="${uiLabelMap.EcommerceCheckout}"/></div>
           </form>
           <form method="post" action="<@ofbizUrl>quickAnonSetCustomer</@ofbizUrl>" style="margin: 0;">
-            <div align="center"><input type="submit" class="smallSubmit" value="Quick Checkout"/></div>
+            <div align="center"><input type="submit" class="smallSubmit" value="${uiLabelMap.EcommerceCheckoutQuick}"/></div>
           </form>
         </div>
     </div>

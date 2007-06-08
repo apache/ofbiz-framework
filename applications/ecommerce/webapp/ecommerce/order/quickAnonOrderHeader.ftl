@@ -64,7 +64,7 @@ under the License.
                   <td width="5">&nbsp;</td>
                   <td align="left" valign="top" width="80%">
                     <#if orderHeader?has_content>                                                
-                      <div class="tabletext">${localOrderReadHelper.getStatusString()}</div>
+                      <div class="tabletext">${localOrderReadHelper.getStatusString(locale)}</div>
                     <#else>
                       <div class="tabletext"><b>${uiLabelMap.OrderNotYetOrdered}</b></div>
                     </#if>

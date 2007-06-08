@@ -204,8 +204,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="actualAmount" position="1"><text/></field>
-        <field position="2" name="actualCurrencyUomId">
+        <field name="actualAmount" position="1" title="${uiLabelMap.AccountingActualCurrencyAmount}"><text/></field>
+        <field position="2" name="actualCurrencyUomId" title="${uiLabelMap.AccountingActualCurrencyUomId}">
             <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
@@ -222,7 +222,7 @@ under the License.
         <field name="overrideGlAccountId" position="2"><lookup target-form-name="LookupGlAccount"/></field>
         <field name="finAccountTransId"><ignored/></field>
         <field name="actualAmount"><ignored/></field>
-        <field position="1" name="updateButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field position="1" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
     <form name="editPaymentApplicationsInv" default-entity-name="PaymentApplication" list-name="paymentApplicationsInv" target="updatePaymentApplication" type="list" separate-columns="false">

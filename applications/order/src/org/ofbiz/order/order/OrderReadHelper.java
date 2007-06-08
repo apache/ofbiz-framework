@@ -27,6 +27,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -590,7 +591,7 @@ public class OrderReadHelper {
         }
     }
 
-    public String getStatusString() {
+    public String getStatusString(Locale locale) {
         List orderStatusList = this.getOrderHeaderStatuses();
 
         if (orderStatusList == null || orderStatusList.size() == 0) return "";
@@ -605,7 +606,7 @@ public class OrderReadHelper {
                 GenericValue statusItem = orderStatus.getRelatedOneCache("StatusItem");
 
                 if (statusItem != null) {
-                    orderStatusString.append(statusItem.getString("description"));
+                    orderStatusString.append(statusItem.get("description", locale));
                 } else {
                     orderStatusString.append(orderStatus.getString("statusId"));
                 }
