@@ -2439,9 +2439,7 @@ public class InvoiceServices {
                 if (invoiceItem == null) {
                     errorMessageList.add(UtilProperties.getMessage(resource,"AccountingInvoiceItemNotFound",UtilMisc.toMap("invoiceId",invoiceId,"invoiceItemSeqId",invoiceItemSeqId),locale));
                 } else {
-                    if (invoiceItem.get("uomId") != null && payment.get("currencyUomId") != null && !invoiceItem.getString("uomId").equals(payment.getString("currencyUomId"))) {
-                        errorMessageList.add(UtilProperties.getMessage(resource,"AccountingInvoiceItemPaymentCurrencyProblem",UtilMisc.toMap("paymentCurrencyId",payment.getString("currencyUomId"),"itemCurrency",invoiceItem.getString("uomId")) ,locale));
-                    } else if (invoice.get("currencyUomId") != null && payment.get("currencyUomId") != null && !invoice.getString("currencyUomId").equals(payment.getString("currencyUomId"))) {
+                    if (invoice.get("currencyUomId") != null && payment.get("currencyUomId") != null && !invoice.getString("currencyUomId").equals(payment.getString("currencyUomId"))) {
                         errorMessageList.add(UtilProperties.getMessage(resource,"AccountingInvoicePaymentCurrencyProblem",UtilMisc.toMap("paymentCurrencyId",payment.getString("currencyUomId"),"itemCurrency",invoice.getString("currencyUomId")) ,locale));
                     }
                     
@@ -2458,13 +2456,7 @@ public class InvoiceServices {
                     if (paymentApplicationId == null && amountApplied.compareTo(invoiceItemApplyAvailable) > 0) { 
                         // new record
                         errorMessageList.add("Invoice(" + invoiceId + ") item(" + invoiceItemSeqId + ") has  " + invoiceItemApplyAvailable + " to apply but " + amountApplied + " is requested\n");
-                        String uomId = null;
-                        if (invoiceItem.getString("uomId") != null) {
-                            uomId = invoiceItem.getString("uomId");
-                        }
-                        else {
-                            uomId = invoice.getString("currencyUomId");
-                        }
+                        String uomId = invoice.getString("currencyUomId");
                         errorMessageList.add(UtilProperties.getMessage(resource, "AccountingInvoiceItemLessRequested",
                                 UtilMisc.toMap("invoiceId",invoiceId, "invoiceItemSeqId", invoiceItemSeqId,
                                             "invoiceItemApplyAvailable",invoiceItemApplyAvailable,
@@ -2782,9 +2774,7 @@ public class InvoiceServices {
 
                         // create application payment record but check currency
                         // first if supplied
-                        if (invoiceItem.get("uomId") != null && payment.get("currencyUomId") != null && !invoiceItem.getString("uomId").equals(payment.getString("currencyUomId"))) {
-                            errorMessageList.add("Payment currency (" + payment.getString("currencyUomId") + ") and invoice Item(" + invoiceItem.getString("invoiceItemSeqId") + ") currency(" + invoiceItem.getString("uomId") + ") not the same\n");
-                        } else if (invoice.get("currencyUomId") != null && payment.get("currencyUomId") != null && !invoice.getString("currencyUomId").equals( payment.getString("currencyUomId"))) {
+                        if (invoice.get("currencyUomId") != null && payment.get("currencyUomId") != null && !invoice.getString("currencyUomId").equals( payment.getString("currencyUomId"))) {
                             errorMessageList.add("Payment currency (" + payment.getString("currencyUomId") + ") and invoice currency(" + invoice.getString("currencyUomId") + ") not the same\n");
                         } else {
                             paymentApplication.set("paymentApplicationId", null);

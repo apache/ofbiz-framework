@@ -132,14 +132,10 @@ under the License.
         <field name="invoiceItemTypeId"><display-entity description="${description}" entity-name="InvoiceItemType"/></field>
         <field name="inventoryItemId" widget-area-style="align-text"><display/></field>
         <field name="quantity" widget-area-style="align-text"><display/></field>
-        <field name="amount" widget-area-style="align-text" use-when="uomId!=null"><display type="currency" currency="${uomId}"/></field>
-        <field name="amount" widget-area-style="align-text" use-when="uomId==null"><display type="currency" currency="${invoice.currencyUomId}"/></field>
-        <field name="total" use-when="uomId!=null"><display type="currency" currency="${uomId}"/></field>  <!-- this should not look like something you can modify, hence "tabletext" -->
-        <field name="total" use-when="uomId==null"><display type="currency" currency="${invoice.currencyUomId}"/></field>  <!-- this should not look like something you can modify, hence "tabletext" -->
+        <field name="amount" title="${uiLabelMap.AccountingUnitPrice}" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>
+        <field name="total"><display type="currency" currency="${invoice.currencyUomId}"/></field>
         <field name="productId" widget-style="linktext"><hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}"/></field>
         <field name="overrideGlAccountId" widget-area-style="align-text"><hyperlink target="GlAccountNavigate?glAccountId=${overrideGlAccountId}" description="${overrideGlAccountId}"/></field>
-        <field name="overrideGlAccountId"><hidden/></field>
-        <field name="uomId"><hidden/></field>
     </form>
     
     <form name="invoiceRoles" type="list" use-row-submit="true" title="" list-name="invoiceRoles" paginate-target="invoiceRoles">
@@ -287,9 +283,8 @@ under the License.
        <field name="productId"><lookup target-form-name="LookupProduct" size="20"/></field>
        <field name="description"><text size="30"/></field>
        <!--field name="overrideGlAccountId"><text size="10"/></field-->
-       <field name="amount"><text size="7"/></field>
-       <field name="total" widget-area-style="align-text" use-when="uomId!=null"><display type="currency" currency="${uomId}"/></field>  <!-- this should not look like something you can modify, hence "tabletext" -->
-       <field name="total" widget-area-style="align-text" use-when="uomId==null"><display type="currency" currency="${invoice.currencyUomId}"/></field>  <!-- this should not look like something you can modify, hence "tabletext" -->
+       <field name="amount" title="${uiLabelMap.AccountingUnitPrice}"><text size="7"/></field>
+       <field name="total" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>  <!-- this should not look like something you can modify, hence "tabletext" -->
        <field name="uomId"><hidden/></field>
        <field name="taxableFlag"><hidden/></field>
        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
@@ -317,14 +312,14 @@ under the License.
             <lookup target-form-name="LookupProductFeature"/>
         </field>
         <field position="1" name="quantity"><text size="10"/></field>
-        <field position="2" name="uomId"><!-- currency -->
-            <drop-down allow-empty="true" current="selected" no-current-selected-key="${invoice.currencyUomId}">
+        <field position="2" name="uomId">
+            <drop-down allow-empty="true">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-order-by field-name="description"/>
                 </entity-options>            
             </drop-down>
         </field>
-        <field position="1" name="amount"><text size="10"/></field>
+        <field position="1" name="amount" title="${uiLabelMap.AccountingUnitPrice}"><text size="10"/></field>
         <field position="2" name="taxableFlag">
         <drop-down allow-empty="false" current="selected">
             <option key="Y" description="Yes"/>
@@ -351,8 +346,7 @@ under the License.
         <field name="invoiceItemSeqId"><display/></field>
         <field name="productId"><display/></field>
         <field name="description"><display/></field>
-        <field name="total" use-when="uomId!=null"><display type="currency" currency="${uomId}"/></field> 
-        <field name="total" use-when="uomId==null"><display type="currency" currency="${invoice.currencyUomId}"/></field>
+        <field name="total"><display type="currency" currency="${invoice.currencyUomId}"/></field>
         <field name="invoiceId"><hidden/></field>
         <field name="paymentId"><lookup target-form-name="LookupPayment"/></field>
         <field name="billingAccountId"><hidden/></field>
