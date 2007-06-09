@@ -512,6 +512,9 @@ under the License.
                     <iterate entry-name="orderItemShipGrpInvRes" list-name="orderItemInfo.orderItemShipGrpInvResList">
                         <log level="info" message="Getting pick quantity : ${orderItemShipGrpInvRes.quantity} - ${orderItemShipGrpInvRes.quantityNotAvailable}"/>
                         <set field="quantityToPick" from-field="orderItemShipGrpInvRes.quantity"/>
+                        <!--If a portion of the item is not available, then reduce the quantity to pick.  For example, 
+                        if a customer orders 15 and only 10 are in stock and quantityNotAvailable is 5, then subtract
+                        the 5 from 15 so quantityToPick is 10 -->
                         <if>
                             <condition>
                                 <and>
