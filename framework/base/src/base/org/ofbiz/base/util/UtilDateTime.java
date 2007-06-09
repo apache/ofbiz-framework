@@ -21,10 +21,12 @@ package org.ofbiz.base.util;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -130,8 +132,22 @@ public class UtilDateTime {
         return getTimestamp(System.currentTimeMillis());
     }
 
+    /**
+     * Convert a millisecond value to a Timestamp.
+     * @param time millsecond value
+     * @return Timestamp
+     */
     public static java.sql.Timestamp getTimestamp(long time) {
         return new java.sql.Timestamp(time);
+    }
+
+    /**
+     * Convert a millisecond value to a Timestamp.
+     * @param milliSecs millsecond value
+     * @return Timestamp
+     */
+    public static Timestamp getTimestamp(String milliSecs) throws NumberFormatException {
+        return new Timestamp(Long.parseLong(milliSecs));
     }
 
     /**
@@ -697,7 +713,7 @@ public class UtilDateTime {
         }
     }
 
-    public static String toGMTTimeStampString(Timestamp timestamp) {
+    public static String toGmtTimestampString(Timestamp timestamp) {
         DateFormat df = DateFormat.getDateTimeInstance();
         df.setTimeZone(TimeZone.getTimeZone("GMT"));
         return df.format(timestamp);
@@ -745,4 +761,188 @@ public class UtilDateTime {
         calendar.setTime(new java.util.Date(input.getTime()));
         return calendar.get(Calendar.WEEK_OF_YEAR);
     }
+    
+    // ----- New methods that take a timezone and locale -- //
+    
+    /**
+     * Returns a Calendar object initialized to the specified date/time, time zone,
+     * and locale.
+     *
+     * @param stamp date/time to use
+     * @param timeZone
+     * @param locale
+     * @return Calendar object
+     * @see java.util.Calendar
+     */
+    public static Calendar toCalendar(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        Calendar cal = Calendar.getInstance(timeZone, locale);
+        if (stamp != null) {
+            cal.setTimeInMillis(stamp.getTime());
+        }
+        return cal;
+    }
+
+    /**
+     * Perform date/time arithmetic on a Timestamp. This is the only accurate way to
+     * perform date/time arithmetic across locales and time zones.
+     *
+     * @param stamp date/time to perform arithmetic on
+     * @param adjType the adjustment type to perform. Use one of the java.util.Calendar fields.
+     * @param adjQuantity the adjustment quantity.
+     * @param timeZone
+     * @param locale
+     * @return adjusted Timestamp
+     * @see java.util.Calendar
+     */
+    public static Timestamp adjustTimestamp(Timestamp stamp, int adjType, int adjQuantity, TimeZone timeZone, Locale locale) {
+        Calendar tempCal = toCalendar(stamp, timeZone, locale);
+        tempCal.add(adjType, adjQuantity);
+        return new Timestamp(tempCal.getTimeInMillis());
+    }
+
+    public static Timestamp getDayStart(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        return getDayStart(stamp, 0, timeZone, locale);
+    }
+
+    public static Timestamp getDayStart(Timestamp stamp, int daysLater, TimeZone timeZone, Locale locale) {
+        Calendar tempCal = toCalendar(stamp, timeZone, locale);
+        tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), tempCal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+        tempCal.add(Calendar.DAY_OF_MONTH, daysLater);
+        Timestamp retStamp = new Timestamp(tempCal.getTimeInMillis());
+        retStamp.setNanos(0);
+        return retStamp;
+    }
+
+    public static Timestamp getDayEnd(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        return getDayEnd(stamp, 0, timeZone, locale);
+    }
+
+    public static Timestamp getDayEnd(Timestamp stamp, int daysLater, TimeZone timeZone, Locale locale) {
+        Calendar tempCal = toCalendar(stamp, timeZone, locale);
+        tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), tempCal.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
+        tempCal.add(Calendar.DAY_OF_MONTH, daysLater);
+        Timestamp retStamp = new Timestamp(tempCal.getTimeInMillis());
+        retStamp.setNanos(999999999);
+        return retStamp;
+    }
+
+    public static Timestamp getWeekStart(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        return getWeekStart(stamp, 0, 0, timeZone, locale);
+    }
+
+    public static Timestamp getWeekStart(Timestamp stamp, int daysLater, TimeZone timeZone, Locale locale) {
+        return getWeekStart(stamp, daysLater, 0, timeZone, locale);
+    }
+
+    public static Timestamp getWeekStart(Timestamp stamp, int daysLater, int weeksLater, TimeZone timeZone, Locale locale) {
+        Calendar tempCal = toCalendar(stamp, timeZone, locale);
+        tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), tempCal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+        tempCal.add(Calendar.DAY_OF_MONTH, daysLater);
+        tempCal.set(Calendar.DAY_OF_WEEK, tempCal.getFirstDayOfWeek());
+        tempCal.add(Calendar.WEEK_OF_MONTH, weeksLater);
+        Timestamp retStamp = new Timestamp(tempCal.getTimeInMillis());
+        retStamp.setNanos(0);
+        return retStamp;
+    }
+
+    public static Timestamp getWeekEnd(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        Calendar tempCal = toCalendar(stamp, timeZone, locale);
+        tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), tempCal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+        tempCal.add(Calendar.WEEK_OF_MONTH, 1);
+        tempCal.set(Calendar.DAY_OF_WEEK, tempCal.getFirstDayOfWeek());
+        tempCal.add(Calendar.SECOND, -1);
+        Timestamp retStamp = new Timestamp(tempCal.getTimeInMillis());
+        retStamp.setNanos(999999999);
+        return retStamp;
+    }
+    
+    public static Timestamp getMonthStart(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        return getMonthStart(stamp, 0, 0, timeZone, locale);
+    }
+
+    public static Timestamp getMonthStart(Timestamp stamp, int daysLater, TimeZone timeZone, Locale locale) {
+        return getMonthStart(stamp, daysLater, 0, timeZone, locale);
+    }
+
+    public static Timestamp getMonthStart(Timestamp stamp, int daysLater, int monthsLater, TimeZone timeZone, Locale locale) {
+        Calendar tempCal = toCalendar(stamp, timeZone, locale);
+        tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), 1, 0, 0, 0);
+        tempCal.add(Calendar.MONTH, monthsLater);
+        tempCal.add(Calendar.DAY_OF_MONTH, daysLater);
+        Timestamp retStamp = new Timestamp(tempCal.getTimeInMillis());
+        retStamp.setNanos(0);
+        return retStamp;
+    }
+
+    public static Timestamp getYearStart(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        return getYearStart(stamp, 0, 0, 0, timeZone, locale);
+    }
+
+    public static Timestamp getYearStart(Timestamp stamp, int daysLater, TimeZone timeZone, Locale locale) {
+        return getYearStart(stamp, daysLater, 0, 0, timeZone, locale);
+    }
+
+    public static Timestamp getYearStart(Timestamp stamp, int daysLater, int yearsLater, TimeZone timeZone, Locale locale) {
+        return getYearStart(stamp, daysLater, 0, yearsLater, timeZone, locale);
+    }
+
+    public static Timestamp getYearStart(Timestamp stamp, Number daysLater, Number monthsLater, Number yearsLater, TimeZone timeZone, Locale locale) {
+        return getYearStart(stamp, (daysLater == null ? 0 : daysLater.intValue()), 
+                (monthsLater == null ? 0 : monthsLater.intValue()), (yearsLater == null ? 0 : yearsLater.intValue()), timeZone, locale);
+    }
+
+    public static Timestamp getYearStart(Timestamp stamp, int daysLater, int monthsLater, int yearsLater, TimeZone timeZone, Locale locale) {
+        Calendar tempCal = toCalendar(stamp, timeZone, locale);
+        tempCal.set(tempCal.get(Calendar.YEAR), Calendar.JANUARY, 1, 0, 0, 0);
+        tempCal.add(Calendar.YEAR, yearsLater);
+        tempCal.add(Calendar.MONTH, monthsLater);
+        tempCal.add(Calendar.DAY_OF_MONTH, daysLater);
+        Timestamp retStamp = new Timestamp(tempCal.getTimeInMillis());
+        retStamp.setNanos(0);
+        return retStamp;
+    }
+
+    public static int weekNumber(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        Calendar tempCal = toCalendar(stamp, timeZone, locale);
+        return tempCal.get(Calendar.WEEK_OF_YEAR);
+    }
+
+    /**
+     * Returns a List of day name Strings - suitable for calendar headings.
+     * @param locale
+     * @return List of day name Strings
+     */
+    public static List getDayNames(Locale locale) {
+        Calendar tempCal = Calendar.getInstance(locale);
+        tempCal.set(Calendar.DAY_OF_WEEK, tempCal.getFirstDayOfWeek());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", locale);
+        List resultList = new ArrayList();
+        for (int i = 0; i < 7; i++) {
+            resultList.add(dateFormat.format(tempCal.getTime()));
+            tempCal.roll(Calendar.DAY_OF_WEEK, 1);
+        }
+        return resultList;
+    }
+
+    /**
+     * Localized String to Timestamp conversion. To be used in tandem with timeStampToString().
+     * 
+     */
+    public static Timestamp stringToTimeStamp(String dateTimeString, TimeZone tz, Locale locale) throws ParseException {
+        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, locale);
+        dateFormat.setTimeZone(tz);
+        Date parsedDate = dateFormat.parse(dateTimeString);
+        return new Timestamp(parsedDate.getTime());
+    }
+
+    /**
+     * Localized Timestamp to String conversion. To be used in tandem with stringToTimeStamp().
+     * 
+     */
+    public static String timeStampToString(Timestamp stamp, TimeZone tz, Locale locale) {
+        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, locale);
+        dateFormat.setTimeZone(tz);
+        return dateFormat.format(stamp);
+    }
+
 }
