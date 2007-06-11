@@ -20,23 +20,23 @@ under the License.
 
 <entity-engine-xml>
 <!-- Comunidades Autónomas -->
-    <Geo abbreviation="AN" geoCode="AN" geoId="AN" geoName="Andalucía" geoTypeId="REGION"/>
-    <Geo abbreviation="AR" geoCode="AR" geoId="AR" geoName="Aragón" geoTypeId="REGION"/>
-    <Geo abbreviation="O" geoCode="O" geoId="O" geoName="Oviedo" geoTypeId="REGION"/>
-    <Geo abbreviation="CN" geoCode="CN" geoId="CN" geoName="Canarias" geoTypeId="REGION"/>
-    <Geo abbreviation="S" geoCode="S" geoId="S" geoName="Cantabria" geoTypeId="REGION"/>
-    <Geo abbreviation="CM" geoCode="CM" geoId="CM" geoName="Castilla-La Mancha" geoTypeId="REGION"/>
-    <Geo abbreviation="CL" geoCode="CL" geoId="CL" geoName="Castilla y León" geoTypeId="REGION"/>
-    <Geo abbreviation="CT" geoCode="CT" geoId="CT" geoName="Cataluña" geoTypeId="REGION"/>
-    <Geo abbreviation="EX" geoCode="EX" geoId="EX" geoName="Extremadura" geoTypeId="REGION"/>
-    <Geo abbreviation="GA" geoCode="GA" geoId="GA" geoName="Galicia" geoTypeId="REGION"/>
-    <Geo abbreviation="IB" geoCode="IB" geoId="IB" geoName="Islas Baleares" geoTypeId="REGION"/>
-    <Geo abbreviation="LO" geoCode="LO" geoId="LO" geoName="La Rioja" geoTypeId="REGION"/>
-    <Geo abbreviation="M" geoCode="M" geoId="M" geoName="Madrid" geoTypeId="REGION"/>
-    <Geo abbreviation="MU" geoCode="MU" geoId="MU" geoName="Región de Murcia" geoTypeId="REGION"/>
-    <Geo abbreviation="NA" geoCode="NA" geoId="NA" geoName="Navarra" geoTypeId="REGION"/>
-    <Geo abbreviation="VC" geoCode="VC" geoId="VC" geoName="Comunidad Valenciana" geoTypeId="REGION"/>
-    <Geo abbreviation="PV" geoCode="PV" geoId="PV" geoName="País Vasco" geoTypeId="REGION"/>
+    <Geo abbreviation="AN" geoCode="AN" geoId="ES-AN" geoName="Andalucía" geoTypeId="REGION"/>
+    <Geo abbreviation="AR" geoCode="AR" geoId="ES-AR" geoName="Aragón" geoTypeId="REGION"/>
+    <Geo abbreviation="O" geoCode="O" geoId="ES-AS" geoName="Oviedo" geoTypeId="REGION"/>
+    <Geo abbreviation="CN" geoCode="CN" geoId="ES-CN" geoName="Canarias" geoTypeId="REGION"/>
+    <Geo abbreviation="S" geoCode="S" geoId="ES-CAN" geoName="Cantabria" geoTypeId="REGION"/>
+    <Geo abbreviation="CM" geoCode="CM" geoId="ES-CM" geoName="Castilla-La Mancha" geoTypeId="REGION"/>
+    <Geo abbreviation="CL" geoCode="CL" geoId="ES-CL" geoName="Castilla y León" geoTypeId="REGION"/>
+    <Geo abbreviation="CT" geoCode="CT" geoId="ES-CT" geoName="Cataluña" geoTypeId="REGION"/>
+    <Geo abbreviation="EX" geoCode="EX" geoId="ES-EX" geoName="Extremadura" geoTypeId="REGION"/>
+    <Geo abbreviation="GA" geoCode="GA" geoId="ES-GA" geoName="Galicia" geoTypeId="REGION"/>
+    <Geo abbreviation="IB" geoCode="IB" geoId="ES-IB" geoName="Islas Baleares" geoTypeId="REGION"/>
+    <Geo abbreviation="LO" geoCode="LO" geoId="ES-LR" geoName="La Rioja" geoTypeId="REGION"/>
+    <Geo abbreviation="M" geoCode="M" geoId="ES-MAD" geoName="Madrid" geoTypeId="REGION"/>
+    <Geo abbreviation="MU" geoCode="MU" geoId="ES-MUR" geoName="Región de Murcia" geoTypeId="REGION"/>
+    <Geo abbreviation="NA" geoCode="NA" geoId="ES-NAV" geoName="Navarra" geoTypeId="REGION"/>
+    <Geo abbreviation="VC" geoCode="VC" geoId="ES-VC" geoName="Comunidad Valenciana" geoTypeId="REGION"/>
+    <Geo abbreviation="PV" geoCode="PV" geoId="ES-PV" geoName="País Vasco" geoTypeId="REGION"/>
 
 <!-- Provincias -->
     <Geo abbreviation="VI" geoCode="VI" geoId="ES-VI" geoName="Álava" geoTypeId="PROVINCE"/>
@@ -93,91 +93,91 @@ under the License.
     <Geo abbreviation="Z" geoCode="Z" geoId="ES-Z" geoName="Zaragoza" geoTypeId="PROVINCE"/>
     <!-- Relaciones -->
     <!-- País Vasco -->
-    <GeoAssoc geoIdTo="ES-VI" geoId="PV" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-SS" geoId="PV" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-BI" geoId="PV" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-VI" geoId="ES-PV" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-SS" geoId="ES-PV" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-BI" geoId="ES-PV" geoAssocTypeId="REGIONS"/>
     <!-- Castilla la Mancha -->
-    <GeoAssoc geoIdTo="ES-AB" geoId="CM" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-GU" geoId="CM" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-CU" geoId="CM" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-TO" geoId="CM" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-AB" geoId="ES-CM" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-GU" geoId="ES-CM" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-CU" geoId="ES-CM" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-TO" geoId="ES-CM" geoAssocTypeId="REGIONS"/>
     <!-- Comunidad Valenciana-->
-    <GeoAssoc geoIdTo="ES-A" geoId="VC" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-CS" geoId="VC" geoAssocTypeId="REGIONS"/>        
-    <GeoAssoc geoIdTo="ES-V" geoId="VC" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-A" geoId="ES-VC" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-CS" geoId="ES-VC" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-V" geoId="ES-VC" geoAssocTypeId="REGIONS"/>
     <!-- Analucía -->
-    <GeoAssoc geoIdTo="ES-AL" geoId="AN" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-CA" geoId="AN" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-GR" geoId="AN" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-MA" geoId="AN" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-CO" geoId="AN" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-H" geoId="AN" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-SE" geoId="AN" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-J" geoId="AN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-AL" geoId="ES-AN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-CA" geoId="ES-AN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-GR" geoId="ES-AN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-MA" geoId="ES-AN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-CO" geoId="ES-AN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-H" geoId="ES-AN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-SE" geoId="ES-AN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-J" geoId="ES-AN" geoAssocTypeId="REGIONS"/>
     <!-- Asturias -->
-    <GeoAssoc geoIdTo="ES-O" geoId="O" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-O" geoId="ES-AS" geoAssocTypeId="REGIONS"/>
     <!-- Castilla y León -->
-    <GeoAssoc geoIdTo="ES-AV" geoId="CL" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-CR" geoId="CL" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-LE" geoId="CL" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-SA" geoId="CL" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-SO" geoId="CL" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-SG" geoId="CL" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-ZA" geoId="CL" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-VA" geoId="CL" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-P" geoId="CL" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-BU" geoId="CL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-AV" geoId="ES-CL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-CR" geoId="ES-CL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-LE" geoId="ES-CL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-SA" geoId="ES-CL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-SO" geoId="ES-CL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-SG" geoId="ES-CL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-ZA" geoId="ES-CL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-VA" geoId="ES-CL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-P" geoId="ES-CL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-BU" geoId="ES-CL" geoAssocTypeId="REGIONS"/>
     <!-- Extremadura -->
-    <GeoAssoc geoIdTo="ES-BA" geoId="EX" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-CC" geoId="EX" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-BA" geoId="ES-EX" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-CC" geoId="ES-EX" geoAssocTypeId="REGIONS"/>
     <!-- Islas Baleares -->
-    <GeoAssoc geoIdTo="ES-PM" geoId="IB" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-PM" geoId="ES-IB" geoAssocTypeId="REGIONS"/>
     <!-- Cataluña -->
-    <GeoAssoc geoIdTo="ES-B" geoId="CT" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-GI" geoId="CT" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-L" geoId="CT" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-T" geoId="CT" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-B" geoId="ES-CT" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-GI" geoId="ES-CT" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-L" geoId="ES-CT" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-T" geoId="ES-CT" geoAssocTypeId="REGIONS"/>
     <!-- Cantabria -->
-    <GeoAssoc geoIdTo="ES-S" geoId="S" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-S" geoId="ES-CAN" geoAssocTypeId="REGIONS"/>
     <!-- Ceuta y Melilla -->
     <GeoAssoc geoIdTo="ES-CE" geoId="ESP" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoIdTo="ES-ML" geoId="ESP" geoAssocTypeId="REGIONS"/>
     <!-- Aragón -->
-    <GeoAssoc geoIdTo="ES-HU" geoId="AR" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-TE" geoId="AR" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-Z" geoId="AR" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-HU" geoId="ES-AR" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-TE" geoId="ES-AR" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-Z" geoId="ES-AR" geoAssocTypeId="REGIONS"/>
     <!-- Galicia -->
-    <GeoAssoc geoIdTo="ES-C" geoId="GA" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-LU" geoId="GA" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-OR" geoId="GA" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-PO" geoId="GA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-C" geoId="ES-GA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-LU" geoId="ES-GA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-OR" geoId="ES-GA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-PO" geoId="ES-GA" geoAssocTypeId="REGIONS"/>
     <!-- La Rioja -->
-    <GeoAssoc geoIdTo="ES-LO" geoId="LO" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-LO" geoId="ES-LR" geoAssocTypeId="REGIONS"/>
     <!-- Canarias -->
-    <GeoAssoc geoIdTo="ES-GC" geoId="CN" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="ES-TF" geoId="CN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-GC" geoId="ES-CN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-TF" geoId="ES-CN" geoAssocTypeId="REGIONS"/>
     <!-- Madrid -->
-    <GeoAssoc geoIdTo="ES-M" geoId="M" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-M" geoId="ES-MAD" geoAssocTypeId="REGIONS"/>
     <!-- Murcia -->
-    <GeoAssoc geoIdTo="ES-MU" geoId="MU" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-MU" geoId="ES-MUR" geoAssocTypeId="REGIONS"/>
     <!-- Navarra -->
-    <GeoAssoc geoIdTo="ES-NA" geoId="NA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-NA" geoId="ES-NAV" geoAssocTypeId="REGIONS"/>
     <!-- CCAA -->
-    <GeoAssoc geoIdTo="AN" geoId="ESP" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="AR" geoId="ESP" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="O" geoId="ESP" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="CN" geoId="ESP" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="S" geoId="ESP" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="CM" geoId="ESP" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="CL" geoId="ESP" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="CT" geoId="ESP" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="EX" geoId="ESP" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="GA" geoId="ESP" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="IB" geoId="ESP" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="LO" geoId="ESP" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="M" geoId="ESP" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="MU" geoId="ESP" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="NA" geoId="ESP" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="VC" geoId="ESP" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoIdTo="PV" geoId="ESP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-AN" geoId="ESP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-AR" geoId="ESP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-AS" geoId="ESP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-CN" geoId="ESP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-CAN" geoId="ESP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-CM" geoId="ESP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-CL" geoId="ESP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-CT" geoId="ESP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-EX" geoId="ESP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-GA" geoId="ESP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-IB" geoId="ESP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-LR" geoId="ESP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-MAD" geoId="ESP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-MUR" geoId="ESP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-NAV" geoId="ESP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-VC" geoId="ESP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="ES-PV" geoId="ESP" geoAssocTypeId="REGIONS"/>
 </entity-engine-xml>
