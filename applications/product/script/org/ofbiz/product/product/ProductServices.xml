@@ -884,4 +884,20 @@ under the License.
             </else>
         </if-empty>
     </simple-method>
+    <!-- Product Attribute Services -->
+    <simple-method method-name="createProductAttribute" short-description="create a ProductAttribute">
+        <make-value entity-name="ProductAttribute" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>   
+    <simple-method method-name="updateProductAttribute" short-description="update a ProductAttribute">
+        <entity-one entity-name="ProductAttribute" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteProductAttribute" short-description="delete a ProductAttribute">
+        <entity-one entity-name="ProductAttribute" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
 </simple-methods>

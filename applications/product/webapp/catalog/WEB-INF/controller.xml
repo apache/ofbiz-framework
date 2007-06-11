@@ -754,25 +754,42 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditProductKeyword"/>
     </request-map>
-    <request-map uri="UpdateProductKeyword">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.product.product.ProductEvents" invoke="updateProductKeyword"/>
-        <response name="success" type="view" value="EditProductKeyword"/>
-        <response name="error" type="view" value="EditProductKeyword"/>
-    </request-map>
-    <request-map uri="UpdateProductKeywords">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.product.product.ProductEvents" invoke="updateProductKeywords"/>
-        <response name="success" type="view" value="EditProductKeyword"/>
-        <response name="error" type="view" value="EditProductKeyword"/>
-    </request-map>
     <request-map uri="UpdateAllKeywords">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.product.product.ProductEvents" invoke="updateAllKeywords"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-
+    <request-map uri="updateProductKeyword">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateProductKeyword"/>
+        <response name="success" type="view" value="EditProductKeyword"/>
+        <response name="error" type="view" value="EditProductKeyword"/>
+    </request-map>
+    <request-map uri="createProductKeyword">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createProductKeyword"/>
+        <response name="success" type="view" value="EditProductKeyword"/>
+        <response name="error" type="view" value="EditProductKeyword"/>
+    </request-map>
+    <request-map uri="deleteProductKeyword">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteProductKeyword"/>
+        <response name="success" type="view" value="EditProductKeyword"/>
+        <response name="error" type="view" value="EditProductKeyword"/>
+    </request-map>
+    <request-map uri="deleteProductKeywords">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteProductKeywords"/>
+        <response name="success" type="view" value="EditProductKeyword"/>
+        <response name="error" type="view" value="EditProductKeyword"/>
+    </request-map>
+    <request-map uri="forceIndexProductKeywords">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="forceIndexProductKeywords"/>
+        <response name="success" type="view" value="EditProductKeyword"/>
+        <response name="error" type="view" value="EditProductKeyword"/>
+    </request-map>
     <!-- ================ Product Associations Requests ================= -->
     <request-map uri="EditProductAssoc">
         <security https="true" auth="true"/>
@@ -829,9 +846,21 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditProductAttributes"/>
     </request-map>
-    <request-map uri="UpdateProductAttribute">
+    <request-map uri="createProductAttribute">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.product.product.ProductEvents" invoke="updateAttribute"/>
+        <event type="service" path="" invoke="createProductAttribute"/>
+        <response name="success" type="view" value="EditProductAttributes"/>
+        <response name="error" type="view" value="EditProductAttributes"/>
+    </request-map>
+    <request-map uri="updateProductAttribute">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateProductAttribute"/>
+        <response name="success" type="view" value="EditProductAttributes"/>
+        <response name="error" type="view" value="EditProductAttributes"/>
+    </request-map>
+    <request-map uri="deleteProductAttribute">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteProductAttribute"/>
         <response name="success" type="view" value="EditProductAttributes"/>
         <response name="error" type="view" value="EditProductAttributes"/>
     </request-map>

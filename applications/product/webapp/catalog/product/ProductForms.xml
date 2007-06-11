@@ -249,15 +249,14 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateProductPrice" type="list" target="updateProductPrice" title="" list-name="productPrices"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="UpdateProductPrice" type="list" target="updateProductPrice" title="" list-name="productPrices">
         <auto-fields-service service-name="updateProductPrice" map-name="productPrice"/>
         <field name="productId"><hidden/></field>
-        <field name="productPriceTypeId" title="${uiLabelMap.ProductPriceType}" widget-style="tabletext"><display-entity entity-name="ProductPriceType"/></field>
-        <field name="productPricePurposeId" title="${uiLabelMap.CommonPurpose}" widget-style="tabletext"><display-entity entity-name="ProductPricePurpose"/></field>
-        <field name="currencyUomId" title="${uiLabelMap.ProductCurrency}" widget-style="tabletext"><display-entity entity-name="Uom" key-field-name="uomId" description="${description} [${uomId}]"/></field>
-        <field name="productStoreGroupId" title="${uiLabelMap.ProductProductStoreGroup}" widget-style="tabletext"><display-entity entity-name="ProductStoreGroup" description="${productStoreGroupName}"/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}" widget-style="tabletext"><display/></field>
+        <field name="productPriceTypeId" title="${uiLabelMap.ProductPriceType}"><display-entity entity-name="ProductPriceType"/></field>
+        <field name="productPricePurposeId" title="${uiLabelMap.CommonPurpose}"><display-entity entity-name="ProductPricePurpose"/></field>
+        <field name="currencyUomId" title="${uiLabelMap.ProductCurrency}" ><display-entity entity-name="Uom" key-field-name="uomId" description="${description} [${uomId}]"/></field>
+        <field name="productStoreGroupId" title="${uiLabelMap.ProductProductStoreGroup}"><display-entity entity-name="ProductStoreGroup" description="${productStoreGroupName}"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
 
         <field name="termUomId">
             <drop-down allow-empty="true">
@@ -269,11 +268,11 @@ under the License.
             </drop-down>
         </field>
         
-        <field name="lastUpdatedByText" title="${uiLabelMap.ProductLastModifiedBy}:" widget-style="tabletext">
+        <field name="lastUpdatedByText" title="${uiLabelMap.ProductLastModifiedBy}:">
             <display description="[${lastModifiedByUserLogin}] ${uiLabelMap.CommonOn} ${lastModifiedDate}" also-hidden="false"/>
         </field>
 
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
             <hyperlink target="deleteProductPrice?productId=${productId}&amp;productPriceTypeId=${productPriceTypeId}&amp;productPricePurposeId=${productPricePurposeId}&amp;currencyUomId=${currencyUomId}&amp;productStoreGroupId=${productStoreGroupId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
@@ -1378,8 +1377,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateProductGoodIdentifications" type="list" target="updateGoodIdentification" title="" list-name="goodIdentifications"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="UpdateProductGoodIdentifications" type="list" target="updateGoodIdentification" title="" list-name="goodIdentifications">
         <auto-fields-service service-name="updateGoodIdentification" map-name="updateGoodIdentification"/>
         <field name="goodIdentificationTypeId" title="${uiLabelMap.ProductIdType}"><display-entity entity-name="GoodIdentificationType"/></field>
         <field name="productId"><hidden/></field>
@@ -1391,20 +1389,33 @@ under the License.
         </field>
     </form>
     <!-- ProductKeywords -->
-    <form name="AddProductKeyword" type="single" target="UpdateProductKeyword" title=""> 
+    <form name="AddProductKeyword" type="single" target="createProductKeyword" title=""> 
+        <auto-fields-service service-name="createProductKeyword"/>
         <field name="productId"><hidden/></field>
-        <field name="UPDATE_MODE"><hidden value="CREATE"/></field>
-        <field name="PRODUCT_ID" entry-name="productId"><hidden/></field>
-        <field name="KEYWORD" title="${uiLabelMap.ProductKeyword}"><text/></field>
         <field name="relevancyWeight" title="${uiLabelMap.Weight}"><text default-value="1"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateProductKeyword" type="list" target="UpdateProductKeyword" title="" list-name="productKeywords">
+    <form name="UpdateProductKeyword" type="list" target="deleteProductKeyword" title="" list-name="productKeywords">
+        <auto-fields-entity entity-name="ProductKeyword" default-field-type="display"/>
         <field name="productId"><hidden/></field>
-        <field name="relevancyWeight" title="${uiLabelMap.Weight}"><display/></field>
-        <field name="keyword" title="${uiLabelMap.ProductKeyword}"><display/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonDelete}"><submit button-type="button"/></field>
+    </form>
+    <!-- ProductAttribute -->
+    <form name="AddProductAttribute" type="single" target="createProductAttribute" title="">
+        <auto-fields-service service-name="createProductAttribute"/>
+        <field name="productId"><hidden/></field>
+        <field name="attrName" title="${uiLabelMap.AttributeName}"></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+    </form>
+    <form name="UpdateProductAttribute" type="list" target="updateProductAttribute" title="" list-name="productAttributes">
+        <auto-fields-service service-name="updateProductAttribute" map-name="updateProductAttribute"/>
+        <field name="attrName" title="${uiLabelMap.AttributeName}"><display/></field>
+        <field name="productId"><hidden/></field>
+        <field name="attrType"><text/></field>
+        <field name="attrValue"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink target="UpdateProductKeyword?productId=${productId}&amp;keyword=${keyword}&amp;UPDATE_MODE=DELETE&amp;PRODUCT_ID=${productId}&amp;KEYWORD=${keyword}"
+            <hyperlink target="deleteProductAttribute?productId=${productId}&amp;attrName=${attrName}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>

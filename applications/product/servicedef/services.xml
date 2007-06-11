@@ -1094,4 +1094,25 @@ under the License.
         <implements service="permissionInterface"/>
         <attribute type="String" mode="IN" name="productCategoryId" optional="true"/>
     </service>
+    <!-- Product Attribute Services -->
+    <service name="createProductAttribute" default-entity-name="ProductAttribute" engine="simple"
+            location="org/ofbiz/product/product/ProductServices.xml" invoke="createProductAttribute" auth="true">
+        <description>Create a ProductAttribute</description>
+        <permission-service service-name="productGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductAttribute" default-entity-name="ProductAttribute" engine="simple"
+            location="org/ofbiz/product/product/ProductServices.xml" invoke="updateProductAttribute" auth="true">
+        <description>Update a ProductAttribute</description>
+        <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductAttribute" default-entity-name="ProductAttribute" engine="simple"
+            location="org/ofbiz/product/product/ProductServices.xml" invoke="deleteProductAttribute" auth="true">
+        <description>Delete a ProductAttribute</description>
+        <permission-service service-name="productGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
