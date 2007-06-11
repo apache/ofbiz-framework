@@ -99,6 +99,9 @@ under the License.
         <attribute mode="IN" name="partyId" type="String" optional="true"/>
         <attribute mode="IN" name="unassignedRequirements" type="String" optional="true"/>
         <attribute mode="IN" name="currencyUomId" type="String" optional="true"/>
+        <attribute mode="IN" name="statusIds" type="List" optional="true">
+            <description>By default, this service looks for approved requirements.  To override this, pass in a list of requirement statusIds to search.</description>
+        </attribute>
         <attribute mode="OUT" name="requirementsForSupplier" type="java.util.List" optional="true"/>
         <attribute mode="OUT" name="distinctProductCount" type="Integer" optional="true"/>
         <attribute mode="OUT" name="quantityTotal" type="Double" optional="true"/>
