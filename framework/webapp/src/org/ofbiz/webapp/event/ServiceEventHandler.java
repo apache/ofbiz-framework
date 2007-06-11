@@ -141,12 +141,15 @@ public class ServiceEventHandler implements EventHandler {
         }
         // directory used to temporarily store files that are larger than the configured size threshold
         String tmpUploadRepository = UtilProperties.getPropertyValue("general.properties", "http.upload.tmprepository", "runtime/tmp");
-
+        String encoding = request.getCharacterEncoding();
         // check for multipart content types which may have uploaded items
         boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
         Map multiPartMap = new HashMap();
         if (isMultiPart) {
             ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, new File(tmpUploadRepository)));
+            if (encoding != null) {
+                upload.setHeaderEncoding(encoding);
+            }
             upload.setSizeMax(maxUploadSize);
 
             List uploadedItems = null;
@@ -177,7 +180,16 @@ public class ServiceEventHandler implements EventHandler {
                                 Debug.logWarning("Form field found [" + fieldName + "] which was not handled!", module);
                             }
                         } else {
-                            multiPartMap.put(fieldName, item.getString());
+                            if (encoding != null) {
+                                try {
+                                    multiPartMap.put(fieldName, item.getString(encoding));
+                                } catch (java.io.UnsupportedEncodingException uee){
+                                    Debug.logError(uee, "Unsupported Encoding, using deafault", module);
+                                    multiPartMap.put(fieldName, item.getString());
+                                }
+                            } else {
+                                multiPartMap.put(fieldName, item.getString());
+                            }
                         }
                     } else {
                         String fileName = item.getName();
