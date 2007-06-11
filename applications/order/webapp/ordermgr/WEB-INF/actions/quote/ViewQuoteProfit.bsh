@@ -19,6 +19,7 @@
 
 import java.util.Date;
 import java.sql.Timestamp;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.util.EntityUtil;
 
@@ -39,7 +40,7 @@ if (costMult != 100) {
 
 Timestamp issueDate = quote.getTimestamp("issueDate");
 if (issueDate == null) {
-    issueDate = new Timestamp((new Date()).getTime());
+    issueDate = UtilDateTime.nowTimestamp();
 }
 double totalCost = 0.0;
 double totalPrice = 0.0;
