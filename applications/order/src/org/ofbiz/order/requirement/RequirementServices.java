@@ -53,13 +53,18 @@ public class RequirementServices {
         String partyId = (String) context.get("partyId");
         String unassignedRequirements = (String) context.get("unassignedRequirements");
         String currencyUomId = (String) context.get("currencyUomId");
+        List statusIds = (List) context.get("statusIds");
         try {
             List orderBy = UtilMisc.toList("partyId", "requirementId");
             List conditions = UtilMisc.toList(
                     new EntityExpr("requirementTypeId", EntityOperator.EQUALS, "PRODUCT_REQUIREMENT"),
-                    new EntityExpr("statusId", EntityOperator.EQUALS, "REQ_APPROVED"),
                     EntityUtil.getFilterByDateExpr()
                     );
+            if (statusIds != null && statusIds.size() > 0) {
+                conditions.add( new EntityExpr("statusId", EntityOperator.IN, statusIds) );
+            } else {
+                conditions.add( new EntityExpr("statusId", EntityOperator.EQUALS, "REQ_APPROVED") );
+            }
             if (requirementConditions != null) conditions.add(requirementConditions);
 
             // we're either getting the requirements for a given supplier, unassigned requirements, or requirements for all suppliers
