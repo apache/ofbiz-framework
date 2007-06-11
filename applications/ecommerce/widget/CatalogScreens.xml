@@ -163,6 +163,7 @@ under the License.
                 <set field="MainColumnStyle" value="center"/>
 
                 <set field="titleProperty" value="PageTitleCategoryPage"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/category.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -177,9 +178,6 @@ under the License.
 
     <screen name="category-include">
         <section>
-            <actions>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/category.bsh"/>
-            </actions>
             <widgets>
                 <section>
                     <condition>

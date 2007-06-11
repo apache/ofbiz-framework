@@ -77,8 +77,7 @@ if (productId != null) {
     
     if (product != null) {
         context.put("product", product);  
-        content = context.get("page");
-        content.put("title", product.getString("productName"));
+        context.put("title", product.getString("productName"));
         context.put("metaDescription", product.getString("productName"));
         keywords = new ArrayList();
         keywords.add(product.getString("productName"));

@@ -26,6 +26,7 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.category.CategoryWorker;
+import org.ofbiz.product.category.CategoryContentWrapper;
 
 detailScreen = "categorydetail";
 catalogName = CatalogWorker.getCatalogName(request);
@@ -59,14 +60,15 @@ category = delegator.findByPrimaryKeyCache("ProductCategory", UtilMisc.toMap("pr
 if (category != null) {
     if (category.get("detailScreen") != null) 
         detailScreen = category.getString("detailScreen");
-    pageContext = context.get("page");
-    if (pageContext instanceof Map) {
-        pageContext.put("title", category.getString("description"));
+    CategoryContentWrapper categoryContentWrapper = new CategoryContentWrapper(category, request);
+    context.put("title", categoryContentWrapper.get("CATEGORY_NAME"));
+    categoryDescription = categoryContentWrapper.get("DESCRIPTION");
+    if (categoryDescription != null) {
+        context.put("metaDescription", categoryDescription);
+        context.put("metaKeywords", categoryDescription + ", " + catalogName);
     } else {
-        pageContext.setProperty("title", category.getString("description"));
+        context.put("metaKeywords", catalogName);
     }
-    context.put("metaDescription", category.getString("description"));
-    context.put("metaKeywords", category.getString("description") + ", " + catalogName);
     context.put("productCategory", category);
 }
 
