@@ -438,8 +438,8 @@ under the License.
                 <decorator-screen name="CommonProductDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                       <container>
-                          <link target="UpdateProductKeywords?UPDATE_MODE=CREATE&amp;PRODUCT_ID=${productId}&amp;productId=${productId}" text="${uiLabelMap.ProductReInduceKeywords}" style="buttontext"/>
-                          <link target="UpdateProductKeywords?UPDATE_MODE=DELETE&amp;PRODUCT_ID=${productId}&amp;productId=${productId}" text="${uiLabelMap.ProductDeleteAllKeywords}" style="buttontext"/>
+                          <link target="forceIndexProductKeywords?productId=${productId}" text="${uiLabelMap.ProductReInduceKeywords}" style="buttontext"/>
+                          <link target="deleteProductKeywords?productId=${productId}" text="${uiLabelMap.ProductDeleteAllKeywords}" style="buttontext"/>
                       </container>
                       <container>
                           <label style="head2">${uiLabelMap.ProductAddProductKeyword}</label>
@@ -713,10 +713,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/product/EditProductAttributes.ftl"/></html>
-                        </platform-specific>
-                    </decorator-section>
+                        <include-form name="UpdateProductAttribute" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <container>
+                            <label style="head2">${uiLabelMap.ProductAddProductAttributeNameValueType}</label>
+                        </container>
+                        <include-form name="AddProductAttribute" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
