@@ -324,13 +324,13 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditFacilityGroup"/>
     </request-map>
-    <request-map uri="CreateFacilityGroup">
+    <request-map uri="createFacilityGroup">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createFacilityGroup"/>
         <response name="success" type="view" value="EditFacilityGroup"/>
         <response name="error" type="view" value="EditFacilityGroup"/>
     </request-map>
-    <request-map uri="UpdateFacilityGroup">
+    <request-map uri="updateFacilityGroup">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updateFacilityGroup"/>
         <response name="success" type="view" value="EditFacilityGroup"/>
