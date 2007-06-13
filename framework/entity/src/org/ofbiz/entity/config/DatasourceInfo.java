@@ -146,7 +146,7 @@ public class DatasourceInfo {
             this.useFkInitiallyDeferred = "true".equals(datasourceElement.getAttribute("use-fk-initially-deferred"));
             // anything but false is true
             this.useIndices = !"false".equals(datasourceElement.getAttribute("use-indices"));
-            this.useIndices = !"false".equals(datasourceElement.getAttribute("use-indices-unique"));
+            this.useIndicesUnique = !"false".equals(datasourceElement.getAttribute("use-indices-unique"));
             // anything but true is false
             this.checkIndicesOnStart = "true".equals(datasourceElement.getAttribute("check-indices-on-start"));
             this.joinStyle = datasourceElement.getAttribute("join-style");
