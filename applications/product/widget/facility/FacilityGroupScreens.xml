@@ -74,15 +74,16 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditFacilityGroup"/>
                 <set field="headerItem" value="facilityGroup"/>
                 <set field="tabButtonItem" value="EditFacilityGroup"/>
-
-                <script location="component://product/webapp/facility/WEB-INF/actions/group/EditFacilityGroup.bsh"/>
+                <entity-one entity-name="FacilityGroup" value-name="facilityGroup"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityGroupDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/group/EditFacilityGroup.ftl"/></html>
-                        </platform-specific>
+                        <label style="head1">${uiLabelMap.ProductFacilityGroup}</label>
+                        <container>
+                            <link target="EditFacilityGroup" text="${uiLabelMap.CommonNew}" style="buttontext"/>
+                        </container>
+                        <include-form name="EditFacilityGroup" location="component://product/webapp/facility/group/FacilityGroupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
