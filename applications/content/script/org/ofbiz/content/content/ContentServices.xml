@@ -1162,7 +1162,41 @@
                 <set field="contentViewList[]" from-field="view"/>
             </if-compare>
         </iterate>
+        <field-to-result field-name="contentViewList" result-name="subContentList"/>
         
         
+    </simple-method>
+    
+    <simple-method method-name="getSubSubContentWithPermCheck" short-description="Get sub content and perform permission check on each record">
+    
+        <set-service-fields service-name="getSubContentWithPermCheck" map-name="parameters" to-map-name="inMap"/>
+        <call-service service-name="getSubContentWithPermCheck" in-map-name="inMap">
+            <result-to-field result-name="subContentList"/>
+        </call-service>        
+        
+        <iterate entry-name="view" list-name="subContentList">
+	        <entity-condition list-name="viewList" entity-name="ContentAssocViewTo" filter-by-date="true" use-cache="${useCache}">
+	          <condition-list combine="and">
+	              <condition-expr field-name="contentIdStart" env-name="view.caContentIdTo"/>
+	              <condition-expr field-name="caContentAssocTypeId" env-name="parameters.subContentAssocTypeId" ignore-if-empty="true"/>
+	              <condition-expr field-name="caMapKey" env-name="parameters.subMapKey" ignore-if-empty="true"/>
+	          </condition-list>
+	        </entity-condition>
+	        <clear-field field-name="view2"/>
+	        <first-from-list entry-name="view2" list-name="viewList"/>
+	        <clear-field field-name="map"/>
+	        <set field="map.contentIdFrom" from-field="view.contentId"/>
+	        <set field="map.dataResourceIdFrom" from-field="view.dataResourceId"/>
+	        <set field="map.contentId" from-field="view2.contentId"/>
+	        <set field="map.contentName" from-field="view2.contentName"/>
+	        <set field="map.description" from-field="view2.description"/>
+	        <entity-one entity-name="ElectronicText" value-name="electronicText">
+	            <field-map field-name="dataResourceId" env-name="view2.dataResourceId"/>
+	        </entity-one>
+	        <set field="map.textData" from-field="electronicText.textData"/>
+            <set field="contentViewList[]" from-field="map"/>
+        </iterate>
+        <field-to-result field-name="subContentList" result-name="subContentList"/>
+        <field-to-result field-name="contentViewList" result-name="subSubContentList"/>
     </simple-method>
 </simple-methods>
