@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<project name="OFBiz - Oagis" default="jar" basedir=".">
+
+    <!-- ================================================================== -->
+    <!-- Initialization of all property settings                            -->
+    <!-- ================================================================== -->
+
+    <target name="init">
+        <property environment="env"/>
+        <property name="desc" value="Oagis Implementation Component"/>
+        <property name="name" value="ofbiz-oagis"/>
+        <property name="ofbiz.home.dir" value="../.."/>
+        <property name="src.dir" value="src"/>
+        <property name="build.dir" value="build"/>
+    </target>
+
+    <target name="classpath">
+        <path id="local.class.path">
+            <fileset dir="../../framework/base/lib" includes="*.jar"/>
+            <fileset dir="../../framework/base/lib/commons" includes="*.jar"/>
+            <fileset dir="../../framework/base/lib/j2eespecs" includes="*.jar"/>
+            <fileset dir="../../framework/base/lib/scripting" includes="*.jar"/>
+            <fileset dir="../../framework/base/build/lib" includes="*.jar"/>
+            <fileset dir="../../framework/entity/lib" includes="*.jar"/>
+            <fileset dir="../../framework/entity/build/lib" includes="*.jar"/>
+            <fileset dir="../../framework/security/build/lib" includes="*.jar"/>
+            <fileset dir="../../framework/service/lib" includes="*.jar"/>
+            <fileset dir="../../framework/service/build/lib" includes="*.jar"/>
+            <fileset dir="../../framework/entityext/build/lib" includes="*.jar"/>
+            <fileset dir="../../framework/guiapp/lib" includes="*.jar"/>
+            <fileset dir="../../framework/guiapp/build/lib" includes="*.jar"/>
+            <fileset dir="../../framework/webapp/build/lib" includes="*.jar"/>
+            <fileset dir="../../applications/party/build/lib" includes="*.jar"/>
+            <fileset dir="../../applications/product/build/lib" includes="*.jar"/>
+        </path>
+    </target>
+
+    <!-- ================================================================== -->
+    <!-- Removes all created files and directories                          -->
+    <!-- ================================================================== -->
+
+    <target name="clean" depends="clean-lib">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="clean-lib" depends="init">
+        <delete dir="${build.dir}/lib"/>
+    </target>
+
+    <!-- ================================================================== -->
+    <!-- Makes sure the needed directory structure is in place              -->
+    <!-- ================================================================== -->
+
+    <target name="prepare" depends="clean-lib">
+        <mkdir dir="${build.dir}/classes"/>
+        <mkdir dir="${build.dir}/lib"/>
+    </target>
+
+    <target name="prepare-docs" depends="init">
+        <mkdir dir="${build.dir}/javadocs"/>
+    </target>
+
+    <!-- ================================================================== -->
+    <!-- Compilation of the source files                                                                                                                         -->
+    <!-- ================================================================== -->
+
+    <target name="classes" depends="prepare,classpath">
+    	<javac debug="on" source="1.4" deprecation="on" destdir="${build.dir}/classes">
+            <classpath>
+                <path refid="local.class.path"/>
+            </classpath>
+            <src path="${src.dir}"/>
+        </javac>
+        <copy todir="${build.dir}/classes">
+            <fileset dir="${src.dir}" includes="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
+        </copy>
+        
+        <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
+        <copy todir="${build.dir}/classes/META-INF">
+            <fileset dir="${ofbiz.home.dir}" includes="NOTICE,LICENSE"/>
+        </copy>        
+    </target>
+
+    <target name="jar" depends="classes">
+        <jar jarfile="${build.dir}/lib/${name}.jar" basedir="${build.dir}/classes"/>
+    </target>
+
+    <!-- ================================================================== -->
+    <!-- Build JavaDoc                                                      -->
+    <!-- ================================================================== -->
+
+    <target name="docs" depends="prepare-docs,classpath">
+        <javadoc packagenames="org.ofbiz.pos.*"
+                 classpathref="local.class.path"
+                 destdir="${build.dir}/javadocs"
+                 Windowtitle="Open for Business - ${desc}">
+            <sourcepath path="${src.dir}"/>
+        </javadoc>
+    </target>
+
+    <target name="all" depends="jar,docs"/>
+</project>
