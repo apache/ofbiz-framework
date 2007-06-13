@@ -106,10 +106,22 @@ under the License.
     </eca>
 
     <!-- order grand total -->
+    <!--
+    TODO: jacopoc: this is disabled for now, because it was causing problems during
+          order checkout under some special circumstances.
+          Now the processOrderPayments service is triggered only when updateOrderItems
+          and appendOrderItem are run (as it was before rev. 540479); this is a temp fix.
     <eca service="resetGrandTotal" event="return">
         <action service="processOrderPayments" mode="sync"/>
     </eca>
-    
+    -->
+    <eca service="updateOrderItems" event="return">
+        <action service="processOrderPayments" mode="sync"/>
+    </eca>
+    <eca service="appendOrderItem" event="return">
+        <action service="processOrderPayments" mode="sync"/>
+    </eca>
+
     <!-- order confirmation/notification email ECAs -->
     <eca service="sendOrderConfirmation" event="commit">
         <action service="createOrderNotificationLog" mode="sync"/>
