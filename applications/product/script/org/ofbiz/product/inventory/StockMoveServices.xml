@@ -507,7 +507,7 @@ under the License.
                     </if-compare-field>
                     
                     <!-- now make sure that the currentQuantityToMove we decided on is not greater than remainingQuantityOnHand... -->
-                    <if-compare-field field-name="currentQuantityToMove" operator="greater" to-field-name="remainingQuantityOnHand">
+                    <if-compare-field field-name="currentQuantityToMove" operator="greater" to-field-name="remainingQuantityOnHand" type="Double">
                         <set from-field="remainingQuantityOnHand" field="currentQuantityToMove"/>
                     </if-compare-field>
                     
