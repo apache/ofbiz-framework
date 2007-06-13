@@ -467,6 +467,8 @@ under the License.
       <alias-all entity-alias="CO"/>
       <alias-all entity-alias="CA" prefix="ca"/>
       <alias entity-alias="CA" name="contentIdStart" field="contentIdTo"/>
+      <alias entity-alias="CA" name="fromDate" field="fromDate"/>
+      <alias entity-alias="CA" name="thruDate" field="thruDate"/>
       <view-link entity-alias="CA" rel-entity-alias="CO">
         <key-map field-name="contentId"/>
       </view-link>
@@ -479,6 +481,8 @@ under the License.
       <alias-all entity-alias="CO"/>
       <alias-all entity-alias="CA" prefix="ca"/>
       <alias entity-alias="CA" name="contentIdStart" field="contentId"/>
+      <alias entity-alias="CA" name="fromDate" field="fromDate"/>
+      <alias entity-alias="CA" name="thruDate" field="thruDate"/>
       <view-link entity-alias="CA" rel-entity-alias="CO">
         <key-map field-name="contentIdTo" rel-field-name="contentId"/>
       </view-link>
