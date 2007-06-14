@@ -34,9 +34,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.ModelService;
-import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.service.*;
 
 /**
  * Services for Payment maintenance
@@ -403,6 +401,47 @@ public class PaymentMethodServices {
 
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
+    }
+
+    public static Map clearCreditCardData(DispatchContext dctx, Map context) {
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String paymentMethodId = (String) context.get("paymentMethodId");
+
+        // get the cc object
+        GenericDelegator delegator = dctx.getDelegator();
+        GenericValue creditCard;
+        try {
+            creditCard = delegator.findByPrimaryKey("CreditCard", UtilMisc.toMap("paymentMethodId", paymentMethodId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        // clear the info and store it
+        creditCard.set("cardNumber", "0000000000000000"); // set so it doesn't blow up in UIs
+        creditCard.set("expireDate", "01/1970"); // same here
+        try {
+            delegator.store(creditCard);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        // expire the payment method
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Map expireCtx = UtilMisc.toMap("userLogin", userLogin, "paymentMethodId", paymentMethodId);
+        Map expireResp;
+        try {
+            expireResp = dispatcher.runSync("deletePaymentMethod", expireCtx);
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        if (ServiceUtil.isError(expireResp)) {
+            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(expireResp));
+        }
+
+        return ServiceUtil.returnSuccess();
     }
 
     public static Map createGiftCard(DispatchContext ctx, Map context) {
