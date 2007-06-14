@@ -31,7 +31,7 @@ under the License.
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="resp" type="String" mode="OUT"/>
     </service>
-    <service name="blockingTestScv" engine="java" export="true" validate="false" require-new-transaction="true"
+    <service name="blockingTestScv" engine="java" export="true" validate="false" require-new-transaction="true" transaction-timeout="20"
             location="org.ofbiz.common.CommonServices" invoke="blockingTestService">
         <description>Blocking Test service</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
