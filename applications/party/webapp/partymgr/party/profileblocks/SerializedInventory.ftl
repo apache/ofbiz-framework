@@ -52,7 +52,7 @@ under the License.
                         <td>${inventoryItem.serialNumber?if_exists}</td>
                         <td>
                           ${inventoryItem.softIdentifier?if_exists}
-                          <#if (inventoryItem.softIdentifier?matches("\\d+"))>                           
+                          <#if (inventoryItem.softIdentifier?has_content && inventoryItem.softIdentifier?matches("\\d+"))>                           
                             <#assign sid = Static["java.lang.Long"].decode(inventoryItem.softIdentifier)/>
                             (0x${Static["java.lang.Long"].toHexString(sid)})                           
                           </#if>
