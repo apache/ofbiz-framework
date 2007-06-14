@@ -23,8 +23,8 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.webapp.xmlrpc.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
-import org.apache.xmlrpc.client.XmlRpcClient;
 
 import java.util.Map;
 import java.net.URL;
@@ -57,11 +57,11 @@ public class XmlRpcTests extends TestCase {
         config.setBasicUserName("admin");
         config.setBasicPassword("ofbiz");
 
-        XmlRpcClient client = new XmlRpcClient();
+        XmlRpcClient client = new XmlRpcClient(config);
         client.setConfig(config);
 
-        Object[] params = new Object[] { new Double(55.00), "message from xml-rpc client" };
+        Object[] params = new Object[] { 55.00, "message from xml-rpc client" };
         Map result = (Map) client.execute("testScv", params);
-        assertEquals("XML-RPC Service result success", ModelService.RESPOND_SUCCESS, result.get(ModelService.RESPONSE_MESSAGE));        
+        assertEquals("XML-RPC Service result success", "service done", result.get("resp"));        
     }
 }
