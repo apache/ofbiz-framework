@@ -44,7 +44,7 @@ public class AliasSupportedTransportFactory extends XmlRpcTransportFactoryImpl {
 
     private final AliasSupportedTransport transport;
 
-    public AliasSupportedTransportFactory(XmlRpcClient client, KeyStore ks, String password, String alias) {
+    public AliasSupportedTransportFactory(org.apache.xmlrpc.client.XmlRpcClient client, KeyStore ks, String password, String alias) {
         super(client);
         transport = new AliasSupportedTransport(client, ks, password, alias);
     }
@@ -61,7 +61,7 @@ public class AliasSupportedTransportFactory extends XmlRpcTransportFactoryImpl {
         private String alias;
         private KeyStore ks;
 
-        protected AliasSupportedTransport(XmlRpcClient client, KeyStore ks, String password, String alias) {
+        protected AliasSupportedTransport(org.apache.xmlrpc.client.XmlRpcClient client, KeyStore ks, String password, String alias) {
             super(client, userAgent);
             this.password = password;
             this.alias = alias;
