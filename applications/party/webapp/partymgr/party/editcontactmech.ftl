@@ -182,6 +182,13 @@ under the License.
         </select>
       </td>
     </tr>
+    <#assign isUsps = Static["org.ofbiz.party.contact.ContactMechWorker"].isUspsAddress(mechMap.postalAddress)>
+    <tr>
+      <td class="label">${uiLabelMap.PartyIsUsps}</td>
+      <td><#if isUsps>${uiLabelMap.CommonY}<#else>${uiLabelMap.CommonN}</#if>
+      </td>
+    </tr>
+    
   <#elseif "TELECOM_NUMBER" = mechMap.contactMechTypeId?if_exists>
     <tr>
       <td class="label">${uiLabelMap.PartyPhoneNumber}</td>
