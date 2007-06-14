@@ -323,6 +323,11 @@ public class FinAccountServices {
         }
 
         if (finAccount != null) {
+            // check to make sure the account is refundable
+            if (!"Y".equals(finAccount.getString("isRefundable"))) {
+                return ServiceUtil.returnError("Account is not refunable");    
+            }
+
             // get the actual and available balance
             BigDecimal availableBalance = finAccount.getBigDecimal("availableBalance");
             BigDecimal actualBalance = finAccount.getBigDecimal("actualBalance");

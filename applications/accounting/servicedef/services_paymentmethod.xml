@@ -77,6 +77,11 @@ under the License.
         <attribute name="paymentMethodId" type="String" mode="OUT" optional="false"/> <!-- This is the id of the new cc -->
         <attribute name="oldPaymentMethodId" type="String" mode="OUT" optional="false"/> <!-- This is the id of the old cc -->
     </service>
+    <service name="clearCreditCardDataAndExpire" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="clearCreditCardData" auth="true">
+        <description>Clears the credit card number out of the value object and expires the payment method</description>
+        <attribute name="paymentMethodId" type="String" mode="IN" optional="false"/>
+    </service>
     <service name="buildCcExpireDate" engine="java"
                 location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="makeExpireDate">
         <description>Makes a Expire Date</description>
