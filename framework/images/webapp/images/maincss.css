@@ -572,7 +572,7 @@ margin: 0.5em 0 0.5em 0;
 }
 
 .eventMessage, .errorMessage {
-background-color: #FFFFFF;
+background-color: #FFFFEE;
 border: solid #000000 0.1em;
 font-size: 1.1em;
 font-weight: bold;
