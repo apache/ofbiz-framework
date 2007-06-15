@@ -19,49 +19,26 @@
 
 package org.ofbiz.webapp.test;
 
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.service.GenericDispatcher;
-import org.ofbiz.service.ModelService;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.webapp.xmlrpc.XmlRpcClient;
-import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+import org.apache.xmlrpc.client.XmlRpcClient;
 
 import java.util.Map;
-import java.net.URL;
-
-import junit.framework.TestCase;
 
 /**
  * XmlRpcTests
  */
-public class XmlRpcTests extends TestCase {
+public class XmlRpcTests extends AbstractXmlRpcTestCase {
 
     public static final String module = XmlRpcTests.class.getName();
-    protected LocalDispatcher dispatcher = null;
+    public static final String url = "http://localhost:8080/webtools/control/xmlrpc";
 
     public XmlRpcTests(String name) {
         super(name);
     }
 
-    protected void setUp() throws Exception {
-        GenericDelegator delegator = GenericDelegator.getGenericDelegator("test");
-        dispatcher = GenericDispatcher.getLocalDispatcher("test-dispatcher", delegator);
-    }
-
-    protected void tearDown() throws Exception {
-    }
-
     public void testXmlRpcRequest() throws Exception {
-        XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
-        config.setServerURL(new URL("http://localhost:8080/webtools/control/xmlrpc"));
-        config.setBasicUserName("admin");
-        config.setBasicPassword("ofbiz");
-
-        XmlRpcClient client = new XmlRpcClient(config);
-        client.setConfig(config);
-
+        XmlRpcClient client = this.getRpcClient(url, "admin", "ofbiz");
         Object[] params = new Object[] { 55.00, "message from xml-rpc client" };
-        Map result = (Map) client.execute("testScv", params);
-        assertEquals("XML-RPC Service result success", "service done", result.get("resp"));        
+        Map result = (Map) client.execute("testScv", params);        
+        assertEquals("XML-RPC Service result success", "service done", result.get("resp"));
     }
 }
