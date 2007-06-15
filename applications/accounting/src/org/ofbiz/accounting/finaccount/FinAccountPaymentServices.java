@@ -842,6 +842,15 @@ public class FinAccountPaymentServices {
             return orh.getProductStoreId();
         }
 
+        // none found; pick one from our set stores
+        try {
+            GenericValue store = EntityUtil.getFirst(delegator.findAll("ProductStore", UtilMisc.toList("productStoreId")));
+            if (store != null)
+                return store.getString("productStoreId");
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        
         return null;
     }
     
