@@ -26,6 +26,11 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.util.EntityFindOptions;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.*;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.finaccount.FinAccountHelper;
@@ -33,10 +38,12 @@ import org.ofbiz.accounting.payment.PaymentGatewayServices;
 import org.ofbiz.product.store.ProductStoreWorker;
 
 import java.util.Map;
+import java.util.List;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import javolution.util.FastMap;
+import javolution.util.FastList;
 
 /**
  * FinAccountPaymentServices - Financial account used as payment method
@@ -672,6 +679,14 @@ public class FinAccountPaymentServices {
             return ServiceUtil.returnSuccess();
         }
 
+        // attempt to lookup the product store from a previous deposit
+        if (productStoreId == null) {
+            productStoreId = getLastProductStoreId(delegator, finAccountId);
+            if (productStoreId == null) {
+                return ServiceUtil.returnError("Cannot locate product store from previous deposits; product store cannot be empty");
+            }
+        }
+
         // get the product store settings
         GenericValue finAccountSettings;
         try {
@@ -800,6 +815,34 @@ public class FinAccountPaymentServices {
         }
         
         return ServiceUtil.returnSuccess();
+    }
+
+    private static String getLastProductStoreId(GenericDelegator delegator, String finAccountId) {
+        EntityFindOptions opts = new EntityFindOptions();
+        opts.setMaxRows(1);
+        opts.setFetchSize(1);
+
+        List exprs = FastList.newInstance();
+        exprs.add(new EntityExpr("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT"));
+        exprs.add(new EntityExpr("finAccountId", EntityOperator.EQUALS, finAccountId));
+        exprs.add(new EntityExpr("orderId", EntityOperator.NOT_EQUAL, null));
+        List orderBy = UtilMisc.toList("-transactionDate");
+
+        List transList = null;
+        try {
+            transList = delegator.findByCondition("FinAccountTrans", new EntityConditionList(exprs, EntityOperator.AND), null, null, orderBy, opts);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+
+        GenericValue trans = EntityUtil.getFirst(transList);
+        if (trans != null) {
+            String orderId = trans.getString("orderId");
+            OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
+            return orh.getProductStoreId();
+        }
+
+        return null;
     }
     
     private static String createFinAcctPaymentTransaction(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, Double amount,
