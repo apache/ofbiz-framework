@@ -41,6 +41,7 @@ under the License.
 
         <!-- check the product; make sure its a physical item -->
         <entity-one entity-name="Product" value-name="product"/>
+        <entity-one entity-name="Facility" value-name="facility" use-cache="true"/>
         <get-related-one value-name="product" relation-name="ProductType" to-value-name="productType"/>
         <if-compare field-name="productType.isPhysical" operator="equals" value="N">
             <set field="parameters.quantityNotReserved" value="0" type="Double"/>
@@ -139,9 +140,16 @@ under the License.
 
                             <!-- get the promiseDatetime -->
                             <get-related-one value-name="lastNonSerInventoryItem" relation-name="ProductFacility" to-value-name="productFacility"/>
+                            <clear-field field-name="daysToShip"/>
                             <set field="daysToShip" from-field="productFacility.daysToShip"/>
                             <if-empty field-name="daysToShip">
-                                <set field="daysToShip" value="30" type="Long"/>
+                                <!-- if the product does not have its own days to ship, use Facility.defaultDaysToShip, if not then use 30 days as a USA industry default -->
+                                <if-not-empty field-name="facility.defaultDaysToShip">
+                                        <set field="daysToShip" from-field="facility.defaultDaysToShip" type="Long"/>
+                                    <else>
+                                        <set field="daysToShip" value="30" type="Long"/>
+                                    </else>
+                                </if-not-empty>
                             </if-empty>
                             <call-bsh><![CDATA[
                             java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate");
@@ -197,9 +205,16 @@ under the License.
 
                             <!-- get the promiseDatetime -->
                             <get-related-one value-name="newNonSerInventoryItem" relation-name="ProductFacility" to-value-name="productFacility"/>
+                            <clear-field field-name="daysToShip"/>
                             <set field="daysToShip" from-field="productFacility.daysToShip"/>
-                            <if-empty field-name="daysToShip">
-                                <set field="daysToShip" value="30" type="Long"/>
+                             <if-empty field-name="daysToShip">
+                                 <!-- if the product does not have its own days to ship, use Facility.defaultDaysToShip, if not then use 30 days as a USA industry default -->
+                                <if-not-empty field-name="facility.defaultDaysToShip">
+                                        <set field="daysToShip" from-field="facility.defaultDaysToShip" type="Long"/>
+                                    <else>
+                                        <set field="daysToShip" value="30" type="Long"/>
+                                    </else>
+                                </if-not-empty>
                             </if-empty>
                             <call-bsh><![CDATA[
                             java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate");
@@ -218,7 +233,7 @@ under the License.
                             <set from-field="parameters.quantityNotReserved" field="reserveOisgirMap.quantity"/>
                             <set from-field="parameters.quantityNotReserved" field="reserveOisgirMap.quantityNotAvailable"/>
                             <set from-field="parameters.reservedDatetime" field="reserveOisgirMap.reservedDatetime"/>
-                            <set from-field="parameters.promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
+                            <set from-field="promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
                             <set from-field="parameters.sequenceId" field="reserveOisgirMap.sequenceId"/>
                             <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
                             <clear-field field-name="reserveOisgirMap"/>
@@ -242,7 +257,13 @@ under the License.
             <get-related-one value-name="inventoryItem" relation-name="ProductFacility" to-value-name="productFacility"/>
             <set field="daysToShip" from-field="productFacility.daysToShip"/>
             <if-empty field-name="daysToShip">
-                <set field="daysToShip" value="30" type="Long"/>
+                <!-- if the product does not have its own days to ship, use Facility.defaultDaysToShip, if not then use 30 days as a USA industry default -->
+                <if-not-empty field-name="facility.defaultDaysToShip">
+                    <set field="daysToShip" from-field="facility.defaultDaysToShip" type="Long"/>
+                    <else>
+                        <set field="daysToShip" value="30" type="Long"/>
+                    </else>
+                </if-not-empty>
             </if-empty>
             <call-bsh><![CDATA[
             java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate");

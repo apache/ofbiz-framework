@@ -116,6 +116,11 @@ under the License.
     <td>&nbsp;</td>
     <td width="74%"><input type="text" class="inputBox" name="description" value="${facility.description?if_exists}" size="60" maxlength="250"></td>
   </tr>
+  <tr>
+    <td width="26%" align="right"><div class="tabletext">${uiLabelMap.ProductDefaultDaysToShip}</div></td>
+    <td>&nbsp;</td>
+    <td width="74%"><input type="text" class="inputBox" name="defaultDaysToShip" value="${facility.defaultDaysToShip?if_exists}" size="10" maxlength="20"></td>
+  </tr>
 
   <tr>
     <td colspan='2'>&nbsp;</td>
