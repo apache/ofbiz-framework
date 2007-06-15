@@ -99,9 +99,7 @@ under the License.
         <attribute mode="IN" name="partyId" type="String" optional="true"/>
         <attribute mode="IN" name="unassignedRequirements" type="String" optional="true"/>
         <attribute mode="IN" name="currencyUomId" type="String" optional="true"/>
-        <attribute mode="IN" name="statusIds" type="List" optional="true">
-            <description>By default, this service looks for approved requirements.  To override this, pass in a list of requirement statusIds to search.</description>
-        </attribute>
+        <attribute mode="IN" name="statusIds" type="List" optional="true"/> <!-- By default, this service looks for approved requirements.  To override this, pass in a list of requirement statusIds to search. -->
         <attribute mode="OUT" name="requirementsForSupplier" type="java.util.List" optional="true"/>
         <attribute mode="OUT" name="distinctProductCount" type="Integer" optional="true"/>
         <attribute mode="OUT" name="quantityTotal" type="Double" optional="true"/>
@@ -152,10 +150,12 @@ under the License.
         <attribute name="quantity" type="Double" mode="IN" optional="true"/>
         <attribute name="requirementId" type="String" mode="OUT" optional="true"/>
     </service>
+
     <service name="checkCreateProductRequirementForFacility" engine="simple" auth="true"
             location="org/ofbiz/order/order/OrderServices.xml" invoke="checkCreateProductRequirementForFacility">
         <description>Create Requirements for all the products in a facility with QOH under the minimum stock level</description>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="defaultRequirementMethodId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="approveRequirement" engine="java"

@@ -164,7 +164,9 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getProductRequirementMethod" short-description="finds the requirement method for the product">
-        <entity-one entity-name="OrderHeader" auto-field-map="true" value-name="order"/>
+        <if-not-empty field-name="parameters.orderId">
+            <entity-one entity-name="OrderHeader" auto-field-map="true" value-name="order"/>
+        </if-not-empty>
         <entity-one entity-name="Product" auto-field-map="true" value-name="product"/>
         <set from-field="product.requirementMethodEnumId" field="requirementMethodId"/>
         <if-empty field-name="requirementMethodId">
@@ -174,6 +176,7 @@ under the License.
                         <if-compare field-name="product.productTypeId" operator="not-equals" value="MARKETING_PKG_AUTO"/>
                         <if-compare field-name="product.productTypeId" operator="not-equals" value="MARKETING_PKG_PICK"/>
                         <if-compare field-name="product.productTypeId" operator="not-equals" value="DIGITAL_GOOD"/>
+                        <not><if-empty field-name="order"/></not>
                     </and>
                 </condition>
                 <then>
@@ -356,7 +359,11 @@ under the License.
 
         <iterate list-name="products" entry-name="productFacility">
             <set from-field="productFacility.productId" field="parameters.productId"/>
+            <clear-field field-name="requirementMethodId"/>
             <call-simple-method method-name="getProductRequirementMethod"/>
+            <if-empty field-name="requirementMethodId">
+                <set field="requirementMethodId" from-field="parameters.defaultRequirementMethodId"/>
+            </if-empty>
             <if>
                 <condition>
                     <or>
@@ -365,6 +372,7 @@ under the License.
                     </or>
                 </condition>
                 <then>
+
                     <!-- get QOH, ATP and find ProductFacility which has the minimum stock -->
 
                     <if-not-empty field-name="productFacility.minimumStock">
@@ -798,6 +806,6 @@ under the License.
         </call-service>   
         <field-to-result field-name="parameters.orderPaymentPreferenceId" result-name="orderPaymentPreferenceId"/>
     </simple-method>
-    
+
 </simple-methods>
 
