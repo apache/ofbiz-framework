@@ -108,7 +108,21 @@ under the License.
     <eca service="finAccountWithdraw" event="return" run-on-error="true">
         <condition field-name="productStoreId" operator="is-not-empty"/>
         <action service="finAccountReplenish" mode="async" run-as-user="system"/>
-    </eca>    
+    </eca>
+
+    <!-- attempt replenish when payment method is updated -->
+    <eca service="updateFinAccount" event="commit" run-on-error="false">
+        <condition-field field-name="oldReplenishPaymentId" operator="not-equals" to-field-name="replenishPaymentId"/>
+        <condition field-name="replenishLevel" operator="is-not-empty"/>
+        <action service="finAccountReplenish" mode="sync" run-as-user="system"/>
+    </eca>
+
+    <!-- attempt replenish when replenish level is updated -->
+    <eca service="updateFinAccount" event="commit" run-on-error="false">
+        <condition-field field-name="oldReplenishLevel" operator="not-equals" to-field-name="replenishLevel"/>
+        <condition field-name="replenishPaymentId" operator="is-not-empty"/>
+        <action service="finAccountReplenish" mode="sync" run-as-user="system"/>
+    </eca>
      
     <!--
     <eca service="createFinAccountTrans" event="commit">

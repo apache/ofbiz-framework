@@ -42,6 +42,10 @@ under the License.
             <exclude field-name="actualBalance"/>
             <exclude field-name="availableBalance"/>
         </auto-attributes>
+        <attribute name="oldReplenishPaymentId" type="String" mode="OUT" optional="true"/>
+        <attribute name="oldReplenishLevel" type="Double" mode="OUT" optional="true"/>
+        <attribute name="replenishPaymentId" type="String" mode="OUT" optional="true"/>
+        <attribute name="replenishLevel" type="Double" mode="OUT" optional="true"/>
     </service>
     <service name="deleteFinAccount" engine="simple" default-entity-name="FinAccount"
             location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="deleteFinAccount">
@@ -156,11 +160,11 @@ under the License.
         <description>Refunds the deposits to a financial account back to the source</description>
         <attribute name="finAccountId" type="String" mode="IN" optional="false"/> 
     </service>
-    <service name="finAccountReplenish" engine="java"
+    <service name="finAccountReplenish" engine="java" max-retry="3"
             location="org.ofbiz.accounting.finaccount.FinAccountPaymentServices" invoke="finAccountReplenish" auth="true">
         <description>Auto-replenish a financial account</description>
         <attribute name="finAccountId" type="String" mode="IN" optional="false"/>
-        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="checkFinAccountBalance" engine="java"
             location="org.ofbiz.accounting.finaccount.FinAccountServices" invoke="checkFinAccountBalance" auth="true">

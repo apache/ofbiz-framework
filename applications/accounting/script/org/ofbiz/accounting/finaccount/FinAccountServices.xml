@@ -64,9 +64,14 @@ under the License.
     </simple-method>
     <simple-method method-name="updateFinAccount" short-description="Update a Financial Account">
         <entity-one entity-name="FinAccount" value-name="lookedUpValue"/>
+        <field-to-result field-name="lookedUpValue.replenishPaymentId" result-name="oldReplenishPaymentId"/>
+        <field-to-result field-name="lookedUpValue.replenishLevel" result-name="oldReplenishLevel"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
-        <field-to-result field-name="lookedUpValue.finAccountId" result-name="finAccountId"/>
+        
+        <field-to-result field-name="lookedUpValue.replenishPaymentId" result-name="replenishPaymentId"/>
+        <field-to-result field-name="lookedUpValue.replenishLevel" result-name="replenishLevel"/>
+        <field-to-result field-name="lookedUpValue.finAccountId" result-name="finAccountId"/>        
     </simple-method>
     <simple-method method-name="deleteFinAccount" short-description="Delete a Financial Account">
         <entity-one value-name="finAccount" entity-name="FinAccount"/>
