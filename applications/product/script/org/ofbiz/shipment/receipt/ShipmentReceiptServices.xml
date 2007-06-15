@@ -176,7 +176,8 @@ under the License.
                     <call-service service-name="createShipmentItem" in-map-name="shipItemCtx">
                         <result-to-field result-name="shipmentItemSeqId"/>
                     </call-service>
-                    
+                </iterate>
+                <iterate entry-name="returnItem" list-name="returnItems">                    
                     <if-empty field-name="expectedItemStatus" map-name="returnItem">
                         <set value="INV_RETURNED" field="returnItem.expectedItemStatus" type="String"/>
                     </if-empty>
