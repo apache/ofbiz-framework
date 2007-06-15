@@ -135,18 +135,43 @@ public class FinAccountPaymentServices {
                     }
                 }
             }
-           
+
+            // check for expiration date
+            if ((finAccount.getTimestamp("thruDate") != null) && (finAccount.getTimestamp("thruDate").before(UtilDateTime.nowTimestamp()))) {
+                Map result = ServiceUtil.returnSuccess();
+                result.put("authMessage", "Account has expired as of " + finAccount.getTimestamp("thruDate"));
+                result.put("authResult", Boolean.FALSE);
+                result.put("processAmount", amount);
+                result.put("authFlag", "0");
+                result.put("authCode", "A");
+                result.put("authRefNum", "0");
+                Debug.logError("Unable to auth FinAccount: " + result, module);
+                return result;
+            }
+
+            // check for account being in bad standing
+            String inGoodStanding = finAccount.getString("inGoodStanding");
+            if (inGoodStanding != null && "N".equals(inGoodStanding)) {
+                // refresh the finaccount
+                finAccount.refresh();
+                inGoodStanding = finAccount.getString("inGoodStanding");
+
+                if (inGoodStanding != null && "N".equals(inGoodStanding)) {
+                    Map result = ServiceUtil.returnSuccess();
+                    result.put("authMessage", "Account is currently in bad standing");
+                    result.put("authResult", Boolean.FALSE);
+                    result.put("processAmount", amount);
+                    result.put("authFlag", "0");
+                    result.put("authCode", "A");
+                    result.put("authRefNum", "0");
+                    Debug.logError("Unable to auth FinAccount: " + result, module);
+                    return result;
+                }
+            }
+
             // check for account being frozen
             String isFrozen = finAccount.getString("isFrozen");
             if (isFrozen != null && "Y".equals(isFrozen)) {
-                // try to call replenish
-                try {
-                    dispatcher.runSync("finAccountReplenish", UtilMisc.toMap("finAccountId",
-                            finAccountId, "productStoreId", productStoreId, "userLogin", userLogin));
-                } catch (GenericServiceException e) {
-                    Debug.logWarning(e.getMessage(), module);
-                }
-
                 // refresh the finaccount
                 finAccount.refresh();
                 isFrozen = finAccount.getString("isFrozen");
@@ -164,19 +189,6 @@ public class FinAccountPaymentServices {
                 }
             }
 
-            // check for expiration date
-            if ((finAccount.getTimestamp("thruDate") != null) && (finAccount.getTimestamp("thruDate").before(UtilDateTime.nowTimestamp()))) {
-                Map result = ServiceUtil.returnSuccess();
-                result.put("authMessage", "Account has expired as of " + finAccount.getTimestamp("thruDate"));
-                result.put("authResult", Boolean.FALSE);
-                result.put("processAmount", amount);
-                result.put("authFlag", "0");
-                result.put("authCode", "A");
-                result.put("authRefNum", "0");
-                Debug.logError("Unable to auth FinAccount: " + result, module);
-                return result;
-            }
-
             // check the amount to authorize against the available balance of fin account, which includes active authorizations as well as transactions
             BigDecimal availableBalance = finAccount.getBigDecimal("availableBalance");
             if (availableBalance == null) {
@@ -189,7 +201,7 @@ public class FinAccountPaymentServices {
             String refNum;
 
             // turn amount into a big decimal, making sure to round and scale it to the same as availableBalance
-            BigDecimal amountBd = (new BigDecimal(amount.doubleValue())).setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
+            BigDecimal amountBd = (new BigDecimal(amount)).setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
 
             Debug.log("Allow auth to negative: " + allowAuthToNegative + " :: available: " + availableBalance + " comp: " + FinAccountHelper.ZERO + " = " + availableBalance.compareTo(FinAccountHelper.ZERO) + " :: req: " + amountBd, module);
             // check the available balance to see if we can auth this tx
@@ -212,7 +224,7 @@ public class FinAccountPaymentServices {
                     refNum = (String) tmpResult.get("finAccountAuthId");
                     processResult = Boolean.TRUE;
                 }
-
+                                
                 // refresh the account
                 finAccount.refresh();
             } else {
@@ -486,7 +498,7 @@ public class FinAccountPaymentServices {
         }
 
         // validate the amount
-        if (amount.doubleValue() < 0.00) {
+        if (amount < 0.00) {
             return ServiceUtil.returnError("Amount should be a positive number.");
         }
 
@@ -517,7 +529,7 @@ public class FinAccountPaymentServices {
         BigDecimal balance;
         String refNum;
         Boolean procResult;
-        if (requireBalance.booleanValue() && previousBalance.doubleValue() < amount.doubleValue()) {
+        if (requireBalance && previousBalance.doubleValue() < amount) {
             procResult = Boolean.FALSE;
             balance = previousBalance;
             refNum = "N/A";
@@ -540,8 +552,8 @@ public class FinAccountPaymentServices {
         }
 
         Map result = ServiceUtil.returnSuccess();
-        result.put("previousBalance", new Double(previousBalance.doubleValue()));
-        result.put("balance", new Double(balance.doubleValue()));
+        result.put("previousBalance", previousBalance.doubleValue());
+        result.put("balance", balance.doubleValue());
         result.put("amount", amount);
         result.put("processResult", procResult);
         result.put("referenceNum", refNum);
@@ -561,7 +573,7 @@ public class FinAccountPaymentServices {
         Boolean isRefund = (Boolean) context.get("isRefund");
         Double amount = (Double) context.get("amount");
 
-        final String DEPOSIT = isRefund == null || !isRefund.booleanValue() ? "DEPOSIT" : "ADJUSTMENT";
+        final String DEPOSIT = isRefund == null || !isRefund ? "DEPOSIT" : "ADJUSTMENT";
 
         String partyId = (String) context.get("partyId");
         if (UtilValidate.isEmpty(partyId)) {
@@ -616,8 +628,8 @@ public class FinAccountPaymentServices {
         }
 
         Map result = ServiceUtil.returnSuccess();
-        result.put("previousBalance", new Double(previousBalance.doubleValue()));
-        result.put("balance", new Double(balance.doubleValue()));
+        result.put("previousBalance", previousBalance.doubleValue());
+        result.put("balance", balance.doubleValue());
         result.put("amount", amount);
         result.put("processResult", Boolean.TRUE);
         result.put("referenceNum", refNum);        
@@ -679,7 +691,7 @@ public class FinAccountPaymentServices {
         if (replThres == null) {
             return ServiceUtil.returnSuccess();
         }
-        BigDecimal replenishThreshold = new BigDecimal(replThres.doubleValue());
+        BigDecimal replenishThreshold = new BigDecimal(replThres);
 
         BigDecimal replenishLevel = finAccount.getBigDecimal("replenishLevel");
         if (replenishLevel == null || replenishLevel.compareTo(FinAccountHelper.ZERO) == 0) {
@@ -696,6 +708,15 @@ public class FinAccountPaymentServices {
             return ServiceUtil.returnSuccess();        
         }
 
+        // configure rollback service to set good standing flag
+        Map rollbackCtx = UtilMisc.toMap("userLogin", userLogin, "finAccountId", finAccountId, "inGoodStanding", "N");
+        try {
+            dispatcher.addRollbackService("updateFinAccount", rollbackCtx, true);
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
         // the deposit is level - balance (500 - (-10) = 510 || 500 - (10) = 490)
         BigDecimal depositAmount = replenishLevel.subtract(balance);
 
@@ -710,8 +731,8 @@ public class FinAccountPaymentServices {
         // get the payment method to use to replenish
         String paymentMethodId = finAccount.getString("replenishPaymentId");
         if (paymentMethodId == null) {
-            Debug.logWarning("No payment method attached to financial account [" + finAccountId + "] cannot auto-replenish", module);
-            return ServiceUtil.returnSuccess();
+            Debug.logError("No payment method attached to financial account [" + finAccountId + "] cannot auto-replenish", module);
+            return ServiceUtil.returnError("No payment method associated with replenish account");
         }
 
         GenericValue paymentMethod;
@@ -724,20 +745,11 @@ public class FinAccountPaymentServices {
         if (paymentMethod == null) {
             // no payment methods on file; cannot replenish
             Debug.logWarning("No payment method found for ID [" + paymentMethodId + "] for party [" + ownerPartyId + "] cannot auto-replenish", module);
-            return ServiceUtil.returnSuccess();
-        }
-
-        // clear out the frozen flag
-        finAccount.set("isFrozen", "N");
-        try {
-            finAccount.store();
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError("Cannot locate payment method ID [" + paymentMethodId + "]");
         }
 
         // hit the payment method for the amount to replenish
-        Map orderItemMap = UtilMisc.toMap("Auto-Replenishment FA #" + finAccountId, new Double(depositAmount.doubleValue()));
+        Map orderItemMap = UtilMisc.toMap("Auto-Replenishment FA #" + finAccountId, depositAmount.doubleValue());
         Map replOrderCtx = FastMap.newInstance();
         replOrderCtx.put("productStoreId", productStoreId);
         replOrderCtx.put("paymentMethodId", paymentMethod.getString("paymentMethodId"));
@@ -765,7 +777,7 @@ public class FinAccountPaymentServices {
         depositCtx.put("partyId", ownerPartyId);
         depositCtx.put("orderId", orderId);
         depositCtx.put("orderItemSeqId", "00001"); // always one item on a replish order
-        depositCtx.put("amount",  new Double(depositAmount.doubleValue()));
+        depositCtx.put("amount",  depositAmount);
         depositCtx.put("userLogin", userLogin);
         Map depositResp;
         try {
@@ -778,6 +790,15 @@ public class FinAccountPaymentServices {
             return depositResp;
         }
 
+        // say we are in good standing again
+        finAccount.set("inGoodStanding", "Y");
+        try {
+            finAccount.store();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        
         return ServiceUtil.returnSuccess();
     }
     
@@ -808,11 +829,11 @@ public class FinAccountPaymentServices {
             partyIdTo = partyId;
             paymentAmount = amount;
         } else if ("ADJUSTMENT".equals(txType)) {
-            if (amount.doubleValue() < 0) {
+            if (amount < 0) {
                 paymentType = "DISBURSEMENT";
                 partyIdFrom = coParty;
                 partyIdTo = partyId;
-                paymentAmount = new Double(amount.doubleValue() * -1); // must be positive
+                paymentAmount = amount * -1; // must be positive
             } else {
                 paymentType = "RECEIPT";
                 partyIdFrom = partyId;
