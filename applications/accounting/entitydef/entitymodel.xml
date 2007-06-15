@@ -339,6 +339,7 @@ under the License.
         <field name="fromDate" type="date-time"><description>Describes when account will be valid. If null, valid immediately.</description></field>
         <field name="thruDate" type="date-time"><description>Expiration date of the account. If null, will never expire.</description></field>
         <field name="isFrozen" type="indicator"></field>
+        <field name="inGoodStanding" type="indicator"></field>
         <field name="isRefundable" type="indicator"></field>
         <field name="replenishPaymentId" type="id"></field>
         <field name="replenishLevel" type="currency-amount"></field>
