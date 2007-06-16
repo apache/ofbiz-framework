@@ -707,6 +707,26 @@ under the License.
         <attribute name="warningMessageList" type="List" mode="INOUT" optional="true"/>
     </service>
     <!-- Inventory Label Services -->
+    <service name="createInventoryItemLabelType" default-entity-name="InventoryItemLabelType" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemLabelType" auth="true">
+        <description>Create an InventoryItemLabelType</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateInventoryItemLabelType" default-entity-name="InventoryItemLabelType" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateInventoryItemLabelType" auth="true">
+        <description>Update an InventoryItemLabelType</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInventoryItemLabelType" default-entity-name="InventoryItemLabelType" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="deleteInventoryItemLabelType" auth="true">
+        <description>Delete an InventoryItemLabelType</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
     <service name="createInventoryItemLabel" default-entity-name="InventoryItemLabel" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemLabel" auth="true">
         <description>Create an InventoryItemLabel</description>

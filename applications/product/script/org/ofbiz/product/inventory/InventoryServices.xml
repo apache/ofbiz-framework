@@ -777,6 +777,21 @@ under the License.
     </simple-method>
 
     <!-- Inventory Label Services -->
+    <simple-method method-name="createInventoryItemLabelType" short-description="Create an InventoryItemLabelType">
+        <make-value entity-name="InventoryItemLabelType" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>   
+    <simple-method method-name="updateInventoryItemLabelType" short-description="Update an InventoryItemLabelType">
+        <entity-one entity-name="InventoryItemLabelType" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteInventoryItemLabelType" short-description="Delete an InventoryItemLabelType">
+        <entity-one entity-name="InventoryItemLabelType" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
     <simple-method method-name="createInventoryItemLabel" short-description="Create an InventoryItemLabel">
         <make-value entity-name="InventoryItemLabel" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
