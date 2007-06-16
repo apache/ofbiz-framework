@@ -240,12 +240,19 @@ public class ShoppingCartServices {
                 }
                 Double maxAmount = opp.getDouble("maxAmount");
                 String overflow = opp.getString("overflowFlag");
+
+                ShoppingCart.CartPaymentInfo cpi = null;
+
                 if ((overflow == null || !"Y".equals(overflow)) && oppi.hasNext()) {
-                    cart.addPaymentAmount(paymentId, maxAmount);
+                    cpi = cart.addPaymentAmount(paymentId, maxAmount);
                     Debug.log("Added Payment: " + paymentId + " / " + maxAmount, module);
                 } else {
-                    cart.addPayment(paymentId);
+                    cpi = cart.addPayment(paymentId);
                     Debug.log("Added Payment: " + paymentId + " / [no max]", module);
+                }
+                // for finance account the finAccountId needs to be set
+                if ("FIN_ACCOUNT".equals(paymentId)) {
+                    cpi.finAccountId = opp.getString("finAccountId");
                 }
             }
         } else {
