@@ -20,6 +20,59 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <!-- a method to centralize facility security code, meant to be called in-line with
+        call-simple-method, and the checkAction and callingMethodName attributes should be in the method context -->
+    <simple-method method-name="checkFacilityRelatedPermission" short-description="Check Facility Related Permission">
+        <if-empty field-name="callingMethodName">
+            <set value="this operation" field="callingMethodName"/>
+        </if-empty>
+        <if-empty field-name="checkAction">
+            <set value="UPDATE" field="checkAction"/>
+        </if-empty>
+        
+        <if>
+            <condition>
+                <not>
+                    <or>
+                        <if-has-permission permission="CATALOG" action="_${checkAction}"/>
+                        <if-has-permission permission="FACILITY" action="_${checkAction}"/>
+                        <and>
+                            <not><if-empty field-name="alternatePermissionRoot"/></not>
+                            <if-has-permission permission="${alternatePermissionRoot}" action="_${checkAction}"/>
+                        </and>
+                    </or>
+                </not>
+            </condition>
+            <then>
+                <add-error><fail-message message="Security Error: to run ${callingMethodName} you must have the CATALOG_${checkAction} or CATALOG_ADMIN or FACILITY_${checkAction} or FACILITY_ADMIN permission."/></add-error>
+            </then>
+        </if>
+    </simple-method>
+    <simple-method method-name="facilityGenericPermission" short-description="Main permission logic">
+        <set field="mainAction" from-field="parameters.mainAction"/>
+        <if-empty field-name="mainAction">
+            <add-error><fail-message message="In the permission-service element for the facilityGenericPermission service the main-action attribute was missing but is required"/></add-error>
+            <check-errors/>
+        </if-empty>
+
+        <set field="callingMethodName" from-field="parameters.resourceDescription"/>
+        <set field="checkAction" from-field="parameters.mainAction"/>
+        <call-simple-method method-name="checkFacilityRelatedPermission"/>
+        
+        <if-empty field-name="error_list">
+            <set field="hasPermission" type="Boolean" value="true"/>
+            <field-to-result field-name="hasPermission"/>
+
+            <else>
+                <property-to-field resource="ProductUiLabels" property="ProductFacilityPermissionError" field-name="failMessage"/>
+                <set field="hasPermission" type="Boolean" value="false"/>
+                <field-to-result field-name="hasPermission"/>
+                <field-to-result field-name="failMessage"/>
+            </else>
+        </if-empty>
+    </simple-method>
+
     <!-- InventoryItem methods -->
     <simple-method method-name="createInventoryItem" short-description="Create an InventoryItem">
         <check-permission permission="CATALOG" action="_CREATE">
@@ -721,5 +774,37 @@ under the License.
 
         <set-nonpk-fields map-name="parameters" value-name="inventoryTransfer"/>
         <store-value value-name="inventoryTransfer"/>
+    </simple-method>
+
+    <!-- Inventory Label Services -->
+    <simple-method method-name="createInventoryItemLabel" short-description="Create an InventoryItemLabel">
+        <make-value entity-name="InventoryItemLabel" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>   
+    <simple-method method-name="updateInventoryItemLabel" short-description="Update an InventoryItemLabel">
+        <entity-one entity-name="InventoryItemLabel" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteInventoryItemLabel" short-description="Delete an InventoryItemLabel">
+        <entity-one entity-name="InventoryItemLabel" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="createInventoryItemLabelAppl" short-description="Create an InventoryItemLabelAppl">
+        <make-value entity-name="InventoryItemLabelAppl" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>   
+    <simple-method method-name="updateInventoryItemLabelAppl" short-description="Update an InventoryItemLabel">
+        <entity-one entity-name="InventoryItemLabelAppl" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteInventoryItemLabelAppl" short-description="Delete an InventoryItemLabel">
+        <entity-one entity-name="InventoryItemLabelAppl" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
     </simple-method>
 </simple-methods>

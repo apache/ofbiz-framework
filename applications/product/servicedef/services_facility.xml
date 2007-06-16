@@ -24,6 +24,11 @@ under the License.
     <vendor>OFBiz</vendor>
     <version>1.0</version>
 
+    <!-- Permission Services -->    
+    <service name="facilityGenericPermission" engine="simple"
+        location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="facilityGenericPermission">
+        <implements service="permissionInterface"/>
+    </service>
     <!-- Product Inventory Services -->
     <service name="createInventoryItem" default-entity-name="InventoryItem" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItem" auth="true">
@@ -700,5 +705,48 @@ under the License.
         <attribute name="targetLocationSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="quantityMoved" type="Double" mode="IN" optional="false"/>
         <attribute name="warningMessageList" type="List" mode="INOUT" optional="true"/>
+    </service>
+    <!-- Inventory Label Services -->
+    <service name="createInventoryItemLabel" default-entity-name="InventoryItemLabel" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemLabel" auth="true">
+        <description>Create an InventoryItemLabel</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="inventoryItemLabelTypeId" optional="false"/>
+    </service>
+    <service name="updateInventoryItemLabel" default-entity-name="InventoryItemLabel" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateInventoryItemLabel" auth="true">
+        <description>Update an InventoryItemLabel</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInventoryItemLabel" default-entity-name="InventoryItemLabel" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="deleteInventoryItemLabel" auth="true">
+        <description>Delete an InventoryItemLabel</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="createInventoryItemLabelAppl" default-entity-name="InventoryItemLabelAppl" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemLabelAppl" auth="true">
+        <description>Create an InventoryItemLabelAppl</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="inventoryItemLabelId" optional="false"/>
+    </service>
+    <service name="updateInventoryItemLabelAppl" default-entity-name="InventoryItemLabelAppl" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateInventoryItemLabelAppl" auth="true">
+        <description>Update an InventoryItemLabelAppl</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInventoryItemLabelAppl" default-entity-name="InventoryItemLabelAppl" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="deleteInventoryItemLabelAppl" auth="true">
+        <description>Delete an InventoryItemLabelAppl</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 </services>
