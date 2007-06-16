@@ -1375,6 +1375,48 @@ under the License.
         <key-map field-name="inventoryItemId"/>
       </relation>
     </entity>
+    <entity entity-name="InventoryItemLabelType"
+            package-name="org.ofbiz.product.inventory"
+            title="Inventory Item Label Type Entity">
+      <field name="inventoryItemLabelTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="inventoryItemLabelTypeId"/>
+      <relation type="one" fk-name="INV_ITLT_TYPPAR" title="Parent" rel-entity-name="InventoryItemLabelType">
+        <key-map field-name="parentTypeId" rel-field-name="inventoryItemLabelTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="InventoryItemLabel"
+            package-name="org.ofbiz.product.inventory"
+            title="Inventory Item Label Entity">
+      <field name="inventoryItemLabelId" type="id-ne"></field>
+      <field name="inventoryItemLabelTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="inventoryItemLabelId"/>
+      <relation type="one" fk-name="INV_ITLA_TYPE" rel-entity-name="InventoryItemLabelType">
+        <key-map field-name="inventoryItemLabelTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="InventoryItemLabelAppl"
+            package-name="org.ofbiz.product.inventory"
+            title="Inventory Item Label Applicability Entity">
+      <field name="inventoryItemId" type="id-ne"></field>
+      <field name="inventoryItemLabelTypeId" type="id-ne"></field>
+      <field name="inventoryItemLabelId" type="id-ne"></field>
+      <field name="sequenceNum" type="numeric"></field>
+      <prim-key field="inventoryItemId"/>
+      <prim-key field="inventoryItemLabelTypeId"/>
+      <relation type="one" fk-name="INV_ITLAP_ITEM" rel-entity-name="InventoryItem">
+        <key-map field-name="inventoryItemId"/>
+      </relation>
+      <relation type="one" fk-name="INV_ITLAP_TYPE" rel-entity-name="InventoryItemLabelType">
+        <key-map field-name="inventoryItemLabelTypeId"/>
+      </relation>
+      <relation type="one" fk-name="INV_ITLAP_LAB" rel-entity-name="InventoryItemLabel">
+        <key-map field-name="inventoryItemLabelId"/>
+      </relation>
+    </entity>
     <entity entity-name="InventoryTransfer"
             package-name="org.ofbiz.product.inventory"
             title="Inventory Transfer Entity">

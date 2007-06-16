@@ -109,6 +109,9 @@ under the License.
     <entity-group group="org.ofbiz" entity="InventoryItemType" />
     <entity-group group="org.ofbiz" entity="InventoryItemTypeAttr" />
     <entity-group group="org.ofbiz" entity="InventoryItemVariance" />
+    <entity-group group="org.ofbiz" entity="InventoryItemLabelType" />
+    <entity-group group="org.ofbiz" entity="InventoryItemLabel" />
+    <entity-group group="org.ofbiz" entity="InventoryItemLabelAppl" />
     <entity-group group="org.ofbiz" entity="InventoryTransfer" />
     <entity-group group="org.ofbiz" entity="Lot" />
     <entity-group group="org.ofbiz" entity="PhysicalInventory" />
