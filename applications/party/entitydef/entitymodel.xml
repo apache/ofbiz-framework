@@ -1472,6 +1472,24 @@ under the License.
         <key-map field-name="attrName"/>
       </relation>
     </entity>
+    <entity entity-name="PartyCarrierAccount"
+        package-name="org.ofbiz.party.party"
+        title="Party Carrier Account Entity">
+        <field name="partyId" type="id-ne"></field>
+        <field name="carrierPartyId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <field name="accountNumber" type="date-time"><!-- the customer's or user's account number, also known as the shipper number sometimes --></field>
+        <prim-key field="partyId"/>
+        <prim-key field="carrierPartyId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="PARTY_CRRACT_PTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="PARTY_CRRACT_CPT" title="Carrier" rel-entity-name="Party">
+            <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
+        </relation>
+    </entity>
     <entity entity-name="PartyClassification"
             package-name="org.ofbiz.party.party"
             title="Party Classification Entity">
@@ -1610,7 +1628,6 @@ under the License.
       <field name="groupName" type="name"></field>
       <field name="groupNameLocal" type="name"></field>  
       <field name="officeSiteName" type="name"></field>
-      <!-- DEJ20050628 getting rid of this, deprecated by PartyTaxAuthInfo <field name="federalTaxId" type="long-varchar" encrypt="true"></field> -->
       <field name="comments" type="comment"></field>
       <field name="logoImageUrl" type="url"></field>
       <prim-key field="partyId"/>
