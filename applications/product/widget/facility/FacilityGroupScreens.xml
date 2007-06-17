@@ -95,15 +95,19 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditFacilityGroupMembers"/>
                 <set field="headerItem" value="facilityGroup"/>
                 <set field="tabButtonItem" value="EditFacilityGroupMembers"/>
-
-                <script location="component://product/webapp/facility/WEB-INF/actions/group/EditFacilityGroupMembers.bsh"/>
+                <entity-one entity-name="FacilityGroup" value-name="facilityGroup"/>
+                <set field="orderByList[]" value="sequenceNum"/>
+                <get-related value-name="facilityGroup" relation-name="FacilityGroupMember" list-name="facilityGroupMembers" order-by-list-name="orderByList"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityGroupDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/group/EditFacilityGroupMembers.ftl"/></html>
-                        </platform-specific>
+                        <container><label style="head1">${uiLabelMap.ProductFacilities} ${uiLabelMap.CommonFor} ${facilityGroup.facilityGroupName} [${facilityGroup.facilityGroupId}]</label></container>
+                        <container><link target="EditFacilityGroup" text="${uiLabelMap.ProductNewGroup}" style="buttontext"/></container>
+                        <label style="head2">${uiLabelMap.ProductFacilityGroupMemberMaintenance}</label>
+                        <include-form name="UpdateFacilityGroupMembers" location="component://product/webapp/facility/group/FacilityGroupForms.xml"/>
+                        <label style="head2">${uiLabelMap.ProductAddFacilityGroupMember}</label>
+                        <include-form name="AddFacilityGroupMember" location="component://product/webapp/facility/group/FacilityGroupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -115,15 +119,18 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditFacilityGroupRoles"/>
                 <set field="headerItem" value="facilityGroup"/>
                 <set field="tabButtonItem" value="EditFacilityGroupRoles"/>
-
-                <script location="component://product/webapp/facility/WEB-INF/actions/group/EditFacilityGroupRoles.bsh"/>
+                <entity-one entity-name="FacilityGroup" value-name="facilityGroup"/>
+                <get-related value-name="facilityGroup" relation-name="FacilityGroupRole" list-name="facilityRoles"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityGroupDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/group/EditFacilityGroupRoles.ftl"/></html>
-                        </platform-specific>
+                        <label style="head1">${uiLabelMap.PartyRoles} ${uiLabelMap.CommonFor} ${facilityGroup.facilityGroupName} [${facilityGroup.facilityGroupId}]</label>
+                        <container><link target="EditFacilityGroup" text="${uiLabelMap.ProductNewGroup}" style="buttontext"/></container>
+                        <label style="head2">${uiLabelMap.ProductMaintenanceFacilityGroupPartyRole}</label>
+                        <include-form name="UpdateFacilityGroupRoles" location="component://product/webapp/facility/group/FacilityGroupForms.xml"/>
+                        <label style="head2">${uiLabelMap.ProductAddFacilityGroupPartyRole}</label>
+                        <include-form name="AddFacilityGroupRole" location="component://product/webapp/facility/group/FacilityGroupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -136,14 +143,23 @@ under the License.
                 <set field="headerItem" value="facilityGroup"/>
                 <set field="tabButtonItem" value="EditFacilityGroupRollup"/>
 
-                <script location="component://product/webapp/facility/WEB-INF/actions/group/EditFacilityGroupRollup.bsh"/>
+                <set field="parameters.facilityGroupId" from-field="parameters.showFacilityGroupId" default-value="${parameters.facilityGroupId}"/>
+                <entity-one entity-name="FacilityGroup" value-name="facilityGroup"/>
+                <get-related relation-name="ParentFacilityGroupRollup" value-name="facilityGroup" list-name="parentGroupRollups"/>
+                <get-related relation-name="CurrentFacilityGroupRollup" value-name="facilityGroup" list-name="currentGroupRollups"/>
+                <set field="facilityGroupId" from-field="facilityGroup.facilityGroupId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityGroupDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/group/EditFacilityGroupRollup.ftl"/></html>
-                        </platform-specific>
+                        <container><label style="head1">${uiLabelMap.ProductRollups} ${uiLabelMap.CommonFor} ${facilityGroup.facilityGroupName} [${facilityGroup.facilityGroupId}]</label></container>
+                        <container><link target="EditFacilityGroup" text="${uiLabelMap.ProductNewGroup}" style="buttontext"/></container>
+                        <container><label style="head2">${uiLabelMap.ProductFacilityGroupRollupParentGroups}</label></container>
+                        <include-form name="UpdateFacilityGroupRollupTo" location="component://product/webapp/facility/group/FacilityGroupForms.xml"/>
+                        <include-form name="AddFacilityGroupRollupFrom" location="component://product/webapp/facility/group/FacilityGroupForms.xml"/>
+                        <container><label style="head2">${uiLabelMap.ProductGroupRollupChildGroups}</label></container>
+                        <include-form name="UpdateFacilityGroupRollupFrom" location="component://product/webapp/facility/group/FacilityGroupForms.xml"/>
+                        <include-form name="AddFacilityGroupRollupTo" location="component://product/webapp/facility/group/FacilityGroupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
