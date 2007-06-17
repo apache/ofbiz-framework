@@ -25,6 +25,7 @@ under the License.
     <li<#if selected = "main"> class="selected"</#if>><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.ProductMain}</a></li>
     <li<#if selected = "facility"> class="selected"</#if>><a href="<@ofbizUrl>FindFacility</@ofbizUrl>">${uiLabelMap.ProductFacilities}</a></li>
     <li<#if selected = "facilityGroup"> class="selected"</#if>><a href="<@ofbizUrl>FindFacilityGroup</@ofbizUrl>">${uiLabelMap.ProductFacilityGroups}</a></li>
+    <li<#if selected = "inventoryItemLabel"> class="selected"</#if>><a href="<@ofbizUrl>FindInventoryItemLabels</@ofbizUrl>">${uiLabelMap.ProductInventoryItemLabels}</a></li>
     <li<#if selected = "shipment"> class="selected"</#if>><a href="<@ofbizUrl>FindShipment</@ofbizUrl>">${uiLabelMap.ProductShipments}</a></li>
     <#if facilityId?has_content>
       <li<#if selected = "reports"> class="selected"</#if>><a href="<@ofbizUrl>InventoryReports?facilityId=${facilityId}</@ofbizUrl>">${uiLabelMap.CommonReports}</a></li>

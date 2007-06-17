@@ -95,6 +95,66 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="CommonInventoryItemLabelsDecorator">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="FACILITY" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <include-menu name="InventoryItemLabelsTabBar" location="component://product/widget/facility/Menus.xml"/>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonInventoryItemLabelDecorator">
+        <section>
+            <actions>
+                <set field="inventoryItemLabelId" from-field="parameters.inventoryItemLabelId"/>
+                <entity-one entity-name="InventoryItemLabel" value-name="inventoryItemLabel"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="FACILITY" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="inventoryItemLabel"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="InventoryItemLabelsTabBar" location="component://product/widget/facility/Menus.xml"/>
+                                        <include-menu name="InventoryItemLabelTabBar" location="component://product/widget/facility/Menus.xml"/>
+                                        <label style="head1">${uiLabelMap.ProductInventoryItemLabel} [${inventoryItemLabelId}]</label>
+                                        <decorator-section-include name="body"/>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <label style="head3">${uiLabelMap.ProductErrorInventoryItemLabelIdNotFound}</label>
+                                    </fail-widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
 </screens>
 
