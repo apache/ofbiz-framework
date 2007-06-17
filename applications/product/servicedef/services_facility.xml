@@ -740,7 +740,9 @@ under the License.
         <description>Update an InventoryItemLabel</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true">
+            <exclude field-name="inventoryItemLabelTypeId"/>
+        </auto-attributes>
     </service>
     <service name="deleteInventoryItemLabel" default-entity-name="InventoryItemLabel" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="deleteInventoryItemLabel" auth="true">
@@ -752,7 +754,9 @@ under the License.
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemLabelAppl" auth="true">
         <description>Create an InventoryItemLabelAppl</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false">
+            <exclude field-name="inventoryItemLabelTypeId"/> <!-- The type is automatically retrieved from the inventoryItemLabel -->
+        </auto-attributes>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="inventoryItemLabelId" optional="false"/>
     </service>
@@ -761,7 +765,9 @@ under the License.
         <description>Update an InventoryItemLabelAppl</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true">
+            <exclude field-name="inventoryItemId"/>
+        </auto-attributes>
     </service>
     <service name="deleteInventoryItemLabelAppl" default-entity-name="InventoryItemLabelAppl" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="deleteInventoryItemLabelAppl" auth="true">

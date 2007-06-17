@@ -77,4 +77,20 @@ under the License.
             <link target="FindShipment?originFacilityId=${facilityId}&amp;lookupFlag=Y"/>
         </menu-item>
     </menu>
+    <menu name="InventoryItemLabelsTabBar" default-menu-item-name="FindInventoryItemLabels">
+        <menu-item name="FindInventoryItemLabels" title="${uiLabelMap.ProductInventoryItemLabels}">
+            <link target="FindInventoryItemLabels"/>
+        </menu-item>
+        <menu-item name="EditInventoryItemLabelTypes" title="${uiLabelMap.ProductInventoryItemLabelTypes}">
+            <link target="EditInventoryItemLabelTypes"/>
+        </menu-item>
+    </menu>
+    <menu name="InventoryItemLabelTabBar" default-menu-item-name="EditInventoryItemLabel" selected-menuitem-context-field-name="subTabButtonItem">
+        <menu-item name="EditInventoryItemLabel" title="${uiLabelMap.ProductInventoryItemLabel}">
+            <link target="EditInventoryItemLabel?inventoryItemLabelId=${inventoryItemLabelId}"/>
+        </menu-item>
+        <menu-item name="EditInventoryItemLabelAppls" title="${uiLabelMap.ProductInventoryItemLabelAppl}">
+            <link target="EditInventoryItemLabelAppls?inventoryItemLabelId=${inventoryItemLabelId}"/>
+        </menu-item>
+    </menu>
 </menus>

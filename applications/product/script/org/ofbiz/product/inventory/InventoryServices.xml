@@ -811,6 +811,8 @@ under the License.
         <make-value entity-name="InventoryItemLabelAppl" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <entity-one entity-name="InventoryItemLabel" value-name="inventoryItemLabel"/>
+        <set field="newEntity.inventoryItemLabelTypeId" from-field="inventoryItemLabel.inventoryItemLabelTypeId"/>
         <create-value value-name="newEntity"/>
     </simple-method>   
     <simple-method method-name="updateInventoryItemLabelAppl" short-description="Update an InventoryItemLabel">

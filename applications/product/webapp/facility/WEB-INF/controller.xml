@@ -446,6 +446,77 @@ under the License.
         <response name="error" type="view" value="EditFacilityRoles"/>
     </request-map>
 
+    <!-- ================ Inventory Item Labels Requests ================= -->
+    <request-map uri="EditInventoryItemLabelTypes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditInventoryItemLabelTypes"/>
+    </request-map>
+    <request-map uri="createInventoryItemLabelType">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createInventoryItemLabelType"/>
+        <response name="success" type="view" value="EditInventoryItemLabelTypes"/>
+        <response name="error" type="view" value="EditInventoryItemLabelTypes"/>
+    </request-map>
+    <request-map uri="updateInventoryItemLabelType">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateInventoryItemLabelType"/>
+        <response name="success" type="view" value="EditInventoryItemLabelTypes"/>
+        <response name="error" type="view" value="EditInventoryItemLabelTypes"/>
+    </request-map>
+    <request-map uri="deleteInventoryItemLabelType">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteInventoryItemLabelType"/>
+        <response name="success" type="view" value="EditInventoryItemLabelTypes"/>
+        <response name="error" type="view" value="EditInventoryItemLabelTypes"/>
+    </request-map>
+    <request-map uri="FindInventoryItemLabels">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindInventoryItemLabels"/>
+    </request-map>
+    <request-map uri="deleteInventoryItemLabel">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteInventoryItemLabel"/>
+        <response name="success" type="view" value="FindInventoryItemLabels"/>
+        <response name="error" type="view" value="FindInventoryItemLabels"/>
+    </request-map>
+    <request-map uri="EditInventoryItemLabel">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditInventoryItemLabel"/>
+    </request-map>
+    <request-map uri="createInventoryItemLabel">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createInventoryItemLabel"/>
+        <response name="success" type="view" value="EditInventoryItemLabel"/>
+        <response name="error" type="view" value="EditInventoryItemLabel"/>
+    </request-map>
+    <request-map uri="updateInventoryItemLabel">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateInventoryItemLabel"/>
+        <response name="success" type="view" value="EditInventoryItemLabel"/>
+        <response name="error" type="view" value="EditInventoryItemLabel"/>
+    </request-map>
+    <request-map uri="EditInventoryItemLabelAppls">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditInventoryItemLabelAppls"/>
+    </request-map>
+    <request-map uri="createInventoryItemLabelAppl">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createInventoryItemLabelAppl"/>
+        <response name="success" type="view" value="EditInventoryItemLabelAppls"/>
+        <response name="error" type="view" value="EditInventoryItemLabelAppls"/>
+    </request-map>
+    <request-map uri="updateInventoryItemLabelAppl">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateInventoryItemLabelAppl"/>
+        <response name="success" type="view" value="EditInventoryItemLabelAppls"/>
+        <response name="error" type="view" value="EditInventoryItemLabelAppls"/>
+    </request-map>
+    <request-map uri="deleteInventoryItemLabelAppl">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteInventoryItemLabelAppl"/>
+        <response name="success" type="view" value="EditInventoryItemLabelAppls"/>
+        <response name="error" type="view" value="EditInventoryItemLabelAppls"/>
+    </request-map>
     <!-- ================ Inventory Requests ================= -->
     <request-map uri="EditInventoryItem">
         <security https="true" auth="true"/>
@@ -1094,6 +1165,11 @@ under the License.
     <view-map name="EditFacilityGroupMembers" type="screen" page="component://product/widget/facility/FacilityGroupScreens.xml#EditFacilityGroupMembers"/>
     <view-map name="EditFacilityGroupRollup" type="screen" page="component://product/widget/facility/FacilityGroupScreens.xml#EditFacilityGroupRollup"/>
     <view-map name="EditFacilityGroupRoles" type="screen" page="component://product/widget/facility/FacilityGroupScreens.xml#EditFacilityGroupRoles"/>
+
+    <view-map name="EditInventoryItemLabelTypes" type="screen" page="component://product/widget/facility/InventoryItemLabelScreens.xml#EditInventoryItemLabelTypes"/>
+    <view-map name="FindInventoryItemLabels" type="screen" page="component://product/widget/facility/InventoryItemLabelScreens.xml#FindInventoryItemLabels"/>
+    <view-map name="EditInventoryItemLabel" type="screen" page="component://product/widget/facility/InventoryItemLabelScreens.xml#EditInventoryItemLabel"/>
+    <view-map name="EditInventoryItemLabelAppls" type="screen" page="component://product/widget/facility/InventoryItemLabelScreens.xml#EditInventoryItemLabelAppls"/>
 
     <view-map name="PackOrder" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#PackOrder"/>
     <view-map name="PackingSlip.pdf" type="screenfop" page="component://product/widget/facility/ShipmentScreens.xml#PackingSlip.fo" content-type="application/pdf" encoding="none"/>

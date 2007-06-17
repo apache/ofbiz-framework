@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="AddInventoryItemLabelType" type="single" target="createInventoryItemLabelType" title="">
+        <auto-fields-service service-name="createInventoryItemLabelType"/>
+        <field name="parentTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="InventoryItemLabelType" key-field-name="inventoryItemLabelTypeId" description="${description} [${inventoryItemLabelTypeId}]">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="hasTable">
+            <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+    </form>
+    <form name="UpdateInventoryItemLabelTypes" type="list" target="updateInventoryItemLabelType" title="" list-name="inventoryItemLabelTypes">
+        <auto-fields-service service-name="updateInventoryItemLabelType"/>
+        <field name="inventoryItemLabelTypeId"><display/></field>
+        <field name="parentTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="InventoryItemLabelType" key-field-name="inventoryItemLabelTypeId" description="${description} [${inventoryItemLabelTypeId}]">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteInventoryItemLabelType?inventoryItemLabelTypeId=${inventoryItemLabelTypeId}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="ListInventoryItemLabels" type="list" title="" list-name="inventoryItemLabels">
+        <auto-fields-entity entity-name="InventoryItemLabel" default-field-type="display"/>
+        <field name="inventoryItemLabelId" widget-style="buttontext">
+            <hyperlink target="EditInventoryItemLabel?inventoryItemLabelId=${inventoryItemLabelId}"
+                description="${inventoryItemLabelId}" also-hidden="true"/>
+        </field>
+        <field name="inventoryItemLabelTypeId">
+            <display-entity entity-name="InventoryItemLabelType" description="${description} [${inventoryItemLabelTypeId}]" also-hidden="true"/>
+        </field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteInventoryItemLabel?inventoryItemLabelId=${inventoryItemLabelId}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditInventoryItemLabel" type="single" target="createInventoryItemLabel" title="" default-map-name="inventoryItemLabel">
+        <alt-target target="updateInventoryItemLabel" use-when="inventoryItemLabel!=null"/>
+        <auto-fields-service service-name="createInventoryItemLabel" />
+        <field name="inventoryItemLabelId" use-when="inventoryItemLabel!=null"><display/></field>
+        <field name="inventoryItemLabelTypeId" use-when="inventoryItemLabel==null">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="InventoryItemLabelType" description="${description} [${inventoryItemLabelTypeId}]">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="inventoryItemLabelTypeId" use-when="inventoryItemLabel!=null">
+            <display-entity entity-name="InventoryItemLabelType" description="${description} [${inventoryItemLabelTypeId}]" also-hidden="false"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
+    </form>
+    <form name="UpdateInventoryItemLabelAppls" type="list" target="updateInventoryItemLabelAppl" title="" list-name="inventoryItemLabelAppls">
+        <auto-fields-service service-name="updateInventoryItemLabelAppl"/>
+        <field name="inventoryItemLabelId"><hidden/></field>
+        <field name="inventoryItemLabelTypeId"><hidden/></field>
+        <field name="inventoryItemId" widget-style="buttontext">
+            <display-entity entity-name="InventoryItem" description="${productId}">
+                <sub-hyperlink target="EditInventoryItem?inventoryItemId=${inventoryItemId}"
+                               description="[${inventoryItemId}]"/>
+            </display-entity>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteInventoryItemLabelAppl?inventoryItemId=${inventoryItemId}&amp;inventoryItemLabelTypeId=${inventoryItemLabelTypeId}&amp;inventoryItemLabelId=${inventoryItemLabelId}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="AddInventoryItemLabelAppl" type="single" target="createInventoryItemLabelAppl" title="">
+        <auto-fields-service service-name="createInventoryItemLabelAppl"/>
+        <field name="inventoryItemLabelId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+    </form>
+</forms>
