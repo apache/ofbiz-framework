@@ -58,7 +58,7 @@ Timestamp prev = UtilDateTime.getDayStart(start,-7);
 Timestamp next = UtilDateTime.getDayStart(start,7);
 Timestamp end = UtilDateTime.getDayStart(start,6);
 
-Map serviceCtx = UtilMisc.toMap("userLogin", userLogin,"start",start,"numPeriods",new Integer(7),"periodSeconds",new Integer(3600*24));
+Map serviceCtx = UtilMisc.toMap("userLogin", userLogin,"start",start,"numPeriods",new Integer(7),"periodType",new Integer(Calendar.DATE));
 serviceCtx.put("partyId", partyId);
 serviceCtx.put("facilityId", facilityId);
 serviceCtx.put("fixedAssetId", fixedAssetId);

@@ -39,7 +39,7 @@ if (partyId != null) {
     eventsParam = "partyId=" + partyId;
 }
 
-Map serviceCtx = UtilMisc.toMap("userLogin", userLogin,"start", start,"numPeriods",new Integer(7),"periodSeconds",new Integer(3600*24));
+Map serviceCtx = UtilMisc.toMap("userLogin", userLogin,"start", start,"numPeriods",new Integer(7),"periodType",new Integer(Calendar.DATE));
 serviceCtx.put("partyId", partyId);
 serviceCtx.put("facilityId", facilityId);
 serviceCtx.put("fixedAssetId", fixedAssetId);

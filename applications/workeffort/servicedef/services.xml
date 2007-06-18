@@ -168,7 +168,8 @@ under the License.
     </service>    
     <service name="getWorkEffortEventsByPeriod" auth="true" engine="java"
             location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortEventsByPeriod">
-        <description>Get WorkEffort Events by a period spcified by periodSeconds attribute. Return a Map with periodStart as the key and a Collection of events for that period as value
+        <description>Get WorkEffort Events by a period specified by periodType attribute (one of the
+          java.util.Calendar field values). Return a Map with periodStart as the key and a Collection of events for that period as value
           If filterOutCanceledEvents is set to Boolean(true) then workEfforts with currentStatusId=EVENT_CANCELLED will not be returned.
           To limit the events to a particular partyId, specify the partyId.  To limit the events to a set of partyIds, specify a Collection of partyIds.
         </description>
@@ -178,7 +179,7 @@ under the License.
         <attribute name="fixedAssetId" type="String" mode="IN" optional="true"/>
         <attribute name="start" type="java.sql.Timestamp" mode="IN" optional="false"/>
         <attribute name="numPeriods" type="java.lang.Integer" mode="IN" optional="false"/>
-        <attribute name="periodSeconds" type="java.lang.Integer" mode="IN" optional="false"/>
+        <attribute name="periodType" type="java.lang.Integer" mode="IN" optional="false"/>
         <attribute name="filterOutCanceledEvents" type="java.lang.Boolean" mode="IN" optional="true"/>
         <attribute name="periods" type="java.util.List" mode="OUT" optional="false"/>
         <attribute name="maxConcurrentEntries" type="java.lang.Integer" mode="OUT" optional="false"/>
