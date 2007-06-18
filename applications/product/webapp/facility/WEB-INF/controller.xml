@@ -526,6 +526,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewInventoryItemDetail"/>
     </request-map>
+    <request-map uri="EditInventoryItemLabels">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditInventoryItemLabels"/>
+    </request-map>
     <request-map uri="CreateInventoryItem">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createInventoryItem"/>
@@ -555,6 +559,24 @@ under the License.
         <event type="service-multi" path="" invoke="createPhysicalInventoryAndVariance"/>
         <response name="success" type="view" value="FindFacilityPhysicalInventory"/>
         <response name="error" type="view" value="FindFacilityPhysicalInventory"/>
+    </request-map>
+    <request-map uri="createInventoryItemLabelApplFromItem">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createInventoryItemLabelAppl"/>
+        <response name="success" type="view" value="EditInventoryItemLabels"/>
+        <response name="error" type="view" value="EditInventoryItemLabels"/>
+    </request-map>
+    <request-map uri="updateInventoryItemLabelApplFromItem">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateInventoryItemLabelAppl"/>
+        <response name="success" type="view" value="EditInventoryItemLabels"/>
+        <response name="error" type="view" value="EditInventoryItemLabels"/>
+    </request-map>
+    <request-map uri="deleteInventoryItemLabelApplFromItem">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteInventoryItemLabelAppl"/>
+        <response name="success" type="view" value="EditInventoryItemLabels"/>
+        <response name="error" type="view" value="EditInventoryItemLabels"/>
     </request-map>
 
     <request-map uri="FindFacilityPhysicalInventory">
@@ -1148,6 +1170,7 @@ under the License.
 
     <view-map name="EditInventoryItem" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditInventoryItem"/>
     <view-map name="ViewInventoryItemDetail" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ViewInventoryItemDetail"/>
+    <view-map name="EditInventoryItemLabels" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditInventoryItemLabels"/>
     <view-map name="TransferInventoryItem" type="screen" page="component://product/widget/facility/FacilityScreens.xml#TransferInventoryItem"/>
     <view-map name="ReceiveInventory" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ReceiveInventory"/>
     <view-map name="ReceiveReturn" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ReceiveReturn"/>
