@@ -247,6 +247,7 @@ under the License.
         <set field="emailParams.xslfoAttachScreenLocation" value="component://accounting/widget/AccountingPrintForms.xml#InvoicePDF"/>
         <set field="emailParams.bodyParameters.invoiceId" from-field="parameters.invoiceId"/>
         <set field="emailParams.bodyParameters.userLogin" from-field="parameters.userLogin"/>
+        <set field="emailParams.bodyParameters.other" from-field="parameters.other"/><!-- to to print in 'other currency' -->
         <call-service-asynch service-name="sendMailFromScreen" in-map-name="emailParams"/>
         <property-to-field resource="AccountingUiLabels" property="AccountingEmailScheduledToSend" field-name="successMessage"/>
     </simple-method>
