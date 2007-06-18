@@ -88,6 +88,9 @@ public class InvoiceWorker {
     }
 
     public static double getInvoiceTaxTotal(GenericValue invoice) {
+        return getInvoiceTaxTotalBd(invoice).doubleValue();
+    }
+    public static BigDecimal getInvoiceTaxTotalBd(GenericValue invoice) {
         BigDecimal invoiceTaxTotal = ZERO;
         BigDecimal ONE = new BigDecimal("1");
 
@@ -117,12 +120,15 @@ public class InvoiceWorker {
                 invoiceTaxTotal = invoiceTaxTotal.add(amount.multiply(quantity)).setScale(decimals + 1, rounding);
             }
         }
-        return invoiceTaxTotal.setScale(decimals, rounding).doubleValue();
+        return invoiceTaxTotal.setScale(decimals, rounding);
 
     }
     
     public static double getInvoiceNoTaxTotal(GenericValue invoice) {
         return getInvoiceTotalBd(invoice).doubleValue() - getInvoiceTaxTotal(invoice);
+    }
+    public static BigDecimal getInvoiceNoTaxTotalBd(GenericValue invoice) {
+        return getInvoiceTotalBd(invoice).subtract(getInvoiceTaxTotalBd(invoice));
     }
     
     /**
