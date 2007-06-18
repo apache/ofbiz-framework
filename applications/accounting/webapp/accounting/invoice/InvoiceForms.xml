@@ -426,6 +426,7 @@ under the License.
         <field name="emailAddressTo" entry-name="mapFrom.emailAddress" parameter-name="sendTo" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;PURCHASE_INVOICE&quot;)"><text/></field>
         <field name="emailAddressCc" entry-name="ccEmailAddress" parameter-name="sendCc"><text/></field>
         <field name="subject"><text default-value="Please find attached invoice."/></field>
+        <field name="otherCurrency" entry-name="parameters.other" parameter-name="other"><check/></field>
         <field name="bodyText"><textarea/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

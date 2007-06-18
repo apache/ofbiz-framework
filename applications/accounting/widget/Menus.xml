@@ -121,7 +121,13 @@ under the License.
             <condition>
                 <not><if-empty field-name="invoice.invoiceId"/></not>
             </condition>
-            <link target="invoice.pdf?invoiceId=${invoice.invoiceId}"/>
+            <link target="invoice.pdf?invoiceId=${invoice.invoiceId}" target-window="_BLANK"/>
+        </menu-item>
+        <menu-item name="pdfOtherCur" title="${uiLabelMap.AccountingInvoicePDFOtherCur}">
+            <condition>
+                <not><if-empty field-name="invoice.invoiceId"/></not>
+            </condition>
+            <link target="invoice.pdf?invoiceId=${invoice.invoiceId}&amp;other=Y" target-window="_BLANK"/>
         </menu-item>
         <menu-item name="statusToApproved" title="${uiLabelMap.AccountingInvoiceStatusToApproved}">
             <condition>
