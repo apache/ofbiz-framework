@@ -27,8 +27,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -330,10 +332,10 @@ public class WorkEffortServices {
     public static Map getWorkEffortEventsByPeriod(DispatchContext ctx, Map context) {
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");    
+        Locale locale = (Locale) context.get("locale");
         
         Timestamp startDay = (Timestamp) context.get("start");
         Integer numPeriodsInteger = (Integer) context.get("numPeriods");
-        Integer periodInteger = (Integer) context.get("periodSeconds");
 
         String partyId = (String) context.get("partyId");
         Collection partyIds = (Collection) context.get("partyIds");
@@ -347,16 +349,23 @@ public class WorkEffortServices {
         //To be returned, the max concurrent entries for a single period
         int maxConcurrentEntries = 0;
                 
-        long period = periodInteger.intValue()*1000;
+        TimeZone curTz = TimeZone.getDefault();
+
+        Integer periodTypeObject = (Integer) context.get("periodType");
+        int periodType = 0;
+        if (periodTypeObject != null) {
+            periodType = periodTypeObject.intValue();
+        }
         
         int numPeriods = 0;
         if(numPeriodsInteger != null) numPeriods = numPeriodsInteger.intValue();
         
         // get a timestamp (date) for the beginning of today and for beginning of numDays+1 days from now
-        Timestamp startStamp = UtilDateTime.getDayStart(startDay);          
-        Timestamp endStamp = new Timestamp(startStamp.getTime()+(period*(numPeriods+1)));
+        Timestamp startStamp = UtilDateTime.getDayStart(startDay, curTz, locale);
+        Timestamp endStamp = UtilDateTime.adjustTimestamp(startStamp, periodType, 1, curTz, locale);
+        long periodLen = endStamp.getTime() - startStamp.getTime();
+        endStamp = UtilDateTime.adjustTimestamp(startStamp, periodType, numPeriods, curTz, locale);
         
-        startStamp.setNanos(0);
         // Get the WorkEfforts
         List validWorkEfforts = null;
         Collection partyIdsToUse = partyIds;
@@ -389,8 +398,8 @@ public class WorkEffortServices {
         
             // For each day in the set we check all work efforts to see if they fall within range
             for (int i = 0; i < numPeriods; i++) {
-                Timestamp curPeriodStart = new Timestamp(startStamp.getTime()+(i*period));
-                Timestamp curPeriodEnd = new Timestamp(curPeriodStart.getTime()+period);
+                Timestamp curPeriodStart = UtilDateTime.adjustTimestamp(startStamp, periodType, i, curTz, locale);
+                Timestamp curPeriodEnd = UtilDateTime.adjustTimestamp(curPeriodStart, periodType, 1, curTz, locale);
                 List curWorkEfforts = new ArrayList();
                 Map entry = new HashMap();
                 for (int j = 0; j < validWorkEfforts.size(); j++) {
@@ -410,7 +419,7 @@ public class WorkEffortServices {
                         calEntry.put("workEffort",workEffort);
                                                
                         long length = ((estimatedCompletionDate.after(endStamp) ? endStamp.getTime() : estimatedCompletionDate.getTime()) - (estimatedStartDate.before(startStamp) ? startStamp.getTime() : estimatedStartDate.getTime()));
-                        int periodSpan = (int) Math.ceil((double) length / period);                                                
+                        int periodSpan = (int) Math.ceil((double) length / periodLen);                                                
                         calEntry.put("periodSpan", new Integer(periodSpan));
 
                         if(i == 0) calEntry.put("startOfPeriod", Boolean.TRUE); //If this is the first priod any valid entry is starting here

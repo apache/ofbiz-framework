@@ -55,7 +55,7 @@ if(start == null) {
 Timestamp prev = UtilDateTime.getDayStart(start,-1);
 Timestamp next = UtilDateTime.getDayStart(start,1);
 
-Map serviceCtx = UtilMisc.toMap("userLogin", userLogin,"start",start,"numPeriods",new Integer(24),"periodSeconds",new Integer(3600));
+Map serviceCtx = UtilMisc.toMap("userLogin", userLogin,"start",start,"numPeriods",new Integer(24),"periodType",new Integer(Calendar.HOUR));
 serviceCtx.put("partyId", partyId);
 serviceCtx.put("facilityId", facilityId);
 serviceCtx.put("fixedAssetId", fixedAssetId);

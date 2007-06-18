@@ -70,7 +70,7 @@ tempCal.add(Calendar.DATE,-(prevMonthDays));
 numDays += prevMonthDays;
 getFrom = new Timestamp(tempCal.getTime().getTime());
 
-serviceCtx = UtilMisc.toMap("userLogin", userLogin, "start", getFrom,"numPeriods", new Integer(numDays), "periodSeconds", new Integer(3600*24));
+serviceCtx = UtilMisc.toMap("userLogin", userLogin, "start", getFrom,"numPeriods", new Integer(numDays), "periodType", new Integer(Calendar.DATE));
 serviceCtx.put("partyId", partyId);
 serviceCtx.put("facilityId", facilityId);
 serviceCtx.put("fixedAssetId", fixedAssetId);
