@@ -148,4 +148,36 @@ under the License.
             <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app" description="${orderId}" />
         </field>
     </form>
+    <!-- Inventory Item Labels -->
+    <form name="UpdateInventoryItemLabelAppls" type="list" target="updateInventoryItemLabelApplFromItem" title="" list-name="inventoryItemLabelAppls">
+        <auto-fields-service service-name="updateInventoryItemLabelAppl"/>
+        <field name="inventoryItemLabelId" title="" widget-style="buttontext">
+            <hyperlink target="EditInventoryItemLabel?inventoryItemLabelId=${inventoryItemLabelId}" description="${inventoryItemLabelId}" also-hidden="true"/>
+        </field>
+        <field name="facilityId"><hidden/></field>
+        <field name="inventoryItemId"><hidden/></field>
+        <field name="inventoryItemLabelTypeId">
+            <display-entity entity-name="InventoryItemLabelType" description="${description} [${inventoryItemLabelTypeId}]"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteInventoryItemLabelApplFromItem?inventoryItemId=${inventoryItemId}&amp;inventoryItemLabelTypeId=${inventoryItemLabelTypeId}&amp;inventoryItemLabelId=${inventoryItemLabelId}&amp;facilityId=${facilityId}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="AddInventoryItemLabelAppl" type="single" target="createInventoryItemLabelApplFromItem" title="">
+        <auto-fields-service service-name="createInventoryItemLabelAppl"/>
+        <field name="facilityId"><hidden/></field>
+        <field name="inventoryItemId"><hidden/></field>
+        <field name="inventoryItemLabelId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="InventoryItemLabel" description="${inventoryItemLabelTypeId} ${inventoryItemLabelId} ${description}">
+                    <entity-order-by field-name="inventoryItemLabelTypeId"/>
+                    <entity-order-by field-name="inventoryItemLabelId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+    </form>
+
 </forms>
