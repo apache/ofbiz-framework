@@ -51,7 +51,7 @@
         <attribute mode="IN" name="contentOperationId" optional="true" type="String"/>
         <attribute mode="IN" name="useCache" optional="true" type="Boolean"/>
         <attribute mode="IN" name="filterByDate" optional="true" type="Boolean"/>
-        <attribute mode="OUT" name="subContentList" optional="false" type="java.util.List"/>
+        <attribute mode="OUT" name="subContentList" optional="true" type="java.util.List"/>
     </service>
     
     <service name="getSubSubContentWithPermCheck" engine="simple"  auth="true"
@@ -60,7 +60,7 @@
         <implements service="getSubContentWithPermCheck"/>
         <attribute mode="IN" name="subContentAssocTypeId" optional="true" type="String"/>
         <attribute mode="IN" name="subMapKey" optional="true" type="String"/>
-        <attribute mode="OUT" name="subSubContentList" optional="false" type="java.util.List"/>
+        <attribute mode="OUT" name="subSubContentList" optional="true" type="java.util.List"/>
     </service>
 
     <service name="getContentAndDataResource" engine="simple" default-entity-name="Content" auth="true"
