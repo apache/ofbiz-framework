@@ -79,8 +79,8 @@ under the License.
         </field>
         <field name="unitCost"><text/></field>
 
-        <field use-when="inventoryItemTypeId.equals(&quot;NON_SERIAL_INV_ITEM&quot;)" name="totals" title="${uiLabelMap.ProductAvailablePromiseQuantityHand}">
-            <display description="${inventoryItem.availableToPromiseTotal} / ${inventoryItem.quantityOnHandTotal}"/>
+        <field use-when="&quot;NON_SERIAL_INV_ITEM&quot;.equals(inventoryItemTypeId)" name="totals" title="${uiLabelMap.ProductAvailablePromiseQuantityHand}">
+                <display description="${inventoryItem.availableToPromiseTotal} / ${inventoryItem.quantityOnHandTotal}"/>
         </field>
         
         <field use-when="inventoryItem!=null" name="submit" title="Update">
