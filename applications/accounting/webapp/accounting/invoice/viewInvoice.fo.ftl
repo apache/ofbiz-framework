@@ -150,9 +150,9 @@ under the License.
             <fo:table-column column-width="20mm"/>
             <fo:table-column column-width="20mm"/>
             <fo:table-column column-width="65mm"/>
-            <fo:table-column column-width="10mm"/>
-            <fo:table-column column-width="20mm"/>
-            <fo:table-column column-width="20mm"/>
+            <fo:table-column column-width="15mm"/>
+            <fo:table-column column-width="25mm"/>
+            <fo:table-column column-width="25mm"/>
             
             <fo:table-header height="14px">
               <fo:table-row>
@@ -235,7 +235,7 @@ under the License.
                                 <fo:block> ${description?if_exists} </fo:block>               
                             </fo:table-cell>       
                               <fo:table-cell>
-                                <fo:block text-align="right"> <#if invoiceItem.quantity?exists>${invoiceItem.quantity?string.number}</#if> </fo:block>               
+                                <fo:block text-align="center"> <#if invoiceItem.quantity?exists>${invoiceItem.quantity?string.number}</#if> </fo:block>               
                             </fo:table-cell>
                             <fo:table-cell text-align="right">
                                 <fo:block> <#if invoiceItem.quantity?exists><@ofbizCurrency amount=invoiceItem.amount?if_exists isoCode=invoice.currencyUomId?if_exists/></#if> </fo:block>               
