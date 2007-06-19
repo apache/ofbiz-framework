@@ -41,19 +41,24 @@ public class JunitSuiteWrapper {
     
     protected List modelTestSuiteList = FastList.newInstance();
     
-    public JunitSuiteWrapper(String componentName) {
+    public JunitSuiteWrapper(String componentName, String testCase) {
         List testSuiteInfoList = ComponentConfig.getAllTestSuiteInfos(componentName);
         Iterator testSuiteInfoIter = testSuiteInfoList.iterator();
         while (testSuiteInfoIter.hasNext()) {
             ComponentConfig.TestSuiteInfo testSuiteInfo = (ComponentConfig.TestSuiteInfo) testSuiteInfoIter.next();
-            
             ResourceHandler testSuiteResource = testSuiteInfo.createResourceHandler();
+
             try {
                 Document testSuiteDocument = testSuiteResource.getDocument();
                 // TODO create TestSuite object based on this that will contain its TestCase objects
+
                 Element documentElement = testSuiteDocument.getDocumentElement();
-                ModelTestSuite modelTestSuite = new ModelTestSuite(documentElement);
-                this.modelTestSuiteList.add(modelTestSuite);
+                ModelTestSuite modelTestSuite = new ModelTestSuite(documentElement, testCase);
+
+                // make sure there are test-cases configured for the suite
+                if (modelTestSuite.getTestList().size() > 0) {
+                    this.modelTestSuiteList.add(modelTestSuite);
+                }
             } catch (GenericConfigException e) {
                 String errMsg = "Error reading XML document from ResourceHandler for loader [" + testSuiteResource.getLoaderName() + "] and location [" + testSuiteResource.getLocation() + "]";
                 Debug.logError(e, errMsg, module);

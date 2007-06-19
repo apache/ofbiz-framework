@@ -20,8 +20,7 @@ package org.ofbiz.testtools;
 
 import java.util.Enumeration;
 
-import junit.framework.TestResult;
-import junit.framework.TestSuite;
+import junit.framework.*;
 
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerException;
@@ -36,6 +35,7 @@ public class TestRunContainer implements Container {
     protected TestResult results = null;
     protected String configFile = null;
     protected String component = null;
+    protected String testCase = null;
 
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
@@ -62,6 +62,9 @@ public class TestRunContainer implements Container {
                     if ("component".equalsIgnoreCase(argumentName)) {
                         this.component = argumentVal;
                     }
+                    if ("case".equalsIgnoreCase(argumentName)) {
+                        this.testCase = argumentVal;
+                    }
                 }
             }
         }
@@ -71,7 +74,10 @@ public class TestRunContainer implements Container {
         //ContainerConfig.Container jc = ContainerConfig.getContainer("junit-container", configFile);
 
         // get the tests to run
-        JunitSuiteWrapper jsWrapper = new JunitSuiteWrapper(component);
+        JunitSuiteWrapper jsWrapper = new JunitSuiteWrapper(component, testCase);
+        if (jsWrapper.getAllTestList().size() == 0) {
+            throw new ContainerException("No tests found (" + component + " / " + testCase + ")");
+        }
 
         // load the tests into the suite
         TestSuite suite = new TestSuite();
@@ -79,6 +85,7 @@ public class TestRunContainer implements Container {
 
         // holder for the results
         results = new TestResult();
+        results.addListener(new JunitListener());
 
         // run the tests
         suite.run(results);
@@ -117,6 +124,25 @@ public class TestRunContainer implements Container {
             Thread.sleep(2000);
         } catch (Exception e) {
             throw new ContainerException(e);
+        }
+    }
+
+    class JunitListener implements TestListener {
+
+        public void addError(Test test, Throwable throwable) {
+            Debug.logWarning("[JUNIT (error)] - " + test.getClass().getName() + " : " + throwable.getMessage(), module);
+        }
+
+        public void addFailure(Test test, AssertionFailedError assertionFailedError) {
+            Debug.logWarning("[JUNIT (failure)] - " + test.getClass().getName() + " : " + assertionFailedError.getMessage(), module);
+        }
+
+        public void endTest(Test test) {
+            Debug.logInfo("[JUNIT] : " + test.getClass().getName() + " finished.", module);
+        }
+
+        public void startTest(Test test) {
+           Debug.logInfo("[JUNIT] : " + test.getClass().getName() + " starting...", module);
         }
     }
 }
