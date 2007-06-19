@@ -68,19 +68,32 @@ under the License.
           ${uiLabelMap.CommonWelcome}!
         </#if>
         </p>
-        <p>${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()}</p>
+        <#assign nowStamp = Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp()>
+        <#assign timeZone = Static["org.ofbiz.base.util.UtilDateTime"].toTimeZone((userLogin.lastTimeZone)?default(""))>
+        <p>${Static["org.ofbiz.base.util.UtilDateTime"].timeStampToString(nowStamp, timeZone, locale)}</p>
             <form method="post" action="<@ofbizUrl>setSessionLocale</@ofbizUrl>">
               <select name="locale">
+                <option value="${locale.toString()}">${locale.getDisplayName(locale)}</option>
+                <option value="${locale.toString()}"></option>
                 <#list availableLocales as availableLocale>
                     <#assign langAttr = availableLocale.toString()?replace("_", "-")>
                     <#assign langDir = "ltr">
                     <#if "ar.iw"?contains(langAttr?substring(0, 2))>
                         <#assign langDir = "rtl">
                     </#if>
-                    <option lang="${langAttr}" dir="${langDir}" value="${availableLocale.toString()}"<#if locale.toString() = availableLocale.toString()> selected="selected"</#if>>${availableLocale.getDisplayName(availableLocale)}</option>
+                    <option lang="${langAttr}" dir="${langDir}" value="${availableLocale.toString()}">${availableLocale.getDisplayName(availableLocale)}</option>
                 </#list>
               </select>
               <input type="submit" value="${uiLabelMap.CommonSet}"/>
+              <br />
+              <#assign displayStyle = Static["java.util.TimeZone"].LONG>
+              <select name="tzId">
+                <option value="${timeZone.getID()}">${timeZone.getDisplayName(timeZone.useDaylightTime(), displayStyle, locale)}</option>
+                <option value="${timeZone.getID()}"></option>
+                <#list availableTimeZones as availableTz>
+                    <option value="${availableTz.getID()}">${availableTz.getDisplayName(availableTz.useDaylightTime(), displayStyle, locale)}</option>
+                </#list>
+              </select>
             </form>
       </li>
     </ul>

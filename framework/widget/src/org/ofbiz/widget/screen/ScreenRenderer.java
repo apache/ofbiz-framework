@@ -123,8 +123,9 @@ public class ScreenRenderer {
         // make sure the "nullField" object is in there for entity ops; note this is nullField and not null because as null causes problems in FreeMarker and such...
         context.put("nullField", GenericEntity.NULL_FIELD);
 
-        // get all locale information
+        // get all locale & time zone information
         context.put("availableLocales", UtilMisc.availableLocales());
+        context.put("availableTimeZones", UtilDateTime.availableTimeZones());
 
         context.put("parameters", parameters);
         context.put("delegator", delegator);
