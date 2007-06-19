@@ -20,8 +20,13 @@ under the License.
 <entity-engine-xml>
     <StatusType description="OAGIS Message Processing Status" statusTypeId="OAGIS_MP_STATUS" hasTable="N" parentTypeId=""/>
     <StatusItem description="Received" sequenceId="01" statusCode="RECEIVED" statusId="OAGMP_RECEIVED" statusTypeId="OAGIS_MP_STATUS"/>
-    <StatusItem description="Processed - Success" sequenceId="02" statusCode="PROC_SUCCESS" statusId="OAGMP_PROC_SUCCESS" statusTypeId="OAGIS_MP_STATUS"/>
-    <StatusItem description="Processed - Error" sequenceId="03" statusCode="PROC_ERROR" statusId="OAGMP_PROC_ERROR" statusTypeId="OAGIS_MP_STATUS"/>
+    <StatusItem description="Processed - Success" sequenceId="08" statusCode="PROC_SUCCESS" statusId="OAGMP_PROC_SUCCESS" statusTypeId="OAGIS_MP_STATUS"/>
+    <StatusItem description="Processed - Error" sequenceId="09" statusCode="PROC_ERROR" statusId="OAGMP_PROC_ERROR" statusTypeId="OAGIS_MP_STATUS"/>
+    <StatusItem description="Sent" sequenceId="10" statusCode="SENT" statusId="OAGMP_SENT" statusTypeId="OAGIS_MP_STATUS"/>
+    <StatusItem description="Received Success Confirm" sequenceId="18" statusCode="REC_SUC_CON" statusId="OAGMP_REC_SUC_CON" statusTypeId="OAGIS_MP_STATUS"/>
+    <StatusItem description="Received Error Confirm" sequenceId="19" statusCode="REC_ERR_CON" statusId="OAGMP_REC_ERR_CON" statusTypeId="OAGIS_MP_STATUS"/>
     <StatusValidChange condition="" statusId="OAGMP_RECEIVED" statusIdTo="OAGMP_PROC_SUCCESS" transitionName="Processing Succeeded"/>
     <StatusValidChange condition="" statusId="OAGMP_RECEIVED" statusIdTo="OAGMP_PROC_ERROR" transitionName="Processing Errored"/>
+    <StatusValidChange condition="" statusId="OAGMP_SENT" statusIdTo="OAGMP_REC_SUC_CON" transitionName="Success Confirm Received"/>
+    <StatusValidChange condition="" statusId="OAGMP_SENT" statusIdTo="OAGMP_REC_ERR_CON" transitionName="Error Confirm Received"/>
 </entity-engine-xml>
