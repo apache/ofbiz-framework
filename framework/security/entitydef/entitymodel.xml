@@ -71,6 +71,7 @@ under the License.
       <field name="hasLoggedOut" type="indicator"></field>
       <field name="lastCurrencyUom" type="id"></field>
       <field name="lastLocale" type="very-short"></field>
+      <field name="lastTimeZone" type="id-long"></field>
       <field name="disabledDateTime" type="date-time"></field>
       <field name="successiveFailedLogins" type="numeric"></field>
       <prim-key field="userLoginId"/>

@@ -24,8 +24,11 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -192,13 +195,7 @@ public class UtilDateTime {
     }
 
     public static java.sql.Timestamp getDayStart(java.sql.Timestamp stamp, int daysLater) {
-        Calendar tempCal = Calendar.getInstance();
-        tempCal.setTime(new java.util.Date(stamp.getTime()));
-        tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), tempCal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
-        tempCal.add(Calendar.DAY_OF_MONTH, daysLater);
-        java.sql.Timestamp retStamp = new java.sql.Timestamp(tempCal.getTime().getTime());
-        retStamp.setNanos(0);
-        return retStamp;
+        return getDayStart(stamp, daysLater, TimeZone.getDefault(), Locale.getDefault());
     }
 
     public static java.sql.Timestamp getNextDayStart(java.sql.Timestamp stamp) {
@@ -210,13 +207,7 @@ public class UtilDateTime {
     }
 
     public static java.sql.Timestamp getDayEnd(java.sql.Timestamp stamp, int daysLater) {
-        Calendar tempCal = Calendar.getInstance();
-        tempCal.setTime(new java.util.Date(stamp.getTime()));
-        tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), tempCal.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
-        tempCal.add(Calendar.DAY_OF_MONTH, daysLater);
-        java.sql.Timestamp retStamp = new java.sql.Timestamp(tempCal.getTime().getTime());
-        retStamp.setNanos(999999999);
-        return retStamp;
+        return getDayEnd(stamp, daysLater, TimeZone.getDefault(), Locale.getDefault());
     }
 
     /**
@@ -237,15 +228,7 @@ public class UtilDateTime {
         return getYearStart(stamp, daysLater, 0, yearsLater);
     }
     public static java.sql.Timestamp getYearStart(java.sql.Timestamp stamp, int daysLater, int monthsLater, int yearsLater) {
-        Calendar tempCal = Calendar.getInstance();
-        tempCal.setTime(new java.util.Date(stamp.getTime()));
-        tempCal.set(tempCal.get(Calendar.YEAR), Calendar.JANUARY, 1, 0, 0, 0);
-        tempCal.add(Calendar.YEAR, yearsLater);
-        tempCal.add(Calendar.MONTH, monthsLater);
-        tempCal.add(Calendar.DAY_OF_MONTH, daysLater);
-        java.sql.Timestamp retStamp = new java.sql.Timestamp(tempCal.getTime().getTime());
-        retStamp.setNanos(0);
-        return retStamp;
+        return getYearStart(stamp, daysLater, monthsLater, yearsLater, TimeZone.getDefault(), Locale.getDefault());
     }
     public static java.sql.Timestamp getYearStart(java.sql.Timestamp stamp, Number daysLater, Number monthsLater, Number yearsLater) {
         return getYearStart(stamp, (daysLater == null ? 0 : daysLater.intValue()), 
@@ -267,14 +250,7 @@ public class UtilDateTime {
     }
 
     public static java.sql.Timestamp getMonthStart(java.sql.Timestamp stamp, int daysLater, int monthsLater) {
-        Calendar tempCal = Calendar.getInstance();
-        tempCal.setTime(new java.util.Date(stamp.getTime()));
-        tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), 1, 0, 0, 0);
-        tempCal.add(Calendar.DAY_OF_MONTH, daysLater);
-        tempCal.add(Calendar.MONTH, monthsLater);
-        java.sql.Timestamp retStamp = new java.sql.Timestamp(tempCal.getTime().getTime());
-        retStamp.setNanos(0);
-        return retStamp;
+        return getMonthStart(stamp, daysLater, monthsLater, TimeZone.getDefault(), Locale.getDefault());
     }
 
     /**
@@ -292,27 +268,11 @@ public class UtilDateTime {
     }
 
     public static java.sql.Timestamp getWeekStart(java.sql.Timestamp stamp, int daysLater, int weeksLater) {
-        Calendar tempCal = Calendar.getInstance();
-        tempCal.setTime(new java.util.Date(stamp.getTime()));
-        tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), tempCal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
-        tempCal.add(Calendar.DAY_OF_MONTH, daysLater);
-        tempCal.set(Calendar.DAY_OF_WEEK, tempCal.getFirstDayOfWeek());
-        tempCal.add(Calendar.WEEK_OF_MONTH, weeksLater);
-        java.sql.Timestamp retStamp = new java.sql.Timestamp(tempCal.getTime().getTime());
-        retStamp.setNanos(0);
-        return retStamp;
+        return getWeekStart(stamp, daysLater, weeksLater, TimeZone.getDefault(), Locale.getDefault());
     }
 
     public static java.sql.Timestamp getWeekEnd(java.sql.Timestamp stamp) {
-        Calendar tempCal = Calendar.getInstance();
-        tempCal.setTime(new java.util.Date(stamp.getTime()));
-        tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), tempCal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
-        tempCal.add(Calendar.WEEK_OF_MONTH, 1);
-        tempCal.set(Calendar.DAY_OF_WEEK, tempCal.getFirstDayOfWeek());
-        tempCal.add(Calendar.SECOND, -1);
-        java.sql.Timestamp retStamp = new java.sql.Timestamp(tempCal.getTime().getTime());
-        retStamp.setNanos(0);
-        return retStamp;
+        return getWeekEnd(stamp, TimeZone.getDefault(), Locale.getDefault());
     }
     
     public static java.util.Calendar toCalendar(java.sql.Timestamp stamp) {
@@ -744,8 +704,7 @@ public class UtilDateTime {
      * @return A int containing the week number
      */
     public static int weekNumber(Timestamp input) {
-        Calendar calendar = Calendar.getInstance();
-        return weekNumber(input, calendar.getFirstDayOfWeek());
+        return weekNumber(input, TimeZone.getDefault(), Locale.getDefault());
     }
     
     public static int weekNumber(Timestamp input, int startOfWeek) {
@@ -943,6 +902,44 @@ public class UtilDateTime {
         DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, locale);
         dateFormat.setTimeZone(tz);
         return dateFormat.format(stamp);
+    }
+
+    protected static List availableTimeZoneList = null;
+    /** Returns a List of available TimeZone objects.
+     * @see java.util.TimeZone
+     */
+    public static List availableTimeZones() {
+        if (availableTimeZoneList == null) {
+            synchronized(UtilDateTime.class) {
+                if (availableTimeZoneList == null) {
+                    availableTimeZoneList = new LinkedList();
+                    List idList = null;
+                    String tzString = UtilProperties.getPropertyValue("general", "timeZones.available");
+                    if (tzString != null && tzString.length() > 0) {
+                        idList = StringUtil.split(tzString, ",");
+                    } else {
+                        idList = Arrays.asList(TimeZone.getAvailableIDs());
+                    }
+                    for (Iterator i = idList.iterator(); i.hasNext();) {
+                        TimeZone curTz = TimeZone.getTimeZone((String)i.next());
+                        availableTimeZoneList.add(curTz);
+                    }
+                }
+            }
+        }
+        return availableTimeZoneList;
+    }
+    
+    /** Returns a TimeZone object based upon a time zone ID. Method defaults to
+     * server's time zone if tzID is null or empty.
+     * @see java.util.TimeZone
+     */
+    public static TimeZone toTimeZone(String tzId) {
+        if (UtilValidate.isEmpty(tzId)) {
+            return TimeZone.getDefault();
+        } else {
+            return TimeZone.getTimeZone(tzId);
+        }
     }
 
 }

@@ -187,6 +187,31 @@ public class CommonEvents {
                 }
             }
         }
+        return setSessionTimeZone(request, response);
+    }
+
+    /** Simple event to set the user's per-session time zone setting. */
+    public static String setSessionTimeZone(HttpServletRequest request, HttpServletResponse response) {
+        String tzString = request.getParameter("tzId");
+        if (UtilValidate.isNotEmpty(tzString)) {
+
+            // update the UserLogin object
+            GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
+            if (userLogin == null) {
+                userLogin = (GenericValue) request.getSession().getAttribute("autoUserLogin");
+            }
+
+            if (userLogin != null) {
+                GenericValue ulUpdate = GenericValue.create(userLogin);
+                ulUpdate.set("lastTimeZone", tzString);
+                try {
+                    ulUpdate.store();
+                    userLogin.refreshFromCache();
+                } catch (GenericEntityException e) {
+                    Debug.logWarning(e, module);
+                }
+            }
+        }
         return "success";
     }
 
