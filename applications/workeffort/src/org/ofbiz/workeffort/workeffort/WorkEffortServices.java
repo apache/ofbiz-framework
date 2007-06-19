@@ -304,12 +304,9 @@ public class WorkEffortServices {
                 tempWorkEfforts = delegator.findByAnd("WorkEffort", entityExprList, UtilMisc.toList("estimatedStartDate"));
             }
 
-            // FIXME: I think that now the following code can be removed.
-            //        It was probably here to remove duplicated workeffort ids caused
-            //        by the query on the WorkEffortAndPartyAssign view when no party was
-            //        specified; now it is no more necessary since, when no party is specified,
-            //        the query is done on the WorkEffort entity.
-            /*
+            // This block needs to be here to filter duplicate workeffort ids when 
+            // more than one of the selected party ids is assigned to the WorkEffort
+            
             Set tempWeKeys = new HashSet();
             Iterator tempWorkEffortIter = tempWorkEfforts.iterator();
             while (tempWorkEffortIter.hasNext()) {
@@ -321,7 +318,7 @@ public class WorkEffortServices {
                     tempWeKeys.add(tempWorkEffortId);
                 }
             }
-             */
+            
             validWorkEfforts = new ArrayList(tempWorkEfforts);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
