@@ -43,6 +43,7 @@ import org.ofbiz.product.config.ProductConfigWrapper.ConfigOption;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
+import javolution.util.FastList;
 
 /**
  * Product Worker class to reduce code in JSPs.
@@ -739,7 +740,6 @@ public class ProductWorker {
     public static GenericValue findProduct(GenericDelegator delegator, String idToFind, String goodIdentificationTypeId) throws GenericEntityException {
         // first lookup and see if this is the Product PK
         GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", idToFind));
-        String productId = null;
 
         if (product == null) {
             // no product record found; no check good identification
@@ -761,6 +761,35 @@ public class ProductWorker {
         } else {
             return null;
         }
+    }
+
+    public static List findProducts(GenericDelegator delegator, String idToFind, String goodIdentificationTypeId) throws GenericEntityException {
+        // first lookup and see if this is the Product PK
+        GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", idToFind));
+        List products = FastList.newInstance();
+        if (product == null) {
+            // no product record found; no check good identification
+            Map goodIdLookup = UtilMisc.toMap("idValue", idToFind);
+            if (UtilValidate.isNotEmpty(goodIdentificationTypeId)) {
+                goodIdLookup.put("goodIdentificationTypeId", goodIdentificationTypeId);
+            }
+            List goodIds = delegator.findByAndCache("GoodIdentification", goodIdLookup, UtilMisc.toList("-createdStamp"));
+
+            // sorted by createdStamp; so pull out the most current entry
+            if (goodIds != null) {
+                Iterator<GenericValue> i = goodIds.iterator();
+                while (i.hasNext()) {
+                    GenericValue v = i.next();
+                    products.add(v.getRelatedOneCache("Product"));
+                }
+            }            
+        }
+
+        return products;
+    }
+
+    public static List findProducts(GenericDelegator delegator, String idToFind) throws GenericEntityException {
+        return findProducts(delegator, idToFind, null);
     }
 
     public static GenericValue findProduct(GenericDelegator delegator, String idToFind) throws GenericEntityException {
