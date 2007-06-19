@@ -74,30 +74,40 @@ under the License.
     <!-- End of Security Mappings -->
 
     <!-- Request Mappings -->
+    
+    <!-- Begin Utility Requests -->
     <request-map uri="httpService">
         <event type="java" path="org.ofbiz.service.engine.HttpEngine" invoke="httpEngine"/>
         <response name="success" type="none"/>
         <response name="error" type="none"/>
     </request-map>
-
     <request-map uri="SOAPService">
         <event type="soap"/>
         <response name="error" type="none"/>
         <response name="success" type="none"/>
     </request-map>
-
     <request-map uri="xmlrpc">
         <event type="xmlrpc"/>
         <response name="error" type="none"/>
         <response name="success" type="none"/>
     </request-map>
-
+    <request-map uri="runService">
+        <event type="java" path="org.ofbiz.webapp.event.CoreEvents" invoke="runService"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+    
     <request-map uri="ping">
         <event type="service" invoke="ping"/>
         <response name="error" type="view" value="ping"/>
         <response name="success" type="view" value="ping"/>
     </request-map>
-
+    <request-map uri="showDateTime"><response name="success" type="view" value="showDateTime"/></request-map>
+    <request-map uri="secureDateTime">
+        <security auth="false" https="true" cert="true"/>
+        <response name="success" type="view" value="showDateTime"/>
+    </request-map>
+    
     <request-map uri="TestService">
         <event type="service" invoke="testScv" />
         <response name="error" type="view" value="error"/>
@@ -119,31 +129,25 @@ under the License.
         <response name="error" type="view" value="main"/>
     </request-map>
 
-    <request-map uri="runService">
-        <event type="java" path="org.ofbiz.webapp.event.CoreEvents" invoke="runService"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="main"/>
-    </request-map>
-
-    <request-map uri="view">
-        <security https="true" auth="false"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="error"/>
-    </request-map>
-
-    <request-map uri="chain">
-        <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
-        <response name="success" type="request" value="/view"/>
-        <response name="error" type="view" value="error"/>
-    </request-map>
-
     <request-map uri="setSessionLocale">
         <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-
+    
+    <request-map uri="view">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="error"/>
+    </request-map>
+    <request-map uri="chain">
+        <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
+        <response name="success" type="request" value="/view"/>
+        <response name="error" type="view" value="error"/>
+    </request-map>
+    <!-- End Utility Requests -->
+    
     <request-map uri="main">
         <security https="true" auth="false"/>
         <response name="success" type="view" value="main"/>
@@ -548,7 +552,8 @@ under the License.
     <view-map name="main" type="screen" page="component://webtools/widget/CommonScreens.xml#main"/>
     <view-map name="login" type="screen" page="component://webtools/widget/CommonScreens.xml#login"/>
     <view-map name="ping" type="ftl" page="/ping.ftl"/>
-
+    <view-map name="showDateTime" type="ftl" page="/showDateTime.ftl"/>
+    
     <view-map name="entityref" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityRef"/>
     <view-map name="entityref_list" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityRefList"/>
     <view-map name="entityref_main" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityRefMain"/>
