@@ -50,8 +50,8 @@ public class ModelTestSuite {
     protected LocalDispatcher dispatcher;
 
     protected List testList = FastList.newInstance();
-
-    public ModelTestSuite(Element mainElement) {
+    
+    public ModelTestSuite(Element mainElement, String testCase) {
         this.suiteName = mainElement.getAttribute("suite-name");
 
         this.delegatorName = mainElement.getAttribute("delegator-name");
@@ -68,38 +68,39 @@ public class ModelTestSuite {
         while (testCaseElementIter.hasNext()) {
             Element testCaseElement = (Element) testCaseElementIter.next();
             String caseName = testCaseElement.getAttribute("case-name");
-            
-            Element childElement = UtilXml.firstChildElement(testCaseElement);
-            String nodeName = childElement.getNodeName();
-            if ("junit-test-suite".equals(nodeName)) {
-                String className = childElement.getAttribute("class-name");
+            if (testCase == null || caseName.equals(testCase)) {
+                Element childElement = UtilXml.firstChildElement(testCaseElement);
+                String nodeName = childElement.getNodeName();
+                if ("junit-test-suite".equals(nodeName)) {
+                    String className = childElement.getAttribute("class-name");
 
-                try {
-                    Class clz = ObjectType.loadClass(className);
-                    TestSuite suite = new TestSuite();
-                    suite.addTestSuite(clz);
-                    Enumeration testEnum = suite.tests();
-                    int testsAdded = 0;
-                    int casesAdded = 0;
-                    while (testEnum.hasMoreElements()) {
-                        Test tst = (Test) testEnum.nextElement();
-                        this.testList.add(tst);
-                        casesAdded += tst.countTestCases();
-                        testsAdded++;
+                    try {
+                        Class clz = ObjectType.loadClass(className);
+                        TestSuite suite = new TestSuite();
+                        suite.addTestSuite(clz);
+                        Enumeration testEnum = suite.tests();
+                        int testsAdded = 0;
+                        int casesAdded = 0;
+                        while (testEnum.hasMoreElements()) {
+                            Test tst = (Test) testEnum.nextElement();
+                            this.testList.add(tst);
+                            casesAdded += tst.countTestCases();
+                            testsAdded++;
+                        }
+                        Debug.logInfo("Added " + testsAdded + " tests [" + casesAdded + " cases] from the class: " + className, module);
+                    } catch (Exception e) {
+                        String errMsg = "Unable to load test suite class : " + className;
+                        Debug.logError(e, errMsg, module);
                     }
-                    Debug.logInfo("Added " + testsAdded + " tests [" + casesAdded + " cases] from the class: " + className, module);
-                } catch (Exception e) {
-                    String errMsg = "Unable to load test suite class : " + className;
-                    Debug.logError(e, errMsg, module);
+                } else if ("service-test".equals(nodeName)) {
+                    this.testList.add(new ServiceTest(caseName, this, childElement));
+                } else if ("simple-method-test".equals(nodeName)) {
+                    this.testList.add(new SimpleMethodTest(caseName, this, childElement));
+                } else if ("entity-xml-assert".equals(nodeName)) {
+                    this.testList.add(new EntityXmlAssertTest(caseName, this, childElement));
+                } else if ("jython-test".equals(nodeName)) {
+                    this.testList.add(new JythonTest(caseName, this, childElement));
                 }
-            } else if ("service-test".equals(nodeName)) {
-                this.testList.add(new ServiceTest(caseName, this, childElement));
-            } else if ("simple-method-test".equals(nodeName)) {
-                this.testList.add(new SimpleMethodTest(caseName, this, childElement));
-            } else if ("entity-xml-assert".equals(nodeName)) {
-                this.testList.add(new EntityXmlAssertTest(caseName, this, childElement));
-            } else if ("jython-test".equals(nodeName)) {
-                this.testList.add(new JythonTest(caseName, this, childElement));
             }
         }
     }
