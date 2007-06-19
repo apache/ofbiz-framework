@@ -1314,7 +1314,7 @@ public class OrderReadHelper {
                 }
             }
         }
-        return total - openAmount;
+        return Math.max(total - openAmount, 0);
     }
 
     public List getOrderHeaderAdjustments() {
