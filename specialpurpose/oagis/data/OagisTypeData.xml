@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <StatusType description="OAGIS Message Processing Status" statusTypeId="OAGIS_MP_STATUS" hasTable="N" parentTypeId=""/>
+    <StatusItem description="Received" sequenceId="01" statusCode="RECEIVED" statusId="OAGMP_RECEIVED" statusTypeId="OAGIS_MP_STATUS"/>
+    <StatusItem description="Processed - Success" sequenceId="02" statusCode="PROC_SUCCESS" statusId="OAGMP_PROC_SUCCESS" statusTypeId="OAGIS_MP_STATUS"/>
+    <StatusItem description="Processed - Error" sequenceId="03" statusCode="PROC_ERROR" statusId="OAGMP_PROC_ERROR" statusTypeId="OAGIS_MP_STATUS"/>
+    <StatusValidChange condition="" statusId="OAGMP_RECEIVED" statusIdTo="OAGMP_PROC_SUCCESS" transitionName="Processing Succeeded"/>
+    <StatusValidChange condition="" statusId="OAGMP_RECEIVED" statusIdTo="OAGMP_PROC_ERROR" transitionName="Processing Errored"/>
+</entity-engine-xml>
