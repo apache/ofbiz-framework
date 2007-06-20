@@ -53,8 +53,12 @@ under the License.
         <field use-when="taxAuthority==null&amp;&amp;taxAuthGeoId==null" name="taxAuthGeoId" title="${uiLabelMap.CommonGeo}"><lookup target-form-name="LookupGeo"/></field>
         <field use-when="taxAuthority==null&amp;&amp;taxAuthGeoId!=null" name="taxAuthGeoId" title="${uiLabelMap.CommonGeo}" tooltip="${uiLabelMap.CommonCannotBeFound}:[${taxAuthGeoId}]"><lookup target-form-name="LookupGeo"/></field>
         
-        <field name="requireTaxIdForExemption" widget-style="smallSelect"><drop-down no-current-selected-key="Y"><option key="Y"/><option key="N"/></drop-down></field>
-        <field name="includeTaxInPrice" widget-style="smallSelect"><drop-down no-current-selected-key="N"><option key="Y"/><option key="N"/></drop-down></field>
+        <field name="requireTaxIdForExemption" widget-style="smallSelect">
+            <drop-down no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
+        <field name="includeTaxInPrice" widget-style="smallSelect">
+            <drop-down no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
         <field name="taxIdFormatPattern" tooltip="${uiLabelMap.AccountingValidationPattern}"></field>
         
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -267,6 +271,9 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="taxShipping">
+            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
         
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -281,8 +288,12 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-find/></field>
 
         <field name="partyTaxId"><text-find/></field>
-        <field name="isExempt" widget-style="smallSelect"><drop-down no-current-selected-key="N"><option key="Y"/><option key="N"/></drop-down></field>
-        <field name="isNexus" widget-style="smallSelect"><drop-down no-current-selected-key="N"><option key="Y"/><option key="N"/></drop-down></field>
+        <field name="isExempt" widget-style="smallSelect">
+            <drop-down no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
+        <field name="isNexus" widget-style="smallSelect">
+            <drop-down no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
         
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
@@ -337,8 +348,8 @@ under the License.
         
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="partyTaxId"><text/></field>
-        <field name="isExempt" widget-style="smallSelect"><drop-down no-current-selected-key="N"><option key="Y"/><option key="N"/></drop-down></field>
-        <field name="isNexus" widget-style="smallSelect"><drop-down no-current-selected-key="N"><option key="Y"/><option key="N"/></drop-down></field>
+        <field name="isExempt" widget-style="smallSelect"><drop-down no-current-selected-key="N"><option key="Y"  description="${uiLabelMap.CommonY}"/><option key="N"  description="${uiLabelMap.CommonN}"/></drop-down></field>
+        <field name="isNexus" widget-style="smallSelect"><drop-down no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
         
         <field use-when="partyTaxAuthInfo!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field use-when="partyTaxAuthInfo==null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
