@@ -97,7 +97,7 @@ under the License.
         </field>
         <field name="useInvoiceIdForReturns" use-when="partyAcctgPreference==null">
             <drop-down allow-empty="true">
-                <option key="Y"/><option key="N"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
 

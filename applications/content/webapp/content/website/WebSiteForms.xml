@@ -34,7 +34,7 @@ under the License.
 
         <field name="siteName"><text size="30" maxlength="60"/></field>
         <field name="enableHttps" widget-style="selectBox">
-            <drop-down allow-empty="true"><option key="Y"/><option key="N"/></drop-down>
+            <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         
         <field name="productStoreId" widget-style="selectBox">
