@@ -95,6 +95,26 @@ under the License.
             <hyperlink target="TransferInventoryItem?facilityId=${facilityId}&amp;inventoryItemId=${inventoryItemId}" description="${uiLabelMap.ProductTransfer}"/>
         </field>
     </form>
+    <form name="ListFacilityInventoryItemsNoLocations" type="list"  target="" title="" list-name="inventoryItems" 
+        paginate-target="SearchInventoryItemsByLabels">
+        <field name="inventoryItemId" widget-style="buttontext">
+            <hyperlink target="EditInventoryItem?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}" description="${inventoryItemId}"/>
+        </field>
+        <field name="inventoryItemTypeId">
+            <display-entity entity-name="InventoryItemType"/>
+        </field>
+        <field name="statusId"><display/></field>
+        <field name="datetimeReceived"><display/></field>
+        <field name="expireDate"><display/></field>
+        <field name="productId">
+            <hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}"/>
+        </field>
+        <field name="lotId"><display/></field>
+        <field name="binNumber"><display/></field>
+        <field name="serialNumber"><display/></field>
+        <field name="softIdentifier"><display/></field>
+        <field name="quantityOnHandTotal"><display description="${availableToPromiseTotal} / ${quantityOnHandTotal}"/></field>
+    </form>
     <form name="FindFacilityInventoryByProduct" type="single" target="${facilityInventoryByProductScreen}" title="" 
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="facilityId"><hidden/></field>
