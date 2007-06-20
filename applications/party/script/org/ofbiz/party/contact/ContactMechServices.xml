@@ -206,10 +206,10 @@ under the License.
                     <result-to-field result-name="contactMechId" map-name="newValue"/>
                 </call-service>
                 <if-compare-field map-name="oldValue" to-map-name="newValue" field-name="contactMechId" operator="not-equals">
-                    <log level="info" message="Postal address need updating, contact mech changed"/>
+                    <log level="info" message="Telecom Number need updating, contact mech changed"/>
                     <create-value value-name="newValue"/>
                     <else>
-                        <log level="info" message="Postal address unchanged"/>
+                        <log level="info" message="Telecom Number unchanged"/>
                     </else>
                 </if-compare-field>            
             </else>        
