@@ -43,6 +43,22 @@ under the License.
                 <option key="W" description="${uiLabelMap.PartyMaritalStatusWidowed}"/>
             </drop-down>
         </field>
+        <field name="employmentStatusEnumId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description} [${enumCode}]">
+                    <entity-constraint name="enumTypeId" value="EMPLOY_STTS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="residenceStatusEnumId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description} [${enumCode}]">
+                    <entity-constraint name="enumTypeId" value="PTY_RESID_STTS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>                
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
         <field name="cancelLink" title="" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
