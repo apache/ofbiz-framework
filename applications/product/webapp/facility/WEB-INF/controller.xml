@@ -200,6 +200,10 @@ under the License.
         <response name="success" type="view" value="EditFacilityInventoryItems"/>
         <response name="error" type="view" value="EditFacilityInventoryItems"/>
     </request-map> -->
+    <request-map uri="SearchInventoryItemsByLabels">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="SearchInventoryItemsByLabels"/>
+    </request-map>
     <request-map uri="ViewFacilityInventoryByProduct">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewFacilityInventoryByProduct"/>
@@ -1159,6 +1163,7 @@ under the License.
     <view-map name="FindFacilityLocation" type="screen" page="component://product/widget/facility/FacilityScreens.xml#FindFacilityLocation"/>
     <view-map name="EditFacilityLocation" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityLocation"/>
     <view-map name="EditFacilityInventoryItems" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityInventoryItems"/>
+    <view-map name="SearchInventoryItemsByLabels" type="screen" page="component://product/widget/facility/FacilityScreens.xml#SearchInventoryItemsByLabels"/>
     <view-map name="ViewFacilityInventoryByProduct" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ViewFacilityInventoryByProduct"/>
     <view-map name="ViewFacilityInventoryByProductSimple" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ViewFacilityInventoryByProductSimple"/>
     <view-map name="ViewFacilityInventoryByProductReport" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#ViewFacilityInventoryByProductReport" content-type="application/pdf" encoding="none"/>
