@@ -697,8 +697,8 @@ under the License.
 
         <!-- sort the list by date -->
         <string-to-list string="reservedDatetime" list-name="orderByList"/>
-        <order-value-list list-name="reservations" order-by-list-name="orderByList"/>
         <set field="orderByList[]" value="sequenceId"/>
+        <order-value-list list-name="reservations" order-by-list-name="orderByList"/>
 
         <list-to-list list-name="privilegedReservations" to-list-name="allReservations"/>
         <list-to-list list-name="reservations" to-list-name="allReservations"/>
