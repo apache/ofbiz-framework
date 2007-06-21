@@ -82,7 +82,103 @@
         <response name="success" type="view" value="FindMessageInfo"/>
     </request-map>
     
-
+    <request-map uri="EditMessageInfo">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditMessageInfo"/>
+    </request-map>
+    
+    <request-map uri="createOagisMessageInfo">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createOagisMessageInfo"/>
+        <response name="success" type="view" value="EditMessageInfo"/>
+        <response name="error" type="view" value="EditMessageInfo"/>
+    </request-map>
+    
+    <request-map uri="updateOagisMessageInfo">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateOagisMessageInfo"/>
+        <response name="success" type="view" value="EditMessageInfo"/>
+        <response name="error" type="view" value="EditMessageInfo"/>
+    </request-map>
+    
+    <request-map uri="FindMessageErrorInfo">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindMessageErrorInfo"/>
+    </request-map>
+    
+    <request-map uri="EditMessageErrorInfo">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditMessageErrorInfo"/>
+    </request-map>
+    
+    <request-map uri="createOagisMessageErrorInfo">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createOagisMessageErrorInfo"/>
+        <response name="success" type="view" value="EditMessageErrorInfo"/>
+        <response name="error" type="view" value="EditMessageErrorInfo"/>
+    </request-map>
+    
+    <request-map uri="updateOagisMessageErrorInfo">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateOagisMessageErrorInfo"/>
+        <response name="success" type="view" value="EditMessageErrorInfo"/>
+        <response name="error" type="view" value="EditMessageErrorInfo"/>
+    </request-map>
+    
+    <request-map uri="UploadOagisMessage">
+        <security https="true" auth="true" />
+        <response name="success" type="view" value="UploadOagisMessage" />
+        <response name="error" type="view" value="UploadOagisMessage"/>
+    </request-map>
+    
+    <request-map uri="importConfirmBODOagisMessage">
+        <security https="true" auth="true" />
+        <event type="service" path="" invoke="importConfirmBOD" />
+        <response name="success" type="view" value="UploadOagisMessage" />
+        <response name="error" type="view" value="UploadOagisMessage"/>
+    </request-map>
+    
+    <request-map uri="importSyncInventoryOagisMessage">
+        <security https="true" auth="true" />
+        <event type="service" path="" invoke="importConfirmBOD" />
+        <response name="success" type="view" value="UploadOagisMessage" />
+        <response name="error" type="view" value="UploadOagisMessage"/>
+    </request-map>
+    
+    <request-map uri="importAcknowledgementDeliveryOagisMessage">
+        <security https="true" auth="true" />
+        <event type="service" path="" invoke="importConfirmBOD" />
+        <response name="success" type="view" value="UploadOagisMessage" />
+        <response name="error" type="view" value="UploadOagisMessage"/>
+    </request-map>
+    
+    <request-map uri="importProcessShipmentOagisMessage">
+        <security https="true" auth="true" />
+        <event type="service" path="" invoke="importConfirmBOD" />
+        <response name="success" type="view" value="UploadOagisMessage" />
+        <response name="error" type="view" value="UploadOagisMessage"/>
+    </request-map>
+    
+    <request-map uri="importShowShipmentOagisMessage">
+        <security https="true" auth="true" />
+        <event type="service" path="" invoke="importConfirmBOD" />
+        <response name="success" type="view" value="UploadOagisMessage" />
+        <response name="error" type="view" value="UploadOagisMessage"/>
+    </request-map>
+    
+    <request-map uri="importAcknowledgementDeliveryOagisMessage">
+        <security https="true" auth="true" />
+        <event type="service" path="" invoke="importConfirmBOD" />
+        <response name="success" type="view" value="UploadOagisMessage" />
+        <response name="error" type="view" value="UploadOagisMessage"/>
+    </request-map>
+    
+    <request-map uri="importReceiveDeliveryOagisMessage">
+        <security https="true" auth="true" />
+        <event type="service" path="" invoke="importConfirmBOD" />
+        <response name="success" type="view" value="UploadOagisMessage" />
+        <response name="error" type="view" value="UploadOagisMessage"/>
+    </request-map>
 
     <!-- end of request mappings -->
 
@@ -94,6 +190,9 @@
     <view-map name="requirePasswordChange" type="screen" page="component://oagis/widget/CommonScreens.xml#requirePasswordChange"/>
     
     <view-map name="FindMessageInfo" type="screen" page="component://oagis/widget/MessageInfoScreens.xml#FindMessageInfo"/>
+    <view-map name="EditMessageInfo" type="screen" page="component://oagis/widget/MessageInfoScreens.xml#EditMessageInfo"/>
+    <view-map name="FindMessageErrorInfo" type="screen" page="component://oagis/widget/MessageInfoScreens.xml#FindMessageErrorInfo"/>
+    <view-map name="EditMessageErrorInfo" type="screen" page="component://oagis/widget/MessageInfoScreens.xml#EditMessageErrorInfo"/>
     
     <!-- end of view mappings -->
 </site-conf>

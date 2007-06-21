@@ -24,6 +24,7 @@
     
         <menu-item name="main" title="${uiLabelMap.CommonMain}"><link target="main"/></menu-item>
         <menu-item name="MessageInfos" title="${uiLabelMap.OagisMessageInfo}"><link target="FindMessageInfo"/></menu-item>
+        <menu-item name="MessageErrorInfos" title="${uiLabelMap.OagisMessageErrorInfo}"><link target="FindMessageErrorInfo"/></menu-item>
         <menu-item name="Logout" title="Logout" align-style="col-right" widget-style="headerButtonRight" selected-style="headerButtonRightSelected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
             <link target="logout"/>
