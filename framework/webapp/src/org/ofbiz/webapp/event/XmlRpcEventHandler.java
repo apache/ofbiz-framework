@@ -218,7 +218,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
             }
             if (ServiceUtil.isError(resp)) {
                 Debug.logError(ServiceUtil.getErrorMessage(resp), module);                
-                //throw new XmlRpcException(ServiceUtil.getErrorMessage(resp));
+                throw new XmlRpcException(ServiceUtil.getErrorMessage(resp));
             }
 
             // return only definied parameters                        
