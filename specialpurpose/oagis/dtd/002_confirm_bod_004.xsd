@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!-- ====================================================
+	License information for this file is provided in LICENSE.TXT, as published
+	on the Open Applications Group web site. www.openapplications.org
+	
+	For support, more information, or to report implementation bugs,
+	please contact the Open Applications Group at xml@openapplications.org
+	
+	$Revision: 7.2.1 $
+	$Date: 31 October 2001 $
+	Open Applications Group XSD
+	Copyright 1998-2001, All Rights Reserved
+	
+	$Name: 002_confirm_bod_004.xsd $
+
+	cmk	6.0.0	06/15/98	Initial Release
+	cmk	6.0.1	10/31/98	Rename DOCUMENT root to DATAAREA
+	cmk	6.1.0	12/14/98	Rename refernce files
+							Remove attribute lists for CNTROLAREA
+	mlr	6.1.1	06/19/99	Bug fix: CONFIRMMSG within CONFIRM
+	cmk	6.1.2	06/24/99	Update entities for resource inclusion
+	rjj	7.0.0	10/15/2000	Bug Fix: Added attributes VERB,NOUN, and REVISION to CONFIRM_BOD.
+	ajw	7.2		09/30/2001	Removed FIXED attributes VERB,NOUN,REVISION from first CONTROLAREA					
+	ajw	7.2.1	10/31/2001	W3C Schema Release 
+	
+	Structure Overview
+
+		CONFIRM_BOD (CONFIRM)
+			CONFIRM (CONFIRMMSG*)
+				CONFIRMMSG ()
+
+	Notes
+
+-->
+<xs:schema targetNamespace="http://www.openapplications.org/002_confirm_bod_004" xmlns:os="http://www.openapplications.org/oagis_segments" xmlns:of="http://www.openapplications.org/oagis_fields" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.openapplications.org/002_confirm_bod_004">
+	<xs:import namespace="http://www.openapplications.org/oagis_segments" schemaLocation="oagis_segments.xsd"/>
+	<xs:import namespace="http://www.openapplications.org/oagis_fields" schemaLocation="oagis_fields.xsd"/>
+	<xs:element name="CONFIRM_BOD_004">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="os:CNTROLAREA"/>
+				<xs:element ref="DATAAREA" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="DATAAREA">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="CONFIRM_BOD"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CONFIRM_BOD">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="CONFIRM"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CONFIRM">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="os:CNTROLAREA"/>
+				<xs:element ref="of:STATUSLVL"/>
+				<xs:element ref="of:DESCRIPTN" minOccurs="0"/>
+				<xs:element ref="of:ORIGREF" minOccurs="0"/>
+				<xs:element ref="of:USERAREA" minOccurs="0"/>
+				<xs:element ref="CONFIRMMSG" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CONFIRMMSG">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="of:DESCRIPTN" minOccurs="0"/>
+				<xs:element ref="of:REASONCODE" minOccurs="0"/>
+				<xs:element ref="of:USERAREA" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

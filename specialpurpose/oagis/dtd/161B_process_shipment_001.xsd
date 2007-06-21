@@ -1,0 +1,380 @@
+<?xml version="1.0"?>
+<!-- ====================================================
+	License information for this file is provided in LICENSE.TXT, as published
+	on the Open Applications Group web site. www.openapplications.org
+	
+	For support, more information, or to report implementation bugs,
+	please contact the Open Applications Group at xml@openapplications.org
+	
+	$Revision: 7.2.1 $
+	$Date: 31 October 2001 $
+	Open Applications Group xml
+	Copyright 1998-2001, All Rights Reserved
+	
+	$Name: 161B_PROCESS_SHIPMENT_001.xsd $
+
+	rjj	7.0.0	10/15/2000	Initial Release.
+	rjj	7.0.1	10/27/2000	Changed INVITEM from required to optional within CONTAINER.
+	rjj	7.0.2	11/24/2000	Allow multiple instances of NOTES.
+	mlr	7.1		04/16/2001	Add ATTCHREF to the BOD 
+	ajw	7.2.1	10/31/2001	Confirmed ATTCHREF to SHIPMENT and SHIPUNIT elements	
+	ajw	7.2.1	10/31/2001	W3C Schema Release 
+	
+	Structure Overview
+
+	PROCESS_SHIPMENT (SHIPMENT, SHIPUNIT*)
+		SHIPMENT ( PARTNER+, SHIPITEM+, ATTCHREF*, CHARGE*, DOCUMNTREF* )
+			SHIPITEM ( DOCUMNTREF*, INVDETAIL* )
+				DOCUMNTREF()
+				INVDETAIL()
+			DOCUMNTREF()
+		SHIPUNIT ( PARTNER+, ATTCHREF*, CHARGE*, CONTAINER*, DOCUMNTREF*, INVITEM* )
+			CONTAINER( DOCUMNTREF*, INVITEM+ )
+				DOCUMNTREF()
+				INVITEM ( DOCUMNTREF*, INVDETAIL* )
+					DOCUMNTREF()
+					INVDETAIL()
+			DOCUMNTREF()
+			INVITEM ( DOCUMNTREF*, INVDETAIL* )
+				DOCUMNTREF()
+				INVDETAIL()
+
+Notes:
+	    
+-->
+<xs:schema targetNamespace="http://www.openapplications.org/161B_PROCESS_SHIPMENT_001" xmlns="http://www.openapplications.org/161B_PROCESS_SHIPMENT_001" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:of="http://www.openapplications.org/oagis_fields" xmlns:os="http://www.openapplications.org/oagis_segments">
+	<xs:import namespace="http://www.openapplications.org/oagis_segments" schemaLocation="oagis_segments.xsd"/>
+	<xs:import namespace="http://www.openapplications.org/oagis_fields" schemaLocation="oagis_fields.xsd"/>
+	<xs:element name="PROCESS_SHIPMENT_001">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="os:CNTROLAREA"/>
+				<xs:element ref="DATAAREA" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="DATAAREA">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="PROCESS_SHIPMENT"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PROCESS_SHIPMENT">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SHIPMENT"/>
+				<xs:element ref="SHIPUNIT" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SHIPMENT">
+		<xs:complexType>
+			<xs:sequence>
+				<!-- (%DATETIME.DOCUMENT;) -->
+				<xs:element ref="os:DATETIMEANY"/>
+				<!-- (%AMOUNT.DECLAREVAL;)? -->
+				<xs:element ref="os:AMOUNT" minOccurs="0" maxOccurs="1"/>
+				<!-- (%AMOUNT.DOCUMENT.T;)? -->
+				<xs:element ref="os:AMOUNT" minOccurs="0" maxOccurs="1"/>
+				<!-- (%AMOUNT.ESTFREIGHT;)? -->
+				<xs:element ref="os:AMOUNT" minOccurs="0" maxOccurs="1"/>
+				<!-- (%AMOUNT.FREIGHT.T;)? -->
+				<xs:element ref="os:AMOUNT" minOccurs="0" maxOccurs="1"/>
+				<!-- (%AMOUNT.ITEM.T;)? -->
+				<xs:element ref="os:AMOUNT" minOccurs="0" maxOccurs="1"/>
+				<!-- (%DATETIME.CREATION;)? -->
+				<xs:element ref="os:DATETIMEANY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%DATETIME.DELIVACT;)? -->
+				<xs:element ref="os:DATETIMEANY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%DATETIME.DELIVSCHED;)? -->
+				<xs:element ref="os:DATETIMEANY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%DATETIME.EARLSTSHIP;)? -->
+				<xs:element ref="os:DATETIMEANY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%DATETIME.LOADING;)? -->
+				<xs:element ref="os:DATETIMEANY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%DATETIME.NEEDDELV;)? -->
+				<xs:element ref="os:DATETIMEANY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%DATETIME.PROMDELV;)? -->
+				<xs:element ref="os:DATETIMEANY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%DATETIME.PROMSHIP;)? -->
+				<xs:element ref="os:DATETIMEANY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%DATETIME.SHIP;)? -->
+				<xs:element ref="os:DATETIMEANY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%DATETIME.SHIPSCHED;)? -->
+				<xs:element ref="os:DATETIMEANY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%OPERAMT.FREIGHT.T;)? -->
+				<xs:element ref="os:OPERAMT" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.ESTWEIGHT;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.LOADINGWT;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.NETWEIGHT;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.SHIPUNIT;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.TOTWEIGHT;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.VOLUME;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%TEMPRATURE.ACTUAL;)? -->
+				<xs:element ref="os:TEMPRATURE" minOccurs="0" maxOccurs="1"/>
+				<!-- (%TEMPRATURE.DELIVERY;)? -->
+				<xs:element ref="os:TEMPRATURE" minOccurs="0" maxOccurs="1"/>
+				<!-- (%TEMPRATURE.LOADING;)? -->
+				<xs:element ref="os:TEMPRATURE" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:DOCUMENTID"/>
+				<xs:element ref="of:SHIPPERID"/>
+				<xs:element ref="of:CARRIER" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:CARRSRVLVL" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:COUNTRYDST" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:COUNTRYORG" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:DESCRIPTN" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:DISTCENTER" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:DOCKID" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:DOCTYPE" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:DOCUMENTRV" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:DROPSHIP" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:EXPORTLIC" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:FRGHTCLS" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:FRGHTTERMS" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:HAZRDMATL" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:HDRSTATUS" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:IMPORTLIC" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:LOADPOINT" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:NOTES" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="of:PARTIALSHP" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:PRIORITY" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:ROUTEID" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SHIPNOTES" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SHIPPOINT" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SHIPPRIOR" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SHIPSRVLVL" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SPECIALHND" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:STAGEPOINT" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:TRANSMETHD" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:TRANSTERMS" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:WAREHOUSE" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:USERAREA" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="os:PARTNER" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element ref="SHIPITEM" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element ref="os:ATTCHREF" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="os:CHARGE" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="DOCUMNTREF" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SHIPITEM">
+		<xs:complexType>
+			<xs:sequence>
+				<!-- (%QUANTITY.ITEM;) -->
+				<xs:element ref="os:QUANTITY"/>
+				<!-- (%AMOUNT.EXTENDED.T;)? -->
+				<xs:element ref="os:AMOUNT" minOccurs="0" maxOccurs="1"/>
+				<!-- (%AMOUNT.ITEM.T;)? -->
+				<xs:element ref="os:AMOUNT" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.BACKORDERD;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.OPEN;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.ORDERED;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.SHIPPED;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.VOLUME;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.WEIGHT;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:ITEM"/>
+				<xs:element ref="of:COUNTRYORG" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:DISPOSITN" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:EXPORTLIC" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:FRGHTCLS" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:FRGHTITEM" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:HAZRDMATL" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:IMPORTLIC" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:ITEMDESC" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:ITEMRV" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:ITEMRVX" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:ITEMX" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:LOTLEVEL" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="of:NOTES" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="of:OWNRSHPCDE" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:PACKING" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:PARTIALSHP" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SHIPNOTES" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SHIPPRIOR" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:UPC" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:USERAREA" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="DOCUMNTREF" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="INVDETAIL" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="DOCUMNTREF">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="of:DOCTYPE"/>
+				<xs:element ref="of:DOCUMENTID"/>
+				<xs:element ref="of:PARTNRID"/>
+				<xs:element ref="of:PARTNRTYPE"/>
+				<xs:element ref="of:DESCRIPTN" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:DOCUMENTRV" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:LINENUM" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:NOTES" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="of:SCHLINENUM" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SUBLINENUM" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:USERAREA" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="INVDETAIL">
+		<xs:complexType>
+			<xs:sequence>
+				<!-- (%QUANTITY.ITEM;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:DESCRIPTN" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:DISPOSITN" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:LOTLEVEL" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="of:NOTES" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="of:SERIALNUM" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:USERAREA" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SHIPUNIT">
+		<xs:complexType>
+			<xs:sequence>
+				<!-- (%AMOUNT.DECLAREVAL;)? -->
+				<xs:element ref="os:AMOUNT" minOccurs="0" maxOccurs="1"/>
+				<!-- (%AMOUNT.FREIGHT.T;)? -->
+				<xs:element ref="os:AMOUNT" minOccurs="0" maxOccurs="1"/>
+				<!-- (%AMOUNT.ITEM.T;)? -->
+				<xs:element ref="os:AMOUNT" minOccurs="0" maxOccurs="1"/>
+				<!-- (%AMOUNT.TOTAL.T;)? -->
+				<xs:element ref="os:AMOUNT" minOccurs="0" maxOccurs="1"/>
+				<!-- (%DATETIME.DELIVACT;)? -->
+				<xs:element ref="os:DATETIMEANY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%DATETIME.DELIVSCHED;)? -->
+				<xs:element ref="os:DATETIMEANY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%DATETIME.LOADING;)? -->
+				<xs:element ref="os:DATETIMEANY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%DATETIME.SHIP;)? -->
+				<xs:element ref="os:DATETIMEANY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%OPERAMT.FREIGHT.T;)? -->
+				<xs:element ref="os:OPERAMT" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.ESTWEIGHT;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.HEIGHT;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.LENGTH;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.LOADINGWT;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.NETWEIGHT;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.TOTWEIGHT;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.VOLUME;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!--  (%QUANTITY.WIDTH;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%TEMPRATURE.ACTUAL;)? -->
+				<xs:element ref="os:TEMPRATURE" minOccurs="0" maxOccurs="1"/>
+				<!-- (%TEMPRATURE.DELIVERY;)? -->
+				<xs:element ref="os:TEMPRATURE" minOccurs="0" maxOccurs="1"/>
+				<!-- (%TEMPRATURE.LOADING;)? -->
+				<xs:element ref="os:TEMPRATURE" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:CARRIER"/>
+				<xs:element ref="of:SHIPPERID"/>
+				<xs:element ref="of:TRACKINGID"/>
+				<xs:element ref="of:CARRSRVLVL" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:CONTAINRID" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:CONTNRSEAL" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:CONTNRTYPE" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:COUNTRYDST" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:COUNTRYORG" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:DESCRIPTN" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:EXPORTLIC" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:FRGHTCLS" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:FRGHTITEM" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:FRGHTTERMS" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:HAZRDMATL" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:IMPORTLIC" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:LOADPOINT" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:NOTES" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="of:SHIPMATLID" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SHIPNOTES" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SHIPPOINT" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SHIPSRVLVL" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SHPMTLDESC" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SHPUNITSEQ" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SHPUNITSTS" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SHPUNITTOT" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SPECIALHND" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:STAGEPOINT" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:TRANSMETHD" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:TRANSTERMS" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:USERAREA" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="os:PARTNER" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element ref="os:ATTCHREF" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="os:CHARGE" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="CONTAINER" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="DOCUMNTREF" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="INVITEM" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CONTAINER">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="of:CONTAINRID" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:CONTNRSEAL" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:CONTNRTYPE" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:DESCRIPTN" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:NOTES" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="of:PACKING" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:PACKNGDESC" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:PARCNTNRID" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SHIPMATLID" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SHPMTLDESC" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:USERAREA" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="DOCUMNTREF" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="INVITEM" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="INVITEM">
+		<xs:complexType>
+			<xs:sequence>
+				<!-- (%QUANTITY.ITEM;) -->
+				<xs:element ref="os:QUANTITY"/>
+				<!-- (%AMOUNT.EXTENDED.T;)? -->
+				<xs:element ref="os:AMOUNT" minOccurs="0" maxOccurs="1"/>
+				<!-- (%AMOUNT.ITEM.T;)? -->
+				<xs:element ref="os:AMOUNT" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.VOLUME;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<!-- (%QUANTITY.WEIGHT;)? -->
+				<xs:element ref="os:QUANTITY" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:ITEM"/>
+				<xs:element ref="of:COUNTRYORG" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:FRGHTCLS" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:FRGHTITEM" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:HAZRDMATL" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:ITEMDESC" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:ITEMRV" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:ITEMRVX" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:ITEMX" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:LOTLEVEL" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="of:NOTES" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="of:OWNRSHPCDE" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:SHIPNOTES" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:UPC" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="of:USERAREA" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="DOCUMNTREF" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="INVDETAIL" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
