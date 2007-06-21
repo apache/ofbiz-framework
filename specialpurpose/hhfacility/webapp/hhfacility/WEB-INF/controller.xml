@@ -62,6 +62,7 @@ under the License.
         <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="login"/>
         <response name="success" type="view" value="main"/>
+        <response name="requirePasswordChange" type="view" value="login"/>
         <response name="error" type="view" value="login"/>
     </request-map>
     

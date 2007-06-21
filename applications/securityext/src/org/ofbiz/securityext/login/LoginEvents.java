@@ -339,7 +339,7 @@ public class LoginEvents {
 
     public static String storeLogin(HttpServletRequest request, HttpServletResponse response) {
         String responseString = LoginWorker.login(request, response);
-        if ("error".equals(responseString)) {
+        if (!"success".equals(responseString)) {
             return responseString;
         }
         // if we logged in okay, do the check store customer role

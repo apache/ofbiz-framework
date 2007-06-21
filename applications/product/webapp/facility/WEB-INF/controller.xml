@@ -60,6 +60,7 @@ under the License.
         <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="login"/>
         <response name="success" type="request" value="checkLogin"/>
+        <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
         <response name="error" type="view" value="login"/>
     </request-map>
 
@@ -1128,6 +1129,7 @@ under the License.
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="main" type="screen" page="component://product/widget/facility/FacilityScreens.xml#FindFacility"/>
     <view-map name="login" type="screen" page="component://product/widget/facility/CommonScreens.xml#login"/>
+    <view-map name="requirePasswordChange" type="screen" page="component://product/widget/facility/CommonScreens.xml#requirePasswordChange"/>
 
     <view-map name="FindFacility" type="screen" page="component://product/widget/facility/FacilityScreens.xml#FindFacility"/>
     <view-map name="EditFacility" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacility"/>

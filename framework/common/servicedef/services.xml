@@ -365,6 +365,7 @@ under the License.
         <attribute name="currentPassword" type="String" mode="IN" optional="false"/>
         <attribute name="currentPasswordVerify" type="String" mode="IN" optional="false"/>
         <attribute name="passwordHint" type="String" mode="IN" optional="true"/>
+        <attribute name="requirePasswordChange" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="updateUserLoginId" engine="java" location="org.ofbiz.common.login.LoginServices" invoke="updateUserLoginId" auth="true">
