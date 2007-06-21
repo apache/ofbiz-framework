@@ -23,7 +23,7 @@
     <menu name="OagisAppBar" default-menu-item-name="task" id="app-navigation" type="simple" selected-menuitem-context-field-name="headerItem" default-selected-style="selected" title="Oagis Implementation">
     
         <menu-item name="main" title="${uiLabelMap.CommonMain}"><link target="main"/></menu-item>
-        
+        <menu-item name="MessageInfos" title="${uiLabelMap.OagisMessageInfo}"><link target="FindMessageInfo"/></menu-item>
         <menu-item name="Logout" title="Logout" align-style="col-right" widget-style="headerButtonRight" selected-style="headerButtonRightSelected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
             <link target="logout"/>
