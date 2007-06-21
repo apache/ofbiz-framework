@@ -727,6 +727,11 @@ public class LoginServices {
                 errMsg = UtilProperties.getMessage(resource,"loginservices.old_password_not_correct_reenter", locale);
                 errorMessageList.add(errMsg);
             }
+            if (currentPassword.equals(newPassword) || realPassword.equals(newPassword)) {
+                errMsg = UtilProperties.getMessage(resource,"loginservices.new_password_is_equal_to_old_password", locale);
+                errorMessageList.add(errMsg);
+            }
+
         }
 
         if (!UtilValidate.isNotEmpty(newPassword) || !UtilValidate.isNotEmpty(newPasswordVerify)) {
