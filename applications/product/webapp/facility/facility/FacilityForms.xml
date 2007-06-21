@@ -95,8 +95,8 @@ under the License.
             <hyperlink target="TransferInventoryItem?facilityId=${facilityId}&amp;inventoryItemId=${inventoryItemId}" description="${uiLabelMap.ProductTransfer}"/>
         </field>
     </form>
-    <form name="ListFacilityInventoryItemsNoLocations" type="list"  target="" title="" list-name="inventoryItems" 
-        paginate-target="SearchInventoryItemsByLabels">
+    <form name="ListFacilityInventoryItemsNoLocations" type="list"  target="" title="" list-name="inventoryItems"
+         override-list-size="${inventoryItemsSize}" paginate-target="SearchInventoryItemsByLabels">
         <field name="inventoryItemId" widget-style="buttontext">
             <hyperlink target="EditInventoryItem?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}" description="${inventoryItemId}"/>
         </field>
