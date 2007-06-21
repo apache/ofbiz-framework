@@ -134,7 +134,7 @@ while (orderItemIter.hasNext()) {
     if (cancelled != null)
         totalOrdered -= cancelled.doubleValue();
 
-    // Get the item quantity received from all shipments via the ShipmentReciept entity
+    // Get the item quantity received from all shipments via the ShipmentReceipt entity
     totalReceived = 0.0;
     receipts = delegator.findByAnd("ShipmentReceipt", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId")));
     fulfilledReservations = new ArrayList();
@@ -195,31 +195,30 @@ context.put("orderItemDatas", orderItemDatas.values());
 // Handle any item product quantities to receive by adding to the map in session
 productIdToReceive = request.getParameter("productId");
 productQtyToReceive = request.getParameter("quantity");
+context.put("newQuantity", productQtyToReceive);
+
 if (UtilValidate.isNotEmpty(productIdToReceive)) {
 
-    // Get the first order item with the productId
-    orderItem = EntityUtil.getFirst(EntityUtil.filterByAnd(orderItems, UtilMisc.toMap("productId", productIdToReceive)));
+    List candidateOrderItems = EntityUtil.filterByAnd(orderItems, UtilMisc.toMap("productId", productIdToReceive));
 
     // If the productId as given isn't found in the order, try any goodIdentifications and use the first match
-    if (UtilValidate.isEmpty(orderItem)) {
+    if (UtilValidate.isEmpty(candidateOrderItems)) {
         goodIdentifications = delegator.findByAnd("GoodIdentification", UtilMisc.toMap("idValue", productIdToReceive));
         if (! UtilValidate.isEmpty(goodIdentifications)) {
             giit = goodIdentifications.iterator();
             while (giit.hasNext()) {
                 goodIdentification = giit.next();
-                orderItem = EntityUtil.getFirst(EntityUtil.filterByAnd(orderItems, UtilMisc.toMap("productId", goodIdentification.get("productId"))));
-                if (! UtilValidate.isEmpty(orderItem)) {
+                candidateOrderItems = EntityUtil.filterByAnd(orderItems, UtilMisc.toMap("productId", goodIdentification.get("productId")));
+                if (! UtilValidate.isEmpty(candidateOrderItems)) {
                     productIdToReceive = goodIdentification.get("productId");
                     break;
                 }
             }
         }
     }
+    
+    if (! UtilValidate.isEmpty(candidateOrderItems)) {
 
-    if (! UtilValidate.isEmpty(orderItem)) {
-        orderItemSeqId = orderItem.getString("orderItemSeqId");
-        oldQuantity = 0;
-        newQuantity = 0;
         quantity = 0;
         if (! UtilValidate.isEmpty(productQtyToReceive)) {
             try {
@@ -227,38 +226,42 @@ if (UtilValidate.isNotEmpty(productIdToReceive)) {
             } catch (Exception e) {
                 // Ignore the quantity update if there's a problem parsing it
             }
-            
-            if (itemQuantitiesToReceive.containsKey(orderItemSeqId)) {
-                try {
-                    oldQuantity = itemQuantitiesToReceive.get(orderItemSeqId);
-                    newQuantity = oldQuantity + quantity;
-                } catch (Exception e) {
-                    // Ignore the quantity update if there's a problem parsing it
-                }
-            } else {
-                newQuantity = quantity;
-            }
         }
 
-        if (newQuantity <= orderItemDatas.get(orderItemSeqId).get("availableToReceive")) {
-            itemQuantitiesToReceive.put(orderItemSeqId, newQuantity);
-        } else {
-
-            // If the new quantity would be more than the quantity left to receive for this purchase order item, add an error message to the context
-            context.put("newQuantity", newQuantity);
-            context.put("ProductReceiveInventoryAgainstPurchaseOrderQuantityExceedsAvailableToReceive", true);
-            return;
+        totalQuantityUsed = 0;
+        totalQuantityToReceiveBefore = 0;
+        pqit = candidateOrderItems.iterator();
+        while (pqit.hasNext() && totalQuantityUsed < quantity) {
+            candidateOrderItem = pqit.next();
+            orderItemSeqId = candidateOrderItem.getString("orderItemSeqId");
+            qtyBefore = itemQuantitiesToReceive.containsKey(orderItemSeqId) ? itemQuantitiesToReceive.get(orderItemSeqId) : 0;
+            totalQuantityToReceiveBefore += qtyBefore;
+            qtyMaxAvailable = orderItemDatas.get(orderItemSeqId).get("availableToReceive") - qtyBefore;
+            
+            if (qtyMaxAvailable <= 0) {
+                continue;
+            }
+            
+            qtyUsedForItem  = quantity - totalQuantityUsed >= qtyMaxAvailable ? qtyMaxAvailable : quantity - totalQuantityUsed;
+            itemQuantitiesToReceive.put(orderItemSeqId, qtyUsedForItem + qtyBefore);
+            totalQuantityUsed += qtyUsedForItem;
         }
         
-        // Notify if some or all of the quantity to receive for the item will go to a backorder
-        oldBackOrderedQuantity = orderItemDatas.get(orderItemSeqId).get("backOrderedQuantity") - oldQuantity;
-        if (oldBackOrderedQuantity < 0) oldBackOrderedQuantity = new Double(0).doubleValue();
-        newBackOrderedQuantity = orderItemDatas.get(orderItemSeqId).get("backOrderedQuantity") - newQuantity;
-        if (newBackOrderedQuantity < 0) newBackOrderedQuantity = new Double(0).doubleValue();
-        if (oldBackOrderedQuantity != newBackOrderedQuantity) {
-            context.put("quantityToReceive", quantity);
-            context.put("quantityToBackOrder", (oldBackOrderedQuantity - newBackOrderedQuantity));
-            context.put("ProductReceiveInventoryAgainstPurchaseOrderQuantityGoesToBackOrder", true);
+        // If there's any quantity to receive left after using as much as possible for every relevant order item, add an error message to the context
+        if (quantity > totalQuantityUsed) {
+            context.put("ProductReceiveInventoryAgainstPurchaseOrderQuantityExceedsAvailableToReceive", true);
+        }
+        
+        // Notify if some or all of the quantity just entered for the product will go to a backorder
+        backOrderedQuantity = orderItemDatas.get(EntityUtil.getFirst(candidateOrderItems).get("orderItemSeqId")).get("backOrderedQuantity") - totalQuantityToReceiveBefore;
+        
+        if (backOrderedQuantity > 0) {
+            totalQtyUsedForBackorders = backOrderedQuantity >= totalQuantityUsed ? totalQuantityUsed : backOrderedQuantity;
+            if (totalQtyUsedForBackorders > 0) {
+                context.put("quantityToReceive", totalQuantityUsed);
+                context.put("quantityToBackOrder", totalQtyUsedForBackorders);
+                context.put("ProductReceiveInventoryAgainstPurchaseOrderQuantityGoesToBackOrder", true);
+            }
         }
     } else {
 
