@@ -186,6 +186,7 @@ under the License.
             location="org.ofbiz.accounting.finaccount.FinAccountServices" invoke="createAccountAndCredit" auth="true">
         <attribute name="finAccountId" type="String" mode="INOUT" optional="true"/>
         <attribute name="finAccountName" type="String" mode="IN" optional="true"/>
+        <attribute name="comment" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="amount" type="Double" mode="IN" optional="false"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
@@ -198,6 +199,7 @@ under the License.
             location="org.ofbiz.accounting.finaccount.FinAccountServices" invoke="createAccountAndCredit" auth="true">
         <attribute name="finAccountId" type="String" mode="INOUT" optional="true"/>
         <attribute name="finAccountName" type="String" mode="IN" optional="true"/>
+        <attribute name="comment" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="amount" type="Double" mode="IN" optional="false"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
