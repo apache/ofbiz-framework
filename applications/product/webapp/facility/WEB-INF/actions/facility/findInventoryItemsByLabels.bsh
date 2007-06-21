@@ -26,6 +26,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.transaction.*;
+import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 
 String facilityId = parameters.get("facilityId");
@@ -61,9 +62,31 @@ boolean beganTransaction = false;
 List inventoryItems = null;
 if (andCondition.size() > 1) {
     try {
+        EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
         beganTransaction = TransactionUtil.begin();
-        inventoryItemsEli = delegator.findListIteratorByCondition(inventoryItemAndLabelsView, new EntityConditionList(andCondition, EntityOperator.AND), null, null, null, null);
-        inventoryItems = inventoryItemsEli.getCompleteList();
+        inventoryItemsEli = delegator.findListIteratorByCondition(inventoryItemAndLabelsView, new EntityConditionList(andCondition, EntityOperator.AND), null, null, null, findOpts);
+
+        // get the indexes for the partial list
+        lowIndex = ((viewIndex * viewSize) + 1);
+        highIndex = (viewIndex - 1) * viewSize;
+
+        // attempt to get the full size
+        inventoryItemsEli.last();
+        inventoryItemsSize = inventoryItemsEli.currentIndex();
+        context.put("inventoryItemsSize", inventoryItemsSize);
+        if (highIndex > inventoryItemsSize) {
+            highIndex = inventoryItemsSize;
+        }
+
+        // get the partial list for this page
+        inventoryItemsEli.beforeFirst();
+        if (inventoryItemsSize > 0) {
+            inventoryItems = inventoryItemsEli.getPartialList(lowIndex, viewSize);
+        } else {
+            inventoryItems = new ArrayList();
+        }
+
+        // close the list iterator
         inventoryItemsEli.close();
     } catch (GenericEntityException e) {
         String errMsg = "Failure in operation, rolling back transaction";
