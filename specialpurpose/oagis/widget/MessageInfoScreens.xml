@@ -26,9 +26,12 @@
                 <set field="headerItem" value="MessageInfos"/>
             </actions>        
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonOagisMessageScreen" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><label style="head1">${uiLabelMap.OagisListMessageInfo}</label></container>                                          
+                        <container>
+                            <link target="EditMessageInfo" text="${uiLabelMap.OagisNewMessageInfo}" style="buttontext"/>
+                        </container>
                         <label>&lt;br/&gt;</label>      
                         <include-form name="FindMessageInfos" location="component://oagis/widget/forms/MessageInfoForms.xml"/>                        
                         <include-form name="ListMessageInfos" location="component://oagis/widget/forms/MessageInfoForms.xml"/>
@@ -36,6 +39,68 @@
                 </decorator-screen>
             </widgets>
         </section> 
+    </screen>
+    
+    <screen name="EditMessageInfo">
+        <section>
+            <actions>
+                <set field="headerItem" value="MessageInfos"/>
+                <set field="logicalId" from-field="parameters.logicalId"/>
+                <set field="component" from-field="parameters.component"/>
+                <set field="task" from-field="parameters.task"/>
+                <set field="referenceId" from-field="parameters.referenceId"/>
+                <entity-one entity-name="OagisMessageInfo" value-name="oagisMessageInfo"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOagisMessageScreen" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="EditMessageInfo" location="component://oagis/widget/forms/MessageInfoForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="FindMessageErrorInfo">
+        <section>
+            <actions>
+                <set field="headerItem" value="MessageErrorInfos"/>
+            </actions>        
+            <widgets>
+                <decorator-screen name="CommonOagisMessageScreen" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><label style="head1">${uiLabelMap.OagisListMessageErrorInfo}</label></container>                                          
+                        <container>
+                            <link target="EditMessageErrorInfo" text="${uiLabelMap.OagisNewMessageErrorInfo}" style="buttontext"/>
+                        </container>
+                        <label>&lt;br/&gt;</label>                        
+                        <include-form name="FindMessageErrorInfos" location="component://oagis/widget/forms/MessageInfoForms.xml"/>                        
+                        <include-form name="ListMessageErrorInfos" location="component://oagis/widget/forms/MessageInfoForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section> 
+    </screen>
+    
+    <screen name="EditMessageErrorInfo">
+        <section>
+            <actions>
+                <set field="headerItem" value="MessageErrorInfos"/>
+                <set field="logicalId" from-field="parameters.logicalId"/>
+                <set field="component" from-field="parameters.component"/>
+                <set field="task" from-field="parameters.task"/>
+                <set field="referenceId" from-field="parameters.referenceId"/>
+                <set field="errorSeqId" from-field="parameters.errorSeqId"/>
+                <entity-one entity-name="OagisMessageErrorInfo" value-name="oagisMessageErrorInfo"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOagisMessageScreen" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="EditMessageErrorInfo" location="component://oagis/widget/forms/MessageInfoForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
     </screen>
     
 </screens>

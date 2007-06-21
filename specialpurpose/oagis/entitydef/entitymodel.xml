@@ -53,6 +53,13 @@ under the License.
         <field name="outgoingMessage" type="indicator"><!-- Y for outgoing, N for incoming --></field>
         <field name="sentDate" type="date-time"><!-- should be the same as the CNTROLAREA -> DATETIMEISO (DATETIMEANY) element --></field>
         <field name="receivedDate" type="date-time"><!-- will generally only be set for outgoing messages --></field>
+        <field name="confirmation" type="id">
+        <!-- 
+             0 = No confirmation Business Object Document requested 
+             1 = Send back a confirmation Business Object Document only if an error has occurred 
+             2 = Send a confirmation Business Object Document regardless           
+          -->
+        </field>
         <field name="bsrVerb" type="short-varchar"></field>
         <field name="bsrNoun" type="short-varchar"></field>
         <field name="bsrRevision" type="short-varchar"></field>
