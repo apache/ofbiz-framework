@@ -51,7 +51,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="primaryOrderId" title="${uiLabelMap.ProductPrimaryOrderId}"><text/></field>
+        <field name="primaryOrderId" title="${uiLabelMap.ProductPrimaryOrderId}"><lookup target-form-name="LookupOrderHeader"/></field>
         <field name="primaryShipGroupSeqId" title="${uiLabelMap.ProductPrimaryShipGroupSeqId}"><text/></field>
         <field name="estimatedReadyDate" title="${uiLabelMap.ProductEstimatedReadyDate}"><date-time/></field>
         <field name="estimatedShipDate" title="${uiLabelMap.ProductEstimatedShipDate}"><date-time/></field>
