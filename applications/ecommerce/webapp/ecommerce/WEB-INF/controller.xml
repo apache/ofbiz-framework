@@ -86,6 +86,7 @@ under the License.
         <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="storeLogin"/>
         <response name="success" type="view" value="main"/>
+        <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
         <response name="error" type="view" value="login"/>
     </request-map>
     <request-map uri="logout">
@@ -1557,6 +1558,7 @@ under the License.
     <view-map name="main" type="screen" page="component://ecommerce/widget/CommonScreens.xml#main"/>
     <view-map name="policies" type="screen" page="component://ecommerce/widget/CommonScreens.xml#policies"/>
     <view-map name="login" type="screen" page="component://ecommerce/widget/CommonScreens.xml#login"/>
+    <view-map name="requirePasswordChange" type="screen" page="component://ecommerce/widget/CommonScreens.xml#requirePasswordChange"/>
 
     <!-- Cart Views -->
     <view-map name="editShoppingList" type="screen" page="component://ecommerce/widget/ShoppingListScreens.xml#editShoppingList"/>

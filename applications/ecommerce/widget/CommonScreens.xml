@@ -244,6 +244,24 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="requirePasswordChange">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleLogin"/>
+                <set field="headerItem" value="login"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/login.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://ecommerce/webapp/ecommerce/requirePasswordChange.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="responseTreeLine">
         <section>
             <actions>

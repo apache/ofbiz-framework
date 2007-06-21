@@ -51,6 +51,7 @@ import org.ofbiz.security.Security;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.stats.VisitHandler;
 import org.ofbiz.common.login.LoginServices;
 
@@ -303,11 +304,37 @@ public class LoginWorker {
             password = password.toLowerCase();
         }
 
+        String requirePasswordChange = request.getParameter("requirePasswordChange");
+
         // get the visit id to pass to the userLogin for history
         String visitId = VisitHandler.getVisitId(session);
 
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Map result = null;
+        if (UtilValidate.isNotEmpty(requirePasswordChange) && "Y".equals(requirePasswordChange)) {
+            Map inMap = UtilMisc.toMap("login.username", username, "login.password", password, "locale", UtilHttp.getLocale(request));
+            inMap.put("userLoginId", username);
+            inMap.put("currentPassword", password);
+            inMap.put("newPassword", request.getParameter("newPassword"));
+            inMap.put("newPasswordVerify", request.getParameter("newPasswordVerify"));
+            try {
+                result = dispatcher.runSync("updatePassword", inMap);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Error calling updatePassword service", module);
+                Map messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
+                String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+                request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                return "error";
+            }
+            if (ServiceUtil.isError(result)) {
+                Map messageMap = UtilMisc.toMap("errorMessage", (String) result.get(ModelService.ERROR_MESSAGE));
+                String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+                request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                return "error";
+            } else {
+                password = request.getParameter("newPassword");
+            }
+        }
 
         try {
             result = dispatcher.runSync("userLogin", UtilMisc.toMap("login.username", username, "login.password", password, "visitId", visitId, "locale", UtilHttp.getLocale(request)));
@@ -322,6 +349,9 @@ public class LoginWorker {
         if (ModelService.RESPOND_SUCCESS.equals(result.get(ModelService.RESPONSE_MESSAGE))) {
             GenericValue userLogin = (GenericValue) result.get("userLogin");
             Map userLoginSession = (Map) result.get("userLoginSession");
+            if (userLogin != null && "Y".equals(userLogin.getString("requirePasswordChange"))) {
+                return "requirePasswordChange";
+            }
             return doMainLogin(request, response, userLogin, userLoginSession);
         } else {
             Map messageMap = UtilMisc.toMap("errorMessage", (String) result.get(ModelService.ERROR_MESSAGE));

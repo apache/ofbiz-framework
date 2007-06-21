@@ -69,6 +69,7 @@ under the License.
       <field name="isSystem" type="indicator"></field>
       <field name="enabled" type="indicator"></field>
       <field name="hasLoggedOut" type="indicator"></field>
+      <field name="requirePasswordChange" type="indicator"></field>
       <field name="lastCurrencyUom" type="id"></field>
       <field name="lastLocale" type="very-short"></field>
       <field name="lastTimeZone" type="id-long"></field>

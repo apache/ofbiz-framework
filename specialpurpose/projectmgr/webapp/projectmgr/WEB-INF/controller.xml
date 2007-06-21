@@ -42,7 +42,8 @@
     <view-map name="error" page="/error/error.jsp"/>
 
     <view-map name="main" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#FindRequest"/>
-    <view-map name="login" type="screen" page="component://workeffort/widget/CommonScreens.xml#login"/> 
+    <view-map name="login" type="screen" page="component://projectmgr/widget/CommonScreens.xml#login"/> 
+    <view-map name="requirePasswordChange" type="screen" page="component://projectmgr/widget/CommonScreens.xml#requirePasswordChange"/>
     
     <!-- end of view mappings -->
 </site-conf>

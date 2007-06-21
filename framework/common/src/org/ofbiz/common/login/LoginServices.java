@@ -362,6 +362,7 @@ public class LoginServices {
         String currentPasswordVerify = (String) context.get("currentPasswordVerify");
         String enabled = (String) context.get("enabled");
         String passwordHint = (String) context.get("passwordHint");
+        String requirePasswordChange = (String) context.get("requirePasswordChange");
         String errMsg = null;
 
         // security: don't create a user login if the specified partyId (if not empty) already exists
@@ -397,6 +398,7 @@ public class LoginServices {
         GenericValue userLoginToCreate = delegator.makeValue("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
         userLoginToCreate.set("passwordHint", passwordHint);
         userLoginToCreate.set("enabled", enabled);
+        userLoginToCreate.set("requirePasswordChange", requirePasswordChange);
         userLoginToCreate.set("partyId", partyId);
         userLoginToCreate.set("currentPassword", useEncryption ? getPasswordHash(currentPassword) : currentPassword);
 
@@ -503,6 +505,7 @@ public class LoginServices {
 
         userLoginToUpdate.set("currentPassword", useEncryption ? getPasswordHash(newPassword) : newPassword, false);
         userLoginToUpdate.set("passwordHint", passwordHint, false);
+        userLoginToUpdate.set("requirePasswordChange", "N");
 
         try {
             userLoginToUpdate.store();
