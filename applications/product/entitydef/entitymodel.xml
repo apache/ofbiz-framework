@@ -2619,11 +2619,15 @@ under the License.
       <field name="useLimitPerCustomer" type="numeric"></field>
       <field name="useLimitPerPromotion" type="numeric"></field>
       <field name="billbackFactor" type="floating-point"></field>
+      <field name="overrideOrgPartyId" type="id"></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedDate" type="date-time"></field>
       <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="productPromoId"/>
+      <relation type="one" fk-name="PROD_PRMO_OPA" rel-entity-name="Party">
+        <key-map field-name="overrideOrgPartyId" rel-field-name="partyId"/>
+      </relation>
       <relation type="one" fk-name="PROD_PRMO_CUL" title="CreatedBy" rel-entity-name="UserLogin">
         <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>
       </relation>

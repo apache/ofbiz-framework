@@ -532,7 +532,7 @@ public class InvoiceServices {
                             amount = amount.multiply(billingQuantity);
                             amount = amount.setScale(decimals, rounding);
                         }
-                        if (amount.signum() != 0) {                      
+                        if (amount.signum() != 0) {
                             Map createInvoiceItemAdjContext = FastMap.newInstance();
                             createInvoiceItemAdjContext.put("invoiceId", invoiceId);
                             createInvoiceItemAdjContext.put("invoiceItemSeqId", invoiceItemSeqId);
@@ -556,7 +556,22 @@ public class InvoiceServices {
                             if (!(adj.getString("orderAdjustmentTypeId").equals("SALES_TAX"))) {
                                 createInvoiceItemAdjContext.put("taxableFlag", product.get("taxable"));    
                             }
-        
+
+                            // If the OrderAdjustment is associated to a ProductPromo,
+                            // and the field ProductPromo.overrideOrgPartyId is set,
+                            // copy the value to InvoiceItem.overrideOrgPartyId: this 
+                            // represent an organization override for the payToPartyId
+                            if (UtilValidate.isNotEmpty(adj.getString("productPromoId"))) {
+                                try {
+                                    GenericValue productPromo = adj.getRelatedOne("ProductPromo");
+                                    if (UtilValidate.isNotEmpty(productPromo.getString("overrideOrgPartyId"))) {
+                                        createInvoiceItemAdjContext.put("overrideOrgPartyId", productPromo.getString("overrideOrgPartyId"));
+                                    }
+                                } catch (GenericEntityException e) {
+                                    Debug.logError(e, "Error looking up ProductPromo with id [" + adj.getString("productPromoId") + "]", module);
+                                }
+                            }
+
                             Map createInvoiceItemAdjResult = dispatcher.runSync("createInvoiceItem", createInvoiceItemAdjContext);
                             if (ServiceUtil.isError(createInvoiceItemAdjResult)) {
                                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingInvoiceItemFromOrder",locale), null, null, createInvoiceItemAdjResult);
