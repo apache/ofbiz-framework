@@ -96,37 +96,6 @@ under the License.
         <response name="success" type="view" value="main"/>
     </request-map>
 
-    <!-- ================ Lookup Requests ================= -->
-    <request-map uri="LookupOrderHeaderAndShipInfo">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="LookupOrderHeaderAndShipInfo"/>
-    </request-map>
-    <request-map uri="LookupPurchaseOrderHeaderAndShipInfo">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="LookupPurchaseOrderHeaderAndShipInfo"/>
-    </request-map>
-    <request-map uri="LookupProduct">
-        <security auth="true" https="true"/>
-        <response name="success" type="view" value="LookupProduct"/>
-    </request-map>
-    <request-map uri="LookupVariantProduct">
-        <security auth="true" https="true"/>
-        <response name="success" type="view" value="LookupVariantProduct"/>
-    </request-map>
-    <request-map uri="LookupProductCategory">
-        <security auth="true" https="true"/>
-        <response name="success" type="view" value="LookupProductCategory"/>
-    </request-map>
-    <request-map uri="LookupFacilityLocation">
-        <security auth="true" https="true"/>
-        <response name="success" type="view" value="LookupFacilityLocation"/>
-    </request-map>
-
-    <request-map uri="LookupPartyName">
-       <security https="true" auth="true"/>
-        <response name="success" type="view" value="LookupPartyName"/>
-    </request-map>
-
     <!-- ================ Facility Requests ================= -->
     <request-map uri="FindFacility">
         <security https="true" auth="true"/>
@@ -1142,20 +1111,23 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="InventoryReports"/>
     </request-map>
+
+    <!-- ================ Lookup Requests ================= -->
+    <request-map uri="LookupOrderHeaderAndShipInfo"><security https="true" auth="true"/><response name="success" type="view" value="LookupOrderHeaderAndShipInfo"/></request-map>
+    <request-map uri="LookupPurchaseOrderHeaderAndShipInfo"><security https="true" auth="true"/><response name="success" type="view" value="LookupPurchaseOrderHeaderAndShipInfo"/></request-map>
+    <request-map uri="LookupOrderHeader"><security https="true" auth="true"/><response name="success" type="view" value="LookupOrderHeader"/></request-map>
+    <request-map uri="LookupProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
+    <request-map uri="LookupVariantProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupVariantProduct"/></request-map>
+    <request-map uri="LookupProductCategory"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductCategory"/></request-map>
+    <request-map uri="LookupFacilityLocation"><security auth="true" https="true"/><response name="success" type="view" value="LookupFacilityLocation"/></request-map>
+    <request-map uri="LookupPartyName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
+    
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="main" type="screen" page="component://product/widget/facility/FacilityScreens.xml#FindFacility"/>
     <view-map name="login" type="screen" page="component://product/widget/facility/CommonScreens.xml#login"/>
-
-    <view-map name="LookupOrderHeaderAndShipInfo" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeaderAndShipInfo"/>
-    <view-map name="LookupPurchaseOrderHeaderAndShipInfo" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupPurchaseOrderHeaderAndShipInfo"/>
-    <view-map name="LookupProduct" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct" type="screen"/>
-    <view-map name="LookupVariantProduct" page="component://product/widget/catalog/LookupScreens.xml#LookupVariantProduct" type="screen"/>
-    <view-map name="LookupProductCategory" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductCategory"/>
-    <view-map name="LookupFacilityLocation" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation" type="screen"/>
-    <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
 
     <view-map name="FindFacility" type="screen" page="component://product/widget/facility/FacilityScreens.xml#FindFacility"/>
     <view-map name="EditFacility" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacility"/>
@@ -1220,5 +1192,15 @@ under the License.
     <view-map name="QuickShipOrder" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#QuickShipOrder"/>
     
     <view-map name="InventoryReports" type="screen" page="component://product/widget/facility/ReportScreens.xml#InventoryReports"/>
+
+    <view-map name="LookupOrderHeaderAndShipInfo" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeaderAndShipInfo"/>
+    <view-map name="LookupPurchaseOrderHeaderAndShipInfo" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupPurchaseOrderHeaderAndShipInfo"/>
+    <view-map name="LookupOrderHeader" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeader"/>
+    <view-map name="LookupProduct" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct" type="screen"/>
+    <view-map name="LookupVariantProduct" page="component://product/widget/catalog/LookupScreens.xml#LookupVariantProduct" type="screen"/>
+    <view-map name="LookupProductCategory" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductCategory"/>
+    <view-map name="LookupFacilityLocation" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation" type="screen"/>
+    <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
+
     <!-- end of view mappings -->
 </site-conf>
