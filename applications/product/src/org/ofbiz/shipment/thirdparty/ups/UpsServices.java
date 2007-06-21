@@ -1871,6 +1871,12 @@ public class UpsServices {
         Double shippableQuantity = (Double) context.get("shippableQuantity");
         Double shippableWeight = (Double) context.get("shippableWeight");
         String isResidentialAddress = (String)context.get("isResidentialAddress");
+
+        // Important: DO NOT returnError here or you could trigger a transaction rollback and break other services.
+        if (UtilValidate.isEmpty(shippingPostalCode)) {
+            return ServiceUtil.returnFailure("Cannot estimate UPS Rate because postal code is missing");
+        }
+
         if (shippableTotal == null) {
             shippableTotal = new Double(0.00);
         }

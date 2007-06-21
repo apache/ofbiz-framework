@@ -65,7 +65,9 @@ under the License.
             will return a Map of serviceCode -> rate</description>
         <attribute name="serviceConfigProps" type="String" mode="IN" optional="true"/>
         <attribute name="initialEstimateAmt" type="Double" mode="IN" optional="true"/>
-        <attribute name="shippingPostalCode" type="String" mode="IN" optional="false"/>
+        <!-- The postal code must not be required or service validation could create an exception and break other things.  It will
+        be checked in the service and a Failure (not Error) will be returned if it is null -->
+        <attribute name="shippingPostalCode" type="String" mode="IN" optional="true"/>
         <attribute name="shipmentMethodTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="carrierPartyId" type="String" mode="IN" optional="false"/>
         <attribute name="carrierRoleTypeId" type="String" mode="IN" optional="false"/>
