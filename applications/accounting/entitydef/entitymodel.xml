@@ -1029,7 +1029,8 @@ under the License.
       <field name="invoiceId" type="id-ne"></field>
       <field name="invoiceItemSeqId" type="id-ne"></field>
       <field name="invoiceItemTypeId" type="id"></field>
-      <field name="overrideGlAccountId" type="id"><!-- used to specify the override or actual glAccountId used for the invoice, avoids problems if configuration changes after initial posting, etc --></field>
+      <field name="overrideGlAccountId" type="id"><description>used to specify the override or actual glAccountId used for the invoice, avoids problems if configuration changes after initial posting, etc </description></field>
+      <field name="overrideOrgPartyId" type="id"><description>Used to specify the organization override rather than using the payToPartyId</description></field>
       <field name="inventoryItemId" type="id"></field>
       <field name="productId" type="id"></field>
       <field name="productFeatureId" type="id"></field>
@@ -1081,6 +1082,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="INVOICE_ITM_TARP" rel-entity-name="TaxAuthorityRateProduct">
         <key-map field-name="taxAuthorityRateSeqId"/>
+      </relation>
+      <relation type="one" fk-name="INVCE_ITM_OVRPTY" title="OverrideOrg" rel-entity-name="Party">
+        <key-map field-name="overrideOrgPartyId" rel-field-name="partyId"/>
       </relation>
     </entity>
     <entity entity-name="InvoiceItemAttribute"

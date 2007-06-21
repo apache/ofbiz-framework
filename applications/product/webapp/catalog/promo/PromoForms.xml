@@ -41,6 +41,7 @@ under the License.
         <field name="requireCode" title="${uiLabelMap.ProductPromotionReqCode}" widget-style="selectBox">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
         </field>
+        <field name="overrideOrgPartyId"><lookup target-form-name="LookupPartyName"/></field>
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
 
