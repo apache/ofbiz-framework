@@ -23,6 +23,7 @@
     <screen name="main-decorator">
         <section>
             <actions>
+                <property-map resource="OagisUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <!-- The two default (global) stylesheets are added to the list
