@@ -114,33 +114,33 @@ under the License.
             <add-error><fail-property property="NoUomConversionFound" resource="CommonUiLabels"/></add-error>
             <check-errors/>        
         <else>
-	         <!-- Do custom conversion, if we have customMethodId -->
-	        <if-not-empty field-name="uomConversion.customMethodId">  <!-- custom conversion? -->
-	            <log level="verbose" message="using custom conversion customMethodId=${uomConversion.customMethodId}"/>
-	            <set field="customParms" from-field="parameters"/>
-	            <set field="customParms.uomConversion" from-field="uomConversion"/>
-	            <call-service service-name="convertUomCustom" in-map-name="customParms">
-	                <result-to-field result-name="convertedValue"/>
-	            </call-service>
-	            <log level="verbose" message="Custom UoM conversion returning convertedValue=${convertedValue}"/>
-	        <else>  <!-- not custom conversion -->
-	            <!-- do the conversion -->
-	            <calculate field-name="convertedValue" type="Double" decimal-scale="15">
-	                <calcop operator="multiply">
-	                    <calcop operator="get" field-name="parameters.originalValue"/>
-	                    <calcop operator="get" field-name="uomConversion.conversionFactor"/>
-	                </calcop> 
-	            </calculate>
-	        </else>
-	        </if-not-empty>  <!-- custom conversion? -->
-	        
-	        <!-- round result, if UomConversion[Dated] so specifies -->
-	        <if-not-empty field-name="uomConversion.roundingMode">
-	            <calculate field-name="roundedValue" type="Double" decimal-scale="${uomConversion.decimalScale}" rounding-mode="${uomConversion.roundingMode}">
-	                <calcop operator="get" field-name="convertedValue"/>
-	            </calculate>
-	            <set field="convertedValue" from-field="roundedValue"/>
-	        </if-not-empty>
+            <!-- Do custom conversion, if we have customMethodId -->
+            <if-not-empty field-name="uomConversion.customMethodId">  <!-- custom conversion? -->
+                <log level="verbose" message="using custom conversion customMethodId=${uomConversion.customMethodId}"/>
+                <set field="customParms" from-field="parameters"/>
+                <set field="customParms.uomConversion" from-field="uomConversion"/>
+                <call-service service-name="convertUomCustom" in-map-name="customParms">
+                    <result-to-field result-name="convertedValue"/>
+                </call-service>
+                <log level="verbose" message="Custom UoM conversion returning convertedValue=${convertedValue}"/>
+            <else>  <!-- not custom conversion -->
+                <!-- do the conversion -->
+                <calculate field-name="convertedValue" type="Double" decimal-scale="15">
+                    <calcop operator="multiply">
+                        <calcop operator="get" field-name="parameters.originalValue"/>
+                        <calcop operator="get" field-name="uomConversion.conversionFactor"/>
+                    </calcop> 
+                </calculate>
+            </else>
+            </if-not-empty>  <!-- custom conversion? -->
+
+            <!-- round result, if UomConversion[Dated] so specifies -->
+            <if-not-empty field-name="uomConversion.roundingMode">
+                <calculate field-name="roundedValue" type="Double" decimal-scale="${uomConversion.decimalScale}" rounding-mode="${uomConversion.roundingMode}">
+                    <calcop operator="get" field-name="convertedValue"/>
+                </calculate>
+                <set field="convertedValue" from-field="roundedValue"/>
+            </if-not-empty>
         </else>
         </if-empty>  <!-- no UomConversion or UomConversionDated found -->
         
