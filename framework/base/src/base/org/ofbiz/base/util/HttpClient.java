@@ -46,7 +46,9 @@ public class HttpClient {
     private boolean lineFeed = true;
     private boolean trustAny = false;
     private boolean followRedirects = true;
-    
+    private boolean keepAlive = false;
+
+    private String contentType = null;
     private String url = null;
     private String rawStream = null;
     private String clientCertAlias = null;
@@ -168,7 +170,27 @@ public class HttpClient {
     public String getUrl() {
         return url;
     }
-    
+
+    /** Sets the content-type */
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    /** Returns the content type */
+    public String getContentType() {
+        return this.contentType;
+    }
+
+    /** Toggle keep-alive setting */
+    public void setKeepAlive(boolean keepAlive) {
+        this.keepAlive = keepAlive;
+    }
+
+    /** Return keep-alive setting */
+    public boolean getKeepAlive() {
+        return this.keepAlive;
+    }
+
     /** Sets the client certificate alias (from the keystore) to use for this SSL connection. */
     public void setClientCertificateAlias(String alias) {
         this.clientCertAlias = alias;
@@ -384,9 +406,9 @@ public class HttpClient {
         try {
             requestUrl = new URL(url);
             if (overrideTrust) {
-                con = URLConnector.openUntrustedConnection(requestUrl, timeout, clientCertAlias, SSLUtil.HOSTCERT_NORMAL_CHECK);
+                con = URLConnector.openUntrustedConnection(requestUrl, timeout, clientCertAlias, hostVerification);
             } else {
-                con = URLConnector.openConnection(requestUrl, timeout, clientCertAlias, SSLUtil.HOSTCERT_NORMAL_CHECK);
+                con = URLConnector.openConnection(requestUrl, timeout, clientCertAlias, hostVerification);
             }
             if (Debug.verboseOn() || debug) Debug.log("Connection opened to : " + requestUrl.toExternalForm(), module);
 
@@ -395,14 +417,22 @@ public class HttpClient {
                 if (Debug.verboseOn() || debug) Debug.log("Connection is of type HttpURLConnection", module);
             }
 
+            // set the content type
+            if (contentType != null) {
+                con.setRequestProperty("Content-type", contentType);
+            }
+
+            // connection settings
             con.setDoOutput(true);
             con.setUseCaches(false);
-            if (Debug.verboseOn() || debug) Debug.log("Do Input = true / Use Caches = false", module);
+            if (keepAlive) {
+                con.setRequestProperty("Connection", "Keep-Alive");
+            }
 
             if (method.equalsIgnoreCase("post")) {
-                con.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
+                if (contentType == null)
+                    con.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
                 con.setDoInput(true);
-                if (Debug.verboseOn() || debug) Debug.log("Set content type to : application/x-www-form-urlencoded", module);
             }
 
             if (headers != null && headers.size() > 0) {
@@ -415,8 +445,6 @@ public class HttpClient {
                     con.setRequestProperty(headerName, headerValue);
                     if (Debug.verboseOn() || debug) Debug.log("Header : " + headerName + " -> " + headerValue, module);
                 }
-            } else {
-                if (Debug.verboseOn() || debug) Debug.log("No headers to set", module);
             }
 
             if (method.equalsIgnoreCase("post")) {
