@@ -100,8 +100,9 @@ public class SecurityEvents {
                         session.login(username, password);
                         passed = true;
                     } catch (XuiSession.UserLoginFailure e) {
-                        output.print(e.getMessage());
                         input.clear();
+                        input.setFunction(loginFunc);
+                        output.print(e.getMessage() + " " +  UtilProperties.getMessage("pos","ULOGIN",Locale.getDefault()));
                     }
                     if (passed) {
                         input.clear();
