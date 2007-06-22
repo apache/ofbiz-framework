@@ -61,7 +61,8 @@ under the License.
                 <get-related-one value-name="quote" relation-name="Uom" to-value-name="currency"/>
                 <get-related-one value-name="quote" relation-name="ProductStore" to-value-name="store"/>
                 
-                <get-related value-name="quote" relation-name="QuoteItem" list-name="quoteItems"/>
+                <set field="listOrderBy[]" value="quoteItemSeqId"/> 
+                <get-related value-name="quote" relation-name="QuoteItem" list-name="quoteItems" order-by-list-name="listOrderBy"/>
                 <get-related value-name="quote" relation-name="QuoteAdjustment" list-name="quoteAdjustments"/>
                 <get-related value-name="quote" relation-name="QuoteRole" list-name="quoteRoles"/>
                 <!--
@@ -133,7 +134,8 @@ under the License.
                 <get-related-one value-name="quote" relation-name="ProductStore" to-value-name="store"/>
                 <get-related-one value-name="quote" relation-name="Party" to-value-name="party"/>
                 
-                <get-related value-name="quote" relation-name="QuoteItem" list-name="quoteItems"/>
+                <set field="listOrderBy[]" value="quoteItemSeqId"/>
+                <get-related value-name="quote" relation-name="QuoteItem" list-name="quoteItems" order-by-list-name="listOrderBy"/>
                 <get-related value-name="quote" relation-name="QuoteAdjustment" list-name="quoteAdjustments"/>
                 
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/quote/getPartyAddress.bsh"/>
@@ -265,6 +267,7 @@ under the License.
                 <entity-one entity-name="Quote" value-name="quote" auto-field-map="true"/>
                 <entity-and entity-name="QuoteItem" list-name="quoteItems">
                     <field-map env-name="quote.quoteId" field-name="quoteId"/>
+                    <order-by field-name="quoteItemSeqId"/>
                 </entity-and>
 
             </actions>
@@ -417,6 +420,7 @@ under the License.
                     <field-map env-name="quote.quoteId" field-name="quoteId"/>
                     <order-by field-name="custRequestId"/>
                     <order-by field-name="custRequestItemSeqId"/>
+                    <order-by field-name="quoteItemSeqId"/>
                 </entity-and>
                 <entity-and entity-name="QuoteCoefficient" list-name="quoteCoefficients">
                     <field-map env-name="quote.quoteId" field-name="quoteId"/>
@@ -507,6 +511,7 @@ under the License.
                     <field-map env-name="quote.quoteId" field-name="quoteId"/>
                     <order-by field-name="custRequestId"/>
                     <order-by field-name="custRequestItemSeqId"/>
+                    <order-by field-name="quoteItemSeqId"/>
                 </entity-and>
                 <entity-and entity-name="QuoteCoefficient" list-name="quoteCoefficients">
                     <field-map env-name="quote.quoteId" field-name="quoteId"/>
