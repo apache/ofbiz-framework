@@ -462,8 +462,8 @@ under the License.
     <service name="getOrderStatus" engine="simple" export="true"
             location="org/ofbiz/order/order/OrderServices.xml" invoke="getOrderStatus" auth="false">
         <description>Gets the order status</description>
-        <attribute name="orderId" mode="IN" optional="false"/>
-        <attribute name="statusId" mode="OUT" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="OUT" optional="false"/>
     </service>
 
     <!-- Order Delivery Services -->
