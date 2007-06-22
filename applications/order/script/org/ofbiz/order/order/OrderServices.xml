@@ -807,5 +807,13 @@ under the License.
         <field-to-result field-name="parameters.orderPaymentPreferenceId" result-name="orderPaymentPreferenceId"/>
     </simple-method>
 
+    <simple-method method-name="getOrderStatus" short-description="Gets an order status">
+        <entity-one entity-name="OrderHeader" value-name="order"/>
+        <if-empty field-name="order">
+            <add-error><fail-message message="Order not found [{parameters.orderId}]"/></add-error>
+            <check-errors/>
+        </if-empty>
+        <field-to-result field-name="statusId" map-name="order" result-name="statusId"/>
+    </simple-method>
 </simple-methods>
 
