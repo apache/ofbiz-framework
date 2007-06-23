@@ -49,5 +49,10 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
+    <service name="showShipment" engine="java" transaction-timeout="300"
+            location="org.ofbiz.oagis.OagisShipmentServices" invoke="showShipment" auth="false">
+        <description>Process incoming shipment message</description>
+        <implements service="serviceStreamInterface"/>
+    </service>
 
 </services>

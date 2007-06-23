@@ -18,16 +18,36 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 **/
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.Map;
+
+import org.w3c.dom.Document;
 
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.base.util.*;
 
 public class OagisShipmentServices {
     
     public static final String module = OagisShipmentServices.class.getName();
     
     public static Map showShipment(DispatchContext ctx, Map context) {
-        return ServiceUtil.returnError("Service not Implemented");
+        InputStream in = (InputStream) context.get("inputStream");
+        OutputStream out = (OutputStream) context.get("outputStream");
+        try{
+            Document doc = UtilXml.readXmlDocument(in, true, "ShowShipment");
+        }catch (Exception e){
+            Debug.logError(e, module);
+        }
+        PrintWriter writer = new PrintWriter(new OutputStreamWriter(out));
+        writer.println("Service not Implemented");
+        writer.flush();
+        Map result = ServiceUtil.returnError("Service not Implemented");
+        return result;
+        
     }
+    
 }
