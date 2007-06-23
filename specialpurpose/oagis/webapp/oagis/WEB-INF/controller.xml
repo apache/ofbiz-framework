@@ -29,6 +29,7 @@
     <handler name="soap" type="request" class="org.ofbiz.webapp.event.SOAPEventHandler"/>
     <handler name="service" type="request" class="org.ofbiz.webapp.event.ServiceEventHandler"/>
     <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
+    <handler name="stream" type="request" class="org.ofbiz.webapp.event.ServiceStreamHandler"/>
 
     <!-- view handlers -->
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
@@ -179,6 +180,12 @@
         <response name="success" type="view" value="UploadOagisMessage" />
         <response name="error" type="view" value="UploadOagisMessage"/>
     </request-map>
+
+    <request-map uri="showShipment">
+        <event type="stream" invoke="showShipment"/>
+        <response name="success" type="none"/>
+    </request-map>
+
 
     <!-- end of request mappings -->
 
