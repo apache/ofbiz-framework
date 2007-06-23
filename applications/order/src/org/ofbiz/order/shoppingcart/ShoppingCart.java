@@ -32,6 +32,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
@@ -59,6 +60,15 @@ public class ShoppingCart implements Serializable {
 
     public static final String module = ShoppingCart.class.getName();
     public static final String resource_error = "OrderErrorUiLabels";
+
+    // scales and rounding modes for BigDecimal math
+    public static final int scale = UtilNumber.getBigDecimalScale("order.decimals");
+    public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
+    public static final int taxCalcScale = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
+    public static final int taxFinalScale = UtilNumber.getBigDecimalScale("salestax.final.decimals");
+    public static final int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
+    public static final BigDecimal ZERO = (new BigDecimal("0")).setScale(scale, rounding);    
+    public static final BigDecimal percentage = (new BigDecimal("0.01")).setScale(scale, rounding);    
 
     private String orderType = "SALES_ORDER"; // default orderType
     private String channel = "UNKNWN_SALES_CHANNEL"; // default channel enum
@@ -2357,12 +2367,12 @@ public class ShoppingCart implements Serializable {
 
     /** Returns the tax amount from the cart object. */
     public double getTotalSalesTax() {
-        double totalTax = 0.00;
+        BigDecimal totalTax = ZERO;
         for (int i = 0; i < shipInfo.size(); i++) {
             CartShipInfo csi = this.getShipInfo(i);
-            totalTax += csi.getTotalTax(this);
+            totalTax = totalTax.add(new BigDecimal(csi.getTotalTax(this))).setScale(taxCalcScale, taxRounding);
         }
-        return totalTax;
+        return totalTax.setScale(taxFinalScale, taxRounding).doubleValue();
     }
 
     /** Returns the shipping amount from the cart object. */

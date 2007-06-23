@@ -68,7 +68,7 @@ public class OrderReadHelper {
     public static final int scale = UtilNumber.getBigDecimalScale("order.decimals");
     public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
     public static final int taxCalcScale = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
-    public static final int taxFinalScale = UtilNumber.getBigDecimalRoundingMode("salestax.final.decimals");
+    public static final int taxFinalScale = UtilNumber.getBigDecimalScale("salestax.final.decimals");
     public static final int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
     public static final BigDecimal ZERO = (new BigDecimal("0")).setScale(scale, rounding);    
     public static final BigDecimal percentage = (new BigDecimal("0.01")).setScale(scale, rounding);    
@@ -2677,7 +2677,7 @@ public class OrderReadHelper {
         Iterator itemIter = UtilMisc.toIterator(orderItems);
 
         while (itemIter != null && itemIter.hasNext()) {
-            result = result.add(getOrderItemAdjustmentsTotalBd((GenericValue) itemIter.next(), adjustments, includeOther, includeTax, includeShipping));
+            result = result.add(getOrderItemAdjustmentsTotalBd((GenericValue) itemIter.next(), adjustments, includeOther, includeTax, includeShipping)).setScale(scale, rounding);
         }
         return result;
     }
