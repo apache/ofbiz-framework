@@ -187,6 +187,12 @@
         <response name="success" type="none"/>
     </request-map>
 
+    <request-map uri="receiveConfirmBod">
+        <security https="true" auth="false"/>
+        <event type="stream" invoke="receiveConfirmBod"/>
+        <response name="success" type="none"/>
+    </request-map>
+
 
     <!-- end of request mappings -->
 
