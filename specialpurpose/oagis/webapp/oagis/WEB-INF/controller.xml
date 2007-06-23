@@ -193,6 +193,12 @@
         <response name="success" type="none"/>
     </request-map>
 
+    <request-map uri="syncInventory">
+        <security https="true" auth="false"/>
+        <event type="stream" invoke="syncInventory"/>
+        <response name="success" type="none"/>
+    </request-map>
+
 
     <!-- end of request mappings -->
 

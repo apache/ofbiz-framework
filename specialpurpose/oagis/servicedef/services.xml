@@ -59,6 +59,11 @@ under the License.
         <description>Process incoming ConfirmBod</description>
         <implements service="serviceStreamInterface"/>
     </service>
+    <service name="syncInventory" engine="java" transaction-timeout="300"
+            location="org.ofbiz.oagis.OagisInventoryServices" invoke="syncInventory" auth="false">
+        <description>Process incoming Inventory Sync message</description>
+        <implements service="serviceStreamInterface"/>
+    </service>
 
 
 </services>
