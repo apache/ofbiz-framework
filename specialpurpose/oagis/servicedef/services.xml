@@ -54,5 +54,11 @@ under the License.
         <description>Process incoming shipment message</description>
         <implements service="serviceStreamInterface"/>
     </service>
+    <service name="receiveConfirmBod" engine="java" transaction-timeout="300"
+            location="org.ofbiz.oagis.OagisServices" invoke="receiveConfirmBod" auth="false">
+        <description>Process incoming ConfirmBod</description>
+        <implements service="serviceStreamInterface"/>
+    </service>
+
 
 </services>
