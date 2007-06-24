@@ -228,7 +228,7 @@ public class ModelFormField {
             this.fieldName = overrideFormField.fieldName;
         if (UtilValidate.isNotEmpty(overrideFormField.attributeName))
             this.attributeName = overrideFormField.attributeName;
-        if (overrideFormField.title != null && !overrideFormField.title.isEmpty())
+        if (overrideFormField.title != null && overrideFormField.title.getOriginal() != null) // title="" can be used to override the original value
             this.title = overrideFormField.title;
         if (overrideFormField.tooltip != null && !overrideFormField.tooltip.isEmpty())
             this.tooltip = overrideFormField.tooltip;

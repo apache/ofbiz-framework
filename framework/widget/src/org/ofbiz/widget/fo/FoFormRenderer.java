@@ -222,8 +222,15 @@ public class FoFormRenderer implements FormStringRenderer {
         this.appendWhitespace(buffer);
     }
 
-    public void renderFormatHeaderRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField) {
-        buffer.append("<fo:table-cell font-weight=\"bold\" text-align=\"center\" border=\"solid black\" padding=\"2pt\">");
+    public void renderFormatHeaderRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) {
+        buffer.append("<fo:table-cell ");
+        if (positionSpan > 1) {
+            buffer.append("number-columns-spanned=\"");
+            buffer.append(positionSpan);
+            buffer.append("\" ");
+        }
+        buffer.append("font-weight=\"bold\" text-align=\"center\" border=\"solid black\" padding=\"2pt\"");
+        buffer.append(">");
         buffer.append("<fo:block>");
         this.appendWhitespace(buffer);
     }
@@ -257,8 +264,13 @@ public class FoFormRenderer implements FormStringRenderer {
         this.appendWhitespace(buffer);
     }
 
-    public void renderFormatItemRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField) {
+    public void renderFormatItemRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) {
         buffer.append("<fo:table-cell ");
+        if (positionSpan > 1) {
+            buffer.append("number-columns-spanned=\"");
+            buffer.append(positionSpan);
+            buffer.append("\" ");
+        }
         String areaStyle = modelFormField.getWidgetAreaStyle();
         if (UtilValidate.isEmpty(areaStyle)) {
             areaStyle = "tabletext";

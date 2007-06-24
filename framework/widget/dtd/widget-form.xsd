@@ -227,6 +227,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute type="xs:positiveInteger" name="default-position" default="1"/>
     </xs:attributeGroup>
     <xs:element name="auto-fields-entity">
         <xs:complexType>
@@ -246,6 +247,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute type="xs:positiveInteger" name="default-position" default="1"/>
     </xs:attributeGroup>
     <xs:element name="sort-order">
         <xs:complexType>
