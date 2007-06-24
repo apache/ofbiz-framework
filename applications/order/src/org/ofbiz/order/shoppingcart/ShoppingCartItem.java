@@ -1688,12 +1688,12 @@ public class ShoppingCartItem implements java.io.Serializable {
             Double depth = product.getDouble("shippingDepth");
 
             // if all are null, see if there is an associated virtual product and get the info of that product
-            if (height == null & width == null && depth == null) {
+            if (height == null && width == null && depth == null) {
                 GenericValue parentProduct = this.getParentProduct();
                 if (parentProduct != null) {
                     height = parentProduct.getDouble("shippingHeight");
-                    width = product.getDouble("shippingWidth");
-                    depth = product.getDouble("shippingDepth");
+                    width = parentProduct.getDouble("shippingWidth");
+                    depth = parentProduct.getDouble("shippingDepth");
                 }
             }
 
