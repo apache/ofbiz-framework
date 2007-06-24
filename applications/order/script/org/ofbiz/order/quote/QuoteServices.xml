@@ -129,6 +129,22 @@ under the License.
         <check-errors/>
         <entity-one entity-name="Quote" value-name="quote" auto-field-map="true"/>
         <check-errors/>
+        <if-empty field-name="parameters.statusId">
+            <set field="parameters.statusId" from-field="quote.statusId"/>
+        </if-empty>
+        <if-compare-field field-name="quote.statusId" operator="not-equals" to-field-name="parameters.statusId">
+            <!-- check if the status change is a valid change -->
+            <entity-and entity-name="StatusValidChange" list-name="validChange">
+                <field-map field-name="statusId" env-name="quote.statusId"/>
+                <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+            </entity-and>
+                    
+            <if-empty field-name="validChange">
+                <add-error><fail-message message="The status change from ${quote.statusId} to ${parameters.statusId} is not a valid change"/></add-error>
+                <log level="error" message="The status change from ${quote.statusId} to ${parameters.statusId} is not a valid change"/>
+                <check-errors/>
+            </if-empty>
+        </if-compare-field>
         <set-nonpk-fields map-name="parameters" value-name="quote"/>
         <store-value value-name="quote"/>
         <check-errors/>

@@ -98,6 +98,11 @@ under the License.
     </form>
     <form name="EditQuote" type="single" target="updateQuote" title="" default-map-name="quote"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <actions>
+            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" env-name="quote.statusId"/>
+            </entity-one>
+        </actions>
         <alt-target use-when="quote==null" target="createQuote"/>
         <auto-fields-entity entity-name="Quote" default-field-type="edit"/>
         <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}" widget-style="tabletext"><display/></field>
@@ -119,9 +124,9 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="issueDate" title="${uiLabelMap.OrderOrderQuoteIssueDate}"></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" widget-style="selectBox">
-            <drop-down allow-empty="false">
-                <entity-options entity-name="StatusItem" description="${description}">
-                    <entity-constraint name="statusTypeId" value="QUOTE_STATUS"/>
+            <drop-down allow-empty="false" current-description="${currentStatus.description}">
+                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
+                    <entity-constraint name="statusId" value="${quote.statusId}"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
             </drop-down>
