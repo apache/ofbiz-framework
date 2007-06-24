@@ -552,7 +552,7 @@ public class ShoppingListEvents {
             Debug.logError(e, module);
         }
 
-        if (surveyResp != null || surveyResp.size() > 0) {
+        if (surveyResp != null && surveyResp.size() > 0) {
             Iterator respIt = surveyResp.iterator();
             while (respIt.hasNext()) {
                 GenericValue resp = (GenericValue) respIt.next();

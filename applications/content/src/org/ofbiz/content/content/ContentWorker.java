@@ -487,7 +487,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                     break;
                 } else {
                     Boolean isFollow = (Boolean)currentNode.get("isFollow");
-                    if (isFollow != null || isFollow.booleanValue()) {
+                    if (isFollow != null && isFollow.booleanValue()) {
                         nodeTrail.add(currentNode);
                         boolean foundPick = traverseSubContent(ctx);
                         if (foundPick) {

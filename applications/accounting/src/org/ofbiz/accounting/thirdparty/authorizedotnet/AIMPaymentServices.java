@@ -300,7 +300,7 @@ public class AIMPaymentServices {
         }
 
         if (ver.equals("3.1")) {
-            if (tranKey == null && tranKey.length() <= 0) {
+            if (tranKey == null || tranKey.length() <= 0) {
                 Debug.logInfo("Trankey property required for version 3.1 reverting to 3.0",module);
                 ver = "3.0";
             }
