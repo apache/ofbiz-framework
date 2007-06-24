@@ -80,7 +80,7 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}" widget-style="inputBox"></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeProdCatalogFromParty?prodCatalogId=${prodCatalogId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -110,7 +110,7 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}" widget-style="tabletext"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteProdCatalogStore?prodCatalogId=${prodCatalogId}&amp;productStoreId=${productStoreId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -128,11 +128,11 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}" widget-style="inputBox"></field>
         <field name="sequenceNum" title="${uiLabelMap.CommonSequenceNum}" widget-style="inputBox"></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeProductCategoryFromProdCatalog?prodCatalogId=${prodCatalogId}&amp;productCategoryId=${productCategoryId}&amp;fromDate=${fromDate}&amp;prodCatalogCategoryTypeId=${prodCatalogCategoryTypeId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
-        <field name="makeTopLink" title="" widget-style="buttontext">
+        <field name="makeTopLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditCategory?CATALOG_TOP_CATEGORY=${productCategoryId}&amp;productCategoryId=${productCategoryId}"
                 description="${uiLabelMap.ProductMakeTop}" also-hidden="false"/>
         </field>

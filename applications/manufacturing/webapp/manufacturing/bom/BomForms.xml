@@ -83,10 +83,10 @@ under the License.
         <field name="ruleOperator"><display/></field>
         <field name="fromDate"><display/></field>
         <field name="thruDate"><display/></field>
-        <field name="updateLink" title="" widget-style="buttontext">
+        <field name="updateLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditProductManufacturingRules?ruleId=${ruleId}" description="${uiLabelMap.CommonSelect}" />
         </field> 
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="DeleteProductManufacturingRule?ruleId=${ruleId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>

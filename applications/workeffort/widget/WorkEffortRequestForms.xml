@@ -31,7 +31,7 @@ under the License.
         <field name="description"><display/></field>
         <field name="custRequestTypeDescription"><display/></field>
         <field name="statusItemDescription"><display/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeWorkEffortRequest?workEffortId=${workEffortId}&amp;custRequestId=${custRequestId}"/>
         </field>
     </form>
@@ -56,7 +56,7 @@ under the License.
         <field name="priority"><display/></field>
         <field name="productId"><display/></field>
         <field name="description"><display/></field>
-        <field name="deleteLink" title="" widget-style="linktext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="linktext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortRequestItem?workEffortId=${workEffortId}&amp;custRequestId=${custRequestId}&amp;custRequestItemSeqId=${custRequestItemSeqId}"/>
         </field>
     </form>

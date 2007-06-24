@@ -35,7 +35,7 @@ under the License.
         <field name="orderTypeDescription"><display/></field>
         <field name="orderDate"><display/></field>
         <field name="grandTotal"><display/></field>
-        <field name="deleteLink" title="" widget-style="buttontext"><hyperlink target="deleteWorkEffortOrderHeader?workEffortId=${workEffortId}&amp;orderId=${orderId}" also-hidden="false" description="${uiLabelMap.CommonDelete}"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><hyperlink target="deleteWorkEffortOrderHeader?workEffortId=${workEffortId}&amp;orderId=${orderId}" also-hidden="false" description="${uiLabelMap.CommonDelete}"/></field>
     </form>
     <form name="AddWorkEffortOrderHeader" target="createWorkEffortOrderHeader" title="" type="single">
         <field name="workEffortId"><hidden/></field>

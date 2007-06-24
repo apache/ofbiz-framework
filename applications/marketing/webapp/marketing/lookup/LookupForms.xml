@@ -54,7 +54,7 @@ under the License.
             <hyperlink also-hidden="false" target-type="intra-app" description="${segmentGroupId}" target="viewSegmentGroup?segmentGroupId=${segmentGroupId}"/>
         </field>
         <field name="partyClassificationGroupId" title="${uiLabelMap.SegmentGroupPartyClassificationGroupId}"><display/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteSegmentGroupClass?segmentGroupId=${segmentGroupId}&amp;partyClassificationGroupId=${partyClassificationGroupId}"
                 description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>
         </field>

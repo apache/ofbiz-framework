@@ -288,7 +288,7 @@ under the License.
        <field name="uomId"><hidden/></field>
        <field name="taxableFlag"><hidden/></field>
        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
-       <field name="removeButton" title="" widget-style="buttontext">
+       <field name="removeButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeInvoiceItem?invoiceId=${invoiceId}&amp;invoiceItemSeqId=${invoiceItemSeqId}"/>
        </field>
     </form>
@@ -352,7 +352,7 @@ under the License.
         <field name="billingAccountId"><hidden/></field>
         <field name="amountToApply"><text size="10" disabled="true"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
-        <field name="removeButton" title="" widget-style="buttontext" use-when="paymentApplicationId!=null">
+        <field name="removeButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="paymentApplicationId!=null">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeInvoiceApplication?paymentApplicationId=${paymentApplicationId}&amp;invoiceId=${invoiceId}"/>
         </field>
     </form>

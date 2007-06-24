@@ -36,7 +36,7 @@ under the License.
             </display-entity>
         </field>
 
-        <field name="taxAuthorityEdit" title="" widget-style="buttontext">
+        <field name="taxAuthorityEdit" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonEdit}" target="EditTaxAuthority?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}" also-hidden="false"/>
         </field>
     </form>
@@ -83,7 +83,7 @@ under the License.
             </display-entity>
         </field>
 
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteTaxAuthorityCategory?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}&amp;productCategoryId=${productCategoryId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -129,7 +129,7 @@ under the License.
         </field>
         
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteTaxAuthorityAssoc?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}&amp;toTaxAuthPartyId=${toTaxAuthPartyId}&amp;toTaxAuthGeoId=${toTaxAuthGeoId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -177,7 +177,7 @@ under the License.
             </display-entity>
         </field>
         
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteTaxAuthorityGlAccount?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}&amp;glAccountId=${glAccountId}&amp;organizationPartyId=${organizationPartyId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -235,7 +235,7 @@ under the License.
         </field>
         
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteTaxAuthorityRateProduct?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}&amp;taxAuthorityRateSeqId=${taxAuthorityRateSeqId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -321,11 +321,11 @@ under the License.
         <field name="isExempt"><display/></field>
         <field name="isNexus"><display/></field>
         
-        <field name="editLink" title="" widget-style="buttontext">
+        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditTaxAuthorityPartyInfo?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteTaxAuthorityPartyInfo?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>

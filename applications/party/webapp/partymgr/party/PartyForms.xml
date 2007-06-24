@@ -63,7 +63,7 @@ under the License.
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
-        <field name="cancelLink" title="" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+        <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
 
     <form name="EditPartyGroup" type="single" target="updatePartyGroup" default-map-name="partyGroup"
@@ -75,7 +75,7 @@ under the License.
         <field use-when="partyGroup==null&amp;&amp;partyId!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${partyId}]"><display also-hidden="false"/></field>
         <field name="partyTypeId"><ignored/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
-        <field name="cancelLink" title="" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+        <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
 
     <form name="AddUserLogin" type="single" target="createUserLogin"
@@ -89,7 +89,7 @@ under the License.
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
-        <field name="cancelLink" title="" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+        <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
 
     <form name="updatePassword" type="single" target="updatePassword"
@@ -104,7 +104,7 @@ under the License.
         <field name="newPassword"><password/></field>
         <field name="newPasswordVerify"><password/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
-        <field name="cancelLink" title="" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+        <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
 
     <form name="updateUserLoginSecurity" type="single" target="updateUserLoginSecurity" default-map-name="editUserLogin">
@@ -112,7 +112,7 @@ under the License.
         <field name="partyId"><hidden/></field>
         <field name="userLoginId"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
-        <field name="cancelLink" title="" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+        <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
 
     <form name="EditVendor" type="single" target="updateVendor" default-map-name="vendor" 
@@ -210,7 +210,7 @@ under the License.
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="smallSubmit">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink target="deletePartyTaxAuthInfo?partyId=${partyId}&amp;taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -228,7 +228,7 @@ under the License.
         <field name="partyId"><hidden/></field>
         <field name="note"><textarea cols="70" rows="10"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
-        <field name="cancelLink" title="" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+        <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
 
     <!-- PartyRate -->
@@ -259,7 +259,7 @@ under the License.
         <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}"><display-entity entity-name="RateType" also-hidden="true"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="smallSubmit">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink target="deletePartyRate?partyId=${partyId}&amp;rateTypeId=${rateTypeId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -331,7 +331,7 @@ under the License.
         <field use-when="displayPassword!=null" name="PASSWORD" title="${uiLabelMap.CommonPassword}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><password size="15" maxlength="250"/></field>
         <field use-when="displayPassword!=null" name="CONFIRM_PASSWORD" title="${uiLabelMap.CommonPassword}" tooltip="* ${uiLabelMap.CommonConfirm}" widget-style="required"><password size="15" maxlength="250"/></field>
         <field name="USERNAME" title="${uiLabelMap.CommonUsername}" tooltip="* ${uiLabelMap.PartyCustomerTemporaryPassword}"><text size="30" maxlength="250"/></field>
-        <!--<field name="RequiredNote" title=""><display description="${uiLabelMap.PartyRequiredNote}" also-hidden="false"/></field> -->
+        <!--<field name="RequiredNote" title="${uiLabelMap.CommonEmptyHeader}"><display description="${uiLabelMap.PartyRequiredNote}" also-hidden="false"/></field> -->
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
     </form>
 
@@ -349,7 +349,7 @@ under the License.
         <field name="roleTypeId" title="${uiLabelMap.PartyRole}">
             <display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/>
         </field>
-        <field name="deleteLink" title="" widget-style="smallSubmit">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink target="deleteSegmentGroupRole?segmentGroupId=${segmentGroupId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -369,7 +369,7 @@ under the License.
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
-        <!-- <field name="cancelLink" title="" widget-style="smallSubmit"><hyperlink target="${donePage}?segmentGroupId=${segmentGroupId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field> -->
+        <!-- <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="${donePage}?segmentGroupId=${segmentGroupId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field> -->
     </form>
 
     <form name="EditPartyAttribute" type="single" target="updatePartyAttribute" default-map-name="attribute"
@@ -470,7 +470,7 @@ under the License.
         <field name="dataResourceId" title="${uiLabelMap.FormFieldTitle_dataResourceName}" use-when="dataResourceId!=null">
             <display-entity entity-name="DataResource" description="${dataResourceName}"/>
         </field>
-        <field name="editLink" title="" widget-style="smallSubmit">
+        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditPartyContents?contentId=${contentId}&amp;partyId=${partyId}&amp;dataResourceId=${dataResourceId}"/>
         </field>
     </form>    

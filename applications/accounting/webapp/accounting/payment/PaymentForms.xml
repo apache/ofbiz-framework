@@ -239,7 +239,7 @@ under the License.
         </field>
         <field name="amountApplied"><text size="15"/></field>
         <field name="updateButton" widget-style="buttontext"><submit button-type="text-link"/></field>
-        <field name="removeButton" title="" widget-style="buttontext">
+        <field name="removeButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" 
                 target="removePaymentApplication?paymentApplicationId=${paymentApplicationId}&amp;paymentId=${paymentId}"/>
         </field>

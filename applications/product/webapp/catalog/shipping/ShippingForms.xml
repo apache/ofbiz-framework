@@ -28,7 +28,7 @@
             <hyperlink target="ListQuantityBreaks?quantityBreakId=${quantityBreakId}" description="${quantityBreakId}" also-hidden="false"/>
         </field>
         <field name="quantityBreakTypeId" title="${uiLabelMap.CommonType}"><display-entity also-hidden="false" entity-name="QuantityBreakType"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteQuantityBreak?quantityBreakId=${quantityBreakId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>
@@ -51,7 +51,7 @@
         <field name="shipmentMethodTypeId" widget-style="buttontext">
             <hyperlink target="ListShipmentMethodTypes?shipmentMethodTypeId=${shipmentMethodTypeId}" description="${shipmentMethodTypeId}" also-hidden="false"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteShipmentMethodType?shipmentMethodTypeId=${shipmentMethodTypeId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>
@@ -69,7 +69,7 @@
         <field name="editLink" widget-style="buttontext">
             <hyperlink target="ListCarrierShipmentMethods?shipmentMethodTypeId=${shipmentMethodTypeId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteCarrierShipmentMethod?shipmentMethodTypeId=${shipmentMethodTypeId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>

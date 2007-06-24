@@ -91,12 +91,12 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-        <field name="createLink" title="" widget-style="buttontext" position="1">
+        <field name="createLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" position="1">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreateNew}"  
                 target="EditLayoutTemplate?mode=add&amp;contentIdTo=TEMPLATE_MASTER"/>
         </field>
         -->
-        <field name="cloneLayout" title="" widget-style="buttontext" position="2" >
+        <field name="cloneLayout" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" position="2" >
             <hyperlink also-hidden="false" description="${uiLabelMap.ContentCloneLayout}"  
                 target="cloneLayout?contentId=${currentValue.contentId}"/>
         </field>
@@ -162,7 +162,7 @@ under the License.
         <field name="description"><display/></field>
         <field name="drObjectInfo" title="Template File"><display/></field>
         <!--
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeLayout?contentId=${contentId}&amp;contentIdTo=${contentIdTo}&amp;contentAssocTypeId=${contentAssocTypeId}&amp;fromDate=${fromDate}"/>
         </field>
         -->
@@ -175,8 +175,8 @@ under the License.
         <field name="contentName"><display/></field>
         <field name="description"><display/></field>
         <field name="drObjectInfo" title="Template File"><display/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeLayout?contentId=${contentId}&amp;contentIdTo=${caContentIdTo}&amp;contentAssocTypeId=${caContentAssocTypeId}&amp;fromDate=${caFromDate}"/>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeLayout?contentId=${contentId}&amp;contentIdTo=${caContentIdTo}&amp;contentAssocTypeId=${caContentAssocTypeId}&amp;fromDate=${caFromDate}"/>
         </field>
     </form>
 
@@ -429,13 +429,13 @@ under the License.
         </field>
     </form>
 <!--
-        <field name="paste" title="" widget-style="buttontext"
+        <field name="paste" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"
             use-when="!&quot;${contentIdTo}&quot;.equals(&quot;TEMPLATE_MASTER&quot;)" >
             <hyperlink target-type="plain" 
               target="javascript:call_fieldlookup2(document.AddLayoutSubContent.drDataResourceId, 'ClipBoardContent')"
               description="${uiLabelMap.ContentPaste}"/>
         </field>
-        <field name="paste" title="" widget-style="buttontext"
+        <field name="paste" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"
             use-when="&quot;${contentIdTo}&quot;.equals(&quot;TEMPLATE_MASTER&quot;)" >
             <hyperlink target-type="plain" 
               target="javascript:call_fieldlookup2(document.AddLayoutSubContent.drDataResourceId, 'LookupListLayout')"

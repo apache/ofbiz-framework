@@ -151,7 +151,7 @@ under the License.
     <!-- Inventory Item Labels -->
     <form name="UpdateInventoryItemLabelAppls" type="list" target="updateInventoryItemLabelApplFromItem" title="" list-name="inventoryItemLabelAppls">
         <auto-fields-service service-name="updateInventoryItemLabelAppl"/>
-        <field name="inventoryItemLabelId" title="" widget-style="buttontext">
+        <field name="inventoryItemLabelId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditInventoryItemLabel?inventoryItemLabelId=${inventoryItemLabelId}" description="${inventoryItemLabelId}" also-hidden="true"/>
         </field>
         <field name="facilityId"><hidden/></field>
@@ -160,7 +160,7 @@ under the License.
             <display-entity entity-name="InventoryItemLabelType" description="${description} [${inventoryItemLabelTypeId}]"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteInventoryItemLabelApplFromItem?inventoryItemId=${inventoryItemId}&amp;inventoryItemLabelTypeId=${inventoryItemLabelTypeId}&amp;inventoryItemLabelId=${inventoryItemLabelId}&amp;facilityId=${facilityId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>

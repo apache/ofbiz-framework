@@ -172,7 +172,7 @@ under the License.
                 <entity-options description="${description}" entity-name="ContentType" key-field-name="contentTypeId"/>
             </drop-down>
         </field>
-        <field name="ownerContentId" title=""><lookup target-form-name="LookupContent"/></field>
+        <field name="ownerContentId" title="${uiLabelMap.CommonEmptyHeader}"><lookup target-form-name="LookupContent"/></field>
         <field name="mimeTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="MimeType" key-field-name="mimeTypeId"/>
@@ -212,8 +212,8 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="ContentAssoc"/>
         <field name="contentId" widget-style="tabletext"><display/></field>
-        <field name="contentIdTo" title="" widget-style="tabletext"><display/></field>
-        <field name="contentAssocTypeId" title="" widget-style="tabletext"><display/></field>
+        <field name="contentIdTo" title="${uiLabelMap.CommonEmptyHeader}" widget-style="tabletext"><display/></field>
+        <field name="contentAssocTypeId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="tabletext"><display/></field>
         <field name="fromDate" widget-style="tabletext"><display/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -281,10 +281,10 @@ under the License.
     <!-- ContentRole forms -->
     <form name="AddContentRole" target="addContentRole" title="" type="single">
         <auto-fields-service service-name="createContentRole"/>
-        <field name="contentId" title="" widget-style="buttontext" > 
+        <field name="contentId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" > 
             <lookup target-form-name="LookupContent" />
         </field>
-        <field name="partyId" title="" widget-style="buttontext"><lookup target-form-name="LookupPerson"/></field>
+        <field name="partyId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><lookup target-form-name="LookupPerson"/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
@@ -312,15 +312,15 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="remove${contentRoleTarget}ContentRole?contentId=${contentId}&amp;roleTypeId=${roleTypeId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}"/>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="remove${contentRoleTarget}ContentRole?contentId=${contentId}&amp;roleTypeId=${roleTypeId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}"/>
         </field>
     </form>
     
     <!-- ContentPurpose forms -->
     <form name="AddContentPurpose" target="addContentPurpose" title="" type="single">
         <auto-fields-service service-name="createContentPurpose"/>
-        <field name="contentId" title="" widget-style="buttontext" ><lookup target-form-name="LookupContent"/></field>
+        <field name="contentId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" ><lookup target-form-name="LookupContent"/></field>
         <field name="contentPurposeTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="ContentPurposeType" key-field-name="contentPurposeTypeId"/>
@@ -336,15 +336,15 @@ under the License.
         </actions>
         <auto-fields-service service-name="updateContentPurpose" default-field-type="display" />
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeContentPurpose?contentId=${contentId}&amp;contentPurposeTypeId=${contentPurposeTypeId}"/>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurpose?contentId=${contentId}&amp;contentPurposeTypeId=${contentPurposeTypeId}"/>
         </field>
     </form>
     
     <!-- ContentAttribute forms -->
     <form name="AddContentAttribute" target="addContentAttribute" title="" type="single">
         <auto-fields-service service-name="createContentAttribute"/>
-        <field name="contentId" title="" widget-style="buttontext" > 
+        <field name="contentId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" > 
             <lookup target-form-name="LookupContent" />
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -358,15 +358,15 @@ under the License.
         <auto-fields-service service-name="updateContentAttribute" default-field-type="display" />
         <field name="attrValue" widget-style="buttontext"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeContentAttribute?contentId=${contentId}&amp;attrName=${attrName}"/>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAttribute?contentId=${contentId}&amp;attrName=${attrName}"/>
         </field>
     </form>
     
     <!-- ContentMetaData forms -->
     <form name="AddContentMetaData" target="addContentMetaData" title="" type="single">
         <auto-fields-service service-name="createContentMetaData"/>
-        <field name="contentId" title="" widget-style="buttontext" > 
+        <field name="contentId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" > 
             <lookup target-form-name="LookupContent" />
         </field>
         <field name="metaDataPredicateId">
@@ -386,25 +386,25 @@ under the License.
         <field name="contentId" widget-style="buttontext"><display/></field>
         <field name="metaDataPredicateId" widget-style="buttontext"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeContentMetaData?contentId=${contentId}&amp;metaDataPredicateId=${metaDataPredicateId}"/>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentMetaData?contentId=${contentId}&amp;metaDataPredicateId=${metaDataPredicateId}"/>
         </field>
     </form>
     
     <!-- Person Lookup forms -->
     <form name="mruLookupPerson" list-name="mruList" target="" title="" type="list">
-        <field name="partyId" title="" widget-style="buttontext">
+        <field name="partyId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
         </field>
-        <field name="firstName" title="" widget-style="buttontext"> <display/> </field>
-        <field name="lastName" title="" widget-style="buttontext"> <display/> </field>
+        <field name="firstName" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><display/></field>
+        <field name="lastName" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><display/></field>
     </form>
     <form name="mruLookupPartyAndUserLoginAndPerson" list-name="mruList" target="" title="" type="list">
-        <field name="partyId" title="" widget-style="buttontext">
+        <field name="partyId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}', '${userLoginId}')"/>
         </field>
-        <field name="firstName" title="" widget-style="buttontext"> <display/> </field>
-        <field name="lastName" title="" widget-style="buttontext"> <display/> </field>
+        <field name="firstName" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><display/></field>
+        <field name="lastName" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><display/></field>
     </form>
 
     <!-- ContentWorkEffort forms -->
@@ -439,8 +439,8 @@ under the License.
         <field name="workEffortContentTypeId" widget-style="tabletext"><display-entity entity-name="WorkEffortContentType" description="${description}"/></field>
         <field name="fromDate" widget-style="tabletext"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="deleteWorkEffortContent?workEffortContentTypeId=${workEffortContentTypeId}&amp;fromDate=${fromDate}&amp;workEffortId=${workEffortId}&amp;contentId=${contentId}"/>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortContent?workEffortContentTypeId=${workEffortContentTypeId}&amp;fromDate=${fromDate}&amp;workEffortId=${workEffortId}&amp;contentId=${contentId}"/>
         </field>
     </form>
 </forms>

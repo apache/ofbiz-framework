@@ -159,7 +159,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"></field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}"><display-entity also-hidden="false" entity-name="RoleType"/></field>
         <field name="quoteId"><hidden/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeQuoteRole?partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;quoteId=${quoteId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>
@@ -207,7 +207,7 @@ under the License.
             <hyperlink also-hidden="false" description="${custRequestId}-${custRequestItemSeqId}" target="requestitem?custRequestId=${custRequestId}&amp;custRequestItemSeqId=${custRequestItemSeqId}"/>
         </field>
         <field name="custRequestItemSeqId"><hidden/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeQuoteItem?quoteItemSeqId=${quoteItemSeqId}&amp;quoteId=${quoteId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>
@@ -267,7 +267,7 @@ under the License.
         </field>
         <field name="attrValue" title="${uiLabelMap.OrderOrderQuoteAttributeValue}"></field>
         <field name="quoteId"><hidden/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeQuoteAttribute?attrName=${attrName}&amp;quoteId=${quoteId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>
@@ -291,7 +291,7 @@ under the License.
         </field>
         <field name="coeffValue" title="${uiLabelMap.OrderOrderQuoteCoeffValue}"></field>
         <field name="quoteId"><hidden/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeQuoteCoefficient?coeffName=${coeffName}&amp;quoteId=${quoteId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>
@@ -352,7 +352,7 @@ under the License.
         <field name="quoteAdjustmentTypeId" title="${uiLabelMap.OrderOrderQuoteAdjustmentType}">
             <display-entity entity-name="OrderAdjustmentType" key-field-name="orderAdjustmentTypeId"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeQuoteAdjustment?quoteAdjustmentId=${quoteAdjustmentId}&amp;quoteId=${quoteId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>

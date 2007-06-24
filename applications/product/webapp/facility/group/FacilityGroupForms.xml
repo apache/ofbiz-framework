@@ -51,7 +51,7 @@ under the License.
         </field>
         <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeFacilityGroupFromGroup?showFacilityGroupId=${facilityGroupId}&amp;facilityGroupId=${facilityGroupId}&amp;parentFacilityGroupId=${parentFacilityGroupId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -79,7 +79,7 @@ under the License.
         </field>
         <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeFacilityGroupFromGroup?showFacilityGroupId=${parentFacilityGroupId}&amp;facilityGroupId=${facilityGroupId}&amp;parentFacilityGroupId=${parentFacilityGroupId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -107,7 +107,7 @@ under the License.
         </field>
         <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeFacilityFromGroup?facilityGroupId=${facilityGroupId}&amp;facilityId=${facilityId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -135,7 +135,7 @@ under the License.
         <field name="roleTypeId">
             <display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removePartyFromFacilityGroup?facilityGroupId=${facilityGroupId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>

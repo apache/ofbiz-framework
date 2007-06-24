@@ -136,7 +136,7 @@
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deletePayHistory?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>           
@@ -159,7 +159,7 @@
             </drop-down>
         </field>        
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deletePartyBenefit?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;fromDate=${fromDate}&amp;benefitTypeId=${benefitTypeId}" description="${uiLabelMap.CommonDelete}"/>
         </field>             
     </form>
@@ -195,7 +195,7 @@
         <field name="payrollPreferenceSeqId" title="${uiLabelMap.HumanResPayrollPreferenceSeqId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${payrollPreferenceSeqId}" target="EditPayrollPreferences?payrollPreferenceSeqId=${payrollPreferenceSeqId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deletePayrollPreference?payrollPreferenceSeqId=${payrollPreferenceSeqId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
@@ -240,7 +240,7 @@
         <field name="payGradeId" title="PayGrade Id" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${payGradeId}" target="EditPayGrade?payGradeId=${payGradeId}"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deletePayGrade?payGradeId=${payGradeId}" description="${uiLabelMap.CommonDelete}"/>
         </field>           
     </form>
@@ -264,7 +264,7 @@
         <field name="salaryStepSeqId" title="${uiLabelMap.HumanResSalaryStepSeqId}"><display/></field>                   
         <field name="payGradeId" title="${uiLabelMap.HumanResPayGradeId}"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteSalaryStep?salaryStepSeqId=${salaryStepSeqId}&amp;payGradeId=${payGradeId}" description="${uiLabelMap.CommonDelete}"/>
         </field>
     </form>
@@ -282,7 +282,7 @@
         <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${terminationReasonId}" target="EditTerminationReason?terminationReasonId=${terminationReasonId}"/>
         </field> 
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteTerminationReason?terminationReasonId=${terminationReasonId}" description="${uiLabelMap.CommonDelete}"/>
         </field>    
     </form>
@@ -303,7 +303,7 @@
         <field name="unemploymentClaimId" title="unemploymentClaimId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${unemploymentClaimId}" target="EditUnemploymentClaim?unemploymentClaimId=${unemploymentClaimId}"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteUnemploymentClaim?unemploymentClaimId=${unemploymentClaimId}" description="${uiLabelMap.CommonDelete}"/>
         </field> 
     </form>                                      

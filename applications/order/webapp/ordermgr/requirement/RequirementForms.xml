@@ -312,7 +312,7 @@ under the License.
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
     </form>
     <form name="ApprovedProductRequirementsSubmit" type="single">
-        <field name="submitButton" title="" widget-style="buttontext">
+        <field name="submitButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.OrderInputQuickPurchaseOrder}" target="javascript:document.ApprovedProductRequirements.submit()"/>
         </field>
     </form>
