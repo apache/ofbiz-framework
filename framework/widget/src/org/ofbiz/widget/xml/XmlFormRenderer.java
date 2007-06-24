@@ -193,7 +193,7 @@ public class XmlFormRenderer implements FormStringRenderer {
     public void renderFormatHeaderRowClose(StringBuffer buffer, Map context, ModelForm modelForm) {
     }
 
-    public void renderFormatHeaderRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField) {
+    public void renderFormatHeaderRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) {
     }
 
     public void renderFormatHeaderRowCellClose(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField) {
@@ -222,7 +222,7 @@ public class XmlFormRenderer implements FormStringRenderer {
         this.appendWhitespace(buffer);
     }
 
-    public void renderFormatItemRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField) {
+    public void renderFormatItemRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) {
         buffer.append("<");
         buffer.append(modelFormField.getName());
         buffer.append(">");

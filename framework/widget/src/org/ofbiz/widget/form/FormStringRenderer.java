@@ -54,7 +54,7 @@ public interface FormStringRenderer {
 
     public void renderFormatHeaderRowOpen(StringBuffer buffer, Map context, ModelForm modelForm);
     public void renderFormatHeaderRowClose(StringBuffer buffer, Map context, ModelForm modelForm);
-    public void renderFormatHeaderRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField);
+    public void renderFormatHeaderRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan);
     public void renderFormatHeaderRowCellClose(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField);
 
     public void renderFormatHeaderRowFormCellOpen(StringBuffer buffer, Map context, ModelForm modelForm);
@@ -63,7 +63,7 @@ public interface FormStringRenderer {
     
     public void renderFormatItemRowOpen(StringBuffer buffer, Map context, ModelForm modelForm);
     public void renderFormatItemRowClose(StringBuffer buffer, Map context, ModelForm modelForm);
-    public void renderFormatItemRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField);
+    public void renderFormatItemRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan);
     public void renderFormatItemRowCellClose(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField);
     public void renderFormatItemRowFormCellOpen(StringBuffer buffer, Map context, ModelForm modelForm);
     public void renderFormatItemRowFormCellClose(StringBuffer buffer, Map context, ModelForm modelForm);

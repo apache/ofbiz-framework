@@ -1191,11 +1191,16 @@ public class HtmlFormRenderer implements FormStringRenderer {
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowCellOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm, org.ofbiz.widget.form.ModelFormField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowCellOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm, org.ofbiz.widget.form.ModelFormField, int positionSpan)
      */
-    public void renderFormatHeaderRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField) {
+    public void renderFormatHeaderRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) {
         buffer.append("   <td");
         String areaStyle = modelFormField.getTitleAreaStyle();
+        if (positionSpan > 1) {
+            buffer.append(" colspan=\"");
+            buffer.append(positionSpan);
+            buffer.append("\"");
+        }
         if (UtilValidate.isNotEmpty(areaStyle)) {
             buffer.append(" class=\"");
             buffer.append(areaStyle);
@@ -1295,9 +1300,14 @@ public class HtmlFormRenderer implements FormStringRenderer {
     /* (non-Javadoc)
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatItemRowCellOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm, org.ofbiz.widget.form.ModelFormField)
      */
-    public void renderFormatItemRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField) {
+    public void renderFormatItemRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) {
         buffer.append("   <td");
         String areaStyle = modelFormField.getWidgetAreaStyle();
+        if (positionSpan > 1) {
+            buffer.append(" colspan=\"");
+            buffer.append(positionSpan);
+            buffer.append("\"");
+        }
         if (UtilValidate.isNotEmpty(areaStyle)) {
             buffer.append(" class=\"");
             buffer.append(areaStyle);
