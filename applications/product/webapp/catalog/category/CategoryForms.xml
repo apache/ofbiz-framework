@@ -32,7 +32,7 @@ under the License.
         <field name="productCategoryId"><hidden/></field>
         <field name="attrValue"><text size="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteProductCategoryAttribute?productCategoryId=${productCategoryId}&amp;attrName=${attrName}"
                 description="[${uiLabelMap.CommonDelete}]"/>
         </field>
@@ -84,10 +84,10 @@ under the License.
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="editLink" title="" widget-style="buttontext">
+        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditCategoryContentContent?productCategoryId=${productCategoryId}&amp;contentId=${contentId}&amp;prodCatContentTypeId=${prodCatContentTypeId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonEdit}"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeContentFromCategory?productCategoryId=${productCategoryId}&amp;contentId=${contentId}&amp;prodCatContentTypeId=${prodCatContentTypeId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -137,7 +137,7 @@ under the License.
         <field name="detailSubScreen"><ignored/></field>
         <field name="imageUrl"><ignored/></field>
         <field name="imageTwoUrl"><ignored/></field>      
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteProductCategoryLink?productCategoryId=${productCategoryId}&amp;linkSeqId=${linkSeqId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -170,6 +170,6 @@ under the License.
         <field name="detailSubScreen" tooltip="example: component://ecommerce/widget/CatalogScreens.xml#categorydetail"><text size="60" maxlength="255"/></field>
         <field name="submitButton" use-when="productCategoryLink==null" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" use-when="productCategoryLink!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="clearFormButton" title="" use-when="productCategoryLink!=null" widget-style="buttontext"><hyperlink target="EditProductCategoryLinks?productCategoryId=${productCategoryId}" target-type="intra-app" description="Clear Form"/></field>
+        <field name="clearFormButton" title="${uiLabelMap.CommonEmptyHeader}" use-when="productCategoryLink!=null" widget-style="buttontext"><hyperlink target="EditProductCategoryLinks?productCategoryId=${productCategoryId}" target-type="intra-app" description="Clear Form"/></field>
     </form>
 </forms>

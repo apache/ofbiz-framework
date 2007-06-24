@@ -26,7 +26,7 @@
         </field>
         <field name="title" title="${uiLabelMap.ProductTitle}"><display/></field>
         <field name="subtitle" title="${uiLabelMap.ProductSubTitle}"><display/></field>
-        <field name="editLink" title="" widget-style="buttontext">
+        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditProductStore?productStoreId=${productStoreId}" description="${uiLabelMap.CommonEdit}"/>
         </field>
     </form>
@@ -51,7 +51,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field use-when="productStore!=null&amp;&amp;productStore.getString(&quot;inventoryFacilityId&quot;)!=null" name="inventoryFacilityLink" title="" widget-style="buttontext">
+        <field use-when="productStore!=null&amp;&amp;productStore.getString(&quot;inventoryFacilityId&quot;)!=null" name="inventoryFacilityLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="/facility/control/EditFacility?facilityId=${productStore.inventoryFacilityId}" target-type="inter-app"
                 description="${uiLabelMap.CommonEdit} ${uiLabelMap.ProductFacility} ${productStore.inventoryFacilityId}" also-hidden="false"/>
         </field>
@@ -275,7 +275,7 @@
         <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}" widget-style="tabletext"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteProductStoreCatalog?prodCatalogId=${prodCatalogId}&amp;productStoreId=${productStoreId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -346,7 +346,7 @@
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteProductStoreKeywordOvrd?productStoreId=${productStoreId}&amp;keyword=${keyword}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -364,7 +364,7 @@
         </field>
         <field name="segmentGroupTypeId" title="${uiLabelMap.ProductSegmentGroupTypeId}"><display-entity entity-name="SegmentGroupType"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="/marketing/control/deleteSegmentGroup?segmentGroupId=${segmentGroupId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false" target-type="inter-app"/>
         </field>
@@ -373,7 +373,7 @@
         paginate-target="EditProductStoreShipSetup">
         <auto-fields-entity entity-name="ProductStoreShipmentMeth" default-field-type="display"/>
         <field name="productStoreId"><hidden/></field>
-        <field name="productStoreShipMethId" title="" widget-style="buttontext">
+        <field name="productStoreShipMethId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditProductStoreShipSetup?productStoreId=${productStoreId}&amp;productStoreShipMethId=${productStoreShipMethId}" description="${productStoreShipMethId}" also-hidden="false"/>
         </field>
         <field name="shipmentMethodTypeId" title="${uiLabelMap.ProductMethod}">
@@ -386,7 +386,7 @@
         <field name="excludeGeoId">
             <display-entity entity-name="Geo" key-field-name="geoId" description="${geoName} [${geoId}]"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="storeRemoveShipMeth?productStoreId=${productStoreId}&amp;productStoreShipMethId=${productStoreShipMethId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>
@@ -456,7 +456,7 @@
         <auto-fields-entity entity-name="ShipmentCostEstimate" default-field-type="display"/>
         <field name="productStoreId"><hidden/></field>
         <field name="carrierRoleTypeId"><hidden/></field>
-        <field name="shipmentCostEstimateId" title="" widget-style="buttontext">
+        <field name="shipmentCostEstimateId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditProductStoreShipmentCostEstimates?productStoreId=${productStoreId}&amp;shipmentCostEstimateId=${shipmentCostEstimateId}" description="${shipmentCostEstimateId}" also-hidden="false"/>
         </field>
         <field name="shipmentMethodTypeId" title="${uiLabelMap.ProductMethod}">
@@ -486,7 +486,7 @@
         <field name="priceUomId" title="${uiLabelMap.ProductUnitOfMeasure}">
             <display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="storeRemoveShipRate?productStoreId=${productStoreId}&amp;shipmentCostEstimateId=${shipmentCostEstimateId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>

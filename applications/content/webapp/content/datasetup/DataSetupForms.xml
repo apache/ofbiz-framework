@@ -38,7 +38,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceType?dataResourceTypeId=${dataResourceTypeId}"/>
         </field>
     </form>
@@ -68,7 +68,7 @@ under the License.
         <field name="attrName" title="Attribute Name">
             <display/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceTypeAttr?dataResourceTypeId=${dataResourceTypeId}&amp;attrName=${attrName}"/>
         </field>
     </form>
@@ -91,7 +91,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeCharacterSet?characterSetId=${characterSetId}"/>
         </field>
     </form>
@@ -125,7 +125,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataCategory?dataCategoryId=${dataCategoryId}"/>
         </field>
     </form>
@@ -133,7 +133,7 @@ under the License.
     <!-- FileExtension forms -->
     <form name="AddFileExtension" target="addFileExtension" title="" type="single">
         <auto-fields-service service-name="createFileExtension"/>
-        <field name="mimeTypeId" title="" >
+        <field name="mimeTypeId" title="${uiLabelMap.CommonEmptyHeader}">
             <drop-down allow-empty="false">
                 <entity-options description="${description}"
                     entity-name="MimeType" key-field-name="mimeTypeId"/>
@@ -151,7 +151,7 @@ under the License.
         <field name="fileExtensionId" widget-style="tabletext">
             <display/>
         </field>
-        <field name="mimeTypeId" title="" >
+        <field name="mimeTypeId" title="${uiLabelMap.CommonEmptyHeader}">
             <drop-down allow-empty="false">
                 <entity-options description="${description}"
                     entity-name="MimeType" key-field-name="mimeTypeId"/>
@@ -160,7 +160,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeFileExtension?fileExtensionId=${fileExtensionId}"/>
         </field>
     </form>
@@ -184,7 +184,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeMetaDataPredicate?metaDataPredicateId=${metaDataPredicateId}"/>
         </field>
     </form>
@@ -207,7 +207,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeMimeType?mimeTypeId=${mimeTypeId}"/>
         </field>
     </form>
@@ -236,7 +236,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeMimeTypeHtmlTemplate?mimeTypeId=${mimeTypeId}&amp;dataResourceId=${dataResourceId}&amp;fromDate=${fromDate}"/>
         </field>
     </form>

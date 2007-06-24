@@ -29,7 +29,7 @@ under the License.
         <field name="dataResourceId"><text-find/></field>
         <field name="contentName"><text-find/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="createLink" title="" widget-style="buttontext">
+        <field name="createLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreateNew}"  target="EditAddContent"/>
         </field>
 
@@ -43,7 +43,7 @@ under the License.
             </service>
         </actions>
     
-        <field name="editContent" title="">
+        <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
             <hyperlink also-hidden="false" description="Edit" target="EditAddContent?MASTER_contentId=${contentId}&amp;MASTER_drDataResourceId=${drDataResourceId}&amp;MASTER_caContentIdTo=${caContentIdTo}&amp;MASTER_caContentAssocTypeId=${caContentAssocTypeId}&amp;MASTER_caFromDate=${caFromDate}"/> 
 <!--
             <hyperlink also-hidden="false" description="Edit" target="EditContent?caContentIdTo=${caContentIdTo}&amp;caFromDate=${caFromDate}&amp;contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}&amp;caContentId=${contentId}&amp;contentIdStart=${caContentIdTo}&amp;caContentAssocTypeId=${caContentAssocTypeId}"/> 
@@ -117,7 +117,7 @@ under the License.
         <field name="newTopicDescription" title="Description"  position="3">
             <text size="24"/>
         </field>
-        <field name="createTopic" title=""  position="4">
+        <field name="createTopic" title="${uiLabelMap.CommonEmptyHeader}"  position="4">
             <hyperlink also-hidden="false" target="createTopic${pageName}?mode=restore" description="Create Topic"/>
         </field>
         -->
@@ -165,8 +165,8 @@ under the License.
     <!-- ContentPurposeOperation forms -->
    <form name="UpdateContentPurposeOperation" list-name="contentList" target="updateContentPurposeOperation" title="" type="list">
         <auto-fields-service service-name="updateContentPurposeOperation" default-field-type="display"/>
-        <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeContentPurposeOperation?contentPurposeTypeId=${contentPurposeTypeId}&amp;contentOperationId=${contentOperationId}&amp;roleTypeId=${roleTypeId}&amp;statusId=${statusId}&amp;privilegeEnumId=${privilegeEnumId}"/>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurposeOperation?contentPurposeTypeId=${contentPurposeTypeId}&amp;contentOperationId=${contentOperationId}&amp;roleTypeId=${roleTypeId}&amp;statusId=${statusId}&amp;privilegeEnumId=${privilegeEnumId}"/>
         </field>
     </form>
     <form name="AddContentPurposeOperation" target="addContentPurposeOperation" title="" type="single">
@@ -269,7 +269,7 @@ under the License.
                 <hidden value="${dataResourceTypeId}"/>
         </field>
 <!--
-        <field name="submitContentEdit" title="">
+        <field name="submitContentEdit" title="${uiLabelMap.CommonEmptyHeader}">
             <hyperlink also-hidden="false" description="Submit" target="javascript:document.EditAddContent.action='${persistAction}'; document.EditAddContent.submit()" target-type="plain"/> 
         </field>
 -->
@@ -367,7 +367,7 @@ under the License.
     </form>
 
     <form name="AdminIndexAll" target="indexTree" title="" type="single">
-        <field name="contentId" title="" position="1"><text size="50" default-value="WebStoreCONTENT"/></field>
+        <field name="contentId" title="${uiLabelMap.CommonEmptyHeader}" position="1"><text size="50" default-value="WebStoreCONTENT"/></field>
         <field name="submitButton" title="${uiLabelMap.ContentIndexAll}" widget-style="smallSubmit" position="2"><submit button-type="button"/></field>
     </form>
 
@@ -377,7 +377,7 @@ under the License.
 
     </form>
     <form name="searchList" type="list" target="" list-name="queryResults" paginate-target="/AdminSearch">
-        <field name="editContent" title="">
+        <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
             <hyperlink also-hidden="false" description="Edit" target="CMSContentEdit?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}&amp;contentIdTo=${contentIdTo}"/> 
         </field>
         <field name="contentId"><display/></field>

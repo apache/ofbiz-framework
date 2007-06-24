@@ -45,7 +45,7 @@ under the License.
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteInventoryItemLabelType?inventoryItemLabelTypeId=${inventoryItemLabelTypeId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -59,7 +59,7 @@ under the License.
         <field name="inventoryItemLabelTypeId">
             <display-entity entity-name="InventoryItemLabelType" description="${description} [${inventoryItemLabelTypeId}]" also-hidden="true"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteInventoryItemLabel?inventoryItemLabelId=${inventoryItemLabelId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -91,7 +91,7 @@ under the License.
             </display-entity>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteInventoryItemLabelAppl?inventoryItemId=${inventoryItemId}&amp;inventoryItemLabelTypeId=${inventoryItemLabelTypeId}&amp;inventoryItemLabelId=${inventoryItemLabelId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>

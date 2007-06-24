@@ -32,7 +32,7 @@ under the License.
         <field name="description"><display/></field>
         <field name="statusItemDescription"><display/></field>
         <field name="issueDate"><display/></field>
-        <field name="deleteLink" title="" widget-style="linktext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="linktext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortQuote?workEffortId=${workEffortId}&amp;quoteId=${quoteId}"/>
         </field>
     </form>
@@ -58,7 +58,7 @@ under the License.
         <field name="custRequestItemSeqId"><display/></field>
         <field name="estimatedDeliveryDate"><display/></field>
         <field name="comments"><display/></field>
-        <field name="deleteLink" title="" widget-style="linktext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="linktext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortQuoteItem?workEffortId=${workEffortId}&amp;quoteId=${quoteId}&amp;quoteItemSeqId=${quoteItemSeqId}"/>
         </field>
     </form>

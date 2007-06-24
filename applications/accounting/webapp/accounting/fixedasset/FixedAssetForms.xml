@@ -53,7 +53,7 @@ under the License.
                 </entity-options> 
             </drop-down>
         </field>
-        <field name="instanceOfProductId" title=""><lookup target-form-name="LookupProduct"/></field>        
+        <field name="instanceOfProductId" title="${uiLabelMap.CommonEmptyHeader}"><lookup target-form-name="LookupProduct"/></field>        
         <field name="classEnumId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
@@ -86,10 +86,10 @@ under the License.
             </drop-down>
         </field>
         <field name="parentFixedAssetId"><lookup target-form-name="LookupFixedAsset"/></field>
-        <field name="locatedAtFacilityId" title=""><lookup target-form-name="LookupFacility"/></field>        
-        <field name="locatedAtLocationSeqId" title=""><lookup target-form-name="LookupFacilityLocation"/></field>        
-        <field name="locatedAtFacilityId" title=""><lookup target-form-name="LookupFacility"/></field>        
-        <field name="locatedAtLocationSeqId" title=""><lookup target-form-name="LookupFacilityLocation"/></field>        
+        <field name="locatedAtFacilityId" title="${uiLabelMap.CommonEmptyHeader}"><lookup target-form-name="LookupFacility"/></field>        
+        <field name="locatedAtLocationSeqId" title="${uiLabelMap.CommonEmptyHeader}"><lookup target-form-name="LookupFacilityLocation"/></field>        
+        <field name="locatedAtFacilityId" title="${uiLabelMap.CommonEmptyHeader}"><lookup target-form-name="LookupFacility"/></field>        
+        <field name="locatedAtLocationSeqId" title="${uiLabelMap.CommonEmptyHeader}"><lookup target-form-name="LookupFacilityLocation"/></field>        
         
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -102,9 +102,9 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="fixedAssetId"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeFixedAssetProduct?fixedAssetId=${fixedAssetId}&amp;productId=${productId}&amp;fixedAssetProductTypeId=${fixedAssetProductTypeId}&amp;fromDate=${fromDate}"
-                description="[${uiLabelMap.CommonRemove}]" also-hidden="false"/>
+                description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>
 
@@ -137,19 +137,19 @@ under the License.
     <form name="listFixedAssetCalendar" type="list" list-name="weeks" target="updateFixedAssetProductCalendar" default-table-style="calendar-table">
 
         <field name="week" title="${uiLabelMap.Common${month}} ${year}" widget-area-style="calendarWeek"><display description="${uiLabelMap.CommonWeek} ${week}"/></field>
-        <field name="Monday" title=""><display/></field>
+        <field name="Monday" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
         <field name="MondayData" title="${uiLabelMap.CommonMonday}" widget-style="calendarContent"><display/></field>
-        <field name="Tuesday" title=""><display/></field>
+        <field name="Tuesday" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
         <field name="TuesdayData" title="${uiLabelMap.CommonTuesday}" widget-style="calendarContent"><display/></field>
-        <field name="Wednesday" title=""><display/></field>
+        <field name="Wednesday" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
         <field name="WednesdayData" title="${uiLabelMap.CommonWednesday}" widget-style="calendarContent"><display/></field>
-        <field name="Thursday" title=""><display/></field>
+        <field name="Thursday" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
         <field name="ThursdayData" title="${uiLabelMap.CommonThursday}" widget-style="calendarContent"><display/></field>
-        <field name="Friday" title=""><display/></field>
+        <field name="Friday" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
         <field name="FridayData" title="${uiLabelMap.CommonFriday}" widget-style="calendarContent"><display/></field>
-        <field name="Saturday" title=""><display/></field>
+        <field name="Saturday" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
         <field name="SaturdayData" title="${uiLabelMap.CommonSaturday}" widget-style="calendarContent"><display/></field>
-        <field name="Sunday" title=""><display/></field>
+        <field name="Sunday" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
         <field name="SundayData" title="${uiLabelMap.CommonSunday}" widget-style="calendarContent"><display/></field>
     </form>
     <!-- update the availability on a date basis of a fixed asset -->
@@ -182,7 +182,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="cancel" title="" widget-style="buttontext">
+        <field name="cancel" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonCancel}" target="cancelFixedAssetStdCost?fixedAssetId=${fixedAssetId}&amp;fixedAssetStdCostTypeId=${fixedAssetStdCostTypeId}&amp;fromDate=${fromDate}"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -237,7 +237,7 @@ under the License.
             <display-entity entity-name="FixedAssetIdentType"/>
         </field>
         <field name="idValue" title="${uiLabelMap.AccountingFixedAssetIdentIdValue}"/>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeFixedAssetIdent?fixedAssetId=${fixedAssetId}&amp;fixedAssetIdentTypeId=${fixedAssetIdentTypeId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -272,7 +272,7 @@ under the License.
         <field name="registrationNumber" title="${uiLabelMap.AccountingFixedAssetRegNumber}"><text size="20" /></field> 
         <field name="licenseNumber" title="${uiLabelMap.AccountingFixedAssetLicenseNumber}"><text size="20" /></field> 
         <field name="govAgencyPartyId" title="${uiLabelMap.AccountingFixedAssetGovAgencyPartyId}"><lookup target-form-name="LookupPartyName"/></field>        
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteFixedAssetRegistration?fixedAssetId=${fixedAssetId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -422,7 +422,7 @@ under the License.
             <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" also-hidden="false" description="${orderId}" target-type="inter-app"/>            
         </field>
         <field name="orderItemSeqId"><display/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteFixedAssetMaintOrder?fixedAssetId=${fixedAssetId}&amp;maintHistSeqId=${maintHistSeqId}&amp;orderId=${orderId}&amp;orderItemSeqId=${orderItemSeqId}"
                 description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
@@ -467,7 +467,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext">
             <submit button-type="button"/>
         </field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deletePartyFixedAssetAssignment?fixedAssetId=${fixedAssetId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>

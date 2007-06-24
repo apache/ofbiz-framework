@@ -36,8 +36,8 @@ under the License.
         <field name="workEffortPurposeTypeId"><display-entity entity-name="WorkEffortPurposeType" description="${description}"/></field>
         <field name="actualStartDate"><display/></field>
         <field name="actualEndDate"><display/></field>
-        <field name="deleteLink" title="" widget-style="linktext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="deleteQuoteWorkEffort?workEffortId=${workEffortId}&amp;quoteId=${quoteId}"/>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="linktext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteQuoteWorkEffort?workEffortId=${workEffortId}&amp;quoteId=${quoteId}"/>
         </field>
     </form>
   

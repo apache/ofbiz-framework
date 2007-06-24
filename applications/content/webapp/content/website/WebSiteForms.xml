@@ -80,7 +80,7 @@ under the License.
         <field name="fromDate"><display/></field>
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="RemoveWebSiteContent?webSiteId=${webSiteId}&amp;contentId=${contentId}&amp;webSiteContentTypeId=${webSiteContentTypeId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -134,9 +134,9 @@ under the License.
         <field name="fromDate" widget-style="tabletext"><display/></field>
         <field name="thruDate"></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeWebSiteRole?webSiteId=${webSiteRole.webSiteId}&amp;partyId=${webSiteRole.partyId}&amp;roleTypeId=${webSiteRole.roleTypeId}&amp;fromDate=${webSiteRole.fromDate}"
-                description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
     <form name="AutoCreateWebsiteContent" type="single" target="autoCreateWebSiteContent" title="">

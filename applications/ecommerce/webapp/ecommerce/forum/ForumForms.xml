@@ -81,7 +81,7 @@ under the License.
         <field name="newTopicDescription" title="Description"  position="3">
             <text size="24"/>
         </field>
-        <field name="createTopic" title=""  position="4">
+        <field name="createTopic" title="${uiLabelMap.CommonEmptyHeader}"  position="4">
             <hyperlink also-hidden="false" target="createTopic${pageName}?mode=restore" description="Create Topic"/>
         </field>
         -->
@@ -163,7 +163,7 @@ under the License.
         <field name="contentName" title="Name" ><text-find/></field>
         <field name="submitButton" title="Find" widget-style="smallSubmit"><submit button-type="button"/></field>
 <!--
-        <field name="createLink" title="" widget-style="buttontext">
+        <field name="createLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="Create New"  target="AddContent"/>
         </field>
 -->
@@ -173,7 +173,7 @@ under the License.
     <form name="listFindContent" type="list" target="" 
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" 
         paginate-target="/FindContent">
-        <field name="editContent" title="">
+        <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
             <hyperlink also-hidden="false" description="Edit" target="EditContent?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}"/> 
 <!--
             <hyperlink also-hidden="false" description="Edit" target="EditContent?caContentIdTo=${caContentIdTo}&amp;caFromDate=${caFromDate}&amp;contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}&amp;caContentId=${contentId}&amp;contentIdStart=${caContentIdTo}&amp;caContentAssocTypeId=${caContentAssocTypeId}"/> 
@@ -250,7 +250,7 @@ under the License.
         <field name="newTopicDescription" title="Description"  position="3">
             <text size="24"/>
         </field>
-        <field name="createTopic" title=""  position="4">
+        <field name="createTopic" title="${uiLabelMap.CommonEmptyHeader}"  position="4">
             <hyperlink also-hidden="false" target="createTopic${pageName}?mode=restore" description="Create Topic"/>
         </field>
         -->
@@ -339,10 +339,10 @@ under the License.
         <field name="lastModifiedByUserLogin" position="1"><display/></field>
         <field name="lastModifiedDate" position="2"><display/></field>
         <field name="submitButton" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="createLink" title="" widget-style="buttontext" position="1">
+        <field name="createLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" position="1">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreateNew}"  target="AddContent"/>
         </field>
-        <field name="findContent" title="" widget-style="buttontext" position="2">
+        <field name="findContent" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" position="2">
             <hyperlink also-hidden="false" description="Find"  target="FindContent"/>
         </field>
        <field name="nodeTrailCsv" map-name="dummy">
@@ -611,7 +611,7 @@ under the License.
                 <hidden value="${dataResourceTypeId}"/>
         </field>
 <!--
-        <field name="submitContentEdit" title="">
+        <field name="submitContentEdit" title="${uiLabelMap.CommonEmptyHeader}">
             <hyperlink also-hidden="false" description="Submit" target="javascript:document.EditAddContent.action='${persistAction}'; document.EditAddContent.submit()" target-type="plain"/> 
         </field>
 -->

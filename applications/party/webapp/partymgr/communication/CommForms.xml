@@ -235,7 +235,7 @@ under the License.
         <field name="communicationEventId" widget-style="smallSubmit">
             <hyperlink description="${communicationEventId}" target="EditCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}" target-type="intra-app"/>
         </field>
-        <field name="removeLink" title="" widget-style="smallSubmit">
+        <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEvent?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
         </field>
     </form>
@@ -305,7 +305,7 @@ under the License.
         <field name="communicationEventPrpTypId">
             <display-entity description="${description}" entity-name="CommunicationEventPrpTyp"/>
         </field>
-        <field name="removeLink" title="" widget-style="smallSubmit">
+        <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeCommunicationEventPurpose?communicationEventPrpTypId=${communicationEventPrpTypId}&amp;communicationEventId=${communicationEventId}"/>
         </field>
     </form>
@@ -335,7 +335,7 @@ under the License.
             </display-entity>
         </field>
         <field name="roleTypeId"><display-entity description="${description}" entity-name="RoleType"/></field>
-        <field name="removeLink" title="" widget-style="smallSubmit">
+        <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="/RemoveCommunicationEventRole?partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;communicationEventId=${communicationEventId}"/>
         </field>
     </form>

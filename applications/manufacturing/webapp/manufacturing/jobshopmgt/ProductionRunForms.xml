@@ -68,7 +68,7 @@ under the License.
                 <field-map field-name="entityName" value="WorkEffortAndGoods"/>
             </service>
         </actions>
-        <field name="workEffortId" title="" widget-style="buttontext">
+        <field name="workEffortId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="ShowProductionRun?productionRunId=${workEffortId}" description="${workEffortId}" also-hidden="false"/>
         </field>
         <field name="workEffortName" title="${uiLabelMap.ManufacturingProductionRunName}"><display/></field>
@@ -143,10 +143,10 @@ under the License.
         <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
         <field name="estimatedSetupMillis" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}" ><display/></field>
         <field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}" ><display/></field>
-        <field name="editLink" title="" widget-style="smallSubmit">
+        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink target="ProductionRunTasks?routingTaskId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
         </field>
-        <field name="deleteLink" title="" widget-style="smallSubmit">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <!--<hyperlink target="RemoveRoutingTaskAssoc?workEffortIdFrom=${workEffortIdFrom}&amp;workEffortIdTo=${workEffortIdTo}&amp;fromDate=${fromDate}&amp;workEffortAssocTypeId=ROUTING_COMPONENT" description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>-->
             <hyperlink target="deleteProductionRunRoutingTask?workEffortId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -247,16 +247,16 @@ under the License.
         <field name="actualSetupMillis" title="${uiLabelMap.ManufacturingTaskActualSetupMillis}" ><display/></field>
         <field name="actualMilliSeconds" title="${uiLabelMap.ManufacturingTaskActualMilliSeconds}" ><display/></field>
         <field name="quantityProduced" title="${uiLabelMap.ManufacturingQuantityProduced}" ><display/></field>
-        <field name="startLink" title="" widget-style="smallSubmit" use-when="&quot;${startTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
+        <field name="startLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit" use-when="&quot;${startTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
             <hyperlink target="changeProductionRunTaskStatus?workEffortId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.ManufacturingStartProductionRunTask}" also-hidden="false"/>
         </field>
-        <field name="issueLink" title="" widget-style="smallSubmit" use-when="&quot;${issueTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
+        <field name="issueLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit" use-when="&quot;${issueTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
             <hyperlink target="issueProductionRunRoutingTask?workEffortId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.ManufacturingIssueProductionRunTask}" also-hidden="false"/>
         </field>
-        <field name="declareLink" title="" widget-style="smallSubmit" use-when="&quot;PRUN_RUNNING&quot;.equals(&quot;${currentStatusId}&quot;)">
+        <field name="declareLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit" use-when="&quot;PRUN_RUNNING&quot;.equals(&quot;${currentStatusId}&quot;)">
             <hyperlink target="ProductionRunDeclaration?actionForm=EditRoutingTask&amp;routingTaskId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.ManufacturingDeclareProductionRunTask}" also-hidden="false"/>
         </field>
-        <field name="completeLink" title="" widget-style="smallSubmit" use-when="&quot;${completeTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
+        <field name="completeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit" use-when="&quot;${completeTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
             <hyperlink target="changeProductionRunTaskStatus?workEffortId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.ManufacturingCompleteProductionRunTask}" also-hidden="false"/>
         </field>
     </form>
@@ -384,7 +384,7 @@ under the License.
             <display-entity entity-name="FixedAsset" description="${fixedAssetName} [${fixedAssetId}]" />
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="smallSubmit"
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"
                     use-when="!&quot;${declarationScreen}&quot;.equals(&quot;Y&quot;)">
             <hyperlink description="${uiLabelMap.CommonDelete}" also-hidden="false"
                 target="removeWorkEffortFixedAssetAssign?workEffortId=${workEffortId}&amp;fixedAssetId=${fixedAssetId}&amp;fromDate=${fromDate}&amp;productionRunId=${productionRunId}" />
@@ -501,7 +501,7 @@ under the License.
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
         <field name="estimatedShipDate"><display/></field>
-        <field name="viewShipmentPlanLink" title="" widget-style="buttontext">
+        <field name="viewShipmentPlanLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="WorkWithShipmentPlans?shipmentId=${shipmentId}" description="${uiLabelMap.CommonView}" also-hidden="false"/>
         </field>
     </form>
@@ -512,7 +512,7 @@ under the License.
         </field>
     </form>
     <form name="mandatoryWorkEfforts" type="list" target="" title="" list-name="mandatoryWorkEfforts">
-        <field name="workEffortIdFrom" title="" widget-style="buttontext">
+        <field name="workEffortIdFrom" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="ShowProductionRun?productionRunId=${workEffortIdFrom}" description="${workEffortIdFrom}" also-hidden="false"/>
         </field>
         <field name="workEffortName" entry-name="workEffortIdFrom">
@@ -538,7 +538,7 @@ under the License.
         </field>
     </form>
     <form name="dependentWorkEfforts" type="list" target="" title="" list-name="dependentWorkEfforts">
-        <field name="workEffortIdTo" title="" widget-style="buttontext">
+        <field name="workEffortIdTo" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="ShowProductionRun?productionRunId=${workEffortIdTo}" description="${workEffortIdTo}" also-hidden="false"/>
         </field>
         <field name="workEffortName" entry-name="workEffortIdTo">
@@ -602,7 +602,7 @@ under the License.
         <field name="productionRunId"><hidden/></field>
         <field name="estimatedQuantity"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="smallSubmit">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink target="deleteProductionRunComponent?workEffortId=${workEffortId}&amp;fromDate=${fromDate}&amp;productId=${productId}&amp;workEffortGoodStdTypeId=${workEffortGoodStdTypeId}&amp;productionRunId=${productionRunId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
