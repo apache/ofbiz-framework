@@ -1043,9 +1043,7 @@ public class ModelForm {
                 // only want to display the title header for the main row
                 String modelFormFieldTitle = modelFormField.getTitle(context);
                 if ("".equals(modelFormFieldTitle)) {
-                    // TODO: for now this is commented: there are too many form definitions
-                    //       that needs to be fixed.
-                    //continue;
+                    continue;
                 }
                 // don't do any header for hidden or ignored fields
                 if (fieldInfo.getFieldType() == ModelFormField.FieldInfo.HIDDEN || fieldInfo.getFieldType() == ModelFormField.FieldInfo.IGNORED) {
