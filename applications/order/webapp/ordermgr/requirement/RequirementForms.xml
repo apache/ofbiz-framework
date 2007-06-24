@@ -64,27 +64,27 @@ under the License.
             </service>
         </actions>
         <field name="requirementId" widget-style="buttontext">
-            <hyperlink target-type="inter-app" also-hidden="true" description="${requirementId}" target="/ordermgr/control/EditRequirement?requirementId=${requirementId}"/>
+            <hyperlink target-type="inter-app" also-hidden="false" description="${requirementId}" target="/ordermgr/control/EditRequirement?requirementId=${requirementId}"/>
         </field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}" /></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}" also-hidden="false"/></field>
         <field name="requirementTypeId">
-            <display-entity entity-name="RequirementType" also-hidden="true"/>
+            <display-entity entity-name="RequirementType" also-hidden="false"/>
         </field>
-        <field name="facilityId"><display/></field>
+        <field name="facilityId"><display also-hidden="false"/></field>
         <field name="productId">
-            <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
+            <display-entity entity-name="Product" key-field-name="productId" also-hidden="false" description="${productId} - ${internalName}"/>
         </field>
-        <field name="requirementStartDate"><display/></field>
-        <field name="requiredByDate"><display/></field>
-        <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display/></field>
+        <field name="requirementStartDate"><display also-hidden="false"/></field>
+        <field name="requiredByDate"><display also-hidden="false"/></field>
+        <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display also-hidden="false"/></field>
         <field name="requestsLink" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.OrderRequests}" target="ListRequirementCustRequests?requirementId=${requirementId}"/>
+            <hyperlink description="${uiLabelMap.OrderRequests}" also-hidden="false" target="ListRequirementCustRequests?requirementId=${requirementId}"/>
         </field>
         <field name="ordersLink" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonOrders}" target="ListRequirementOrders?requirementId=${requirementId}"/>
+            <hyperlink description="${uiLabelMap.CommonOrders}" also-hidden="false" target="ListRequirementOrders?requirementId=${requirementId}"/>
         </field>
-        <field name="deleteLink" widget-style="buttontext" title="">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteRequirement?requirementId=${requirementId}"/>
+        <field name="deleteLink" widget-style="buttontext" title=" ">
+            <hyperlink description="${uiLabelMap.CommonRemove}" also-hidden="false" target="deleteRequirement?requirementId=${requirementId}"/>
         </field>
     </form>
     <form name="EditRequirement" type="single" target="updateRequirement" title="" default-map-name="requirement"
