@@ -85,7 +85,7 @@
           <N2:DISPOSITN>FIFO</N2:DISPOSITN>
           <n:DOCUMNTREF>
             <N2:DOCTYPE>SHIPMENT</N2:DOCTYPE>
-            <N2:DOCUMENTID></N2:DOCUMENTID>
+            <N2:DOCUMENTID>${shipment.shipmentId?if_exists}</N2:DOCUMENTID>
             <N2:LINENUM></N2:LINENUM>
           </n:DOCUMNTREF>
         </n:SHIPITEM>
