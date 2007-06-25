@@ -1425,7 +1425,8 @@ public class ModelForm {
             formStringRenderer.renderFormatItemRowCellClose(buffer, localContext, this, modelFormField);
         }
 
-        if (hiddenIgnoredFieldList.size() > 0 || innerFormFields.size() > 0) {
+        // The form cell is rendered only if there is at least an input field
+        if (innerFormFields.size() > 0) {
             // render the "form" cell
             formStringRenderer.renderFormatItemRowFormCellOpen(buffer, localContext, this); // TODO: colspan
 
