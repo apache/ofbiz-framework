@@ -156,8 +156,9 @@ public class EntityJoinOperator extends EntityOperator {
     }
 
     public void validateSql(ModelEntity modelEntity, List conditionList) throws GenericModelException {
-        if (conditionList == null || conditionList.size() == 0)
-            throw new GenericModelException("Empty list for joining");
+        if (conditionList == null) {
+            throw new GenericModelException("Condition list is null");
+        }
         for (int i = 0; i < conditionList.size(); i++) {
             Object condObj = conditionList.get(i);
             if (!(condObj instanceof EntityCondition)) {
