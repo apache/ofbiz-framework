@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- list all assets in a tabular format -->
-    <form name="ListFixedAssets" type="list"  list-name="fixedAssets">
+    <form name="ListFixedAssets" type="list"  list-name="fixedAssets" paginate-target="ListFixedAssets">
 
         <field name="fixedAssetId" widget-style="linktext">
             <hyperlink also-hidden="false" description="${fixedAssetId}" target="EditFixedAsset?fixedAssetId=${fixedAssetId}"/>
@@ -206,24 +206,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
-    <!-- list all assets in a tabular format -->
-    <form name="ListFixedAssets" type="list"  list-name="fixedAssets">
 
-        <field name="fixedAssetId" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${fixedAssetId}" target="EditFixedAsset?fixedAssetId=${fixedAssetId}"/>
-        </field>
-        <field name="fixedAssetName" title="${uiLabelMap.AccountingFixedAssetName}">
-            <display/>
-        </field>
-        <field name="fixedAssetTypeId"><display-entity entity-name="FixedAssetType"/></field>
-        <field name="parentFixedAssetId">
-            <display-entity entity-name="FixedAsset" key-field-name="fixedAssetId" description="${fixedAssetName}">
-                <sub-hyperlink target="EditFixedAsset?fixedAssetId=${parentFixedAssetId}" description="${parentFixedAssetId}" link-style="buttontext"/>
-            </display-entity>
-        </field>
-    </form>
-    
     <!-- List all fixed asset idents  -->
     <form name="ListFixedAssetIdents" type="list" list-name="fixedAssetIdents" target="updateFixedAssetIdent">
         <actions>
