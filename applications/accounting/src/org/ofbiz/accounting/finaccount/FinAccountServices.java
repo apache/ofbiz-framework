@@ -136,6 +136,7 @@ public class FinAccountServices {
                         if (ServiceUtil.isError(roleResp)) {
                             return roleResp;
                         }
+                        finAccountId = creditAccountId; // update the finAccountId for return parameter
                     }
                 }
                 if (creditAccount == null) {
