@@ -20,7 +20,21 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    
+
+    <form name="ListBillingAccounts" type="list" list-name="billingAccounts" paginate-target="FindBillingAccount">
+        <field name="billingAccountId" widget-style="buttontext">
+            <hyperlink description="${billingAccountId}" target="EditBillingAccount?billingAccountId=${billingAccountId}"/>
+        </field>
+        <field name="accountLimit">
+            <display type="currency" currency="${billingAccount.accountCurrencyUomId}" />
+        </field>
+        <field name="description"><display/></field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><display/></field>
+        <field name="partyId"><display/></field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType"/></field>
+    </form>
+
     <form name="EditBillingAccount" type="single" target="updateBillingAccount" title="" default-map-name="billingAccount">
         <alt-target use-when="billingAccount==null" target="createBillingAccount"/>
         <auto-fields-service service-name="updateBillingAccount" map-name="billingAccount"/>
