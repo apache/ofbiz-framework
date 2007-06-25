@@ -17,17 +17,12 @@
  * under the License.
  */
 
-import java.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.UtilMisc;
 
-requestParams = UtilHttp.getParameterMap(request);
-delegator = request.getAttribute("delegator");
-partyId = requestParams.get("partyId");
+partyId = parameters.get("partyId");
 if (partyId != null) {
-    accountsByParty = delegator.findByAnd("BillingAccountRole", UtilMisc.toMap("partyId", partyId));
-    context.put("billingAccountRolesByParty", accountsByParty);
+    accounts = delegator.findByAnd("BillingAccountAndRole", UtilMisc.toMap("partyId", partyId));
 } else {
-    allAccounts = delegator.findAll("BillingAccount");
-    context.put("billingAccounts", allAccounts);
+    accounts = delegator.findAll("BillingAccount");
 }
+context.put("billingAccounts", accounts);

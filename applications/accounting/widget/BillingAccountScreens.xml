@@ -60,9 +60,19 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://accounting/webapp/accounting/billingaccount/FindBillingAccount.ftl"/></html>
-                        </platform-specific>
+                        <container><label style="head1" text="${uiLabelMap.AccountingBillingAccounts}"/></container>
+                        <section>
+                            <condition>
+                                <if-empty field-name="parameters.partyId"/>
+                            </condition>
+                            <widgets>
+                                <container><link target="EditBillingAccount" text="${uiLabelMap.CommonNew}" style="buttontext"/></container>
+                            </widgets>
+                            <fail-widgets>
+                                <container><link target="EditBillingAccount?partyId=${parameters.partyId}&amp;roleTypeId=BILL_TO_CUSTOMER" text="${uiLabelMap.CommonNew} " style="buttontext"/></container>
+                            </fail-widgets>
+                        </section>
+                        <include-form name="ListBillingAccounts" location="component://accounting/widget/BillingAccountForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
