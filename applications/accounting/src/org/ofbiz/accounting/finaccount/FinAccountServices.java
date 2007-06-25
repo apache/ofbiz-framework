@@ -158,7 +158,9 @@ public class FinAccountServices {
             return ServiceUtil.returnError(gse.getMessage());
         }
 
-        return ServiceUtil.returnSuccess();
+        Map result = ServiceUtil.returnSuccess();
+        result.put("finAccountId", finAccountId);
+        return result;
     }
 
     public static Map createFinAccountForStore(DispatchContext dctx, Map context) {
