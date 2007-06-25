@@ -53,5 +53,17 @@ under the License.
         <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
+
+    <simple-method method-name="sendProcessShipmentMsg" 
+        short-description="Send Process Shipment Message">
+        <set field="serviceContext.bodyParameters.shipmentId" from-field="parameters.shipmentId"/>
+        <set field="serviceContext.bodyParameters.logicalId" from-field="parameters.logicalId"/>
+        <set field="serviceContext.bodyParameters.authId" from-field="parameters.authId"/>
+        <set field="serviceContext.bodyParameters.referenceId" from-field="parameters.referenceId"/>
+        <set field="serviceContext.bodyParameters.sentDate" from-field="parameters.sentDate" type="Timestamp"/>
+        <set field="serviceContext.bodyScreenUri" value="component://oagis/widget/MessageInfoScreens.xml#ProcessShipment"/>
+        <call-service service-name="exportMsgFromScreen" in-map-name="serviceContext"/>
+        <!-- Todo: Get partner server url to post the message  -->
+    </simple-method>    
     
 </simple-methods>

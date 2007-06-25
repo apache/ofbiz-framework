@@ -64,6 +64,26 @@ under the License.
         <description>Process incoming Inventory Sync message</description>
         <implements service="serviceStreamInterface"/>
     </service>
-
+    <service name="exportMsgFromScreen" max-retry="0" engine="java"
+        location="org.ofbiz.oagis.OagisShipmentServices" invoke="exportMsgFromScreen">
+        <description>Export Message From Screen</description>
+        <attribute name="bodyScreenUri" type="String" mode="IN" optional="true"/>
+        <attribute name="bodyParameters" type="Map" mode="IN" optional="true"/>
+        <attribute name="body" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="processShipment" max-retry="0" engine="java"
+        location="org.ofbiz.oagis.OagisShipmentServices" invoke="processShipment">
+        <description>Process Shipment</description>
+        <attribute name="orderId" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="sendProcessShipmentMsg" max-retry="0" engine="simple"
+        location="org/ofbiz/oagis/OagisMessageServices.xml" invoke="sendProcessShipmentMsg">
+        <description>Send Process Shipment Message</description>
+        <attribute name="shipmentId" mode="IN" type="String" optional="false"/>
+        <attribute name="logicalId" mode="IN" type="String" optional="false"/>
+        <attribute name="authId" mode="IN" type="String" optional="false"/>
+        <attribute name="referenceId" mode="IN" type="String" optional="false"/>
+        <attribute name="sentDate" mode="IN" type="Timestamp" optional="false"/>
+    </service>
 
 </services>

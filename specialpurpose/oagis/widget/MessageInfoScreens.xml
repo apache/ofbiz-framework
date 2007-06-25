@@ -103,4 +103,17 @@
         </section>
     </screen>
     
+    <screen name="ProcessShipment">
+        <section>
+            <actions>
+                <script location="component://oagis/webapp/oagis/WEB-INF/actions/message/ProcessShipment.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://oagis/webapp/oagis/message/ProcessShipment.ftl"/></html>                       
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    
 </screens>
