@@ -147,10 +147,9 @@ public class PaymentGatewayServices {
 
         // if our transaction amount exists and is zero, there's nothing to process, so return
         if ((transAmount != null) && (transAmount.doubleValue() <= 0)) {
-            // prepare the return map (always return success, default finished=false, default errors=false
             Map results = ServiceUtil.returnSuccess();
-            results.put("finished", Boolean.FALSE);
-            results.put("errors", Boolean.FALSE);
+            results.put("finished", Boolean.TRUE); // finished is true since there is nothing to do
+            results.put("errors", Boolean.FALSE); // errors is false since no error occured
             return results;
         }
 
