@@ -81,13 +81,13 @@
               <N2:UOM>EACH</N2:UOM>
             </N1:QUANTITY>
             <N2:ITEM>${shipmentItem.productId?if_exists}</N2:ITEM>
+            <N2:DISPOSITN>FIFO</N2:DISPOSITN>
+            <n:DOCUMNTREF>
+              <N2:DOCTYPE>SHIPMENT</N2:DOCTYPE>
+              <N2:DOCUMENTID>${shipment.shipmentId?if_exists}</N2:DOCUMENTID>
+              <N2:LINENUM>${shipmentItem.shipmentItemSeqId?if_exists}</N2:LINENUM>
+            </n:DOCUMNTREF>
           </#list> 
-          <N2:DISPOSITN>FIFO</N2:DISPOSITN>
-          <n:DOCUMNTREF>
-            <N2:DOCTYPE>SHIPMENT</N2:DOCTYPE>
-            <N2:DOCUMENTID>${shipment.shipmentId?if_exists}</N2:DOCUMENTID>
-            <N2:LINENUM></N2:LINENUM>
-          </n:DOCUMNTREF>
         </n:SHIPITEM>
       </n:SHIPMENT>
     </n:PROCESS_SHIPMENT>
