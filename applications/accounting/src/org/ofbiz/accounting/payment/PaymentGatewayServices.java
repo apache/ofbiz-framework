@@ -2244,6 +2244,7 @@ public class PaymentGatewayServices {
 
         // set the capture info
         response.set("amount", context.get("refundAmount"));
+        response.set("currencyUomId", currencyUomId);
         response.set("referenceNum", context.get("refundRefNum"));
         response.set("altReference", context.get("refundAltRefNum"));
         response.set("gatewayCode", context.get("refundCode"));
