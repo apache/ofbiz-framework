@@ -23,8 +23,12 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Date;
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
@@ -50,9 +54,19 @@ public class OagisServices {
         Map bodyParameters = new HashMap();
         Map confirmBodContext = new HashMap();
         Map oagisMsgInfoContext = new HashMap();
-        String bodyScreenUri = "component://oagis/widget/MessageInfoScreens.xml#ConfirmBod";
-        Timestamp timestamp = null;
-        timestamp = UtilDateTime.nowTimestamp();
+        Map exportMsgResult = new HashMap();
+        String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ConfirmBod");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
+        Date date = new Date();
+        String sentDate = null;
+        sentDate = dateFormat.format(date);
+        try{
+            date = dateFormat.parse(sentDate);    
+        } catch (ParseException e) {
+            Debug.logError(e, "Error parsing Date", module);
+        }
+        Timestamp timestamp = new Timestamp(date.getTime());
+        
         GenericValue userLogin = null;
         try
         {
@@ -75,7 +89,7 @@ public class OagisServices {
         bodyParameters.put("logicalId", logicalId);
         bodyParameters.put("referenceId", referenceId);
         bodyParameters.put("authId", authId);
-        bodyParameters.put("sentDate", timestamp);
+        bodyParameters.put("sentDate", sentDate);
         
         bodyParameters.put("errorLogicalId", errorLogicalId);
         bodyParameters.put("errorComponent", errorComponent);
@@ -102,15 +116,14 @@ public class OagisServices {
         
         try
         {
-            Map exportMsgResult = dispatcher.runSync("exportMsgFromScreen", confirmBodContext);
+            exportMsgResult = dispatcher.runSync("exportMsgFromScreen", confirmBodContext);
             if (ServiceUtil.isError(exportMsgResult)) return exportMsgResult;
-            String messageBody = (String)exportMsgResult.get("body");
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(out));
-            writer.print(messageBody);
+            // TODO: Push messasge to partner server.
+            
         } catch (GenericServiceException e){
             Debug.logError(e, "Error while generating message", module);
         }
-        
+
         oagisMsgInfoContext.put("logicalId", logicalId);
         oagisMsgInfoContext.put("component", "EXCEPTION");
         oagisMsgInfoContext.put("task", "RECIEPT");
@@ -122,11 +135,11 @@ public class OagisServices {
         oagisMsgInfoContext.put("bsrNoun", "BOD");
         oagisMsgInfoContext.put("bsrRevision", "004");
         oagisMsgInfoContext.put("userLogin", userLogin);
-        
         try
         {
             Map oagisMsgInfoResult = dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoContext);
             if (ServiceUtil.isError(oagisMsgInfoResult)) return oagisMsgInfoResult;
+            
         } catch (GenericServiceException e) {
             Debug.logError(e, "Saving message to database failed", module);
         }
@@ -216,18 +229,9 @@ public class OagisServices {
         }catch (Exception e){
             errMsg = "Error running method receiveConfirmBod";
             Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError("Error running method receiveConfirmBod");
         }
-        PrintWriter writer = new PrintWriter(new OutputStreamWriter(out));
-        if (errMsg!= null){
-            writer.println("Service failed");
-            writer.flush();
-            return ServiceUtil.returnError("Service failed");
-        } else {
-            writer.println("Service Completed Successfully");
-            writer.flush();
-            Map result = ServiceUtil.returnSuccess("Service Completed Successfully");
-            return result;    
-        }
+        return ServiceUtil.returnSuccess("Service Completed Successfully");
         
     }
 }
