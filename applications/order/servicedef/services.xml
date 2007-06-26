@@ -675,14 +675,17 @@ under the License.
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
     </service>
 
-    <service name="getOrderItemValue" engine="java"
-            location="org.ofbiz.order.order.OrderServices" invoke="getOrderItemValue" auth="true">
-        <description>Calculates the value of a given orderItem by totalling the item subtotal, any adjustments for that item, and
-            the item's share of any order-level adjustments (which is calculated by applying the percentage of the items total that the
-            item represents to the order-level adjustments total.</description>
+    <service name="getOrderItemInvoicedAmountAndQuantity" engine="java"
+            location="org.ofbiz.order.order.OrderServices" invoke="getOrderItemInvoicedAmountAndQuantity" auth="true">
+        <description>Determines the total amount invoiced for a given order item over all invoices by totalling the item
+            subtotal (via OrderItemBilling), any adjustments for that item (via OrderAdjustmentBilling), and the item's 
+            share of any order-level adjustments (that calculated by applying the percentage of the items total that the item represents
+            to the order-level adjustments total (also via OrderAdjustmentBilling). Also returns the quantity invoiced for the item over
+            all invoices, to aid in prorating.</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="orderItemValue" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="invoicedAmount" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="invoicedQuantity" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 
     <!-- order lookup services -->

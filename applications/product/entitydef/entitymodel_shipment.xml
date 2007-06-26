@@ -1291,6 +1291,7 @@ under the License.
       <alias entity-alias="SPC" name="shipmentId"/>
       <alias entity-alias="SPC" name="shipmentPackageSeqId"/>
       <alias entity-alias="SPC" name="packedQuantity" field="quantity"/>
+      <alias entity-alias="II" name="issuedQuantity" field="quantity"/>
       <alias entity-alias="OI" name="orderId"/>
       <alias entity-alias="OI" name="orderItemSeqId"/>
       <alias entity-alias="OI" name="orderedQuantity" field="quantity"/>
