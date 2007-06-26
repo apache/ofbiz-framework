@@ -77,7 +77,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     <entity-data-reader name="seed"/>
     <entity-data-reader name="demo"/>
     <entity-data-reader name="ext"/>
-
+    <entity-data-reader name="ext-test"/>
+    
     <field-type name="hsql" loader="fieldfile" location="fieldtypehsql.xml"/>
     <field-type name="derby" loader="fieldfile" location="fieldtypederby.xml"/>
     <field-type name="cloudscape" loader="fieldfile" location="fieldtypecloudscape.xml"/>
