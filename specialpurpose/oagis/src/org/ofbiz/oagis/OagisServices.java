@@ -22,15 +22,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.w3c.dom.Document;
@@ -41,7 +42,95 @@ public class OagisServices {
     public static final String module = OagisServices.class.getName();
     
     public static Map sendConfirmBod(DispatchContext ctx, Map context) {
-        return ServiceUtil.returnError("Service not Implemented");
+        
+        GenericDelegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        OutputStream out = (OutputStream) context.get("outputStream");
+
+        Map bodyParameters = new HashMap();
+        Map confirmBodContext = new HashMap();
+        Map oagisMsgInfoContext = new HashMap();
+        String bodyScreenUri = "component://oagis/widget/MessageInfoScreens.xml#ConfirmBod";
+        Timestamp timestamp = null;
+        timestamp = UtilDateTime.nowTimestamp();
+        GenericValue userLogin = null;
+        try
+        {
+            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "admin"));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error getting userLogin", module);
+        }
+        
+        String logicalId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.LOGICALID");
+        String authId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.AUTHID");
+        String referenceId = delegator.getNextSeqId("OagisMessageInfo");
+        
+        String errorLogicalId = (String) context.get("logicalId");
+        String errorComponent = (String) context.get("component");
+        String errorTask = (String) context.get("task");
+        String errorReferenceId = (String) context.get("referenceId");
+        String errorDescription = (String) context.get("description");
+        String errorReasonCode = (String) context.get("reasonCode");
+        
+        bodyParameters.put("logicalId", logicalId);
+        bodyParameters.put("referenceId", referenceId);
+        bodyParameters.put("authId", authId);
+        bodyParameters.put("sentDate", timestamp);
+        
+        bodyParameters.put("errorLogicalId", errorLogicalId);
+        bodyParameters.put("errorComponent", errorComponent);
+        bodyParameters.put("errorTask", errorTask);
+        bodyParameters.put("errorReferenceId", errorReferenceId);
+        bodyParameters.put("errorDescription", errorDescription);
+        bodyParameters.put("errorReasonCode", errorReasonCode);
+        
+        if (((String) context.get("orderId")) != null){
+            String origRef = (String) context.get("orderId");
+            bodyParameters.put("origRef", origRef);
+        } else
+            if (((String) context.get("returnId")) != null){
+                String origRef = (String) context.get("returnId");
+                bodyParameters.put("origRef", origRef);
+            }else
+                if (((String) context.get("shipmentId")) != null){
+                    String origRef = (String) context.get("shipmentId");
+                    bodyParameters.put("origRef", origRef);
+                }
+        
+        confirmBodContext.put("bodyParameters", bodyParameters);
+        confirmBodContext.put("bodyScreenUri", bodyScreenUri);
+        
+        try
+        {
+            Map exportMsgResult = dispatcher.runSync("exportMsgFromScreen", confirmBodContext);
+            if (ServiceUtil.isError(exportMsgResult)) return exportMsgResult;
+            String messageBody = (String)exportMsgResult.get("body");
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(out));
+            writer.print(messageBody);
+        } catch (GenericServiceException e){
+            Debug.logError(e, "Error while generating message", module);
+        }
+        
+        oagisMsgInfoContext.put("logicalId", logicalId);
+        oagisMsgInfoContext.put("component", "EXCEPTION");
+        oagisMsgInfoContext.put("task", "RECIEPT");
+        oagisMsgInfoContext.put("referenceId", referenceId);
+        oagisMsgInfoContext.put("authId", authId);
+        oagisMsgInfoContext.put("sentDate", timestamp);
+        oagisMsgInfoContext.put("confirmation", "0");
+        oagisMsgInfoContext.put("bsrVerb", "CONFIRM");
+        oagisMsgInfoContext.put("bsrNoun", "BOD");
+        oagisMsgInfoContext.put("bsrRevision", "004");
+        oagisMsgInfoContext.put("userLogin", userLogin);
+        
+        try
+        {
+            Map oagisMsgInfoResult = dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoContext);
+            if (ServiceUtil.isError(oagisMsgInfoResult)) return oagisMsgInfoResult;
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Saving message to database failed", module);
+        }
+        return ServiceUtil.returnSuccess("Service Completed Successfully");
     }
 
     public static Map receiveConfirmBod(DispatchContext ctx, Map context) {
@@ -53,6 +142,8 @@ public class OagisServices {
         Map oagisMsgInfoContext = new HashMap();
         Map oagisMsgErrorContext = new HashMap();
         GenericValue userLogin = null;
+        Timestamp timestamp = null;
+        timestamp = UtilDateTime.nowTimestamp();
         String errMsg = null;
         try{
             userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId","admin"));
@@ -82,6 +173,7 @@ public class OagisServices {
             oagisMsgInfoContext.put("task", task);
             oagisMsgInfoContext.put("referenceId", referenceId);
             oagisMsgInfoContext.put("authId", authId);
+            oagisMsgInfoContext.put("recievedDate", timestamp);
             oagisMsgInfoContext.put("confirmation", confirmation);
             oagisMsgInfoContext.put("bsrVerb", bsrVerb);
             oagisMsgInfoContext.put("bsrNoun", bsrNoun);
