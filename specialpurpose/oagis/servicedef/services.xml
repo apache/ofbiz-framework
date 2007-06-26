@@ -54,6 +54,21 @@ under the License.
         <description>Process incoming shipment message</description>
         <implements service="serviceStreamInterface"/>
     </service>
+    
+    <service name="sendConfirmBod" engine="java" transaction-timeout="300"
+            location="org.ofbiz.oagis.OagisServices" invoke="sendConfirmBod" auth="false">
+        <description>Send ConfirmBod</description>
+        <attribute name="logicalId" type="String" mode="IN" optional="false"/>
+        <attribute name="component" type="String" mode="IN" optional="false"/>
+        <attribute name="task" type="String" mode="IN" optional="false"/>
+        <attribute name="referenceId" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+        <attribute name="reasonCode" type="String" mode="IN" optional="true"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="returnId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="true"/>
+    </service>
+    
     <service name="receiveConfirmBod" engine="java" transaction-timeout="300"
             location="org.ofbiz.oagis.OagisServices" invoke="receiveConfirmBod" auth="false">
         <description>Process incoming ConfirmBod</description>

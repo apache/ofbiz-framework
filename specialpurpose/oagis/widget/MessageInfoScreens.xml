@@ -116,4 +116,14 @@
         </section>
     </screen>
     
+    <screen name="ConfirmBod">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://oagis/webapp/oagis/message/ConfirmBod.ftl"/></html>                       
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    
 </screens>
