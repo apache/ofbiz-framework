@@ -138,7 +138,8 @@ public class OagisServices {
         try
         {
             Map oagisMsgInfoResult = dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoContext);
-            if (ServiceUtil.isError(oagisMsgInfoResult)) return oagisMsgInfoResult;
+            if (ServiceUtil.isError(oagisMsgInfoResult)) return ServiceUtil.returnError("Error creating OagisMessageInfo");
+            
             
         } catch (GenericServiceException e) {
             Debug.logError(e, "Saving message to database failed", module);
