@@ -1529,10 +1529,27 @@ public class UpsServices {
 
     private static void splitEstimatePackages(Document requestDoc, Element shipmentElement, List shippableItemInfo, double maxWeight, double minWeight) {
         List packages = getPackageSplit(shippableItemInfo, maxWeight);
+        if (UtilValidate.isNotEmpty(packages)) {
         Iterator i = packages.iterator();
         while (i.hasNext()) {
             Map packageMap = (Map) i.next();
             addPackageElement(requestDoc, shipmentElement, shippableItemInfo, packageMap, minWeight);
+        }
+        } else {
+            
+            // Add a dummy package
+            String totalWeightStr = UtilProperties.getPropertyValue("shipment", "shipment.ups.min.estimate.weight", "1");
+            double packageWeight = 1;
+            try {
+                packageWeight = Double.parseDouble(totalWeightStr);
+            } catch (NumberFormatException e) {
+                Debug.logError(e, module);
+            }
+            Element packageElement = UtilXml.addChildElement(shipmentElement, "Package", requestDoc);
+            Element packagingTypeElement = UtilXml.addChildElement(packageElement, "PackagingType", requestDoc);
+            UtilXml.addChildElementValue(packagingTypeElement, "Code", "00", requestDoc);
+            Element packageWeightElement = UtilXml.addChildElement(packageElement, "PackageWeight", requestDoc);
+            UtilXml.addChildElementValue(packageWeightElement, "Weight", "" + packageWeight, requestDoc);
         }
     }
 
