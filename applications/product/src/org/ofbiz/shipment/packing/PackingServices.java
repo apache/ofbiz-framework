@@ -277,7 +277,7 @@ public class PackingServices {
         return resp;
     }
 
-    private static double setSessionPackageWeights(PackingSession session, Map packageWeights) {
+    public static double setSessionPackageWeights(PackingSession session, Map packageWeights) {
         double shippableWeight = 0;
         if (! UtilValidate.isEmpty(packageWeights)) {
             Iterator pwit = packageWeights.keySet().iterator();
