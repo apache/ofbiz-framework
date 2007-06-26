@@ -1284,7 +1284,7 @@ public class OrderReadHelper {
     /**
      * Gets the amount open on the order that is not covered by the relevant OrderPaymentPreferences.
      * This works by adding up the amount allocated to each unprocessed OrderPaymentPreference and the
-     * amounts received as payments for the settled ones.
+     * amounts received and refunded as payments for the settled ones.
      */
     public double getOrderOpenAmount() throws GenericEntityException {
         GenericDelegator delegator = orderHeader.getDelegator();
@@ -1306,6 +1306,14 @@ public class OrderReadHelper {
                         openAmount += amount.doubleValue();
                     }
                 }
+                responses = pref.getRelatedByAnd("PaymentGatewayResponse", UtilMisc.toMap("transCodeEnumId", "PGT_REFUND"));
+                for (Iterator respIter = responses.iterator(); respIter.hasNext(); ) {
+                    GenericValue response = (GenericValue) respIter.next();
+                    Double amount = response.getDouble("amount");
+                    if (amount != null) {
+                        openAmount -= amount.doubleValue();
+                    }
+                }
             } else {
                 // all others are currently "unprocessed" payment preferences
                 Double maxAmount = pref.getDouble("maxAmount");
@@ -1314,6 +1322,8 @@ public class OrderReadHelper {
                 }
             }
         }
+
+        // return either a positive amount or positive zero
         return Math.max(total - openAmount, 0);
     }
 
