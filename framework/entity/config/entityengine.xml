@@ -70,14 +70,17 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
     <!-- need to at least define a name for each component to use -->
     <!-- defining:
-                  seed = OFBiz Seed Data
-                  demo = OFBiz Demo Data
-                  ext  = External Data (custom)
+                  seed     = OFBiz and External Seed Data
+                  demo     = OFBiz Only Demo Data
+                  ext      = External General Data (custom)
+                  ext-test = External Test Data (custom)
+                  ext-demo = External Demo Data (custom)
     -->
     <entity-data-reader name="seed"/>
     <entity-data-reader name="demo"/>
     <entity-data-reader name="ext"/>
     <entity-data-reader name="ext-test"/>
+    <entity-data-reader name="ext-demo"/>
     
     <field-type name="hsql" loader="fieldfile" location="fieldtypehsql.xml"/>
     <field-type name="derby" loader="fieldfile" location="fieldtypederby.xml"/>
