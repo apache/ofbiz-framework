@@ -43,6 +43,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -1040,5 +1042,42 @@ public class UtilHttp {
         HttpSession session = request.getSession();
         return (session == null ? "unknown" : session.getId());
     }
-    
+    /**
+     * checks, if the current request comes from a searchbot
+     * 
+     * @param request
+     * @return
+     */
+    public static boolean checkURLforSpiders(HttpServletRequest request){
+        boolean result = false;
+        
+        String spiderRequest = (String) request.getAttribute("_REQUEST_FROM_SPIDER_");
+        if (UtilValidate.isNotEmpty(spiderRequest)){
+            if ("Y".equals(spiderRequest)){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            String initialUserAgent = request.getHeader("User-Agent") != null ? request.getHeader("User-Agent") : "";
+            List spiderList = StringUtil.split(UtilProperties.getPropertyValue("url", "link.remove_lsessionid.user_agent_list"), ",");
+            Iterator spiderListIter = spiderList.iterator();
+            while (spiderListIter.hasNext()) {
+                String spiderNameElement = (String) spiderListIter.next();
+                Pattern p = Pattern.compile("^.*" + spiderNameElement + ".*$", Pattern.CASE_INSENSITIVE); 
+                Matcher m = p.matcher(initialUserAgent);
+                if (m.find()){
+                    request.setAttribute("_REQUEST_FROM_SPIDER_", "Y");
+                    result = true;
+                    break;
+                }
+            }
+        }
+        
+        if (!result)            
+            request.setAttribute("_REQUEST_FROM_SPIDER_", "N");
+            
+        return result;
+    }
+
 }

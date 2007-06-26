@@ -805,7 +805,13 @@ public class RequestHandler implements Serializable {
         String encodedUrl;
         if (encode) {
             boolean forceManualJsessionid = false;
-
+            boolean isSpider = false;
+            
+            // if the current request comes from a spider, we will not add the jsessionid to the link
+            if (UtilHttp.checkURLforSpiders(request)){
+                isSpider = true;
+            }
+            
             // if this isn't a secure page, but we made a secure URL, make sure we manually add the jsessionid since the response.encodeURL won't do that
             if (!request.isSecure() && didFullSecure) {
                 forceManualJsessionid = true;
@@ -816,16 +822,18 @@ public class RequestHandler implements Serializable {
                 forceManualJsessionid = true;
             }
 
-            if (response != null && !forceManualJsessionid) {
+            if (response != null && !forceManualJsessionid && !isSpider) {
                 encodedUrl = response.encodeURL(newURL.toString());
             } else {
-                String sessionId = ";jsessionid=" + request.getSession().getId();
-                // this should be inserted just after the "?" for the parameters, if there is one, or at the end of the string
-                int questionIndex = newURL.indexOf("?");
-                if (questionIndex == -1) {
-                    newURL.append(sessionId);
-                } else {
-                    newURL.insert(questionIndex, sessionId);
+                if (!isSpider){
+                    String sessionId = ";jsessionid=" + request.getSession().getId();
+                    // this should be inserted just after the "?" for the parameters, if there is one, or at the end of the string
+                    int questionIndex = newURL.indexOf("?");
+                    if (questionIndex == -1) {
+                        newURL.append(sessionId);
+                    } else {
+                        newURL.insert(questionIndex, sessionId);
+                    }
                 }
                 encodedUrl = newURL.toString();
             }
