@@ -975,8 +975,8 @@ public class ShipmentServices {
     }
 
     /**
-     * Calculates the total value of a shipment package by totalling the results of the getOrderItemValue service
-     *  for the orderItem related to each ShipmentPackageContent, prorated by the quantity of the orderItem packed in the 
+     * Calculates the total value of a shipment package by totalling the results of the getOrderItemInvoicedAmountAndQuantity
+     *  service for the orderItem related to each ShipmentPackageContent, prorated by the quantity of the orderItem issued to the 
      *  ShipmentPackageContent. Value is converted according to the incoming currencyUomId.
      * @param dctx DispatchContext
      * @param context Map
@@ -1019,18 +1019,18 @@ public class ShipmentServices {
                 String orderId = packageContent.getString("orderId");
                 String orderItemSeqId = packageContent.getString("orderItemSeqId");
             
-                // Get the value of the orderItem by calling the getOrderItemValue service
-                Map getOrderItemValueResult = dispatcher.runSync("getOrderItemValue", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "userLogin", userLogin, "locale", locale));
+                // Get the value of the orderItem by calling the getOrderItemInvoicedAmountAndQuantity service
+                Map getOrderItemValueResult = dispatcher.runSync("getOrderItemInvoicedAmountAndQuantity", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "userLogin", userLogin, "locale", locale));
                 if (ServiceUtil.isError(getOrderItemValueResult)) return getOrderItemValueResult;
-                BigDecimal orderItemTotalValue = (BigDecimal) getOrderItemValueResult.get("orderItemValue");
+                BigDecimal invoicedAmount = (BigDecimal) getOrderItemValueResult.get("invoicedAmount");
+                BigDecimal invoicedQuantity = (BigDecimal) getOrderItemValueResult.get("invoicedQuantity");
             
-                // How much of the orderItem does the packed item represent?
-                BigDecimal packedQuantity = packageContent.getBigDecimal("packedQuantity");
-                BigDecimal orderedQuantity = packageContent.getBigDecimal("orderedQuantity");
-                BigDecimal proportionOfOrderedQuantity = packedQuantity.divide(orderedQuantity, 10, rounding);
+                // How much of the invoiced quantity does the issued quantity represent?
+                BigDecimal issuedQuantity = packageContent.getBigDecimal("issuedQuantity");
+                BigDecimal proportionOfInvoicedQuantity = invoicedQuantity.signum() == 0 ? ZERO : issuedQuantity.divide(invoicedQuantity, 10, rounding);
             
-                // Prorate the orderItem's value by that proportion
-                BigDecimal packageContentValue = proportionOfOrderedQuantity.multiply(orderItemTotalValue).setScale(decimals, rounding);
+                // Prorate the orderItem's invoiced amount by that proportion
+                BigDecimal packageContentValue = proportionOfInvoicedQuantity.multiply(invoicedAmount).setScale(decimals, rounding);
             
                 // Convert the value to the shipment currency, if necessary
                 GenericValue orderHeader = packageContent.getRelatedOne("OrderHeader");

@@ -4223,14 +4223,15 @@ public class OrderServices {
     }
 
     /**
-     * Calculates the value of a given orderItem by totalling the item subtotal, any adjustments for that item, and
-     *  the item's share of any order-level adjustments (that calculated by applying the percentage of the items total that the
-     *  item represents to the order-level adjustments total.
+     * Determines the total amount invoiced for a given order item over all invoices by totalling the item subtotal (via OrderItemBilling),
+     *  any adjustments for that item (via OrderAdjustmentBilling), and the item's share of any order-level adjustments (that calculated 
+     *  by applying the percentage of the items total that the item represents to the order-level adjustments total (also via
+     *  OrderAdjustmentBilling). Also returns the quantity invoiced for the item over all invoices, to aid in prorating.
      * @param dctx DispatchContext
      * @param context Map
      * @return Map
      */
-    public static Map getOrderItemValue(DispatchContext dctx, Map context) {
+    public static Map getOrderItemInvoicedAmountAndQuantity(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         
@@ -4238,7 +4239,9 @@ public class OrderServices {
         String orderItemSeqId = (String) context.get("orderItemSeqId");
 
         GenericValue orderHeader = null;
-        GenericValue orderItem = null;
+        GenericValue orderItemToCheck = null;
+        BigDecimal orderItemTotalValue = ZERO;
+        BigDecimal invoicedQuantity = ZERO; // Quantity invoiced for the target order item
         try {
 
             orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
@@ -4247,37 +4250,114 @@ public class OrderServices {
                 Debug.logError(errorMessage, module);
                 return ServiceUtil.returnError(errorMessage);
             }
-            
-            orderItem = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
-            if (UtilValidate.isEmpty(orderItem)) {
+            orderItemToCheck = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
+            if (UtilValidate.isEmpty(orderItemToCheck)) {
                 String errorMessage = UtilProperties.getMessage(resource_error, "OrderErrorOrderItemNotFound", context, locale);
                 Debug.logError(errorMessage, module);
                 return ServiceUtil.returnError(errorMessage);
             }
             
+            BigDecimal orderItemsSubtotal = ZERO; // Aggregated value of order items, non-tax and non-shipping item-level adjustments
+            BigDecimal invoicedTotal = ZERO; // Amount invoiced for the target order item
+            BigDecimal itemAdjustments = ZERO; // Item-level tax- and shipping-adjustments
+
+            // Aggregate the order items subtotal
+            List orderItems = orderHeader.getRelated("OrderItem", UtilMisc.toList("orderItemSeqId"));
+            Iterator oit = orderItems.iterator();
+            while (oit.hasNext()) {
+                GenericValue orderItem = (GenericValue) oit.next();
+                
+                // Look at the orderItemBillings to discover the amount and quantity ever invoiced for this order item
+                List orderItemBillings = delegator.findByAnd("OrderItemBilling", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId")));
+                Iterator oibit = orderItemBillings.iterator();
+                while (oibit.hasNext()) {
+                    GenericValue orderItemBilling = (GenericValue) oibit.next();
+                    BigDecimal quantity = orderItemBilling.getBigDecimal("quantity");
+                    BigDecimal amount = orderItemBilling.getBigDecimal("amount").setScale(orderDecimals, orderRounding);
+                    if (UtilValidate.isEmpty(invoicedQuantity) || UtilValidate.isEmpty(amount)) continue;
+
+                    // Add the item base amount to the subtotal
+                    orderItemsSubtotal = orderItemsSubtotal.add(quantity.multiply(amount));
+                    
+                    // If the item is the target order item, add the invoiced quantity and amount to their respective totals
+                    if (orderItemSeqId.equals(orderItem.get("orderItemSeqId"))) {
+                        invoicedQuantity = invoicedQuantity.add(quantity);
+                        invoicedTotal = invoicedTotal.add(quantity.multiply(amount));
+        }
+                }
+
+                // Retrieve the adjustments for this item
+                List orderAdjustments = delegator.findByAnd("OrderAdjustment", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId")));
+                Iterator oait = orderAdjustments.iterator();
+                while (oait.hasNext()) {
+                    GenericValue orderAdjustment = (GenericValue) oait.next();
+                    String orderAdjustmentTypeId = orderAdjustment.getString("orderAdjustmentTypeId");
+        
+                    // Look at the orderAdjustmentBillings to discove the amount ever invoiced for this order adjustment
+                    List orderAdjustmentBillings = delegator.findByAnd("OrderAdjustmentBilling", UtilMisc.toMap("orderAdjustmentId", orderAdjustment.get("orderAdjustmentId")));
+                    Iterator oabit = orderAdjustmentBillings.iterator();
+                    while (oabit.hasNext()) {
+                        GenericValue orderAjustmentBilling = (GenericValue) oabit.next();
+                        BigDecimal amount = orderAjustmentBilling.getBigDecimal("amount").setScale(orderDecimals, orderRounding);
+                        if (UtilValidate.isEmpty(amount)) continue;
+        
+                        if ("SALES_TAX".equals(orderAdjustmentTypeId) || "SHIPPING_CHARGES".equals(orderAdjustmentTypeId)) {
+                            if (orderItemSeqId.equals(orderItem.get("orderItemSeqId"))) {
+        
+                                // Add tax- and shipping-adjustment amounts to the total adjustments for the target order item
+                                itemAdjustments = itemAdjustments.add(amount);
+                            }
+                        } else {
+
+                            // Add non-tax and non-shipping adjustment amounts to the order items subtotal 
+                            orderItemsSubtotal = orderItemsSubtotal.add(amount);
+                            if (orderItemSeqId.equals(orderItem.get("orderItemSeqId"))) {
+                                
+                                // If the item is the target order item, add non-tax and non-shipping adjustment amounts to the invoiced total
+                                invoicedTotal = invoicedTotal.add(amount);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Total the order-header-level adjustments for the order
+            BigDecimal orderHeaderAdjustmentsTotalValue = ZERO;
+            List orderHeaderAdjustments = delegator.findByAnd("OrderAdjustment", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", "_NA_"));
+            Iterator ohait = orderHeaderAdjustments.iterator();
+            while (ohait.hasNext()) {
+                GenericValue orderHeaderAdjustment = (GenericValue) ohait.next();
+                List orderHeaderAdjustmentBillings = delegator.findByAnd("OrderAdjustmentBilling", UtilMisc.toMap("orderAdjustmentId", orderHeaderAdjustment.get("orderAdjustmentId")));
+                Iterator ohabit = orderHeaderAdjustmentBillings.iterator();
+                while (ohabit.hasNext()) {
+                    GenericValue orderHeaderAdjustmentBilling = (GenericValue) ohabit.next();
+                    BigDecimal amount = orderHeaderAdjustmentBilling.getBigDecimal("amount").setScale(orderDecimals, orderRounding);
+                    if (UtilValidate.isEmpty(amount)) continue;
+                    orderHeaderAdjustmentsTotalValue = orderHeaderAdjustmentsTotalValue.add(amount);
+                }
+            }
+
+            // How much of the order-level adjustments total does the target order item represent? The assumption is: the same
+            //  proportion of the adjustments as of the invoiced total for the item to the invoiced total for all items. These
+            //  figures don't take tax- and shipping- adjustments into account, so as to be in accordance with the code in InvoiceServices
+            BigDecimal invoicedAmountProportion = ZERO;
+            if (orderItemsSubtotal.signum() != 0) {
+                invoicedAmountProportion = invoicedTotal.divide(orderItemsSubtotal, 5, orderRounding);
+            }
+            BigDecimal orderItemHeaderAjustmentAmount = orderHeaderAdjustmentsTotalValue.multiply(invoicedAmountProportion);
+            orderItemTotalValue = invoicedTotal.add(orderItemHeaderAjustmentAmount);
+
+            // Add back the tax- and shipping- item-level adjustments for the order item
+            orderItemTotalValue = orderItemTotalValue.add(itemAdjustments);
+
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        OrderReadHelper orh = new OrderReadHelper(orderHeader);
-        
-        // How much of the order items total does this orderItem represent? (Includes item-level adjustments but not order-level adjustments)
-        BigDecimal orderItemTotal = orh.getOrderItemTotalBd(orderItem);
-        BigDecimal orderItemsTotal = orh.getOrderItemsTotalBd();
-        BigDecimal proportionOfOrderItemsTotal = orderItemTotal.divide(orderItemsTotal, orderRounding);
-        BigDecimal portionOfOrderItemsTotal = proportionOfOrderItemsTotal.multiply(orderItemsTotal).setScale(orderDecimals, orderRounding);
-        
-        // How much of the order-level adjustments total does this orderItem represent? The assumption is: the same
-        //  proportion of the adjustments as of the item to the items total
-        BigDecimal orderAdjustmentsTotal = orh.getOrderAdjustmentsTotalBd();
-        BigDecimal portionOfOrderAdjustmentsTotal = proportionOfOrderItemsTotal.multiply(orderAdjustmentsTotal).setScale(orderDecimals, orderRounding);
-        
-        // The total value of the item is the value of the item itself plus its adjustments, and the item's share of the order-level adjustments
-        BigDecimal orderItemTotalValue = portionOfOrderItemsTotal.add(portionOfOrderAdjustmentsTotal);
-
         Map result = ServiceUtil.returnSuccess();
-        result.put("orderItemValue", orderItemTotalValue);
+        result.put("invoicedAmount", orderItemTotalValue.setScale(orderDecimals, orderRounding));
+        result.put("invoicedQuantity", invoicedQuantity.setScale(orderDecimals, orderRounding));
         return result;
     }
 }
