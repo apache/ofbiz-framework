@@ -22,6 +22,7 @@ package org.ofbiz.common.uom;
 import org.ofbiz.entity.GenericDelegator;
 
 import java.util.Calendar;
+import java.sql.Timestamp;
 
 /**
  * UomWorker
@@ -59,4 +60,26 @@ public class UomWorker {
 
         return null;
     }
+
+    public static Calendar addUomTime(Calendar cal, Timestamp startTime, String uomId, int value) {
+        if (cal == null) {
+            cal = Calendar.getInstance();
+        }
+        if (startTime != null) {
+            cal.setTimeInMillis(startTime.getTime());
+        }
+        int[] conv = uomTimeToCalTime(uomId);
+
+        // conversion multiplier * value by type
+        cal.add(conv[0], (value * conv[1]));
+        return cal;
+    }
+
+    public static Calendar addUomTime(Calendar cal, String uomId, int value) {
+        return addUomTime(cal, null, uomId, value);
+    }
+
+    public static Calendar addUomTime(Timestamp startTime, String uomId, int value) {
+        return addUomTime(null, startTime, uomId, value);
+    }        
 }
