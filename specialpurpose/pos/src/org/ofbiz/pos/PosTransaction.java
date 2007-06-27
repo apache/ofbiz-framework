@@ -253,12 +253,12 @@ public class PosTransaction implements Serializable {
 
             List paymentPrefs = session.getDelegator().findByAnd("OrderPaymentPreference", fields);
             if (paymentPrefs != null && paymentPrefs.size() > 0) {
-                Debug.log("Found some prefs - " + paymentPrefs.size(), module);
+                //Debug.log("Found some prefs - " + paymentPrefs.size(), module);
                 if (paymentPrefs.size() > 1) {
                     Debug.logError("Multiple OrderPaymentPreferences found for the same payment method!", module);
                 } else {
                     paymentPref = EntityUtil.getFirst(paymentPrefs);
-                    Debug.log("Got the first pref - " + paymentPref, module);
+                    //Debug.log("Got the first pref - " + paymentPref, module);
                 }
             } else {
                 Debug.logError("No OrderPaymentPreference found - " + fields, module);
@@ -266,7 +266,7 @@ public class PosTransaction implements Serializable {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-        Debug.log("PaymentPref - " + paymentPref, module);
+        //Debug.log("PaymentPref - " + paymentPref, module);
 
         Map payInfo = new HashMap();
 
@@ -286,7 +286,7 @@ public class PosTransaction implements Serializable {
             Debug.logError("Payment preference is empty!", module);
             return payInfo;
         }
-        Debug.log("AuthTrans - " + authTrans, module);
+        //Debug.log("AuthTrans - " + authTrans, module);
 
         if ("PaymentMethodType".equals(infValue.getEntityName())) {
             payInfo.put("description", infValue.getString("description"));
@@ -521,7 +521,7 @@ public class PosTransaction implements Serializable {
             Iterator i = values.iterator();
             while (i.hasNext() && isExternal) {
                 GenericValue v = (GenericValue) i.next();
-                Debug.log("Testing [" + paymentMethodTypeId + "] - " + v, module);
+                //Debug.log("Testing [" + paymentMethodTypeId + "] - " + v, module);
                 if (!externalCode.equals(v.getString("paymentServiceTypeEnumId"))) {
                     isExternal = false;
                 }
@@ -610,7 +610,7 @@ public class PosTransaction implements Serializable {
         // store the "order"
         output.print(UtilProperties.getMessage("pos","Saving",defaultLocale));
         Map orderRes = ch.createOrder(session.getUserLogin());
-        Debug.log("Create Order Resp : " + orderRes, module);
+        //Debug.log("Create Order Resp : " + orderRes, module);
 
         if (orderRes != null && ServiceUtil.isError(orderRes)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(orderRes));
@@ -823,7 +823,7 @@ public class PosTransaction implements Serializable {
         svcCtx.put("expYear", expYear);
         svcCtx.put("cardType", UtilValidate.getCardType(cardNumber));
 
-        Debug.log("Create CC : " + svcCtx, module);
+        //Debug.log("Create CC : " + svcCtx, module);
         Map svcRes = null;
         try {
             svcRes = dispatcher.runSync("createCreditCard", svcCtx);
