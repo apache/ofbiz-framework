@@ -47,9 +47,23 @@ under the License.
                     <set field="orderRoleAndMap.roleTypeId" value="END_USER_CUSTOMER"/>
                     <find-by-and entity-name="OrderRole" list-name="orderRoles" map-name="orderRoleAndMap"/>
                     <first-from-list list-name="orderRoles" entry-name="orderRole"/>
-                    <if-not-empty field-name="orderRole">
-                        <set field="updateContext.ownerPartyId" from-field="orderRole.partyId"/>
-                    </if-not-empty>
+                    <set field="prodStoreMap" from-field="orderHeader.productStoreId"/>
+                    <find-by-and entity-name="ProductStore" list-name="productStore" map-name="prodStoreMap"/>
+                    <if>
+                        <condition>
+                            <and>
+                                <not><if-empty field-name="orderRole"/></not>
+                                <or>
+                                    <if-empty field-name="productStore"/>
+                                    <if-empty field-name="productStore.setOwnerUponIssuance"/>
+                                    <if-compare field-name="productStore.setOwnerUponIssuance" operator="equals" value="Y"/>
+                                </or>
+                            </and>
+                        </condition>
+                        <then>
+                            <set field="updateContext.ownerPartyId" from-field="orderRole.partyId"/>
+                        </then>
+                    </if>
                 </if-not-empty>
                 <set field="updateContext.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
                 <set field="updateContext.statusId" value="INV_DELIVERED"/>
