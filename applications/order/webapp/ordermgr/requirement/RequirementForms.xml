@@ -337,6 +337,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="prepareFind"><hidden value="Y"/></field>
+        <field name="facilityId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Facility" description="${facilityName} (${facilityId})" key-field-name="facilityId">
+                    <entity-order-by field-name="facilityName"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="prepare" title="${uiLabelMap.OrderPrepareOrder}" widget-style="buttontext">
             <submit button-type="button"/>
         </field>
