@@ -3286,6 +3286,7 @@ under the License.
       <field name="autoApproveInvoice" type="indicator"><description>If Y or empty, sales invoices created from orders will be marked ready.</description></field>
       <field name="autoApproveOrder" type="indicator"><description>If N, orders will not be automatically approved when payment is authorized.</description></field>
       <field name="shipIfCaptureFails" type="indicator"><description>If N, the captureOrderPayments will cause a service error if credit card capture fails.</description></field>
+      <field name="setOwnerUponIssuance" type="indicator"><description>If Y or empty, set the inventory item owner upon issuance.</description></field>
       <prim-key field="productStoreId"/>
       <relation type="one" fk-name="PROD_STR_PRSTRGP" title="Primary" rel-entity-name="ProductStoreGroup">
         <key-map field-name="primaryStoreGroupId" rel-field-name="productStoreGroupId"/>
