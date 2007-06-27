@@ -724,8 +724,8 @@ public class PosTransaction implements Serializable {
                     // append the promo info
                     XModel promo = Journal.appendNode(model, "tr", "", "");
                     Journal.appendNode(promo, "td", "sku", "");
-                    Journal.appendNode(promo, "td", "desc", UtilProperties.getMessage("pos","(adjustment)",defaultLocale));
-                    Journal.appendNode(promo, "td", "qty", "-");
+                    Journal.appendNode(promo, "td", "desc", UtilProperties.getMessage("pos","(ItemDiscount)",defaultLocale));
+                    Journal.appendNode(promo, "td", "qty", "");
                     Journal.appendNode(promo, "td", "price", UtilFormatOut.formatPrice(adjustment));
                 }
             }
@@ -736,18 +736,33 @@ public class PosTransaction implements Serializable {
         if (cart != null) {
             double taxAmount = cart.getTotalSalesTax();
             double total = cart.getGrandTotal();
+            List adjustments = cart.getAdjustments();
+
+            if (adjustments != null && adjustments.size() > 0) {
+                Iterator iter = adjustments.iterator();
+                while(iter.hasNext()){
+                    GenericValue orderAdjustment = (GenericValue) iter.next();
+                    XModel adjustmentLine = Journal.appendNode(model, "tr", "", "");
+                    Journal.appendNode(adjustmentLine, "td", "sku", "");
+                    Journal.appendNode(adjustmentLine, "td", "desc", 
+                            UtilProperties.getMessage("pos", "(SalesDiscount)",defaultLocale));
+                    Journal.appendNode(adjustmentLine, "td", "qty", "");
+                    Journal.appendNode(adjustmentLine, "td", "price", 
+                            UtilFormatOut.formatPrice(orderAdjustment.getDouble("amount"))); 
+                }    
+            }
 
             XModel taxLine = Journal.appendNode(model, "tr", "", "");
             Journal.appendNode(taxLine, "td", "sku", "");
 
             Journal.appendNode(taxLine, "td", "desc", UtilProperties.getMessage("pos","Sales_Tax",defaultLocale));
-            Journal.appendNode(taxLine, "td", "qty", "-");
+            Journal.appendNode(taxLine, "td", "qty", "");
             Journal.appendNode(taxLine, "td", "price", UtilFormatOut.formatPrice(taxAmount));
 
             XModel totalLine = Journal.appendNode(model, "tr", "", "");
             Journal.appendNode(totalLine, "td", "sku", "");
             Journal.appendNode(totalLine, "td", "desc", UtilProperties.getMessage("pos","Grand_Total",defaultLocale));
-            Journal.appendNode(totalLine, "td", "qty", "-");
+            Journal.appendNode(totalLine, "td", "qty", "");
             Journal.appendNode(totalLine, "td", "price", UtilFormatOut.formatPrice(total));
         }
     }
