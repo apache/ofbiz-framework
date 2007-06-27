@@ -301,10 +301,11 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="transaction"/>
+                <set field="tabButtonItem" value="manualtransactiontab"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/manualTx.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="GenericTransactionDecorator" location="component://accounting/widget/TransactionScreens.xml">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://accounting/webapp/accounting/payment/manualTx.ftl"/></html>
