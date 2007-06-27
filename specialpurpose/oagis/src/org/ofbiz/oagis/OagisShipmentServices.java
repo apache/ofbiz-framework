@@ -31,6 +31,9 @@ import java.util.List;
 import java.util.Map;
 import java.sql.Timestamp;
 
+import javolution.util.FastMap;
+import javolution.util.FastList;
+
 import org.w3c.dom.Document;
 
 import org.ofbiz.service.DispatchContext;
@@ -43,9 +46,12 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 
+import org.w3c.dom.Element;
+
 import org.ofbiz.widget.fo.FoFormRenderer;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.ofbiz.widget.html.HtmlScreenRenderer;
+
 
 public class OagisShipmentServices {
     
@@ -57,8 +63,178 @@ public class OagisShipmentServices {
     public static Map showShipment(DispatchContext ctx, Map context) {
         InputStream in = (InputStream) context.get("inputStream");
         OutputStream out = (OutputStream) context.get("outputStream");
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        GenericDelegator delegator = ctx.getDelegator();
+        GenericValue userLogin = null;
         try{
             Document doc = UtilXml.readXmlDocument(in, true, "ShowShipment");
+            userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId","admin"));            
+            Element shipmentElement = doc.getDocumentElement();
+            shipmentElement.normalize();
+            Map BODMap = new FastMap();
+            
+            Element controllAreaElement = UtilXml.firstChildElement(shipmentElement, "N1:CNTROLAREA");            
+            Element BSRElement = UtilXml.firstChildElement(controllAreaElement, "N1:BSR");                       
+            String bsrVerb = UtilXml.childElementValue(BSRElement, "N2:VERB");
+            String bsrNoun = UtilXml.childElementValue(BSRElement, "N2:NOUN");
+            String bsrRevision = UtilXml.childElementValue(BSRElement, "/N2:REVISION");
+            
+            BODMap.put("bsrVerb",bsrVerb);
+            BODMap.put("bsrNoun",bsrNoun);
+            BODMap.put("bsrRevision",bsrRevision);
+            
+            Element senderElement = UtilXml.firstChildElement(controllAreaElement, "N1:SENDER");
+            String logicalId = UtilXml.childElementValue(senderElement, "N2:LOGICALID");
+            String component = UtilXml.childElementValue(senderElement, "N2:COMPONENT");
+            String task = UtilXml.childElementValue(senderElement, "N2:TASK");
+            String reference = UtilXml.childElementValue(senderElement, "N2:REFERENCEID");
+            String confirmation = UtilXml.childElementValue(senderElement, "N2:CONFIRMATION");
+            String language = UtilXml.childElementValue(senderElement, "N2:LANGUAGE");
+            String codePage = UtilXml.childElementValue(senderElement, "N2:CODEPAGE");
+            String authId = UtilXml.childElementValue(senderElement, "N2:AUTHID");
+            
+            BODMap.put("logicalId",logicalId);
+            BODMap.put("component",component);
+            BODMap.put("task",task);
+            BODMap.put("referenceId", reference);
+            BODMap.put("confirmation", confirmation);
+            BODMap.put("authId", authId);
+            
+            String controllAreaDateTime = UtilXml.childElementValue(controllAreaElement, "N1:DATETIMEANY");            
+            
+            Element dataAreaElement = UtilXml.firstChildElement(shipmentElement, "n:DATAAREA");
+            Element showShipmentElement = UtilXml.firstChildElement(dataAreaElement, "n:SHOW_SHIPMENT");
+            Element shipment_N_Element = UtilXml.firstChildElement(showShipmentElement, "n:SHIPMENT");
+            String dataAreaDateTime = UtilXml.childElementValue(shipment_N_Element, "N1:DATETIMEANY");
+            
+            Element operAMT = UtilXml.firstChildElement(shipment_N_Element, "N1:OPERAMT");
+            String operAMTValue = UtilXml.childElementValue(operAMT, "N2:VALUE");
+            String operAMTNum =UtilXml.childElementValue(operAMT,"N2:NUMOFDEC");
+            String operAMTSign =UtilXml.childElementValue(operAMT,"N2:SIGN");
+            String operAMTCurrency =UtilXml.childElementValue(operAMT,"N2:CURRENCY");
+                        
+            String documentId =UtilXml.childElementValue(shipment_N_Element,"N2:DOCUMENTID");
+            
+            String description =UtilXml.childElementValue(shipment_N_Element,"N2:DESCRIPTN");
+            
+            Element partner = UtilXml.firstChildElement(shipment_N_Element, "N1:PARTNER");
+            String partnerName =UtilXml.childElementValue(partner,"N2:NAME");
+            String partnerType =UtilXml.childElementValue(partner,"N2:PARTNRTYPE");
+            String partnerCurrency =UtilXml.childElementValue(partner,"N2:CURRENCY");
+            
+            Element partnerAddress = UtilXml.firstChildElement(partner, "N1:ADDRESS");
+            String partnerAddLine =UtilXml.childElementValue(partnerAddress,"N2:ADDRLINE");
+            String partnerCity =UtilXml.childElementValue(partnerAddress,"N2:CITY");
+            String partnerCountry =UtilXml.childElementValue(partnerAddress,"N2:COUNTRY");
+            String partnerFax =UtilXml.childElementValue(partnerAddress,"N2:FAX");
+            String partnerPostalCode =UtilXml.childElementValue(partnerAddress,"N2:POSTALCODE");
+            String partnerState =UtilXml.childElementValue(partnerAddress,"N2:STATEPROVN");
+            String partnerTelePhn =UtilXml.childElementValue(partnerAddress,"N2:TELEPHONE");
+            
+            Element partnerContact = UtilXml.firstChildElement(partner, "N1:CONTACT");
+            String partnerContactName =UtilXml.childElementValue(partnerContact,"N2:NAME");
+            String partnerContactEmail =UtilXml.childElementValue(partnerContact,"N2:FAX");
+            String partnerContactTelePhn =UtilXml.childElementValue(partnerContact,"N2:TELEPHONE");
+            
+            Element shipUnitElement = UtilXml.firstChildElement(showShipmentElement, "n:SHIPUNIT");
+            Element shipUnitQuantity = UtilXml.firstChildElement(shipUnitElement, "N1:QUANTITY");
+            String shipUnitQuantityValue =UtilXml.childElementValue(shipUnitQuantity,"N2:VALUE");
+            String shipUnitQuantityNum =UtilXml.childElementValue(shipUnitQuantity,"N2:NUMOFDEC");
+            String shipUnitQuantitySign =UtilXml.childElementValue(shipUnitQuantity,"N2:SIGN");
+            String shipUnitQuantityUOM =UtilXml.childElementValue(shipUnitQuantity,"N2:UOM");
+            
+            String shipUnitCarrier =UtilXml.childElementValue(shipUnitElement,"N2:CARRIER");
+            String shipUnitTrackingId =UtilXml.childElementValue(shipUnitElement,"N2:TRACKINGID");
+            String shipUnitSeqId =UtilXml.childElementValue(shipUnitElement,"N2:SHPUNITSEQ");
+            String shipUnitTOT =UtilXml.childElementValue(shipUnitElement,"N2:SHPUNITTOT");
+            
+            Element invItem = UtilXml.firstChildElement(shipUnitElement, "n:INVITEM");
+            Element invItemQuantity = UtilXml.firstChildElement(invItem, "N1:QUANTITY");
+            String invItemQuantityValue =UtilXml.childElementValue(invItemQuantity,"N2:VALUE");
+            String invItemQuantityNum =UtilXml.childElementValue(invItemQuantity,"N2:NUMOFDEC");
+            String invItemQuantitySign =UtilXml.childElementValue(invItemQuantity,"N2:SIGN");
+            String invItemQuantityUOM =UtilXml.childElementValue(invItemQuantity,"N2:UOM");
+            String invItemItem =UtilXml.childElementValue(invItem,"N2:ITEM");
+            
+            Element invDetail = UtilXml.firstChildElement(invItem, "n:INVDETAIL");
+            String invDetailSerialNum =UtilXml.childElementValue(invDetail,"N1:SERIALNUM");
+            
+            /*Code for Issuing the Items*/
+            List orderItemShipGrpInvReservations = FastList.newInstance();            
+            Map reserveOrderItemInventoryCtx = FastMap.newInstance();
+            Map result = null;
+            //GenericValue inventoryItem = null;
+            try {                
+                GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", documentId));                
+                String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");
+                
+                List shipmentItems = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", documentId, "productId",invItemItem));
+                GenericValue shipmentItem =  EntityUtil.getFirst(shipmentItems);
+                String shipmentItemSeqId = shipmentItem.getString("shipmentItemSeqId");
+                //Now we have enough keys to lookup the right OrderShipment
+                List orderShipments = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", documentId, "shipmentItemSeqId",shipmentItemSeqId));
+                GenericValue orderShipment =   EntityUtil.getFirst(orderShipments);
+                String orderId = orderShipment.getString("orderId");
+                String orderItemSeqId = orderShipment.getString("orderItemSeqId");
+                
+                // Look for reservations in some status.
+                orderItemShipGrpInvReservations = delegator.findByAnd("OrderItemShipGrpInvRes", UtilMisc.toMap("orderId", orderId,"orderItemSeqId",orderItemSeqId,"shipGroupSeqId",shipGroupSeqId));                
+                GenericValue orderItemShipGrpInvReservation =   EntityUtil.getFirst(orderItemShipGrpInvReservations);
+                GenericValue inventoryItem = delegator.findByPrimaryKey("InventoryItem", UtilMisc.toMap("inventoryItemId",orderItemShipGrpInvReservation.get("inventoryItemId")));
+                
+                // Check if the inventory Item we reserved is same as Item shipped
+                // If not then reserve Inventory Item
+                String serialNumber = inventoryItem.getString("serialNumber");
+                if(invDetailSerialNum != null) {
+                    //The if codition is for chacking serialized Inventory.
+                    if(!serialNumber.equals(invDetailSerialNum)) {
+                        // Check if the Inventory we want is available
+                        inventoryItem = EntityUtil.getFirst(delegator.findByAnd("InventoryItem", UtilMisc.toMap("productId", invItemItem, "serialNumber", invDetailSerialNum)));
+                        Debug.logInfo("======== InventoryItem In Else ========="+inventoryItem, module);
+                        reserveOrderItemInventoryCtx.put("inventoryItemId", inventoryItem.getString("inventoryItemId"));
+                        result = dispatcher.runSync("reserveOrderItemInventory", reserveOrderItemInventoryCtx);
+                        
+                        Debug.logInfo("========reserveOrderItemInventory ========="+result, module);
+                    }                    
+                }
+                Map orderItemShipGrpInvResCtx = FastMap.newInstance(); // This Map is for the issueOrderItemShipGrpInvResToShipment service.
+                orderItemShipGrpInvResCtx.put("shipmentId", documentId);
+                orderItemShipGrpInvResCtx.putAll(reserveOrderItemInventoryCtx);                    
+                result = dispatcher.runSync("issueOrderItemShipGrpInvResToShipment", orderItemShipGrpInvResCtx);
+                Debug.logInfo("==============result for issueOrderItemShipGrpInvResToShipment=========="+result, module);
+                
+
+                /*
+                 Here we have to put the code for inserting the Tracking number in ShipmentPackageRouteSegment.
+                 The tracking number is coming from shipUnitTrackingId.
+                */
+                
+                /*
+                //find shipmentRouteSegmentId by the help of shipmentId                
+                GenericValue shipmentRouteSegment = EntityUtil.getFirst(delegator.findByAnd("ShipmentRouteSegment", UtilMisc.toMap("shipmentId",documentId)));               
+                String shipmentRouteSegmentId = (String) shipmentRouteSegment.get("shipmentRouteSegmentId");
+                Debug.logInfo("================shipmentRouteSegmentId============== "+shipmentRouteSegmentId, module);
+               
+                //find shipmentPackageSeqId by the help of shipmentId
+                GenericValue shipmentPackage = EntityUtil.getFirst(delegator.findByAnd("ShipmentPackage", UtilMisc.toMap("shipmentId",documentId)));                
+                String shipmentPackageSeqId = shipmentPackage.getString("shipmentPackageSeqId");
+                Debug.logInfo("==============shipmetPackageSeqId========= "+shipmentPackageSeqId, module);                                     
+                
+                //Code for saving the tracking code..
+                Map map = new FastMap();
+                map.put("shipmentId", documentId);
+                map.put("shipmentRouteSegmentId", shipmentRouteSegmentId);
+                map.put("shipmentPackageSeqId", shipmentPackageSeqId);
+                map.put("trackingCode", shipUnitTrackingId);
+                map.put("userLogin", userLogin);
+                Debug.logInfo("==============ShipmentPackageRouteSeg========= "+map, module);
+                result = dispatcher.runSync("createShipmentPackageRouteSeg", map);
+                Debug.logInfo("==============Here is result========= "+result, module);
+                */
+                
+            } catch (Exception e) {
+                return ServiceUtil.returnError("return error"+e);
+              }
         }catch (Exception e){
             Debug.logError(e, module);
         }
