@@ -70,6 +70,19 @@ public class OagisShipmentServices {
         
     }
     
+    public static void writeScreenToOutputStream(OutputStream out, String bodyScreenUri, MapStack parameters){
+
+        Writer writer = new OutputStreamWriter(out);
+        ScreenRenderer screens = new ScreenRenderer(writer, parameters, new HtmlScreenRenderer());
+        try {
+            screens.render(bodyScreenUri);
+        } catch (Exception e) {
+            Debug.logError(e, "Error rendering [text/xml]: ", module);
+        }
+
+    }
+    
+    
     public static Map exportMsgFromScreen(DispatchContext dctx, Map serviceContext) {
 
         String bodyScreenUri = (String) serviceContext.remove("bodyScreenUri");
@@ -82,8 +95,8 @@ public class OagisShipmentServices {
             screens.populateContextForService(dctx, bodyParameters);
             screenContext.putAll(bodyParameters);
         }
-        screenContext.putAll(serviceContext);
-        screens.getContext().put("formStringRenderer", foFormRenderer);
+        //screenContext.putAll(serviceContext);
+        //screens.getContext().put("formStringRenderer", foFormRenderer);
         try {
             screens.render(bodyScreenUri);
         } catch (Exception e) {
