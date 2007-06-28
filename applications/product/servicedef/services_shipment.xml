@@ -60,6 +60,12 @@ under the License.
         <auto-attributes entity-name="ShipmentMethodType" include="pk" mode="IN" optional="false"/>
     </service>
 
+    <service name="createOrderShipmentPlan" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createOrderShipmentPlan" auth="true">
+        <description>Create Shipment, ShipmentItems and OrderShipment</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+    </service>
+
     <service name="quickShipEntireOrder" engine="simple"
             location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="quickShipEntireOrder" auth="true" transaction-timeout="600">
         <description>Quick Ships An Entire Order Creating One Shipment Per Facility and Ship Group.  All approved order items are
