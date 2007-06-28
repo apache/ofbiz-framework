@@ -273,7 +273,7 @@ public class OagisShipmentServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
-        //String shipmentId = (String) context.get("shipmentId");
+        String shipmentId = (String) context.get("shipmentId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
 
