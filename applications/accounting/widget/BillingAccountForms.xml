@@ -21,7 +21,19 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="ListBillingAccounts" type="list" list-name="billingAccounts" paginate-target="FindBillingAccount">
+    <form name="ListBillingAccounts" type="list" list-name="billingAccounts" paginate-target="FindBillingAccount" default-entity-name="BillingAccount">
+        <field name="billingAccountId" widget-style="buttontext">
+            <hyperlink description="${billingAccountId}" target="EditBillingAccount?billingAccountId=${billingAccountId}"/>
+        </field>
+        <field name="accountLimit">
+            <display type="currency" currency="${billingAccount.accountCurrencyUomId}" />
+        </field>
+        <field name="description"><display/></field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><display/></field>
+    </form>
+
+    <form name="ListBillingAccountsByParty" type="list" list-name="billingAccounts" paginate-target="FindBillingAccount" default-entity-name="BillingAccountAndRole">
         <field name="billingAccountId" widget-style="buttontext">
             <hyperlink description="${billingAccountId}" target="EditBillingAccount?billingAccountId=${billingAccountId}"/>
         </field>
