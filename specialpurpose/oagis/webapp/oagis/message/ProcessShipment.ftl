@@ -25,26 +25,26 @@
       <N2:REVISION>001</N2:REVISION>
     </N1:BSR>
     <N1:SENDER>
-      <N2:LOGICALID>${logicalId?if_exists}</N2:LOGICALID>
+      <N2:LOGICALID>${logicalId}</N2:LOGICALID>
       <N2:COMPONENT>INVENTORY</N2:COMPONENT>
       <N2:TASK>SHIPREQUEST</N2:TASK>
-      <N2:REFERENCEID>${referenceId?if_exists}</N2:REFERENCEID>
+      <N2:REFERENCEID>${referenceId}</N2:REFERENCEID>
       <N2:CONFIRMATION>1</N2:CONFIRMATION>
       <N2:LANGUAGE>ENG</N2:LANGUAGE>
       <N2:CODEPAGE>NONE</N2:CODEPAGE>
       <N2:AUTHID>${authId?if_exists}</N2:AUTHID>
     </N1:SENDER>
-    <N1:DATETIMEANY>${sentDate?if_exists}</N1:DATETIMEANY>
+    <N1:DATETIMEISO>${sentDate?if_exists}</N1:DATETIMEISO>
   </N1:CNTROLAREA>
   <n:DATAAREA>
     <n:PROCESS_SHIPMENT>
       <n:SHIPMENT>
         <N2:DOCUMENTID>${shipment.shipmentId?if_exists}</N2:DOCUMENTID>
-        <N2:SHIPPERID></N2:SHIPPERID>
+        <N2:SHIPPERID></N2:SHIPPERID><#-- TODO: fill in from PartyCarrierAccount.accountNumber; make sure filter by from/thru date and PartyCarrierAccount.carrierPartyId==orderItemShipGroup.carrierPartyId; get most recent fromDate -->
         <N2:CARRIER>${orderItemShipGroup.carrierPartyId?if_exists}</N2:CARRIER>
-        <N2:FRGHTTERMS></N2:FRGHTTERMS>
-        <N2:NOTES></N2:NOTES>
-        <N2:SHIPNOTES>RETURNLABEL</N2:SHIPNOTES>
+        <N2:FRGHTTERMS>PREPAID</N2:FRGHTTERMS><#-- TODO: if SHIPPERID?has_content then set to COLLECT -->
+        <N2:NOTES>${orderItemShipGroup.shippingInstructions?if_exists}</N2:NOTES>
+        <N2:SHIPNOTES></N2:SHIPNOTES><#-- if order was a return replacement order (associated with return), then set to RETURNLABEL otherwise leave blank -->
         <N2:TRANSMETHD>${orderItemShipGroup.shipmentMethodTypeId?if_exists}</N2:TRANSMETHD>
         <N1:PARTNER>
           <#if address?has_content>
@@ -62,13 +62,13 @@
               <N2:FAX></N2:FAX>
               <N2:POSTALCODE>${address.postalCode?if_exists}</N2:POSTALCODE>
               <N2:STATEPROVN>${address.stateProvinceGeoId?if_exists}</N2:STATEPROVN>
-              <N2:TELEPHONE>${telecomNumber.countryCode?if_exists}${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</N2:TELEPHONE>
+              <N2:TELEPHONE><#if telecomNumber.countryCode?has_content>${telecomNumber.countryCode}-</#if>${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</N2:TELEPHONE>
             </N1:ADDRESS>
             <N1:CONTACT>
-              <N2:NAME>${address.toName?if_exists}</N2:NAME>
+              <N2:NAME>${address.attnName?if_exists}</N2:NAME>
               <N2:EMAIL>${emailString?if_exists}</N2:EMAIL>
               <N2:FAX></N2:FAX>
-              <N2:TELEPHONE>${telecomNumber.countryCode?if_exists}${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</N2:TELEPHONE>
+              <N2:TELEPHONE><#if telecomNumber.countryCode?has_content>${telecomNumber.countryCode}-</#if>${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</N2:TELEPHONE>
             </N1:CONTACT>
           </#if>
         </N1:PARTNER>
@@ -81,7 +81,7 @@
               <N2:UOM>EACH</N2:UOM>
             </N1:QUANTITY>
             <N2:ITEM>${shipmentItem.productId?if_exists}</N2:ITEM>
-            <N2:DISPOSITN>FIFO</N2:DISPOSITN>
+            <N2:DISPOSITN>FIFO</N2:DISPOSITN><#-- TODO: figure out if this is a reviewer order, if so set this to LIFO -->
             <n:DOCUMNTREF>
               <N2:DOCTYPE>SHIPMENT</N2:DOCTYPE>
               <N2:DOCUMENTID>${shipment.shipmentId?if_exists}</N2:DOCUMENTID>
@@ -89,6 +89,20 @@
             </n:DOCUMNTREF>
           </#list> 
         </n:SHIPITEM>
+        <#-- TODO: data preparation code to create the externalIdSet -->
+        <#list externalIdSet?if_exists as externalId>
+        <n:DOCUMNTREF>
+          <N2:DOCTYPE>PARTNER_SO</N2:DOCTYPE>
+          <N2:DOCUMENTID>${externalId}</N2:DOCUMENTID>
+        </n:DOCUMNTREF>
+        </#list>
+        <#-- TODO: data preparation code to create the correspondingPoIdSet -->
+        <#list correspondingPoIdSet?if_exists as correspondingPoId>
+        <n:DOCUMNTREF>
+          <N2:DOCTYPE>CUST_PO</N2:DOCTYPE>
+          <N2:DOCUMENTID>${correspondingPoId}</N2:DOCUMENTID>
+        </n:DOCUMNTREF>
+        </#list>
       </n:SHIPMENT>
     </n:PROCESS_SHIPMENT>
   </n:DATAAREA>
