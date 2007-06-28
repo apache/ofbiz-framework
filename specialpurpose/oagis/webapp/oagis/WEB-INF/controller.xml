@@ -198,6 +198,19 @@
         <event type="stream" invoke="syncInventory"/>
         <response name="success" type="none"/>
     </request-map>
+    
+    <request-map uri="receivePoAcknowledge">
+        <security https="true" auth="false"/>
+        <event type="stream" invoke="receivePoAcknowledge"/>
+        <response name="success" type="none"/>
+    </request-map>
+
+    <request-map uri="receiveRmaAcknowledge">
+        <security https="true" auth="false"/>
+        <event type="stream" invoke="receiveRmaAcknowledge"/>
+        <response name="success" type="none"/>
+    </request-map>
+
 
 
     <!-- end of request mappings -->
