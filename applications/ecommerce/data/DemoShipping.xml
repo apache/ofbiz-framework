@@ -126,7 +126,7 @@ under the License.
     <ShipmentBoxType shipmentBoxTypeId="FXTUBE" description="FedEx Tube" dimensionUomId="LEN_in" boxLength="38" boxWidth="6" boxHeight="5.2"/>
     <ShipmentBoxType shipmentBoxTypeId="FX10KGBOX" description="FedEx 10KG Box" dimensionUomId="LEN_in" boxLength="15.8125" boxWidth="12.9375" boxHeight="10.1875"/>
     <ShipmentBoxType shipmentBoxTypeId="FX25KGBOX" description="FedEx 25KG Box" dimensionUomId="LEN_in" boxLength="21.5625" boxWidth="16.5625" boxHeight="13.1875"/>
-    <ShipmentBoxType shipmentBoxTypeId="YOURPACKNG" description="Your Packaging" dimensionUomId="LEN_in" boxLength="" boxWidth="" boxHeight=""/>
+    <ShipmentBoxType shipmentBoxTypeId="YOURPACKNG" description="Your Packaging" dimensionUomId="LEN_in" boxLength="15" boxWidth="10" boxHeight="5"/>
 
     <CarrierShipmentBoxType shipmentBoxTypeId="FXENV" partyId="FEDEX" packagingTypeCode="FEDEXENVELOPE"/>
     <CarrierShipmentBoxType shipmentBoxTypeId="FXENV_LGL" partyId="FEDEX" packagingTypeCode="FEDEXENVELOPE"/>
