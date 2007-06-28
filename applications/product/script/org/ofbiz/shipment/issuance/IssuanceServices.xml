@@ -47,8 +47,9 @@ under the License.
                     <set field="orderRoleAndMap.roleTypeId" value="END_USER_CUSTOMER"/>
                     <find-by-and entity-name="OrderRole" list-name="orderRoles" map-name="orderRoleAndMap"/>
                     <first-from-list list-name="orderRoles" entry-name="orderRole"/>
-                    <set field="prodStoreMap" from-field="orderHeader.productStoreId"/>
-                    <find-by-and entity-name="ProductStore" list-name="productStore" map-name="prodStoreMap"/>
+                    <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="false">
+                        <field-map field-name="productStoreId" env-name="orderHeader.productStoreId"/>
+                    </entity-one>
                     <if>
                         <condition>
                             <and>
