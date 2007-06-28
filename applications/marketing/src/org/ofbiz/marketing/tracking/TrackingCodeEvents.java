@@ -375,7 +375,7 @@ public class TrackingCodeEvents {
         List trackingCodeOrders = new LinkedList();
         
         Cookie[] cookies = request.getCookies();
-        String affiliateReferredTimeStamp = null;
+        Timestamp affiliateReferredTimeStamp = null;
         String siteId = null;
         String isBillable = null;
         String trackingCodeId = null; 
@@ -392,7 +392,14 @@ public class TrackingCodeEvents {
 
                 // find the referred timestamp cookie if it exists
                 if ("Ofbiz.TKCD.UpdatedTimeStamp".equals(cookieName)) {
-                    affiliateReferredTimeStamp = cookies[i].getValue();
+                    String affiliateReferredTime = cookies[i].getValue();
+                    if (affiliateReferredTime !=null && !affiliateReferredTime.equals("")){
+                        try{
+                            affiliateReferredTimeStamp = Timestamp.valueOf(affiliateReferredTime);
+                        }catch (IllegalArgumentException  e){
+                            Debug.logError(e, "Error parsing affiliateReferredTimeStamp value from cookie", module);
+                        }
+                    }
                 }
 
                 // find any that start with TKCDB_ for billable tracking code cookies with isBillable=Y
@@ -426,7 +433,7 @@ public class TrackingCodeEvents {
             GenericValue trackingCodeOrder = delegator.makeValue("TrackingCodeOrder", 
                     UtilMisc.toMap("trackingCodeTypeId", trackingCode.get("trackingCodeTypeId"), 
                     "trackingCodeId", trackingCodeId, "isBillable", isBillable, "siteId", siteId,
-                    "hasExported", "N", "affiliateReferredTimeStamp",Timestamp.valueOf(affiliateReferredTimeStamp) ));
+                    "hasExported", "N", "affiliateReferredTimeStamp",affiliateReferredTimeStamp ));
             
             Debug.logInfo(" trackingCodeOrder is " + trackingCodeOrder, module);
             trackingCodeOrders.add(trackingCodeOrder);
