@@ -1345,6 +1345,89 @@ under the License.
         </iterate>
     </simple-method>
 
+    <simple-method method-name="issueSerializedInvToShipmentPackageAndSetTracking" short-description="">
+        <!-- In Parameters are 
+            orderId, orderItemSeqId, shipGroupSeqId, inventoryItemId, originFacilityId, qtyShipped, trackingNum, serialNumber  
+            If serialNumber is provide, Then compare it with the serialNumber of inventoryItem on reservation. If they don't match,
+            We'll have to reReserve specific inventory that is shiped.            
+        -->
+        <make-value entity-name="OrderItemShipGrpInvRes" value-name="orderItemShipGrpInvResLookupPk"/>                
+        <set-pk-fields value-name="orderItemShipGrpInvResLookupPk" map-name="parameters"/>
+        <find-by-primary-key entity-name="OrderItemShipGrpInvRes" map-name="orderItemShipGrpInvResLookupPk" value-name="orderItemShipGrpInvRes"/>       
+        <get-related-one to-value-name="inventoryItem" relation-name="InventoryItem" value-name="orderItemShipGrpInvRes"/>
+        <if-compare-field operator="not-equals" field-name="inventoryItem.serialNumber" to-field-name="parameters.serialNumber">            
+            <!-- The inventory that we have reserved is not what we shipped. Lets reReserve, this time we'll get what we want -->
+            <set-service-fields map-name="parameters" to-map-name="reserveAnInventoryItemCtx" service-name="reserveAnInventoryItem"/>
+            <call-service service-name="reserveAnInventoryItem" in-map-name="reserveAnInventoryItemCtx"/>
+        </if-compare-field>
+        <!-- get InventoryItem issued to shipment -->
+        <log level="verbose" message="Item Map : ${itemMap}"/>
+        <clear-field field-name="issueContext"/>
+        <set from-field="parameters.shipmentId" field="issueContext.shipmentId"/>
+        <set from-field="parameters.inventoryItemId" field="issueContext.inventoryItemId"/>
+        <set from-field="parameters.orderId" field="issueContext.orderId"/>
+        <set from-field="parameters.shipGroupSeqId" field="issueContext.shipGroupSeqId"/>
+        <set from-field="parameters.orderItemSeqId" field="issueContext.orderItemSeqId"/>
+        <set from-field="parameters.inventoryItemId" field="issueContext.inventoryItemId"/>
+        <set from-field="parameters.quantity" field="issueContext.quantity"/>
+        <call-service service-name="issueOrderItemShipGrpInvResToShipment" in-map-name="issueContext">
+            <result-to-field result-name="itemIssuanceId" field-name="parameters.itemIssuanceId"/>
+        </call-service>
+        <!-- place all issued items into a unique package per tracking num -->                
+            <log level="info" message="QuickShipOrderByItem grouping by tracking number : ${parameters.trackingNum}"/>
+
+            <entity-one entity-name="ItemIssuance" value-name="itemIssuance">
+                <field-map field-name="itemIssuanceId" env-name="parameters.itemIssuanceId"/>
+            </entity-one>
+
+            <clear-field field-name="shipItemContext"/>
+            <set from-field="packageMap.${itemMap.trackingNum}" field="shipItemContext.shipmentPackageSeqId"/>
+            <if-empty field-name="shipItemContext.shipmentPackageSeqId">
+                <set value="New" field="shipItemContext.shipmentPackageSeqId"/>
+            </if-empty>
+            <log level="info" message="Package SeqID : ${shipItemContext.shipmentPackageSeqId}"/>
+
+            <set from-field="itemIssuance.shipmentId" field="shipItemContext.shipmentId"/>
+            <set from-field="itemIssuance.shipmentItemSeqId" field="shipItemContext.shipmentItemSeqId"/>
+            <set from-field="itemIssuance.quantity" field="shipItemContext.quantity"/>
+            <call-service service-name="addShipmentContentToPackage" in-map-name="shipItemContext">
+                <result-to-field result-name="shipmentPackageSeqId" field-name="packageMap.${parameters.trackingNum}"/>
+                <result-to-field result-name="shipmentPackageSeqId" map-name="routeSegLookup"/>
+            </call-service>
+
+            <if-not-empty field-name="shipmentPackageSeqId" map-name="routeSegLookup">
+                <set from-field="itemIssuance.shipmentId" field="routeSegLookup.shipmentId"/>
+                <!-- quick ship orders should only have one route segment -->
+                <set value="00001" field="routeSegLookup.shipmentRouteSegmentId"/>
+                <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map-name="routeSegLookup" value-name="packageRouteSegment"/>
+
+                <if-not-empty field-name="packageRouteSegment">
+                    <set from-field="parameters.trackingNum" field="packageRouteSegment.trackingCode"/>
+                    <store-value value-name="packageRouteSegment"/>
+                </if-not-empty>
+                <if-empty field-name="packageRouteSegment">
+                    <log level="warning" message="No route segment found : ${routeSegLookup}"/>
+                </if-empty>
+            </if-not-empty>
+            <if-empty field-name="routeSegLookup.shipmentPackageSeqId">
+                <log level="warning" message="No shipment package ID found; cannot update RouteSegment"/>
+            </if-empty>
+       
+        <!-- update the shipment status to packed -->
+        <set from-field="shipment.shipmentId" field="packedContext.shipmentId"/>
+        <set value="SHIPMENT_PACKED" field="packedContext.statusId"/>
+        <call-service service-name="updateShipment" in-map-name="packedContext"/>
+
+        <!-- update the shipment status to shipped -->
+        <if-empty field-name="parameters.setPackedOnly">
+            <set from-field="shipment.shipmentId" field="packedContext.shipmentId"/>
+            <set value="SHIPMENT_SHIPPED" field="packedContext.statusId"/>
+            <call-service service-name="updateShipment" in-map-name="packedContext"/>
+        </if-empty>
+
+    </simple-method>
+
+    
     <simple-method method-name="quickShipOrderByItem" short-description="Quick ships order based on item list">
         <!-- quick ship order using multiple packages per tracking number -->
         <!-- Parameters coming in: orderId, shipGroupSeqId,itemShipList, originFacilityId, setPackedOnly -->
@@ -1437,7 +1520,7 @@ under the License.
             <set from-field="itemIssuance.shipmentId" field="shipItemContext.shipmentId"/>
             <set from-field="itemIssuance.shipmentItemSeqId" field="shipItemContext.shipmentItemSeqId"/>
             <set from-field="itemIssuance.quantity" field="shipItemContext.quantity"/>
-            <call-service service-name="3ContentToPackage" in-map-name="shipItemContext">
+            <call-service service-name="addShipmentContentToPackage" in-map-name="shipItemContext">
                 <result-to-field result-name="shipmentPackageSeqId" field-name="packageMap.${itemMap.trackingNum}"/>
                 <result-to-field result-name="shipmentPackageSeqId" map-name="routeSegLookup"/>
             </call-service>
@@ -1702,4 +1785,5 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 -->
+
 

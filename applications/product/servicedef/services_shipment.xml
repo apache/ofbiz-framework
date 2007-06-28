@@ -661,5 +661,24 @@ under the License.
         <attribute name="currencyUomId" type="String" mode="IN" optional="false"/>
         <attribute name="packageValue" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
-
+    
+    <service name="issueSerializedInvToShipmentPackageAndSetTracking" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="issueSerializedInvToShipmentPackageAndSetTracking" auth="true">
+        <description></description>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>        
+        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="requireInventory" type="String" mode="IN" optional="true"/>
+        <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
+        <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
+        <attribute name="serialNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="trackingNum" type="String" mode="IN" optional="true"/>
+        <attribute name="originFacilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantityNotReserved" type="Double" mode="IN" optional="false"/>
+    </service>
 </services>

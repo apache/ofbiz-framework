@@ -230,6 +230,22 @@ under the License.
         <attribute name="priorityOrderItemSeqId" type="String" mode="IN" optional="true"/>
     </service>
 
+    <service name="reserveAnInventoryItem" engine="simple"
+            location="org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveAnInventoryItem" auth="true">
+        <description></description>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
+        <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="false"/>
+        <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
+        <attribute name="quantityNotReserved" type="Double" mode="INOUT" optional="false"/>
+    </service>
+                
     <service name="reserveProductInventory" engine="simple"
             location="org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveProductInventory" auth="true">
         <description>Reserve Inventory for a Product.
@@ -272,7 +288,7 @@ under the License.
             availableToPromise will be used to track quantity ordered beyond what is in stock.
         </description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="containerId" type="String" mode="IN" optional="false"/>
+        <attribute name="containerId" type="String" mode="IN" optional="false"/>        
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>

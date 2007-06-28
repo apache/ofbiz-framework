@@ -164,88 +164,63 @@ public class OagisShipmentServices {
             
             /*Code for Issuing the Items*/
             List orderItemShipGrpInvReservations = FastList.newInstance();            
-            Map reserveOrderItemInventoryCtx = FastMap.newInstance();
+            Map iSITSPASTCtx = FastMap.newInstance();
             Map result = null;
             //GenericValue inventoryItem = null;
             try {                
                 GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", documentId));                
-                String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");
-                
-                List shipmentItems = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", documentId, "productId",invItemItem));
-                GenericValue shipmentItem =  EntityUtil.getFirst(shipmentItems);
-                String shipmentItemSeqId = shipmentItem.getString("shipmentItemSeqId");
+                String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");                
+                String originFacilityId = shipment.getString("originFacilityId");                              
+                List shipmentItems = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", documentId, "productId",invItemItem));                
+                GenericValue shipmentItem =  EntityUtil.getFirst(shipmentItems);                
+                String shipmentItemSeqId = shipmentItem.getString("shipmentItemSeqId");                
                 //Now we have enough keys to lookup the right OrderShipment
-                List orderShipments = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", documentId, "shipmentItemSeqId",shipmentItemSeqId));
-                GenericValue orderShipment =   EntityUtil.getFirst(orderShipments);
-                String orderId = orderShipment.getString("orderId");
-                String orderItemSeqId = orderShipment.getString("orderItemSeqId");
-                
+                List orderShipments = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", documentId, "shipmentItemSeqId",shipmentItemSeqId));                
+                GenericValue orderShipment =   EntityUtil.getFirst(orderShipments);                
+                String orderId = orderShipment.getString("orderId");                
+                String orderItemSeqId = orderShipment.getString("orderItemSeqId");                
+                GenericValue product = delegator.findByPrimaryKey("Product",UtilMisc.toMap("productId",invItemItem));                
+                String requireInventory = product.getString("requireInventory");
+                if(requireInventory == null) {
+                    requireInventory = "N";
+                }                
                 // Look for reservations in some status.
-                orderItemShipGrpInvReservations = delegator.findByAnd("OrderItemShipGrpInvRes", UtilMisc.toMap("orderId", orderId,"orderItemSeqId",orderItemSeqId,"shipGroupSeqId",shipGroupSeqId));                
-                GenericValue orderItemShipGrpInvReservation =   EntityUtil.getFirst(orderItemShipGrpInvReservations);
-                GenericValue inventoryItem = delegator.findByPrimaryKey("InventoryItem", UtilMisc.toMap("inventoryItemId",orderItemShipGrpInvReservation.get("inventoryItemId")));
+                orderItemShipGrpInvReservations = delegator.findByAnd("OrderItemShipGrpInvRes", UtilMisc.toMap("orderId", orderId,"orderItemSeqId",orderItemSeqId,"shipGroupSeqId",shipGroupSeqId));               
+                GenericValue orderItemShipGrpInvReservation =   EntityUtil.getFirst(orderItemShipGrpInvReservations);                
+                GenericValue inventoryItem = delegator.findByPrimaryKey("InventoryItem", UtilMisc.toMap("inventoryItemId",orderItemShipGrpInvReservation.get("inventoryItemId")));                
+                String serialNumber = inventoryItem.getString("serialNumber");                
                 
+                iSITSPASTCtx.put("orderId", orderId);
+                iSITSPASTCtx.put("shipGroupSeqId", shipGroupSeqId);
+                iSITSPASTCtx.put("orderItemSeqId", orderItemSeqId);                
+                iSITSPASTCtx.put("quantity", shipmentItem.get("quantity"));
+                iSITSPASTCtx.put("quantityNotReserved", shipmentItem.get("quantity"));
+                iSITSPASTCtx.put("productId", invItemItem);
+                iSITSPASTCtx.put("reservedDatetime", orderItemShipGrpInvReservation.get("reservedDatetime"));
+                iSITSPASTCtx.put("requireInventory", requireInventory);
+                iSITSPASTCtx.put("reserveOrderEnumId", orderItemShipGrpInvReservation.get("reserveOrderEnumId"));
+                iSITSPASTCtx.put("sequenceId", orderItemShipGrpInvReservation.get("sequenceId"));
+                iSITSPASTCtx.put("originFacilityId", originFacilityId);
+                iSITSPASTCtx.put("userLogin", userLogin);
+                iSITSPASTCtx.put("serialNumber", invDetailSerialNum);
+                iSITSPASTCtx.put("trackingNum", shipUnitTrackingId);
+                iSITSPASTCtx.put("inventoryItemId", orderItemShipGrpInvReservation.get("inventoryItemId"));                
+                iSITSPASTCtx.put("shipmentId", documentId);                                
                 // Check if the inventory Item we reserved is same as Item shipped
-                // If not then reserve Inventory Item
-                String serialNumber = inventoryItem.getString("serialNumber");
-                if(invDetailSerialNum != null) {
-                    //The if codition is for chacking serialized Inventory.
-                    if(!serialNumber.equals(invDetailSerialNum)) {
-                        // Check if the Inventory we want is available
-                        inventoryItem = EntityUtil.getFirst(delegator.findByAnd("InventoryItem", UtilMisc.toMap("productId", invItemItem, "serialNumber", invDetailSerialNum)));
-                        Debug.logInfo("======== InventoryItem In Else ========="+inventoryItem, module);
-                        reserveOrderItemInventoryCtx.put("inventoryItemId", inventoryItem.getString("inventoryItemId"));
-                        result = dispatcher.runSync("reserveAnInventoryItem", reserveOrderItemInventoryCtx);
-                        
-                        Debug.logInfo("========reserveOrderItemInventory ========="+result, module);
-                    }                    
+                // If not then reserve Inventory Item                               
+                try {                    
+                    result = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", iSITSPASTCtx);                                      
+                } catch(Exception e) {
+                    Debug.logInfo("========In catch =========", module);
+                    return ServiceUtil.returnError("return error"+e);
                 }
-                Map orderItemShipGrpInvResCtx = FastMap.newInstance(); // This Map is for the issueOrderItemShipGrpInvResToShipment service.
-                orderItemShipGrpInvResCtx.put("shipmentId", documentId);
-                orderItemShipGrpInvResCtx.putAll(reserveOrderItemInventoryCtx);                    
-                result = dispatcher.runSync("issueOrderItemShipGrpInvResToShipment", orderItemShipGrpInvResCtx);
-                Debug.logInfo("==============result for issueOrderItemShipGrpInvResToShipment=========="+result, module);
-                
-
-                /*
-                 Here we have to put the code for inserting the Tracking number in ShipmentPackageRouteSegment.
-                 The tracking number is coming from shipUnitTrackingId.
-                */
-                
-                /*
-                //find shipmentRouteSegmentId by the help of shipmentId                
-                GenericValue shipmentRouteSegment = EntityUtil.getFirst(delegator.findByAnd("ShipmentRouteSegment", UtilMisc.toMap("shipmentId",documentId)));               
-                String shipmentRouteSegmentId = (String) shipmentRouteSegment.get("shipmentRouteSegmentId");
-                Debug.logInfo("================shipmentRouteSegmentId============== "+shipmentRouteSegmentId, module);
-               
-                //find shipmentPackageSeqId by the help of shipmentId
-                GenericValue shipmentPackage = EntityUtil.getFirst(delegator.findByAnd("ShipmentPackage", UtilMisc.toMap("shipmentId",documentId)));                
-                String shipmentPackageSeqId = shipmentPackage.getString("shipmentPackageSeqId");
-                Debug.logInfo("==============shipmetPackageSeqId========= "+shipmentPackageSeqId, module);                                     
-                
-                //Code for saving the tracking code..
-                Map map = new FastMap();
-                map.put("shipmentId", documentId);
-                map.put("shipmentRouteSegmentId", shipmentRouteSegmentId);
-                map.put("shipmentPackageSeqId", shipmentPackageSeqId);
-                map.put("trackingCode", shipUnitTrackingId);
-                map.put("userLogin", userLogin);
-                Debug.logInfo("==============ShipmentPackageRouteSeg========= "+map, module);
-                result = dispatcher.runSync("createShipmentPackageRouteSeg", map);
-                Debug.logInfo("==============Here is result========= "+result, module);
-                */
-                
             } catch (Exception e) {
                 return ServiceUtil.returnError("return error"+e);
-              }
+            }
         }catch (Exception e){
             Debug.logError(e, module);
         }
-        PrintWriter writer = new PrintWriter(new OutputStreamWriter(out));
-        writer.println("Service not Implemented");
-        writer.flush();
-        Map result = ServiceUtil.returnError("Service not Implemented");
-        return result;
+        return ServiceUtil.returnError("Service not Implemented");
         
     }
     
@@ -370,7 +345,7 @@ public class OagisShipmentServices {
         } catch (Exception e) {
             return ServiceUtil.returnError("error in creating message info" + e.getMessage());
         }
-        return ServiceUtil.returnSuccess();
+        return ServiceUtil.returnSuccess("Service Completed Successfully");
     }
     
     public static Map receiveDelivery(DispatchContext dctx, Map context) {
@@ -478,6 +453,6 @@ public class OagisShipmentServices {
                   Debug.logError("Error in Processing" + e.getMessage(), module);
             }
         }
-        return ServiceUtil.returnSuccess("");
+        return ServiceUtil.returnSuccess("Service Completed Successfully");
     }
 }
