@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.marketing.tracking;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -425,7 +426,7 @@ public class TrackingCodeEvents {
             GenericValue trackingCodeOrder = delegator.makeValue("TrackingCodeOrder", 
                     UtilMisc.toMap("trackingCodeTypeId", trackingCode.get("trackingCodeTypeId"), 
                     "trackingCodeId", trackingCodeId, "isBillable", isBillable, "siteId", siteId,
-                    "hasExported", "N", "affiliateReferredTimeStamp", affiliateReferredTimeStamp));
+                    "hasExported", "N", "affiliateReferredTimeStamp",Timestamp.valueOf(affiliateReferredTimeStamp) ));
             
             Debug.logInfo(" trackingCodeOrder is " + trackingCodeOrder, module);
             trackingCodeOrders.add(trackingCodeOrder);
