@@ -40,9 +40,15 @@
     <n:PROCESS_SHIPMENT>
       <n:SHIPMENT>
         <N2:DOCUMENTID>${shipment.shipmentId?if_exists}</N2:DOCUMENTID>
-        <N2:SHIPPERID></N2:SHIPPERID><#-- TODO: fill in from PartyCarrierAccount.accountNumber; make sure filter by from/thru date and PartyCarrierAccount.carrierPartyId==orderItemShipGroup.carrierPartyId; get most recent fromDate -->
+        <#if shipperId?has_content>
+          <N2:SHIPPERID>${shipperId}</N2:SHIPPERID><#-- TODO: fill in from PartyCarrierAccount.accountNumber; make sure filter by from/thru date and PartyCarrierAccount.carrierPartyId==orderItemShipGroup.carrierPartyId; get most recent fromDate -->
+        </#if>
         <N2:CARRIER>${orderItemShipGroup.carrierPartyId?if_exists}</N2:CARRIER>
-        <N2:FRGHTTERMS>PREPAID</N2:FRGHTTERMS><#-- TODO: if SHIPPERID?has_content then set to COLLECT -->
+        <#if shipperId?has_content>
+          <N2:FRGHTTERMS>PREPAID</N2:FRGHTTERMS><#-- TODO: if SHIPPERID?has_content then set to COLLECT -->
+        <#else>
+          <N2:FRGHTTERMS>COLLECT</N2:FRGHTTERMS>
+        </#if>
         <N2:NOTES>${orderItemShipGroup.shippingInstructions?if_exists}</N2:NOTES>
         <N2:SHIPNOTES></N2:SHIPNOTES><#-- if order was a return replacement order (associated with return), then set to RETURNLABEL otherwise leave blank -->
         <N2:TRANSMETHD>${orderItemShipGroup.shipmentMethodTypeId?if_exists}</N2:TRANSMETHD>

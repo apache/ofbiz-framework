@@ -29,6 +29,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Locale;
+import java.util.Set;
+import java.util.TreeSet;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
@@ -62,6 +65,8 @@ public class OagisShipmentServices {
 
     protected static final HtmlScreenRenderer htmlScreenRenderer = new HtmlScreenRenderer();
     protected static final FoFormRenderer foFormRenderer = new FoFormRenderer();
+    
+    public static final String resource = "OagisUiLabels";
     
     public static Map showShipment(DispatchContext ctx, Map context) {
         InputStream in = (InputStream) context.get("inputStream");
@@ -268,8 +273,9 @@ public class OagisShipmentServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
-        String shipmentId = (String) context.get("shipmentId");
+        //String shipmentId = (String) context.get("shipmentId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
 
         GenericValue orderHeader = null;
         try {
@@ -278,23 +284,23 @@ public class OagisShipmentServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-        Map csResult = null;
-        Map psmMap = new HashMap();
         GenericValue orderItemShipGroup = null;
         GenericValue productStore =null;
-        String orderStatusId = null;
+        GenericValue shipment =null;
         if (orderHeader != null) {
-            orderStatusId = orderHeader.getString("statusId");
+            String orderStatusId = orderHeader.getString("statusId");
             if (orderStatusId.equals("ORDER_APPROVED")) {
                 try {
+                    // There can be more then one ship Groups
                     orderItemShipGroup = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGroup", UtilMisc.toMap("orderId", orderId), UtilMisc.toList("shipGroupSeqId")));
                     String productStoreId = orderHeader.getString("productStoreId"); 
                     productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
                     String originFacilityId = productStore.getString("inventoryFacilityId");
                     String statusId = "SHIPMENT_INPUT";
                     
-                    csResult= dispatcher.runSync("createShipment", UtilMisc.toMap("primaryOrderId", orderId,"primaryShipGroupSeqId",orderItemShipGroup.get("shipGroupSeqId") ,"statusId", statusId ,"originFacilityId", originFacilityId ,"userLogin", userLogin));
-                    shipmentId = (String) csResult.get("shipmentId");
+                    Map  result= dispatcher.runSync("createShipment", UtilMisc.toMap("primaryOrderId", orderId,"primaryShipGroupSeqId",orderItemShipGroup.get("shipGroupSeqId") ,"statusId", statusId ,"originFacilityId", originFacilityId ,"userLogin", userLogin));
+                    shipmentId = (String) result.get("shipmentId");
+                    shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
 
                     List orderItems = new ArrayList();
                     Map orderItemCtx = new HashMap();
@@ -302,48 +308,110 @@ public class OagisShipmentServices {
                     Iterator oiIter = orderItems.iterator();
                     while (oiIter.hasNext()) {
                         GenericValue orderItem = (GenericValue) oiIter.next();
-                        
-                        orderItemCtx.put("orderId", orderItem.get("orderId"));
+                        orderItemCtx.put("orderId", orderId);
                         orderItemCtx.put("orderItemSeqId", orderItem.get("orderItemSeqId"));
                         orderItemCtx.put("shipmentId", shipmentId);
                         orderItemCtx.put("quantity", orderItem.get("quantity"));
                         orderItemCtx.put("userLogin", userLogin);
-                         
                         dispatcher.runSync("addOrderShipmentToShipment", orderItemCtx);
                     }
-                    String logicalId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.LOGICALID");
-                    String authId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.AUTHID");
-                    String referenceId = delegator.getNextSeqId("OagisMessageInfo");
-                    Timestamp timestamp = null;
-                    timestamp = UtilDateTime.nowTimestamp();
+                } catch (GeneralException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+                Set correspondingPoIdSet = new TreeSet();
+                try {
+                    List orderItems = orderHeader.getRelated("OrderItem");
+                    Iterator oiIter = orderItems.iterator();
+                    while (oiIter.hasNext()) {
+                        GenericValue orderItem = (GenericValue) oiIter.next();
+                        String correspondingPoId = orderItem.getString("correspondingPoId");
+                        correspondingPoIdSet.add(correspondingPoId);
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+                Set externalIdSet = new TreeSet();
+                try {
+                    GenericValue shipmentOrderHeader = shipment.getRelatedOne("PrimaryOrderHeader");
+                    externalIdSet.add(shipmentOrderHeader.getString("externalId"));
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+                
+                String logicalId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.LOGICALID");
+                String authId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.AUTHID");
+    
+                MapStack bodyParameters =  MapStack.create();
+                bodyParameters.put("logicalId", logicalId);
+                bodyParameters.put("authId", authId);
 
-                    psmMap.put("logicalId", logicalId);
-                    psmMap.put("authId", authId);
-                    psmMap.put("referenceId", referenceId);
-                    psmMap.put("sentDate", timestamp);
-                    psmMap.put("shipmentId", shipmentId);
-                    psmMap.put("userLogin", userLogin);
+                String referenceId = delegator.getNextSeqId("OagisMessageInfo");
+                bodyParameters.put("referenceId", referenceId);
                     
-                    // send the process shipment message
-                    dispatcher.runSync("sendProcessShipmentMsg", psmMap);                    
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
+                Timestamp timestamp = UtilDateTime.nowTimestamp();
+                String sentDate = dateFormat.format(timestamp);
+                bodyParameters.put("sentDate", sentDate);
+                
+                String partyId = shipment.getString("partyIdTo");
+                List partyCarrierAccounts = new ArrayList();
+                try {
+                    partyCarrierAccounts = delegator.findByAnd("PartyCarrierAccount", UtilMisc.toMap("partyId", partyId));
+                    partyCarrierAccounts = EntityUtil.filterByDate(partyCarrierAccounts);
+                    if (partyCarrierAccounts != null) {
+                        Iterator pcaIter = partyCarrierAccounts.iterator();
+                        while (pcaIter.hasNext()) {
+                            GenericValue partyCarrierAccount = (GenericValue) pcaIter.next();
+                            String carrierPartyId = partyCarrierAccount.getString("carrierPartyId");
+                            if (carrierPartyId.equals(orderItemShipGroup.getString("carrierPartyId"))) {
+                                String accountNumber = partyCarrierAccount.getString("accountNumber");
+                                bodyParameters.put("shipperId", accountNumber);
+                            }
+                        }
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+                bodyParameters.put("shipmentId", shipmentId);
+                bodyParameters.put("orderId", orderId);
+                bodyParameters.put("correspondingPoIdSet", correspondingPoIdSet);
+                bodyParameters.put("externalIdSet", externalIdSet);
+                bodyParameters.put("userLogin", userLogin);
+                String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ProcessShipment");
+                OutputStream out = (OutputStream) context.get("outputStream");
+                Writer writer = new OutputStreamWriter(out);
+                ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, new HtmlScreenRenderer());
+                try {
+                    screens.render(bodyScreenUri);
                 } catch (Exception e) {
-                    Debug.logError("Error in processing" + e.getMessage(), module);
+                      Debug.logError(e, "Error rendering [text/xml]: ", module);
+                }
+                // prepare map to Create Oagis Message Info
+                Map comiCtx = new HashMap();
+                comiCtx.put("logicalId", logicalId);
+                comiCtx.put("component", "INVENTORY");
+                comiCtx.put("task", "SHIPREQUES"); // Actual value of task is "SHIPREQUEST" which is more than 10 char
+                comiCtx.put("referenceId", referenceId);
+                comiCtx.put("authId", authId);
+                comiCtx.put("outgoingMessage", "Y");
+                comiCtx.put("sentDate", timestamp);
+                comiCtx.put("confirmation", "1");
+                comiCtx.put("bsrVerb", "PROCESS");
+                comiCtx.put("bsrNoun", "SHIPMENT");
+                comiCtx.put("bsrRevision", "001");
+                comiCtx.put("processingStatusId", orderStatusId);
+                comiCtx.put("orderId", orderId);
+                comiCtx.put("shipmentId", shipmentId);
+                comiCtx.put("userLogin", userLogin);
+                try {
+                    dispatcher.runSync("createOagisMessageInfo", comiCtx);
+                } catch (GenericServiceException e) {
+                    String errMsg = UtilProperties.getMessage(resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", locale);
+                    Debug.logError(e, errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
                 }
             }
-        }
-        psmMap.put("component", "INVENTORY");
-        psmMap.put("task", "SHIPREQUES"); // Actual value of task is "SHIPREQUES" which is more than 10 char 
-        psmMap.put("outgoingMessage", "Y");
-        psmMap.put("confirmation", "1");
-        psmMap.put("bsrVerb", "PROCESS");
-        psmMap.put("bsrNoun", "SHIPMENT");
-        psmMap.put("bsrRevision", "001");
-        psmMap.put("processingStatusId", orderStatusId);        
-        psmMap.put("orderId", orderId);        
-        try {
-            dispatcher.runSync("createOagisMessageInfo", psmMap);
-        } catch (Exception e) {
-            return ServiceUtil.returnError("error in creating message info" + e.getMessage());
         }
         return ServiceUtil.returnSuccess("Service Completed Successfully");
     }

@@ -27,9 +27,9 @@ import org.ofbiz.order.order.OrderReadHelper;
 shipmentId = parameters.get("shipmentId");
 if (shipmentId != null) {
     shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
-    
-    orderId = shipment.getString("primaryOrderId");
-    orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+    if (orderId != null) {
+        orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+    }
     OrderReadHelper orderReadHelper = new OrderReadHelper(orderHeader);
     if(orderReadHelper.hasShippingAddress()) {
         address = EntityUtil.getFirst(orderReadHelper.getShippingLocations());
@@ -41,6 +41,7 @@ if (shipmentId != null) {
 
     shipmentItems = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId)); 
     orderItemShipGroup = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGroup", UtilMisc.toMap("orderId", orderId)));
+    
     
     context.put("shipment", shipment);
     context.put("address", address);
