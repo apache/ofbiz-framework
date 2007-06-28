@@ -104,5 +104,18 @@ under the License.
         <description>Receive Delivery</description>
         <attribute name="returnId" mode="IN" type="String" optional="false"/>
     </service>
+    
+    <service name="receivePoAcknowledge" engine="java" transaction-timeout="300"
+            location="org.ofbiz.oagis.OagisInventoryServices" invoke="receivePoAcknowledgement" auth="false">
+        <description>Process PO Acknowledge message</description>
+        <implements service="serviceStreamInterface"/>
+    </service>
+
+    <service name="receiveRmaAcknowledge" engine="java" transaction-timeout="300"
+            location="org.ofbiz.oagis.OagisInventoryServices" invoke="receiveRmaAcknowledge" auth="false">
+        <description>Process RMA Acknowledge message</description>
+        <implements service="serviceStreamInterface"/>
+    </service>
+
 
 </services>
