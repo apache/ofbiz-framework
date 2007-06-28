@@ -47,15 +47,13 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="FindBillingAccount">
         <section>
             <actions>
                 <set field="title" value="Find Billing Account(s)"/>
                 <set field="titleProperty" value="PageTitleFindBillingAccount"/>
                 <set field="headerItem" value="billingaccount"/>
-                
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/billingaccount/FindBillingAccount.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -66,13 +64,30 @@ under the License.
                                 <if-empty field-name="parameters.partyId"/>
                             </condition>
                             <widgets>
-                                <container><link target="EditBillingAccount" text="${uiLabelMap.CommonNew}" style="buttontext"/></container>
+                                <section>
+                                    <actions>
+                                        <entity-condition entity-name="BillingAccount" list-name="billingAccounts"/>
+                                    </actions>
+                                    <widgets>
+                                        <container><link target="EditBillingAccount" text="${uiLabelMap.CommonNew}" style="buttontext"/></container>
+                                        <include-form name="ListBillingAccounts" location="component://accounting/widget/BillingAccountForms.xml"/>
+                                    </widgets>
+                                </section>
                             </widgets>
                             <fail-widgets>
-                                <container><link target="EditBillingAccount?partyId=${parameters.partyId}&amp;roleTypeId=BILL_TO_CUSTOMER" text="${uiLabelMap.CommonNew} " style="buttontext"/></container>
+                                <section>
+                                    <actions>
+                                        <entity-condition entity-name="BillingAccountAndRole" list-name="billingAccounts">
+                                            <condition-expr field-name="partyId" env-name="parameters.partyId"/>
+                                        </entity-condition>
+                                    </actions>
+                                    <widgets>
+                                        <container><link target="EditBillingAccount?partyId=${parameters.partyId}&amp;roleTypeId=BILL_TO_CUSTOMER" text="${uiLabelMap.CommonNew} " style="buttontext"/></container>
+                                        <include-form name="ListBillingAccountsByParty" location="component://accounting/widget/BillingAccountForms.xml"/>
+                                    </widgets>
+                                </section>
                             </fail-widgets>
                         </section>
-                        <include-form name="ListBillingAccounts" location="component://accounting/widget/BillingAccountForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
