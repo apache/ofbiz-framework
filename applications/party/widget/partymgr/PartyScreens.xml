@@ -706,5 +706,27 @@ under the License.
             </widgets>            
         </section>
     </screen>
+    
+    <screen name="editCarrierAccount">
+        <section> 
+            <actions>
+                <set field="titleProperty" value="PageTitlePartyCarrierAccount"/>				
+            </actions>           
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="boxoutside">
+                            <container style="screenlet-title-bar">                        
+                                <label style="boxhead">${uiLabelMap.PartyShipperAccount}</label>                                
+                            </container>
+                            <include-form name="EditCarrierAccount" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
 </screens>
+
 

@@ -66,9 +66,12 @@ under the License.
 
   <#-- Party Content -->
   ${screens.render('component://party/widget/partymgr/ProfileScreens.xml#Content')}
+ 
+ <#-- Shipper Account Info -->
+  ${screens.render('component://party/widget/partymgr/ProfileScreens.xml#ShipperAccount')}
 
   <#-- Party Notes -->
-  ${screens.render('component://party/widget/partymgr/ProfileScreens.xml#Notes')}
+  ${screens.render('component://party/widget/partymgr/ProfileScreens.xml#Notes')}  
 <#else>
   ${uiLabelMap.PartyNoPartyFoundWithPartyId}: ${parameters.partyId?if_exists}
 </#if>

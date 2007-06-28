@@ -822,4 +822,21 @@ under the License.
         <entity-one entity-name="PartyRelationship" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    
+    <simple-method method-name="createPartyCarrierAccount" short-description="Create PartyCarrierAccount">
+        <make-value entity-name="PartyCarrierAccount" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field-name="newEntity.fromDate">
+            <now-timestamp-to-env env-name="nowTimeStamp"/>
+            <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
+        </if-empty>        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    
+     <simple-method method-name="updatePartyCarrierAccount" short-description="Update a PartyCarrierAccount">        
+        <entity-one entity-name="PartyCarrierAccount" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>        
+        <store-value value-name="lookedUpValue"/>
+    </simple-method> 
 </simple-methods>

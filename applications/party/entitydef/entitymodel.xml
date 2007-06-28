@@ -1479,7 +1479,7 @@ under the License.
         <field name="carrierPartyId" type="id-ne"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
-        <field name="accountNumber" type="date-time"><!-- the customer's or user's account number, also known as the shipper number sometimes --></field>
+        <field name="accountNumber" type="id-ne"><!-- the customer's or user's account number, also known as the shipper number sometimes --></field>
         <prim-key field="partyId"/>
         <prim-key field="carrierPartyId"/>
         <prim-key field="fromDate"/>

@@ -892,7 +892,25 @@ under the License.
         <response name="success" type="none"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-
+    
+    <request-map uri="editCarrierAccount">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="editCarrierAccount"/>
+        <response name="error" type="view" value="editCarrierAccount"/>
+    </request-map>    
+    <request-map uri="createPartyCarrierAccount">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="createPartyCarrierAccount"/>
+        <response name="success" type="view" value="viewprofile"/>
+        <response name="error" type="view" value="editCarrierAccount"/>
+    </request-map>    
+    <request-map uri="updatePartyCarrierAccount">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="updatePartyCarrierAccount"/>
+        <response name="success" type="view" value="viewprofile"/>
+        <response name="error" type="view" value="viewprofile"/>
+    </request-map>
+                
     <!-- Lookup request mappings -->
     <request-map uri="LookupPartyName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupPerson"><security https="true" auth="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
@@ -1003,5 +1021,6 @@ under the License.
     <view-map name="AddressMatchMap" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#AddressMatchMap"/>
     <view-map name="FindAddressMatch" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#FindAddressMatch"/>
     <view-map name="EditPartyContents" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPartyContents"/>
+    <view-map name="editCarrierAccount" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#editCarrierAccount"/>
     <!-- end of view mappings -->
 </site-conf>
