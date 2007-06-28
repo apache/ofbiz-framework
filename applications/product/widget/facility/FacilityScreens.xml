@@ -370,15 +370,24 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditFacilityGroups"/>
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="EditFacilityGroups"/>
-
-                <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditFacilityGroups.bsh"/>
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <set field="facilityGroupId" from-field="parameters.facilityGroupId"/>
+                <set field="orderByList[]" value="sequenceNum"/> 
+                <entity-one entity-name="Facility" value-name="facility"/>
+                <get-related value-name="facility" relation-name="FacilityGroupMember" list-name="facilityGroupMembers" order-by-list-name="orderByList"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/facility/EditFacilityGroups.ftl"/></html>
-                        </platform-specific>
+                        <container>
+                            <label style="head1">${uiLabelMap.ProductGroupsFor} ${uiLabelMap.CommonFor}:</label>
+                            <label style="head1">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
+                        </container>
+                        <container><link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/></container>
+                        <container><label style="head2">${uiLabelMap.ProductGroupMemberMaintenance}</label></container>
+                        <include-form name="EditFacilityGroups" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        <container><label style="head2">${uiLabelMap.ProductAddFacilityGroupMember}</label></container>
+                        <include-form name="addGroupToFacility" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

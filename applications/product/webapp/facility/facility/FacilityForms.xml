@@ -289,4 +289,31 @@ under the License.
             <submit/>
         </field>
     </form>
+    <!-- Forms of FacilityGroups    -->
+    <form name="EditFacilityGroups" type="list" target="updateGroupToFacility" title="" list-name="facilityGroupMembers">
+        <auto-fields-entity entity-name="FacilityGroupMember"/>
+        <field name="facilityId"><hidden/></field>
+        <field name="facilityGroupId">
+            <display-entity entity-name="FacilityGroup" key-field-name="facilityGroupId" description="${facilityGroupName}">
+                <sub-hyperlink target="EditFacilityGroup?facilityGroupId=${facilityGroupId}" description="[${facilityGroupId}]"/>
+            </display-entity>
+        </field>
+        <field name="fromDate"><display/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="removeGroupFromFacility?facilityId=${facilityId}&amp;facilityGroupId=${facilityGroupId}&amp;fromDate=${fromDate}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="addGroupToFacility" type="single" target="addGroupToFacility" title="">
+        <auto-fields-entity entity-name="FacilityGroupMember"/>
+        <field name="facilityId"><hidden/></field>
+        <field name="facilityGroupId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="FacilityGroup" key-field-name="facilityGroupId" description="${facilityGroupName}">
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
+    </form>
 </forms>
