@@ -58,6 +58,7 @@ under the License.
     <service name="sendConfirmBod" engine="java" transaction-timeout="300"
             location="org.ofbiz.oagis.OagisServices" invoke="sendConfirmBod" auth="false">
         <description>Send ConfirmBod</description>
+        <attribute name="outputStream" type="java.io.OutputStream" mode="IN"/>
         <attribute name="logicalId" type="String" mode="IN" optional="false"/>
         <attribute name="component" type="String" mode="IN" optional="false"/>
         <attribute name="task" type="String" mode="IN" optional="false"/>

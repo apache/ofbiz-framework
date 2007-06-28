@@ -72,7 +72,8 @@ public class OagisServices {
         bodyParameters.put("referenceId", referenceId);
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
-        String sentDate = dateFormat.format(UtilDateTime.nowTimestamp());
+        Timestamp timestamp = UtilDateTime.nowTimestamp();
+        String sentDate = dateFormat.format(timestamp);
         bodyParameters.put("sentDate", sentDate);
         
         bodyParameters.put("errorLogicalId", context.get("logicalId"));
@@ -98,7 +99,7 @@ public class OagisServices {
         oagisMsgInfoContext.put("task", "RECIEPT");
         oagisMsgInfoContext.put("referenceId", referenceId);
         oagisMsgInfoContext.put("authId", authId);
-        oagisMsgInfoContext.put("sentDate", sentDate);
+        oagisMsgInfoContext.put("sentDate", timestamp);
         oagisMsgInfoContext.put("confirmation", "0");
         oagisMsgInfoContext.put("bsrVerb", "CONFIRM");
         oagisMsgInfoContext.put("bsrNoun", "BOD");

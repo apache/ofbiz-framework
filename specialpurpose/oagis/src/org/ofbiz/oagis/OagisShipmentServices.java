@@ -192,7 +192,7 @@ public class OagisShipmentServices {
                         inventoryItem = EntityUtil.getFirst(delegator.findByAnd("InventoryItem", UtilMisc.toMap("productId", invItemItem, "serialNumber", invDetailSerialNum)));
                         Debug.logInfo("======== InventoryItem In Else ========="+inventoryItem, module);
                         reserveOrderItemInventoryCtx.put("inventoryItemId", inventoryItem.getString("inventoryItemId"));
-                        result = dispatcher.runSync("reserveOrderItemInventory", reserveOrderItemInventoryCtx);
+                        result = dispatcher.runSync("reserveAnInventoryItem", reserveOrderItemInventoryCtx);
                         
                         Debug.logInfo("========reserveOrderItemInventory ========="+result, module);
                     }                    
