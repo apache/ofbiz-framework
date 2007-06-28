@@ -70,16 +70,16 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
 
             // handle nulls better
             if (o == null) {
-                o = new Double(0.00);
+                o = 0.00;
             }
 
             if (o instanceof NumberModel) {
                 NumberModel s = (NumberModel) o;
-                return new Double( s.getAsNumber().doubleValue() );
+                return s.getAsNumber().doubleValue();
             }
             if (o instanceof SimpleNumber) {
                 SimpleNumber s = (SimpleNumber) o;
-                return new Double( s.getAsNumber().doubleValue() );
+                return s.getAsNumber().doubleValue();
             }
             if (o instanceof SimpleScalar) {
                 SimpleScalar s = (SimpleScalar) o;
@@ -87,7 +87,34 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
             }
             return new Double( o.toString() );
         }
-        return new Double(0.00);
+        return 0.00;
+    }
+
+    private static Integer getInteger(Map args, String key) {
+        if (args.containsKey(key)) {
+            Object o = args.get(key);
+            if (Debug.verboseOn()) Debug.logVerbose("Amount Object : " + o.getClass().getName(), module);
+
+            // handle nulls better
+            if (o == null) {
+                o = 0;
+            }
+
+            if (o instanceof NumberModel) {
+                NumberModel s = (NumberModel) o;
+                return s.getAsNumber().intValue();
+            }
+            if (o instanceof SimpleNumber) {
+                SimpleNumber s = (SimpleNumber) o;
+                return s.getAsNumber().intValue();
+            }
+            if (o instanceof SimpleScalar) {
+                SimpleScalar s = (SimpleScalar) o;
+                return new Integer( s.getAsString() );
+            }
+            return new Integer(o.toString());
+        }
+        return 0;
     }
     
     public Writer getWriter(final Writer out, Map args) {
@@ -96,6 +123,13 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
         final Double amount = OfbizCurrencyTransform.getAmount(args, "amount");
         final String isoCode = OfbizCurrencyTransform.getArg(args, "isoCode");
         final String locale = OfbizCurrencyTransform.getArg(args, "locale");
+
+        // check the rounding -- DEFAULT is 10 to not round for display, only use this when necessary
+        // rounding should be handled by the code, however some times the numbers are coming from
+        // someplace else (i.e. an integration)
+        int roundingNumber = getInteger(args, "rounding");
+        if (roundingNumber == 0) roundingNumber = 10;
+        final int rounding = roundingNumber;
 
         return new Writer(out) {
             public void write(char cbuf[], int off, int len) {
@@ -115,12 +149,12 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
                         BeanModel req = (BeanModel) env.getVariable("request");
                         if (req != null) {
                             HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
-                            out.write(UtilFormatOut.formatCurrency(amount, isoCode, UtilHttp.getLocale(request), 10)); // we set the max to 10 digits as an hack to not round numbers in the ui
+                            out.write(UtilFormatOut.formatCurrency(amount, isoCode, UtilHttp.getLocale(request), rounding)); // we set the max to 10 digits as an hack to not round numbers in the ui
                         } else {
-                            out.write(UtilFormatOut.formatCurrency(amount, isoCode, env.getLocale(), 10)); // we set the max to 10 digits as an hack to not round numbers in the ui
+                            out.write(UtilFormatOut.formatCurrency(amount, isoCode, env.getLocale(), rounding)); // we set the max to 10 digits as an hack to not round numbers in the ui
                         }
                     } else {
-                        out.write(UtilFormatOut.formatCurrency(amount.doubleValue(), isoCode, new Locale(locale), 10)); // we set the max to 10 digits as an hack to not round numbers in the ui
+                        out.write(UtilFormatOut.formatCurrency(amount.doubleValue(), isoCode, new Locale(locale), rounding)); // we set the max to 10 digits as an hack to not round numbers in the ui
                     }
                 } catch (TemplateModelException e) {
                     throw new IOException(e.getMessage());
