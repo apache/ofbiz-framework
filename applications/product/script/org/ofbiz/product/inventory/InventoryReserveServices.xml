@@ -249,7 +249,37 @@ under the License.
 
         <field-to-result field-name="quantityNotReserved" map-name="parameters"/>
     </simple-method>
-
+    
+    <simple-method method-name="reserveAnInventoryItem" short-description="Reserve a Specific Serialized InventoryItem">
+        <!-- 
+        Well the InventoryItem I want to reserve is already reserved, But my customer wants the just this inventoryItem. 
+        Let me find the reservation on this inventory, cancel it and re-reserve something else for the other order.
+        This way I'll get what I want and the other orderItem will also have a similar thing to issue.
+        -->        
+        <set field="inventoryItemLookUp.inventoryItemId" from-field="parameters.inventoryItemId"/>
+        <find-by-primary-key map-name="inventoryItemLookUp" entity-name="InventoryItem" value-name="inventoryItem"/>        
+        <set field="inventoryReservationLookUp.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
+        <find-by-and map-name="inventoryReservationLookUp" list-name="invReservations" entity-name="OrderItemShipGrpInvRes"/>
+        <first-from-list entry-name="inventoryItemReservation" list-name="invReservations"/>        
+        <set-service-fields map-name="inventoryItemReservation" to-map-name="cancelOrderItemShipGrpInvResMap" service-name="cancelOrderItemShipGrpInvRes"/>        
+        <set-service-fields map-name="inventoryItemReservation" to-map-name="reReserveOrderItemShipGrpInvResMap" service-name="reserveProductInventory"/>        
+        <!-- We'll get all except productId, facilityId, requireInventory fields in  inventoryItemReservation -->
+        <set field="reReserveOrderItemShipGrpInvResMap.facilityId" from-field="parameters.facilityId"/>
+        <set field="reReserveOrderItemShipGrpInvResMap.productId" from-field="parameters.productId"/>
+        <set field="reReserveOrderItemShipGrpInvResMap.requireInventory" from-field="parameters.requireInventory"/>                
+        <!-- Step 1 call the cancel reservation service -->
+        <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
+        <!-- Step 2 call this method again and the reservation should go through -->
+        <set field="orderHeaderMap.orderId" from-field="parameters.orderId"/>
+        <find-by-primary-key entity-name="OrderHeader" value-name="orderHeader" map-name="orderHeaderMap"/>
+        <call-simple-method method-name="reserveForInventoryItemInline"/>
+        <!-- Step 3 Now last thing, lets reReserve inventory for order form where we got our item. Be curtious -->
+        <call-service service-name="reserveProductInventory" in-map-name="reReserveOrderItemShipGrpInvResMap">        
+            <result-to-field result-name="quantityNotReserved" field-name="paramaters.quantityNotReserved"/>
+        </call-service>
+        <field-to-result field-name="quantityNotReserved" map-name="parameters"/>
+    </simple-method>
+    
     <simple-method method-name="reserveForInventoryItemInline" short-description="Does a reservation for one InventoryItem, meant to be called in-line">
         <!-- only do something with this inventoryItem if there is more inventory to reserve -->
         <if-compare field-name="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
@@ -491,4 +521,5 @@ under the License.
         </if-compare>
     </simple-method>
 </simple-methods>
+
 
