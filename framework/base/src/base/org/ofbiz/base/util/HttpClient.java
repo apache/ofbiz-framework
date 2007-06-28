@@ -451,8 +451,10 @@ public class HttpClient {
                 DataOutputStream out = new DataOutputStream(con.getOutputStream());
                 if (Debug.verboseOn() || debug) Debug.log("Opened output stream", module);
 
-                out.writeBytes(arguments);
-                if (Debug.verboseOn() || debug) Debug.log("Wrote arguements (parameters) : " + arguments, module);
+                if (arguments != null) {
+                    out.writeBytes(arguments);
+                    if (Debug.verboseOn() || debug) Debug.log("Wrote arguements (parameters) : " + arguments, module);
+                }
 
                 out.flush();
                 out.close();
