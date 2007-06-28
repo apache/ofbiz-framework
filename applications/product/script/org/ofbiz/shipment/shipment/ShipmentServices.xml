@@ -1344,7 +1344,48 @@ under the License.
             </if-empty>
         </iterate>
     </simple-method>
+    
+    <simple-method method-name="createOrderShipmentPlan" short-description="Create Shipment, ShipmentItems and OrderShipment">
+        <!-- first get the order header; make sure we have a product store -->
+        <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
+        <if-empty field-name="productStoreId" map-name="orderHeader">
+            <!-- no store cannot use quick ship; throw error -->
+            <add-error><fail-message message="No ProductStore associated with order; cannot use Quick Ship"/></add-error>
+            <check-errors/>
+        </if-empty>
 
+        <!-- get the product store entity -->
+        <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="false">
+            <field-map field-name="productStoreId" env-name="orderHeader.productStoreId"/>
+        </entity-one>
+        <get-related relation-name="OrderItemShipGroup" value-name="orderHeader" list-name="orderItemShipGroupList"/>
+
+        <iterate list-name="orderItemShipGroupList" entry-name="orderItemShipGroup">
+            <!-- For each shipGroup create Shipment -->
+            <clear-field field-name="createShipmentContext"/>
+            <set field="createShipmentContext.primaryOrderId" from-field="orderHeader.orderId"/>
+            <set field="createShipmentContext.primaryShipGroupSeqId" from-field="orderItemShipGroup.shipGroupSeqId"/>
+            <set field="createShipmentContext.statusId" value="SHIPMENT_INPUT"/>
+            <set field="createShipmentContext.originFacilityId" from-field="productStore.inventoryFacilityId"/>
+            <set field="createShipmentContext.userLogin" from-field="parameters.userLogin"/>
+            <call-service service-name="createShipment" in-map-name="createShipmentContext">
+                <result-to-field result-name="shipmentId" field-name="shipmentId"/>
+            </call-service>            
+            <entity-one entity-name="Shipment" value-name="shipment"/>
+            <get-related value-name="orderHeader" relation-name="OrderItem" list-name="orderItems"/>
+            <iterate entry-name="orderItem" list-name="orderItems">
+                <!-- Create shipment item -->
+                <clear-field field-name="addOrderShipmentToShipmentCtx"/>
+                <set field="addOrderShipmentToShipmentCtx.orderId" from-field="orderHeader.orderId"/>
+                <set field="addOrderShipmentToShipmentCtx.orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+                <set field="addOrderShipmentToShipmentCtx.shipmentId" from-field="shipmentId"/>
+                <set field="addOrderShipmentToShipmentCtx.quantity" from-field="orderItem.quantity"/>
+                <set field="addOrderShipmentToShipmentCtx.userLogin" from-field="parameters.userLogin"/>
+                <call-service service-name="addOrderShipmentToShipment" in-map-name="addOrderShipmentToShipmentCtx"/>            
+            </iterate>
+        </iterate>
+    </simple-method>
+    
     <simple-method method-name="issueSerializedInvToShipmentPackageAndSetTracking" short-description="">
         <!-- If serialNumber is provided, Then compare it with the serialNumber of inventoryItem on reservation. If they don't match,
             We'll have to reReserve specific inventory that is shiped. -->
