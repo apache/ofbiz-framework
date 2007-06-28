@@ -178,6 +178,7 @@ under the License.
 
             <#assign manualAdjRowNum = rowCount/>
             <input type="hidden" name="returnItemTypeId_o_${rowCount}" value="RET_MAN_ADJ"/>
+            <input type="hidden" name="returnItemSeqId_o_${rowCount}" value="_NA_"/>
             <tr><td colspan="9"><hr class="sepbar"></td></tr>
             <tr>
               <td colspan="9">
