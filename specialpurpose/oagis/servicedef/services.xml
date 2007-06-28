@@ -99,5 +99,10 @@ under the License.
         <attribute name="referenceId" mode="IN" type="String" optional="false"/>
         <attribute name="sentDate" mode="IN" type="Timestamp" optional="false"/>
     </service>
+    <service name="receiveDelivery" max-retry="0" engine="java"
+        location="org.ofbiz.oagis.OagisShipmentServices" invoke="receiveDelivery">
+        <description>Receive Delivery</description>
+        <attribute name="returnId" mode="IN" type="String" optional="false"/>
+    </service>
 
 </services>

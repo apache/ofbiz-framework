@@ -30,6 +30,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 
 import javolution.util.FastMap;
 import javolution.util.FastList;
@@ -37,6 +39,7 @@ import javolution.util.FastList;
 import org.w3c.dom.Document;
 
 import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.base.util.*;
@@ -368,5 +371,113 @@ public class OagisShipmentServices {
             return ServiceUtil.returnError("error in creating message info" + e.getMessage());
         }
         return ServiceUtil.returnSuccess();
+    }
+    
+    public static Map receiveDelivery(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+        String returnId = (String) context.get("returnId");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        GenericValue returnHeader = null;
+        GenericValue postalAddress =null;
+        List returnItems = new ArrayList();
+        String partyId = null;
+        String orderId = null;
+        if (returnId != null) {
+            try {
+                returnHeader = delegator.findByPrimaryKey("ReturnHeader", UtilMisc.toMap("returnId", returnId));
+                String statusId = returnHeader.getString("statusId");
+                if (statusId.equals("RETURN_ACCEPTED")) {
+                    returnItems = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId));
+                    postalAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", returnHeader.getString("originContactMechId")));
+                            
+                    // calculate total qty of return items in a shipping unit received
+                    double itemQty = 0.0;
+                    double totalQty = 0.0;
+                    Iterator riIter = returnItems.iterator();
+                    while (riIter.hasNext()) {
+                        GenericValue returnItem = (GenericValue) riIter.next();
+                        itemQty = returnItem.getDouble("returnQuantity").doubleValue();
+                        totalQty = totalQty + itemQty;
+                        orderId = returnItem.getString("orderId");
+                    }
+                    partyId = returnHeader.getString("fromPartyId");
+                    List partyContactMechs = new ArrayList();
+                    GenericValue contactMech = null;
+                    GenericValue telecomNumber =null;
+                    String emailString = null;
+                    partyContactMechs = delegator.findByAnd("PartyContactMech", UtilMisc.toMap("partyId", partyId));
+                    Iterator pcmIter = partyContactMechs.iterator();
+                    while (pcmIter.hasNext()) {
+                        GenericValue partyContactMech = (GenericValue) pcmIter.next();
+                        String contactMechId = partyContactMech.getString("contactMechId");
+                        contactMech = delegator.findByPrimaryKey("ContactMech", UtilMisc.toMap("contactMechId", contactMechId));
+                        String contactMechTypeId = contactMech.getString("contactMechTypeId");
+                        if(contactMechTypeId.equals("EMAIL_ADDRESS")) {
+                            emailString = contactMech.getString("infoString");
+                        }
+                        if(contactMechTypeId.equals("TELECOM_NUMBER")) {
+                            telecomNumber = delegator.findByPrimaryKey("TelecomNumber", UtilMisc.toMap("contactMechId", contactMechId));
+                        }
+                    }
+                    String logicalId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.LOGICALID");
+                    String authId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.AUTHID");
+                    String referenceId = delegator.getNextSeqId("OagisMessageInfo");
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
+                    Timestamp timestamp = UtilDateTime.nowTimestamp();
+                    String sentDate = dateFormat.format(timestamp);
+                    Map bodyParameters = new HashMap();
+                    bodyParameters.put("returnId", returnId);
+                    bodyParameters.put("returnItems", returnItems);
+                    bodyParameters.put("totalQty", new Double(totalQty));
+                    bodyParameters.put("postalAddress", postalAddress);
+                    bodyParameters.put("telecomNumber", telecomNumber);
+                    bodyParameters.put("emailString", emailString);
+                    bodyParameters.put("logicalId", logicalId);
+                    bodyParameters.put("authId", authId);
+                    bodyParameters.put("referenceId", referenceId);
+                    bodyParameters.put("sentDate", sentDate);
+                    bodyParameters.put("returnId", returnId);
+                    String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ReceiveDelivery");
+                    Map emfsCtx = new HashMap();
+                    emfsCtx.put("bodyParameters", bodyParameters);
+                    emfsCtx.put("bodyScreenUri", bodyScreenUri);
+                            
+                    // export the message
+                    try {
+                        dispatcher.runSync("exportMsgFromScreen", emfsCtx);
+                    } catch (GenericServiceException e) {
+                        Debug.logError("Error in exporting message" + e.getMessage(), module);
+                        return ServiceUtil.returnError("Error in exporting message");
+                    }
+                            
+                    // prepare map to store BOD information
+                    Map comiCtx = new HashMap();
+                    comiCtx.put("logicalId", logicalId);
+                    comiCtx.put("authId", authId);
+                    comiCtx.put("referenceId", referenceId);
+                    comiCtx.put("sentDate", timestamp);
+                    comiCtx.put("component", "INVENTORY");
+                    comiCtx.put("task", "RMA");  
+                    comiCtx.put("outgoingMessage", "Y");
+                    comiCtx.put("confirmation", "1");
+                    comiCtx.put("bsrVerb", "RECEIVE");
+                    comiCtx.put("bsrNoun", "DELIVERY");
+                    comiCtx.put("bsrRevision", "001");
+                    comiCtx.put("processingStatusId", statusId);        
+                    comiCtx.put("returnId", returnId);
+                    comiCtx.put("orderId", orderId);
+                    comiCtx.put("userLogin", userLogin);
+                    try {
+                        dispatcher.runSync("createOagisMessageInfo", comiCtx);
+                    } catch (GenericServiceException e) {
+                          return ServiceUtil.returnError("Error in creating message info" + e.getMessage());
+                    }
+                }
+            } catch (Exception e) {
+                  Debug.logError("Error in Processing" + e.getMessage(), module);
+            }
+        }
+        return ServiceUtil.returnSuccess("");
     }
 }

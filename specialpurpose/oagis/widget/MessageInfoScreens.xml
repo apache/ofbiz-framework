@@ -126,4 +126,14 @@
         </section>
     </screen>
     
+    <screen name="ReceiveDelivery">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://oagis/webapp/oagis/message/ReceiveDelivery.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    
 </screens>
