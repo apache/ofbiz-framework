@@ -229,45 +229,6 @@ public class OagisShipmentServices {
         
     }
     
-    public static void writeScreenToOutputStream(OutputStream out, String bodyScreenUri, MapStack parameters){
-
-        Writer writer = new OutputStreamWriter(out);
-        ScreenRenderer screens = new ScreenRenderer(writer, parameters, new HtmlScreenRenderer());
-        try {
-            screens.render(bodyScreenUri);
-        } catch (Exception e) {
-            Debug.logError(e, "Error rendering [text/xml]: ", module);
-        }
-
-    }
-    
-    
-    public static Map exportMsgFromScreen(DispatchContext dctx, Map serviceContext) {
-
-        String bodyScreenUri = (String) serviceContext.remove("bodyScreenUri");
-        Map bodyParameters = (Map) serviceContext.remove("bodyParameters");
-
-        MapStack screenContext = MapStack.create();
-        Writer bodyWriter = new StringWriter();
-        ScreenRenderer screens = new ScreenRenderer(bodyWriter, screenContext, htmlScreenRenderer);
-        if (bodyParameters != null) {
-            screens.populateContextForService(dctx, bodyParameters);
-            screenContext.putAll(bodyParameters);
-        }
-        //screenContext.putAll(serviceContext);
-        //screens.getContext().put("formStringRenderer", foFormRenderer);
-        try {
-            screens.render(bodyScreenUri);
-        } catch (Exception e) {
-            String errMsg = "Error rendering [text/xml]: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
-        }
-        Map result = ServiceUtil.returnSuccess();
-        Debug.logInfo(bodyWriter.toString(), module);
-        result.put("body", bodyWriter.toString());
-        return result;
-    }
 
     public static Map processShipment(DispatchContext ctx, Map context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();

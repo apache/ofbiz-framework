@@ -85,7 +85,6 @@ public class OagisServices {
         bodyParameters.put("origRef", context.get("origRefId"));
         OutputStream out = (OutputStream) context.get("outputStream");
         String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ConfirmBod");
-        OagisShipmentServices.writeScreenToOutputStream(out, bodyScreenUri, bodyParameters);
         Writer writer = new OutputStreamWriter(out);
         ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, new HtmlScreenRenderer());
         try {
