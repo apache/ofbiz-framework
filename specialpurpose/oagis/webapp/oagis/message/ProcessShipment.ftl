@@ -45,12 +45,12 @@
         </#if>
         <N2:CARRIER>${orderItemShipGroup.carrierPartyId?if_exists}</N2:CARRIER>
         <#if shipperId?has_content>
-          <N2:FRGHTTERMS>PREPAID</N2:FRGHTTERMS><#-- TODO: if SHIPPERID?has_content then set to COLLECT -->
+          <N2:FRGHTTERMS>COLLECT</N2:FRGHTTERMS><#-- TODO: if SHIPPERID?has_content then set to COLLECT -->
         <#else>
-          <N2:FRGHTTERMS>COLLECT</N2:FRGHTTERMS>
+          <N2:FRGHTTERMS>PREPAID</N2:FRGHTTERMS>
         </#if>
         <N2:NOTES>${orderItemShipGroup.shippingInstructions?if_exists}</N2:NOTES>
-        <N2:SHIPNOTES></N2:SHIPNOTES><#-- if order was a return replacement order (associated with return), then set to RETURNLABEL otherwise leave blank -->
+        <N2:SHIPNOTES>${shipnotes?if_exists}</N2:SHIPNOTES><#-- if order was a return replacement order (associated with return), then set to RETURNLABEL otherwise leave blank -->
         <N2:TRANSMETHD>${orderItemShipGroup.shipmentMethodTypeId?if_exists}</N2:TRANSMETHD>
         <N1:PARTNER>
           <#if address?has_content>
@@ -71,7 +71,7 @@
               <N2:TELEPHONE><#if telecomNumber.countryCode?has_content>${telecomNumber.countryCode}-</#if>${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</N2:TELEPHONE>
             </N1:ADDRESS>
             <N1:CONTACT>
-              <N2:NAME>${address.attnName?if_exists}</N2:NAME>
+              <N2:NAME>${address.toName?if_exists}</N2:NAME>
               <N2:EMAIL>${emailString?if_exists}</N2:EMAIL>
               <N2:FAX></N2:FAX>
               <N2:TELEPHONE><#if telecomNumber.countryCode?has_content>${telecomNumber.countryCode}-</#if>${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</N2:TELEPHONE>
@@ -99,14 +99,14 @@
         <#list externalIdSet?if_exists as externalId>
         <n:DOCUMNTREF>
           <N2:DOCTYPE>PARTNER_SO</N2:DOCTYPE>
-          <N2:DOCUMENTID>${externalId}</N2:DOCUMENTID>
+          <N2:DOCUMENTID>${externalId?if_exists}</N2:DOCUMENTID>
         </n:DOCUMNTREF>
         </#list>
         <#-- TODO: data preparation code to create the correspondingPoIdSet -->
         <#list correspondingPoIdSet?if_exists as correspondingPoId>
         <n:DOCUMNTREF>
           <N2:DOCTYPE>CUST_PO</N2:DOCTYPE>
-          <N2:DOCUMENTID>${correspondingPoId}</N2:DOCUMENTID>
+          <N2:DOCUMENTID>${correspondingPoId?if_exists}</N2:DOCUMENTID>
         </n:DOCUMNTREF>
         </#list>
       </n:SHIPMENT>
