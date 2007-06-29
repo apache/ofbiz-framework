@@ -1400,8 +1400,7 @@ under the License.
             <set-service-fields map-name="parameters" to-map-name="reserveAnInventoryItemCtx" service-name="reserveAnInventoryItem"/>
             <call-service service-name="reserveAnInventoryItem" in-map-name="reserveAnInventoryItemCtx"/>
         </if-compare-field>
-        <!-- get InventoryItem issued to shipment -->
-        <log level="info" message="Item Map : ${itemMap}"/>
+        <!-- get InventoryItem issued to shipment -->        
         <clear-field field-name="issueContext"/>
         <set from-field="parameters.shipmentId" field="issueContext.shipmentId"/>
         <set from-field="parameters.inventoryItemId" field="issueContext.inventoryItemId"/>
@@ -1410,6 +1409,7 @@ under the License.
         <set from-field="parameters.orderItemSeqId" field="issueContext.orderItemSeqId"/>
         <set from-field="parameters.inventoryItemId" field="issueContext.inventoryItemId"/>
         <set from-field="parameters.quantity" field="issueContext.quantity"/>
+        <log level="info" message="========issueContext===========${issueContext}====================="/>
         <call-service service-name="issueOrderItemShipGrpInvResToShipment" in-map-name="issueContext">
             <result-to-field result-name="itemIssuanceId" field-name="parameters.itemIssuanceId"/>
         </call-service>
@@ -1452,13 +1452,13 @@ under the License.
         </if-empty>
        
         <!-- update the shipment status to packed -->
-        <set from-field="shipment.shipmentId" field="packedContext.shipmentId"/>
+        <set from-field="parameters.shipmentId" field="packedContext.shipmentId"/>
         <set value="SHIPMENT_PACKED" field="packedContext.statusId"/>
         <call-service service-name="updateShipment" in-map-name="packedContext"/>
 
         <!-- update the shipment status to shipped -->
         <if-empty field-name="parameters.setPackedOnly">
-            <set from-field="shipment.shipmentId" field="packedContext.shipmentId"/>
+            <set from-field="parameters.shipmentId" field="packedContext.shipmentId"/>
             <set value="SHIPMENT_SHIPPED" field="packedContext.statusId"/>
             <call-service service-name="updateShipment" in-map-name="packedContext"/>
         </if-empty>
@@ -1823,6 +1823,7 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 -->
+
 
 
 
