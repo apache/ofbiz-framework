@@ -74,13 +74,11 @@ public class OagisShipmentServices {
     
     public static Map showShipment(DispatchContext ctx, Map context) {
         InputStream in = (InputStream) context.get("inputStream");
-        OutputStream out = (OutputStream) context.get("outputStream");
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
-        GenericValue userLogin = null;
         try{
             Document doc = UtilXml.readXmlDocument(in, true, "ShowShipment");
-            userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId","admin"));            
+            GenericValue userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId","admin"));            
             Element shipmentElement = doc.getDocumentElement();
             shipmentElement.normalize();
             
@@ -88,7 +86,6 @@ public class OagisShipmentServices {
             Element showShipmentElement = UtilXml.firstChildElement(dataAreaElement, "n:SHOW_SHIPMENT");
             Element shipment_N_Element = UtilXml.firstChildElement(showShipmentElement, "n:SHIPMENT");                                  
             String documentId =UtilXml.childElementValue(shipment_N_Element,"N2:DOCUMENTID");            
-            String description =UtilXml.childElementValue(shipment_N_Element,"N2:DESCRIPTN");
             
             Element shipUnitElement = UtilXml.firstChildElement(showShipmentElement, "n:SHIPUNIT");                                   
             String shipUnitTrackingId =UtilXml.childElementValue(shipUnitElement,"N2:TRACKINGID");            
@@ -99,9 +96,7 @@ public class OagisShipmentServices {
             Element invDetail = UtilXml.firstChildElement(invItem, "n:INVDETAIL");
             String invDetailSerialNum =UtilXml.childElementValue(invDetail,"N1:SERIALNUM");
             
-            /*Code for Issuing the Items*/
             List orderItemShipGrpInvReservations = FastList.newInstance();
-            //GenericValue inventoryItem = null;
             try {                
                 GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", documentId));                
                 String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");                
@@ -119,11 +114,8 @@ public class OagisShipmentServices {
                 if(requireInventory == null) {
                     requireInventory = "N";
                 }                
-                // Look for reservations in some status.
                 orderItemShipGrpInvReservations = delegator.findByAnd("OrderItemShipGrpInvRes", UtilMisc.toMap("orderId", orderId,"orderItemSeqId",orderItemSeqId,"shipGroupSeqId",shipGroupSeqId));               
                 GenericValue orderItemShipGrpInvReservation =   EntityUtil.getFirst(orderItemShipGrpInvReservations);                
-                GenericValue inventoryItem = delegator.findByPrimaryKey("InventoryItem", UtilMisc.toMap("inventoryItemId",orderItemShipGrpInvReservation.get("inventoryItemId")));                
-                String serialNumber = inventoryItem.getString("serialNumber");
                 
                 Map isitspastCtx = UtilMisc.toMap("orderId", orderId, "shipGroupSeqId", shipGroupSeqId, "orderItemSeqId", orderItemSeqId, "quantity", shipmentItem.get("quantity"), "quantityNotReserved", shipmentItem.get("quantity"));                
                 isitspastCtx.put("productId", invItemItem);
@@ -137,10 +129,8 @@ public class OagisShipmentServices {
                 isitspastCtx.put("trackingNum", shipUnitTrackingId);
                 isitspastCtx.put("inventoryItemId", orderItemShipGrpInvReservation.get("inventoryItemId"));                
                 isitspastCtx.put("shipmentId", documentId);                                
-                // Check if the inventory Item we reserved is same as Item shipped
-                // If not then reserve Inventory Item                               
                 try {                    
-                    Map result = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);                                      
+                    dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);                                      
                 } catch(Exception e) {
                     Debug.logInfo("========In catch =========", module);
                     return ServiceUtil.returnError("return error"+e);
