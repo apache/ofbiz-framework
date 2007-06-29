@@ -31,7 +31,7 @@ under the License.
     <Geo abbreviation="CA" geoCode="CA" geoId="CA" geoName="California" geoTypeId="STATE"/>
     <Geo abbreviation="CO" geoCode="CO" geoId="CO" geoName="Colorado" geoTypeId="STATE"/>
     <Geo abbreviation="CT" geoCode="CT" geoId="CT" geoName="Connecticut" geoTypeId="STATE"/>
-    <Geo abbreviation="DC" geoCode="DC" geoId="DC" geoName="Washington Dc" geoTypeId="STATE"/>
+    <Geo abbreviation="DC" geoCode="DC" geoId="DC" geoName="District of Columbia" geoTypeId="STATE"/>
     <Geo abbreviation="DE" geoCode="DE" geoId="DE" geoName="Delaware" geoTypeId="STATE"/>
     <Geo abbreviation="FL" geoCode="FL" geoId="FL" geoName="Florida" geoTypeId="STATE"/>
     <Geo abbreviation="FM" geoCode="FM" geoId="FM" geoName="Federated States of Micronesia" geoTypeId="STATE"/>
