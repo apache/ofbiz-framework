@@ -210,7 +210,7 @@ public class FinAccountPaymentServices {
             // turn amount into a big decimal, making sure to round and scale it to the same as availableBalance
             BigDecimal amountBd = (new BigDecimal(amount)).setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
 
-            Debug.log("Allow auth to negative: " + allowAuthToNegative + " :: available: " + availableBalance + " comp: " + FinAccountHelper.ZERO + " = " + availableBalance.compareTo(FinAccountHelper.ZERO) + " :: req: " + amountBd, module);
+            Debug.log("Allow auth to negative: " + allowAuthToNegative + " :: available: " + availableBalance + " comp: " + minBalance + " = " + availableBalance.compareTo(minBalance) + " :: req: " + amountBd, module);
             // check the available balance to see if we can auth this tx
             if (("Y".equals(allowAuthToNegative) && availableBalance.compareTo(minBalance) > -1)
                     || (availableBalance.compareTo(amountBd) > -1)) {
