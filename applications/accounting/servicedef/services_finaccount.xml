@@ -202,6 +202,8 @@ under the License.
         <attribute name="comment" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="amount" type="Double" mode="IN" optional="false"/>
+        <attribute name="replenishPaymentId" type="String" mode="IN" optional="true"/>
+        <attribute name="replenishLevel" type="Double" mode="IN" optional="true"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
         <attribute name="finAccountTypeId" type="String" mode="IN" optional="false"/>
