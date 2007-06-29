@@ -64,6 +64,7 @@ under the License.
             location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createOrderShipmentPlan" auth="true">
         <description>Create Shipment, ShipmentItems and OrderShipment</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="OUT" optional="true"/>
     </service>
 
     <service name="quickShipEntireOrder" engine="simple"

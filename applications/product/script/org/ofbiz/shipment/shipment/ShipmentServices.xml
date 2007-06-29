@@ -1369,7 +1369,7 @@ under the License.
             <set field="createShipmentContext.originFacilityId" from-field="productStore.inventoryFacilityId"/>
             <set field="createShipmentContext.userLogin" from-field="parameters.userLogin"/>
             <call-service service-name="createShipment" in-map-name="createShipmentContext">
-                <result-to-field result-name="shipmentId" field-name="shipmentId"/>
+                <result-to-field result-name="shipmentId" field-name="parameters.shipmentId"/>
             </call-service>            
             <entity-one entity-name="Shipment" value-name="shipment"/>
             <get-related value-name="orderHeader" relation-name="OrderItem" list-name="orderItems"/>
@@ -1378,11 +1378,12 @@ under the License.
                 <clear-field field-name="addOrderShipmentToShipmentCtx"/>
                 <set field="addOrderShipmentToShipmentCtx.orderId" from-field="orderHeader.orderId"/>
                 <set field="addOrderShipmentToShipmentCtx.orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
-                <set field="addOrderShipmentToShipmentCtx.shipmentId" from-field="shipmentId"/>
+                <set field="addOrderShipmentToShipmentCtx.shipmentId" from-field="parameters.shipmentId"/>
                 <set field="addOrderShipmentToShipmentCtx.quantity" from-field="orderItem.quantity"/>
                 <set field="addOrderShipmentToShipmentCtx.userLogin" from-field="parameters.userLogin"/>
                 <call-service service-name="addOrderShipmentToShipment" in-map-name="addOrderShipmentToShipmentCtx"/>            
             </iterate>
+            <field-to-result field-name="shipmentId" map-name="parameters"/>
         </iterate>
     </simple-method>
     
@@ -1822,5 +1823,6 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 -->
+
 
 

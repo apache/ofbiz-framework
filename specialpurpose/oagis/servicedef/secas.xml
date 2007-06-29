@@ -22,11 +22,14 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
     <!-- order status changes -->
     
-    <eca service="changeOrderStatus" event="commit" run-on-error="false">
+    <!--eca service="changeOrderStatus" event="commit" run-on-error="false">
         <condition field-name="statusId" operator="equals" value="ORDER_APPROVED"/>
         <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <action service="processShipment" mode="sync"/>
+    </eca-->
+    <eca service="processShipment" event="commit" run-on-error="false">
+        <action service="createOagisMessageInfo" mode="sync"/>
     </eca>
     
 </service-eca>
