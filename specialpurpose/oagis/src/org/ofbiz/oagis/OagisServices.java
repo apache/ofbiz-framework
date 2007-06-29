@@ -122,15 +122,8 @@ public class OagisServices {
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         InputStream in = (InputStream) context.get("inputStream");
-        OutputStream out = (OutputStream) context.get("outputStream");
-        Map oagisMsgInfoContext = new HashMap();
-        Map oagisMsgErrorContext = new HashMap();
-        GenericValue userLogin = null;
-        Timestamp timestamp = null;
-        timestamp = UtilDateTime.nowTimestamp();
-        String errMsg = null;
         try{
-            userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId","admin"));
+            GenericValue userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId","admin"));
             Document doc = UtilXml.readXmlDocument(in, true, "RecieveConfirmBod");
             Element confirmBodElement = doc.getDocumentElement();
             confirmBodElement.normalize();
@@ -149,21 +142,7 @@ public class OagisServices {
             String language = UtilXml.childElementValue(docSenderElement, "N2:LANGUAGE");
             String codepage = UtilXml.childElementValue(docSenderElement, "N2:CODEPAGE");
             String authId = UtilXml.childElementValue(docSenderElement, "N2:AUTHID");
-            
             String sentDate = UtilXml.childElementValue(docCtrlAreaElement, "N1:DATETIMEANY");
-            
-            oagisMsgInfoContext.put("logicalId", logicalId);
-            oagisMsgInfoContext.put("component", component);
-            oagisMsgInfoContext.put("task", task);
-            oagisMsgInfoContext.put("referenceId", referenceId);
-            oagisMsgInfoContext.put("authId", authId);
-            oagisMsgInfoContext.put("recievedDate", timestamp);
-            oagisMsgInfoContext.put("confirmation", confirmation);
-            oagisMsgInfoContext.put("bsrVerb", bsrVerb);
-            oagisMsgInfoContext.put("bsrNoun", bsrNoun);
-            oagisMsgInfoContext.put("bsrRevision", bsrRevision);
-            oagisMsgInfoContext.put("userLogin", userLogin);
-            Debug.logInfo("==============oagisMsgInfoContext===== "+oagisMsgInfoContext, module);
             
             Element dataAreaElement = UtilXml.firstChildElement(confirmBodElement, "n:DATAAREA");
             Element dataAreaConfirmBodElement = UtilXml.firstChildElement(dataAreaElement, "n:CONFIRM_BOD");
@@ -174,35 +153,52 @@ public class OagisServices {
             String dataAreaComponent = UtilXml.childElementValue(dataAreaSenderElement, "N2:COMPONENT");
             String dataAreaTask = UtilXml.childElementValue(dataAreaSenderElement, "N2:TASK");
             String dataAreaReferenceId = UtilXml.childElementValue(dataAreaSenderElement, "N2:REFERENCEID");
-            
             String dataAreaDate = UtilXml.childElementValue(dataAreaCtrlElement, "N1:DATETIMEANY");
-            
             String origRef = UtilXml.childElementValue(dataAreaConfirmElement, "N2:ORIGREF");
             
             Element dataAreaConfirmMsgElement = UtilXml.firstChildElement(dataAreaConfirmElement, "n:CONFIRMMSG");
             String description = UtilXml.childElementValue(dataAreaConfirmMsgElement, "N2:DESCRIPTN");
             String reasonCode = UtilXml.childElementValue(dataAreaConfirmMsgElement, "N2:REASONCODE");
             
+            Timestamp timestamp = UtilDateTime.nowTimestamp();
+            Map oagisMsgInfoContext = new HashMap();
+            oagisMsgInfoContext.put("logicalId", logicalId);
+            oagisMsgInfoContext.put("component", component);
+            oagisMsgInfoContext.put("task", task);
+            oagisMsgInfoContext.put("referenceId", referenceId);
+            oagisMsgInfoContext.put("authId", authId);
+            oagisMsgInfoContext.put("receivedDate", timestamp);
+            oagisMsgInfoContext.put("confirmation", confirmation);
+            oagisMsgInfoContext.put("bsrVerb", bsrVerb);
+            oagisMsgInfoContext.put("bsrNoun", bsrNoun);
+            oagisMsgInfoContext.put("bsrRevision", bsrRevision);
+            oagisMsgInfoContext.put("userLogin", userLogin);
+            
+            Map oagisMsgInfoResult = dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoContext);
+            if (ServiceUtil.isError(oagisMsgInfoResult)) return ServiceUtil.returnError("Error creating OagisMessageInfo");
+            
+            Map oagisMsgErrorContext = new HashMap();
             oagisMsgErrorContext.put("logicalId", dataAreaLogicalId);
             oagisMsgErrorContext.put("component", dataAreaComponent);
             oagisMsgErrorContext.put("task", dataAreaTask);
             oagisMsgErrorContext.put("referenceId", dataAreaReferenceId);
-            oagisMsgErrorContext.put("reasonCode", reasonCode);
-            oagisMsgErrorContext.put("description", description);
-            oagisMsgErrorContext.put("userLogin", userLogin);
-            Debug.logInfo("==============oagisErrorMsgContext===== "+oagisMsgErrorContext, module);
             
-            Map resultMap = dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoContext);
-            Debug.logInfo("==========resultMap-1======" +resultMap, module);
-            resultMap = dispatcher.runSync("createOagisMessageErrorInfo", oagisMsgErrorContext);
-            Debug.logInfo("==========resultMap-2======" +resultMap, module);
-            
+            GenericValue oagisMsgInfo = delegator.findByPrimaryKey("OagisMessageInfo", oagisMsgErrorContext);
+            if (oagisMsgInfo != null){
+                oagisMsgErrorContext.put("reasonCode", reasonCode);
+                oagisMsgErrorContext.put("description", description);
+                oagisMsgErrorContext.put("userLogin", userLogin);
+                Map oagisMsgErrorInfoResult = dispatcher.runSync("createOagisMessageErrorInfo", oagisMsgErrorContext);
+                if (ServiceUtil.isError(oagisMsgInfoResult)) return ServiceUtil.returnError("Error creating OagisMessageErrorInfo");
+            } else{
+                Debug.logWarning("No such message with an error was found in OagisMessageInfoEntity ; Not creating OagisMessageErrorInfo", module);
+            }
         }catch (Exception e){
-            errMsg = "Error running method receiveConfirmBod";
+            String errMsg = "Error running method receiveConfirmBod";
             Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError("Error running method receiveConfirmBod");
+            return ServiceUtil.returnError(errMsg);
         }
-        return ServiceUtil.returnSuccess("Service Completed Successfully");
         
+        return ServiceUtil.returnSuccess("Service Completed Successfully");
     }
 }
