@@ -122,6 +122,7 @@ public class OagisServices {
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         InputStream in = (InputStream) context.get("inputStream");
+        
         try{
             GenericValue userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId","admin"));
             Document doc = UtilXml.readXmlDocument(in, true, "RecieveConfirmBod");
@@ -199,6 +200,8 @@ public class OagisServices {
             return ServiceUtil.returnError(errMsg);
         }
         
-        return ServiceUtil.returnSuccess("Service Completed Successfully");
+        Map result = ServiceUtil.returnSuccess("Service Completed Successfully");
+        result.put("contentType", "text/plain");
+        return result;
     }
 }
