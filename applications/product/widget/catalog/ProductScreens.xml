@@ -539,16 +539,25 @@ under the License.
                 <entity-condition entity-name="GlAccount" list-name="glAccounts" use-cache="true">
                     <order-by field-name="accountCode"/>
                 </entity-condition>
-                <entity-condition entity-name="PartyRole" list-name="organizations" use-cache="true">
-                    <condition-expr field-name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
-                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/product/EditProductGlAccounts.ftl"/></html>
-                        </platform-specific>
+                         <section>
+                             <condition>
+                                 <and>
+                                     <not><if-empty field-name="productId"/></not>
+                                     <not><if-empty field-name="product"/></not>
+                                 </and>
+                             </condition>
+                             <widgets>                               
+                                 <include-form name="ListProductGlAccounts" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                                 <container>
+                                     <label style="head2">${uiLabelMap.ProductAddGlAccount}</label>
+                                 </container>
+                                 <include-form name="AddProductGlAccount" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                             </widgets>
+                         </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
