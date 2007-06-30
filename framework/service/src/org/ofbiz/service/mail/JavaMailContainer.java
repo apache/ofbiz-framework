@@ -118,6 +118,7 @@ public class JavaMailContainer implements Container {
             Store store = this.getStore(session);
             if (store != null) {
                 stores.put(store, session);
+                store.addStoreListener(new LoggingStoreListener());
             }
         }
 
@@ -270,7 +271,6 @@ public class JavaMailContainer implements Container {
         }
 
         protected void checkMessages(Store store, Session session) throws MessagingException, GeneralException {
-            store.addStoreListener(new LoggingStoreListener());
             store.connect();
 
             // open the default folder
