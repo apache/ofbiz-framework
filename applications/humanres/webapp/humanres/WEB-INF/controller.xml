@@ -18,11 +18,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<!-- NOTE: Portions still licensed under the MIT license until iCLA received from Brett Palmer -->
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/site-conf.xsd">
-    <description>HUmanres Manager Module Site Configuration File</description>
+    <description>Humanres Manager Module Site Configuration File</description>
     <owner>Copyright 2001-2006 The Apache Software Foundation</owner>
     <errorpage>/error/error.jsp</errorpage>
     
