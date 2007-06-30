@@ -19,6 +19,16 @@ under the License.
 
 <#if orderHeader?has_content>
 
+<#-- Order Items changes to basic-table style  -->
+<style type="text/css">
+.order-items .header-row td {
+border-bottom: none;
+}
+.order-items tr .button-col {
+float: right;
+}
+</style>
+
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
@@ -35,34 +45,32 @@ under the License.
     </div>
     <div class="screenlet-body">
             <#if !orderItemList?has_content>
-            <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                <tr><td><font color="red">${uiLabelMap.checkhelper_sales_order_lines_lookup_failed}</font></td></tr>
-            </table>
+                <span class="alert">${uiLabelMap.checkhelper_sales_order_lines_lookup_failed}</span>
             <#else>
             <form name="updateItemInfo" method="post" action="<@ofbizUrl>updateOrderItems?${paramString}</@ofbizUrl>">
-            <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                <tr align="left" valign=bottom>
-                    <td width="30%" align="left"><div class="tableheadtext">${uiLabelMap.ProductProduct}</div></td>
-                    <td width="30%" align="left"><div class="tableheadtext">${uiLabelMap.CommonStatus}</div></td>
-                    <td width="5%" align="right"><div class="tableheadtext">${uiLabelMap.OrderQuantity}</div></td>
-                    <td width="10%" align="right"><div class="tableheadtext">${uiLabelMap.OrderUnitPrice}</div></td>
-                    <td width="10%" align="right"><div class="tableheadtext">${uiLabelMap.OrderAdjustments}</div></td>
-                    <td width="10%" align="right"><div class="tableheadtext">${uiLabelMap.OrderSubTotal}</div></td>
+            <table class="basic-table order-items" cellspacing="0">
+                <tr class="header-row">
+                    <td width="30%">${uiLabelMap.ProductProduct}</td>
+                    <td width="30%">${uiLabelMap.CommonStatus}</td>
+                    <td width="5%" class="align-text">${uiLabelMap.OrderQuantity}</td>
+                    <td width="10%" class="align-text">${uiLabelMap.OrderUnitPrice}</td>
+                    <td width="10%" class="align-text">${uiLabelMap.OrderAdjustments}</td>
+                    <td width="10%" class="align-text">${uiLabelMap.OrderSubTotal}</td>
                     <td width="5%">&nbsp;</td>
                 </tr>
                 <#list orderItemList as orderItem>
                 <#assign orderItemContentWrapper = Static["org.ofbiz.order.order.OrderContentWrapper"].makeOrderContentWrapper(orderItem, request)>
-                <tr><td colspan="8"><hr class="sepbar"/></td></tr>
+                <tr><td colspan="8"><hr/></td></tr>
                 <tr>
                     <#assign orderItemType = orderItem.getRelatedOne("OrderItemType")?if_exists>
                     <#assign productId = orderItem.productId?if_exists>
                     <#if productId?exists && productId == "shoppingcart.CommentLine">
                     <td colspan="1" valign="top">
-                        <b><div class="tabletext"> &gt;&gt; ${orderItem.itemDescription}</div></b>
+                        <b> &gt;&gt; ${orderItem.itemDescription}</b>
                     </td>
                     <#else>
                     <td valign="top">
-                        <div class="tabletext">
+                        <div>
                             <#if orderHeader.statusId = "ORDER_CANCELLED" || orderHeader.statusId = "ORDER_COMPLETED">
                             <#if productId?exists>
                             ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription?if_exists}
@@ -81,15 +89,15 @@ under the License.
                             <#if productId?exists>
                                 <#assign product = orderItem.getRelatedOneCache("Product")>
                                 <#if product.salesDiscontinuationDate?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(product.salesDiscontinuationDate)>
-                                    <span style="color: red;">${uiLabelMap.OrderItemDiscontinued}: ${product.salesDiscontinuationDate}</span>
+                                    <span class="alert">${uiLabelMap.OrderItemDiscontinued}: ${product.salesDiscontinuationDate}</span>
                                 </#if>
                             </#if>
                             ${uiLabelMap.CommonDescription}:<br />
-                            <input style="textBox" type="text" size="20" name="idm_${orderItem.orderItemSeqId}" value="${orderItem.itemDescription?if_exists}"/>
+                            <input type="text" size="20" name="idm_${orderItem.orderItemSeqId}" value="${orderItem.itemDescription?if_exists}"/>
                             </#if>
                         </div>
                         <#if productId?exists>
-                        <div class="tabletext">
+                        <div>
                             <a href="/catalog/control/EditProduct?productId=${productId}" class="buttontext" target="_blank">${uiLabelMap.ProductCatalog}</a>
                             <a href="/ecommerce/control/product?product_id=${productId}" class="buttontext" target="_blank">${uiLabelMap.EcommerceEcommerce}</a>
                             <#if orderItemContentWrapper.get("IMAGE_URL")?has_content>
@@ -101,53 +109,49 @@ under the License.
                     
                     <#-- now show status details per line item -->
                     <#assign currentItemStatus = orderItem.getRelatedOne("StatusItem")>
-                    <td align="left" colspan="1">
-                        <div class="tabletext">${uiLabelMap.CommonCurrent}: ${currentItemStatus.get("description",locale)?default(currentItemStatus.statusId)}</div>
+                    <td colspan="1">
+                        ${uiLabelMap.CommonCurrent}: ${currentItemStatus.get("description",locale)?default(currentItemStatus.statusId)}<br/>
                         <#assign orderItemStatuses = orderReadHelper.getOrderItemStatuses(orderItem)>
                         <#list orderItemStatuses as orderItemStatus>
                         <#assign loopStatusItem = orderItemStatus.getRelatedOne("StatusItem")>
-                        <div class="tabletext">
-                            ${orderItemStatus.statusDatetime.toString()} : ${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}
-                        </div>
+                        ${orderItemStatus.statusDatetime.toString()} : ${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}<br/>
                         </#list>
                         <#assign returns = orderItem.getRelated("ReturnItem")?if_exists>
                         <#if returns?has_content>
                         <#list returns as returnItem>
                         <#assign returnHeader = returnItem.getRelatedOne("ReturnHeader")>
                         <#if returnHeader.statusId != "RETURN_CANCELLED">
-                        <div class="tabletext">
-                            <font color="red"><b>${uiLabelMap.OrderReturned}</b></font> #<a href="<@ofbizUrl>returnMain?returnId=${returnItem.returnId}</@ofbizUrl>" class="buttontext">${returnItem.returnId}</a>
+                        <div class="alert">
+                            <b>${uiLabelMap.OrderReturned}</b> #<a href="<@ofbizUrl>returnMain?returnId=${returnItem.returnId}</@ofbizUrl>" class="buttontext">${returnItem.returnId}</a>
                         </div>
                         </#if>
                         </#list>
                         </#if>
                     </td>
-                    <td align="right" valign="top" nowrap>
+                    <td class="align-text" valign="top" nowrap>
                         <#assign remainingQuantity = (orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0))>
-                        <div class="tabletext">${uiLabelMap.OrderOrdered}:&nbsp;${orderItem.quantity?default(0)?string.number}&nbsp;&nbsp;</div>
-                        <div class="tabletext">${uiLabelMap.OrderCancelled}:&nbsp;${orderItem.cancelQuantity?default(0)?string.number}&nbsp;&nbsp;</div>
-                        <div class="tabletext">${uiLabelMap.OrderRemaining}:&nbsp;${remainingQuantity}&nbsp;&nbsp;</div>
+                        ${uiLabelMap.OrderOrdered}:&nbsp;${orderItem.quantity?default(0)?string.number}&nbsp;&nbsp;<br/>
+                        ${uiLabelMap.OrderCancelled}:&nbsp;${orderItem.cancelQuantity?default(0)?string.number}&nbsp;&nbsp;<br/>
+                        ${uiLabelMap.OrderRemaining}:&nbsp;${remainingQuantity}&nbsp;&nbsp;<br/>
                     </td>
-                    <td align="right" valign="top" nowrap>
-                        <div class="tabletext">
-                        <input style="textBox" type="text" size="8" name="ipm_${orderItem.orderItemSeqId}" value="<@ofbizAmount amount=orderItem.unitPrice/>"/>
+                    <td class="align-text" valign="top" nowrap>
+                        <input type="text" size="8" name="ipm_${orderItem.orderItemSeqId}" value="<@ofbizAmount amount=orderItem.unitPrice/>"/>
                             &nbsp;<input type="checkbox" name="opm_${orderItem.orderItemSeqId}" value="Y"/>
-                        </div>
                     </td>
-                    <td align="right" valign="top" nowrap>
-                        <div class="tabletext"><@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentsTotal(orderItem, orderAdjustments, true, false, false) isoCode=currencyUomId/></div>
+                    <td class="align-text" valign="top" nowrap>
+                        <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentsTotal(orderItem, orderAdjustments, true, false, false) isoCode=currencyUomId/>
                     </td>
-                    <td align="right" valign="top" nowrap>
+                    <td class="align-text" valign="top" nowrap>
                         <#if orderItem.statusId != "ITEM_CANCELLED">
-                        <div class="tabletext"><@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemSubTotal(orderItem, orderAdjustments) isoCode=currencyUomId/></div>
+                        <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemSubTotal(orderItem, orderAdjustments) isoCode=currencyUomId/>
                         <#else>
-                        <div class="tabletext"><@ofbizCurrency amount=0.00 isoCode=currencyUomId/></div>
+                        <@ofbizCurrency amount=0.00 isoCode=currencyUomId/>
                         </#if>
                     </td>
                     <td>&nbsp;</td>
-                    <td align="right" valign="top" nowrap>
+                    <td class="button-col">
                         <#if (security.hasEntityPermission("ORDERMGR", "_ADMIN", session) && orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED") || (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED" && orderHeader.statusId != "ORDER_SENT")>
-                        <div class="tabletext"><a href="<@ofbizUrl>cancelOrderItem?orderItemSeqId=${orderItem.orderItemSeqId}&amp;${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancelAll}</a></div>
+                        <a href="<@ofbizUrl>cancelOrderItem?orderItemSeqId=${orderItem.orderItemSeqId}&amp;${paramString}</@ofbizUrl>">${uiLabelMap.CommonCancelAll}</a>
                         <#else>
                         &nbsp;
                         </#if>
@@ -161,32 +165,28 @@ under the License.
                 <#list orderItemAdjustments as orderItemAdjustment>
                 <#assign adjustmentType = orderItemAdjustment.getRelatedOneCache("OrderAdjustmentType")>
                 <tr>
-                    <td align="right" colspan="2">
-                        <div class="tabletext" style="font-size: xx-small;">
-                            <b><i>${uiLabelMap.OrderAdjustment}</i>:</b> <b>${adjustmentType.get("description",locale)}</b>:
-                            ${orderItemAdjustment.get("description",locale)?if_exists} (${orderItemAdjustment.comments?default("")})
+                    <td class="align-text" colspan="2">
+                        <b><i>${uiLabelMap.OrderAdjustment}</i>:</b> <b>${adjustmentType.get("description",locale)}</b>:
+                        ${orderItemAdjustment.get("description",locale)?if_exists} (${orderItemAdjustment.comments?default("")})
                             
-                            <#if orderItemAdjustment.orderAdjustmentTypeId == "SALES_TAX">
-                            <#if orderItemAdjustment.primaryGeoId?has_content>
-                            <#assign primaryGeo = orderItemAdjustment.getRelatedOneCache("PrimaryGeo")/>
-                            <b>${uiLabelMap.OrderJurisdiction}:</b> ${primaryGeo.geoName} [${primaryGeo.abbreviation?if_exists}]
-                            <#if orderItemAdjustment.secondaryGeoId?has_content>
-                            <#assign secondaryGeo = orderItemAdjustment.getRelatedOneCache("SecondaryGeo")/>
-                            (<b>in:</b> ${secondaryGeo.geoName} [${secondaryGeo.abbreviation?if_exists}])
-                            </#if>
-                            </#if>
-                            <#if orderItemAdjustment.sourcePercentage?exists><b>Rate:</b> ${orderItemAdjustment.sourcePercentage}</#if>
-                            <#if orderItemAdjustment.customerReferenceId?has_content><b>Customer Tax ID:</b> ${orderItemAdjustment.customerReferenceId}</#if>
-                            <#if orderItemAdjustment.exemptAmount?exists><b>Exempt Amount:</b> ${orderItemAdjustment.exemptAmount}</#if>
-                            </#if>
-                        </div>
+                        <#if orderItemAdjustment.orderAdjustmentTypeId == "SALES_TAX">
+                        <#if orderItemAdjustment.primaryGeoId?has_content>
+                        <#assign primaryGeo = orderItemAdjustment.getRelatedOneCache("PrimaryGeo")/>
+                        <b>${uiLabelMap.OrderJurisdiction}:</b> ${primaryGeo.geoName} [${primaryGeo.abbreviation?if_exists}]
+                        <#if orderItemAdjustment.secondaryGeoId?has_content>
+                        <#assign secondaryGeo = orderItemAdjustment.getRelatedOneCache("SecondaryGeo")/>
+                        (<b>in:</b> ${secondaryGeo.geoName} [${secondaryGeo.abbreviation?if_exists}])
+                        </#if>
+                        </#if>
+                        <#if orderItemAdjustment.sourcePercentage?exists><b>Rate:</b> ${orderItemAdjustment.sourcePercentage}</#if>
+                        <#if orderItemAdjustment.customerReferenceId?has_content><b>Customer Tax ID:</b> ${orderItemAdjustment.customerReferenceId}</#if>
+                        <#if orderItemAdjustment.exemptAmount?exists><b>Exempt Amount:</b> ${orderItemAdjustment.exemptAmount}</#if>
+                        </#if>
                     </td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <td align="right">
-                        <div class="tabletext" style="font-size: xx-small;">
-                            <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].calcItemAdjustment(orderItemAdjustment, orderItem) isoCode=currencyUomId/>
-                        </div>
+                    <td class="align-text">
+                        <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].calcItemAdjustment(orderItemAdjustment, orderItem) isoCode=currencyUomId/>
                     </td>
                     <td colspan="3">&nbsp;</td>
                 </tr>
@@ -201,20 +201,20 @@ under the License.
                 <#assign shipGroup = shipGroupAssoc.getRelatedOne("OrderItemShipGroup")>
                 <#assign shipGroupAddress = shipGroup.getRelatedOne("PostalAddress")?if_exists>
                 <tr>
-                    <td align="right" colspan="2">
-                        <div class="tabletext" style="font-size: xx-small;"><b><i>${uiLabelMap.OrderShipGroup}</i>:</b> [${shipGroup.shipGroupSeqId}] ${shipGroupAddress.address1?default("${uiLabelMap.OrderNotShipped}")}</div>
+                    <td class="align-text" colspan="2">
+                        <b><i>${uiLabelMap.OrderShipGroup}</i>:</b> [${shipGroup.shipGroupSeqId}] ${shipGroupAddress.address1?default("${uiLabelMap.OrderNotShipped}")}
                     </td>
                     <td align="center">
-                        <div class="tabletext" style="font-size: xx-small;"><input type="text" style="textBox" name="iqm_${shipGroupAssoc.orderItemSeqId}:${shipGroupAssoc.shipGroupSeqId}" size="6" value="${shipGroupAssoc.quantity?string.number}"/></div>
+                        <input type="text" name="iqm_${shipGroupAssoc.orderItemSeqId}:${shipGroupAssoc.shipGroupSeqId}" size="6" value="${shipGroupAssoc.quantity?string.number}"/>
                     </td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <td align="right" valign="top" nowrap>
+                    <td class="button-col">
                         <#assign itemStatusOkay = (orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED" && (shipGroupAssoc.cancelQuantity?default(0) < shipGroupAssoc.quantity?default(0)))>
                         <#if (security.hasEntityPermission("ORDERMGR", "_ADMIN", session) && itemStatusOkay) || (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && itemStatusOkay && orderHeader.statusId != "ORDER_SENT")>
-                        <div class="tabletext"><a href="<@ofbizUrl>cancelOrderItem?orderItemSeqId=${orderItem.orderItemSeqId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a></div>
+                        <a href="<@ofbizUrl>cancelOrderItem?orderItemSeqId=${orderItem.orderItemSeqId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;${paramString}</@ofbizUrl>">${uiLabelMap.CommonCancel}</a>
                         <#else>
                         &nbsp;
                         </#if>
@@ -224,11 +224,12 @@ under the License.
                 </#if>
                 </#list>
                 <tr>
-                    <td align="right" colspan="8">
+                    <td colspan="7">&nbsp;</td>
+                    <td class="button-col">
                         <input type="submit" value="${uiLabelMap.OrderUpdateItems}"/>
                     </td>
                 </tr>
-                <tr><td colspan="8"><hr class="sepbar"/></td></tr>
+                <tr><td colspan="8"><hr/></td></tr>
               </table>
               </form>
             </#if>
@@ -238,21 +239,21 @@ under the License.
             <#assign orderAdjustmentId = orderHeaderAdjustment.get("orderAdjustmentId")>
             <#if adjustmentAmount != 0>
               <form name="updateOrderAdjustmentForm${orderAdjustmentId}" method="post" action="<@ofbizUrl>updateOrderAdjustment?orderAdjustmentId=${orderAdjustmentId?if_exists}&amp;orderId=${orderId?if_exists}</@ofbizUrl>">
-                  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                  <table class="basic-table" cellspacing="0">
                       <tr>
-                          <td align="right" width="50%">
-                              <div class="tabletext"><b>${adjustmentType.get("description",locale)}</b> ${orderHeaderAdjustment.comments?if_exists} :</div>
+                          <td class="align-text" width="50%">
+                              <b>${adjustmentType.get("description",locale)}</b> ${orderHeaderAdjustment.comments?if_exists} :
                           </td>
-                          <td align="left" nowrap width="25%">
-                              <div class="tabletext"><input type="text" name="description" value="${orderHeaderAdjustment.get("description")?if_exists}" size="30" maxlength="60" class="inputBox"/></div>
+                          <td nowrap width="25%">
+                              <input type="text" name="description" value="${orderHeaderAdjustment.get("description")?if_exists}" size="30" maxlength="60"/>
                           </td>
-                          <td align="left" nowrap width="25%">
-                              <div class="tabletext"><input type="text" name="amount" size="6" value="<@ofbizAmount amount=adjustmentAmount/>" class="inputBox"/>
-                              <a href="javascript:document.updateOrderAdjustmentForm${orderAdjustmentId}.submit();" class="buttontext">${uiLabelMap.CommonUpdate}</a><a href="<@ofbizUrl>deleteOrderAdjustment?orderAdjustmentId=${orderAdjustmentId?if_exists}&amp;orderId=${orderId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a></div>
+                          <td nowrap width="25%">
+                              <input type="text" name="amount" size="6" value="<@ofbizAmount amount=adjustmentAmount/>"/>
+                              <a href="javascript:document.updateOrderAdjustmentForm${orderAdjustmentId}.submit();" class="buttontext">${uiLabelMap.CommonUpdate}</a><a href="<@ofbizUrl>deleteOrderAdjustment?orderAdjustmentId=${orderAdjustmentId?if_exists}&amp;orderId=${orderId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
                           </td>
                       </tr>
                       <tr>
-                          <td align="right" colspan="3">
+                          <td class="align-text" colspan="3">
                               <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onClick="javascript:document.updateOrderAdjustmentForm${orderAdjustmentId}.submit();"/>
                           </td>
                       </tr>
@@ -264,27 +265,27 @@ under the License.
           <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_REJECTED">
             <form name="addAdjustmentForm" method="post" action="<@ofbizUrl>createOrderAdjustment?${paramString}</@ofbizUrl>">
              <input type="hidden" name="comments" value="Added manually by [${userLogin.userLoginId}]"/>
-                <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                    <tr><td colspan=1><td colspan="3"><hr class="sepbar"/></td></tr>
+                <table class="basic-table" cellspacing="0">
+                    <tr><td><td colspan="3"><hr/></td></tr>
                     <tr>
-                        <td align="right" width="50%">
-                            <span class="tableheadtext">${uiLabelMap.OrderAdjustment} :</span>
-                            <select name="orderAdjustmentTypeId" class="selectBox">
+                        <td class="align-text" width="50%">
+                            <b>${uiLabelMap.OrderAdjustment} :</b>
+                            <select name="orderAdjustmentTypeId">
                                 <#list orderAdjustmentTypes as type>
                                 <option value="${type.orderAdjustmentTypeId}">${type.get("description",locale)?default(type.orderAdjustmentTypeId)}</option>
                                 </#list>
                             </select>
-                            <select name="shipGroupSeqId" class="selectBox">
+                            <select name="shipGroupSeqId">
                                 <option value="_NA_"></option>
                                 <#list shipGroups as shipGroup>
                                 <option value="${shipGroup.shipGroupSeqId}">${uiLabelMap.OrderShipGroup} ${shipGroup.shipGroupSeqId}</option>
                                 </#list>
                             </select>
                         </td>
-                        <td align="left" width="25%"><div class="tabletext"><input type="text" name="description" value="" size="30" maxlength="60" class="inputBox"/></div></td>
-                        <td align="left" width="25%">
-                            <input type="text" name="amount" size="6" value="<@ofbizAmount amount=0.00/>" class="inputBox"/>
-                            <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonAdd}"/>
+                        <td width="25%"><input type="text" name="description" value="" size="30" maxlength="60"/></td>
+                        <td width="25%">
+                            <input type="text" name="amount" size="6" value="<@ofbizAmount amount=0.00/>"/>
+                            <input class="smallSubmit" type="submit" value="${uiLabelMap.CommonAdd}"/>
                         </td>
                     </tr>
                 </table>
@@ -292,37 +293,35 @@ under the License.
           </#if>
 
           <#-- subtotal -->
-          <table width="100%" border="0" cellpadding="0" cellspacing="0">
-          <tr><td colspan=1></td><td colspan="8"><hr class="sepbar"/></td></tr>
-          <tr>
-            <td align="right" colspan="5"><div class="tabletext"><b>${uiLabelMap.OrderItemsSubTotal} :</b></div></td>
-            <td align="left" nowrap><div class="tabletext"><@ofbizCurrency amount=orderSubTotal isoCode=currencyUomId/></div></td>
+          <table class="basic-table" cellspacing="0">
+          <tr><td colspan="2"><hr/></td></tr>
+          <tr class="align-text">
+            <td><b>${uiLabelMap.OrderItemsSubTotal} :</b></td>
+            <td nowrap><@ofbizCurrency amount=orderSubTotal isoCode=currencyUomId/></td>
           </tr>
 
           <#-- other adjustments -->
-          <tr>
-            <td align="right" colspan="5"><div class="tabletext"><b>${uiLabelMap.OrderTotalOtherOrderAdjustments} :</b></div></td>
-            <td align="left" nowrap><div class="tabletext"><@ofbizCurrency amount=otherAdjAmount isoCode=currencyUomId/></div></td>
+          <tr class="align-text">
+            <td><b>${uiLabelMap.OrderTotalOtherOrderAdjustments} :</b></td>
+            <td nowrap><@ofbizCurrency amount=otherAdjAmount isoCode=currencyUomId/></td>
           </tr>
 
           <#-- shipping adjustments -->
-          <tr>
-            <td align="right" colspan="5"><div class="tabletext"><b>${uiLabelMap.OrderTotalShippingAndHandling} :</b></div></td>
-            <td align="left" nowrap><div class="tabletext"><@ofbizCurrency amount=shippingAmount isoCode=currencyUomId/></div></td>
+          <tr class="align-text">
+            <td><b>${uiLabelMap.OrderTotalShippingAndHandling} :</b></td>
+            <td nowrap><@ofbizCurrency amount=shippingAmount isoCode=currencyUomId/></td>
           </tr>
 
               <#-- tax adjustments -->
-          <tr>
-            <td align="right" colspan="5"><div class="tabletext"><b>${uiLabelMap.OrderTotalSalesTax} :</b></div></td>
-            <td align="left" nowrap><div class="tabletext"><@ofbizCurrency amount=taxAmount isoCode=currencyUomId/></div></td>
+          <tr class="align-text">
+            <td><b>${uiLabelMap.OrderTotalSalesTax} :</b></td>
+            <td nowrap><@ofbizCurrency amount=taxAmount isoCode=currencyUomId/></td>
           </tr>
 
           <#-- grand total -->
-          <tr>
-            <td align="right" colspan="5"><div class="tabletext"><b>${uiLabelMap.OrderTotalDue} :</b></div></td>
-            <td align="left" nowrap>
-              <div class="tabletext"><@ofbizCurrency amount=grandTotal isoCode=currencyUomId/></div>
-            </td>
+          <tr class="align-text">
+            <td><b>${uiLabelMap.OrderTotalDue} :</b></td>
+            <td nowrap><@ofbizCurrency amount=grandTotal isoCode=currencyUomId/></td>
           </tr>
         </table>
     </div>
