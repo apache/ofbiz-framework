@@ -38,7 +38,7 @@ under the License.
     </form>
 
     <!-- Brings up a list of gateway responses. TODO: should cut down data displayd -->
-    <form name="ListGatewayResponses" type="list" use-row-submit="true" target="" title="" list-name="listIt" paginate-target="FindRequirements">
+    <form name="ListGatewayResponses" type="list" use-row-submit="true" target="" title="" list-name="listIt" paginate-target="FindGatewayResponses">
         <actions>
             <set field="entityName" value="PaymentGatewayResponse"/>
             <set field="orderBy" value="transactionDate DESC"/>
