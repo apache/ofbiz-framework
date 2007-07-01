@@ -155,34 +155,34 @@ if (emails != null && emails.size() > 0) {
     context.put("email",delegator.findByPrimaryKey("ContactMech",UtilMisc.toMap("contactMechId",selEmails.iterator().next().getString("contactMechId"))));
 }
 else	{	//get email address from party contact mech
-	List contacts = delegator.findByAnd("PartyContactMech",
-	        UtilMisc.toMap("partyId",partyId));
-	List selContacts = EntityUtil.filterByDate(contacts, nowTimestamp, "fromDate", "thruDate", true);        
-	if (selContacts != null && selContacts.size() > 0) {
-		Iterator i = selContacts.iterator();
-		while (i.hasNext())	{
-			email = i.next().getRelatedOne("ContactMech");
-			if (email.getString("contactMechTypeId").equals("ELECTRONIC_ADDRESS"))	{
-				context.put("email",email);
-				break;
-			}
-		}
-	}
+    List contacts = delegator.findByAnd("PartyContactMech",
+            UtilMisc.toMap("partyId",partyId));
+    List selContacts = EntityUtil.filterByDate(contacts, nowTimestamp, "fromDate", "thruDate", true);
+    if (selContacts != null && selContacts.size() > 0) {
+        Iterator i = selContacts.iterator();
+        while (i.hasNext())	{
+            email = i.next().getRelatedOne("ContactMech");
+            if (email.getString("contactMechTypeId").equals("ELECTRONIC_ADDRESS"))	{
+                context.put("email",email);
+                break;
+            }
+        }
+    }
 }
 
 // website
 List contacts = delegator.findByAnd("PartyContactMech",
-	        UtilMisc.toMap("partyId",partyId));
+            UtilMisc.toMap("partyId",partyId));
 List selContacts = EntityUtil.filterByDate(contacts, nowTimestamp, "fromDate", "thruDate", true);        
 if (selContacts != null && selContacts.size() > 0) {
-	Iterator i = selContacts.iterator();
-	while (i.hasNext())	{
-		website = i.next().getRelatedOne("ContactMech");
-		if (website.getString("contactMechTypeId").equals("WEB_ADDRESS"))	{
-			context.put("website",website);
-			break;
-		}
-	}
+    Iterator i = selContacts.iterator();
+    while (i.hasNext())	{
+        website = i.next().getRelatedOne("ContactMech");
+        if (website.getString("contactMechTypeId").equals("WEB_ADDRESS"))	{
+            context.put("website",website);
+            break;
+        }
+    }
 }
 
 //Bank account
