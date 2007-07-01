@@ -54,6 +54,7 @@ under the License.
 
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="true"/>
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">

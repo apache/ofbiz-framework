@@ -30,21 +30,27 @@
             <hyperlink target="EditProductStore?productStoreId=${productStoreId}" description="${uiLabelMap.CommonEdit}"/>
         </field>
     </form>
-    <form name="EditProductStore" type="single" target="updateProductStore" title="" default-map-name="productStore"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditProductStore" type="single" target="updateProductStore" title="" default-map-name="productStore">
 
         <alt-target use-when="productStore==null" target="createProductStore"/>
 
         <auto-fields-service service-name="updateProductStore" map-name=""/>
 
-        <field use-when="productStore!=null" name="productStoreId" title="${uiLabelMap.ProductNotModificationRecreatingProductStore}" tooltip="${uiLabelMap.ProductNotModificationRecreatingProductStore}"><display/></field>
+        <field use-when="productStore!=null" name="productStoreId" tooltip="${uiLabelMap.ProductNotModificationRecreatingProductStore}"><display/></field>
         <field name="productStoreId"><ignored/></field>
 
+        <field name="primaryStoreGroupId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProductStoreGroup" key-field-name="productStoreGroupId" description="${productStoreGroupName} [${productStoreGroupId}]">
+                    <entity-order-by field-name="productStoreGroupName"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="storeName" title="${uiLabelMap.ProductStoreName}"><text size="30" maxlength="60"/></field>
         <field name="title" title="${uiLabelMap.ProductTitle}"><text size="30" maxlength="60"/></field>
         <field name="subtitle" title="${uiLabelMap.ProductSubTitle}"><text size="60" maxlength="250"/></field>
 
-        <field name="inventoryFacilityId" widget-style="selectBox">
+        <field name="inventoryFacilityId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
                     <entity-order-by field-name="facilityName"/>
@@ -56,47 +62,47 @@
                 description="${uiLabelMap.CommonEdit} ${uiLabelMap.ProductFacility} ${productStore.inventoryFacilityId}" also-hidden="false"/>
         </field>
 
-        <field name="manualAuthIsCapture" widget-style="selectBox">
+        <field name="manualAuthIsCapture">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="prorateShipping" widget-style="selectBox">
+        <field name="prorateShipping">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="prorateTaxes" widget-style="selectBox">
+        <field name="prorateTaxes">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="viewCartOnAdd" widget-style="selectBox">
+        <field name="viewCartOnAdd">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="autoSaveCart" widget-style="selectBox">
+        <field name="autoSaveCart">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="autoApproveReviews" widget-style="selectBox">
+        <field name="autoApproveReviews">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="autoInvoiceDigitalItems" widget-style="selectBox">
+        <field name="autoInvoiceDigitalItems">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="reqShipAddrForDigItems" widget-style="selectBox">
+        <field name="reqShipAddrForDigItems">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         
-        <field name="isDemoStore" widget-style="selectBox">
+        <field name="isDemoStore">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="isImmediatelyFulfilled" widget-style="selectBox">
+        <field name="isImmediatelyFulfilled">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="checkInventory" widget-style="selectBox">
+        <field name="checkInventory">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="requireInventory" widget-style="selectBox">
+        <field name="requireInventory">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="reserveInventory" widget-style="selectBox">
+        <field name="reserveInventory">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="reserveOrderEnumId" widget-style="selectBox">
+        <field name="reserveOrderEnumId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
                     <entity-constraint name="enumTypeId" value="INV_RES_ORDER"/>
@@ -104,7 +110,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="oneInventoryFacility" widget-style="selectBox">
+        <field name="oneInventoryFacility">
             <drop-down allow-empty="true" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field name="requirementMethodEnumId">
@@ -121,11 +127,18 @@
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         -->
-
-        <field name="allowPassword" widget-style="selectBox">
+        <field name="defaultCurrencyUomId">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
+                <entity-options entity-name="Uom" key-field-name="uomId" description="${description} [${uomId}]">
+                    <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="allowPassword">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="retryFailedAuths" widget-style="selectBox">
+        <field name="retryFailedAuths">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field name="headerApprovedStatus">
@@ -191,65 +204,65 @@
         <field name="contentPathPrefix" tooltip="If specified will be prepended to image and other content paths. Should start with a slash but not end with one."><text size="60" maxlength="250"/></field>
         <field name="templatePathPrefix" tooltip="If specified will be prepended to template paths. Should start with a slash but not end with one."><text size="60" maxlength="250"/></field>
         -->
-        <field name="explodeOrderItems" widget-style="selectBox">
+        <field name="explodeOrderItems">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="checkGcBalance" widget-style="selectBox">
+        <field name="checkGcBalance">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="usePrimaryEmailUsername" widget-style="selectBox">
+        <field name="usePrimaryEmailUsername">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="requireCustomerRole" widget-style="selectBox">
+        <field name="requireCustomerRole">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="showCheckoutGiftOptions" widget-style="selectBox">
+        <field name="showCheckoutGiftOptions">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="selectPaymentTypePerItem" widget-style="selectBox">
+        <field name="selectPaymentTypePerItem">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="showPricesWithVatTax" widget-style="selectBox">
+        <field name="showPricesWithVatTax">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="showTaxIsExempt" widget-style="selectBox">
+        <field name="showTaxIsExempt">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field name="vatTaxAuthGeoId"><lookup target-form-name="LookupGeo"/></field>
         <field name="vatTaxAuthPartyId"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="prodSearchExcludeVariants" widget-style="selectBox">
+        <field name="prodSearchExcludeVariants">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
 
-        <field name="enableDigProdUpload" widget-style="selectBox">
+        <field name="enableDigProdUpload">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field name="digProdUploadCategoryId"><lookup target-form-name="LookupProductCategory"/></field>
-        <field name="enableAutoSuggestionList" widget-style="selectBox">
+        <field name="enableAutoSuggestionList">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="autoOrderCcTryExp" widget-style="selectBox">
+        <field name="autoOrderCcTryExp">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="autoOrderCcTryOtherCards" widget-style="selectBox">
+        <field name="autoOrderCcTryOtherCards">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="autoOrderCcTryLaterNsf" widget-style="selectBox">
+        <field name="autoOrderCcTryLaterNsf">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="autoApproveInvoice" widget-style="selectBox">
+        <field name="autoApproveInvoice">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="autoApproveOrder" widget-style="selectBox">
+        <field name="autoApproveOrder">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="shipIfCaptureFails" widget-style="selectBox">
+        <field name="shipIfCaptureFails">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="setOwnerUponIssuance" widget-style="selectBox">
+        <field name="setOwnerUponIssuance">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 
     <form name="CreateProductStoreCatalog" type="single" target="createProductStoreCatalog" title=""
