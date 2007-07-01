@@ -624,11 +624,6 @@ under the License.
         <response name="error" type="request" value="orderentry"/>
     </request-map>
 
-    <request-map uri="chooseOrderPartyAddress">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="addrsetting"/>
-    </request-map>
-
     <!-- For checkout steps that use finalizeOrder: This request chain is for calculating shipping & tax before getting to the payments page, so that the visitor
         will know the full shipping & tax charges when trying to split payments between various payment methods -->
     <request-map uri="calcShippingBeforePayment">
@@ -1549,7 +1544,6 @@ under the License.
     <view-map name="custsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#CustSettings"/>
     <view-map name="shipsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#ShipSettings"/>
     <view-map name="EditShipAddress" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#EditShipAddress"/>
-    <view-map name="addrsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#AddrSettings"/>
     <view-map name="SetItemShipGroups" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#SetItemShipGroups"/>
     <view-map name="optionsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#OptionSettings"/>
     <view-map name="billsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#BillSettings"/>
