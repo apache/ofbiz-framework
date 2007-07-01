@@ -35,6 +35,7 @@ if (createNewShipGroup != null && createNewShipGroup.equals("Y")) {
 }
 
 orderPartyId = cart.getPartyId();
+shipToPartyId = parameters.get("shipToPartyId");
 context.put("cart", cart);
 
 // nuke the event messages
@@ -49,6 +50,15 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
             context.put("orderParty", orderParty);
             context.put("orderPerson", orderPerson);
             context.put("shippingContactMechList", shippingContactMechList);
+        }
+    }
+    // Ship to another party
+    if (shipToPartyId != null) {
+        shipToParty = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", shipToPartyId));
+        if (shipToParty != null) {    
+            context.put("shipToParty", shipToParty);            
+            shipToPartyShippingContactMechList = ContactHelper.getContactMech(shipToParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
+            context.put("shipToPartyShippingContactMechList", shipToPartyShippingContactMechList);
         }
     }
     // suppliers for the drop-ship select box

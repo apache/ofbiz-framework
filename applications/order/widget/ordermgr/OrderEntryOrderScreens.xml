@@ -119,31 +119,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="AddrSettings">
-        <section>
-            <actions>
-                <set field="stepTitleId" value="OrderOrderEntryShipToSettings"/>
-                <set field="stepLabelId" value="FacilityShipping"/>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <set field="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
-
-                <entity-and entity-name="PartyContactMechPurpose" list-name="partyContactMechPurposes">
-                  <field-map env-name="partyId" field-name="partyId"/>
-                  <field-map env-name="contactMechPurposeTypeId" field-name="contactMechPurposeTypeId"/>
-                  <order-by field-name="-fromDate"/>
-                </entity-and>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonOrderCheckoutDecorator">
-                    <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/entry/addrsettings.ftl"/></html>
-                        </platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="SetItemShipGroups">
         <section>
             <actions>
