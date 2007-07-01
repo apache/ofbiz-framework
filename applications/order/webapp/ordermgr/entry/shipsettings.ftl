@@ -189,7 +189,7 @@ under the License.
                   <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
                   <tr>
                     <td align="left" valign="top" width="1%" nowrap>
-                      <input type="radio" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}" ${checkedValue} />
+                      <input type="radio" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}"/>
                     </td>
                     <td align="left" valign="top" width="99%" nowrap>
                       <div class="tabletext">
