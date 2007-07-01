@@ -26,10 +26,10 @@ under the License.
         <set-pk-fields  map-name="parameters" value-name="newEntity" />
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
-        <if-compare value="1" field-name="newEntity.confirmation" operator="equals" type="Integer">
+        <!--if-compare value="1" field-name="newEntity.confirmation" operator="equals" type="Integer">
             <set-service-fields to-map-name="oagisMessageErrorInfoMap" service-name="createOagisMessageErrorInfo" map-name="parameters"/>
             <call-service service-name="createOagisMessageErrorInfo" in-map-name="oagisMessageErrorInfoMap"/>
-        </if-compare>
+        </if-compare-->
     </simple-method>
         
     <simple-method method-name="updateOagisMessageInfo" short-description="Update Oagis MessageInfo">

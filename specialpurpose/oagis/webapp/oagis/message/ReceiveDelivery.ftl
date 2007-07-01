@@ -40,7 +40,7 @@
     <n:RECEIVE_DELIVERY>
       <n:RECEIPTHDR>
         <N1:DATETIMEANY>${sentDate?if_exists}</N1:DATETIMEANY>
-        <N2:RECEIPTID></N2:RECEIPTID>
+        <N2:RECEIPTID>${returnId?if_exists}</N2:RECEIPTID>
         <N2:CARRIER></N2:CARRIER>
         <N2:NOTES></N2:NOTES>
         <N2:RECEIPTYPE>RMA</N2:RECEIPTYPE>
@@ -90,7 +90,7 @@
           <N2:NOTES>${returnReason.description?if_exists}</N2:NOTES>
           <N1:DOCUMNTREF>
             <N2:DOCTYPE>RMA</N2:DOCTYPE>
-            <N2:DOCUMENTID></N2:DOCUMENTID>
+            <N2:DOCUMENTID>${returnId?if_exists}</N2:DOCUMENTID>
             <N2:LINENUM></N2:LINENUM>
           </N1:DOCUMNTREF>
           </#list>
