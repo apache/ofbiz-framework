@@ -35,6 +35,8 @@ invoiceId = parameters.get("invoiceId");
 shipmentId = parameters.get("shipmentId");
 returnHeader = (GenericValue) parameters.get("returnHeader");
 returnId = parameters.get("returnId");
+quote = null;
+quoteId = parameters.get("quoteId");
 nowTimestamp = UtilDateTime.nowTimestamp();
 fromPartyId = parameters.get("fromPartyId");
 
@@ -51,6 +53,10 @@ if (invoice == null && invoiceId != null)	{
 
 if (returnHeader == null && returnId != null) {
     returnHeader = delegator.findByPrimaryKey("ReturnHeader", UtilMisc.toMap("returnId", returnId));
+}
+
+if (quoteId != null) {
+    quote = delegator.findByPrimaryKey("Quote", UtilMisc.toMap("quoteId", quoteId));
 }
 
 // defaults:
@@ -92,6 +98,11 @@ if (orderHeader != null) {
     if (("CUSTOMER_RETURN".equals(returnHeader.getString("returnHeaderTypeId"))) && 
         (returnHeader.get("toPartyId") != null)) {
         partyId = returnHeader.getString("toPartyId");
+    }
+} else if (quote != null) {
+    productStore = quote.getRelatedOne("ProductStore");
+    if (productStore != null && productStore.get("payToPartyId") != null) {
+        partyId = productStore.getString("payToPartyId");
     }
 }
 
