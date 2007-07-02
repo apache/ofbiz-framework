@@ -21,6 +21,14 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- Forms for FacilityGroups -->
+    <form name="FindFacilityGroup" type="list" title="" list-name="facilityGroups" paginate-target="FindFacilityGroup">
+        <auto-fields-entity entity-name="FacilityGroup" default-field-type="display"/>
+        <field name="facilityGroupId" widget-style="buttontext">
+            <hyperlink description="${facilityGroupId}" target="EditFacilityGroup?facilityGroupId=${facilityGroupId}"/>
+        </field>
+        <field name="facilityGroupTypeId"><display-entity entity-name="FacilityGroupType"/></field>
+        <field name="description"><display/></field>
+    </form>
     <form name="EditFacilityGroup" type="single" target="updateFacilityGroup" title="" default-map-name="facilityGroup">
         <alt-target use-when="facilityGroup==null" target="createFacilityGroup"/>
         <auto-fields-service service-name="updateFacilityGroup"/>
