@@ -23,6 +23,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.Collections;
+import java.util.Comparator;
 import java.math.BigDecimal;
 
 import javolution.util.FastList;
@@ -81,10 +83,9 @@ public class BillingAccountWorker {
 
         if (billingAccountRoleList != null && billingAccountRoleList.size() > 0) {
             double totalAvailable = 0.0;
-            TreeMap sortedAccounts = new TreeMap();
             Iterator billingAcctIter = billingAccountRoleList.iterator();
             while (billingAcctIter.hasNext()) {
-                GenericValue billingAccountRole = (GenericValue) billingAcctIter.next();        
+                GenericValue billingAccountRole = (GenericValue) billingAcctIter.next();
                 GenericValue billingAccountVO = billingAccountRole.getRelatedOne("BillingAccount");
 
                 // skip accounts that have thruDate < nowTimestamp
@@ -99,12 +100,11 @@ public class BillingAccountWorker {
                 
                     billingAccount.put("accountBalance", new Double(accountBalance)); 
                     double accountAvailable = accountLimit - accountBalance;
-                    totalAvailable += accountAvailable;    
-                    sortedAccounts.put(new Double(accountAvailable), billingAccount);
+                    totalAvailable += accountAvailable;
+                    billingAccountList.add(billingAccount);
                 }
             }
-            
-            billingAccountList.addAll(sortedAccounts.values());
+            Collections.sort(billingAccountList, new BillingAccountComparator());
         }
         return billingAccountList;
     }
@@ -310,7 +310,11 @@ public class BillingAccountWorker {
             Debug.logError(e, module);
             return ServiceUtil.returnError("Error getting billing account or calculating balance for billing account #" + billingAccountId);
         }
-        
-        
+    }
+
+    private static class BillingAccountComparator implements Comparator {
+        public int compare(Object billingAccount1, Object billingAccount2) {
+            return ((Double)((Map)billingAccount1).get("accountBalance")).compareTo((Double)((Map)billingAccount2).get("accountBalance"));
+        }
     }
 }
