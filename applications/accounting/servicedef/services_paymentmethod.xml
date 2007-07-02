@@ -535,82 +535,86 @@ under the License.
     </service>
 
     <!-- Test Implementations -->
+    <!-- Test Credit Card (CC) Requests -->
     <service name="testCCProcessor" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testProcessor">
-        <description>Credit Card Processing</description>
+        <description>Test Credit Card Auth Processing: declines auth requests for all orders < 100.00; approves auth requests for all orders >= 100.00</description>
         <implements service="ccAuthInterface"/>
     </service>
-     <service name="testCCProcessorWithCapture" engine="java"
+    <service name="testCCProcessorWithCapture" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testProcessorWithCapture">
-        <description>Credit Card Processing</description>
+        <description>Test Credit Card Auth Processing: declines auth requests for all orders < 100.00; approves auth requests for all orders >= 100.00</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="testRandomAuthorize" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRandomAuthorize">
-        <description>Credit Card Processing</description>
+        <description>Test Credit Card Auth Processing: does random auth declines</description>
         <implements service="ccAuthInterface"/>
     </service>
-
     <service name="alwaysApproveCCProcessor" engine="java"
              location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysApproveProcessor">
-        <description>Credit Card Processing</description>
+        <description>Test Credit Card Auth Processing: always approve the auth request</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="alwaysApproveWithCaptureCCProcessor" engine="java"
              location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysApproveWithCapture">
-        <description>Credit Card Processing</description>
+        <description>Test Credit Card Auth Processing: always approve with capture auth request</description>
         <implements service="ccAuthInterface"/>
     </service>
-
     <service name="alwaysDeclineCCProcessor" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysDeclineProcessor">
-        <description>Credit Card Processing</description>
+        <description>Test Credit Card Auth Processing: always decline the auth request</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="alwaysNsfCCProcessor" engine="java"
         location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysNsfProcessor">
-        <description>Credit Card Processing</description>
+        <description>Test Credit Card Auth Processing: always decline for NSF (not sufficient funds) auth request</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="alwaysBadExpireCCProcessor" engine="java"
         location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysBadExpireProcessor">
-        <description>Credit Card Processing</description>
+        <description>Test Credit Card Auth Processing: always fail/bad expire date processor</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="badExpireEvenCCProcessor" engine="java"
         location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="badExpireEvenProcessor">
-        <description>Credit Card Processing</description>
+        <description>Test Credit Card Auth Processing: fail/bad expire date when year is even processor</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="alwaysBadCardNumberCCProcessor" engine="java"
         location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysBadCardNumberProcessor">
-        <description>Credit Card Processing</description>
+        <description>Test Credit Card Auth Processing: always decline the auth request for bad card number</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="alwaysFailCCProcessor" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysFailProcessor">
-        <description>Credit Card Processing</description>
+        <description>Test Credit Card Auth Processing: always fail (error) the auth transaction request</description>
         <implements service="ccAuthInterface"/>
     </service>
 
     <service name="testCCCapture" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testCapture">
-        <description>Credit Card Test Capture</description>
+        <description>Test Credit Card Capture Processing: always approve the capture request</description>
         <implements service="ccCaptureInterface"/>
     </service>
     <service name="testCCCaptureWithReAuth" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testCaptureWithReAuth">
-        <description>Credit Card Test Capture</description>
+        <description>Test Credit Card Capture Processing: always approve with reauth the capture request</description>
+        <implements service="ccCaptureInterface"/>
+    </service>
+    <service name="testCCProcessorCaptureAlwaysDecline" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testCCProcessorCaptureAlwaysDecline">
+        <description>Test Credit Card Capture Processing: always decline a cc capture request</description>
         <implements service="ccCaptureInterface"/>
     </service>
     <service name="testCCRelease" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRelease">
-        <description>Credit Card Test Release</description>
+        <description>Test Credit Card Release Processing: always approve the release request</description>
         <implements service="paymentReleaseInterface"/>
     </service>
     <service name="testCCRefund" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRefund">
-        <description>Credit Card Test Refund</description>
+        <description>Test Credit Card Refund Processing: always approve the refund request</description>
         <implements service="paymentRefundInterface"/>
     </service>
 

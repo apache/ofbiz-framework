@@ -1063,11 +1063,6 @@ public class PaymentGatewayServices {
                 // If we have an invoice, we find unapplied payments associated
                 // to the billing account and we apply them to the invoice
                 if (UtilValidate.isNotEmpty(invoiceId)) {
-                    // TODO: jacopo continue from here...
-                    // cercare le paymentapplication non applicate e associate al billing account e il cui
-                    // pagamento non abbia una orderPaymentPreferenceId
-                    // creare nuova payment application fino a raggiungere l'importo necessario o fino ad esaurimento
-                    // e associarle alla fattura; se la fattura non esiste, non fare nulla
                     Map captureResult = null;
                     try {
                         captureResult = dispatcher.runSync("captureBillingAccountPayments", UtilMisc.toMap("invoiceId", invoiceId,
@@ -1856,25 +1851,23 @@ public class PaymentGatewayServices {
         BigDecimal amtBd = new BigDecimal(amount.doubleValue());
         amtBd = amtBd.setScale(decimals, rounding);
 
-        if (captureResult.booleanValue()) {
-            // capture returned true (passed)
-            result.put("orderPaymentPreference", paymentPreference);
-            result.put("userLogin", userLogin);
-            result.put("serviceTypeEnum", authServiceType);
+        result.put("orderPaymentPreference", paymentPreference);
+        result.put("userLogin", userLogin);
+        result.put("serviceTypeEnum", authServiceType);
 
-            ModelService model = dctx.getModelService("processCaptureResult");
-            Map context = model.makeValid(result, ModelService.IN_PARAM);
-            Map capRes;
-            try {
-                capRes = dispatcher.runSync("processCaptureResult", context);
-            } catch (GenericServiceException e) {
-                Debug.logError(e, module);
-                throw e;
-            }
-            if (capRes != null && ServiceUtil.isError(capRes)) {
-                throw new GeneralException(ServiceUtil.getErrorMessage(capRes));
-            }
-        } else {
+        ModelService model = dctx.getModelService("processCaptureResult");
+        Map context = model.makeValid(result, ModelService.IN_PARAM);
+        Map capRes;
+        try {
+            capRes = dispatcher.runSync("processCaptureResult", context);
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            throw e;
+        }
+        if (capRes != null && ServiceUtil.isError(capRes)) {
+            throw new GeneralException(ServiceUtil.getErrorMessage(capRes));
+        }
+        if (!captureResult.booleanValue()) {
             // capture returned false (error)
             try {
                 processReAuthFromCaptureFailure(dctx, result, amtBd, userLogin, paymentPreference);
@@ -2735,7 +2728,7 @@ public class PaymentGatewayServices {
 
 
     /**
-     * Simple test processor; declines all orders < 100.00; approves all orders > 100.00
+     * Simple test processor; declines all orders < 100.00; approves all orders >= 100.00
      */
     public static Map testProcessor(DispatchContext dctx, Map context) {
         Map result = new HashMap();
@@ -2988,6 +2981,25 @@ public class PaymentGatewayServices {
         result.put("captureAltRefNum", refNum);
         result.put("captureFlag", "C");
         result.put("captureMessage", "This is a test capture; no money was transferred");
+        return result;
+    }
+
+    /**
+     * Always decline processor
+     */
+    public static Map testCCProcessorCaptureAlwaysDecline(DispatchContext dctx, Map context) {
+        Map result = ServiceUtil.returnSuccess();
+        Double processAmount = (Double) context.get("captureAmount");
+        Debug.logInfo("Test Processor Declining Credit Card capture", module);
+
+        String refNum = UtilDateTime.nowAsString();
+
+        result.put("captureResult", Boolean.FALSE);
+        result.put("captureAmount", processAmount);
+        result.put("captureRefNum", refNum);
+        result.put("captureAltRefNum", refNum);
+        result.put("captureFlag", "D");
+        result.put("captureMessage", "This is a test processor; no payments were captured or authorized");
         return result;
     }
 
