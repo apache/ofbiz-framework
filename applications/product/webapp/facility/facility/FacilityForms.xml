@@ -289,8 +289,8 @@ under the License.
             <submit/>
         </field>
     </form>
-    <!-- Forms of FacilityGroups    -->
-    <form name="EditFacilityGroups" type="list" target="updateGroupToFacility" title="" list-name="facilityGroupMembers">
+    <!-- FacilityGroups -->
+    <form name="EditFacilityGroups" type="list" target="updateGroupToFacility" paginate-target="EditFacilityGroups" title="" list-name="facilityGroupMembers">
         <auto-fields-entity entity-name="FacilityGroupMember"/>
         <field name="facilityId"><hidden/></field>
         <field name="facilityGroupId">

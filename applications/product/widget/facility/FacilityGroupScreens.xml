@@ -30,9 +30,13 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/group/FindFacilityGroup.ftl"/></html>
-                        </platform-specific>
+                        <container>
+                            <label style="head1">${uiLabelMap.ProductFacilityGroupList}</label>
+                        </container>
+                        <container>
+                            <link target="EditFacilityGroup" text="${uiLabelMap.ProductNewGroup}" style="buttontext"/>
+                        </container>
+                        <include-form name="FindFacilityGroup" location="component://product/webapp/facility/group/FacilityGroupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
