@@ -18,6 +18,7 @@ under the License.
 -->
 <#if (parameters.organizationPartyId)?exists><#assign organizationPartyId = parameters.organizationPartyId></#if>
 <#assign selected = page.tabButtonItem?default("void")>
+<#assign selected2 = page.tabButtonItem2?default("void")>
 <h1>${title?if_exists} ${labelTitleProperty?if_exists} ${uiLabelMap.CommonFor} ${uiLabelMap.Organization}: ${organizationPartyId}</h1>
 <div class="button-bar button-style-1">
   <ul>
@@ -34,10 +35,10 @@ under the License.
 <#if selected == "GlAccountAssignment">
   <div class="button-bar button-style-2">
     <ul>
-      <li><a href="<@ofbizUrl>GlAccountSalInvoice?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingInvoiceSales}</a></li>
-      <li><a href="<@ofbizUrl>GlAccountPurInvoice?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingInvoicePurchase}</a></li>
-      <li><a href="<@ofbizUrl>GlAccountTypePaymentType?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingPaymentType}/${uiLabelMap.FormFieldTitle_glAccountTypeId}</a></li>
-      <li><a href="<@ofbizUrl>GlAccountNrPaymentMethod?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingPaymentMethodId}/${uiLabelMap.AccountingGlAccountId}</a></li>
+      <li<#if selected2 == "GlAccountSalInvoice"> class="selected"</#if>><a href="<@ofbizUrl>GlAccountSalInvoice?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingInvoiceSales}</a></li>
+      <li<#if selected2 == "GlAccountPurInvoice"> class="selected"</#if>><a href="<@ofbizUrl>GlAccountPurInvoice?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingInvoicePurchase}</a></li>
+      <li<#if selected2 == "GlAccountTypePaymentType"> class="selected"</#if>><a href="<@ofbizUrl>GlAccountTypePaymentType?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingPaymentType}/${uiLabelMap.FormFieldTitle_glAccountTypeId}</a></li>
+      <li<#if selected2 == "GlAccountNrPaymentMethod"> class="selected"</#if>><a href="<@ofbizUrl>GlAccountNrPaymentMethod?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingPaymentMethodId}/${uiLabelMap.AccountingGlAccountId}</a></li>
     </ul>
     <br class="clear"/>
   </div>
