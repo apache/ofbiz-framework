@@ -668,6 +668,7 @@ under the License.
                             <condition-expr field-name="orderItemSeqId" env-name="oneRelatedRes.orderItemSeqId"/>
                             <condition-expr field-name="inventoryItemId" env-name="oneRelatedRes.inventoryItemId"/>
                             <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
+                            <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
                         </condition-list>
                     </entity-condition>
 
