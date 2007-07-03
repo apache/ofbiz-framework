@@ -81,7 +81,7 @@ under the License.
                 </else>
                 </if-compare>
                 <set field="orderByList[]" from-field="orderByString"/>
-
+                                                    
                 <set from-field="parameters.quantity" field="parameters.quantityNotReserved"/>
 
                 <!-- first reserve against InventoryItems in FLT_PICKLOC type locations, then FLT_BULK locations, then InventoryItems with no locations -->
@@ -257,31 +257,46 @@ under the License.
         This way I'll get what I want and the other orderItem will also have a similar thing to issue.
         -->        
         <set field="inventoryItemLookUp.inventoryItemId" from-field="parameters.inventoryItemId"/>
-        <find-by-primary-key map-name="inventoryItemLookUp" entity-name="InventoryItem" value-name="inventoryItem"/>        
+        <find-by-primary-key map-name="inventoryItemLookUp" entity-name="InventoryItem" value-name="inventoryItem"/>                
         <set field="inventoryReservationLookUp.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
         <find-by-and map-name="inventoryReservationLookUp" list-name="invReservations" entity-name="OrderItemShipGrpInvRes"/>
         <first-from-list entry-name="inventoryItemReservation" list-name="invReservations"/>        
-        <set-service-fields map-name="inventoryItemReservation" to-map-name="cancelOrderItemShipGrpInvResMap" service-name="cancelOrderItemShipGrpInvRes"/>        
-        <set-service-fields map-name="inventoryItemReservation" to-map-name="reReserveOrderItemShipGrpInvResMap" service-name="reserveProductInventory"/>        
-        <!-- We'll get all except productId, facilityId, requireInventory fields in  inventoryItemReservation -->
+        <set-service-fields map-name="inventoryItemReservation" to-map-name="cancelOrderItemShipGrpInvResMap" service-name="cancelOrderItemShipGrpInvRes"/>
+        <!-- We'll get all except productId, facilityId, requireInventory fields in  inventoryItemReservation -->        
         <set field="reReserveOrderItemShipGrpInvResMap.facilityId" from-field="parameters.facilityId"/>
         <set field="reReserveOrderItemShipGrpInvResMap.productId" from-field="parameters.productId"/>
         <set field="reReserveOrderItemShipGrpInvResMap.requireInventory" from-field="parameters.requireInventory"/>                
         <!-- Step 1 call the cancel reservation service -->
         <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
-        <!-- Step 2 call this method again and the reservation should go through -->
+        <!-- Step 2 call this method again and the reservation should go through -->        
+        <entity-and entity-name="InventoryItem" list-name="inventoryItems">
+            <field-map field-name="serialNumber" env-name="parameters.serialNumber"/>
+            <field-map field-name="productId" env-name="parameters.productId"/>
+        </entity-and>
         <set field="orderHeaderMap.orderId" from-field="parameters.orderId"/>
         <find-by-primary-key entity-name="OrderHeader" value-name="orderHeader" map-name="orderHeaderMap"/>
-        <call-simple-method method-name="reserveForInventoryItemInline"/>
+        <!-- Get the actual inventoryItem by the help of serialnumber and productId -->
+        <first-from-list list-name="inventoryItems" entry-name="inventoryItem"/>                
+        <entity-and entity-name="OrderItemShipGrpInvRes" list-name="inventoryItemReservations">
+            <field-map field-name="inventoryItemId" env-name="inventoryItem.inventoryItemId"/>            
+        </entity-and>
+        <first-from-list list-name="inventoryItemReservations" entry-name="inventoryItemReservation"/>
+        <if-not-empty field-name="inventoryItemReservation">
+            <set-service-fields map-name="inventoryItemReservation" to-map-name="reReserveOrderItemShipGrpInvResMap" service-name="reserveProductInventory"/>
+            <call-service service-name="reserveProductInventory" in-map-name="reReserveOrderItemShipGrpInvResMap">        
+                <result-to-field result-name="quantityNotReserved" field-name="paramaters.quantityNotReserved"/>
+            </call-service>
+            <set value="INV_AVAILABLE" field="inventoryItem.statusId"/>
+            <store-value value-name="inventoryItem"/>
+        </if-not-empty>
         <!-- Step 3 Now last thing, lets reReserve inventory for order form where we got our item. Be curtious -->
-        <call-service service-name="reserveProductInventory" in-map-name="reReserveOrderItemShipGrpInvResMap">        
-            <result-to-field result-name="quantityNotReserved" field-name="paramaters.quantityNotReserved"/>
-        </call-service>
+        <call-simple-method method-name="reserveForInventoryItemInline"/>
         <field-to-result field-name="quantityNotReserved" map-name="parameters"/>
+        <field-to-result field-name="inventoryItemId" map-name="inventoryItem"/>
     </simple-method>
     
     <simple-method method-name="reserveForInventoryItemInline" short-description="Does a reservation for one InventoryItem, meant to be called in-line">
-        <!-- only do something with this inventoryItem if there is more inventory to reserve -->
+        <!-- only do something with this inventoryItem if there is more inventory to reserve -->  
         <if-compare field-name="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
             <!-- get the promiseDatetime -->
             <get-related-one value-name="inventoryItem" relation-name="ProductFacility" to-value-name="productFacility"/>

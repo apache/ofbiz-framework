@@ -233,7 +233,7 @@ under the License.
     <service name="reserveAnInventoryItem" engine="simple"
             location="org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveAnInventoryItem" auth="true">
         <description></description>
-        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+        <attribute name="inventoryItemId" type="String" mode="INOUT" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
@@ -242,6 +242,7 @@ under the License.
         <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="false"/>
+        <attribute name="serialNumber" type="String" mode="IN" optional="true"/>        
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
         <attribute name="quantityNotReserved" type="Double" mode="INOUT" optional="false"/>
     </service>
