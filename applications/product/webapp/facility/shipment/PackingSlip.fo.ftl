@@ -53,7 +53,7 @@ under the License.
             </fo:block>
             <fo:block><fo:leader/></fo:block>
 
-            <fo:block font-size="14pt">${uiLabelMap.ProductShipmentId} #${shipmentId} / Package ${package_index + 1}</fo:block>
+            <fo:block font-size="14pt">${uiLabelMap.ProductShipmentId} #${shipmentId} / Package ${package_index + 1}<#if (packages?size > 1)> of ${packages?size}</#if></fo:block>
             <fo:block font-size="12pt">${uiLabelMap.ProductOrderId} #${shipment.primaryOrderId?default("N/A")} / ${shipment.primaryShipGroupSeqId?default("N/A")}</fo:block>
             <fo:block><fo:leader/></fo:block>
 
@@ -112,14 +112,22 @@ under the License.
             <fo:block space-after.optimum="10pt" font-size="10pt">
             <fo:table>
                 <fo:table-column column-width="250pt"/>
-                <fo:table-column column-width="67pt"/>
-                <fo:table-column column-width="67pt"/>
-                <fo:table-column column-width="67pt"/>
+                <#if (packages?size > 1)>
+                    <fo:table-column column-width="58pt"/>
+                    <fo:table-column column-width="45pt"/>
+                    <fo:table-column column-width="50pt"/>
+                    <fo:table-column column-width="47pt"/>
+                <#else>
+                    <fo:table-column column-width="67pt"/>
+                    <fo:table-column column-width="67pt"/>
+                    <fo:table-column column-width="67pt"/>
+                </#if>
                 <fo:table-header>
                     <fo:table-row font-weight="bold">
                         <fo:table-cell padding="2pt" background-color="#D4D0C8"><fo:block>${uiLabelMap.ProductProduct}</fo:block></fo:table-cell>
                         <fo:table-cell padding="2pt" background-color="#D4D0C8"><fo:block>Requested</fo:block></fo:table-cell>
                         <fo:table-cell padding="2pt" background-color="#D4D0C8"><fo:block>In this Package</fo:block></fo:table-cell>
+                        <#if (packages?size > 1)><fo:table-cell padding="2pt" background-color="#D4D0C8"><fo:block>In this Shipment</fo:block></fo:table-cell></#if>
                         <fo:table-cell padding="2pt" background-color="#D4D0C8"><fo:block>Total Shipped</fo:block></fo:table-cell>
                     </fo:table-row>
                 </fo:table-header>
@@ -145,6 +153,11 @@ under the License.
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
                                     <fo:block>${line.quantityInPackage?default(0)}</fo:block>
                                 </fo:table-cell>
+                                <#if (packages?size > 1)>
+                                    <fo:table-cell padding="2pt" background-color="${rowColor}">
+                                        <fo:block>${line.quantityInShipment?default(0)}</fo:block>
+                                    </fo:table-cell>
+                                </#if>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
                                     <fo:block>${line.quantityShipped?default(0)}</fo:block>
                                 </fo:table-cell>
