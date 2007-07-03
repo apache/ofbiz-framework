@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Accounting Services</description>
     <vendor>OFBiz</vendor>
@@ -229,7 +229,7 @@ under the License.
         <description>(Batch) Retries failed authorizations due to NSF (Not Sufficient Funds); these are for auto-orders</description>
         <!-- this service has no parameters IN or OUT -->
     </service>
-    
+
     <service name="authOrderPaymentPreference" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="authOrderPaymentPreference" auth="true">
         <description>Process (authorizes/re-authorizes) a single payment for an order with an optional overrideAmount</description>
@@ -304,7 +304,7 @@ under the License.
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processCaptureSplitPayment" auth="true">
         <description>Handles the creation of new OrderPaymentPreference record (and Auth) for partial captures</description>
         <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
-        <attribute name="splitAmount" type="BigDecimal" mode="IN" optional="false"/> 
+        <attribute name="splitAmount" type="BigDecimal" mode="IN" optional="false"/>
     </service>
 
     <service name="refundPayment" engine="java"
@@ -538,12 +538,12 @@ under the License.
     <!-- Test Credit Card (CC) Requests -->
     <service name="testCCProcessor" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testProcessor">
-        <description>Test Credit Card Auth Processing: declines auth requests for all orders < 100.00; approves auth requests for all orders >= 100.00</description>
+        <description>Test Credit Card Auth Processing: declines auth requests for all orders inf. to 100.00; approves auth requests for all orders sup. or equal to 100.00</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="testCCProcessorWithCapture" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testProcessorWithCapture">
-        <description>Test Credit Card Auth Processing: declines auth requests for all orders < 100.00; approves auth requests for all orders >= 100.00</description>
+        <description>Test Credit Card Auth Processing: declines auth requests for all orders inf. to  100.00; approves auth requests for all orders sup. or equal to  100.00</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="testRandomAuthorize" engine="java"
