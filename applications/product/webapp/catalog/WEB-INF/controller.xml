@@ -2373,6 +2373,18 @@ under the License.
     <request-map uri="LookupFacilityLocation"><security auth="true" https="true"/><response name="success" type="view" value="LookupFacilityLocation"/></request-map>
     <request-map uri="LookupWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="LookupWorkEffort"/></request-map>      
 
+    <request-map uri="ProductsExportToGoogle">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ProductsExportToGoogle"/>
+    </request-map>
+    
+    <request-map uri="exportProductsToGoogle">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="exportToGoogle"/>
+        <response name="success" type="view" value="ProductsExportToGoogle"/>
+        <response name="error" type="view" value="ProductsExportToGoogle"/>
+    </request-map>
+    
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -2504,6 +2516,8 @@ under the License.
     <view-map name="ListShipmentMethodTypes" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListShipmentMethodTypes"/>
     <view-map name="ListCarrierShipmentMethods" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListCarrierShipmentMethods"/>
 
+    <view-map name="ProductsExportToGoogle" type="screen" page="component://product/widget/catalog/FindScreens.xml#ProductsExportToGoogle"/>
+   
     <!-- Lookup request mappings -->
     <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
     <view-map name="LookupFixedAsset" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupFixedAsset"/>
