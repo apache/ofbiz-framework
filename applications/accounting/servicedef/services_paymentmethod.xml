@@ -538,12 +538,12 @@ under the License.
     <!-- Test Credit Card (CC) Requests -->
     <service name="testCCProcessor" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testProcessor">
-        <description>Test Credit Card Auth Processing: declines auth requests for all orders inf. to 100.00; approves auth requests for all orders sup. or equal to 100.00</description>
+        <description>Test Credit Card Auth Processing: declines auth requests for all orders less than 100.00; approves auth requests for all orders greater than or equal to 100.00</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="testCCProcessorWithCapture" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testProcessorWithCapture">
-        <description>Test Credit Card Auth Processing: declines auth requests for all orders inf. to  100.00; approves auth requests for all orders sup. or equal to  100.00</description>
+        <description>Test Credit Card Auth Processing: declines auth requests for all orders less than 100.00; approves auth requests for all orders greater than or equal to 100.00</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="testRandomAuthorize" engine="java"
