@@ -853,19 +853,18 @@ under the License.
         </check-permission>
         <set value="Create ShipmentPackageContent" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
-        <check-errors/>
-
+        <check-errors/>        
         <make-value value-name="newEntity" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <find-by-primary-key value-name="shipmentPackageContent" map-name="newEntity"/>
         <log level="verbose" message="In addShipmentContentToPackage trying values: ${newEntity}"/>
-        <if-empty field-name="shipmentPackageContent">
+        <if-empty field-name="shipmentPackageContent">            
             <set-service-fields service-name="createShipmentPackageContent" map-name="parameters" to-map-name="createSPCMap"/>
             <call-service service-name="createShipmentPackageContent" in-map-name="createSPCMap">
                 <result-to-field result-name="shipmentPackageSeqId" field-name="newEntity.shipmentPackageSeqId"/>
             </call-service>
         <else>
-            <!-- add the quantities and store it -->
+            <!-- add the quantities and store it -->            
             <calculate field-name="shipmentPackageContent.quantity" type="Double">
                 <calcop field-name="shipmentPackageContent.quantity" operator="add"><calcop field-name="parameters.quantity" operator="get"/></calcop>
             </calculate>
@@ -1394,12 +1393,14 @@ under the License.
         <make-value entity-name="OrderItemShipGrpInvRes" value-name="orderItemShipGrpInvResLookupPk"/>                
         <set-pk-fields value-name="orderItemShipGrpInvResLookupPk" map-name="parameters"/>
         <find-by-primary-key entity-name="OrderItemShipGrpInvRes" map-name="orderItemShipGrpInvResLookupPk" value-name="orderItemShipGrpInvRes"/>       
-        <get-related-one to-value-name="inventoryItem" relation-name="InventoryItem" value-name="orderItemShipGrpInvRes"/>
+        <get-related-one to-value-name="inventoryItem" relation-name="InventoryItem" value-name="orderItemShipGrpInvRes"/>        
         <if-compare-field operator="not-equals" field-name="inventoryItem.serialNumber" to-field-name="parameters.serialNumber">            
             <!-- The inventory that we have reserved is not what we shipped. Lets reReserve, this time we'll get what we want -->
             <set-service-fields map-name="parameters" to-map-name="reserveAnInventoryItemCtx" service-name="reserveAnInventoryItem"/>
-            <call-service service-name="reserveAnInventoryItem" in-map-name="reserveAnInventoryItemCtx"/>
-        </if-compare-field>
+            <call-service service-name="reserveAnInventoryItem" in-map-name="reserveAnInventoryItemCtx">
+                <result-to-field result-name="inventoryItemId" field-name="parameters.inventoryItemId"/>
+            </call-service>
+        </if-compare-field>        
         <!-- get InventoryItem issued to shipment -->        
         <clear-field field-name="issueContext"/>
         <set from-field="parameters.shipmentId" field="issueContext.shipmentId"/>
@@ -1409,7 +1410,6 @@ under the License.
         <set from-field="parameters.orderItemSeqId" field="issueContext.orderItemSeqId"/>
         <set from-field="parameters.inventoryItemId" field="issueContext.inventoryItemId"/>
         <set from-field="parameters.quantity" field="issueContext.quantity"/>
-        <log level="info" message="========issueContext===========${issueContext}====================="/>
         <call-service service-name="issueOrderItemShipGrpInvResToShipment" in-map-name="issueContext">
             <result-to-field result-name="itemIssuanceId" field-name="parameters.itemIssuanceId"/>
         </call-service>
@@ -1418,14 +1418,17 @@ under the License.
         <entity-one entity-name="ItemIssuance" value-name="itemIssuance">
             <field-map field-name="itemIssuanceId" env-name="parameters.itemIssuanceId"/>
         </entity-one>
-
         <clear-field field-name="shipItemContext"/>
-        <set from-field="packageMap.${itemMap.trackingNum}" field="shipItemContext.shipmentPackageSeqId"/>
+        <set from-field="parameters.trackingNum" field="shipItemContext.shipmentPackageSeqId"/>
         <if-empty field-name="shipItemContext.shipmentPackageSeqId">
             <set value="New" field="shipItemContext.shipmentPackageSeqId"/>
         </if-empty>
         <log level="info" message="Package SeqID : ${shipItemContext.shipmentPackageSeqId}"/>
-
+        
+        <set from-field="itemIssuance.shipmentId" field="shipPackageContext.shipmentId"/>
+        <set from-field="shipItemContext.shipmentPackageSeqId" field="shipPackageContext.shipmentPackageSeqId"/>
+        <call-service service-name="createShipmentPackage" in-map-name="shipPackageContext"/>
+        
         <set from-field="itemIssuance.shipmentId" field="shipItemContext.shipmentId"/>
         <set from-field="itemIssuance.shipmentItemSeqId" field="shipItemContext.shipmentItemSeqId"/>
         <set from-field="itemIssuance.quantity" field="shipItemContext.quantity"/>
@@ -1433,7 +1436,7 @@ under the License.
             <result-to-field result-name="shipmentPackageSeqId" field-name="packageMap.${parameters.trackingNum}"/>
             <result-to-field result-name="shipmentPackageSeqId" map-name="routeSegLookup"/>
         </call-service>
-
+        
         <if-not-empty field-name="shipmentPackageSeqId" map-name="routeSegLookup">
             <set from-field="itemIssuance.shipmentId" field="routeSegLookup.shipmentId"/>
             <!-- quick ship orders should only have one route segment -->

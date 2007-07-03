@@ -116,7 +116,7 @@ public class OagisShipmentServices {
             Element shipmentElement = UtilXml.firstChildElement(daShowShipmentElement, "n:SHIPMENT");                                  
             String shipmentId = UtilXml.childElementValue(shipmentElement, "N2:DOCUMENTID");            
            
-            Element shipUnitElement = UtilXml.firstChildElement(showShipmentElement, "n:SHIPUNIT");                                   
+            Element shipUnitElement = UtilXml.firstChildElement(daShowShipmentElement, "n:SHIPUNIT");
             String trackingNum = UtilXml.childElementValue(shipUnitElement, "N2:TRACKINGID");            
             
             Element invItem = UtilXml.firstChildElement(shipUnitElement, "n:INVITEM");            
