@@ -22,6 +22,8 @@
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.condition.*;
 
 // Since this script is run after ViewShipment, we will re-use the shipment in the context
 shipment = context.get("shipment");
@@ -33,6 +35,7 @@ shipmentPackages = shipment.getRelated("ShipmentPackage", orderBy);
 
 // first we scan the shipment items and count the quantity of each product that is being shipped
 quantityShippedByProduct = FastMap.newInstance();
+quantityInShipmentByProduct = FastMap.newInstance();
 shipmentItems = shipment.getRelated("ShipmentItem");
 for (iter = shipmentItems.iterator(); iter.hasNext(); ) {
     shipmentItem = iter.next();
@@ -42,22 +45,54 @@ for (iter = shipmentItems.iterator(); iter.hasNext(); ) {
     if (shipped == null) shipped = new Double(0);
     shipped += shipmentItem.getDouble("quantity").doubleValue();
     quantityShippedByProduct.put(productId, shipped);
+    quantityInShipmentByProduct.put(productId, shipped);
 }
+
+// Add in the total of all previously shipped items
+previousShipmentIter = delegator.findListIteratorByCondition("Shipment", 
+        new EntityConditionList(
+            UtilMisc.toList(
+                new EntityExpr("primaryOrderId", EntityOperator.EQUALS, shipment.getString("primaryOrderId")),
+                new EntityExpr("shipmentTypeId", EntityOperator.EQUALS, "SALES_SHIPMENT"),
+                new EntityExpr("createdDate", EntityOperator.LESS_THAN_EQUAL_TO, shipment.getString("createdDate"))
+            ),
+        EntityOperator.AND),
+    null, null, null, null);
+
+while ((previousShipmentItem = previousShipmentIter.next()) != null) {
+    if (previousShipmentItem.getString("shipmentId").equals(shipment.getString("shipmentId")) == false) {
+        previousShipmentItems = previousShipmentItem.getRelated("ShipmentItem");
+        for (iter = previousShipmentItems.iterator(); iter.hasNext(); ) {
+            shipmentItem = iter.next();
+            productId = shipmentItem.get("productId");
+
+            shipped = quantityShippedByProduct.get(productId);
+            if (shipped == null) shipped = new Double(0);
+            shipped += shipmentItem.getDouble("quantity").doubleValue();
+            quantityShippedByProduct.put(productId, shipped);
+        }
+    }
+}
+previousShipmentIter.close();
 
 // next scan the order items (via issuances) to count the quantity of each product requested
 quantityRequestedByProduct = FastMap.newInstance();
-issuances = shipment.getRelated("ItemIssuance");
+countedOrderItems = FastMap.newInstance(); // this map is only used to keep track of the order items already counted
+order = shipment.getRelatedOne("PrimaryOrderHeader");
+issuances = order.getRelated("ItemIssuance");
 for (iter = issuances.iterator(); iter.hasNext(); ) {
     issuance = iter.next();
     orderItem = issuance.getRelatedOne("OrderItem");
     productId = orderItem.get("productId");
-
-    requested = quantityRequestedByProduct.get(productId);
-    if (requested == null) requested = new Double(0);
-    cancelQuantity = orderItem.getDouble("cancelQuantity");
-    quantity = orderItem.getDouble("quantity");
-    requested += quantity.doubleValue() - (cancelQuantity != null ? cancelQuantity.doubleValue() : 0);
-    quantityRequestedByProduct.put(productId, requested);
+    if (!countedOrderItems.containsKey(orderItem.getString("orderId") + orderItem.getString("orderItemSeqId"))) {
+        countedOrderItems.put(orderItem.getString("orderId") + orderItem.getString("orderItemSeqId"), null);
+        requested = quantityRequestedByProduct.get(productId);
+        if (requested == null) requested = new Double(0);
+        cancelQuantity = orderItem.getDouble("cancelQuantity");
+        quantity = orderItem.getDouble("quantity");
+        requested += quantity.doubleValue() - (cancelQuantity != null ? cancelQuantity.doubleValue() : 0);
+        quantityRequestedByProduct.put(productId, requested);
+    }
 }
 
 // for each package, we want to list the quantities and details of each product
@@ -76,6 +111,7 @@ for (iter = shipmentPackages.iterator(); iter.hasNext(); ) {
         line = FastMap.newInstance();
         line.put("product", product);
         line.put("quantityInPackage", content.get("quantity"));
+        line.put("quantityInShipment", quantityInShipmentByProduct.get(product.get("productId")));
         line.put("quantityShipped", quantityShippedByProduct.get(product.get("productId")));
         line.put("quantityRequested", quantityRequestedByProduct.get(product.get("productId")));
         lines.add(line);
