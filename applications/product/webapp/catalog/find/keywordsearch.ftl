@@ -67,21 +67,43 @@ under the License.
             }
         }
     }
+    
+    function exportToGoogle() {
+        var products = new Array();
+        var idx = 0;
+        for (var i = 0; i < document.products.elements.length; i++) {
+            var element = document.products.elements[i];
+            var sname = element.name.substring(0,12);
+            var product = "product" + element.name.substring(12);
+            if (sname == "selectResult" && element.checked) {
+                products[idx] = document.products.elements[product].value;
+                idx++;
+            }
+        }
+        if (idx == 0) {
+            alert('At least one product has to be selected');
+        } else {
+            document.exportToGoogle.action="<@ofbizUrl>ProductsExportToGoogle</@ofbizUrl>";
+            document.exportToGoogle.products.value = products;
+            document.exportToGoogle.submit();
+        }
+    }
 </script>
-<center>
+<form name="products">
   <table width="100%" cellpadding="0" cellspacing="0">
     <#assign listIndex = lowIndex>
     <#list productIds as productId><#-- note that there is no boundary range because that is being done before the list is put in the content -->
       <#assign product = delegator.findByPrimaryKey("Product", Static["org.ofbiz.base.util.UtilMisc"].toMap("productId", productId))>
       <tr>
         <td>
+          <input type="hidden" name="product${productId_index}" value="${productId}"/>
           <input type="checkbox" name="selectResult${productId_index}" onchange="checkProductToBagTextArea(this, '${productId}');"/>
           <a href="<@ofbizUrl>EditProduct?productId=${productId}</@ofbizUrl>" class="buttontext">[${productId}] ${(product.internalName)?if_exists}</a>
         </td>
       </tr>
     </#list>
   </table>
-</center>
+<form>
 </#if>
 
 <#if productIds?has_content>
@@ -188,8 +210,8 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
 <div class="tabletext">
 <form method="post" action="" name="searchShowParams">
   <#assign searchParams = Static["org.ofbiz.product.product.ProductSearchSession"].makeSearchParametersString(session)>
-  <div><b>Plain Search Parameters:</b><input type="text" size="60" name="searchParameters" value="${searchParams}" class="inputBox"></div>
-  <div><b>HTML Search Parameters:</b><input type="text" size="60" name="searchParameters" value="${searchParams?html}" class="inputBox"></div>
+  <div><b>${uiLabelMap.ProductPlainSearchParameters}:</b><input type="text" size="60" name="searchParameters" value="${searchParams}" class="inputBox"></div>
+  <div><b>${uiLabelMap.ProductHtmlSearchParameters}:</b><input type="text" size="60" name="searchParameters" value="${searchParams?html}" class="inputBox"></div>
   <input type="hidden" name="clearSearch" value="N">
 </form>
 </div>
@@ -197,5 +219,11 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
 <hr class="sepbar"/>
 <div class="tabletext">
   <b>${uiLabelMap.ProductSearchExportProductList}:</b> <a href="<@ofbizUrl>searchExportProductList?clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSearchExport}</a>
+  <#if productIds?has_content>
+    <a href="javascript:exportToGoogle();" class="buttontext">${uiLabelMap.ProductExportToGoogle}</a>
+    <form method="post" name="exportToGoogle">
+        <input type="hidden" name="products">
+    </form>
+  </#if>
 </div>
 </#if>

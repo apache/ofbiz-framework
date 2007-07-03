@@ -1115,4 +1115,13 @@ under the License.
         <permission-service service-name="productGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <!-- Products Export Services -->    
+    <service name="exportToGoogle" engine="java"
+             location="org.ofbiz.product.product.ProductsExportToGoogle" invoke="exportToGoogle" auth="true">
+        <description>Export products to Google Base</description>
+        <attribute type="String" mode="IN" name="products" optional="false"/>
+        <attribute type="String" mode="IN" name="webSiteUrl" optional="false"/>
+        <attribute type="String" mode="IN" name="imageUrl" optional="false"/>
+        <attribute type="String" mode="IN" name="trackingCodeId" optional="true"/>
+    </service>
 </services>
