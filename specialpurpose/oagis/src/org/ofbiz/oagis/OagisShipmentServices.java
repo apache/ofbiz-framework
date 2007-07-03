@@ -18,9 +18,14 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 **/
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -37,9 +42,12 @@ import java.util.TreeSet;
 import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.HttpClient;
+import org.ofbiz.base.util.SSLUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.entity.GenericDelegator;
@@ -71,6 +79,8 @@ public class OagisShipmentServices {
     protected static final FoFormRenderer foFormRenderer = new FoFormRenderer();
     
     public static final String resource = "OagisUiLabels";
+
+    public static final String certAlias = UtilProperties.getPropertyValue("oagis.properties", "auth.client.certificate.alias");
     
     public static Map showShipment(DispatchContext ctx, Map context) {
         InputStream in = (InputStream) context.get("inputStream");
@@ -177,12 +187,18 @@ public class OagisShipmentServices {
         return result;
     }
 
-    public static Map processShipment(DispatchContext ctx, Map context) {
+    public static Map oagisProcessShipment(DispatchContext ctx, Map context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
         String shipmentId = (String) context.get("shipmentId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        
+        String sendToUrl = (String) context.get("sendToUrl");
+        String saveToFilename = (String) context.get("saveToFilename");
+        String saveToDirectory = (String) context.get("saveToDirectory");
+        OutputStream out = (OutputStream) context.get("outputStream");
+        
         Map result = ServiceUtil.returnSuccess();
         MapStack bodyParameters =  MapStack.create();
         if (userLogin == null) {
@@ -241,8 +257,10 @@ public class OagisShipmentServices {
                     while (oiIter.hasNext()) {
                         GenericValue orderItem = (GenericValue) oiIter.next();
                         String correspondingPoId = orderItem.getString("correspondingPoId");
-                        correspondingPoIdSet.add(correspondingPoId);
-                        bodyParameters.put("correspondingPoIdSet", correspondingPoIdSet);
+                        if (correspondingPoId != null) {
+	                        correspondingPoIdSet.add(correspondingPoId);
+	                        bodyParameters.put("correspondingPoIdSet", correspondingPoIdSet);
+                        }
                     }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
@@ -315,14 +333,60 @@ public class OagisShipmentServices {
                 bodyParameters.put("orderId", orderId);
                 bodyParameters.put("userLogin", userLogin);
                 String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ProcessShipment");
-                OutputStream out = (OutputStream) context.get("outputStream");
-                Writer writer = new OutputStreamWriter(out);
+
+                Writer writer = null;
+                if (out != null) {
+                    writer = new OutputStreamWriter(out);
+                } else if (UtilValidate.isNotEmpty(saveToFilename)) {
+                	try {
+                        File outdir = new File(saveToDirectory);
+                        if (!outdir.exists()) {
+                            outdir.mkdir();
+                        }
+                        writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, saveToFilename)), "UTF-8")));
+                	} catch (Exception e) {
+                		String errMsg = "Error opening file to save message to [" + saveToFilename + "]: " + e.toString();
+                        Debug.logError(e, errMsg, module);
+                        return ServiceUtil.returnError(errMsg);
+                	}
+                } else if (UtilValidate.isNotEmpty(sendToUrl)) {
+                	writer = new StringWriter();
+                }
+
                 ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, new HtmlScreenRenderer());
                 try {
                     screens.render(bodyScreenUri);
+                    writer.close();
                 } catch (Exception e) {
-                      Debug.logError(e, "Error rendering [text/xml]: ", module);
+                	String errMsg = "Error rendering message: " + e.toString();
+                    Debug.logError(e, errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
                 }
+                
+                // TODO: call service with require-new-transaction=true to save the OagisMessageInfo data (to make sure it saves before)
+
+                if (UtilValidate.isNotEmpty(sendToUrl)) {
+                    HttpClient http = new HttpClient(sendToUrl);
+
+                    // test parameters
+                    http.setHostVerificationLevel(SSLUtil.HOSTCERT_NO_CHECK);
+                    http.setAllowUntrusted(true);
+                    http.setDebug(true);
+                      
+                    // needed XML post parameters
+                    http.setClientCertificateAlias(certAlias);
+                    http.setContentType("text/xml");
+                    http.setKeepAlive(true);
+
+                    try {
+                    	String resp = http.post(writer.toString());
+                    } catch (Exception e) {
+                    	String errMsg = "Error posting message to server with UTL [" + sendToUrl + "]: " + e.toString();
+                        Debug.logError(e, errMsg, module);
+                        return ServiceUtil.returnError(errMsg);
+                    }
+                }
+
                 // prepare map to Create Oagis Message Info
                 result.put("component", "INVENTORY");
                 result.put("task", "SHIPREQUES"); // Actual value of task is "SHIPREQUEST" which is more than 10 char

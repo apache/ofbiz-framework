@@ -26,7 +26,7 @@ under the License.
         <condition field-name="statusId" operator="equals" value="ORDER_APPROVED"/>
         <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
-        <action service="processShipment" mode="sync"/>
+        <action service="oagisProcessShipment" mode="sync"/>
     </eca-->
     <eca service="processShipment" event="commit" run-on-error="false">
         <action service="createOagisMessageInfo" mode="sync"/>
