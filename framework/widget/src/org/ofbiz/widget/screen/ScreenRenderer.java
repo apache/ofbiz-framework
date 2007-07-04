@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -171,6 +172,9 @@ public class ScreenRenderer {
         // some things also seem to require this, so here it is:
         request.setAttribute("userLogin", userLogin);
 
+        // set up the user's time zone
+        context.put("timeZone", UtilHttp.getTimeZone(request));
+        
         // ========== setup values that are specific to OFBiz webapps
 
         context.put("request", request);

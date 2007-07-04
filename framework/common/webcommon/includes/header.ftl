@@ -68,9 +68,7 @@ under the License.
           ${uiLabelMap.CommonWelcome}!
         </#if>
         </p>
-        <#assign nowStamp = Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp()>
-        <#assign timeZone = Static["org.ofbiz.base.util.UtilDateTime"].toTimeZone((userLogin.lastTimeZone)?default(""))>
-        <p>${Static["org.ofbiz.base.util.UtilDateTime"].timeStampToString(nowStamp, timeZone, locale)}</p>
+        <p>${Static["org.ofbiz.base.util.UtilDateTime"].timeStampToString(nowTimestamp, timeZone, locale)}</p>
             <form method="post" action="<@ofbizUrl>setSessionLocale</@ofbizUrl>">
               <select name="locale">
                 <option value="${locale.toString()}">${locale.getDisplayName(locale)}</option>
