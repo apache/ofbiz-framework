@@ -633,6 +633,14 @@ public class ModelServiceReader implements Serializable {
         def.optional = true;
         def.internal = true;
         service.addParam(def);
+        // timeZone
+        def = new ModelParam();
+        def.name = "timeZone";
+        def.type = "java.util.TimeZone";
+        def.mode = "INOUT";
+        def.optional = true;
+        def.internal = true;
+        service.addParam(def);
     }
     
     protected void createOverrideDefs(Element baseElement, ModelService service) {
