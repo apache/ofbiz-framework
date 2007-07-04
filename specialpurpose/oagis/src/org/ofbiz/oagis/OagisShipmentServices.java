@@ -81,6 +81,8 @@ public class OagisShipmentServices {
     public static final String resource = "OagisUiLabels";
 
     public static final String certAlias = UtilProperties.getPropertyValue("oagis.properties", "auth.client.certificate.alias");
+    public static final String basicAuthUsername = UtilProperties.getPropertyValue("oagis.properties", "auth.basic.username");
+    public static final String basicAuthPassword = UtilProperties.getPropertyValue("oagis.properties", "auth.basic.password");
     
     public static Map showShipment(DispatchContext ctx, Map context) {
         InputStream in = (InputStream) context.get("inputStream");
@@ -374,7 +376,12 @@ public class OagisShipmentServices {
                     http.setDebug(true);
                       
                     // needed XML post parameters
-                    http.setClientCertificateAlias(certAlias);
+                    if (UtilValidate.isNotEmpty(certAlias)) {
+                    	http.setClientCertificateAlias(certAlias);
+                    }
+                    if (UtilValidate.isNotEmpty(basicAuthUsername)) {
+                        http.setBasicAuthInfo(basicAuthUsername, basicAuthPassword);
+                    }
                     http.setContentType("text/xml");
                     http.setKeepAlive(true);
 
