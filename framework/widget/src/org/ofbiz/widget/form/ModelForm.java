@@ -584,7 +584,7 @@ public class ModelForm {
         while (modelParamIter.hasNext()) {
             ModelParam modelParam = (ModelParam) modelParamIter.next();
             // skip auto params that the service engine populates...
-            if ("userLogin".equals(modelParam.name) || "locale".equals(modelParam.name)) {
+            if ("userLogin".equals(modelParam.name) || "locale".equals(modelParam.name) || "timeZone".equals(modelParam.name)) {
                 continue;
             }
             if (modelParam.formDisplay) {
