@@ -27,6 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -101,6 +102,7 @@ public class ServiceEventHandler implements EventHandler {
 
         // some needed info for when running the service
         Locale locale = UtilHttp.getLocale(request);
+        TimeZone timeZone = UtilHttp.getTimeZone(request);
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
@@ -226,6 +228,8 @@ public class ServiceEventHandler implements EventHandler {
             if ("userLogin".equals(name)) continue;
             // don't include locale, that is also taken care of below
             if ("locale".equals(name)) continue;
+            // don't include timeZone, that is also taken care of below
+            if ("timeZone".equals(name)) continue;
 
             Object value = null;
             if (modelParam.stringMapPrefix != null && modelParam.stringMapPrefix.length() > 0) {
@@ -305,6 +309,11 @@ public class ServiceEventHandler implements EventHandler {
         // include the Locale object
         if (locale != null) {
             serviceContext.put("locale", locale);
+        }
+
+        // include the TimeZone object
+        if (timeZone != null) {
+            serviceContext.put("timeZone", timeZone);
         }
 
         // invoke the service

@@ -43,6 +43,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -537,6 +538,29 @@ public class UtilHttp {
         if (UtilValidate.isNotEmpty(localeString) && session.getAttribute("locale") == null) {
             UtilHttp.setLocale(session, UtilMisc.parseLocale(localeString));
         }
+    }
+
+    public static void setTimeZone(HttpServletRequest request, String tzId) {
+        UtilHttp.setTimeZone(request.getSession(), UtilDateTime.toTimeZone(tzId));
+    }
+
+    public static void setTimeZone(HttpSession session, TimeZone timeZone) {
+        session.setAttribute("timeZone", timeZone);
+    }
+    
+    public static TimeZone getTimeZone(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        TimeZone timeZone = (TimeZone) session.getAttribute("timeZone");
+        if (timeZone == null) {
+            String tzId = null;
+            Map userLogin = (Map) session.getAttribute("userLogin");
+            if (userLogin != null) {
+                tzId = (String) userLogin.get("lastTimeZone");
+            }
+            timeZone = UtilDateTime.toTimeZone(tzId);
+            session.setAttribute("timeZone", timeZone);
+        }
+        return timeZone;
     }
 
     /**
