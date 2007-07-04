@@ -52,6 +52,9 @@ public class HttpClient {
     private String url = null;
     private String rawStream = null;
     private String clientCertAlias = null;
+    private String basicAuthUsername = null;
+    private String basicAuthPassword = null;
+
     private Map parameters = null;
     private Map headers = null;
     
@@ -219,6 +222,11 @@ public class HttpClient {
     /** Do we trust any certificate */
     public boolean getAllowUntrusted() {
         return this.trustAny;
+    }
+    
+    public void setBasicAuthInfo(String basicAuthUsername, String basicAuthPassword) {
+    	this.basicAuthUsername = basicAuthUsername;
+    	this.basicAuthPassword = basicAuthPassword;
     }
     
     /** Invoke HTTP request GET. */
@@ -430,11 +438,19 @@ public class HttpClient {
             }
 
             if (method.equalsIgnoreCase("post")) {
-                if (contentType == null)
+                if (contentType == null) {
                     con.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
+                }
                 con.setDoInput(true);
             }
-
+            
+            // if there is basicAuth info set the request property for it
+            if (basicAuthUsername != null) {
+            	String basicAuthString = "Basic " + Base64.base64Encode(basicAuthUsername + ":" + (basicAuthPassword == null ? "" : basicAuthPassword));
+                con.setRequestProperty("Authorization", basicAuthString);
+                if (Debug.verboseOn() || debug) Debug.log("Header - Authorization: " + basicAuthString, module);
+            }
+            
             if (headers != null && headers.size() > 0) {
                 Set headerSet = headers.keySet();
                 Iterator i = headerSet.iterator();
@@ -443,7 +459,7 @@ public class HttpClient {
                     String headerName = (String) i.next();
                     String headerValue = (String) headers.get(headerName);
                     con.setRequestProperty(headerName, headerValue);
-                    if (Debug.verboseOn() || debug) Debug.log("Header : " + headerName + " -> " + headerValue, module);
+                    if (Debug.verboseOn() || debug) Debug.log("Header - " + headerName + ": " + headerValue, module);
                 }
             }
 

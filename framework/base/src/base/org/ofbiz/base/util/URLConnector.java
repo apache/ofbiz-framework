@@ -19,6 +19,7 @@
 package org.ofbiz.base.util;
 
 import org.ofbiz.base.config.GenericConfigException;
+import org.ofbiz.base.util.Base64;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -116,6 +117,7 @@ public class URLConnector {
             URLConnection con = null;
             try {
                 con = url.openConnection();
+                
                 if ("HTTPS".equalsIgnoreCase(url.getProtocol())) {
                     HttpsURLConnection scon = (HttpsURLConnection) con;
                     try {
