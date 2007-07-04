@@ -3399,7 +3399,7 @@ public class ShoppingCart implements Serializable {
         List allOpPrefs = new LinkedList();
         BigDecimal remainingAmount = new BigDecimal(this.getGrandTotal() - this.getPaymentTotal());
         remainingAmount = remainingAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
-        if (getBillingAccountId() != null) {
+        if (getBillingAccountId() != null && this.billingAccountAmt <= 0) {
             double billingAccountAvailableAmount = CheckOutHelper.availableAccountBalance(getBillingAccountId(), dispatcher);
             if (this.billingAccountAmt == 0.0 && billingAccountAvailableAmount > 0) {
                 this.billingAccountAmt = billingAccountAvailableAmount;
