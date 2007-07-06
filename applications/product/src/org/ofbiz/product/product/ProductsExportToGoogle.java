@@ -60,7 +60,6 @@ public class ProductsExportToGoogle {
     
     private static final String resource = "ProductUiLabels";
     private static final String module = ProductsExportToGoogle.class.getName();
-    private static final String xmlHeader = "<?xml version=\'1.0\' encoding='UTF-8'?>\n";
 
     public static Map exportToGoogle(DispatchContext dctx, Map context) {
         Locale locale = (Locale) context.get("locale");
@@ -84,17 +83,20 @@ public class ProductsExportToGoogle {
         
             StringBuffer dataItemsXml = new StringBuffer();
             
-            if (!ServiceUtil.isFailure(buildDataItemsXml(dctx, context, dataItemsXml))) { 
+            Map result = buildDataItemsXml(dctx, context, dataItemsXml);
+            if (!ServiceUtil.isFailure(result)) { 
                 String token = authenticate(authenticationUrl, accountEmail, accountPassword);
 
                 if (token != null) {    
-                    Map result = postItem(token, postItemsUrl, developerKey, dataItemsXml);
+                    result = postItem(token, postItemsUrl, developerKey, dataItemsXml);
                     if (ServiceUtil.isFailure(result))
                         return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(result));
                 } else {
                     Debug.logError("Error during authentication to Google Account", module);
                     return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.errorDuringAuthenticationToGoogle", locale));
                 }
+            } else {
+                return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(result));
             }
         } catch (Exception e) {        
             Debug.logError("Exception in exportToGoogle", module);
@@ -208,7 +210,7 @@ public class ProductsExportToGoogle {
             result = ServiceUtil.returnSuccess(toString(inputStream));
         } else if (responseCode == HttpURLConnection.HTTP_OK) {
             inputStream = connection.getInputStream();
-            result = ServiceUtil.returnFailure(toString(inputStream));
+            result = ServiceUtil.returnSuccess(toString(inputStream));
         } else {
             inputStream = connection.getErrorStream();
             result = ServiceUtil.returnFailure(toString(inputStream));
@@ -221,13 +223,15 @@ public class ProductsExportToGoogle {
         try {
              GenericDelegator delegator = dctx.getDelegator();
              LocalDispatcher dispatcher = dctx.getDispatcher();
-             String products = (String)context.get("products");
+             List selectResult = (List)context.get("selectResult");
              String webSiteUrl = (String)context.get("webSiteUrl");
              String imageUrl = (String)context.get("imageUrl");
+             String actionType = (String)context.get("actionType");
+             String statusId = (String)context.get("statusId");
              String trackingCodeId = (String)context.get("trackingCodeId");
              
              // Get the list of products to be exported to Google Base
-             List productsList  = delegator.findByCondition("Product", new EntityExpr("productId", EntityOperator.IN, StringUtil.split(products, ",")), null, null);
+             List productsList  = delegator.findByCondition("Product", new EntityExpr("productId", EntityOperator.IN, selectResult), null, null);
              
              // Get the tracking code
              if (UtilValidate.isEmpty(trackingCodeId) || "_NA_".equals(trackingCodeId)) {
@@ -243,8 +247,6 @@ public class ProductsExportToGoogle {
                  feedElem.setAttribute("xmlns:openSearch", "http://a9.com/-/spec/opensearchrss/1.0/");
                  feedElem.setAttribute("xmlns:g", "http://base.google.com/ns/1.0");
                  feedElem.setAttribute("xmlns:batch", "http://schemas.google.com/gdata/batch");
-                 
-                 dataItemsXml.append(xmlHeader);
                  
                  // Iterate the product list getting all the relevant data
                  Iterator productsListItr = productsList.iterator();
@@ -265,7 +267,7 @@ public class ProductsExportToGoogle {
                      
                      Element entryElem = UtilXml.addChildElement(feedElem, "entry", feedDocument);
                      Element batchElem = UtilXml.addChildElement(entryElem, "batch:operation", feedDocument);
-                     batchElem.setAttribute("type", "insert");
+                     batchElem.setAttribute("type", actionType);
                      
                      UtilXml.addChildElementValue(entryElem, "title", title, feedDocument);
                      
@@ -290,16 +292,8 @@ public class ProductsExportToGoogle {
                      appControlElem.setAttribute("xmlns:app", "http://purl.org/atom/app#");
                      UtilXml.addChildElementValue(appControlElem, "app:draft", "yes", feedDocument);
                  }
-                 OutputStream os = new ByteArrayOutputStream();
-                 OutputFormat format = new OutputFormat();
-                 format.setOmitDocumentType(true);
-                 format.setOmitXMLDeclaration(true);
-                 format.setIndenting(false);
-                 XMLSerializer serializer = new XMLSerializer(os, format);
-                 serializer.asDOMSerializer();
-                 serializer.serialize(feedDocument.getDocumentElement());
                  
-                 dataItemsXml.append(os.toString());
+                 dataItemsXml.append(UtilXml.writeXmlDocument(feedDocument));
              } catch (Exception e) {
                  Debug.logError("Exception during building data items to Google", module);
                  return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.exceptionDuringBuildingDataItemsToGoogle", locale));
@@ -318,18 +312,8 @@ public class ProductsExportToGoogle {
             boolean validPriceFound = ((Boolean)map.get("validPriceFound")).booleanValue();
             boolean isSale = ((Boolean)map.get("isSale")).booleanValue();
             if (validPriceFound) {
-                // "price" is a mandatory output
                 priceString = UtilFormatOut.formatPrice((Double)map.get("price"));
             }
-            /*
-            if (isSale && null != map.get("price")) {
-                priceString = UtilFormatOut.formatPrice((Double)map.get("price"));
-            } else if (null != map.get("defaultPrice")) {
-                priceString = UtilFormatOut.formatPrice((Double)map.get("defaultPrice"));
-            } else if (null != map.get("listPrice")) {
-                priceString = UtilFormatOut.formatPrice((Double)map.get("listPrice"));
-            }
-             */
         } catch(Exception e){
             Debug.logError("Exception calculating price for product [" + product.getString("productId") + "]", module);
         }

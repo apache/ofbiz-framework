@@ -29,26 +29,6 @@ under the License.
 </#if>
 
 <#if productIds?has_content>
-<table border="0" width="100%" cellpadding="2">
-    <tr>
-      <td align="right">
-        <b>
-        <#if 0 < viewIndex?int>
-          <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex-1}/~VIEW_SIZE=${viewSize}/~clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
-        </#if>
-        <#if 0 < listSize?int>
-          <span class="tabletext">${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
-        </#if>
-        <#if highIndex?int < listSize?int>
-          | <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex+1}/~VIEW_SIZE=${viewSize}/~clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
-        </#if>
-        </b>
-      </td>
-    </tr>
-</table>
-</#if>
-
-<#if productIds?has_content>
 <script language="JavaScript" type="text/javascript">
     function checkProductToBagTextArea(field, idValue) {
         fullValue = idValue + "\n";
@@ -68,36 +48,57 @@ under the License.
         }
     }
     
-    function exportToGoogle() {
-        var products = new Array();
-        var idx = 0;
-        for (var i = 0; i < document.products.elements.length; i++) {
-            var element = document.products.elements[i];
-            var sname = element.name.substring(0,12);
-            var product = "product" + element.name.substring(12);
-            if (sname == "selectResult" && element.checked) {
-                products[idx] = document.products.elements[product].value;
-                idx++;
+    function toggleAll(e) {
+        var cform = document.products;
+        var len = cform.elements.length;
+        for (var i = 0; i < len; i++) {
+            var element = cform.elements[i];
+            if (element.name == "selectResult" && element.checked != e.checked) {
+                toggle(element);
             }
         }
-        if (idx == 0) {
-            alert('At least one product has to be selected');
-        } else {
-            document.exportToGoogle.action="<@ofbizUrl>ProductsExportToGoogle</@ofbizUrl>";
-            document.exportToGoogle.products.value = products;
-            document.exportToGoogle.submit();
-        }
+    }
+    
+    function toggle(e) {
+        e.checked = !e.checked;
+    }
+
+    function exportToGoogle() {
+        document.products.action="<@ofbizUrl>ProductsExportToGoogle</@ofbizUrl>";
+        document.products.submit();
     }
 </script>
-<form name="products">
+
+<#if productIds?has_content>
+<table border="0" width="100%" cellpadding="2">
+    <tr>
+      <td align="left"><input type="checkbox" name="selectAll" value="0" onclick="javascript:toggleAll(this);"> <b>${uiLabelMap.ProductProduct}</b></td>
+      <td align="right">
+        <b>
+        <#if 0 < viewIndex?int>
+          <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex-1}/~VIEW_SIZE=${viewSize}/~clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
+        </#if>
+        <#if 0 < listSize?int>
+          <span class="tabletext">${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
+        </#if>
+        <#if highIndex?int < listSize?int>
+          | <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex+1}/~VIEW_SIZE=${viewSize}/~clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
+        </#if>
+        </b>
+      </td>
+    </tr>
+    <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+</table>
+</#if>
+
+<form method="post" name="products">
   <table width="100%" cellpadding="0" cellspacing="0">
     <#assign listIndex = lowIndex>
     <#list productIds as productId><#-- note that there is no boundary range because that is being done before the list is put in the content -->
       <#assign product = delegator.findByPrimaryKey("Product", Static["org.ofbiz.base.util.UtilMisc"].toMap("productId", productId))>
       <tr>
         <td>
-          <input type="hidden" name="product${productId_index}" value="${productId}"/>
-          <input type="checkbox" name="selectResult${productId_index}" onchange="checkProductToBagTextArea(this, '${productId}');"/>
+          <input type="checkbox" name="selectResult" value="${productId}" onchange="checkProductToBagTextArea(this, '${productId}');"/>
           <a href="<@ofbizUrl>EditProduct?productId=${productId}</@ofbizUrl>" class="buttontext">[${productId}] ${(product.internalName)?if_exists}</a>
         </td>
       </tr>
@@ -112,13 +113,13 @@ under the License.
       <td align="right">
         <b>
         <#if 0 < viewIndex?int>
-          <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex-1}/~VIEW_SIZE=${viewSize}/~clearSearch=N</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonPrevious}]</a> |
+          <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex-1}/~VIEW_SIZE=${viewSize}/~clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
         </#if>
         <#if 0 < listSize?int>
           <span class="tabletext">${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
         </#if>
         <#if highIndex?int < listSize?int>
-          | <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex+1}/~VIEW_SIZE=${viewSize}/~clearSearch=N</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonNext}]</a>
+          | <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex+1}/~VIEW_SIZE=${viewSize}/~clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
         </#if>
         </b>
       </td>
@@ -221,9 +222,6 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
   <b>${uiLabelMap.ProductSearchExportProductList}:</b> <a href="<@ofbizUrl>searchExportProductList?clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSearchExport}</a>
   <#if productIds?has_content>
     <a href="javascript:exportToGoogle();" class="buttontext">${uiLabelMap.ProductExportToGoogle}</a>
-    <form method="post" name="exportToGoogle">
-        <input type="hidden" name="products">
-    </form>
   </#if>
 </div>
 </#if>
