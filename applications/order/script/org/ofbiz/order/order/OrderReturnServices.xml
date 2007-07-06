@@ -313,12 +313,12 @@ under the License.
                     <calcop operator="get" field-name="returnablePrice"/>
                 </calcop>
             </calculate>
-			
-			<!-- just checking greater-equals sometimes returns an error if the difference is actually zero -->
+
+            <!-- just checking greater-equals sometimes returns an error if the difference is actually zero -->
             <if-compare-field field-name="returnPriceDelta" operator="not-equals" to-field-name="zero" type="Double">
-				<if-compare-field field-name="returnPriceDelta" operator="greater-equals" to-field-name="epsilon" type="Double">
-					<add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnPriceCannotExceedThePurchasePrice"/></add-error>
-				</if-compare-field >
+                <if-compare-field field-name="returnPriceDelta" operator="greater-equals" to-field-name="epsilon" type="Double">
+                    <add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnPriceCannotExceedThePurchasePrice"/></add-error>
+                </if-compare-field >
             </if-compare-field>
 
             <check-errors/>
@@ -665,7 +665,7 @@ under the License.
                     <select-field field-name="productTypeId"/>
                 </entity-one>
                 <entity-one entity-name="ReturnItemTypeMap" value-name="returnItemTypeMapping">
-            	    <field-map env-name="product.productTypeId" field-name="returnItemMapKey"/>
+                    <field-map env-name="product.productTypeId" field-name="returnItemMapKey"/>
                 </entity-one>
             <else>
             <!-- if not, try the ReturnItemTypeMap, but this may not actually work, so log a warning -->
@@ -765,7 +765,7 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
-	
+
     <simple-method method-name="cancelReturnItems" short-description="Update a ReturnItems">
         <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCancelReturnItems"/></check-permission>
         <check-errors/>
