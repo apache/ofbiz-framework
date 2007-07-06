@@ -21,6 +21,7 @@ under the License.
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -38,6 +39,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
 
@@ -69,6 +72,7 @@ import org.ofbiz.widget.html.HtmlScreenRenderer;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 
 public class OagisShipmentServices {
@@ -88,98 +92,138 @@ public class OagisShipmentServices {
         InputStream in = (InputStream) context.get("inputStream");
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
-        Map result = new HashMap();
+        
         List errorList = new LinkedList();
+        Document doc = null;
         try {
-            Document doc = UtilXml.readXmlDocument(in, true, "ShowShipment");
-            GenericValue userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "admin"));            
-            Element showShipmentElement = doc.getDocumentElement();
-            showShipmentElement.normalize();
+            doc = UtilXml.readXmlDocument(in, true, "ShowShipment");
+        } catch (SAXException e) {
+            String errMsg = "Error parsing the ShowShipmentResponse";
+            errorList.add(errMsg);
+            Debug.logError(e, errMsg, module);
+        } catch (ParserConfigurationException e) {
+            String errMsg = "Error parsing the ShowShipmentResponse";
+            errorList.add(errMsg);
+            Debug.logError(e, errMsg, module);
+        } catch (IOException e) {
+            String errMsg = "Error parsing the ShowShipmentResponse";
+            errorList.add(errMsg);
+            Debug.logError(e, errMsg, module);
+        }
             
-            Element controlAreaElement = UtilXml.firstChildElement(showShipmentElement, "N1:CNTROLAREA");
-            Element bsrElement = UtilXml.firstChildElement(controlAreaElement, "N1:BSR");
-            String bsrVerb = UtilXml.childElementValue(bsrElement, "N2:VERB");
-            String bsrNoun = UtilXml.childElementValue(bsrElement, "N2:NOUN");
-            String bsrRevision = UtilXml.childElementValue(bsrElement, "N2:REVISION");
+        GenericValue userLogin =null; 
+        try {
+            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "admin"));    
+        } catch (GenericEntityException e){
+            String errMsg = "Error Getting UserLogin with userLoginId 'admin'";
+            Debug.logError(e, errMsg, module);
+        }
+                    
+        Element showShipmentElement = doc.getDocumentElement();
+        showShipmentElement.normalize();
+          
+        Element controlAreaElement = UtilXml.firstChildElement(showShipmentElement, "N1:CNTROLAREA");
+        Element bsrElement = UtilXml.firstChildElement(controlAreaElement, "N1:BSR");
+        String bsrVerb = UtilXml.childElementValue(bsrElement, "N2:VERB");
+        String bsrNoun = UtilXml.childElementValue(bsrElement, "N2:NOUN");
+        String bsrRevision = UtilXml.childElementValue(bsrElement, "N2:REVISION");
+          
+        Map oagisMsgInfoCtx = new HashMap();
+        oagisMsgInfoCtx.put("bsrVerb", bsrVerb);
+        oagisMsgInfoCtx.put("bsrNoun", bsrNoun);
+        oagisMsgInfoCtx.put("bsrRevision", bsrRevision);
             
-            result.put("bsrVerb", bsrVerb);
-            result.put("bsrNoun", bsrNoun);
-            result.put("bsrRevision", bsrRevision);
-            
-            Element senderElement = UtilXml.firstChildElement(controlAreaElement, "N1:SENDER");
-            String logicalId = UtilXml.childElementValue(senderElement, "N2:LOGICALID");
-            String component = UtilXml.childElementValue(senderElement, "N2:COMPONENT");
-            String task = UtilXml.childElementValue(senderElement, "N2:TASK");
-            String referenceId = UtilXml.childElementValue(senderElement, "N2:REFERENCEID");
-            String confirmation = UtilXml.childElementValue(senderElement, "N2:CONFIRMATION");
-            String authId = UtilXml.childElementValue(senderElement, "N2:AUTHID");
-            
-            result.put("logicalId", logicalId);
-            result.put("component", component);
-            result.put("task", task);
-            result.put("referenceId", referenceId);
-            result.put("confirmation", confirmation);
-            result.put("authId", authId);
-            result.put("outgoingMessage", "N");
-            result.put("userLogin", userLogin);
-            
-            Element dataAreaElement = UtilXml.firstChildElement(showShipmentElement, "n:DATAAREA");
-            Element daShowShipmentElement = UtilXml.firstChildElement(dataAreaElement, "n:SHOW_SHIPMENT");
-            Element shipmentElement = UtilXml.firstChildElement(daShowShipmentElement, "n:SHIPMENT");                                  
-            String shipmentId = UtilXml.childElementValue(shipmentElement, "N2:DOCUMENTID");            
+        Element senderElement = UtilXml.firstChildElement(controlAreaElement, "N1:SENDER");
+        String logicalId = UtilXml.childElementValue(senderElement, "N2:LOGICALID");
+        String component = UtilXml.childElementValue(senderElement, "N2:COMPONENT");
+        String task = UtilXml.childElementValue(senderElement, "N2:TASK");
+        String referenceId = UtilXml.childElementValue(senderElement, "N2:REFERENCEID");
+        String confirmation = UtilXml.childElementValue(senderElement, "N2:CONFIRMATION");
+        String authId = UtilXml.childElementValue(senderElement, "N2:AUTHID");
+          
+        oagisMsgInfoCtx.put("logicalId", logicalId);
+        oagisMsgInfoCtx.put("component", component);
+        oagisMsgInfoCtx.put("task", task);
+        oagisMsgInfoCtx.put("referenceId", referenceId);
+        oagisMsgInfoCtx.put("confirmation", confirmation);
+        oagisMsgInfoCtx.put("authId", authId);
+        oagisMsgInfoCtx.put("outgoingMessage", "N");
+        oagisMsgInfoCtx.put("userLogin", userLogin);
+        
+        try {
+            Map oagisMsgInfoResult = dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoCtx);
+            if (ServiceUtil.isError(oagisMsgInfoResult)){
+                String errMsg = "Error creating OagisMessageInfo for the Incoming Message";
+                errorList.add(errMsg);
+                Debug.logError(errMsg, module);
+            }
+        } catch (GenericServiceException e){
+            String errMsg = "Error creating OagisMessageInfo for the Incoming Message";
+            errorList.add(errMsg);
+            Debug.logError(e, errMsg, module);
+        }
            
-            Element shipUnitElement = UtilXml.firstChildElement(daShowShipmentElement, "n:SHIPUNIT");
-            String trackingNum = UtilXml.childElementValue(shipUnitElement, "N2:TRACKINGID");            
+        Element dataAreaElement = UtilXml.firstChildElement(showShipmentElement, "n:DATAAREA");
+        Element daShowShipmentElement = UtilXml.firstChildElement(dataAreaElement, "n:SHOW_SHIPMENT");
+        Element shipmentElement = UtilXml.firstChildElement(daShowShipmentElement, "n:SHIPMENT");                                  
+        String shipmentId = UtilXml.childElementValue(shipmentElement, "N2:DOCUMENTID");            
+           
+        Element shipUnitElement = UtilXml.firstChildElement(daShowShipmentElement, "n:SHIPUNIT");
+        String trackingNum = UtilXml.childElementValue(shipUnitElement, "N2:TRACKINGID");            
             
-            Element invItem = UtilXml.firstChildElement(shipUnitElement, "n:INVITEM");            
-            String productId = UtilXml.childElementValue(invItem, "N2:ITEM");
+        Element invItem = UtilXml.firstChildElement(shipUnitElement, "n:INVITEM");            
+        String productId = UtilXml.childElementValue(invItem, "N2:ITEM");
             
-            Element invDetail = UtilXml.firstChildElement(invItem, "n:INVDETAIL");
-            String serialNumber = UtilXml.childElementValue(invDetail,"N1:SERIALNUM");
-            try {                
-                GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
-                String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");                
-                String originFacilityId = shipment.getString("originFacilityId");                              
-                GenericValue shipmentItem = EntityUtil.getFirst(delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId, "productId",productId)));                
-                String shipmentItemSeqId = shipmentItem.getString("shipmentItemSeqId");                
-                GenericValue orderShipment = EntityUtil.getFirst(delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItemSeqId)));                
-                String orderId = orderShipment.getString("orderId");                
-                String orderItemSeqId = orderShipment.getString("orderItemSeqId");                
-                GenericValue product = delegator.findByPrimaryKey("Product",UtilMisc.toMap("productId",productId)); 
-                String requireInventory = product.getString("requireInventory");
-                if(requireInventory == null) {
-                    requireInventory = "N";
-                }                
-                GenericValue orderItemShipGrpInvReservation = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGrpInvRes", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId,"shipGroupSeqId",shipGroupSeqId)));               
-                Map isitspastCtx = UtilMisc.toMap("orderId", orderId, "shipGroupSeqId", shipGroupSeqId, "orderItemSeqId", orderItemSeqId, "quantity", shipmentItem.get("quantity"), "quantityNotReserved", shipmentItem.get("quantity"));                
-                isitspastCtx.put("productId", productId);
-                isitspastCtx.put("reservedDatetime", orderItemShipGrpInvReservation.get("reservedDatetime"));
-                isitspastCtx.put("requireInventory", requireInventory);
-                isitspastCtx.put("reserveOrderEnumId", orderItemShipGrpInvReservation.get("reserveOrderEnumId"));
-                isitspastCtx.put("sequenceId", orderItemShipGrpInvReservation.get("sequenceId"));
-                isitspastCtx.put("originFacilityId", originFacilityId);
-                isitspastCtx.put("userLogin", userLogin);
-                isitspastCtx.put("serialNumber", serialNumber);
-                isitspastCtx.put("trackingNum", trackingNum);
-                isitspastCtx.put("inventoryItemId", orderItemShipGrpInvReservation.get("inventoryItemId"));                
-                isitspastCtx.put("shipmentId", shipmentId);      
-                try {                    
-                    dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);                                      
-                } catch(GenericServiceException e) {
-                    Debug.logInfo(e, module);
-                    errorList.add(e.getMessage());
+        Element invDetail = UtilXml.firstChildElement(invItem, "n:INVDETAIL");
+        String serialNumber = UtilXml.childElementValue(invDetail,"N1:SERIALNUM");
+        try {                
+            GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+            String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");                
+            String originFacilityId = shipment.getString("originFacilityId");                              
+            GenericValue shipmentItem = EntityUtil.getFirst(delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId, "productId",productId)));                
+            String shipmentItemSeqId = shipmentItem.getString("shipmentItemSeqId");                
+            GenericValue orderShipment = EntityUtil.getFirst(delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItemSeqId)));                
+            String orderId = orderShipment.getString("orderId");                
+            String orderItemSeqId = orderShipment.getString("orderItemSeqId");                
+            GenericValue product = delegator.findByPrimaryKey("Product",UtilMisc.toMap("productId",productId)); 
+            String requireInventory = product.getString("requireInventory");
+            if(requireInventory == null) {
+                requireInventory = "N";
+            }                
+            GenericValue orderItemShipGrpInvReservation = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGrpInvRes", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId,"shipGroupSeqId",shipGroupSeqId)));               
+            Map isitspastCtx = UtilMisc.toMap("orderId", orderId, "shipGroupSeqId", shipGroupSeqId, "orderItemSeqId", orderItemSeqId, "quantity", shipmentItem.get("quantity"), "quantityNotReserved", shipmentItem.get("quantity"));                
+            isitspastCtx.put("productId", productId);
+            isitspastCtx.put("reservedDatetime", orderItemShipGrpInvReservation.get("reservedDatetime"));
+            isitspastCtx.put("requireInventory", requireInventory);
+            isitspastCtx.put("reserveOrderEnumId", orderItemShipGrpInvReservation.get("reserveOrderEnumId"));
+            isitspastCtx.put("sequenceId", orderItemShipGrpInvReservation.get("sequenceId"));
+            isitspastCtx.put("originFacilityId", originFacilityId);
+            isitspastCtx.put("userLogin", userLogin);
+            isitspastCtx.put("serialNumber", serialNumber);
+            isitspastCtx.put("trackingNum", trackingNum);
+            isitspastCtx.put("inventoryItemId", orderItemShipGrpInvReservation.get("inventoryItemId"));                
+            isitspastCtx.put("shipmentId", shipmentId);      
+            try {                    
+                Map resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
+                if (ServiceUtil.isError(resultMap)){
+                    String errMsg = "Error executing issueSerializedInvToShipmentPackageAndSetTracking Service";
+                    errorList.add(errMsg);
+                    Debug.logError(errMsg, module);
                 }
-            } catch (GenericEntityException e) {
+            } catch(GenericServiceException e) {
                 Debug.logInfo(e, module);
                 errorList.add(e.getMessage());
             }
-        } catch (Exception e) {
-            Debug.logError(e, module);
+        } catch (GenericEntityException e) {
+            Debug.logInfo(e, module);
             errorList.add(e.getMessage());
         }
+        
+        Map result = new HashMap();
         result.put("contentType","text/plain");
         if (errorList.size() > 0) {
             // error message generation
+            result.putAll(oagisMsgInfoCtx);
             result.put(ModelService.RESPONSE_MESSAGE,ModelService.RESPOND_ERROR); 
             result.put(ModelService.ERROR_MESSAGE_LIST, errorList);
             result.put("reasonCode", "1000"); 
@@ -411,10 +455,16 @@ public class OagisShipmentServices {
         return result;
     }
     
-    public static Map receiveDelivery(DispatchContext dctx, Map context) {
+    public static Map oagisReceiveDelivery(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         String returnId = (String) context.get("returnId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        
+        String sendToUrl = (String) context.get("sendToUrl");
+        String saveToFilename = (String) context.get("saveToFilename");
+        String saveToDirectory = (String) context.get("saveToDirectory");
+        OutputStream out = (OutputStream) context.get("outputStream");
+        
         Map result = ServiceUtil.returnSuccess();
         MapStack bodyParameters =  MapStack.create();
         if (userLogin == null) {
@@ -495,13 +545,63 @@ public class OagisShipmentServices {
                 
                 bodyParameters.put("returnId", returnId);
                 String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ReceiveDelivery");
-                OutputStream out = (OutputStream) context.get("outputStream");
-                Writer writer = new OutputStreamWriter(out);
+                
+                Writer writer = null;
+                if (out != null) {
+                    writer = new OutputStreamWriter(out);
+                } else if (UtilValidate.isNotEmpty(saveToFilename)) {
+                    try {
+                        File outdir = new File(saveToDirectory);
+                        if (!outdir.exists()) {
+                            outdir.mkdir();
+                        }
+                        writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, saveToFilename)), "UTF-8")));
+                    } catch (Exception e) {
+                        String errMsg = "Error opening file to save message to [" + saveToFilename + "]: " + e.toString();
+                        Debug.logError(e, errMsg, module);
+                        return ServiceUtil.returnError(errMsg);
+                    }
+                } else if (UtilValidate.isNotEmpty(sendToUrl)) {
+                    writer = new StringWriter();
+                }
+
                 ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, new HtmlScreenRenderer());
                 try {
                     screens.render(bodyScreenUri);
+                    writer.close();
                 } catch (Exception e) {
-                      Debug.logError(e, "Error rendering [text/xml]: ", module);
+                    String errMsg = "Error rendering message: " + e.toString();
+                    Debug.logError(e, errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
+                }
+                
+                // TODO: call service with require-new-transaction=true to save the OagisMessageInfo data (to make sure it saves before)
+
+                if (UtilValidate.isNotEmpty(sendToUrl)) {
+                    HttpClient http = new HttpClient(sendToUrl);
+
+                    // test parameters
+                    http.setHostVerificationLevel(SSLUtil.HOSTCERT_NO_CHECK);
+                    http.setAllowUntrusted(true);
+                    http.setDebug(true);
+                      
+                    // needed XML post parameters
+                    if (UtilValidate.isNotEmpty(certAlias)) {
+                        http.setClientCertificateAlias(certAlias);
+                    }
+                    if (UtilValidate.isNotEmpty(basicAuthUsername)) {
+                        http.setBasicAuthInfo(basicAuthUsername, basicAuthPassword);
+                    }
+                    http.setContentType("text/xml");
+                    http.setKeepAlive(true);
+
+                    try {
+                        String resp = http.post(writer.toString());
+                    } catch (Exception e) {
+                        String errMsg = "Error posting message to server with UTL [" + sendToUrl + "]: " + e.toString();
+                        Debug.logError(e, errMsg, module);
+                        return ServiceUtil.returnError(errMsg);
+                    }
                 }
                 // prepare map to store BOD information
                 result.put("component", "INVENTORY");

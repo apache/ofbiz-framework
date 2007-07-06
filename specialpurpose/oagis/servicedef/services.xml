@@ -21,7 +21,7 @@ under the License.
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     
-    <service name="oagisMessageInfoInterface" engine="interface" location="" invoke="">
+    <service name="oagisMessageInfoInterface" engine="interface">
         <attribute name="logicalId" type="String" mode="OUT" optional="false"/>
         <attribute name="component" type="String" mode="OUT" optional="false"/>
         <attribute name="task" type="String" mode="OUT" optional="false"/>
@@ -38,6 +38,12 @@ under the License.
         <attribute name="orderId" type="String" mode="INOUT" optional="true"/>        
         <attribute name="returnId" type="String" mode="INOUT" optional="true"/>        
         <attribute name="shipmentId" type="String" mode="INOUT" optional="true"/>
+    </service>
+    
+    <service name="oagisMessageErrorInfoInterface" engine="interface">
+        <implements service="oagisMessageInfoInterface"/>
+        <attribute name="description" type="String" mode="OUT" optional="true"/>
+        <attribute name="reasonCode" type="String" mode="OUT" optional="true"/>
     </service>
 
     <service name="createOagisMessageInfo" engine="simple" default-entity-name="OagisMessageInfo" 
@@ -72,12 +78,16 @@ under the License.
             location="org.ofbiz.oagis.OagisShipmentServices" invoke="showShipment" auth="false">
         <description>Process incoming shipment message</description>
         <implements service="serviceStreamInterface"/>
+        <implements service="oagisMessageErrorInfoInterface"/>
     </service>
     
-    <service name="sendConfirmBod" engine="java" transaction-timeout="300"
-            location="org.ofbiz.oagis.OagisServices" invoke="sendConfirmBod" auth="false">
+    <service name="oagisSendConfirmBod" engine="java" transaction-timeout="300"
+            location="org.ofbiz.oagis.OagisServices" invoke="oagisSendConfirmBod" auth="false">
         <description>Send ConfirmBod</description>
-        <attribute name="outputStream" type="java.io.OutputStream" mode="IN"/>
+        <attribute name="sendToUrl" type="String" mode="IN" optional="true"/>
+        <attribute name="saveToFilename" type="String" mode="IN" optional="true"/>
+        <attribute name="saveToDirectory" type="String" mode="IN" optional="true"/>
+        <attribute name="outputStream" type="java.io.OutputStream" mode="IN" optional="true"/>
         <attribute name="logicalId" type="String" mode="IN" optional="false"/>
         <attribute name="component" type="String" mode="IN" optional="false"/>
         <attribute name="task" type="String" mode="IN" optional="false"/>
@@ -91,11 +101,13 @@ under the License.
             location="org.ofbiz.oagis.OagisServices" invoke="receiveConfirmBod" auth="false">
         <description>Process incoming ConfirmBod</description>
         <implements service="serviceStreamInterface"/>
+        <implements service="oagisMessageErrorInfoInterface"/>
     </service>
     <service name="syncInventory" engine="java" transaction-timeout="300"
             location="org.ofbiz.oagis.OagisInventoryServices" invoke="syncInventory" auth="false">
         <description>Process incoming Inventory Sync message</description>
         <implements service="serviceStreamInterface"/>
+        <implements service="oagisMessageErrorInfoInterface"/>
     </service>
     <service name="exportMsgFromScreen" max-retry="0" engine="java"
         location="org.ofbiz.oagis.OagisShipmentServices" invoke="exportMsgFromScreen">
@@ -125,22 +137,29 @@ under the License.
         <attribute name="referenceId" mode="IN" type="String" optional="false"/>
         <attribute name="sentDate" mode="IN" type="Timestamp" optional="false"/>
     </service>
-    <service name="receiveDelivery" max-retry="0" engine="java"
-        location="org.ofbiz.oagis.OagisShipmentServices" invoke="receiveDelivery">
+    <service name="oagisReceiveDelivery" max-retry="0" engine="java"
+        location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisReceiveDelivery">
         <description>Receive Delivery</description>
-        <attribute name="returnId" mode="IN" type="String" optional="false"/>
+        <implements service="oagisMessageInfoInterface"/>
+        <attribute name="sendToUrl" type="String" mode="IN" optional="true"/>
+        <attribute name="saveToFilename" type="String" mode="IN" optional="true"/>
+        <attribute name="saveToDirectory" type="String" mode="IN" optional="true"/>
+        <attribute name="outputStream" type="java.io.OutputStream" mode="IN" optional="true"/>
+        <override name="returnId" mode="INOUT" type="String" optional="false"/>
     </service>
     
     <service name="receivePoAcknowledge" engine="java" transaction-timeout="300"
-            location="org.ofbiz.oagis.OagisInventoryServices" invoke="receivePoAcknowledgement" auth="false">
+            location="org.ofbiz.oagis.OagisInventoryServices" invoke="receivePoAcknowledge" auth="false">
         <description>Process PO Acknowledge message</description>
         <implements service="serviceStreamInterface"/>
+        <implements service="oagisMessageErrorInfoInterface"/>
     </service>
 
     <service name="receiveRmaAcknowledge" engine="java" transaction-timeout="300"
             location="org.ofbiz.oagis.OagisInventoryServices" invoke="receiveRmaAcknowledge" auth="false">
         <description>Process RMA Acknowledge message</description>
         <implements service="serviceStreamInterface"/>
+        <implements service="oagisMessageErrorInfoInterface"/>
     </service>
 
 
