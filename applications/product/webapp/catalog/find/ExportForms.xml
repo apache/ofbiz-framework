@@ -20,11 +20,26 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-
     <form name="ProductsExportToGoogle" type="single" target="exportProductsToGoogle">
-        <field name="products"><hidden/></field>
+        <field name="selectResult"><hidden/></field>
         <field name="webSiteUrl"><text size="50" maxlength="250"/></field>
         <field name="imageUrl"><text size="50" maxlength="250"/></field>
+        <field name="actionType" widget-style="selectBox">
+            <drop-down no-current-selected-key="insert">
+                <option key="insert" description="${uiLabelMap.CommonInsert}"/>
+                <option key="update" description="${uiLabelMap.CommonUpdate}"/>
+                <!-- for the moment delete action type is not allowed
+                <option key="delete" description="${uiLabelMap.CommonDelete}"/>
+                -->
+            </drop-down>
+        </field>
+        <field name="statusId" widget-style="selectBox">
+            <drop-down no-current-selected-key="deactivate">
+                <option key="deactivate" description="${uiLabelMap.ProductExportDeactivated}"/>
+                <option key="draft" description="${uiLabelMap.ProductExportPublishDraft}"/>
+                <option key="publish" description="${uiLabelMap.ProductExportPublish}"/>
+            </drop-down>
+        </field>
         <field name="trackingCodeId" widget-style="selectBox">
             <drop-down no-current-selected-key="_NA_">
                 <option key="_NA_" description="${uiLabelMap.ProductExportNoTrackingRequested}"/>
