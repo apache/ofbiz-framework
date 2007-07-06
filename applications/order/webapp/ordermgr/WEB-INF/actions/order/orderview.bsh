@@ -275,7 +275,13 @@ if (orderHeader != null) {
     if ("SALES_ORDER".equals(orderType)) {
         context.put("returnHeaderTypeId", "CUSTOMER_RETURN");
         // also set the product store facility Id for sales orders
-        context.put("storeFacilityId", orderHeader.getRelatedOne("ProductStore").getString("inventoryFacilityId"));
+        GenericValue productStore = orderHeader.getRelatedOne("ProductStore");
+        context.put("storeFacilityId", productStore.getString("inventoryFacilityId"));
+        if (UtilValidate.isNotEmpty(productStore.getString("reqReturnInventoryReceive"))) {
+            context.put("needsInventoryReceive", productStore.getString("reqReturnInventoryReceive"));
+        } else {
+            context.put("needsInventoryReceive", "Y");
+        }
     } else {
         context.put("returnHeaderTypeId", "VENDOR_RETURN");
     }
