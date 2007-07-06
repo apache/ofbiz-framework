@@ -28,8 +28,49 @@ under the License.
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <action service="oagisProcessShipment" mode="sync"/>
     </eca-->
-    <eca service="processShipment" event="commit" run-on-error="false">
+    <eca service="oagisPocessShipment" event="commit" run-on-error="false">
         <action service="createOagisMessageInfo" mode="sync"/>
     </eca>
     
+    <!--<eca service="receiveConfirmBod" event="commit" run-on-error="true">
+        <action service="createOagisMessageInfo" mode="sync"/>
+    </eca>-->
+    
+    <eca service="receiveConfirmBod" event="commit" run-on-error="true">
+        <condition field-name="description" operator="is-not-empty"/>
+        <action service="createOagisMessageErrorInfo" mode="sync"/>
+        <action service="oagisSendConfirmBod" mode="sync"/>
+    </eca>
+    
+     <eca service="oagisReceiveDelivery" event="commit" run-on-error="false">
+        <action service="createOagisMessageInfo" mode="sync"/>
+    </eca>
+    
+    <!--<eca service="showShipment" event="commit" run-on-error="true">
+        <action service="createOagisMessageInfo" mode="sync"/>
+    </eca>-->
+    
+    <eca service="showShipment" event="commit" run-on-error="true">
+        <condition field-name="description" operator="is-not-empty"/>
+        <action service="createOagisMessageErrorInfo" mode="sync"/>
+        <action service="oagisSendConfirmBod" mode="sync"/>
+    </eca>
+    
+    <eca service="syncInventory" event="commit" run-on-error="true">
+       <condition field-name="description" operator="is-not-empty"/>
+       <action service="createOagisMessageErrorInfo" mode="sync"/>
+       <action service="oagisSendConfirmBod" mode="sync"/>
+    </eca>
+    
+    <eca service="receivePoAcknowledge" event="commit" run-on-error="true">
+       <condition field-name="description" operator="is-not-empty"/>
+       <action service="createOagisMessageErrorInfo" mode="sync"/>
+       <action service="oagisSendConfirmBod" mode="sync"/>
+    </eca>
+    
+    <eca service="receiveRmaAcknowledge" event="commit" run-on-error="true">
+       <condition field-name="description" operator="is-not-empty"/>
+       <action service="createOagisMessageErrorInfo" mode="sync"/>
+       <action service="oagisSendConfirmBod" mode="sync"/>
+    </eca> 
 </service-eca>
