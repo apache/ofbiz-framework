@@ -97,15 +97,7 @@ public class OagisShipmentServices {
         Document doc = null;
         try {
             doc = UtilXml.readXmlDocument(in, true, "ShowShipment");
-        } catch (SAXException e) {
-            String errMsg = "Error parsing the ShowShipmentResponse";
-            errorList.add(errMsg);
-            Debug.logError(e, errMsg, module);
-        } catch (ParserConfigurationException e) {
-            String errMsg = "Error parsing the ShowShipmentResponse";
-            errorList.add(errMsg);
-            Debug.logError(e, errMsg, module);
-        } catch (IOException e) {
+        } catch (Exception e) {
             String errMsg = "Error parsing the ShowShipmentResponse";
             errorList.add(errMsg);
             Debug.logError(e, errMsg, module);
@@ -113,9 +105,10 @@ public class OagisShipmentServices {
             
         GenericValue userLogin =null; 
         try {
-            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "admin"));    
+            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));    
         } catch (GenericEntityException e){
-            String errMsg = "Error Getting UserLogin with userLoginId 'admin'";
+            String errMsg = "Error Getting UserLogin with userLoginId system ";
+            errorList.add(errMsg);
             Debug.logError(e, errMsg, module);
         }
                     
@@ -128,10 +121,7 @@ public class OagisShipmentServices {
         String bsrNoun = UtilXml.childElementValue(bsrElement, "N2:NOUN");
         String bsrRevision = UtilXml.childElementValue(bsrElement, "N2:REVISION");
           
-        Map oagisMsgInfoCtx = new HashMap();
-        oagisMsgInfoCtx.put("bsrVerb", bsrVerb);
-        oagisMsgInfoCtx.put("bsrNoun", bsrNoun);
-        oagisMsgInfoCtx.put("bsrRevision", bsrRevision);
+        Map oagisMsgInfoCtx = UtilMisc.toMap("bsrVerb", bsrVerb, "bsrNoun", bsrNoun, "bsrRevision", bsrRevision);
             
         Element senderElement = UtilXml.firstChildElement(controlAreaElement, "N1:SENDER");
         String logicalId = UtilXml.childElementValue(senderElement, "N2:LOGICALID");
@@ -228,7 +218,8 @@ public class OagisShipmentServices {
             result.put(ModelService.ERROR_MESSAGE_LIST, errorList);
             result.put("reasonCode", "1000"); 
             result.put("description", "processing message failed");
-            return result;
+        } else {
+            result.put(ModelService.RESPONSE_MESSAGE,ModelService.RESPOND_SUCCESS); 
         }
         return result;
     }
