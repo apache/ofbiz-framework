@@ -153,14 +153,13 @@ public class BillingAccountWorker {
                 new EntityExpr("preferenceStatusId", EntityOperator.NOT_IN, UtilMisc.toList("PAYMENT_SETTLED", "PAYMENT_RECEIVED", "PAYMENT_DECLINED", "PAYMENT_CANCELLED")) // PAYMENT_NOT_AUTH
             ), EntityOperator.AND); 
 
-        GenericValue orderPaymentPreferenceSum = EntityUtil.getFirst(delegator.findByCondition("OrderPurchasePaymentSummary", whereConditions, null, UtilMisc.toList("maxAmount"), null, null));
-        BigDecimal ordersTotal = null;
-        if (UtilValidate.isNotEmpty(orderPaymentPreferenceSum)) {
-            ordersTotal = orderPaymentPreferenceSum.getBigDecimal("maxAmount");
-        } else {
-            ordersTotal = ZERO;
+        List orderPaymentPreferenceSums = delegator.findByCondition("OrderPurchasePaymentSummary", whereConditions, null, UtilMisc.toList("maxAmount"), null, null);
+        if (orderPaymentPreferenceSums != null) {
+            for (Iterator oppsi = orderPaymentPreferenceSums.iterator(); oppsi.hasNext(); ) {
+                GenericValue orderPaymentPreferenceSum = (GenericValue) oppsi.next();
+                balance = balance.subtract(orderPaymentPreferenceSum.getBigDecimal("maxAmount"));
+            }
         }
-        balance = balance.subtract(ordersTotal);
 
         List paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId));
         // TODO: cancelled payments?
