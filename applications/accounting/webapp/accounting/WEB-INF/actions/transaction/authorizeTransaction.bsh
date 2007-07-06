@@ -43,5 +43,5 @@ if(orderPaymentPreferenceId != null){
 if(orderPaymentPreference != null){
    paymentMethodType = orderPaymentPreference.getRelatedOneCache("PaymentMethodType");
    context.put("paymentMethodType", paymentMethodType);
-   context.put("overrideAmount", orderPaymentPreference.getDouble("maxAmount").doubleValue());
+   context.put("overrideAmount", orderPaymentPreference.getDouble("maxAmount"));
 }
