@@ -168,7 +168,7 @@ public class CommunicationEventServices {
                         new EntityExpr("contactListId", EntityOperator.EQUALS, contactList.get("contactListId")),
                         new EntityExpr("statusId", EntityOperator.EQUALS, "CLPT_ACCEPTED"),
                         new EntityExpr("preferredContactMechId", EntityOperator.NOT_EQUAL, null),
-                        EntityUtil.getFilterByDateExpr()
+                        EntityUtil.getFilterByDateExpr(), EntityUtil.getFilterByDateExpr("contactFromDate", "contactThruDate")
                         );
             EntityConditionList conditions = new EntityConditionList(conditionList, EntityOperator.AND);
             List fieldsToSelect = UtilMisc.toList("infoString");
