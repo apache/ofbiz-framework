@@ -759,5 +759,10 @@ under the License.
         <attribute name="orderList" type="List" mode="OUT" optional="false"/>
         <attribute name="orderListSize" type="Integer" mode="OUT" optional="false"/>
     </service>
-
+    
+    <service name="sendShipCompleteNotification" engine="java" require-new-transaction="true" max-retry="3"
+            location="org.ofbiz.order.order.OrderServices" invoke="sendShipCompleteNotification">
+        <description>Send a Shipment complete notification</description>
+        <implements service="orderNotificationInterface"/>
+    </service>    
 </services>

@@ -2080,18 +2080,20 @@ public class OrderServices {
     public static Map sendOrderPayRetryNotification(DispatchContext ctx, Map context) {
         return sendOrderNotificationScreen(ctx, context, "PRDS_ODR_PAYRETRY");
     }
-
+    
+    public static Map sendShipCompleteNotification(DispatchContext ctx, Map context) {
+        return sendOrderNotificationScreen(ctx, context, "PRDS_ODR_SHIP_COMPLT");
+    }
     protected static Map sendOrderNotificationScreen(DispatchContext dctx, Map context, String emailType) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        String orderId = (String) context.get("orderId");
+        String orderId = (String) context.get("orderId");       
         String orderItemSeqId = (String) context.get("orderItemSeqId");
         String sendTo = (String) context.get("sendTo");
         String sendCc = (String) context.get("sendCc");
         String note = (String) context.get("note");
-        String screenUri = (String) context.get("screenUri");
-        
+        String screenUri = (String) context.get("screenUri");      
         GenericValue temporaryAnonymousUserLogin = (GenericValue) context.get("temporaryAnonymousUserLogin");
         if (userLogin == null) {
             // this may happen during anonymous checkout, try to the special case user

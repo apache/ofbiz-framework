@@ -136,6 +136,7 @@ under the License.
         <attribute name="oldPrimaryOrderId" type="String" mode="OUT" optional="true"/>
         <attribute name="oldOriginFacilityId" type="String" mode="OUT" optional="true"/>
         <attribute name="oldDestinationFacilityId" type="String" mode="OUT" optional="true"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="deleteShipment" default-entity-name="Shipment" engine="simple"
             location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteShipment" auth="true">
