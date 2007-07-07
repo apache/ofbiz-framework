@@ -47,11 +47,14 @@ public class ApacheFopFactory {
             String fopPath = UtilProperties.getPropertyValue("fop.properties", "fop.path","framework/widget/config");
             File userConfigFile = new File(fopPath + "/fop.xconf");
             fopFactory.setUserConfig(userConfigFile);
-            String ofbizHome = System.getProperty("ofbiz.home");
-            String fopFontBaseUrl = UtilProperties.getPropertyValue("fop.properties", "fop.font.base.url",
+            String fopFontBaseUrl = fopFactory.getFontBaseURL();
+            if (fopFontBaseUrl == null) {
+                String ofbizHome = System.getProperty("ofbiz.home");
+                fopFontBaseUrl = UtilProperties.getPropertyValue("fop.properties", "fop.font.base.url",
                                     "file:///" + ofbizHome + "/framework/widget/config/");
-            Debug.log("FOP-FontBaseURL: " + fopFontBaseUrl, module);
-            fopFactory.setFontBaseURL(fopFontBaseUrl);
+                fopFactory.setFontBaseURL(fopFontBaseUrl);
+            }
+            Debug.logInfo("FOP-FontBaseURL: " + fopFontBaseUrl, module);
         } catch (Exception e) {
             Debug.logWarning("Error reading FOP configuration", module);
         }
