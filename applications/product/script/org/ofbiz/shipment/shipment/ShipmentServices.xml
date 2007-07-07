@@ -1323,6 +1323,7 @@ under the License.
                     <!-- update the shipment status to shipped -->
                     <set from-field="shipment.shipmentId" field="packedContext.shipmentId"/>
                     <set value="SHIPMENT_SHIPPED" field="packedContext.statusId"/>
+                    <set field="packedContext.orderId" from-field="orderHeader.orderId"/>        
                     <call-service service-name="updateShipment" in-map-name="packedContext"/>
                   </then>
                   <else> <!-- PURCHASE_ORDER -->
