@@ -142,6 +142,15 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
+    <simple-method method-name="updatePartyEmailContactListParty" short-description="Update ContactList Party Contact Mech">
+        <set field="lookupMap.preferredContactMechId" from-field="parameters.oldContactMechId"/>       
+        <find-by-and entity-name="ContactListParty" map-name="lookupMap" list-name="ContactListParties"/>
+        <iterate entry-name="contactlistparty" list-name="ContactListParties">
+        <set field="contactlistparty.preferredContactMechId" from-field="parameters.contactMechId"/>
+        <log level="info" message="Replacing preferredContactMechId: ${parameters.oldContactMechId} of the ContactList: ${contactlistparty.contactListId} with new preferredContactMechId: ${parameters.contactMechId}"/>        
+        <store-value value-name="contactlistparty"/>
+        </iterate>         
+    </simple-method>    
     <simple-method method-name="deleteContactListParty" short-description="Remove Party from ContactList">
         <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run deleteContactListParty you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
