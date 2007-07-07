@@ -24,4 +24,7 @@ under the License.
         <condition field-name="statusId" operator="equals" value="CLPT_PENDING"/>
         <action service="sendContactListPartyVerifyEmail" mode="async" persist="true"/>
     </eca>
+    <eca service="updatePartyEmailAddress" event="return">
+        <action service="updatePartyEmailContactListParty" mode="sync"/>
+    </eca>
 </service-eca>

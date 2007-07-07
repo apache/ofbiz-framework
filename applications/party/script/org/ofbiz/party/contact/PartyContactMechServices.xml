@@ -313,6 +313,7 @@ under the License.
             <result-to-result result-name="contactMechId"/>
             <result-to-request result-name="contactMechId"/>
         </call-service>
+        <field-to-result map-name="parameters" field-name="contactMechId" result-name="oldContactMechId"/>        
     </simple-method>
 	
     <simple-method method-name="findPartyFromEmailAddress" short-description="Find partyId from email address">

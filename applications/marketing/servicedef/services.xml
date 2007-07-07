@@ -145,6 +145,12 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="optInVerifyCode" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="updatePartyEmailContactListParty" engine="simple"
+            location="org/ofbiz/marketing/contact/ContactListServices.xml" invoke="updatePartyEmailContactListParty" auth="true">
+        <description>Update ContactList Party Contact Mech</description>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="oldContactMechId" type="String" mode="IN" optional="false"/>        
+    </service>    
     <service name="deleteContactListParty" default-entity-name="ContactListParty" engine="simple"
             location="org/ofbiz/marketing/contact/ContactListServices.xml" invoke="deleteContactListParty" auth="true">
         <description>Remove Party from ContactList</description>

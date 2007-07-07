@@ -444,8 +444,9 @@ under the License.
             location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="updatePartyEmailAddress" auth="true">
         <description>Update an Email Address</description>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
-        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/> <!-- the out paramater is the id of the new address -->
         <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+        <attribute name="oldContactMechId" type="String" mode="OUT" optional="false"/> <!-- this is the id of the old address -->       
     </service>
     <service name="copyPartyContactMechs" engine="java"
         location="org.ofbiz.party.contact.ContactMechServices" invoke="copyPartyContactMechs" auth="true">
