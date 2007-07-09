@@ -61,67 +61,108 @@ under the License.
             <#if returnableItems?has_content>
               <#assign rowCount = 0>
               <#list returnableItems.keySet() as orderItem>
-                <#assign returnItemType = returnItemTypeMap.get(returnableItems.get(orderItem).get("itemTypeKey"))/>
-                <input type="hidden" name="returnItemTypeId_o_${rowCount}" value="${returnItemType}"/>
-                <input type="hidden" name="orderId_o_${rowCount}" value="${orderItem.orderId}"/>
-                <input type="hidden" name="orderItemSeqId_o_${rowCount}" value="${orderItem.orderItemSeqId}"/>
-                <input type="hidden" name="description_o_${rowCount}" value="${orderItem.itemDescription?if_exists}"/>
+                <#if orderItem.orderAdjustmentId?has_content>
+                    <#-- this is an order item adjustment -->
+                    <#assign returnAdjustmentType = returnItemTypeMap.get(orderItem.get("orderAdjustmentTypeId"))/>
+                    <#assign adjustmentType = orderItem.getRelatedOne("OrderAdjustmentType")/>
+                    <#assign description = orderItem.description?default(adjustmentType.get("description",locale))/>
 
-                <#-- need some order item information -->
-                <#assign orderHeader = orderItem.getRelatedOne("OrderHeader")>
-                <#assign itemCount = orderItem.quantity>
-                <#assign itemPrice = orderItem.unitPrice>
-                <#-- end of order item information -->
+                    <#--
+                    <input type="hidden" name="returnAdjustmentTypeId_o_${rowCount}" value="${returnAdjustmentType}"/>                
+                    <input type="hidden" name="orderAdjustmentId_o_${rowCount}" value="${orderItem.orderAdjustmentId}"/>
+                    <input type="hidden" name="returnItemSeqId_o_${rowCount}" value="_NA_"/>
+                    <input type="hidden" name="description_o_${rowCount}" value="${description}"/>
+                    -->
+                    <tr>
+                      <td colspan="4">
+                        ${description?default("N/A")}
+                      </td>
+                      <td>
+                        ${orderItem.amount?string("##0.00")}
+                        <#--<input type="text" class="inputBox" size="8" name="amount_o_${rowCount}" <#if orderItem.amount?has_content>value="${orderItem.amount?string("##0.00")}"</#if>/>-->
+                      </td>
+                      <td colspan="3"></td>
+                      <#--
+                      <td>
+                        <select name="returnTypeId_o_${rowCount}" class="selectBox">
+                          <#list returnTypes as type>
+                          <option value="${type.returnTypeId}" <#if type.returnTypeId == "RTN_REFUND">selected</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
+                          </#list>
+                        </select>
+                      </td>
+                      -->
+                      <td></td>
+                      <#--
+                      <td align="right">
+                        <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, '${selectAllFormName}');"/>
+                      </td>
+                      -->
+                    </tr>
 
-                <tr>
-                  <td>
-                    <div class="tabletext">
-                      <#if orderItem.productId?exists>
-                      <b>${orderItem.productId}</b>:&nbsp;
-                      <input type="hidden" name="productId_o_${rowCount}" value="${orderItem.productId}">
-                      </#if>
-                      ${orderItem.itemDescription}
-                    </div>
-                  </td>
-                  <td align='center'>
-                    <div class="tabletext">${orderItem.quantity?string.number}</div>
-                  </td>
-                  <td>
-                    <input type="text" class="inputBox" size="6" name="returnQuantity_o_${rowCount}" value="${returnableItems.get(orderItem).get("returnableQuantity")}"/>
-                  </td>
-                  <td align='left'>
-                    <div class="tabletext"><@ofbizCurrency amount=orderItem.unitPrice isoCode=orderHeader.currencyUom/></div>
-                  </td>
-                  <td>
-                    <input type="text" class="inputBox" size="8" name="returnPrice_o_${rowCount}" value="${returnableItems.get(orderItem).get("returnablePrice")?string("##0.00")}"/>
-                  </td>
-                  <td>
-                    <select name="returnReasonId_o_${rowCount}" class="selectBox">
-                      <#list returnReasons as reason>
-                      <option value="${reason.returnReasonId}">${reason.get("description",locale)?default(reason.returnReasonId)}</option>
-                      </#list>
-                    </select>
-                  </td>
-                  <td>
-                    <select name="returnTypeId_o_${rowCount}" class="selectBox">
-                      <#list returnTypes as type>
-                      <option value="${type.returnTypeId}" <#if type.returnTypeId=="RTN_REFUND">selected</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
-                      </#list>
-                    </select>
-                  </td>
-                  <td>
-                    <select name="expectedItemStatus_o_${rowCount}" class="selectBox">
-                      <option value="INV_RETURNED">${uiLabelMap.OrderReturned}</option>
-                      <option value="INV_RETURNED">---</option>
-                      <#list itemStts as status>
-                        <option value="${status.statusId}">${status.get("description",locale)}</option>
-                      </#list>
-                    </select>
-                  </td>
-                  <td align="right">
-                    <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, '${selectAllFormName}');"/>
-                  </td>
-                </tr>
+                <#else>
+                    <#-- this is an order item -->
+                    <#assign returnItemType = returnItemTypeMap.get(returnableItems.get(orderItem).get("itemTypeKey"))/>
+                    <input type="hidden" name="returnItemTypeId_o_${rowCount}" value="${returnItemType}"/>
+                    <input type="hidden" name="orderId_o_${rowCount}" value="${orderItem.orderId}"/>
+                    <input type="hidden" name="orderItemSeqId_o_${rowCount}" value="${orderItem.orderItemSeqId}"/>
+                    <input type="hidden" name="description_o_${rowCount}" value="${orderItem.itemDescription?if_exists}"/>
+
+                    <#-- need some order item information -->
+                    <#assign orderHeader = orderItem.getRelatedOne("OrderHeader")>
+                    <#assign itemCount = orderItem.quantity>
+                    <#assign itemPrice = orderItem.unitPrice>
+                    <#-- end of order item information -->
+
+                    <tr>
+                      <td>
+                        <div class="tabletext">
+                          <#if orderItem.productId?exists>
+                          <b>${orderItem.productId}</b>:&nbsp;
+                          <input type="hidden" name="productId_o_${rowCount}" value="${orderItem.productId}">
+                          </#if>
+                          ${orderItem.itemDescription}
+                        </div>
+                      </td>
+                      <td align='center'>
+                        <div class="tabletext">${orderItem.quantity?string.number}</div>
+                      </td>
+                      <td>
+                        <input type="text" class="inputBox" size="6" name="returnQuantity_o_${rowCount}" value="${returnableItems.get(orderItem).get("returnableQuantity")}"/>
+                      </td>
+                      <td align='left'>
+                        <div class="tabletext"><@ofbizCurrency amount=orderItem.unitPrice isoCode=orderHeader.currencyUom/></div>
+                      </td>
+                      <td>
+                        <input type="text" class="inputBox" size="8" name="returnPrice_o_${rowCount}" value="${returnableItems.get(orderItem).get("returnablePrice")?string("##0.00")}"/>
+                      </td>
+                      <td>
+                        <select name="returnReasonId_o_${rowCount}" class="selectBox">
+                          <#list returnReasons as reason>
+                          <option value="${reason.returnReasonId}">${reason.get("description",locale)?default(reason.returnReasonId)}</option>
+                          </#list>
+                        </select>
+                      </td>
+                      <td>
+                        <select name="returnTypeId_o_${rowCount}" class="selectBox">
+                          <#list returnTypes as type>
+                          <option value="${type.returnTypeId}" <#if type.returnTypeId=="RTN_REFUND">selected</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
+                          </#list>
+                        </select>
+                      </td>
+                      <td>
+                        <select name="expectedItemStatus_o_${rowCount}" class="selectBox">
+                          <option value="INV_RETURNED">${uiLabelMap.OrderReturned}</option>
+                          <option value="INV_RETURNED">---</option>
+                          <#list itemStts as status>
+                            <option value="${status.statusId}">${status.get("description",locale)}</option>
+                          </#list>
+                        </select>
+                      </td>
+                      <td align="right">
+                        <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, '${selectAllFormName}');"/>
+                      </td>
+                    </tr>
+                </#if>
                 <#assign rowCount = rowCount + 1>
               </#list>
                      
