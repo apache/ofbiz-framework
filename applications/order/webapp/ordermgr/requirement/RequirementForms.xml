@@ -61,6 +61,19 @@ under the License.
                 <field-map field-name="orderBy" value="statusId"/>
             </service>
         </actions>
+        <row-actions>
+            <set field="lookupProductId" value="${bsh: (productId == null? &quot;_NA_&quot;: productId);}" type="String"/>
+            <set field="lookupFacilityId" value="${bsh: (facilityIdId == null? &quot;_NA_&quot;: facilityId);}" type="String"/>
+            <service service-name="getInventoryAvailableByFacility" result-map-name="resultQoh">
+                <field-map field-name="productId" env-name="lookupProductId"/>
+                <field-map field-name="facilityId" env-name="lookupFacilityId"/>
+            </service>
+            <service service-name="getProductInventoryAvailable" result-map-name="resultQohTotal">
+                <field-map field-name="productId" env-name="lookupProductId"/>
+            </service>
+            <set field="facilityQuantityOnHandTotal" from-field="resultQoh.quantityOnHandTotal"/>
+            <set field="quantityOnHandTotal" from-field="resultQohTotal.quantityOnHandTotal"/>
+        </row-actions>
         <field name="requirementId" widget-style="buttontext">
             <hyperlink target-type="inter-app" description="${requirementId}" target="/ordermgr/control/EditRequirement?requirementId=${requirementId}"/>
         </field>
@@ -75,6 +88,8 @@ under the License.
         <field name="requirementStartDate"><display/></field>
         <field name="requiredByDate"><display/></field>
         <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display/></field>
+        <field name="facilityQuantityOnHandTotal"><display/></field>
+        <field name="quantityOnHandTotal"><display/></field>
         <field name="requestsLink" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.OrderRequests}" target="ListRequirementCustRequests?requirementId=${requirementId}"/>
         </field>
