@@ -19,7 +19,6 @@
 package org.ofbiz.product.product;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -32,15 +31,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javolution.util.FastMap;
 
-import org.apache.xml.serialize.OutputFormat;
-import org.apache.xml.serialize.XMLSerializer;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -86,11 +80,12 @@ public class ProductsExportToGoogle {
             Map result = buildDataItemsXml(dctx, context, dataItemsXml);
             if (!ServiceUtil.isFailure(result)) { 
                 String token = authenticate(authenticationUrl, accountEmail, accountPassword);
-
                 if (token != null) {    
-                    result = postItem(token, postItemsUrl, developerKey, dataItemsXml);
-                    if (ServiceUtil.isFailure(result))
-                        return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(result));
+                    result = postItem(token, postItemsUrl, developerKey, dataItemsXml, locale);
+                    String msg = ServiceUtil.getErrorMessage(result);
+                    if (msg != null && msg.length() > 0) {
+                        return ServiceUtil.returnFailure(msg);
+                    }
                 } else {
                     Debug.logError("Error during authentication to Google Account", module);
                     return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.errorDuringAuthenticationToGoogle", locale));
@@ -128,7 +123,7 @@ public class ProductsExportToGoogle {
         StringTokenizer tokenizer = new StringTokenizer(postOutput, "=\n ");
       
         while (tokenizer.hasMoreElements()) {
-            if (tokenizer.nextToken().equals("Auth")) {
+            if ("Auth".equals(tokenizer.nextToken())) {
                 if (tokenizer.hasMoreElements()) {
                     token = tokenizer.nextToken(); 
                 }
@@ -188,7 +183,7 @@ public class ProductsExportToGoogle {
         return outputBuilder.toString();
     }
     
-    private static Map postItem(String token, String postItemsUrl, String developerKey, StringBuffer dataItems) throws IOException {
+    private static Map postItem(String token, String postItemsUrl, String developerKey, StringBuffer dataItems, Locale locale) throws IOException {
         HttpURLConnection connection = (HttpURLConnection)(new URL(postItemsUrl)).openConnection();
       
         connection.setDoInput(true);
@@ -205,12 +200,18 @@ public class ProductsExportToGoogle {
         int responseCode = connection.getResponseCode();
         InputStream inputStream;
         Map result = FastMap.newInstance();
-        if (responseCode == HttpURLConnection.HTTP_CREATED) {
+        if (responseCode == HttpURLConnection.HTTP_CREATED || responseCode == HttpURLConnection.HTTP_OK) {
             inputStream = connection.getInputStream();
-            result = ServiceUtil.returnSuccess(toString(inputStream));
-        } else if (responseCode == HttpURLConnection.HTTP_OK) {
-            inputStream = connection.getInputStream();
-            result = ServiceUtil.returnSuccess(toString(inputStream));
+            String response = toString(inputStream);
+            if (response != null && response.length() > 0) {
+                result = readResponseFromGoogle(response, locale);
+                String msg = ServiceUtil.getErrorMessage(result);
+                if (msg != null && msg.length() > 0) {
+                    return ServiceUtil.returnFailure(msg);
+                } else {
+                    return ServiceUtil.returnSuccess();
+                }
+            } 
         } else {
             inputStream = connection.getErrorStream();
             result = ServiceUtil.returnFailure(toString(inputStream));
@@ -269,6 +270,18 @@ public class ProductsExportToGoogle {
                      Element batchElem = UtilXml.addChildElement(entryElem, "batch:operation", feedDocument);
                      batchElem.setAttribute("type", actionType);
                      
+                     // status is draft or deactivate
+                     if (statusId != null && ("draft".equals(statusId) || "deactivate".equals(statusId))) {
+                         Element appControlElem = UtilXml.addChildElement(entryElem, "app:control", feedDocument);
+                         appControlElem.setAttribute("xmlns:app", "http://purl.org/atom/app&#35;");
+                         UtilXml.addChildElementValue(appControlElem, "app:draft", "yes", feedDocument);
+                         
+                         // status is deactivate
+                         if ("deactivate".equals(statusId)) {
+                             UtilXml.addChildElement(appControlElem, "gm:disapproved", feedDocument);
+                         }
+                     }
+                     
                      UtilXml.addChildElementValue(entryElem, "title", title, feedDocument);
                      
                      Element contentElem = UtilXml.addChildElementValue(entryElem, "content", description, feedDocument);
@@ -284,13 +297,10 @@ public class ProductsExportToGoogle {
                      UtilXml.addChildElementValue(entryElem, "g:item_type", "products", feedDocument);
                      UtilXml.addChildElementValue(entryElem, "g:price", price, feedDocument);
                      
+                     // if the product has an image it will be published on Google Product Search
                      if (UtilValidate.isNotEmpty(image_link)) {
                          UtilXml.addChildElementValue(entryElem, "g:image_link", image_link, feedDocument);
                      }
-                     
-                     Element appControlElem = UtilXml.addChildElement(entryElem, "app:control", feedDocument);
-                     appControlElem.setAttribute("xmlns:app", "http://purl.org/atom/app#");
-                     UtilXml.addChildElementValue(appControlElem, "app:draft", "yes", feedDocument);
                  }
                  
                  dataItemsXml.append(UtilXml.writeXmlDocument(feedDocument));
@@ -318,5 +328,35 @@ public class ProductsExportToGoogle {
             Debug.logError("Exception calculating price for product [" + product.getString("productId") + "]", module);
         }
         return priceString;
+    }
+    
+    private static Map readResponseFromGoogle(String msg, Locale locale) {
+        StringBuffer message = new StringBuffer();
+        try {
+            Document docResponse = UtilXml.readXmlDocument(msg, true);
+            Element elemResponse = docResponse.getDocumentElement();
+            List atomEntryList = UtilXml.childElementList(elemResponse, "atom:entry");
+            Iterator atomEntryElemIter = atomEntryList.iterator();
+            while (atomEntryElemIter.hasNext()) {
+                Element atomEntryElement = (Element)atomEntryElemIter.next();
+                List batchInterruptedEntryList = UtilXml.childElementList(atomEntryElement, "batch:interrupted");
+                Iterator batchInterruptedEntryElemIter = batchInterruptedEntryList.iterator();
+                while (batchInterruptedEntryElemIter.hasNext()) {
+                    Element batchInterruptedEntryElement = (Element)batchInterruptedEntryElemIter.next();
+                    String reason = batchInterruptedEntryElement.getAttribute("reason");
+                    message.append(reason);
+                }
+            }
+        } catch (Exception e) {
+            Debug.logError("Exception reading response from Google", module);
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.exceptionReadingResponseFromGoogle", locale));
+        }
+        
+        if (message.length() > 0) {
+            Debug.logError("Error in the response from Google " + message.toString(), module);
+            message.insert(0, UtilProperties.getMessage(resource, "productsExportToGoogle.errorInTheResponseFromGoogle", locale));
+            return ServiceUtil.returnFailure(message.toString());
+        }
+        return ServiceUtil.returnSuccess();
     }
 }
