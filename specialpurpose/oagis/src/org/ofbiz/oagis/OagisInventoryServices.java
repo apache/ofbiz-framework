@@ -612,8 +612,8 @@ public class OagisInventoryServices {
             cipCtx.put("statusId", "INV_ON_HOLD");
         }
 
-        String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.facilityId");
-        String locationSeqId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.locationSeqId");
+        String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.ReturnReceiptFacilityId");
+        String locationSeqId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.ReturnReceiptLocationSeqId");
            
         //prepare MAp for receiveInventoryProduct service
         cipCtx.put("facilityId", facilityId);
