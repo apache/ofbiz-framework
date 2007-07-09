@@ -2385,6 +2385,13 @@ under the License.
         <response name="error" type="view" value="ProductsExportToGoogle"/>
     </request-map>
     
+    <request-map uri="searchExportProductListToGoogle">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="searchExportProductListToGoogle"/>
+        <response name="success" type="view" value="ProductsExportToGoogle"/>
+        <response name="error" type="view" value="ProductsExportToGoogle"/>
+    </request-map>
+    
     <!-- end of request mappings -->
 
     <!-- View Mappings -->

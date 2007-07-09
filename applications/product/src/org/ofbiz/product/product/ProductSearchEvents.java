@@ -45,6 +45,10 @@ import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.product.ProductSearch.ProductSearchContext;
 import org.ofbiz.product.product.ProductSearch.ResultSortOrder;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
 
 /**
  * Product Search Related Events
@@ -448,6 +452,57 @@ public class ProductSearchEvents {
 
         request.setAttribute("productExportList", productExportList);
         return "success";
+    }
+
+    public static Map searchExportProductListToGoogle(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        HttpServletRequest request = (HttpServletRequest) context.get("request");
+        Locale locale = (Locale)context.get("locale");
+        List productExportList = (List) context.get("selectResult");
+
+        try {
+            boolean beganTransaction = TransactionUtil.begin(DEFAULT_TX_TIMEOUT);
+            try {
+                if (UtilValidate.isEmpty(productExportList)) {
+                    // If the passed list of product ids is empty, get the list from the search parameters in the request
+                    EntityListIterator eli = getProductSearchResults(request);
+                    if (eli == null) {
+                        return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsearchevents.no_results_found_probably_error_constraints", locale));
+                    }
+
+                    GenericValue searchResultView = null;
+                    while ((searchResultView = (GenericValue) eli.next()) != null) {
+                        productExportList.add(searchResultView.getString("mainProductId"));
+                    }
+                    eli.close();
+                }
+                String webSiteUrl = (String)context.get("webSiteUrl");
+                String imageUrl = (String)context.get("imageUrl");
+                String actionType = (String)context.get("actionType");
+                String statusId = (String)context.get("statusId");
+                String trackingCodeId = (String)context.get("trackingCodeId");
+                
+                // Export all the products to Google Base
+                try {
+                    Map exportResult = dispatcher.runSync("exportProductsToGoogle", UtilMisc.toMap("selectResult", productExportList, "webSiteUrl", webSiteUrl, 
+                                                          "imageUrl", imageUrl, "actionType", actionType, "statusId", statusId, "trackingCodeId", trackingCodeId));
+                    if (ServiceUtil.isError(exportResult)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(exportResult));
+                    } 
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, "Exception calling exportToGoogle", module);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "productsearchevents.exceptionCallingExportToGoogle", locale));
+                }
+            } catch (GenericEntityException e) {
+                return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsearchevents.error_getting_search_results", locale));
+            } finally {
+                TransactionUtil.commit(beganTransaction);
+            }
+        } catch (GenericTransactionException e) {
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsearchevents.error_getting_search_results", locale));
+        }
+        
+        return ServiceUtil.returnSuccess();
     }
 
     public static EntityListIterator getProductSearchResults(HttpServletRequest request) {
