@@ -22,6 +22,7 @@ package org.ofbiz.order.order;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -395,9 +396,9 @@ public class OrderReturnServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToGetReturnItemInformation", locale));
         }
 
-        Map returnable = new HashMap();
+        Map returnable = new LinkedHashMap();
         if (orderHeader != null) {
-
+            OrderReadHelper orh = new OrderReadHelper(orderHeader);
             // OrderItems which have been issued may be returned.
             EntityConditionList whereConditions = new EntityConditionList(UtilMisc.toList(
                     new EntityExpr("orderId", EntityOperator.EQUALS, orderHeader.getString("orderId")),
@@ -481,6 +482,21 @@ public class OrderReturnServices {
                         returnInfo.put("itemTypeKey", itemTypeKey);
 
                         returnable.put(item, returnInfo);
+                        
+                        // Order item adjustments
+                        List itemAdjustments = orh.getNotReturnedOrderItemAdjustments(item);
+                        if (UtilValidate.isNotEmpty(itemAdjustments)) {
+                            Iterator itemAdjustmentsIt = itemAdjustments.iterator();
+                            while (itemAdjustmentsIt.hasNext()) {
+                                GenericValue itemAdjustment = (GenericValue)itemAdjustmentsIt.next();
+                                returnInfo = new HashMap();
+                                returnInfo.put("returnableQuantity", new Double(1.0));
+                                 // TODO: the returnablePrice should be set to the amount minus the already returned amount
+                                returnInfo.put("returnablePrice", itemAdjustment.get("amount"));
+                                returnInfo.put("itemTypeKey", itemTypeKey);
+                                returnable.put(itemAdjustment, returnInfo);
+                            }
+                        }
                     }
                 }
             } else {
