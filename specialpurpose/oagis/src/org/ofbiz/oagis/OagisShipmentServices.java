@@ -460,9 +460,9 @@ public class OagisShipmentServices {
         MapStack bodyParameters =  MapStack.create();
         if (userLogin == null) {
             try {
-                userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "admin"));
+                userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error getting userLogin", module);
+                Debug.logError(e, "Error getting system userLogin", module);
             }
         }
         if (returnId != null) {
@@ -604,6 +604,7 @@ public class OagisShipmentServices {
                 result.put("bsrRevision", "001");
                 result.put("processingStatusId", statusId);        
                 result.put("returnId", returnId);
+                
                 result.put("userLogin", userLogin);
             }
         }    
