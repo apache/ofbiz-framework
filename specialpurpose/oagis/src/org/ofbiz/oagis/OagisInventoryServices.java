@@ -321,7 +321,7 @@ public class OagisInventoryServices {
         
         if (userLogin == null) {
             try {
-                userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "admin"));
+                userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting userLogin", module);
             }
@@ -387,6 +387,19 @@ public class OagisInventoryServices {
         else {
             inventoryItemTypeId = "SERIALIZED_INV_ITEM";
             cipCtx.put("serialNumber", serialNumber);
+        	// this is a Serialized Inventory Item. If the productId from the message is not valid then lets read it from InventoryItem in Ofbiz database.
+            if (productId == null || productId.equals("")) {
+                try {
+                	GenericValue inventoryItem = EntityUtil.getFirst(delegator.findByAnd("InventoryItem", UtilMisc.toMap("serialNumber", serialNumber)));
+                    if (inventoryItem !=null){
+                    	productId = inventoryItem.getString("productId");
+                    }
+                } catch (GenericEntityException e){
+                    String errMsg = "Error Getting Entity InventoryItem";
+                    Debug.logError(e, errMsg, module);
+                }
+            }
+
         }
             // sign handling for items
         double quantityAccepted = 0.0;
@@ -398,9 +411,10 @@ public class OagisInventoryServices {
             quantityRejected = Double.parseDouble(itemQty);
             quantityAccepted = 0.0;
         }
-            
+        
+        String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.PoReceiptFacilityId");
         //prepare Map for receiveInventoryProduct
-        cipCtx.put("facilityId", "WebStoreWarehouse");
+        cipCtx.put("facilityId",facilityId);
         cipCtx.put("productId", productId);
         cipCtx.put("inventoryItemTypeId", inventoryItemTypeId);
         cipCtx.put("quantityAccepted", new Double(quantityAccepted));
@@ -573,12 +587,24 @@ public class OagisInventoryServices {
         
         String inventoryItemTypeId = null;
         Map cipCtx = new HashMap();
-        if (serialNumber == null) {
+        if (serialNumber == null || serialNumber.equals("")) {
             inventoryItemTypeId = "NON_SERIAL_INV_ITEM";
         }
         else {
+        	// this is a Serialized Inventory Item. If the productId from the message is not valid then lets read it from InventoryItem in Ofbiz database.
             inventoryItemTypeId = "SERIALIZED_INV_ITEM";
             cipCtx.put("serialNumber", serialNumber);
+            if (sku == null || sku.equals("")) {
+                try {
+                	GenericValue inventoryItem = EntityUtil.getFirst(delegator.findByAnd("InventoryItem", UtilMisc.toMap("serialNumber", serialNumber)));
+                    if (inventoryItem !=null){
+                    	sku = inventoryItem.getString("productId");
+                    }
+                } catch (GenericEntityException e){
+                    String errMsg = "Error Getting Entity InventoryItem";
+                    Debug.logError(e, errMsg, module);
+                }
+            }
         }
         // sign handling for items
         double quantityAccepted = 0.0;
@@ -591,21 +617,6 @@ public class OagisInventoryServices {
             quantityAccepted = 0.0;
         }
         
-        GenericValue inventoryItem = null;
-        try {
-            inventoryItem = EntityUtil.getFirst(delegator.findByAnd("InventoryItem", UtilMisc.toMap("serialNumber", serialNumber)));
-        } catch (GenericEntityException e){
-            String errMsg = "Error Getting Entity InventoryItem";
-            Debug.logError(e, errMsg, module);
-        }
-            
-        String productId = inventoryItem.getString("productId");
-        if (productId.compareTo(sku) != 0) {
-            productId = sku;
-        }
-        if(serialNumber == null) { 
-            productId = sku;
-        }
         if ( invItemStatus.equals("ReceivedTOAvailable") || invItemStatus.equals("NotAvailableTOAvailable")) {
             cipCtx.put("statusId", "INV_AVAILABLE");    
         } else if ( invItemStatus.equals("ReceivedTONotAvailable") || invItemStatus.equals("AvailableTONotAvailable") ) {
@@ -618,7 +629,7 @@ public class OagisInventoryServices {
         //prepare MAp for receiveInventoryProduct service
         cipCtx.put("facilityId", facilityId);
         cipCtx.put("locationSeqId", locationSeqId);
-        cipCtx.put("productId", productId);
+        cipCtx.put("productId", sku);
         cipCtx.put("inventoryItemTypeId", inventoryItemTypeId);
         cipCtx.put("quantityAccepted", new Double(quantityAccepted));
         cipCtx.put("quantityRejected", new Double(quantityRejected));
