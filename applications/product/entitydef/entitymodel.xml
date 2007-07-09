@@ -4089,6 +4089,8 @@ under the License.
       <field name="orderQtyIncrements" type="floating-point"></field>
       <field name="unitsIncluded" type="floating-point"></field>
       <field name="quantityUomId" type="id"></field>
+      <field name="agreementId" type="id"></field>
+      <field name="agreementItemSeqId" type="id"></field>
       <field name="lastPrice" type="currency-precise"></field>
       <field name="currencyUomId" type="id"></field>
       <field name="supplierProductName" type="name"></field>
@@ -4118,6 +4120,10 @@ under the License.
       </relation>
       <relation type="one" fk-name="SUPPL_PROD_QUOM" title="Quantity" rel-entity-name="Uom">
         <key-map field-name="quantityUomId" rel-field-name="uomId"/>
+      </relation>
+      <relation type="one" fk-name="SUPPL_PROD_AGRIT" rel-entity-name="AgreementItem">
+        <key-map field-name="agreementId"/>
+        <key-map field-name="agreementItemSeqId"/>
       </relation>
     </entity>
     <entity entity-name="SupplierProductFeature" 
