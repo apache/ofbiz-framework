@@ -47,6 +47,7 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
@@ -473,7 +474,7 @@ public class OagisInventoryServices {
         
         if (userLogin == null) {
             try {
-                userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "admin"));
+                userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting userLogin", module);
             }
@@ -610,10 +611,11 @@ public class OagisInventoryServices {
         } else if ( invItemStatus.equals("ReceivedTONotAvailable") || invItemStatus.equals("AvailableTONotAvailable") ) {
             cipCtx.put("statusId", "INV_ON_HOLD");
         }
+
+        String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.facilityId");
+        String locationSeqId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.locationId");
            
         //prepare MAp for receiveInventoryProduct service
-        String facilityId = "WebStoreWarehouse";
-        String locationSeqId = "FAC_AVNET_AZ";
         cipCtx.put("facilityId", facilityId);
         cipCtx.put("locationSeqId", locationSeqId);
         cipCtx.put("productId", productId);
