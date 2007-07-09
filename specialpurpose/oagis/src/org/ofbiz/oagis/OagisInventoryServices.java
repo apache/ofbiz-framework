@@ -613,7 +613,7 @@ public class OagisInventoryServices {
         }
 
         String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.facilityId");
-        String locationSeqId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.locationId");
+        String locationSeqId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.locationSeqId");
            
         //prepare MAp for receiveInventoryProduct service
         cipCtx.put("facilityId", facilityId);
