@@ -901,6 +901,29 @@ under the License.
         <response name="error" type="view" value="EditAgreementItemProduct"/>
     </request-map>
 
+    <request-map uri="ListAgreementItemSupplierProducts"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementItemSupplierProducts"/></request-map>
+    <request-map uri="ListAgreementItemSupplierProductsReport"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementItemSupplierProductsReport"/></request-map>
+    <request-map uri="removeAgreementItemSupplierProduct">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="removeSupplierProduct"/>
+        <response name="success" type="view" value="ListAgreementItemSupplierProducts"/>
+        <response name="error" type="view" value="ListAgreementItemSupplierProducts"/>
+    </request-map>
+
+    <request-map uri="EditAgreementItemSupplierProduct"><security https="true" auth="true"/><response name="success" type="view" value="EditAgreementItemSupplierProduct"/></request-map>
+    <request-map uri="createAgreementItemSupplierProduct">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createSupplierProduct"/>
+        <response name="success" type="view" value="ListAgreementItemSupplierProducts"/>
+        <response name="error" type="view" value="EditAgreementItemSupplierProduct"/>
+    </request-map>
+    <request-map uri="updateAgreementItemSupplierProduct">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateSupplierProduct"/>
+        <response name="success" type="view" value="ListAgreementItemSupplierProducts"/>
+        <response name="error" type="view" value="EditAgreementItemSupplierProduct"/>
+    </request-map>
+
     <request-map uri="ListAgreementItemParties"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementItemParties"/></request-map>
     <request-map uri="removeAgreementItemParty">
         <security https="true" auth="true"/>
@@ -1460,6 +1483,9 @@ under the License.
     <view-map name="ListAgreementItemProducts" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItemProducts"/>
     <view-map name="ListAgreementItemProductsReport" type="screenfop" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItemProductsReport" content-type="application/pdf" encoding="none"/>
     <view-map name="EditAgreementItemProduct" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementItemProduct"/>
+    <view-map name="ListAgreementItemSupplierProducts" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItemSupplierProducts"/>
+    <view-map name="ListAgreementItemSupplierProductsReport" type="screenfop" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItemSupplierProductsReport" content-type="application/pdf" encoding="none"/>
+    <view-map name="EditAgreementItemSupplierProduct" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementItemSupplierProduct"/>
     <view-map name="ListAgreementItemParties" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItemParties"/>
     <view-map name="EditAgreementItemParty" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementItemParty"/>
     <view-map name="ListAgreementGeographicalApplic" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementGeographicalApplic"/>

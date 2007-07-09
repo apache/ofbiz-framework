@@ -379,6 +379,114 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="ListAgreementItemSupplierProducts">
+        <section>
+            <actions>
+                <set field="title" value="List Agreement Item Products"/>
+                <set field="titleProperty" value="PageTitleListAgreementItemProducts"/>
+                <set field="headerItem" value="agreement"/>
+                <set field="tabButtonItem" value="ListAgreementItemSupplierProducts"/>
+
+                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
+                <entity-and entity-name="SupplierProduct" list-name="agreementProducts">
+                    <field-map env-name="agreement.agreementId" field-name="agreementId"/>
+                    <field-map env-name="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAgreementDecorator">
+                    <decorator-section name="body">
+                        <container>
+                            <link target="EditAgreementItemSupplierProduct?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.ProductNewProduct}" style="buttontext"/>
+                            <link target="ListAgreementItemSupplierProductsReport?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
+                        </container>
+                        <include-form name="ListAgreementItemSupplierProducts" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListAgreementItemSupplierProductsReport">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingPageTitleAgreementPriceList"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                
+                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
+                <entity-and entity-name="SupplierProduct" list-name="agreementProducts">
+                    <field-map env-name="agreement.agreementId" field-name="agreementId"/>
+                    <field-map env-name="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="FoDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head1">${uiLabelMap.AccountingAgreement}</label>
+                        </container>
+                        <include-form name="ViewAgreementInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container>
+                            <label style="head2">${uiLabelMap.AccountingAgreementItem}</label>
+                        </container>
+                        <include-form name="ViewAgreementItemInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <include-form name="ListAgreementItemSupplierProductsForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditAgreementItemSupplierProduct">
+        <section>
+            <actions>
+                <set field="title" value="Edit Agreement Item Product"/>
+                <set field="titleProperty" value="PageTitleEditAgreementItemProduct"/>
+                <set field="headerItem" value="agreement"/>
+                <set field="tabButtonItem" value="ListAgreementItemSupplierProducts"/>
+                
+                <set field="agreementId" from-field="parameters.agreementId"/>
+                <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
+                <set field="productId" from-field="parameters.productId"/>
+
+                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
+                <entity-one entity-name="SupplierProduct" value-name="agreementProductAppl" auto-field-map="true"/>
+            </actions>
+            <widgets>
+            <section>
+            <condition>
+                <and>
+                    <not><if-empty field-name="agreement.partyIdTo"/></not>
+                    <not><if-empty field-name="agreementItem.currencyUomId"/></not>
+                </and>
+            </condition>
+            <widgets>
+                <decorator-screen name="CommonAgreementDecorator">
+                    <decorator-section name="body">
+                        <container>
+                            <link target="EditAgreementItemSupplierProduct?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.ProductNewProduct}" style="buttontext"/>
+                        </container>
+                        <include-form name="EditAgreementItemSupplierProduct" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+            <fail-widgets>
+                <decorator-screen name="CommonAgreementDecorator">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head2">${uiLabelMap.AccountingAgreementIsNotSetForSupplierProducts}</label>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </fail-widgets>
+            </section>
+        </widgets>
+        </section>
+    </screen>
+
     <screen name="ListAgreementItemParties">
         <section>
             <actions>

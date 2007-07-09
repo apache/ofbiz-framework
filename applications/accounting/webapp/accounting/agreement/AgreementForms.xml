@@ -247,6 +247,24 @@ under the License.
             <hyperlink target="removeAgreementItemProduct?productId=${productId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>
+    <form name="ListAgreementItemSupplierProducts" list-name="agreementProducts" target="" title="" type="list" paginate-target="ListAgreementItemSupplierProducts">
+        <auto-fields-entity entity-name="SupplierProduct" default-field-type="display"/>
+        <field name="agreementId"><hidden/></field>
+        <field name="agreementItemSeqId"><hidden/></field>
+        <field name="partyId"><hidden/></field>
+        <field name="currencyUomId"><hidden/></field>
+        <field name="productId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${productId}" target="EditAgreementItemSupplierProduct?minimumOrderQuantity=${minimumOrderQuantity}&amp;currencyUomId=${currencyUomId}&amp;availableFromDate=${availableFromDate}&amp;partyId=${partyId}&amp;productId=${productId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}"/>
+        </field>
+        <field name="internalName" entry-name="productId">
+            <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
+        </field>
+        <field name="lastPrice" widget-area-style="align-text"><display/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="removeAgreementItemSupplierProduct?minimumOrderQuantity=${minimumOrderQuantity}&amp;currencyUomId=${currencyUomId}&amp;availableFromDate=${availableFromDate}&amp;partyId=${partyId}&amp;productId=${productId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+        </field>
+    </form>
+
     <form name="ViewAgreementInfoForReport" type="single" title="" default-map-name="agreement">
         <field name="agreementId"><text/></field>
         <field name="partyIdFrom"><text/></field>
@@ -268,6 +286,14 @@ under the License.
         </field>
         <field name="price" title-area-style="tableheadmedium" widget-area-style="tabletextright"><display/></field>
     </form>
+    <form name="ListAgreementItemSupplierProductsForReport" list-name="agreementProducts" target="" title="" type="list">
+        <field name="productId" title-area-style="tableheadmedium"><display/></field>
+        <field name="supplierProductId" title-area-style="tableheadmedium"><display/></field>
+        <field name="internalName" entry-name="productId">
+            <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
+        </field>
+        <field name="lastPrice" title-area-style="tableheadmedium" widget-area-style="tabletextright"><display/></field>
+    </form>
     <form name="EditAgreementItemProduct" type="single" target="updateAgreementItemProduct" title="" default-map-name="agreementProductAppl">
         <alt-target use-when="agreementProductAppl==null" target="createAgreementItemProduct"/>
         <auto-fields-entity entity-name="AgreementProductAppl" default-field-type="edit"/>
@@ -278,6 +304,57 @@ under the License.
         </field>
         <field name="productId" use-when="agreementProductAppl!=null"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="EditAgreementItemSupplierProduct" type="single" target="updateAgreementItemSupplierProduct" title="" default-map-name="agreementProductAppl">
+        <alt-target use-when="agreementProductAppl==null" target="createAgreementItemSupplierProduct"/>
+        <auto-fields-entity entity-name="SupplierProduct" default-field-type="edit"/>
+        <field name="agreementId"><hidden/></field>
+        <field name="agreementItemSeqId"><hidden/></field>
+        <field name="partyId"><hidden value="${agreement.partyIdTo}"/></field>
+        <field name="currencyUomId"><hidden value="${agreementItem.currencyUomId}"/></field>
+        <field name="availableFromDate" use-when="agreementProductAppl==null">
+            <!--<date-time default-value="${bsh: org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>-->
+            <date-time default-value="${agreement.fromDate}"/>
+        </field>
+        <field name="availableFromDate" use-when="agreementProductAppl!=null">
+            <display/>
+        </field>
+        <field name="minimumOrderQuantity" use-when="agreementProductAppl==null">
+            <text default-value="0" size="5"/>
+        </field>
+        <field name="minimumOrderQuantity" use-when="agreementProductAppl!=null">
+            <display/>
+        </field>
+        <field name="productId" use-when="agreementProductAppl==null">
+            <lookup target-form-name="LookupProduct"/>
+        </field>
+        <field name="productId" use-when="agreementProductAppl!=null"><display/></field>
+        <field name="supplierPrefOrderId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="SupplierPrefOrder" key-field-name="supplierPrefOrderId" description="${description}">
+                    <entity-order-by field-name="supplierPrefOrderId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="supplierRatingTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="SupplierRatingType" key-field-name="supplierRatingTypeId" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="quantityUomId" title="${uiLabelMap.ProductQuantityUomId}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="UomAndType" key-field-name="uomId" description="${typeDescription}: ${description} (${abbreviation})">
+                    <entity-constraint name="uomTypeId" operator="not-equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="typeDescription"/>
+                    <entity-order-by field-name="uomId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
             <submit button-type="button"/>
         </field>
     </form>
