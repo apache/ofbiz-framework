@@ -364,19 +364,23 @@ public class OagisInventoryServices {
             
         Element dataAreaElement = UtilXml.firstChildElement(receivePoElement, "n:DATAAREA");
         Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "n:ACKNOWLEDGE_DELIVERY");
-        Element receiptHdrElement = UtilXml.firstChildElement(acknowledgeDeliveryElement, "n:RECEIPTHDR");
+        // TODO: need to support multiple RECEIPTLN elements in a single message
+        Element receiptHdrElement = UtilXml.firstChildElement(acknowledgeDeliveryElement, "n:RECEIPTLN");
         Element qtyElement = UtilXml.firstChildElement(receiptHdrElement, "N1:QUANTITY");
             
         String itemQty = UtilXml.childElementValue(qtyElement, "N2:VALUE");
         String sign = UtilXml.childElementValue(qtyElement, "N2:SIGN");
         String productId = UtilXml.childElementValue(receiptHdrElement, "N2:ITEM");
             
+        // TODO: need to support multiple INVDETAIL elements under a RECEIPTLN element
         Element invDetailElement = UtilXml.firstChildElement(receiptHdrElement, "n:INVDETAIL");
-            
         String serialNumber = UtilXml.childElementValue(invDetailElement, "N2:SERIALNUM");
+        
+        // TODO: support DISPOSITN element, and set InventoryItem status accordingly
             
         Element documentRefElement = UtilXml.firstChildElement(receiptHdrElement, "N1:DOCUMNTREF");
         String orderId = UtilXml.childElementValue(documentRefElement, "N2:DOCUMENTID");
+        // TODO: need to get and if possible use the DOCUMNTREF -> LINENUM element, would be orderItemSeqId
 
         // prepare map to create inventory against PO
         Map cipCtx = new HashMap();
@@ -399,7 +403,6 @@ public class OagisInventoryServices {
                     Debug.logError(e, errMsg, module);
                 }
             }
-
         }
             // sign handling for items
         double quantityAccepted = 0.0;
@@ -539,8 +542,8 @@ public class OagisInventoryServices {
         String sku = UtilXml.childElementValue(receiptHdrElement, "N2:ITEM");
             
         Element invDetailElement = UtilXml.firstChildElement(receiptHdrElement, "n:INVDETAIL");
-            
         String serialNumber = UtilXml.childElementValue(invDetailElement, "N2:SERIALNUM");
+        
         String invItemStatus = UtilXml.childElementValue(receiptHdrElement, "N2:DISPOSITN");
             
         Element documentRefElement = UtilXml.firstChildElement(receiptHdrElement, "N1:DOCUMNTREF");

@@ -87,7 +87,11 @@ public class OagisShipmentServices {
     public static final String certAlias = UtilProperties.getPropertyValue("oagis.properties", "auth.client.certificate.alias");
     public static final String basicAuthUsername = UtilProperties.getPropertyValue("oagis.properties", "auth.basic.username");
     public static final String basicAuthPassword = UtilProperties.getPropertyValue("oagis.properties", "auth.basic.password");
-    
+
+    public static final String oagisMainNamespacePrefix = "n";
+    public static final String oagisSegmentsNamespacePrefix = "os";
+    public static final String oagisFieldsNamespacePrefix = "of";
+        
     public static Map showShipment(DispatchContext ctx, Map context) {
         InputStream in = (InputStream) context.get("inputStream");
         LocalDispatcher dispatcher = ctx.getDispatcher();
@@ -115,21 +119,21 @@ public class OagisShipmentServices {
         Element showShipmentElement = doc.getDocumentElement();
         showShipmentElement.normalize();
           
-        Element controlAreaElement = UtilXml.firstChildElement(showShipmentElement, "N1:CNTROLAREA");
-        Element bsrElement = UtilXml.firstChildElement(controlAreaElement, "N1:BSR");
-        String bsrVerb = UtilXml.childElementValue(bsrElement, "N2:VERB");
-        String bsrNoun = UtilXml.childElementValue(bsrElement, "N2:NOUN");
-        String bsrRevision = UtilXml.childElementValue(bsrElement, "N2:REVISION");
+        Element controlAreaElement = UtilXml.firstChildElement(showShipmentElement, "CNTROLAREA"); // os
+        Element bsrElement = UtilXml.firstChildElement(controlAreaElement, "BSR"); // os
+        String bsrVerb = UtilXml.childElementValue(bsrElement, "VERB"); // of
+        String bsrNoun = UtilXml.childElementValue(bsrElement, "NOUN"); // of
+        String bsrRevision = UtilXml.childElementValue(bsrElement, "REVISION"); // of
           
         Map oagisMsgInfoCtx = UtilMisc.toMap("bsrVerb", bsrVerb, "bsrNoun", bsrNoun, "bsrRevision", bsrRevision);
             
-        Element senderElement = UtilXml.firstChildElement(controlAreaElement, "N1:SENDER");
-        String logicalId = UtilXml.childElementValue(senderElement, "N2:LOGICALID");
-        String component = UtilXml.childElementValue(senderElement, "N2:COMPONENT");
-        String task = UtilXml.childElementValue(senderElement, "N2:TASK");
-        String referenceId = UtilXml.childElementValue(senderElement, "N2:REFERENCEID");
-        String confirmation = UtilXml.childElementValue(senderElement, "N2:CONFIRMATION");
-        String authId = UtilXml.childElementValue(senderElement, "N2:AUTHID");
+        Element senderElement = UtilXml.firstChildElement(controlAreaElement, "SENDER"); // os
+        String logicalId = UtilXml.childElementValue(senderElement, "LOGICALID"); // of
+        String component = UtilXml.childElementValue(senderElement, "COMPONENT"); // of
+        String task = UtilXml.childElementValue(senderElement, "TASK"); // of
+        String referenceId = UtilXml.childElementValue(senderElement, "REFERENCEID"); // of
+        String confirmation = UtilXml.childElementValue(senderElement, "CONFIRMATION"); // of
+        String authId = UtilXml.childElementValue(senderElement, "AUTHID"); // of
           
         oagisMsgInfoCtx.put("logicalId", logicalId);
         oagisMsgInfoCtx.put("component", component);
@@ -153,19 +157,19 @@ public class OagisShipmentServices {
             Debug.logError(e, errMsg, module);
         }
            
-        Element dataAreaElement = UtilXml.firstChildElement(showShipmentElement, "n:DATAAREA");
-        Element daShowShipmentElement = UtilXml.firstChildElement(dataAreaElement, "n:SHOW_SHIPMENT");
-        Element shipmentElement = UtilXml.firstChildElement(daShowShipmentElement, "n:SHIPMENT");                                  
-        String shipmentId = UtilXml.childElementValue(shipmentElement, "N2:DOCUMENTID");            
+        Element dataAreaElement = UtilXml.firstChildElement(showShipmentElement, "DATAAREA"); // n
+        Element daShowShipmentElement = UtilXml.firstChildElement(dataAreaElement, "SHOW_SHIPMENT"); // n
+        Element shipmentElement = UtilXml.firstChildElement(daShowShipmentElement, "SHIPMENT"); // n                               
+        String shipmentId = UtilXml.childElementValue(shipmentElement, "DOCUMENTID"); // of           
            
-        Element shipUnitElement = UtilXml.firstChildElement(daShowShipmentElement, "n:SHIPUNIT");
-        String trackingNum = UtilXml.childElementValue(shipUnitElement, "N2:TRACKINGID");            
+        Element shipUnitElement = UtilXml.firstChildElement(daShowShipmentElement, "SHIPUNIT"); // n
+        String trackingNum = UtilXml.childElementValue(shipUnitElement, "TRACKINGID"); // of            
             
-        Element invItem = UtilXml.firstChildElement(shipUnitElement, "n:INVITEM");            
-        String productId = UtilXml.childElementValue(invItem, "N2:ITEM");
+        Element invItem = UtilXml.firstChildElement(shipUnitElement, "INVITEM"); // n
+        String productId = UtilXml.childElementValue(invItem, "ITEM"); // of
             
-        Element invDetail = UtilXml.firstChildElement(invItem, "n:INVDETAIL");
-        String serialNumber = UtilXml.childElementValue(invDetail,"N1:SERIALNUM");
+        Element invDetail = UtilXml.firstChildElement(invItem, "INVDETAIL"); // n
+        String serialNumber = UtilXml.childElementValue(invDetail, "SERIALNUM"); // os
         try {                
             GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
             String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");                
