@@ -240,6 +240,7 @@ under the License.
                     <!-- If this new issuance will cause the quantityOnHandTotal to go below the minimumStock, create a new requirement -->
                     <if-compare-field field-name="newQuantityOnHand" to-field-name="productFacility.minimumStock" operator="less" type="Double">
                         <set from-field="inventoryItem.productId" field="inputMap.productId"/>
+                        <set from-field="productFacility.facilityId" field="inputMap.facilityId"/>
                         <if-not-empty field-name="productFacility.reorderQuantity">
                             <set from-field="productFacility.reorderQuantity" field="inputMap.quantity"/>
                         <else>
@@ -286,6 +287,7 @@ under the License.
                     <!-- If before this reservation the availableToPromiseTotal was over minimumStock, create a new requirement -->
                     <if-compare-field field-name="oldAvailableToPromise" to-field-name="productFacility.minimumStock" operator="greater-equals" type="Double">
                         <set from-field="inventoryItem.productId" field="inputMap.productId"/>
+                        <set from-field="productFacility.facilityId" field="inputMap.facilityId"/>
                         <if-not-empty field-name="productFacility.reorderQuantity">
                             <set from-field="productFacility.reorderQuantity" field="inputMap.quantity"/>
                         <else>
