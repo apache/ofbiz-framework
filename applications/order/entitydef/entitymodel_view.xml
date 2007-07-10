@@ -904,7 +904,6 @@ under the License.
       <member-entity entity-alias="OH" entity-name="OrderHeader"/>
       <member-entity entity-alias="OPP" entity-name="OrderPaymentPreference"/>
       <member-entity entity-alias="PMT" entity-name="PaymentMethodType"/>
-      <member-entity entity-alias="SMT" entity-name="ShipmentMethodType"/>
       <member-entity entity-alias="OS" entity-name="StatusItem"/>
       <member-entity entity-alias="OI" entity-name="OrderItem"/>
       <member-entity entity-alias="OIS" entity-name="StatusItem"/>
@@ -914,7 +913,6 @@ under the License.
       <alias entity-alias="OH" name="orderDate"/>
       <alias entity-alias="OS" name="orderStatus" field="description"/>
       <alias entity-alias="PMT" name="paymentMethod" field="description"/>
-      <alias entity-alias="SMT" name="shipMethod" field="description"/>
       <alias entity-alias="OH" name="visitId"/>
       <alias entity-alias="OH" name="currencyUom"/>
       <alias entity-alias="OH" name="originFacilityId"/>
