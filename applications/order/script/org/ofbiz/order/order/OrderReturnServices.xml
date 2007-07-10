@@ -359,18 +359,28 @@ under the License.
         <create-value value-name="newEntity"/>
         <refresh-value value-name="newEntity"/>
 
-        <!-- create return adjustments for all adjustments associated with the order item -->
-        <if-not-empty field-name="orderItem">
-            <get-related value-name="orderItem" relation-name="OrderAdjustment" list-name="orderAdjustments"/>
-            <iterate entry-name="orderAdjustment" list-name="orderAdjustments">
-                <clear-field field-name="returnAdjCtx"/>
-                <set field="returnAdjCtx.returnId" from-field="parameters.returnId"/>
-                <set field="returnAdjCtx.returnItemSeqId" from-field="newEntity.returnItemSeqId"/>
-                <set field="returnAdjCtx.returnTypeId" from-field="newEntity.returnTypeId"/>
-                <set field="returnAdjCtx.orderAdjustmentId" from-field="orderAdjustment.orderAdjustmentId"/>
-                <call-service service-name="createReturnAdjustment" in-map-name="returnAdjCtx"/>
-            </iterate>
-        </if-not-empty>
+        <if>
+            <condition>
+                <or>
+                    <if-empty field-name="parameters.includeAdjustments"/>
+                    <if-compare field-name="parameters.includeAdjustments" operator="equals" value="Y"/>
+                </or>
+            </condition>
+            <then>
+                <!-- create return adjustments for all adjustments associated with the order item -->
+                <if-not-empty field-name="orderItem">
+                    <get-related value-name="orderItem" relation-name="OrderAdjustment" list-name="orderAdjustments"/>
+                    <iterate entry-name="orderAdjustment" list-name="orderAdjustments">
+                        <clear-field field-name="returnAdjCtx"/>
+                        <set field="returnAdjCtx.returnId" from-field="parameters.returnId"/>
+                        <set field="returnAdjCtx.returnItemSeqId" from-field="newEntity.returnItemSeqId"/>
+                        <set field="returnAdjCtx.returnTypeId" from-field="newEntity.returnTypeId"/>
+                        <set field="returnAdjCtx.orderAdjustmentId" from-field="orderAdjustment.orderAdjustmentId"/>
+                        <call-service service-name="createReturnAdjustment" in-map-name="returnAdjCtx"/>
+                    </iterate>
+                </if-not-empty>
+            </then>
+        </if>
     </simple-method>
     <simple-method method-name="updateReturnItem" short-description="Update Return Item">
         <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateReturnHeader"/></check-permission>

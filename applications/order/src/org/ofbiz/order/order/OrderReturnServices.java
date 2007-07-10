@@ -484,7 +484,13 @@ public class OrderReturnServices {
                         returnable.put(item, returnInfo);
                         
                         // Order item adjustments
-                        List itemAdjustments = orh.getNotReturnedOrderItemAdjustments(item);
+                        List itemAdjustments = null;
+                        try {
+                            itemAdjustments = orderItem.getRelated("OrderAdjustment");
+                        } catch (GenericEntityException e) {
+                            Debug.logError(e, module);
+                            return ServiceUtil.returnError("Unable to obtain order item adjustments");
+                        }
                         if (UtilValidate.isNotEmpty(itemAdjustments)) {
                             Iterator itemAdjustmentsIt = itemAdjustments.iterator();
                             while (itemAdjustmentsIt.hasNext()) {
@@ -1994,6 +2000,20 @@ public class OrderReturnServices {
                             UtilMisc.toMap("returnId", returnId, "returnItemSeqId", returnItemSeqId));
                     Debug.log("returnId:" + returnId + ",returnItemSeqId:" + returnItemSeqId);
                     orderItem = returnItem.getRelatedOne("OrderItem");
+                } else {
+                    // we don't have the returnItemSeqId but before we consider this
+                    // an header adjustment we try to get a return item in this return
+                    // associated to the same order item to which the adjustments refers (if any)
+                    if (UtilValidate.isNotEmpty(orderAdjustment.getString("orderItemSeqId")) &&
+                            !"_NA_".equals(orderAdjustment.getString("orderItemSeqId"))) {
+                        returnItem = EntityUtil.getFirst(delegator.findByAnd("ReturnItem",
+                                                                             UtilMisc.toMap("returnId", returnId,
+                                                                                            "orderId", orderAdjustment.getString("orderId"),
+                                                                                            "orderItemSeqId", orderAdjustment.getString("orderItemSeqId"))));
+                        if (UtilValidate.isNotEmpty(returnItem)) {
+                            orderItem = returnItem.getRelatedOne("OrderItem");
+                        }
+                    }
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
@@ -2111,7 +2131,13 @@ public class OrderReturnServices {
         String serviceName = UtilValidate.isNotEmpty(orderItemSeqId) ? "createReturnItem" : "createReturnAdjustment";
         Debug.logInfo("serviceName:" + serviceName, module);
         try {
-            return dispatcher.runSync(serviceName, filterServiceContext(dctx, serviceName, context));
+            Map inMap = filterServiceContext(dctx, serviceName, context);
+            if ("createReturnItem".equals(serviceName)) {
+                // we don't want to automatically include the adjustments
+                // when the return item is created because they are selectable by the user
+                inMap.put("includeAdjustments", "N");
+            }
+            return dispatcher.runSync(serviceName, inMap);
         } catch (org.ofbiz.service.GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());

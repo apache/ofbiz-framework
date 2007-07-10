@@ -67,12 +67,8 @@ under the License.
                     <#assign adjustmentType = orderItem.getRelatedOne("OrderAdjustmentType")/>
                     <#assign description = orderItem.description?default(adjustmentType.get("description",locale))/>
 
-                    <#--
                     <input type="hidden" name="returnAdjustmentTypeId_o_${rowCount}" value="${returnAdjustmentType}"/>                
                     <input type="hidden" name="orderAdjustmentId_o_${rowCount}" value="${orderItem.orderAdjustmentId}"/>
-                    <input type="hidden" name="returnItemSeqId_o_${rowCount}" value="_NA_"/>
-                    <input type="hidden" name="description_o_${rowCount}" value="${description}"/>
-                    -->
                     <tr>
                       <td colspan="4">
                         ${description?default("N/A")}
@@ -81,8 +77,7 @@ under the License.
                         ${orderItem.amount?string("##0.00")}
                         <#--<input type="text" class="inputBox" size="8" name="amount_o_${rowCount}" <#if orderItem.amount?has_content>value="${orderItem.amount?string("##0.00")}"</#if>/>-->
                       </td>
-                      <td colspan="3"></td>
-                      <#--
+                      <td></td>
                       <td>
                         <select name="returnTypeId_o_${rowCount}" class="selectBox">
                           <#list returnTypes as type>
@@ -90,15 +85,11 @@ under the License.
                           </#list>
                         </select>
                       </td>
-                      -->
                       <td></td>
-                      <#--
                       <td align="right">
                         <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, '${selectAllFormName}');"/>
                       </td>
-                      -->
                     </tr>
-
                 <#else>
                     <#-- this is an order item -->
                     <#assign returnItemType = returnItemTypeMap.get(returnableItems.get(orderItem).get("itemTypeKey"))/>

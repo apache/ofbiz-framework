@@ -76,6 +76,7 @@ under the License.
                      ORDERMGR_CREATE, but, if the former, the returnPrice will be overriden by the returnablePrice from getReturnableQuantity.</description>
         <implements service="returnItemInterface"/>
         <attribute name="returnItemMapKey" type="String" mode="IN" optional="true"/>
+        <attribute name="includeAdjustments" type="String" mode="IN" optional="true"/> <!-- The default is "Y": the adjustments associated with the item are included in the return -->
         <attribute name="returnItemSeqId" type="String" mode="OUT" optional="false"/>
         <override name="returnReasonId" optional="true"/>
     </service>
