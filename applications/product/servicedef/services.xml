@@ -1126,14 +1126,4 @@ under the License.
         <attribute type="String" mode="IN" name="statusId" optional="false"/>
         <attribute type="String" mode="IN" name="trackingCodeId" optional="true"/>
     </service>
-    <service name="searchExportProductListToGoogle" engine="java"
-             location="org.ofbiz.product.product.ProductSearchEvents" invoke="searchExportProductListToGoogle" auth="true">
-        <description>Export products to Google Base</description>
-        <attribute type="String" mode="IN" name="webSiteUrl" optional="false"/>
-        <attribute type="String" mode="IN" name="imageUrl" optional="false"/>
-        <attribute type="String" mode="IN" name="actionType" optional="false"/>
-        <attribute type="String" mode="IN" name="statusId" optional="false"/>
-        <attribute type="List" mode="IN" name="selectResult" optional="true"/>
-        <attribute type="String" mode="IN" name="trackingCodeId" optional="true"/>
-    </service>
 </services>
