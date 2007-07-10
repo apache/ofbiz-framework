@@ -486,7 +486,7 @@ public class OrderReturnServices {
                         // Order item adjustments
                         List itemAdjustments = null;
                         try {
-                            itemAdjustments = orderItem.getRelated("OrderAdjustment");
+                            itemAdjustments = item.getRelated("OrderAdjustment");
                         } catch (GenericEntityException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError("Unable to obtain order item adjustments");
