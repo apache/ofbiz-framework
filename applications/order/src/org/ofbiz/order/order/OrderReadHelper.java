@@ -2931,32 +2931,6 @@ public class OrderReadHelper {
     }
 
     /**
-     * Get order item adjustments that have no corresponding returnAdjustment
-     * @return orderAdjustmentList
-     */
-    public List getNotReturnedOrderItemAdjustments(GenericValue orderItem) {
-        List filteredAdjustments = new ArrayList();
-        try {
-            List orderAdjustments = orderItem.getRelated("OrderAdjustment");
-            if (orderAdjustments != null) {
-                Iterator orderAdjIterator = orderAdjustments.iterator();
-                while (orderAdjIterator.hasNext()) {
-                    GenericValue orderAdjustment = (GenericValue) orderAdjIterator.next();
-                    long count = 0;
-                    // TODO: we have to change this to also compute the adjustment amount minus the already returned amount
-                    count = orderItem.getDelegator().findCountByAnd("ReturnAdjustment", UtilMisc.toMap("orderAdjustmentId", orderAdjustment.get("orderAdjustmentId")));
-                    if (count == 0) {
-                        filteredAdjustments.add(orderAdjustment);
-                    }
-                }
-            }
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-        }
-        return filteredAdjustments;
-    }
-
-    /**
      * Get the total return adjustments for a set of key -> value condition pairs.  Done for code efficiency.
      * @param delegator
      * @param condition
