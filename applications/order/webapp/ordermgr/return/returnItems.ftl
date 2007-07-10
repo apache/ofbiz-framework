@@ -31,10 +31,10 @@ under the License.
         </div></td>
         <#if (adjEditable)>
            <td>
-              <input type="text" class="inputBox" size="8" name="amount_o_${rowCount}" value="${returnAdjustment.amount?string("##0.00")}"/>
+              <input type="text" class="inputBox" size="8" name="amount_o_${rowCount}" value="${returnAdjustment.amount?default(0)?string("##0.00")}"/>
            </td>
         <#else>
-           <td class="tabletextright"><@ofbizCurrency amount=returnAdjustment.amount isoCode=returnHeader.currencyUomId/></td>
+           <td class="tabletextright"><@ofbizCurrency amount=returnAdjustment.amount?default(0) isoCode=returnHeader.currencyUomId/></td>
         </#if>
         <td colspan="2">&nbsp;</td>
         <td><div class="tabletext">
@@ -60,8 +60,7 @@ under the License.
        </#if>
        <#if (adjEditable)>
            <#assign rowCount = rowCount + 1>
-       </#if>
-       <#assign returnTotal = returnTotal + returnAdjustment.get("amount")>
+       <#assign returnTotal = returnTotal + returnAdjustment.amount?default(0)>
     </tr>    
 </#macro>
 
