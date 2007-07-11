@@ -364,21 +364,22 @@ public class OagisInventoryServices {
             
         Element dataAreaElement = UtilXml.firstChildElement(receivePoElement, "n:DATAAREA");
         Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "n:ACKNOWLEDGE_DELIVERY");
+
         // TODO: need to support multiple RECEIPTLN elements in a single message
-        Element receiptHdrElement = UtilXml.firstChildElement(acknowledgeDeliveryElement, "n:RECEIPTLN");
-        Element qtyElement = UtilXml.firstChildElement(receiptHdrElement, "N1:QUANTITY");
+        Element receiptLnElement = UtilXml.firstChildElement(acknowledgeDeliveryElement, "n:RECEIPTLN");
+        Element qtyElement = UtilXml.firstChildElement(receiptLnElement, "N1:QUANTITY");
             
         String itemQty = UtilXml.childElementValue(qtyElement, "N2:VALUE");
         String sign = UtilXml.childElementValue(qtyElement, "N2:SIGN");
-        String productId = UtilXml.childElementValue(receiptHdrElement, "N2:ITEM");
+        String productId = UtilXml.childElementValue(receiptLnElement, "N2:ITEM");
             
         // TODO: need to support multiple INVDETAIL elements under a RECEIPTLN element
-        Element invDetailElement = UtilXml.firstChildElement(receiptHdrElement, "n:INVDETAIL");
+        Element invDetailElement = UtilXml.firstChildElement(receiptLnElement, "n:INVDETAIL");
         String serialNumber = UtilXml.childElementValue(invDetailElement, "N2:SERIALNUM");
         
         // TODO: support DISPOSITN element, and set InventoryItem status accordingly
             
-        Element documentRefElement = UtilXml.firstChildElement(receiptHdrElement, "N1:DOCUMNTREF");
+        Element documentRefElement = UtilXml.firstChildElement(receiptLnElement, "N1:DOCUMNTREF");
         String orderId = UtilXml.childElementValue(documentRefElement, "N2:DOCUMENTID");
         // TODO: need to get and if possible use the DOCUMNTREF -> LINENUM element, would be orderItemSeqId
 
@@ -534,22 +535,25 @@ public class OagisInventoryServices {
             
         Element dataAreaElement = UtilXml.firstChildElement(receiveRmaElement, "n:DATAAREA");
         Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "n:ACKNOWLEDGE_DELIVERY");
-        Element receiptHdrElement = UtilXml.firstChildElement(acknowledgeDeliveryElement, "n:RECEIPTHDR");
-        Element qtyElement = UtilXml.firstChildElement(receiptHdrElement, "N1:QUANTITY");
+
+        // TODO: need to support multiple RECEIPTLN elements in a single message
+        Element receiptLnElement = UtilXml.firstChildElement(acknowledgeDeliveryElement, "n:RECEIPTLN");
+        Element qtyElement = UtilXml.firstChildElement(receiptLnElement, "N1:QUANTITY");
             
         String itemQty = UtilXml.childElementValue(qtyElement, "N2:VALUE");
         String sign = UtilXml.childElementValue(qtyElement, "N2:SIGN");
-        String sku = UtilXml.childElementValue(receiptHdrElement, "N2:ITEM");
+        String sku = UtilXml.childElementValue(receiptLnElement, "N2:ITEM");
             
-        Element invDetailElement = UtilXml.firstChildElement(receiptHdrElement, "n:INVDETAIL");
+        // TODO: need to support multiple INVDETAIL elements under a RECEIPTLN element
+        Element invDetailElement = UtilXml.firstChildElement(receiptLnElement, "n:INVDETAIL");
         String serialNumber = UtilXml.childElementValue(invDetailElement, "N2:SERIALNUM");
         
-        String invItemStatus = UtilXml.childElementValue(receiptHdrElement, "N2:DISPOSITN");
+        String invItemStatus = UtilXml.childElementValue(receiptLnElement, "N2:DISPOSITN");
             
-        Element documentRefElement = UtilXml.firstChildElement(receiptHdrElement, "N1:DOCUMNTREF");
-            
+        Element documentRefElement = UtilXml.firstChildElement(receiptLnElement, "N1:DOCUMNTREF");
         //String orderTypeId = UtilXml.childElementValue(documentRefElement, "N2:DOCTYPE");
         String returnId = UtilXml.childElementValue(documentRefElement, "N2:DOCUMENTID");
+        // TODO: need to get and if possible use the DOCUMNTREF -> LINENUM element, would be orderItemSeqId
             
         //Map Declaration
         Map urhCtx = new HashMap();
