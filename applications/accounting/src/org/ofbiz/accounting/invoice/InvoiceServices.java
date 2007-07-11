@@ -1497,6 +1497,8 @@ public class InvoiceServices {
                         } 
                     } 
                 }
+            } else {
+                Debug.logInfo(UtilProperties.getMessage(resource, "AccountingIgnoringAdditionalShipCharges", productStore.getAllFields(), locale), module);
             }
 
             // call the createInvoiceForOrder service for each order
