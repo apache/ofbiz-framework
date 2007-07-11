@@ -142,14 +142,30 @@ under the License.
                 <set field="headerItem" value="billingaccount"/>
                 <set field="tabButtonItem" value="EditBillingAccountTerms"/>
                 
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/billingaccount/EditBillingAccountTerms.bsh"/>
+                <set field="billingAccountId" from-field="parameters.billingAccountId"/>
+                <set field="billingAccountTermId" from-field="parameters.billingAccountTermId"/>
+                <entity-one entity-name="BillingAccount" value-name="billingAccount"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBillingAccountDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://accounting/webapp/accounting/billingaccount/EditBillingAccountTerms.ftl"/></html>
-                        </platform-specific>
+                        <label style="head1">${uiLabelMap.PageTitleEditBillingAccountTerms} - ${uiLabelMap.AccountingAccountId}: ${billingAccount.billingAccountId}</label>
+                        <include-form name="ListBillingAccountTerms" location="component://accounting/widget/BillingAccountForms.xml"/>
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="parameters.billingAccountTermId"/></not>
+                            </condition>
+                            <actions>
+                                <entity-one entity-name="BillingAccountTerm" value-name="billingAccountTerm"/>
+                            </actions>
+                            <widgets>
+                                <label style="head1">${uiLabelMap.PageTitleEditBillingAccountTerms}</label>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head1">${uiLabelMap.AccountingCreateBillingAccountTerm}</label>
+                            </fail-widgets>
+                        </section>
+                        <include-form name="EditBillingAccountTerms" location="component://accounting/widget/BillingAccountForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -163,12 +179,14 @@ under the License.
                 <set field="headerItem" value="billingaccount"/>
                 <set field="tabButtonItem" value="BillingAccountInvoices"/>
                 
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/billingaccount/BillingAccountInvoices.bsh"/>
+                <set field="billingAccountId" from-field="parameters.billingAccountId"/>
+                <set field="billingAccountTermId" from-field="parameters.billingAccountTermId"/>
+                <entity-one entity-name="BillingAccount" value-name="billingAccount"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBillingAccountDecorator">
                     <decorator-section name="body">
-                        <include-form name="ListInvoices"  location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                        <include-form name="ListBillingAccountInvoices" location="component://accounting/widget/BillingAccountForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
