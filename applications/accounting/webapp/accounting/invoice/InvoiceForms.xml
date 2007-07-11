@@ -83,7 +83,6 @@ under the License.
         <field name="invoiceDate"><display description="${bsh:invoiceDate.toString().substring(0,10)}"/></field>
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="capture"><hyperlink target="capturePaymentsByInvoice?invoiceId=${invoiceId}&amp;billingAccountId=${billingAccountId}" description="${uiLabelMap.AccountingCapture}"/></field>
     </form>
 
     <form name="invoiceHeader" type="single" title="Invoice header information" default-map-name="invoice">
