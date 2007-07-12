@@ -321,15 +321,15 @@ public class OagisInventoryServices {
             doc = UtilXml.readXmlDocument(in, true, "ReceivePoAcknowledge");
         } catch (SAXException e) {
             String errMsg = "Error parsing the ReceivePoAcknowledge message: " + e.toString();
-            errorMapList.add(UtilMisc.toMap("SAXException", errMsg));
+            errorMapList.add(UtilMisc.toMap("reasonCode", "SAXException", "description", errMsg));
             Debug.logError(e, errMsg, module);
         } catch (ParserConfigurationException e) {
             String errMsg = "Error parsing the ReceivePoAcknowledge message: " + e.toString();
-            errorMapList.add(UtilMisc.toMap("ParserConfigurationException", errMsg));
+            errorMapList.add(UtilMisc.toMap("reasonCode", "ParserConfigurationException", "description", errMsg));
             Debug.logError(e, errMsg, module);
         } catch (IOException e) {
             String errMsg = "Error parsing the ReceivePoAcknowledge message: " + e.toString();
-            errorMapList.add(UtilMisc.toMap("IOException", errMsg));
+            errorMapList.add(UtilMisc.toMap("reasonCode", "IOException", "description", errMsg));
             Debug.logError(e, errMsg, module);
         }
         
@@ -439,7 +439,7 @@ public class OagisInventoryServices {
                 		if (serialNumsList.size() != quantityAccepted) {
                 			// this is an error, do something about it, like add to the list to send back a Confirm BOD with error messages
                 			String errMsg = "Error: the quantity [" + quantityAccepted + "] did not match the number of serial numbers passed [" + serialNumsList.size() + "].";
-                			errorMapList.add(UtilMisc.toMap("QuantitySerialMismatch", errMsg));
+                			errorMapList.add(UtilMisc.toMap("reasonCode", "QuantitySerialMismatch", "description", errMsg));
                 		}
                 		
                     	Iterator serialNumIter = serialNumsList.iterator();
@@ -460,11 +460,11 @@ public class OagisInventoryServices {
                                 Map ripResult = dispatcher.runSync("receiveInventoryProduct", localRipCtx);
                                 if (ServiceUtil.isError(ripResult)) {
                                 	String errMsg = ServiceUtil.getErrorMessage(ripResult);
-                        			errorMapList.add(UtilMisc.toMap("ReceiveInventoryServiceError", errMsg));
+                        			errorMapList.add(UtilMisc.toMap("reasonCode", "ReceiveInventoryServiceError", "description", errMsg));
                                 }
                             } catch (GenericServiceException e) {
                                 String errMsg = "Error running service receiveInventoryProduct: " + e.toString();
-                    			errorMapList.add(UtilMisc.toMap("GenericServiceException", errMsg));
+                    			errorMapList.add(UtilMisc.toMap("reasonCode", "GenericServiceException", "description", errMsg));
                                 Debug.logError(e, errMsg, module);
                             }    
                     	}
@@ -483,11 +483,11 @@ public class OagisInventoryServices {
                             Map ripResult = dispatcher.runSync("receiveInventoryProduct", localRipCtx);
                             if (ServiceUtil.isError(ripResult)) {
                             	String errMsg = ServiceUtil.getErrorMessage(ripResult);
-                    			errorMapList.add(UtilMisc.toMap("ReceiveInventoryServiceError", errMsg));
+                    			errorMapList.add(UtilMisc.toMap("reasonCode", "ReceiveInventoryServiceError", "description", errMsg));
                             }
                         } catch (GenericServiceException e) {
                             String errMsg = "Error running service receiveInventoryProduct: " + e.toString();
-                			errorMapList.add(UtilMisc.toMap("GenericServiceException", errMsg));
+                			errorMapList.add(UtilMisc.toMap("reasonCode", "GenericServiceException", "description", errMsg));
                             Debug.logError(e, errMsg, module);
                         }    
                 	}
@@ -520,7 +520,7 @@ public class OagisInventoryServices {
         } catch (GenericServiceException e) {
             String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
             // TODO: reconsider sending this error back to other server, not much they can do about it, and it may not be a critical error causing the message to be rejected...
-			errorMapList.add(UtilMisc.toMap("CreateOagisMessageInfoError", errMsg));
+			errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageInfoError", "description", errMsg));
             Debug.logError(e, errMsg, module);
         }
 
