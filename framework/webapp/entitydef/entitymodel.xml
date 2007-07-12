@@ -165,51 +165,56 @@ under the License.
       <field name="description" type="description"></field>
       <prim-key field="userAgentTypeId"/>
     </entity>
-    <entity entity-name="Visit"
-            package-name="org.ofbiz.webapp.visit"
-            never-cache="true"
-            title="Visit Entity">
-      <field name="visitId" type="id-ne"></field>
-      <field name="visitorId" type="id"></field>
-      <field name="userLoginId" type="id-vlong"></field>
-      <field name="userCreated" type="indicator"></field>
-      <field name="sessionId" type="id-vlong"></field>
-      <field name="serverIpAddress" type="id"></field>
-      <field name="serverHostName" type="long-varchar"></field>
-      <field name="webappName" type="short-varchar"></field>
-      <field name="initialLocale" type="short-varchar"></field>
-      <field name="initialRequest" type="url"></field>
-      <field name="initialReferrer" type="url"></field>
-      <field name="initialUserAgent" type="long-varchar"></field>
-      <field name="userAgentId" type="id"></field>
-      <field name="clientIpAddress" type="id"></field>
-      <field name="clientHostName" type="long-varchar"></field>
-      <field name="clientUser" type="short-varchar"></field>
-      <field name="cookie" type="short-varchar"></field>
-      <field name="fromDate" type="date-time"></field>
-      <field name="thruDate" type="date-time"></field>
-      <prim-key field="visitId"/>       
-      <relation type="one" fk-name="VISIT_VISITOR" rel-entity-name="Visitor">
-        <key-map field-name="visitorId"/>
-      </relation>
-      <relation type="one" fk-name="VISIT_USER_AGNT" rel-entity-name="UserAgent">
-        <key-map field-name="userAgentId"/>
-      </relation>
-      <index name="VISIT_THRU_IDX" unique="false">
-        <index-field name="thruDate"/>
-      </index>
+    <entity entity-name="Visit" package-name="org.ofbiz.webapp.visit" never-cache="true" title="Visit Entity">
+        <field name="visitId" type="id-ne"></field>
+        <field name="visitorId" type="id"></field>
+        <field name="userLoginId" type="id-vlong"></field>
+        <field name="userCreated" type="indicator"></field>
+        <field name="sessionId" type="id-vlong"></field>
+        <field name="serverIpAddress" type="id"></field>
+        <field name="serverHostName" type="long-varchar"></field>
+        <field name="webappName" type="short-varchar"></field>
+        <field name="initialLocale" type="short-varchar"></field>
+        <field name="initialRequest" type="url"></field>
+        <field name="initialReferrer" type="url"></field>
+        <field name="initialUserAgent" type="long-varchar"></field>
+        <field name="userAgentId" type="id"></field>
+        <field name="clientIpAddress" type="id"></field>
+        <field name="clientHostName" type="long-varchar"></field>
+        <field name="clientUser" type="short-varchar"></field>
+        <field name="clientIpIspName" type="short-varchar"></field>
+        <field name="clientIpPostalCode" type="short-varchar"></field>
+        <field name="clientIpStateProvGeoId" type="id"></field>
+        <field name="clientIpCountryGeoId" type="id"></field>
+        <field name="cookie" type="short-varchar"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="visitId"/>       
+        <relation type="one" fk-name="VISIT_VISITOR" rel-entity-name="Visitor">
+            <key-map field-name="visitorId"/>
+        </relation>
+        <relation type="one" fk-name="VISIT_USER_AGNT" rel-entity-name="UserAgent">
+            <key-map field-name="userAgentId"/>
+        </relation>
+        <relation type="one" fk-name="VISIT_CIP_STPRV" title="ClientIpStateProv" rel-entity-name="Geo">
+            <key-map field-name="clientIpStateProvGeoId" rel-field-name="geoId"/>
+        </relation>
+        <relation type="one" fk-name="VISIT_CIP_CNTRY" title="ClientIpCountry" rel-entity-name="Geo">
+            <key-map field-name="clientIpCountryGeoId" rel-field-name="geoId"/>
+        </relation>
+        <index name="VISIT_THRU_IDX" unique="false">
+            <index-field name="thruDate"/>
+        </index>
     </entity>
-    <entity entity-name="Visitor"
-            package-name="org.ofbiz.webapp.visit"
-            title="Visitor Entity">
-      <field name="visitorId" type="id-ne"></field>
-      <field name="userLoginId" type="id-vlong"></field>
-      <prim-key field="visitorId"/>
-      <relation type="one" fk-name="VISITOR_USRLGN" rel-entity-name="UserLogin">
-        <key-map field-name="userLoginId"/>
-      </relation>
+    <entity entity-name="Visitor" package-name="org.ofbiz.webapp.visit" title="Visitor Entity">
+        <field name="visitorId" type="id-ne"></field>
+        <field name="userLoginId" type="id-vlong"></field>
+        <prim-key field="visitorId"/>
+        <relation type="one" fk-name="VISITOR_USRLGN" rel-entity-name="UserLogin">
+            <key-map field-name="userLoginId"/>
+        </relation>
     </entity>
-
+    
   <!-- ========================================================= -->
   <!-- org.ofbiz.webapp.website -->
   <!-- ========================================================= -->
