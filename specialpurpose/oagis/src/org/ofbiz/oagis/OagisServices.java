@@ -33,6 +33,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Date;
 
@@ -105,8 +106,9 @@ public class OagisServices {
         bodyParameters.put("errorComponent", context.get("component"));
         bodyParameters.put("errorTask", context.get("task"));
         bodyParameters.put("errorReferenceId", context.get("referenceId"));
-        bodyParameters.put("errorDescription", context.get("description"));
-        bodyParameters.put("errorReasonCode", context.get("reasonCode"));
+        //bodyParameters.put("errorDescription", context.get("description"));
+        //bodyParameters.put("errorReasonCode", context.get("reasonCode"));
+        bodyParameters.put("errorMapList",(List) context.get("errorMapList"));
         bodyParameters.put("origRef", context.get("origRefId"));
         String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ConfirmBod");
         
@@ -199,13 +201,13 @@ public class OagisServices {
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         InputStream in = (InputStream) context.get("inputStream");
-        FastList errorList = FastList.newInstance();
+        List errorMapList = FastList.newInstance();
         
         GenericValue userLogin = null; 
         try {
             userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId","admin"));
         } catch (GenericEntityException e){
-            String errMsg = "Error Getting UserLogin with userLoginId 'admin'";
+            String errMsg = "Error Getting UserLogin with userLoginId 'admin':"+e.toString();
             Debug.logError(e, errMsg, module);
         }
         
@@ -213,16 +215,16 @@ public class OagisServices {
         try {
             doc = UtilXml.readXmlDocument(in, true, "RecieveConfirmBod");
         } catch (SAXException e) {
-            String errMsg = "Error parsing the ConfirmBodResponse";
-            errorList.add(errMsg);
+            String errMsg = "Error parsing the ConfirmBodResponse: "+e.toString();
+            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SAXException"));
             Debug.logError(e, errMsg, module);
         } catch (ParserConfigurationException e) {
-            String errMsg = "Error parsing the ConfirmBodResponse";
-            errorList.add(errMsg);
+            String errMsg = "Error parsing the ConfirmBodResponse: "+e.toString();
+            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "ParserConfigurationException"));
             Debug.logError(e, errMsg, module);
         } catch (IOException e) {
-            String errMsg = "Error parsing the ConfirmBodResponse";
-            errorList.add(errMsg);
+            String errMsg = "Error parsing the ConfirmBodResponse: "+e.toString();
+            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "IOException"));
             Debug.logError(e, errMsg, module);
         }
 
@@ -278,13 +280,13 @@ public class OagisServices {
         try {
             Map oagisMsgInfoResult = dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoCtx);
             if (ServiceUtil.isError(oagisMsgInfoResult)){
-                String errMsg = "Error creating OagisMessageInfo for the Incoming Message";
-                errorList.add(errMsg);
+                String errMsg = "Error creating OagisMessageInfo for the Incoming Message: "+ServiceUtil.getErrorMessage(oagisMsgInfoResult);
+                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "CreateOagisMessageInfoServiceError"));
                 Debug.logError(errMsg, module);
             }
         } catch (GenericServiceException e){
-            String errMsg = "Error creating OagisMessageInfo for the Incoming Message";
-            errorList.add(errMsg);
+            String errMsg = "Error creating OagisMessageInfo for the Incoming Message: "+e.toString();
+            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
             Debug.logError(e, errMsg, module);
         }
 
@@ -298,8 +300,8 @@ public class OagisServices {
         try {
             oagisMsgInfo = delegator.findByPrimaryKey("OagisMessageInfo", oagisMsgErrorCtx);
         } catch (GenericEntityException e){
-            String errMsg = "Error Getting Entity OagisMessageInfo";
-            errorList.add(errMsg);
+            String errMsg = "Error Getting Entity OagisMessageInfo: "+e.toString();
+            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericEntityException"));
             Debug.logError(e, errMsg, module);
         }
         
@@ -310,29 +312,28 @@ public class OagisServices {
             try {
                 Map oagisMsgErrorInfoResult = dispatcher.runSync("createOagisMessageErrorInfo", oagisMsgErrorCtx);
                 if (ServiceUtil.isError(oagisMsgErrorInfoResult)){
-                    String errMsg = "Error creating OagisMessageErrorInfo";
-                    errorList.add(errMsg);
+                    String errMsg = "Error creating OagisMessageErrorInfo: "+ServiceUtil.getErrorMessage(oagisMsgErrorInfoResult);
+                    errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "CreateOagisMessageErrorInfoServiceError"));
                     Debug.logError(errMsg, module);
                 }
             } catch (GenericServiceException e){
-                String errMsg = "Error creating OagisMessageErrorInfo";
-                errorList.add(errMsg);
+                String errMsg = "Error creating OagisMessageErrorInfo: "+e.toString();
+                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                 Debug.logError(e, errMsg, module);
             }
         } else{
-            String errMsg = "No such message with an error was found in OagisMessageInfoEntity ; Not creating OagisMessageErrorInfo";
+            String errMsg = "No such message with an error was found in OagisMessageInfo Entity ; Not creating OagisMessageErrorInfo";
             Debug.logWarning(errMsg, module);
-            errorList.add(errMsg);
+            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "OagisMessageInfoNotFoundError"));
         }
         
         Map result = new HashMap();
         result.put("contentType", "text/plain");
         
-        if (errorList.size()>0){
+        if (errorMapList.size()>0){
             result.putAll(oagisMsgInfoCtx);
             String errMsg = "Error Processing Received Message";
-            result.put("description", errMsg);
-            result.put("reasonCode", "00000");
+            result.put("errorMapList", errorMapList);
             //result.putAll(ServiceUtil.returnError(errMsg));
             return result;
         }

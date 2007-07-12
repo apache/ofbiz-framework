@@ -42,8 +42,7 @@ under the License.
     
     <service name="oagisMessageErrorInfoInterface" engine="interface">
         <implements service="oagisMessageInfoInterface"/>
-        <attribute name="description" type="String" mode="OUT" optional="true"/>
-        <attribute name="reasonCode" type="String" mode="OUT" optional="true"/>
+        <attribute name="errorMapList" type="java.util.List" mode="OUT" optional="true"/>
     </service>
 
     <service name="createOagisMessageInfo" engine="simple" default-entity-name="OagisMessageInfo" 
@@ -92,8 +91,7 @@ under the License.
         <attribute name="component" type="String" mode="IN" optional="false"/>
         <attribute name="task" type="String" mode="IN" optional="false"/>
         <attribute name="referenceId" type="String" mode="IN" optional="false"/>
-        <attribute name="description" type="String" mode="IN" optional="true"/>
-        <attribute name="reasonCode" type="String" mode="IN" optional="true"/>
+        <attribute name="errorMapList" type="java.util.List" mode="IN" optional="true"/>
         <attribute name="origRefId" type="String" mode="IN" optional="true"/>
     </service>
     

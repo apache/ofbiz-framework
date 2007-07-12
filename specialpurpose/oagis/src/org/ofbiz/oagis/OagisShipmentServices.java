@@ -97,13 +97,21 @@ public class OagisShipmentServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
         
-        List errorList = new LinkedList();
+        List errorMapList = FastList.newInstance();
         Document doc = null;
         try {
             doc = UtilXml.readXmlDocument(in, true, "ShowShipment");
-        } catch (Exception e) {
-            String errMsg = "Error parsing the ShowShipmentResponse";
-            errorList.add(errMsg);
+        } catch (SAXException e) {
+            String errMsg = "Error parsing the ShowShipmentResponse: "+e.toString();
+            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SAXException"));
+            Debug.logError(e, errMsg, module);
+        } catch (ParserConfigurationException e) {
+            String errMsg = "Error parsing the ShowShipmentResponse: "+e.toString();
+            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "ParserConfigurationException"));
+            Debug.logError(e, errMsg, module);
+        } catch (IOException e) {
+            String errMsg = "Error parsing the ShowShipmentResponse: "+e.toString();
+            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "IOException"));
             Debug.logError(e, errMsg, module);
         }
             
@@ -111,8 +119,7 @@ public class OagisShipmentServices {
         try {
             userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));    
         } catch (GenericEntityException e){
-            String errMsg = "Error Getting UserLogin with userLoginId system ";
-            errorList.add(errMsg);
+            String errMsg = "Error Getting UserLogin with userLoginId system: "+e.toString();
             Debug.logError(e, errMsg, module);
         }
                     
@@ -147,13 +154,13 @@ public class OagisShipmentServices {
         try {
             Map oagisMsgInfoResult = dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoCtx);
             if (ServiceUtil.isError(oagisMsgInfoResult)){
-                String errMsg = "Error creating OagisMessageInfo for the Incoming Message";
-                errorList.add(errMsg);
+                String errMsg = ServiceUtil.getErrorMessage(oagisMsgInfoResult);
+                errorMapList.add(UtilMisc.toMap("description", errMsg, "resonCode", "CreateOagisMessageInfoServiceError"));
                 Debug.logError(errMsg, module);
             }
         } catch (GenericServiceException e){
-            String errMsg = "Error creating OagisMessageInfo for the Incoming Message";
-            errorList.add(errMsg);
+            String errMsg = "Error creating OagisMessageInfo for the Incoming Message: "+e.toString();
+            errorMapList.add(UtilMisc.toMap("description", errMsg, "resonCode", "GenericServiceException"));
             Debug.logError(e, errMsg, module);
         }
            
@@ -200,31 +207,31 @@ public class OagisShipmentServices {
             try {                    
                 Map resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
                 if (ServiceUtil.isError(resultMap)){
-                    String errMsg = "Error executing issueSerializedInvToShipmentPackageAndSetTracking Service";
-                    errorList.add(errMsg);
+                    String errMsg = ServiceUtil.getErrorMessage(resultMap);
+                    errorMapList.add(UtilMisc.toMap("description", errMsg, "resonCode", "IssueSerializedInvServiceError"));
                     Debug.logError(errMsg, module);
                 }
             } catch(GenericServiceException e) {
                 Debug.logInfo(e, module);
-                errorList.add(e.getMessage());
+                String errMsg = "Error executing issueSerializedInvToShipmentPackageAndSetTracking Service: "+e.toString();
+                errorMapList.add(UtilMisc.toMap("description", errMsg, "resonCode", "GenericServiceException"));
             }
         } catch (GenericEntityException e) {
+            String errMsg = "Error executing issueSerializedInvToShipmentPackageAndSetTracking Service: "+e.toString();
+            errorMapList.add(UtilMisc.toMap("description", errMsg, "resonCode", "GenericEntityException"));
             Debug.logInfo(e, module);
-            errorList.add(e.getMessage());
         }
         
         Map result = new HashMap();
         result.put("contentType","text/plain");
-        if (errorList.size() > 0) {
-            // error message generation
-            result.putAll(oagisMsgInfoCtx);
-            result.put(ModelService.RESPONSE_MESSAGE,ModelService.RESPOND_ERROR); 
-            result.put(ModelService.ERROR_MESSAGE_LIST, errorList);
-            result.put("reasonCode", "1000"); 
-            result.put("description", "processing message failed");
-        } else {
-            result.put(ModelService.RESPONSE_MESSAGE,ModelService.RESPOND_SUCCESS); 
+        if (errorMapList.size() > 0) {
+           //result.putAll(ServiceUtil.returnError("Errors found processing message"));
+           result.putAll(oagisMsgInfoCtx);
+           result.put("errorMapList", errorMapList);
+           return result;
         }
+        
+        result.putAll(ServiceUtil.returnSuccess("Service Completed Successfully"));
         return result;
     }
 
