@@ -1,71 +1,60 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 package org.ofbiz.oagis;
 
-/**
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
-**/
-//import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
 import java.util.Iterator;
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
+import java.util.List;
+import java.util.Map;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import java.sql.Timestamp;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.transaction.GenericTransactionException;
-import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-
-
-
 public class OagisInventoryServices {
     
     public static final String module = OagisInventoryServices.class.getName();
+    
+    public static final Double doubleZero = new Double(0.0);
+    public static final Double doubleOne = new Double(1.0);
     
     public static Map syncInventory(DispatchContext ctx, Map context) {
         InputStream in = (InputStream) context.get("inputStream");
@@ -317,7 +306,7 @@ public class OagisInventoryServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
-        List errorList = FastList.newInstance();
+        List errorMapList = FastList.newInstance();
         
         if (userLogin == null) {
             try {
@@ -331,18 +320,20 @@ public class OagisInventoryServices {
         try {
             doc = UtilXml.readXmlDocument(in, true, "ReceivePoAcknowledge");
         } catch (SAXException e) {
-            String errMsg = "Error parsing the ReceivePoAcknowledgeResponse";
-            errorList.add(errMsg);
+            String errMsg = "Error parsing the ReceivePoAcknowledge message: " + e.toString();
+            errorMapList.add(UtilMisc.toMap("SAXException", errMsg));
             Debug.logError(e, errMsg, module);
         } catch (ParserConfigurationException e) {
-            String errMsg = "Error parsing the ReceivePoAcknowledgeResponse";
-            errorList.add(errMsg);
+            String errMsg = "Error parsing the ReceivePoAcknowledge message: " + e.toString();
+            errorMapList.add(UtilMisc.toMap("ParserConfigurationException", errMsg));
             Debug.logError(e, errMsg, module);
         } catch (IOException e) {
-            String errMsg = "Error parsing the ReceivePoAcknowledgeResponse";
-            errorList.add(errMsg);
+            String errMsg = "Error parsing the ReceivePoAcknowledge message: " + e.toString();
+            errorMapList.add(UtilMisc.toMap("IOException", errMsg));
             Debug.logError(e, errMsg, module);
         }
+        
+        // TODO: if errorList is not empty, return here
         
         // parse the message 
         Element receivePoElement = doc.getDocumentElement();
@@ -365,84 +356,152 @@ public class OagisInventoryServices {
         Element dataAreaElement = UtilXml.firstChildElement(receivePoElement, "n:DATAAREA");
         Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "n:ACKNOWLEDGE_DELIVERY");
 
-        // TODO: need to support multiple RECEIPTLN elements in a single message
-        Element receiptLnElement = UtilXml.firstChildElement(acknowledgeDeliveryElement, "n:RECEIPTLN");
-        Element qtyElement = UtilXml.firstChildElement(receiptLnElement, "N1:QUANTITY");
-            
-        String itemQty = UtilXml.childElementValue(qtyElement, "N2:VALUE");
-        String sign = UtilXml.childElementValue(qtyElement, "N2:SIGN");
-        String productId = UtilXml.childElementValue(receiptLnElement, "N2:ITEM");
-            
-        // TODO: need to support multiple INVDETAIL elements under a RECEIPTLN element
-        Element invDetailElement = UtilXml.firstChildElement(receiptLnElement, "n:INVDETAIL");
-        String serialNumber = UtilXml.childElementValue(invDetailElement, "N2:SERIALNUM");
-        
-        // TODO: support DISPOSITN element, and set InventoryItem status accordingly
-            
-        Element documentRefElement = UtilXml.firstChildElement(receiptLnElement, "N1:DOCUMNTREF");
-        String orderId = UtilXml.childElementValue(documentRefElement, "N2:DOCUMENTID");
-        // TODO: need to get and if possible use the DOCUMNTREF -> LINENUM element, would be orderItemSeqId
-
-        // prepare map to create inventory against PO
-        Map cipCtx = new HashMap();
         String inventoryItemTypeId = null;
-        if (serialNumber == null) {
-            inventoryItemTypeId = "NON_SERIAL_INV_ITEM";
-        }
-        else {
-            inventoryItemTypeId = "SERIALIZED_INV_ITEM";
-            cipCtx.put("serialNumber", serialNumber);
-        	// this is a Serialized Inventory Item. If the productId from the message is not valid then lets read it from InventoryItem in Ofbiz database.
-            if (productId == null || productId.equals("")) {
-                try {
-                	GenericValue inventoryItem = EntityUtil.getFirst(delegator.findByAnd("InventoryItem", UtilMisc.toMap("serialNumber", serialNumber)));
-                    if (inventoryItem !=null){
-                    	productId = inventoryItem.getString("productId");
+        String orderId = null;
+        String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.PoReceiptFacilityId");
+        
+        // get RECEIPTLN elements from message
+        List acknowledgeElementList = UtilXml.childElementList(acknowledgeDeliveryElement, "n:RECEIPTLN");
+        if (UtilValidate.isNotEmpty(acknowledgeElementList)) {
+        	Iterator acknowledgeElementIter = acknowledgeElementList.iterator();
+        	while (acknowledgeElementIter.hasNext()) {
+                Map ripCtx = FastMap.newInstance();
+                Element receiptLnElement = (Element) acknowledgeElementIter.next();
+                Element qtyElement = UtilXml.firstChildElement(receiptLnElement, "N1:QUANTITY");
+                
+                String itemQtyStr = UtilXml.childElementValue(qtyElement, "N2:VALUE");
+                double itemQty = Double.parseDouble(itemQtyStr);
+                String sign = UtilXml.childElementValue(qtyElement, "N2:SIGN");
+                
+                String productId = UtilXml.childElementValue(receiptLnElement, "N2:ITEM");
+                
+                Element documentRefElement = UtilXml.firstChildElement(receiptLnElement, "N1:DOCUMNTREF");
+                orderId = UtilXml.childElementValue(documentRefElement, "N2:DOCUMENTID");
+                ripCtx.put("orderId", orderId);
+                
+                String orderItemSeqId = UtilXml.childElementValue(documentRefElement, "N2:LINENUM");
+                ripCtx.put("orderItemSeqId", orderItemSeqId);
+                
+                // get inventory item status
+                String invItemStatus = UtilXml.childElementValue(receiptLnElement, "N2:DISPOSITN");
+                if ( invItemStatus.equals("ReceivedTOAvailable") || invItemStatus.equals("NotAvailableTOAvailable")) {
+                    ripCtx.put("statusId", "INV_AVAILABLE");    
+                } else if ( invItemStatus.equals("ReceivedTONotAvailable") || invItemStatus.equals("AvailableTONotAvailable") ) {
+                    ripCtx.put("statusId", "INV_ON_HOLD");
+                }
+                // get the serial number(s) 
+                List serialNumsList = FastList.newInstance();
+                List invDetailList = UtilXml.childElementList(receiptLnElement, "n:INVDETAIL");
+                if (UtilValidate.isNotEmpty(invDetailList)) {
+                    inventoryItemTypeId = "SERIALIZED_INV_ITEM";
+                    ripCtx.put("inventoryItemTypeId", inventoryItemTypeId);
+                    for (Iterator j = invDetailList.iterator(); j.hasNext();) {
+                        Element invDetailElement = (Element) j.next();
+                        String serialNumber = UtilXml.childElementValue(invDetailElement, "N2:SERIALNUM");
+                        serialNumsList.add(serialNumber);
                     }
-                } catch (GenericEntityException e){
-                    String errMsg = "Error Getting Entity InventoryItem";
-                    Debug.logError(e, errMsg, module);
+
+                    /* DEJ20070711 Commenting this out because it shouldn't happen, ie more likely the ITEM element will be filled 
+                     * than INVDETAIL->SERIALNUM, and this isn't a reliable way to look it up (may be more than 1 record for a given 
+                     * serialNumber for different products 
+                    // this is a Serialized Inventory Item. If the productId from the message is not valid then lets read it from InventoryItem in Ofbiz database.
+                    if (productId == null || "".equals(productId)) {
+                        try {
+                            GenericValue inventoryItem = EntityUtil.getFirst(delegator.findByAnd("InventoryItem", UtilMisc.toMap("serialNumber", serialNumber)));
+                            if (inventoryItem !=null) {
+                                productId = inventoryItem.getString("productId");
+                            }
+                        } catch (GenericEntityException e){
+                            String errMsg = "Error Getting Entity InventoryItem";
+                            Debug.logError(e, errMsg, module);
+                        }
+                    } */
+                } else {
+                    inventoryItemTypeId = "NON_SERIAL_INV_ITEM";
+                    ripCtx.put("inventoryItemTypeId", inventoryItemTypeId);
+                }
+                ripCtx.put("productId", productId);
+                ripCtx.put("facilityId",facilityId);
+                ripCtx.put("userLogin", userLogin);
+
+                // sign handling for items
+                double quantityAccepted = 0.0;
+                double quantityRejected = 0.0;
+                if (sign.equals("+")) {
+                    quantityAccepted = itemQty;
+                    quantityRejected= 0.0;
+                } else {
+                    quantityRejected = itemQty;
+                    quantityAccepted = 0.0;
+                }
+                if (quantityAccepted > 0) {
+                	if (serialNumsList.size() > 0) {
+                		if (serialNumsList.size() != quantityAccepted) {
+                			// this is an error, do something about it, like add to the list to send back a Confirm BOD with error messages
+                			String errMsg = "Error: the quantity [" + quantityAccepted + "] did not match the number of serial numbers passed [" + serialNumsList.size() + "].";
+                			errorMapList.add(UtilMisc.toMap("QuantitySerialMismatch", errMsg));
+                		}
+                		
+                    	Iterator serialNumIter = serialNumsList.iterator();
+                    	while (serialNumIter.hasNext()) {
+                    		String serialNum = (String) serialNumIter.next();
+                    		
+                            // clone the context as it may be changted in the call
+                    		Map localRipCtx = FastMap.newInstance();
+                            localRipCtx.putAll(ripCtx);
+                            
+                            localRipCtx.put("quantityAccepted", new Double(1.0));
+                            // always set this to 0, if needed we'll handle the rejected quantity separately
+                            localRipCtx.put("quantityRejected", new Double(0.0));
+
+                            localRipCtx.put("serialNumber", serialNum);
+                            
+                            try {
+                                Map ripResult = dispatcher.runSync("receiveInventoryProduct", localRipCtx);
+                                if (ServiceUtil.isError(ripResult)) {
+                                	String errMsg = ServiceUtil.getErrorMessage(ripResult);
+                        			errorMapList.add(UtilMisc.toMap("ReceiveInventoryServiceError", errMsg));
+                                }
+                            } catch (GenericServiceException e) {
+                                String errMsg = "Error running service receiveInventoryProduct: " + e.toString();
+                    			errorMapList.add(UtilMisc.toMap("GenericServiceException", errMsg));
+                                Debug.logError(e, errMsg, module);
+                            }    
+                    	}
+                	} else {
+                		// no serial numbers, just receive the quantity
+                        
+                		// clone the context as it may be changted in the call
+                		Map localRipCtx = FastMap.newInstance();
+                        localRipCtx.putAll(ripCtx);
+                        
+                        localRipCtx.put("quantityAccepted", new Double(quantityAccepted));
+                        // always set this to 0, if needed we'll handle the rejected quantity separately
+                        localRipCtx.put("quantityRejected", new Double(0.0));
+                        
+                        try {
+                            Map ripResult = dispatcher.runSync("receiveInventoryProduct", localRipCtx);
+                            if (ServiceUtil.isError(ripResult)) {
+                            	String errMsg = ServiceUtil.getErrorMessage(ripResult);
+                    			errorMapList.add(UtilMisc.toMap("ReceiveInventoryServiceError", errMsg));
+                            }
+                        } catch (GenericServiceException e) {
+                            String errMsg = "Error running service receiveInventoryProduct: " + e.toString();
+                			errorMapList.add(UtilMisc.toMap("GenericServiceException", errMsg));
+                            Debug.logError(e, errMsg, module);
+                        }    
+                	}
+                } else {
+                    // TODOLATER: need to run service receiveInventoryProduct and updateInventoryItem when quantityRejected > 0
+                	// NOTE DEJ20070711 this shouldn't happen for current needs, so save for later
                 }
             }
-        }
-            // sign handling for items
-        double quantityAccepted = 0.0;
-        double quantityRejected = 0.0;
-        if (sign.equals("+")) {
-            quantityAccepted = Double.parseDouble(itemQty);
-            quantityRejected= 0.0;
-        } else {
-            quantityRejected = Double.parseDouble(itemQty);
-            quantityAccepted = 0.0;
-        }
-        
-        String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.PoReceiptFacilityId");
-        //prepare Map for receiveInventoryProduct
-        cipCtx.put("facilityId",facilityId);
-        cipCtx.put("productId", productId);
-        cipCtx.put("inventoryItemTypeId", inventoryItemTypeId);
-        cipCtx.put("quantityAccepted", new Double(quantityAccepted));
-        cipCtx.put("quantityRejected", new Double(quantityRejected));
-        cipCtx.put("userLogin", userLogin);
-        cipCtx.put("orderId", orderId);
-        
-        try {
-            Map riResult = dispatcher.runSync("receiveInventoryProduct", cipCtx);
-            if (ServiceUtil.isError(riResult)){
-                String errMsg = "Error running service receiveInventoryProduct";
-                errorList.add(errMsg);
-                Debug.logError(errMsg, module);
-            }
-        } catch (GenericServiceException gse) {
-            errorList.add("Error running service receiveInventoryProduct");
-            String errMsg = gse.getMessage();
-            Debug.logError(gse, errMsg, module);
-        }
-            
+        }         
         //prepare result Map for createOagisMessageinfo
+        
         Timestamp timestamp = null;
         timestamp = UtilDateTime.nowTimestamp();
-        Map comiCtx = new HashMap();
+        Map comiCtx = FastMap.newInstance();
         comiCtx.put("logicalId", logicalId);
         comiCtx.put("authId", authId);
         comiCtx.put("referenceId", referenceId);
@@ -458,29 +517,22 @@ public class OagisInventoryServices {
         comiCtx.put("userLogin", userLogin);
         try {
             Map comiResult = dispatcher.runSync("createOagisMessageInfo", comiCtx);
-            if (ServiceUtil.isError(comiResult)){
-                String errMsg = "Error creating OagisMessageInfo for the Incoming Message";
-                errorList.add(errMsg);
-                Debug.logError(errMsg, module);
-            }
-        } catch (GenericServiceException gse) {
-            errorList.add("Error running method createOagisMessageInfo");
-            String errMsg = gse.getMessage();
-            Debug.logError(gse, errMsg, module);
+        } catch (GenericServiceException e) {
+            String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
+            // TODO: reconsider sending this error back to other server, not much they can do about it, and it may not be a critical error causing the message to be rejected...
+			errorMapList.add(UtilMisc.toMap("CreateOagisMessageInfoError", errMsg));
+            Debug.logError(e, errMsg, module);
         }
 
-        Map result = new HashMap();
-        result.put("contentType", "text/plain");
-        if (errorList.size() > 0) {
+        if (errorMapList.size() > 0) {
+        	Map result = ServiceUtil.returnError("Errors found processing message");
+            result.put("contentType", "text/plain");
             result.putAll(comiCtx);
-            String errMsg = "Error Processing Received Messages";
-            result.put("reasonCode", "1000");
-            result.put("description", errMsg);
+            result.put("errorMapList", errorMapList);
             //result.putAll(ServiceUtil.returnError(errMsg));
             return result;
         }
-        
-        return result;
+        return ServiceUtil.returnSuccess();
     }
     
     public static Map receiveRmaAcknowledge(DispatchContext ctx, Map context) {
