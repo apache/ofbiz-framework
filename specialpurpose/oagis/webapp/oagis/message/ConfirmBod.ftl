@@ -50,10 +50,12 @@
           <N1:DATETIMEANY></N1:DATETIMEANY>
         </N1:CNTROLAREA>
         <N2:ORIGREF>${origRef?if_exists}</N2:ORIGREF>
-        <n:CONFIRMMSG>
-          <N2:DESCRIPTN>${errorDescription?if_exists}</N2:DESCRIPTN>
-          <N2:REASONCODE>${errorReasonCode?if_exists}</N2:REASONCODE>
-        </n:CONFIRMMSG>
+        <#list errorMapList as errorMap>
+          <n:CONFIRMMSG>
+            <N2:DESCRIPTN>${errorMap.description?if_exists}</N2:DESCRIPTN>
+            <N2:REASONCODE>${errorMap.reasonCode?if_exists}</N2:REASONCODE>
+          </n:CONFIRMMSG>
+        </#list>
       </n:CONFIRM>
     </n:CONFIRM_BOD>
   </n:DATAAREA>
