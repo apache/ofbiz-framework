@@ -55,7 +55,7 @@ under the License.
       <form method="post" action="<@ofbizUrl>${mechMap.requestName}</@ofbizUrl>" name="editcontactmechform">
         <input type="hidden" name="DONE_PAGE" value="${donePage}">
         <input type="hidden" name="contactMechTypeId" value="${mechMap.contactMechTypeId}">
-        <input type="hidden" name="partyId" value="${partyId}">        
+        <input type="hidden" name="partyId" value="${partyId}">
         <#if cmNewPurposeTypeId?has_content><input type="hidden" name="contactMechPurposeTypeId" value="${cmNewPurposeTypeId}"></#if>
         <#if preContactMechTypeId?exists><input type="hidden" name="preContactMechTypeId" value="${preContactMechTypeId}"></#if>
         <#if contactMechPurposeTypeId?exists><input type="hidden" name="contactMechPurposeTypeId" value="${contactMechPurposeTypeId?if_exists}"></#if>
@@ -67,13 +67,13 @@ under the License.
       <a href="javascript:document.editcontactmechform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
     </div>
     <div id="mech-purpose-types">
-      <table cellspacing="0">  
+      <table cellspacing="0">
       <#if mechMap.purposeTypes?has_content>
         <tr>
           <td class="label">${uiLabelMap.PartyContactPurposes}</td>
           <td>
-            <table class="basic-table dark-grid" cellspacing="0">  
-              <#if mechMap.partyContactMechPurposes?has_content>          
+            <table class="basic-table dark-grid" cellspacing="0">
+              <#if mechMap.partyContactMechPurposes?has_content>
                 <#list mechMap.partyContactMechPurposes as partyContactMechPurpose>
                   <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
                   <tr>
@@ -89,7 +89,7 @@ under the License.
                     <td class="button-col"><a href="<@ofbizUrl>deletePartyContactMechPurpose?partyId=${partyId}&contactMechId=${contactMechId}&contactMechPurposeTypeId=${partyContactMechPurpose.contactMechPurposeTypeId}&fromDate=${partyContactMechPurpose.fromDate.toString()}&DONE_PAGE=${donePage?replace("=","%3d")}&useValues=true</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonDelete}</a></td>
                   </tr>
                 </#list>
-              </#if>              
+              </#if>
               <tr>
                 <form method="post" action="<@ofbizUrl>createPartyContactMechPurpose</@ofbizUrl>" name="newpurposeform">
                   <input type="hidden" name="partyId" value="${partyId}">
@@ -188,7 +188,7 @@ under the License.
       <td><#if isUsps>${uiLabelMap.CommonY}<#else>${uiLabelMap.CommonN}</#if>
       </td>
     </tr>
-    
+
   <#elseif "TELECOM_NUMBER" = mechMap.contactMechTypeId?if_exists>
     <tr>
       <td class="label">${uiLabelMap.PartyPhoneNumber}</td>
@@ -222,8 +222,10 @@ under the License.
     <td class="label">${uiLabelMap.PartyContactAllowSolicitation}?</td>
     <td>
       <select name="allowSolicitation">
-        <option>${(mechMap.partyContactMech.allowSolicitation)?if_exists}</option>
-        <option></option><option>${uiLabelMap.CommonY}</option><option>${uiLabelMap.CommonN}</option>
+          <option>${mechMap.partyContactMech.allowSolicitation?default("Y")}</option>
+          <option></option>
+          <option value="Y">${uiLabelMap.CommonY}</option>
+          <option value="N">${uiLabelMap.CommonN}</option>
       </select>
     </td>
   </tr>

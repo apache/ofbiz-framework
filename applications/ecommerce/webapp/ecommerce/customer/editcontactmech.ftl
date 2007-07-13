@@ -150,7 +150,7 @@ under the License.
       <td width="74%">
         <select name="stateProvinceGeoId" class='selectBox'>
           <#if postalAddressData.stateProvinceGeoId?exists><option value='${postalAddressData.stateProvinceGeoId}'>${selectedStateName?default(postalAddressData.stateProvinceGeoId)}</option></#if>
-          <option value="">${uiLabelMap.PartyNoState}</option>          
+          <option value="">${uiLabelMap.PartyNoState}</option>
           ${screens.render("component://common/widget/CommonScreens.xml#states")}
         </select>
       *</td>
@@ -212,8 +212,10 @@ under the License.
       <td width="5">&nbsp;</td>
       <td width="74%">
         <select name="allowSolicitation" class='selectBox'>
-          <option>${partyContactMechData.allowSolicitation?if_exists}</option>
-          <option></option><option>${uiLabelMap.CommonY}</option><option>${uiLabelMap.CommonN}</option>
+          <option>${partyContactMechData.allowSolicitation?default("Y")}</option>
+          <option></option>
+          <option value="Y">${uiLabelMap.CommonY}</option>
+          <option value="N">${uiLabelMap.CommonN}</option>
         </select>
       </td>
     </tr>
