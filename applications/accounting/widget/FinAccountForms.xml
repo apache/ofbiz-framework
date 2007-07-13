@@ -71,9 +71,10 @@ under the License.
             </drop-down>
         </field>
         <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}">
-            <drop-down no-current-selected-key="USD">
+            <drop-down no-current-selected-key="${defaultCurrencyUomId}">
                 <entity-options description="${uomId} - ${description}" entity-name="Uom" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="uomId"/>                    
                 </entity-options>
             </drop-down>
         </field>

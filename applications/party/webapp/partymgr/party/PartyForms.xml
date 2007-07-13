@@ -487,7 +487,7 @@ under the License.
             </drop-down>
         </field>
         <field name="currencyUomId">
-            <drop-down allow-empty="false" no-current-selected-key="USD">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
                 <entity-options entity-name="Uom" description="[${abbreviation}] ${description}" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="abbreviation"/>

@@ -48,6 +48,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditFinAccount"/>
                 <set field="tabButtonItem" value="EditFinAccount"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />                
                 <entity-one entity-name="FinAccount" value-name="finAccount"/>
             </actions>
             <widgets>
