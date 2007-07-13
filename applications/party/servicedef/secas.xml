@@ -78,5 +78,11 @@ under the License.
     <eca service="sendEmailToContactList" event="commit">
         <action service="setCommEventComplete" mode="sync"/>
     </eca>
-    
+
+    <eca service="updatePassword" event="commit">
+        <action service="sendUpdatePersonalInfoEmailNotification" mode="sync"/>
+    </eca>    
+    <eca service="updatePerson" event="commit">
+        <action service="sendUpdatePersonalInfoEmailNotification" mode="sync"/>
+    </eca>
 </service-eca>

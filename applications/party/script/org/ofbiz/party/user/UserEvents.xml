@@ -26,11 +26,9 @@ under the License.
         <set field="require_login" value="true" />
         <!-- this parameter must be set to true or the createUser method below will use a default password instead of the one entered by user -->
         <set field="create_allow_password" value="true" />
-
         <set field="parameters.roleTypeId" value="CUSTOMER" />
         <call-simple-method method-name="createUser"/>
     </simple-method>
-
     <simple-method method-name="createProspect" short-description="Create Prospect" login-required="false">
         <set field="require_email" value="true" />
         <set field="require_phone" value="false" />
@@ -392,9 +390,68 @@ under the License.
             <set field="emailPurposeContext.contactMechPurposeTypeId" value="PRIMARY_EMAIL" />
             <call-service service-name="createPartyContactMechPurpose" in-map-name="emailPurposeContext"/>
         </if-not-empty>
-
         <!-- set the partyId in the request -->
         <field-to-request field-name="partyId" map-name="tempMap" request-name="partyId"/>
 
+        <!--send New User Email Notification-->
+        <map-to-map map-name="parameters" to-map-name="bodyParameters"/>    
+        <entity-condition entity-name="ProductStoreEmailSetting" list-name="productStoreEmailSettings">
+            <condition-list>
+                <condition-expr field-name="emailType" operator="equals" value="PARTY_REGIS_CONFIRM"/>
+            </condition-list>
+        </entity-condition>
+        <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
+        <if-not-empty field-name="bodyScreenLocation" map-name="storeEmail">
+            <set field="emailParams.sendTo" from-field="parameters.USER_EMAIL"/>
+            <set field="emailParams.subject" from-field="storeEmail.subject"/>
+            <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
+            <set field="emailParams.sendCc" from-field="storeEmail.ccAddress"/>
+            <set field="emailParams.sendBcc" from-field="storeEmail.bccAddress"/>
+            <set field="emailParams.contentType" from-field="storeEmail.contentType"/>
+            <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
+            <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+            <map-to-map to-map-name="emailParams.bodyParameters" map-name="parameters"/>
+            <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+        </if-not-empty>
+    </simple-method>
+    <!--send personal information update email notification-->
+    <simple-method method-name="sendUpdatePersonalInfoEmailNotification" short-description="Send the Notification email on personal information updation" login-required="false">
+        <map-to-map map-name="parameters" to-map-name="bodyParameters"/>
+        <set field="bodyParameters.userLoginId" from-field="parameters.userLoginId"/>
+        <entity-condition entity-name="ProductStoreEmailSetting" list-name="productStoreEmailSettings">
+            <condition-list>
+                <condition-expr field-name="emailType" operator="equals" value="UPD_PRSNL_INF_CNFRM"/>
+            </condition-list>
+        </entity-condition>
+        <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
+        <if-not-empty field-name="bodyScreenLocation" map-name="storeEmail">
+            <if-not-empty field-name="parameters.partyId">
+                <set field="partyId" from-field="parameters.partyId"/>
+            <else>
+                <set field="partyId" from-field="parameters.updatedUserLogin.partyId"/>
+            </else>
+            </if-not-empty>
+            <entity-condition entity-name="PartyContactDetailByPurpose" list-name="partyContactDetailByPurposes">
+                <condition-list>
+                    <condition-expr field-name="contactMechPurposeTypeId" operator="equals" value="PRIMARY_EMAIL"/>
+                    <condition-expr field-name="partyId" operator="equals"  env-name="partyId"/>
+                </condition-list>
+            </entity-condition>
+            <filter-list-by-date list-name="partyContactDetailByPurposes" to-list-name="validPartyContactDetailByPurposes"/>
+            <first-from-list entry-name="partyContactDetailByPurpose" list-name="validPartyContactDetailByPurposes"/>
+            <entity-one entity-name="PartyAndPerson" value-name="partyAndPerson"/>
+            <set field="bodyParameters.partyAndPerson" from-field="partyAndPerson"/>
+            <set field="contactMechId" from-field="partyContactDetailByPurpose.contactMechId"/>
+            <entity-one entity-name="ContactMech" value-name="contactMech"/>
+            <set field="emailParams.sendTo" from-field="contactMech.infoString"/>
+            <set field="emailParams.subject" from-field="storeEmail.subject"/>
+            <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
+            <set field="emailParams.sendCc" from-field="storeEmail.ccAddress"/>
+            <set field="emailParams.sendBcc" from-field="storeEmail.bccAddress"/>
+            <set field="emailParams.contentType" from-field="storeEmail.contentType"/>
+            <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
+            <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+            <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+        </if-not-empty>
     </simple-method>
 </simple-methods>

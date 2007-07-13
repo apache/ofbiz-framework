@@ -102,7 +102,6 @@ under the License.
         <attribute name="preferredCurrencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
     </service>
-
     <service name="createPartyGroup" engine="java" default-entity-name="PartyGroup"
             location="org.ofbiz.party.party.PartyServices" invoke="createPartyGroup" auth="false">
         <description>Create a PartyGroup</description>
@@ -754,5 +753,10 @@ under the License.
         <description>Update a PartyCarrierAccount record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>        
+    </service>
+
+    <service name="sendUpdatePersonalInfoEmailNotification" engine="simple"
+            location="org/ofbiz/party/user/UserEvents.xml" invoke="sendUpdatePersonalInfoEmailNotification" auth="false">
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
     </service>
 </services>
