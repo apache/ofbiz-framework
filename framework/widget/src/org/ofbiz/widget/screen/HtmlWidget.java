@@ -35,6 +35,8 @@ import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.w3c.dom.Element;
 
 import freemarker.template.TemplateException;
+import freemarker.template.TemplateModelException;
+import freemarker.template.utility.StandardCompress;
 
 /**
  * Widget Library - Screen model HTML class
@@ -73,8 +75,18 @@ public class HtmlWidget extends ModelScreenWidget {
         //Debug.logInfo("Rendering template at location [" + location + "] with context: \n" + context, module);
         
         if (location.endsWith(".ftl")) {
+            StandardCompress compress = new StandardCompress();
+            String compressHTML = null;
+            Map parametersMap = (Map) context.get("parameters");
+            if (parametersMap != null) {
+                compressHTML = (String) parametersMap.get("compressHTML");
+            }
             try {
-                FreeMarkerWorker.renderTemplateAtLocation(location, context, writer);
+                if ("true".equals(compressHTML)) {
+                    FreeMarkerWorker.renderTemplateAtLocation(location, context, compress.getWriter(writer, null));
+                } else {
+                    FreeMarkerWorker.renderTemplateAtLocation(location, context, writer);
+                }
             } catch (MalformedURLException e) {
                 String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
@@ -92,7 +104,7 @@ public class HtmlWidget extends ModelScreenWidget {
             throw new IllegalArgumentException("Rending not yet support for the tempalte at location: " + location);
         }
     }
-    
+
     public static class HtmlTemplate extends ModelScreenWidget {
         protected FlexibleStringExpander locationExdr;
         
@@ -174,4 +186,6 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 }
+
+
 
