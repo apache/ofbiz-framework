@@ -18,6 +18,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<#setting locale = locale.toString()>
+<#setting time_zone = timeZone.getID()>
 <#if (requestAttributes.person)?exists><#assign person = requestAttributes.person></#if>
 <#if (requestAttributes.partyGroup)?exists><#assign partyGroup = requestAttributes.partyGroup></#if>
 
@@ -68,31 +70,9 @@ under the License.
           ${uiLabelMap.CommonWelcome}!
         </#if>
         </p>
-        <p>${Static["org.ofbiz.base.util.UtilDateTime"].timeStampToString(nowTimestamp, timeZone, locale)}</p>
-            <form method="post" action="<@ofbizUrl>setSessionLocale</@ofbizUrl>">
-              <select name="locale">
-                <option value="${locale.toString()}">${locale.getDisplayName(locale)}</option>
-                <option value="${locale.toString()}"></option>
-                <#list availableLocales as availableLocale>
-                    <#assign langAttr = availableLocale.toString()?replace("_", "-")>
-                    <#assign langDir = "ltr">
-                    <#if "ar.iw"?contains(langAttr?substring(0, 2))>
-                        <#assign langDir = "rtl">
-                    </#if>
-                    <option lang="${langAttr}" dir="${langDir}" value="${availableLocale.toString()}">${availableLocale.getDisplayName(availableLocale)}</option>
-                </#list>
-              </select>
-              <input type="submit" value="${uiLabelMap.CommonSet}"/>
-              <br />
-              <#assign displayStyle = Static["java.util.TimeZone"].LONG>
-              <select name="tzId">
-                <option value="${timeZone.getID()}">${timeZone.getDisplayName(timeZone.useDaylightTime(), displayStyle, locale)}</option>
-                <option value="${timeZone.getID()}"></option>
-                <#list availableTimeZones as availableTz>
-                    <option value="${availableTz.getID()}">${availableTz.getDisplayName(availableTz.useDaylightTime(), displayStyle, locale)}</option>
-                </#list>
-              </select>
-            </form>
+        <p>${nowTimestamp?datetime?string.short}</p>
+        <p>${uiLabelMap.CommonLanguageTitle} : ${locale.getDisplayName(locale)} <a href="<@ofbizUrl>LookupLocales</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonChange}</a></p>
+        <p>${timeZone.getDisplayName(timeZone.useDaylightTime(), Static["java.util.TimeZone"].LONG, locale)} <a href="<@ofbizUrl>LookupTimezones</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonChange}</a></p>
       </li>
     </ul>
     <br class="clear" />

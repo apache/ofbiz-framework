@@ -72,6 +72,28 @@ under the License.
     </request-map>
     <!-- End of Security Mappings -->
 
+    <!-- Common Mappings used for locales and timezone -->
+    <request-map uri="setSessionLocale">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+    <request-map uri="setSessionTimeZone">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionTimeZone"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+    <request-map uri="LookupLocales">
+        <security https="true" auth="false" />
+        <response name="success" type="view" value="LookupLocales" />
+    </request-map>
+    <request-map uri="LookupTimezones">
+        <security https="true" auth="false" />
+        <response name="success" type="view" value="LookupTimezones" />
+    </request-map>
+
     <!-- Request Mappings -->
     <request-map uri="view">
         <security https="true" auth="false"/>
@@ -83,13 +105,6 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="error"/>
-    </request-map>
-
-    <request-map uri="setSessionLocale">
-        <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="main"/>
     </request-map>
 
     <request-map uri="main">
@@ -1130,6 +1145,8 @@ under the License.
     <view-map name="main" type="screen" page="component://product/widget/facility/FacilityScreens.xml#FindFacility"/>
     <view-map name="login" type="screen" page="component://product/widget/facility/CommonScreens.xml#login"/>
     <view-map name="requirePasswordChange" type="screen" page="component://product/widget/facility/CommonScreens.xml#requirePasswordChange"/>
+    <view-map name="LookupLocales" type="screen" page="component://common/widget/LookupScreens.xml#LookupLocales"/>
+    <view-map name="LookupTimezones" type="screen" page="component://common/widget/LookupScreens.xml#LookupTimezones"/>
 
     <view-map name="FindFacility" type="screen" page="component://product/widget/facility/FacilityScreens.xml#FindFacility"/>
     <view-map name="EditFacility" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacility"/>
@@ -1203,6 +1220,5 @@ under the License.
     <view-map name="LookupProductCategory" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductCategory"/>
     <view-map name="LookupFacilityLocation" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation" type="screen"/>
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
-
     <!-- end of view mappings -->
 </site-conf>

@@ -73,6 +73,28 @@ under the License.
     </request-map>
     <!-- End of Security Mappings -->
 
+    <!-- Common Mappings used for locales and timezones -->
+    <request-map uri="setSessionLocale">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+    <request-map uri="setSessionTimeZone">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionTimeZone"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+    <request-map uri="LookupLocales">
+        <security https="true" auth="false" />
+        <response name="success" type="view" value="LookupLocales" />
+    </request-map>
+    <request-map uri="LookupTimezones">
+        <security https="true" auth="false" />
+        <response name="success" type="view" value="LookupTimezones" />
+    </request-map>
+
     <!-- Request Mappings -->
     <request-map uri="view">
         <security https="false" auth="false"/>
@@ -84,12 +106,6 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="error"/>
-    </request-map>
-    <request-map uri="setSessionLocale">
-        <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="main"/>
     </request-map>
 
     <request-map uri="main">
@@ -1509,6 +1525,8 @@ under the License.
     <view-map name="main" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderHeaderListView"/>
     <view-map name="login" type="screen" page="component://order/widget/ordermgr/CommonScreens.xml#login"/>
     <view-map name="requirePasswordChange" type="screen" page="component://order/widget/ordermgr/CommonScreens.xml#requirePasswordChange"/>
+    <view-map name="LookupLocales" type="screen" page="component://common/widget/LookupScreens.xml#LookupLocales"/>
+    <view-map name="LookupTimezones" type="screen" page="component://common/widget/LookupScreens.xml#LookupTimezones"/>
 
     <view-map name="orderstats" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderStats"/>
     <view-map name="findorders" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderFindOrder"/>
@@ -1652,6 +1670,5 @@ under the License.
     <view-map name="ShipGroupsPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintScreens.xml#ShipGroupsPDF" content-type="application/pdf" encoding="none"/>
 
     <view-map name="SendConfirmationMail" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#SendOrderConfirmation"/>
-
     <!-- end of view mappings -->
 </site-conf>
