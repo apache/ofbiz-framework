@@ -103,9 +103,14 @@ under the License.
         <response name="error" type="view" value="ping"/>
         <response name="success" type="view" value="ping"/>
     </request-map>
+
     <request-map uri="showDateTime"><response name="success" type="view" value="showDateTime"/></request-map>
-    <request-map uri="secureDateTime">
+    <request-map uri="secureCertDateTime">
         <security auth="false" https="true" cert="true"/>
+        <response name="success" type="view" value="showDateTime"/>
+    </request-map>
+    <request-map uri="secureAuthDateTime">
+        <security auth="true" https="true" cert="false"/>
         <response name="success" type="view" value="showDateTime"/>
     </request-map>
     
