@@ -194,6 +194,7 @@ public class CommonEvents {
     public static String setSessionTimeZone(HttpServletRequest request, HttpServletResponse response) {
         String tzString = request.getParameter("tzId");
         if (UtilValidate.isNotEmpty(tzString)) {
+            UtilHttp.setTimeZone(request, tzString);
 
             // update the UserLogin object
             GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
@@ -242,4 +243,5 @@ public class CommonEvents {
         return "success";
     }
 }
+
 
