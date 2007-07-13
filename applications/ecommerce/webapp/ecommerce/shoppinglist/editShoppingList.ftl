@@ -53,7 +53,7 @@ under the License.
           </form>
         <#else>
           <div class="tabletext">${uiLabelMap.EcommerceNoShoppingListsCreate}.</div>
-          <a href="<@ofbizUrl>createEmptyShoppingList?productStoreId=${productStoreId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonCreateNew}</a>          
+          <a href="<@ofbizUrl>createEmptyShoppingList?productStoreId=${productStoreId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonCreateNew}</a>
         </#if>
     </div>
 </div>
@@ -66,7 +66,7 @@ under the License.
         <div class="boxlink">
             <a href="<@ofbizUrl>createCustRequestFromShoppingList?shoppingListId=${shoppingList.shoppingListId}</@ofbizUrl>" class="submenutext">${uiLabelMap.OrderCreateCustRequestFromShoppingList}</a>
             <a href="<@ofbizUrl>createQuoteFromShoppingList?shoppingListId=${shoppingList.shoppingListId}</@ofbizUrl>" class="submenutext">${uiLabelMap.OrderCreateQuoteFromShoppingList}</a>
-            <a href="javascript:document.updateList.submit();" class="submenutextright">${uiLabelMap.CommonSave}</a>            
+            <a href="javascript:document.updateList.submit();" class="submenutextright">${uiLabelMap.CommonSave}</a>
         </div>
         <div class="boxhead">&nbsp;${uiLabelMap.EcommerceShoppingListDetail} - ${shoppingList.listName}</div>
     </div>
@@ -96,13 +96,13 @@ under the License.
                     </#list>
                   </select>
                 </td>
-              </tr>                           
+              </tr>
               <tr>
                 <td><div class="tableheadtext">${uiLabelMap.EcommercePublic}?</div></td>
                 <td>
                   <select name="isPublic" class="selectBox">
-                    <option value="${shoppingList.isPublic}"><#if shoppingList.isPublic == "Y">${uiLabelMap.CommonY}<#else>${uiLabelMap.CommonN}</#if></option>
-                    <option value="${shoppingList.isPublic}">--</option>
+                    <option>${shoppingList.isPublic?default("Y")}</option>
+                    <option></option>
                     <option value="Y">${uiLabelMap.CommonY}</option>
                     <option value="N">${uiLabelMap.CommonN}</option>
                   </select>
@@ -112,8 +112,8 @@ under the License.
                 <td><div class="tableheadtext">${uiLabelMap.EcommerceActive}?</div></td>
                 <td>
                   <select name="isActive" class="selectBox">
-                    <option value="${shoppingList.isActive}"><#if shoppingList.isActive == "Y">${uiLabelMap.CommonY}<#else>${uiLabelMap.CommonN}</#if></option>
-                    <option value="${shoppingList.isActive}">--</option>
+                    <option>${shoppingList.isActive?default("Y")}</option>
+                    <option></option>
                     <option value="Y">${uiLabelMap.CommonY}</option>
                     <option value="N">${uiLabelMap.CommonN}</option>
                   </select>
@@ -135,15 +135,15 @@ under the License.
                     <a href="<@ofbizUrl>editShoppingList?shoppingListId=${parentShoppingList.shoppingListId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGotoParent} (${parentShoppingList.listName?default(parentShoppingList.shoppingListId)})</a>
                   </#if>
                 </td>
-              </tr>                           
+              </tr>
               <tr>
                 <td><div class="tableheadtext">&nbsp;</div></td>
                 <td align="left">
-                  <a href="javascript:document.updateList.submit();" class="buttontext">[${uiLabelMap.CommonSave}]</a>         
+                  <a href="javascript:document.updateList.submit();" class="buttontext">[${uiLabelMap.CommonSave}]</a>
                 </td>
               </tr>
             </table>
-        </form>           
+        </form>
     </div>
 </div>
 
@@ -323,7 +323,7 @@ under the License.
     </div>
     <div class="screenlet-body">
         <table width="100%" cellspacing="0" cellpadding="1" border="0">
-          <tr> 
+          <tr>
             <td><div class="tabletext"><b>${uiLabelMap.EcommerceListName}</b></div></td>
             <td align="right"><div class="tabletext"><b>${uiLabelMap.EcommerceTotalPrice}</b></div></td>
             <td>&nbsp;</td>
@@ -335,14 +335,14 @@ under the License.
               <tr>
                 <td nowrap align="left">
                   <a href="<@ofbizUrl>editShoppingList?shoppingListId=${childShoppingList.shoppingListId}</@ofbizUrl>" class="buttontext">${childShoppingList.listName?default(childShoppingList.shoppingListId)}</a>
-                </td>                      
+                </td>
                 <td nowrap align="right">
                   <div class="tabletext"><@ofbizCurrency amount=totalPrice isoCode=currencyUomId/></div>
-                </td>                      
+                </td>
                 <td align="right">
                   <a href="<@ofbizUrl>editShoppingList?shoppingListId=${childShoppingList.shoppingListId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.EcommerceGoToList}]</a>
                   <a href="<@ofbizUrl>addListToCart?shoppingListId=${childShoppingList.shoppingListId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.EcommerceAddListToCart}]</a>
-                </td>                      
+                </td>
               </tr>
             </form>
           </#list>
@@ -351,7 +351,7 @@ under the License.
             <td><div class="tabletext">&nbsp;</div></td>
             <td nowrap align="right">
               <div class="tableheadtext"><@ofbizCurrency amount=shoppingListChildTotal isoCode=currencyUomId/></div>
-            </td>                      
+            </td>
             <td><div class="tabletext">&nbsp;</div></td>
           </tr>
         </table>
@@ -389,7 +389,7 @@ under the License.
                   <tr>
                     <td>
                       <div class="tabletext">
-                         <a href="<@ofbizUrl>product?product_id=${shoppingListItem.productId}</@ofbizUrl>" class="buttontext">${shoppingListItem.productId} - 
+                         <a href="<@ofbizUrl>product?product_id=${shoppingListItem.productId}</@ofbizUrl>" class="buttontext">${shoppingListItem.productId} -
                          ${productContentWrapper.get("PRODUCT_NAME")?default("No Name")}</a> : ${productContentWrapper.get("DESCRIPTION")?if_exists}
                       </div>
                     </td>
@@ -457,7 +457,7 @@ under the License.
                 <td><div class="tabletext">&nbsp;</div></td>
                 <td nowrap align="right">
                   <div class="tableheadtext"><@ofbizCurrency amount=shoppingListItemTotal isoCode=currencyUomId/></div>
-                </td>                      
+                </td>
                 <td><div class="tabletext">&nbsp;</div></td>
               </tr>
             </table>

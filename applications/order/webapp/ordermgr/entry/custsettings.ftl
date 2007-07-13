@@ -25,7 +25,7 @@ under the License.
         <input type="hidden" name="finalizeReqNewShipAddress" value="true">
         <tr>
           <td>
-            <table width="100%" border="0" cellpadding="1" cellspacing="0">              
+            <table width="100%" border="0" cellpadding="1" cellspacing="0">
               <tr>
                 <td width="26%" align="right"><div class="tabletext">${uiLabelMap.CommonTitle}</div></td>
                 <td width="5">&nbsp;</td>
@@ -60,10 +60,10 @@ under the License.
                 <td width="74%">
                   <input type="text" class="inputBox" name="suffix" value="${requestParameters.suffix?if_exists}" size="10" maxlength="30"/>
                 </td>
-              </tr>                          
+              </tr>
               <tr>
                 <td colspan="3">&nbsp;</td>
-              </tr>              
+              </tr>
               <tr>
                 <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyHomePhone}<BR>${uiLabelMap.CommonAllowSolicitation}</div></td>
                 <td width="5">&nbsp;</td>
@@ -75,7 +75,9 @@ under the License.
                   <BR>
                   <select name="homeSol" class="selectBox">
                     <option>${requestParameters.homeSol?default("Y")}</option>
-                    <option></option><option value="Y">${uiLabelMap.CommonY}</option><option value="N">${uiLabelMap.CommonN}</option>
+                    <option></option>
+                    <option value="Y">${uiLabelMap.CommonY}</option>
+                    <option value="N">${uiLabelMap.CommonN}</option>
                   </select>
                 </td>
               </tr>
@@ -90,36 +92,40 @@ under the License.
                   <BR>
                   <select name="workSol" class="selectBox">
                     <option>${requestParameters.workSol?default("Y")}</option>
-                    <option></option><option value="Y">${uiLabelMap.CommonY}</option><option value="N">${uiLabelMap.CommonN}</option>
+                    <option></option>
+                    <option value="Y">${uiLabelMap.CommonY}</option>
+                    <option value="N">${uiLabelMap.CommonN}</option>
                   </select>
                 </td>
-              </tr>                            
+              </tr>
               <tr>
                 <td colspan="3">&nbsp;</td>
-              </tr>                            
+              </tr>
               <tr>
                 <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyEmailAddress}<BR>${uiLabelMap.CommonAllowSolicitation}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" class="inputBox" name="emailAddress" value="" size="60" maxlength="255"> 
+                  <input type="text" class="inputBox" name="emailAddress" value="" size="60" maxlength="255">
                   <BR>
                   <select name="emailSol" class="selectBox">
                     <option>${requestParameters.emailSol?default("Y")}</option>
-                    <option></option><option value="Y">${uiLabelMap.CommonY}</option><option value="N">${uiLabelMap.CommonN}</option>
+                    <option></option>
+                    <option value="Y">${uiLabelMap.CommonY}</option>
+                    <option value="N">${uiLabelMap.CommonN}</option>
                   </select>
                 </td>
-              </tr>               
+              </tr>
               <tr>
                 <td colspan="3">&nbsp;</td>
-              </tr>              
+              </tr>
               <tr>
                 <td width="26%" align="right"><div class="tabletext">${uiLabelMap.CommonUsername}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <input type="text" class="inputBox" name="userLoginId" value="${requestParameters.USERNAME?if_exists}" size="20" maxlength="250"/>
                 </td>
-              </tr> 
-              <#--  
+              </tr>
+              <#--
               <tr>
                 <td width="26%" align="right"><div class="tabletext">${uiLabelMap.OrderPassword}</div></td>
                 <td width="5">&nbsp;</td>
@@ -140,10 +146,10 @@ under the License.
                 <td width="74%">
                   <input type="text" class="inputBox" name="PASSWORD_HINT" value="${requestParameters.PASSWORD_HINT?if_exists}" size="40" maxlength="100">
                 </td>
-              </tr> 
-              --> 
-              </form>                                       
-            </table>        
+              </tr>
+              -->
+              </form>
+            </table>
           </td>
         </tr>
       </table>

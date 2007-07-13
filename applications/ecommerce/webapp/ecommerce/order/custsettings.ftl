@@ -85,7 +85,9 @@ under the License.
                 <td width="74%">
                 <select name="homeSol" class="selectBox">
                     <option>${parameters.homeSol?default("Y")}</option>
-                    <option></option><option>${uiLabelMap.CommonY}</option><option>${uiLabelMap.CommonN}</option>
+                    <option></option>
+                    <option value="Y">${uiLabelMap.CommonY}</option>
+                    <option value="N">${uiLabelMap.CommonN}</option>
                   </select>
                 </td>
               </tr>

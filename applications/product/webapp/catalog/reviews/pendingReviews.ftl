@@ -53,9 +53,9 @@ under the License.
           <div class="tabletext">
             <select name="postedAnonymous" class="selectBox">
               <option>${review.postedAnonymous?default("N")}</option>
-              <option value="${review.postedAnonymous?default("N")}">----</option>
+              <option></option>
               <option value="N">${uiLabelMap.CommonN}</option>
-			  <option value="Y">${uiLabelMap.CommonY}</option>              
+			  <option value="Y">${uiLabelMap.CommonY}</option>
             </select>
           </div>
         </td>
