@@ -36,6 +36,9 @@ import org.ofbiz.widget.html.HtmlScreenRenderer;
 import org.ofbiz.widget.html.HtmlFormRenderer;
 import org.xml.sax.SAXException;
 
+import freemarker.template.TemplateModelException;
+import freemarker.template.utility.StandardCompress;
+
 /**
  * Handles view rendering for the Screen Widget
  */
@@ -71,6 +74,17 @@ public class ScreenWidgetViewHandler implements ViewHandler {
                 writer = response.getWriter();
             }
 
+            // compress HTML output if configured to do so
+            String compressHTML = null;
+            if (this.servletContext != null) {
+                compressHTML = (String) this.servletContext.getAttribute("compressHTML");
+            }
+            if ("true".equals(compressHTML)) {
+                // StandardCompress defaults to a 2k buffer. That could be increased
+                // to speed up output.
+                writer = new StandardCompress().getWriter(writer, null);
+            }
+            
             ScreenRenderer screens = new ScreenRenderer(writer, null, htmlScreenRenderer);
             screens.populateContextForRequest(request, response, servletContext);
             // this is the object used to render forms from their definitions
@@ -84,6 +98,8 @@ public class ScreenWidgetViewHandler implements ViewHandler {
             throw new ViewHandlerException("XML Error rendering page: " + e.toString(), e);
         } catch (GeneralException e) {
             throw new ViewHandlerException("Lower level error rendering page: " + e.toString(), e);
-        } 
+        } catch (TemplateModelException e) {
+            throw new ViewHandlerException("Whitespace compression error rendering page: " + e.toString(), e);
+        }
     }
 }

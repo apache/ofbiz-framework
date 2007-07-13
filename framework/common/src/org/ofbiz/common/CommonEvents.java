@@ -187,7 +187,7 @@ public class CommonEvents {
                 }
             }
         }
-        return setSessionTimeZone(request, response);
+        return "success";
     }
 
     /** Simple event to set the user's per-session time zone setting. */
@@ -243,5 +243,6 @@ public class CommonEvents {
         return "success";
     }
 }
+
 
 
