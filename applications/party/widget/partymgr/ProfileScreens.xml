@@ -172,6 +172,7 @@
     <screen name="FinAccounts">
         <section>
             <actions>
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
                 <entity-condition entity-name="FinAccount" list-name="ownedFinAccountList" filter-by-date="true">
                     <condition-expr field-name="ownerPartyId" operator="equals" env-name="parameters.partyId"/>
                     <order-by field-name="-fromDate"/>

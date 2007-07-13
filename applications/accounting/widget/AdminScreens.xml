@@ -88,6 +88,7 @@ under the License.
                 <set field="tabButtonItem" value="PartyAcctgPreference"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <set field="partyId" from-field="parameters.organizationPartyId"/>
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />                
                 <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference"/>
             </actions>
             <widgets>
@@ -131,6 +132,7 @@ under the License.
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingFX}"/>
                 <set field="tabButtonItem" value="ViewFXConversions"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />                                
                 <!-- TODO: If UomConversionDated is ever used for another type of conversion besides currencies or if some currencies are
                     stored in UomConversion, we need to change the logic here -->
                 <entity-condition entity-name="UomConversionDated" list-name="conversions">
