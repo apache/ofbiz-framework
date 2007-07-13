@@ -155,12 +155,12 @@ public class OagisShipmentServices {
             Map oagisMsgInfoResult = dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoCtx);
             if (ServiceUtil.isError(oagisMsgInfoResult)){
                 String errMsg = ServiceUtil.getErrorMessage(oagisMsgInfoResult);
-                errorMapList.add(UtilMisc.toMap("description", errMsg, "resonCode", "CreateOagisMessageInfoServiceError"));
+                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "CreateOagisMessageInfoServiceError"));
                 Debug.logError(errMsg, module);
             }
         } catch (GenericServiceException e){
             String errMsg = "Error creating OagisMessageInfo for the Incoming Message: "+e.toString();
-            errorMapList.add(UtilMisc.toMap("description", errMsg, "resonCode", "GenericServiceException"));
+            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
             Debug.logError(e, errMsg, module);
         }
            
@@ -208,17 +208,17 @@ public class OagisShipmentServices {
                 Map resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
                 if (ServiceUtil.isError(resultMap)){
                     String errMsg = ServiceUtil.getErrorMessage(resultMap);
-                    errorMapList.add(UtilMisc.toMap("description", errMsg, "resonCode", "IssueSerializedInvServiceError"));
+                    errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "IssueSerializedInvServiceError"));
                     Debug.logError(errMsg, module);
                 }
             } catch(GenericServiceException e) {
                 Debug.logInfo(e, module);
                 String errMsg = "Error executing issueSerializedInvToShipmentPackageAndSetTracking Service: "+e.toString();
-                errorMapList.add(UtilMisc.toMap("description", errMsg, "resonCode", "GenericServiceException"));
+                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
             }
         } catch (GenericEntityException e) {
             String errMsg = "Error executing issueSerializedInvToShipmentPackageAndSetTracking Service: "+e.toString();
-            errorMapList.add(UtilMisc.toMap("description", errMsg, "resonCode", "GenericEntityException"));
+            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericEntityException"));
             Debug.logInfo(e, module);
         }
         
