@@ -148,7 +148,7 @@ public class FinAccountServices {
             Map creditTransResult = dispatcher.runSync("createFinAccountTrans",
                     UtilMisc.toMap("finAccountTransTypeId", "ADJUSTMENT", "finAccountId",
                             creditAccount.getString("finAccountId"), "partyId", partyId, "amount",
-                            context.get("amount"), "comment", context.get("comment"), "userLogin", userLogin));
+                            context.get("amount"), "comments", context.get("comments"), "userLogin", userLogin));
 
             if (ServiceUtil.isError(creditTransResult) || ServiceUtil.isFailure(creditTransResult)) {
                 return creditTransResult;
