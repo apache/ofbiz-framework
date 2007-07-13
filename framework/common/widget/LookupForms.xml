@@ -37,8 +37,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupGeo" list-name="listIt" target="" title="" type="list"
-        paginate-target="LookupGeo">
+    <form name="listLookupGeo" list-name="listIt" target="" title="" type="list" paginate-target="LookupGeo">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>

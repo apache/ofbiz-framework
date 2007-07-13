@@ -71,6 +71,28 @@ under the License.
     </request-map>
     <!-- End of Security Mappings -->
 
+    <!-- Common Mappings used for locales and timezones -->
+    <request-map uri="setSessionLocale">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+    <request-map uri="setSessionTimeZone">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionTimeZone"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+    <request-map uri="LookupLocales">
+        <security https="true" auth="false" />
+        <response name="success" type="view" value="LookupLocales" />
+    </request-map>
+    <request-map uri="LookupTimezones">
+        <security https="true" auth="false" />
+        <response name="success" type="view" value="LookupTimezones" />
+    </request-map>
+
     <!-- Request Mappings -->
     <request-map uri="view">
         <security https="false" auth="false"/>
@@ -89,12 +111,6 @@ under the License.
     	<response name="success" type="view" value="main"/>
     </request-map>
 
-    <request-map uri="setSessionLocale">
-        <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="main"/>
-    </request-map>
     <request-map uri="repository">
         <security https="true" auth="true"/>
     	<response name="success" type="view" value="repository"/>
@@ -126,6 +142,8 @@ under the License.
     <view-map name="main" type="screen" page="component://shark/widget/CommonScreens.xml#main"/>
     <view-map name="login" type="screen" page="component://shark/widget/CommonScreens.xml#login"/>
     <view-map name="requirePasswordChange" type="screen" page="component://shark/widget/CommonScreens.xml#requirePasswordChange"/>
+    <view-map name="LookupLocales" type="screen" page="component://common/widget/LookupScreens.xml#LookupLocales"/>
+    <view-map name="LookupTimezones" type="screen" page="component://common/widget/LookupScreens.xml#LookupTimezones"/>
 
     <view-map name="repository" type="screen" page="component://shark/widget/RepositoryScreens.xml#showRepository"/>
     <view-map name="processList" type="screen" page="component://shark/widget/ProcessScreens.xml#processList"/>

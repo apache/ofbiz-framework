@@ -72,13 +72,29 @@ under the License.
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="error"/>
     </request-map>
+    <!-- End of Security Mappings -->
+
+    <!-- Common Mappings used for locales and timezone -->
     <request-map uri="setSessionLocale">
         <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-    <!-- End of Security Mappings -->
+    <request-map uri="setSessionTimeZone">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionTimeZone"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+    <request-map uri="LookupLocales">
+        <security https="true" auth="false" />
+        <response name="success" type="view" value="LookupLocales" />
+    </request-map>
+    <request-map uri="LookupTimezones">
+        <security https="true" auth="false" />
+        <response name="success" type="view" value="LookupTimezones" />
+    </request-map>
 
     <!-- Request Mappings -->
         
@@ -608,6 +624,8 @@ under the License.
     <view-map name="main" type="screen" page="component://workeffort/widget/CommonScreens.xml#main"/>
     <view-map name="login" type="screen" page="component://workeffort/widget/CommonScreens.xml#login"/>
     <view-map name="requirePasswordChange" type="screen" page="component://workeffort/widget/CommonScreens.xml#requirePasswordChange"/>
+    <view-map name="LookupLocales" type="screen" page="component://common/widget/LookupScreens.xml#LookupLocales"/>
+    <view-map name="LookupTimezones" type="screen" page="component://common/widget/LookupScreens.xml#LookupTimezones"/>
 
     <view-map name="RequestList" type="screen" page="component://workeffort/widget/RequestScreens.xml#RequestList"/>
     
@@ -684,6 +702,6 @@ under the License.
     <view-map name="LookupQuoteItem" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupQuoteItem"/>
     <view-map name="LookupOrderHeader" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeader"/>
     <view-map name="LookupInvoice" page="component://accounting/widget/LookupScreens.xml#LookupInvoice" type="screen"/>
-    <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>    
+    <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
     <!-- end of view mappings -->
 </site-conf>
