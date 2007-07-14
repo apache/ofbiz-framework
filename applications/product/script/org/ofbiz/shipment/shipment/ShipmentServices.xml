@@ -229,7 +229,7 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <now-timestamp-to-env env-name="lookedUpValue.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
-
+        <field-to-result field-name="lookedUpValue.shipmentId" result-name="shipmentId"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteShipment" short-description="Delete Shipment">
@@ -1323,7 +1323,6 @@ under the License.
                     <!-- update the shipment status to shipped -->
                     <set from-field="shipment.shipmentId" field="packedContext.shipmentId"/>
                     <set value="SHIPMENT_SHIPPED" field="packedContext.statusId"/>
-                    <set field="packedContext.orderId" from-field="orderHeader.orderId"/>        
                     <call-service service-name="updateShipment" in-map-name="packedContext"/>
                   </then>
                   <else> <!-- PURCHASE_ORDER -->
@@ -1827,6 +1826,7 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 -->
+
 
 
 

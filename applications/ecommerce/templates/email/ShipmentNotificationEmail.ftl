@@ -17,48 +17,31 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-
-<table cellpadding="0" cellspacing="0" width="80%" border="0" class="boxoutside">
-   <tr>
-      <td colspan="3" class="tableheadtext">
-         This email is to inform you that your shipment has been completed.
-      </td>
-   </tr>   
-   <tr><td colspan="3">&nbsp;</td></tr>  
-   <#if orderItemShipGroups?has_content>
-   <tr>
-      <td colspan="3">
-         <h3>${uiLabelMap.OrderShippingInformation}</h3>
-      </td>
-   </tr>   
-   <#assign groupIdx = 0>
-   <#list orderItemShipGroups as shipGroup>
-      <#-- tracking number -->
-      <#if trackingNumber?has_content || orderShipmentInfoSummaryList?has_content>
-      <tr>
-         <td align="right" valign="top" width="15%" nowrap>
-            <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderTrackingNumber}</b></div>
-         </td>
-         <td width="5">&nbsp;</td>
-         <td align="left" valign="top" width="80%">
-            <#-- TODO: add links to UPS/FEDEX/etc based on carrier partyId  -->
-            <#if shipGroup.trackingNumber?has_content>
-               <div class="tabletext">${shipGroup.trackingNumber}</div>
-            </#if>
-            <#if orderShipmentInfoSummaryList?has_content>
-               <#list orderShipmentInfoSummaryList as orderShipmentInfoSummary>
-                  <div class="tabletext">
-                     <#if (orderShipmentInfoSummaryList?size > 1)>${orderShipmentInfoSummary.shipmentPackageSeqId}: </#if>
-                        Code: ${orderShipmentInfoSummary.trackingCode?default("[Not Yet Known]")}
-                     <#if orderShipmentInfoSummary.boxNumber?has_content>${uiLabelMap.OrderBoxNubmer}${orderShipmentInfoSummary.boxNumber}</#if> 
-                     <#if orderShipmentInfoSummary.carrierPartyId?has_content>(${uiLabelMap.ProductCarrier}: ${orderShipmentInfoSummary.carrierPartyId})</#if>
-                  </div>
-               </#list>
-            </#if>
-         </td>
+<#if baseEcommerceSecureUrl?exists><#assign urlPrefix = baseEcommerceSecureUrl/></#if>
+<div class="screenlet">
+  <div class="screenlet-header">  
+     <div class="boxhead">&nbsp; ${uiLabelMap.ShippedItems}</div>
+  </div>   
+  <div class="screenlet-body">
+    <table width="100%" border="0" cellpadding="0">
+      <tr align="left" valign="bottom">
+        <td width="35%" align="left"><span class="tableheadtext"><b>${uiLabelMap.EcommerceProduct}</b></span></td>               
+        <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderQuantity}</b></span></td>
       </tr>
-      </#if>
-      <#assign groupIdx = groupIdx + 1>
-   </#list>
-   </#if>    
-</table>
+      <tr><td colspan="10"><hr class="sepbar"/></td></tr>
+      <#list shipmentPackages as shipmentPackage>
+        <#assign shipmentPackageContents = shipmentPackage.getRelated("ShipmentPackageContent")>
+        <#list shipmentPackageContents as shipmentPackageContent>
+          <#assign shipmentItem = shipmentPackageContent.getRelatedOne("ShipmentItem")>
+          <#assign productId = shipmentItem.productId>
+          <#assign product = shipmentItem.getRelatedOne("Product")>
+          <tr>
+            <td colspan="1" valign="top"> ${productId?if_exists} - ${product.internalName?if_exists}</td>   
+            <td align="right" valign="top"> ${shipmentItem.quantity?if_exists}</td>   
+          </tr>
+        </#list>
+        <tr><td colspan="10"><hr class="sepbar"/></td></tr>
+      </#list>
+    </table>
+  </div>
+</div>

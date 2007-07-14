@@ -31,7 +31,7 @@ under the License.
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <condition field-name="statusId" operator="equals" value="SHIPMENT_SHIPPED"/>
         <condition field-name="shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>
-        <action service="sendShipCompleteNotification" mode="async" persist="true"/>        
+        <action service="sendShipmentCompleteNotification" mode="async" persist="true"/>        
     </eca>
 
     <!-- if new statusId of a PURCHASE_SHIPMENT is PURCH_SHIP_RECEIVED, create invoice -->

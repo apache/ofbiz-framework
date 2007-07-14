@@ -17,28 +17,14 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.order.order.OrderReadHelper;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.entity.GenericDelegator;
 
+shipmentId = parameters.get("shipmentId");
+if (shipmentId != null) {
+    shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+    shipmentPackages = delegator.findByAnd("ShipmentPackage", UtilMisc.toMap("shipmentId", shipmentId));
 
-orderId = parameters.get("orderId");
-
-if(orderId != null) {
-    orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
-    orderReadHelper = new OrderReadHelper(orderHeader);
-    orderItemShipGroups = orderReadHelper.getOrderItemShipGroups();
-    context.put("orderItemShipGroups", orderItemShipGroups);
-    
-    osisCond = new EntityFieldMap(UtilMisc.toMap("orderId", orderId), EntityOperator.AND);
-    osisOrder = UtilMisc.toList("shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId");
-    osisFields = UtilMisc.toList("shipmentId", "shipmentRouteSegmentId", "carrierPartyId", "shipmentMethodTypeId");
-    osisFields.add("shipmentPackageSeqId");
-    osisFields.add("trackingCode");
-    osisFields.add("boxNumber");
-    osisFindOptions = new EntityFindOptions(); osisFindOptions.setDistinct(true);
-    orderShipmentInfoSummaryList = delegator.findByCondition("OrderShipmentInfoSummary", osisCond, null, osisFields, osisOrder, osisFindOptions);
-    context.put("orderShipmentInfoSummaryList",orderShipmentInfoSummaryList);    
+    context.put("shipment", shipment);
+    context.put("shipmentPackages", shipmentPackages);
 }
