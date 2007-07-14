@@ -1085,15 +1085,17 @@ public class UtilHttp {
         }else{
             String initialUserAgent = request.getHeader("User-Agent") != null ? request.getHeader("User-Agent") : "";
             List spiderList = StringUtil.split(UtilProperties.getPropertyValue("url", "link.remove_lsessionid.user_agent_list"), ",");
-            Iterator spiderListIter = spiderList.iterator();
-            while (spiderListIter.hasNext()) {
-                String spiderNameElement = (String) spiderListIter.next();
-                Pattern p = Pattern.compile("^.*" + spiderNameElement + ".*$", Pattern.CASE_INSENSITIVE); 
-                Matcher m = p.matcher(initialUserAgent);
-                if (m.find()){
-                    request.setAttribute("_REQUEST_FROM_SPIDER_", "Y");
-                    result = true;
-                    break;
+            if (UtilValidate.isNotEmpty(spiderList)) {
+                Iterator spiderListIter = spiderList.iterator();
+                while (spiderListIter.hasNext()) {
+                    String spiderNameElement = (String) spiderListIter.next();
+                    Pattern p = Pattern.compile("^.*" + spiderNameElement + ".*$", Pattern.CASE_INSENSITIVE);
+                    Matcher m = p.matcher(initialUserAgent);
+                    if (m.find()){
+                        request.setAttribute("_REQUEST_FROM_SPIDER_", "Y");
+                        result = true;
+                        break;
+                    }
                 }
             }
         }
