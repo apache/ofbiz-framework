@@ -123,7 +123,7 @@ under the License.
     <service name="updateShipment" default-entity-name="Shipment" engine="simple"
             location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateShipment" auth="true">
         <description>Update Shipment</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="shipmentTypeId"/>
             <exclude field-name="createdDate"/>
@@ -136,7 +136,6 @@ under the License.
         <attribute name="oldPrimaryOrderId" type="String" mode="OUT" optional="true"/>
         <attribute name="oldOriginFacilityId" type="String" mode="OUT" optional="true"/>
         <attribute name="oldDestinationFacilityId" type="String" mode="OUT" optional="true"/>
-        <attribute name="orderId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="deleteShipment" default-entity-name="Shipment" engine="simple"
             location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteShipment" auth="true">
@@ -689,4 +688,14 @@ under the License.
         <attribute name="originFacilityId" type="String" mode="IN" optional="true"/>
         <attribute name="quantityNotReserved" type="Double" mode="IN" optional="false"/>
     </service>
+
+    <service name="sendShipmentCompleteNotification" engine="java" require-new-transaction="true" max-retry="3"
+        location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="sendShipmentCompleteNotification" auth="true">
+        <description>Send a notification on Shipment Complete</description>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="sendTo" type="String" mode="IN" optional="true"/>
+        <attribute name="screenUri" type="String" mode="IN" optional="true"/>
+        <attribute name="comments" type="String" mode="IN" optional="true"/>
+        <attribute name="body" type="String" mode="OUT" optional="true"/>
+    </service>        
 </services>

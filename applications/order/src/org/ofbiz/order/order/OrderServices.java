@@ -2081,9 +2081,6 @@ public class OrderServices {
         return sendOrderNotificationScreen(ctx, context, "PRDS_ODR_PAYRETRY");
     }
     
-    public static Map sendShipCompleteNotification(DispatchContext ctx, Map context) {
-        return sendOrderNotificationScreen(ctx, context, "PRDS_ODR_SHIP_COMPLT");
-    }
     protected static Map sendOrderNotificationScreen(DispatchContext dctx, Map context, String emailType) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();

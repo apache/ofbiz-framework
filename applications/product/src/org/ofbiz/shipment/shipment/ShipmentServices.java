@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.ofbiz.common.geo.GeoWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -35,6 +36,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.party.party.PartyWorker;
 
 /**
  * ShipmentServices
@@ -44,6 +46,7 @@ public class ShipmentServices {
     public static final String module = ShipmentServices.class.getName();
 
     public static final String resource = "ProductUiLabels";
+    public static final String resource_error = "OrderErrorUiLabels";
     public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
     public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
     public static final BigDecimal ZERO = (new BigDecimal("0")).setScale(decimals, rounding);    
@@ -1055,4 +1058,98 @@ public class ShipmentServices {
         result.put("packageValue", packageTotalValue);
         return result;
     }
+    
+    public static Map sendShipmentCompleteNotification(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String shipmentId = (String) context.get("shipmentId");
+        String sendTo = (String) context.get("sendTo");
+        String screenUri = (String) context.get("screenUri");
+
+        // prepare the shipment information
+        Map sendMap = FastMap.newInstance();
+        GenericValue shipment = null ;
+        GenericValue orderHeader = null;
+        try {
+            shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+            orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", shipment.getString("primaryOrderId")));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Problem getting info from database", module);
+        }
+        GenericValue productStoreEmail = null;
+        try {
+            productStoreEmail = delegator.findByPrimaryKey("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", orderHeader.get("productStoreId"), "emailType", "PRDS_ODR_SHIP_COMPLT"));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Problem getting the ProductStoreEmailSetting for productStoreId =" + orderHeader.get("productStoreId") + " and emailType = PRDS_ODR_SHIP_COMPLT", module);
+        }
+        if (productStoreEmail == null) {
+            return ServiceUtil.returnFailure("No valid email setting for store with productStoreId =" + orderHeader.get("productStoreId") + " and emailType = PRDS_ODR_SHIP_COMPLT");
+        }
+        // the override screenUri
+        if (UtilValidate.isEmpty(screenUri)) {
+            if (productStoreEmail != null) {
+                String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
+                sendMap.put("bodyScreenUri", bodyScreenLocation);
+            } else {
+                sendMap.put("bodyScreenUri", "component://ecommerce/widget/EmailOrderScreens.xml#ShipmentCompleteNotice");
+            }
+        } else {
+            sendMap.put("bodyScreenUri", screenUri);
+        }
+                
+        String partyId = shipment.getString("partyIdTo");
+
+        // get the email address
+        String emailString = null;
+        GenericValue email = PartyWorker.findPartyLatestContactMech(partyId, "EMAIL_ADDRESS", delegator);
+        if (UtilValidate.isNotEmpty(email)) {
+            emailString = email.getString("infoString");
+        }
+        if (UtilValidate.isEmpty(emailString)) {
+            return ServiceUtil.returnError("No sendTo email address found");
+        }
+
+        Locale locale = PartyWorker.findPartyLastLocale(partyId, delegator);
+        if (locale == null) {
+            locale = Locale.getDefault();
+        }
+        ResourceBundleMapWrapper uiLabelMap = (ResourceBundleMapWrapper) UtilProperties.getResourceBundleMap("EcommerceUiLabels", locale);
+        uiLabelMap.addBottomResourceBundle("OrderUiLabels");
+        uiLabelMap.addBottomResourceBundle("CommonUiLabels");
+                
+        Map bodyParameters = UtilMisc.toMap("partyId", partyId, "shipmentId", shipmentId, "orderId", shipment.getString("primaryOrderId"), "userLogin", userLogin, "uiLabelMap", uiLabelMap, "locale", locale);
+        sendMap.put("bodyParameters", bodyParameters);
+        sendMap.put("userLogin",userLogin);
+                
+        if (productStoreEmail != null) {
+            sendMap.put("subject", productStoreEmail.getString("subject"));
+            sendMap.put("contentType", productStoreEmail.get("contentType"));
+            sendMap.put("sendFrom", productStoreEmail.get("fromAddress"));
+            sendMap.put("sendCc", productStoreEmail.get("ccAddress"));
+            sendMap.put("sendBcc", productStoreEmail.get("bccAddress"));
+        } else {
+            sendMap.put("subject", "Shipment Complete Notification");
+            sendMap.put("contentType", "text/html");
+        }
+        if ((sendTo != null) && UtilValidate.isEmail(sendTo)) {
+            sendMap.put("sendTo", sendTo);
+        } else {
+            sendMap.put("sendTo", emailString);
+        }
+        // send the notification
+        Map sendResp = null;
+        try {
+            sendResp = dispatcher.runSync("sendMailFromScreen", sendMap);
+        } catch (Exception e) {
+            Debug.logError(e, "Problem sending mail", module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderProblemSendingEmail", locale));
+        }
+        // check for errors
+        if (sendResp != null && ServiceUtil.isError(sendResp)) {
+            sendResp.put("emailType", "PRDS_ODR_SHIP_COMPLT");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderProblemSendingEmail", locale), null, null, sendResp);
+        }
+        return sendResp;
+    }    
 }
