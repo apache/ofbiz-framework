@@ -170,7 +170,7 @@ public class FoFormRenderer implements FormStringRenderer {
     }
 
     public void renderSingleFormFieldTitle(StringBuffer buffer, Map context, ModelFormField modelFormField) {
-            renderFieldTitle(buffer, context, modelFormField);
+        renderFieldTitle(buffer, context, modelFormField);
     }
 
     public void renderFormOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
