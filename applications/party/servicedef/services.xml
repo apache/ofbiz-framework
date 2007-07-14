@@ -490,6 +490,13 @@ under the License.
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
     </service>
+    <service name="deletePartyContactMechPurposeIfExists" engine="java"
+            location="org.ofbiz.party.contact.ContactMechServices" invoke="deletePartyContactMechPurposeIfExists" auth="true">
+        <description>Delete a Party ContactMech Purpose</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false"/>
+    </service>
 
     <!-- ContactMechList services -->
     <service name="createContactMechLink" default-entity-name="ContactMechLink" engine="simple"

@@ -849,6 +849,57 @@ public class ContactMechServices {
         return result;
     }
 
+    public static Map deletePartyContactMechPurposeIfExists(DispatchContext ctx, Map context) {
+        //Debug.logInfo(new Exception(), "In createPartyContactMechPurpose context: " + context, module);
+        Map result = new HashMap();
+        GenericDelegator delegator = ctx.getDelegator();
+        Security security = ctx.getSecurity();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+
+        String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_PCM_DELETE");
+        String errMsg = null;
+        Locale locale = (Locale) context.get("locale");
+
+        if (result.size() > 0) {
+            return result;
+        }
+
+        // required parameters
+        String contactMechId = (String) context.get("contactMechId");
+        String contactMechPurposeTypeId = (String) context.get("contactMechPurposeTypeId");
+
+        GenericValue tempVal = null;
+        try {
+            Map pcmpFindMap = UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId);
+            //Debug.logInfo("pcmpFindMap = " + pcmpFindMap, module);
+            List allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose", pcmpFindMap), true);
+
+            tempVal = EntityUtil.getFirst(allPCMPs);
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e.getMessage(), module);
+            tempVal = null;
+        }
+        if (tempVal != null) {
+            Map deletePcmCtx = UtilMisc.toMap("contactMechId", context.get("contactMechId"));
+            deletePcmCtx.put("contactMechPurposeTypeId", context.get("contactMechPurposeTypeId"));
+            deletePcmCtx.put("fromDate", tempVal.get("fromDate"));
+            deletePcmCtx.put("userLogin", context.get("userLogin"));
+            try {
+                Map deletePcmResult = ctx.getDispatcher().runSync("deletePartyContactMechPurpose", deletePcmCtx);
+                if(ServiceUtil.isError(deletePcmResult)){
+                    return deletePcmResult;
+                }
+            } catch (GenericServiceException e) {
+                Debug.logWarning(e.getMessage(), module);
+                Map messageMap = UtilMisc.toMap("errMessage", e.getMessage());
+                errMsg = UtilProperties.getMessage(resource,"contactmechservices.could_not_delete_purpose_from_contact_mechanism_read", messageMap, locale);
+                return ServiceUtil.returnError(errMsg);
+            }
+        }
+        result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+        return result;
+
+    }
     /**
      * Deletes the PartyContactMechPurpose corresponding to the parameters in the context
      * <b>security check</b>: userLogin partyId must equal partyId, or must have PARTYMGR_DELETE permission
