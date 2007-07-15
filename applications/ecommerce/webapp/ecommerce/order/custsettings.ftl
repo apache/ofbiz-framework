@@ -84,7 +84,8 @@ under the License.
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                 <select name="homeSol" class="selectBox">
-                    <option>${parameters.homeSol?default("Y")}</option>
+                    <#if ((parameters.homeSol?)!"" == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
+                    <#if ((parameters.homeSol?)!"" == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                     <option></option>
                     <option value="Y">${uiLabelMap.CommonY}</option>
                     <option value="N">${uiLabelMap.CommonN}</option>
@@ -123,8 +124,11 @@ under the License.
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <select name="emailSol" class="selectBox">
-                    <option>${parameters.emailSol?default("Y")}</option>
-                    <option></option><option value="Y">${uiLabelMap.CommonY}</option><option value="N">${uiLabelMap.CommonN}</option>
+                    <#if ((parameters.emailSol)!"" == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
+                    <#if ((parameters.emailSol)!"" == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
+                    <option></option>
+                    <option value="Y">${uiLabelMap.CommonY}</option>
+                    <option value="N">${uiLabelMap.CommonN}</option>
                   </select>
                 </td>
               </tr>
