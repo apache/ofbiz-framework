@@ -52,8 +52,8 @@ under the License.
         <td>
           <div class="tabletext">
             <select name="postedAnonymous" class="selectBox">
-              <#if ((review.postedAnonymous)!"" == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
-              <#if ((review.postedAnonymous)!"" == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
+              <#if (((review.postedAnonymous)!"") == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
+              <#if (((review.postedAnonymous)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
               <option></option>
               <option value="N">${uiLabelMap.CommonN}</option>
 			  <option value="Y">${uiLabelMap.CommonY}</option>

@@ -74,8 +74,8 @@ under the License.
                   &nbsp;ext&nbsp;<input type="text" class="inputBox" name="homeExt" value="${requestParameters.homeExt?if_exists}" size="6" maxlength="10"/>
                   <BR>
                   <select name="homeSol" class="selectBox">
-                    <#if ((requestParameters.homeSol)!"" == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
-                    <#if ((requestParameters.homeSol)!"" == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
+                    <#if (((requestParameters.homeSol)!"") == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
+                    <#if (((requestParameters.homeSol)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                     <option></option>
                     <option value="Y">${uiLabelMap.CommonY}</option>
                     <option value="N">${uiLabelMap.CommonN}</option>
@@ -92,8 +92,8 @@ under the License.
                   &nbsp;ext&nbsp;<input type="text" class="inputBox" name="workExt" value="${requestParameters.CUSTOMER_WORK_EXT?if_exists}" size="6" maxlength="10"/>
                   <BR>
                   <select name="workSol" class="selectBox">
-                    <#if ((requestParameters.workSol)!"" == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
-                    <#if ((requestParameters.workSol)!"" == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
+                    <#if (((requestParameters.workSol)!"") == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
+                    <#if (((requestParameters.workSol)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                     <option></option>
                     <option value="Y">${uiLabelMap.CommonY}</option>
                     <option value="N">${uiLabelMap.CommonN}</option>
@@ -110,8 +110,8 @@ under the License.
                   <input type="text" class="inputBox" name="emailAddress" value="" size="60" maxlength="255">
                   <BR>
                   <select name="emailSol" class="selectBox">
-                    <#if ((requestParameters.emailSol)!"" == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
-                    <#if ((requestParameters.emailSol)!"" == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
+                    <#if (((requestParameters.emailSol)!"") == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
+                    <#if (((requestParameters.emailSol)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                     <option></option>
                     <option value="Y">${uiLabelMap.CommonY}</option>
                     <option value="N">${uiLabelMap.CommonN}</option>

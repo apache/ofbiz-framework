@@ -84,8 +84,8 @@ under the License.
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                 <select name="homeSol" class="selectBox">
-                    <#if ((parameters.homeSol?)!"" == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
-                    <#if ((parameters.homeSol?)!"" == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
+                    <#if (((parameters.homeSol?)!"") == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
+                    <#if (((parameters.homeSol?)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                     <option></option>
                     <option value="Y">${uiLabelMap.CommonY}</option>
                     <option value="N">${uiLabelMap.CommonN}</option>
@@ -124,8 +124,8 @@ under the License.
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <select name="emailSol" class="selectBox">
-                    <#if ((parameters.emailSol)!"" == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
-                    <#if ((parameters.emailSol)!"" == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
+                    <#if (((parameters.emailSol)!"") == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
+                    <#if (((parameters.emailSol)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                     <option></option>
                     <option value="Y">${uiLabelMap.CommonY}</option>
                     <option value="N">${uiLabelMap.CommonN}</option>
