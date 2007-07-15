@@ -48,6 +48,9 @@ under the License.
     <Party partyId="UT_TAXMAN" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="UT_TAXMAN" groupName="Utah Sales Tax Authority"/>
     <PartyRole partyId="UT_TAXMAN" roleTypeId="TAX_AUTHORITY"/>  
+    <Party partyId="UT_UTAH_TAXMAN" partyTypeId="PARTY_GROUP"/>
+    <PartyGroup partyId="UT_UTAH_TAXMAN" groupName="Utah County, Utah Sales Tax Authority"/>
+    <PartyRole partyId="UT_UTAH_TAXMAN" roleTypeId="TAX_AUTHORITY"/>  
     
     <Party partyId="CAN_TAXMAN" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="CAN_TAXMAN" groupName="Canada Tax Authority"/>
@@ -96,6 +99,14 @@ under the License.
     <TaxAuthorityRateProduct taxAuthorityRateSeqId="9004" taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" taxAuthorityRateTypeId="SALES_TAX" productStoreId="9000"
         productCategoryId="" titleTransferEnumId="" minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="4.75" 
         fromDate="2001-05-13 00:00:00.001" thruDate="" description="Utah State Sales Tax"/>
+    <!-- An example county; there is some zip code data for testing this; note this is ONLY test data, there isn't really extra sales tax for this county -->
+    <TaxAuthority taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" includeTaxInPrice="N"/>
+    <!-- NOTE: using the state's sales tax GL Account -->
+    <TaxAuthorityGlAccount taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" organizationPartyId="Company" glAccountId="224153"/>
+    <TaxAuthorityAssoc taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" toTaxAuthGeoId="UT-UTAH" toTaxAuthPartyId="UT_UTAH_TAXMAN" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001" thruDate=""/>
+    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9005" taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" taxAuthorityRateTypeId="SALES_TAX" productStoreId="9000"
+        productCategoryId="" titleTransferEnumId="" minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="0.1" 
+        fromDate="2001-05-13 00:00:00.001" thruDate="" description="Utah County, Utah Sales Tax"/>
     
     <!-- Canada TaxAuthority defs -->        
     <TaxAuthority taxAuthGeoId="CAN" taxAuthPartyId="CAN_TAXMAN" includeTaxInPrice="N"/>
@@ -110,6 +121,7 @@ under the License.
     <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="NY" taxAuthPartyId="NY_DTF" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="" isExempt="" isNexus="Y"/>
     <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="TX" taxAuthPartyId="TX_TAXMAN" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="" isExempt="" isNexus="N"/> <!-- this one is not a nexus to test that feature -->
     <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="" isExempt="" isNexus="Y"/>
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="" isExempt="" isNexus="Y"/>
     <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="CAN" taxAuthPartyId="CAN_TAXMAN" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="87654321" isExempt="N" isNexus="Y"/>
     <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="ON" taxAuthPartyId="ON_TAXMAN" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="" isExempt="" isNexus="Y"/>
     

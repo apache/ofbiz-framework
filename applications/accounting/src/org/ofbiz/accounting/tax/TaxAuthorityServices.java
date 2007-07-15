@@ -43,6 +43,7 @@ import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.party.contact.ContactMechWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
@@ -144,8 +145,8 @@ public class TaxAuthorityServices {
         BigDecimal orderShippingAmount = (BigDecimal) context.get("orderShippingAmount");
         GenericValue shippingAddress = (GenericValue) context.get("shippingAddress");
 
-        if (shippingAddress == null || (shippingAddress.get("countryGeoId") == null && shippingAddress.get("stateProvinceGeoId") == null)) {
-            return ServiceUtil.returnError("The address(es) used for tax calculation did not have State/Province or Country values set, so we cannot determine the taxes to charge.");
+        if (shippingAddress == null || (shippingAddress.get("countryGeoId") == null && shippingAddress.get("stateProvinceGeoId") == null && shippingAddress.get("postalCodeGeoId") == null)) {
+            return ServiceUtil.returnError("The address(es) used for tax calculation did not have State/Province or Country or other tax jurisdiction values set, so we cannot determine the taxes to charge.");
         }
         // without knowing the TaxAuthority parties, just find all TaxAuthories for the set of IDs...
         Set taxAuthoritySet = FastSet.newInstance();
@@ -197,21 +198,29 @@ public class TaxAuthorityServices {
     private static void getTaxAuthorities(GenericDelegator delegator, GenericValue shippingAddress, Set taxAuthoritySet) throws GenericEntityException {
         Set geoIdSet = FastSet.newInstance();
         if (shippingAddress != null) {
-            if (shippingAddress.getString("countryGeoId") != null) {
+            if (UtilValidate.isNotEmpty(shippingAddress.getString("countryGeoId"))) {
                 geoIdSet.add(shippingAddress.getString("countryGeoId"));
             }
-            if (shippingAddress.getString("stateProvinceGeoId") != null) {
+            if (UtilValidate.isNotEmpty(shippingAddress.getString("stateProvinceGeoId"))) {
                 geoIdSet.add(shippingAddress.getString("stateProvinceGeoId"));
             }
-            if (shippingAddress.getString("countyGeoId") != null) {
+            if (UtilValidate.isNotEmpty(shippingAddress.getString("countyGeoId"))) {
                 geoIdSet.add(shippingAddress.getString("countyGeoId"));
             }
+            String postalCodeGeoId = ContactMechWorker.getPostalAddressPostalCodeGeoId(shippingAddress, delegator);
+            if (UtilValidate.isNotEmpty(postalCodeGeoId)) {
+            	geoIdSet.add(postalCodeGeoId);
+            }
         }
+        
+        // Debug.logInfo("Tax calc geoIdSet before expand:" + geoIdSet, module);
         // get the most granular, or all available, geoIds and then find parents by GeoAssoc with geoAssocTypeId="REGIONS" and geoIdTo=<granular geoId> and find the GeoAssoc.geoId
         geoIdSet = GeoWorker.expandGeoRegionDeep(geoIdSet, delegator);
+        // Debug.logInfo("Tax calc geoIdSet after expand:" + geoIdSet, module);
 
         List taxAuthorityRawList = delegator.findByConditionCache("TaxAuthority", new EntityExpr("taxAuthGeoId", EntityOperator.IN, geoIdSet), null, null);
         taxAuthoritySet.addAll(taxAuthorityRawList);
+        // Debug.logInfo("Tax calc taxAuthoritySet after expand:" + taxAuthoritySet, module);
     }
 
     private static List getTaxAdjustments(GenericDelegator delegator, GenericValue product, GenericValue productStore, String payToPartyId, String billToPartyId, Set taxAuthoritySet, BigDecimal itemPrice, BigDecimal itemAmount, BigDecimal shippingAmount) {
@@ -347,7 +356,7 @@ public class TaxAuthorityServices {
 
                 // check to see if this party has a tax ID for this, and if the party is tax exempt in the primary (most-local) jurisdiction
                 if (UtilValidate.isNotEmpty(billToPartyId) && taxAuthGeoId != null) {
-                    // see if partyId is a member of any groups , if so honor their tax exemptions
+                    // see if partyId is a member of any groups, if so honor their tax exemptions
                     // look for PartyRelationship with partyRelationshipTypeId=GROUP_ROLLUP, the partyIdTo is the group member, so the partyIdFrom is the groupPartyId
                     Set billToPartyIdSet = FastSet.newInstance();
                     billToPartyIdSet.add(billToPartyId);
@@ -374,7 +383,7 @@ public class TaxAuthorityServices {
     }
     
     private static void handlePartyTaxExempt(GenericValue adjValue, Set billToPartyIdSet, String taxAuthGeoId, String taxAuthPartyId, BigDecimal taxAmount, Timestamp nowTimestamp, GenericDelegator delegator) throws GenericEntityException {
-        Debug.log("Checking for tax exemption : " + taxAuthGeoId + " / " + taxAuthPartyId, module);
+        Debug.logInfo("Checking for tax exemption : " + taxAuthGeoId + " / " + taxAuthPartyId, module);
         List ptiConditionList = UtilMisc.toList(
                 new EntityExpr("partyId", EntityOperator.IN, billToPartyIdSet),
                 new EntityExpr("taxAuthGeoId", EntityOperator.EQUALS, taxAuthGeoId),
@@ -404,7 +413,7 @@ public class TaxAuthorityServices {
                     UtilMisc.toList("-fromDate"));
             taxAuthorityAssocList = EntityUtil.filterByDate(taxAuthorityAssocList, true);
             GenericValue taxAuthorityAssoc = EntityUtil.getFirst(taxAuthorityAssocList);
-            Debug.log("Parent assoc to " + taxAuthGeoId + " : " + taxAuthorityAssoc, module);
+            // Debug.log("Parent assoc to " + taxAuthGeoId + " : " + taxAuthorityAssoc, module);
             if (taxAuthorityAssoc != null) {
                 handlePartyTaxExempt(adjValue, billToPartyIdSet, taxAuthorityAssoc.getString("taxAuthGeoId"), taxAuthorityAssoc.getString("taxAuthPartyId"), taxAmount, nowTimestamp, delegator);
             }
