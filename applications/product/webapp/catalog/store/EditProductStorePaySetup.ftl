@@ -96,7 +96,7 @@ under the License.
           <td><span class="tableheadtext">${uiLabelMap.ApplyToAll} ${uiLabelMap.ProductProducts}</span></td>
           <td>
               <select name="applyToAllProducts" class="smallSelect">
-                  <#if (((editSetting.applyToAllProducts)!"") == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
+                  <#if (((editSetting.applyToAllProducts)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
                   <#if (((editSetting.applyToAllProducts)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                   <option></option>
                   <option value="Y">${uiLabelMap.CommonY}</option>

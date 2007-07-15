@@ -191,7 +191,7 @@ under the License.
             <div class="form-label">${uiLabelMap.PartyAllowAddressSolicitation}</div>
             <div class="form-field">
                 <select name="CUSTOMER_ADDRESS_ALLOW_SOL" class='selectBox'>
-                    <#if (((requestParameters.CUSTOMER_ADDRESS_ALLOW_SOL)!"") == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
+                    <#if (((requestParameters.CUSTOMER_ADDRESS_ALLOW_SOL)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
                     <#if (((requestParameters.CUSTOMER_ADDRESS_ALLOW_SOL)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                     <option></option>
                     <option value="Y">${uiLabelMap.CommonY}</option>
@@ -224,7 +224,7 @@ under the License.
                 &nbsp;${uiLabelMap.PartyExtension}&nbsp;<input type="text" class='inputBox' name="CUSTOMER_HOME_EXT" value="${requestParameters.CUSTOMER_HOME_EXT?if_exists}" size="6" maxlength="10">
                 <br/>
                 <select name="CUSTOMER_HOME_ALLOW_SOL" class='selectBox'>
-                    <#if (((requestParameters.CUSTOMER_HOME_ALLOW_SOL))!"" == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
+                    <#if (((requestParameters.CUSTOMER_HOME_ALLOW_SOL))!"" == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
                     <#if (((requestParameters.CUSTOMER_HOME_ALLOW_SOL))!"" == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                     <option></option>
                     <option value="Y">${uiLabelMap.CommonY}</option>
@@ -242,7 +242,7 @@ under the License.
                 &nbsp;${uiLabelMap.PartyExtension}&nbsp;<input type="text" class='inputBox' name="CUSTOMER_WORK_EXT" value="${requestParameters.CUSTOMER_WORK_EXT?if_exists}" size="6" maxlength="10">
                 <br/>
                 <select name="CUSTOMER_WORK_ALLOW_SOL" class='selectBox'>
-                    <#if (((requestParameters.CUSTOMER_WORK_ALLOW_SOL)!"" == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
+                    <#if (((requestParameters.CUSTOMER_WORK_ALLOW_SOL)!"" == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
                     <#if (((requestParameters.CUSTOMER_WORK_ALLOW_SOL)!"" == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                     <option></option>
                     <option value="Y">${uiLabelMap.CommonY}</option>
@@ -259,7 +259,7 @@ under the License.
                 -&nbsp;<input type="text" class='inputBox' name="CUSTOMER_FAX_CONTACT" value="${requestParameters.CUSTOMER_FAX_CONTACT?if_exists}" size="15" maxlength="15">
                 <br/>
                 <select name="CUSTOMER_FAX_ALLOW_SOL" class='selectBox'>
-                    <#if (((requestParameters.CUSTOMER_FAX_ALLOW_SOL)!"" == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
+                    <#if (((requestParameters.CUSTOMER_FAX_ALLOW_SOL)!"" == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
                     <#if (((requestParameters.CUSTOMER_FAX_ALLOW_SOL)!"" == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                     <option></option>
                     <option value="Y">${uiLabelMap.CommonY}</option>
@@ -276,7 +276,7 @@ under the License.
                 -&nbsp;<input type="text" class='inputBox' name="CUSTOMER_MOBILE_CONTACT" value="${requestParameters.CUSTOMER_MOBILE_CONTACT?if_exists}" size="15" maxlength="15">
                 <br/>
                 <select name="CUSTOMER_MOBILE_ALLOW_SOL" class='selectBox'>
-                    <#if (((requestParameters.CUSTOMER_MOBILE_ALLOW_SOL)!"" == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
+                    <#if (((requestParameters.CUSTOMER_MOBILE_ALLOW_SOL)!"" == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
                     <#if (((requestParameters.CUSTOMER_MOBILE_ALLOW_SOL)!"" == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                     <option></option>
                     <option value="Y">${uiLabelMap.CommonY}</option>
@@ -300,7 +300,7 @@ under the License.
                 <div><input type="text" class='inputBox' name="CUSTOMER_EMAIL" value="${requestParameters.CUSTOMER_EMAIL?if_exists}" size="40" maxlength="255" onchange="changeEmail()" onkeyup="changeEmail()"> *</div>
                 <div>
                     <select name="CUSTOMER_EMAIL_ALLOW_SOL" class='selectBox'>
-                            <#if ((requestParameters.CUSTOMER_EMAIL_ALLOW_SOL)!"" == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
+                            <#if ((requestParameters.CUSTOMER_EMAIL_ALLOW_SOL)!"" == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
                             <#if ((requestParameters.CUSTOMER_EMAIL_ALLOW_SOL)!"" == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                             <option></option>
                             <option value="Y">${uiLabelMap.CommonY}</option>
