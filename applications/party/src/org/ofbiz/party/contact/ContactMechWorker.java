@@ -314,180 +314,6 @@ public class ContactMechWorker {
         return workEffortContactMechValueMaps.size() > 0 ? workEffortContactMechValueMaps : null;
     }
     
-    /** TO BE REMOVED (DEJ 20030221): This method was for use in a JSP and when they are removed this can be removed as well rather than being maintained, should be removed when eCommerce and party mgr and possible other places are converted to FTL */
-    public static void getContactMechAndRelated(PageContext pageContext, String partyId, String contactMechAttr, String contactMechIdAttr,
-        String partyContactMechAttr, String partyContactMechPurposesAttr, String contactMechTypeIdAttr, String contactMechTypeAttr, String purposeTypesAttr,
-        String postalAddressAttr, String telecomNumberAttr, String requestNameAttr, String donePageAttr, String tryEntityAttr, String contactMechTypesAttr) {
-
-        ServletRequest request = pageContext.getRequest();
-        GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
-
-        boolean tryEntity = true;
-
-        if (request.getAttribute("_ERROR_MESSAGE_") != null) tryEntity = false;
-        if ("true".equals(request.getParameter("tryEntity"))) tryEntity = true;
-
-        String donePage = request.getParameter("DONE_PAGE");
-
-        if (donePage == null) donePage = (String) request.getAttribute("DONE_PAGE");
-        if (donePage == null || donePage.length() <= 0) donePage = "viewprofile";
-        pageContext.setAttribute(donePageAttr, donePage);
-
-        String contactMechTypeId = request.getParameter("preContactMechTypeId");
-
-        if (contactMechTypeId == null) contactMechTypeId = (String) request.getAttribute("preContactMechTypeId");
-        if (contactMechTypeId != null)
-            tryEntity = false;
-
-        String contactMechId = request.getParameter("contactMechId");
-
-        if (request.getAttribute("contactMechId") != null)
-            contactMechId = (String) request.getAttribute("contactMechId");
-
-        GenericValue contactMech = null;
-
-        if (contactMechId != null) {
-            pageContext.setAttribute(contactMechIdAttr, contactMechId);
-
-            // try to find a PartyContactMech with a valid date range
-            List partyContactMechs = null;
-
-            try {
-                partyContactMechs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMech", UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId)), true);
-            } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
-            }
-
-            GenericValue partyContactMech = EntityUtil.getFirst(partyContactMechs);
-
-            if (partyContactMech != null) {
-                pageContext.setAttribute(partyContactMechAttr, partyContactMech);
-
-                Collection partyContactMechPurposes = null;
-
-                try {
-                    partyContactMechPurposes = EntityUtil.filterByDate(partyContactMech.getRelated("PartyContactMechPurpose"), true);
-                } catch (GenericEntityException e) {
-                    Debug.logWarning(e, module);
-                }
-                if (partyContactMechPurposes != null && partyContactMechPurposes.size() > 0)
-                    pageContext.setAttribute(partyContactMechPurposesAttr, partyContactMechPurposes);
-            }
-
-            try {
-                contactMech = delegator.findByPrimaryKey("ContactMech", UtilMisc.toMap("contactMechId", contactMechId));
-            } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
-            }
-
-            if (contactMech != null) {
-                pageContext.setAttribute(contactMechAttr, contactMech);
-                contactMechTypeId = contactMech.getString("contactMechTypeId");
-            }
-        }
-
-        if (contactMechTypeId != null) {
-            pageContext.setAttribute(contactMechTypeIdAttr, contactMechTypeId);
-
-            try {
-                GenericValue contactMechType = delegator.findByPrimaryKey("ContactMechType", UtilMisc.toMap("contactMechTypeId", contactMechTypeId));
-
-                if (contactMechType != null)
-                    pageContext.setAttribute(contactMechTypeAttr, contactMechType);
-            } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
-            }
-
-            Collection purposeTypes = new LinkedList();
-            Iterator typePurposes = null;
-
-            try {
-                typePurposes = UtilMisc.toIterator(delegator.findByAnd("ContactMechTypePurpose", UtilMisc.toMap("contactMechTypeId", contactMechTypeId)));
-            } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
-            }
-            while (typePurposes != null && typePurposes.hasNext()) {
-                GenericValue contactMechTypePurpose = (GenericValue) typePurposes.next();
-                GenericValue contactMechPurposeType = null;
-
-                try {
-                    contactMechPurposeType = contactMechTypePurpose.getRelatedOne("ContactMechPurposeType");
-                } catch (GenericEntityException e) {
-                    Debug.logWarning(e, module);
-                }
-                if (contactMechPurposeType != null) {
-                    purposeTypes.add(contactMechPurposeType);
-                }
-            }
-            if (purposeTypes.size() > 0)
-                pageContext.setAttribute(purposeTypesAttr, purposeTypes);
-        }
-
-        String requestName;
-
-        if (contactMech == null) {
-            // create
-            if ("POSTAL_ADDRESS".equals(contactMechTypeId)) {
-                if (request.getParameter("contactMechPurposeTypeId") != null || request.getAttribute("contactMechPurposeTypeId") != null) {
-                    requestName = "createPostalAddressAndPurpose";
-                } else {
-                    requestName = "createPostalAddress";
-                }
-            } else if ("TELECOM_NUMBER".equals(contactMechTypeId)) {
-                requestName = "createTelecomNumber";
-            } else if ("EMAIL_ADDRESS".equals(contactMechTypeId)) {
-                requestName = "createEmailAddress";
-            } else {
-                requestName = "createContactMech";
-            }
-        } else {
-            // update
-            if ("POSTAL_ADDRESS".equals(contactMechTypeId)) {
-                requestName = "updatePostalAddress";
-            } else if ("TELECOM_NUMBER".equals(contactMechTypeId)) {
-                requestName = "updateTelecomNumber";
-            } else if ("EMAIL_ADDRESS".equals(contactMechTypeId)) {
-                requestName = "updateEmailAddress";
-            } else {
-                requestName = "updateContactMech";
-            }
-        }
-        pageContext.setAttribute(requestNameAttr, requestName);
-
-        if ("POSTAL_ADDRESS".equals(contactMechTypeId)) {
-            GenericValue postalAddress = null;
-
-            try {
-                if (contactMech != null) postalAddress = contactMech.getRelatedOne("PostalAddress");
-            } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
-            }
-            if (postalAddress != null) pageContext.setAttribute(postalAddressAttr, postalAddress);
-        } else if ("TELECOM_NUMBER".equals(contactMechTypeId)) {
-            GenericValue telecomNumber = null;
-
-            try {
-                if (contactMech != null) telecomNumber = contactMech.getRelatedOne("TelecomNumber");
-            } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
-            }
-            if (telecomNumber != null) pageContext.setAttribute(telecomNumberAttr, telecomNumber);
-        }
-
-        if ("true".equals(request.getParameter("useValues"))) tryEntity = true;
-        pageContext.setAttribute(tryEntityAttr, new Boolean(tryEntity));
-
-        try {
-            Collection contactMechTypes = delegator.findAllCache("ContactMechType", null);
-
-            if (contactMechTypes != null) {
-                pageContext.setAttribute(contactMechTypesAttr, contactMechTypes);
-            }
-        } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
-        }
-    }
-
     public static void getContactMechAndRelated(ServletRequest request, String partyId, Map target) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
 
@@ -877,16 +703,6 @@ public class ContactMechWorker {
         return postalAddressInfos;
     }
 
-    /** TO BE REMOVED (DEJ 20030221): This method was for use in a JSP and when they are removed this can be removed as well rather than being maintained, should be removed when eCommerce and party mgr and possible other places are converted to FTL */
-    public static void getCurrentPostalAddress(PageContext pageContext, String partyId, String curContactMechId,
-            String curPartyContactMechAttr, String curContactMechAttr, String curPostalAddressAttr, String curPartyContactMechPurposesAttr) {
-        ServletRequest request = pageContext.getRequest();
-        Map results = getCurrentPostalAddress(request, partyId, curContactMechId);
-        if (results.get("curPartyContactMech") != null) pageContext.setAttribute(curPartyContactMechAttr, results.get("curPartyContactMech"));
-        if (results.get("curContactMech") != null) pageContext.setAttribute(curContactMechAttr, results.get("curContactMech"));
-        if (results.get("curPostalAddress") != null) pageContext.setAttribute(curPostalAddressAttr, results.get("curPostalAddress"));
-        if (results.get("curPartyContactMechPurposes") != null) pageContext.setAttribute(curPartyContactMechPurposesAttr, results.get("curPartyContactMechPurposes"));
-    }
     public static Map getCurrentPostalAddress(ServletRequest request, String partyId, String curContactMechId) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         Map results = new HashMap();
@@ -1058,5 +874,40 @@ public class ContactMechWorker {
         } else {
             return attr.getString("attrValue");
         }
+    }
+    
+    public static String getPostalAddressPostalCodeGeoId(GenericValue postalAddress, GenericDelegator delegator) throws GenericEntityException {
+    	// if postalCodeGeoId not empty use that
+    	if (UtilValidate.isNotEmpty(postalAddress.getString("postalCodeGeoId"))) {
+    		return postalAddress.getString("postalCodeGeoId");
+    	}
+    	
+    	// no postalCodeGeoId, see if there is a Geo record matching the countryGeoId and postalCode fields
+    	if (UtilValidate.isNotEmpty(postalAddress.getString("countryGeoId")) && UtilValidate.isNotEmpty(postalAddress.getString("postalCode"))) {
+    		// first try the shortcut with the geoId convention for "{countryGeoId}-{postalCode}"
+    		GenericValue geo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", postalAddress.getString("countryGeoId") + "-" + postalAddress.getString("postalCode")));
+    		if (geo != null) {
+    			// save the value to the database for quicker future reference
+    			postalAddress.set("postalCodeGeoId", geo.getString("geoId"));
+    			postalAddress.store();
+    			
+    			return geo.getString("geoId");
+    		}
+
+    		// no shortcut, try the longcut to see if there is something with a geoCode associated to the countryGeoId
+			List geoAssocAndGeoToList = delegator.findByAndCache("GeoAssocAndGeoTo", 
+					UtilMisc.toMap("geoIdFrom", postalAddress.getString("countryGeoId"), "geoCode", postalAddress.getString("postalCode"), "geoAssocTypeId", "REGIONS"));
+			GenericValue geoAssocAndGeoTo = EntityUtil.getFirst(geoAssocAndGeoToList);
+			if (geoAssocAndGeoTo != null) {
+    			// save the value to the database for quicker future reference
+    			postalAddress.set("postalCodeGeoId", geoAssocAndGeoTo.getString("geoId"));
+    			postalAddress.store();
+    			
+				return geoAssocAndGeoTo.getString("geoId");
+			}
+    	}
+    	
+    	// nothing found, return null
+    	return null;
     }
 }

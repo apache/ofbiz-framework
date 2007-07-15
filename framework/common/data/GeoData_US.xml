@@ -269,9 +269,12 @@ under the License.
     <GeoAssoc geoId="CAN" geoIdTo="USMEXCAN" geoAssocTypeId="GROUP_MEMBER"/>
     
     <!-- Some county info for testing -->
-    <Geo abbreviation="UTAH" geoCode="UTAH" geoId="UT-UTAH" geoName="Utah" geoTypeId="COUNTY"/>
+    <Geo abbreviation="UTAH" geoCode="UTAH" geoId="UT-UTAH" geoName="Utah County" geoTypeId="COUNTY"/>
     <GeoAssoc geoId="UT" geoIdTo="UT-UTAH" geoAssocTypeId="REGIONS"/>
     <Geo abbreviation="SANPETE" geoCode="SANPETE" geoId="UT-SANPETE" geoName="Sanpete" geoTypeId="COUNTY"/>
     <GeoAssoc geoId="UT" geoIdTo="UT-SANPETE" geoAssocTypeId="REGIONS"/>
+    <Geo abbreviation="84057" geoCode="84057" geoId="USA-84057" geoName="84057" geoTypeId="POSTAL_CODE"/>
+    <GeoAssoc geoId="UT-UTAH" geoIdTo="USA-84057" geoAssocTypeId="REGIONS"/><!-- the postal code is in this county for tax lookup purposes to find the county by zip code -->
+    <GeoAssoc geoId="USA" geoIdTo="USA-84057" geoAssocTypeId="REGIONS"/><!-- the postal code is in this country which is necessary to lookup the postalCodeGeoId by countryGeoId and postalCode string; this isn't necessary as there is a convention for postal code geoIds of "{countryGeoId}-{postalCode}" that the code looks for -->
 </entity-engine-xml>
 
