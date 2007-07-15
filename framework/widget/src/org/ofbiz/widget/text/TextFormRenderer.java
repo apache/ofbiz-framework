@@ -81,31 +81,26 @@ public class TextFormRenderer implements FormStringRenderer {
     public void renderDisplayField(StringBuffer buffer, Map context, DisplayField displayField) {
         ModelFormField modelFormField = displayField.getModelFormField();
         this.makeTextString(buffer, modelFormField.getWidgetStyle(), displayField.getDescription(context));
-        this.appendWhitespace(buffer);
     }
 
     public void renderHyperlinkField(StringBuffer buffer, Map context, HyperlinkField hyperlinkField) {
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
         this.makeTextString(buffer, modelFormField.getWidgetStyle(), hyperlinkField.getDescription(context));
-        this.appendWhitespace(buffer);
     }
 
     public void renderTextField(StringBuffer buffer, Map context, TextField textField) {
         ModelFormField modelFormField = textField.getModelFormField();
         this.makeTextString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
     }
 
     public void renderTextareaField(StringBuffer buffer, Map context, TextareaField textareaField) {
         ModelFormField modelFormField = textareaField.getModelFormField();
         this.makeTextString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textareaField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
     }
 
     public void renderDateTimeField(StringBuffer buffer, Map context, DateTimeField dateTimeField) {
         ModelFormField modelFormField = dateTimeField.getModelFormField();
         this.makeTextString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, dateTimeField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
     }
 
     public void renderDropDownField(StringBuffer buffer, Map context, DropDownField dropDownField) {
@@ -133,7 +128,6 @@ public class TextFormRenderer implements FormStringRenderer {
                 }
             }
         }
-        this.appendWhitespace(buffer);
     }
 
     public void renderCheckField(StringBuffer buffer, Map context, CheckField checkField) {
@@ -254,25 +248,21 @@ public class TextFormRenderer implements FormStringRenderer {
     public void renderTextFindField(StringBuffer buffer, Map context, TextFindField textFindField) {
         ModelFormField modelFormField = textFindField.getModelFormField();
         this.makeTextString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textFindField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
     }
 
     public void renderRangeFindField(StringBuffer buffer, Map context, RangeFindField rangeFindField) {
         ModelFormField modelFormField = rangeFindField.getModelFormField();
         this.makeTextString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, rangeFindField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
     }
 
     public void renderDateFindField(StringBuffer buffer, Map context, DateFindField dateFindField) {
         ModelFormField modelFormField = dateFindField.getModelFormField();
         this.makeTextString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, dateFindField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
     }
 
     public void renderLookupField(StringBuffer buffer, Map context, LookupField lookupField) {
         ModelFormField modelFormField = lookupField.getModelFormField();
         this.makeTextString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, lookupField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
     }
 
     public void renderNextPrev(StringBuffer buffer, Map context, ModelForm modelForm) {
@@ -281,7 +271,6 @@ public class TextFormRenderer implements FormStringRenderer {
     public void renderFileField(StringBuffer buffer, Map context, FileField textField) {
         ModelFormField modelFormField = textField.getModelFormField();
         this.makeTextString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
     }
 
     public void renderPasswordField(StringBuffer buffer, Map context, PasswordField passwordField) {
