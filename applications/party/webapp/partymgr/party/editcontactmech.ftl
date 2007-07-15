@@ -222,13 +222,11 @@ under the License.
     <td class="label">${uiLabelMap.PartyContactAllowSolicitation}?</td>
     <td>
       <select name="allowSolicitation">
-          <#if (mechMap.partyContactMech.allowSolicitation)?has_content>
-            <#if (mechMap.partyContactMech.allowSolicitation?default("") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
-            <#if (mechMap.partyContactMech.allowSolicitation?default("") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
-          </#if>
-          <option></option>
-          <option value="Y">${uiLabelMap.CommonY}</option>
-          <option value="N">${uiLabelMap.CommonN}</option>
+        <#if ((mechMap.partyContactMech.allowSolicitation)!"" == "Y")><option value="test">${uiLabelMap.CommonY}</option></#if>
+        <#if ((mechMap.partyContactMech.allowSolicitation)!"" == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
+        <option></option>
+        <option value="Y">${uiLabelMap.CommonY}</option>
+        <option value="N">${uiLabelMap.CommonN}</option>
       </select>
     </td>
   </tr>
