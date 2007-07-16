@@ -399,7 +399,9 @@ public class OagisInventoryServices {
                     for (Iterator j = invDetailList.iterator(); j.hasNext();) {
                         Element invDetailElement = (Element) j.next();
                         String serialNumber = UtilXml.childElementValue(invDetailElement, "N2:SERIALNUM");
-                        serialNumsList.add(serialNumber);
+                        if (UtilValidate.isNotEmpty(serialNumber)) {
+                            serialNumsList.add(serialNumber);
+                        }
                     }
 
                     /* DEJ20070711 Commenting this out because it shouldn't happen, ie more likely the ITEM element will be filled 
@@ -641,7 +643,9 @@ public class OagisInventoryServices {
                     for (Iterator j = invDetailList.iterator(); j.hasNext();) {
                         Element invDetailElement = (Element) j.next();
                         String serialNumber = UtilXml.childElementValue(invDetailElement, "N2:SERIALNUM");
-                        serialNumsList.add(serialNumber);
+                        if (UtilValidate.isNotEmpty(serialNumber)) {
+                            serialNumsList.add(serialNumber);
+                        }
                     }
 
                     /* DEJ20070711 Commenting this out because it shouldn't happen, ie more likely the ITEM element will be filled 
