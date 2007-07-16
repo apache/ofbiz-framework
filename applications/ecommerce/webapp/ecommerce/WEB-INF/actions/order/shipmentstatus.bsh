@@ -19,12 +19,24 @@
 
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.entity.util.*;
 
 shipmentId = parameters.get("shipmentId");
 if (shipmentId != null) {
     shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
-    shipmentPackages = delegator.findByAnd("ShipmentPackage", UtilMisc.toMap("shipmentId", shipmentId));
+    shipmentItems = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId));
+
+    // get Shipment tracking info
+    osisCond = new EntityFieldMap(UtilMisc.toMap("shipmentId", shipmentId), EntityOperator.AND);
+    osisOrder = UtilMisc.toList("shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId");
+    osisFields = UtilMisc.toList("shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId", "carrierPartyId", "trackingCode");
+    osisFindOptions = new EntityFindOptions(); 
+    osisFindOptions.setDistinct(true);
+    orderShipmentInfoSummaryList = delegator.findByCondition("OrderShipmentInfoSummary", osisCond, null, osisFields, osisOrder, osisFindOptions);
 
     context.put("shipment", shipment);
-    context.put("shipmentPackages", shipmentPackages);
+    context.put("shipmentItems", shipmentItems);
+    context.put("orderShipmentInfoSummaryList", orderShipmentInfoSummaryList);
 }
