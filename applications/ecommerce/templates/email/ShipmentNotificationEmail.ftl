@@ -18,30 +18,46 @@ under the License.
 -->
 
 <#if baseEcommerceSecureUrl?exists><#assign urlPrefix = baseEcommerceSecureUrl/></#if>
-<div class="screenlet">
-  <div class="screenlet-header">  
-     <div class="boxhead">&nbsp; ${uiLabelMap.ShippedItems}</div>
-  </div>   
-  <div class="screenlet-body">
-    <table width="100%" border="0" cellpadding="0">
-      <tr align="left" valign="bottom">
-        <td width="35%" align="left"><span class="tableheadtext"><b>${uiLabelMap.EcommerceProduct}</b></span></td>               
-        <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderQuantity}</b></span></td>
-      </tr>
-      <tr><td colspan="10"><hr class="sepbar"/></td></tr>
-      <#list shipmentPackages as shipmentPackage>
-        <#assign shipmentPackageContents = shipmentPackage.getRelated("ShipmentPackageContent")>
-        <#list shipmentPackageContents as shipmentPackageContent>
-          <#assign shipmentItem = shipmentPackageContent.getRelatedOne("ShipmentItem")>
-          <#assign productId = shipmentItem.productId>
-          <#assign product = shipmentItem.getRelatedOne("Product")>
+<#if shipment?has_content>
+  <div class="screenlet">
+    <div class="screenlet-header">  
+      <div class="boxhead">${title?if_exists}<br/><br/></div>
+    </div>   
+    <table border="0" cellpadding="0" cellspacing="0">
+      <tbody>
+        <tr>
+          <td><b>${uiLabelMap.OrderTrackingNumber}</b></td> 
+        </tr>  
+        <#list orderShipmentInfoSummaryList as orderShipmentInfoSummary>
           <tr>
-            <td colspan="1" valign="top"> ${productId?if_exists} - ${product.internalName?if_exists}</td>   
-            <td align="right" valign="top"> ${shipmentItem.quantity?if_exists}</td>   
+            <td>
+              Code: ${orderShipmentInfoSummary.trackingCode?default("[Not Yet Known]")}
+              <#if orderShipmentInfoSummary.carrierPartyId?has_content>(${uiLabelMap.ProductCarrier}: ${orderShipmentInfoSummary.carrierPartyId})</#if>
+            </td>  
           </tr>
-        </#list>
-        <tr><td colspan="10"><hr class="sepbar"/></td></tr>
+        </#list> 
+      </tbody>
+    </table>
+    <br/>
+    <div class="screenlet-header">  
+      <div class="boxhead"><b>${uiLabelMap.ShipmentItems}</b></div>
+    </div>   
+    <div class="screenlet-body">
+      <table width="100%" border="0" cellpadding="0">
+        <tr align="left" valign="bottom">
+          <td width="35%" align="left"><span class="tableheadtext"><b>${uiLabelMap.EcommerceProduct}</b></span></td>               
+          <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderQuantity}</b></span></td>
+        </tr>
+      <tr><td colspan="10"><hr class="sepbar"/></td></tr>
+      <#list shipmentItems as shipmentItem>
+        <#assign productId = shipmentItem.productId>
+        <#assign product = shipmentItem.getRelatedOne("Product")>
+        <tr>
+          <td colspan="1" valign="top"> ${productId?if_exists} - ${product.internalName?if_exists}</td>   
+          <td align="right" valign="top"> ${shipmentItem.quantity?if_exists}</td>   
+        </tr>
       </#list>
+      <tr><td colspan="10"><hr class="sepbar"/></td></tr>
     </table>
   </div>
-</div>
+</#if>
