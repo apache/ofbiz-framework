@@ -764,6 +764,11 @@ under the License.
 
     <service name="sendUpdatePersonalInfoEmailNotification" engine="simple"
             location="org/ofbiz/party/user/UserEvents.xml" invoke="sendUpdatePersonalInfoEmailNotification" auth="false">
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="updatedUserLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>     
+    </service>
+    <service name="sendCreatePartyEmailNotification" engine="simple"
+            location="org/ofbiz/party/user/UserEvents.xml" invoke="sendCreatePartyEmailNotification" auth="false">
+        <attribute name="USER_EMAIL" type="String" mode="IN" optional="false"/>
     </service>
 </services>

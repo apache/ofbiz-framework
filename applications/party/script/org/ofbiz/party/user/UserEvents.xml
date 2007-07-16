@@ -287,7 +287,7 @@ under the License.
         <set field="partyDataSource.isCreate" value="Y" />
         <!-- get the visit from the session to get the visitId -->
         <session-to-field field-name="visit"/>
-	<set from-field="visit.visitId" field="partyDataSource.visitId"/>
+        <set from-field="visit.visitId" field="partyDataSource.visitId"/>
 
         <!-- now that everything is validated & setup, check to see if there are errors, then call the services -->
         <check-errors/>
@@ -394,6 +394,11 @@ under the License.
         <field-to-request field-name="partyId" map-name="tempMap" request-name="partyId"/>
 
         <!--send New User Email Notification-->
+        <call-simple-method method-name="sendCreatePartyEmailNotification"/>
+    </simple-method>
+
+    <!--send party creation email notification-->
+    <simple-method method-name="sendCreatePartyEmailNotification" short-description="Notification email on party creation" login-required="false">
         <map-to-map map-name="parameters" to-map-name="bodyParameters"/>    
         <entity-condition entity-name="ProductStoreEmailSetting" list-name="productStoreEmailSettings">
             <condition-list>
@@ -402,7 +407,13 @@ under the License.
         </entity-condition>
         <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
         <if-not-empty field-name="bodyScreenLocation" map-name="storeEmail">
-            <set field="emailParams.sendTo" from-field="parameters.USER_EMAIL"/>
+            <if-not-empty field-name="parameters.USER_EMAIL">
+                <set field="sendToEmailAdd" from-field="parameters.USER_EMAIL"/>
+            <else>
+                <set field="sendToEmailAdd" from-field="parameters.emailAddress"/>
+            </else>             
+            </if-not-empty>
+            <set field="emailParams.sendTo" from-field="sendToEmailAdd"/>
             <set field="emailParams.subject" from-field="storeEmail.subject"/>
             <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
             <set field="emailParams.sendCc" from-field="storeEmail.ccAddress"/>
@@ -413,11 +424,11 @@ under the License.
             <map-to-map to-map-name="emailParams.bodyParameters" map-name="parameters"/>
             <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
         </if-not-empty>
-    </simple-method>
+    </simple-method>   
+
     <!--send personal information update email notification-->
     <simple-method method-name="sendUpdatePersonalInfoEmailNotification" short-description="Send the Notification email on personal information updation" login-required="false">
         <map-to-map map-name="parameters" to-map-name="bodyParameters"/>
-        <set field="bodyParameters.userLoginId" from-field="parameters.userLoginId"/>
         <entity-condition entity-name="ProductStoreEmailSetting" list-name="productStoreEmailSettings">
             <condition-list>
                 <condition-expr field-name="emailType" operator="equals" value="UPD_PRSNL_INF_CNFRM"/>
@@ -425,10 +436,10 @@ under the License.
         </entity-condition>
         <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
         <if-not-empty field-name="bodyScreenLocation" map-name="storeEmail">
-            <if-not-empty field-name="parameters.partyId">
-                <set field="partyId" from-field="parameters.partyId"/>
-            <else>
+            <if-not-empty field-name="parameters.updatedUserLogin.partyId">
                 <set field="partyId" from-field="parameters.updatedUserLogin.partyId"/>
+            <else>
+                <set field="partyId" from-field="parameters.partyId"/>
             </else>
             </if-not-empty>
             <entity-condition entity-name="PartyContactDetailByPurpose" list-name="partyContactDetailByPurposes">
