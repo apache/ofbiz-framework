@@ -259,6 +259,7 @@ under the License.
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
         <field name="billingAccountId"><lookup target-form-name="LookupBillingAccount"/></field>
+        <field name="invoiceId"><hidden/></field>
         <field name="amountApplied"><text size="15"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="removeButton" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
