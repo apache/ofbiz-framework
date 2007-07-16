@@ -2327,13 +2327,31 @@ public class InvoiceServices {
             
             // check if at least one send is the same as one receiver on the other payment
             if (!payment.getString("partyIdFrom").equals(toPayment.getString("partyIdTo")) && 
-                    !payment.getString("partyIdFrom").equals(toPayment.getString("partyIdTo")))    {
+                    !payment.getString("partyIdTo").equals(toPayment.getString("partyIdFrom")))    {
                 errorMessageList.add(UtilProperties.getMessage(resource, "AccountingFromPartySameToParty", locale));
             }
 
             if (debug) Debug.logInfo("toPayment info retrieved and checked...", module);
         }
 
+        // assign payment to billing account if the invoice is assigned to this billing account
+        if (invoiceId != null) {
+            GenericValue invoice = null;
+            try {
+                invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
+            } catch (GenericEntityException e) {
+                ServiceUtil.returnError(e.getMessage());
+            }
+            
+            if (invoice == null) {
+                errorMessageList.add(UtilProperties.getMessage(resource, "AccountingInvoiceNotFound",UtilMisc.toMap("invoiceId",invoiceId),locale));
+            } else {
+                if (invoice.getString("billingAccountId") != null) {
+                    billingAccountId = invoice.getString("billingAccountId");
+                }
+            }
+        }
+        
         // billing account
         GenericValue billingAccount = null;
         BigDecimal billingAccountApplyAvailable = ZERO;
@@ -2346,36 +2364,6 @@ public class InvoiceServices {
             if (billingAccount == null) {
                 errorMessageList.add(UtilProperties.getMessage(resource, "AccountingBillingAccountNotFound",UtilMisc.toMap("billingAccountId",billingAccountId), locale));
             }
-            
-            // Get the available balance, which is how much can be used, rather than the regular balance, which is how much has already been charged
-            try {
-                billingAccountApplyAvailable = BillingAccountWorker.availableToCapture(billingAccount);
-            } catch (GenericEntityException e) {
-                errorMessageList.add(UtilProperties.getMessage(resource, "AccountingBillingAccountBalanceNotFound",UtilMisc.toMap("billingAccountId",billingAccountId), locale));
-                ServiceUtil.returnError(e.getMessage());
-            }
-
-            if (paymentApplicationId == null) { 
-                // when creating a new PaymentApplication, check if there is sufficient balance in the billing account, but only if the invoiceId is not null
-                // If you create a PaymentApplication with both billingAccountId and invoiceId, then you're applying a billing account towards an invoice
-                // If you create a PaymentApplication just with billingAccountId and no invoiceId, then you're adding value to billing account, so it should not matter
-                // what the previous available balance is
-                if (invoiceId != null) {
-                    if (billingAccountApplyAvailable.signum() <= 0)  {
-                        errorMessageList.add(UtilProperties.getMessage(resource, "AccountingBillingAccountBalanceProblem",UtilMisc.toMap("billingAccountId",billingAccountId,"isoCode",billingAccount.getString("accountCurrencyUomId")), locale));
-                    } else {
-                        // check here for too much application if a new record is
-                        // added (paymentApplicationId == null)
-                        if (amountApplied.compareTo(billingAccountApplyAvailable) == 1) {
-                            errorMessageList.add(UtilProperties.getMessage(resource, "AccountingBillingAccountLessRequested",
-                                        UtilMisc.toMap("billingAccountId",billingAccountId, 
-                                            "billingAccountApplyAvailable",billingAccountApplyAvailable,
-                                            "amountApplied",amountApplied,"isoCode",billingAccount.getString("accountCurrencyUomId")),locale));
-                        }
-                    }
-                }
-            }
-
             // check the currency
             if (billingAccount.get("accountCurrencyUomId") != null && payment.get("currencyUomId") != null && 
                     !billingAccount.getString("accountCurrencyUomId").equals(payment.getString("currencyUomId"))) {
@@ -2403,8 +2391,7 @@ public class InvoiceServices {
             
             if (invoice == null) {
                 errorMessageList.add(UtilProperties.getMessage(resource, "AccountingInvoiceNotFound",UtilMisc.toMap("invoiceId",invoiceId),locale));
-            }
-            else { // check the invoice and when supplied the invoice item...
+            } else { // check the invoice and when supplied the invoice item...
                 
                 if (invoice.getString("statusId").equals("INVOICE_CANCELLED")) {
                     errorMessageList.add(UtilProperties.getMessage(resource,"AccountingInvoiceCancelledCannotApplyTo",UtilMisc.toMap("invoiceId",invoiceId),locale));
@@ -2492,9 +2479,6 @@ public class InvoiceServices {
         BigDecimal newInvoiceItemApplyAvailable = invoiceItemApplyAvailable; 
         // amount available on the invoiceItem taking into account if the itemnumber has changed
         BigDecimal newToPaymentApplyAvailable = toPaymentApplyAvailable; 
-        // amount available on the Billing Account taking into account if the billing account number has changed
-        BigDecimal newBillingAccountApplyAvailable = billingAccountApplyAvailable; 
-        // amount available on the Billing Account taking into account if the billing account number has changed
         BigDecimal newPaymentApplyAvailable = paymentApplyAvailable;
         GenericValue paymentApplication = null;
         if (paymentApplicationId == null) {
@@ -2618,24 +2602,6 @@ public class InvoiceServices {
                     }
 
                 }
-                // check the billing account when only the amountApplied has
-                // changed,
-                // change in account number is already checked in the billing
-                // account section
-                if (billingAccountId != null && billingAccountId.equals(paymentApplication.getString("billingAccountId"))) {
-                    newBillingAccountApplyAvailable = billingAccountApplyAvailable.subtract(paymentApplication.getBigDecimal("amountApplied")).add(amountApplied).setScale(decimals, rounding);
-                    if (newBillingAccountApplyAvailable.compareTo(ZERO) < 0) {
-                        errorMessageList.add(UtilProperties.getMessage(resource, "AccountingBillingAccountNotEnough",UtilMisc.toMap("billingAccountId",billingAccountId,"newBillingAccountApplyAvailable",newBillingAccountApplyAvailable,"amountApplied",amountApplied,"isoCode", billingAccount.getString("accountCurrencyUomId")),locale));
-                    }
-                } else if (billingAccountId != null) {
-                    // billing account entered number has changed so we have to
-                    // check the new billing account number.
-                    newBillingAccountApplyAvailable = billingAccountApplyAvailable.add(amountApplied).setScale(decimals, rounding);
-                    if (newBillingAccountApplyAvailable.compareTo(ZERO) < 0) {
-                        errorMessageList.add(UtilProperties.getMessage(resource, "AccountingBillingAccountNotEnough",UtilMisc.toMap("billingAccountId",billingAccountId,"newBillingAccountApplyAvailable",newBillingAccountApplyAvailable,"amountApplied",amountApplied,"isoCode", billingAccount.getString("accountCurrencyUomId")),locale));
-                    }
-
-                }
             }
             if (debug) Debug.logInfo("paymentApplication record info retrieved and checked...", module);
         }
@@ -2657,10 +2623,6 @@ public class InvoiceServices {
                 Debug.logInfo(" toPayment(" + toPaymentId + ") amount not yet applied: " + newToPaymentApplyAvailable + " Payment(" + paymentId + ") amount not yet applied: " + newPaymentApplyAvailable + " Requested amount to apply:" + amountApplied, module);
                 toMessage = UtilProperties.getMessage(resource, "AccountingApplicationToPayment",UtilMisc.toMap("paymentId",toPaymentId),locale);
             }
-            if (billingAccountId != null) {
-                Debug.logInfo(" billingAccount(" + billingAccountId + ") amount not yet applied: " + newBillingAccountApplyAvailable + " Payment(" + paymentId + ") amount not yet applied: " + newPaymentApplyAvailable + " Requested amount to apply:" + amountApplied, module);
-                toMessage = UtilProperties.getMessage(resource, "AccountingApplicationToBillingAccount",UtilMisc.toMap("billingAccountId",billingAccountId),locale);
-            }
             if (taxAuthGeoId != null) {
                 Debug.logInfo(" taxAuthGeoId(" + taxAuthGeoId + ")  Payment(" + paymentId + ") amount not yet applied: " + newPaymentApplyAvailable + " Requested amount to apply:" + amountApplied, module);
                 toMessage = UtilProperties.getMessage(resource, "AccountingApplicationToTax",UtilMisc.toMap("taxAuthGeoId",taxAuthGeoId),locale);
@@ -2673,7 +2635,7 @@ public class InvoiceServices {
                 amountApplied = newInvoiceApplyAvailable;
                 toMessage = UtilProperties.getMessage(resource, "AccountingApplicationToInvoice",UtilMisc.toMap("invoiceId",invoiceId),locale);
             }
-            if (toPaymentId != null && newToPaymentApplyAvailable.compareTo(amountApplied) == 1) {
+            if (toPaymentId != null && newToPaymentApplyAvailable.compareTo(amountApplied) < 0) {
                 amountApplied = newToPaymentApplyAvailable;
                 toMessage = UtilProperties.getMessage(resource, "AccountingApplicationToPayment",UtilMisc.toMap("paymentId",toPaymentId),locale);
             }
@@ -2681,8 +2643,7 @@ public class InvoiceServices {
         
         if (amountApplied.signum() == 0) {
             errorMessageList.add(UtilProperties.getMessage(resource, "AccountingNoAmount",locale));
-        }
-        else {
+        } else {
             successMessage = UtilProperties.getMessage(resource, "AccountingApplicationSuccess",UtilMisc.toMap("amountApplied",amountApplied,"paymentId",paymentId,"isoCode", payment.getString("currencyUomId"),"toMessage",toMessage),locale);
         }
         
@@ -2720,7 +2681,7 @@ public class InvoiceServices {
                 paymentApplication.set("invoiceItemSeqId", null);
                 paymentApplication.set("toPaymentId", null);
                 paymentApplication.set("amountApplied", new Double(amountApplied.doubleValue()));
-                paymentApplication.set("billingAccountId", null);
+                paymentApplication.set("billingAccountId", billingAccountId);
                 paymentApplication.set("taxAuthGeoId", null);
                 if (debug) Debug.logInfo("creating new paymentapplication", module);
                 return storePaymentApplication(delegator, paymentApplication,locale);
