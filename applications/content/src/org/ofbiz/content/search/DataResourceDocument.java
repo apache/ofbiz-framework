@@ -35,6 +35,9 @@ import org.ofbiz.entity.GenericValue;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.document.Field.Index;
+import org.apache.lucene.document.Field.Store;
+import org.apache.lucene.document.Field.TermVector;
 
 /**
  * DataResourceDocument Class
@@ -43,9 +46,9 @@ import org.apache.lucene.document.Field;
 public class DataResourceDocument {
 	static char dirSep = System.getProperty("file.separator").charAt(0);
     public static final String module = ContentDocument.class.getName();
-	
+
 	public static Document Document(String id, GenericDelegator delegator, Map context) throws InterruptedException  {
-	  	
+
 		Document doc = null;
 		GenericValue dataResource = null;
 	  	try {
@@ -56,9 +59,9 @@ public class DataResourceDocument {
 	  	}
 	  	// make a new, empty document
 	  	doc = new Document();
-	  	
-	  	doc.add(Field.Keyword("dataResourceId", id));
-	  	
+
+	  	doc.add(new Field("dataResourceId", id, Store.YES, Index.UN_TOKENIZED, TermVector.NO));
+
 	  	String mimeTypeId = dataResource.getString("mimeTypeId");
 	    if (UtilValidate.isEmpty(mimeTypeId)) {
             mimeTypeId = "text/html";
@@ -69,7 +72,7 @@ public class DataResourceDocument {
         if (UtilValidate.isNotEmpty(currentLocaleString)) {
             locale = UtilMisc.parseLocale(currentLocaleString);
         }
-        
+
         StringWriter outWriter = new StringWriter();
 	  	try {
 	  	    DataResourceWorker.writeDataResourceText(dataResource, mimeTypeId, locale, context, delegator, outWriter, true);
@@ -80,9 +83,9 @@ public class DataResourceDocument {
 	  	}
 	  	String text = outWriter.toString();
 	  	Debug.logInfo("in DataResourceDocument, text:" + text, module);
-                if (UtilValidate.isNotEmpty(text)) 
-	  	    doc.add(Field.UnStored("content", text));
-	    
+                if (UtilValidate.isNotEmpty(text))
+	  	    doc.add(new Field("content", text, Store.NO, Index.TOKENIZED, TermVector.NO));
+
 	    return doc;
 	}
 
