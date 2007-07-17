@@ -349,18 +349,14 @@
         <section>
             <actions>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <set field="thruDate" value="${bsh: org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
             </actions>
             <widgets>
                 <container style="screenlet">
-                    <label text="${context.thruDate}"></label>
-                    <container style="screenlet-header">
-                        <platform-specific>
-                            <html>
-                                <html-template location="component://party/webapp/partymgr/party/profileblocks/ShipperAccount.ftl"/>
-                            </html>
-                        </platform-specific> 
-                    </container>
+                    <platform-specific>
+                        <html>
+                            <html-template location="component://party/webapp/partymgr/party/profileblocks/ShipperAccount.ftl"/>
+                        </html>
+                    </platform-specific> 
                     <container style="screenlet-body">
                         <include-form name="ListCarrierAccounts" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                     </container>
