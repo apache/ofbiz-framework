@@ -104,6 +104,16 @@ Programmer's Guide and Specification" and freely available
 to the public at http://java.sun.com/docs/books/jni.
 
 =========================================================================
+==  Apache Lucene Notice                                               ==
+=========================================================================
+
+The snowball stemmers in
+  contrib/snowball/src/java/net/sf/snowball
+were developed by Martin Porter and Richard Boulton.
+The full snowball package is available from
+  http://snowball.tartarus.org/
+
+=========================================================================
 ==  Apache Xerces Java Notice                                          ==
 =========================================================================
 

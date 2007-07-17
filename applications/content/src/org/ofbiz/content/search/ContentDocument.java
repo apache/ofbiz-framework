@@ -40,6 +40,9 @@ import org.ofbiz.service.LocalDispatcher;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.document.Field.Index;
+import org.apache.lucene.document.Field.Store;
+import org.apache.lucene.document.Field.TermVector;
 
 /**
  * ContentDocument Class
@@ -49,9 +52,9 @@ public class ContentDocument {
 
     static char dirSep = System.getProperty("file.separator").charAt(0);
     public static final String module = ContentDocument.class.getName();
-	
+
 	public static Document Document(String id, GenericDelegator delegator, LocalDispatcher dispatcher) throws InterruptedException  {
-	  	
+
 		Document doc = null;
 		GenericValue content;
 	  	try {
@@ -60,19 +63,19 @@ public class ContentDocument {
 	  		Debug.logError(e, module);
 	  		return doc;
 	  	}
-	  	
+
         Map map = new HashMap();
 	  	doc = Document(content, map, dispatcher);
         return doc;
 	}
-	
+
 	public static Document Document(GenericValue content, Map context, LocalDispatcher dispatcher) throws InterruptedException {
 
 		Document doc;
 		// make a new, empty document
 		doc = new Document();
 		String contentId = content.getString("contentId");
-		doc.add(Field.Keyword("contentId", contentId));
+		doc.add(new Field("contentId", contentId, Store.YES, Index.UN_TOKENIZED, TermVector.NO));
 		// Add the last modified date of the file a field named "modified". Use
 		// a
 		// Keyword field, so that it's searchable, but so that no attempt is
@@ -83,14 +86,14 @@ public class ContentDocument {
 			modDate = (Timestamp) content.get("createdDate");
 		}
 		if (modDate != null) {
-			doc.add(Field.Keyword("modified", modDate.toString()));
+			doc.add(new Field("modified", modDate.toString(), Store.YES, Index.UN_TOKENIZED, TermVector.NO));
 		}
 		String contentName = content.getString("contentName");
 		if (UtilValidate.isNotEmpty(contentName))
-			doc.add(Field.Text("title", contentName));
+			doc.add(new Field("title", contentName, Store.YES, Index.TOKENIZED, TermVector.NO));
 		String description = content.getString("description");
 		if (UtilValidate.isNotEmpty(description))
-			doc.add(Field.Text("description", description));
+			doc.add(new Field("description", description, Store.YES, Index.TOKENIZED, TermVector.NO));
 		List ancestorList = new ArrayList();
 		GenericDelegator delegator = content.getDelegator();
 		ContentWorker.getContentAncestryAll(delegator, contentId, "WEB_SITE_PUB_PT", "TO", ancestorList);
@@ -98,7 +101,7 @@ public class ContentDocument {
 		//Debug.logInfo("in ContentDocument, ancestorString:" + ancestorString,
 		// module);
 		if (UtilValidate.isNotEmpty(ancestorString)) {
-			Field field = Field.UnStored("site", ancestorString);
+			Field field = new Field("site", ancestorString, Store.NO, Index.TOKENIZED, TermVector.NO);
 			//Debug.logInfo("in ContentDocument, field:" + field.stringValue(),
 			// module);
 			doc.add(field);
@@ -161,7 +164,7 @@ public class ContentDocument {
 		}
 		//Debug.logInfo("in DataResourceDocument, text:" + text, module);
 		if (UtilValidate.isNotEmpty(text)) {
-			Field field = Field.UnStored("content", text);
+			Field field = new Field("content", text, Store.NO, Index.TOKENIZED, TermVector.NO);
 			//Debug.logInfo("in ContentDocument, field:" + field.stringValue(), module);
 			doc.add(field);
 		}
@@ -184,7 +187,7 @@ public class ContentDocument {
 		String featureString = StringUtil.join(featureList, " ");
 		//Debug.logInfo("in ContentDocument, featureString:" + featureString, module);
 		if (UtilValidate.isNotEmpty(featureString)) {
-			Field field = Field.UnStored("feature", featureString);
+			Field field = new Field("feature", featureString, Store.NO, Index.TOKENIZED, TermVector.NO);
 			doc.add(field);
 		}
 		return true;

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -70,11 +70,11 @@ public class SearchWorker {
                         Iterator iter2 = subContentList.iterator();
                         while (iter2.hasNext()) {
                             GenericValue subContent = (GenericValue)iter2.next();
-                            contentIdList.add(subContent.getString("contentId")); 
+                            contentIdList.add(subContent.getString("contentId"));
                         }
         	  	//if (Debug.infoOn()) Debug.logInfo("in indexTree, contentIdList:" + contentIdList, module);
                         indexContentList(contentIdList, delegator, dispatcher, context);
-        
+
                         String subSiteId = siteContent.getString("contentId");
                         indexTree(dispatcher, delegator, subSiteId, context, path);
                     } else {
@@ -91,12 +91,12 @@ public class SearchWorker {
             //if (Debug.infoOn()) Debug.logInfo("in indexTree, results:" + results, module);
             return results;
         }
-	
+
 	public static void indexContentList(List idList, GenericDelegator delegator, LocalDispatcher dispatcher, Map context) throws Exception {
 		String path = null;
 		indexContentList(dispatcher, delegator, context, idList, path);
 	}
-	
+
 	public static void indexContentList(LocalDispatcher dispatcher, GenericDelegator delegator, Map context, List idList, String path) throws Exception {
 		String indexAllPath = getIndexPath(path);
 		if (Debug.infoOn())
@@ -152,8 +152,8 @@ public class SearchWorker {
 		writer.optimize();
 		writer.close();
 	}
-	
-	
+
+
 	public static void deleteContentDocument(GenericValue content, String path) throws Exception {
 	    String indexAllPath = null;
 	    indexAllPath = getIndexPath(path);
@@ -161,12 +161,12 @@ public class SearchWorker {
             deleteContentDocument(content, reader);
             reader.close();
 	}
-	
+
 	public static void deleteContentDocument(GenericValue content, IndexReader reader) throws Exception {
             String contentId = content.getString("contentId");
 	    Term term = new Term("contentId", contentId);
 	    if (Debug.infoOn()) Debug.logInfo("in indexContent, term:" + term, module);
-	    int qtyDeleted = reader.delete(term);
+	    int qtyDeleted = reader.deleteDocuments(term);
 	    if (Debug.infoOn()) Debug.logInfo("in indexContent, qtyDeleted:" + term, module);
 	    String dataResourceId = content.getString("dataResourceId");
 	    if (dataResourceId != null) {
@@ -174,12 +174,12 @@ public class SearchWorker {
 	    }
 
 	}
-	
+
 
 	public static void deleteDataResourceDocument(String dataResourceId, IndexReader reader) throws Exception {
 	    Term term = new Term("dataResourceId", dataResourceId);
 	    if (Debug.infoOn()) Debug.logInfo("in indexContent, term:" + term, module);
-	    int qtyDeleted = reader.delete(term);
+	    int qtyDeleted = reader.deleteDocuments(term);
 	    if (Debug.infoOn()) Debug.logInfo("in indexContent, qtyDeleted:" + term, module);
 
 	}
@@ -194,12 +194,12 @@ public class SearchWorker {
 		   	writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true);
 	                if (Debug.infoOn()) Debug.logInfo("Created new directory:" + indexAllPath, module);
 		}
-		
+
 		indexContent(dispatcher, delegator, context, content, writer);
        	writer.optimize();
     	writer.close();
 	}
-	
+
 	public static void indexContent(LocalDispatcher dispatcher, GenericDelegator delegator, Map context, GenericValue content, IndexWriter writer) throws Exception {
 	    Document doc = ContentDocument.Document(content, context, dispatcher);
 	    //if (Debug.infoOn()) Debug.logInfo("in indexContent, content:" + content, module);
@@ -216,14 +216,14 @@ public class SearchWorker {
                 indexDataResource(delegator, context, dataResourceId, writer);
             }
             */
-        
+
 	}
-	
+
 	public static void indexDataResource(GenericDelegator delegator, Map context, String id) throws Exception {
 		String path = null;
 		indexDataResource(delegator, context, id, path );
 	}
-	
+
 	public static void indexDataResource(GenericDelegator delegator, Map context, String id, String path) throws Exception {
 		String indexAllPath = getIndexPath(path);
 		IndexWriter writer = null;
@@ -231,7 +231,7 @@ public class SearchWorker {
 		    writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false);
 		} catch(FileNotFoundException e) {
 		    writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true);
-		}	
+		}
 		indexDataResource(delegator, context, id, writer);
 	    writer.optimize();
             writer.close();
@@ -242,7 +242,7 @@ public class SearchWorker {
 	    Document doc = DataResourceDocument.Document(id, delegator, context);
 	    writer.addDocument(doc);
 	}
-	
+
 	public static String getIndexPath(String path) {
 		String indexAllPath = path;
 		if (UtilValidate.isEmpty(indexAllPath))
