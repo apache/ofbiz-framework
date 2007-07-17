@@ -129,9 +129,9 @@
         -->
         <field name="defaultCurrencyUomId">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
-                <entity-options entity-name="Uom" key-field-name="uomId" description="${description} [${uomId}]">
-                    <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="description"/>
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="abbreviation"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -611,9 +611,9 @@
         </field>
         <field name="puom" title="${uiLabelMap.ProductUnitOfMeasure}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Uom" key-field-name="uomId" description="${description}">
-                    <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="description"/>
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="abbreviation"/>
                 </entity-options>
             </drop-down>
         </field>

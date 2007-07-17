@@ -102,7 +102,7 @@ under the License.
             <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="description"/>
+                    <entity-order-by field-name="abbreviation"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -139,7 +139,7 @@ under the License.
             <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="description"/>
+                    <entity-order-by field-name="abbreviation"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -200,7 +200,7 @@ under the License.
             <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="description"/>
+                    <entity-order-by field-name="abbreviation"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -209,7 +209,7 @@ under the License.
             <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="description"/>
+                    <entity-order-by field-name="abbreviation"/>
                 </entity-options>
             </drop-down>
         </field>

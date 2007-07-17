@@ -176,9 +176,9 @@ under the License.
         </field>
         <field name="amountUomId">
             <drop-down allow-empty="true">
-                <entity-options description="${uomId} - ${description}" entity-name="Uom" key-field-name="uomId">
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="uomId"/>
+                    <entity-order-by field-name="abbreviation"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -198,9 +198,9 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"/>
         <field name="amountUomId">
             <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
-                <entity-options description="${uomId} - ${description}" entity-name="Uom" key-field-name="uomId">
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="uomId"/>
+                    <entity-order-by field-name="abbreviation"/>
                 </entity-options>
             </drop-down>
         </field>
