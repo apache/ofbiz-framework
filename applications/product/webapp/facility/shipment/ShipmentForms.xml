@@ -87,8 +87,8 @@ under the License.
         <field name="estimatedShipCost" title="${uiLabelMap.ProductEstimatedShipCost}"><text/></field>
         <field name="currencyUomId" title="${uiLabelMap.ProductCurrencyUomId}">
             <drop-down allow-empty="true" current="first-in-list">
-                <entity-options entity-name="Uom" key-field-name="uomId" description="${abbreviation} [${description}]">
-                    <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="abbreviation"/>
                 </entity-options>
             </drop-down>

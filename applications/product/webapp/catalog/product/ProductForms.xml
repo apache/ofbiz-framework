@@ -225,9 +225,9 @@ under the License.
         </field>
         <field name="currencyUomId" title="${uiLabelMap.ProductCurrencyUomId}" widget-style="selectBox">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
-                <entity-options entity-name="Uom" key-field-name="uomId" description="${description} [${uomId}]">
-                    <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="description"/>
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="abbreviation"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -555,9 +555,9 @@ under the License.
         </field>
         <field name="currencyUomId" title="${uiLabelMap.ProductCurrencyUomId}" use-when="supplierProduct==null">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
-                <entity-options entity-name="Uom" key-field-name="uomId" description="${description} [${uomId}]">
-                    <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="description"/>
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="abbreviation"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -888,9 +888,9 @@ under the License.
         </field>
         <field name="costUomId" title="${uiLabelMap.CommonCurrency}" widget-style="selectBox">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
-                <entity-options entity-name="Uom" key-field-name="uomId" description="${description} [${uomId}]">
-                    <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="description"/>
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="abbreviation"/>
                 </entity-options>
             </drop-down>
         </field>
