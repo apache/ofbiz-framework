@@ -31,4 +31,9 @@ under the License.
     <PartyRole partyId="BLOG_AUTHORS" roleTypeId="CONTENT_AUTHOR"/>
     <PartyRole partyId="BLOG_ADMINS" roleTypeId="CONTENT_ADMIN"/>
     <PartyRole partyId="BLOG_PUBLISHERS" roleTypeId="CONTENT_ADMIN"/>
+
+    <UserLogin userLoginId="blog_guest" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <UserLogin userLoginId="blog_admin" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <UserLogin userLoginId="blog_author" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <UserLogin userLoginId="blog_editor" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
 </entity-engine-xml>
