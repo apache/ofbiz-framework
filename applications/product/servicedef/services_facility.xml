@@ -59,7 +59,7 @@ under the License.
             <exclude field-name="availableToPromiseTotal"/>
             <exclude field-name="quantityOnHandTotal"/>
         </auto-attributes>
-        <attribute name="oldOwnerPartyId" mode="OUT" optional="false" type="String"/>
+        <attribute name="oldOwnerPartyId" mode="OUT" optional="true" type="String"/>
         <attribute name="oldProductId" mode="OUT" optional="true" type="String"/>
         <attribute name="oldStatusId" mode="OUT" optional="true" type="String"/>
     </service>
