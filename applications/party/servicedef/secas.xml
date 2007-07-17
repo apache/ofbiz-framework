@@ -80,9 +80,9 @@ under the License.
     </eca>
 
     <eca service="updatePassword" event="commit">
-        <action service="sendUpdatePersonalInfoEmailNotification" mode="sync"/>
+        <action service="sendUpdatePersonalInfoEmailNotification" mode="async" persist="true"/>
     </eca>    
     <eca service="updatePerson" event="commit">
-        <action service="sendUpdatePersonalInfoEmailNotification" mode="sync"/>
+        <action service="sendUpdatePersonalInfoEmailNotification" mode="async" persist="true"/>
     </eca>
 </service-eca>
