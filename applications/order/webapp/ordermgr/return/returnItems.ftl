@@ -58,9 +58,10 @@ under the License.
        <#else>
        <td>&nbsp;</td>
        </#if>
-       <#if (adjEditable)>
-           <#assign rowCount = rowCount + 1>
-       <#assign returnTotal = returnTotal + returnAdjustment.amount?default(0)>
+        <#if (adjEditable)>
+          <#assign rowCount = rowCount + 1>
+          <#assign returnTotal = returnTotal + returnAdjustment.amount?default(0)>
+       </#if>
     </tr>    
 </#macro>
 
