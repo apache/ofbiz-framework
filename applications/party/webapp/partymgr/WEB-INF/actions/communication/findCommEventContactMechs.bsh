@@ -29,16 +29,19 @@ import org.ofbiz.entity.util.EntityUtil;
 
 delegator = request.getAttribute("delegator");
 userLogin = request.getAttribute("userLogin");
+partyIdFrom = context.get("partyIdFrom");
+partyIdTo = context.get("partyIdTo");
 
 if (parameters.get("communicationEventTypeId") != null) {
    if (parameters.get("communicationEventTypeId").equals("EMAIL_COMMUNICATION")) {
-      userEmailAddresses = delegator.findByAnd("PartyContactWithPurpose", UtilMisc.toMap("contactMechTypeId", "EMAIL_ADDRESS", "partyId", userLogin.getString("partyId")));
+      userEmailAddresses = delegator.findByAnd("PartyContactWithPurpose", UtilMisc.toMap("contactMechTypeId", "EMAIL_ADDRESS", "partyId",  partyIdFrom)); 
       userEmailAddresses = EntityUtil.filterByDate(userEmailAddresses, UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate", true);
       context.put("userEmailAddresses", userEmailAddresses);    
       
-      targetEmailAddresses = delegator.findByAnd("PartyContactWithPurpose", UtilMisc.toMap("contactMechTypeId", "EMAIL_ADDRESS", "partyId", parameters.get("partyId")));
+      targetEmailAddresses = delegator.findByAnd("PartyContactWithPurpose", UtilMisc.toMap("contactMechTypeId", "EMAIL_ADDRESS", "partyId", partyIdTo));
       targetEmailAddresses = EntityUtil.filterByDate(targetEmailAddresses, UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate", true);
       context.put("targetEmailAddresses", targetEmailAddresses);    
    }
 }
+
 

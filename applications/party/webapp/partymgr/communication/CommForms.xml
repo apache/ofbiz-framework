@@ -90,7 +90,8 @@ under the License.
             </drop-down>            
         </field>
         <field name="contactMechIdFrom" title="${uiLabelMap.PartyFromContactMech}"
-            use-when="(parameters.get(&quot;communicationEventTypeId&quot;)==null)||!(parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;EMAIL_COMMUNICATION&quot;))"><text/></field>
+            use-when="(parameters.get(&quot;communicationEventTypeId&quot;)==null)||!(parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;EMAIL_COMMUNICATION&quot;))">
+            <lookup target-form-name="LookupPreferredContactMech" target-parameter="partyIdFrom"/></field>
         <!-- TODO: somehow show the address or email here, rather than just a contactMechId -->
         <field name="contactMechIdTo" title="${uiLabelMap.PartyToEmailAddress}"
             use-when="(parameters.get(&quot;communicationEventTypeId&quot;)!=null)&amp;&amp;(parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;EMAIL_COMMUNICATION&quot;))">
@@ -99,7 +100,8 @@ under the License.
             </drop-down>            
         </field>
         <field name="contactMechIdTo" title="${uiLabelMap.PartyToContactMech}"
-            use-when="(parameters.get(&quot;communicationEventTypeId&quot;)==null)||!(parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;EMAIL_COMMUNICATION&quot;))"><text/></field>
+            use-when="(parameters.get(&quot;communicationEventTypeId&quot;)==null)||!(parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;EMAIL_COMMUNICATION&quot;))">
+            <lookup target-form-name="LookupPreferredContactMech" target-parameter="partyIdTo"/></field>
         <field name="roleTypeIdFrom" use-when="commEventRoleTypeIdFrom!=null">
             <drop-down no-current-selected-key="_NA_">
                 <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">

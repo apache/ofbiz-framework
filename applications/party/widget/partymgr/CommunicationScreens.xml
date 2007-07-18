@@ -256,7 +256,7 @@ under the License.
 
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom" default-value="${userLogin.partyId}"/>
-                <set field="partyIdTo" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
+                <set field="partyIdTo" from-field="parameters.partyIdTo" default-value="${userLogin.partyId}"/>
                 <set field="contactMechIdFrom" from-field="parameters.contactMechIdFrom"/>
                 <set field="contactMechIdTo" from-field="parameters.contactMechIdTo"/>
                 <set field="contactMechTypeId" from-field="parameters.contactMechTypeId"/>
