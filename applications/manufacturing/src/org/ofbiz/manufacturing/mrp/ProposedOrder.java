@@ -209,9 +209,11 @@ public class ProposedOrder {
         if (quantity < reorderQuantity) {
             quantity = reorderQuantity;
         }
+        /*
         if (quantity < minimumStock) {
             quantity = minimumStock;
         }
+         */
     }
     
     /**
