@@ -471,6 +471,15 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
+        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of a list in the method environment that the error messages will be added to. 
+                    Will be created if it does not exist. 
+                    Defaults to "error_list". 
+                </xs:documentation>
+            </xs:annotation>                                                            
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="call-service" substitutionGroup="CallOperations">
         <xs:annotation>
