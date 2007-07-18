@@ -176,7 +176,7 @@ under the License.
             <result-to-field result-name="noteId" map-name="newEntity"/>
         </call-service>
         <create-value value-name="newEntity"/>
-        <field-to-result field-name="noteId" result-name="newEntity.noteId"/>
+        <field-to-result field-name="newEntity.noteId" result-name="noteId"/>
     </simple-method>
 
     <simple-method method-name="getCustRequestsByRole" short-description="Create Customer RequestItem Note">
