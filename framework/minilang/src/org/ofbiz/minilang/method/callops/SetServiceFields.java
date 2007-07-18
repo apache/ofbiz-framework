@@ -20,6 +20,8 @@ package org.ofbiz.minilang.method.callops;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
@@ -46,15 +48,23 @@ public class SetServiceFields extends MethodOperation {
     String serviceName;
     ContextAccessor mapAcsr;
     ContextAccessor toMapAcsr;
+    ContextAccessor errorListAcsr;
 
     public SetServiceFields(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         serviceName = element.getAttribute("service-name");
         mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
         toMapAcsr = new ContextAccessor(element.getAttribute("to-map-name"));
+        errorListAcsr = new ContextAccessor(element.getAttribute("error-list-name"), "error_list");
     }
 
     public boolean exec(MethodContext methodContext) {
+        List messages = (List) errorListAcsr.get(methodContext);
+        if (messages == null) {
+            messages = new LinkedList();
+            errorListAcsr.put(methodContext, messages);
+        }
+
         String serviceName = methodContext.expandString(this.serviceName);
 
         Map fromMap = (Map) mapAcsr.get(methodContext);
@@ -92,7 +102,7 @@ public class SetServiceFields extends MethodOperation {
                     } catch (GeneralException e) {
                         String errMsg = "Could not convert field value for the parameter/attribute: [" + modelParam.name + "] on the [" + serviceName + "] service to the [" + modelParam.type + "] type for the value [" + value + "]: " + e.toString();
                         Debug.logError(e, errMsg, module);
-                        throw new IllegalArgumentException(errMsg);
+                        messages.add(errMsg);
                     }
                 }
                 
