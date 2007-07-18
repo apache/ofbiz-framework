@@ -77,6 +77,7 @@ under the License.
     <Enumeration description="E-Mail Channel" enumCode="EMAIL_CAHNNEL" enumId="EMAIL_SALES_CHANNEL" sequenceId="05" enumTypeId="ORDER_SALES_CHANNEL"/>
     <Enumeration description="Snail Mail Channel" enumCode="SNAIL_CAHNNEL" enumId="SNAIL_SALES_CHANNEL" sequenceId="06" enumTypeId="ORDER_SALES_CHANNEL"/>
     <Enumeration description="Affiliate Channel" enumCode="AFFIL_CHANNEL" enumId="AFFIL_SALES_CHANNEL" sequenceId="07" enumTypeId="ORDER_SALES_CHANNEL"/>
+    <Enumeration description="eBay Channel" enumCode="EBAY_CHANNEL" enumId="EBAY_SALES_CHANNEL" sequenceId="08" enumTypeId="ORDER_SALES_CHANNEL"/>
     <Enumeration description="Unknown Channel" enumCode="UNKOWN_CAHNNEL" enumId="UNKNWN_SALES_CHANNEL" sequenceId="99" enumTypeId="ORDER_SALES_CHANNEL"/>
 
     <QuoteType description="Other" hasTable="N" parentTypeId="" quoteTypeId="OTHER_QUOTE"/>

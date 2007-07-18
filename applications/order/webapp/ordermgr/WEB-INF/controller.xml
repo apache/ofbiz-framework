@@ -1487,6 +1487,23 @@ under the License.
     <request-map uri="return.pdf"><security https="true" auth="true"/><response name="success" type="view" value="ReturnPDF"/></request-map>
     <request-map uri="shipGroups.pdf"><security https="true" auth="true"/><response name="success" type="view" value="ShipGroupsPDF"/></request-map>
 
+    <request-map uri="LookupProductCategory">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="LookupProductCategory"/>
+    </request-map>
+    
+    <request-map uri="ManageOrdersFromEbay">
+        <response name="success" type="view" value="ManageOrdersFromEbay"/>
+        <response name="failure" type="view" value="ManageOrdersFromEbay"/>
+    </request-map>
+    
+    <request-map uri="ImportOrdersFromEbay">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="importFromEbay"/>
+        <response name="success" type="view" value="ManageOrdersFromEbay"/>
+        <response name="failure" type="view" value="ManageOrdersFromEbay"/>
+    </request-map>
+    
     <!--
         These are just examples of reports developed using JasperReport and not really
         useful reports. In order to run them you'll have to follow the notes in the 
@@ -1505,15 +1522,12 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="orderreportlist"/>
     </request-map>
+    
+    
     <view-map name="orderreportlist" type="screen" page="component://order/widget/ordermgr/OrderReportScreens.xml#OrderReportList"/>
     <view-map name="orderreportjasper" type="jasperreportspdf" page="/reports/orderreport.xml" content-type="application/pdf" encoding="none"/>
     <view-map name="orderitemreportjasper" type="jasperreportspdf" page="/reports/orderitemreport.xml" content-type="application/pdf" encoding="none"/>
     -->
-
-    <request-map uri="LookupProductCategory">
-        <security auth="true" https="true"/>
-        <response name="success" type="view" value="LookupProductCategory"/>
-    </request-map>
 
     <!-- end of request mappings -->
 
@@ -1670,5 +1684,7 @@ under the License.
     <view-map name="ShipGroupsPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintScreens.xml#ShipGroupsPDF" content-type="application/pdf" encoding="none"/>
 
     <view-map name="SendConfirmationMail" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#SendOrderConfirmation"/>
+    <view-map name="ManageOrdersFromEbay" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#ManageOrdersFromEbay"/>
+    <view-map name="ListOrdersFromEbay" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#ListOrdersFromEbay"/>
     <!-- end of view mappings -->
 </site-conf>

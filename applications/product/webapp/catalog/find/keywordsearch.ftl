@@ -67,6 +67,11 @@ under the License.
         document.products.action="<@ofbizUrl>ProductsExportToGoogle</@ofbizUrl>";
         document.products.submit();
     }
+    
+    function exportToeBay() {
+        document.products.action="<@ofbizUrl>ProductsExportToEbay</@ofbizUrl>";
+        document.products.submit();
+    }
 </script>
 
 <#if productIds?has_content>
@@ -222,6 +227,7 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
   <b>${uiLabelMap.ProductSearchExportProductList}:</b> <a href="<@ofbizUrl>searchExportProductList?clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSearchExport}</a>
   <#if productIds?has_content>
     <a href="javascript:exportToGoogle();" class="buttontext">${uiLabelMap.ProductExportToGoogle}</a>
+    <a href="javascript:exportToeBay();" class="buttontext">${uiLabelMap.ProductExportToeBay}</a>
   </#if>
 </div>
 </#if>

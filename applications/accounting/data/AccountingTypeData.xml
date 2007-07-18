@@ -429,6 +429,7 @@ under the License.
     <PaymentMethodType description="Company Account" paymentMethodTypeId="COMPANY_ACCOUNT"/>
     <PaymentMethodType description="Billing Account" paymentMethodTypeId="EXT_BILLACT"/>
     <PaymentMethodType description="Cash On Delivery" paymentMethodTypeId="EXT_COD"/>
+    <PaymentMethodType description="eBay" paymentMethodTypeId="EXT_EBAY"/>
     <PaymentMethodType description="Offline Payment" paymentMethodTypeId="EXT_OFFLINE"/>
     <PaymentMethodType description="PayPal" paymentMethodTypeId="EXT_PAYPAL"/>
     <PaymentMethodType description="WorldPay" paymentMethodTypeId="EXT_WORLDPAY"/>

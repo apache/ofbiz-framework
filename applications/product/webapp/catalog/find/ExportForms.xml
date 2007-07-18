@@ -52,4 +52,18 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.ProductExportToGoogle}"><submit button-type="button"/></field>
     </form>
+    <form name="ProductsExportToEbay" type="single" target="PostProductsToEbay">
+        <field name="selectResult"><hidden/></field>
+        <field name="webSiteUrl"><text size="50" maxlength="250"/></field>
+        <field name="imageUrl"><text size="50" maxlength="250"/></field>
+        <field name="trackingCodeId" widget-style="selectBox">
+            <drop-down no-current-selected-key="_NA_">
+                <option key="_NA_" description="${uiLabelMap.ProductExportNoTrackingRequested}"/>
+                <entity-options entity-name="TrackingCode" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.ProductExportToeBay}"><submit button-type="button"/></field>
+    </form>
 </forms>

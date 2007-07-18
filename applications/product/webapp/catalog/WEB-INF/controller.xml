@@ -2407,6 +2407,18 @@ under the License.
         <response name="error" type="view" value="ProductsExportToGoogle"/>
     </request-map>
     
+     <request-map uri="ProductsExportToEbay">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ProductsExportToEbay"/>
+    </request-map>
+    
+    <request-map uri="PostProductsToEbay">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="exportToEbay"/>
+        <response name="success" type="view" value="ProductsExportToEbay"/>
+        <response name="error" type="view" value="ProductsExportToEbay"/>
+    </request-map>
+    
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -2541,6 +2553,7 @@ under the License.
     <view-map name="ListCarrierShipmentMethods" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListCarrierShipmentMethods"/>
 
     <view-map name="ProductsExportToGoogle" type="screen" page="component://product/widget/catalog/FindScreens.xml#ProductsExportToGoogle"/>
+    <view-map name="ProductsExportToEbay" type="screen" page="component://product/widget/catalog/FindScreens.xml#ProductsExportToEbay"/>
    
     <!-- Lookup request mappings -->
     <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
