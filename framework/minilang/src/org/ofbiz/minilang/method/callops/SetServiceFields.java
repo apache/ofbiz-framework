@@ -102,7 +102,9 @@ public class SetServiceFields extends MethodOperation {
                     } catch (GeneralException e) {
                         String errMsg = "Could not convert field value for the parameter/attribute: [" + modelParam.name + "] on the [" + serviceName + "] service to the [" + modelParam.type + "] type for the value [" + value + "]: " + e.toString();
                         Debug.logError(e, errMsg, module);
+                        // add the message to the list and set the value to null - tried and failed, just leave it out
                         messages.add(errMsg);
+                        value = null;
                     }
                 }
                 
