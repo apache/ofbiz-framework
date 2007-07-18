@@ -118,4 +118,36 @@ under the License.
         </field>
         <field name="addButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="ManageOrdersFromEbay" type="single" target="ImportOrdersFromEbay">
+        <field name="productStoreId">
+            <drop-down>
+                <entity-options entity-name="ProductStore" description="${storeName}" key-field-name="productStoreId">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><date-time/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"><date-time/></field>
+        <field name="submitButton" title="${uiLabelMap.OrderImportOrdersFromEbay}"><submit button-type="button"/></field>
+    </form>
+    <form name="ListOrdersFromEbay" type="list" list-name="orderList">
+        <field name="externalId" title="${uiLabelMap.OrderImportEbayItem}"><display/></field>
+        <field name="orderId"><display/></field>
+        <field name="createdDate"><display/></field>
+        <field name="productId"><display/></field>
+        <field name="title"><display/></field>
+        <field name="quantitySold"><display/></field>
+        <field name="amount"><display/></field>
+        <field name="shippingServiceCost"><display/></field>
+        <field name="amountPaid"><display/></field>
+        <field name="shippingService"><display/></field>
+        <field name="paymentMethodUsed"><display/></field>
+        <field name="eBayPaymentStatus"><display/></field>
+        <field name="checkoutStatus"><display/></field>
+        <field name="completeStatus"><display/></field>
+        <field name="paidTime"><display/></field>
+        <field name="shippedTime"><display/></field>
+        <field name="buyerName"><display/></field>
+        <field name="emailBuyer"><display/></field>
+    </form>
 </forms>

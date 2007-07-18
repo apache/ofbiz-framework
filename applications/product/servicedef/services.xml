@@ -1126,4 +1126,12 @@ under the License.
         <attribute type="String" mode="IN" name="statusId" optional="false"/>
         <attribute type="String" mode="IN" name="trackingCodeId" optional="true"/>
     </service>
+    <service name="exportToEbay" engine="java"
+             location="org.ofbiz.product.product.ProductsExportToEbay" invoke="exportToEbay" auth="true">
+        <description>Export products to eBay</description>
+        <attribute type="List" mode="IN" name="selectResult" optional="false"/>
+        <attribute type="String" mode="IN" name="webSiteUrl" optional="false"/>
+        <attribute type="String" mode="IN" name="imageUrl" optional="false"/>
+        <attribute type="String" mode="IN" name="trackingCodeId" optional="true"/>
+    </service>
 </services>

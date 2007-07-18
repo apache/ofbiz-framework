@@ -760,4 +760,13 @@ under the License.
         <attribute name="orderListSize" type="Integer" mode="OUT" optional="false"/>
     </service>
     
+    <!-- Import Orders Services -->    
+    <service name="importFromEbay" engine="java" transaction-timeout="300"
+             location="org.ofbiz.order.order.ImportOrdersFromEbay" invoke="importFromEbay" auth="true">
+        <description>Import Orders from eBay</description>
+        <attribute type="String" mode="IN" name="productStoreId" optional="false"/>
+        <attribute type="Timestamp" mode="IN" name="fromDate" optional="false"/>
+        <attribute type="Timestamp" mode="IN" name="thruDate" optional="false"/>
+        <attribute type="List" mode="OUT" name="orderList" optional="true"/>
+    </service>
 </services>
