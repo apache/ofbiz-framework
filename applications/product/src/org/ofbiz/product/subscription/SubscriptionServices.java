@@ -94,6 +94,7 @@ public class SubscriptionServices {
         Timestamp thruDate = lastSubscription != null ? (Timestamp) lastSubscription.get("thruDate") : null;
         if (thruDate == null) {
             // no thruDate? start with NOW
+            thruDate = nowTimestamp;
             newSubscription.set("fromDate", nowTimestamp);
         } else {
             // there is a thru date... if it is in the past, bring it up to NOW before adding on the time period
