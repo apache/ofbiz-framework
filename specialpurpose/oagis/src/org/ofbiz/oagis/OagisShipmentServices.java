@@ -43,6 +43,7 @@ import java.util.TreeSet;
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.HttpClient;
@@ -298,7 +299,8 @@ public class OagisShipmentServices {
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
-                Set correspondingPoIdSet = new TreeSet();
+                
+                Set correspondingPoIdSet = FastSet.newInstance();
                 try {
                     List orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", shipment.getString("primaryOrderId")));
                     Iterator oiIter = orderItems.iterator();
@@ -307,20 +309,22 @@ public class OagisShipmentServices {
                         String correspondingPoId = orderItem.getString("correspondingPoId");
                         if (correspondingPoId != null) {
 	                        correspondingPoIdSet.add(correspondingPoId);
-	                        bodyParameters.put("correspondingPoIdSet", correspondingPoIdSet);
                         }
                     }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
-                Set externalIdSet = new TreeSet();
+                bodyParameters.put("correspondingPoIdSet", correspondingPoIdSet);
+
+                Set externalIdSet = FastSet.newInstance();
                 try {
                     GenericValue primaryOrderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", shipment.getString("primaryOrderId")));
                     externalIdSet.add(primaryOrderHeader.getString("externalId"));
-                    bodyParameters.put("externalIdSet", externalIdSet);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
+                bodyParameters.put("externalIdSet", externalIdSet);
+                
                 // if order was a return replacement order (associated with return)
                 List returnItemResponses =  null;
                 List returnItemRespExprs = UtilMisc.toList(new EntityExpr("replacementOrderId", EntityOperator.NOT_EQUAL, null));
