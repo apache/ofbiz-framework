@@ -1145,7 +1145,7 @@ under the License.
         <field name="productId"><hidden/></field>
         <field name="subscriptionResourceId" widget-style="tabletext">
             <display-entity entity-name="SubscriptionResource" description="${description}">
-                <sub-hyperlink target="EditSubscriptionResource?subscriptionResourceId=${subscriptionResourceId}" description="${exampleFeatureId}" link-style="buttontext"/>
+                <sub-hyperlink target="EditSubscriptionResource?subscriptionResourceId=${subscriptionResourceId}" description="${subscriptionResourceId}" link-style="buttontext"/>
             </display-entity>
         </field>
         <field name="fromDate" widget-style="tabletext"><display/></field>
