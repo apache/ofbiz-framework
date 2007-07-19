@@ -92,11 +92,12 @@ public class ModelForm {
     protected FlexibleStringExpander paginateIndexField;
     protected FlexibleStringExpander paginateSizeField;
     protected FlexibleStringExpander overrideListSize;
+    protected FlexibleStringExpander paginateFirstLabel;
     protected FlexibleStringExpander paginatePreviousLabel;
     protected FlexibleStringExpander paginateNextLabel;
+    protected FlexibleStringExpander paginateLastLabel;
     protected String paginateTargetAnchor;
-    protected String paginatePreviousStyle;
-    protected String paginateNextStyle;
+    protected String paginateStyle;
     protected boolean separateColumns = false;
     protected boolean paginate = true;
     protected boolean useRowSubmit = false;
@@ -156,10 +157,15 @@ public class ModelForm {
     protected int defaultViewSize = DEFAULT_PAGE_SIZE;
     public static String DEFAULT_PAG_INDEX_FIELD = "viewIndex";
     public static String DEFAULT_PAG_SIZE_FIELD = "viewSize";
+    public static String DEFAULT_PAG_FIRST_LABEL = "First";
     public static String DEFAULT_PAG_PREV_LABEL = "Previous";
     public static String DEFAULT_PAG_NEXT_LABEL = "Next";
-    public static String DEFAULT_PAG_PREV_STYLE = "buttontext";
-    public static String DEFAULT_PAG_NEXT_STYLE = "buttontext";
+    public static String DEFAULT_PAG_LAST_LABEL = "Last";
+    public static String DEFAULT_PAG_STYLE = "nav-pager";
+    public static String DEFAULT_PAG_FIRST_STYLE = "nav-first";
+    public static String DEFAULT_PAG_PREV_STYLE = "nav-previous";
+    public static String DEFAULT_PAG_NEXT_STYLE = "nav-next";
+    public static String DEFAULT_PAG_LAST_STYLE = "nav-last";
     
     protected List actions;
     protected List rowActions;
@@ -373,17 +379,20 @@ public class ModelForm {
         if (this.overrideListSize == null || formElement.hasAttribute("override-list-size")) {
             this.overrideListSize = new FlexibleStringExpander(formElement.getAttribute("override-list-size"));
         }
+        if (this.paginateFirstLabel == null || formElement.hasAttribute("paginate-first-label")) {
+            this.paginateFirstLabel = new FlexibleStringExpander(formElement.getAttribute("paginate-first-label"));
+        }
         if (this.paginatePreviousLabel == null || formElement.hasAttribute("paginate-previous-label")) {
             this.paginatePreviousLabel = new FlexibleStringExpander(formElement.getAttribute("paginate-previous-label"));
         }
         if (this.paginateNextLabel == null || formElement.hasAttribute("paginate-next-label")) {
             this.paginateNextLabel = new FlexibleStringExpander(formElement.getAttribute("paginate-next-label"));
         }
-        if (this.paginatePreviousStyle == null || formElement.hasAttribute("paginate-previous-style")) {
-            setPaginatePreviousStyle(formElement.getAttribute("paginate-previous-style"));
+        if (this.paginateLastLabel == null || formElement.hasAttribute("paginate-last-label")) {
+            this.paginateLastLabel = new FlexibleStringExpander(formElement.getAttribute("paginate-last-label"));
         }
-        if (this.paginateNextStyle == null || formElement.hasAttribute("paginate-next-style")) {
-            setPaginateNextStyle(formElement.getAttribute("paginate-next-style"));
+        if (this.paginateStyle == null || formElement.hasAttribute("paginate-style")) {
+            setPaginateStyle(formElement.getAttribute("paginate-style"));
         }
         
         this.paginate = "true".equals(formElement.getAttribute("paginate"));
@@ -2101,6 +2110,14 @@ public class ModelForm {
         return viewSize;
     }
 
+    public String getPaginateFirstLabel(Map context) {
+        String field = this.paginateFirstLabel.expandString(context);
+        if (UtilValidate.isEmpty(field)) {
+            field = DEFAULT_PAG_FIRST_LABEL;
+        }
+        return field;
+    }
+
     public String getPaginatePreviousLabel(Map context) {
         String field = this.paginatePreviousLabel.expandString(context);
         if (UtilValidate.isEmpty(field)) {
@@ -2117,12 +2134,32 @@ public class ModelForm {
         return field;
     }
 
+    public String getPaginateLastLabel(Map context) {
+        String field = this.paginateLastLabel.expandString(context);
+        if (UtilValidate.isEmpty(field)) {
+            field = DEFAULT_PAG_LAST_LABEL;
+        }
+        return field;
+    }
+
+    public String getPaginateStyle() {
+        return this.paginateStyle;
+    }
+
+    public String getPaginateFirstStyle() {
+        return DEFAULT_PAG_FIRST_STYLE;
+    }
+
     public String getPaginatePreviousStyle() {
-        return this.paginatePreviousStyle;
+        return DEFAULT_PAG_PREV_STYLE;
     }
 
     public String getPaginateNextStyle() {
-        return this.paginateNextStyle;
+        return DEFAULT_PAG_NEXT_STYLE;
+    }
+
+    public String getPaginateLastStyle() {
+        return DEFAULT_PAG_LAST_STYLE;
     }
 
     public String getTargetWindow(Map context) {
@@ -2191,12 +2228,8 @@ public class ModelForm {
         this.paginateSizeField = new FlexibleStringExpander(string);
     }
 
-    public void setPaginatePreviousStyle(String string) {
-        this.paginatePreviousStyle = (UtilValidate.isEmpty(string) ? DEFAULT_PAG_PREV_STYLE : string);
-    }
-
-    public void setPaginateNextStyle(String string) {
-        this.paginateNextStyle = (UtilValidate.isEmpty(string) ? DEFAULT_PAG_NEXT_STYLE : string);
+    public void setPaginateStyle(String string) {
+        this.paginateStyle = (UtilValidate.isEmpty(string) ? DEFAULT_PAG_STYLE : string);
     }
 
     public void setDefaultViewSize(int val) {
@@ -2292,9 +2325,9 @@ public class ModelForm {
             highIndex = (viewIndex + 1) * viewSize;
         } else {
             viewIndex = 0;
-            viewSize = DEFAULT_PAGE_SIZE;
+            viewSize = defaultViewSize;
             lowIndex = 0;
-            highIndex = DEFAULT_PAGE_SIZE;
+            highIndex = defaultViewSize;
         }
         
         context.put("listSize", new Integer(listSize));
