@@ -114,11 +114,11 @@ under the License.
     <eca service="createShipmentReceipt" event="commit">
         <condition field-name="returnId" operator="is-not-empty"/>
         <action service="checkDecomposeInventoryItem" mode="sync"/>
-        <action service="updateReturnStatusFromReceipt" mode="sync"/>
+        <action service="updateReturnStatusFromReceipt" mode="sync" run-as-user="system"/>
     </eca>
     <eca service="createShipmentReceipt" event="commit">
         <condition field-name="orderId" operator="is-not-empty"/>
-        <action service="updateOrderStatusFromReceipt" mode="sync"/>
+        <action service="updateOrderStatusFromReceipt" mode="sync" run-as-user="system"/>
     </eca>
     <eca service="createShipmentReceipt" event="commit">
         <condition field-name="shipmentId" operator="is-not-empty"/>
