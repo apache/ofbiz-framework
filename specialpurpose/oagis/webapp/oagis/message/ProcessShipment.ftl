@@ -46,11 +46,11 @@
       <n:SHIPMENT>
         <of:DOCUMENTID>${shipment.shipmentId?if_exists}</of:DOCUMENTID>
         <#if shipperId?has_content>
-          <of:SHIPPERID>${shipperId}</of:SHIPPERID><#-- TODO: fill in from PartyCarrierAccount.accountNumber; make sure filter by from/thru date and PartyCarrierAccount.carrierPartyId==orderItemShipGroup.carrierPartyId; get most recent fromDate -->
+          <of:SHIPPERID>${shipperId}</of:SHIPPERID><#-- fill in from PartyCarrierAccount.accountNumber; make sure filter by from/thru date and PartyCarrierAccount.carrierPartyId==orderItemShipGroup.carrierPartyId; get most recent fromDate -->
         </#if>
         <of:CARRIER>${orderItemShipGroup.carrierPartyId?if_exists}</of:CARRIER>
         <#if shipperId?has_content>
-          <of:FRGHTTERMS>COLLECT</of:FRGHTTERMS><#-- TODO: if SHIPPERID?has_content then set to COLLECT -->
+          <of:FRGHTTERMS>COLLECT</of:FRGHTTERMS>
         <#else>
           <of:FRGHTTERMS>PREPAID</of:FRGHTTERMS>
         </#if>
@@ -100,20 +100,25 @@
             </n:DOCUMNTREF>
           </#list> 
         </n:SHIPITEM>
-        <#-- TODO: data preparation code to create the externalIdSet -->
         <#list externalIdSet?if_exists as externalId>
         <n:DOCUMNTREF>
           <of:DOCTYPE>PARTNER_SO</of:DOCTYPE>
           <of:DOCUMENTID>${externalId?if_exists}</of:DOCUMENTID>
         </n:DOCUMNTREF>
         </#list>
-        <#-- TODO: data preparation code to create the correspondingPoIdSet -->
         <#list correspondingPoIdSet?if_exists as correspondingPoId>
         <n:DOCUMNTREF>
           <of:DOCTYPE>CUST_PO</of:DOCTYPE>
           <of:DOCUMENTID>${correspondingPoId?if_exists}</of:DOCUMENTID>
         </n:DOCUMNTREF>
         </#list>
+        <#-- TODO: data preparation code to create the replacementReturnId; this is the returnId if the order is a return replacement order -->
+        <#if replacementReturnId?exists>
+        <n:DOCUMNTREF>
+          <of:DOCTYPE>RMA</of:DOCTYPE>
+          <of:DOCUMENTID>${replacementReturnId}</of:DOCUMENTID>
+        </n:DOCUMNTREF>
+        </#if>
       </n:SHIPMENT>
     </n:PROCESS_SHIPMENT>
   </n:DATAAREA>
