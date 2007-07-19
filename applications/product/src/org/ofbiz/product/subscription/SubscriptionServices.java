@@ -54,6 +54,7 @@ public class SubscriptionServices {
         
         String partyId = (String) context.get("partyId");
         String subscriptionResourceId = (String) context.get("subscriptionResourceId");
+        String inventoryItemId = (String) context.get("inventoryItemId");
         String roleTypeId = (String) context.get("useRoleTypeId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Integer useTime = (Integer) context.get("useTime");
@@ -63,9 +64,12 @@ public class SubscriptionServices {
         
         GenericValue lastSubscription = null;
         try {
-            List subscriptionList = delegator.findByAndCache("Subscription", UtilMisc.toMap("partyId", partyId, "subscriptionResourceId", subscriptionResourceId));
-            List listFiltered = EntityUtil.filterByDate(subscriptionList, true);
-            List listOrdered = EntityUtil.orderBy(listFiltered, UtilMisc.toList("-fromDate"));
+            Map subscriptionFindMap = UtilMisc.toMap("partyId", partyId, "subscriptionResourceId", subscriptionResourceId);
+            // if this subscription is attached to something the customer owns, filter by that too
+            if (UtilValidate.isNotEmpty(inventoryItemId)) subscriptionFindMap.put("inventoryItemId", inventoryItemId);
+            List subscriptionList = delegator.findByAnd("Subscription", subscriptionFindMap);
+            // DEJ20070718 DON'T filter by date, we want to consider all subscriptions: List listFiltered = EntityUtil.filterByDate(subscriptionList, true);
+            List listOrdered = EntityUtil.orderBy(subscriptionList, UtilMisc.toList("-fromDate"));
             if (listOrdered.size() > 0) {
                 lastSubscription = (GenericValue) listOrdered.get(0);
             }
@@ -85,12 +89,11 @@ public class SubscriptionServices {
         } else {
             newSubscription = lastSubscription;
         }
-        newSubscription.set("inventoryItemId", context.get("inventoryItemId"));
+        newSubscription.set("inventoryItemId", inventoryItemId);
 
         Timestamp thruDate = lastSubscription != null ? (Timestamp) lastSubscription.get("thruDate") : null;
         if (thruDate == null) {
             // no thruDate? start with NOW
-            thruDate = nowTimestamp;
             newSubscription.set("fromDate", nowTimestamp);
         } else {
             // there is a thru date... if it is in the past, bring it up to NOW before adding on the time period
@@ -109,6 +112,7 @@ public class SubscriptionServices {
             calendar.add(times[0], (useTime.intValue() * times[1]));
         } else {
             Debug.logWarning("Don't know anything about useTimeUomId [" + useTimeUomId + "], defaulting to month", module);
+            calendar.add(Calendar.MONTH, (useTime.intValue() * times[1]));
         }
        
         thruDate = new Timestamp(calendar.getTimeInMillis());
