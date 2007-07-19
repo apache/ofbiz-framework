@@ -130,7 +130,7 @@ public class TestRunContainer implements Container {
     class JunitListener implements TestListener {
 
         public void addError(Test test, Throwable throwable) {
-            Debug.logWarning("[JUNIT (error)] - " + test.getClass().getName() + " : " + throwable.getMessage(), module);
+            Debug.logWarning(throwable, "[JUNIT (error)] - " + test.getClass().getName() + " : " + throwable.toString(), module);
         }
 
         public void addFailure(Test test, AssertionFailedError assertionFailedError) {
