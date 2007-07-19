@@ -565,7 +565,7 @@ under the License.
             <display-entity entity-name="Uom" key-field-name="uomId"/>
         </field>
         <field name="supplierPrefOrderId">
-            <drop-down allow-empty="true">
+            <drop-down allow-empty="true" no-current-selected-key="10_MAIN_SUPPL">
                 <entity-options entity-name="SupplierPrefOrder" key-field-name="supplierPrefOrderId" description="${description}">
                     <entity-order-by field-name="supplierPrefOrderId"/>
                 </entity-options>
