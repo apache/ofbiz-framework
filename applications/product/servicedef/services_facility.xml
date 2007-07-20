@@ -87,7 +87,9 @@ under the License.
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemDetail" auth="true">
         <description>Create an createInventoryItemDetail - note that the quantityOnHand and availableToPromise are relative (positive or negative) and will be added to the corresponding value on the given InventoryItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true">
+            <exclude field-name="effectiveDate"/>
+        </auto-attributes>
         <override name="inventoryItemDetailSeqId" mode="OUT"/>
     </service>
     <service name="updateInventoryItemFromDetail" default-entity-name="InventoryItemDetail" engine="simple"
