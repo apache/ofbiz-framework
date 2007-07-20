@@ -112,7 +112,7 @@
           <of:DOCUMENTID>${correspondingPoId?if_exists}</of:DOCUMENTID>
         </n:DOCUMNTREF>
         </#list>
-        <#-- TODO: data preparation code to create the replacementReturnId; this is the returnId if the order is a return replacement order -->
+        <#-- data preparation code to create the replacementReturnId; this is the returnId if the order is a return replacement order -->
         <#if replacementReturnId?exists>
         <n:DOCUMNTREF>
           <of:DOCTYPE>RMA</of:DOCTYPE>
