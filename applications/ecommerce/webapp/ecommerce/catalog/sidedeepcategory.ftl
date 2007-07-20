@@ -21,42 +21,50 @@ under the License.
 <#if (requestAttributes.curCategoryId)?exists><#assign curCategoryId = requestAttributes.curCategoryId></#if>
 
 <#-- looping macro -->
-<#macro categoryList parentCategory category>
+<#macro categoryList parentCategory category wrapInBox>
   <#if parentCategory.productCategoryId != category.productCategoryId>
     <#local pStr = "/~pcategory=" + parentCategory.productCategoryId>
   </#if>
-  
-  <#if curCategoryId?exists && curCategoryId == category.productCategoryId>
-    <div class="browsecategorytext">
-        <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?exists>        
-            -&nbsp;<a href="<@ofbizUrl>category/~category_id=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="browsecategorybuttondisabled">${catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")}</a>
-        <#elseif catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("DESCRIPTION")?exists>        
-            -&nbsp;<a href="<@ofbizUrl>category/~category_id=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="browsecategorybuttondisabled">${catContentWrappers[category.productCategoryId].get("DESCRIPTION")}</a>
-        <#else>          
-            -&nbsp;<a href="<@ofbizUrl>category/~category_id=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="browsecategorybuttondisabled">${category.categoryName?default(category.description)}</a>
-        </#if>
-    </div>
+  <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?exists>
+      <#assign categoryName = catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")>
   <#else>
-    <div class="browsecategorytext">
-        <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?exists> 
-            -&nbsp;<a href="<@ofbizUrl>category/~category_id=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="browsecategorybutton">${catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")}</a>
-        <#elseif catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("DESCRIPTION")?exists> 
-            -&nbsp;<a href="<@ofbizUrl>category/~category_id=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="browsecategorybutton">${catContentWrappers[category.productCategoryId].get("DESCRIPTION")}</a>
-        <#else>          
-            -&nbsp;<a href="<@ofbizUrl>category/~category_id=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="browsecategorybutton">${category.categoryName?default(category.description)}</a>
-        </#if>
-    </div>
+      <#assign categoryName = category.categoryName?if_exists>
   </#if>
-  
+  <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("DESCRIPTION")?exists> 
+      <#assign categoryDescription = catContentWrappers[category.productCategoryId].get("DESCRIPTION")>
+  <#else>
+      <#assign categoryDescription = category.description?if_exists>
+  </#if>
+  <#if curCategoryId?exists && curCategoryId == category.productCategoryId>
+      <#assign browseCategoryButtonClass = "browsecategorybuttondisabled">
+  <#else>
+      <#assign browseCategoryButtonClass = "browsecategorybutton">
+  </#if>
+  <#if wrapInBox == "Y">
+  <div class="screenlet">
+    <div class="screenlet-header">
+      <div class="boxhead"><#if categoryName?has_content>${categoryName}<#else>${categoryDescription?default("")}</#if></div>
+    </div>
+    <div class="screenlet-body">
+      <div style='margin-left: 10px;'>
+  </#if>
+        <div class="browsecategorytext">
+          -&nbsp;<a href="<@ofbizUrl>category/~category_id=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="${browseCategoryButtonClass}"><#if categoryDescription?has_content>${categoryDescription}<#else>${categoryName?default("")}</#if></a>
+        </div>
   <#if (Static["org.ofbiz.product.category.CategoryWorker"].checkTrailItem(request, category.getString("productCategoryId"))) || (curCategoryId?exists && curCategoryId == category.productCategoryId)>
     <#local subCatList = Static["org.ofbiz.product.category.CategoryWorker"].getRelatedCategoriesRet(request, "subCatList", category.getString("productCategoryId"), true)>
     <#if subCatList?exists>
       <#list subCatList as subCat>
         <div style="margin-left: 10px">
-          <@categoryList parentCategory=category category=subCat/>
+          <@categoryList parentCategory=category category=subCat wrapInBox="N"/>
         </div>
       </#list>
     </#if>
+  </#if>
+  <#if wrapInBox == "Y">
+      </div>
+    </div>
+  </div>
   </#if>
 </#macro>
 
@@ -68,7 +76,7 @@ under the License.
     <div class="screenlet-body">
         <div style='margin-left: 10px;'>
           <#list topLevelList as category>
-            <@categoryList parentCategory=category category=category/>
+            <@categoryList parentCategory=category category=category wrapInBox="N"/>
           </#list>
         </div>
     </div>
