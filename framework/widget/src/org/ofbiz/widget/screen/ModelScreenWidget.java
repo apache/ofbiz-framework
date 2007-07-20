@@ -77,7 +77,6 @@ public abstract class ModelScreenWidget implements Serializable {
     
     public static List readSubWidgets(ModelScreen modelScreen, List subElementList) {
         List subWidgets = new LinkedList();
-        
         Iterator subElementIter = subElementList.iterator();
         while (subElementIter.hasNext()) {
             Element subElement = (Element) subElementIter.next();
@@ -127,7 +126,7 @@ public abstract class ModelScreenWidget implements Serializable {
         Iterator subWidgetIter = subWidgets.iterator();
         while (subWidgetIter.hasNext()) {
             ModelScreenWidget subWidget = (ModelScreenWidget) subWidgetIter.next();
-            if (Debug.verboseOn()) Debug.logVerbose("Rendering screen " + subWidget.modelScreen.name + " widget " + subWidget.getClass().getName(), module);
+            Debug.logInfo("Rendering screen " + subWidget.modelScreen.name + " widget " + subWidget.getClass().getName(), module);
 
             Map parameters = (Map) context.get("parameters");
             boolean insertWidgetBoundaryComments = "true".equals(parameters==null?null:parameters.get("widgetVerbose"));
@@ -850,18 +849,18 @@ public abstract class ModelScreenWidget implements Serializable {
                 GenericDelegator delegator = (GenericDelegator) context.get("delegator");
                 GenericValue content = null;
                 String expandedDataResourceId = getDataResourceId(context);
+                String expandedContentId = getContentId(context);
+                if (!(context instanceof MapStack)) {
+                    context = MapStack.create(context);
+                }
+
+                // This is an important step to make sure that the current contentId is in the context
+                // as templates that contain "subcontent" elements will expect to find the master
+                // contentId in the context as "contentId".
+                ((MapStack) context).push();
+                context.put("contentId", expandedContentId);
+
                 if (UtilValidate.isEmpty(expandedDataResourceId)) {
-                    String expandedContentId = getContentId(context);
-                    if (!(context instanceof MapStack)) {
-                        context = MapStack.create(context);
-                    }
-                    
-                    // This is an important step to make sure that the current contentId is in the context
-                    // as templates that contain "subcontent" elements will expect to find the master
-                    // contentId in the context as "contentId".
-                    ((MapStack) context).push();
-                    context.put("contentId", expandedContentId);
-                    
                     if (UtilValidate.isNotEmpty(expandedContentId)) {
                     	content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", expandedContentId));
                     } else {
@@ -871,16 +870,17 @@ public abstract class ModelScreenWidget implements Serializable {
                     }
                     if (content != null) {
                         expandedDataResourceId = content.getString("dataResourceId");
-                        this.dataResourceId = new FlexibleStringExpander(expandedDataResourceId);
                     } else {
                         String errMsg = "Could not find content with contentId [" + expandedContentId + "] ";
                         Debug.logError(errMsg, module);
                         throw new RuntimeException(errMsg);
                     }
                 }
+
                 GenericValue dataResource = null;
                 if (UtilValidate.isNotEmpty(expandedDataResourceId)) {
                 	dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", expandedDataResourceId));
+                    this.dataResourceId = new FlexibleStringExpander(expandedDataResourceId);
                 }
                 
                 String mimeTypeId = null;
