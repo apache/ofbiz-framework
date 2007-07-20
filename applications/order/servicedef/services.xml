@@ -70,11 +70,11 @@ under the License.
 
     <service name="sendProcessNotification" engine="java" require-new-transaction="true" max-retry="3"
             location="org.ofbiz.order.order.OrderServices" invoke="sendProcessNotification">
-    	<description>Limit Service for order processing workflow; sends activitiy notifications</description>
-    	<attribute name="workEffortId" type="String" mode="IN"/>
-    	<attribute name="adminEmailList" type="String" mode="IN"/>
-    	<attribute name="assignedPartyId" type="String" mode="IN" optional="true"/>
-    	<attribute name="assignedRoleTypeId" type="String" mode="IN" optional="true"/>
+        <description>Limit Service for order processing workflow; sends activitiy notifications</description>
+        <attribute name="workEffortId" type="String" mode="IN"/>
+        <attribute name="adminEmailList" type="String" mode="IN"/>
+        <attribute name="assignedPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="assignedRoleTypeId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="createOrderNotificationLog" engine="simple"
@@ -162,7 +162,7 @@ under the License.
     </service>
     
     <service name="createOrderItemBilling" engine="simple"
-    	    location="org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="createOrderItemBilling">
+            location="org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="createOrderItemBilling">
         <description>Create a new order item billing record</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
@@ -258,30 +258,30 @@ under the License.
     </service>
 
     <service name="changeOrderItemStatus" engine="java" auth="true"
-    		location="org.ofbiz.order.order.OrderServices" invoke="setItemStatus">
-    	<description>Change the status of an existing order item.  If no orderItemSeqId is specified, the status of all order items will be changed.</description>
-    	<attribute name="orderId" type="String" mode="IN" optional="false"/>
-    	<attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
-    	<attribute name="fromStatusId" type="String" mode="IN" optional="true"/>
-    	<attribute name="statusId" type="String" mode="IN" optional="false"/>
+            location="org.ofbiz.order.order.OrderServices" invoke="setItemStatus">
+        <description>Change the status of an existing order item.  If no orderItemSeqId is specified, the status of all order items will be changed.</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="fromStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="statusDateTime" type="Timestamp" mode="IN" optional="true"/>
     </service>
 
     <service name="cancelOrderItem" engine="java" auth="true"
-    		location="org.ofbiz.order.order.OrderServices" invoke="cancelOrderItem">
-    	<description>Cancel an Order Item Quantity</description>
-    	<attribute name="orderId" type="String" mode="IN" optional="false"/>
-    	<attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
+            location="org.ofbiz.order.order.OrderServices" invoke="cancelOrderItem">
+        <description>Cancel an Order Item Quantity</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
-    	<attribute name="cancelQuantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="cancelQuantity" type="Double" mode="IN" optional="true"/>
     </service>
     <service name="cancelOrderItemNoActions" engine="java" auth="true"
-    		location="org.ofbiz.order.order.OrderServices" invoke="cancelOrderItem">
-    	<description>Cancel an Order Item Quantity. This is equal to cancelOrderItem but no ECAs are attached to this service.</description>
-    	<attribute name="orderId" type="String" mode="IN" optional="false"/>
-    	<attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
+            location="org.ofbiz.order.order.OrderServices" invoke="cancelOrderItem">
+        <description>Cancel an Order Item Quantity. This is equal to cancelOrderItem but no ECAs are attached to this service.</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
-    	<attribute name="cancelQuantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="cancelQuantity" type="Double" mode="IN" optional="true"/>
     </service>
 
     <service name="updateOrderItems" engine="java" auth="true"
@@ -330,16 +330,16 @@ under the License.
     </service>
 
     <service name="checkOrderItemStatus" engine="java"
-    		location="org.ofbiz.order.order.OrderServices" invoke="checkItemStatus">
+            location="org.ofbiz.order.order.OrderServices" invoke="checkItemStatus">
       <description>Check the status of all items and cancel/approve/complete the order if we can</description>
-    	<attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="updateOrderStatusFromReceipt" engine="simple"
-    		location="org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="updateOrderStatusFromReceipt">
-    	<description>Updates the (purchase) order/order item status based on receipt</description>
-    	<attribute name="orderId" type="String" mode="IN" optional="false"/>
-    	<attribute name="currentStatusId" type="String" mode="OUT" optional="false"/>
+            location="org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="updateOrderStatusFromReceipt">
+        <description>Updates the (purchase) order/order item status based on receipt</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="currentStatusId" type="String" mode="OUT" optional="false"/>
     </service>
 
     <service name="autoCancelOrderItems" engine="java"
