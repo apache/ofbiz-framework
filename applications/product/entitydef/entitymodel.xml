@@ -1219,6 +1219,7 @@ under the License.
             title="Inventory Item Detail Entity">
       <field name="inventoryItemId" type="id-ne"></field>
       <field name="inventoryItemDetailSeqId" type="id-ne"></field>
+      <field name="effectiveDate" type="date-time"></field>
       <field name="quantityOnHandDiff" type="floating-point"></field>
       <field name="availableToPromiseDiff" type="floating-point"></field>
       <field name="orderId" type="id"></field>

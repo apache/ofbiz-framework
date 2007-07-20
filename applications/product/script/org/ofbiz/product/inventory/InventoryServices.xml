@@ -233,6 +233,16 @@ under the License.
         <field-to-result field-name="newEntity.inventoryItemDetailSeqId" result-name="inventoryItemDetailSeqId"/>
 
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        
+        <!-- set the effectiveDate; if from an ItemIssuance lookup the issuedDateTime -->
+        <if-not-empty field-name="parameters.itemIssuanceId">
+            <entity-one entity-name="ItemIssuance" value-name="itemIssuance"/>
+            <set field="newEntity.effectiveDate" from-field="itemIssuance.issuedDateTime"/>
+            
+            <else>
+                <now-timestamp-to-env env-name="newEntity.effectiveDate"/>
+            </else>
+        </if-not-empty>
 
         <!-- if availableToPromiseDiff or quantityOnHandDiff are empty set to 0 -->
         <if-empty field-name="newEntity.availableToPromiseDiff"><set field="newEntity.availableToPromiseDiff" value="0" type="Double"/></if-empty>
@@ -248,6 +258,7 @@ under the License.
         <set field="inventoryItem.quantityOnHandTotal" from-field="inventoryItemDetailSummary.quantityOnHandTotal"/>
         <store-value value-name="inventoryItem"/>
     </simple-method>
+
     <simple-method method-name="updateSerializedInventoryTotals" short-description="Update the totals on serialized inventory">
         <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
         <if-compare field-name="inventoryItem.inventoryItemTypeId" value="SERIALIZED_INV_ITEM" operator="equals">
@@ -310,6 +321,7 @@ under the License.
             </if>
         </if-compare>
     </simple-method>
+    
     <simple-method method-name="updateOldInventoryToDetailAll" short-description="Update Old Inventory To Detail All">
         <!-- find all InventoryItem records where oldQuantityOnHand or oldAvailableToPromise are not null -->
         <entity-condition entity-name="InventoryItem" list-name="inventoryItemList">
