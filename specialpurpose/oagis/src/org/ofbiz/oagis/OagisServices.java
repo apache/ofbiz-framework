@@ -33,6 +33,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Date;
@@ -106,8 +107,6 @@ public class OagisServices {
         bodyParameters.put("errorComponent", context.get("component"));
         bodyParameters.put("errorTask", context.get("task"));
         bodyParameters.put("errorReferenceId", context.get("referenceId"));
-        //bodyParameters.put("errorDescription", context.get("description"));
-        //bodyParameters.put("errorReasonCode", context.get("reasonCode"));
         bodyParameters.put("errorMapList",(List) context.get("errorMapList"));
         bodyParameters.put("origRef", context.get("origRefId"));
         String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ConfirmBod");
@@ -142,6 +141,26 @@ public class OagisServices {
         }
         
         // TODO: call service with require-new-transaction=true to save the OagisMessageInfo data (to make sure it saves before)
+        Map oagisMsgInfoContext = new HashMap();
+        oagisMsgInfoContext.put("logicalId", logicalId);
+        oagisMsgInfoContext.put("component", "EXCEPTION");
+        oagisMsgInfoContext.put("task", "RECIEPT");
+        oagisMsgInfoContext.put("referenceId", referenceId);
+        oagisMsgInfoContext.put("authId", authId);
+        oagisMsgInfoContext.put("sentDate", timestamp);
+        oagisMsgInfoContext.put("confirmation", "0");
+        oagisMsgInfoContext.put("bsrVerb", "CONFIRM");
+        oagisMsgInfoContext.put("bsrNoun", "BOD");
+        oagisMsgInfoContext.put("bsrRevision", "004");
+        oagisMsgInfoContext.put("userLogin", userLogin);
+        try
+        {
+            Map oagisMsgInfoResult = dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoContext);
+            if (ServiceUtil.isError(oagisMsgInfoResult)) return ServiceUtil.returnError("Error creating OagisMessageInfo");
+            
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Saving message to database failed", module);
+        }
 
         if (UtilValidate.isNotEmpty(sendToUrl)) {
             HttpClient http = new HttpClient(sendToUrl);
@@ -168,29 +187,6 @@ public class OagisServices {
                 Debug.logError(e, errMsg, module);
                 return ServiceUtil.returnError(errMsg);
             }
-        }
-        
-        
-        
-        Map oagisMsgInfoContext = new HashMap();
-        oagisMsgInfoContext.put("logicalId", logicalId);
-        oagisMsgInfoContext.put("component", "EXCEPTION");
-        oagisMsgInfoContext.put("task", "RECIEPT");
-        oagisMsgInfoContext.put("referenceId", referenceId);
-        oagisMsgInfoContext.put("authId", authId);
-        oagisMsgInfoContext.put("sentDate", timestamp);
-        oagisMsgInfoContext.put("confirmation", "0");
-        oagisMsgInfoContext.put("bsrVerb", "CONFIRM");
-        oagisMsgInfoContext.put("bsrNoun", "BOD");
-        oagisMsgInfoContext.put("bsrRevision", "004");
-        oagisMsgInfoContext.put("userLogin", userLogin);
-        try
-        {
-            Map oagisMsgInfoResult = dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoContext);
-            if (ServiceUtil.isError(oagisMsgInfoResult)) return ServiceUtil.returnError("Error creating OagisMessageInfo");
-            
-        } catch (GenericServiceException e) {
-            Debug.logError(e, "Saving message to database failed", module);
         }
         
         return ServiceUtil.returnSuccess("Service Completed Successfully");
@@ -258,10 +254,6 @@ public class OagisServices {
         String dataAreaReferenceId = UtilXml.childElementValue(dataAreaSenderElement, "N2:REFERENCEID");
         String dataAreaDate = UtilXml.childElementValue(dataAreaCtrlElement, "N1:DATETIMEANY");
         String origRef = UtilXml.childElementValue(dataAreaConfirmElement, "N2:ORIGREF");
-         
-        Element dataAreaConfirmMsgElement = UtilXml.firstChildElement(dataAreaConfirmElement, "n:CONFIRMMSG");
-        String description = UtilXml.childElementValue(dataAreaConfirmMsgElement, "N2:DESCRIPTN");
-        String reasonCode = UtilXml.childElementValue(dataAreaConfirmMsgElement, "N2:REASONCODE");
           
         Timestamp timestamp = UtilDateTime.nowTimestamp();
         Map oagisMsgInfoCtx = new HashMap();
@@ -305,21 +297,31 @@ public class OagisServices {
             Debug.logError(e, errMsg, module);
         }
         
+        oagisMsgErrorCtx.put("userLogin", userLogin);
+        
+        List dataAreaConfirmMsgList = UtilXml.childElementList(dataAreaConfirmElement, "n:CONFIRMMSG");
+        Iterator dataAreaConfirmMsgListItr = dataAreaConfirmMsgList.iterator();
+        
         if (oagisMsgInfo != null){
-            oagisMsgErrorCtx.put("reasonCode", reasonCode);
-            oagisMsgErrorCtx.put("description", description);
-            oagisMsgErrorCtx.put("userLogin", userLogin);
-            try {
-                Map oagisMsgErrorInfoResult = dispatcher.runSync("createOagisMessageErrorInfo", oagisMsgErrorCtx);
-                if (ServiceUtil.isError(oagisMsgErrorInfoResult)){
-                    String errMsg = "Error creating OagisMessageErrorInfo: "+ServiceUtil.getErrorMessage(oagisMsgErrorInfoResult);
-                    errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "CreateOagisMessageErrorInfoServiceError"));
-                    Debug.logError(errMsg, module);
+            while (dataAreaConfirmMsgListItr.hasNext()){
+                Element dataAreaConfirmMsgElement = (Element) dataAreaConfirmMsgListItr.next();
+                String description = UtilXml.childElementValue(dataAreaConfirmMsgElement, "N2:DESCRIPTN");
+                String reasonCode = UtilXml.childElementValue(dataAreaConfirmMsgElement, "N2:REASONCODE");
+                oagisMsgErrorCtx.put("reasonCode", reasonCode);
+                oagisMsgErrorCtx.put("description", description);
+            
+                try {
+                    Map oagisMsgErrorInfoResult = dispatcher.runSync("createOagisMessageErrorInfo", oagisMsgErrorCtx);
+                    if (ServiceUtil.isError(oagisMsgErrorInfoResult)){
+                        String errMsg = "Error creating OagisMessageErrorInfo: "+ServiceUtil.getErrorMessage(oagisMsgErrorInfoResult);
+                        errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "CreateOagisMessageErrorInfoServiceError"));
+                        Debug.logError(errMsg, module);
+                    }
+                } catch (GenericServiceException e){
+                    String errMsg = "Error creating OagisMessageErrorInfo: "+e.toString();
+                    errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                    Debug.logError(e, errMsg, module);
                 }
-            } catch (GenericServiceException e){
-                String errMsg = "Error creating OagisMessageErrorInfo: "+e.toString();
-                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
-                Debug.logError(e, errMsg, module);
             }
         } else{
             String errMsg = "No such message with an error was found in OagisMessageInfo Entity ; Not creating OagisMessageErrorInfo";
