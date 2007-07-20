@@ -325,7 +325,7 @@ public class OagisShipmentServices {
                 }
                 bodyParameters.put("externalIdSet", externalIdSet);
                 
-                // if order was a return replacement order (associated with return)
+                // Check if order was a return replacement order (associated with return)
                 List returnItemResponses =  null;
                 List returnItemRespExprs = UtilMisc.toList(new EntityExpr("replacementOrderId", EntityOperator.NOT_EQUAL, null));
                 EntityCondition returnItemRespCond = new EntityConditionList(returnItemRespExprs, EntityOperator.AND);
@@ -336,8 +336,15 @@ public class OagisShipmentServices {
                     returnItemResponses = delegator.findByCondition("ReturnItemResponse", returnItemRespCond, fieldsToSelect, null);
                     Iterator rirIter = returnItemResponses.iterator();
                     while (rirIter.hasNext()) {
-                        if (rirIter.next().equals(shipment.getString("primaryOrderId"))) {
+                        GenericValue returnItemResponse = (GenericValue) rirIter.next();
+                        String replacementOrderId = returnItemResponse.getString("replacementOrderId");
+                        if (replacementOrderId.equals(shipment.getString("primaryOrderId"))) {
                             bodyParameters.put("shipnotes", "RETURNLABEL");
+                            
+                            // Get the associated return Id (replaceReturnId)
+                            String returnItemResponseId = returnItemResponse.getString("returnItemResponseId");
+                            GenericValue returnItem = EntityUtil.getFirst(delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnItemResponseId", returnItemResponseId)));
+                            bodyParameters.put("replacementReturnId", returnItem.getString("returnId"));
                         }
                     }
                 } catch (GenericEntityException e) {
