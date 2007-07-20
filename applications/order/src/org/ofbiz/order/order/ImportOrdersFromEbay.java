@@ -45,6 +45,7 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.shoppingcart.CheckOutHelper;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.service.DispatchContext;
@@ -60,7 +61,7 @@ public class ImportOrdersFromEbay {
     private static final String resource = "OrderUiLabels";
     private static final String module = ImportOrdersFromEbay.class.getName();
     
-    public static Map importFromEbay(DispatchContext dctx, Map context) {
+    public static Map importOrdersSearchFromEbay(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
@@ -80,6 +81,12 @@ public class ImportOrdersFromEbay {
             // get the Token
             String token = UtilProperties.getPropertyValue(configString, "productsExport.eBay.token");
             
+            // get the Compatibility Level
+            String compatibilityLevel = UtilProperties.getPropertyValue(configString, "productsExport.eBay.compatibilityLevel");
+            
+            // get the Site ID
+            String siteID = UtilProperties.getPropertyValue(configString, "productsExport.eBay.siteID");
+            
             // get the xmlGatewayUri
             String xmlGatewayUri = UtilProperties.getPropertyValue(configString, "productsExport.eBay.xmlGatewayUri");
             
@@ -87,24 +94,65 @@ public class ImportOrdersFromEbay {
             StringBuffer sellerTransactionsItemsXml = new StringBuffer();
             
             if (!ServiceUtil.isFailure(buildGetEbayDetailsRequest(context, ebayDetailsItemsXml, token))) { 
-                postItem(xmlGatewayUri, ebayDetailsItemsXml, devID, appID, certID, "GeteBayDetails");
+                postItem(xmlGatewayUri, ebayDetailsItemsXml, devID, appID, certID, "GeteBayDetails", compatibilityLevel, siteID);
                 
                 if (!ServiceUtil.isFailure(buildGetSellerTransactionsRequest(context, sellerTransactionsItemsXml, token))) { 
-                    result = postItem(xmlGatewayUri, sellerTransactionsItemsXml, devID, appID, certID, "GetSellerTransactions");
-                    String success = (String)result.get("responseMessage");
-                    if (success != null && success.equals("success")) { 
-                        result = createOrders(delegator, dispatcher, locale, context, (String)result.get("successMessage"), true);
+                    result = postItem(xmlGatewayUri, sellerTransactionsItemsXml, devID, appID, certID, "GetSellerTransactions", compatibilityLevel, siteID);
+                    String success = (String)result.get(ModelService.SUCCESS_MESSAGE);
+                    if (success != null) { 
+                        result = checkOrders(delegator, dispatcher, locale, context, success);
                     }
                 }
             }
         } catch (Exception e) {        
-            Debug.logError("Exception in importFromEbay " + e, module);
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.exceptionInImportFromEbay", locale));
+            Debug.logError("Exception in importOrdersSearchFromEbay " + e, module);
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.exceptionInImportOrdersSearchFromEbay", locale));
         }
         
         return result;
     }
    
+    public static Map importOrderFromEbay(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
+        Map order = FastMap.newInstance();
+        Map result = FastMap.newInstance();
+        try {
+            String orderSelected = (String) context.get("orderSelected");
+            if (UtilValidate.isNotEmpty(orderSelected) && "Y".equals(orderSelected)) {
+                order.put("productStoreId", (String) context.get("productStoreId"));
+                order.put("userLogin", (GenericValue) context.get("userLogin"));
+                order.put("externalId", (String) context.get("externalId"));
+                order.put("createdDate", (String) context.get("createdDate"));
+                order.put("productId", (String) context.get("productId"));
+                order.put("quantityPurchased", (String) context.get("quantityPurchased"));
+                order.put("transactionPrice", (String) context.get("transactionPrice"));
+                order.put("shippingServiceCost", (String) context.get("shippingServiceCost"));
+                order.put("shippingTotalAdditionalCost", (String) context.get("shippingTotalAdditionalCost"));
+                order.put("amountPaid", (String) context.get("amountPaid"));
+                order.put("paidTime", (String) context.get("paidTime"));
+                order.put("shippedTime", (String) context.get("shippedTime"));
+                
+                order.put("buyerName", (String) context.get("buyerName"));
+                order.put("emailBuyer", (String) context.get("emailBuyer"));
+                order.put("shippingAddressPhone", (String) context.get("shippingAddressPhone"));
+                order.put("shippingAddressStreet1", (String) context.get("shippingAddressStreet1"));
+                order.put("shippingAddressPostalCode", (String) context.get("shippingAddressPostalCode"));
+                order.put("shippingAddressCountry", (String) context.get("shippingAddressCountry"));
+                order.put("shippingAddressStateOrProvince", (String) context.get("shippingAddressStateOrProvince"));
+                order.put("shippingAddressCityName", (String) context.get("shippingAddressCityName"));
+                
+                result = createShoppingCart(delegator, dispatcher, locale, order, Boolean.TRUE);
+            }
+        } catch (Exception e) {        
+            Debug.logError("Exception in importOrderFromEbay " + e, module);
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.exceptionInImportOrderFromEbay", locale));
+        }
+        
+        return result;
+    }
+    
     private static String toString(InputStream inputStream) throws IOException {
         String string;
         StringBuilder outputBuilder = new StringBuilder();
@@ -117,18 +165,19 @@ public class ImportOrdersFromEbay {
         return outputBuilder.toString();
     }
     
-    private static Map postItem(String postItemsUrl, StringBuffer dataItems, String devID, String appID, String certID, String callName) throws IOException {
+    private static Map postItem(String postItemsUrl, StringBuffer dataItems, String devID, String appID, String certID, 
+                                String callName, String compatibilityLevel, String siteID) throws IOException {
         HttpURLConnection connection = (HttpURLConnection)(new URL(postItemsUrl)).openConnection();
       
         connection.setDoInput(true);
         connection.setDoOutput(true);
         connection.setRequestMethod("POST");
-        connection.setRequestProperty("X-EBAY-API-COMPATIBILITY-LEVEL", "517");
+        connection.setRequestProperty("X-EBAY-API-COMPATIBILITY-LEVEL", compatibilityLevel);
         connection.setRequestProperty("X-EBAY-API-DEV-NAME", devID);
         connection.setRequestProperty("X-EBAY-API-APP-NAME", appID);
         connection.setRequestProperty("X-EBAY-API-CERT-NAME", certID);
         connection.setRequestProperty("X-EBAY-API-CALL-NAME", callName);
-        connection.setRequestProperty("X-EBAY-API-SITEID", "0");
+        connection.setRequestProperty("X-EBAY-API-SITEID", siteID);
         connection.setRequestProperty("Content-Type", "text/xml");
         
         OutputStream outputStream = connection.getOutputStream();
@@ -150,27 +199,32 @@ public class ImportOrdersFromEbay {
         return result;
     }
     
-    private static Map createOrders(GenericDelegator delegator, LocalDispatcher dispatcher, Locale locale, Map context, String response, boolean onlyCheck) {
+    private static Map checkOrders(GenericDelegator delegator, LocalDispatcher dispatcher, Locale locale, Map context, String response) {
         if (response != null && response.length() > 0) {
-            List orders = readResponseFromEbay(response, locale);
+            List orders = readResponseFromEbay(response, locale, (String)context.get("productStoreId"), delegator);
             if (orders != null && orders.size() > 0) {
-                if (!onlyCheck) {
-                    Iterator orderIter = orders.iterator();
-                    while (orderIter.hasNext()) {
-                        createShoppingCart(delegator, dispatcher, locale, context, (Map)orderIter.next());
+                Iterator orderIter = orders.iterator();
+                while (orderIter.hasNext()) {
+                    Map order = (Map)orderIter.next();
+                    order.put("productStoreId", (String) context.get("productStoreId"));
+                    order.put("userLogin", (GenericValue) context.get("userLogin"));
+                    Map error = createShoppingCart(delegator, dispatcher, locale, order, Boolean.FALSE);
+                    String errorMsg = ServiceUtil.getErrorMessage(error);
+                    if (errorMsg != null) {
+                        order.put("errorMessage", errorMsg);
                     }
                 }
                 Map result = FastMap.newInstance();
-                result.put("responseMessage", "success");
+                result.put("responseMessage", ModelService.RESPOND_SUCCESS);
                 result.put("orderList", orders);
                 return result;
             } else {
-                //TODO create a new property in resource
-                return ServiceUtil.returnFailure("No orders found");
+                Debug.logError("No orders found", module);
+                return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.noOrdersFound", locale));
             }
         } else {
-            //TODO create a new property in resource
-            return ServiceUtil.returnFailure("No orders found"); 
+            Debug.logError("No orders found", module);
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.noOrdersFound", locale));
         }
     }
         
@@ -219,9 +273,8 @@ public class ImportOrdersFromEbay {
         UtilXml.addChildElementValue(requesterCredentialsElem, "eBayAuthToken", token, doc);
     }
     
-    private static List readResponseFromEbay(String msg, Locale locale) {
+    private static List readResponseFromEbay(String msg, Locale locale, String productStoreId, GenericDelegator delegator) {
         List orders = null;
-        Debug.logInfo(msg, module);
         try {
             Document docResponse = UtilXml.readXmlDocument(msg, true);
             Element elemResponse = docResponse.getDocumentElement();
@@ -250,6 +303,7 @@ public class ImportOrdersFromEbay {
                     Iterator transactionElemIter = transaction.iterator();
                     while (transactionElemIter.hasNext()) {
                         Map order = FastMap.newInstance();
+                        String itemId = "";
                         
                         Element transactionElement = (Element) transactionElemIter.next();
                         order.put("amountPaid", UtilXml.childElementValue(transactionElement, "AmountPaid", "0"));
@@ -330,7 +384,7 @@ public class ImportOrdersFromEbay {
                         Iterator itemElemIter = item.iterator();
                         while (itemElemIter.hasNext()) {
                             Element itemElement = (Element)itemElemIter.next();
-                            order.put("externalId", UtilXml.childElementValue(itemElement, "ItemID", ""));
+                            itemId = UtilXml.childElementValue(itemElement, "ItemID", "");
                             order.put("paymentMethods", UtilXml.childElementValue(itemElement, "PaymentMethods", ""));
                             order.put("quantity", UtilXml.childElementValue(itemElement, "Quantity", "0"));
                             order.put("productId", UtilXml.childElementValue(itemElement, "SKU", ""));
@@ -348,6 +402,9 @@ public class ImportOrdersFromEbay {
                             }
                         }
                         
+                        // retrieve quantity purchased
+                        order.put("quantityPurchased", UtilXml.childElementValue(transactionElement, "QuantityPurchased", "0"));
+
                         // retrieve status
                         List status = UtilXml.childElementList(transactionElement, "Status");
                         Iterator statusElemIter = status.iterator();
@@ -359,6 +416,21 @@ public class ImportOrdersFromEbay {
                             order.put("completeStatus", UtilXml.childElementValue(statusElement, "CompleteStatus", ""));
                             order.put("buyerSelectedShipping", UtilXml.childElementValue(statusElement, "BuyerSelectedShipping", ""));
                         }
+                        
+                        // retrieve transactionId
+                        String transactionId = UtilXml.childElementValue(transactionElement, "TransactionID", "");
+                        
+                        // build the externalId                        
+                        String externalId = buildExternalId(itemId, transactionId); 
+                        order.put("externalId", externalId);
+                        
+                        GenericValue orderExist = externalOrderExists(delegator, externalId);
+                        if (orderExist != null) {
+                            order.put("orderId", (String)orderExist.get("orderId"));   
+                        }
+                        
+                        // retrieve transaction price
+                        order.put("transactionPrice", UtilXml.childElementValue(transactionElement, "TransactionPrice", "0"));
                         
                         // retrieve external transaction
                         List externalTransaction = UtilXml.childElementList(transactionElement, "ExternalTransaction");
@@ -378,6 +450,30 @@ public class ImportOrdersFromEbay {
                             Element shippingServiceSelectedElement = (Element)shippingServiceSelectedElemIter.next();
                             order.put("shippingService", UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingService", ""));
                             order.put("shippingServiceCost", UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingServiceCost", "0"));
+                            
+                            String incuranceCost = UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingInsuranceCost", "0");
+                            String additionalCost = UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingServiceAdditionalCost", "0");
+                            String surchargeCost = UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingSurcharge", "0");
+
+                            double shippingInsuranceCost = 0;
+                            double shippingServiceAdditionalCost = 0;
+                            double shippingSurcharge = 0;
+                            
+                            if (UtilValidate.isNotEmpty(incuranceCost)) {
+                                shippingInsuranceCost = new Double(incuranceCost).doubleValue();
+                            }
+                            
+                            if (UtilValidate.isNotEmpty(additionalCost)) {
+                                shippingServiceAdditionalCost = new Double(additionalCost).doubleValue();
+                            }
+                            
+                            if (UtilValidate.isNotEmpty(surchargeCost)) {
+                                shippingSurcharge = new Double(surchargeCost).doubleValue();
+                            }
+                            
+                            double shippingTotalAdditionalCost = shippingInsuranceCost + shippingServiceAdditionalCost + shippingSurcharge;
+                            String totalAdditionalCost = new Double(shippingTotalAdditionalCost).toString();
+                            order.put("shippingTotalAdditionalCost", totalAdditionalCost);
                         }
                         
                         // retrieve paid time
@@ -385,29 +481,30 @@ public class ImportOrdersFromEbay {
                         
                         // retrieve shipped time
                         order.put("shippedTime", UtilXml.childElementValue(transactionElement, "ShippedTime", ""));
+                        
+                        order.put("productStoreId", productStoreId);
                                                 
                         orders.add(order);
                     }
                 }
             }
         } catch (Exception e) {
-            //TODO ServiceUtil.returnSuccess("Exception in readResponseFromEbay");
-            ;
+            Debug.logError("Exception during read response from Ebay", module);
         }
         return orders;
     }
     
-    private static Map createShoppingCart(GenericDelegator delegator, LocalDispatcher dispatcher, Locale locale, Map context, Map order) {
+    private static Map createShoppingCart(GenericDelegator delegator, LocalDispatcher dispatcher, Locale locale, Map parameters, boolean create) {
         try {
-            String productStoreId = (String)context.get("productStoreId");
-            GenericValue userLogin = (GenericValue) context.get("userLogin");
+            String productStoreId = (String) parameters.get("productStoreId");
+            GenericValue userLogin = (GenericValue) parameters.get("userLogin");
             String defaultCurrencyUomId = "";
             String payToPartyId = "";
             String facilityId = "";
             
             // Product Store is mandatory
             if (productStoreId == null) {
-                ; //TODO error message has to be returned
+                return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.productStoreIdIsMandatory", locale));   
             } else {
                 GenericValue productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
                 if (productStore != null) {
@@ -415,18 +512,19 @@ public class ImportOrdersFromEbay {
                     payToPartyId = productStore.getString("payToPartyId");
                     facilityId = productStore.getString("inventoryFacilityId");
                 } else {
-                    ; //TODO error message has to be returned 
+                    return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.productStoreIdIsMandatory", locale));
                 }
             }
             
             // create a new shopping cart
             ShoppingCart cart = new ShoppingCart(delegator, productStoreId, locale, defaultCurrencyUomId);
             
-            // set the external id with the eBay Item Id
-            String externalId = (String)order.get("externalId");
+            // set the external id with the eBay Item Id + eBay Transacation Id
+            String externalId = (String) parameters.get("externalId");
+            
             if (UtilValidate.isNotEmpty(externalId)) {
-                if (externalOrderExists(delegator, externalId)) {
-                    return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.externalIdAlreadyExist", locale));
+                if (externalOrderExists(delegator, externalId) != null && create) {
+                    return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.externalIdAlreadyExist", locale));   
                 }
                 cart.setExternalId(externalId);
             } else {
@@ -442,21 +540,21 @@ public class ImportOrdersFromEbay {
                 cart.setFacilityId(facilityId);
             }
             
-            String amountStr = (String)order.get("amountPaid");
+            String amountStr = (String) parameters.get("amountPaid");
             Double amountPaid = new Double(0);
             
             if (UtilValidate.isNotEmpty(amountStr)) {
                 amountPaid = new Double(amountStr);
             } 
             
-            // add the payment EXT_EBAY for the paid amount
+            // add the payment EXT_BAY for the paid amount
             cart.addPaymentAmount("EXT_EBAY", amountPaid, externalId, null, true, false, false);
             
             // set the order date with the eBay created date
             Timestamp orderDate = UtilDateTime.nowTimestamp();
-            if (UtilValidate.isNotEmpty((String)order.get("createdDate"))) {
+            if (UtilValidate.isNotEmpty((String) parameters.get("createdDate"))) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                Date createdDate = sdf.parse((String)order.get("createdDate"));
+                Date createdDate = sdf.parse((String) parameters.get("createdDate"));
                 orderDate = new Timestamp(createdDate.getTime());
             }
             cart.setOrderDate(orderDate);
@@ -465,13 +563,19 @@ public class ImportOrdersFromEbay {
             cart.addItemGroup("00001", null);
             
             // create the order item
-            String productId = (String)order.get("productId");
+            String productId = (String) parameters.get("productId");
             if (UtilValidate.isEmpty(productId)) {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.productIdNotAvailable", locale));
             }                
             
-            Double unitPrice = new Double((String)order.get("amount"));
-            double quantity = new Double((String)order.get("quantitySold")).doubleValue();
+            // Before import the order from eBay to OFBiz is mandatory that the payment has be received
+            String paidTime = (String) parameters.get("paidTime");
+            if (UtilValidate.isEmpty(paidTime)) {
+                return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.paymentIsStillNotReceived", locale));
+            } 
+            
+            Double unitPrice = new Double((String) parameters.get("transactionPrice"));
+            double quantity = new Double((String) parameters.get("quantityPurchased")).doubleValue();
             Double amount = new Double(quantity * unitPrice.doubleValue());
             cart.addItemToEnd(productId, amount, quantity, unitPrice, null, null, null, "PRODUCT_ORDER_ITEM", dispatcher, Boolean.FALSE, Boolean.FALSE);
            
@@ -480,35 +584,8 @@ public class ImportOrdersFromEbay {
                 cart.setBillFromVendorPartyId(payToPartyId);
             }
             
-            // set partyId to
-            String partyId = createCustomerParty(dispatcher, (String)order.get("buyerName"), userLogin);
-            String contactMechId = "";            
-            if (UtilValidate.isNotEmpty(partyId)) {
-                contactMechId = createAddress(dispatcher, partyId, userLogin, "SHIPPING_LOCATION", order);
-                createPartyPhone(dispatcher, partyId, (String)order.get("shippingAddressPhone"), userLogin);
-                String emailBuyer = (String)order.get("emailBuyer");
-                if (!(emailBuyer.equals("") || emailBuyer.equalsIgnoreCase("Invalid Request"))) {
-                    createPartyEmail(dispatcher, partyId, emailBuyer, userLogin);
-                }
-            } else {
-                partyId = "admin";
-            }
-            
-            cart.setBillToCustomerPartyId(partyId);
-            cart.setPlacingCustomerPartyId(partyId);
-            cart.setShipToCustomerPartyId(partyId);
-            cart.setEndUserCustomerPartyId(partyId);
-            
-            cart.setCarrierPartyId("_NA_");
-            cart.setShippingContactMechId(contactMechId);
-            
-            //TODO handle shipment method type
-            cart.setShipmentMethodTypeId("NO_SHIPPING");
-            cart.setMaySplit(Boolean.FALSE);
-            cart.makeAllShipGroupInfos();
-            
-            // Apply shipping costs 
-            String shippingCost = (String)order.get("shippingServiceCost");
+            // Apply shipping costs as order adjustment
+            String shippingCost = (String) parameters.get("shippingServiceCost");
             if (UtilValidate.isNotEmpty(shippingCost)) {
                 double shippingAmount = new Double(shippingCost).doubleValue();
                 if (shippingAmount > 0) {
@@ -518,25 +595,67 @@ public class ImportOrdersFromEbay {
                     }
                 }
             }
-                
-            // create the order
-            CheckOutHelper checkout = new CheckOutHelper(dispatcher, delegator, cart);
-            Map orderCreate = checkout.createOrder(userLogin);
             
-            String orderId = (String)orderCreate.get("orderId");
+            // Apply additional shipping costs as order adjustment
+            String shippingTotalAdditionalCost = (String) parameters.get("shippingTotalAdditionalCost");
+            if (UtilValidate.isNotEmpty(shippingTotalAdditionalCost)) {
+                double shippingAdditionalCost = new Double(shippingTotalAdditionalCost).doubleValue();
+                if (shippingAdditionalCost > 0) {
+                    GenericValue shippingAdjustment = madeOrderAdjustment(delegator, "MISCELLANEOUS_CHARGE", cart.getOrderId(), null, null, shippingAdditionalCost);       
+                    if (shippingAdjustment != null) {
+                        cart.addAdjustment(shippingAdjustment);
+                    }
+                }
+            }
             
-            // approve the order
-            if (UtilValidate.isNotEmpty(orderId)) {
-                boolean approved = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId);
+            // order has to be created ?
+            if (create) {
+                // set partyId to
+                String partyId = createCustomerParty(dispatcher, (String) parameters.get("buyerName"), userLogin);
+                String contactMechId = "";            
+                if (UtilValidate.isNotEmpty(partyId)) {
+                    contactMechId = createAddress(dispatcher, partyId, userLogin, "SHIPPING_LOCATION", parameters);
+                    createPartyPhone(dispatcher, partyId, (String) parameters.get("shippingAddressPhone"), userLogin);
+                    String emailBuyer = (String) parameters.get("emailBuyer");
+                    if (!(emailBuyer.equals("") || emailBuyer.equalsIgnoreCase("Invalid Request"))) {
+                        createPartyEmail(dispatcher, partyId, emailBuyer, userLogin);
+                    }
+                } else {
+                    partyId = "admin";
+                }
                 
-                // create the payment from the preference
-                if (approved) {
-                    createPaymentFromPaymentPreferences(delegator, dispatcher, userLogin, orderId, externalId, cart.getOrderDate(), partyId);
+                cart.setBillToCustomerPartyId(partyId);
+                cart.setPlacingCustomerPartyId(partyId);
+                cart.setShipToCustomerPartyId(partyId);
+                cart.setEndUserCustomerPartyId(partyId);
+                
+                cart.setCarrierPartyId("_NA_");
+                cart.setShippingContactMechId(contactMechId);
+                
+                //TODO handle shipment method type
+                cart.setShipmentMethodTypeId("NO_SHIPPING");
+                cart.setMaySplit(false);
+                cart.makeAllShipGroupInfos();
+                  
+                // create the order
+                CheckOutHelper checkout = new CheckOutHelper(dispatcher, delegator, cart);
+                Map orderCreate = checkout.createOrder(userLogin);
+                
+                String orderId = (String)orderCreate.get("orderId");
+                
+                // approve the order
+                if (UtilValidate.isNotEmpty(orderId)) {
+                    boolean approved = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId);
+                    
+                    // create the payment from the preference
+                    if (approved) {
+                        createPaymentFromPaymentPreferences(delegator, dispatcher, userLogin, orderId, externalId, cart.getOrderDate(), partyId);
+                    }
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            //TODO handle exception error message
+            Debug.logError("Exception in createShoppingCart", module);
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.exceptionInCreateShoppingCart", locale));
         }
         return ServiceUtil.returnSuccess();
     }
@@ -557,7 +676,7 @@ public class ImportOrdersFromEbay {
                         return false;
                 }
             }
-        } catch (GenericEntityException e) {
+        } catch (Exception e) {
             Debug.logError(e, "Cannot get payment preferences for order #" + orderId, module);
             return false;
         }
@@ -620,7 +739,8 @@ public class ImportOrdersFromEbay {
         return orderAdjustment;
     }
 
-    public static String createCustomerParty(LocalDispatcher dispatcher, String name, GenericValue userLogin) {
+    public static String createCustomerParty(LocalDispatcher dispatcher, String name, GenericValue userLogin)
+    {
         String partyId = null;
         
         try {
@@ -645,14 +765,14 @@ public class ImportOrdersFromEbay {
                 Debug.logVerbose("Created Customer Party: "+partyId, module);
             }
         } catch (Exception e) {
-            //TODO error calling the service createPerson
-            e.printStackTrace();
+            Debug.logError(e, "Failed to createPerson", module);
         }
         return partyId;
     }
     
     public static String createAddress(LocalDispatcher dispatcher, String partyId, GenericValue userLogin, 
-                                       String contactMechPurposeTypeId, Map address) {
+                                       String contactMechPurposeTypeId, Map address)
+    {
         String contactMechId = null;
         try {
             Map context = FastMap.newInstance();
@@ -670,13 +790,13 @@ public class ImportOrdersFromEbay {
             Map summaryResult = dispatcher.runSync("createPartyPostalAddress",context);
             contactMechId = (String)summaryResult.get("contactMechId");
         } catch (GenericServiceException e) {
-            //TODO error calling the service createPartyPostalAddress
-            e.printStackTrace();
+            Debug.logError(e, "Failed to createAddress", module);
         }
         return contactMechId;
     }
     
-    private static void correctCityStateCountry(LocalDispatcher dispatcher, Map map, String city, String state, String country) {
+    private static void correctCityStateCountry(LocalDispatcher dispatcher, Map map, String city, String state, String country)
+    {
         try { 
             Debug.logInfo("correctCityStateCountry params: " + city + ", " + state + ", " + country, module);
             String geoId = "USA";
@@ -697,12 +817,12 @@ public class ImportOrdersFromEbay {
             }
             Debug.logInfo("State geoid: " + state, module);
         } catch (Exception e) {
-            Debug.logVerbose("Problem finding country bill code " + e.getMessage(),module);
-            //TODO handle error message
+            Debug.logError(e, "Failed to correctCityStateCountry", module);
         }
     }
         
-    public static String createPartyPhone(LocalDispatcher dispatcher, String partyId, String phoneNumber, GenericValue userLogin) {
+    public static String createPartyPhone(LocalDispatcher dispatcher, String partyId, String phoneNumber, GenericValue userLogin)
+    {
         Map summaryResult = FastMap.newInstance();
         Map context = FastMap.newInstance();
         String phoneContactMechId = null;
@@ -714,19 +834,20 @@ public class ImportOrdersFromEbay {
             summaryResult = dispatcher.runSync("createPartyTelecomNumber", context);
             phoneContactMechId = (String)summaryResult.get("contactMechId");
         } catch (Exception e) { 
-            Debug.logWarning("Phone number not found", module);
-            //TODO handle error message
+            Debug.logError(e, "Failed to createPartyPhone", module);
         }
         return phoneContactMechId;
     }
     
-    public static String createPartyEmail(LocalDispatcher dispatcher, String partyId, String email, GenericValue userLogin) {
+    public static String createPartyEmail(LocalDispatcher dispatcher, String partyId, String email, GenericValue userLogin)
+    {
         Map context = FastMap.newInstance();
         Map summaryResult = FastMap.newInstance();
         String emailContactMechId = null;
         
         try {
-            if (UtilValidate.isNotEmpty(email)) {
+            if (UtilValidate.isNotEmpty(email))
+            {
                 context.clear();
                 context.put("emailAddress", email);
                 context.put("userLogin", userLogin);
@@ -741,22 +862,25 @@ public class ImportOrdersFromEbay {
                 summaryResult = dispatcher.runSync("createPartyContactMech", context);
             }
         } catch (Exception e) { 
-            Debug.logWarning("Email not found", module);
-            //TODO handle error message
+            Debug.logError(e, "Failed to createPartyEmail", module);
         }
         return emailContactMechId;
     }
     
-    public static Map getCountryGeoId(GenericDelegator delegator, String geoCode) {
+    public static Map getCountryGeoId(GenericDelegator delegator, String geoCode)
+    {
         GenericValue geo = null;
         try {
             Debug.logInfo("geocode: " + geoCode, module);
             
             List geoEntities = delegator.findByAnd("Geo", UtilMisc.toMap("geoCode", geoCode.toUpperCase(), "geoTypeId", "COUNTRY"));
-            if (geoEntities != null && geoEntities.size() > 0) {
+            if (geoEntities != null && geoEntities.size() > 0)
+            {
                 geo = (GenericValue)geoEntities.get(0);
                 Debug.logInfo("Found a geo entity " + geo, module);
-            } else {
+            }
+            else
+            {
                 geo = delegator.makeValue("Geo", null);
                 geo.set("geoId", geoCode + "_IMPORTED");
                 geo.set("geoTypeId", "COUNTRY");
@@ -777,9 +901,30 @@ public class ImportOrdersFromEbay {
         return result;
     }   
     
-    public static boolean externalOrderExists(GenericDelegator delegator, String externalId) throws GenericEntityException {
+    public static GenericValue externalOrderExists(GenericDelegator delegator, String externalId) throws GenericEntityException
+    {
         Debug.logInfo("Checking for existing externalOrderId: " + externalId, module);
+        GenericValue orderHeader = null;
         List entities = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId));
-        return (entities != null && entities.size() > 0);
+        if (entities != null && entities.size() > 0) {
+            orderHeader = EntityUtil.getFirst(entities);
+        }
+        return orderHeader;
+    } 
+    
+    public static String buildExternalId(String itemId, String transactionId)
+    {
+        StringBuffer str = new StringBuffer();
+        if (itemId != null) {
+            str.append(itemId);
+        }
+        
+        if (transactionId != null) {
+            if (!("0".equals(transactionId))) {
+                str.append("_");
+            }           
+            str.append(transactionId);
+        }
+        return str.toString();
     }
 }

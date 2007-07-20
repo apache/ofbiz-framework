@@ -209,6 +209,7 @@ public class ProductsExportToEbay {
                      UtilXml.addChildElementValue(itemElem, "Currency", "USD", itemDocument);
                      UtilXml.addChildElementValue(itemElem, "SKU", prod.getString("productId"), itemDocument);
                      UtilXml.addChildElementValue(itemElem, "Title", title, itemDocument);
+                     UtilXml.addChildElementValue(itemElem, "Description", title, itemDocument);
                      UtilXml.addChildElementValue(itemElem, "ListingDuration", "Days_1", itemDocument);
                      UtilXml.addChildElementValue(itemElem, "Quantity", "3", itemDocument);
                      UtilXml.addChildElementValue(itemElem, "PaymentMethods", "AmEx", itemDocument);
