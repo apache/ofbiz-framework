@@ -143,7 +143,7 @@ public class ImportOrdersFromEbay {
                 order.put("shippingAddressStateOrProvince", (String) context.get("shippingAddressStateOrProvince"));
                 order.put("shippingAddressCityName", (String) context.get("shippingAddressCityName"));
                 
-                result = createShoppingCart(delegator, dispatcher, locale, order, Boolean.TRUE);
+                result = createShoppingCart(delegator, dispatcher, locale, order, true);
             }
         } catch (Exception e) {        
             Debug.logError("Exception in importOrderFromEbay " + e, module);
@@ -208,7 +208,7 @@ public class ImportOrdersFromEbay {
                     Map order = (Map)orderIter.next();
                     order.put("productStoreId", (String) context.get("productStoreId"));
                     order.put("userLogin", (GenericValue) context.get("userLogin"));
-                    Map error = createShoppingCart(delegator, dispatcher, locale, order, Boolean.FALSE);
+                    Map error = createShoppingCart(delegator, dispatcher, locale, order, false);
                     String errorMsg = ServiceUtil.getErrorMessage(error);
                     if (errorMsg != null) {
                         order.put("errorMessage", errorMsg);
@@ -739,12 +739,11 @@ public class ImportOrdersFromEbay {
         return orderAdjustment;
     }
 
-    public static String createCustomerParty(LocalDispatcher dispatcher, String name, GenericValue userLogin)
-    {
+    public static String createCustomerParty(LocalDispatcher dispatcher, String name, GenericValue userLogin) {
         String partyId = null;
         
         try {
-            if (UtilValidate.isNotEmpty(name) && UtilValidate.isNotEmpty(userLogin) ) {
+            if (UtilValidate.isNotEmpty(name) && UtilValidate.isNotEmpty(userLogin)) {
                 Debug.logVerbose("Creating Customer Party: "+name, module);
                 
                 // Try to split the lastname from the firstname
@@ -771,8 +770,7 @@ public class ImportOrdersFromEbay {
     }
     
     public static String createAddress(LocalDispatcher dispatcher, String partyId, GenericValue userLogin, 
-                                       String contactMechPurposeTypeId, Map address)
-    {
+                                       String contactMechPurposeTypeId, Map address) {
         String contactMechId = null;
         try {
             Map context = FastMap.newInstance();
@@ -795,8 +793,7 @@ public class ImportOrdersFromEbay {
         return contactMechId;
     }
     
-    private static void correctCityStateCountry(LocalDispatcher dispatcher, Map map, String city, String state, String country)
-    {
+    private static void correctCityStateCountry(LocalDispatcher dispatcher, Map map, String city, String state, String country) {
         try { 
             Debug.logInfo("correctCityStateCountry params: " + city + ", " + state + ", " + country, module);
             String geoId = "USA";
@@ -821,8 +818,7 @@ public class ImportOrdersFromEbay {
         }
     }
         
-    public static String createPartyPhone(LocalDispatcher dispatcher, String partyId, String phoneNumber, GenericValue userLogin)
-    {
+    public static String createPartyPhone(LocalDispatcher dispatcher, String partyId, String phoneNumber, GenericValue userLogin) {
         Map summaryResult = FastMap.newInstance();
         Map context = FastMap.newInstance();
         String phoneContactMechId = null;
@@ -839,15 +835,13 @@ public class ImportOrdersFromEbay {
         return phoneContactMechId;
     }
     
-    public static String createPartyEmail(LocalDispatcher dispatcher, String partyId, String email, GenericValue userLogin)
-    {
+    public static String createPartyEmail(LocalDispatcher dispatcher, String partyId, String email, GenericValue userLogin) {
         Map context = FastMap.newInstance();
         Map summaryResult = FastMap.newInstance();
         String emailContactMechId = null;
         
         try {
-            if (UtilValidate.isNotEmpty(email))
-            {
+            if (UtilValidate.isNotEmpty(email)) {
                 context.clear();
                 context.put("emailAddress", email);
                 context.put("userLogin", userLogin);
@@ -867,20 +861,17 @@ public class ImportOrdersFromEbay {
         return emailContactMechId;
     }
     
-    public static Map getCountryGeoId(GenericDelegator delegator, String geoCode)
-    {
+    public static Map getCountryGeoId(GenericDelegator delegator, String geoCode) {
         GenericValue geo = null;
         try {
             Debug.logInfo("geocode: " + geoCode, module);
             
             List geoEntities = delegator.findByAnd("Geo", UtilMisc.toMap("geoCode", geoCode.toUpperCase(), "geoTypeId", "COUNTRY"));
-            if (geoEntities != null && geoEntities.size() > 0)
-            {
+            if (geoEntities != null && geoEntities.size() > 0) {
                 geo = (GenericValue)geoEntities.get(0);
                 Debug.logInfo("Found a geo entity " + geo, module);
             }
-            else
-            {
+            else {
                 geo = delegator.makeValue("Geo", null);
                 geo.set("geoId", geoCode + "_IMPORTED");
                 geo.set("geoTypeId", "COUNTRY");
@@ -901,8 +892,7 @@ public class ImportOrdersFromEbay {
         return result;
     }   
     
-    public static GenericValue externalOrderExists(GenericDelegator delegator, String externalId) throws GenericEntityException
-    {
+    public static GenericValue externalOrderExists(GenericDelegator delegator, String externalId) throws GenericEntityException {
         Debug.logInfo("Checking for existing externalOrderId: " + externalId, module);
         GenericValue orderHeader = null;
         List entities = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId));
@@ -912,8 +902,7 @@ public class ImportOrdersFromEbay {
         return orderHeader;
     } 
     
-    public static String buildExternalId(String itemId, String transactionId)
-    {
+    public static String buildExternalId(String itemId, String transactionId) {
         StringBuffer str = new StringBuffer();
         if (itemId != null) {
             str.append(itemId);
