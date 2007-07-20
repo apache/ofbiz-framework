@@ -43,13 +43,13 @@ under the License.
   <#if wrapInBox == "Y">
   <div class="screenlet">
     <div class="screenlet-header">
-      <div class="boxhead"><#if categoryName?has_content>${categoryName}<#else>${categoryDescription?default("")}</#if></div>
+      <div class="boxhead"><#if categoryDescription?has_content>${categoryDescription}<#else>${categoryName?default("")}</#if></div>
     </div>
     <div class="screenlet-body">
       <div style='margin-left: 10px;'>
   </#if>
         <div class="browsecategorytext">
-          -&nbsp;<a href="<@ofbizUrl>category/~category_id=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="${browseCategoryButtonClass}"><#if categoryDescription?has_content>${categoryDescription}<#else>${categoryName?default("")}</#if></a>
+          -&nbsp;<a href="<@ofbizUrl>category/~category_id=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="${browseCategoryButtonClass}"><#if categoryName?has_content>${categoryName}<#else>${categoryDescription?default("")}</#if></a>
         </div>
   <#if (Static["org.ofbiz.product.category.CategoryWorker"].checkTrailItem(request, category.getString("productCategoryId"))) || (curCategoryId?exists && curCategoryId == category.productCategoryId)>
     <#local subCatList = Static["org.ofbiz.product.category.CategoryWorker"].getRelatedCategoriesRet(request, "subCatList", category.getString("productCategoryId"), true)>
