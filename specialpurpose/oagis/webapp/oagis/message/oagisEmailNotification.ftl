@@ -28,7 +28,7 @@
             <p>
                 <a href="#">Available Quantity On Hand </a>
             </p>
-            <div style="clear:both">${atptMap?if_exists}</div>
+            <div style="clear:both">${quantityOnHandTotal?if_exists}</div>
             <div style="height:600px"></div>
         </div>
     </body>

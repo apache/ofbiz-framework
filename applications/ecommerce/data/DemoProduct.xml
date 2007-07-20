@@ -22,14 +22,17 @@ under the License.
     <Facility facilityId="WebStoreWarehouse" facilityTypeId="WAREHOUSE" facilityName="Web Store Warehouse" description="Warehouse exclusively for the Web Store " ownerPartyId="Company" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM" defaultWeightUomId="WT_lb" defaultDaysToShip="25"/>
     <ContactMech contactMechId="9200" contactMechTypeId="POSTAL_ADDRESS"/>
     <ContactMech contactMechId="9201" contactMechTypeId="TELECOM_NUMBER"/>
+    <ContactMech contactMechId="9202" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
     <PostalAddress contactMechId="9200" toName="Company XYZ" attnName="ZJAA" address1="2003 Open Blvd" city="Orem" postalCode="84058" countryGeoId="USA" stateProvinceGeoId="UT"/>
     <TelecomNumber contactMechId="9201" areaCode="801" contactNumber="555-5555"/>
     <FacilityContactMech facilityId="WebStoreWarehouse" contactMechId="9200" fromDate="2001-05-13 12:00:00.0"/>
     <FacilityContactMech facilityId="WebStoreWarehouse" contactMechId="9201" fromDate="2001-05-13 12:00:00.0"/>
+    <FacilityContactMech facilityId="WebStoreWarehouse" contactMechId="9202" fromDate="2001-05-13 12:00:00.0"/>
     <FacilityContactMechPurpose facilityId="WebStoreWarehouse" contactMechId="9200" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 12:00:00.0"/>
     <FacilityContactMechPurpose facilityId="WebStoreWarehouse" contactMechId="9200" contactMechPurposeTypeId="SHIP_ORIG_LOCATION" fromDate="2001-05-13 12:00:00.0"/>
     <FacilityContactMechPurpose facilityId="WebStoreWarehouse" contactMechId="9201" contactMechPurposeTypeId="PHONE_SHIPPING" fromDate="2001-05-13 12:00:00.0"/>
     <FacilityContactMechPurpose facilityId="WebStoreWarehouse" contactMechId="9201" contactMechPurposeTypeId="PHONE_SHIP_ORIG" fromDate="2001-05-13 12:00:00.0"/>
+    <FacilityContactMechPurpose facilityId="WebStoreWarehouse" contactMechId="9202" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 12:00:00.0"/>
     <FacilityLocation facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL01" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="LL" positionId="01"/>
     <FacilityLocation facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="01"/>
     <FacilityLocation facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL02" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="LL" positionId="02"/>
