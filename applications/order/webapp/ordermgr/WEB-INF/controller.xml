@@ -1497,9 +1497,16 @@ under the License.
         <response name="failure" type="view" value="ManageOrdersFromEbay"/>
     </request-map>
     
-    <request-map uri="ImportOrdersFromEbay">
+    <request-map uri="ImportOrdersSearchFromEbay">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="importFromEbay"/>
+        <event type="service" path="" invoke="importOrdersSearchFromEbay"/>
+        <response name="success" type="view" value="ManageOrdersFromEbay"/>
+        <response name="failure" type="view" value="ManageOrdersFromEbay"/>
+    </request-map>
+    
+    <request-map uri="ImportOrderFromEbay">
+        <security https="true" auth="true"/>
+        <event type="service-multi" path="" invoke="importOrderFromEbay"/>
         <response name="success" type="view" value="ManageOrdersFromEbay"/>
         <response name="failure" type="view" value="ManageOrdersFromEbay"/>
     </request-map>
