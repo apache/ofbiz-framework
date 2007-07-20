@@ -634,9 +634,9 @@ public class ImportOrdersFromEbay {
                 
                 //TODO handle shipment method type
                 cart.setShipmentMethodTypeId("NO_SHIPPING");
-                cart.setMaySplit(false);
+                cart.setMaySplit(Boolean.FALSE);
                 cart.makeAllShipGroupInfos();
-                  
+
                 // create the order
                 CheckOutHelper checkout = new CheckOutHelper(dispatcher, delegator, cart);
                 Map orderCreate = checkout.createOrder(userLogin);
