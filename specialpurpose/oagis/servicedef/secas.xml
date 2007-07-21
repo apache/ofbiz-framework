@@ -28,9 +28,9 @@ under the License.
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <action service="oagisProcessShipment" mode="sync"/>
     </eca-->
-    <!--eca service="oagisPocessShipment" event="commit" run-on-error="false">
+    <eca service="oagisPocessShipment" event="commit" run-on-error="false">
         <action service="createOagisMessageInfo" mode="sync"/>
-    </eca-->
+    </eca>
     
     <!--<eca service="receiveConfirmBod" event="commit" run-on-error="true">
         <action service="createOagisMessageInfo" mode="sync"/>
