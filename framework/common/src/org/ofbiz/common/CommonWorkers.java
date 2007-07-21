@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.common;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -68,7 +67,7 @@ public class CommonWorkers {
     }
     
     public static List getStateList(GenericDelegator delegator) {
-        List geoList = new ArrayList();       
+        List geoList = FastList.newInstance();       
         EntityCondition condition = new EntityConditionList(UtilMisc.toList(
                 new EntityExpr("geoTypeId", EntityOperator.EQUALS, "STATE"), new EntityExpr("geoTypeId", EntityOperator.EQUALS, "PROVINCE")), EntityOperator.OR);
         List sortList = UtilMisc.toList("geoName");
@@ -76,7 +75,7 @@ public class CommonWorkers {
             geoList = delegator.findByConditionCache("Geo", condition, null, sortList);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot lookup State Geos: " + e.toString(), module);
-        }                        
+        }
         return geoList;            
     }    
 
@@ -84,19 +83,27 @@ public class CommonWorkers {
      * Returns a list of regional geo associations.
      */
     public static List getAssociatedStateList(GenericDelegator delegator, String country) {
-      if ( country == null || country.length() == 0 ) {
-        // Load the system default country
-        country = UtilProperties.getPropertyValue("general.properties", "country.geo.id.default");
-      }
-      List geoList = new ArrayList();
-      Map geoAssocFindMap = UtilMisc.toMap("geoId", country, "geoAssocTypeId", "REGIONS");
-      List sortList = UtilMisc.toList("geoIdTo");
-      try {
-          geoList = delegator.findByAndCache("GeoAssoc", geoAssocFindMap, sortList);
-      } catch (GenericEntityException e) {
-          Debug.logError(e, "Cannot lookup Geo", module);
-      }                        
-      return geoList;            
+        if (country == null || country.length() == 0) {
+            // Load the system default country
+            country = UtilProperties.getPropertyValue("general.properties", "country.geo.id.default");
+        }
+        EntityCondition stateProvinceFindCond = new EntityConditionList(UtilMisc.toList(
+                new EntityExpr("geoIdFrom", EntityOperator.EQUALS, country),
+                new EntityExpr("geoAssocTypeId", EntityOperator.EQUALS, "REGIONS"),
+                new EntityConditionList(UtilMisc.toList(
+                        new EntityExpr("geoTypeId", EntityOperator.EQUALS, "STATE"),
+                        new EntityExpr("geoTypeId", EntityOperator.EQUALS, "PROVINCE")
+                        ), EntityOperator.OR)
+                ), EntityOperator.AND);
+        List sortList = UtilMisc.toList("geoId");
 
+        List geoList = FastList.newInstance();
+        try {
+            geoList = delegator.findByConditionCache("GeoAssocAndGeoTo", stateProvinceFindCond, null, sortList);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Cannot lookup Geo", module);
+        }                        
+        
+        return geoList;            
     }    
 }
