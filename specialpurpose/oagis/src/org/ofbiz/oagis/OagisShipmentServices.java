@@ -252,7 +252,7 @@ public class OagisShipmentServices {
         MapStack bodyParameters =  MapStack.create();
         if (userLogin == null) {
             try {
-                userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "admin"));
+                userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting userLogin", module);
             }
@@ -341,8 +341,9 @@ public class OagisShipmentServices {
                         bodyParameters.put("replacementReturnId", returnItem.getString("returnId"));
                     }
 
-                    // tracking shipper account
+                    // tracking shipper account, other Party info
                     String partyId = shipment.getString("partyIdTo");
+                    bodyParameters.put("partyNameView", delegator.findByPrimaryKey("PartyNameView", UtilMisc.toMap("partyId", partyId)));
                     List partyCarrierAccounts = delegator.findByAnd("PartyCarrierAccount", UtilMisc.toMap("partyId", partyId));
                     partyCarrierAccounts = EntityUtil.filterByDate(partyCarrierAccounts);
                     if (partyCarrierAccounts != null) {
