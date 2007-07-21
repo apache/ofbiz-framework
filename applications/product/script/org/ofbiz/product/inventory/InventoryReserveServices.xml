@@ -256,21 +256,63 @@ under the License.
         Let me find the reservation on this inventory, cancel it and re-reserve something else for the other order.
         This way I'll get what I want and the other orderItem will also have a similar thing to issue.
         -->
-        <set field="inventoryItemLookUp.inventoryItemId" from-field="parameters.inventoryItemId"/>
-        <find-by-primary-key map-name="inventoryItemLookUp" entity-name="InventoryItem" value-name="inventoryItem"/>
+        <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
+        <set field="inventoryReservationLookUp.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
+        <set-service-fields map-name="parameters" to-map-name="cancelOrderItemShipGrpInvResMap" service-name="cancelOrderItemShipGrpInvRes"/>
+        <!-- Step 1 cancel our reservation, we'll later reserve Inventory we want-->
+        <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
+        <!-- Lets find the inventory to reserve -->
+        <entity-and entity-name="InventoryItem" list-name="inventoryItems">            
+            <field-map field-name="productId" env-name="parameters.productId"/>
+            <field-map field-name="inventoryItemTypeId"  value="SERIALIZED_INV_ITEM"/>
+            <field-map field-name="serialNumber" env-name="parameters.serialNumber"/>
+        </entity-and>        
+        <first-from-list list-name="inventoryItems" entry-name="inventoryItem"/>
+
+        <!--Step 2 Check if its reserved for other order -->
         <set field="inventoryReservationLookUp.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
         <find-by-and map-name="inventoryReservationLookUp" list-name="invReservations" entity-name="OrderItemShipGrpInvRes"/>
         <first-from-list entry-name="inventoryItemReservation" list-name="invReservations"/>        
+        <if-not-empty field-name="inventoryItemReservation">                        
+            <set-service-fields map-name="inventoryItemReservation" to-map-name="cancelOrderItemShipGrpInvResMap" service-name="cancelOrderItemShipGrpInvRes"/>
+            <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
+            <!-- Hold our inventoryItem -->
+            <refresh-value value-name="inventoryItem"/>
+            <set value="INV_PROMISED" field="inventoryItem.statusId"/>
+            <store-value value-name="inventoryItem"/>
+            <!-- get something else for other order --> 
+            <entity-and entity-name="InventoryItem" list-name="inventoryItems">                
+                <field-map field-name="productId" env-name="parameters.productId"/>
+                <field-map field-name="inventoryItemTypeId"  value="SERIALIZED_INV_ITEM"/>
+                <field-map field-name="statusId"  value="INV_AVAILABLE"/>
+            </entity-and>
+            <first-from-list list-name="inventoryItems" entry-name="availableInventoryItem"/>
+            <!-- change status on available inventoryItem -->            
+            <set value="INV_PROMISED" field="availableInventoryItem.statusId"/>
+            <store-value value-name="availableInventoryItem"/>
+            <!-- store OrderItemShipGrpInvRes record -->
+            <set from-field="inventoryItemReservation.orderId" field="reserveOisgirMap.orderId"/>
+            <set from-field="inventoryItemReservation.orderItemSeqId" field="reserveOisgirMap.orderItemSeqId"/>
+            <set from-field="inventoryItemReservation.shipGroupSeqId" field="reserveOisgirMap.shipGroupSeqId"/>
+            <set from-field="availableInventoryItem.inventoryItemId" field="reserveOisgirMap.inventoryItemId"/>
+            <set from-field="inventoryItemReservation.reserveOrderEnumId" field="reserveOisgirMap.reserveOrderEnumId"/>
+            <set from-field="inventoryItemReservation.reservedDatetime" field="reserveOisgirMap.reservedDatetime"/>
+            <set from-field="inventoryItemReservation.promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
+            <set field="reserveOisgirMap.quantity" value="1" type="Double"/>
+            <if-not-empty field-name="inventoryItemReservation.sequenceId">
+                <set field="reserveOisgirMap.sequenceId" from-field="inventoryItemReservation.sequenceId"/>
+            </if-not-empty>
+            <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
+            <clear-field field-name="reserveOisgirMap"/>
+            <clear-field field-name="availableInventoryItem"/> 
+        </if-not-empty>
 
-        <set-service-fields map-name="inventoryItemReservation" to-map-name="cancelOrderItemShipGrpInvResMap" service-name="cancelOrderItemShipGrpInvRes"/>
-        <!-- Step 1 call the cancel reservation service -->
-        <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
-
-        <!-- Step 2 Lets reserve what we need call reserveOrderItemInventory -->
-        <!-- change status on inventoryItem -->
-        <set value="INV_PROMISED" field="inventoryItem.statusId"/>
-        <store-value value-name="inventoryItem"/>
-        <!-- store OrderItemShipGrpInvRes record -->
+        <!-- Step 3 Now Reserve for our order-->
+        <if-compare value="INV_AVAILABLE" operator="equals" field-name="statusId" map-name="inventoryItem">
+            <!-- change status on inventoryItem -->
+            <set value="INV_PROMISED" field="inventoryItem.statusId"/>
+            <store-value value-name="inventoryItem"/>
+        </if-compare>  
         <set from-field="parameters.orderId" field="reserveOisgirMap.orderId"/>
         <set from-field="parameters.orderItemSeqId" field="reserveOisgirMap.orderItemSeqId"/>
         <set from-field="parameters.shipGroupSeqId" field="reserveOisgirMap.shipGroupSeqId"/>
@@ -281,36 +323,11 @@ under the License.
         <set field="reserveOisgirMap.quantity" value="1" type="Double"/>
         <if-not-empty field-name="parameters.sequenceId">
             <set field="reserveOisgirMap.sequenceId" from-field="parameters.sequenceId"/>
-        </if-not-empty>
-        <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
-        <clear-field field-name="reserveOisgirMap"/>
-        
-        <!-- Step 3 Now last thing, lets reReserve inventory for order form where we got our item. Be curtious -->        
-        <!-- Lets find a free inventory to reserve -->
-        <entity-and entity-name="InventoryItem" list-name="inventoryItems">
-             <field-map field-name="facilityId" env-name="parameters.facilityId"/>
-             <field-map field-name="productId" env-name="parameters.productId"/>
-             <field-map field-name="inventoryItemTypeId"  value="SERIALIZED_INV_ITEM"/>
-             <field-map field-name="statusId"  value="INV_AVAILABLE"/>
-        </entity-and>        
-        <first-from-list list-name="inventoryItems" entry-name="inventoryItem"/>
-        <!-- change status on inventoryItem -->
-        <set value="INV_PROMISED" field="inventoryItem.statusId"/>
-        <store-value value-name="inventoryItem"/>
+        </if-not-empty>        
         <!-- store OrderItemShipGrpInvRes record -->
-        <set from-field="inventoryItemReservation.orderId" field="reserveOisgirMap.orderId"/>
-        <set from-field="inventoryItemReservation.orderItemSeqId" field="reserveOisgirMap.orderItemSeqId"/>
-        <set from-field="inventoryItemReservation.shipGroupSeqId" field="reserveOisgirMap.shipGroupSeqId"/>
-        <set from-field="inventoryItems.inventoryItemId" field="reserveOisgirMap.inventoryItemId"/>
-        <set from-field="inventoryItemReservation.reserveOrderEnumId" field="reserveOisgirMap.reserveOrderEnumId"/>
-        <set from-field="inventoryItemReservation.reservedDatetime" field="reserveOisgirMap.reservedDatetime"/>
-        <set from-field="inventoryItemReservation.promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
-        <set field="reserveOisgirMap.quantity" value="1" type="Double"/>
-        <if-not-empty field-name="inventoryItemReservation.sequenceId">
-            <set field="reserveOisgirMap.sequenceId" from-field="inventoryItemReservation.sequenceId"/>
-        </if-not-empty>
         <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
-        <clear-field field-name="reserveOisgirMap"/>
+        <clear-field field-name="reserveOisgirMap"/>        
+        <field-to-result field-name="inventoryItemId" map-name="inventoryItem"/>
     </simple-method>
 
     <simple-method method-name="reserveForInventoryItemInline" short-description="Does a reservation for one InventoryItem, meant to be called in-line">
@@ -554,6 +571,7 @@ under the License.
         </if-compare>
     </simple-method>
 </simple-methods>
+
 
 
 
