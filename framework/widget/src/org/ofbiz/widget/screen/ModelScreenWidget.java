@@ -126,7 +126,7 @@ public abstract class ModelScreenWidget implements Serializable {
         Iterator subWidgetIter = subWidgets.iterator();
         while (subWidgetIter.hasNext()) {
             ModelScreenWidget subWidget = (ModelScreenWidget) subWidgetIter.next();
-            Debug.logInfo("Rendering screen " + subWidget.modelScreen.name + " widget " + subWidget.getClass().getName(), module);
+            if (Debug.verboseOn()) Debug.logVerbose("Rendering screen " + subWidget.modelScreen.name + "; widget class is " + subWidget.getClass().getName(), module);
 
             Map parameters = (Map) context.get("parameters");
             boolean insertWidgetBoundaryComments = "true".equals(parameters==null?null:parameters.get("widgetVerbose"));
