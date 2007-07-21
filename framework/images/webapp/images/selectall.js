@@ -202,7 +202,8 @@ function submitFormDisableButton(button) {
     if (button.form.action != null && button.form.action.length > 0) {
         button.disabled = true;
     }
-    button.form.submit();
+    button.className = button.className + " disabled";
+    button.value = button.value + "*";
 }
 
 function submitFormEnableButtonByName(formName, buttonName) {
