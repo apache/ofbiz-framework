@@ -257,6 +257,7 @@ under the License.
         This way I'll get what I want and the other orderItem will also have a similar thing to issue.
         -->
         <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
+        <set field="facilityId" from-field="inventoryItem.facilityId"/>
         <set field="inventoryReservationLookUp.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
         <set-service-fields map-name="parameters" to-map-name="cancelOrderItemShipGrpInvResMap" service-name="cancelOrderItemShipGrpInvRes"/>
         <!-- Step 1 cancel our reservation, we'll later reserve Inventory we want-->
@@ -264,6 +265,7 @@ under the License.
         <!-- Lets find the inventory to reserve -->
         <entity-and entity-name="InventoryItem" list-name="inventoryItems">            
             <field-map field-name="productId" env-name="parameters.productId"/>
+            <field-map field-name="facilityId"/>
             <field-map field-name="inventoryItemTypeId"  value="SERIALIZED_INV_ITEM"/>
             <field-map field-name="serialNumber" env-name="parameters.serialNumber"/>
         </entity-and>        
