@@ -45,7 +45,7 @@ under the License.
         <attribute name="errorMapList" type="java.util.List" mode="OUT" optional="true"/>
     </service>
 
-    <service name="createOagisMessageInfo" engine="simple" default-entity-name="OagisMessageInfo"
+    <service name="createOagisMessageInfo" engine="simple" default-entity-name="OagisMessageInfo" 
             location="org/ofbiz/oagis/OagisMessageServices.xml" invoke="createOagisMessageInfo" auth="true">
          <description>Create MessageInfo</description>
          <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -65,7 +65,7 @@ under the License.
          <auto-attributes mode="IN" include="pk" optional="false"/>
          <auto-attributes mode="IN" include="nonpk" optional="true"/>
          <override name="errorSeqId" optional="true"/>        
-    </service>
+    </service>        
     
     <service name="updateOagisMessageErrorInfo" engine="simple" default-entity-name="OagisMessageErrorInfo"
              location="org/ofbiz/oagis/OagisMessageServices.xml" invoke="updateOagisMessageErrorInfo" auth="true">
@@ -119,17 +119,17 @@ under the License.
         <attribute name="bodyParameters" type="Map" mode="IN" optional="true"/>
         <attribute name="body" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="oagisProcessShipment" max-retry="0" engine="java" 
+    <service name="oagisProcessShipment" max-retry="0" engine="java"
         location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisProcessShipment">
         <description>Prepare and Optionally Send OAGIS Process Shipment Message.
             Note on usage: you can pass in either sendToUrl, saveToFilename, or outputStream. 
             If none are passed in the URL in oagis.properties will be used at the target for the message.</description>
-        <!--implements service="oagisMessageInfoInterface"/-->
+        <implements service="oagisMessageInfoInterface"/>
         <attribute name="sendToUrl" type="String" mode="IN" optional="true"/>
         <attribute name="saveToFilename" type="String" mode="IN" optional="true"/>
         <attribute name="saveToDirectory" type="String" mode="IN" optional="true"/>
         <attribute name="outputStream" type="java.io.OutputStream" mode="IN" optional="true"/>
-        <attribute name="orderId" mode="IN" type="String" optional="false"/>
+        <override name="orderId" mode="INOUT" type="String" optional="false"/>
     </service>
     <service name="sendProcessShipmentMsg" max-retry="0" engine="simple"
         location="org/ofbiz/oagis/OagisMessageServices.xml" invoke="sendProcessShipmentMsg">
