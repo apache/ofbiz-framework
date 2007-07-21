@@ -265,19 +265,34 @@ public class OagisShipmentServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-        GenericValue shipment =null;
+
         if (orderHeader != null) {
             String orderStatusId = orderHeader.getString("statusId");
             if (orderStatusId.equals("ORDER_APPROVED")) {
                 try {
-                    Map  cospResult= dispatcher.runSync("createOrderShipmentPlan", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
-                    shipmentId = (String) cospResult.get("shipmentId");
-                } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
-                    return ServiceUtil.returnError(e.getMessage());
-                }
-                try {
-                    shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+                    
+                    // check to see if there is already a Shipment for this order
+                    EntityCondition findShipmentCondition = new EntityConditionList(UtilMisc.toList(
+                            new EntityExpr("primaryOrderId", EntityOperator.EQUALS, orderId),
+                            new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_CANCELLED")
+                            ), EntityOperator.AND);
+                    List shipmentList = delegator.findByCondition("Shipment", findShipmentCondition, null, null);
+                    GenericValue shipment = EntityUtil.getFirst(shipmentList);
+                    
+                    if (shipment != null) {
+                        // if picked, packed, shipped, delivered then complain, no reason to process the shipment!
+                        String statusId = shipment.getString("statusId");
+                        if ("SHIPMENT_PICKED".equals(statusId) || "SHIPMENT_PACKED".equals(statusId) || "SHIPMENT_SHIPPED".equals(statusId) || "SHIPMENT_DELIVERED".equals(statusId)) {
+                            return ServiceUtil.returnError("Not sending Process Shipment message because found Shipment that is already being processed, is in status [" + statusId + "]");
+                        }
+                        shipmentId = shipment.getString("shipmentId");
+                    } else {
+                        Map cospResult= dispatcher.runSync("createOrderShipmentPlan", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
+                        shipmentId = (String) cospResult.get("shipmentId");
+
+                        shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+                    }
+                    
                     bodyParameters.put("shipment", shipment);
                     OrderReadHelper orderReadHelper = new OrderReadHelper(orderHeader);
                     if(orderReadHelper.hasShippingAddress()) {
@@ -296,60 +311,61 @@ public class OagisShipmentServices {
                     
                     orderItemShipGroup = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGroup", UtilMisc.toMap("orderId", orderId)));
                     bodyParameters.put("orderItemShipGroup", orderItemShipGroup);
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                }
-                
-                Set correspondingPoIdSet = FastSet.newInstance();
-                try {
-                    List orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", shipment.getString("primaryOrderId")));
+
+                    Set correspondingPoIdSet = FastSet.newInstance();
+                    List orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
                     Iterator oiIter = orderItems.iterator();
                     while (oiIter.hasNext()) {
                         GenericValue orderItem = (GenericValue) oiIter.next();
                         String correspondingPoId = orderItem.getString("correspondingPoId");
                         if (correspondingPoId != null) {
-	                        correspondingPoIdSet.add(correspondingPoId);
+                            correspondingPoIdSet.add(correspondingPoId);
                         }
                     }
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                }
-                bodyParameters.put("correspondingPoIdSet", correspondingPoIdSet);
+                    bodyParameters.put("correspondingPoIdSet", correspondingPoIdSet);
 
-                Set externalIdSet = FastSet.newInstance();
-                try {
-                    GenericValue primaryOrderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", shipment.getString("primaryOrderId")));
-                    externalIdSet.add(primaryOrderHeader.getString("externalId"));
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                }
-                bodyParameters.put("externalIdSet", externalIdSet);
-                
-                // Check if order was a return replacement order (associated with return)
-                List returnItemResponses =  null;
-                List returnItemRespExprs = UtilMisc.toList(new EntityExpr("replacementOrderId", EntityOperator.NOT_EQUAL, null));
-                EntityCondition returnItemRespCond = new EntityConditionList(returnItemRespExprs, EntityOperator.AND);
-                // list of fields to select (initial list)
-                List fieldsToSelect = FastList.newInstance();
-                fieldsToSelect.add("replacementOrderId");
-                try {
-                    returnItemResponses = delegator.findByCondition("ReturnItemResponse", returnItemRespCond, fieldsToSelect, null);
-                    Iterator rirIter = returnItemResponses.iterator();
-                    while (rirIter.hasNext()) {
-                        GenericValue returnItemResponse = (GenericValue) rirIter.next();
-                        String replacementOrderId = returnItemResponse.getString("replacementOrderId");
-                        if (replacementOrderId.equals(shipment.getString("primaryOrderId"))) {
-                            bodyParameters.put("shipnotes", "RETURNLABEL");
-                            
-                            // Get the associated return Id (replaceReturnId)
-                            String returnItemResponseId = returnItemResponse.getString("returnItemResponseId");
-                            GenericValue returnItem = EntityUtil.getFirst(delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnItemResponseId", returnItemResponseId)));
-                            bodyParameters.put("replacementReturnId", returnItem.getString("returnId"));
+                    if (orderHeader.get("externalId") != null) {
+                        Set externalIdSet = FastSet.newInstance();
+                        externalIdSet.add(orderHeader.getString("externalId"));
+                        bodyParameters.put("externalIdSet", externalIdSet);
+                    }
+
+                    // Check if order was a return replacement order (associated with return)
+                    GenericValue returnItemResponse = EntityUtil.getFirst(delegator.findByAnd("ReturnItemResponse", UtilMisc.toMap("replacementOrderId", orderId)));
+                    if (returnItemResponse != null) {
+                        bodyParameters.put("shipnotes", "RETURNLABEL");
+                        
+                        // Get the associated return Id (replaceReturnId)
+                        String returnItemResponseId = returnItemResponse.getString("returnItemResponseId");
+                        GenericValue returnItem = EntityUtil.getFirst(delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnItemResponseId", returnItemResponseId)));
+                        bodyParameters.put("replacementReturnId", returnItem.getString("returnId"));
+                    }
+
+                    // tracking shipper account
+                    String partyId = shipment.getString("partyIdTo");
+                    List partyCarrierAccounts = delegator.findByAnd("PartyCarrierAccount", UtilMisc.toMap("partyId", partyId));
+                    partyCarrierAccounts = EntityUtil.filterByDate(partyCarrierAccounts);
+                    if (partyCarrierAccounts != null) {
+                        Iterator pcaIter = partyCarrierAccounts.iterator();
+                        while (pcaIter.hasNext()) {
+                            GenericValue partyCarrierAccount = (GenericValue) pcaIter.next();
+                            String carrierPartyId = partyCarrierAccount.getString("carrierPartyId");
+                            if (carrierPartyId.equals(orderItemShipGroup.getString("carrierPartyId"))) {
+                                String accountNumber = partyCarrierAccount.getString("accountNumber");
+                                bodyParameters.put("shipperId", accountNumber);
+                            }
                         }
                     }
+                } catch (GenericServiceException e) {
+                    String errMsg = "Error preparing data for OAGIS Process Shipment message: " + e.toString();
+                    Debug.logError(e, errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
+                    String errMsg = "Error preparing data for OAGIS Process Shipment message: " + e.toString();
+                    Debug.logError(e, errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
                 }
+                
                 String logicalId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.LOGICALID");
                 bodyParameters.put("logicalId", logicalId);
                 result.put("logicalId", logicalId);
@@ -368,26 +384,6 @@ public class OagisShipmentServices {
                 bodyParameters.put("sentDate", sentDate);
                 result.put("sentDate", timestamp);
                
-                // tracking shipper account
-                String partyId = shipment.getString("partyIdTo");
-                List partyCarrierAccounts = new ArrayList();
-                try {
-                    partyCarrierAccounts = delegator.findByAnd("PartyCarrierAccount", UtilMisc.toMap("partyId", partyId));
-                    partyCarrierAccounts = EntityUtil.filterByDate(partyCarrierAccounts);
-                    if (partyCarrierAccounts != null) {
-                        Iterator pcaIter = partyCarrierAccounts.iterator();
-                        while (pcaIter.hasNext()) {
-                            GenericValue partyCarrierAccount = (GenericValue) pcaIter.next();
-                            String carrierPartyId = partyCarrierAccount.getString("carrierPartyId");
-                            if (carrierPartyId.equals(orderItemShipGroup.getString("carrierPartyId"))) {
-                                String accountNumber = partyCarrierAccount.getString("accountNumber");
-                                bodyParameters.put("shipperId", accountNumber);
-                            }
-                        }
-                    }
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                }
                 bodyParameters.put("shipmentId", shipmentId);
                 bodyParameters.put("orderId", orderId);
                 bodyParameters.put("userLogin", userLogin);
@@ -397,17 +393,17 @@ public class OagisShipmentServices {
                 if (out != null) {
                     writer = new OutputStreamWriter(out);
                 } else if (UtilValidate.isNotEmpty(saveToFilename)) {
-                	try {
+                    try {
                         File outdir = new File(saveToDirectory);
                         if (!outdir.exists()) {
                             outdir.mkdir();
                         }
                         writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, saveToFilename)), "UTF-8")));
-                	} catch (Exception e) {
-                		String errMsg = "Error opening file to save message to [" + saveToFilename + "]: " + e.toString();
+                    } catch (Exception e) {
+                        String errMsg = "Error opening file to save message to [" + saveToFilename + "]: " + e.toString();
                         Debug.logError(e, errMsg, module);
                         return ServiceUtil.returnError(errMsg);
-                	}
+                    }
                 } else if (UtilValidate.isNotEmpty(sendToUrl)) {
                 	writer = new StringWriter();
                 }

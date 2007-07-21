@@ -83,8 +83,8 @@
             </os:CONTACT>
           </#if>
         </os:PARTNER>
+        <#list shipmentItems as shipmentItem>
         <n:SHIPITEM>
-          <#list shipmentItems as shipmentItem>
             <os:QUANTITY>
               <of:VALUE>${shipmentItem.quantity?if_exists}</of:VALUE>
               <of:NUMOFDEC>0</of:NUMOFDEC>
@@ -98,8 +98,8 @@
               <of:DOCUMENTID>${shipment.shipmentId?if_exists}</of:DOCUMENTID>
               <of:LINENUM>${shipmentItem.shipmentItemSeqId?if_exists}</of:LINENUM>
             </n:DOCUMNTREF>
-          </#list> 
         </n:SHIPITEM>
+        </#list> 
         <#list externalIdSet?if_exists as externalId>
         <n:DOCUMNTREF>
           <of:DOCTYPE>PARTNER_SO</of:DOCTYPE>
