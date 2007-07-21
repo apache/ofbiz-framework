@@ -243,10 +243,9 @@ under the License.
         <attribute name="quantity" type="Double" mode="IN" optional="false"/>
         <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
-        <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="false"/>
         <attribute name="serialNumber" type="String" mode="IN" optional="true"/>        
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
-        <attribute name="quantityNotReserved" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="promisedDatetime" type="Timestamp" mode="IN" optional="false"/>
     </service>
                 
     <service name="reserveProductInventory" engine="simple"
