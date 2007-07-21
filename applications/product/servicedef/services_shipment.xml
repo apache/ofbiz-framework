@@ -687,6 +687,7 @@ under the License.
         <attribute name="trackingNum" type="String" mode="IN" optional="true"/>
         <attribute name="originFacilityId" type="String" mode="IN" optional="true"/>
         <attribute name="quantityNotReserved" type="Double" mode="IN" optional="false"/>
+        <attribute name="promisedDatetime" type="Timestamp" mode="IN" optional="false"/>
     </service>
 
     <service name="sendShipmentCompleteNotification" engine="java" require-new-transaction="true" max-retry="3"
