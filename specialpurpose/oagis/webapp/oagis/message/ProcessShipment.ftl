@@ -59,7 +59,12 @@
         <of:TRANSMETHD>${orderItemShipGroup.shipmentMethodTypeId?if_exists}</of:TRANSMETHD>
         <os:PARTNER>
           <#if address?has_content>
-            <of:NAME>${address.toName?if_exists}</of:NAME>
+            <#if (partyNameView.firstName)?has_content><#assign partyName = partyNameView.firstName/></#if>
+            <#if (partyNameView.middleName)?has_content><#assign partyName = partyName + " " + partyNameView.middleName/></#if>
+            <#if (partyNameView.lastName)?has_content><#assign partyName = partyName + " " + partyNameView.lastName/></#if>
+
+            <#-- NOTE: this is the to name -->
+            <of:NAME>${address.toName?default(partyName)?if_exists}</of:NAME>
             <of:PARTNRTYPE>SHIPTO</of:PARTNRTYPE>
             <of:CURRENCY>USD</of:CURRENCY>
             <os:ADDRESS>
@@ -76,7 +81,8 @@
               <of:TELEPHONE><#if telecomNumber.countryCode?has_content>${telecomNumber.countryCode}-</#if>${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</of:TELEPHONE>
             </os:ADDRESS>
             <os:CONTACT>
-              <of:NAME>${address.toName?if_exists}</of:NAME>
+              <#-- NOTE: this is the attention name -->
+              <of:NAME>${address.attnName?default(partyName)?if_exists}</of:NAME>
               <of:EMAIL>${emailString?if_exists}</of:EMAIL>
               <of:FAX></of:FAX>
               <of:TELEPHONE><#if telecomNumber.countryCode?has_content>${telecomNumber.countryCode}-</#if>${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</of:TELEPHONE>
