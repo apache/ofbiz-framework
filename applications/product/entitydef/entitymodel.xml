@@ -1524,6 +1524,21 @@ under the License.
       <field name="description" type="description"></field>
       <prim-key field="varianceReasonId"/>
     </entity>
+    <view-entity entity-name="InventoryItemAndDetail"
+            package-name="org.ofbiz.product.inventory"
+            title="Inventory Item  And Inventory Item Detail View Entity">
+      <member-entity entity-alias="II" entity-name="InventoryItem"/>        
+      <member-entity entity-alias="IID" entity-name="InventoryItemDetail"/>
+      <alias entity-alias="II" name="inventoryItemId"/>
+      <alias entity-alias="II" name="productId"/>
+      <alias entity-alias="IID" name="inventoryItemDetailSeqId"/>   
+      <alias entity-alias="IID" name="effectiveDate"/>   
+      <alias entity-alias="IID" name="quantityOnHandDiff"/>
+      <view-link entity-alias="II" rel-entity-alias="IID">
+          <key-map field-name="inventoryItemId"/>
+      </view-link>
+    </view-entity>
+
   <!-- ========================================================= -->
   <!-- org.ofbiz.product.location -->
   <!-- ========================================================= -->
