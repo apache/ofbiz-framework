@@ -117,6 +117,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="PhysicalInventory" />
     <entity-group group="org.ofbiz" entity="PhysicalInventoryAndVariance" />
     <entity-group group="org.ofbiz" entity="VarianceReason" />
+    <entity-group group="org.ofbiz" entity="InventoryItemAndDetail" />
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.product.location -->
@@ -331,4 +332,5 @@ under the License.
     <entity-group group="org.ofbiz" entity="ShippingDocument" />
     <entity-group group="org.ofbiz" entity="PackedQtyVsOrderItemQuantity" />
 </entitygroup>
+
 
