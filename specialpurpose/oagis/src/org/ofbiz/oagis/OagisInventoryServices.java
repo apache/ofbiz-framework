@@ -74,6 +74,7 @@ public class OagisInventoryServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         List errorMapList = FastList.newInstance();
+        List inventoryMapList = FastList.newInstance();
         
         if (userLogin == null) {
             try {
@@ -104,10 +105,9 @@ public class OagisInventoryServices {
             return ServiceUtil.returnError("Unable to parse message: SyncInventory");
         }
         
-        Element receiveInventoryElement = doc.getDocumentElement();
-        receiveInventoryElement.normalize();
-                        
-        Element docCtrlAreaElement = UtilXml.firstChildElement(receiveInventoryElement, "N1:CNTROLAREA");
+        Element syncInventoryRootElement = doc.getDocumentElement();
+        syncInventoryRootElement.normalize();
+        Element docCtrlAreaElement = UtilXml.firstChildElement(syncInventoryRootElement, "N1:CNTROLAREA");
         Element docSenderElement = UtilXml.firstChildElement(docCtrlAreaElement, "N1:SENDER");
         Element docBsrElement = UtilXml.firstChildElement(docCtrlAreaElement, "N1:BSR");
             
@@ -121,55 +121,75 @@ public class OagisInventoryServices {
         String referenceId = UtilXml.childElementValue(docSenderElement, "N2:REFERENCEID");
         String confirmation = UtilXml.childElementValue(docSenderElement, "N2:CONFIRMATION");
         String authId = UtilXml.childElementValue(docSenderElement, "N2:AUTHID");
-            
-        Element dataAreaElement = UtilXml.firstChildElement(receiveInventoryElement, "n:DATAAREA");
-        Element dataAreaSyncInventoryElement = UtilXml.firstChildElement(dataAreaElement, "n:SYNC_INVENTORY");
-        Element dataAreaInventoryElement = UtilXml.firstChildElement(dataAreaSyncInventoryElement, "n:INVENTORY");
-            
-        Element dataAreaQuantityElement = UtilXml.firstChildElement(dataAreaInventoryElement, "N1:QUANTITY");
-            
-        String itemQtyStr = UtilXml.childElementValue(dataAreaQuantityElement, "N2:VALUE");
-        double itemQty = Double.parseDouble(itemQtyStr);
-        // String sign = UtilXml.childElementValue(dataAreaQuantityElement, "N2:SIGN");
-        // String uom = UtilXml.childElementValue(dataAreaQuantityElement, "N2:UOM");
-        String productId = UtilXml.childElementValue(dataAreaQuantityElement, "N2:ITEM");
-        // String itemStatus = UtilXml.childElementValue(dataAreaQuantityElement, "N2:ITEMSTATUS");
         
-        String datetimeReceived = UtilXml.childElementValue(dataAreaInventoryElement, "N1:DATETIMEANY");
+        // data area elements
+        Element dataAreaElement = UtilXml.firstChildElement(syncInventoryRootElement, "n:DATAAREA");
+        Element syncInventoryElement = UtilXml.firstChildElement(dataAreaElement, "n:SYNC_INVENTORY");
         
-        // In BOD the timestamp come in the format "yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z"
-        // Parse this into a valid Timestamp Object
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
-        Timestamp timestamp = null;
-        try {        
-            timestamp = new Timestamp(sdf.parse(datetimeReceived).getTime());
-        } catch (ParseException e) {
-            String errMsg = "Error parsing Date: " + e.toString();
-            errorMapList.add(UtilMisc.toMap("reasonCode", "ParseException", "description", errMsg));
-            Debug.logError(e, errMsg, module);
-        }
-        // get quantity on hand diff   
-        double quantityOnHandDiff = 0.0;
-        List invItemAndDetails = null;
-        EntityCondition condition = new EntityConditionList(UtilMisc.toList(
-                new EntityExpr("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, timestamp), new EntityExpr("productId", EntityOperator.EQUALS, productId)), EntityOperator.AND);
-        try {
-            invItemAndDetails = delegator.findByCondition("InventoryItemAndDetail", condition, null, UtilMisc.toList("inventoryItemId"));
-            Iterator invItemAndDetailIter = invItemAndDetails.iterator();
-            while (invItemAndDetailIter.hasNext()) {
-                GenericValue InventoryItemAndDetail = (GenericValue) invItemAndDetailIter.next();
-                quantityOnHandDiff = quantityOnHandDiff + Double.parseDouble(InventoryItemAndDetail.getString("quantityOnHandDiff"));
+        // get Inventory elements from message
+        List syncInventoryElementList = UtilXml.childElementList(syncInventoryElement, "n:INVENTORY");
+        if (UtilValidate.isNotEmpty(syncInventoryElementList)) {
+            Iterator syncInventoryElementIter = syncInventoryElementList.iterator();
+            while (syncInventoryElementIter.hasNext()) {
+                Element inventoryElement = (Element) syncInventoryElementIter.next();
+                Element quantityElement = UtilXml.firstChildElement(inventoryElement, "N1:QUANTITY");
+                
+                String itemQtyStr = UtilXml.childElementValue(quantityElement, "N2:VALUE");
+                double itemQty = Double.parseDouble(itemQtyStr);
+                // String sign = UtilXml.childElementValue(quantityElement, "N2:SIGN");
+                // String uom = UtilXml.childElementValue(quantityElement, "N2:UOM");
+                String productId = UtilXml.childElementValue(inventoryElement, "N2:ITEM");
+                String itemStatus = UtilXml.childElementValue(inventoryElement, "N2:ITEMSTATUS");
+                String statusId = null;
+                if (itemStatus.equals("AVAILABLE")) {
+                   statusId = "INV_AVAILABLE"; 
+                } else if (itemStatus.equals("NOTAVAILABLE")) {
+                    statusId = "INV_ON_HOLD"; 
+                } 
+                String datetimeReceived = UtilXml.childElementValue(inventoryElement, "N1:DATETIMEANY");
+
+                // In BOD the timestamp come in the format "yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z"
+                // Parse this into a valid Timestamp Object
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS");
+                Timestamp timestamp = null;
+                try {        
+                    timestamp = new Timestamp(sdf.parse(datetimeReceived).getTime());
+                } catch (ParseException e) {
+                    String errMsg = "Error parsing Date: " + e.toString();
+                    errorMapList.add(UtilMisc.toMap("reasonCode", "ParseException", "description", errMsg));
+                    Debug.logError(e, errMsg, module);
+                }
+
+                // get quantity on hand diff   
+                double quantityOnHandDiff = 0.0;
+                List invItemAndDetails = null;
+                EntityCondition condition = new EntityConditionList(UtilMisc.toList(
+                        new EntityExpr("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, timestamp), new EntityExpr("productId", EntityOperator.EQUALS, productId),
+                        new EntityExpr("statusId", EntityOperator.EQUALS, statusId)), EntityOperator.AND);
+                try {
+                    invItemAndDetails = delegator.findByCondition("InventoryItemAndDetail", condition, null, UtilMisc.toList("inventoryItemId"));
+                    if (invItemAndDetails != null) {
+                        Iterator invItemAndDetailIter = invItemAndDetails.iterator();
+                        while (invItemAndDetailIter.hasNext()) {
+                            GenericValue InventoryItemAndDetail = (GenericValue) invItemAndDetailIter.next();
+                            quantityOnHandDiff = quantityOnHandDiff + Double.parseDouble(InventoryItemAndDetail.getString("quantityOnHandDiff"));
+                        }
+                    }
+                } catch (GenericEntityException e) {
+                    String errMsg = "Error Getting Inventory Item And Detail: " + e.toString();
+                    errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
+                    Debug.logError(e, errMsg, module);
+                }
+
+                // check for mismatch in quantity
+                if (itemQty != quantityOnHandDiff) {
+                    double quantityDiff = Math.abs((itemQty - quantityOnHandDiff));
+                    inventoryMapList.add(UtilMisc.toMap("productId", productId, "statusId", statusId, "quantityOnHandDiff", String.valueOf(quantityOnHandDiff), "quantityFromMessage", itemQtyStr, "quantityDiff", String.valueOf(quantityDiff), "timestamp", timestamp));
+                }
             }
-        } catch (GenericEntityException e) {
-            String errMsg = "Error Getting Inventory Item And Detail: " + e.toString();
-            errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
-            Debug.logError(e, errMsg, module);
         }
-        
-        // check for mismatch in quantity to send a mail to facility
-        if (itemQty != quantityOnHandDiff) {
-            double quantityDiff = Math.abs((itemQty - quantityOnHandDiff));
-            
+        // send mail if mismatch(s) found
+        if (inventoryMapList.size() > 0) {
             // prepare information to send mail
             Map sendMap = FastMap.newInstance();
     
@@ -226,7 +246,7 @@ public class OagisInventoryServices {
             sendMap.put("sendBcc", productStoreEmail.getString("bccAddress"));
             sendMap.put("contentType", productStoreEmail.getString("contentType"));
             
-            Map bodyParameters = UtilMisc.toMap("quantityOnHandDiff", String.valueOf(quantityOnHandDiff), "quantityFromMessage", itemQtyStr, "quantityDiff", String.valueOf(quantityDiff), "productId", productId,  "locale", locale);
+            Map bodyParameters = UtilMisc.toMap("inventoryMapList", inventoryMapList, "locale", locale);
             sendMap.put("bodyParameters", bodyParameters);
             sendMap.put("userLogin", userLogin);
 
