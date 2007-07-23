@@ -247,6 +247,7 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="processResult" type="String" mode="OUT" optional="false"/>
         <attribute name="authResultMsgs" type="List" mode="OUT" optional="true"/>
+        <attribute name="reAuth" type="Boolean" mode="IN" optional="true"/>
     </service>
 
     <service name="releaseOrderPayments" engine="java"
