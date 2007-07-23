@@ -37,17 +37,23 @@
       <table width="100%" border="0" cellpadding="0">
         <tr align="left" valign="bottom">
           <td width="10%" align="left"><span class="tableheadtext"><b>${uiLabelMap.EcommerceProduct}</b></span></td>               
+          <td width="10%" align="center"><span class="tableheadtext"><b>${uiLabelMap.OagisInventoryLevelDateTime}</b></span></td>
+          <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderReturnItemInventoryStatus}</b></span></td>
           <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderQuantity} (Inventory)</b></span></td>
           <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderQuantity} (Message)</b></span></td>
-          <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.CommonDiff}.</b></span></td>
+          <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OagisQuantityDiff}.</b></span></td>
         </tr>
         <tr><td colspan="10"><hr class="sepbar"/></td></tr>
-        <tr> 
-          <td align="left" valign="top"> ${productId?if_exists}</td>   
-          <td align="right" valign="top"> ${quantityOnHandDiff?if_exists?if_exists}</td>   
-          <td align="right" valign="top"> ${quantityFromMessage?if_exists?if_exists}</td>   
-          <td align="right" valign="top"> ${quantityDiff?if_exists?if_exists}</td>   
-        </tr>
+        <#list inventoryMapList as inventoryMap>
+          <tr> 
+            <td align="left" valign="top"> ${inventoryMap.productId?if_exists}</td>   
+            <td align="right" valign="top"> ${inventoryMap.timestamp?if_exists?if_exists}</td>
+            <td align="right" valign="top"> ${inventoryMap.statusId?if_exists?if_exists}</td>                        
+            <td align="center" valign="top"> ${inventoryMap.quantityOnHandDiff?if_exists?if_exists}</td>   
+            <td align="center" valign="top"> ${inventoryMap.quantityFromMessage?if_exists?if_exists}</td>   
+            <td align="right" valign="top"> ${inventoryMap.quantityDiff?if_exists?if_exists}</td>   
+          </tr>
+        </#list>  
         <tr><td colspan="10"><hr class="sepbar"/></td></tr>
       </table>
     </div>
