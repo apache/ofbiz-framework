@@ -163,6 +163,7 @@ under the License.
         <field name="shippingAddressCityName"><hidden/></field>
         <field name="errorMessage"><display/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}" use-when="${canImportOrder}"><check/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}" use-when="!${canImportOrder}"><display/></field>
         <field name="submitButton" title="${uiLabelMap.OrderImportOrdersFromEbay}" widget-style="smallSubmit"><submit/></field>
     </form>
 </forms>
