@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -43,6 +44,7 @@ import java.util.TreeSet;
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
@@ -261,6 +263,23 @@ public class OagisShipmentServices {
                 Debug.logError(e, "Error getting userLogin", module);
             }
         }
+        
+        // check payment authorization
+        Map serviceContext = FastMap.newInstance();
+        serviceContext.put("orderId", orderId);
+        serviceContext.put("userLogin", userLogin);
+        serviceContext.put("reAuth", new Boolean("true"));
+        Map authResult = null;
+        try {
+            authResult = dispatcher.runSync("authOrderPayments", serviceContext);
+            if (authResult.get("processResult").equals("APPROVED")) {
+                return ServiceUtil.returnError("No valid payment available, cannot process Shipment");            
+            }
+        } catch (GenericServiceException e) {
+            String errMsg = "Error authorizing payment: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
         GenericValue orderHeader = null;
         GenericValue orderItemShipGroup = null;
         try {
@@ -269,7 +288,6 @@ public class OagisShipmentServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-
         if (orderHeader != null) {
             String orderStatusId = orderHeader.getString("statusId");
             if (orderStatusId.equals("ORDER_APPROVED")) {
@@ -293,7 +311,6 @@ public class OagisShipmentServices {
                     } else {
                         Map cospResult= dispatcher.runSync("createOrderShipmentPlan", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
                         shipmentId = (String) cospResult.get("shipmentId");
-
                         shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
                     }
                     
@@ -305,17 +322,13 @@ public class OagisShipmentServices {
                     }
                     String emailString = orderReadHelper.getOrderEmailString();
                     bodyParameters.put("emailString", emailString);
-
                     String contactMechId = shipment.getString("destinationTelecomNumberId");
                     GenericValue telecomNumber = delegator.findByPrimaryKey("TelecomNumber", UtilMisc.toMap("contactMechId", contactMechId));
                     bodyParameters.put("telecomNumber", telecomNumber);
-
                     List shipmentItems = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId));
                     bodyParameters.put("shipmentItems", shipmentItems);
-                    
                     orderItemShipGroup = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGroup", UtilMisc.toMap("orderId", orderId)));
                     bodyParameters.put("orderItemShipGroup", orderItemShipGroup);
-
                     Set correspondingPoIdSet = FastSet.newInstance();
                     List orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
                     Iterator oiIter = orderItems.iterator();
@@ -327,13 +340,11 @@ public class OagisShipmentServices {
                         }
                     }
                     bodyParameters.put("correspondingPoIdSet", correspondingPoIdSet);
-
                     if (orderHeader.get("externalId") != null) {
                         Set externalIdSet = FastSet.newInstance();
                         externalIdSet.add(orderHeader.getString("externalId"));
                         bodyParameters.put("externalIdSet", externalIdSet);
                     }
-
                     // Check if order was a return replacement order (associated with return)
                     GenericValue returnItemResponse = EntityUtil.getFirst(delegator.findByAnd("ReturnItemResponse", UtilMisc.toMap("replacementOrderId", orderId)));
                     if (returnItemResponse != null) {
@@ -344,7 +355,6 @@ public class OagisShipmentServices {
                         GenericValue returnItem = EntityUtil.getFirst(delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnItemResponseId", returnItemResponseId)));
                         bodyParameters.put("replacementReturnId", returnItem.getString("returnId"));
                     }
-
                     // tracking shipper account, other Party info
                     String partyId = shipment.getString("partyIdTo");
                     bodyParameters.put("partyNameView", delegator.findByPrimaryKey("PartyNameView", UtilMisc.toMap("partyId", partyId)));
@@ -373,21 +383,21 @@ public class OagisShipmentServices {
                 
                 String logicalId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.LOGICALID");
                 bodyParameters.put("logicalId", logicalId);
-                result.put("logicalId", logicalId);
+                Map comiCtx = UtilMisc.toMap("logicalId", logicalId);
                 
                 String authId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.AUTHID");
                 bodyParameters.put("authId", authId);
-                result.put("authId", authId);
-
+                comiCtx.put("authId", authId);
+    
                 String referenceId = delegator.getNextSeqId("OagisMessageInfo");
                 bodyParameters.put("referenceId", referenceId);
-                result.put("referenceId", referenceId);
+                comiCtx.put("referenceId", referenceId);
                     
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
                 Timestamp timestamp = UtilDateTime.nowTimestamp();
                 String sentDate = dateFormat.format(timestamp);
                 bodyParameters.put("sentDate", sentDate);
-                result.put("sentDate", timestamp);
+                comiCtx.put("sentDate", timestamp);
                
                 bodyParameters.put("shipmentId", shipmentId);
                 bodyParameters.put("orderId", orderId);
@@ -424,7 +434,27 @@ public class OagisShipmentServices {
                 }
                 
                 // TODO: call service with require-new-transaction=true to save the OagisMessageInfo data (to make sure it saves before)
-
+                // prepare map to Create Oagis Message Info
+                comiCtx.put("component", "INVENTORY");
+                comiCtx.put("task", "SHIPREQUES"); // Actual value of task is "SHIPREQUEST" which is more than 10 char
+                comiCtx.put("outgoingMessage", "Y");
+                comiCtx.put("confirmation", "1");
+                comiCtx.put("bsrVerb", "PROCESS");
+                comiCtx.put("bsrNoun", "SHIPMENT");
+                comiCtx.put("bsrRevision", "001");
+                comiCtx.put("processingStatusId", orderStatusId);
+                comiCtx.put("orderId", orderId);
+                comiCtx.put("shipmentId", shipmentId);
+                comiCtx.put("userLogin", userLogin);
+                
+                try {
+                    Map oagisMsgInfoResult = dispatcher.runSync("createOagisMessageInfo", comiCtx);
+                } catch (GenericServiceException e){
+                    String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
+                    Debug.logError(e, errMsg, module);
+                }
+    
+                
                 if (UtilValidate.isNotEmpty(sendToUrl)) {
                     HttpClient http = new HttpClient(sendToUrl);
 
@@ -444,26 +474,13 @@ public class OagisShipmentServices {
                     http.setKeepAlive(true);
 
                     try {
-                    	String resp = http.post(writer.toString());
+                    	http.post(writer.toString());
                     } catch (Exception e) {
                     	String errMsg = "Error posting message to server with UTL [" + sendToUrl + "]: " + e.toString();
                         Debug.logError(e, errMsg, module);
                         return ServiceUtil.returnError(errMsg);
                     }
                 }
-
-                // prepare map to Create Oagis Message Info
-                result.put("component", "INVENTORY");
-                result.put("task", "SHIPREQUES"); // Actual value of task is "SHIPREQUEST" which is more than 10 char
-                result.put("outgoingMessage", "Y");
-                result.put("confirmation", "1");
-                result.put("bsrVerb", "PROCESS");
-                result.put("bsrNoun", "SHIPMENT");
-                result.put("bsrRevision", "001");
-                result.put("processingStatusId", orderStatusId);
-                result.put("orderId", orderId);
-                result.put("shipmentId", shipmentId);
-                result.put("userLogin", userLogin);
             }
         }
         return result;

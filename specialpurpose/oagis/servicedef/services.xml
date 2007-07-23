@@ -131,12 +131,12 @@ under the License.
         <description>Prepare and Optionally Send OAGIS Process Shipment Message.
             Note on usage: you can pass in either sendToUrl, saveToFilename, or outputStream. 
             If none are passed in the URL in oagis.properties will be used at the target for the message.</description>
-        <implements service="oagisMessageInfoInterface"/>
+        <!--implements service="oagisMessageInfoInterface"/-->
         <attribute name="sendToUrl" type="String" mode="IN" optional="true"/>
         <attribute name="saveToFilename" type="String" mode="IN" optional="true"/>
         <attribute name="saveToDirectory" type="String" mode="IN" optional="true"/>
         <attribute name="outputStream" type="java.io.OutputStream" mode="IN" optional="true"/>
-        <override name="orderId" mode="INOUT" type="String" optional="false"/>
+        <attribute name="orderId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="sendProcessShipmentMsg" max-retry="0" engine="simple"
         location="org/ofbiz/oagis/OagisMessageServices.xml" invoke="sendProcessShipmentMsg">
