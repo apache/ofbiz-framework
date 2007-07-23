@@ -53,6 +53,10 @@ public class ShippingEvents {
 
         int shipGroups = cart.getShipGroupSize();
         for (int i = 0; i < shipGroups; i++) {
+            String shipmentMethodTypeId = cart.getShipmentMethodTypeId(i);
+            if(UtilValidate.isEmpty(shipmentMethodTypeId)){
+                continue;
+            }
             Map result = getShipGroupEstimate(dispatcher, delegator, cart, i);
             ServiceUtil.getMessages(request, result, null, "", "", "", "", null, null);
             if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
