@@ -210,8 +210,10 @@ public class ImportOrdersFromEbay {
                     order.put("userLogin", (GenericValue) context.get("userLogin"));
                     Map error = createShoppingCart(delegator, dispatcher, locale, order, false);
                     String errorMsg = ServiceUtil.getErrorMessage(error);
-                    if (errorMsg != null) {
+                    if (UtilValidate.isNotEmpty(errorMsg)) {
                         order.put("errorMessage", errorMsg);
+                    } else {
+                        order.put("errorMessage", "");
                     }
                 }
                 Map result = FastMap.newInstance();
@@ -427,8 +429,10 @@ public class ImportOrdersFromEbay {
                         GenericValue orderExist = externalOrderExists(delegator, externalId);
                         if (orderExist != null) {
                             order.put("orderId", (String)orderExist.get("orderId"));   
+                        } else {
+                            order.put("orderId", "");
                         }
-                        
+
                         // retrieve transaction price
                         order.put("transactionPrice", UtilXml.childElementValue(transactionElement, "TransactionPrice", "0"));
                         
