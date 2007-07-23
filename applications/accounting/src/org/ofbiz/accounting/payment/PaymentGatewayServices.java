@@ -292,7 +292,10 @@ public class PaymentGatewayServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String orderId = (String) context.get("orderId");
         Map result = new HashMap();
-
+        boolean reAuth = false;
+        if(context.get("reAuth") != null) {
+            reAuth = ((Boolean)context.get("reAuth")).booleanValue();
+        }
         // get the order header and payment preferences
         GenericValue orderHeader = null;
         List paymentPrefs = null;
@@ -305,6 +308,11 @@ public class PaymentGatewayServices {
             Map lookupMap = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_NOT_AUTH");
             List orderList = UtilMisc.toList("maxAmount");
             paymentPrefs = delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList);
+            if(reAuth) {
+                lookupMap.put("orderId", orderId);
+                lookupMap.put("statusId", "PAYMENT_AUTHORIZED");
+                paymentPrefs.addAll(delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList));
+            }
         } catch (GenericEntityException gee) {
             Debug.logError(gee, "Problems getting the order information", module);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
@@ -330,7 +338,22 @@ public class PaymentGatewayServices {
         Iterator payments = paymentPrefs.iterator();
         while (payments.hasNext()) {
             GenericValue paymentPref = (GenericValue) payments.next();
-
+            if (reAuth && "PAYMENT_AUTHORIZED".equals(paymentPref.getString("statusId"))) {
+                String paymentConfig = null;
+                // get the payment settings i.e. serviceName and config properties file name
+                GenericValue paymentSettings = getPaymentSettings(orh.getOrderHeader(), paymentPref, AUTH_SERVICE_TYPE, false);
+                if (paymentSettings != null) {
+                    paymentConfig = paymentSettings.getString("paymentPropertiesPath");
+                    if (paymentConfig == null || paymentConfig.length() == 0) {
+                        paymentConfig = "payment.properties";
+                    }
+                }
+                // check the validity of the authorization; re-auth if necessary
+                if (PaymentGatewayServices.checkAuthValidity(paymentPref, paymentConfig)) {
+                    finished += 1;
+                    continue;
+                }
+            }
             Map authContext = new HashMap();
             authContext.put("orderPaymentPreferenceId", paymentPref.getString("orderPaymentPreferenceId"));
             authContext.put("userLogin", context.get("userLogin"));
