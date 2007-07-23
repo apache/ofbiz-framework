@@ -226,10 +226,14 @@ public class OagisShipmentServices {
         Map result = new HashMap();
         result.put("contentType","text/plain");
         if (errorMapList.size() > 0) {
-           //result.putAll(ServiceUtil.returnError("Errors found processing message"));
-           result.putAll(oagisMsgInfoCtx);
-           result.put("errorMapList", errorMapList);
-           return result;
+            //result.putAll(ServiceUtil.returnError("Errors found processing message"));
+            result.put("logicalId", logicalId);
+            result.put("component", component);
+            result.put("task", task);
+            result.put("referenceId", referenceId);
+            result.put("userLogin", userLogin);
+            result.put("errorMapList", errorMapList);
+            return result;
         }
         
         result.putAll(ServiceUtil.returnSuccess("Service Completed Successfully"));

@@ -238,8 +238,8 @@ public class OagisServices {
         String task = UtilXml.childElementValue(docSenderElement, "N2:TASK");
         String referenceId = UtilXml.childElementValue(docSenderElement, "N2:REFERENCEID");
         String confirmation = UtilXml.childElementValue(docSenderElement, "N2:CONFIRMATION");
-        String language = UtilXml.childElementValue(docSenderElement, "N2:LANGUAGE");
-        String codepage = UtilXml.childElementValue(docSenderElement, "N2:CODEPAGE");
+        //String language = UtilXml.childElementValue(docSenderElement, "N2:LANGUAGE");
+        //String codepage = UtilXml.childElementValue(docSenderElement, "N2:CODEPAGE");
         String authId = UtilXml.childElementValue(docSenderElement, "N2:AUTHID");
         String sentDate = UtilXml.childElementValue(docCtrlAreaElement, "N1:DATETIMEANY");
           
@@ -333,7 +333,11 @@ public class OagisServices {
         result.put("contentType", "text/plain");
         
         if (errorMapList.size()>0){
-            result.putAll(oagisMsgInfoCtx);
+            result.put("logicalId", logicalId);
+            result.put("component", component);
+            result.put("task", task);
+            result.put("referenceId", referenceId);
+            result.put("userLogin", userLogin);
             String errMsg = "Error Processing Received Message";
             result.put("errorMapList", errorMapList);
             //result.putAll(ServiceUtil.returnError(errMsg));

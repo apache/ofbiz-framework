@@ -41,7 +41,10 @@ under the License.
     </service>
     
     <service name="oagisMessageErrorInfoInterface" engine="interface">
-        <implements service="oagisMessageInfoInterface"/>
+        <attribute name="logicalId" type="String" mode="OUT" optional="true"/>
+        <attribute name="component" type="String" mode="OUT" optional="true"/>
+        <attribute name="task" type="String" mode="OUT" optional="true"/>
+        <attribute name="referenceId" type="String" mode="OUT" optional="true"/>
         <attribute name="errorMapList" type="java.util.List" mode="OUT" optional="true"/>
     </service>
 
@@ -58,7 +61,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-
+    
     <service name="createOagisMessageErrorInfo" engine="simple" default-entity-name="OagisMessageErrorInfo" 
             location="org/ofbiz/oagis/OagisMessageServices.xml" invoke="createOagisMessageErrorInfo" auth="true">
          <description>Create MessageErrorInfo</description>
@@ -73,6 +76,15 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
+    
+    <service name="createOagisMsgErrInfosFromErrMapList" engine="simple" default-entity-name="OagisMessageErrorInfo" 
+            location="org/ofbiz/oagis/OagisMessageServices.xml" invoke="createOagisMsgErrInfosFromErrMapList" auth="true">
+         <description>Create MessageErrorInfo From Error Map List</description>
+         <auto-attributes mode="IN" include="pk" optional="false"/>
+         <attribute type="List" mode="IN" name="errorMapList" optional="true"/>
+         <override name="errorSeqId" optional="true"/>        
+    </service>
+
     <service name="showShipment" engine="java" transaction-timeout="300"
             location="org.ofbiz.oagis.OagisShipmentServices" invoke="showShipment" auth="false">
         <description>Process incoming shipment message</description>
@@ -106,11 +118,6 @@ under the License.
         <description>Process incoming Inventory Sync message</description>
         <implements service="serviceStreamInterface"/>
         <implements service="oagisMessageErrorInfoInterface"/>
-        <attribute name="logicalId" type="String" mode="OUT" optional="true"/>
-        <attribute name="component" type="String" mode="OUT" optional="true"/>
-        <attribute name="task" type="String" mode="OUT" optional="true"/>
-        <attribute name="referenceId" type="String" mode="OUT" optional="true"/>
-
     </service>
     <service name="exportMsgFromScreen" max-retry="0" engine="java"
         location="org.ofbiz.oagis.OagisShipmentServices" invoke="exportMsgFromScreen">
