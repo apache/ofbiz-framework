@@ -21,21 +21,13 @@ under the License.
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
     <!-- order status changes -->
-    
     <!--eca service="changeOrderStatus" event="commit" run-on-error="false">
         <condition field-name="statusId" operator="equals" value="ORDER_APPROVED"/>
         <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <action service="oagisProcessShipment" mode="sync"/>
     </eca-->
-    <eca service="oagisPocessShipment" event="commit" run-on-error="false">
-        <action service="createOagisMessageInfo" mode="sync"/>
-    </eca>
-    
-    <!--<eca service="receiveConfirmBod" event="commit" run-on-error="true">
-        <action service="createOagisMessageInfo" mode="sync"/>
-    </eca>-->
-    
+
     <eca service="receiveConfirmBod" event="commit" run-on-error="true">
         <condition field-name="errorMapList" operator="is-not-empty"/>
         <action service="createOagisMsgErrInfosFromErrMapList" mode="sync"/>
@@ -45,10 +37,6 @@ under the License.
      <eca service="oagisReceiveDelivery" event="commit" run-on-error="false">
         <action service="createOagisMessageInfo" mode="sync"/>
     </eca>
-    
-    <!--<eca service="showShipment" event="commit" run-on-error="true">
-        <action service="createOagisMessageInfo" mode="sync"/>
-    </eca>-->
     
     <eca service="showShipment" event="commit" run-on-error="true">
         <condition field-name="errorMapList" operator="is-not-empty"/>
