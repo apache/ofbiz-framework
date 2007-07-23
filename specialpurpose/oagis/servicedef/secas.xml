@@ -38,7 +38,7 @@ under the License.
     
     <eca service="receiveConfirmBod" event="commit" run-on-error="true">
         <condition field-name="errorMapList" operator="is-not-empty"/>
-        <action service="createOagisMessageErrorInfo" mode="sync"/>
+        <action service="createOagisMsgErrInfosFromErrMapList" mode="sync"/>
         <action service="oagisSendConfirmBod" mode="sync"/>
     </eca>
     
@@ -52,25 +52,25 @@ under the License.
     
     <eca service="showShipment" event="commit" run-on-error="true">
         <condition field-name="errorMapList" operator="is-not-empty"/>
-        <action service="createOagisMessageErrorInfo" mode="sync"/>
+        <action service="createOagisMsgErrInfosFromErrMapList" mode="sync"/>
         <action service="oagisSendConfirmBod" mode="sync"/>
     </eca>
     
     <eca service="syncInventory" event="commit" run-on-error="true">
        <condition field-name="errorMapList" operator="is-not-empty"/>
-       <action service="createOagisMessageErrorInfo" mode="sync"/>
+       <action service="createOagisMsgErrInfosFromErrMapList" mode="sync"/>
        <action service="oagisSendConfirmBod" mode="sync"/>
     </eca>
     
     <eca service="receivePoAcknowledge" event="commit" run-on-error="true">
        <condition field-name="errorMapList" operator="is-not-empty"/>
-       <action service="createOagisMessageErrorInfo" mode="sync"/>
+       <action service="createOagisMsgErrInfosFromErrMapList" mode="sync"/>
        <action service="oagisSendConfirmBod" mode="sync"/>
     </eca>
     
     <eca service="receiveRmaAcknowledge" event="commit" run-on-error="true">
        <condition field-name="errorMapList" operator="is-not-empty"/>
-       <action service="createOagisMessageErrorInfo" mode="sync"/>
+       <action service="createOagisMsgErrInfosFromErrMapList" mode="sync"/>
        <action service="oagisSendConfirmBod" mode="sync"/>
     </eca> 
 </service-eca>

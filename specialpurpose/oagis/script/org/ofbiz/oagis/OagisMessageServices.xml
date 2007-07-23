@@ -53,6 +53,23 @@ under the License.
         <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
+    
+    <simple-method method-name="createOagisMsgErrInfosFromErrMapList" short-description="Create MessageErrorInfo From Error Map List">
+        <set field="createOagisMsgErrCtx.logicalId" from-field="parameters.logicalId"/>
+        <set field="createOagisMsgErrCtx.component" from-field="parameters.component"/>
+        <set field="createOagisMsgErrCtx.task" from-field="parameters.task"/>
+        <set field="createOagisMsgErrCtx.referenceId" from-field="parameters.referenceId"/>
+        <if-not-empty field-name="parameters.errorMapList">
+            <iterate list-name="parameters.errorMapList" entry-name="errorMap">
+                <set field="createOagisMsgErrCtx.description" from-field="errorMap.description"/>
+                <set field="createOagisMsgErrCtx.reasonCode" from-field="errorMap.reasonCode"/>
+                <call-service service-name="createOagisMessageErrorInfo" in-map-name="createOagisMsgErrCtx"/>
+            </iterate>
+        <else>
+            <call-service service-name="createOagisMessageErrorInfo" in-map-name="createOagisMsgErrCtx"/>
+        </else>
+        </if-not-empty>
+    </simple-method>
 
     <simple-method method-name="sendProcessShipmentMsg" 
         short-description="Send Process Shipment Message">

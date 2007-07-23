@@ -296,7 +296,11 @@ public class OagisInventoryServices {
 
         // check error list if there is any 
         if (errorMapList.size() > 0) {
-            result.putAll(comiCtx);
+            result.put("logicalId", logicalId);
+            result.put("component", component);
+            result.put("task", task);
+            result.put("referenceId", referenceId);
+            result.put("userLogin", userLogin);
             result.put("errorMapList", errorMapList);
             String errMsg = "Error Processing Received Messages";
             result.putAll(ServiceUtil.returnError(errMsg));
@@ -550,7 +554,11 @@ public class OagisInventoryServices {
         result.put("contentType", "text/plain");
         
         if (errorMapList.size() > 0) {
-            result.putAll(comiCtx);
+            result.put("logicalId", logicalId);
+            result.put("component", component);
+            result.put("task", task);
+            result.put("referenceId", referenceId);
+            result.put("userLogin", userLogin);
             result.put("errorMapList", errorMapList);
             String errMsg = "Error Processing Received Messages";
             result.putAll(ServiceUtil.returnError(errMsg));
@@ -794,7 +802,11 @@ public class OagisInventoryServices {
         Map result = FastMap.newInstance();
         result.put("contentType", "text/plain");
         if (errorMapList.size() > 0) {
-            result.putAll(comiCtx);
+            result.put("logicalId", logicalId);
+            result.put("component", component);
+            result.put("task", task);
+            result.put("referenceId", referenceId);
+            result.put("userLogin", userLogin);
             result.put("errorMapList", errorMapList);
             String errMsg = "Error Processing Received Messages";
             result.putAll(ServiceUtil.returnError(errMsg));
