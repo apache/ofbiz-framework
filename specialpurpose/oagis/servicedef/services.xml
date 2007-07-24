@@ -150,12 +150,11 @@ under the License.
     <service name="oagisReceiveDelivery" max-retry="0" engine="java"
         location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisReceiveDelivery">
         <description>Receive Delivery</description>
-        <implements service="oagisMessageInfoInterface"/>
         <attribute name="sendToUrl" type="String" mode="IN" optional="true"/>
         <attribute name="saveToFilename" type="String" mode="IN" optional="true"/>
         <attribute name="saveToDirectory" type="String" mode="IN" optional="true"/>
         <attribute name="outputStream" type="java.io.OutputStream" mode="IN" optional="true"/>
-        <override name="returnId" mode="INOUT" type="String" optional="false"/>
+        <attribute name="returnId" mode="IN" type="String" optional="false"/>
     </service>
     
     <service name="receivePoAcknowledge" engine="java" transaction-timeout="300"
