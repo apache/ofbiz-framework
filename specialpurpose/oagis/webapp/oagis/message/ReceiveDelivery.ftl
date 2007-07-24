@@ -34,12 +34,12 @@
       <N2:CODEPAGE>NONE</N2:CODEPAGE>
       <N2:AUTHID>${authId}</N2:AUTHID>
     </N1:SENDER>
-    <N1:DATETIMEANY>${sentDate?if_exists}</N1:DATETIMEANY>
+    <N1:DATETIMEISO>${sentDate?if_exists}</N1:DATETIMEISO>
   </N1:CNTROLAREA>
   <n:DATAAREA>
     <n:RECEIVE_DELIVERY>
       <n:RECEIPTHDR>
-        <N1:DATETIMEANY>${sentDate?if_exists}</N1:DATETIMEANY>
+        <N1:DATETIMEISO>${entryDate?if_exists}</N1:DATETIMEISO>
         <N2:RECEIPTID>${returnId?if_exists}</N2:RECEIPTID>
         <N2:CARRIER></N2:CARRIER>
         <N2:NOTES></N2:NOTES>
@@ -91,7 +91,7 @@
           <N1:DOCUMNTREF>
             <N2:DOCTYPE>RMA</N2:DOCTYPE>
             <N2:DOCUMENTID>${returnId?if_exists}</N2:DOCUMENTID>
-            <N2:LINENUM></N2:LINENUM>
+            <N2:LINENUM>${returnItem.returnItemSeqId}</N2:LINENUM>
           </N1:DOCUMNTREF>
           </#list>
           <n:INVDETAIL>
