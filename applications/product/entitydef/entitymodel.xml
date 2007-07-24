@@ -1532,7 +1532,6 @@ under the License.
       <alias entity-alias="II" name="inventoryItemId"/>
       <alias entity-alias="II" name="productId"/>
       <alias entity-alias="II" name="statusId"/>
-      <alias entity-alias="II" name="currencyUomId"/>    
       <alias entity-alias="IID" name="inventoryItemDetailSeqId"/>   
       <alias entity-alias="IID" name="effectiveDate"/>   
       <alias entity-alias="IID" name="quantityOnHandDiff"/>

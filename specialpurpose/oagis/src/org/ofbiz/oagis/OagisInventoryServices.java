@@ -149,7 +149,7 @@ public class OagisInventoryServices {
                 List invItemAndDetails = null;
                 EntityCondition condition = new EntityConditionList(UtilMisc.toList(
                         new EntityExpr("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, timestamp), new EntityExpr("productId", EntityOperator.EQUALS, productId),
-                        new EntityExpr("statusId", EntityOperator.EQUALS, statusId), new EntityExpr("currencyUomId", EntityOperator.EQUALS, uom)), EntityOperator.AND);
+                        new EntityExpr("statusId", EntityOperator.EQUALS, statusId)), EntityOperator.AND);
                 try {
                     invItemAndDetails = delegator.findByCondition("InventoryItemAndDetail", condition, null, UtilMisc.toList("inventoryItemId"));
                     if (invItemAndDetails != null) {
