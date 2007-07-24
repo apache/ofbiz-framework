@@ -130,20 +130,20 @@ public class OagisShipmentServices {
         Element showShipmentElement = doc.getDocumentElement();
         showShipmentElement.normalize();
           
-        Element controlAreaElement = UtilXml.firstChildElement(showShipmentElement, "CNTROLAREA"); // os
-        Element bsrElement = UtilXml.firstChildElement(controlAreaElement, "BSR"); // os
-        String bsrVerb = UtilXml.childElementValue(bsrElement, "VERB"); // of
-        String bsrNoun = UtilXml.childElementValue(bsrElement, "NOUN"); // of
-        String bsrRevision = UtilXml.childElementValue(bsrElement, "REVISION"); // of
+        Element controlAreaElement = UtilXml.firstChildElement(showShipmentElement, "os:CNTROLAREA"); // os
+        Element bsrElement = UtilXml.firstChildElement(controlAreaElement, "os:BSR"); // os
+        String bsrVerb = UtilXml.childElementValue(bsrElement, "of:VERB"); // of
+        String bsrNoun = UtilXml.childElementValue(bsrElement, "of:NOUN"); // of
+        String bsrRevision = UtilXml.childElementValue(bsrElement, "of:REVISION"); // of
         Map oagisMsgInfoCtx = UtilMisc.toMap("bsrVerb", bsrVerb, "bsrNoun", bsrNoun, "bsrRevision", bsrRevision);
             
-        Element senderElement = UtilXml.firstChildElement(controlAreaElement, "SENDER"); // os
-        String logicalId = UtilXml.childElementValue(senderElement, "LOGICALID"); // of
-        String component = UtilXml.childElementValue(senderElement, "COMPONENT"); // of
-        String task = UtilXml.childElementValue(senderElement, "TASK"); // of
-        String referenceId = UtilXml.childElementValue(senderElement, "REFERENCEID"); // of
-        String confirmation = UtilXml.childElementValue(senderElement, "CONFIRMATION"); // of
-        String authId = UtilXml.childElementValue(senderElement, "AUTHID"); // of
+        Element senderElement = UtilXml.firstChildElement(controlAreaElement, "os:SENDER"); // os
+        String logicalId = UtilXml.childElementValue(senderElement, "of:LOGICALID"); // of
+        String component = UtilXml.childElementValue(senderElement, "of:COMPONENT"); // of
+        String task = UtilXml.childElementValue(senderElement, "of:TASK"); // of
+        String referenceId = UtilXml.childElementValue(senderElement, "of:REFERENCEID"); // of
+        String confirmation = UtilXml.childElementValue(senderElement, "of:CONFIRMATION"); // of
+        String authId = UtilXml.childElementValue(senderElement, "of:AUTHID"); // of
           
         oagisMsgInfoCtx.put("logicalId", logicalId);
         oagisMsgInfoCtx.put("component", component);
@@ -167,24 +167,24 @@ public class OagisShipmentServices {
             Debug.logError(e, errMsg, module);
         }
            
-        Element dataAreaElement = UtilXml.firstChildElement(showShipmentElement, "DATAAREA"); // n
-        Element daShowShipmentElement = UtilXml.firstChildElement(dataAreaElement, "SHOW_SHIPMENT"); // n
-        Element shipmentElement = UtilXml.firstChildElement(daShowShipmentElement, "SHIPMENT"); // n                               
-        String shipmentId = UtilXml.childElementValue(shipmentElement, "DOCUMENTID"); // of           
+        Element dataAreaElement = UtilXml.firstChildElement(showShipmentElement, "n:DATAAREA"); // n
+        Element daShowShipmentElement = UtilXml.firstChildElement(dataAreaElement, "n:SHOW_SHIPMENT"); // n
+        Element shipmentElement = UtilXml.firstChildElement(daShowShipmentElement, "n:SHIPMENT"); // n                               
+        String shipmentId = UtilXml.childElementValue(shipmentElement, "of:DOCUMENTID"); // of           
           
-        List shipUnitElementList = UtilXml.childElementList(daShowShipmentElement, "SHIPUNIT"); // n
+        List shipUnitElementList = UtilXml.childElementList(daShowShipmentElement, "n:SHIPUNIT"); // n
         if(UtilValidate.isNotEmpty(shipUnitElementList)) {
             Iterator shipUnitElementItr = shipUnitElementList.iterator();
             while(shipUnitElementItr.hasNext()) {                 
                 Element shipUnitElement = (Element) shipUnitElementItr.next();
-                String trackingNum = UtilXml.childElementValue(shipUnitElement, "TRACKINGID"); // of
-                String shipmentPackageSeqId = UtilXml.childElementValue(shipUnitElement, "SHPUNITSEQ"); // of
-                List invItemElementList = UtilXml.childElementList(shipUnitElement, "INVITEM"); //n
+                String trackingNum = UtilXml.childElementValue(shipUnitElement, "of:TRACKINGID"); // of
+                String shipmentPackageSeqId = UtilXml.childElementValue(shipUnitElement, "of:SHPUNITSEQ"); // of
+                List invItemElementList = UtilXml.childElementList(shipUnitElement, "n:INVITEM"); //n
                 if(UtilValidate.isNotEmpty(invItemElementList)) {
                     Iterator invItemElementItr = invItemElementList.iterator();
                     while(invItemElementItr.hasNext()) {                 
                         Element invItemElement = (Element) invItemElementItr.next();
-                        String productId = UtilXml.childElementValue(invItemElement, "ITEM"); // of                
+                        String productId = UtilXml.childElementValue(invItemElement, "of:ITEM"); // of                
                         try {                                    
                             GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));                    
                             String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");                
@@ -219,7 +219,7 @@ public class OagisShipmentServices {
                                 Iterator invDetailElementItr = invDetailElementList.iterator();
                                 while(invDetailElementItr.hasNext()) {
                                     Element invDetailElement = (Element) invDetailElementItr.next();
-                                    String serialNumber = UtilXml.childElementValue(invDetailElement, "SERIALNUM"); // os                                                                                   
+                                    String serialNumber = UtilXml.childElementValue(invDetailElement, "os:SERIALNUM"); // os                                                                                   
                                     isitspastCtx.put("serialNumber", serialNumber);                                        
                                     isitspastCtx.remove("itemIssuanceId");                            
                                     try {
