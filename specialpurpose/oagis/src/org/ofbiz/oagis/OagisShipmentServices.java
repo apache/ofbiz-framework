@@ -97,27 +97,11 @@ public class OagisShipmentServices {
     public static final String oagisFieldsNamespacePrefix = "of";
         
     public static Map showShipment(DispatchContext ctx, Map context) {
-        InputStream in = (InputStream) context.get("inputStream");
+        Document doc = (Document) context.get("document");
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
         
         List errorMapList = FastList.newInstance();
-        Document doc = null;
-        try {
-            doc = UtilXml.readXmlDocument(in, true, "ShowShipment");
-        } catch (SAXException e) {
-            String errMsg = "Error parsing the ShowShipmentResponse: "+e.toString();
-            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SAXException"));
-            Debug.logError(e, errMsg, module);
-        } catch (ParserConfigurationException e) {
-            String errMsg = "Error parsing the ShowShipmentResponse: "+e.toString();
-            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "ParserConfigurationException"));
-            Debug.logError(e, errMsg, module);
-        } catch (IOException e) {
-            String errMsg = "Error parsing the ShowShipmentResponse: "+e.toString();
-            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "IOException"));
-            Debug.logError(e, errMsg, module);
-        }
             
         GenericValue userLogin =null; 
         try {
@@ -260,14 +244,14 @@ public class OagisShipmentServices {
         }  
         
         Map result = new HashMap();
-        result.put("contentType","text/plain");
+        result.put("logicalId", logicalId);
+        result.put("component", component);
+        result.put("task", task);
+        result.put("referenceId", referenceId);
+        result.put("userLogin", userLogin);
+        
         if (errorMapList.size() > 0) {
             //result.putAll(ServiceUtil.returnError("Errors found processing message"));
-            result.put("logicalId", logicalId);
-            result.put("component", component);
-            result.put("task", task);
-            result.put("referenceId", referenceId);
-            result.put("userLogin", userLogin);
             result.put("errorMapList", errorMapList);
             return result;
         }
