@@ -26,6 +26,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Timestamp;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -153,6 +154,67 @@ public class ImportOrdersFromEbay {
         return result;
     }
     
+    public static Map setEbayOrderToComplete(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        String orderId = (String) context.get("orderId");
+        Map result = FastMap.newInstance(); 
+        try {
+            // Get the order header and verify if this order has been imported
+            // from eBay (i.e. sales channel = EBAY_CHANNEL and externalId is set)
+            GenericValue orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            if (orderHeader == null) {
+                Debug.logError("Cannot find order with orderId [" + orderId + "]", module);
+                return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.errorRetrievingOrderFromOrderId", locale));             
+            }
+            // get externalId from orderId
+            String externalId = (String)orderHeader.get("externalId");
+            if (!"EBAY_SALES_CHANNEL".equals(orderHeader.getString("salesChannelEnumId")) || orderHeader.getString("externalId") == null) {
+                // This order was not imported from eBay: there is nothing to do.
+                return ServiceUtil.returnSuccess();
+            }
+
+            String configString = "productsExport.properties";
+                            
+            // get the Developer Key
+            String devID = UtilProperties.getPropertyValue(configString, "productsExport.eBay.devID");
+            
+            // get the Application Key
+            String appID = UtilProperties.getPropertyValue(configString, "productsExport.eBay.appID");
+            
+            // get the Certifcate Key
+            String certID = UtilProperties.getPropertyValue(configString, "productsExport.eBay.certID");
+            
+            // get the Token
+            String token = UtilProperties.getPropertyValue(configString, "productsExport.eBay.token");
+            
+            // get the Compatibility Level
+            String compatibilityLevel = UtilProperties.getPropertyValue(configString, "productsExport.eBay.compatibilityLevel");
+            
+            // get the Site ID
+            String siteID = UtilProperties.getPropertyValue(configString, "productsExport.eBay.siteID");
+            
+            // get the xmlGatewayUri
+            String xmlGatewayUri = UtilProperties.getPropertyValue(configString, "productsExport.eBay.xmlGatewayUri");
+
+            StringBuffer completeSaleXml = new StringBuffer();
+            
+            if (!ServiceUtil.isFailure(buildCompleteSaleRequest(delegator, locale, externalId, context, completeSaleXml, token))) { 
+                result = postItem(xmlGatewayUri, completeSaleXml, devID, appID, certID, "CompleteSale", compatibilityLevel, siteID);
+                String successMessage = (String)result.get("successMessage");
+                if (successMessage != null) { 
+                    return readCompleteSaleResponse(successMessage, locale);
+                } else{
+                    ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.errorDuringPostCompleteSaleRequest", locale));
+                }                
+            }
+        } catch (Exception e) {        
+            Debug.logError("Exception in setEbayOrderToComplete " + e, module);
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.exceptionInSetEbayOrderToComplete", locale));
+        }
+        return ServiceUtil.returnSuccess();
+    }
+    
     private static String toString(InputStream inputStream) throws IOException {
         String string;
         StringBuilder outputBuilder = new StringBuilder();
@@ -200,40 +262,39 @@ public class ImportOrdersFromEbay {
     }
     
     private static Map checkOrders(GenericDelegator delegator, LocalDispatcher dispatcher, Locale locale, Map context, String response) {
-        if (response != null && response.length() > 0) {
-            List orders = readResponseFromEbay(response, locale, (String)context.get("productStoreId"), delegator);
-            if (orders != null && orders.size() > 0) {
-                Iterator orderIter = orders.iterator();
-                while (orderIter.hasNext()) {
-                    Map order = (Map)orderIter.next();
-                    order.put("productStoreId", (String) context.get("productStoreId"));
-                    order.put("userLogin", (GenericValue) context.get("userLogin"));
-                    Map error = createShoppingCart(delegator, dispatcher, locale, order, false);
-                    String errorMsg = ServiceUtil.getErrorMessage(error);
-                    if (UtilValidate.isNotEmpty(errorMsg)) {
-                        order.put("errorMessage", errorMsg);
-                    } else {
-                        order.put("errorMessage", "");
-                    }
-                }
-                Map result = FastMap.newInstance();
-                result.put("responseMessage", ModelService.RESPOND_SUCCESS);
-                result.put("orderList", orders);
-                return result;
-            } else {
-                Debug.logError("No orders found", module);
-                return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.noOrdersFound", locale));
-            }
-        } else {
+        StringBuffer errorMessage = new StringBuffer();
+        List orders = readResponseFromEbay(response, locale, (String)context.get("productStoreId"), delegator, errorMessage);
+        if (orders == null) {
+            Debug.logError("Error :" + errorMessage.toString(), module);
+            return ServiceUtil.returnFailure(errorMessage.toString());
+        } else if (orders.size() == 0) {
             Debug.logError("No orders found", module);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.noOrdersFound", locale));
+        } else { 
+            Iterator orderIter = orders.iterator();
+            while (orderIter.hasNext()) {
+                Map order = (Map)orderIter.next();
+                order.put("productStoreId", (String) context.get("productStoreId"));
+                order.put("userLogin", (GenericValue) context.get("userLogin"));
+                Map error = createShoppingCart(delegator, dispatcher, locale, order, false);
+                String errorMsg = ServiceUtil.getErrorMessage(error);
+                if (UtilValidate.isNotEmpty(errorMsg)) {
+                    order.put("errorMessage", errorMsg);
+                } else {
+                    order.put("errorMessage", "");
+                }
+            }
+            Map result = FastMap.newInstance();
+            result.put("responseMessage", ModelService.RESPOND_SUCCESS);
+            result.put("orderList", orders);
+            return result;
         }
     }
         
     private static Map buildGetSellerTransactionsRequest(Map context, StringBuffer dataItemsXml, String token) {
         Locale locale = (Locale)context.get("locale");
-        Timestamp fromDate = (Timestamp)context.get("fromDate");
-        Timestamp thruDate = (Timestamp)context.get("thruDate");
+        String fromDate = (String)context.get("fromDate");
+        String thruDate = (String)context.get("thruDate");
         try {
              Document transDoc = UtilXml.makeEmptyXmlDocument("GetSellerTransactionsRequest");
              Element transElem = transDoc.getDocumentElement();
@@ -241,8 +302,23 @@ public class ImportOrdersFromEbay {
               
              appendRequesterCredentials(transElem, transDoc, token);
              UtilXml.addChildElementValue(transElem, "DetailLevel", "ReturnAll", transDoc);
-             UtilXml.addChildElementValue(transElem, "ModTimeFrom", fromDate.toString(), transDoc);
-             UtilXml.addChildElementValue(transElem, "ModTimeTo", thruDate.toString(), transDoc);
+             
+             String fromDateOut = convertDate(fromDate, "yyyy-MM-dd HH:mm:ss.SSS", "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+             if (fromDateOut != null) {
+                 UtilXml.addChildElementValue(transElem, "ModTimeFrom", fromDateOut, transDoc);
+             } else {
+                 Debug.logError("Cannot convert from date from yyyy-MM-dd HH:mm:ss.SSS date format to yyyy-MM-dd'T'HH:mm:ss.SSS'Z' date format", module);
+                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.cannotConvertFromDate", locale));
+             }
+             
+             
+             fromDateOut = convertDate(thruDate, "yyyy-MM-dd HH:mm:ss.SSS", "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+             if (fromDateOut != null) {
+                 UtilXml.addChildElementValue(transElem, "ModTimeTo", fromDateOut, transDoc);
+             } else {
+                 Debug.logError("Cannot convert thru date from yyyy-MM-dd HH:mm:ss.SSS date format to yyyy-MM-dd'T'HH:mm:ss.SSS'Z' date format", module);
+                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.cannotConvertThruDate", locale));
+             }
              
              dataItemsXml.append(UtilXml.writeXmlDocument(transDoc));
          } catch (Exception e) {
@@ -270,12 +346,85 @@ public class ImportOrdersFromEbay {
          return ServiceUtil.returnSuccess();
     }
     
+    public static Map buildCompleteSaleRequest(GenericDelegator delegator, Locale locale, String externalId, Map context, StringBuffer dataItemsXml, String token) {
+        String paid = (String)context.get("paid");
+        String shipped = (String)context.get("shipped");
+        
+        try {
+            Map result = buildItemAndTransactionIdFromExternalId(externalId);
+            String itemId = (String)result.get("itemId");
+            String transactionId = (String)result.get("transactionId");       
+            
+            if (itemId == null || transactionId == null) {
+                Debug.logError("Cannot be retrieve itemId and transactionId from externalId", module);
+                return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.errorDuringBuildItemAndTransactionIdFromExternalId", locale));
+              }
+            
+            Document transDoc = UtilXml.makeEmptyXmlDocument("CompleteSaleRequest");
+            Element transElem = transDoc.getDocumentElement();
+            transElem.setAttribute("xmlns", "urn:ebay:apis:eBLBaseComponents");
+              
+            appendRequesterCredentials(transElem, transDoc, token);
+            
+            UtilXml.addChildElementValue(transElem, "ItemID", itemId, transDoc);
+            
+            // Set item id to paid or not paid             
+            if (UtilValidate.isNotEmpty(paid)) {
+                if ("Y".equals(paid)) {
+                    paid = "1";
+                } else {
+                    paid = "0";
+                }
+                UtilXml.addChildElementValue(transElem, "Paid", paid, transDoc);
+            }
+
+            // Set item id to shipped or not shipped             
+            if (UtilValidate.isNotEmpty(shipped)) {
+                if ("Y".equals(shipped)) {
+                    shipped = "1";
+                } else {
+                    shipped = "0";
+                }
+                UtilXml.addChildElementValue(transElem, "Shipped", shipped, transDoc);
+            }
+            
+            UtilXml.addChildElementValue(transElem, "TransactionID", transactionId, transDoc);
+             
+            dataItemsXml.append(UtilXml.writeXmlDocument(transDoc));
+        } catch (Exception e) {
+            Debug.logError("Exception during building complete sale request", module);
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.exceptionDuringBuildingCompleteSaleRequest", locale));
+        }
+        return ServiceUtil.returnSuccess();
+    }
+    
     private static void appendRequesterCredentials(Element elem, Document doc, String token) {
         Element requesterCredentialsElem = UtilXml.addChildElement(elem, "RequesterCredentials", doc);
         UtilXml.addChildElementValue(requesterCredentialsElem, "eBayAuthToken", token, doc);
     }
     
-    private static List readResponseFromEbay(String msg, Locale locale, String productStoreId, GenericDelegator delegator) {
+    private static Map readCompleteSaleResponse(String msg, Locale locale) {
+        try {
+            Document docResponse = UtilXml.readXmlDocument(msg, true);
+            Element elemResponse = docResponse.getDocumentElement();
+            String ack = UtilXml.childElementValue(elemResponse, "Ack", "Failure");
+            if (ack != null && "Failure".equals(ack)) {
+                String errorMessage = "";
+                List errorList = UtilXml.childElementList(elemResponse, "Errors");
+                Iterator errorElemIter = errorList.iterator();
+                while (errorElemIter.hasNext()) {
+                    Element errorElement = (Element) errorElemIter.next();
+                    errorMessage = UtilXml.childElementValue(errorElement, "ShortMessage", "");
+                }
+                return ServiceUtil.returnFailure(errorMessage);
+            }
+        } catch (Exception e) {
+            return ServiceUtil.returnFailure();
+        }
+        return ServiceUtil.returnSuccess();
+    }
+    
+    private static List readResponseFromEbay(String msg, Locale locale, String productStoreId, GenericDelegator delegator, StringBuffer errorMessage) {
         List orders = null;
         try {
             Document docResponse = UtilXml.readXmlDocument(msg, true);
@@ -291,205 +440,213 @@ public class ImportOrdersFromEbay {
                 totalOrders = new Integer(totalNumberOfEntries).intValue();
             }
             
-            if (ack != null && ack.equals("Success") && totalOrders    > 0) {
+            if (ack != null && "Success".equals(ack)) {
                 orders = new ArrayList();
-                
-                // retrieve transaction array
-                List transactions = UtilXml.childElementList(elemResponse, "TransactionArray");
-                Iterator transactionsElemIter = transactions.iterator();
-                while (transactionsElemIter.hasNext()) {
-                    Element transactionsElement = (Element) transactionsElemIter.next();
-                    
-                    // retrieve transaction
-                    List transaction = UtilXml.childElementList(transactionsElement, "Transaction");
-                    Iterator transactionElemIter = transaction.iterator();
-                    while (transactionElemIter.hasNext()) {
-                        Map order = FastMap.newInstance();
-                        String itemId = "";
+                if (totalOrders > 0) { 
+                    // retrieve transaction array
+                    List transactions = UtilXml.childElementList(elemResponse, "TransactionArray");
+                    Iterator transactionsElemIter = transactions.iterator();
+                    while (transactionsElemIter.hasNext()) {
+                        Element transactionsElement = (Element) transactionsElemIter.next();
                         
-                        Element transactionElement = (Element) transactionElemIter.next();
-                        order.put("amountPaid", UtilXml.childElementValue(transactionElement, "AmountPaid", "0"));
-                        
-                        // retrieve buyer
-                        List buyer = UtilXml.childElementList(transactionElement, "Buyer");
-                        Iterator buyerElemIter = buyer.iterator();
-                        while (buyerElemIter.hasNext()) {
-                            Element buyerElement = (Element)buyerElemIter.next();
-                            order.put("emailBuyer", UtilXml.childElementValue(buyerElement, "Email", ""));
+                        // retrieve transaction
+                        List transaction = UtilXml.childElementList(transactionsElement, "Transaction");
+                        Iterator transactionElemIter = transaction.iterator();
+                        while (transactionElemIter.hasNext()) {
+                            Map order = FastMap.newInstance();
+                            String itemId = "";
                             
-                            // retrieve buyer information
-                            List buyerInfo = UtilXml.childElementList(buyerElement, "BuyerInfo");
-                            Iterator buyerInfoElemIter = buyerInfo.iterator();
-                            while (buyerInfoElemIter.hasNext()) {
-                                Element buyerInfoElement = (Element)buyerInfoElemIter.next();
+                            Element transactionElement = (Element) transactionElemIter.next();
+                            order.put("amountPaid", UtilXml.childElementValue(transactionElement, "AmountPaid", "0"));
+                            
+                            // retrieve buyer
+                            List buyer = UtilXml.childElementList(transactionElement, "Buyer");
+                            Iterator buyerElemIter = buyer.iterator();
+                            while (buyerElemIter.hasNext()) {
+                                Element buyerElement = (Element)buyerElemIter.next();
+                                order.put("emailBuyer", UtilXml.childElementValue(buyerElement, "Email", ""));
                                 
-                                // retrieve shipping address
-                                List shippingAddressInfo = UtilXml.childElementList(buyerInfoElement, "ShippingAddress");
-                                Iterator shippingAddressElemIter = shippingAddressInfo.iterator();
-                                while (shippingAddressElemIter.hasNext()) {
-                                    Element shippingAddressElement = (Element)shippingAddressElemIter.next();
-                                    order.put("buyerName", UtilXml.childElementValue(shippingAddressElement, "Name", ""));
-                                    order.put("shippingAddressStreet1", UtilXml.childElementValue(shippingAddressElement, "Street1", ""));
-                                    order.put("shippingAddressCityName", UtilXml.childElementValue(shippingAddressElement, "CityName", ""));
-                                    order.put("shippingAddressStateOrProvince", UtilXml.childElementValue(shippingAddressElement, "StateOrProvince", ""));
-                                    order.put("shippingAddressCountry", UtilXml.childElementValue(shippingAddressElement, "Country", ""));
-                                    order.put("shippingAddressCountryName", UtilXml.childElementValue(shippingAddressElement, "CountryName", ""));
-                                    order.put("shippingAddressPhone", UtilXml.childElementValue(shippingAddressElement, "Phone", ""));
-                                    order.put("shippingAddressPostalCode", UtilXml.childElementValue(shippingAddressElement, "PostalCode", ""));
-                                }
-                            }
-                        }
-                        
-                        // retrieve shipping details
-                        List shippingDetails = UtilXml.childElementList(transactionElement, "ShippingDetails");
-                        Iterator shippingDetailsElemIter = shippingDetails.iterator();
-                        while (shippingDetailsElemIter.hasNext()) {
-                            Element shippingDetailsElement = (Element)shippingDetailsElemIter.next();
-                            order.put("insuranceFee", UtilXml.childElementValue(shippingDetailsElement, "InsuranceFee", "0"));
-                            order.put("insuranceOption", UtilXml.childElementValue(shippingDetailsElement, "InsuranceOption", ""));
-                            order.put("insuranceWanted", UtilXml.childElementValue(shippingDetailsElement, "InsuranceWanted", "false"));
-                            
-                            // retrieve sales Tax
-                            List salesTax = UtilXml.childElementList(shippingDetailsElement, "SalesTax");
-                            Iterator salesTaxElemIter = salesTax.iterator();
-                            while (salesTaxElemIter.hasNext()) {
-                                Element salesTaxElement = (Element)salesTaxElemIter.next();
-                                order.put("salesTaxAmount", UtilXml.childElementValue(salesTaxElement, "SalesTaxAmount", "0"));
-                                order.put("salesTaxPercent", UtilXml.childElementValue(salesTaxElement, "SalesTaxPercent", "0"));
-                                order.put("salesTaxState", UtilXml.childElementValue(salesTaxElement, "SalesTaxState", "0"));
-                                order.put("shippingIncludedInTax", UtilXml.childElementValue(salesTaxElement, "ShippingIncludedInTax", "false"));                                
-                            }
-                            
-                            // retrieve tax table
-                            List taxTable = UtilXml.childElementList(shippingDetailsElement, "TaxTable");
-                            Iterator taxTableElemIter = taxTable.iterator();
-                            while (taxTableElemIter.hasNext()) {
-                                Element taxTableElement = (Element)taxTableElemIter.next();
-                                
-                                List taxJurisdiction = UtilXml.childElementList(taxTableElement, "TaxJurisdiction");
-                                Iterator taxJurisdictionElemIter = taxJurisdiction.iterator();
-                                while (taxJurisdictionElemIter.hasNext()) {
-                                    Element taxJurisdictionElement = (Element)taxJurisdictionElemIter.next();
+                                // retrieve buyer information
+                                List buyerInfo = UtilXml.childElementList(buyerElement, "BuyerInfo");
+                                Iterator buyerInfoElemIter = buyerInfo.iterator();
+                                while (buyerInfoElemIter.hasNext()) {
+                                    Element buyerInfoElement = (Element)buyerInfoElemIter.next();
                                     
-                                    order.put("jurisdictionID", UtilXml.childElementValue(taxJurisdictionElement, "JurisdictionID", ""));
-                                    order.put("jurisdictionSalesTaxPercent", UtilXml.childElementValue(taxJurisdictionElement, "SalesTaxPercent", "0"));
-                                    order.put("jurisdictionShippingIncludedInTax", UtilXml.childElementValue(taxJurisdictionElement, "ShippingIncludedInTax", "0"));
+                                    // retrieve shipping address
+                                    List shippingAddressInfo = UtilXml.childElementList(buyerInfoElement, "ShippingAddress");
+                                    Iterator shippingAddressElemIter = shippingAddressInfo.iterator();
+                                    while (shippingAddressElemIter.hasNext()) {
+                                        Element shippingAddressElement = (Element)shippingAddressElemIter.next();
+                                        order.put("buyerName", UtilXml.childElementValue(shippingAddressElement, "Name", ""));
+                                        order.put("shippingAddressStreet1", UtilXml.childElementValue(shippingAddressElement, "Street1", ""));
+                                        order.put("shippingAddressCityName", UtilXml.childElementValue(shippingAddressElement, "CityName", ""));
+                                        order.put("shippingAddressStateOrProvince", UtilXml.childElementValue(shippingAddressElement, "StateOrProvince", ""));
+                                        order.put("shippingAddressCountry", UtilXml.childElementValue(shippingAddressElement, "Country", ""));
+                                        order.put("shippingAddressCountryName", UtilXml.childElementValue(shippingAddressElement, "CountryName", ""));
+                                        order.put("shippingAddressPhone", UtilXml.childElementValue(shippingAddressElement, "Phone", ""));
+                                        order.put("shippingAddressPostalCode", UtilXml.childElementValue(shippingAddressElement, "PostalCode", ""));
+                                    }
                                 }
                             }
-                        }
                             
-                        // retrieve created date
-                        order.put("createdDate", UtilXml.childElementValue(transactionElement, "CreatedDate", ""));
-                        
-                        // retrieve item
-                        List item = UtilXml.childElementList(transactionElement, "Item");
-                        Iterator itemElemIter = item.iterator();
-                        while (itemElemIter.hasNext()) {
-                            Element itemElement = (Element)itemElemIter.next();
-                            itemId = UtilXml.childElementValue(itemElement, "ItemID", "");
-                            order.put("paymentMethods", UtilXml.childElementValue(itemElement, "PaymentMethods", ""));
-                            order.put("quantity", UtilXml.childElementValue(itemElement, "Quantity", "0"));
-                            order.put("productId", UtilXml.childElementValue(itemElement, "SKU", ""));
-                            order.put("startPrice", UtilXml.childElementValue(itemElement, "StartPrice", "0"));
-                            order.put("title", UtilXml.childElementValue(itemElement, "Title", ""));
-                            
-                            // retrieve selling status
-                            List sellingStatus = UtilXml.childElementList(itemElement, "SellingStatus");
-                            Iterator sellingStatusitemElemIter = sellingStatus.iterator();
-                            while (sellingStatusitemElemIter.hasNext()) {
-                                Element sellingStatusElement = (Element)sellingStatusitemElemIter.next();
-                                order.put("amount", UtilXml.childElementValue(sellingStatusElement, "CurrentPrice", "0"));
-                                order.put("quantitySold", UtilXml.childElementValue(sellingStatusElement, "QuantitySold", "0"));
-                                order.put("listingStatus", UtilXml.childElementValue(sellingStatusElement, "ListingStatus", ""));
+                            // retrieve shipping details
+                            List shippingDetails = UtilXml.childElementList(transactionElement, "ShippingDetails");
+                            Iterator shippingDetailsElemIter = shippingDetails.iterator();
+                            while (shippingDetailsElemIter.hasNext()) {
+                                Element shippingDetailsElement = (Element)shippingDetailsElemIter.next();
+                                order.put("insuranceFee", UtilXml.childElementValue(shippingDetailsElement, "InsuranceFee", "0"));
+                                order.put("insuranceOption", UtilXml.childElementValue(shippingDetailsElement, "InsuranceOption", ""));
+                                order.put("insuranceWanted", UtilXml.childElementValue(shippingDetailsElement, "InsuranceWanted", "false"));
+                                
+                                // retrieve sales Tax
+                                List salesTax = UtilXml.childElementList(shippingDetailsElement, "SalesTax");
+                                Iterator salesTaxElemIter = salesTax.iterator();
+                                while (salesTaxElemIter.hasNext()) {
+                                    Element salesTaxElement = (Element)salesTaxElemIter.next();
+                                    order.put("salesTaxAmount", UtilXml.childElementValue(salesTaxElement, "SalesTaxAmount", "0"));
+                                    order.put("salesTaxPercent", UtilXml.childElementValue(salesTaxElement, "SalesTaxPercent", "0"));
+                                    order.put("salesTaxState", UtilXml.childElementValue(salesTaxElement, "SalesTaxState", "0"));
+                                    order.put("shippingIncludedInTax", UtilXml.childElementValue(salesTaxElement, "ShippingIncludedInTax", "false"));                                
+                                }
+                                
+                                // retrieve tax table
+                                List taxTable = UtilXml.childElementList(shippingDetailsElement, "TaxTable");
+                                Iterator taxTableElemIter = taxTable.iterator();
+                                while (taxTableElemIter.hasNext()) {
+                                    Element taxTableElement = (Element)taxTableElemIter.next();
+                                    
+                                    List taxJurisdiction = UtilXml.childElementList(taxTableElement, "TaxJurisdiction");
+                                    Iterator taxJurisdictionElemIter = taxJurisdiction.iterator();
+                                    while (taxJurisdictionElemIter.hasNext()) {
+                                        Element taxJurisdictionElement = (Element)taxJurisdictionElemIter.next();
+                                        
+                                        order.put("jurisdictionID", UtilXml.childElementValue(taxJurisdictionElement, "JurisdictionID", ""));
+                                        order.put("jurisdictionSalesTaxPercent", UtilXml.childElementValue(taxJurisdictionElement, "SalesTaxPercent", "0"));
+                                        order.put("jurisdictionShippingIncludedInTax", UtilXml.childElementValue(taxJurisdictionElement, "ShippingIncludedInTax", "0"));
+                                    }
+                                }
                             }
-                        }
-                        
-                        // retrieve quantity purchased
-                        order.put("quantityPurchased", UtilXml.childElementValue(transactionElement, "QuantityPurchased", "0"));
-
-                        // retrieve status
-                        List status = UtilXml.childElementList(transactionElement, "Status");
-                        Iterator statusElemIter = status.iterator();
-                        while (statusElemIter.hasNext()) {
-                            Element statusElement = (Element)statusElemIter.next();
-                            order.put("eBayPaymentStatus", UtilXml.childElementValue(statusElement, "eBayPaymentStatus", ""));
-                            order.put("checkoutStatus", UtilXml.childElementValue(statusElement, "CheckoutStatus", ""));
-                            order.put("paymentMethodUsed", UtilXml.childElementValue(statusElement, "PaymentMethodUsed", ""));
-                            order.put("completeStatus", UtilXml.childElementValue(statusElement, "CompleteStatus", ""));
-                            order.put("buyerSelectedShipping", UtilXml.childElementValue(statusElement, "BuyerSelectedShipping", ""));
-                        }
-                        
-                        // retrieve transactionId
-                        String transactionId = UtilXml.childElementValue(transactionElement, "TransactionID", "");
-                        
-                        // build the externalId                        
-                        String externalId = buildExternalId(itemId, transactionId); 
-                        order.put("externalId", externalId);
-                        
-                        GenericValue orderExist = externalOrderExists(delegator, externalId);
-                        if (orderExist != null) {
-                            order.put("orderId", (String)orderExist.get("orderId"));   
-                        } else {
-                            order.put("orderId", "");
-                        }
-
-                        // retrieve transaction price
-                        order.put("transactionPrice", UtilXml.childElementValue(transactionElement, "TransactionPrice", "0"));
-                        
-                        // retrieve external transaction
-                        List externalTransaction = UtilXml.childElementList(transactionElement, "ExternalTransaction");
-                        Iterator externalTransactionElemIter = externalTransaction.iterator();
-                        while (externalTransactionElemIter.hasNext()) {
-                            Element externalTransactionElement = (Element)externalTransactionElemIter.next();
-                            order.put("externalTransactionID", UtilXml.childElementValue(externalTransactionElement, "ExternalTransactionID", ""));
-                            order.put("externalTransactionTime", UtilXml.childElementValue(externalTransactionElement, "ExternalTransactionTime", ""));
-                            order.put("feeOrCreditAmount", UtilXml.childElementValue(externalTransactionElement, "FeeOrCreditAmount", "0"));
-                            order.put("paymentOrRefundAmount", UtilXml.childElementValue(externalTransactionElement, "PaymentOrRefundAmount", "0"));
-                        }
-                        
-                        // retrieve shipping service selected
-                        List shippingServiceSelected = UtilXml.childElementList(transactionElement, "ShippingServiceSelected");
-                        Iterator shippingServiceSelectedElemIter = shippingServiceSelected.iterator();
-                        while (shippingServiceSelectedElemIter.hasNext()) {
-                            Element shippingServiceSelectedElement = (Element)shippingServiceSelectedElemIter.next();
-                            order.put("shippingService", UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingService", ""));
-                            order.put("shippingServiceCost", UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingServiceCost", "0"));
+                                
+                            // retrieve created date
+                            order.put("createdDate", UtilXml.childElementValue(transactionElement, "CreatedDate", ""));
                             
-                            String incuranceCost = UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingInsuranceCost", "0");
-                            String additionalCost = UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingServiceAdditionalCost", "0");
-                            String surchargeCost = UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingSurcharge", "0");
-
-                            double shippingInsuranceCost = 0;
-                            double shippingServiceAdditionalCost = 0;
-                            double shippingSurcharge = 0;
-                            
-                            if (UtilValidate.isNotEmpty(incuranceCost)) {
-                                shippingInsuranceCost = new Double(incuranceCost).doubleValue();
+                            // retrieve item
+                            List item = UtilXml.childElementList(transactionElement, "Item");
+                            Iterator itemElemIter = item.iterator();
+                            while (itemElemIter.hasNext()) {
+                                Element itemElement = (Element)itemElemIter.next();
+                                itemId = UtilXml.childElementValue(itemElement, "ItemID", "");
+                                order.put("paymentMethods", UtilXml.childElementValue(itemElement, "PaymentMethods", ""));
+                                order.put("quantity", UtilXml.childElementValue(itemElement, "Quantity", "0"));
+                                order.put("productId", UtilXml.childElementValue(itemElement, "SKU", ""));
+                                order.put("startPrice", UtilXml.childElementValue(itemElement, "StartPrice", "0"));
+                                order.put("title", UtilXml.childElementValue(itemElement, "Title", ""));
+                                
+                                // retrieve selling status
+                                List sellingStatus = UtilXml.childElementList(itemElement, "SellingStatus");
+                                Iterator sellingStatusitemElemIter = sellingStatus.iterator();
+                                while (sellingStatusitemElemIter.hasNext()) {
+                                    Element sellingStatusElement = (Element)sellingStatusitemElemIter.next();
+                                    order.put("amount", UtilXml.childElementValue(sellingStatusElement, "CurrentPrice", "0"));
+                                    order.put("quantitySold", UtilXml.childElementValue(sellingStatusElement, "QuantitySold", "0"));
+                                    order.put("listingStatus", UtilXml.childElementValue(sellingStatusElement, "ListingStatus", ""));
+                                }
                             }
                             
-                            if (UtilValidate.isNotEmpty(additionalCost)) {
-                                shippingServiceAdditionalCost = new Double(additionalCost).doubleValue();
+                            // retrieve quantity purchased
+                            order.put("quantityPurchased", UtilXml.childElementValue(transactionElement, "QuantityPurchased", "0"));
+    
+                            // retrieve status
+                            List status = UtilXml.childElementList(transactionElement, "Status");
+                            Iterator statusElemIter = status.iterator();
+                            while (statusElemIter.hasNext()) {
+                                Element statusElement = (Element)statusElemIter.next();
+                                order.put("eBayPaymentStatus", UtilXml.childElementValue(statusElement, "eBayPaymentStatus", ""));
+                                order.put("checkoutStatus", UtilXml.childElementValue(statusElement, "CheckoutStatus", ""));
+                                order.put("paymentMethodUsed", UtilXml.childElementValue(statusElement, "PaymentMethodUsed", ""));
+                                order.put("completeStatus", UtilXml.childElementValue(statusElement, "CompleteStatus", ""));
+                                order.put("buyerSelectedShipping", UtilXml.childElementValue(statusElement, "BuyerSelectedShipping", ""));
                             }
                             
-                            if (UtilValidate.isNotEmpty(surchargeCost)) {
-                                shippingSurcharge = new Double(surchargeCost).doubleValue();
+                            // retrieve transactionId
+                            String transactionId = UtilXml.childElementValue(transactionElement, "TransactionID", "");
+                            
+                            // build the externalId                        
+                            String externalId = buildExternalId(itemId, transactionId); 
+                            order.put("externalId", externalId);
+                            
+                            GenericValue orderExist = externalOrderExists(delegator, externalId);
+                            if (orderExist != null) {
+                                order.put("orderId", (String)orderExist.get("orderId"));   
+                            } else {
+                                order.put("orderId", "");
+                            }
+    
+                            // retrieve transaction price
+                            order.put("transactionPrice", UtilXml.childElementValue(transactionElement, "TransactionPrice", "0"));
+                            
+                            // retrieve external transaction
+                            List externalTransaction = UtilXml.childElementList(transactionElement, "ExternalTransaction");
+                            Iterator externalTransactionElemIter = externalTransaction.iterator();
+                            while (externalTransactionElemIter.hasNext()) {
+                                Element externalTransactionElement = (Element)externalTransactionElemIter.next();
+                                order.put("externalTransactionID", UtilXml.childElementValue(externalTransactionElement, "ExternalTransactionID", ""));
+                                order.put("externalTransactionTime", UtilXml.childElementValue(externalTransactionElement, "ExternalTransactionTime", ""));
+                                order.put("feeOrCreditAmount", UtilXml.childElementValue(externalTransactionElement, "FeeOrCreditAmount", "0"));
+                                order.put("paymentOrRefundAmount", UtilXml.childElementValue(externalTransactionElement, "PaymentOrRefundAmount", "0"));
                             }
                             
-                            double shippingTotalAdditionalCost = shippingInsuranceCost + shippingServiceAdditionalCost + shippingSurcharge;
-                            String totalAdditionalCost = new Double(shippingTotalAdditionalCost).toString();
-                            order.put("shippingTotalAdditionalCost", totalAdditionalCost);
+                            // retrieve shipping service selected
+                            List shippingServiceSelected = UtilXml.childElementList(transactionElement, "ShippingServiceSelected");
+                            Iterator shippingServiceSelectedElemIter = shippingServiceSelected.iterator();
+                            while (shippingServiceSelectedElemIter.hasNext()) {
+                                Element shippingServiceSelectedElement = (Element)shippingServiceSelectedElemIter.next();
+                                order.put("shippingService", UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingService", ""));
+                                order.put("shippingServiceCost", UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingServiceCost", "0"));
+                                
+                                String incuranceCost = UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingInsuranceCost", "0");
+                                String additionalCost = UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingServiceAdditionalCost", "0");
+                                String surchargeCost = UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingSurcharge", "0");
+    
+                                double shippingInsuranceCost = 0;
+                                double shippingServiceAdditionalCost = 0;
+                                double shippingSurcharge = 0;
+                                
+                                if (UtilValidate.isNotEmpty(incuranceCost)) {
+                                    shippingInsuranceCost = new Double(incuranceCost).doubleValue();
+                                }
+                                
+                                if (UtilValidate.isNotEmpty(additionalCost)) {
+                                    shippingServiceAdditionalCost = new Double(additionalCost).doubleValue();
+                                }
+                                
+                                if (UtilValidate.isNotEmpty(surchargeCost)) {
+                                    shippingSurcharge = new Double(surchargeCost).doubleValue();
+                                }
+                                
+                                double shippingTotalAdditionalCost = shippingInsuranceCost + shippingServiceAdditionalCost + shippingSurcharge;
+                                String totalAdditionalCost = new Double(shippingTotalAdditionalCost).toString();
+                                order.put("shippingTotalAdditionalCost", totalAdditionalCost);
+                            }
+                            
+                            // retrieve paid time
+                            order.put("paidTime", UtilXml.childElementValue(transactionElement, "PaidTime", ""));
+                            
+                            // retrieve shipped time
+                            order.put("shippedTime", UtilXml.childElementValue(transactionElement, "ShippedTime", ""));
+                            
+                            order.put("productStoreId", productStoreId);
+                                                    
+                            orders.add(order);
                         }
-                        
-                        // retrieve paid time
-                        order.put("paidTime", UtilXml.childElementValue(transactionElement, "PaidTime", ""));
-                        
-                        // retrieve shipped time
-                        order.put("shippedTime", UtilXml.childElementValue(transactionElement, "ShippedTime", ""));
-                        
-                        order.put("productStoreId", productStoreId);
-                                                
-                        orders.add(order);
                     }
+                }
+            } else {
+                List errorList = UtilXml.childElementList(elemResponse, "Errors");
+                Iterator errorElemIter = errorList.iterator();
+                while (errorElemIter.hasNext()) {
+                    Element errorElement = (Element) errorElemIter.next();
+                    errorMessage.append(UtilXml.childElementValue(errorElement, "ShortMessage", ""));
                 }
             }
         } catch (Exception e) {
@@ -723,7 +880,7 @@ public class ImportOrdersFromEbay {
         }
     }
     
-    public static GenericValue madeOrderAdjustment(GenericDelegator delegator, String orderAdjustmentTypeId, String orderId, String orderItemSeqId, String shipGroupSeqId, double amount) {
+    private static GenericValue madeOrderAdjustment(GenericDelegator delegator, String orderAdjustmentTypeId, String orderId, String orderItemSeqId, String shipGroupSeqId, double amount) {
         GenericValue orderAdjustment  = null;
         
         try {
@@ -743,7 +900,7 @@ public class ImportOrdersFromEbay {
         return orderAdjustment;
     }
 
-    public static String createCustomerParty(LocalDispatcher dispatcher, String name, GenericValue userLogin) {
+    private static String createCustomerParty(LocalDispatcher dispatcher, String name, GenericValue userLogin) {
         String partyId = null;
         
         try {
@@ -773,7 +930,7 @@ public class ImportOrdersFromEbay {
         return partyId;
     }
     
-    public static String createAddress(LocalDispatcher dispatcher, String partyId, GenericValue userLogin, 
+    private static String createAddress(LocalDispatcher dispatcher, String partyId, GenericValue userLogin, 
                                        String contactMechPurposeTypeId, Map address) {
         String contactMechId = null;
         try {
@@ -822,7 +979,7 @@ public class ImportOrdersFromEbay {
         }
     }
         
-    public static String createPartyPhone(LocalDispatcher dispatcher, String partyId, String phoneNumber, GenericValue userLogin) {
+    private static String createPartyPhone(LocalDispatcher dispatcher, String partyId, String phoneNumber, GenericValue userLogin) {
         Map summaryResult = FastMap.newInstance();
         Map context = FastMap.newInstance();
         String phoneContactMechId = null;
@@ -839,7 +996,7 @@ public class ImportOrdersFromEbay {
         return phoneContactMechId;
     }
     
-    public static String createPartyEmail(LocalDispatcher dispatcher, String partyId, String email, GenericValue userLogin) {
+    private static String createPartyEmail(LocalDispatcher dispatcher, String partyId, String email, GenericValue userLogin) {
         Map context = FastMap.newInstance();
         Map summaryResult = FastMap.newInstance();
         String emailContactMechId = null;
@@ -865,7 +1022,7 @@ public class ImportOrdersFromEbay {
         return emailContactMechId;
     }
     
-    public static Map getCountryGeoId(GenericDelegator delegator, String geoCode) {
+    private static Map getCountryGeoId(GenericDelegator delegator, String geoCode) {
         GenericValue geo = null;
         try {
             Debug.logInfo("geocode: " + geoCode, module);
@@ -896,7 +1053,7 @@ public class ImportOrdersFromEbay {
         return result;
     }   
     
-    public static GenericValue externalOrderExists(GenericDelegator delegator, String externalId) throws GenericEntityException {
+    private static GenericValue externalOrderExists(GenericDelegator delegator, String externalId) throws GenericEntityException {
         Debug.logInfo("Checking for existing externalOrderId: " + externalId, module);
         GenericValue orderHeader = null;
         List entities = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId));
@@ -906,7 +1063,7 @@ public class ImportOrdersFromEbay {
         return orderHeader;
     } 
     
-    public static String buildExternalId(String itemId, String transactionId) {
+    private static String buildExternalId(String itemId, String transactionId) {
         StringBuffer str = new StringBuffer();
         if (itemId != null) {
             str.append(itemId);
@@ -919,5 +1076,32 @@ public class ImportOrdersFromEbay {
             str.append(transactionId);
         }
         return str.toString();
+    }
+    
+    private static Map buildItemAndTransactionIdFromExternalId(String externalId) {
+        Map items = FastMap.newInstance();
+        String ext[] = externalId.split("_");
+        
+        if (ext.length == 2) {
+            items.put("itemId", ext[0]);
+            items.put("transactionId",  ext[1]);
+        } else {
+            items.put("itemId", externalId);     
+            items.put("transactionId",  "0");
+        }
+        return items;
+    }
+    
+    private static String convertDate(String dateIn, String fromDateFormat, String toDateFormat) {
+        String dateOut;
+        try {
+            SimpleDateFormat formatIn = new SimpleDateFormat(fromDateFormat);
+            SimpleDateFormat formatOut= new SimpleDateFormat(toDateFormat);
+            Date data = formatIn.parse(dateIn, new ParsePosition(0));
+            dateOut = formatOut.format(data);
+        } catch (Exception e) {
+            dateOut = null;
+        }
+        return dateOut;
     }
 }

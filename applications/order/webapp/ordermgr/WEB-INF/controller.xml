@@ -1511,6 +1511,13 @@ under the License.
         <response name="failure" type="view" value="ManageOrdersFromEbay"/>
     </request-map>
     
+    <request-map uri="setEbayOrderToComplete">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="setEbayOrderToComplete"/>
+        <response name="success" type="view" value="ManageOrdersFromEbay"/>
+        <response name="failure" type="view" value="ManageOrdersFromEbay"/>
+    </request-map>
+    
     <!--
         These are just examples of reports developed using JasperReport and not really
         useful reports. In order to run them you'll have to follow the notes in the 
