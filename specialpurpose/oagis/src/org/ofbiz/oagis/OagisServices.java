@@ -210,34 +210,34 @@ public class OagisServices {
         
         Element confirmBodElement = doc.getDocumentElement();
         confirmBodElement.normalize();
-        Element docCtrlAreaElement = UtilXml.firstChildElement(confirmBodElement, "N1:CNTROLAREA");
-        Element bsrElement = UtilXml.firstChildElement(docCtrlAreaElement, "N1:BSR");
-        String bsrVerb = UtilXml.childElementValue(bsrElement, "N2:VERB");
-        String bsrNoun = UtilXml.childElementValue(bsrElement, "N2:NOUN");
-        String bsrRevision = UtilXml.childElementValue(bsrElement, "N2:REVISION");
+        Element docCtrlAreaElement = UtilXml.firstChildElement(confirmBodElement, "os:CNTROLAREA");
+        Element bsrElement = UtilXml.firstChildElement(docCtrlAreaElement, "os:BSR");
+        String bsrVerb = UtilXml.childElementValue(bsrElement, "of:VERB");
+        String bsrNoun = UtilXml.childElementValue(bsrElement, "of:NOUN");
+        String bsrRevision = UtilXml.childElementValue(bsrElement, "of:REVISION");
             
-        Element docSenderElement = UtilXml.firstChildElement(docCtrlAreaElement, "N1:SENDER");
-        String logicalId = UtilXml.childElementValue(docSenderElement, "N2:LOGICALID");
-        String component = UtilXml.childElementValue(docSenderElement, "N2:COMPONENT");
-        String task = UtilXml.childElementValue(docSenderElement, "N2:TASK");
-        String referenceId = UtilXml.childElementValue(docSenderElement, "N2:REFERENCEID");
-        String confirmation = UtilXml.childElementValue(docSenderElement, "N2:CONFIRMATION");
-        //String language = UtilXml.childElementValue(docSenderElement, "N2:LANGUAGE");
-        //String codepage = UtilXml.childElementValue(docSenderElement, "N2:CODEPAGE");
-        String authId = UtilXml.childElementValue(docSenderElement, "N2:AUTHID");
-        String sentDate = UtilXml.childElementValue(docCtrlAreaElement, "N1:DATETIMEANY");
+        Element docSenderElement = UtilXml.firstChildElement(docCtrlAreaElement, "os:SENDER");
+        String logicalId = UtilXml.childElementValue(docSenderElement, "of:LOGICALID");
+        String component = UtilXml.childElementValue(docSenderElement, "of:COMPONENT");
+        String task = UtilXml.childElementValue(docSenderElement, "of:TASK");
+        String referenceId = UtilXml.childElementValue(docSenderElement, "of:REFERENCEID");
+        String confirmation = UtilXml.childElementValue(docSenderElement, "of:CONFIRMATION");
+        //String language = UtilXml.childElementValue(docSenderElement, "of:LANGUAGE");
+        //String codepage = UtilXml.childElementValue(docSenderElement, "of:CODEPAGE");
+        String authId = UtilXml.childElementValue(docSenderElement, "of:AUTHID");
+        String sentDate = UtilXml.childElementValue(docCtrlAreaElement, "os:DATETIMEANY");
           
         Element dataAreaElement = UtilXml.firstChildElement(confirmBodElement, "n:DATAAREA");
         Element dataAreaConfirmBodElement = UtilXml.firstChildElement(dataAreaElement, "n:CONFIRM_BOD");
         Element dataAreaConfirmElement = UtilXml.firstChildElement(dataAreaConfirmBodElement, "n:CONFIRM");
-        Element dataAreaCtrlElement = UtilXml.firstChildElement(dataAreaConfirmElement, "N1:CNTROLAREA");
-        Element dataAreaSenderElement = UtilXml.firstChildElement(dataAreaCtrlElement, "N1:SENDER");
-        String dataAreaLogicalId = UtilXml.childElementValue(dataAreaSenderElement, "N2:LOGICALID");
-        String dataAreaComponent = UtilXml.childElementValue(dataAreaSenderElement, "N2:COMPONENT");
-        String dataAreaTask = UtilXml.childElementValue(dataAreaSenderElement, "N2:TASK");
-        String dataAreaReferenceId = UtilXml.childElementValue(dataAreaSenderElement, "N2:REFERENCEID");
-        String dataAreaDate = UtilXml.childElementValue(dataAreaCtrlElement, "N1:DATETIMEANY");
-        String origRef = UtilXml.childElementValue(dataAreaConfirmElement, "N2:ORIGREF");
+        Element dataAreaCtrlElement = UtilXml.firstChildElement(dataAreaConfirmElement, "os:CNTROLAREA");
+        Element dataAreaSenderElement = UtilXml.firstChildElement(dataAreaCtrlElement, "os:SENDER");
+        String dataAreaLogicalId = UtilXml.childElementValue(dataAreaSenderElement, "of:LOGICALID");
+        String dataAreaComponent = UtilXml.childElementValue(dataAreaSenderElement, "of:COMPONENT");
+        String dataAreaTask = UtilXml.childElementValue(dataAreaSenderElement, "of:TASK");
+        String dataAreaReferenceId = UtilXml.childElementValue(dataAreaSenderElement, "of:REFERENCEID");
+        String dataAreaDate = UtilXml.childElementValue(dataAreaCtrlElement, "os:DATETIMEANY");
+        String origRef = UtilXml.childElementValue(dataAreaConfirmElement, "of:ORIGREF");
           
         Timestamp timestamp = UtilDateTime.nowTimestamp();
         Map oagisMsgInfoCtx = new HashMap();
@@ -289,8 +289,8 @@ public class OagisServices {
         if (oagisMsgInfo != null){
             while (dataAreaConfirmMsgListItr.hasNext()){
                 Element dataAreaConfirmMsgElement = (Element) dataAreaConfirmMsgListItr.next();
-                String description = UtilXml.childElementValue(dataAreaConfirmMsgElement, "N2:DESCRIPTN");
-                String reasonCode = UtilXml.childElementValue(dataAreaConfirmMsgElement, "N2:REASONCODE");
+                String description = UtilXml.childElementValue(dataAreaConfirmMsgElement, "of:DESCRIPTN");
+                String reasonCode = UtilXml.childElementValue(dataAreaConfirmMsgElement, "of:REASONCODE");
                 oagisMsgErrorCtx.put("reasonCode", reasonCode);
                 oagisMsgErrorCtx.put("description", description);
             
@@ -359,10 +359,10 @@ public class OagisServices {
 
         Element rootElement = doc.getDocumentElement();
         rootElement.normalize();
-        Element controlAreaElement = UtilXml.firstChildElement(rootElement, "N1:CNTROLAREA");
-        Element bsrElement = UtilXml.firstChildElement(controlAreaElement, "N1:BSR");
-        String bsrVerb = UtilXml.childElementValue(bsrElement, "N2:VERB");
-        String bsrNoun = UtilXml.childElementValue(bsrElement, "N2:NOUN");
+        Element controlAreaElement = UtilXml.firstChildElement(rootElement, "os:CNTROLAREA");
+        Element bsrElement = UtilXml.firstChildElement(controlAreaElement, "os:BSR");
+        String bsrVerb = UtilXml.childElementValue(bsrElement, "of:VERB");
+        String bsrNoun = UtilXml.childElementValue(bsrElement, "of:NOUN");
         
         if (bsrVerb.equalsIgnoreCase("CONFIRM") && bsrNoun.equalsIgnoreCase("BOD")) {
             try {
@@ -392,8 +392,8 @@ public class OagisServices {
             Element dataAreaElement = UtilXml.firstChildElement(rootElement, "n:DATAAREA");
             Element ackDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "n:ACKNOWLEDGE_DELIVERY");
             Element receiptlnElement = UtilXml.firstChildElement(ackDeliveryElement, "n:RECEIPTLN");
-            Element docRefElement = UtilXml.firstChildElement(receiptlnElement, "N1:DOCUMNTREF");
-            String docType = UtilXml.childElementValue(docRefElement, "N2:DOCTYPE");
+            Element docRefElement = UtilXml.firstChildElement(receiptlnElement, "os:DOCUMNTREF");
+            String docType = UtilXml.childElementValue(docRefElement, "of:DOCTYPE");
             if (docType.equalsIgnoreCase("PO")){
                 try {
                     serviceResult = dispatcher.runSync("receivePoAcknowledge", UtilMisc.toMap("document",doc));
