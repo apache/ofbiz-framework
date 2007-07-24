@@ -107,20 +107,21 @@ public class OagisInventoryServices {
         
         Element syncInventoryRootElement = doc.getDocumentElement();
         syncInventoryRootElement.normalize();
-        Element docCtrlAreaElement = UtilXml.firstChildElement(syncInventoryRootElement, "N1:CNTROLAREA");
-        Element docSenderElement = UtilXml.firstChildElement(docCtrlAreaElement, "N1:SENDER");
-        Element docBsrElement = UtilXml.firstChildElement(docCtrlAreaElement, "N1:BSR");
-            
-        String bsrVerb = UtilXml.childElementValue(docBsrElement, "N2:VERB");
-        String bsrNoun = UtilXml.childElementValue(docBsrElement, "N2:NOUN");
-        String bsrRevision = UtilXml.childElementValue(docBsrElement, "N2:REVISION");
+        Element docCtrlAreaElement = UtilXml.firstChildElement(syncInventoryRootElement, "os:CNTROLAREA");
+        Element docBsrElement = UtilXml.firstChildElement(docCtrlAreaElement, "os:BSR");
+        Element docSenderElement = UtilXml.firstChildElement(docCtrlAreaElement, "os:SENDER");
         
-        String logicalId = UtilXml.childElementValue(docSenderElement, "N2:LOGICALID");
-        String component = UtilXml.childElementValue(docSenderElement, "N2:COMPONENT");
-        String task = UtilXml.childElementValue(docSenderElement, "N2:TASK");
-        String referenceId = UtilXml.childElementValue(docSenderElement, "N2:REFERENCEID");
-        String confirmation = UtilXml.childElementValue(docSenderElement, "N2:CONFIRMATION");
-        String authId = UtilXml.childElementValue(docSenderElement, "N2:AUTHID");
+        String bsrVerb = UtilXml.childElementValue(docBsrElement, "of:VERB");
+        String bsrNoun = UtilXml.childElementValue(docBsrElement, "of:NOUN");
+        String bsrRevision = UtilXml.childElementValue(docBsrElement, "of:REVISION");
+
+        
+        String logicalId = UtilXml.childElementValue(docSenderElement, "of:LOGICALID");
+        String component = UtilXml.childElementValue(docSenderElement, "of:COMPONENT");
+        String task = UtilXml.childElementValue(docSenderElement, "of:TASK");
+        String referenceId = UtilXml.childElementValue(docSenderElement, "of:REFERENCEID");
+        String confirmation = UtilXml.childElementValue(docSenderElement, "of:CONFIRMATION");
+        String authId = UtilXml.childElementValue(docSenderElement, "of:AUTHID");
         
         // data area elements
         Element dataAreaElement = UtilXml.firstChildElement(syncInventoryRootElement, "n:DATAAREA");
@@ -132,25 +133,28 @@ public class OagisInventoryServices {
             Iterator syncInventoryElementIter = syncInventoryElementList.iterator();
             while (syncInventoryElementIter.hasNext()) {
                 Element inventoryElement = (Element) syncInventoryElementIter.next();
-                Element quantityElement = UtilXml.firstChildElement(inventoryElement, "N1:QUANTITY");
+                Element quantityElement = UtilXml.firstChildElement(inventoryElement, "os:QUANTITY");
                 
-                String itemQtyStr = UtilXml.childElementValue(quantityElement, "N2:VALUE");
+                String itemQtyStr = UtilXml.childElementValue(quantityElement, "of:VALUE");
                 double itemQty = Double.parseDouble(itemQtyStr);
-                // String sign = UtilXml.childElementValue(quantityElement, "N2:SIGN");
-                // String uom = UtilXml.childElementValue(quantityElement, "N2:UOM");
-                String productId = UtilXml.childElementValue(inventoryElement, "N2:ITEM");
-                String itemStatus = UtilXml.childElementValue(inventoryElement, "N2:ITEMSTATUS");
+                /* TODO sign denoted whether quantity is accepted(+) or rejected(-), which plays role in receiving inventory
+                 * In this message will it serve any purpose, since it is not handled.
+                 */
+                String sign = UtilXml.childElementValue(quantityElement, "of:SIGN");
+                String uom = UtilXml.childElementValue(quantityElement, "of:UOM");
+                String productId = UtilXml.childElementValue(inventoryElement, "os:ITEM");
+                String itemStatus = UtilXml.childElementValue(inventoryElement, "os:ITEMSTATUS");
                 String statusId = null;
                 if (itemStatus.equals("AVAILABLE")) {
                    statusId = "INV_AVAILABLE"; 
                 } else if (itemStatus.equals("NOTAVAILABLE")) {
                     statusId = "INV_ON_HOLD"; 
                 } 
-                String datetimeReceived = UtilXml.childElementValue(inventoryElement, "N1:DATETIMEANY");
+                String datetimeReceived = UtilXml.childElementValue(inventoryElement, "os:DATETIMEANY");
 
                 // In BOD the timestamp come in the format "yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z"
                 // Parse this into a valid Timestamp Object
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
                 Timestamp timestamp = null;
                 try {        
                     timestamp = new Timestamp(sdf.parse(datetimeReceived).getTime());
@@ -165,7 +169,7 @@ public class OagisInventoryServices {
                 List invItemAndDetails = null;
                 EntityCondition condition = new EntityConditionList(UtilMisc.toList(
                         new EntityExpr("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, timestamp), new EntityExpr("productId", EntityOperator.EQUALS, productId),
-                        new EntityExpr("statusId", EntityOperator.EQUALS, statusId)), EntityOperator.AND);
+                        new EntityExpr("statusId", EntityOperator.EQUALS, statusId), new EntityExpr("currencyUomId", EntityOperator.EQUALS, uom)), EntityOperator.AND);
                 try {
                     invItemAndDetails = delegator.findByCondition("InventoryItemAndDetail", condition, null, UtilMisc.toList("inventoryItemId"));
                     if (invItemAndDetails != null) {
@@ -349,21 +353,21 @@ public class OagisInventoryServices {
         // parse the message 
         Element receivePoElement = doc.getDocumentElement();
         receivePoElement.normalize();
-        Element docCtrlAreaElement = UtilXml.firstChildElement(receivePoElement, "N1:CNTROLAREA");
+        Element docCtrlAreaElement = UtilXml.firstChildElement(receivePoElement, "os:CNTROLAREA");
             
-        Element docSenderElement = UtilXml.firstChildElement(docCtrlAreaElement, "N1:SENDER");
-        Element docBsrElement = UtilXml.firstChildElement(docCtrlAreaElement, "N1:BSR");
+        Element docSenderElement = UtilXml.firstChildElement(docCtrlAreaElement, "os:SENDER");
+        Element docBsrElement = UtilXml.firstChildElement(docCtrlAreaElement, "os:BSR");
 
-        String bsrVerb = UtilXml.childElementValue(docBsrElement, "N2:VERB");
-        String bsrNoun = UtilXml.childElementValue(docBsrElement, "N2:NOUN");
-        String bsrRevision = UtilXml.childElementValue(docBsrElement, "N2:REVISION");
+        String bsrVerb = UtilXml.childElementValue(docBsrElement, "of:VERB");
+        String bsrNoun = UtilXml.childElementValue(docBsrElement, "of:NOUN");
+        String bsrRevision = UtilXml.childElementValue(docBsrElement, "of:REVISION");
         
-        String logicalId = UtilXml.childElementValue(docSenderElement, "N2:LOGICALID");
-        String component = UtilXml.childElementValue(docSenderElement, "N2:COMPONENT");
-        String task = UtilXml.childElementValue(docSenderElement, "N2:TASK");
-        String referenceId = UtilXml.childElementValue(docSenderElement, "N2:REFERENCEID");
-        String confirmation = UtilXml.childElementValue(docSenderElement, "N2:CONFIRMATION");
-        String authId = UtilXml.childElementValue(docSenderElement, "N2:AUTHID");
+        String logicalId = UtilXml.childElementValue(docSenderElement, "of:LOGICALID");
+        String component = UtilXml.childElementValue(docSenderElement, "of:COMPONENT");
+        String task = UtilXml.childElementValue(docSenderElement, "of:TASK");
+        String referenceId = UtilXml.childElementValue(docSenderElement, "of:REFERENCEID");
+        String confirmation = UtilXml.childElementValue(docSenderElement, "of:CONFIRMATION");
+        String authId = UtilXml.childElementValue(docSenderElement, "of:AUTHID");
             
         Element dataAreaElement = UtilXml.firstChildElement(receivePoElement, "n:DATAAREA");
         Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "n:ACKNOWLEDGE_DELIVERY");
@@ -379,17 +383,17 @@ public class OagisInventoryServices {
         	while (acknowledgeElementIter.hasNext()) {
                 Map ripCtx = FastMap.newInstance();
                 Element receiptLnElement = (Element) acknowledgeElementIter.next();
-                Element qtyElement = UtilXml.firstChildElement(receiptLnElement, "N1:QUANTITY");
+                Element qtyElement = UtilXml.firstChildElement(receiptLnElement, "os:QUANTITY");
                 
-                String itemQtyStr = UtilXml.childElementValue(qtyElement, "N2:VALUE");
+                String itemQtyStr = UtilXml.childElementValue(qtyElement, "of:VALUE");
                 double itemQty = Double.parseDouble(itemQtyStr);
-                String sign = UtilXml.childElementValue(qtyElement, "N2:SIGN");
+                String sign = UtilXml.childElementValue(qtyElement, "of:SIGN");
                 
-                String productId = UtilXml.childElementValue(receiptLnElement, "N2:ITEM");
+                String productId = UtilXml.childElementValue(receiptLnElement, "os:ITEM");
                 
-                Element documentRefElement = UtilXml.firstChildElement(receiptLnElement, "N1:DOCUMNTREF");
-                orderId = UtilXml.childElementValue(documentRefElement, "N2:DOCUMENTID");
-                String orderItemSeqId = UtilXml.childElementValue(documentRefElement, "N2:LINENUM");
+                Element documentRefElement = UtilXml.firstChildElement(receiptLnElement, "os:DOCUMNTREF");
+                orderId = UtilXml.childElementValue(documentRefElement, "of:DOCUMENTID");
+                String orderItemSeqId = UtilXml.childElementValue(documentRefElement, "of:LINENUM");
                 
                 // check reference to PO number, if exists
                 GenericValue orderHeader = null;
@@ -406,7 +410,7 @@ public class OagisInventoryServices {
                     Debug.logError(e, errMsg, module);
                 }
                 // get inventory item status
-                String invItemStatus = UtilXml.childElementValue(receiptLnElement, "N2:DISPOSITN");
+                String invItemStatus = UtilXml.childElementValue(receiptLnElement, "os:DISPOSITN");
                 if ( invItemStatus.equals("ReceivedTOAvailable") || invItemStatus.equals("NotAvailableTOAvailable")) {
                     ripCtx.put("statusId", "INV_AVAILABLE");    
                 } else if ( invItemStatus.equals("ReceivedTONotAvailable") || invItemStatus.equals("AvailableTONotAvailable") ) {
@@ -414,13 +418,13 @@ public class OagisInventoryServices {
                 }
                 // get the serial number(s) 
                 List serialNumsList = FastList.newInstance();
-                List invDetailList = UtilXml.childElementList(receiptLnElement, "n:INVDETAIL");
+                List invDetailList = UtilXml.childElementList(receiptLnElement, "os:INVDETAIL");
                 if (UtilValidate.isNotEmpty(invDetailList)) {
                     inventoryItemTypeId = "SERIALIZED_INV_ITEM";
                     ripCtx.put("inventoryItemTypeId", inventoryItemTypeId);
                     for (Iterator j = invDetailList.iterator(); j.hasNext();) {
                         Element invDetailElement = (Element) j.next();
-                        String serialNumber = UtilXml.childElementValue(invDetailElement, "N2:SERIALNUM");
+                        String serialNumber = UtilXml.childElementValue(invDetailElement, "of:SERIALNUM");
                         if (UtilValidate.isNotEmpty(serialNumber)) {
                             serialNumsList.add(serialNumber);
                         }
@@ -606,20 +610,20 @@ public class OagisInventoryServices {
         // parse the message 
         Element receiveRmaElement = doc.getDocumentElement();
         receiveRmaElement.normalize();
-        Element docCtrlAreaElement = UtilXml.firstChildElement(receiveRmaElement, "N1:CNTROLAREA");
-        Element docSenderElement = UtilXml.firstChildElement(docCtrlAreaElement, "N1:SENDER");
-        Element docBsrElement = UtilXml.firstChildElement(docCtrlAreaElement, "N1:BSR");
+        Element docCtrlAreaElement = UtilXml.firstChildElement(receiveRmaElement, "os:CNTROLAREA");
+        Element docSenderElement = UtilXml.firstChildElement(docCtrlAreaElement, "os:SENDER");
+        Element docBsrElement = UtilXml.firstChildElement(docCtrlAreaElement, "os:BSR");
             
-        String bsrVerb = UtilXml.childElementValue(docBsrElement, "N2:VERB");
-        String bsrNoun = UtilXml.childElementValue(docBsrElement, "N2:NOUN");
-        String bsrRevision = UtilXml.childElementValue(docBsrElement, "N2:REVISION");
+        String bsrVerb = UtilXml.childElementValue(docBsrElement, "of:VERB");
+        String bsrNoun = UtilXml.childElementValue(docBsrElement, "of:NOUN");
+        String bsrRevision = UtilXml.childElementValue(docBsrElement, "of:REVISION");
             
-        String logicalId = UtilXml.childElementValue(docSenderElement, "N2:LOGICALID");
-        String component = UtilXml.childElementValue(docSenderElement, "N2:COMPONENT");
-        String task = UtilXml.childElementValue(docSenderElement, "N2:TASK");
-        String referenceId = UtilXml.childElementValue(docSenderElement, "N2:REFERENCEID");
-        String confirmation = UtilXml.childElementValue(docSenderElement, "N2:CONFIRMATION");
-        String authId = UtilXml.childElementValue(docSenderElement, "N2:AUTHID");
+        String logicalId = UtilXml.childElementValue(docSenderElement, "of:LOGICALID");
+        String component = UtilXml.childElementValue(docSenderElement, "of:COMPONENT");
+        String task = UtilXml.childElementValue(docSenderElement, "of:TASK");
+        String referenceId = UtilXml.childElementValue(docSenderElement, "of:REFERENCEID");
+        String confirmation = UtilXml.childElementValue(docSenderElement, "of:CONFIRMATION");
+        String authId = UtilXml.childElementValue(docSenderElement, "of:AUTHID");
             
         Element dataAreaElement = UtilXml.firstChildElement(receiveRmaElement, "n:DATAAREA");
         Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "n:ACKNOWLEDGE_DELIVERY");
@@ -636,23 +640,23 @@ public class OagisInventoryServices {
             while (acknowledgeElementIter.hasNext()) {
                 Map ripCtx = FastMap.newInstance();
                 Element receiptLnElement = (Element) acknowledgeElementIter.next();
-                Element qtyElement = UtilXml.firstChildElement(receiptLnElement, "N1:QUANTITY");
+                Element qtyElement = UtilXml.firstChildElement(receiptLnElement, "os:QUANTITY");
                 
-                String itemQtyStr = UtilXml.childElementValue(qtyElement, "N2:VALUE");
+                String itemQtyStr = UtilXml.childElementValue(qtyElement, "of:VALUE");
                 double itemQty = Double.parseDouble(itemQtyStr);
-                String sign = UtilXml.childElementValue(qtyElement, "N2:SIGN");
+                String sign = UtilXml.childElementValue(qtyElement, "of:SIGN");
                 
-                String productId = UtilXml.childElementValue(receiptLnElement, "N2:ITEM");
+                String productId = UtilXml.childElementValue(receiptLnElement, "os:ITEM");
                 
-                Element documentRefElement = UtilXml.firstChildElement(receiptLnElement, "N1:DOCUMNTREF");
-                returnId = UtilXml.childElementValue(documentRefElement, "N2:DOCUMENTID");
+                Element documentRefElement = UtilXml.firstChildElement(receiptLnElement, "os:DOCUMNTREF");
+                returnId = UtilXml.childElementValue(documentRefElement, "of:DOCUMENTID");
                 ripCtx.put("returnId", returnId);
                 
-                String returnItemSeqId = UtilXml.childElementValue(documentRefElement, "N2:LINENUM");
+                String returnItemSeqId = UtilXml.childElementValue(documentRefElement, "of:LINENUM");
                 ripCtx.put("returnItemSeqId", returnItemSeqId);
                 
                 // get inventory item status
-                String invItemStatus = UtilXml.childElementValue(receiptLnElement, "N2:DISPOSITN");
+                String invItemStatus = UtilXml.childElementValue(receiptLnElement, "os:DISPOSITN");
                 if ( invItemStatus.equals("ReceivedTOAvailable") || invItemStatus.equals("NotAvailableTOAvailable")) {
                     ripCtx.put("statusId", "INV_AVAILABLE");    
                 } else if ( invItemStatus.equals("ReceivedTONotAvailable") || invItemStatus.equals("AvailableTONotAvailable") ) {
@@ -660,13 +664,13 @@ public class OagisInventoryServices {
                 }
                 // get the serial number(s) 
                 List serialNumsList = FastList.newInstance();
-                List invDetailList = UtilXml.childElementList(receiptLnElement, "n:INVDETAIL");
+                List invDetailList = UtilXml.childElementList(receiptLnElement, "os:INVDETAIL");
                 if (UtilValidate.isNotEmpty(invDetailList)) {
                     inventoryItemTypeId = "SERIALIZED_INV_ITEM";
                     ripCtx.put("inventoryItemTypeId", inventoryItemTypeId);
                     for (Iterator j = invDetailList.iterator(); j.hasNext();) {
                         Element invDetailElement = (Element) j.next();
-                        String serialNumber = UtilXml.childElementValue(invDetailElement, "N2:SERIALNUM");
+                        String serialNumber = UtilXml.childElementValue(invDetailElement, "of:SERIALNUM");
                         if (UtilValidate.isNotEmpty(serialNumber)) {
                             serialNumsList.add(serialNumber);
                         }
