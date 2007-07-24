@@ -94,7 +94,7 @@ public class UtilCache implements Serializable {
 
     /** Specifies whether or not to use file base stored for this cache, defautls to false */
     protected boolean useFileSystemStore = false;
-    private String fileStore = "framework/data/utilcache";
+    private String fileStore = "runtime/data/utilcache";
 
     /** The set of listeners to receive notifcations when items are modidfied(either delibrately or because they were expired). */
     protected Set listeners = FastSet.newInstance();
