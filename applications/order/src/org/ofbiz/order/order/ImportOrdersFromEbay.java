@@ -465,6 +465,8 @@ public class ImportOrdersFromEbay {
                             while (buyerElemIter.hasNext()) {
                                 Element buyerElement = (Element)buyerElemIter.next();
                                 order.put("emailBuyer", UtilXml.childElementValue(buyerElement, "Email", ""));
+                                order.put("eiasTokenBuyer", UtilXml.childElementValue(buyerElement, "EAISToken", ""));
+                                order.put("ebayUserIdBuyer", UtilXml.childElementValue(buyerElement, "UserID", ""));
                                 
                                 // retrieve buyer information
                                 List buyerInfo = UtilXml.childElementList(buyerElement, "BuyerInfo");
@@ -772,19 +774,28 @@ public class ImportOrdersFromEbay {
             // order has to be created ?
             if (create) {
                 // set partyId to
-                String partyId = createCustomerParty(dispatcher, (String) parameters.get("buyerName"), userLogin);
-                String contactMechId = "";            
-                if (UtilValidate.isNotEmpty(partyId)) {
-                    contactMechId = createAddress(dispatcher, partyId, userLogin, "SHIPPING_LOCATION", parameters);
-                    createPartyPhone(dispatcher, partyId, (String) parameters.get("shippingAddressPhone"), userLogin);
-                    String emailBuyer = (String) parameters.get("emailBuyer");
-                    if (!(emailBuyer.equals("") || emailBuyer.equalsIgnoreCase("Invalid Request"))) {
-                        createPartyEmail(dispatcher, partyId, emailBuyer, userLogin);
-                    }
+                String partyId = null;
+                String contactMechId = "";
+                GenericValue partyAttribute = EntityUtil.getFirst(delegator.findByAnd("PartyAttribute", UtilMisc.toMap("attrValue", parameters.get("eiasTokenBuyer"))));
+                if (UtilValidate.isNotEmpty(partyAttribute)) {
+                    partyId = (String) partyAttribute.get("partyId");
+                    // TODO: check for current contact information here
+                    //       and, if needed, 'update' the existing ones
                 } else {
-                    partyId = "admin";
+                    partyId = createCustomerParty(dispatcher, (String) parameters.get("buyerName"), userLogin);                   
+                    if (UtilValidate.isNotEmpty(partyId)) {
+                        contactMechId = createAddress(dispatcher, partyId, userLogin, "SHIPPING_LOCATION", parameters);
+                        createPartyPhone(dispatcher, partyId, (String) parameters.get("shippingAddressPhone"), userLogin);
+                        createEbayCustomer(dispatcher, partyId, (String) parameters.get("ebayUserIdBuyer"), (String) parameters.get("eiasTokenBuyer"), userLogin);
+                        String emailBuyer = (String) parameters.get("emailBuyer");
+                        if (!(emailBuyer.equals("") || emailBuyer.equalsIgnoreCase("Invalid Request"))) {
+                            createPartyEmail(dispatcher, partyId, emailBuyer, userLogin);
+                        }                        
+                    } else {
+                        partyId = "admin";
+                    }
                 }
-                
+
                 cart.setBillToCustomerPartyId(partyId);
                 cart.setPlacingCustomerPartyId(partyId);
                 cart.setShipToCustomerPartyId(partyId);
@@ -1022,6 +1033,31 @@ public class ImportOrdersFromEbay {
         return emailContactMechId;
     }
     
+    public static void createEbayCustomer(LocalDispatcher dispatcher, String partyId, String ebayUserIdBuyer, String eias, GenericValue userLogin) {
+        Map context = FastMap.newInstance();
+        Map summaryResult = FastMap.newInstance();
+        try {
+            context.put("partyId", partyId);
+            context.put("attrName", "EBAY_BUYER_EIAS");
+            context.put("attrValue", eias);
+            context.put("userLogin", userLogin);
+            summaryResult = dispatcher.runSync("createPartyAttribute", context);
+        } catch (Exception e) {
+            Debug.logError(e, "Failed to create eBay EIAS party attribute");            
+        }
+        context.clear();
+        summaryResult.clear();
+        try {
+            context.put("partyId", partyId);
+            context.put("attrName", "EBAY_BUYER_USER_ID");
+            context.put("attrValue", ebayUserIdBuyer);
+            context.put("userLogin", userLogin);
+            summaryResult = dispatcher.runSync("createPartyAttribute", context);
+        } catch (Exception e) {
+            Debug.logError(e, "Failed to create eBay userId party attribute");            
+        }        
+    }
+
     private static Map getCountryGeoId(GenericDelegator delegator, String geoCode) {
         GenericValue geo = null;
         try {
