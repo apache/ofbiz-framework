@@ -90,6 +90,9 @@
           </#if>
         </os:PARTNER>
         <#list shipmentItems as shipmentItem>
+        <#assign product = shipmentItem.getRelatedOne("Product")>
+        <#assign productType = product.getRelatedOne("ProductType")>
+        <#if productType.isPhysical == "Y" || productType.isPhysical == "y">
         <n:SHIPITEM>
             <os:QUANTITY>
               <of:VALUE>${shipmentItem.quantity?if_exists}</of:VALUE>
@@ -105,6 +108,7 @@
               <of:LINENUM>${shipmentItem.shipmentItemSeqId?if_exists}</of:LINENUM>
             </n:DOCUMNTREF>
         </n:SHIPITEM>
+        </#if>
         </#list> 
         <#list externalIdSet?if_exists as externalId>
         <n:DOCUMNTREF>
