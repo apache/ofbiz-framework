@@ -88,8 +88,8 @@ under the License.
     <service name="showShipment" engine="java" transaction-timeout="300"
             location="org.ofbiz.oagis.OagisShipmentServices" invoke="showShipment" auth="false">
         <description>Process incoming shipment message</description>
-        <implements service="serviceStreamInterface"/>
         <implements service="oagisMessageErrorInfoInterface"/>
+        <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
     </service>
     
     <service name="oagisSendConfirmBod" engine="java" transaction-timeout="300"
@@ -117,8 +117,8 @@ under the License.
     <service name="syncInventory" engine="java" transaction-timeout="300"
             location="org.ofbiz.oagis.OagisInventoryServices" invoke="syncInventory" auth="false">
         <description>Process incoming Inventory Sync message</description>
-        <implements service="serviceStreamInterface"/>
         <implements service="oagisMessageErrorInfoInterface"/>
+        <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
     </service>
     
     <service name="exportMsgFromScreen" max-retry="0" engine="java"
@@ -165,15 +165,15 @@ under the License.
     <service name="receivePoAcknowledge" engine="java" transaction-timeout="300"
             location="org.ofbiz.oagis.OagisInventoryServices" invoke="receivePoAcknowledge" auth="false">
         <description>Process PO Acknowledge message</description>
-        <implements service="serviceStreamInterface"/>
         <implements service="oagisMessageErrorInfoInterface"/>
+        <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
     </service>
 
     <service name="receiveRmaAcknowledge" engine="java" transaction-timeout="300"
             location="org.ofbiz.oagis.OagisInventoryServices" invoke="receiveRmaAcknowledge" auth="false">
         <description>Process RMA Acknowledge message</description>
-        <implements service="serviceStreamInterface"/>
         <implements service="oagisMessageErrorInfoInterface"/>
+        <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
     </service>
 
     <service name="oagisMessageHandler" engine="java" transaction-timeout="300"

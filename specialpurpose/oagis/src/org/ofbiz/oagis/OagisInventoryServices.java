@@ -68,7 +68,7 @@ public class OagisInventoryServices {
     public static final Double doubleOne = new Double(1.0);
     
     public static Map syncInventory(DispatchContext ctx, Map context) {
-        InputStream in = (InputStream) context.get("inputStream");
+        Document doc = (Document) context.get("document");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
@@ -85,26 +85,6 @@ public class OagisInventoryServices {
             }
         }
 
-        Document doc = null;
-        try {
-            doc = UtilXml.readXmlDocument(in, true, "SyncInventory");
-        } catch (SAXException e) {
-            String errMsg = "Error parsing the SyncInventoryResponse: " + e.toString();
-            errorMapList.add(UtilMisc.toMap("reasonCode", "SAXException", "description", errMsg));
-            Debug.logError(e, errMsg, module);
-        } catch (ParserConfigurationException e) {
-            String errMsg = "Error parsing the SyncInventoryResponse: " + e.toString();
-            errorMapList.add(UtilMisc.toMap("reasonCode", "ParserConfigurationException", "description", errMsg));
-            Debug.logError(e, errMsg, module);
-        } catch (IOException e) {
-            String errMsg = "Error parsing the SyncInventoryResponse: " + e.toString();
-            errorMapList.add(UtilMisc.toMap("reasonCode", "IOException", "description", errMsg));
-            Debug.logError(e, errMsg, module);
-        }
-        if (errorMapList.size() > 0) {
-            return ServiceUtil.returnError("Unable to parse message: SyncInventory");
-        }
-        
         Element syncInventoryRootElement = doc.getDocumentElement();
         syncInventoryRootElement.normalize();
         Element docCtrlAreaElement = UtilXml.firstChildElement(syncInventoryRootElement, "os:CNTROLAREA");
@@ -296,15 +276,14 @@ public class OagisInventoryServices {
         }
         
         Map result = FastMap.newInstance();
-        result.put("contentType", "text/plain");
+        result.put("logicalId", logicalId);
+        result.put("component", component);
+        result.put("task", task);
+        result.put("referenceId", referenceId);
+        result.put("userLogin", userLogin);
 
         // check error list if there is any 
         if (errorMapList.size() > 0) {
-            result.put("logicalId", logicalId);
-            result.put("component", component);
-            result.put("task", task);
-            result.put("referenceId", referenceId);
-            result.put("userLogin", userLogin);
             result.put("errorMapList", errorMapList);
             String errMsg = "Error Processing Received Messages";
             result.putAll(ServiceUtil.returnError(errMsg));
@@ -315,7 +294,7 @@ public class OagisInventoryServices {
     }
     
     public static Map receivePoAcknowledge(DispatchContext ctx, Map context) {
-        InputStream in = (InputStream) context.get("inputStream");
+        Document doc = (Document) context.get("document");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
@@ -330,26 +309,6 @@ public class OagisInventoryServices {
             }
         }
         
-        Document doc = null;
-        try {
-            doc = UtilXml.readXmlDocument(in, true, "ReceivePoAcknowledge");
-        } catch (SAXException e) {
-            String errMsg = "Error parsing the ReceivePoAcknowledge message: " + e.toString();
-            errorMapList.add(UtilMisc.toMap("reasonCode", "SAXException", "description", errMsg));
-            Debug.logError(e, errMsg, module);
-        } catch (ParserConfigurationException e) {
-            String errMsg = "Error parsing the ReceivePoAcknowledge message: " + e.toString();
-            errorMapList.add(UtilMisc.toMap("reasonCode", "ParserConfigurationException", "description", errMsg));
-            Debug.logError(e, errMsg, module);
-        } catch (IOException e) {
-            String errMsg = "Error parsing the ReceivePoAcknowledge message: " + e.toString();
-            errorMapList.add(UtilMisc.toMap("reasonCode", "IOException", "description", errMsg));
-            Debug.logError(e, errMsg, module);
-        }
-        if (errorMapList.size() > 0) {
-            return ServiceUtil.returnError("Unable to parse message: ReceivePoAcknowledge");
-        }
-
         // parse the message 
         Element receivePoElement = doc.getDocumentElement();
         receivePoElement.normalize();
@@ -555,14 +514,13 @@ public class OagisInventoryServices {
             Debug.logError(e, errMsg, module);
         }
         Map result = FastMap.newInstance();
-        result.put("contentType", "text/plain");
+        result.put("logicalId", logicalId);
+        result.put("component", component);
+        result.put("task", task);
+        result.put("referenceId", referenceId);
+        result.put("userLogin", userLogin);
         
         if (errorMapList.size() > 0) {
-            result.put("logicalId", logicalId);
-            result.put("component", component);
-            result.put("task", task);
-            result.put("referenceId", referenceId);
-            result.put("userLogin", userLogin);
             result.put("errorMapList", errorMapList);
             String errMsg = "Error Processing Received Messages";
             result.putAll(ServiceUtil.returnError(errMsg));
@@ -573,7 +531,7 @@ public class OagisInventoryServices {
     }
     
     public static Map receiveRmaAcknowledge(DispatchContext ctx, Map context) {
-        InputStream in = (InputStream) context.get("inputStream");
+        Document doc = (Document) context.get("document");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
@@ -587,26 +545,7 @@ public class OagisInventoryServices {
                 Debug.logError(e, errMsg, module);
             }
         }
-        
-        Document doc = null;
-        try {
-            doc = UtilXml.readXmlDocument(in, true, "ReceiveRmaAcknowledge");
-        } catch (SAXException e) {
-            String errMsg = "Error parsing the ReceiveRmaAcknowledgeResponse: " + e.toString();
-            errorMapList.add(UtilMisc.toMap("reasonCode", "SAXException", "description", errMsg));            
-            Debug.logError(e, errMsg, module);
-        } catch (ParserConfigurationException e) {
-            String errMsg = "Error parsing the ReceiveRmaAcknowledgeResponse: " + e.toString();
-            errorMapList.add(UtilMisc.toMap("reasonCode", "ParserConfigurationException", "description", errMsg));
-            Debug.logError(e, errMsg, module);
-        } catch (IOException e) {
-            String errMsg = "Error parsing the ReceiveRmaAcknowledgeResponse: " + e.toString();
-            errorMapList.add(UtilMisc.toMap("reasonCode", "IOException", "description", errMsg));
-            Debug.logError(e, errMsg, module);
-        }
-        if (errorMapList.size() > 0) {
-            return ServiceUtil.returnError("Unable to parse message: ReceiveRmaAcknowledge");
-        }
+
         // parse the message 
         Element receiveRmaElement = doc.getDocumentElement();
         receiveRmaElement.normalize();
@@ -804,13 +743,13 @@ public class OagisInventoryServices {
         }
         
         Map result = FastMap.newInstance();
-        result.put("contentType", "text/plain");
+        result.put("logicalId", logicalId);
+        result.put("component", component);
+        result.put("task", task);
+        result.put("referenceId", referenceId);
+        result.put("userLogin", userLogin);
+        
         if (errorMapList.size() > 0) {
-            result.put("logicalId", logicalId);
-            result.put("component", component);
-            result.put("task", task);
-            result.put("referenceId", referenceId);
-            result.put("userLogin", userLogin);
             result.put("errorMapList", errorMapList);
             String errMsg = "Error Processing Received Messages";
             result.putAll(ServiceUtil.returnError(errMsg));
