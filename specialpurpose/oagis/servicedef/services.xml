@@ -110,15 +110,17 @@ under the License.
     <service name="receiveConfirmBod" engine="java" transaction-timeout="300"
             location="org.ofbiz.oagis.OagisServices" invoke="receiveConfirmBod" auth="false">
         <description>Process incoming ConfirmBod</description>
-        <implements service="serviceStreamInterface"/>
         <implements service="oagisMessageErrorInfoInterface"/>
+        <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
     </service>
+    
     <service name="syncInventory" engine="java" transaction-timeout="300"
             location="org.ofbiz.oagis.OagisInventoryServices" invoke="syncInventory" auth="false">
         <description>Process incoming Inventory Sync message</description>
         <implements service="serviceStreamInterface"/>
         <implements service="oagisMessageErrorInfoInterface"/>
     </service>
+    
     <service name="exportMsgFromScreen" max-retry="0" engine="java"
         location="org.ofbiz.oagis.OagisShipmentServices" invoke="exportMsgFromScreen">
         <description>Export Message From Screen</description>
@@ -126,6 +128,7 @@ under the License.
         <attribute name="bodyParameters" type="Map" mode="IN" optional="true"/>
         <attribute name="body" type="String" mode="OUT" optional="true"/>
     </service>
+    
     <service name="oagisProcessShipment" max-retry="0" engine="java"
         location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisProcessShipment">
         <description>Prepare and Optionally Send OAGIS Process Shipment Message.
@@ -138,6 +141,7 @@ under the License.
         <attribute name="outputStream" type="java.io.OutputStream" mode="IN" optional="true"/>
         <attribute name="orderId" mode="IN" type="String" optional="false"/>
     </service>
+    
     <service name="sendProcessShipmentMsg" max-retry="0" engine="simple"
         location="org/ofbiz/oagis/OagisMessageServices.xml" invoke="sendProcessShipmentMsg">
         <description>Send Process Shipment Message</description>
@@ -147,6 +151,7 @@ under the License.
         <attribute name="referenceId" mode="IN" type="String" optional="false"/>
         <attribute name="sentDate" mode="IN" type="Timestamp" optional="false"/>
     </service>
+    
     <service name="oagisReceiveDelivery" max-retry="0" engine="java"
         location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisReceiveDelivery">
         <description>Receive Delivery</description>
@@ -171,5 +176,10 @@ under the License.
         <implements service="oagisMessageErrorInfoInterface"/>
     </service>
 
-
+    <service name="oagisMessageHandler" engine="java" transaction-timeout="300"
+            location="org.ofbiz.oagis.OagisServices" invoke="oagisMessageHandler" auth="false">
+        <implements service="serviceStreamInterface"/>
+        <implements service="oagisMessageErrorInfoInterface"/>
+    </service>
+    
 </services>
