@@ -1419,15 +1419,21 @@ under the License.
             <field-map field-name="itemIssuanceId" env-name="parameters.itemIssuanceId"/>
         </entity-one>
         <clear-field field-name="shipItemContext"/>
-        <set from-field="parameters.trackingNum" field="shipItemContext.shipmentPackageSeqId"/>
+        <set from-field="parameters.shipmentPackageSeqId" field="shipItemContext.shipmentPackageSeqId"/>
         <if-empty field-name="shipItemContext.shipmentPackageSeqId">
             <set value="New" field="shipItemContext.shipmentPackageSeqId"/>
         </if-empty>
         <log level="info" message="Package SeqID : ${shipItemContext.shipmentPackageSeqId}"/>
         
-        <set from-field="itemIssuance.shipmentId" field="shipPackageContext.shipmentId"/>
-        <set from-field="shipItemContext.shipmentPackageSeqId" field="shipPackageContext.shipmentPackageSeqId"/>
-        <call-service service-name="createShipmentPackage" in-map-name="shipPackageContext"/>
+        <set from-field="itemIssuance.shipmentId" field="shipPackageLookpPK.shipmentId"/>
+        <set from-field="shipItemContext.shipmentPackageSeqId" field="shipPackageLookupPK.shipmentPackageSeqId"/>        
+        <find-by-and entity-name="ShipmentPackage" list-name="shipmentPackages" map-name="shipPackageLookupPK"/>
+        <first-from-list list-name="shipmentPackages" entry-name="shipmentPackage"/>        
+        <if-empty field-name="shipmentPackage">
+            <set from-field="itemIssuance.shipmentId" field="shipPackageContext.shipmentId"/>
+            <set from-field="shipItemContext.shipmentPackageSeqId" field="shipPackageContext.shipmentPackageSeqId"/>  
+            <call-service service-name="createShipmentPackage" in-map-name="shipPackageContext"/>            
+        </if-empty>
         
         <set from-field="itemIssuance.shipmentId" field="shipItemContext.shipmentId"/>
         <set from-field="itemIssuance.shipmentItemSeqId" field="shipItemContext.shipmentItemSeqId"/>
@@ -1455,16 +1461,16 @@ under the License.
         </if-empty>
        
         <!-- update the shipment status to packed -->
-        <set from-field="parameters.shipmentId" field="packedContext.shipmentId"/>
+        <!--set from-field="parameters.shipmentId" field="packedContext.shipmentId"/>
         <set value="SHIPMENT_PACKED" field="packedContext.statusId"/>
-        <call-service service-name="updateShipment" in-map-name="packedContext"/>
+        <call-service service-name="updateShipment" in-map-name="packedContext"/-->
 
         <!-- update the shipment status to shipped -->
-        <if-empty field-name="parameters.setPackedOnly">
+        <!--if-empty field-name="parameters.setPackedOnly">
             <set from-field="parameters.shipmentId" field="packedContext.shipmentId"/>
             <set value="SHIPMENT_SHIPPED" field="packedContext.statusId"/>
             <call-service service-name="updateShipment" in-map-name="packedContext"/>
-        </if-empty>
+        </if-empty-->
 
     </simple-method>
 
@@ -1826,6 +1832,7 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 -->
+
 
 
 
