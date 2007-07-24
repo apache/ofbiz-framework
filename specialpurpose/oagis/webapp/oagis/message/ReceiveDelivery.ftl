@@ -18,84 +18,84 @@
     under the License.
 -->
 <n:RECEIVE_DELIVERY_001 xmlns:n="http://www.openapplications.org/197_receive_delivery_001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openapplications.org/197_receive_delivery_001 file:///C:/Documents%20and%20Settings/022523/My%20Documents/Vudu/XML%20Specs/OAG%20721/197_receive_delivery_001.xsd" xmlns:N1="http://www.openapplications.org/oagis_segments" xmlns:N2="http://www.openapplications.org/oagis_fields">
-  <N1:CNTROLAREA>
-    <N1:BSR>
-      <N2:VERB>RECEIVE</N2:VERB>
-      <N2:NOUN>DELIVERY</N2:NOUN>
-      <N2:REVISION>001</N2:REVISION>
-    </N1:BSR>
-    <N1:SENDER>
-      <N2:LOGICALID>${logicalId}</N2:LOGICALID>
-      <N2:COMPONENT>INVENTORY</N2:COMPONENT>
-      <N2:TASK>RMA</N2:TASK>
-      <N2:REFERENCEID>${referenceId?if_exists}</N2:REFERENCEID/>
-      <N2:CONFIRMATION>1</N2:CONFIRMATION>
-      <N2:LANGUAGE>ENG</N2:LANGUAGE>
-      <N2:CODEPAGE>NONE</N2:CODEPAGE>
-      <N2:AUTHID>${authId}</N2:AUTHID>
-    </N1:SENDER>
-    <N1:DATETIMEISO>${sentDate?if_exists}</N1:DATETIMEISO>
-  </N1:CNTROLAREA>
+  <os:CNTROLAREA>
+    <os:BSR>
+      <of:VERB>RECEIVE</of:VERB>
+      <of:NOUN>DELIVERY</of:NOUN>
+      <of:REVISION>001</of:REVISION>
+    </os:BSR>
+    <os:SENDER>
+      <of:LOGICALID>${logicalId}</of:LOGICALID>
+      <of:COMPONENT>INVENTORY</of:COMPONENT>
+      <of:TASK>RMA</of:TASK>
+      <of:REFERENCEID>${referenceId?if_exists}</of:REFERENCEID/>
+      <of:CONFIRMATION>1</of:CONFIRMATION>
+      <of:LANGUAGE>ENG</of:LANGUAGE>
+      <of:CODEPAGE>NONE</of:CODEPAGE>
+      <of:AUTHID>${authId}</of:AUTHID>
+    </os:SENDER>
+    <os:DATETIMEISO>${sentDate?if_exists}</os:DATETIMEISO>
+  </os:CNTROLAREA>
   <n:DATAAREA>
     <n:RECEIVE_DELIVERY>
       <n:RECEIPTHDR>
-        <N1:DATETIMEISO>${entryDate?if_exists}</N1:DATETIMEISO>
-        <N2:RECEIPTID>${returnId?if_exists}</N2:RECEIPTID>
-        <N2:CARRIER></N2:CARRIER>
-        <N2:NOTES></N2:NOTES>
-        <N2:RECEIPTYPE>RMA</N2:RECEIPTYPE>
-        <N1:PARTNER>
-          <N2:NAME>${postalAddress.toName?if_exists}</N2:NAME>
-          <N2:PARTNRTYPE>SHIPFROM</N2:PARTNRTYPE>
-          <N2:CURRENCY>USD</N2:CURRENCY>
+        <os:DATETIMEISO>${entryDate?if_exists}</os:DATETIMEISO>
+        <of:RECEIPTID>${returnId?if_exists}</of:RECEIPTID>
+        <of:CARRIER></of:CARRIER>
+        <of:NOTES></of:NOTES>
+        <of:RECEIPTYPE>RMA</of:RECEIPTYPE>
+        <os:PARTNER>
+          <of:NAME>${postalAddress.toName?if_exists}</of:NAME>
+          <of:PARTNRTYPE>SHIPFROM</of:PARTNRTYPE>
+          <of:CURRENCY>USD</of:CURRENCY>
           <#if postalAddress?has_content>
-            <N1:ADDRESS>
-              <N2:ADDRLINE>${postalAddress.address1?if_exists}</N2:ADDRLINE>
+            <os:ADDRESS>
+              <of:ADDRLINE>${postalAddress.address1?if_exists}</of:ADDRLINE>
               <#if postalAddress.address2?exists>
-                <N2:ADDRLINE>${postalAddress.address2?if_exists}</N2:ADDRLINE>            
+                <of:ADDRLINE>${postalAddress.address2?if_exists}</of:ADDRLINE>            
               </#if>  
-              <N2:CITY>${postalAddress.city?if_exists}</N2:CITY>
-              <N2:COUNTRY>${postalAddress.countryGeoId?if_exists}</N2:COUNTRY>
-              <N2:FAX></N2:FAX>
-              <N2:POSTALCODE>${postalAddress.postalCode?if_exists}</N2:POSTALCODE>
-              <N2:STATEPROVN>${postalAddress.stateProvinceGeoId?if_exists}</N2:STATEPROVN>
-              <N2:TELEPHONE>${telecomNumber.countryCode?if_exists}${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</N2:TELEPHONE>
-            </N1:ADDRESS>
-            <N1:CONTACT>
-              <N2:NAME>${postalAddress.toName?if_exists}</N2:NAME>
-              <N2:EMAIL>${emailString?if_exists}</N2:EMAIL>
-              <N2:FAX></N2:FAX>
-              <N2:TELEPHONE>${telecomNumber.countryCode?if_exists}${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</N2:TELEPHONE>
-            </N1:CONTACT>
+              <of:CITY>${postalAddress.city?if_exists}</of:CITY>
+              <of:COUNTRY>${postalAddress.countryGeoId?if_exists}</of:COUNTRY>
+              <of:FAX></of:FAX>
+              <of:POSTALCODE>${postalAddress.postalCode?if_exists}</of:POSTALCODE>
+              <of:STATEPROVN>${postalAddress.stateProvinceGeoId?if_exists}</of:STATEPROVN>
+              <of:TELEPHONE>${telecomNumber.countryCode?if_exists}${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</of:TELEPHONE>
+            </os:ADDRESS>
+            <os:CONTACT>
+              <of:NAME>${postalAddress.toName?if_exists}</of:NAME>
+              <of:EMAIL>${emailString?if_exists}</of:EMAIL>
+              <of:FAX></of:FAX>
+              <of:TELEPHONE>${telecomNumber.countryCode?if_exists}${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</of:TELEPHONE>
+            </os:CONTACT>
           </#if>
-        </N1:PARTNER>
+        </os:PARTNER>
       </n:RECEIPTHDR>
       <n:RECEIPTUNT>
-        <N1:QUANTITY>
-          <N2:VALUE>${totalQty?if_exists}</N2:VALUE>
-          <N2:NUMOFDEC>0</N2:NUMOFDEC>
-          <N2:SIGN>+</N2:SIGN>
-          <N2:UOM>EACH</N2:UOM>
-        </N1:QUANTITY>
+        <os:QUANTITY>
+          <of:VALUE>${totalQty?if_exists}</of:VALUE>
+          <of:NUMOFDEC>0</of:NUMOFDEC>
+          <of:SIGN>+</of:SIGN>
+          <of:UOM>EACH</of:UOM>
+        </os:QUANTITY>
         <n:RECEIPTITM>
         <#list returnItems as returnItem>
           <#assign returnReason = returnItem.getRelatedOne("ReturnReason")>
-          <N1:QUANTITY>
-            <N2:VALUE>${returnItem.returnQuantity?if_exists}</N2:VALUE>
-            <N2:NUMOFDEC>0</N2:NUMOFDEC>
-            <N2:SIGN>+</N2:SIGN>
-            <N2:UOM>EACH</N2:UOM>
-          </N1:QUANTITY>
-          <N2:ITEM>${returnItem.productId?if_exists}</N2:ITEM>
-          <N2:NOTES>${returnReason.description?if_exists}</N2:NOTES>
-          <N1:DOCUMNTREF>
-            <N2:DOCTYPE>RMA</N2:DOCTYPE>
-            <N2:DOCUMENTID>${returnId?if_exists}</N2:DOCUMENTID>
-            <N2:LINENUM>${returnItem.returnItemSeqId}</N2:LINENUM>
-          </N1:DOCUMNTREF>
+          <os:QUANTITY>
+            <of:VALUE>${returnItem.returnQuantity?if_exists}</of:VALUE>
+            <of:NUMOFDEC>0</of:NUMOFDEC>
+            <of:SIGN>+</of:SIGN>
+            <of:UOM>EACH</of:UOM>
+          </os:QUANTITY>
+          <of:ITEM>${returnItem.productId?if_exists}</of:ITEM>
+          <of:NOTES>${returnReason.description?if_exists}</of:NOTES>
+          <os:DOCUMNTREF>
+            <of:DOCTYPE>RMA</of:DOCTYPE>
+            <of:DOCUMENTID>${returnId?if_exists}</of:DOCUMENTID>
+            <of:LINENUM>${returnItem.returnItemSeqId}</of:LINENUM>
+          </os:DOCUMNTREF>
           </#list>
           <n:INVDETAIL>
-            <N2:SERIALNUM></N2:SERIALNUM>
+            <of:SERIALNUM></of:SERIALNUM>
           </n:INVDETAIL>
         </n:RECEIPTITM>
       </n:RECEIPTUNT>

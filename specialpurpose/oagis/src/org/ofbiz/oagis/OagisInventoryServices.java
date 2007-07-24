@@ -122,8 +122,8 @@ public class OagisInventoryServices {
                  */
                 String sign = UtilXml.childElementValue(quantityElement, "of:SIGN");
                 String uom = UtilXml.childElementValue(quantityElement, "of:UOM");
-                String productId = UtilXml.childElementValue(inventoryElement, "os:ITEM");
-                String itemStatus = UtilXml.childElementValue(inventoryElement, "os:ITEMSTATUS");
+                String productId = UtilXml.childElementValue(inventoryElement, "of:ITEM");
+                String itemStatus = UtilXml.childElementValue(inventoryElement, "of:ITEMSTATUS");
                 String statusId = null;
                 if (itemStatus.equals("AVAILABLE")) {
                    statusId = "INV_AVAILABLE"; 
@@ -348,7 +348,7 @@ public class OagisInventoryServices {
                 double itemQty = Double.parseDouble(itemQtyStr);
                 String sign = UtilXml.childElementValue(qtyElement, "of:SIGN");
                 
-                String productId = UtilXml.childElementValue(receiptLnElement, "os:ITEM");
+                String productId = UtilXml.childElementValue(receiptLnElement, "of:ITEM");
                 
                 Element documentRefElement = UtilXml.firstChildElement(receiptLnElement, "os:DOCUMNTREF");
                 orderId = UtilXml.childElementValue(documentRefElement, "of:DOCUMENTID");
@@ -369,7 +369,7 @@ public class OagisInventoryServices {
                     Debug.logError(e, errMsg, module);
                 }
                 // get inventory item status
-                String invItemStatus = UtilXml.childElementValue(receiptLnElement, "os:DISPOSITN");
+                String invItemStatus = UtilXml.childElementValue(receiptLnElement, "of:DISPOSITN");
                 if ( invItemStatus.equals("ReceivedTOAvailable") || invItemStatus.equals("NotAvailableTOAvailable")) {
                     ripCtx.put("statusId", "INV_AVAILABLE");    
                 } else if ( invItemStatus.equals("ReceivedTONotAvailable") || invItemStatus.equals("AvailableTONotAvailable") ) {
@@ -377,7 +377,7 @@ public class OagisInventoryServices {
                 }
                 // get the serial number(s) 
                 List serialNumsList = FastList.newInstance();
-                List invDetailList = UtilXml.childElementList(receiptLnElement, "os:INVDETAIL");
+                List invDetailList = UtilXml.childElementList(receiptLnElement, "n:INVDETAIL");
                 if (UtilValidate.isNotEmpty(invDetailList)) {
                     inventoryItemTypeId = "SERIALIZED_INV_ITEM";
                     ripCtx.put("inventoryItemTypeId", inventoryItemTypeId);
@@ -585,7 +585,7 @@ public class OagisInventoryServices {
                 double itemQty = Double.parseDouble(itemQtyStr);
                 String sign = UtilXml.childElementValue(qtyElement, "of:SIGN");
                 
-                String productId = UtilXml.childElementValue(receiptLnElement, "os:ITEM");
+                String productId = UtilXml.childElementValue(receiptLnElement, "of:ITEM");
                 
                 Element documentRefElement = UtilXml.firstChildElement(receiptLnElement, "os:DOCUMNTREF");
                 returnId = UtilXml.childElementValue(documentRefElement, "of:DOCUMENTID");
@@ -595,7 +595,7 @@ public class OagisInventoryServices {
                 ripCtx.put("returnItemSeqId", returnItemSeqId);
                 
                 // get inventory item status
-                String invItemStatus = UtilXml.childElementValue(receiptLnElement, "os:DISPOSITN");
+                String invItemStatus = UtilXml.childElementValue(receiptLnElement, "of:DISPOSITN");
                 if ( invItemStatus.equals("ReceivedTOAvailable") || invItemStatus.equals("NotAvailableTOAvailable")) {
                     ripCtx.put("statusId", "INV_AVAILABLE");    
                 } else if ( invItemStatus.equals("ReceivedTONotAvailable") || invItemStatus.equals("AvailableTONotAvailable") ) {
@@ -603,7 +603,7 @@ public class OagisInventoryServices {
                 }
                 // get the serial number(s) 
                 List serialNumsList = FastList.newInstance();
-                List invDetailList = UtilXml.childElementList(receiptLnElement, "os:INVDETAIL");
+                List invDetailList = UtilXml.childElementList(receiptLnElement, "n:INVDETAIL");
                 if (UtilValidate.isNotEmpty(invDetailList)) {
                     inventoryItemTypeId = "SERIALIZED_INV_ITEM";
                     ripCtx.put("inventoryItemTypeId", inventoryItemTypeId);
