@@ -28,7 +28,7 @@ under the License.
         <action service="oagisProcessShipment" mode="sync"/>
     </eca-->
 
-    <eca service="receiveConfirmBod" event="commit" run-on-error="true">
+    <eca service="oagisMessageHandler" event="commit" run-on-error="true">
         <condition field-name="errorMapList" operator="is-not-empty"/>
         <action service="createOagisMsgErrInfosFromErrMapList" mode="sync"/>
         <action service="oagisSendConfirmBod" mode="sync"/>

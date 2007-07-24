@@ -210,6 +210,12 @@
         <event type="stream" invoke="receiveRmaAcknowledge"/>
         <response name="success" type="none"/>
     </request-map>
+    
+    <request-map uri="oagisMessageHandler">
+        <security https="true" auth="false"/>
+        <event type="stream" invoke="oagisMessageHandler"/>
+        <response name="success" type="none"/>
+    </request-map>
 
 
 

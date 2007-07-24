@@ -41,6 +41,7 @@ import java.util.Date;
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.collections.MapStack;
@@ -196,7 +197,7 @@ public class OagisServices {
         
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        InputStream in = (InputStream) context.get("inputStream");
+        Document doc = (Document) context.get("document");
         List errorMapList = FastList.newInstance();
         
         GenericValue userLogin = null; 
@@ -207,23 +208,6 @@ public class OagisServices {
             Debug.logError(e, errMsg, module);
         }
         
-        Document doc = null;
-        try {
-            doc = UtilXml.readXmlDocument(in, true, "RecieveConfirmBod");
-        } catch (SAXException e) {
-            String errMsg = "Error parsing the ConfirmBodResponse: "+e.toString();
-            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SAXException"));
-            Debug.logError(e, errMsg, module);
-        } catch (ParserConfigurationException e) {
-            String errMsg = "Error parsing the ConfirmBodResponse: "+e.toString();
-            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "ParserConfigurationException"));
-            Debug.logError(e, errMsg, module);
-        } catch (IOException e) {
-            String errMsg = "Error parsing the ConfirmBodResponse: "+e.toString();
-            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "IOException"));
-            Debug.logError(e, errMsg, module);
-        }
-
         Element confirmBodElement = doc.getDocumentElement();
         confirmBodElement.normalize();
         Element docCtrlAreaElement = UtilXml.firstChildElement(confirmBodElement, "N1:CNTROLAREA");
@@ -330,14 +314,13 @@ public class OagisServices {
         }
         
         Map result = new HashMap();
-        result.put("contentType", "text/plain");
+        result.put("logicalId", logicalId);
+        result.put("component", component);
+        result.put("task", task);
+        result.put("referenceId", referenceId);
+        result.put("userLogin", userLogin);
         
         if (errorMapList.size()>0){
-            result.put("logicalId", logicalId);
-            result.put("component", component);
-            result.put("task", task);
-            result.put("referenceId", referenceId);
-            result.put("userLogin", userLogin);
             String errMsg = "Error Processing Received Message";
             result.put("errorMapList", errorMapList);
             //result.putAll(ServiceUtil.returnError(errMsg));
@@ -345,6 +328,109 @@ public class OagisServices {
         }
         
         result.putAll(ServiceUtil.returnSuccess("Service Completed Successfully"));
+        return result;
+    }
+    
+    public static Map oagisMessageHandler(DispatchContext ctx, Map context) {
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        InputStream in = (InputStream) context.get("inputStream");
+        List errorList = FastList.newInstance();
+        Map serviceResult = FastMap.newInstance();
+        
+        Document doc = null;
+        try {
+            doc = UtilXml.readXmlDocument(in, true, "OagisMessage");
+        } catch (SAXException e) {
+            String errMsg = "Error parsing the Received Message: "+e.toString();
+            errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SAXException"));
+            Debug.logError(e, errMsg, module);
+        } catch (ParserConfigurationException e) {
+            String errMsg = "Error parsing the Received Message: "+e.toString();
+            errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "ParserConfigurationException"));
+            Debug.logError(e, errMsg, module);
+        } catch (IOException e) {
+            String errMsg = "Error parsing the Received Message: "+e.toString();
+            errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "IOException"));
+            Debug.logError(e, errMsg, module);
+        }
+        if (UtilValidate.isNotEmpty(errorList)) {
+            return ServiceUtil.returnError("Unable to parse received message");
+        }
+
+        Element rootElement = doc.getDocumentElement();
+        rootElement.normalize();
+        Element controlAreaElement = UtilXml.firstChildElement(rootElement, "N1:CNTROLAREA");
+        Element bsrElement = UtilXml.firstChildElement(controlAreaElement, "N1:BSR");
+        String bsrVerb = UtilXml.childElementValue(bsrElement, "N2:VERB");
+        String bsrNoun = UtilXml.childElementValue(bsrElement, "N2:NOUN");
+        
+        if (bsrVerb.equalsIgnoreCase("CONFIRM") && bsrNoun.equalsIgnoreCase("BOD")) {
+            try {
+                serviceResult = dispatcher.runSync("receiveConfirmBod", UtilMisc.toMap("document",doc));
+            } catch (GenericServiceException e) {
+                String errMsg = "Error running service receiveConfirmBod: "+e.toString();
+                errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                Debug.logError(e, errMsg, module);
+            }
+        } else if (bsrVerb.equalsIgnoreCase("SHOW") && bsrNoun.equalsIgnoreCase("SHIPMENT")) {
+            try {
+                serviceResult = dispatcher.runSync("showShipmnet", UtilMisc.toMap("document",doc));
+            } catch (GenericServiceException e) {
+                String errMsg = "Error running service showShipmnet: "+e.toString();
+                errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                Debug.logError(e, errMsg, module);
+            }
+        } else if (bsrVerb.equalsIgnoreCase("SYNC") && bsrNoun.equalsIgnoreCase("INVENTORY")) {
+            try {
+                serviceResult = dispatcher.runSync("syncInventory", UtilMisc.toMap("document",doc));
+            } catch (GenericServiceException e) {
+                String errMsg = "Error running service syncInventory: "+e.toString();
+                errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                Debug.logError(e, errMsg, module);
+            }
+        } else if (bsrVerb.equalsIgnoreCase("ACKNOWLEDGE") && bsrNoun.equalsIgnoreCase("DELIVERY")) {
+            Element dataAreaElement = UtilXml.firstChildElement(rootElement, "n:DATAAREA");
+            Element ackDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "n:ACKNOWLEDGE_DELIVERY");
+            Element receiptlnElement = UtilXml.firstChildElement(ackDeliveryElement, "n:RECEIPTLN");
+            Element docRefElement = UtilXml.firstChildElement(receiptlnElement, "N1:DOCUMNTREF");
+            String docType = UtilXml.childElementValue(docRefElement, "N2:DOCTYPE");
+            if (docType.equalsIgnoreCase("PO")){
+                try {
+                    serviceResult = dispatcher.runSync("receivePoAcknowledge", UtilMisc.toMap("document",doc));
+                } catch (GenericServiceException e) {
+                    String errMsg = "Error running service receivePoAcknowledge: "+e.toString();
+                    errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                    Debug.logError(e, errMsg, module);
+                }
+            } else if (docType.equalsIgnoreCase("RMA")) {
+                try {
+                    serviceResult = dispatcher.runSync("receiveRmaAcknowledge", UtilMisc.toMap("document",doc));
+                } catch (GenericServiceException e) {
+                    String errMsg = "Error running service receiveRmaAcknowledge: "+e.toString();
+                    errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                    Debug.logError(e, errMsg, module);
+                }
+            }
+        } else {
+            String errMsg = "Unknown Message Received";
+            Debug.logError(errMsg, module);
+            ServiceUtil.returnError(errMsg);
+        }
+        
+        List errorMapList = FastList.newInstance();
+        errorMapList = (List) serviceResult.get("errorMapList");
+        if (UtilValidate.isNotEmpty(errorList)) {
+            Iterator errListItr = errorList.iterator();
+            while (errListItr.hasNext()) {
+                Map errorMap = (Map) errListItr.next();
+                errorMapList.add(UtilMisc.toMap("description", errorMap.get("description"), "reasonCode", errorMap.get("reasonCode")));
+            }
+            serviceResult.put("errorMapList", errorMapList);
+        }
+        
+        Map result = FastMap.newInstance();
+        result.putAll(serviceResult);
+        result.put("contentType", "text/plain");
         return result;
     }
 }
