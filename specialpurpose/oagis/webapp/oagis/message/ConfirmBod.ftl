@@ -18,43 +18,47 @@
     under the License.
 -->
 
-<n:CONFIRM_BOD_004 xmlns:n="http://www.openapplications.org/002_confirm_bod_004" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openapplications.org/002_confirm_bod_004 file:///C:/Documents%20and%20Settings/022523/My%20Documents/Vudu/XML%20Specs/OAG%20721/002_confirm_bod_004.xsd" xmlns:N1="http://www.openapplications.org/oagis_segments" xmlns:N2="http://www.openapplications.org/oagis_fields">
-  <N1:CNTROLAREA>
-    <N1:BSR>
-      <N2:VERB>CONFIRM</N2:VERB>
-      <N2:NOUN>BOD</N2:NOUN>
-      <N2:REVISION>004</N2:REVISION>
-    </N1:BSR>
-    <N1:SENDER>
-      <N2:LOGICALID>${logicalId}</N2:LOGICALID>
-      <N2:COMPONENT>EXCEPTION</N2:COMPONENT>
-      <N2:TASK>RECEIPT</N2:TASK>
-      <N2:REFERENCEID>${referenceId}</N2:REFERENCEID>
-      <N2:CONFIRMATION>1</N2:CONFIRMATION>
-      <N2:LANGUAGE>ENG</N2:LANGUAGE>
-      <N2:CODEPAGE>NONE</N2:CODEPAGE>
-      <N2:AUTHID>${authId?if_exists}</N2:AUTHID>
-    </N1:SENDER>
-    <N1:DATETIMEANY>${sentDate?if_exists}</N1:DATETIMEANY>
-  </N1:CNTROLAREA>
+<n:CONFIRM_BOD_004 xmlns:n="http://www.openapplications.org/002_confirm_bod_004"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.openapplications.org/002_confirm_bod_004 file:///C:/Documents%20and%20Settings/022523/My%20Documents/Vudu/XML%20Specs/OAG%20721/002_confirm_bod_004.xsd"
+        xmlns:os="http://www.openapplications.org/oagis_segments"
+        xmlns:of="http://www.openapplications.org/oagis_fields">
+  <os:CNTROLAREA>
+    <os:BSR>
+      <of:VERB>CONFIRM</of:VERB>
+      <of:NOUN>BOD</of:NOUN>
+      <of:REVISION>004</of:REVISION>
+    </os:BSR>
+    <os:SENDER>
+      <of:LOGICALID>${logicalId}</of:LOGICALID>
+      <of:COMPONENT>EXCEPTION</of:COMPONENT>
+      <of:TASK>RECEIPT</of:TASK>
+      <of:REFERENCEID>${referenceId}</of:REFERENCEID>
+      <of:CONFIRMATION>1</of:CONFIRMATION>
+      <of:LANGUAGE>ENG</of:LANGUAGE>
+      <of:CODEPAGE>NONE</of:CODEPAGE>
+      <of:AUTHID>${authId?if_exists}</of:AUTHID>
+    </os:SENDER>
+    <os:DATETIMEANY>${sentDate?if_exists}</os:DATETIMEANY>
+  </os:CNTROLAREA>
   <n:DATAAREA>
     <n:CONFIRM_BOD>
       <n:CONFIRM>
-        <N1:CNTROLAREA>
-          <N1:SENDER>
-            <N2:LOGICALID>${errorLogicalId?if_exists}</N2:LOGICALID>
-            <N2:COMPONENT>${errorComponent?if_exists}</N2:COMPONENT>
-            <N2:TASK>${errorTask?if_exists}</N2:TASK>
-            <N2:REFERENCEID>${errorReferenceId?if_exists}</N2:REFERENCEID>
-          </N1:SENDER>
-          <N1:DATETIMEANY></N1:DATETIMEANY>
-        </N1:CNTROLAREA>
-        <N2:ORIGREF>${origRef?if_exists}</N2:ORIGREF>
+        <os:CNTROLAREA>
+          <os:SENDER>
+            <of:LOGICALID>${errorLogicalId?if_exists}</of:LOGICALID>
+            <of:COMPONENT>${errorComponent?if_exists}</of:COMPONENT>
+            <of:TASK>${errorTask?if_exists}</of:TASK>
+            <of:REFERENCEID>${errorReferenceId?if_exists}</of:REFERENCEID>
+          </os:SENDER>
+          <os:DATETIMEANY></os:DATETIMEANY>
+        </os:CNTROLAREA>
+        <of:ORIGREF>${origRef?if_exists}</of:ORIGREF>
         <#if errorMapList?exists>
           <#list errorMapList as errorMap>
             <n:CONFIRMMSG>
-              <N2:DESCRIPTN>${errorMap.description?if_exists}</N2:DESCRIPTN>
-              <N2:REASONCODE>${errorMap.reasonCode?if_exists}</N2:REASONCODE>
+              <of:DESCRIPTN>${errorMap.description?if_exists}</of:DESCRIPTN>
+              <of:REASONCODE>${errorMap.reasonCode?if_exists}</of:REASONCODE>
             </n:CONFIRMMSG>
           </#list>
         </#if>
