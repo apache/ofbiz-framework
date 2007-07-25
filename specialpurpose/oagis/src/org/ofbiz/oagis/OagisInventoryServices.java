@@ -121,7 +121,8 @@ public class OagisInventoryServices {
                  * In this message will it serve any purpose, since it is not handled.
                  */
                 String sign = UtilXml.childElementValue(quantityElement, "of:SIGN");
-                String uom = UtilXml.childElementValue(quantityElement, "of:UOM");
+                // TODO: Not used now, Later we may need it
+                //String uom = UtilXml.childElementValue(quantityElement, "of:UOM");
                 String productId = UtilXml.childElementValue(inventoryElement, "of:ITEM");
                 String itemStatus = UtilXml.childElementValue(inventoryElement, "of:ITEMSTATUS");
                 String statusId = null;

@@ -128,7 +128,14 @@ public class OagisShipmentServices {
         String referenceId = UtilXml.childElementValue(senderElement, "of:REFERENCEID"); // of
         String confirmation = UtilXml.childElementValue(senderElement, "of:CONFIRMATION"); // of
         String authId = UtilXml.childElementValue(senderElement, "of:AUTHID"); // of
-          
+
+        Map result = new HashMap();
+        result.put("logicalId", logicalId);
+        result.put("component", component);
+        result.put("task", task);
+        result.put("referenceId", referenceId);
+        result.put("userLogin", userLogin);
+
         oagisMsgInfoCtx.put("logicalId", logicalId);
         oagisMsgInfoCtx.put("component", component);
         oagisMsgInfoCtx.put("task", task);
@@ -155,6 +162,19 @@ public class OagisShipmentServices {
         Element daShowShipmentElement = UtilXml.firstChildElement(dataAreaElement, "n:SHOW_SHIPMENT"); // n
         Element shipmentElement = UtilXml.firstChildElement(daShowShipmentElement, "n:SHIPMENT"); // n                               
         String shipmentId = UtilXml.childElementValue(shipmentElement, "of:DOCUMENTID"); // of           
+        GenericValue shipment = null;
+        try {
+            shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+        } catch (GenericEntityException e) {
+            String errMsg = "Error Shipment from database: "+ e.toString();
+            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericEntityException"));
+            Debug.logInfo(e, module);
+            result.putAll(ServiceUtil.returnError(errMsg));
+            result.put("errorMapList", errorMapList);
+            return result;
+        }                    
+        String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");                
+        String originFacilityId = shipment.getString("originFacilityId");                              
           
         List shipUnitElementList = UtilXml.childElementList(daShowShipmentElement, "n:SHIPUNIT"); // n
         if(UtilValidate.isNotEmpty(shipUnitElementList)) {
@@ -170,9 +190,6 @@ public class OagisShipmentServices {
                         Element invItemElement = (Element) invItemElementItr.next();
                         String productId = UtilXml.childElementValue(invItemElement, "of:ITEM"); // of                
                         try {                                    
-                            GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));                    
-                            String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");                
-                            String originFacilityId = shipment.getString("originFacilityId");                              
                             GenericValue shipmentItem = EntityUtil.getFirst(delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId, "productId",productId)));                    
                             String shipmentItemSeqId = shipmentItem.getString("shipmentItemSeqId");                      
                             GenericValue orderShipment = EntityUtil.getFirst(delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItemSeqId)));                    
@@ -243,12 +260,6 @@ public class OagisShipmentServices {
             }
         }  
         
-        Map result = new HashMap();
-        result.put("logicalId", logicalId);
-        result.put("component", component);
-        result.put("task", task);
-        result.put("referenceId", referenceId);
-        result.put("userLogin", userLogin);
         
         if (errorMapList.size() > 0) {
             //result.putAll(ServiceUtil.returnError("Errors found processing message"));
