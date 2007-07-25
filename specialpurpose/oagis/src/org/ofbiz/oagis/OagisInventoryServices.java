@@ -85,6 +85,8 @@ public class OagisInventoryServices {
             }
         }
 
+        String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryFacilityId");
+        
         Element syncInventoryRootElement = doc.getDocumentElement();
         syncInventoryRootElement.normalize();
         Element docCtrlAreaElement = UtilXml.firstChildElement(syncInventoryRootElement, "os:CNTROLAREA");
@@ -125,20 +127,22 @@ public class OagisInventoryServices {
                 //String uom = UtilXml.childElementValue(quantityElement, "of:UOM");
                 String productId = UtilXml.childElementValue(inventoryElement, "of:ITEM");
                 String itemStatus = UtilXml.childElementValue(inventoryElement, "of:ITEMSTATUS");
-                String statusId = null;
-                if (itemStatus.equals("AVAILABLE")) {
-                   statusId = "INV_AVAILABLE"; 
-                } else if (itemStatus.equals("NOTAVAILABLE")) {
+                
+                // if anything but "NOTAVAILABLE" set to available
+                boolean isAvailable = !"NOTAVAILABLE".equals(itemStatus);
+                String statusId = "INV_AVAILABLE";
+                if (!isAvailable) {
                     statusId = "INV_ON_HOLD"; 
-                } 
-                String datetimeReceived = UtilXml.childElementValue(inventoryElement, "os:DATETIMEANY");
+                }
+                
+                String snapshotDateStr = UtilXml.childElementValue(inventoryElement, "os:DATETIMEISO");
 
                 // In BOD the timestamp come in the format "yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z"
                 // Parse this into a valid Timestamp Object
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
-                Timestamp timestamp = null;
+                Timestamp snapshotDate = null;
                 try {        
-                    timestamp = new Timestamp(sdf.parse(datetimeReceived).getTime());
+                    snapshotDate = new Timestamp(sdf.parse(snapshotDateStr).getTime());
                 } catch (ParseException e) {
                     String errMsg = "Error parsing Date: " + e.toString();
                     errorMapList.add(UtilMisc.toMap("reasonCode", "ParseException", "description", errMsg));
@@ -146,30 +150,48 @@ public class OagisInventoryServices {
                 }
 
                 // get quantity on hand diff   
-                double quantityOnHandDiff = 0.0;
-                List invItemAndDetails = null;
-                EntityCondition condition = new EntityConditionList(UtilMisc.toList(
-                        new EntityExpr("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, timestamp), new EntityExpr("productId", EntityOperator.EQUALS, productId),
-                        new EntityExpr("statusId", EntityOperator.EQUALS, statusId)), EntityOperator.AND);
-                try {
-                    invItemAndDetails = delegator.findByCondition("InventoryItemAndDetail", condition, null, UtilMisc.toList("inventoryItemId"));
-                    if (invItemAndDetails != null) {
+                double quantityOnHandTotal = 0.0;
+                
+                // only if looking for available inventory find the non-serialized QOH total
+                if (isAvailable) {
+                    EntityCondition condition = new EntityConditionList(UtilMisc.toList(
+                            new EntityExpr("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, snapshotDate), 
+                            new EntityExpr("productId", EntityOperator.EQUALS, productId),
+                            new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId)), EntityOperator.AND);
+                    try {
+                        List invItemAndDetails = delegator.findByCondition("InventoryItemDetailForSum", condition, UtilMisc.toList("quantityOnHandSum"), null);
                         Iterator invItemAndDetailIter = invItemAndDetails.iterator();
                         while (invItemAndDetailIter.hasNext()) {
-                            GenericValue InventoryItemAndDetail = (GenericValue) invItemAndDetailIter.next();
-                            quantityOnHandDiff = quantityOnHandDiff + Double.parseDouble(InventoryItemAndDetail.getString("quantityOnHandDiff"));
+                            GenericValue inventoryItemDetailForSum = (GenericValue) invItemAndDetailIter.next();
+                            quantityOnHandTotal += inventoryItemDetailForSum.getDouble("quantityOnHandSum").doubleValue();
                         }
+                    } catch (GenericEntityException e) {
+                        String errMsg = "Error Getting Inventory Item And Detail: " + e.toString();
+                        errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
+                        Debug.logError(e, errMsg, module);
                     }
+                }
+                
+                // now regardless of AVAILABLE or NOTAVAILABLE check serialized inventory, just use the corresponding statusId as set above
+                EntityCondition serInvCondition = new EntityConditionList(UtilMisc.toList(
+                        new EntityExpr("statusDatetime", EntityOperator.LESS_THAN_EQUAL_TO, snapshotDate),
+                        new EntityExpr(new EntityExpr("statusEndDatetime", EntityOperator.GREATER_THAN, snapshotDate), EntityOperator.OR, new EntityExpr("statusEndDatetime", EntityOperator.EQUALS, null)),
+                        new EntityExpr("productId", EntityOperator.EQUALS, productId),
+                        new EntityExpr("statusId", EntityOperator.EQUALS, statusId),
+                        new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId)), EntityOperator.AND);
+                try {
+                    long invItemQuantCount = delegator.findCountByCondition("InventoryItemStatusForCount", serInvCondition, null);
+                    quantityOnHandTotal += invItemQuantCount;
                 } catch (GenericEntityException e) {
-                    String errMsg = "Error Getting Inventory Item And Detail: " + e.toString();
+                    String errMsg = "Error Getting Inventory Item by Status Count: " + e.toString();
                     errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
                     Debug.logError(e, errMsg, module);
                 }
-
+                
                 // check for mismatch in quantity
-                if (itemQty != quantityOnHandDiff) {
-                    double quantityDiff = Math.abs((itemQty - quantityOnHandDiff));
-                    inventoryMapList.add(UtilMisc.toMap("productId", productId, "statusId", statusId, "quantityOnHandDiff", String.valueOf(quantityOnHandDiff), "quantityFromMessage", itemQtyStr, "quantityDiff", String.valueOf(quantityDiff), "timestamp", timestamp));
+                if (itemQty != quantityOnHandTotal) {
+                    double quantityDiff = Math.abs((itemQty - quantityOnHandTotal));
+                    inventoryMapList.add(UtilMisc.toMap("productId", productId, "statusId", statusId, "quantityOnHandTotal", String.valueOf(quantityOnHandTotal), "quantityFromMessage", itemQtyStr, "quantityDiff", String.valueOf(quantityDiff), "timestamp", snapshotDate));
                 }
             }
         }
@@ -181,7 +203,6 @@ public class OagisInventoryServices {
             // get facility email address
             List facilityContactMechs = null;
             GenericValue contactMech = null;
-            String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryFacilityId");
             try {
                 facilityContactMechs = delegator.findByAnd("FacilityContactMech", UtilMisc.toMap("facilityId", facilityId));    
             } catch (GenericEntityException e) {

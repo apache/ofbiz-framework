@@ -49,7 +49,7 @@
             <td align="left" valign="top"> ${inventoryMap.productId?if_exists}</td>   
             <td align="right" valign="top"> ${inventoryMap.timestamp?if_exists?if_exists}</td>
             <td align="right" valign="top"> ${inventoryMap.statusId?if_exists?if_exists}</td>                        
-            <td align="center" valign="top"> ${inventoryMap.quantityOnHandDiff?if_exists?if_exists}</td>   
+            <td align="center" valign="top"> ${inventoryMap.quantityOnHandTotal?if_exists?if_exists}</td>   
             <td align="center" valign="top"> ${inventoryMap.quantityFromMessage?if_exists?if_exists}</td>   
             <td align="right" valign="top"> ${inventoryMap.quantityDiff?if_exists?if_exists}</td>   
           </tr>
