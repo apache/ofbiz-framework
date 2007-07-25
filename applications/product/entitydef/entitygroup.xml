@@ -104,7 +104,9 @@ under the License.
     <entity-group group="org.ofbiz" entity="InventoryItemAttribute" />
     <entity-group group="org.ofbiz" entity="InventoryItemDetail" />
     <entity-group group="org.ofbiz" entity="InventoryItemDetailSummary" />
+    <entity-group group="org.ofbiz" entity="InventoryItemDetailForSum" />
     <entity-group group="org.ofbiz" entity="InventoryItemStatus" />
+    <entity-group group="org.ofbiz" entity="InventoryItemStatusForCount" />
     <entity-group group="org.ofbiz" entity="InventoryItemTempRes" />
     <entity-group group="org.ofbiz" entity="InventoryItemType" />
     <entity-group group="org.ofbiz" entity="InventoryItemTypeAttr" />
@@ -117,7 +119,6 @@ under the License.
     <entity-group group="org.ofbiz" entity="PhysicalInventory" />
     <entity-group group="org.ofbiz" entity="PhysicalInventoryAndVariance" />
     <entity-group group="org.ofbiz" entity="VarianceReason" />
-    <entity-group group="org.ofbiz" entity="InventoryItemAndDetail" />
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.product.location -->
