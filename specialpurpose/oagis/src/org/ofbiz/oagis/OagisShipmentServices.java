@@ -258,6 +258,18 @@ public class OagisShipmentServices {
                     }
                 }
             }
+            try {
+                Map resultMap = dispatcher.runSync("setShipmentStatusPackedAndShipped", UtilMisc.toMap("shipmentId", shipmentId, "userLogin", userLogin));               
+                if (ServiceUtil.isError(resultMap)){
+                    String errMsg = ServiceUtil.getErrorMessage(resultMap);
+                    errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "IssueSerializedInvServiceError"));
+                    Debug.logError(errMsg, module);
+                }
+            } catch(GenericServiceException e) {
+                Debug.logInfo(e, module);
+                String errMsg = "Error executing issueSerializedInvToShipmentPackageAndSetTracking Service: "+e.toString();
+                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+            }   
         }  
         
         
