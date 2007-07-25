@@ -237,7 +237,7 @@ public class OagisShipmentServices {
                                     }
                                 }
                             } else {
-                                try {                    
+                                try {//TODO: I think this else part is for NON Serialized Inv item. So it will be different service that we need to call here.                    
                                     Map resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
                                     if (ServiceUtil.isError(resultMap)){
                                         String errMsg = ServiceUtil.getErrorMessage(resultMap);
