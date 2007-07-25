@@ -689,8 +689,12 @@ under the License.
         <attribute name="quantityNotReserved" type="Double" mode="IN" optional="false"/>
         <attribute name="promisedDatetime" type="Timestamp" mode="IN" optional="false"/>
         <attribute name="shipmentPackageSeqId" type="String" mode="IN" optional="true"/>        
+    </service>    
+    <service name="setShipmentStatusPackedAndShipped" engine="simple"
+        location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentStatus" auth="true">
+        <description>Move a shipment into Packed status and then to Shipped status</description>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     </service>
-
     <service name="sendShipmentCompleteNotification" engine="java" require-new-transaction="true" max-retry="3"
         location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="sendShipmentCompleteNotification" auth="true">
         <description>Send a notification on Shipment Complete</description>
