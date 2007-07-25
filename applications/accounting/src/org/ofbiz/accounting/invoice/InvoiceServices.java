@@ -317,7 +317,7 @@ public class InvoiceServices {
                 }
             } else {
                 List billingLocations = orh.getBillingLocations();
-                if (billingLocations != null) {
+                if (UtilValidate.isNotEmpty(billingLocations)) {
                     Iterator bli = billingLocations.iterator();
                     while (bli.hasNext()) {
                         GenericValue ocm = (GenericValue) bli.next();
@@ -328,6 +328,8 @@ public class InvoiceServices {
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingInvoiceContactMechFromOrder",locale), null, null, createBillToContactMechResult);
                         }
                     }
+                } else {
+                    Debug.logWarning("No billing locations found for order [" + orderId +"] and none were created for Invoice [" + invoiceId + "]", module);
                 }
             }
 
