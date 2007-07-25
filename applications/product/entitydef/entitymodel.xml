@@ -1286,12 +1286,25 @@ under the License.
       <alias entity-alias="IID" name="availableToPromiseTotal" field="availableToPromiseDiff" function="sum"/>
       <alias entity-alias="IID" name="quantityOnHandTotal" field="quantityOnHandDiff" function="sum"/>
     </view-entity>
+    <view-entity entity-name="InventoryItemDetailForSum" package-name="org.ofbiz.product.inventory"
+        title="Inventory Item  And Inventory Item Detail for Summation View Entity">
+        <member-entity entity-alias="II" entity-name="InventoryItem"/>        
+        <member-entity entity-alias="IID" entity-name="InventoryItemDetail"/>
+        <alias entity-alias="IID" name="quantityOnHandSum" field="quantityOnHandDiff" function="sum"/>
+        <alias entity-alias="II" name="facilityId" group-by="true"></alias>
+        <alias entity-alias="II" name="productId" group-by="true"></alias>
+        <alias entity-alias="IID" name="effectiveDate"><description>For query only, not in fields to select.</description></alias>   
+        <view-link entity-alias="II" rel-entity-alias="IID">
+            <key-map field-name="inventoryItemId"/>
+        </view-link>
+    </view-entity>
     <entity entity-name="InventoryItemStatus"
             package-name="org.ofbiz.product.inventory"
             title="Inventory Item Status History Entity">
       <field name="inventoryItemId" type="id-ne"></field>
       <field name="statusId" type="id-ne"></field>
       <field name="statusDatetime" type="date-time"></field>
+      <field name="statusEndDatetime" type="date-time"></field>
       <field name="ownerPartyId" type="id"><description>Used to track a changed (new) ownerPartyId as a status changes.</description></field>
       <field name="productId" type="id"><description>Used to track a changed (new) productId as a status changes. In other words over time the item may be represented by a different Product (like new versus refurbished).</description></field>
       <prim-key field="inventoryItemId"/>
@@ -1304,6 +1317,20 @@ under the License.
         <key-map field-name="statusId"/>
       </relation>
     </entity>
+    <view-entity entity-name="InventoryItemStatusForCount" package-name="org.ofbiz.product.inventory">
+        <description>This view-entity is for querying a count (findCountByCondition) of InventoryItems that were in a certain status at a certain point in time.</description>
+        <member-entity entity-alias="IIS" entity-name="InventoryItemStatus"/>
+        <member-entity entity-alias="II" entity-name="InventoryItem"/>
+        <alias name="facilityId" entity-alias="II"/>
+        <alias name="inventoryItemId" entity-alias="IIS"/>
+        <alias name="productId" entity-alias="IIS"><description>Note that this is from the status entity because it may change over time.</description></alias>
+        <alias name="statusId" entity-alias="IIS"/>
+        <alias name="statusDatetime" entity-alias="IIS"/>
+        <alias name="statusEndDatetime" entity-alias="IIS"/>
+        <view-link entity-alias="IIS" rel-entity-alias="II">
+            <key-map field-name="inventoryItemId"/>
+        </view-link>
+    </view-entity>
     <entity entity-name="InventoryItemTempRes"
             package-name="org.ofbiz.product.inventory"
             title="Inventory Item Temporary Reservation Entity">
@@ -1524,21 +1551,6 @@ under the License.
       <field name="description" type="description"></field>
       <prim-key field="varianceReasonId"/>
     </entity>
-    <view-entity entity-name="InventoryItemAndDetail"
-            package-name="org.ofbiz.product.inventory"
-            title="Inventory Item  And Inventory Item Detail View Entity">
-      <member-entity entity-alias="II" entity-name="InventoryItem"/>        
-      <member-entity entity-alias="IID" entity-name="InventoryItemDetail"/>
-      <alias entity-alias="II" name="inventoryItemId"/>
-      <alias entity-alias="II" name="productId"/>
-      <alias entity-alias="II" name="statusId"/>
-      <alias entity-alias="IID" name="inventoryItemDetailSeqId"/>   
-      <alias entity-alias="IID" name="effectiveDate"/>   
-      <alias entity-alias="IID" name="quantityOnHandDiff"/>
-      <view-link entity-alias="II" rel-entity-alias="IID">
-          <key-map field-name="inventoryItemId"/>
-      </view-link>
-    </view-entity>
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.product.location -->

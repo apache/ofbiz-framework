@@ -217,12 +217,31 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createInventoryItemStatus" short-description="Create an inventory item status record">
-        <make-value value-name="invStatus" entity-name="InventoryItemStatus"/>
-        <set-nonpk-fields map-name="parameters" value-name="invStatus"/>
-        <set-pk-fields map-name="parameters" value-name="invStatus"/>
         <now-timestamp-to-env env-name="now"/>
-        <set field="invStatus.statusDatetime" from-field="now"/>
-        <create-value value-name="invStatus"/>
+
+        <!-- find the most recent InventoryItemStatus record and set the statusEndDatetime -->
+        <entity-and entity-name="InventoryItemStatus" list-name="oldInventoryItemStatusList">
+            <field-map field-name="inventoryItemId" env-name="parameters.inventoryItemId"/>
+            <order-by field-name="-statusDatetime"/>
+        </entity-and>
+        <first-from-list entry-name="oldInventoryItemStatus" list-name="oldInventoryItemStatusList"/>
+        <if-not-empty field-name="oldInventoryItemStatus">
+            <set field="oldInventoryItemStatusList.statusEndDatetime"/>
+            <store-value value-name="oldInventoryItemStatus"/>
+        </if-not-empty>
+        
+        <make-value value-name="inventoryItemStatus" entity-name="InventoryItemStatus"/>
+        <set-nonpk-fields map-name="parameters" value-name="inventoryItemStatus"/>
+        <set-pk-fields map-name="parameters" value-name="inventoryItemStatus"/>
+        <set field="inventoryItemStatus.statusDatetime" from-field="now"/>
+        
+        <!-- make sure the current productId is set, if not passed in look up the current value -->
+        <if-empty field-name="inventoryItemStatus.productId">
+            <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
+            <set field="inventoryItemStatus.productId" from-field="inventoryItem.productId"/>
+        </if-empty>
+        
+        <create-value value-name="inventoryItemStatus"/>
     </simple-method>
 
     <simple-method method-name="createInventoryItemDetail" short-description="Create an InventoryItemDetail">
