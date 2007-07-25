@@ -19,6 +19,7 @@
 package org.ofbiz.widget.screen;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,6 +37,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
@@ -50,6 +52,9 @@ import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.LoginWorker;
+import org.ofbiz.widget.cache.GenericWidgetOutput;
+import org.ofbiz.widget.cache.ScreenCache;
+import org.ofbiz.widget.cache.WidgetContextCacheKey;
 import org.xml.sax.SAXException;
 
 import freemarker.ext.beans.BeansWrapper;
@@ -101,7 +106,30 @@ public class ScreenRenderer {
      */
     public String render(String resourceName, String screenName) throws GeneralException, IOException, SAXException, ParserConfigurationException {
         ModelScreen modelScreen = ScreenFactory.getScreenFromLocation(resourceName, screenName);
-        modelScreen.renderScreenString(writer, context, screenStringRenderer);
+        if (modelScreen.useCache) {
+            // if in the screen definition use-cache is set to true
+            // then try to get an already built screen output from the cache:
+            // 1) if we find it then we get it and attach it to the passed in writer
+            // 2) if we can't find one, we create a new StringWriter,
+            //    and pass it to the renderScreenString; 
+            //    then we wrap its content and put it in the cache;
+            //    and we attach it to the passed in writer
+            WidgetContextCacheKey wcck = new WidgetContextCacheKey(context);
+            String screenCombinedName = resourceName + ":" + screenName;
+            ScreenCache screenCache = new ScreenCache();
+            GenericWidgetOutput gwo = screenCache.get(screenCombinedName, wcck);
+            if (gwo == null) {
+                Writer sw = new StringWriter();
+                modelScreen.renderScreenString(sw, context, screenStringRenderer);
+                gwo = new GenericWidgetOutput(sw.toString());
+                screenCache.put(screenCombinedName, wcck, gwo);
+                writer.write(gwo.toString());
+            } else {
+                writer.write(gwo.toString());
+            }
+        } else {
+            modelScreen.renderScreenString(writer, context, screenStringRenderer);
+        }
         return "";
     }
 

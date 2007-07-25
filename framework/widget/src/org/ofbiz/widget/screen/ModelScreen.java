@@ -45,6 +45,7 @@ public class ModelScreen implements Serializable {
     protected String sourceLocation;
     protected FlexibleStringExpander transactionTimeoutExdr;
     protected Map modelScreenMap;
+    protected boolean useCache;
     
     protected ModelScreenWidget.Section section;
 
@@ -58,6 +59,7 @@ public class ModelScreen implements Serializable {
         this.name = screenElement.getAttribute("name");
         this.transactionTimeoutExdr = new FlexibleStringExpander(screenElement.getAttribute("transaction-timeout"));
         this.modelScreenMap = modelScreenMap;
+        this.useCache = "true".equals(screenElement.getAttribute("use-cache"));
 
         // read in the section, which will read all sub-widgets too
         Element sectionElement = UtilXml.firstChildElement(screenElement, "section");
