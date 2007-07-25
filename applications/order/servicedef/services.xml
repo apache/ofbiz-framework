@@ -773,9 +773,9 @@ under the License.
     <service name="importOrderFromEbay" engine="java" transaction-timeout="300"
              location="org.ofbiz.order.order.ImportOrdersFromEbay" invoke="importOrderFromEbay" auth="true">
         <description>Import Order from eBay</description>
-        <attribute type="String" mode="IN" name="orderSelected" optional="true"/>
         <attribute type="String" mode="IN" name="productStoreId" optional="false"/>
         <attribute type="String" mode="IN" name="externalId" optional="false"/>
+        <attribute type="String" mode="IN" name="transactionId" optional="false"/>
         <attribute type="String" mode="IN" name="createdDate" optional="false"/>
         <attribute type="String" mode="IN" name="productId" optional="true"/>
         <attribute type="String" mode="IN" name="quantityPurchased" optional="false"/>
@@ -798,7 +798,9 @@ under the License.
     <service name="setEbayOrderToComplete" engine="java" transaction-timeout="300"
              location="org.ofbiz.order.order.ImportOrdersFromEbay" invoke="setEbayOrderToComplete" auth="true">
         <description>Complete Order to eBay</description>
-        <attribute type="String" mode="IN" name="orderId" optional="false"/>
+        <attribute type="String" mode="IN" name="orderId" optional="true"/>
+        <attribute type="String" mode="IN" name="externalId" optional="true"/>
+        <attribute type="String" mode="IN" name="transactionId" optional="true"/>
         <attribute type="String" mode="IN" name="paid" optional="true"/>
         <attribute type="String" mode="IN" name="shipped" optional="true"/>
     </service>
