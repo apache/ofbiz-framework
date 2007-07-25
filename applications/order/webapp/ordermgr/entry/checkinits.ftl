@@ -39,8 +39,9 @@ under the License.
       <li class="head3">${uiLabelMap.OrderSalesOrder}<#if shoppingCart?exists>&nbsp;${uiLabelMap.OrderInProgress}</#if></li>
       <li><a href="javascript:document.salesentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
       <li><a href="/partymgr/control/findparty?externalLoginKey=${externalLoginKey}">${uiLabelMap.PartyFindParty}</a></li>
+      <li><a href="<@ofbizUrl>ManageOrdersFromEbay</@ofbizUrl>">${uiLabelMap.OrderImportOrdersFromEbay}</a></li>
     </ul>
-	<br class="clear" />
+    <br class="clear"/>
   </div>
   <div class="screenlet-body">
       <form method="post" name="salesentryform" action="<@ofbizUrl>initorderentry</@ofbizUrl>">
@@ -137,7 +138,7 @@ under the License.
         <li><a href="javascript:document.poentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
         <li><a href="/partymgr/control/findparty?externalLoginKey=${externalLoginKey}">${uiLabelMap.PartyFindParty}</a></li>
       </ul>
-	  <br class="clear" />
+      <br class="clear"/>
     </div>
     <div class="screenlet-body">
       <form method="post" name="poentryform" action="<@ofbizUrl>initorderentry</@ofbizUrl>">
