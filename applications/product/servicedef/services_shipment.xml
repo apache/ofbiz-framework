@@ -691,7 +691,7 @@ under the License.
         <attribute name="shipmentPackageSeqId" type="String" mode="IN" optional="true"/>        
     </service>    
     <service name="setShipmentStatusPackedAndShipped" engine="simple"
-        location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentStatus" auth="true">
+        location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="setShipmentStatusPackedAndShipped" auth="true">
         <description>Move a shipment into Packed status and then to Shipped status</description>
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     </service>

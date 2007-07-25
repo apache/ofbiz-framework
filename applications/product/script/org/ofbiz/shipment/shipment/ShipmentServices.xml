@@ -1390,7 +1390,7 @@ under the License.
         <!-- If serialNumber is provided, Then compare it with the serialNumber of inventoryItem on reservation. If they don't match,
             We'll have to reReserve specific inventory that is shiped. -->
         <!-- If serialNumber exist then run reserveAnInventoryItem for serialisedInventory.There is no need to check 
-             this condition for the non-serialized inventory (Non serialized Inventory will derectly issued).
+             this condition for the non-serialized inventory (Non serialized Inventory will directly issued).
         -->
         <if-not-empty field-name="parameters.serialNumber">                 
         <make-value entity-name="OrderItemShipGrpInvRes" value-name="orderItemShipGrpInvResLookupPk"/>                
@@ -1834,6 +1834,7 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 -->
+
 
 
 
