@@ -389,9 +389,9 @@ public class OagisServices {
                 Debug.logError(e, errMsg, module);
             }
         } else if (bsrVerb.equalsIgnoreCase("ACKNOWLEDGE") && bsrNoun.equalsIgnoreCase("DELIVERY")) {
-            Element dataAreaElement = UtilXml.firstChildElement(rootElement, "n:DATAAREA");
-            Element ackDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "n:ACKNOWLEDGE_DELIVERY");
-            Element receiptlnElement = UtilXml.firstChildElement(ackDeliveryElement, "n:RECEIPTLN");
+            Element dataAreaElement = UtilXml.firstChildElement(rootElement, "ns:DATAAREA");
+            Element ackDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "ns:ACKNOWLEDGE_DELIVERY");
+            Element receiptlnElement = UtilXml.firstChildElement(ackDeliveryElement, "ns:RECEIPTLN");
             Element docRefElement = UtilXml.firstChildElement(receiptlnElement, "os:DOCUMNTREF");
             String docType = UtilXml.childElementValue(docRefElement, "of:DOCTYPE");
             if (docType.equalsIgnoreCase("PO")){
