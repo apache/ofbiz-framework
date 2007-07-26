@@ -346,7 +346,7 @@ public class OagisInventoryServices {
         
         String logicalId = UtilXml.childElementValue(docSenderElement, "of:LOGICALID");
         String component = UtilXml.childElementValue(docSenderElement, "of:COMPONENT");
-        String task = UtilXml.childElementValue(docSenderElement, "of:TASK");
+        String task = UtilXml.childElementValue(docSenderElement, "of:TASK"); // This field should be Not more then 10 char long
         String referenceId = UtilXml.childElementValue(docSenderElement, "of:REFERENCEID");
         String confirmation = UtilXml.childElementValue(docSenderElement, "of:CONFIRMATION");
         String authId = UtilXml.childElementValue(docSenderElement, "of:AUTHID");
