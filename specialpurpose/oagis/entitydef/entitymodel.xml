@@ -43,7 +43,7 @@ under the License.
     <entity entity-name="OagisMessageInfo" package-name="org.ofbiz.specialpurpose.oagis" title="OAGIS Message Info Entity">
         <field name="logicalId" type="very-short"><!-- CNTROLAREA -> SENDER -> LOGICALID; max 10 chars --></field>
         <field name="component" type="very-short"><!-- CNTROLAREA -> SENDER -> COMPONENT; max 10 chars --></field>
-        <field name="task" type="very-short"><!-- CNTROLAREA -> SENDER -> TASK; max 10 chars --></field>
+        <field name="task" type="short-varchar"><!-- CNTROLAREA -> SENDER -> TASK; --></field>
         <field name="referenceId" type="id-long-ne">
             <!-- CNTROLAREA -> SENDER -> REFERENCEID; max 40 chars in spec; for messages sent from OFBiz this will be a 
                 sequenced ID and be unique on its own; for messages from other systems this may only be unique relative 
