@@ -226,7 +226,7 @@ under the License.
         </entity-and>
         <first-from-list entry-name="oldInventoryItemStatus" list-name="oldInventoryItemStatusList"/>
         <if-not-empty field-name="oldInventoryItemStatus">
-            <set field="oldInventoryItemStatusList.statusEndDatetime"/>
+            <set field="oldInventoryItemStatusList.statusEndDatetime" from-field="now"/>
             <store-value value-name="oldInventoryItemStatus"/>
         </if-not-empty>
         
