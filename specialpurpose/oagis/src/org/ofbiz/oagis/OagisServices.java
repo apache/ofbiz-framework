@@ -377,9 +377,9 @@ public class OagisServices {
             }
         } else if (bsrVerb.equalsIgnoreCase("SHOW") && bsrNoun.equalsIgnoreCase("SHIPMENT")) {
             try {
-                serviceResult = dispatcher.runSync("showShipmnet", UtilMisc.toMap("document",doc));
+                serviceResult = dispatcher.runSync("showShipment", UtilMisc.toMap("document",doc));
             } catch (GenericServiceException e) {
-                String errMsg = "Error running service showShipmnet: "+e.toString();
+                String errMsg = "Error running service showShipment: "+e.toString();
                 errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                 Debug.logError(e, errMsg, module);
             }
