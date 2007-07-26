@@ -30,6 +30,7 @@ import javax.net.ssl.X509KeyManager;
  *
  */
 public class AliasKeyManager implements X509KeyManager {
+    public static final String module = X509KeyManager.class.getName();
 
     protected X509KeyManager keyManager = null;
     protected String alias = null;
@@ -43,37 +44,44 @@ public class AliasKeyManager implements X509KeyManager {
 
     // this is where the customization comes in
     public String chooseClientAlias(String[] keyType, Principal[] issuers, Socket socket) {
-      for (int i = 0; i < keyType.length; i++) {
-          String[] aliases = keyManager.getClientAliases(keyType[i], null); // ignoring the issuers 
-          if (aliases != null && aliases.length > 0) {
-              for (int x = 0; x < aliases.length; x++) {
-                  if (alias.equals(aliases[i])) {
-                      return alias;
-                  }
-              }
-          }
-      }
-      return null;
+        for (int i = 0; i < keyType.length; i++) {
+            String[] aliases = keyManager.getClientAliases(keyType[i], null); // ignoring the issuers 
+            if (aliases != null && aliases.length > 0) {
+                for (int x = 0; x < aliases.length; x++) {
+                    if (this.alias.equals(aliases[i])) {
+                        if (Debug.verboseOn()) Debug.logVerbose("chooseClientAlias for keyType [" + keyType[i] + "] got alias " + this.alias, module);
+                        //Debug.logInfo(new Exception(), "Location where chooseClientAlias is called", module);
+                        return this.alias;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     // these just pass through the keyManager
     public String chooseServerAlias(String keyType, Principal[] issuers, Socket socket) {
-      return keyManager.chooseServerAlias(keyType, issuers, socket);
+        return keyManager.chooseServerAlias(keyType, issuers, socket);
     }
 
     public X509Certificate[] getCertificateChain(String alias) {
-      return keyManager.getCertificateChain(alias);
+        X509Certificate[] certArray = keyManager.getCertificateChain(alias);
+        if (Debug.verboseOn()) Debug.logVerbose("getCertificateChain for alias [" + alias + "] got " + certArray.length + " results", module);
+        return certArray;
     }
 
     public String[] getClientAliases(String keyType, Principal[] issuers) {
-      return keyManager.getClientAliases(keyType, issuers);
+        return keyManager.getClientAliases(keyType, issuers);
     }
 
     public PrivateKey getPrivateKey(String alias) {
-      return keyManager.getPrivateKey(alias);
+        PrivateKey pk = keyManager.getPrivateKey(alias);
+        if (Debug.verboseOn()) Debug.logVerbose("getPrivateKey for alias [" + alias + "] got " + (pk == null ? "[Not Found!]" : "[alg:" + pk.getAlgorithm() + ";format:" + pk.getFormat() + "]"), module);
+        //Debug.logInfo(new Exception(), "Location where getPrivateKey is called", module);
+        return pk;
     }
 
     public String[] getServerAliases(String keyType, Principal[] issuers) {
-      return keyManager.getServerAliases(keyType, issuers);
+        return keyManager.getServerAliases(keyType, issuers);
     }
 }

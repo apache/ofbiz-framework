@@ -88,7 +88,9 @@ public class SSLUtil {
             if (ksi.isCertStore()) {
                 KeyStore ks = ksi.getKeyStore();
                 if (ks != null) {
-                    keyMgrs.addAll(Arrays.asList(getKeyManagers(ks, ksi.getPassword(), alias)));
+                    List newKeyManagers = Arrays.asList(getKeyManagers(ks, ksi.getPassword(), alias));
+                    keyMgrs.addAll(newKeyManagers);
+                    if (Debug.verboseOn()) Debug.logVerbose("Loaded another cert store, adding [" + (newKeyManagers == null ? "0" : newKeyManagers.size()) + "] KeyManagers for alias [" + alias + "] and keystore: " + ksi.createResourceHandler().getFullLocation(), module);
                 } else {
                     throw new IOException("Unable to load keystore: " + ksi.createResourceHandler().getFullLocation());
                 }

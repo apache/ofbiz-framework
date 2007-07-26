@@ -422,7 +422,7 @@ public class HttpClient {
 
             if ((con instanceof HttpURLConnection)) {
                 ((HttpURLConnection) con).setInstanceFollowRedirects(followRedirects);
-                if (Debug.verboseOn() || debug) Debug.log("Connection is of type HttpURLConnection", module);
+                if (Debug.verboseOn() || debug) Debug.log("Connection is of type HttpURLConnection, more specifically: " + con.getClass().getName(), module);
             }
 
             // set the content type
