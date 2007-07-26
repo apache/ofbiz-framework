@@ -21,6 +21,7 @@ package org.ofbiz.oagis;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -395,17 +396,26 @@ public class OagisInventoryServices {
                 }
                 
                 String datetimeReceived = UtilXml.childElementValue(receiptLnElement, "os:DATETIMEISO");
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'");
-                Timestamp timestamp = null;
-                try {
-                    timestamp = new Timestamp( sdf.parse(datetimeReceived ).getTime() );
-                    ripCtx.put("datetimeReceived", timestamp);
-                } catch (ParseException e) {
-                    String errMsg = "Error parsing Date: " + e.toString();
-                    errorMapList.add(UtilMisc.toMap("reasonCode", "ParseException", "description", errMsg));
-                    Debug.logError(e, errMsg, module);
+                Date dateTimeInvReceived = null;
+                Timestamp timestampItemReceived = null;
+                try{
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
+                    dateTimeInvReceived = sdf.parse(datetimeReceived);
+                }catch(ParseException e){
+                    Debug.logInfo("Message does not have timezone information in date field", module);
+                    try{
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'");
+                        dateTimeInvReceived = sdf.parse(datetimeReceived);
+                    }catch(ParseException e1){
+                        String errMsg = "Error parsing Date: " + e1.toString();
+                        errorMapList.add(UtilMisc.toMap("reasonCode", "ParseException", "description", errMsg));
+                        Debug.logError(e, errMsg, module);
+                    }
                 }
-
+                if(dateTimeInvReceived !=null){
+                    timestampItemReceived = new Timestamp( dateTimeInvReceived.getTime() );
+                    ripCtx.put("datetimeReceived", timestampItemReceived);
+                }
                 // Check reference to PO number, if exists
                 GenericValue orderHeader = null;
                 if(orderId != null) {
@@ -423,7 +433,7 @@ public class OagisInventoryServices {
                         } else { 
                             // Case : New record entry when PO not exists in the Database
                             orderHeader =  delegator.makeValue("OrderHeader", UtilMisc.toMap("orderId", orderId, "orderTypeId",orderTypeId , 
-                                    "orderDate", timestamp, "statusId", "ORDER_CREATED", "entryDate", UtilDateTime.nowTimestamp(),
+                                    "orderDate", timestampItemReceived, "statusId", "ORDER_CREATED", "entryDate", UtilDateTime.nowTimestamp(),
                                     "productStoreId", UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryProductStoreId","9001")));
                             toStore.add(orderHeader);
                             GenericValue orderItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderId", orderId , 

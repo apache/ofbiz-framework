@@ -414,7 +414,7 @@ public class OagisServices {
                     Debug.logError(e, errMsg, module);
                 }
             } else {
-                return ServiceUtil.returnError("For Acknowledge Delivery message could not determine if it is for a PO or RMA");
+                return ServiceUtil.returnError("For Acknowledge Delivery message could not determine if it is for a PO or RMA. DOCTYPE from message is " + docType);
             }
         } else {
             String errMsg = "Unknown Message Received";
