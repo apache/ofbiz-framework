@@ -351,13 +351,13 @@ public class OagisInventoryServices {
         String confirmation = UtilXml.childElementValue(docSenderElement, "of:CONFIRMATION");
         String authId = UtilXml.childElementValue(docSenderElement, "of:AUTHID");
             
-        Element dataAreaElement = UtilXml.firstChildElement(receivePoElement, "n:DATAAREA");
-        Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "n:ACKNOWLEDGE_DELIVERY");
+        Element dataAreaElement = UtilXml.firstChildElement(receivePoElement, "ns:DATAAREA");
+        Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "ns:ACKNOWLEDGE_DELIVERY");
 
         String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.PoReceiptFacilityId");
         String productId = null;
         // get RECEIPTLN elements from message
-        List acknowledgeElementList = UtilXml.childElementList(acknowledgeDeliveryElement, "n:RECEIPTLN");
+        List acknowledgeElementList = UtilXml.childElementList(acknowledgeDeliveryElement, "ns:RECEIPTLN");
         if (UtilValidate.isNotEmpty(acknowledgeElementList)) {
         	Iterator acknowledgeElementIter = acknowledgeElementList.iterator();
         	while (acknowledgeElementIter.hasNext()) {
