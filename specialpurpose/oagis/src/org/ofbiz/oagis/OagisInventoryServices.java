@@ -379,7 +379,7 @@ public class OagisInventoryServices {
                 }
                 
                 String datetimeReceived = UtilXml.childElementValue(receiptLnElement, "os:DATETIMEISO");
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'");
                 Timestamp timestamp = null;
                 try {
                     timestamp = new Timestamp( sdf.parse(datetimeReceived ).getTime() );
