@@ -714,7 +714,7 @@ public class CheckOutHelper {
     }
 
     public void calcAndAddTax(GenericValue shipAddress) throws GeneralException {
-        if (!"SALES_ORDER".equals(cart.getOrderType())) {
+        if (!"SALES_ORDER".equals(cart.getOrderType()) || UtilValidate.isEmpty(cart.getShippingContactMechId())) {
             return;
         }
 
