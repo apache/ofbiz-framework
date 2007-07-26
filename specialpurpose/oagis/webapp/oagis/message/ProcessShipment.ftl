@@ -47,8 +47,9 @@
         <of:DOCUMENTID>${shipment.shipmentId?if_exists}</of:DOCUMENTID>
         <#if shipperId?has_content>
           <of:SHIPPERID>${shipperId}</of:SHIPPERID><#-- fill in from PartyCarrierAccount.accountNumber; make sure filter by from/thru date and PartyCarrierAccount.carrierPartyId==orderItemShipGroup.carrierPartyId; get most recent fromDate -->
+          <#-- this we will also only send if there is a SHIPPERID, normally fulfillment partner will select based on TRANSMETHD, address, weight, etc -->
+          <of:CARRIER>${orderItemShipGroup.carrierPartyId?if_exists}</of:CARRIER>
         </#if>
-        <of:CARRIER>${orderItemShipGroup.carrierPartyId?if_exists}</of:CARRIER>
         <#if shipperId?has_content>
           <of:FRGHTTERMS>COLLECT</of:FRGHTTERMS>
         <#else>
