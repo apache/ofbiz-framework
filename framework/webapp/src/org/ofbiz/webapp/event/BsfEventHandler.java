@@ -29,6 +29,7 @@ import org.apache.bsf.BSFException;
 import org.apache.bsf.BSFManager;
 import org.apache.bsf.util.IOUtils;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.cache.UtilCache;
 
 /**
@@ -54,8 +55,9 @@ public class BsfEventHandler implements EventHandler {
         if (cl == null)
             cl = this.getClass().getClassLoader();
         
-        if (context == null)
+        if (context == null) {
             throw new EventHandlerException("Problem getting ServletContext");
+        }
                    
         try {      
             // create the BSF manager  
@@ -80,13 +82,16 @@ public class BsfEventHandler implements EventHandler {
                 if (scriptString == null) {
                     synchronized(this) {
                         if (scriptString == null) {
+                            Debug.logInfo("Loading BSF Script from classpath at location: " + eventMethod, module);
                             scriptStream = cl.getResourceAsStream(eventMethod);
+                            if (scriptStream == null) {
+                                throw new EventHandlerException("Could not find BSF script file at classpath location: " + eventMethod);           
+                            }
                             scriptString = IOUtils.getStringFromReader(new InputStreamReader(scriptStream));
                             eventCache.put(cacheName, scriptString);
                         }
                     }
                 }
-                                
             } else {
                 // we are a script in the webapp - load by resource
                 cacheName = context.getServletContextName() + ":" + eventPath + eventMethod;
@@ -95,6 +100,9 @@ public class BsfEventHandler implements EventHandler {
                     synchronized(this) {
                         if (scriptString == null) {                                  
                             scriptStream = context.getResourceAsStream(eventPath + eventMethod);
+                            if (scriptStream == null) {
+                                throw new EventHandlerException("Could not find BSF script file in webapp context: " + eventPath + eventMethod);           
+                            }
                             scriptString = IOUtils.getStringFromReader(new InputStreamReader(scriptStream));
                             eventCache.put(cacheName, scriptString);
                         }
@@ -111,7 +119,6 @@ public class BsfEventHandler implements EventHandler {
             }
             
             return (String) result;
-                                 
         } catch(BSFException e) {        
             throw new EventHandlerException("BSF Error", e);
         } catch (IOException e) {
