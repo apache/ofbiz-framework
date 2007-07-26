@@ -67,6 +67,7 @@ under the License.
         <field name="orderId" type="id"></field>
         <field name="returnId" type="id"></field>
         <field name="shipmentId" type="id"></field>
+        <field name="fullMessageXml" type="very-long"></field>
         <prim-key field="logicalId"/>
         <prim-key field="component"/>
         <prim-key field="task"/>

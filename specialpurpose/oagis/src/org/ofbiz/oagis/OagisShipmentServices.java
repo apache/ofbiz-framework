@@ -144,6 +144,15 @@ public class OagisShipmentServices {
         oagisMsgInfoCtx.put("authId", authId);
         oagisMsgInfoCtx.put("outgoingMessage", "N");
         oagisMsgInfoCtx.put("userLogin", userLogin);
+        if (OagisServices.debugSaveXmlIn) {
+            try {
+                oagisMsgInfoCtx.put("fullMessageXml", UtilXml.writeXmlDocument(doc));
+            } catch (IOException e) {
+                // this is just for debug info, so just log and otherwise ignore error
+                String errMsg = "Warning: error creating text from XML Document for saving to database: " + e.toString();
+                Debug.logWarning(errMsg, module);
+            }
+        }
         
         try {
             Map oagisMsgInfoResult = dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoCtx);
@@ -461,7 +470,7 @@ public class OagisShipmentServices {
                         return ServiceUtil.returnError(errMsg);
                     }
                 } else if (UtilValidate.isNotEmpty(sendToUrl)) {
-                	writer = new StringWriter();
+                    writer = new StringWriter();
                 }
 
                 ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, new HtmlScreenRenderer());
@@ -469,12 +478,12 @@ public class OagisShipmentServices {
                     screens.render(bodyScreenUri);
                     writer.close();
                 } catch (Exception e) {
-                	String errMsg = "Error rendering message: " + e.toString();
+                    String errMsg = "Error rendering message: " + e.toString();
                     Debug.logError(e, errMsg, module);
                     return ServiceUtil.returnError(errMsg);
                 }
                 
-                // TODO: call service with require-new-transaction=true to save the OagisMessageInfo data (to make sure it saves before)
+                // TODO: should we make sure this is saved in error conditions
                 // prepare map to Create Oagis Message Info
                 comiCtx.put("component", "INVENTORY");
                 comiCtx.put("task", "SHIPREQUES"); // Actual value of task is "SHIPREQUEST" which is more than 10 char
@@ -487,6 +496,9 @@ public class OagisShipmentServices {
                 comiCtx.put("orderId", orderId);
                 comiCtx.put("shipmentId", shipmentId);
                 comiCtx.put("userLogin", userLogin);
+                if (OagisServices.debugSaveXmlOut) {
+                    comiCtx.put("fullMessageXml", writer.toString());
+                }
                 
                 try {
                     Map oagisMsgInfoResult = dispatcher.runSync("createOagisMessageInfo", comiCtx);
@@ -506,7 +518,7 @@ public class OagisShipmentServices {
                       
                     // needed XML post parameters
                     if (UtilValidate.isNotEmpty(certAlias)) {
-                    	http.setClientCertificateAlias(certAlias);
+                        http.setClientCertificateAlias(certAlias);
                     }
                     if (UtilValidate.isNotEmpty(basicAuthUsername)) {
                         http.setBasicAuthInfo(basicAuthUsername, basicAuthPassword);
@@ -515,9 +527,9 @@ public class OagisShipmentServices {
                     http.setKeepAlive(true);
 
                     try {
-                    	http.post(writer.toString());
+                        http.post(writer.toString());
                     } catch (Exception e) {
-                    	String errMsg = "Error posting message to server with UTL [" + sendToUrl + "]: " + e.toString();
+                        String errMsg = "Error posting message to server with UTL [" + sendToUrl + "]: " + e.toString();
                         Debug.logError(e, errMsg, module);
                         return ServiceUtil.returnError(errMsg);
                     }
@@ -668,6 +680,10 @@ public class OagisShipmentServices {
                 comiCtx.put("processingStatusId", statusId);
                 comiCtx.put("returnId", returnId);
                 comiCtx.put("userLogin", userLogin);
+                if (OagisServices.debugSaveXmlOut) {
+                    comiCtx.put("fullMessageXml", writer.toString());
+                }
+
                 try {
                     dispatcher.runSync("createOagisMessageInfo", comiCtx);
                 } catch (GenericServiceException e) {

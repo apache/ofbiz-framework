@@ -212,11 +212,17 @@
     </request-map>
     
     <request-map uri="oagisMessageHandler">
-        <security https="true" auth="false"/>
+        <security https="true" auth="false" cert="true"/>
         <event type="stream" invoke="oagisMessageHandler"/>
         <response name="success" type="none"/>
     </request-map>
-
+    <!-- this doesn't require a cert and is for testing; should be removed or blocked in production -->
+    <request-map uri="oagisMessageHandlerTest">
+        <security https="false" auth="false" cert="false"/>
+        <event type="stream" invoke="oagisMessageHandler"/>
+        <response name="success" type="none"/>
+    </request-map>
+    
 
 
     <!-- end of request mappings -->

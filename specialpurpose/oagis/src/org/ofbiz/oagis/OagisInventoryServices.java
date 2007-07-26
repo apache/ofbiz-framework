@@ -286,6 +286,15 @@ public class OagisInventoryServices {
         comiCtx.put("receivedDate", UtilDateTime.nowTimestamp());
         comiCtx.put("outgoingMessage", "N");
         comiCtx.put("userLogin", userLogin);
+        if (OagisServices.debugSaveXmlIn) {
+            try {
+                comiCtx.put("fullMessageXml", UtilXml.writeXmlDocument(doc));
+            } catch (IOException e) {
+                // this is just for debug info, so just log and otherwise ignore error
+                String errMsg = "Warning: error creating text from XML Document for saving to database: " + e.toString();
+                Debug.logWarning(errMsg, module);
+            }
+        }
         try {
             Map comiResult = dispatcher.runSync("createOagisMessageInfo", comiCtx);
             if (ServiceUtil.isError(comiResult)) {
@@ -359,8 +368,8 @@ public class OagisInventoryServices {
         // get RECEIPTLN elements from message
         List acknowledgeElementList = UtilXml.childElementList(acknowledgeDeliveryElement, "ns:RECEIPTLN");
         if (UtilValidate.isNotEmpty(acknowledgeElementList)) {
-        	Iterator acknowledgeElementIter = acknowledgeElementList.iterator();
-        	while (acknowledgeElementIter.hasNext()) {
+            Iterator acknowledgeElementIter = acknowledgeElementList.iterator();
+            while (acknowledgeElementIter.hasNext()) {
                 Map ripCtx = FastMap.newInstance();
                 Element receiptLnElement = (Element) acknowledgeElementIter.next();
                 Element qtyElement = UtilXml.firstChildElement(receiptLnElement, "os:QUANTITY");
@@ -475,6 +484,15 @@ public class OagisInventoryServices {
         comiCtx.put("bsrNoun", bsrNoun);
         comiCtx.put("bsrRevision", bsrRevision);
         comiCtx.put("userLogin", userLogin);
+        if (OagisServices.debugSaveXmlIn) {
+            try {
+                comiCtx.put("fullMessageXml", UtilXml.writeXmlDocument(doc));
+            } catch (IOException e) {
+                // this is just for debug info, so just log and otherwise ignore error
+                String errMsg = "Warning: error creating text from XML Document for saving to database: " + e.toString();
+                Debug.logWarning(errMsg, module);
+            }
+        }
         try {
             Map comiResult = dispatcher.runSync("createOagisMessageInfo", comiCtx);
             if (ServiceUtil.isError(comiResult)) {
@@ -484,7 +502,7 @@ public class OagisInventoryServices {
         } catch (GenericServiceException e) {
             String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
             // TODO: reconsider sending this error back to other server, not much they can do about it, and it may not be a critical error causing the message to be rejected...
-			errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageInfoError", "description", errMsg));
+            errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageInfoError", "description", errMsg));
             Debug.logError(e, errMsg, module);
         }
         Map result = FastMap.newInstance();
@@ -706,6 +724,15 @@ public class OagisInventoryServices {
         comiCtx.put("bsrNoun", bsrNoun);
         comiCtx.put("bsrRevision", bsrRevision);
         comiCtx.put("userLogin", userLogin);
+        if (OagisServices.debugSaveXmlIn) {
+            try {
+                comiCtx.put("fullMessageXml", UtilXml.writeXmlDocument(doc));
+            } catch (IOException e) {
+                // this is just for debug info, so just log and otherwise ignore error
+                String errMsg = "Warning: error creating text from XML Document for saving to database: " + e.toString();
+                Debug.logWarning(errMsg, module);
+            }
+        }
         try {
             Map comiResult = dispatcher.runSync("createOagisMessageInfo", comiCtx);
             if (ServiceUtil.isError(comiResult)) {
