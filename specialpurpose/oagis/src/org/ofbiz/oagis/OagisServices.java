@@ -397,7 +397,7 @@ public class OagisServices {
             Element receiptlnElement = UtilXml.firstChildElement(ackDeliveryElement, "ns:RECEIPTLN");
             Element docRefElement = UtilXml.firstChildElement(receiptlnElement, "os:DOCUMNTREF");
             String docType = UtilXml.childElementValue(docRefElement, "of:DOCTYPE");
-            if (docType.equalsIgnoreCase("PO")){
+            if ("PO".equals(docType)){
                 try {
                     serviceResult = dispatcher.runSync("receivePoAcknowledge", UtilMisc.toMap("document",doc));
                 } catch (GenericServiceException e) {
@@ -405,7 +405,7 @@ public class OagisServices {
                     errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                     Debug.logError(e, errMsg, module);
                 }
-            } else if (docType.equalsIgnoreCase("RMA")) {
+            } else if ("RMA".equals(docType)) {
                 try {
                     serviceResult = dispatcher.runSync("receiveRmaAcknowledge", UtilMisc.toMap("document",doc));
                 } catch (GenericServiceException e) {
@@ -413,11 +413,13 @@ public class OagisServices {
                     errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                     Debug.logError(e, errMsg, module);
                 }
+            } else {
+                return ServiceUtil.returnError("For Acknowledge Delivery message could not determine if it is for a PO or RMA");
             }
         } else {
             String errMsg = "Unknown Message Received";
             Debug.logError(errMsg, module);
-            ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(errMsg);
         }
         
         List errorMapList = FastList.newInstance();
