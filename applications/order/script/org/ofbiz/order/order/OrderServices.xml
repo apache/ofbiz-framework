@@ -343,7 +343,38 @@ under the License.
                     If we can support it while at the same time linking requirements back to the original sales order, that would be better. -->                
                 <set from-field="parameters.productId" field="inputMap.productId"/>
                 <set from-field="inventoryItem.facilityId" field="inputMap.facilityId"/>
-                <call-simple-method method-name="createRequirementAndCommitment"/>
+
+                <!-- Retrieve and total the quantities of existing requirements for the product/facility -->
+                <entity-condition entity-name="Requirement" list-name="requirements">
+                    <having-condition-list combine="and">
+                        <condition-expr field-name="productId" operator="equals" env-name="parameters.productId"/>
+                        <condition-expr field-name="requirementTypeId" operator="equals" value="PRODUCT_REQUIREMENT"/>
+                        <condition-expr field-name="facilityId" operator="equals" env-name="productFacility.facilityId"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="REQ_ORDERED"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="REQ_REJECTED"/>
+                    </having-condition-list>
+                </entity-condition>
+                <iterate entry-name="requirement" list-name="requirements">
+                    <calculate field-name="existingRequirementTotal" type="Double">
+                        <calcop operator="add" field-name="existingRequirementTotal">
+                            <calcop operator="get" field-name="requirement.quantity"/>
+                        </calcop>
+                    </calculate>
+                </iterate>
+                
+                <!-- Subtract the total quantity of existing requirements from the required quantity to determine if a new requirement needs to be created -->
+                <calculate field-name="newRequirementTotal" type="Double">
+                    <calcop operator="subtract" field-name="inputMap.quantity">
+                        <calcop operator="get" field-name="existingRequirementTotal"/>
+                    </calcop>
+                </calculate>
+
+                <!-- If a new requirement needs to be created, create it for the difference between the required quantity and the total quantity of existing requirements -->
+                <if-compare field-name="newRequirementTotal" operator="greater-equals" value="0">
+                    <set from-field="inputMap.quantity" field="newRequirementTotal"/>
+                    <call-simple-method method-name="createRequirementAndCommitment"/>
+                </if-compare>
+
             </if-compare-field>
             </if-not-empty>
         </if-compare>
