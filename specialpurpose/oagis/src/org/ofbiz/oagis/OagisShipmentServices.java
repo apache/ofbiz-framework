@@ -167,9 +167,9 @@ public class OagisShipmentServices {
             Debug.logError(e, errMsg, module);
         }
            
-        Element dataAreaElement = UtilXml.firstChildElement(showShipmentElement, "n:DATAAREA"); // n
-        Element daShowShipmentElement = UtilXml.firstChildElement(dataAreaElement, "n:SHOW_SHIPMENT"); // n
-        Element shipmentElement = UtilXml.firstChildElement(daShowShipmentElement, "n:SHIPMENT"); // n                               
+        Element dataAreaElement = UtilXml.firstChildElement(showShipmentElement, "ns:DATAAREA"); // n
+        Element daShowShipmentElement = UtilXml.firstChildElement(dataAreaElement, "ns:SHOW_SHIPMENT"); // n
+        Element shipmentElement = UtilXml.firstChildElement(daShowShipmentElement, "ns:SHIPMENT"); // n                               
         String shipmentId = UtilXml.childElementValue(shipmentElement, "of:DOCUMENTID"); // of           
         GenericValue shipment = null;
         try {
@@ -185,14 +185,14 @@ public class OagisShipmentServices {
         String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");                
         String originFacilityId = shipment.getString("originFacilityId");                              
           
-        List shipUnitElementList = UtilXml.childElementList(daShowShipmentElement, "n:SHIPUNIT"); // n
+        List shipUnitElementList = UtilXml.childElementList(daShowShipmentElement, "ns:SHIPUNIT"); // n
         if(UtilValidate.isNotEmpty(shipUnitElementList)) {
             Iterator shipUnitElementItr = shipUnitElementList.iterator();
             while(shipUnitElementItr.hasNext()) {                 
                 Element shipUnitElement = (Element) shipUnitElementItr.next();
                 String trackingNum = UtilXml.childElementValue(shipUnitElement, "of:TRACKINGID"); // of
                 String shipmentPackageSeqId = UtilXml.childElementValue(shipUnitElement, "of:SHPUNITSEQ"); // of
-                List invItemElementList = UtilXml.childElementList(shipUnitElement, "n:INVITEM"); //n
+                List invItemElementList = UtilXml.childElementList(shipUnitElement, "ns:INVITEM"); //n
                 if(UtilValidate.isNotEmpty(invItemElementList)) {
                     Iterator invItemElementItr = invItemElementList.iterator();
                     while(invItemElementItr.hasNext()) {                 
@@ -224,7 +224,7 @@ public class OagisShipmentServices {
                             isitspastCtx.put("shipmentId", shipmentId);      
                             isitspastCtx.put("shipmentPackageSeqId", shipmentPackageSeqId);
                             isitspastCtx.put("promisedDatetime", orderItemShipGrpInvReservation.get("promisedDatetime"));                    
-                            List invDetailElementList = UtilXml.childElementList(invItemElement, "n:INVDETAIL"); //n                            
+                            List invDetailElementList = UtilXml.childElementList(invItemElement, "ns:INVDETAIL"); //n                            
                             if(UtilValidate.isNotEmpty(invDetailElementList)) {
                                 Iterator invDetailElementItr = invDetailElementList.iterator();
                                 while(invDetailElementItr.hasNext()) {
