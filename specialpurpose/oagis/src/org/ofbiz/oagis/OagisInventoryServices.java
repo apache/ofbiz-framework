@@ -137,20 +137,27 @@ public class OagisInventoryServices {
                     statusId = "INV_ON_HOLD"; 
                 }
                 
-                String snapshotDateStr = UtilXml.childElementValue(inventoryElement, "os:DATETIMEISO");
-
-                // In BOD the timestamp come in the format "yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z"
-                // Parse this into a valid Timestamp Object
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
-                Timestamp snapshotDate = null;
-                try {        
-                    snapshotDate = new Timestamp(sdf.parse(snapshotDateStr).getTime());
-                } catch (ParseException e) {
-                    String errMsg = "Error parsing Date: " + e.toString();
-                    errorMapList.add(UtilMisc.toMap("reasonCode", "ParseException", "description", errMsg));
-                    Debug.logError(e, errMsg, module);
+                String snapshotDateStr = UtilXml.childElementValue(inventoryElement, "os:DATETIMEISO");  
+                //Parse this into a valid Timestamp Object
+                Date dateTimeInvReceived = null;
+                Timestamp snapshotDate = null;      
+                try{
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
+                    dateTimeInvReceived = sdf.parse(snapshotDateStr);
+                }catch(ParseException e){
+                    Debug.logInfo("Message does not have timezone information in date field", module);
+                    try{
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'");
+                        dateTimeInvReceived = sdf.parse(snapshotDateStr);
+                    }catch(ParseException e1){
+                        String errMsg = "Error parsing Date: " + e1.toString();
+                        errorMapList.add(UtilMisc.toMap("reasonCode", "ParseException", "description", errMsg));
+                        Debug.logError(e, errMsg, module);
+                    }
                 }
-
+                if(dateTimeInvReceived !=null){
+                    snapshotDate = new Timestamp( dateTimeInvReceived.getTime() );
+                }
                 // get quantity on hand diff   
                 double quantityOnHandTotal = 0.0;
                 
