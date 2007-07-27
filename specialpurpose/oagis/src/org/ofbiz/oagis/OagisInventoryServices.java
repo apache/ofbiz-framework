@@ -136,14 +136,6 @@ public class OagisInventoryServices {
                 if (!isAvailable) {
                     statusId = "INV_ON_HOLD"; 
                 }
-                String invItemType = null;
-                try {
-                    GenericValue invItem = EntityUtil.getFirst(delegator.findByAnd("InventoryItem", UtilMisc.toMap("productId", productId)));
-                    invItemType = invItem.getString("inventoryItemTypeId");
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                }
-                
                 
                 String snapshotDateStr = UtilXml.childElementValue(inventoryElement, "os:DATETIMEISO");
 
@@ -163,10 +155,11 @@ public class OagisInventoryServices {
                 double quantityOnHandTotal = 0.0;
                 
                 // only if looking for available inventory find the non-serialized QOH total
-                if (invItemType.equals("NON_SERIAL_INV_ITEM")) {
+                if (isAvailable) {
                     EntityCondition condition = new EntityConditionList(UtilMisc.toList(
                             new EntityExpr("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, snapshotDate), 
                             new EntityExpr("productId", EntityOperator.EQUALS, productId),
+                            new EntityExpr("inventoryItemTypeId", EntityOperator.EQUALS, "NON_SERIAL_INV_ITEM"),
                             new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId)), EntityOperator.AND);
                     try {
                         List invItemAndDetails = delegator.findByCondition("InventoryItemDetailForSum", condition, UtilMisc.toList("quantityOnHandSum"), null);
@@ -180,22 +173,23 @@ public class OagisInventoryServices {
                         errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
                         Debug.logError(e, errMsg, module);
                     }
-                } else {
-                    // now regardless of AVAILABLE or NOTAVAILABLE check serialized inventory, just use the corresponding statusId as set above
-                    EntityCondition serInvCondition = new EntityConditionList(UtilMisc.toList(
-                            new EntityExpr("statusDatetime", EntityOperator.LESS_THAN_EQUAL_TO, snapshotDate),
-                            new EntityExpr(new EntityExpr("statusEndDatetime", EntityOperator.GREATER_THAN, snapshotDate), EntityOperator.OR, new EntityExpr("statusEndDatetime", EntityOperator.EQUALS, null)),
-                            new EntityExpr("productId", EntityOperator.EQUALS, productId),
-                            new EntityExpr("statusId", EntityOperator.EQUALS, statusId),
-                            new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId)), EntityOperator.AND);
-                    try {
-                        long invItemQuantCount = delegator.findCountByCondition("InventoryItemStatusForCount", serInvCondition, null);
-                        quantityOnHandTotal += invItemQuantCount;
-                    } catch (GenericEntityException e) {
-                        String errMsg = "Error Getting Inventory Item by Status Count: " + e.toString();
-                        errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
-                        Debug.logError(e, errMsg, module);
-                    }
+                }
+
+                // now regardless of AVAILABLE or NOTAVAILABLE check serialized inventory, just use the corresponding statusId as set above
+                EntityCondition serInvCondition = new EntityConditionList(UtilMisc.toList(
+                        new EntityExpr("statusDatetime", EntityOperator.LESS_THAN_EQUAL_TO, snapshotDate),
+                        new EntityExpr(new EntityExpr("statusEndDatetime", EntityOperator.GREATER_THAN, snapshotDate), EntityOperator.OR, new EntityExpr("statusEndDatetime", EntityOperator.EQUALS, null)),
+                        new EntityExpr("productId", EntityOperator.EQUALS, productId),
+                        new EntityExpr("statusId", EntityOperator.EQUALS, statusId),
+                        new EntityExpr("inventoryItemTypeId", EntityOperator.EQUALS, "SERIALIZED_INV_ITEM"),
+                        new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId)), EntityOperator.AND);
+                try {
+                    long invItemQuantCount = delegator.findCountByCondition("InventoryItemStatusForCount", serInvCondition, null);
+                    quantityOnHandTotal += invItemQuantCount;
+                } catch (GenericEntityException e) {
+                    String errMsg = "Error Getting Inventory Item by Status Count: " + e.toString();
+                    errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
+                    Debug.logError(e, errMsg, module);
                 }
                 
                 // check for mismatch in quantity
@@ -265,6 +259,7 @@ public class OagisInventoryServices {
             Map bodyParameters = UtilMisc.toMap("inventoryMapList", inventoryMapList, "locale", locale);
             sendMap.put("bodyParameters", bodyParameters);
             sendMap.put("userLogin", userLogin);
+            
             // send the notification
             Map sendResp = null;
             try {
