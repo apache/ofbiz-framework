@@ -88,7 +88,7 @@ under the License.
     <entity entity-name="OagisMessageErrorInfo" package-name="org.ofbiz.specialpurpose.oagis" title="OAGIS Message Error Info Entity">
         <field name="logicalId" type="very-short"></field>
         <field name="component" type="very-short"></field>
-        <field name="task" type="very-short"></field>
+        <field name="task" type="short-varchar"></field>
         <field name="referenceId" type="id-long-ne"></field>
         <field name="errorSeqId" type="id"><!-- this is a secondary sequenced ID relative to the primary key of OagisMessageInfo --></field>
         <field name="reasonCode" type="short-varchar"></field>
