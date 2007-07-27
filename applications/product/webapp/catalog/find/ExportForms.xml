@@ -54,16 +54,42 @@ under the License.
     </form>
     <form name="ProductsExportToEbay" type="single" target="PostProductsToEbay">
         <field name="selectResult"><hidden/></field>
-        <field name="webSiteUrl"><text size="50" maxlength="250"/></field>
-        <field name="imageUrl"><text size="50" maxlength="250"/></field>
-        <field name="trackingCodeId" widget-style="selectBox">
-            <drop-down no-current-selected-key="_NA_">
-                <option key="_NA_" description="${uiLabelMap.ProductExportNoTrackingRequested}"/>
-                <entity-options entity-name="TrackingCode" description="${description}">
-                    <entity-order-by field-name="description"/>
+        <field name="country" widget-style="selectBox">
+            <drop-down no-current-selected-key="US">
+                <entity-options key-field-name="geoCode" entity-name="Geo" description="${geoName}">
+                    <entity-order-by field-name="geoName"/>
                 </entity-options>
             </drop-down>
         </field>
+        <field name="location"><text size="50" maxlength="50"/></field>
+        <field name="ebayCategory" widget-style="selectBox">
+            <drop-down>
+                <option key="20118" description="Test category (not yet implemented)"/>
+            </drop-down>
+        </field>
+        <field name="listingDuration" widget-style="selectBox">
+            <drop-down>
+                <option key="Days_1" description="1 ${uiLabelMap.CommonDay}"/>
+                <option key="Days_3" description="3 ${uiLabelMap.CommonDays}"/>
+                <option key="Days_7" description="7 ${uiLabelMap.CommonDays}"/>
+            </drop-down>
+        </field>
+        <field name="startPrice"><text size="12" maxlength="12" default-value="1.00"/></field>
+        <field name="quantity"><text size="12" maxlength="12" default-value="1"/></field>
+        <field name="paymentMethodAccepted"><display also-hidden="true"/></field>
+        <field name="paymentPayPal" position="1"><check all-checked="true"/></field>
+        <field name="paymentVisaMC" position="2"><check all-checked="true"/></field>
+        <field name="paymentAmEx" position="3"><check all-checked="true"/></field>
+        <field name="paymentDiscover" position="4"><check all-checked="true"/></field>
+        <field name="paymentMOCC" position="1"><check all-checked="true"/></field>
+        <field name="paymentPersonalCheck" position="2"><check all-checked="true"/></field>
+        <field name="paymentCCAccepted" position="3"><check all-checked="false"/></field>
+        <field name="paymentCashInPerson" position="4"><check all-checked="false"/></field>
+        <field name="paymentCashOnPickup" position="1"><check all-checked="false"/></field>
+        <field name="paymentCOD" position="2"><check all-checked="false"/></field>
+        <field name="paymentCODPrePayDelivery" position="3"><check all-checked="false"/></field>
+        <field name="paymentMoneyXferAccepted" position="4"><check all-checked="false"/></field>
+        <field name="payPalEmail"><text size="50" maxlength="50"/></field>
         <field name="submitButton" title="${uiLabelMap.ProductExportToeBay}"><submit button-type="button"/></field>
     </form>
 </forms>
