@@ -1291,6 +1291,7 @@ under the License.
         <member-entity entity-alias="II" entity-name="InventoryItem"/>        
         <member-entity entity-alias="IID" entity-name="InventoryItemDetail"/>
         <alias entity-alias="IID" name="quantityOnHandSum" field="quantityOnHandDiff" function="sum"/>
+        <alias entity-alias="II" name="inventoryItemTypeId" group-by="true"></alias>
         <alias entity-alias="II" name="facilityId" group-by="true"></alias>
         <alias entity-alias="II" name="productId" group-by="true"></alias>
         <alias entity-alias="IID" name="effectiveDate"><description>For query only, not in fields to select.</description></alias>   
@@ -1322,6 +1323,7 @@ under the License.
         <member-entity entity-alias="IIS" entity-name="InventoryItemStatus"/>
         <member-entity entity-alias="II" entity-name="InventoryItem"/>
         <alias name="facilityId" entity-alias="II"/>
+        <alias name="inventoryItemTypeId" entity-alias="II"/>
         <alias name="inventoryItemId" entity-alias="IIS"/>
         <alias name="productId" entity-alias="IIS"><description>Note that this is from the status entity because it may change over time.</description></alias>
         <alias name="statusId" entity-alias="IIS"/>
