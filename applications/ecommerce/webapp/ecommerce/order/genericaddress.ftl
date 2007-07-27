@@ -103,8 +103,8 @@ under the License.
   <td width="5">&nbsp;</td>
   <td width="74%">
     <select name="allowSolicitation" class='selectBox' <#if requestParameters.useShipAddr?exists>disabled</#if>>
-      <#if ((parameters.allowSolicitation)!"" == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
-      <#if ((parameters.allowSolicitatio)!"" == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
+      <#if (((parameters.allowSolicitation)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
+      <#if (((parameters.allowSolicitation)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
       <option></option>
       <option value="Y">${uiLabelMap.CommonY}</option>
       <option value="N">${uiLabelMap.CommonN}</option>
