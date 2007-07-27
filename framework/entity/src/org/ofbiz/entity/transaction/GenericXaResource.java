@@ -34,7 +34,8 @@ public abstract class GenericXaResource extends Thread implements XAResource {
 
     protected Transaction trans = null;
     protected boolean active = false;
-    protected int timeout = 30;
+    /** timeout is an Integer and defaults to null so that we know if it is set on this object; if it isn't set we won't worry about the warning message, etc because we don't know what the real timeout is */
+    protected Integer timeout = null;
     protected Xid xid = null;
 
     /**
@@ -144,7 +145,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
      * @see javax.transaction.xa.XAResource#getTransactionTimeout()
      */
     public int getTransactionTimeout() throws XAException {
-        return this.timeout;
+        return this.timeout == null ? 0 : this.timeout.intValue();
     }
 
     /**
@@ -152,7 +153,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
      * Note: the valus is saved but in the current implementation this is not used.
      */
     public boolean setTransactionTimeout(int seconds) throws XAException {
-        this.timeout = seconds == 0 ? 30 : seconds;
+        this.timeout = (seconds == 0 ? null : new Integer(seconds));
         return true;
     }
 
@@ -187,26 +188,28 @@ public abstract class GenericXaResource extends Thread implements XAResource {
     // thread run method
     public void run() {
         try {
-            // sleep until the transaction times out
-            sleep(timeout * 1000);
+            if (timeout != null) {
+                // sleep until the transaction times out
+                sleep(timeout.intValue() * 1000);
 
-            if (active) {
-                // get the current status
-                int status = Status.STATUS_UNKNOWN;
-                if (trans != null) {
-                    try {
-                        status = trans.getStatus();
-                    } catch (SystemException e) {
-                        Debug.logWarning(e, module);
+                if (active) {
+                    // get the current status
+                    int status = Status.STATUS_UNKNOWN;
+                    if (trans != null) {
+                        try {
+                            status = trans.getStatus();
+                        } catch (SystemException e) {
+                            Debug.logWarning(e, module);
+                        }
                     }
+
+                    // log a warning message
+                    String statusString = TransactionUtil.getTransactionStateString(status);
+                    Debug.logWarning("Transaction timeout [" + timeout + "] Status: " + statusString + " Xid: " + getXid(), module);
+
+                    // run the abstract method
+                    runOnTimeout();
                 }
-
-                // log a warning message
-                String statusString = TransactionUtil.getTransactionStateString(status);
-                Debug.logWarning("Transaction timeout [" + timeout + "] Status: " + statusString + " Xid: " + getXid(), module);
-
-                // run the abstract method
-                runOnTimeout();
             }
         } catch (InterruptedException e) {
             Debug.logWarning(e, "InterruptedException thrown", module);
