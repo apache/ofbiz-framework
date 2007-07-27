@@ -150,6 +150,7 @@ under the License.
         <field name="paidTime"><display/></field>
         <field name="shippedTime"><display/></field>
         <field name="paymentMethodUsed"><display/></field>
+        <field name="shippingService"><display/></field>
         <field name="listingStatus"><display/></field>
         <field name="eBayPaymentStatus"><display/></field>
         <field name="checkoutStatus"><display/></field>

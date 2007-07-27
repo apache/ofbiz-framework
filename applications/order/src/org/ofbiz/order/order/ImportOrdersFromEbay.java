@@ -49,7 +49,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.shoppingcart.CheckOutHelper;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
-import org.ofbiz.party.contact.ContactMechWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -129,6 +128,7 @@ public class ImportOrdersFromEbay {
             order.put("productId", (String) context.get("productId"));
             order.put("quantityPurchased", (String) context.get("quantityPurchased"));
             order.put("transactionPrice", (String) context.get("transactionPrice"));
+            order.put("shippingService", (String) context.get("shippingService"));
             order.put("shippingServiceCost", (String) context.get("shippingServiceCost"));
             order.put("shippingTotalAdditionalCost", (String) context.get("shippingTotalAdditionalCost"));
             order.put("amountPaid", (String) context.get("amountPaid"));
@@ -241,8 +241,11 @@ public class ImportOrdersFromEbay {
     
     private static Map postItem(String postItemsUrl, StringBuffer dataItems, String devID, String appID, String certID, 
                                 String callName, String compatibilityLevel, String siteID) throws IOException {
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Request of " + callName + " To eBay:\n" + dataItems.toString(), module);
+        }
+        
         HttpURLConnection connection = (HttpURLConnection)(new URL(postItemsUrl)).openConnection();
-      
         connection.setDoInput(true);
         connection.setDoOutput(true);
         connection.setRequestMethod("POST");
@@ -261,15 +264,22 @@ public class ImportOrdersFromEbay {
         int responseCode = connection.getResponseCode();
         InputStream inputStream = null;
         Map result = FastMap.newInstance();
+        String response = null;
+        
         if (responseCode == HttpURLConnection.HTTP_CREATED ||
             responseCode == HttpURLConnection.HTTP_OK) {
             inputStream = connection.getInputStream();
-            String response = toString(inputStream);
+            response = toString(inputStream);
             result = ServiceUtil.returnSuccess(response);
         } else {
             inputStream = connection.getErrorStream();
             result = ServiceUtil.returnFailure(toString(inputStream));
         }
+        
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Response of " + callName + " From eBay:\n" + response, module);
+        }
+        
         return result;
     }
     
@@ -831,12 +841,11 @@ public class ImportOrdersFromEbay {
                 cart.setShipToCustomerPartyId(partyId);
                 cart.setEndUserCustomerPartyId(partyId);
                 
-                cart.setCarrierPartyId("_NA_");
                 cart.setShippingContactMechId(contactMechId);
-                
-                //TODO handle shipment method type
-                cart.setShipmentMethodTypeId("NO_SHIPPING");
                 cart.setMaySplit(Boolean.FALSE);
+                
+                setShipmentMethodType(cart, (String) parameters.get("shippingService"));
+                
                 cart.makeAllShipGroupInfos();
 
                 // create the order
@@ -1141,4 +1150,49 @@ public class ImportOrdersFromEbay {
         }
         return dateOut;
     }
+    
+    private static void setShipmentMethodType(ShoppingCart cart, String shippingService) {
+        String partyId = "_NA_";
+        String shipmentMethodTypeId = "NO_SHIPPING";
+        
+        if (shippingService != null) {
+            if ("USPSPriority".equals(shippingService)) {
+                partyId = "USPS";
+                shipmentMethodTypeId = "PRIORITY"; 
+            } else if ("UPSGround".equals(shippingService)) {
+                partyId = "UPS";
+                shipmentMethodTypeId = "GROUND";
+            } else if ("UPS3rdDay".equals(shippingService)) {
+                partyId = "UPS";
+                shipmentMethodTypeId = "3DAY";
+            } else if ("UPS2ndDay".equals(shippingService)) {
+                partyId = "UPS";
+                shipmentMethodTypeId = "2DAY";
+            } else if ("UPS2ndDay".equals(shippingService)) {
+                partyId = "UPS";
+                shipmentMethodTypeId = "2DAY";
+            } else if ("USPSExpressMailInternational".equals(shippingService)) {
+                partyId = "USPS";
+                shipmentMethodTypeId = "INT_EXPRESS";
+            } else if ("UPSNextDay".equals(shippingService)) {
+                partyId = "UPS";
+                shipmentMethodTypeId = "1DAY_SAVER";
+            } else if ("UPSNextDayAir".equals(shippingService)) {
+                partyId = "UPS";
+                shipmentMethodTypeId = "1DAY";
+            } else if ("ShippingMethodStandard".equals(shippingService)) {
+                partyId = "UPS";
+                shipmentMethodTypeId = "GROUND";
+            } else if ("StandardInternational".equals(shippingService)) {
+                partyId = "USPS";
+                shipmentMethodTypeId = "INT_EXPRESS";
+            } else if ("LocalDelivery".equals(shippingService)) {
+                partyId = "_NA_";
+                shipmentMethodTypeId = "PICK_UP";
+            } 
+        }        
+        
+        cart.setCarrierPartyId(partyId);
+        cart.setShipmentMethodTypeId(shipmentMethodTypeId);    
+    }    
 }
