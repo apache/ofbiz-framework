@@ -180,6 +180,9 @@ under the License.
         <copy todir="${site.dir}/api/applications">
             <fileset dir="${basedir}/applications" includes="**/build/javadocs/**"/>
         </copy>
+        <copy todir="${site.dir}/api/specialpurpose">
+            <fileset dir="${basedir}/specialpurpose" includes="**/build/javadocs/**"/>
+        </copy>
     </target>
 
     <target name="copy-dtds">

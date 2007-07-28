@@ -104,7 +104,7 @@
     <!-- ================================================================== -->
 
     <target name="docs" depends="prepare-docs,classpath">
-        <javadoc packagenames="org.ofbiz.service.*"
+        <javadoc packagenames="org.ofbiz.assetmaint.*"
                  classpathref="local.class.path"
                  destdir="${build.dir}/javadocs"
                  Windowtitle="Open for Business - ${desc}">
