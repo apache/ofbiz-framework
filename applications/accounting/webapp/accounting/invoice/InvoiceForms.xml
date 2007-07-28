@@ -338,7 +338,16 @@ under the License.
         <field name="statusDate"><display description="${bsh:statusDate.toString().substring(0,10)}"/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
     </form>
-    
+
+    <form name="ListInvoiceTerms" list-name="invoiceTerms" target="" title="" type="list">
+        <auto-fields-entity entity-name="InvoiceTerm" default-field-type="display"/>
+        <field name="invoiceId"><hidden/></field>
+        <field name="invoiceTermId"><hidden/></field>
+        <field name="termTypeId">
+            <display-entity entity-name="TermType"/>
+        </field>
+    </form>
+
     <form name="EditInvoiceApplications" type="list"  list-name="invoiceApplications" default-entity-name="invoiceItem" use-row-submit="true" target="updateInvoiceApplication" title="Apply payments to invoices" separate-columns="false">
         <field name="statusId"><hidden/></field>
         <field name="paymentApplicationId"><hidden/></field>

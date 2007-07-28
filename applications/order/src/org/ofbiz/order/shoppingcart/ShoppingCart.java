@@ -2583,6 +2583,20 @@ public class ShoppingCart implements Serializable {
          this.orderTermSet = orderTermSet;
      }
 
+    public boolean hasOrderTerm(String termTypeId) {
+        if (termTypeId == null) {
+            return false;
+        }
+        Iterator orderTermsIt = orderTerms.iterator();
+        while (orderTermsIt.hasNext()) {
+            GenericValue orderTerm = (GenericValue)orderTermsIt.next();
+            if (termTypeId.equals(orderTerm.getString("termTypeId"))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isReadOnlyCart(){
        return readOnlyCart;
     }
