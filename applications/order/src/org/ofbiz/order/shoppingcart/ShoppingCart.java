@@ -3341,7 +3341,7 @@ public class ShoppingCart implements Serializable {
                             /*
                             if ((productPromoAction.get("productId") == null || productPromoAction.getString("productId").equals(item.getShipmentMethodTypeId())) &&
                                 (productPromoAction.get("partyId") == null || productPromoAction.getString("partyId").equals(item.getCarrierPartyId()))) {
-                                Double shippingAmount = new Double(-OrderReadHelper.calcItemAdjustment(orderAdjustment, new Double(item.getQuantity()), new Double(item.getItemSubTotal())));
+                                Double shippingAmount = new Double(OrderReadHelper.calcItemAdjustmentBd(orderAdjustment, new BigDecimal(item.getQuantity()), new BigDecimal(item.getItemSubTotal())).negate().doubleValue());
                                 // always set orderAdjustmentTypeId to SHIPPING_CHARGES for free shipping adjustments
                                 GenericValue fsOrderAdjustment = getDelegator().makeValue("OrderAdjustment",
                                         UtilMisc.toMap("orderItemSeqId", orderAdjustment.get("orderItemSeqId"), "orderAdjustmentTypeId", "SHIPPING_CHARGES", "amount", shippingAmount,
@@ -4227,14 +4227,14 @@ public class ShoppingCart implements Serializable {
             public double quantity = 0;
 
             public double getItemTax(ShoppingCart cart) {
-                double itemTax = 0.00;
+                BigDecimal itemTax = ZERO;
 
                 for (int i = 0; i < itemTaxAdj.size(); i++) {
                     GenericValue v = (GenericValue) itemTaxAdj.get(i);
-                    itemTax += OrderReadHelper.calcItemAdjustment(v, new Double(quantity), new Double(item.getBasePrice()));
+                    itemTax = itemTax.add(OrderReadHelper.calcItemAdjustmentBd(v, new BigDecimal(quantity), new BigDecimal(item.getBasePrice())));
                 }
 
-                return itemTax;
+                return itemTax.setScale(taxCalcScale, taxRounding).doubleValue();
             }
 
             public double getItemQuantity() {

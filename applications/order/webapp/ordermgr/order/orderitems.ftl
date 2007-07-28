@@ -337,7 +337,7 @@ under the License.
                     <td>&nbsp;</td>
                     <td align="right">
                       <div class="tabletext" style="font-size: xx-small;">
-                        <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].calcItemAdjustment(orderItemAdjustment, orderItem) isoCode=currencyUomId/>
+                        <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].calcItemAdjustmentBd(orderItemAdjustment, orderItem) isoCode=currencyUomId/>
                       </div>
                      </td>
                     <td>&nbsp;</td>
