@@ -1456,7 +1456,7 @@ public class ShoppingCart implements Serializable {
                 // this payment method will set the billing address for the order;
                 // before it is set we have to verify if the billing address is
                 // compatible with the ProductGeos
-                Iterator products = (this.getItemsProducts(this.cartLines)).iterator();
+                Iterator products = (ShoppingCart.getItemsProducts(this.cartLines)).iterator();
                 while (products.hasNext()) {
                     GenericValue product = (GenericValue)products.next();
                     if (!ProductWorker.isBillableToAddress(product, billingAddress)) {
@@ -1838,8 +1838,8 @@ public class ShoppingCart implements Serializable {
     // =======================================================================
 
     /** Returns the order level shipping amount */
-    public double getOrderShipping() {
-        return OrderReadHelper.calcOrderAdjustments(this.getAdjustments(), this.getSubTotal(), false, false, true);
+    public BigDecimal getOrderShipping() {
+        return OrderReadHelper.calcOrderAdjustmentsBd(this.getAdjustments(), new BigDecimal(this.getSubTotal()), false, false, true);
     }
 
     // ----------------------------------------
