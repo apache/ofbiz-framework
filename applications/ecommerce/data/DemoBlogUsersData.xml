@@ -35,13 +35,13 @@ under the License.
 
     <Party partyId="BLOGUSER_USER" partyTypeId="PERSON" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <Person partyId="BLOGUSER_USER" lastName="Blog" firstName="User"/>
-    <UserLogin userLoginId="blog_user" partyId="BLOGUSER_USER" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" fromDate="2004-09-15 00:00:00.000"/>
+    <UserLogin userLoginId="blog_user" partyId="BLOGUSER_USER" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a"/>
     <PartyRole partyId="BLOGUSER_USER" roleTypeId="CONTENT_ADMIN"/>
     <PartyRole partyId="BLOGUSER_USER" roleTypeId="CONTENT_AUTHOR"/>
 
     <Party partyId="BLOGUSER_GUEST" partyTypeId="PERSON" createdDate="2004-10-20 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-10-20 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <Person partyId="BLOGUSER_GUEST" lastName="Blog" firstName="Guest"/>
-    <UserLogin userLoginId="blog_guest" partyId="BLOGUSER_GUEST" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" fromDate="2004-09-15 00:00:00.000"/>
+    <UserLogin userLoginId="blog_guest" partyId="BLOGUSER_GUEST" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a"/>
 
     <Party partyId="AUTHOR_BIGAL" partyTypeId="PERSON" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <Person partyId="AUTHOR_BIGAL" lastName="Al" firstName="Big"/>
