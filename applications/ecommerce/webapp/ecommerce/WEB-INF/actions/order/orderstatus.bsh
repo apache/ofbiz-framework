@@ -17,6 +17,7 @@
  * under the License.
  */
 
+import java.math.BigDecimal;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.condition.*;
@@ -174,7 +175,7 @@ if (orderHeader != null) {
 
     context.put("orderShippingTotal", orderShippingTotal);
     context.put("orderTaxTotal", orderTaxTotal);   
-    context.put("orderGrandTotal", OrderReadHelper.getOrderGrandTotal(orderItems, orderAdjustments));
+    context.put("orderGrandTotal", OrderReadHelper.getOrderGrandTotalBd(orderItems, orderAdjustments));
     context.put("placingCustomerPerson", placingCustomerPerson);
 
     context.put("billingAccount", billingAccount);

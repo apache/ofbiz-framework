@@ -1288,7 +1288,7 @@ public class OrderReadHelper {
      */
     public double getOrderOpenAmount() throws GenericEntityException {
         GenericDelegator delegator = orderHeader.getDelegator();
-        double total = getOrderGrandTotal();
+        BigDecimal total = getOrderGrandTotalBd();
         double openAmount = 0;
         List prefs = getPaymentPreferences();
 
@@ -1324,7 +1324,7 @@ public class OrderReadHelper {
         }
 
         // return either a positive amount or positive zero
-        return Math.max(total - openAmount, 0);
+        return Math.max(total.doubleValue() - openAmount, 0);
     }
 
     public List getOrderHeaderAdjustments() {

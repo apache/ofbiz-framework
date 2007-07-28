@@ -3479,7 +3479,7 @@ public class OrderServices {
             try {
                 Debug.log("Calling process payments...", module);
                 //Debug.set(Debug.VERBOSE, true);
-                paymentResp = CheckOutHelper.processPayment(orderId, orh.getOrderGrandTotal(), orh.getCurrency(), productStore, userLogin, false, false, dispatcher, delegator);
+                paymentResp = CheckOutHelper.processPayment(orderId, orh.getOrderGrandTotalBd().doubleValue(), orh.getCurrency(), productStore, userLogin, false, false, dispatcher, delegator);
                 //Debug.set(Debug.VERBOSE, false);
             } catch (GeneralException e) {
                 Debug.logError(e, module);

@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import java.math.BigDecimal;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.base.util.UtilMisc;
 
@@ -32,7 +33,7 @@ if(orderId != null){
 if(orderHeader != null){
    orh = new OrderReadHelper(orderHeader);
    context.put("orh", orh);
-   context.put("overrideAmount", new Double(orh.getOrderGrandTotal()));
+   context.put("overrideAmount", new Double(orh.getOrderGrandTotalBd().doubleValue()));
 }
 
 if(orderPaymentPreferenceId != null){
