@@ -17,6 +17,7 @@
  * under the License.
  */
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.sql.Timestamp;
 import org.ofbiz.entity.*;
@@ -104,7 +105,7 @@ if (orderHeader != null) {
     taxAmount += OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, true, false);
     context.put("taxAmount", taxAmount);
 
-    grandTotal = OrderReadHelper.getOrderGrandTotal(orderItems, orderAdjustments);
+    grandTotal = OrderReadHelper.getOrderGrandTotalBd(orderItems, orderAdjustments);
     context.put("grandTotal", grandTotal);
 
     orderItemList = orderReadHelper.getOrderItems();
