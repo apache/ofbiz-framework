@@ -1129,25 +1129,6 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
     public void renderFormatListWrapperOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
 
-        buffer.append("<!-- begin form widget -->");
-        this.appendWhitespace(buffer);
-        if(UtilValidate.isNotEmpty(modelForm.getDefaultTableStyle())) {
-            buffer.append(" <table");
-            buffer.append(" class=\"");
-            buffer.append(modelForm.getDefaultTableStyle());
-            buffer.append("\" cellspacing=\"0\">");
-        } else {
-            buffer.append(" <table cellspacing=\"0\" class=\"basic-table form-widget-table dark-grid\">");
-            // DEJ 20050101 removed the width=\"100%\", doesn't look very good with CSS float: left based side "columns"
-        }
-
-        this.appendWhitespace(buffer);
-    }
-
-    public void renderFormatListWrapperClose(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append(" </table>");
-
-        this.appendWhitespace(buffer);
         String queryString = null;
         if (UtilValidate.isNotEmpty((String)context.get("queryString"))) {
             queryString = (String)context.get("queryString");
@@ -1160,6 +1141,24 @@ public class HtmlFormRenderer implements FormStringRenderer {
             queryString = UtilHttp.urlEncodeArgs(inputFields);
         }
         context.put("_QBESTRING_", queryString);
+
+        buffer.append("<!-- begin form widget -->");
+        this.appendWhitespace(buffer);
+        this.renderNextPrev(buffer, context, modelForm);
+        buffer.append(" <table cellspacing=\"0\" class=\"");
+        if(UtilValidate.isNotEmpty(modelForm.getDefaultTableStyle())) {
+            buffer.append(modelForm.getDefaultTableStyle());
+        } else {
+            buffer.append("basic-table form-widget-table dark-grid");
+        }
+        buffer.append("\">");
+        this.appendWhitespace(buffer);
+    }
+
+    public void renderFormatListWrapperClose(StringBuffer buffer, Map context, ModelForm modelForm) {
+        buffer.append(" </table>");
+
+        this.appendWhitespace(buffer);
         this.renderNextPrev(buffer, context, modelForm);
         buffer.append("<!-- end form widget -->");
         this.appendWhitespace(buffer);
@@ -1923,7 +1922,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
             targetService = "${targetService}";
         }
         if (UtilValidate.isEmpty(targetService)) {
-            Debug.logWarning("TargetService is empty.", module);   
+            Debug.logWarning("Cannot paginate because TargetService is empty for the form: " + modelForm.getName(), module);
             return; 
         }
 
@@ -1934,14 +1933,26 @@ public class HtmlFormRenderer implements FormStringRenderer {
         int viewIndex = modelForm.getViewIndex(context);
         int viewSize = modelForm.getViewSize(context);
         int listSize = modelForm.getListSize(context);
-        
+
         int lowIndex = modelForm.getLowIndex(context);
         int highIndex = modelForm.getHighIndex(context);
         int actualPageSize = modelForm.getActualPageSize(context);
 
         // if this is all there seems to be (if listSize < 0, then size is unknown)
-        if (actualPageSize >= listSize && listSize >= 0) {
-            return;
+        if (actualPageSize >= listSize && listSize >= 0) return;
+
+        // needed ofr the "Page" and "rows" labels
+        Map uiLabelMap = (Map) context.get("uiLabelMap");
+        String pageLabel = "";
+        String rowsLabel = "";
+        String ofLabel = "";
+        if (uiLabelMap == null) {
+            Debug.logWarning("Could not find uiLabelMap in context", module);
+        } else {
+            pageLabel = (String) uiLabelMap.get("CommonPage");
+            rowsLabel = (String) uiLabelMap.get("CommonRows");
+            ofLabel = (String) uiLabelMap.get("CommonOf");
+            ofLabel = ofLabel.toLowerCase();
         }
 
         // for legacy support, the viewSizeParam is VIEW_SIZE and viewIndexParam is VIEW_INDEX when the fields are "viewSize" and "viewIndex"
@@ -1965,45 +1976,105 @@ public class HtmlFormRenderer implements FormStringRenderer {
         String paginateAnchor = modelForm.getPaginateTargetAnchor();
         if (paginateAnchor != null) anchor = "#" + paginateAnchor;
 
-        buffer.append(" <table border=\"0\" cellpadding=\"2\">\n");
-        buffer.append("  <tr>\n");
-        buffer.append("    <td align=\"right\">\n");
-        buffer.append("      <b>\n");
+        // preparing the link text, so that later in the code we can reuse this and just add the viewIndex
+        String prepLinkText = "";
+        prepLinkText = targetService;
+        if (prepLinkText.indexOf("?") < 0) {
+            prepLinkText += "?";
+        } else if (!prepLinkText.endsWith("?")) {
+            prepLinkText += "&amp;";
+        }
+        if (!UtilValidate.isEmpty(queryString) && !queryString.equals("null")) {
+            prepLinkText += queryString + "&amp;";
+        }
+        prepLinkText += viewSizeParam + "=" + viewSize + "&amp;" + viewIndexParam + "=";
+
+        buffer.append("<div class=\"").append(modelForm.getPaginateStyle()).append("\">");
+        buffer.append("<ul>");
+        String linkText;
+
+        // First button
+        buffer.append("<li class=\"").append(modelForm.getPaginateFirstStyle());
         if (viewIndex > 0) {
-            buffer.append(" <a href=\"");
-            String linkText = targetService;
-            if (linkText.indexOf("?") < 0)  linkText += "?";
-            else linkText += "&amp;";
-            if (queryString != null && !queryString.equals("null"))
-                linkText += queryString + "&amp;";
-            linkText += viewSizeParam + "=" + viewSize + "&amp;" + viewIndexParam + "=" + (viewIndex - 1) + anchor + "\"";
-
-            // make the link
-            String tmp = rh.makeLink(request, response, linkText);
-            buffer.append(tmp);
-            buffer.append(" class=\"").append(modelForm.getPaginatePreviousStyle()).append("\">").append(modelForm.getPaginatePreviousLabel(context)).append("</a>\n");
-
+            buffer.append("\"><a href=\"");
+            linkText = prepLinkText + 0 + anchor + "\"";
+            // - make the link
+            buffer.append(rh.makeLink(this.request, this.response, linkText)).append("\">").append(modelForm.getPaginateFirstLabel(context)).append("</a>");
+        } else {
+            // disabled button
+            buffer.append("-disabled\">").append(modelForm.getPaginateFirstLabel(context));
         }
+        buffer.append("</li>");
+        // Previous button
+        buffer.append("<li class=\"").append(modelForm.getPaginatePreviousStyle());
+        if (viewIndex > 0) {
+            buffer.append("\"><a href=\"");
+            linkText = prepLinkText + (viewIndex - 1) + anchor + "\"";
+            // - make the link
+            buffer.append(rh.makeLink(this.request, this.response, linkText)).append("\">").append(modelForm.getPaginatePreviousLabel(context)).append("</a>");
+        } else {
+            // disabled button
+            buffer.append("-disabled\">").append(modelForm.getPaginatePreviousLabel(context));
+        }
+        buffer.append("</li>");
+        // used for iterator and for the last page
+        int page = 0;
         if (listSize > 0) {
-            buffer.append("          <span class=\"tabletext\">" + (lowIndex + 1) + " - " + (lowIndex + actualPageSize ) + " of " + listSize + "</span> \n");
+
+            linkText = prepLinkText;
+            if(linkText.startsWith("/")) {
+                linkText = linkText.substring(1 , linkText.length());
+            }
+
+            buffer.append("<li>").append(pageLabel).append(" <select name=\"page\" size=\"1\" onchange=\"location.href = '" + linkText + "' + this.value;\" >");
+            //actual value
+            for(int i = 0; i < listSize ; ) {
+                if(  page == viewIndex ) {
+                    buffer.append("<option selected value=\"");
+                } else {
+                    buffer.append("<option value=\"");
+                }
+                buffer.append(page);
+                buffer.append("\">");
+                buffer.append( 1 + page);
+                buffer.append("</option>");
+                // increment page and calculate next index
+                page++;
+                i = page * viewSize;
+            }
+            buffer.append("</select></li>");
+
+            buffer.append("<li>");
+            buffer.append((lowIndex + 1) + " - " + (lowIndex + actualPageSize ) + " " + ofLabel + " " + listSize).append(" " + rowsLabel);
+            buffer.append("</li>");
         }
+
+        // Next button
+        buffer.append("<li class=\"").append(modelForm.getPaginateNextStyle());
         if (highIndex < listSize) {
-            buffer.append(" <a href=\"");
-            String linkText = "" + targetService;
-            if (linkText.indexOf("?") < 0)  linkText += "?";
-            else linkText += "&amp;";
-            linkText += queryString + "&amp;" + viewSizeParam + "=" + viewSize + "&amp;" + viewIndexParam + "=" + (viewIndex + 1) + anchor + "\"";
-
-            // make the link
-            buffer.append(rh.makeLink(request, response, linkText));
-            buffer.append(" class=\"").append(modelForm.getPaginatePreviousStyle()).append("\">").append(modelForm.getPaginateNextLabel(context)).append("</a>\n");
-
+            buffer.append("\"><a href=\"");
+            linkText = prepLinkText + (viewIndex + 1) + anchor + "\"";
+            // - make the link
+            buffer.append(rh.makeLink(this.request, this.response, linkText)).append("\">").append(modelForm.getPaginateNextLabel(context)).append("</a>");
+        } else {
+            // disabled button
+            buffer.append("-disabled\">").append(modelForm.getPaginateNextLabel(context));
         }
-        buffer.append("      </b>\n");
-        buffer.append("   </td>\n");
-        buffer.append("  </tr>\n");
-        buffer.append(" </table>\n");
+        buffer.append("</li>");
+        // Last button
+        buffer.append("<li class=\"").append(modelForm.getPaginateLastStyle());
+        if (highIndex < listSize) {
+            buffer.append("\"><a href=\"");
+            linkText = prepLinkText + (page - 1) + anchor + "\"";
+            // - make the link
+            buffer.append(rh.makeLink(this.request, this.response, linkText)).append("\">").append(modelForm.getPaginateLastLabel(context)).append("</a>");
+        } else {
+            // disabled button
+            buffer.append("-disabled\">").append(modelForm.getPaginateLastLabel(context));
+        }
+        buffer.append("</li>");
 
+        buffer.append("</ul>").append("</div>");
         this.appendWhitespace(buffer);
     }
 
