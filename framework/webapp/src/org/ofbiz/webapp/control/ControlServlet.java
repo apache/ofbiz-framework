@@ -215,22 +215,33 @@ public class ControlServlet extends HttpServlet {
             if (request.getAttribute("_ERROR_OCCURRED_") == null && rd != null) {
                 request.setAttribute("_ERROR_OCCURRED_", Boolean.TRUE);
                 Debug.logError("Including errorPage: " + errorPage, module);
-                rd.include(request, response);
+                
+                // NOTE DEJ20070727 after having trouble with all of these, try to get the page out and as a last resort just send something back
+                try {
+                    rd.include(request, response);
+                } catch (Throwable t) {
+                    Debug.logWarning("Error while trying to send error page using rd.include (will try response.getOutputStream or response.getWriter): " + t.toString(), module);
 
-                /* For some reason (with Tomcat only?) this isn't making it to the browser, and neither is the rd.include...
-                String errorMessage = "<html><body>ERROR in error page, (infinite loop or error page not found with name [" + errorPage + "]), but here is the text just in case it helps you: " + request.getAttribute("ERROR_MESSAGE_") + "</body></html>";
-                if (UtilJ2eeCompat.useOutputStreamNotWriter(getServletContext())) {
-                    response.getOutputStream().print(errorMessage);
-                } else {
-                    response.getWriter().print(errorMessage);
+                    String errorMessage = "ERROR rendering error page [" + errorPage + "], but here is the error text: " + request.getAttribute("_ERROR_MESSAGE_");
+                    try {
+                        if (UtilJ2eeCompat.useOutputStreamNotWriter(getServletContext())) {
+                            response.getOutputStream().print(errorMessage);
+                        } else {
+                            response.getWriter().print(errorMessage);
+                        }
+                    } catch (Throwable t2) {
+                        int errorToSend = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+                        Debug.logWarning("Error while trying to write error message using response.getOutputStream or response.getWriter: " + t.toString() + "; sending error code [" + errorToSend + "], and message [" + errorMessage + "]", module);
+                        response.sendError(errorToSend, errorMessage);
+                    }
                 }
-                */
+
             } else {
                 if (rd == null) {
                     Debug.logError("Could not get RequestDispatcher for errorPage: " + errorPage, module);
                 }
 
-                String errorMessage = "<html><body>ERROR in error page, (infinite loop or error page not found with name [" + errorPage + "]), but here is the text just in case it helps you: " + request.getAttribute("ERROR_MESSAGE_") + "</body></html>";
+                String errorMessage = "<html><body>ERROR in error page, (infinite loop or error page not found with name [" + errorPage + "]), but here is the text just in case it helps you: " + request.getAttribute("_ERROR_MESSAGE_") + "</body></html>";
                 if (UtilJ2eeCompat.useOutputStreamNotWriter(getServletContext())) {
                     response.getOutputStream().print(errorMessage);
                 } else {
