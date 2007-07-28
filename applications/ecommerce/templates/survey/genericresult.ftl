@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${survey.description?if_exists}</div>
+<h1>${survey.description?if_exists}</h1>
 <br/>
 
 <table width="100%" border="0" cellpadding="2" cellspacing="0">

@@ -76,7 +76,7 @@ under the License.
     <form method="post" action="<@ofbizUrl>category_addProductCategoryToProdCatalog</@ofbizUrl>" style="margin: 0;" name="addNewForm">
     <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}"/>
     
-    <div class="head2">${uiLabelMap.ProductAddCatalogProductCategory}:</div>
+    <h2>${uiLabelMap.ProductAddCatalogProductCategory}:</h2>
     <br/>
     <select name="prodCatalogId" class="selectBox">
     <#list prodCatalogs as prodCatalog>

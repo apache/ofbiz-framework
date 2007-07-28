@@ -28,7 +28,7 @@ under the License.
               ${surveyWrapper.render().toString()}
             </form>
         <#else>
-            <div class="head1">${uiLabelMap.EcommerceNothingToDoHere}</div>
+            <h1>${uiLabelMap.EcommerceNothingToDoHere}</h1>
         </#if>
     </div>
 </div>

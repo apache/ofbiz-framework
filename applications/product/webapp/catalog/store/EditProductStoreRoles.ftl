@@ -52,7 +52,7 @@ under the License.
   </table>
   
   <br/>
-  <div class="head2">${uiLabelMap.ProductCreateProductStoreRole}:</div>
+  <h2>${uiLabelMap.ProductCreateProductStoreRole}:</h2>
   <form name="addProductStoreRole" action="<@ofbizUrl>storeCreateRole</@ofbizUrl>" method="post">
     <input type="hidden" name="productStoreId" value="${productStoreId}">
     <table cellspacing="2" cellpadding="2">

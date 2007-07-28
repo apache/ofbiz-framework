@@ -60,7 +60,7 @@ under the License.
         <input type="hidden" name="productPromoId" value="${productPromoId}"/>
         <input type="hidden" name="tryEntity" value="true"/>
         
-        <div class="head2">${uiLabelMap.ProductAddStorePromo} :</div>
+        <h2>${uiLabelMap.ProductAddStorePromo} :</h2>
         <br/>
         <select name="productStoreId" class="selectBox">
         <#list productStores as productStore>

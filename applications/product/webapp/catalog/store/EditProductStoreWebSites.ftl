@@ -38,7 +38,7 @@ under the License.
 </table>
   
   <br/>
-<div class="head2">${uiLabelMap.ProductSetStoreOnWebSite}:</div>
+<h2>${uiLabelMap.ProductSetStoreOnWebSite}:</h2>
 <form name="addWebSite" action="<@ofbizUrl>storeUpdateWebSite</@ofbizUrl>" method="post">
     <input type="hidden" name="viewProductStoreId" value="${productStoreId}">
     <input type="hidden" name="productStoreId" value="${productStoreId}">

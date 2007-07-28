@@ -20,9 +20,9 @@ under the License.
 <table border="0" width="100%" cellpadding="3">
   <tr>
     <td colspan="2">
-      <div class="head1">
+      <h1>
        ${uiLabelMap.ProductProductsLastViewed}
-      </div>
+      </h1>
     </td>
   </tr>
 </table>

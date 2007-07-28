@@ -32,8 +32,8 @@ ${menuWrapper.renderMenuString()}
 <table width='100%' cellpadding='0' cellspacing='0' border='0'>
   <tr>
     <td align="left">
-      <div class="head1">${contentId?if_exists}
-      </div>
+      <h1>${contentId?if_exists}
+      </h1>
     </td>
     <td align="right">
     </td>

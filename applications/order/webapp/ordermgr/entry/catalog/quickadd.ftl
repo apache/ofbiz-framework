@@ -21,7 +21,7 @@ under the License.
   <table border='0'  cellpadding='3' cellspacing='0'>
     <tr>
       <td align="left">
-        <div class="head2">${productCategory.description?if_exists}</div>
+        <h2>${productCategory.description?if_exists}</h2>
       </td>
       <td align="right">
         <form name="choosequickaddform" method="post" action="<@ofbizUrl>quickadd</@ofbizUrl>" style='margin: 0;'>

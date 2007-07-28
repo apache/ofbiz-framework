@@ -22,7 +22,7 @@ function insertImageName(type,nameValue) {
 };
 </script>
     <#if fileType?has_content>
-        <div class='head3'>${uiLabelMap.ProductResultOfImageUpload}</div>
+        <h3>${uiLabelMap.ProductResultOfImageUpload}</h3>
         <#if !(clientFileName?has_content)>
             <div class='tabletext'>${uiLabelMap.ProductNoFileSpecifiedForUpload}.</div>
         <#else>
@@ -194,7 +194,7 @@ function insertImageName(type,nameValue) {
         eval(toExec);
         };
     </script>
-    <div class="head3">${uiLabelMap.CategoryUploadImage}</div>
+    <h3>${uiLabelMap.CategoryUploadImage}</h3>
     <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId?if_exists}&amp;upload_file_type=category</@ofbizUrl>" name="imageUploadForm">
         <input type="file" class="inputBox" size="50" name="fname"/>
         <br/>
@@ -206,7 +206,7 @@ function insertImageName(type,nameValue) {
         <input type="submit" class="smallSubmit" value="${uiLabelMap.ProductUploadImage}"/>
     </form>
     <hr/>
-    <div class="head2">${uiLabelMap.ProductDuplicateProductCategory}</div>
+    <h2>${uiLabelMap.ProductDuplicateProductCategory}</h2>
     <form action="/catalog/control/DuplicateProductCategory" method="post" style="margin: 0;">
         <span class="tabletext">${uiLabelMap.ProductDuplicateProductCategorySelected}:</span>
         <input type=hidden name="oldProductCategoryId" value="${productCategoryId}"/>

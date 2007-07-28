@@ -231,7 +231,7 @@ function lookupShipments() {
           </#list>          
         <#else>
           <tr>
-            <td colspan="4"><div class="head3">${uiLabelMap.ProductNoShipmentsFound}.</div></td>
+            <td colspan="4"><h3>${uiLabelMap.ProductNoShipmentsFound}.</h3></td>
           </tr>        
         </#if>
       </table>

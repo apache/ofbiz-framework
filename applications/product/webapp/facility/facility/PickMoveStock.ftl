@@ -119,12 +119,12 @@ under the License.
                         </td>
                     </tr>
                 <#else>
-                    <tr><td colspan="13"><div class="head3">${uiLabelMap.ProductNoStockMovesNeeded}.</div></td></tr>
+                    <tr><td colspan="13"><h3>${uiLabelMap.ProductNoStockMovesNeeded}.</h3></td></tr>
                 </#if>
                 <#assign messageCount = 0>
                 <#list pflWarningMessageList?if_exists as pflWarningMessage>
                     <#assign messageCount = messageCount + 1>   
-                    <tr><td colspan="13"><div class="head3">${messageCount}:${pflWarningMessage}.</div></td></tr>
+                    <tr><td colspan="13"><h3>${messageCount}:${pflWarningMessage}.</h3></td></tr>
                 </#list>
             </table>
             <input type="hidden" name="_rowCount" value="${rowCount}">

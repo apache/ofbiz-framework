@@ -37,8 +37,8 @@ under the License.
  </table>
 
 <#else>
-  <div class="head2">${uiLabelMap.SegmentGroupNoSegmentGroupFoundWithId}: ${segmentGroupIdId?if_exists}</div>
+  <h2>${uiLabelMap.SegmentGroupNoSegmentGroupFoundWithId}: ${segmentGroupIdId?if_exists}</h2>
 </#if>
 <#else>
-  <div class="head2">${uiLabelMap.MarketingViewPermissionError}</div>
+  <h2>${uiLabelMap.MarketingViewPermissionError}</h2>
 </#if>

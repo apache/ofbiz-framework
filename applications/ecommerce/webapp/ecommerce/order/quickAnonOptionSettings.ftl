@@ -72,7 +72,7 @@ function onClickShippingMethod(e) {
               <tr><td><div class="errorMessage" id="noShippingMethodSelectedError"></div></td></tr>
             <tr>
                 <td>
-                    <div class="head2"><b>${uiLabelMap.OrderMethod}</b></div>
+                    <h2><b>${uiLabelMap.OrderMethod}</b></h2>
                 </td>
             </tr>
             <#list carrierShipmentMethodList as carrierShipmentMethod>
@@ -104,7 +104,7 @@ function onClickShippingMethod(e) {
         <table hight="100%" >
             <tr>
               <td colspan="2">
-                <div class="head2"><b>${uiLabelMap.OrderSpecialInstructions}</b></div>
+                <h2><b>${uiLabelMap.OrderSpecialInstructions}</b></h2>
               </td>
             </tr>
             <tr>
@@ -133,7 +133,7 @@ function onClickShippingMethod(e) {
             <tr><td colspan="2"><hr class="sepbar"/></td></tr>
             <tr>
               <td colspan="2">
-                <div class="head2"><b>${uiLabelMap.OrderGiftMessage}</b></div>
+                <h2><b>${uiLabelMap.OrderGiftMessage}</b></h2>
               </td>
             </tr>
             <tr>
@@ -146,7 +146,7 @@ function onClickShippingMethod(e) {
     </td>
     </tr>
     <tr><td colspan="2"><hr class="sepbar"/></td></tr>
-    <tr><td colspan="2"><div class="head2"><b>${uiLabelMap.OrderShipAllAtOnce}?</b></div></td></tr>
+    <tr><td colspan="2"><h2><b>${uiLabelMap.OrderShipAllAtOnce}?</b></h2></td></tr>
     <tr>
         <td valign="top" colspan="2">
             <div>

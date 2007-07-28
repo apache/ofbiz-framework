@@ -57,7 +57,7 @@ under the License.
     <form method="post" action="<@ofbizUrl>createProductFeatureCatGrpAppl</@ofbizUrl>" style="margin: 0;" name="addNewGroupForm">
     <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">
     
-    <div class="head2">${uiLabelMap.ProductApplyFeatureGroupFromCategory}:</div>
+    <h2>${uiLabelMap.ProductApplyFeatureGroupFromCategory}:</h2>
     <select name="productFeatureGroupId" class="selectBox">
     <#list productFeatureGroups as productFeatureGroup>
         <option value="${(productFeatureGroup.productFeatureGroupId)?if_exists}">${(productFeatureGroup.description)?if_exists} [${(productFeatureGroup.productFeatureGroupId)?if_exists}]</option>
@@ -109,7 +109,7 @@ under the License.
     <form method="post" action="<@ofbizUrl>createProductFeatureCategoryAppl</@ofbizUrl>" style="margin: 0;" name="addNewCategoryForm">
     <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">
     
-    <div class="head2">${uiLabelMap.ProductApplyFeatureGroupToCategory}:</div>
+    <h2>${uiLabelMap.ProductApplyFeatureGroupToCategory}:</h2>
     <select name="productFeatureCategoryId" class="selectBox">
     <#list productFeatureCategories as productFeatureCategory>
         <option value="${(productFeatureCategory.productFeatureCategoryId)?if_exists}">${(productFeatureCategory.description)?if_exists} [${(productFeatureCategory.productFeatureCategoryId)?if_exists}]</option>

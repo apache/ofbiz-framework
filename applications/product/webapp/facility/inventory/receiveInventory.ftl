@@ -21,7 +21,7 @@ under the License.
 <div class="errorMessage">${invalidProductId}</div>
 </#if>
 
-<div class="head1">${uiLabelMap.ProductReceiveInventory} <span class="head2">${uiLabelMap.CommonInto}&nbsp;<#if facility?has_content>"${facility.facilityName?default("Not Defined")}"</#if> [${uiLabelMap.CommonId} :${facility.facilityId?if_exists}]</span></div>
+<h1>${uiLabelMap.ProductReceiveInventory} <span class="head2">${uiLabelMap.CommonInto}&nbsp;<#if facility?has_content>"${facility.facilityName?default("Not Defined")}"</#if> [${uiLabelMap.CommonId} :${facility.facilityId?if_exists}]</span></h1>
 <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductNewFacility}]</a>
 
 <script language="JavaScript">
@@ -33,7 +33,7 @@ under the License.
 <#-- Receiving Results -->
 <#if receivedItems?has_content>
   <table width="100%" border="0" cellpadding="2" cellspacing="0">
-    <tr><td colspan="9"><div class="head3">${uiLabelMap.ProductReceiptPurchaseOrder} #${purchaseOrder.orderId}</div></td></tr>
+    <tr><td colspan="9"><h3>${uiLabelMap.ProductReceiptPurchaseOrder} #${purchaseOrder.orderId}</h3></td></tr>
     <tr><td colspan="9"><hr class="sepbar"></td></tr>
     <tr>
       <td><div class="tableheadtext">${uiLabelMap.ProductShipmentId}#</div></td>
@@ -248,7 +248,7 @@ under the License.
     <table width="100%" border="0" cellpadding="2" cellspacing="0">
       <tr>
         <td>
-          <div class="head3">${uiLabelMap.ProductSelectShipmentReceive}</div>
+          <h3>${uiLabelMap.ProductSelectShipmentReceive}</h3>
         </td>
       </tr>
       <#list shipments?if_exists as shipment>
@@ -314,9 +314,9 @@ under the License.
       <#else/>
         <tr>
           <td>
-            <div class="head3">${uiLabelMap.ProductReceivePurchaseOrder} #${purchaseOrder.orderId}</div>
+            <h3>${uiLabelMap.ProductReceivePurchaseOrder} #${purchaseOrder.orderId}</h3>
             <#if shipment?has_content>
-            <div class="head3">${uiLabelMap.ProductShipmentId} #${shipment.shipmentId}</div>
+            <h3>${uiLabelMap.ProductShipmentId} #${shipment.shipmentId}</h3>
             </#if>
           </td>
           <td align="right">
@@ -489,7 +489,7 @@ under the License.
     <input type="hidden" name="facilityId" value="${requestParameters.facilityId?if_exists}"/>
     <input type="hidden" name="initialSelected" value="Y"/>
     <table border="0" cellpadding="2" cellspacing="0">
-      <tr><td colspan="4"><div class="head3">${uiLabelMap.ProductReceiveItem}</div></td></tr>
+      <tr><td colspan="4"><h3>${uiLabelMap.ProductReceiveItem}</h3></td></tr>
       <tr>
         <td width="25%" align="right"><div class="tabletext">${uiLabelMap.ProductPurchaseOrderNumber}</div></td>
         <td>&nbsp;</td>

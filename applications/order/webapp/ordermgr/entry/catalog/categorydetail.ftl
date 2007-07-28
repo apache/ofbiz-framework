@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#if productCategory?exists>
-    <div class="head1">
+    <h1>
         <div>${categoryContentWrapper.get("CATEGORY_NAME")?if_exists}</div>
         <div>${categoryContentWrapper.get("DESCRIPTION")?if_exists}</div>
         <#if hasQuantities?exists>
@@ -33,7 +33,7 @@ under the License.
           </form>
         </#if>
         <a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${productCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSearchinCategory}</a>
-    </div>
+    </h1>
   <#assign longDescription = categoryContentWrapper.get("LONG_DESCRIPTION")?if_exists/>
   <#assign categoryImageUrl = categoryContentWrapper.get("CATEGORY_IMAGE_URL")?if_exists/>
   <#if categoryImageUrl?has_content || longDescription?has_content>

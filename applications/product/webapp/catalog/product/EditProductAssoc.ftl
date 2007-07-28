@@ -171,7 +171,7 @@ under the License.
     <br/>
     <#if productId?exists && product?exists>
         <hr class="sepbar">
-        <div class="head2">${uiLabelMap.ProductAssociationsFromProduct}...</div>
+        <h2>${uiLabelMap.ProductAssociationsFromProduct}...</h2>
         
         <table border="1" cellpadding="2" cellspacing="0">
             <tr>
@@ -211,7 +211,7 @@ under the License.
         </table>
         
         <hr class="sepbar">
-        <div class="head2">${uiLabelMap.ProductAssociationsToProduct}...</div>
+        <h2>${uiLabelMap.ProductAssociationsToProduct}...</h2>
         <table border="1" cellpadding="2" cellspacing="0">
             <tr>
             <td><div class="tabletext"><b>${uiLabelMap.ProductProductId}</b></div></td>

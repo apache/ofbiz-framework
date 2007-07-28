@@ -30,7 +30,7 @@ under the License.
 
 <#-- custom logo or text can be inserted here -->
 
-<div class="head1">${title}</div>
+<h1>${title}</h1>
 <#if !isDemoStore?exists || isDemoStore><p>${uiLabelMap.OrderDemoFrontNote}.</p></#if>
 <#if note?exists><p class="tabletext">${note}</p></#if>
 <#if orderHeader?exists>
@@ -38,7 +38,7 @@ ${screens.render("component://ecommerce/widget/OrderScreens.xml#orderheader")}
 <br/>
 ${screens.render("component://ecommerce/widget/OrderScreens.xml#orderitems")}
 <#else>
-<div class="head1">Order not found with ID [${orderId?if_exists}], or not allowed to view.</div>
+<h1>Order not found with ID [${orderId?if_exists}], or not allowed to view.</h1>
 </#if>
 
 </body>

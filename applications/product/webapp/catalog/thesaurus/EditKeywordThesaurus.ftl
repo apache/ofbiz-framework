@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<div class="head1">${uiLabelMap.ProductAlternateKeyWordThesaurus}</div>
+<h1>${uiLabelMap.ProductAlternateKeyWordThesaurus}</h1>
 <form method="post" action="<@ofbizUrl>createKeywordThesaurus</@ofbizUrl>">
     <div class="tabletext">
         ${uiLabelMap.ProductKeyword} :<input type="text" name="enteredKeyword" size="10" class="inputBox"/>

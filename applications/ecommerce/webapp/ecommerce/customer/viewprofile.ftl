@@ -22,7 +22,7 @@ under the License.
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td align="left">
-      <div class="head1">${uiLabelMap.PartyTheProfileOf}
+      <h1>${uiLabelMap.PartyTheProfileOf}
         <#if person?exists>
           ${person.personalTitle?if_exists}
           ${person.firstName?if_exists}
@@ -32,7 +32,7 @@ under the License.
         <#else>
           "${uiLabelMap.PartyNewUser}"
         </#if>
-      </div>
+      </h1>
     </td>
     <td align="right">
       <#if showOld>
@@ -585,5 +585,5 @@ ${screens.render('component://ecommerce/widget/CustomerScreens.xml#SerializedInv
 ${screens.render('component://ecommerce/widget/CustomerScreens.xml#SubscriptionSummary')}
 
 <#else>
-    <div class="head3">${uiLabelMap.PartyNoPartyForCurrentUserName}: ${userLogin.userLoginId}</div>
+    <h3>${uiLabelMap.PartyNoPartyForCurrentUserName}: ${userLogin.userLoginId}</h3>
 </#if>

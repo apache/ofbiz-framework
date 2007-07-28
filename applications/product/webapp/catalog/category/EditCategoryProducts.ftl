@@ -119,7 +119,7 @@ under the License.
         <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">
         <input type="hidden" name="activeOnly" value="${activeOnly.toString()}">
         
-        <div class="head2">${uiLabelMap.ProductAddProductCategoryMember}:</div>
+        <h2>${uiLabelMap.ProductAddProductCategoryMember}:</h2>
         <div class="tabletext">
             ${uiLabelMap.ProductProductId}: <input type="text" size="20" name="productId" class="inputBox">
             <a href="javascript:call_fieldlookup2(document.addProductCategoryMemberForm.productId, 'LookupProduct');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"></a>
@@ -136,7 +136,7 @@ under the License.
         <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">
         <input type="hidden" name="activeOnly" value="${activeOnly.toString()}">
         
-        <div class="head2">${uiLabelMap.ProductCopyProductCategoryMembersToAnotherCategory}:</div>
+        <h2>${uiLabelMap.ProductCopyProductCategoryMembersToAnotherCategory}:</h2>
         <div class="tabletext">
             ${uiLabelMap.ProductTargetProductCategory}:
             <input type="text" class="inputBox" name="productCategoryIdTo" size="20" maxlength="20"/>
@@ -159,7 +159,7 @@ under the License.
         <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">
         <input type="hidden" name="activeOnly" value="${activeOnly.toString()}">
         
-        <div class="head2">${uiLabelMap.ProductExpireAllProductMembers}:</div>
+        <h2>${uiLabelMap.ProductExpireAllProductMembers}:</h2>
         <div class="tabletext">
             ${uiLabelMap.ProductOptionalExpirationDate}: <input type="text" size="20" name="thruDate" class="inputBox">
             <a href="javascript:call_cal(document.expireAllCategoryProductMembersForm.thruDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
@@ -171,7 +171,7 @@ under the License.
         <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">
         <input type="hidden" name="activeOnly" value="${activeOnly.toString()}">
         
-        <div class="head2">${uiLabelMap.ProductRemoveExpiredProductMembers}:</div>
+        <h2>${uiLabelMap.ProductRemoveExpiredProductMembers}:</h2>
         <div class="tabletext">
             ${uiLabelMap.ProductOptionalExpiredBeforeDate}: <input type="text" size="20" name="validDate" class="inputBox">
             <a href="javascript:call_cal(document.removeExpiredCategoryProductMembersForm.validDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>

@@ -44,7 +44,7 @@ under the License.
 </table>
 <br/>
 
-<div class="head2">${uiLabelMap.PageTitleEditProductStoreSurveys}:</div>
+<h2>${uiLabelMap.PageTitleEditProductStoreSurveys}:</h2>
 <form name="addSurvey" action="<@ofbizUrl>createProductStoreSurveyAppl</@ofbizUrl>" method="post">
     <input type="hidden" name="productStoreId" value="${productStoreId}">
     <table cellspacing="2" cellpadding="2">

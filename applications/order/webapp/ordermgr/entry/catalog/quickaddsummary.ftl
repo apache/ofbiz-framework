@@ -55,6 +55,6 @@ under the License.
     </#if>
   </td>
 <#else>
-  <div class="head1">${uiLabelMap.ProductErrorProductNotFound}.</div>
+  <h1>${uiLabelMap.ProductErrorProductNotFound}.</h1>
 </#if>
 

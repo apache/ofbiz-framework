@@ -90,7 +90,7 @@ under the License.
                 </tr>
             </#list>
             <#if !requestList?has_content>
-                <tr><td colspan="9"><div class="head3">${uiLabelMap.OrderNoRequestFound}</div></td></tr>
+                <tr><td colspan="9"><h3>${uiLabelMap.OrderNoRequestFound}</h3></td></tr>
             </#if>
         </table>
     </div>

@@ -259,7 +259,7 @@ under the License.
                 </tr>
               </#list>
               <#if !orderHeaderList?has_content>
-                <tr><td colspan="8"><div class="head3">${uiLabelMap.OrderNoOrderFound}</div></td></tr>
+                <tr><td colspan="8"><h3>${uiLabelMap.OrderNoOrderFound}</h3></td></tr>
               </#if>
             </table>
           </td>

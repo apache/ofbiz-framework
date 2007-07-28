@@ -424,7 +424,7 @@ function setAlternateGwp(field) {
       </table>
     </form>
   <#else>
-    <div class="head2">${uiLabelMap.EcommerceYourShoppingCartEmpty}.</div>
+    <h2>${uiLabelMap.EcommerceYourShoppingCartEmpty}.</h2>
   </#if>
 <#-- Copy link bar to bottom to include a link bar at the bottom too -->
     </div>

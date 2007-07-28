@@ -30,12 +30,12 @@ under the License.
 </div>
 
 
-<div class="head1">${uiLabelMap.ProductSearchResultsWithIdValue}: [${idValue?if_exists}]</div>
+<h1>${uiLabelMap.ProductSearchResultsWithIdValue}: [${idValue?if_exists}]</h1>
 
 
 <#if !goodIdentifications?has_content && !idProduct?has_content>
     <br/>
-    <div class="head2">&nbsp;${uiLabelMap.ProductNoResultsFound}.</div>
+    <h2>&nbsp;${uiLabelMap.ProductNoResultsFound}.</h2>
 <#else/>
   <table cellpadding="2">
     <#if idProduct?has_content>

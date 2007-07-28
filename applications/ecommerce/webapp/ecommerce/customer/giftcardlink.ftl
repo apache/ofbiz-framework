@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.AccountingGiftCardLink}</div>
+<h1>${uiLabelMap.AccountingGiftCardLink}</h1>
 <br/>
 <div class="tabletext">${uiLabelMap.AccountingEnterGiftCardLink}.</div>
 <br/>

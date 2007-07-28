@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head2">Process List</div>
+<h2>Process List</h2>
 <#if processMgrs?has_content>
   <div>&nbsp;</div>
   <table cellpadding="2" cellspacing="0" border="1">

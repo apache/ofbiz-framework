@@ -21,7 +21,7 @@ under the License.
     <a href="<@ofbizUrl>EditCategory?productCategoryId=${productCategoryId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductBackToEditCategory}]</a>
 </#if>
 
-<div class="head1">
+<h1>
     ${uiLabelMap.ProductCheckingForExistingProductInCategory} <#if (productCategory.description)?has_content>"${productCategory.description}"</#if> [${uiLabelMap.CommonId}:${productCategoryId?if_exists}]
 
     <#if productFeatureAndTypeDatas?has_content>
@@ -33,7 +33,7 @@ under the License.
             <#if productFeatureAndTypeData_has_next>,${uiLabelMap.CommonAnd} </#if>
         </#list>
     </#if>
-</div>
+</h1>
 
 <#if products?has_content>
     <table cellpadding="1" cellspacing="0" border="1">
@@ -51,7 +51,7 @@ under the License.
     </#list>
     </table>
 <#else>
-    <div class="head3">&nbsp;${uiLabelMap.ProductNoExistingProductsFound}.</div>
+    <h3>&nbsp;${uiLabelMap.ProductNoExistingProductsFound}.</h3>
 </#if>
 
 <br/>

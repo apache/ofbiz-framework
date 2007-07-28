@@ -50,7 +50,7 @@ under the License.
         </#list>
     </table>
     <br/>
-    <div class="head3">${uiLabelMap.ProductPromotionAddSetOfPromotionCodes}:</div>
+    <h3>${uiLabelMap.ProductPromotionAddSetOfPromotionCodes}:</h3>
     <div class="tabletext">
         <form method="post" action="<@ofbizUrl>createProductPromoCodeSet</@ofbizUrl>" style="margin: 0;">
             <input type="hidden" name="userEntered" value="N"/>

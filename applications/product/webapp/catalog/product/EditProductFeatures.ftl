@@ -86,7 +86,7 @@ under the License.
         <br/>
         <form method="post" action="<@ofbizUrl>ApplyFeaturesFromCategory</@ofbizUrl>" style='margin: 0;'>
         <input type="hidden" name="productId" value="${productId}">
-        <div class='head2'>${uiLabelMap.ProductAddProductFeatureFromCategory}:</div>
+        <h2>${uiLabelMap.ProductAddProductFeatureFromCategory}:</h2>
         <br/>
         <select class='selectBox' name='productFeatureCategoryId' size="1">
             <option value='' selected>${uiLabelMap.ProductChooseFeatureCategory}</option>
@@ -116,7 +116,7 @@ under the License.
 
         <form method="post" action="<@ofbizUrl>ApplyFeatureToProductFromTypeAndCode</@ofbizUrl>" style='margin: 0;' name='addFeatureByTypeIdCode'>
         <input type="hidden" name="productId" value="${productId}">
-        <div class='head2'>${uiLabelMap.ProductAddProductFeatureTypeId}:</div>
+        <h2>${uiLabelMap.ProductAddProductFeatureTypeId}:</h2>
         <br/>
         <span class='tabletext'>${uiLabelMap.ProductFeatureType}: </span><select class='selectBox' name='productFeatureTypeId' size="1">
             <#list productFeatureTypes as productFeatureType>
@@ -147,7 +147,7 @@ under the License.
 
         <form method="post" action="<@ofbizUrl>ApplyFeatureToProduct</@ofbizUrl>" style="margin: 0;" name="addFeatureById">
         <input type="hidden" name="productId" value="${productId}">
-        <div class="head2">${uiLabelMap.ProductAddProductFeatureID}:</div>
+        <h2>${uiLabelMap.ProductAddProductFeatureID}:</h2>
         <br/>
         <span class="tabletext">${uiLabelMap.CommonId}: </span>
         <input type="text" size="10" name="productFeatureId" value="" class="inputBox">

@@ -18,7 +18,7 @@ under the License.
 -->
     <#if productId?exists>
         <hr class="sepbar"/>
-        <div class="head2">${uiLabelMap.ProductDuplicateProduct}</div>
+        <h2>${uiLabelMap.ProductDuplicateProduct}</h2>
         <form action="<@ofbizUrl>DuplicateProduct</@ofbizUrl>" method="post" style="margin: 0;">
             <input type="hidden" name="oldProductId" value="${productId}"/>
             <div>
@@ -50,7 +50,7 @@ under the License.
         </form>
         <#if product?exists && product.isVirtual?if_exists == "Y">
         <hr class="sepbar"/>
-        <div class="head2">${uiLabelMap.ProductUpdateProductVariants}</div>
+        <h2>${uiLabelMap.ProductUpdateProductVariants}</h2>
         <form action="<@ofbizUrl>UpdateProductVariants?productId=${productId}</@ofbizUrl>" method="post" style="margin: 0;">
             <input type="hidden" name="virtualProductId" value="${productId}"/>
             <div class="tabletext">

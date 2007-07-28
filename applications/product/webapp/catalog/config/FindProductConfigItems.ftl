@@ -80,7 +80,7 @@ under the License.
           </#list>          
         <#else>
           <tr>
-            <td colspan="4"><div class="head3">${uiLabelMap.CommonNo} ${uiLabelMap.ProductConfigItems} ${uiLabelMap.CommonFound}.</div></td>
+            <td colspan="4"><h3>${uiLabelMap.CommonNo} ${uiLabelMap.ProductConfigItems} ${uiLabelMap.CommonFound}.</h3></td>
           </tr>        
         </#if>
       </table>

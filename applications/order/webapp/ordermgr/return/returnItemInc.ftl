@@ -20,7 +20,7 @@ under the License.
 
           <table border="0" width="100%" cellpadding="2" cellspacing="0">
             <tr>
-              <td colspan="8"><div class="head3">${uiLabelMap.OrderReturnFromOrder} #<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>" class="buttontext">${orderId}</div></td>
+              <td colspan="8"><h3>${uiLabelMap.OrderReturnFromOrder} #<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>" class="buttontext">${orderId}</h3></td>
               <td align="right">
                 <span class="tableheadtext">${uiLabelMap.CommonSelectAll}</span>&nbsp;
                 <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, '${selectAllFormName}');"/>
@@ -160,7 +160,7 @@ under the License.
 
              <tr><td colspan="9"><hr class="sepbar"></td></tr>
             <tr>
-              <td colspan="9"><div class="head3">${uiLabelMap.OrderReturnAdjustments} #<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>" class="buttontext">${orderId}</div></td>
+              <td colspan="9"><h3>${uiLabelMap.OrderReturnAdjustments} #<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>" class="buttontext">${orderId}</h3></td>
             </tr>
             <tr><td colspan="9"><hr class="sepbar"></td></tr>
             <#if orderHeaderAdjustments?has_content>
@@ -214,7 +214,7 @@ under the License.
             <tr><td colspan="9"><hr class="sepbar"></td></tr>
             <tr>
               <td colspan="9">
-                <div class="head3">${uiLabelMap.OrderReturnManualAdjustment} #<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>" class="buttontext">${orderId}</div></td></div>
+                <h3>${uiLabelMap.OrderReturnManualAdjustment} #<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>" class="buttontext">${orderId}</h3></td></div>
               </td>
             </tr>
             <tr>

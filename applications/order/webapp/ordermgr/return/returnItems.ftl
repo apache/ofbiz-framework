@@ -81,7 +81,7 @@ under the License.
 <table width="100%" border='0' cellpadding='2' cellspacing='0'>
   <#assign readOnly = (returnHeader.statusId != "RETURN_REQUESTED")>
     
-  <tr><td colspan="10"><div class="head3">${uiLabelMap.OrderItemsReturned} ${uiLabelMap.CommonIn} ${uiLabelMap.OrderOrderReturn} #${returnId}</div></td></tr>
+  <tr><td colspan="10"><h3>${uiLabelMap.OrderItemsReturned} ${uiLabelMap.CommonIn} ${uiLabelMap.OrderOrderReturn} #${returnId}</h3></td></tr>
 
   <#-- information about orders and amount refunded/credited on past returns -->
   <#if orh?exists>
@@ -300,7 +300,7 @@ under the License.
 <form name="returnItems" method="post" action="<@ofbizUrl>returnItems</@ofbizUrl>">
   <input type="hidden" name="returnId" value="${returnId}">
   <table border='0' cellpadding='2' cellspacing='0'>
-    <tr><td colspan="4"><div class="head3">${uiLabelMap.OrderReturnItems}</div></td></tr>
+    <tr><td colspan="4"><h3>${uiLabelMap.OrderReturnItems}</h3></td></tr>
     <#if partyOrders?has_content>
       <tr>      
         <td width='25%' align='right' nowrap><div class='tableheadtext'>${uiLabelMap.OrderOrderId}:</div></td>

@@ -67,7 +67,7 @@ under the License.
           <table border="0" width="100%" cellpadding="2" cellspacing="0">
             <tr><td colspan="8"><hr class="sepbar"></td></tr>
             <tr>
-              <td colspan="8"><div class="head3">${uiLabelMap.OrderReturnShipFromAddress}:</td>
+              <td colspan="8"><h3>${uiLabelMap.OrderReturnShipFromAddress}:</h3></td>
             </tr>
             <tr>
               <td colspan="8">

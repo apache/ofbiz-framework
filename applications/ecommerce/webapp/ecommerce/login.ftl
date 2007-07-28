@@ -24,7 +24,7 @@ under the License.
     <#assign shoppingCartSize = 0>
 </#if>
 
-<div class="head1">${uiLabelMap.CommonLogin}</div>
+<h1>${uiLabelMap.CommonLogin}</h1>
 <br/>
 
 <div>

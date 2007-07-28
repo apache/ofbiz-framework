@@ -48,17 +48,17 @@ under the License.
   <#-- new question / category -->
 
     <#if configOptionId?has_content>
-      <div class="head2">${uiLabelMap.CommonEdit} ${uiLabelMap.ProductConfigOptions}:</div>
+      <h2>${uiLabelMap.CommonEdit} ${uiLabelMap.ProductConfigOptions}:</h2>
       <a href="<@ofbizUrl>EditProductConfigOptions?configItemId=${requestParameters.configItemId}#edit</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonNew} ${uiLabelMap.ProductConfigOptions}]</a>
     <#else>
-      <div class="head2">${uiLabelMap.CommonCreateNew} ${uiLabelMap.ProductConfigOptions}</div>
+      <h2>${uiLabelMap.CommonCreateNew} ${uiLabelMap.ProductConfigOptions}</h2>
     </#if>
     ${sections.render("CreateConfigOptionForm")}
 
   <#if (configOption?has_content)>
     <br/>
     <hr class="sepbar">
-    <div class="head1">${uiLabelMap.ProductComponents} - <span class="head2">${uiLabelMap.CommonId}: ${configOption.configOptionId?if_exists} - ${configOption.description?if_exists}</div>
+    <h1>${uiLabelMap.ProductComponents} - <span class="head2">${uiLabelMap.CommonId}: ${configOption.configOptionId?if_exists} - ${configOption.description?if_exists}</h1>
     <table border="1" cellpadding='2' cellspacing='0'>
       <tr>
         <td><div class="tableheadtext">${uiLabelMap.CommonSequenceNum}</div></td>
@@ -81,9 +81,9 @@ under the License.
     </table>
 
     <#if !productConfigProduct?has_content>
-      <div class="head2">${uiLabelMap.CommonAddA} ${uiLabelMap.ProductConfigs}:</div>
+      <h2>${uiLabelMap.CommonAddA} ${uiLabelMap.ProductConfigs}:</h2>
     <#else>
-      <div class="head2">${uiLabelMap.CommonEdit} ${uiLabelMap.ProductConfigs}:</div>
+      <h2>${uiLabelMap.CommonEdit} ${uiLabelMap.ProductConfigs}:</h2>
       <a href="<@ofbizUrl>EditProductConfigOptions?configItemId=${requestParameters.configItemId}&configOptionId=${productConfigProduct.configOptionId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonNew} ${uiLabelMap.ProductConfigs}]</a>
     </#if>
     ${sections.render("CreateConfigProductForm")}

@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.ProductReceiveReturn} <span class='head2'>${uiLabelMap.CommonInto}&nbsp;<#if facility?has_content>"${facility.facilityName?default("Not Defined")}"</#if> [${uiLabelMap.CommonId}:${facility.facilityId?if_exists}]</span></div>
+<h1>${uiLabelMap.ProductReceiveReturn} <span class='head2'>${uiLabelMap.CommonInto}&nbsp;<#if facility?has_content>"${facility.facilityName?default("Not Defined")}"</#if> [${uiLabelMap.CommonId}:${facility.facilityId?if_exists}]</span></h1>
 <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductNewFacility}]</a>
 
 <div>&nbsp;</div>
@@ -73,7 +73,7 @@ under the License.
       <#else>
         <tr>
           <td>
-            <div class="head3">${uiLabelMap.ProductReceiveReturn} <a href="/ordermgr/control/returnMain?returnId=${returnHeader.returnId}${externalKeyParam?if_exists}" class="buttontext">#${returnHeader.returnId}</a></div>
+            <h3>${uiLabelMap.ProductReceiveReturn} <a href="/ordermgr/control/returnMain?returnId=${returnHeader.returnId}${externalKeyParam?if_exists}" class="buttontext">#${returnHeader.returnId}</a></h3>
           </td>
           <td align="right">
             <span class="tableheadtext">${uiLabelMap.ProductSelectAll}</span>&nbsp;
@@ -248,7 +248,7 @@ under the License.
     <input type="hidden" name="facilityId" value="${requestParameters.facilityId?if_exists}">
     <input type="hidden" name="initialSelected" value="Y">
     <table border='0' cellpadding='2' cellspacing='0'>
-      <tr><td colspan="4"><div class="head3">${uiLabelMap.ProductReceiveReturn}</div></td></tr>
+      <tr><td colspan="4"><h3>${uiLabelMap.ProductReceiveReturn}</h3></td></tr>
       <tr>        
         <td width="15%" align='right'><div class="tabletext">${uiLabelMap.ProductReturnNumber}</div></td>
         <td>&nbsp;</td>

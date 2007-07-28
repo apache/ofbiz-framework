@@ -111,7 +111,7 @@ under the License.
 <#-- survey ID -->
 <input type="hidden" name="surveyId" value="${survey.surveyId}"/>
 
-<div class="head1">${survey.description?if_exists}</div>
+<h1>${survey.description?if_exists}</h1>
 <br/>
 
 <#if survey.comments?has_content>

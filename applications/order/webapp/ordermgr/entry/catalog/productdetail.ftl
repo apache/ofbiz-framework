@@ -230,7 +230,7 @@ ${virtualJavaScript?if_exists}
       </#if>
     </td>
     <td align="right" valign="top">
-      <div class="head2">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</div>
+      <h2>${productContentWrapper.get("PRODUCT_NAME")?if_exists}</h2>
       <div class="tabletext">${productContentWrapper.get("DESCRIPTION")?if_exists}</div>
       <div class="tabletext"><b>${product.productId?if_exists}</b></div>
       <#-- example of showing a certain type of feature with the product -->
@@ -576,7 +576,7 @@ ${virtualJavaScript?if_exists}
     <#assign targetRequest = targetRequestName>
   </#if>
   <#if assocProducts?has_content>
-    <div class="head2">${beforeName?if_exists}<#if showName == "Y">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</#if>${afterName?if_exists}</div>
+    <h2>${beforeName?if_exists}<#if showName == "Y">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</#if>${afterName?if_exists}</h2>
 
     <div class="productsummary-container">
     <#list assocProducts as productAssoc>
@@ -619,7 +619,7 @@ ${setRequestAttribute("productValue", productValue)}
 
 <#-- special cross/up-sell area using commonFeatureResultIds (from common feature product search) -->
 <#if commonFeatureResultIds?has_content>
-    <div class="head2">${uiLabelMap.ProductSimilarProducts}</div>
+    <h2>${uiLabelMap.ProductSimilarProducts}</h2>
 
     <div class="productsummary-container">
         <#list commonFeatureResultIds as commonFeatureResultId>

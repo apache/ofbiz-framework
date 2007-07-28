@@ -37,7 +37,7 @@ under the License.
       <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
         <tr>
           <td>
-              <div class="head3">${uiLabelMap.WorkEffortAssignedTasks}</div>
+              <h3>${uiLabelMap.WorkEffortAssignedTasks}</h3>
               <table width="100%" cellpadding="2" cellspacing="0" border="0">
                 <tr>
                   <td><div class="tabletext"><b>${uiLabelMap.CommonStartDateTime}</b></div></td>
@@ -68,7 +68,7 @@ under the License.
           <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
             <tr>
               <td>
-                  <div class="head3">${uiLabelMap.WorkEffortWorkflowActivitiesUser}</div>
+                  <h3>${uiLabelMap.WorkEffortWorkflowActivitiesUser}</h3>
                   <table width="100%" cellpadding="2" cellspacing="0" border="0">
                     <tr>
                       <td><div class="tabletext"><b>${uiLabelMap.CommonStartDateTime}</b></div></td>
@@ -106,7 +106,7 @@ under the License.
           <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
             <tr>
               <td>
-                  <div class="head3">${uiLabelMap.WorkEffortWorkflowActivitiesUserRole}</div>
+                  <h3>${uiLabelMap.WorkEffortWorkflowActivitiesUserRole}</h3>
                   <table width="100%" cellpadding="2" cellspacing="0" border="0">
                     <tr>
                       <td><div class="tabletext"><b>${uiLabelMap.CommonStartDateTime}</b></div></td>
@@ -144,7 +144,7 @@ under the License.
           <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
             <tr>
               <td>
-                  <div class="head3">${uiLabelMap.WorkEffortWorkflowActivitiesUserGroup}</div>
+                  <h3>${uiLabelMap.WorkEffortWorkflowActivitiesUserGroup}</h3>
                   <table width="100%" cellpadding="2" cellspacing="0" border="0">
                     <tr>
                       <td><div class="tabletext"><b>${uiLabelMap.CommonStartDateTime}</b></div></td>
