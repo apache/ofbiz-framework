@@ -97,7 +97,7 @@ function submitForm(form, mode, value) {
               <tr><td colspan="2"><hr class="sepbar"/></td></tr>
               <tr>
                 <td colspan="2">
-                  <div class="head2"><b>${uiLabelMap.OrderShipAllAtOnce}?</b></div>
+                  <h2><b>${uiLabelMap.OrderShipAllAtOnce}?</b></h2>
                 </td>
               </tr>
               <tr>
@@ -119,7 +119,7 @@ function submitForm(form, mode, value) {
               <tr><td colspan="2"><hr class="sepbar"/></td></tr>
               <tr>
                 <td colspan="2">
-                  <div class="head2"><b>${uiLabelMap.OrderSpecialInstructions}</b></div>
+                  <h2><b>${uiLabelMap.OrderSpecialInstructions}</b></h2>
                 </td>
               </tr>
               <tr>
@@ -151,7 +151,7 @@ function submitForm(form, mode, value) {
               <tr><td colspan="2"><hr class="sepbar"/></td></tr>
               <tr>
                 <td colspan="2">
-                  <div class="head2"><b>${uiLabelMap.OrderGiftMessage}</b></div>
+                  <h2><b>${uiLabelMap.OrderGiftMessage}</b></h2>
                 </td>
               </tr>
               <tr>
@@ -165,7 +165,7 @@ function submitForm(form, mode, value) {
               <tr><td colspan="2"><hr class="sepbar"/></td></tr>
               <tr>
                 <td colspan="2">
-                  <div class="head2"><b>${uiLabelMap.PartyEmailAddresses}</b></div>
+                  <h2><b>${uiLabelMap.PartyEmailAddresses}</b></h2>
                 </td>
               </tr>
               <tr>

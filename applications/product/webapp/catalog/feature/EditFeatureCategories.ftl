@@ -17,12 +17,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.ProductProductFeatureCategories}</div>
+<h1>${uiLabelMap.ProductProductFeatureCategories}</h1>
 
 <br/>
 
 <form method="post" action="<@ofbizUrl>EditFeature</@ofbizUrl>" style="margin: 0;">
-  <div class="head2">${uiLabelMap.ProductEditFeatureId} :</div>
+  <h2>${uiLabelMap.ProductEditFeatureId} :</h2>
   <input type="text" class="inputBox" size="12" name="productFeatureId" value=""/>
   <input type="submit" value="${uiLabelMap.CommonEdit}"/>
 </form>

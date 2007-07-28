@@ -19,7 +19,7 @@ under the License.
     
 <hr class="sepbar"/>
 
-<div class="head2">${uiLabelMap.ProductOverrideSimpleFields}</div>
+<h2>${uiLabelMap.ProductOverrideSimpleFields}</h2>
 <form action="<@ofbizUrl>updateCategoryContent</@ofbizUrl>" method="post" style="margin: 0;" name="categoryForm">
 <table border="0" cellpadding="2" cellspacing="0">
 <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">

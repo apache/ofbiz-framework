@@ -551,12 +551,12 @@ document.lookuporder.orderId.focus();
           </#list>
         <#else>
           <tr>
-            <td colspan='4'><div class='head3'>${uiLabelMap.OrderNoOrderFound}</div></td>
+            <td colspan='4'><h3>${uiLabelMap.OrderNoOrderFound}</h3></td>
           </tr>
         </#if>
         <#if lookupErrorMessage?exists>
           <tr>
-            <td colspan='4'><div class="head3">${lookupErrorMessage}</div></td>
+            <td colspan='4'><h3>${lookupErrorMessage}</h3></td>
           </tr>
         </#if>
       </table>

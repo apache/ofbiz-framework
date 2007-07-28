@@ -60,7 +60,7 @@ under the License.
     <form method="post" action="<@ofbizUrl>addPartyToCategory</@ofbizUrl>" style="margin: 0;" name="addNewForm">
     <input type="hidden" name="productCategoryId" value="${productCategoryId}">
     
-    <div class="head2">${uiLabelMap.ProductAssociatePartyToCategory}:</div>
+    <h2>${uiLabelMap.ProductAssociatePartyToCategory}:</h2>
     <br/>
     <input type="text" class="inputBox" size="20" maxlength="20" name="partyId" value="">
     <select name="roleTypeId" size="1" class="selectBox">

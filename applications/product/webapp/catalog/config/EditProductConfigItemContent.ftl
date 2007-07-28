@@ -26,7 +26,7 @@ function insertImageName(size,nameValue) {
 </script>
 
 <#if fileType?has_content>
-    <div class='head3'>${uiLabelMap.ProductResultOfImageUpload}</div>
+    <h3>${uiLabelMap.ProductResultOfImageUpload}</h3>
     <#if !(clientFileName?has_content)>
         <div class='tabletext'>${uiLabelMap.ProductNoFileSpecifiedForUpload}.</div>
     <#else>
@@ -62,18 +62,18 @@ function insertImageName(size,nameValue) {
          </tr>
     </#list>
     </table>
-    <div class="head2">${uiLabelMap.ProductCreateNewProductConfigItemContent}</div>
+    <h2>${uiLabelMap.ProductCreateNewProductConfigItemContent}</h2>
     <#if configItemId?has_content && configItem?has_content>
         ${prepareAddProductContentWrapper.renderFormString(context)}
     </#if>
-    <div class="head2">${uiLabelMap.ProductAddContentProductConfigItem}</div>
+    <h2>${uiLabelMap.ProductAddContentProductConfigItem}</h2>
     <#if configItemId?has_content && configItem?has_content>
         ${addProductContentWrapper.renderFormString(context)}
     </#if>
 
     <hr class="sepbar"/>
     
-    <div class="head2">${uiLabelMap.ProductOverrideSimpleFields}</div>
+    <h2>${uiLabelMap.ProductOverrideSimpleFields}</h2>
     <form action="<@ofbizUrl>updateProductConfigItemContent</@ofbizUrl>" method="post" style="margin: 0;" name="productForm">
     <table border="0" cellpadding="2" cellspacing="0">
     <input type="hidden" name="configItemId" value="${configItemId?if_exists}">
@@ -121,7 +121,7 @@ function insertImageName(size,nameValue) {
 
     <hr class="sepbar"/>
 
-    <div class="head3">${uiLabelMap.ProductUploadImage}</div>
+    <h3>${uiLabelMap.ProductUploadImage}</h3>
     <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadProductConfigItemImage?configItemId=${configItemId}&upload_file_type=small</@ofbizUrl>" name="imageUploadForm">
         <input type="file" class="inputBox" size="50" name="fname">
         <input type="submit" class="smallSubmit" value="${uiLabelMap.ProductUploadImage}">

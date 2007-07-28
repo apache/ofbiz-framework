@@ -353,7 +353,7 @@ under the License.
 
         <br/>
 
-        <div class="head3">${uiLabelMap.ProductAddPromoRule}:</div>
+        <h3>${uiLabelMap.ProductAddPromoRule}:</h3>
         <div class="tabletext">
             <form method="post" action="<@ofbizUrl>createProductPromoRule</@ofbizUrl>" style="margin: 0;">
                 <input type="hidden" name="productPromoId" value="${productPromoId?if_exists}">
@@ -365,7 +365,7 @@ under the License.
         <br/>
 
         <#-- ======================= Categories ======================== -->
-        <div class="head3">${uiLabelMap.ProductPromotion} ${uiLabelMap.ProductCategories}:</div>
+        <h3>${uiLabelMap.ProductPromotion} ${uiLabelMap.ProductCategories}:</h3>
         <#list promoProductPromoCategories as promoProductPromoCategory>
             <#assign promoProductCategory = promoProductPromoCategory.getRelatedOneCache("ProductCategory")>
             <#assign promoApplEnumeration = promoProductPromoCategory.getRelatedOneCache("ApplEnumeration")>
@@ -401,7 +401,7 @@ under the License.
         </div>
         <br/>
         <#-- ======================= Products ======================== -->
-        <div class="head3">${uiLabelMap.ProductPromotionProducts} :</div>
+        <h3>${uiLabelMap.ProductPromotionProducts} :</h3>
         <#list promoProductPromoProducts as promoProductPromoProduct>
             <#assign promoProduct = promoProductPromoProduct.getRelatedOneCache("Product")?if_exists>
             <#assign promoApplEnumeration = promoProductPromoProduct.getRelatedOneCache("ApplEnumeration")>

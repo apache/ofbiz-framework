@@ -21,7 +21,7 @@ ${pages.get("/entry/OrderEntryTabBar.ftl")}
 <#if productCategory?has_content>
   ${pages.get(detailTemplate)}
 <#else>  
-  <center><div class='head2'>${uiLabelMap.ProductCategoryNotFoundforCategoryID} ${requestParameters.category_id?if_exists}!</div></center>
+  <center><h2>${uiLabelMap.ProductCategoryNotFoundforCategoryID} ${requestParameters.category_id?if_exists}!</h2></center>
 </#if>
 
 

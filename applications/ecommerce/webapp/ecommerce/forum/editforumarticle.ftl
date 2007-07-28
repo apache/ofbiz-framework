@@ -23,8 +23,8 @@ under the License.
 <table width='100%' cellpadding='0' cellspacing='0' border='0'>
   <tr>
     <td align="left">
-      <div class="head1">${contentIdTo?if_exists}
-      </div>
+      <h1>${contentIdTo?if_exists}
+      </h1>
     </td>
     <td align="right">
     </td>

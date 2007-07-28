@@ -22,7 +22,7 @@ under the License.
     <#if productPromoCode.requireEmailOrParty?if_exists == "N">
         <div class="tableheadtext">${uiLabelMap.ProductNoteRequireEmailParty}</div>
     </#if>
-    <div class="head3">${uiLabelMap.ProductPromoCodeEmails}</div>
+    <h3>${uiLabelMap.ProductPromoCodeEmails}</h3>
     <#list productPromoCodeEmails as productPromoCodeEmail>
         <div class="tabletext"><a href="<@ofbizUrl>deleteProductPromoCodeEmail?productPromoCodeId=${productPromoCodeEmail.productPromoCodeId}&emailAddress=${productPromoCodeEmail.emailAddress}</@ofbizUrl>" class="buttontext">[X]</a>&nbsp;${productPromoCodeEmail.emailAddress}</div>
     </#list>
@@ -34,7 +34,7 @@ under the License.
         </form>
     </div>
 
-    <div class="head3">${uiLabelMap.ProductPromoCodeParties}</div>
+    <h3>${uiLabelMap.ProductPromoCodeParties}</h3>
     <#list productPromoCodeParties as productPromoCodeParty>
         <div class="tabletext"><a href="<@ofbizUrl>deleteProductPromoCodeParty?productPromoCodeId=${productPromoCodeParty.productPromoCodeId}&partyId=${productPromoCodeParty.partyId}</@ofbizUrl>" class="buttontext">[X]</a>&nbsp;${productPromoCodeParty.partyId}</div>
     </#list>

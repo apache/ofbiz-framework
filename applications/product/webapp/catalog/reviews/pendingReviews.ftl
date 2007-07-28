@@ -17,11 +17,11 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.ProductReviewsPendingApproval}</div>
+<h1>${uiLabelMap.ProductReviewsPendingApproval}</h1>
 <br/>
 
 <#if !pendingReviews?has_content>
-  <div class="head3">${uiLabelMap.CommonNo} ${uiLabelMap.ProductReviewsPendingApproval}</div>
+  <h3>${uiLabelMap.CommonNo} ${uiLabelMap.ProductReviewsPendingApproval}</h3>
 </#if>
 
 <#list pendingReviews as review>

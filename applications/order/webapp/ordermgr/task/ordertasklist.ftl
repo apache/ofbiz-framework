@@ -62,7 +62,7 @@ under the License.
               <table width='100%' border='0' cellpadding='0' cellspacing='0' class='boxbottom'>
                 <tr>
                   <td>
-                    <div class='head3'>${uiLabelMap.OrderOrderPurchaseToBeScheduled}</div>
+                    <h3>${uiLabelMap.OrderOrderPurchaseToBeScheduled}</h3>
                     <table width='100%' cellpadding='2' cellspacing='0' border='0'>
                       <tr>
                         <td><div class="tableheadtext">${uiLabelMap.OrderOrderNumber}</div></td>
@@ -125,7 +125,7 @@ under the License.
               <table width='100%' border='0' cellpadding='0' cellspacing='0' class='boxbottom'>
                 <tr>
                   <td>
-                    <div class='head3'>${uiLabelMap.OrderWorkflow}</div>
+                    <h3>${uiLabelMap.OrderWorkflow}</h3>
                     <table width='100%' cellpadding='2' cellspacing='0' border='0'>
                       <tr>
                         <td><a href="<@ofbizUrl>tasklist?sort=orderId</@ofbizUrl>" class="tableheadbutton">${uiLabelMap.OrderOrderNumber}</a></td>
@@ -189,7 +189,7 @@ under the License.
               <table width='100%' border='0' cellpadding='0' cellspacing='0' class='boxbottom'>
                 <tr>
                   <td>
-                    <div class='head3'>${uiLabelMap.CommonWorkflowActivityUserRole}</div>
+                    <h3>${uiLabelMap.CommonWorkflowActivityUserRole}</h3>
                     <table width='100%' cellpadding='2' cellspacing='0' border='0'>
                       <tr>
                         <td><a href="<@ofbizUrl>tasklist?sort=orderId</@ofbizUrl>" class="tableheadbutton">${uiLabelMap.OrderOrderNumber}</a></td>

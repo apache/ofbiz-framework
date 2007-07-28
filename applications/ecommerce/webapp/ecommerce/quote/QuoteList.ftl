@@ -81,7 +81,7 @@ under the License.
                 </tr>
             </#list>
             <#if !quoteList?has_content>
-                <tr><td colspan="9"><div class="head3">${uiLabelMap.OrderNoQuoteFound}</div></td></tr>
+                <tr><td colspan="9"><h3>${uiLabelMap.OrderNoQuoteFound}</h3></td></tr>
             </#if>
         </table>
     </div>

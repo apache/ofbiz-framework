@@ -20,11 +20,11 @@ under the License.
 <#import "/includes/bloglib.ftl" as blog/>
 
 <div class="screenlet" >
-<div class="head1">&nbsp;&nbsp;&nbsp;&nbsp;${uiLabelMap.EcommerceFromSite}:</div><br/>
+<h1>&nbsp;&nbsp;&nbsp;&nbsp;${uiLabelMap.EcommerceFromSite}:</h1><br/>
 <div style="margin:10px;" >
 <@renderSiteAncestryPath trail=siteAncestorList?default([])/>
 <#if trailList?exists && 1 < trailList?size >
-<div class="head1">&nbsp;&nbsp;${uiLabelMap.EcommerceFromParentArticle}:</div><br/>
+<h1>&nbsp;&nbsp;${uiLabelMap.EcommerceFromParentArticle}:</h1><br/>
 </#if>
 <#if trailList?has_content>
     <@blog.renderAncestryPath trail=trailList startIndex=1 endIndexOffset=1 />
@@ -33,7 +33,7 @@ under the License.
         <#assign pair0 = pair[0]?if_exists>
         <#assign pair1 = pair[1]?if_exists>
         <hr/>
-        <div class="head1">${uiLabelMap.EcommerceContentFor} ${pair1?if_exists}[${pair0?if_exists}]:</div><br/>
+        <h1>${uiLabelMap.EcommerceContentFor} ${pair1?if_exists}[${pair0?if_exists}]:</h1><br/>
     </#if>
 <#else>
 </#if>
@@ -71,7 +71,7 @@ under the License.
      It is not convenient to have the traverseSubContent check or recheck the first node
      because the associated ContentAssoc entity is not known.
 -->
-        <div class="head1">${uiLabelMap.EcommerceResponses}</div><br/>
+        <h1>${uiLabelMap.EcommerceResponses}</h1><br/>
 <@loopSubContentCache  contentAssocTypeId="RESPONSE" subContentId=subContentId mapKey=""
                 pickWhen="contentAssocTypeId != null && contentAssocTypeId.equals(\"RESPONSE\") && mapKey == null"
                 followWhen="contentAssocTypeId != null && contentAssocTypeId.equals(\"RESPONSE\")"

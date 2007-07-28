@@ -119,7 +119,7 @@ under the License.
   <#if surveyQuestionCategory?has_content>
     <hr class="sepbar">
     <a name="appl">
-    <div class="head1">${uiLabelMap.SurveyApplyQuestionFromCategory} - <span class="head2">${surveyQuestionCategory.description?if_exists} [${surveyQuestionCategory.surveyQuestionCategoryId}]</div>
+    <h1>${uiLabelMap.SurveyApplyQuestionFromCategory} - <span class="head2">${surveyQuestionCategory.description?if_exists} [${surveyQuestionCategory.surveyQuestionCategoryId}]</h1>
     <br/><br/>
     <table border="1" cellpadding='2' cellspacing='0'>
       <tr>
@@ -183,7 +183,7 @@ under the License.
   </#if>
 
   <hr class="sepbar">
-  <div class="head2">${uiLabelMap.SurveyApplyQuestionFromCategory}</div>
+  <h2>${uiLabelMap.SurveyApplyQuestionFromCategory}</h2>
   <br/>
   <form method="post" action="<@ofbizUrl>EditSurveyQuestions</@ofbizUrl>">
     <input type="hidden" name="surveyId" value="${requestParameters.surveyId}"/>
@@ -201,16 +201,16 @@ under the License.
   <a name="edit">
   <#-- new question / category -->
   <#if requestParameters.newCategory?default("N") == "Y">
-    <div class="head2">${uiLabelMap.SurveyCreateQuestionCategory}</div>
+    <h2>${uiLabelMap.SurveyCreateQuestionCategory}</h2>
     <a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNew} ${uiLabelMap.SurveyQuestion}</a>
     <br/><br/>
     ${createSurveyQuestionCategoryWrapper.renderFormString(context)}
   <#else>
     <#if surveyQuestionId?has_content>
-      <div class="head2">${uiLabelMap.CommonEdit} ${uiLabelMap.SurveyQuestion}:</div>
+      <h2>${uiLabelMap.CommonEdit} ${uiLabelMap.SurveyQuestion}:</h2>
       <a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNew} ${uiLabelMap.SurveyQuestion}</a>
     <#else>
-      <div class="head2">${uiLabelMap.SurveyCreateQuestion}</div>
+      <h2>${uiLabelMap.SurveyCreateQuestion}</h2>
     </#if>
     <a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}&newCategory=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNew} ${uiLabelMap.SurveyQuestion} ${uiLabelMap.SurveryCategory}</a>
     <br/><br/>
@@ -221,7 +221,7 @@ under the License.
     <br/>
     <hr class="sepbar">
     <br/>
-    <div class="head1">${uiLabelMap.SurveyOptions} - <span class="head2">${uiLabelMap.CommonId}: ${surveyQuestion.surveyQuestionId?if_exists}</div>
+    <h1>${uiLabelMap.SurveyOptions} - <span class="head2">${uiLabelMap.CommonId}: ${surveyQuestion.surveyQuestionId?if_exists}</h1>
     <br/><br/>
     <table border="1" cellpadding='2' cellspacing='0'>
       <tr>
@@ -242,9 +242,9 @@ under the License.
     </table>
     <br/>
     <#if !surveyQuestionOption?has_content>
-      <div class="head2">${uiLabelMap.SurveyCreateQuestionOption}:</div>
+      <h2>${uiLabelMap.SurveyCreateQuestionOption}:</h2>
     <#else>
-      <div class="head2">${uiLabelMap.SurveyEditQuestionOption}:</div>
+      <h2>${uiLabelMap.SurveyEditQuestionOption}:</h2>
       <a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}&surveyQuestionId=${surveyQuestionOption.surveyQuestionId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonNew} ${uiLabelMap.SurveyOption}]</a>
     </#if>
     ${createSurveyOptionWrapper.renderFormString()}

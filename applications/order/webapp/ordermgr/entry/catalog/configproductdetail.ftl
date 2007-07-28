@@ -170,7 +170,7 @@ ${virtualJavaScript?if_exists}
       </#if>
     </td>
     <td align="right" valign="top">
-      <div class="head2">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</div>
+      <h2>${productContentWrapper.get("PRODUCT_NAME")?if_exists}</h2>
       <div class="tabletext">${productContentWrapper.get("DESCRIPTION")?if_exists}</div>
       <div class="tabletext"><b>${product.productId?if_exists}</b></div>
       <#-- example of showing a certain type of feature with the product -->
@@ -601,7 +601,7 @@ ${virtualJavaScript?if_exists}
   </#if>
   <#if assocProducts?has_content>
     <tr><td>&nbsp;</td></tr>
-    <tr><td colspan="2"><div class="head2">${beforeName?if_exists}<#if showName == "Y">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</#if>${afterName?if_exists}</div></td></tr>
+    <tr><td colspan="2"><h2>${beforeName?if_exists}<#if showName == "Y">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</#if>${afterName?if_exists}</h2></td></tr>
     <tr><td><hr class="sepbar"/></td></tr>
     <#list assocProducts as productAssoc>
       <tr><td>
@@ -648,7 +648,7 @@ ${setRequestAttribute("productValue", productValue)}
 
 <#-- special cross/up-sell area using commonFeatureResultIds (from common feature product search) -->
 <#if commonFeatureResultIds?has_content>
-  <div class="head2">Similar Products That Might Interest You...</div>
+  <h2>Similar Products That Might Interest You...</h2>
   <hr class="sepbar"/>
 
   <#list commonFeatureResultIds as commonFeatureResultId>

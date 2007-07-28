@@ -163,7 +163,7 @@ under the License.
                 </#if>
             </#list>
         <#else/>
-            <div class="head3">${uiLabelMap.ProductNoPicksStarted}.</div>
+            <h3>${uiLabelMap.ProductNoPicksStarted}.</h3>
         </#if>
     </div>
 </div>

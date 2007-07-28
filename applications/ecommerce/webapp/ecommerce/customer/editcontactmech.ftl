@@ -45,7 +45,7 @@ under the License.
 
   <#if contactMechTypeId?exists>
     <#if !contactMech?exists>
-      <div class="head1">${uiLabelMap.PartyCreateNewContactInfo}</div>
+      <h1>${uiLabelMap.PartyCreateNewContactInfo}</h1>
       &nbsp;<a href='<@ofbizUrl>authview/${donePage}</@ofbizUrl>' class="buttontext">${uiLabelMap.CommonGoBack}</a>
       &nbsp;<a href="javascript:document.editcontactmechform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
       <table width="90%" border="0" cellpadding="2" cellspacing="0">

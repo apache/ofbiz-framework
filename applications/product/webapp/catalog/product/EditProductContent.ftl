@@ -26,7 +26,7 @@ function insertImageName(type,nameValue) {
 </script>
 
 <#if fileType?has_content>
-    <div class='head3'>${uiLabelMap.ProductResultOfImageUpload}</div>
+    <h3>${uiLabelMap.ProductResultOfImageUpload}</h3>
     <#if !(clientFileName?has_content)>
         <div class='tabletext'>${uiLabelMap.ProductNoFileSpecifiedForUpload}.</div>
     <#else>
@@ -75,18 +75,18 @@ function insertImageName(type,nameValue) {
          </tr>
     </#list>
     </table>
-    <div class="head2">${uiLabelMap.ProductCreateNewProductContent}</div>
+    <h2>${uiLabelMap.ProductCreateNewProductContent}</h2>
     <#if productId?has_content && product?has_content>
         ${sections.render("PrepareAddProductContentAssoc")}
     </#if>
-    <div class="head2">${uiLabelMap.ProductAddContentProduct}</div>
+    <h2>${uiLabelMap.ProductAddContentProduct}</h2>
     <#if productId?has_content && product?has_content>
         ${sections.render("AddProductContentAssoc")}
     </#if>
 
     <hr class="sepbar"/>
     
-    <div class="head2">${uiLabelMap.ProductOverrideSimpleFields}</div>
+    <h2>${uiLabelMap.ProductOverrideSimpleFields}</h2>
     <form action="<@ofbizUrl>updateProductContent</@ofbizUrl>" method="post" style="margin: 0;" name="productForm">
     <table border="0" cellpadding="2" cellspacing="0">
     <input type="hidden" name="productId" value="${productId?if_exists}">
@@ -215,7 +215,7 @@ function insertImageName(type,nameValue) {
         eval(toExec);
         };
     </script>
-    <div class="head3">${uiLabelMap.ProductUploadImage}</div>
+    <h3>${uiLabelMap.ProductUploadImage}</h3>
     <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=small</@ofbizUrl>" name="imageUploadForm">
         <input type="file" class="inputBox" size="50" name="fname">
         <br/>

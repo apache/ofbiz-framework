@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head2">Work List</div>
+<h2>Work List</h2>
 <#if assignments?has_content>
   <div>&nbsp;</div>
 

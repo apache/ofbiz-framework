@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<div class="head1">${uiLabelMap.ProductAdvancedSearch}</div>
+<h1>${uiLabelMap.ProductAdvancedSearch}</h1>
 <br/>
 <form name="advToKeyWordSearchForm" method="post" action="<@ofbizUrl>WorkEffortSearchResults</@ofbizUrl>" style="margin: 0;">
   <input type="hidden" name="VIEW_SIZE" value="25"/>

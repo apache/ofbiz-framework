@@ -106,7 +106,7 @@ under the License.
                     </td>
                 </tr>
             <#else>
-                <tr><td colspan="4"><div class="head3">${uiLabelMap.ProductNoOrdersFoundReadyToPickOrNeedStockMoves}.</div></td></tr>
+                <tr><td colspan="4"><h3>${uiLabelMap.ProductNoOrdersFoundReadyToPickOrNeedStockMoves}.</h3></td></tr>
             </#if>
         </table>
     </div>

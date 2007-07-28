@@ -27,7 +27,7 @@ under the License.
 <body>
 
 <#-- custom logo or text can be inserted here -->
-<div class="head1">${title}</div>
+<h1>${title}</h1>
 <#if note?exists><p class="tabletext">${note}</p></#if>
 
 <p class="tabletext">Hello ${partyName.firstName?if_exists} ${partyName.lastName?if_exists} ${partyName.groupName?if_exists}!</p>

@@ -22,7 +22,7 @@ under the License.
   <#else>
     <#assign title = uiLabelMap.PartyActive>
   </#if>
-  <h1>${title}&nbsp;${uiLabelMap.PartyVisitListing}</h1>
+  <div class="head1">${title}&nbsp;${uiLabelMap.PartyVisitListing}</div>
   <#if !partyId?exists && showAll?lower_case == "true">
     <a href="<@ofbizUrl>showvisits?showAll=false</@ofbizUrl>" class="smallSubmit">[${uiLabelMap.PartyShowActive}]</a>
   <#elseif !partyId?exists>

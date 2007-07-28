@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.ProductProductCatalogsList}</div>
+<h1>${uiLabelMap.ProductProductCatalogsList}</h1>
 <div><a href="<@ofbizUrl>EditProdCatalog</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductCreateNewProdCatalog}]</a></div>
 <br/>
 <table border="1" cellpadding="2" cellspacing="0">

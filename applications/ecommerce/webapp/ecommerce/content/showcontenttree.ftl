@@ -23,9 +23,9 @@ under the License.
  
 <#if ancestorList?has_content && (0 < ancestorList?size) >
     <#assign lastContent=ancestorList?last />
-    <div class="head1">[${lastContent.contentId}] ${lastContent.description}
+    <h1>[${lastContent.contentId}] ${lastContent.description}
               <a class="tabButton" href="<@ofbizUrl>searchContent?siteId=${lastContent.contentId?if_exists}</@ofbizUrl>" >${uiLabelMap.CommonSearch}</a> 
-    </div>
+    </h1>
 </#if>
 <table border="0">
 <#assign viewIdx = "" />

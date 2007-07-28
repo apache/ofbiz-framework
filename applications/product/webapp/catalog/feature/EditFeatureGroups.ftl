@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.ProductFeatureGroup}</div>
+<h1>${uiLabelMap.ProductFeatureGroup}</h1>
 
 <br/>
 <table border="1" cellpadding='2' cellspacing='0'>
@@ -43,7 +43,7 @@ under the License.
 <br/>
 
 <form method="post" action="<@ofbizUrl>CreateProductFeatureGroup</@ofbizUrl>" style='margin: 0;'>
-  <div class='head2'>${uiLabelMap.ProductCreateProductFeatureGroup}:</div>
+  <h2>${uiLabelMap.ProductCreateProductFeatureGroup}:</h2>
   <br/>
   <table>
     <tr>

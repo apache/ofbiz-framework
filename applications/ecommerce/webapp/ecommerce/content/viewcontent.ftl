@@ -35,7 +35,7 @@ under the License.
 </#if>
 
 <#if lastContent?has_content>
-    <div class="head1">[${lastContent.contentId}] ${lastContent.description}</div>
+    <h1>[${lastContent.contentId}] ${lastContent.description}</h1>
 </#if>
 <#--
 <#assign globalNodeTrail=[]/>
@@ -58,7 +58,7 @@ under the License.
 </#if>
 <#assign dummy=Static["org.ofbiz.base.util.Debug"].logInfo("in viewcontent, subContent:" + subContent, "")/>
 <br/>
-<div class="head1">${uiLabelMap.EcommerceContentFor} [${subContentId}] ${subContent.contentName?if_exists} - ${subContent.description?if_exists}:</div><br/>
+<h1>${uiLabelMap.EcommerceContentFor} [${subContentId}] ${subContent.contentName?if_exists} - ${subContent.description?if_exists}:</h1><br/>
 <table border="0" class="blogtext">
     <tr>
     <td width="40">&nbsp;</td>

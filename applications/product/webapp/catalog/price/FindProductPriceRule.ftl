@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.ProductGlobalPriceRules}</div>
+<h1>${uiLabelMap.ProductGlobalPriceRules}</h1>
 <#if activeOnly>
     <a href="<@ofbizUrl>FindProductPriceRules?activeOnly=false</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductActiveAndInactive}]</a>
 <#else>
@@ -64,7 +64,7 @@ under the License.
 
 <br/>
 <form method="post" action="<@ofbizUrl>createProductPriceRule</@ofbizUrl>" style="margin: 0;">
-  <div class="head2">${uiLabelMap.ProductAddPriceRule}:</div>
+  <h2>${uiLabelMap.ProductAddPriceRule}:</h2>
   <br/>
   ${uiLabelMap.ProductName}: <input type="text" size="30" class="inputBox" name="ruleName"/>
   <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonAdd}"/>

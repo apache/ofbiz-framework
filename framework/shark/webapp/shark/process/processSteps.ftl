@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head2">Process Steps</div>
+<h2>Process Steps</h2>
 <#if steps?has_content>
   <div>&nbsp;</div>
   <div class="tabletext"><b>Process :</b> ${process.name()} - ${process.description()?default("N/A")} [${process.key()}]</div>

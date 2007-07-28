@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head2">Process Detail List</div>
+<h2>Process Detail List</h2>
 <#if processes?has_content>
   <#assign proc1 = processes[0]>
   <div>&nbsp;</div>

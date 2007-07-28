@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head2">Process History</div>
+<h2>Process History</h2>
 <#if historyList?has_content>
   <div>&nbsp;</div>
   <div class="tabletext"><b>Process :</b> ${process.name()} - ${process.description()?default("N/A")} [${process.key()}]</div>

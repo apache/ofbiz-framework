@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<div class="head1">${uiLabelMap.ProductProductPromotionsList}</div>
+<h1>${uiLabelMap.ProductProductPromotionsList}</h1>
 <div class="tabletext">
     <a href="<@ofbizUrl>EditProductPromo</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductCreateNewProductPromo}]</a>
     <#if manualOnly?if_exists == "Y">

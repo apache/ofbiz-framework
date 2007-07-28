@@ -18,7 +18,7 @@ under the License.
 -->
 
 <form method="post" action="<@ofbizUrl>/CreateFeatureCategory</@ofbizUrl>" style="margin: 0;">
-  <div class="head2">${uiLabelMap.ProductCreateAProductFeatureCategory}:</div>
+  <h2>${uiLabelMap.ProductCreateAProductFeatureCategory}:</h2>
   <br/>
   <table>
     <tr>

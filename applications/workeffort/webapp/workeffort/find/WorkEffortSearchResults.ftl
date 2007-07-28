@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.WorkEffortSearchWorkEfforts}, <span class="head2">${uiLabelMap.ProductSearchFor}:</span></div>
+<h1>${uiLabelMap.WorkEffortSearchWorkEfforts}, <span class="head2">${uiLabelMap.ProductSearchFor}:</span></h1>
 <#list searchConstraintStrings as searchConstraintString>
     <div class="tabletext">&nbsp;<a href="<@ofbizUrl>WorkEffortSearchResults?removeConstraint=${searchConstraintString_index}&clearSearch=N</@ofbizUrl>" class="buttontext">X</a>&nbsp;${searchConstraintString}</div>
 </#list>
@@ -25,7 +25,7 @@ under the License.
 <div class="tabletext"><a href="<@ofbizUrl>WorkEffortSearchOptions</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefine} ${uiLabelMap.CommonSearch}</a></div>
 
 <#if !workEffortIds?has_content>
-  <br/><div class="head2">&nbsp;${uiLabelMap.ProductNoResultsFound}.</div>
+  <br/><h2>&nbsp;${uiLabelMap.ProductNoResultsFound}.</h2>
 </#if>
 
 <#if workEffortIds?has_content>

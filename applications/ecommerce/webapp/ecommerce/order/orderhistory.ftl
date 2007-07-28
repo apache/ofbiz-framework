@@ -73,7 +73,7 @@ under the License.
             </tr>
           </#list>
           <#if !orderHeaderList?has_content>
-            <tr><td colspan="9"><div class="head3">${uiLabelMap.OrderNoOrderFound}</div></td></tr>
+            <tr><td colspan="9"><h3>${uiLabelMap.OrderNoOrderFound}</h3></td></tr>
           </#if>
         </table>
     </div>
@@ -186,7 +186,7 @@ under the License.
             </tr>
           </#list>
           <#if !downloadOrderRoleAndProductContentInfoList?has_content>
-            <tr><td colspan="9"><div class="head3">${uiLabelMap.EcommerceDownloadNotFound}</div></td></tr>
+            <tr><td colspan="9"><h3>${uiLabelMap.EcommerceDownloadNotFound}</h3></td></tr>
           </#if>
         </table>
     </div>

@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head2">XPDL Repository</div>
+<h2>XPDL Repository</h2>
 <#if packages?has_content>
   <div>&nbsp;</div>
   <div class="tabletext">XPDL packages loaded into the repository.</div>
@@ -54,7 +54,7 @@ under the License.
 </#if>
 
 <br/>
-<div class="head2">Upload XPDL</div>
+<h2>Upload XPDL</h2>
 <div>&nbsp;</div>
 <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>repository?upload=xpdl</@ofbizUrl>" name="xpdlUploadForm">
   <input type="file" class="inputBox" size="50" name="fname">

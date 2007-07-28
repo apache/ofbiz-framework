@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<div class="head1">${uiLabelMap.ProductGlobalPriceRule}</div>
+<h1>${uiLabelMap.ProductGlobalPriceRule}</h1>
 <a href="<@ofbizUrl>FindProductPriceRules</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductFindRule}]</a>
 
 <br/>

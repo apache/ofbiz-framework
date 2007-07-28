@@ -18,12 +18,12 @@ under the License.
 -->
 
 <hr/>
-<div class="head1">${uiLabelMap.ProductSupplierSpecificFeatureInformation}</div>
+<h1>${uiLabelMap.ProductSupplierSpecificFeatureInformation}</h1>
 <#if editSupplierFeaturesForm?has_content>
 ${editSupplierFeaturesForm.renderFormString()}
 </#if>
 <br/>
-<div class="head2">${uiLabelMap.ProductCreateInformationNewSupplier}</div>
+<h2>${uiLabelMap.ProductCreateInformationNewSupplier}</h2>
 <#if createSupplierFeatureForm?has_content>
 ${createSupplierFeatureForm.renderFormString()}
 </#if>

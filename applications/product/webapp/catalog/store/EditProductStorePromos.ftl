@@ -27,11 +27,11 @@ under the License.
     <a href="<@ofbizUrl>EditProductStorePromos?productStoreId=${productStoreId}&activeOnly=${activeOnly?string}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonUserEnteredOnly}]</a>
   </#if>
   <br/>
-  <div class="head3">${uiLabelMap.CommonShow}
+  <h3>${uiLabelMap.CommonShow}
     <#if activeOnly>${uiLabelMap.CommonActiveOnly}<#else>${uiLabelMap.CommonActiveInactive}</#if>
     ${uiLabelMap.CommonAnd}
     <#if userEntered>${uiLabelMap.CommonUserEnteredOnly}<#else>${uiLabelMap.CommonUserAutoEntered}</#if>
-  </div>
+  </h3>
 
     <#if productStoreId?exists && productStore?exists>
         <#if (listSize > 0)>
@@ -116,7 +116,7 @@ under the License.
         <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}"/>
         <input type="hidden" name="tryEntity" value="true"/>
         
-        <div class="head2">${uiLabelMap.ProductAddStorePromoOptionalDate}:</div>
+        <h2>${uiLabelMap.ProductAddStorePromoOptionalDate}:</h2>
         <br/>
         <select name="productPromoId" class="selectBox">
         <#list productPromos as productPromo>

@@ -27,5 +27,5 @@ under the License.
     ${surveyString}
   </form>
 <#else>
-  <div class="head1">Problem rendering the survey.</div>
+  <h1>Problem rendering the survey.</h1>
 </#if>

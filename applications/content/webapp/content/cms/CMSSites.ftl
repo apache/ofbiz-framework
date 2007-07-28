@@ -85,7 +85,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
     <TD width='100%'>
       <TABLE border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
          <tr><td><hr/></td></tr>
-         <tr><td align="center"><div class="head1">Unapproved entries for forum Id:${requestParameters.moderatedSiteId}</div></td></tr>
+         <tr><td align="center"><h1>Unapproved entries for forum Id:${requestParameters.moderatedSiteId}</h1></td></tr>
          <tr><td><hr/></td></tr>
          <@moderateSite rootForumId=rootForumId forumId=requestParameters.moderatedSiteId />
       </TABLE>
@@ -97,7 +97,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
     <TD width='100%'>
       <TABLE border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
          <tr><td><hr/></td></tr>
-         <tr><td align="center"><div class="head1">Associated roles for forum Id:${requestParameters.permRoleSiteId}</div></td></tr>
+         <tr><td align="center"><h1>Associated roles for forum Id:${requestParameters.permRoleSiteId}</h1></td></tr>
          <tr><td><hr/></td></tr>
          <@grantSiteRoles rootForumId=rootForumId forumId=requestParameters.permRoleSiteId/>
       </TABLE>
