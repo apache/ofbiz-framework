@@ -1735,6 +1735,51 @@ width: 20%;
 width: auto;
 }
 
+/* Pager */
+
+.nav-pager {
+height: 2em;
+padding-bottom: 0.7em;
+padding-top: 0.4em;
+}
+
+.nav-pager ul {
+display: inline; /* IE Fix */
+}
+
+.nav-pager ul li {
+background-color: #ffffff;
+float:left;
+font-weight: bold;
+line-height: 1.8em;
+margin: 0.2em;
+}
+
+.nav-pager ul li a {
+display: block;
+}
+
+.nav-pager ul .nav-first,
+.nav-pager ul .nav-previous,
+.nav-pager ul .nav-next,
+.nav-pager ul .nav-last {
+border: #999999 solid 0.1em;
+padding: 0 1em 0 1em;
+}
+
+.nav-pager ul .nav-first-disabled,
+.nav-pager ul .nav-previous-disabled,
+.nav-pager ul .nav-next-disabled,
+.nav-pager ul .nav-last-disabled {
+border: #999999 solid 0.1em;
+color: #333333;
+padding: 0 0.5em 0 0.5em;
+}
+
+.nav-pager select {
+margin: 0;
+}
+
 /* ================================= */
 /* ===== Visual Embellishments ===== */
 /* ================================= */
