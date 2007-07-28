@@ -243,6 +243,22 @@ public class CheckOutHelper {
                 Double billingAccountAmt = (Double)selectedPaymentMethods.get("EXT_BILLACT");
                 // set cart billing account data and generate a payment method containing the amount we will be charging
                 cart.setBillingAccount(billingAccountId, (billingAccountAmt != null? billingAccountAmt.doubleValue(): 0.0));
+                // copy the billing account terms as order terms
+                try {
+                    List billingAccountTerms = delegator.findByAnd("BillingAccountTerm", UtilMisc.toMap("billingAccountId", billingAccountId));
+                    if (UtilValidate.isNotEmpty(billingAccountTerms)) {
+                        Iterator billingAccountTermsIt = billingAccountTerms.iterator();
+                        while (billingAccountTermsIt.hasNext()) {
+                            GenericValue billingAccountTerm = (GenericValue)billingAccountTermsIt.next();
+                            // the term is not copied if in the cart a term of the same type is already set
+                            if (!cart.hasOrderTerm(billingAccountTerm.getString("termTypeId"))) {
+                                cart.addOrderTerm(billingAccountTerm.getString("termTypeId"), billingAccountTerm.getDouble("termValue"), billingAccountTerm.getLong("termDays"));
+                            }
+                        }
+                    }
+                } catch(GenericEntityException gee) {
+                    Debug.logWarning("Error copying billing account terms to order terms: " + gee.getMessage(), module);
+                }
             } else {
                 // remove the billing account from the cart
                 cart.setBillingAccount(null, 0.0);

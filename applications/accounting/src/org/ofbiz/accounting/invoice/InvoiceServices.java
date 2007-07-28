@@ -276,8 +276,8 @@ public class InvoiceServices {
                 }
             }
 
-            // order terms to invoice terms.  Implemented for purchase orders, although it may be useful
-            // for sales orders as well.  Later it might be nice to filter OrderTerms to only copy over financial terms.
+            // order terms to invoice terms.
+            // TODO: it might be nice to filter OrderTerms to only copy over financial terms.
             List orderTerms = orh.getOrderTerms();
             createInvoiceTerms(delegator, dispatcher, invoiceId, orderTerms, userLogin, locale);
 
@@ -285,12 +285,15 @@ public class InvoiceServices {
             List billingAccountTerms = null;
             // for billing accounts we will use related information
             if (billingAccount != null) {
+                /*
+                 * jacopoc: billing account terms were already copied as order terms
+                 *          when the order was created.
                 // get the billing account terms
                 billingAccountTerms = billingAccount.getRelated("BillingAccountTerm");
 
                 // set the invoice terms as defined for the billing account
                 createInvoiceTerms(delegator, dispatcher, invoiceId, billingAccountTerms, userLogin, locale);
-
+                */
                 // set the invoice bill_to_customer from the billing account
                 List billToRoles = billingAccount.getRelated("BillingAccountRole", UtilMisc.toMap("roleTypeId", "BILL_TO_CUSTOMER"), null);
                 Iterator billToIter = billToRoles.iterator();
