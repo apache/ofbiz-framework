@@ -75,8 +75,8 @@ public class UtilJ2eeCompat {
                 Debug.logImportant("Trade City RexIP detected, using response.getWriter to write text out instead of response.getOutputStream", module);
                 usestream = false;
             } else if (serverInfo.indexOf(TOMCAT) >= 0) {
-                Debug.logImportant("Apache Tomcat detected, using response.getWriter to write text out instead of response.getOutputStream", module);
-                usestream = false;
+                Debug.logImportant("Apache Tomcat detected, using all defaults, use: flush on render, response.getOutputStream, nested JSP exception", module);
+                // Tomcat used to prefer Writer to OutputStream, but found in at least version 5.5.23 that OutputStream is preferred, so commenting this out: usestream = false;
             } else if (serverInfo.indexOf(JRUN) >= 0) {
                 Debug.logImportant("JRun detected, using response.getWriter to write text out instead of response.getOutputStream", module);
                 usestream = false;
