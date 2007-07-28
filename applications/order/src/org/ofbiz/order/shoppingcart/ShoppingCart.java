@@ -3295,7 +3295,7 @@ public class ShoppingCart implements Serializable {
                     /*
                     if ((productPromoAction.get("productId") == null || productPromoAction.getString("productId").equals(this.getShipmentMethodTypeId())) &&
                         (productPromoAction.get("partyId") == null || productPromoAction.getString("partyId").equals(this.getCarrierPartyId()))) {
-                        Double shippingAmount = new Double(-OrderReadHelper.calcOrderAdjustment(orderAdjustment, getSubTotal()));
+                        Double shippingAmount = new Double(OrderReadHelper.calcOrderAdjustmentBd(orderAdjustment, new BigDecimal(getSubTotal())).negate().doubleValue());
                         // always set orderAdjustmentTypeId to SHIPPING_CHARGES for free shipping adjustments
                         GenericValue fsOrderAdjustment = getDelegator().makeValue("OrderAdjustment",
                                 UtilMisc.toMap("orderItemSeqId", orderAdjustment.get("orderItemSeqId"), "orderAdjustmentTypeId", "SHIPPING_CHARGES", "amount", shippingAmount,
@@ -4206,19 +4206,19 @@ public class ShoppingCart implements Serializable {
         }
         
         public double getTotalTax(ShoppingCart cart) {
-            double taxTotal = 0.00;
+            BigDecimal taxTotal = ZERO;
             for (int i = 0; i < shipTaxAdj.size(); i++) {
                 GenericValue v = (GenericValue) shipTaxAdj.get(i);
-                taxTotal += OrderReadHelper.calcOrderAdjustment(v, cart.getSubTotal());
+                taxTotal = taxTotal.add(OrderReadHelper.calcOrderAdjustmentBd(v, new BigDecimal(cart.getSubTotal())));
             }
 
             Iterator iter = shipItemInfo.values().iterator();
             while (iter.hasNext()) {
                 CartShipItemInfo info = (CartShipItemInfo) iter.next();
-                taxTotal += info.getItemTax(cart);
+                taxTotal = taxTotal.add(new BigDecimal(info.getItemTax(cart)));
             }
 
-            return taxTotal;
+            return taxTotal.doubleValue();
         }
 
         public static class CartShipItemInfo implements Serializable {
