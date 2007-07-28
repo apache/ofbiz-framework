@@ -322,7 +322,7 @@ function setAlternateGwp(field) {
         <#if shoppingCart.getAdjustments()?has_content>
             <tr><td>&nbsp;</td><td colspan="6"><hr class="sepbar"/></td></tr>
               <tr>
-                <td colspan="5" nowrap align="right"><div class="tabletext">${uiLabelMap.CommonSubTotal}:</div></td>
+                <td colspan="6" nowrap align="right"><div class="tabletext">${uiLabelMap.CommonSubTotal}:</div></td>
                 <td nowrap align="right"><div class="tabletext"><@ofbizCurrency amount=shoppingCart.getSubTotal() isoCode=shoppingCart.getCurrency()/></div></td>
                 <td>&nbsp;</td>
               </tr>
@@ -330,13 +330,13 @@ function setAlternateGwp(field) {
               <#assign adjustmentType = cartAdjustment.getRelatedOneCache("OrderAdjustmentType")>
               <!-- adjustment info: ${cartAdjustment.toString()} -->
               <tr>
-                <td colspan="5" nowrap align="right">
+                <td colspan="6" nowrap align="right">
                     <div class="tabletext">
                         <i>${uiLabelMap.EcommerceAdjustment}</i> - ${adjustmentType.get("description",locale)?if_exists}
                         <#if cartAdjustment.productPromoId?has_content><a href="<@ofbizUrl>showPromotionDetails?productPromoId=${cartAdjustment.productPromoId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a></#if>:
                     </div>
                 </td>
-                <td nowrap align="right"><div class="tabletext"><@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(cartAdjustment, shoppingCart.getSubTotal()) isoCode=shoppingCart.getCurrency()/></div></td>
+                <td nowrap align="right"><div class="tabletext"><@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustmentBd(cartAdjustment, shoppingCart.getSubTotal()) isoCode=shoppingCart.getCurrency()/></div></td>
                 <td>&nbsp;</td>
               </tr>
             </#list>
