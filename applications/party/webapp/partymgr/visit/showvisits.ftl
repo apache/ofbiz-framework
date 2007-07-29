@@ -22,7 +22,7 @@ under the License.
   <#else>
     <#assign title = uiLabelMap.PartyActive>
   </#if>
-  <div class="head1">${title}&nbsp;${uiLabelMap.PartyVisitListing}</div>
+  <h1>${title}&nbsp;${uiLabelMap.PartyVisitListing}</h1>
   <#if !partyId?exists && showAll?lower_case == "true">
     <a href="<@ofbizUrl>showvisits?showAll=false</@ofbizUrl>" class="smallSubmit">[${uiLabelMap.PartyShowActive}]</a>
   <#elseif !partyId?exists>
@@ -45,7 +45,7 @@ under the License.
     <br class="clear" />
   <br/>
   
-  <table class="basic-table" cellspacing="0">
+  <table class="basic-table hover-bar" cellspacing="0">
     <tr class="header-row">
       <td><a href="<@ofbizUrl>showvisits?sort=visitId&showAll=${showAll}<#if partyId?has_content>&partyId=${partyId}</#if></@ofbizUrl>">${uiLabelMap.PartyVisitId}</a></td>      
       <td><a href="<@ofbizUrl>showvisits?sort=visitorId&showAll=${showAll}<#if visitorId?has_content>&visitorId=${visitorId}</#if></@ofbizUrl>">${uiLabelMap.PartyVisitorId}</a></td>
@@ -57,10 +57,9 @@ under the License.
       <td><a href="<@ofbizUrl>showvisits?sort=fromDate&showAll=${showAll}<#if partyId?has_content>&partyId=${partyId}</#if></@ofbizUrl>">${uiLabelMap.CommonFromDate}</a></td>
       <td><a href="<@ofbizUrl>showvisits?sort=thruDate&showAll=${showAll}<#if partyId?has_content>&partyId=${partyId}</#if></@ofbizUrl>">${uiLabelMap.CommonThruDate}</a></td>
     </tr>
-    <#-- set initial row color -->
-    <#assign rowClass = "2">
+    <#assign alt_row = false>
     <#list visitList as visitObj>
-      <tr<#if rowClass == "1"> class="alternate-row"</#if>>
+      <tr<#if alt_row> class="alternate-row"</#if>>
         <td class="button-col"><a href="<@ofbizUrl>visitdetail?visitId=${visitObj.visitId}</@ofbizUrl>">${visitObj.visitId}</a></td>       
         <td>${visitObj.visitorId?if_exists}</td>
         <td class="button-col"><a href="<@ofbizUrl>viewprofile?partyId=${visitObj.partyId?if_exists}</@ofbizUrl>">${visitObj.partyId?if_exists}</a></td>
@@ -71,12 +70,7 @@ under the License.
         <td>${(visitObj.fromDate?string)?if_exists}</td>
         <td>${(visitObj.thruDate?string)?if_exists}</td>
       </tr>
-      <#-- toggle the row color -->
-      <#if rowClass == "2">
-        <#assign rowClass = "1">
-      <#else>
-        <#assign rowClass = "2">
-      </#if>
+      <#assign alt_row = !alt_row>
     </#list>
   </table>
 
