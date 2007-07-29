@@ -55,10 +55,10 @@ under the License.
                     <log level="info" message="In createInvoice sequence enum INVSQ_RESTARTYR"/>
                     <!-- this is sequential sequencing, we can't skip a number; except that it is restarted each fiscal year -->
 
+                    <now-timestamp-to-env env-name="nowTimestamp"/>
                     <if-empty field-name="partyAcctgPreference.lastInvoiceRestartDate">
                         <!-- if no lastInvoiceRestartDate then it's easy, just start now with 1 -->
                         <calculate field-name="partyAcctgPreference.lastInvoiceNumber" type="Long"><number value="1"/></calculate>
-                        <now-timestamp-to-env env-name="nowTimestamp"/>
                         <set from-field="nowTimestamp" field="partyAcctgPreference.lastInvoiceRestartDate"/>
                         <else>
                             <!-- first figure out if we need to reset the lastInvoiceNumber; is the lastInvoiceRestartDate after the fiscalYearStartMonth/Day for this year? -->
