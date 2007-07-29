@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if shipment?exists>
-    <div class="head1">${uiLabelMap.ProductShipmentPlan}</div>
+    <h1>${uiLabelMap.ProductShipmentPlan}</h1>
     ${findOrderItemsForm.renderFormString(context)}
     <br/>
     <#if addToShipmentPlanRows?has_content>
@@ -39,8 +39,8 @@ under the License.
         document.forms.addToShipmentPlan.submit();
     }
 </script>
-<form><input type="submit" class="smallSubmit" onClick="submitRows('${rowCount?if_exists}');return false;" name="submitButton" value="${uiLabelMap.CommonAdd}"/></form>
-    <hr class="sepbar"/>
+<form><input type="submit" onClick="submitRows('${rowCount?if_exists}');return false;" name="submitButton" value="${uiLabelMap.CommonAdd}"/></form>
+    <hr/>
     <br/>
     </#if>
     ${listShipmentPlanForm.renderFormString(context)}

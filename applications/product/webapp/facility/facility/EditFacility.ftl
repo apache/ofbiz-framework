@@ -19,35 +19,36 @@ under the License.
 
 <#if security.hasEntityPermission("FACILITY", "_VIEW", session)>
 
-<div class="head1">${uiLabelMap.ProductFacility} <span class='head2'>${facility.facilityName?if_exists} [${uiLabelMap.CommonId}:${facilityId?if_exists}]</span></div>
-<a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
-<#if facilityId?has_content>
+<span class="head1">${uiLabelMap.ProductFacility}</span> <span class='head2'>${facility.facilityName?if_exists} [${uiLabelMap.CommonId}:${facilityId?if_exists}]</span>
+<br/>
+<div class="button-bar">
+  <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
+  <#if facilityId?has_content>
     <a href="/workeffort/control/month?facilityId=${facilityId}&externalLoginKey=${requestAttributes.externalLoginKey?if_exists}" class="buttontext">${uiLabelMap.CommonViewCalendar}</a>
-</#if>
+  </#if>
+</div>
 
 <#if facility?exists && facilityId?has_content>
-  <form action="<@ofbizUrl>UpdateFacility</@ofbizUrl>" method="post" style='margin: 0;'>
-  <table border='0' cellpadding='2' cellspacing='0'>
+  <form action="<@ofbizUrl>UpdateFacility</@ofbizUrl>" method="post">
+  <table class="basic-table" cellspacing='0'>
   <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
   <tr>
-    <td align="right"><div class="tabletext">${uiLabelMap.ProductFacilityId}</div></td>
-    <td>&nbsp;</td>
+    <td class="label">${uiLabelMap.ProductFacilityId}</td>
     <td>
-      <b>${facilityId?if_exists}</b> (${uiLabelMap.ProductNotModificationRecrationFacility}.)
+      ${facilityId?if_exists} <span class="tooltip">${uiLabelMap.ProductNotModificationRecrationFacility}</span>
     </td>
   </tr>
 <#else>
   <form action="<@ofbizUrl>CreateFacility</@ofbizUrl>" method="post" style='margin: 0;'>
-  <table border='0' cellpadding='2' cellspacing='0'>
   <#if facilityId?exists>
     <h3>${uiLabelMap.ProductCouldNotFindFacilityWithId} "${facilityId?if_exists}".</h3>
   </#if>
+  <table class="basic-table" cellspacing='0'>
 </#if>
   <tr>
-    <td width="26%" align="right"><div class="tabletext">${uiLabelMap.ProductFacilityTypeId}</div></td>
-    <td>&nbsp;</td>
-    <td width="74%">
-      <select name="facilityTypeId" size="1" class='selectBox'>
+    <td class="label">${uiLabelMap.ProductFacilityTypeId}</td>
+    <td>
+      <select name="facilityTypeId">
         <option selected value='${facilityType.facilityTypeId?if_exists}'>${facilityType.get("description",locale)?if_exists}</option>
         <option value='${facilityType.facilityTypeId?if_exists}'>----</option>
         <#list facilityTypes as nextFacilityType>
@@ -57,10 +58,9 @@ under the License.
     </td>
   </tr>
   <tr>
-    <td width="26%" align="right"><div class="tabletext">${uiLabelMap.ProductFacilityOwner}</div></td>
-    <td>&nbsp;</td>
-    <td width="74%">
-      <select name="ownerPartyId" size="1" class='selectBox'>
+    <td class="label">${uiLabelMap.ProductFacilityOwner}</td>
+    <td>
+      <select name="ownerPartyId">
         <#if ownerParties?has_content>
             <#list ownerParties as party>
               <option value='${party.partyId?if_exists}' <#if facility.ownerPartyId?exists && party.partyId = facility.ownerPartyId>selected</#if>>${Static['org.ofbiz.party.party.PartyHelper'].getPartyName(party)} (${party.partyId})</option>
@@ -70,10 +70,9 @@ under the License.
     </td>
   </tr>
   <tr>
-    <td width="26%" align="right"><div class="tabletext">${uiLabelMap.ProductFacilityDefaultWeightUnit}</div></td>
-    <td>&nbsp;</td>
-    <td width="74%">
-      <select name="defaultWeightUomId" size="1" class='selectBox'>
+    <td class="label">${uiLabelMap.ProductFacilityDefaultWeightUnit}</td>
+    <td>
+      <select name="defaultWeightUomId">
           <option value=''>${uiLabelMap.CommonNone}</option>
           <#list weightUomList as uom>                      
             <option value='${uom.uomId}'
@@ -86,10 +85,9 @@ under the License.
     </td>
   </tr>
   <tr>
-    <td width="26%" align="right"><div class="tabletext">${uiLabelMap.ProductFacilityDefaultInventoryItemType}</div></td>
-    <td>&nbsp;</td>
-    <td width="74%">
-      <select name="defaultInventoryItemTypeId" size="1" class='selectBox'>
+    <td class="label">${uiLabelMap.ProductFacilityDefaultInventoryItemType}</td>
+    <td>
+      <select name="defaultInventoryItemTypeId">
           <#list inventoryItemTypes as nextInventoryItemType>                      
             <option value='${nextInventoryItemType.inventoryItemTypeId}'
                <#if (facility.defaultInventoryItemTypeId?has_content) && (nextInventoryItemType.inventoryItemTypeId == facility.defaultInventoryItemTypeId)>
@@ -102,29 +100,25 @@ under the License.
   </tr>
 
   <tr>
-    <td width="26%" align="right"><div class="tabletext">${uiLabelMap.ProductName}</div></td>
-    <td>&nbsp;</td>
-    <td width="74%"><input type="text" class="inputBox" name="facilityName" value="${facility.facilityName?if_exists}" size="30" maxlength="60"></td>
+    <td class="label">${uiLabelMap.ProductName}</td>
+    <td><input type="text" name="facilityName" value="${facility.facilityName?if_exists}" size="30" maxlength="60"></td>
   </tr>
   <tr>
-    <td width="26%" align="right"><div class="tabletext">${uiLabelMap.ProductSquareFootage}</div></td>
-    <td>&nbsp;</td>
-    <td width="74%"><input type="text" class="inputBox" name="squareFootage" value="${facility.squareFootage?if_exists}" size="10" maxlength="20"></td>
+    <td class="label">${uiLabelMap.ProductSquareFootage}</td>
+    <td><input type="text" name="squareFootage" value="${facility.squareFootage?if_exists}" size="10" maxlength="20"></td>
   </tr>
   <tr>
-    <td width="26%" align="right"><div class="tabletext">${uiLabelMap.ProductDescription}</div></td>
-    <td>&nbsp;</td>
-    <td width="74%"><input type="text" class="inputBox" name="description" value="${facility.description?if_exists}" size="60" maxlength="250"></td>
+    <td class="label">${uiLabelMap.ProductDescription}</td>
+    <td ><input type="text" name="description" value="${facility.description?if_exists}" size="60" maxlength="250"></td>
   </tr>
   <tr>
-    <td width="26%" align="right"><div class="tabletext">${uiLabelMap.ProductDefaultDaysToShip}</div></td>
-    <td>&nbsp;</td>
-    <td width="74%"><input type="text" class="inputBox" name="defaultDaysToShip" value="${facility.defaultDaysToShip?if_exists}" size="10" maxlength="20"></td>
+    <td class="label">${uiLabelMap.ProductDefaultDaysToShip}</td>
+    <td><input type="text" name="defaultDaysToShip" value="${facility.defaultDaysToShip?if_exists}" size="10" maxlength="20"></td>
   </tr>
 
   <tr>
-    <td colspan='2'>&nbsp;</td>
-    <td colspan='1' align="left"><input type="submit" name="Update" value="${uiLabelMap.CommonUpdate}"></td>
+    <td>&nbsp;</td>
+    <td align="left"><input type="submit" name="Update" value="${uiLabelMap.CommonUpdate}"></td>
   </tr>
 </table>
 </form>

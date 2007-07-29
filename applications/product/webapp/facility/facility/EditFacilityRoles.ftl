@@ -17,43 +17,45 @@ specific language governing permissions and limitations
 under the License.
 -->
     
-    <div class="head1">${uiLabelMap.PartyRoleFor} <span class="head2"><#if facility?exists>${(facility.facilityName)?if_exists}</#if> [${uiLabelMap.CommonId}:${facilityId?if_exists}]</span></div>
-    <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductNewFacility}]</a>
-    <p>
-    
-    <p class="head2">${uiLabelMap.ProductFacilityRoleMemberMaintenance}</p>
-    <table border="1" cellpadding="2" cellspacing="0">
-    <tr>
-        <td><div class="tabletext"><b>${uiLabelMap.PartyPartyId}</b></div></td>
-        <td><div class="tabletext"><b>${uiLabelMap.PartyRoleType}</b></div></td>  
-        <td><div class="tabletext"><b>&nbsp;</b></div></td>
+<span class="head1">${uiLabelMap.PartyRoleFor}</span> <span class="head2"><#if facility?exists>${(facility.facilityName)?if_exists}</#if> [${uiLabelMap.CommonId}:${facilityId?if_exists}]</span>
+<div class="button-bar">
+    <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
+</div>
+
+<div class="screenlet">
+  <div class="screenlet-title-bar"><h3>${uiLabelMap.ProductFacilityRoleMemberMaintenance}</h3></div>
+  <table class="basic-table" cellspacing="0">
+    <tr class="header-row">
+        <td>${uiLabelMap.PartyPartyId}</td>
+        <td>${uiLabelMap.PartyRoleType}</td>  
+        <td>&nbsp;</td>
     </tr>
     
     <#list facilityRoles as facilityRole>  
     <#assign roleType = facilityRole.getRelatedOne("RoleType")>
     <tr valign="middle">
         <td><a href="/partymgr/control/viewprofile?party_id=${(facilityRole.partyId)?if_exists}" class="buttontext">${(facilityRole.partyId)?if_exists}</a></td>    
-        <td><div class="tabletext">${(roleType.get("description",locale))?if_exists}</div></td>    
+        <td>${(roleType.get("description",locale))?if_exists}</td>    
         <td align="center">
         <a href="<@ofbizUrl>removePartyFromFacility?facilityId=${(facilityRole.facilityId)?if_exists}&partyId=${(facilityRole.partyId)?if_exists}&roleTypeId=${(facilityRole.roleTypeId)?if_exists}</@ofbizUrl>" class="buttontext">
-        [${uiLabelMap.CommonDelete}]</a>
+        ${uiLabelMap.CommonDelete}</a>
         </td>
     </tr>
     </#list>
-    </table>
+  </table>
+</div>
     
     <br/>
-    <form method="post" action="<@ofbizUrl>addPartyToFacility</@ofbizUrl>" style="margin: 0;">
-    <input type="hidden" name="facilityId" value="${facilityId}">  
-    <div class="head2">${uiLabelMap.ProductAddFacilityPartyRole}:</div>
-    <div class="tabletext">
-        ${uiLabelMap.PartyPartyId}: <input type="text" class="inputBox" size="20" name="partyId">
+    <h2>${uiLabelMap.ProductAddFacilityPartyRole}:</h2>
+    <form method="post" action="<@ofbizUrl>addPartyToFacility</@ofbizUrl>">
+        <input type="hidden" name="facilityId" value="${facilityId}">  
+        ${uiLabelMap.PartyPartyId}: <input type="text" size="20" name="partyId">
         ${uiLabelMap.PartyRoleType}:
-        <select name="roleTypeId" class="selectBox"><option></option>
-        <#list roles as role>
-            <option value="${(role.roleTypeId)?if_exists}">${(role.get("description",locale))?if_exists}</option>
-        </#list>
+        <select name="roleTypeId">
+            <option></option>
+            <#list roles as role>
+                <option value="${(role.roleTypeId)?if_exists}">${(role.get("description",locale))?if_exists}</option>
+            </#list>
         </select>
         <input type="submit" value="${uiLabelMap.CommonAdd}">
-    </div>
     </form>
