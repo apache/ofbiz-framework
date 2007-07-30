@@ -78,18 +78,26 @@ public class HtmlWidget extends ModelScreenWidget {
             } catch (MalformedURLException e) {
                 String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
-                throw new RuntimeException(errMsg);
+                writeError(writer, errMsg);
             } catch (TemplateException e) {
                 String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
-                throw new RuntimeException(errMsg);
+                writeError(writer, errMsg);
             } catch (IOException e) {
                 String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
-                throw new RuntimeException(errMsg);
+                writeError(writer, errMsg);
             }
         } else {
             throw new IllegalArgumentException("Rending not yet support for the tempalte at location: " + location);
+        }
+    }
+ 
+    // TODO: We can make this more fancy, but for now this is very functional
+    public static void writeError(Writer writer, String message) {
+        try {
+            writer.write(message);
+        } catch (IOException e) {
         }
     }
 

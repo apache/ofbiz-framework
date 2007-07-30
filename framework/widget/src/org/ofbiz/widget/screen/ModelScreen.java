@@ -89,7 +89,7 @@ public class ModelScreen implements Serializable {
      *   different screen elements; implementing your own makes it possible to
      *   use the same screen definitions for many types of screen UIs
      */
-    public void renderScreenString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) throws GeneralException {
+    public void renderScreenString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) throws ScreenRenderException {
         // make sure the "null" object is in there for entity ops
         context.put("null", GenericEntity.NULL_FIELD);
 
@@ -134,6 +134,8 @@ public class ModelScreen implements Serializable {
 
             // render the screen, starting with the top-level section
             this.section.renderWidgetString(writer, context, screenStringRenderer);
+        } catch (ScreenRenderException e) {
+            throw e;
         } catch (RuntimeException e) {
             String errMsg = "Error rendering screen [" + this.sourceLocation + "#" + this.name + "]: " + e.toString();
             Debug.logError(errMsg + ". Rolling back transaction.", module);
@@ -144,7 +146,7 @@ public class ModelScreen implements Serializable {
                 Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
             }
             // after rolling back, rethrow the exception
-            throw new GeneralException(errMsg, e);
+            throw new ScreenRenderException(errMsg, e);
         } catch (Exception e) {
             String errMsg = "Error rendering screen [" + this.sourceLocation + "#" + this.name + "]: " + e.toString();
             Debug.logError(errMsg + ". Rolling back transaction.", module);
@@ -158,7 +160,7 @@ public class ModelScreen implements Serializable {
             // throw nested exception, don't need to log details here: Debug.logError(e, errMsg, module);
             
             // after rolling back, rethrow the exception
-            throw new GeneralException(errMsg, e);
+            throw new ScreenRenderException(errMsg, e);
         } finally {
             // only commit the transaction if we started one... this will throw an exception if it fails
             try {
