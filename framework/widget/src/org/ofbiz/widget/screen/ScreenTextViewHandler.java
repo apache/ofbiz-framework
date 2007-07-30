@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,16 +30,25 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilJ2eeCompat;
+import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.xml.sax.SAXException;
 
 import org.ofbiz.widget.screen.ScreenWidgetViewHandler;
 import org.ofbiz.widget.text.TextFormRenderer;
+import org.ofbiz.widget.text.TextScreenRenderer;
 
-public class ScreenTextViewHandler extends ScreenWidgetViewHandler {
+public class ScreenTextViewHandler implements ViewHandler {
     
     public static final String module = ScreenTextViewHandler.class.getName();
-    
+
+    protected ServletContext servletContext = null;
+    protected TextScreenRenderer textScreenRenderer = new TextScreenRenderer();
+
+    public void init(ServletContext context) throws ViewHandlerException {
+        this.servletContext = context;
+    }
+
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
         Writer writer = null;
         try {
@@ -54,11 +64,13 @@ public class ScreenTextViewHandler extends ScreenWidgetViewHandler {
                 writer = response.getWriter();
             }
 
-            ScreenRenderer screens = new ScreenRenderer(writer, null, htmlScreenRenderer);
+            ScreenRenderer screens = new ScreenRenderer(writer, null, textScreenRenderer);
             screens.populateContextForRequest(request, response, servletContext);
             // this is the object used to render forms from their definitions
             screens.getContext().put("formStringRenderer", new TextFormRenderer(request, response));
             screens.render(page);
+            writer.flush();
+
         } catch (IOException e) {
             throw new ViewHandlerException("Error in the response writer/output stream: " + e.toString(), e);
         } catch (SAXException e) {
