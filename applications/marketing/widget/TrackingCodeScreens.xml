@@ -157,6 +157,10 @@ under the License.
                 <set field="trackingCodeTabButtonItem" value="TrackingCodeOrder"/>
                 <set field="labelTitleProperty" value="PageTitleListTrackingCodeOrder"/>
 
+                <!-- parameters for pagination -->
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="30"/>
+
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListTrackingCode"/>
                 <set field="trackingCodeId" from-field="parameters.trackingCodeId"/>
                 <set field="trackingCodeTypeId" from-field="parameters.trackingCodeTypeId"/>
@@ -221,6 +225,10 @@ under the License.
                 <set field="titleProperty" value="PageTitleListTrackingCodeVisit"/>
                 <set field="trackingCodeTabButtonItem" value="TrackingCodeVisit"/>
                 <set field="labelTitleProperty" value="PageTitleListTrackingCodeVisit"/>
+
+                <!-- parameters for pagination -->
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="30"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListTrackingCode"/>
                 <set field="trackingCodeId" from-field="parameters.trackingCodeId"/>
