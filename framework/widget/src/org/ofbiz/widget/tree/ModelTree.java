@@ -43,6 +43,7 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.widget.screen.ModelScreen;
 import org.ofbiz.widget.screen.ScreenFactory;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
+import org.ofbiz.widget.screen.ScreenRenderException;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -474,6 +475,11 @@ public class ModelTree {
                             }
                         }
                     }
+                } catch (ScreenRenderException e) {
+                    String errMsg = "Error rendering included label with name ["
+                            + name + "] : " + e.toString();
+                    Debug.logError(e, errMsg, module);
+                    throw new RuntimeException(errMsg);                    
                 } catch (SAXException e) {
                     String errMsg = "Error rendering included label with name ["
                             + name + "] : " + e.toString();
