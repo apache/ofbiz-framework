@@ -19,17 +19,17 @@ under the License.
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div class='boxhead'>&nbsp;${uiLabelMap.OrderShippingInformation}</div>
+        <div class="boxhead">&nbsp;${uiLabelMap.OrderShippingInformation}</div>
     </div>
     <div class="screenlet-body">
         <form method="post" action="<@ofbizUrl>processShipOptions</@ofbizUrl>" name="${parameters.formNameValue}">
           <input type="hidden" name="finalizeMode" value="options"/>
-          <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
+          <table width="100%" border="0" cellpadding="1" cellspacing="0">
             <#list carrierShipmentMethodList as carrierShipmentMethod>
             <tr>
-              <td width='1%' valign="top" >
+              <td width="1%" valign="top" >
                 <#assign shippingMethod = carrierShipmentMethod.shipmentMethodTypeId + "@" + carrierShipmentMethod.partyId>
-                <input type='radio' name='shipping_method' value='${shippingMethod}' <#if shippingMethod == chosenShippingMethod?default("N@A")>checked</#if>/>
+                <input type="radio" name="shipping_method" value="${shippingMethod}" <#if shippingMethod == chosenShippingMethod?default("N@A")>checked="checked"</#if>/>
               </td>
               <td valign="top">
                 <div class='tabletext'>
@@ -44,23 +44,23 @@ under the License.
             </#list>
             <#if !carrierShipmentMethodList?exists || carrierShipmentMethodList?size == 0>
             <tr>
-              <td width='1%' valign="top">
-                <input type='radio' name='shipping_method' value="Default" checked="checked"/>
+              <td width="1%" valign="top">
+                <input type="radio" name="shipping_method" value="Default" checked="checked"/>
               </td>
               <td valign="top">
-                <div class='tabletext'>${uiLabelMap.OrderUseDefault}.</div>
+                <div class="tabletext">${uiLabelMap.OrderUseDefault}.</div>
               </td>
             </tr>
             </#if>
-            <tr><td colspan='2'><hr class="sepbar"/></td></tr>
+            <tr><td colspan="2"><hr class="sepbar"/></td></tr>
             <tr>
-              <td colspan='2'>
+              <td colspan="2">
                 <h2><b>${uiLabelMap.OrderShipAllAtOnce}?</b></h2>
               </td>
             </tr>
             <tr>
               <td valign="top">
-                 <input type='radio' <#if shoppingCart.getMaySplit()?default("N") == "N">checked</#if> name='may_split' value='false'/>
+                 <input type="radio" <#if shoppingCart.getMaySplit()?default("N") == "N">checked="checked"</#if> name="may_split" value="false"/>
               </td>
               <td valign="top">
                 <div class="tabletext">${uiLabelMap.OrderPleaseWaitUntilBeforeShipping}.</div>
@@ -68,7 +68,7 @@ under the License.
             </tr>
             <tr>
               <td valign="top">
-                 <input <#if shoppingCart.getMaySplit()?default("N") == "Y">checked</#if> type='radio' name='may_split' value='true'/>
+                 <input <#if shoppingCart.getMaySplit()?default("N") == "Y">checked="checked"</#if> type="radio" name="may_split" value="true"/>
               </td>
               <td valign="top">
                 <div class="tabletext">${uiLabelMap.OrderPleaseShipItemsBecomeAvailable}.</div>
@@ -82,14 +82,14 @@ under the License.
             </tr>
             <tr>
               <td colspan="2">
-                <textarea class='textAreaBox' cols="30" rows="3" name="shipping_instructions">${shoppingCart.getShippingInstructions()?if_exists}</textarea>
+                <textarea class="textAreaBox" cols="30" rows="3" name="shipping_instructions">${shoppingCart.getShippingInstructions()?if_exists}</textarea>
               </td>
             </tr>
             <tr><td colspan="2"><hr class="sepbar"/></td></tr>
             <tr>
               <td colspan="2">
                 <span class="head2"><b>${uiLabelMap.OrderPoNumber}</b></span>&nbsp;
-                <input type="text" class='inputBox' name="correspondingPoId" size="15" value='${shoppingCart.getPoNumber()?if_exists}'/>
+                <input type="text" class="inputBox" name="correspondingPoId" size="15" value="${shoppingCart.getPoNumber()?if_exists}"/>
               </td>
             </tr>
             <#if productStore.showCheckoutGiftOptions?if_exists != "N">
@@ -98,8 +98,8 @@ under the License.
               <td colspan="2">
                 <div>
                   <span class="head2"><b>${uiLabelMap.OrderIsThisGift}?</b></span>
-                  <input type='radio' <#if shoppingCart.getIsGift()?default("Y") == "Y">checked</#if> name='is_gift' value='true'/><span class='tabletext'>${uiLabelMap.CommonYes}</span>
-                  <input type='radio' <#if shoppingCart.getIsGift()?default("N") == "N">checked</#if> name='is_gift' value='false'/><span class='tabletext'>${uiLabelMap.CommonNo}</span>
+                  <input type="radio" <#if shoppingCart.getIsGift()?default("Y") == "Y">checked="checked"</#if> name="is_gift" value="true"/><span class="tabletext">${uiLabelMap.CommonYes}</span>
+                  <input type="radio" <#if shoppingCart.getIsGift()?default("N") == "N">checked="checked"</#if> name="is_gift" value="false"/><span class="tabletext">${uiLabelMap.CommonNo}</span>
                 </div>
               </td>
             </tr>
@@ -111,7 +111,7 @@ under the License.
             </tr>
             <tr>
               <td colspan="2">
-                <textarea class='textAreaBox' cols="30" rows="3" name="gift_message">${shoppingCart.getGiftMessage()?if_exists}</textarea>
+                <textarea class="textAreaBox" cols="30" rows="3" name="gift_message">${shoppingCart.getGiftMessage()?if_exists}</textarea>
               </td>
             </tr>
             </#if>
