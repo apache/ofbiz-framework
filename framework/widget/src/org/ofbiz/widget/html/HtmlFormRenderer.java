@@ -164,8 +164,8 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append(str);
         }
         String description = displayField.getDescription(context);
-        //Replace new lines with <br>
-        description = description.replaceAll("\n", "<br>");
+        //Replace new lines with <br/>
+        description = description.replaceAll("\n", "<br/>");
         buffer.append(description);
         if (str.length() > 0) {
             buffer.append("</span>");
@@ -525,7 +525,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
             // create a hidden field for the composite type, which is a Timestamp
             buffer.append("<input type=\"hidden\" name=\"");
             buffer.append(UtilHttp.makeCompositeParam(paramName, "compositeType"));
-            buffer.append("\" value=\"Timestamp\">");
+            buffer.append("\" value=\"Timestamp\"/>");
         }
 
         this.appendTooltip(buffer, context, modelFormField);
