@@ -121,11 +121,11 @@ under the License.
         
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="ListTrackingCodeOrders" type="list" title="" list-name="listIt">
+    <form name="ListTrackingCodeOrders" type="list" title="" paginate-target="FindTrackingCodeOrders" list-name="listIt">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
-                <field-map field-name="orderBy" value="orderId"/>
+                <field-map field-name="orderBy" value="-orderId"/>
                 <field-map field-name="entityName" value="TrackingCodeOrder"/>
             </service>
         </actions>
@@ -165,11 +165,12 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="ListTrackingCodeVisits" list-name="listIt" title="" type="list">
+    <form name="ListTrackingCodeVisits" list-name="listIt" title="" paginate-target="FindTrackingCodeVisits" type="list">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map env-name="requestParameters" field-name="inputFields"/>
                 <field-map env-name="entityName" field-name="entityName"/>
+                <field-map field-name="orderBy" value="-fromDate"/>
             </service>
         </actions>
         <field name="visitId" title="${uiLabelMap.TrackingCodeVisitVisitId}">
