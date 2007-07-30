@@ -2264,4 +2264,50 @@ Please Note: This file is a work in process, and may be modified or enhanced, at
 discretion of the Open Applications Group without notice, at any time.
 Please contact the Open Applications Group at www.openapplications.org with any
 questions or comments regarding the usage of this material.
-===============================================================================
+==================================================================================
+Apache Ofbiz includes prototype.js from http://www.prototypejs.org licensed under 
+the terms of the MIT License 
+ofbiz/trunk/framework/images/webapp/images/prototype/prototype.js
+===================================================================================
+Apache Ofbiz includes Scriptalous javascript lib from http://script.aculo.us 
+licensed under the terms of the MIT License
+ofbiz/trunk/framework/images/webapp/images/prototype/controls.js
+ofbiz/trunk/framework/images/webapp/images/prototype/dragdrop.js
+ofbiz/trunk/framework/images/webapp/images/prototype/effects.js
+ofbiz/trunk/framework/images/webapp/images/prototype/scriptaculous.js
+ofbiz/trunk/framework/images/webapp/images/prototype/slider.js
+ofbiz/trunk/framework/images/webapp/images/prototype/sound.js
+ofbiz/trunk/framework/images/webapp/images/prototype/unittest.js
+ofbiz/trunk/framework/images/webapp/images/prototype/builder.js
+===================================================================================
+Apache Ofbiz includes validation.js file from 
+http://www.tetlaw.id.au/view/javascript/really-easy-field-validation. 
+ofbiz/trunk/framework/images/webapp/images/prototype/validation.js
+validation.js is Licensed as follows
+===================================================================================
+ Really easy field validation with Prototype
+ http://tetlaw.id.au/view/javascript/really-easy-field-validation
+ Andrew Tetlaw
+ Version 1.5.4.1 (2007-01-05)
+ 
+ Copyright (c) 2007 Andrew Tetlaw
+ Permission is hereby granted, free of charge, to any person
+ obtaining a copy of this software and associated documentation
+ files (the "Software"), to deal in the Software without
+ restriction, including without limitation the rights to use, copy,
+ modify, merge, publish, distribute, sublicense, and/or sell copies
+ of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be
+ included in all copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+ BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+====================================================================================
