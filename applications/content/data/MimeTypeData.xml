@@ -42,6 +42,7 @@ under the License.
     <MimeType mimeTypeId="application/x-zip-compressed" description="ZIP compressed file"/>
     <MimeType mimeTypeId="application/x-tgz" description="Gzipped Tar archive file"/>
     <MimeType mimeTypeId="application/vnd.oasis.opendocument.text" description="OpenOffice OpenDocument Text"/>
+    <MimeType mimeTypeId="application/vnd.oasis.opendocument.spreadsheet" description="OpenOffice OpenDocument Spreadsheet"/>
     <MimeType mimeTypeId="application/vnd.ofbiz.survey" description="Survey"/>
     <MimeType mimeTypeId="application/vnd.ofbiz.survey.response" description="Survey Response"/>
     <MimeType mimeTypeId="application/vnd.ms-powerpoint" description="Microsoft PowerPoint"/>
