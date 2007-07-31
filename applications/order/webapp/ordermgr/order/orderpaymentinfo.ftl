@@ -23,13 +23,13 @@ under the License.
       <br class="clear" />
   </div>
   <div class="screenlet-body">
-     <table width="100%" border="0" cellpadding="1" cellspacing="0">
+     <table width="100%" border="0" cellpadding="1" cellspacing="0"><tbody>
      <#if orderPaymentPreferences?has_content || billingAccount?has_content || invoices?has_content>
         <#list orderPaymentPreferences as orderPaymentPreference>
           <#assign pmBillingAddress = {}>
           <#assign oppStatusItem = orderPaymentPreference.getRelatedOne("StatusItem")>
           <#if outputted?default("false") == "true">
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="4"><hr class="sepbar"/></td></tr>
           </#if>
           <#assign outputted = "true">
           <#-- try the paymentMethod first; if paymentMethodId is specified it overrides paymentMethodTypeId -->
@@ -301,13 +301,13 @@ under the License.
             </#if>
           </#if>
           <#if pmBillingAddress?has_content>
-            <tr><td>&nbsp;</td><td>&nbsp;</td><td colspan="5"><hr class="sepbar"/></td></tr>
+            <tr><td>&nbsp;</td><td>&nbsp;</td><td colspan="2"><hr class="sepbar"/></td></tr>
             <tr>
               <td align="right" valign="top" width="15%">
                 <div class="tabletext">&nbsp;</div>
               </td>
               <td width="5">&nbsp;</td>
-              <td align="left" valign="top" width="80%">
+              <td colspan="2" align="left" valign="top" width="80%">
                 <div class="tabletext">
                   <#if pmBillingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b> ${pmBillingAddress.toName}<br/></#if>
                   <#if pmBillingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b> ${pmBillingAddress.attnName}<br/></#if>
@@ -325,7 +325,7 @@ under the License.
         <#-- billing account -->
         <#if billingAccount?exists>
           <#if outputted?default("false") == "true">
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="4"><hr class="sepbar"/></td></tr>
           </#if>
           <tr>
             <td align="right" valign="top" width="15%">
@@ -337,19 +337,19 @@ under the License.
                   </div>
             </td>
             <td width="5">&nbsp;</td>
-            <td align="left" valign="top" width="80%">
+            <td colspan="2" align="left" valign="top" width="80%">
               <div class="tabletext">
                 #<a href="/accounting/control/EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${billingAccount.billingAccountId}</a>  - ${billingAccount.description?if_exists}
               </div>
             </td>
           </tr>
-          <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="4"><hr class="sepbar"/></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
               <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderPurchaseOrderNumber}</b></div>
             </td>
             <td width="5">&nbsp;</td>
-            <td align="left" valign="top" width="80%">
+            <td colspan="2" align="left" valign="top" width="80%">
               <div class="tabletext">${customerPoNumber?if_exists}</div>
             </td>
           </tr>
@@ -357,13 +357,13 @@ under the License.
 
         <#-- invoices -->
         <#if invoices?has_content>
-          <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="4"><hr class="sepbar"/></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
               <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderInvoices}</b></div>
             </td>
             <td width="5">&nbsp;</td>
-            <td align="left" valign="top" width="80%">
+            <td colspan="2" align="left" valign="top" width="80%">
               <#list invoices as invoice>
                 <div class="tabletext">${uiLabelMap.OrderNbr}<a href="/accounting/control/invoiceOverview?invoiceId=${invoice}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${invoice}</a>
                 (<a href="/accounting/control/invoice.pdf?invoiceId=${invoice}" class="buttontext">PDF</a>)</div>
@@ -373,12 +373,12 @@ under the License.
         </#if>
    <#else>
     <tr>
-     <td colspan="7" align="center" class="tabletext">${uiLabelMap.OrderNoOrderPaymentPreferences}</td>
+     <td colspan="4" align="center" class="tabletext">${uiLabelMap.OrderNoOrderPaymentPreferences}</td>
     </tr>
    </#if>
    <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED")) && (paymentMethodValueMaps?has_content)>
-   <tr><td colspan="7"><hr class="sepbar"/></td></tr>
-   <tr><td colspan="7">
+   <tr><td colspan="4"><hr class="sepbar"/></td></tr>
+   <tr><td colspan="4">
    <form name="addPaymentMethodToOrder" method="post" action="<@ofbizUrl>addPaymentMethodToOrder</@ofbizUrl>">           
    <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
    <table width="100%" border="0" cellpadding="1" cellspacing="0">
@@ -427,6 +427,7 @@ under the License.
    </td></tr>
 
 </#if>
+</tbody>
 </table>
 </div>
 </div>
