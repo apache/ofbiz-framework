@@ -31,7 +31,7 @@ under the License.
             -->
             <li><a href="<@ofbizUrl>editOrderItems?${paramString}</@ofbizUrl>">${uiLabelMap.OrderEditItems}</a></li>
           </#if>
-          <li><a href="<@ofbizUrl>loadCartFromOrder?${paramString}&finalizeMode=init</@ofbizUrl>">${uiLabelMap.OrderCreateAsNewOrder}</a></li>
+          <li><a href="<@ofbizUrl>loadCartFromOrder?${paramString}&amp;finalizeMode=init</@ofbizUrl>">${uiLabelMap.OrderCreateAsNewOrder}</a></li>
           <#if returnableItems?has_content>
             <li><a href="<@ofbizUrl>quickreturn?orderId=${orderId}&amp;party_id=${partyId?if_exists}&amp;returnHeaderTypeId=${returnHeaderTypeId}</@ofbizUrl>">${uiLabelMap.OrderCreateReturn}</a></li>
           </#if>
@@ -43,28 +43,28 @@ under the License.
         
     <div class="screenlet-body">
         <table width="100%" border="0" cellpadding="0" cellspacing="0">
-          <tr align="left" valign=bottom>
+          <tr align="left" valign="bottom">
             <td width="30%" align="left"><div class="tableheadtext">${uiLabelMap.ProductProduct}</div></td>
-            <td width="30%" align="left"><div class="tableheadtext">${uiLabelMap.CommonStatus}</div></td>
+            <td width="33%" align="left"><div class="tableheadtext">${uiLabelMap.CommonStatus}</div></td>
             <td width="5%" align="center"><div class="tableheadtext">${uiLabelMap.OrderQuantity}</div></td>
             <td width="10%" align="right"><div class="tableheadtext">${uiLabelMap.OrderUnitList}</div></td>
             <td width="10%" align="right"><div class="tableheadtext">${uiLabelMap.OrderAdjustments}</div></td>
             <td width="10%" align="right"><div class="tableheadtext">${uiLabelMap.OrderSubTotal}</div></td>
-            <td width="5%">&nbsp;</td>
+            <td width="2%">&nbsp;</td>
           </tr>
           <#if !orderItemList?has_content>
-            <tr><td><font color="red">${uiLabelMap.checkhelper_sales_order_lines_lookup_failed}</font></td></tr>
+            <tr><td colspan="7"><font color="red">${uiLabelMap.checkhelper_sales_order_lines_lookup_failed}</font></td></tr>
           <#else>
             <#list orderItemList as orderItem>
               <#assign orderItemContentWrapper = Static["org.ofbiz.order.order.OrderContentWrapper"].makeOrderContentWrapper(orderItem, request)>
               <#assign orderItemShipGrpInvResList = orderReadHelper.getOrderItemShipGrpInvResList(orderItem)>
               <#if orderHeader.orderTypeId == "SALES_ORDER"><#assign pickedQty = orderReadHelper.getItemPickedQuantityBd(orderItem)></#if>
-              <tr><td colspan="8"><hr class="sepbar"/></td></tr>
+              <tr><td colspan="7"><hr class="sepbar"/></td></tr>
               <tr>
                 <#assign orderItemType = orderItem.getRelatedOne("OrderItemType")?if_exists>
                 <#assign productId = orderItem.productId?if_exists>
                 <#if productId?exists && productId == "shoppingcart.CommentLine">
-                  <td colspan="1" valign="top">
+                  <td colspan="7" valign="top">
                     <b><div class="tabletext"> &gt;&gt; ${orderItem.itemDescription}</div></b>
                   </td>
                 <#else>
@@ -205,9 +205,6 @@ under the License.
                     </#if>
                   </td>
                   <td>&nbsp;</td>
-                  <td align="right" valign="top">
-                    &nbsp;
-                  </td>
                 </#if>
               </tr>
 
@@ -218,7 +215,7 @@ under the License.
                       <#assign workEffort = workOrderItemFulfillment.getRelatedOneCache("WorkEffort")>
                       <tr>
                         <td>&nbsp;</td>
-                        <td colspan="9">
+                        <td colspan="6">
                           <div class="tabletext">
                             <#if orderItem.orderItemTypeId != "RENTAL_ORDER_ITEM">
                               <b><i>${uiLabelMap.ManufacturingProductionRun}</i>:</b>
@@ -245,7 +242,7 @@ under the License.
                   <#assign linkedOrderItemValueStatus = linkedOrderItemValue.getRelatedOne("StatusItem")>
                   <tr>
                     <td>&nbsp;</td>
-                    <td colspan="9">
+                    <td colspan="6">
                       <div class="tabletext">
                         <b><i>${uiLabelMap.OrderLinkedToOrderItem} (${linkedOrderItem.orderItemAssocTypeId})</i>:</b>
                         <a href="/ordermgr/control/orderview?orderId=${linkedOrderId}" class="buttontext" style="font-size: xx-small;">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;${linkedOrderItemValueStatus.description?if_exists}
@@ -262,7 +259,7 @@ under the License.
                   <#assign linkedOrderItemValueStatus = linkedOrderItemValue.getRelatedOne("StatusItem")>
                   <tr>
                     <td>&nbsp;</td>
-                    <td colspan="9">
+                    <td colspan="6">
                       <div class="tabletext">
                         <b><i>${uiLabelMap.OrderLinkedFromOrderItem} (${linkedOrderItem.orderItemAssocTypeId})</i>:</b>
                         <a href="/ordermgr/control/orderview?orderId=${linkedOrderId}" class="buttontext" style="font-size: xx-small;">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;${linkedOrderItemValueStatus.description?if_exists}
@@ -279,7 +276,7 @@ under the License.
                 <#list linkedRequirements as linkedRequirement>
                   <tr>
                     <td>&nbsp;</td>
-                    <td colspan="9">
+                    <td colspan="6">
                       <div class="tabletext">
                         <b><i>${uiLabelMap.OrderLinkedToRequirement}</i>:</b>
                         <a href="<@ofbizUrl>EditRequirement?requirementId=${linkedRequirement.requirementId}</@ofbizUrl>" class="buttontext" style="font-size: xx-small;">${linkedRequirement.requirementId}</a>&nbsp;
@@ -295,7 +292,7 @@ under the License.
               <#if linkedQuote?has_content>
                 <tr>
                   <td>&nbsp;</td>
-                  <td colspan="9">
+                  <td colspan="6">
                     <div class="tabletext">
                       <b><i>${uiLabelMap.OrderLinkedToQuote}</i>:</b>
                       <a href="<@ofbizUrl>EditQuoteItem?quoteId=${linkedQuote.quoteId}&amp;quoteItemSeqId=${linkedQuote.quoteItemSeqId}</@ofbizUrl>" class="buttontext" style="font-size: xx-small;">${linkedQuote.quoteId}-${linkedQuote.quoteItemSeqId}</a>&nbsp;
@@ -340,7 +337,7 @@ under the License.
                         <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].calcItemAdjustmentBd(orderItemAdjustment, orderItem) isoCode=currencyUomId/>
                       </div>
                      </td>
-                    <td>&nbsp;</td>
+                    <td colspan="2">&nbsp;</td>
                   </tr>
                 </#list>
               </#if>
@@ -348,7 +345,7 @@ under the License.
               <#-- now show price info per line item -->
               <#assign orderItemPriceInfos = orderReadHelper.getOrderItemPriceInfos(orderItem)>
               <#if orderItemPriceInfos?exists && orderItemPriceInfos?has_content>
-                <tr><td>&nbsp;</td></tr>
+                <tr><td colspan="7">&nbsp;</td></tr>
                 <#list orderItemPriceInfos as orderItemPriceInfo>
                   <tr>
                     <td align="right" colspan="2">
@@ -360,8 +357,7 @@ under the License.
                         <@ofbizCurrency amount=orderItemPriceInfo.modifyAmount isoCode=currencyUomId/>
                       </div>
                     </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td colspan="3">&nbsp;</td>
                   </tr>
                 </#list>
               </#if>
@@ -377,10 +373,7 @@ under the License.
                           <a href="/content/control/ViewSurveyResponses?surveyResponseId=${survey.surveyResponseId}&amp;surveyId=${survey.surveyId}<#if survey.partyId?exists>&amp;partyId=${survey.partyId}</#if>&amp;externalLoginKey=${externalLoginKey}" class="buttontext" style="font-size: xx-small;">${survey.surveyId}</a>
                       </div>
                     </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td colspan="5">&nbsp;</td>
                   </tr>
                 </#list>
               </#if>
@@ -391,6 +384,7 @@ under the License.
                 <td align="right" colspan="2">
                   <div class="tabletext" style="font-size: xx-small;"><b><i>${uiLabelMap.OrderShipAfterDate}</i>:</b> ${orderItem.shipAfterDate?string.short}</div>
                 </td>
+                <td colspan="5">&nbsp;</td>
               </tr>
               </#if>
               <#if orderItem.shipBeforeDate?exists>
@@ -398,6 +392,7 @@ under the License.
                 <td align="right" colspan="2">
                   <div class="tabletext" style="font-size: xx-small;"><b><i>${uiLabelMap.OrderShipBeforeDate}</i>:</b> ${orderItem.shipBeforeDate?string.short}</div>
                 </td>
+                <td colspan="5">&nbsp;</td>
               </tr>
               </#if>
 
@@ -414,13 +409,7 @@ under the License.
                     <td align="center">
                       <div class="tabletext" style="font-size: xx-small;">${shipGroupAssoc.quantity?string.number}&nbsp;</div>
                     </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td align="right" valign="top">
-                      &nbsp;
-                    </td>
+                    <td colspan="4">&nbsp;</td>
                   </tr>
                 </#list>
               </#if>
@@ -445,8 +434,7 @@ under the License.
                       </#if>
                       &nbsp;
                     </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td colspan="3">&nbsp;</td>
                   </tr>
                 </#list>
               </#if>
@@ -462,11 +450,7 @@ under the License.
                     <td align="center">
                       <div class="tabletext" style="font-size: xx-small;">${orderShipment.quantity?string.number}&nbsp;</div>
                     </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td colspan="4">&nbsp;</td>
                   </tr>
                 </#list>
               </#if>
@@ -489,9 +473,7 @@ under the License.
                     <td align="center">
                       <div class="tabletext" style="font-size: xx-small;">${itemIssuance.quantity?string.number}&nbsp;</div>
                     </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td colspan="4">&nbsp;</td>
                   </tr>
                 </#list>
               </#if>
@@ -515,15 +497,13 @@ under the License.
                     <td align="center">
                       <div class="tabletext" style="font-size: xx-small;">${itemIssuance.quantity?string.number}&nbsp;</div>
                     </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td colspan="4">&nbsp;</td>
                   </tr>
                 </#list>
               </#if>
             </#list>
           </#if>
-          <tr><td colspan="8"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="7"><hr class="sepbar"/></td></tr>
           <#list orderHeaderAdjustments as orderHeaderAdjustment>
             <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType")>
             <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustmentBd(orderHeaderAdjustment, orderSubTotal)>
@@ -541,28 +521,32 @@ under the License.
           </#list>
 
           <#-- subtotal -->
-          <tr><td colspan=1></td><td colspan="8"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="1"></td><td colspan="6"><hr class="sepbar"/></td></tr>
           <tr>
             <td align="right" colspan="5"><div class="tabletext"><b>${uiLabelMap.OrderItemsSubTotal}</b></div></td>
             <td align="right" nowrap="nowrap"><div class="tabletext"><@ofbizCurrency amount=orderSubTotal isoCode=currencyUomId/></div></td>
+            <td>&nbsp;</td>
           </tr>
 
           <#-- other adjustments -->
           <tr>
             <td align="right" colspan="5"><div class="tabletext"><b>${uiLabelMap.OrderTotalOtherOrderAdjustments}</b></div></td>
             <td align="right" nowrap="nowrap"><div class="tabletext"><@ofbizCurrency amount=otherAdjAmount isoCode=currencyUomId/></div></td>
+            <td>&nbsp;</td>
           </tr>
 
           <#-- shipping adjustments -->
           <tr>
             <td align="right" colspan="5"><div class="tabletext"><b>${uiLabelMap.OrderTotalShippingAndHandling}</b></div></td>
             <td align="right" nowrap="nowrap"><div class="tabletext"><@ofbizCurrency amount=shippingAmount isoCode=currencyUomId/></div></td>
+            <td>&nbsp;</td>
           </tr>
 
               <#-- tax adjustments -->
           <tr>
             <td align="right" colspan="5"><div class="tabletext"><b>${uiLabelMap.OrderTotalSalesTax}</b></div></td>
             <td align="right" nowrap="nowrap"><div class="tabletext"><@ofbizCurrency amount=taxAmount isoCode=currencyUomId/></div></td>
+            <td>&nbsp;</td>
           </tr>
 
           <#-- grand total -->
@@ -571,6 +555,7 @@ under the License.
             <td align="right" nowrap="nowrap">
               <div class="tabletext"><@ofbizCurrency amount=grandTotal isoCode=currencyUomId/></div>
             </td>
+            <td>&nbsp;</td>
           </tr>
         </table>
     </div>

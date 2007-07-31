@@ -126,7 +126,7 @@ under the License.
       <table width="100%" border="0" cellpadding="1" cellspacing="0">
         <#if shipGroup.supplierPartyId?has_content>
           <#assign supplier =  delegator.findByPrimaryKey("PartyGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", shipGroup.supplierPartyId))?if_exists />
-          <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="3"><hr class="sepbar"/></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
               <div class="tabletext">&nbsp;<b>${uiLabelMap.ProductDropShipment} - ${uiLabelMap.PartySupplier}</b></div>
@@ -140,7 +140,7 @@ under the License.
 
         <#-- tracking number -->
         <#if shipGroup.trackingNumber?has_content || orderShipmentInfoSummaryList?has_content>
-          <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="3"><hr class="sepbar"/></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
               <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderTrackingNumber}</b></div>
@@ -167,7 +167,7 @@ under the License.
           </tr>
         </#if>
         <#if shipGroup.maySplit?has_content && noShipment?default("false") != "true">
-          <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="3"><hr class="sepbar"/></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
               <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderSplittingPreference}</b></div>
@@ -188,7 +188,7 @@ under the License.
           </tr>
         </#if>
         <#if shipGroup.shippingInstructions?has_content>
-          <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="3"><hr class="sepbar"/></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
               <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonInstructions}</b></div>
@@ -200,7 +200,7 @@ under the License.
           </tr>
         </#if>
         <#if shipGroup.isGift?has_content && noShipment?default("false") != "true">
-          <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="3"><hr class="sepbar"/></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
               <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderGift}?</b></div>
@@ -214,7 +214,7 @@ under the License.
           </tr>
         </#if>
         <#if shipGroup.giftMessage?has_content>
-          <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="3"><hr class="sepbar"/></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
               <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderGiftMessage}</b></div>
@@ -226,7 +226,7 @@ under the License.
           </tr>
         </#if>
          <#if shipGroup.shipAfterDate?has_content>
-         <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+         <tr><td colspan="3"><hr class="sepbar"/></td></tr>
          <tr>
             <td align="right" valign="top" width="15%">
               <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderShipAfterDate}</b></div>
@@ -238,7 +238,7 @@ under the License.
          </tr>
          </#if>
         <#if shipGroup.shipByDate?has_content>
-        <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+        <tr><td colspan="3"><hr class="sepbar"/></td></tr>
         <tr>
             <td align="right" valign="top" width="15%">
               <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderShipBeforeDate}</b></div>
@@ -251,7 +251,7 @@ under the License.
          </#if>
        <#assign shipGroupShipments = shipGroup.getRelated("PrimaryShipment")>
        <#if shipGroupShipments?has_content>
-          <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="3"><hr class="sepbar"/></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
               <div class="tabletext">&nbsp;<b>${uiLabelMap.FacilityShipments}</b></div>
@@ -270,7 +270,7 @@ under the License.
 
          <#-- Special shipment options -->
          <#if security.hasEntityPermission("FACILITY", "_CREATE", session)>
-         <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+         <tr><td colspan="3"><hr class="sepbar"/></td></tr>
          <tr>
            <td align="right" valign="top" width="15%">
              <div class="tabletext">&nbsp;<#if orderHeader.orderTypeId == "PURCHASE_ORDER"><b>${uiLabelMap.ProductDestinationFacility}</b></#if></div>
@@ -316,7 +316,7 @@ under the License.
         </#if>
 
          <#-- Manual shipment options -->
-         <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+         <tr><td colspan="3"><hr class="sepbar"/></td></tr>
          <tr>
            <td align="right" valign="top" width="15%">
              <div class="tabletext">&nbsp;</div>
@@ -359,7 +359,7 @@ under the License.
 
        <#-- Refunds/Returns for Sales Orders and Delivery Schedules -->
        <#if !shipGroup_has_next>
-         <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+         <tr><td colspan="3"><hr class="sepbar"/></td></tr>
          <tr>
            <td align="right" valign="top" width="15%">
              <div class="tabletext">
