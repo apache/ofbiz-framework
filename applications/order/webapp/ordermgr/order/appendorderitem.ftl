@@ -26,12 +26,12 @@ under the License.
         <form method="post" action="<@ofbizUrl>appendItemToOrder?${paramString}</@ofbizUrl>" name="appendItemForm">
             <#-- TODO: Presently, this is the ofbiz way of getting the prodCatalog, which is not generic. Replace with a selecatble list defaulting to this instead -->
             <input type="hidden" name="prodCatalogId" value="${Static["org.ofbiz.product.catalog.CatalogWorker"].getCurrentCatalogId(request)}"/>
-            <table class="basic-table" cellspacing='0'>
+            <table class="basic-table" cellspacing="0">
                 <tr>
                   <td class="label">${uiLabelMap.ProductProductId} :</td>
                   <td><input type="text" size="25" name="productId" value="${requestParameters.productId?if_exists}"/>
                       <a href="javascript:call_fieldlookup2(document.appendItemForm.productId,'LookupProduct');">
-                        <img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+                        <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
                       </a>
                   </td>
                 </tr>
@@ -41,6 +41,7 @@ under the License.
                     <input type="text" size="6" name="basePrice" value="${requestParameters.price?if_exists}"/>
                     <input type="checkbox" name="overridePrice" value="Y"/>&nbsp;${uiLabelMap.OrderOverridePrice}
                   </td>
+                </tr>
                 <tr>
                   <td class="label">${uiLabelMap.OrderQuantity} :</td>
                   <td><input type="text" size="6" name="quantity" value="${requestParameters.quantity?default("1")}"/></td>

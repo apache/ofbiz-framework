@@ -128,20 +128,20 @@ float: right;
                         </#list>
                         </#if>
                     </td>
-                    <td class="align-text" valign="top" nowrap>
+                    <td class="align-text" valign="top" nowrap="nowrap">
                         <#assign remainingQuantity = (orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0))>
                         ${uiLabelMap.OrderOrdered}:&nbsp;${orderItem.quantity?default(0)?string.number}&nbsp;&nbsp;<br/>
                         ${uiLabelMap.OrderCancelled}:&nbsp;${orderItem.cancelQuantity?default(0)?string.number}&nbsp;&nbsp;<br/>
                         ${uiLabelMap.OrderRemaining}:&nbsp;${remainingQuantity}&nbsp;&nbsp;<br/>
                     </td>
-                    <td class="align-text" valign="top" nowrap>
+                    <td class="align-text" valign="top" nowrap="nowrap">
                         <input type="text" size="8" name="ipm_${orderItem.orderItemSeqId}" value="<@ofbizAmount amount=orderItem.unitPrice/>"/>
                             &nbsp;<input type="checkbox" name="opm_${orderItem.orderItemSeqId}" value="Y"/>
                     </td>
-                    <td class="align-text" valign="top" nowrap>
+                    <td class="align-text" valign="top" nowrap="nowrap">
                         <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentsTotal(orderItem, orderAdjustments, true, false, false) isoCode=currencyUomId/>
                     </td>
-                    <td class="align-text" valign="top" nowrap>
+                    <td class="align-text" valign="top" nowrap="nowrap">
                         <#if orderItem.statusId != "ITEM_CANCELLED">
                         <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemSubTotal(orderItem, orderAdjustments) isoCode=currencyUomId/>
                         <#else>
@@ -244,10 +244,10 @@ float: right;
                           <td class="align-text" width="50%">
                               <b>${adjustmentType.get("description",locale)}</b> ${orderHeaderAdjustment.comments?if_exists} :
                           </td>
-                          <td nowrap width="25%">
+                          <td nowrap="nowrap" width="25%">
                               <input type="text" name="description" value="${orderHeaderAdjustment.get("description")?if_exists}" size="30" maxlength="60"/>
                           </td>
-                          <td nowrap width="25%">
+                          <td nowrap="nowrap" width="25%">
                               <input type="text" name="amount" size="6" value="<@ofbizAmount amount=adjustmentAmount/>"/>
                               <a href="javascript:document.updateOrderAdjustmentForm${orderAdjustmentId}.submit();" class="buttontext">${uiLabelMap.CommonUpdate}</a><a href="<@ofbizUrl>deleteOrderAdjustment?orderAdjustmentId=${orderAdjustmentId?if_exists}&amp;orderId=${orderId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
                           </td>
@@ -266,7 +266,7 @@ float: right;
             <form name="addAdjustmentForm" method="post" action="<@ofbizUrl>createOrderAdjustment?${paramString}</@ofbizUrl>">
              <input type="hidden" name="comments" value="Added manually by [${userLogin.userLoginId}]"/>
                 <table class="basic-table" cellspacing="0">
-                    <tr><td><td colspan="3"><hr/></td></tr>
+                    <tr><td colspan="3"><hr/></td></tr>
                     <tr>
                         <td class="align-text" width="50%">
                             <b>${uiLabelMap.OrderAdjustment} :</b>
@@ -297,31 +297,31 @@ float: right;
           <tr><td colspan="2"><hr/></td></tr>
           <tr class="align-text">
             <td><b>${uiLabelMap.OrderItemsSubTotal} :</b></td>
-            <td nowrap><@ofbizCurrency amount=orderSubTotal isoCode=currencyUomId/></td>
+            <td nowrap="nowrap"><@ofbizCurrency amount=orderSubTotal isoCode=currencyUomId/></td>
           </tr>
 
           <#-- other adjustments -->
           <tr class="align-text">
             <td><b>${uiLabelMap.OrderTotalOtherOrderAdjustments} :</b></td>
-            <td nowrap><@ofbizCurrency amount=otherAdjAmount isoCode=currencyUomId/></td>
+            <td nowrap="nowrap"><@ofbizCurrency amount=otherAdjAmount isoCode=currencyUomId/></td>
           </tr>
 
           <#-- shipping adjustments -->
           <tr class="align-text">
             <td><b>${uiLabelMap.OrderTotalShippingAndHandling} :</b></td>
-            <td nowrap><@ofbizCurrency amount=shippingAmount isoCode=currencyUomId/></td>
+            <td nowrap="nowrap"><@ofbizCurrency amount=shippingAmount isoCode=currencyUomId/></td>
           </tr>
 
               <#-- tax adjustments -->
           <tr class="align-text">
             <td><b>${uiLabelMap.OrderTotalSalesTax} :</b></td>
-            <td nowrap><@ofbizCurrency amount=taxAmount isoCode=currencyUomId/></td>
+            <td nowrap="nowrap"><@ofbizCurrency amount=taxAmount isoCode=currencyUomId/></td>
           </tr>
 
           <#-- grand total -->
           <tr class="align-text">
             <td><b>${uiLabelMap.OrderTotalDue} :</b></td>
-            <td nowrap><@ofbizCurrency amount=grandTotal isoCode=currencyUomId/></td>
+            <td nowrap="nowrap"><@ofbizCurrency amount=grandTotal isoCode=currencyUomId/></td>
           </tr>
         </table>
     </div>
