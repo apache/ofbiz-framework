@@ -512,22 +512,18 @@ public class RequestHandler implements Serializable {
 
     public static String getNextPageUri(String path) {
         List pathInfo = StringUtil.split(path, "/");
-        String nextPage = null;
         if (pathInfo == null) {
-            return nextPage;
+            return null;
         }
 
+        String nextPage = null;
         for (int i = 1; i < pathInfo.size(); i++) {
             String element = (String) pathInfo.get(i);
             if (element.indexOf('~') != 0) {
                 if (element.indexOf('?') > -1) {
                     element = element.substring(0, element.indexOf('?'));
                 }
-                if (i == 1) {
-                    nextPage = element;
-                } else {
-                    nextPage = (nextPage == null ? element : nextPage + "/" + element);
-                }
+                nextPage = (nextPage == null ? element : nextPage + "/" + element);
             }
         }
         return nextPage;
