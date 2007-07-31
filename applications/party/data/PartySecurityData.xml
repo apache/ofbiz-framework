@@ -84,4 +84,7 @@ under the License.
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SECURITY_UPDATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SECURITY_VIEW"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="SECURITY_VIEW"/>
+
+    <SecurityGroupPermission groupId="PARTYADMIN" permissionId="SECURITY_ADMIN"/>
+
 </entity-engine-xml>
