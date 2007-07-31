@@ -792,7 +792,7 @@ public class FinAccountPaymentServices {
         depositCtx.put("partyId", ownerPartyId);
         depositCtx.put("orderId", orderId);
         depositCtx.put("orderItemSeqId", "00001"); // always one item on a replish order
-        depositCtx.put("amount",  depositAmount);
+        depositCtx.put("amount",  new Double(depositAmount.doubleValue()));
         depositCtx.put("userLogin", userLogin);
         Map depositResp;
         try {
