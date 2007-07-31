@@ -65,10 +65,10 @@ under the License.
                       <#-- Authorize and Capture transactions -->
                       <div class="tabletext">
                         <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
-                          <a href="/accounting/control/AuthorizeTransaction?orderId=${orderId?if_exists}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.AccountingAuthorize}</a>
+                          <a href="/accounting/control/AuthorizeTransaction?orderId=${orderId?if_exists}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.AccountingAuthorize}</a>
                         </#if>
                         <#if orderPaymentPreference.statusId == "PAYMENT_AUTHORIZED">
-                          <a href="/accounting/control/CaptureTransaction?orderId=${orderId?if_exists}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.AccountingCapture}</a>
+                          <a href="/accounting/control/CaptureTransaction?orderId=${orderId?if_exists}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.AccountingCapture}</a>
                         </#if>
                       </div>
                     </div>
@@ -83,7 +83,7 @@ under the License.
                           (<b>${uiLabelMap.OrderReference}:</b> ${gatewayResponse.referenceNum?if_exists}
                           <b>${uiLabelMap.OrderAvs}:</b> ${gatewayResponse.gatewayAvsResult?default("N/A")}
                           <b>${uiLabelMap.OrderScore}:</b> ${gatewayResponse.gatewayScoreResult?default("N/A")})
-                          <a href="/accounting/control/ViewGatewayResponse?paymentGatewayResponseId=${gatewayResponse.paymentGatewayResponseId}&externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.CommonDetails}</a>
+                          <a href="/accounting/control/ViewGatewayResponse?paymentGatewayResponseId=${gatewayResponse.paymentGatewayResponseId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.CommonDetails}</a>
                           <#if gatewayResponse_has_next><hr class="sepbar"/></#if>
                         </#list>
                       </div>
@@ -176,10 +176,10 @@ under the License.
                       <#-- Authorize and Capture transactions -->
                                   <div class="tabletext">
                         <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
-                          <a href="/accounting/control/AuthorizeTransaction?orderId=${orderId?if_exists}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.AccountingAuthorize}</a>
+                          <a href="/accounting/control/AuthorizeTransaction?orderId=${orderId?if_exists}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.AccountingAuthorize}</a>
                         </#if>
                         <#if orderPaymentPreference.statusId == "PAYMENT_AUTHORIZED">
-                          <a href="/accounting/control/CaptureTransaction?orderId=${orderId?if_exists}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.AccountingCapture}</a>
+                          <a href="/accounting/control/CaptureTransaction?orderId=${orderId?if_exists}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.AccountingCapture}</a>
                         </#if>
                       </div>
 
@@ -198,7 +198,7 @@ under the License.
                         (<b>${uiLabelMap.OrderReference}:</b> ${gatewayResponse.referenceNum?if_exists}
                         <b>${uiLabelMap.OrderAvs}:</b> ${gatewayResponse.gatewayAvsResult?default("N/A")}
                         <b>${uiLabelMap.OrderScore}:</b> ${gatewayResponse.gatewayScoreResult?default("N/A")})
-                        <a href="/accounting/control/ViewGatewayResponse?paymentGatewayResponseId=${gatewayResponse.paymentGatewayResponseId}&externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.CommonDetails}</a>
+                        <a href="/accounting/control/ViewGatewayResponse?paymentGatewayResponseId=${gatewayResponse.paymentGatewayResponseId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.CommonDetails}</a>
                         <#if gatewayResponse_has_next><hr class="sepbar"/></#if>
                       </#list>
                     </div>
@@ -207,7 +207,7 @@ under the License.
                 <td align="right" valign="top" width="20%">
                    <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
                    <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">                        
-                      <a href="<@ofbizUrl>updateOrderPaymentPreference?orderId=${orderId}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&statusId=PAYMENT_CANCELLED&checkOutPaymentId=${paymentMethod.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a>&nbsp;
+                      <a href="<@ofbizUrl>updateOrderPaymentPreference?orderId=${orderId}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&amp;statusId=PAYMENT_CANCELLED&amp;checkOutPaymentId=${paymentMethod.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a>&nbsp;
                    </#if>
                    </#if>
                 </td>
@@ -365,7 +365,7 @@ under the License.
             <td width="5">&nbsp;</td>
             <td align="left" valign="top" width="80%">
               <#list invoices as invoice>
-                <div class="tabletext">${uiLabelMap.OrderNbr}<a href="/accounting/control/invoiceOverview?invoiceId=${invoice}&externalLoginKey=${externalLoginKey}" class="buttontext">${invoice}</a>
+                <div class="tabletext">${uiLabelMap.OrderNbr}<a href="/accounting/control/invoiceOverview?invoiceId=${invoice}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${invoice}</a>
                 (<a href="/accounting/control/invoice.pdf?invoiceId=${invoice}" class="buttontext">PDF</a>)</div>
               </#list>
             </td>
@@ -377,13 +377,15 @@ under the License.
     </tr>
    </#if>
    <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED")) && (paymentMethodValueMaps?has_content)>
-   <tr><td colspan="7"><hr class="sepbar"/></td></tr>                      
+   <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+   <tr><td colspan="7">
    <form name="addPaymentMethodToOrder" method="post" action="<@ofbizUrl>addPaymentMethodToOrder</@ofbizUrl>">           
    <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
+   <table width="100%" border="0" cellpadding="1" cellspacing="0">
    <tr>
-      <td width="15%" align="right" nowrap><div class="tableheadtext">${uiLabelMap.AccountingPaymentMethod} </div></td>
+      <td width="15%" align="right" nowrap="nowrap"><div class="tableheadtext">${uiLabelMap.AccountingPaymentMethod} </div></td>
       <td width="5">&nbsp;</td>
-      <td nowrap>
+      <td nowrap="nowrap">
          <select name="paymentMethodId" class="selectBox">
          <#list paymentMethodValueMaps as paymentMethodValueMap>
          <#assign paymentMethod = paymentMethodValueMap.paymentMethod/>
@@ -405,7 +407,7 @@ under the License.
    <tr>
       <td width="20%" align="right"><div class="tableheadtext">${uiLabelMap.AccountingAmount} </div></td>
       <td width="2%">&nbsp;</td>
-      <td nowrap>
+      <td nowrap="nowrap">
          <input type="text" class="inputBox" name="maxAmount" value="${openAmount}"/>
       </td>
    </tr>
@@ -420,7 +422,10 @@ under the License.
          </div>
       </td>
    </tr>
-</form>     
+   </table>
+   </form>     
+   </td></tr>
+
 </#if>
 </table>
 </div>

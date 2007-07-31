@@ -25,7 +25,7 @@ under the License.
     <div class="screenlet-title-bar">
        <ul>
          <li class="head3">&nbsp;${uiLabelMap.OrderShipmentInformation} - ${shipGroup.shipGroupSeqId}</li>
-         <li><a href="<@ofbizUrl>shipGroups.pdf?orderId=${orderId}&shipGroupSeqId=${shipGroup.shipGroupSeqId}</@ofbizUrl>">${uiLabelMap.OrderShipGroup} PDF</a></li>
+         <li><a href="<@ofbizUrl>shipGroups.pdf?orderId=${orderId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}</@ofbizUrl>">${uiLabelMap.OrderShipGroup} PDF</a></li>
        </ul>
        <br class="clear" />
     </div>
@@ -46,9 +46,9 @@ under the License.
                         <div class="tabletext">
                             <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">            
                             <select name="contactMechId" class="selectBox">
-                                <option SELECTED value="${shipGroup.contactMechId?if_exists}">${(shipGroupAddress.address1)?default("")} - ${shipGroupAddress.city?default("")}</option>
+                                <option selected="selected" value="${shipGroup.contactMechId?if_exists}">${(shipGroupAddress.address1)?default("")} - ${shipGroupAddress.city?default("")}</option>
                                 <#if shippingContactMechList?has_content>
-                                <option DISABLED value=""></option>
+                                <option disabled="disabled" value=""></option>
                                 <#list shippingContactMechList as shippingContactMech>
                                 <#assign shippingPostalAddress = shippingContactMech.getRelatedOne("PostalAddress")?if_exists>
                                 <#if shippingContactMech.contactMechId?has_content>
