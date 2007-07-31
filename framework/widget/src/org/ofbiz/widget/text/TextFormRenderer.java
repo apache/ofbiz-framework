@@ -178,6 +178,7 @@ public class TextFormRenderer implements FormStringRenderer {
     }
 
     public void renderFormatHeaderRowClose(StringBuffer buffer, Map context, ModelForm modelForm) {
+        this.appendWhitespace(buffer);
     }
 
     public void renderFormatHeaderRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) {
