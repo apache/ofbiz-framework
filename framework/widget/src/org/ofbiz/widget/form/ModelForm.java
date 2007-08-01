@@ -170,7 +170,7 @@ public class ModelForm {
     protected List actions;
     protected List rowActions;
     protected FlexibleStringExpander rowCountExdr;
-    protected ModelFormField multiSubmitField;
+    protected List multiSubmitFields = FastList.newInstance();
     protected int rowCount = 0;
 
     // ===== CONSTRUCTORS =====
@@ -452,7 +452,7 @@ public class ModelForm {
             ModelFormField modelFormField = new ModelFormField(fieldElement, this);
             ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
             if (thisType.equals("multi") && fieldInfo instanceof ModelFormField.SubmitField) {
-               multiSubmitField = modelFormField; 
+               multiSubmitFields.add(modelFormField);
             } else {
                 modelFormField = this.addUpdateField(modelFormField);
             }
@@ -2418,8 +2418,8 @@ public class ModelForm {
         return this.useRowSubmit;
     }
 
-    public ModelFormField getMultiSubmitField() {
-        return this.multiSubmitField;
+    public List getMultiSubmitFields() {
+        return this.multiSubmitFields;
     }
 
     public List getInbetweenList(FieldGroup startFieldGroup, FieldGroup endFieldGroup) {
