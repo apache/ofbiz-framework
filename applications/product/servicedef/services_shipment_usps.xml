@@ -41,8 +41,8 @@ under the License.
         <attribute name="firmName" type="String" mode="INOUT" optional="true"/>
         <attribute name="address1" type="String" mode="INOUT" optional="false"/>
         <attribute name="address2" type="String" mode="INOUT" optional="true"/>
-        <attribute name="city" type="String" mode="INOUT" optional="false"/>
-        <attribute name="state" type="String" mode="INOUT" optional="false"/>
+        <attribute name="city" type="String" mode="INOUT" optional="true"/>
+        <attribute name="state" type="String" mode="INOUT" optional="true"/>
         <attribute name="zip5" type="String" mode="INOUT" optional="true"/>
         <attribute name="zip4" type="String" mode="INOUT" optional="true"/>
     </service>
