@@ -1100,25 +1100,28 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append("<input type=\"hidden\" name=\"_useRowSubmit\" value=\"Y\"/>");
         }
         
-        ModelFormField submitField = modelForm.getMultiSubmitField();
-        if (submitField != null) {
+        Iterator submitFields = modelForm.getMultiSubmitFields().iterator();
+        while (submitFields.hasNext()) {
+            ModelFormField submitField = (ModelFormField)submitFields.next();
+            if (submitField != null) {
 
-            // Threw this in that as a hack to keep the submit button from expanding the first field
-            // Needs a more rugged solution
-            // WARNING: this method (renderMultiFormClose) must be called after the 
-            // table that contains the list has been closed (to avoid validation errors) so
-            // we cannot call here the methods renderFormatItemRowCell*: for this reason
-            // they are now commented.
-            
-            // this.renderFormatItemRowCellOpen(buffer, context, modelForm, submitField);
-            // this.renderFormatItemRowCellClose(buffer, context, modelForm, submitField);
-            
-            // this.renderFormatItemRowCellOpen(buffer, context, modelForm, submitField);
+                // Threw this in that as a hack to keep the submit button from expanding the first field
+                // Needs a more rugged solution
+                // WARNING: this method (renderMultiFormClose) must be called after the 
+                // table that contains the list has been closed (to avoid validation errors) so
+                // we cannot call here the methods renderFormatItemRowCell*: for this reason
+                // they are now commented.
 
-            submitField.renderFieldString(buffer, context, this);
+                // this.renderFormatItemRowCellOpen(buffer, context, modelForm, submitField);
+                // this.renderFormatItemRowCellClose(buffer, context, modelForm, submitField);
 
-            // this.renderFormatItemRowCellClose(buffer, context, modelForm, submitField);
-            
+                // this.renderFormatItemRowCellOpen(buffer, context, modelForm, submitField);
+
+                submitField.renderFieldString(buffer, context, this);
+
+                // this.renderFormatItemRowCellClose(buffer, context, modelForm, submitField);
+
+            }
         }
         buffer.append("</form>");
         this.appendWhitespace(buffer);
@@ -2322,7 +2325,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
             }
             makeHyperlinkString(buffer, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), titleText, null);
         } else if (modelFormField.isRowSubmit()) {
-            if (UtilValidate.isNotEmpty(titleText)) buffer.append(titleText).append("<br>");
+            if (UtilValidate.isNotEmpty(titleText)) buffer.append(titleText).append("<br/>");
             buffer.append("<input type=\"checkbox\" name=\"selectAll\" value=\"Y\" onclick=\"javascript:toggleAll(this, '");
             buffer.append(modelFormField.getModelForm().getName());
             buffer.append("');\"/>");
