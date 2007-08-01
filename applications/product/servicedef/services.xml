@@ -1124,6 +1124,7 @@ under the License.
         <attribute type="String" mode="IN" name="imageUrl" optional="false"/>
         <attribute type="String" mode="IN" name="actionType" optional="false"/>
         <attribute type="String" mode="IN" name="statusId" optional="false"/>
+        <attribute type="String" mode="IN" name="testMode" optional="false"/>
         <attribute type="String" mode="IN" name="trackingCodeId" optional="true"/>
     </service>
     <service name="exportToEbay" engine="java"
