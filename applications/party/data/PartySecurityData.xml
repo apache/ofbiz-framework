@@ -85,6 +85,7 @@ under the License.
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SECURITY_VIEW"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="SECURITY_VIEW"/>
 
-    <SecurityGroupPermission groupId="PARTYADMIN" permissionId="SECURITY_ADMIN"/>
+    <SecurityGroup description="Security Admin group, has all permissions to modify security settings in party manager." groupId="SECURITYADMIN"/>
+    <SecurityGroupPermission groupId="SECURITYADMIN" permissionId="SECURITY_ADMIN"/>
 
 </entity-engine-xml>
