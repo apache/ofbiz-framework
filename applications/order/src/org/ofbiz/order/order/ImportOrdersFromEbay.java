@@ -34,6 +34,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Collection;
 
 import javolution.util.FastMap;
 
@@ -54,6 +55,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.party.contact.ContactHelper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -808,17 +810,24 @@ public class ImportOrdersFromEbay {
                 // set partyId to
                 String partyId = null;
                 String contactMechId = "";
+                String emailContactMechId = null;
+                String phoneContactMechId = null;
                 GenericValue partyAttribute = EntityUtil.getFirst(delegator.findByAnd("PartyAttribute", UtilMisc.toMap("attrValue", parameters.get("eiasTokenBuyer"))));
+
+                // if we get a party, check its contact information.
                 if (UtilValidate.isNotEmpty(partyAttribute)) {
                     partyId = (String) partyAttribute.get("partyId");
-                    GenericValue contactMech = EntityUtil.getFirst(delegator.findByAnd("PartyContactMechPurpose", UtilMisc.toMap("partyId", partyId, "contactMechPurposeTypeId","SHIPPING_LOCATION")));
-                    if (contactMech != null) {
-                        contactMechId = contactMech.getString("contactMechId");
+                    GenericValue party = delegator.findByPrimaryKey("party", UtilMisc.toMap("partyId", partyId));
+                    
+                    contactMechId = setShippingAddressContactMech(dispatcher, delegator, party, userLogin, parameters);
+                    String emailBuyer = (String) parameters.get("emailBuyer");
+                    if (!(emailBuyer.equals("") || emailBuyer.equalsIgnoreCase("Invalid Request"))) {
+                        String emailContactMech = setEmailContactMech(dispatcher, delegator, party, userLogin, parameters);
                     }
-                    // TODO: check for current contact information here
-                    //       and, if needed, 'update' the existing ones
-                } 
+                    String phoneContactMech = setPhoneContactMech(dispatcher, delegator, party, userLogin, parameters);
+                }
                 
+                // create party if none exists already
                 if (UtilValidate.isEmpty(partyId)) {
                     partyId = createCustomerParty(dispatcher, (String) parameters.get("buyerName"), userLogin);          
                     if (UtilValidate.isEmpty(partyId)) {
@@ -826,6 +835,7 @@ public class ImportOrdersFromEbay {
                     }    
                 }   
                            
+                // create new party's contact information
                 if (UtilValidate.isEmpty(contactMechId)) {
                     contactMechId = createAddress(dispatcher, partyId, userLogin, "SHIPPING_LOCATION", parameters);
                     createPartyPhone(dispatcher, partyId, (String) parameters.get("shippingAddressPhone"), userLogin);
@@ -1038,6 +1048,7 @@ public class ImportOrdersFromEbay {
             context.put("contactNumber", phoneNumber);                   
             context.put("partyId", partyId);
             context.put("userLogin", userLogin);
+            context.put("contactMechPurposeTypeId", "PHONE_SHIPPING");         
             summaryResult = dispatcher.runSync("createPartyTelecomNumber", context);
             phoneContactMechId = (String)summaryResult.get("contactMechId");
         } catch (Exception e) { 
@@ -1063,6 +1074,7 @@ public class ImportOrdersFromEbay {
                 context.clear();
                 context.put("partyId", partyId);
                 context.put("contactMechId", emailContactMechId);
+                context.put("contactMechPurposeTypeId", "OTHER_EMAIL");                
                 context.put("userLogin", userLogin);                 
                 summaryResult = dispatcher.runSync("createPartyContactMech", context);
             }
@@ -1194,5 +1206,100 @@ public class ImportOrdersFromEbay {
         
         cart.setCarrierPartyId(partyId);
         cart.setShipmentMethodTypeId(shipmentMethodTypeId);    
+    }    
+    
+    private static String setShippingAddressContactMech (LocalDispatcher dispatcher, GenericDelegator delegator, GenericValue party, GenericValue userLogin, Map parameters) {
+        String contactMechId = null;
+        String partyId = (String) party.get("partyId");
+        
+        // find all contact mechs for this party with a shipping location purpose.
+        Collection shippingLocations = ContactHelper.getContactMechByPurpose(party, "SHIPPING_LOCATION", false);
+        
+        // check them to see if one matches
+        Iterator shippingLocationsIterator = shippingLocations.iterator();
+        while (shippingLocationsIterator.hasNext()) {
+            GenericValue shippingLocation = (GenericValue) shippingLocationsIterator.next();
+            contactMechId = shippingLocation.getString("conatctMechId");
+            GenericValue postalAddress;
+            try { 
+                // get the postal address for this contact mech
+                postalAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", contactMechId));
+                
+                //  match values to compare by modifying them the same way they were when they were created
+                String country = ((String)parameters.get("shippingAddressCountry")).toUpperCase();
+                String state = ((String)parameters.get("shippingAddressStateOrProvince")).toUpperCase();
+                String city = (String)parameters.get("shippingAddressCityName");
+                correctCityStateCountry(dispatcher, parameters, city, state, country);
+                
+                // TODO:  The following comparison does not consider the To Name or Attn: lines of the address.
+                //
+                // now compare values.  If all fields match, that's our shipping address.  Return the related contact mech id.
+                if (    parameters.get("shippingAddressStreet1").toString().equals((postalAddress.get("address1").toString())) &&
+                        parameters.get("city").toString().equals((postalAddress.get("city").toString())) &&
+                        parameters.get("stateProvinceGeoId").toString().equals((postalAddress.get("stateProvinceGeoId").toString())) &&
+                        parameters.get("countryGeoId").toString().equals((postalAddress.get("countryGeoId").toString())) &&
+                        parameters.get("shippingAddressPostalCode").toString().equals((postalAddress.get("postalCode").toString()))
+                        ) { // this is an exact address match!!
+                    return contactMechId; 
+                } 
+            } catch (Exception e) {
+                Debug.logError(e, "Problem with verifying postal addresses for contactMechId " + contactMechId + ".", module); 
+            }
+        } 
+        // none of the existing contact mechs/postal addresses match (or none were found).  Create a new one and return the related contact mech id.
+        Debug.logInfo("Unable to find matching postal address for partyId " + partyId + ". Creating a new one.", module);
+        return createAddress(dispatcher, partyId, userLogin, "SHIPPING_LOCATION", parameters);
+    }
+    
+    private static String setEmailContactMech (LocalDispatcher dispatcher, GenericDelegator delegator, GenericValue party, GenericValue userLogin, Map parameters) {
+        String contactMechId = null;
+        String partyId = (String) party.get("partyId");
+        
+        // find all contact mechs for this party with a email address purpose. 
+        Collection emailAddressContactMechs = ContactHelper.getContactMechByPurpose(party, "OTHER_EMAIL", false);
+        
+        // check them to see if one matches
+        Iterator emailAddressesContactMechsIterator = emailAddressContactMechs.iterator();
+        while (emailAddressesContactMechsIterator.hasNext()) {
+            GenericValue emailAddressContactMech = (GenericValue) emailAddressesContactMechsIterator.next();
+            contactMechId = emailAddressContactMech.getString("contactMechId");
+            // now compare values.  If one matches, that's our email address.  Return the related contact mech id.
+            if (parameters.get("emailBuyer").toString().equals((emailAddressContactMech.get("infoString").toString()))) {
+                 return contactMechId; 
+            }
+        } 
+        // none of the existing contact mechs/email addresses match (or none were found).  Create a new one and return the related contact mech id.
+        Debug.logInfo("Unable to find matching postal address for partyId " + partyId + ". Creating a new one.", module);
+        return createPartyEmail(dispatcher, partyId, (String) parameters.get("emailBuyer"), userLogin);
+    }
+    
+    private static String setPhoneContactMech (LocalDispatcher dispatcher, GenericDelegator delegator, GenericValue party, GenericValue userLogin, Map parameters) {
+        String contactMechId = null;
+        String partyId = (String) party.get("partyId");
+        
+        // find all contact mechs for this party with a telecom number purpose.
+        Collection phoneNumbers = ContactHelper.getContactMechByPurpose(party, "PHONE_SHIPPING", false);
+        
+        // check them to see if one matches
+        Iterator phoneNumbersIterator = phoneNumbers.iterator();
+        while (phoneNumbersIterator.hasNext()) {
+            GenericValue phoneNumberContactMech = (GenericValue) phoneNumbersIterator.next();
+            contactMechId = phoneNumberContactMech.getString("contactMechId");
+            GenericValue phoneNumber;
+            try { 
+                // get the phone number for this contact mech
+                phoneNumber = delegator.findByPrimaryKey("TelecomNumber", UtilMisc.toMap("contactMechId", contactMechId));
+                
+                // now compare values.  If one matches, that's our phone number.  Return the related contact mech id.
+                if (parameters.get("shippingAddressPhone").toString().equals((phoneNumber.get("contactNumber").toString()))) { 
+                    return contactMechId; 
+                }
+            } catch (Exception e) {
+                Debug.logError("Problem with verifying phone number for contactMechId " + contactMechId + ".", module);
+            }
+        } 
+        // none of the existing contact mechs/email addresses match (or none were found).  Create a new one and return the related contact mech id.
+        Debug.logInfo("Unable to find matching postal address for partyId " + partyId + ". Creating a new one.", module);
+        return createPartyPhone(dispatcher, partyId, (String) parameters.get("shippingAddressPhone"), userLogin);
     }    
 }
