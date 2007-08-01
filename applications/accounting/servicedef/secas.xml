@@ -143,11 +143,9 @@ under the License.
     -->
     
     <!--  automatically create a fixed asset when a 'asset usage' type product 
-   				is created and create the link between them -->
+          is created and create the link between them -->
     <eca service="createProduct" event="commit">
         <condition field-name="productTypeId" operator="equals" value="ASSET_USAGE"/>
         <action service="createFixedAssetAndLinkToProduct" mode="sync"/>
     </eca>
-    
-    
 </service-eca>
