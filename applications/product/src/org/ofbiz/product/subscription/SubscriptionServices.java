@@ -228,13 +228,11 @@ public class SubscriptionServices {
                 context.put("partyId", partyId);
             } else {
                 String msg = "No OrderRole found for orderId:" + orderId;
-                Debug.logError(msg, module);
-                return ServiceUtil.returnError(msg); 
+                return ServiceUtil.returnFailure(msg); 
             }
             orderHeader = delegator.findByPrimaryKeyCache("OrderHeader", UtilMisc.toMap("orderId", orderId));
             if (orderHeader == null) {
                 String msg = "No OrderHeader found for orderId:" + orderId;
-                Debug.logError(msg, module);
                 return ServiceUtil.returnError(msg); 
             }
             Timestamp orderCreatedDate = (Timestamp) orderHeader.get("orderDate");
