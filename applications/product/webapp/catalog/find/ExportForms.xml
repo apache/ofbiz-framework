@@ -28,9 +28,7 @@ under the License.
             <drop-down no-current-selected-key="insert">
                 <option key="insert" description="${uiLabelMap.CommonInsert}"/>
                 <option key="update" description="${uiLabelMap.CommonUpdate}"/>
-                <!-- for the moment delete action type is not allowed
                 <option key="delete" description="${uiLabelMap.CommonDelete}"/>
-                -->
             </drop-down>
         </field>
         <field name="statusId">
@@ -40,6 +38,12 @@ under the License.
                 -->
                 <option key="draft" description="${uiLabelMap.ProductExportPublishDraft}"/>
                 <option key="publish" description="${uiLabelMap.ProductExportPublish}"/>
+            </drop-down>
+        </field>
+        <field name="testMode" tooltip="${uiLabelMap.ProductExportTestMode}">
+            <drop-down no-current-selected-key="N">
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
             </drop-down>
         </field>
         <field name="trackingCodeId">

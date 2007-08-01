@@ -486,6 +486,7 @@ public class ProductSearchEvents {
                 String imageUrl = (String) request.getParameter("imageUrl");
                 String actionType = (String) request.getParameter("actionType");
                 String statusId = (String) request.getParameter("statusId");
+                String testMode = (String) request.getParameter("testMode");
                 String trackingCodeId = (String) request.getParameter("trackingCodeId");
                 
                 // Export all or selected products to Google Base
@@ -495,7 +496,8 @@ public class ProductSearchEvents {
                                                "imageUrl", imageUrl,
                                                "actionType", actionType,
                                                "statusId", statusId,
-                                               "trackingCodeId", trackingCodeId);
+                                               "testMode", testMode);
+                    inMap.put("trackingCodeId", trackingCodeId);
                     inMap.put("userLogin", userLogin);
                     Map exportResult = dispatcher.runSync("exportToGoogle", inMap);
                     if (ServiceUtil.isError(exportResult)) {
@@ -503,7 +505,9 @@ public class ProductSearchEvents {
                         Debug.logError(errMsg, module);
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                         return "error";
-                    } 
+                    } else {
+                        request.setAttribute("_SUCCESS_MESSAGE_", exportResult.get("successMessage"));
+                    }
                 } catch (GenericServiceException e) {
                     errMsg = UtilProperties.getMessage(resource, "productsearchevents.exceptionCallingExportToGoogle", locale);
                     Debug.logError(e, errMsg, module);

@@ -81,7 +81,7 @@ public class ProductsExportToGoogle {
             if (!ServiceUtil.isFailure(result)) { 
                 String token = authenticate(authenticationUrl, accountEmail, accountPassword);
                 if (token != null) {    
-                    result = postItem(token, postItemsUrl, developerKey, dataItemsXml, locale);
+                    result = postItem(token, postItemsUrl, developerKey, dataItemsXml, locale, (String)context.get("testMode"));
                     String msg = ServiceUtil.getErrorMessage(result);
                     if (msg != null && msg.length() > 0) {
                         return ServiceUtil.returnFailure(msg);
@@ -183,9 +183,19 @@ public class ProductsExportToGoogle {
         return outputBuilder.toString();
     }
     
-    private static Map postItem(String token, String postItemsUrl, String developerKey, StringBuffer dataItems, Locale locale) throws IOException {
+    private static Map postItem(String token, String postItemsUrl, String developerKey, StringBuffer dataItems, 
+                                Locale locale, String testMode) throws IOException {
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Request To Google Base :\n" + dataItems.toString(), module);
+        }
+        
         HttpURLConnection connection = (HttpURLConnection)(new URL(postItemsUrl)).openConnection();
-      
+        
+        // Test Mode Yes (add the dry-run=true)
+        if (UtilValidate.isNotEmpty(testMode) && "Y".equals(testMode)) {
+            connection.setRequestProperty("dry-run", "true");
+        } 
+        
         connection.setDoInput(true);
         connection.setDoOutput(true);
         connection.setRequestMethod("POST");
@@ -200,21 +210,27 @@ public class ProductsExportToGoogle {
         int responseCode = connection.getResponseCode();
         InputStream inputStream;
         Map result = FastMap.newInstance();
+        String response = "";
         if (responseCode == HttpURLConnection.HTTP_CREATED || responseCode == HttpURLConnection.HTTP_OK) {
             inputStream = connection.getInputStream();
-            String response = toString(inputStream);
+            response = toString(inputStream);
             if (response != null && response.length() > 0) {
                 result = readResponseFromGoogle(response, locale);
                 String msg = ServiceUtil.getErrorMessage(result);
                 if (msg != null && msg.length() > 0) {
-                    return ServiceUtil.returnFailure(msg);
+                    result = ServiceUtil.returnFailure(msg);
                 } else {
-                    return ServiceUtil.returnSuccess();
+                    result = ServiceUtil.returnSuccess();
                 }
             } 
         } else {
             inputStream = connection.getErrorStream();
-            result = ServiceUtil.returnFailure(toString(inputStream));
+            response = toString(inputStream);
+            result = ServiceUtil.returnFailure(response);
+        }
+        
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Response From Google Base :\n" + response, module);
         }
         return result;
     }
