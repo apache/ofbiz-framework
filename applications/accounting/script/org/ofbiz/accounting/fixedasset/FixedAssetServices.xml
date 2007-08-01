@@ -64,20 +64,20 @@ under the License.
         </check-permission>        
         <check-errors/>
 
-		<set field="createFixedAsset.fixedAssetTypeId" value="PROPERTY"/>
-		<if-not-empty field-name="parameters.productName">
-			<set field="createFixedAsset.fixedAssetName" from-field="parameters.productName"/>
-		</if-not-empty>
-		<if-not-empty field-name="parameters.internalName">
-			<set field="createFixedAsset.fixedAssetName" from-field="parameters.internalName"/>
-		</if-not-empty>
-		<call-service service-name="createFixedAsset" in-map-name="createFixedAsset">
-			<result-to-field result-name="fixedAssetId" field-name="newLink.fixedAssetId"/>
-		</call-service>
+        <set field="createFixedAsset.fixedAssetTypeId" value="PROPERTY"/>
+        <if-not-empty field-name="parameters.productName">
+            <set field="createFixedAsset.fixedAssetName" from-field="parameters.productName"/>
+        </if-not-empty>
+        <if-not-empty field-name="parameters.internalName">
+            <set field="createFixedAsset.fixedAssetName" from-field="parameters.internalName"/>
+        </if-not-empty>
+        <call-service service-name="createFixedAsset" in-map-name="createFixedAsset">
+            <result-to-field result-name="fixedAssetId" field-name="newLink.fixedAssetId"/>
+        </call-service>
 
-		<set field="newLink.fixedAssetProductTypeId" value="FAPT_USE"/>
-		<set field="newLink.productId" from-field="parameters.productId"/>
-		<call-service service-name="addFixedAssetProduct" in-map-name="newLink"/>
+        <set field="newLink.fixedAssetProductTypeId" value="FAPT_USE"/>
+        <set field="newLink.productId" from-field="parameters.productId"/>
+        <call-service service-name="addFixedAssetProduct" in-map-name="newLink"/>
         
     </simple-method>
 
