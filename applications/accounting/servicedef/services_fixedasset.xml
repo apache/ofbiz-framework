@@ -32,6 +32,13 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fixedAssetTypeId" optional="false"/>
     </service>
+    <service name="createFixedAssetAndLinkToProduct" default-entity-name="FixedAsset" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetAndLinkToProduct" auth="true">
+        <description>Create an FixedAsset and link to an existing product</description>
+        <attribute name="productId" mode="IN" type="String"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
     <service name="updateFixedAsset" default-entity-name="FixedAsset" engine="simple"
                 location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAsset" auth="true">
         <description>Update an FixedAsset</description>
