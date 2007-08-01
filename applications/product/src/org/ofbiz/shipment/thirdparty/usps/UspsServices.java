@@ -24,13 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
+import java.util.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -58,6 +52,7 @@ import org.xml.sax.SAXException;
 public class UspsServices {
 
     public final static String module = UspsServices.class.getName();
+    public final static String errorResource = "ProductErrorUiLabels";
 
     public static Map uspsRateInquire(DispatchContext dctx, Map context) {
 
@@ -427,6 +422,16 @@ public class UspsServices {
 
     public static Map uspsAddressValidation(DispatchContext dctx, Map context) {
 
+        String state = (String) context.get("state");
+        String city = (String) context.get("city");
+        String zip5 = (String) context.get("zip5");
+        if ( (UtilValidate.isEmpty(state) && UtilValidate.isEmpty(city) && UtilValidate.isEmpty(zip5)) ||    // No state, city or zip5
+             (UtilValidate.isEmpty(zip5) && (UtilValidate.isEmpty(state) || UtilValidate.isEmpty(city)))) {  // Both state and city are required if no zip5
+            String errorMessage = UtilProperties.getMessage(errorResource, "ProductUspsAddressValidationStateAndCityOrZipRqd", (Locale) context.get("locale"));
+            Debug.logError(errorMessage,  module);
+            return ServiceUtil.returnError(errorMessage);
+        }
+
         Document requestDocument = createUspsRequestDocument("AddressValidateRequest");
 
         Element addressElement = UtilXml.addChildElement(requestDocument.getDocumentElement(), "Address", requestDocument);
@@ -450,17 +455,17 @@ public class UspsServices {
             responseDocument = sendUspsRequest("Verify", requestDocument);
         } catch (UspsRequestException e) {
             Debug.log(e, module);
-            return ServiceUtil.returnError("Error sending request for USPS Address Validation service: " + e.getMessage());
+            return ServiceUtil.returnFailure("Error sending request for USPS Address Validation service: " + e.getMessage());
         }
 
         Element respAddressElement = UtilXml.firstChildElement(responseDocument.getDocumentElement(), "Address");
         if (respAddressElement == null) {
-            return ServiceUtil.returnError("Incomplete response from USPS Address Validation service: no Address element found");
+            return ServiceUtil.returnFailure("Incomplete response from USPS Address Validation service: no Address element found");
         }
 
         Element respErrorElement = UtilXml.firstChildElement(respAddressElement, "Error");
         if (respErrorElement != null) {
-            return ServiceUtil.returnError("The following error was returned by the USPS Address Validation service: " +
+            return ServiceUtil.returnFailure("The following error was returned by the USPS Address Validation service: " +
                     UtilXml.childElementValue(respErrorElement, "Description"));
         }
 
