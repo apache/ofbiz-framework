@@ -142,4 +142,35 @@ under the License.
         <check-errors/>
     </simple-method>
 
+    <simple-method method-name="createTransferFromRequirement" short-description="Create the inventory transfers required to fulfill the requirement.">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-message message="Security Error: to run createTransferFromRequirement you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="Requirement" value-name="requirement" auto-field-map="true"/>
+        <check-errors/>
+        <set field="inputMap.productId" from-field="requirement.productId"/>
+        <set field="inputMap.facilityId" from-field="parameters.fromFacilityId"/>
+        <set field="inputMap.facilityIdTo" from-field="requirement.facilityId"/>
+        <set field="inputMap.quantity" from-field="requirement.quantity"/>
+        <set field="inputMap.sendDate" from-field="requirement.requiredByDate"/>
+        <call-service service-name="createInventoryTransfersForProduct" in-map-name="inputMap">
+            <result-to-field field-name="quantityNotTransferred" result-name="quantityNotTransferred"/>
+        </call-service>
+        <check-errors/>
+        <if-compare field-name="quantityNotTransferred" value="0.0" operator="greater" type="Double">
+            <!-- we create a new requirement for the quantity not trasferred (because not available) -->
+            <clear-field field-name="inputMap"/>
+            <set-service-fields service-name="createRequirement" map-name="requirement" to-map-name="inputMap"/>
+            <set field="inputMap.quantity" from-field="quantityNotTransferred"/>
+            <call-service service-name="createRequirement" in-map-name="inputMap"/>
+            <check-errors/>
+        </if-compare>
+        <check-errors/>
+        <clear-field field-name="inputMap"/>
+        <set field="inputMap.requirementId" from-field="requirement.requirementId"/>
+        <set field="inputMap.statusId" value="REQ_ORDERED"/>
+        <call-service service-name="updateRequirement" in-map-name="inputMap"/>
+    </simple-method>
+    
 </simple-methods>

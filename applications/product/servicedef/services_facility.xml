@@ -383,6 +383,19 @@ under the License.
         <attribute name="inventoryTransferId" type="String" mode="IN" optional="false"/>
     </service>
 
+    <service name="createInventoryTransfersForProduct" engine="simple"
+            location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryTransfersForProduct" auth="true">
+        <description>Create inventory transfers for the given product and quantity. Return the units not available for transfers.</description>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="containerId" type="String" mode="IN" optional="true"/>
+        <attribute name="facilityIdTo" type="String" mode="IN" optional="false"/>
+        <attribute name="sendDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantityNotTransferred" type="Double" mode="OUT" optional="false"/>
+    </service>
+
     <service name="issueImmediatelyFulfilledOrder" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryIssueServices.xml" invoke="issueImmediatelyFulfilledOrder" auth="false">
         <description>

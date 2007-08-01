@@ -170,5 +170,13 @@ under the License.
         <description>If the requirement is a product requirement (purchasing) try to assign it to the primary supplier</description>
         <attribute name="requirementId" type="String" mode="IN" optional="false"/>
     </service>
+
+    <service name="createTransferFromRequirement" engine="simple" auth="true"
+            location="org/ofbiz/order/requirement/RequirementServices.xml" invoke="createTransferFromRequirement">
+        <description>Create the inventory transfers required to fulfill the requirement.</description>
+        <attribute mode="IN" name="requirementId" optional="false" type="String"/>
+        <attribute mode="IN" name="fromFacilityId" optional="false" type="String"/>
+        <attribute mode="IN" name="quantity" optional="true" type="Double"/>
+    </service>
 </services>
 
