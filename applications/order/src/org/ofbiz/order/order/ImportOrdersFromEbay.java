@@ -570,9 +570,14 @@ public class ImportOrdersFromEbay {
                                 itemId = UtilXml.childElementValue(itemElement, "ItemID", "");
                                 order.put("paymentMethods", UtilXml.childElementValue(itemElement, "PaymentMethods", ""));
                                 order.put("quantity", UtilXml.childElementValue(itemElement, "Quantity", "0"));
-                                order.put("productId", UtilXml.childElementValue(itemElement, "SKU", ""));
                                 order.put("startPrice", UtilXml.childElementValue(itemElement, "StartPrice", "0"));
                                 order.put("title", UtilXml.childElementValue(itemElement, "Title", ""));
+                                
+                                String productId = UtilXml.childElementValue(itemElement, "SKU", "");
+                                if (UtilValidate.isEmpty(productId)) {
+                                    productId = retrieveProductIdFromTitle(delegator, (String)order.get("title"));
+                                }
+                                order.put("productId", productId);
                                 
                                 // retrieve selling status
                                 List sellingStatus = UtilXml.childElementList(itemElement, "SellingStatus");
@@ -759,11 +764,16 @@ public class ImportOrdersFromEbay {
             // create the shipment group item
             cart.addItemGroup("00001", null);
             
-            // create the order item
+            // check if the producId exists and it is valid
             String productId = (String) parameters.get("productId");
             if (UtilValidate.isEmpty(productId)) {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.productIdNotAvailable", locale));
-            }                
+            } else {
+                GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+                if (UtilValidate.isEmpty(product)) {
+                    return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.productIdDoesNotExist", locale));
+                }
+            }
             
             // Before import the order from eBay to OFBiz is mandatory that the payment has be received
             String paidTime = (String) parameters.get("paidTime");
@@ -1167,7 +1177,7 @@ public class ImportOrdersFromEbay {
         String partyId = "_NA_";
         String shipmentMethodTypeId = "NO_SHIPPING";
         
-        if (shippingService != null) {
+   /*   if (shippingService != null) {
             if ("USPSPriority".equals(shippingService)) {
                 partyId = "USPS";
                 shipmentMethodTypeId = "PRIORITY"; 
@@ -1202,7 +1212,7 @@ public class ImportOrdersFromEbay {
                 partyId = "_NA_";
                 shipmentMethodTypeId = "PICK_UP";
             } 
-        }        
+        } */       
         
         cart.setCarrierPartyId(partyId);
         cart.setShipmentMethodTypeId(shipmentMethodTypeId);    
@@ -1301,5 +1311,19 @@ public class ImportOrdersFromEbay {
         // none of the existing contact mechs/email addresses match (or none were found).  Create a new one and return the related contact mech id.
         Debug.logInfo("Unable to find matching postal address for partyId " + partyId + ". Creating a new one.", module);
         return createPartyPhone(dispatcher, partyId, (String) parameters.get("shippingAddressPhone"), userLogin);
-    }    
+    } 
+
+    private static String retrieveProductIdFromTitle(GenericDelegator delegator, String title) {
+        String productId = "";
+        
+        try {
+            List product = delegator.findByAnd("Product", UtilMisc.toMap("internalName", title));
+            if (UtilValidate.isNotEmpty(product) && product.size() == 1) {
+                productId = (String) ((GenericValue)product.get(0)).get("productId");
+            }
+        } catch (GenericEntityException e) {
+            productId = "";
+        }
+        return productId;
+    }
 }

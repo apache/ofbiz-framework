@@ -89,10 +89,7 @@ public class ProductsExportToEbay {
             if (!ServiceUtil.isFailure(buildDataItemsXml(dctx, context, dataItemsXml, token))) { 
                 Map result = postItem(xmlGatewayUri, dataItemsXml, devID, appID, certID, "AddItem", compatibilityLevel, siteID);
                 if (ServiceUtil.isFailure(result)) { 
-                        return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(result));
-                } else {
-                    Debug.logError("Error during authentication to eBay Account", module);
-                    return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.errorDuringAuthenticationToEbay", locale));
+                    return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(result));
                 }            
             }
         } catch (Exception e) {        
@@ -184,8 +181,8 @@ public class ProductsExportToEbay {
                 Iterator productsListItr = productsList.iterator();
                 while(productsListItr.hasNext()) {
                     GenericValue prod = (GenericValue)productsListItr.next();
-                    String title = parseText(prod.getString("productName"));
-                    String description = parseText(prod.getString("description"));
+                    String title = parseText(prod.getString("internalName"));
+                    String description = parseText(prod.getString("internalName"));
                      
                     Element itemElem = UtilXml.addChildElement(itemRequestElem, "Item", itemDocument);
                     UtilXml.addChildElementValue(itemElem, "Country", (String)context.get("country"), itemDocument);
