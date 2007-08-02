@@ -155,12 +155,14 @@ public class OagisShipmentServices {
         }
         
         try {
-            Map oagisMsgInfoResult = dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoCtx);
+            dispatcher.runAsync("createOagisMessageInfo", oagisMsgInfoCtx, true);
+            /* running async for better error handling
             if (ServiceUtil.isError(oagisMsgInfoResult)){
                 String errMsg = ServiceUtil.getErrorMessage(oagisMsgInfoResult);
                 errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "CreateOagisMessageInfoServiceError"));
                 Debug.logError(errMsg, module);
             }
+            */
         } catch (GenericServiceException e){
             String errMsg = "Error creating OagisMessageInfo for the Incoming Message: "+e.toString();
             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
@@ -501,7 +503,7 @@ public class OagisShipmentServices {
                 }
                 
                 try {
-                    Map oagisMsgInfoResult = dispatcher.runSync("createOagisMessageInfo", comiCtx);
+                    dispatcher.runAsync("createOagisMessageInfo", comiCtx, true);
                 } catch (GenericServiceException e){
                     String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
                     Debug.logError(e, errMsg, module);
@@ -685,7 +687,7 @@ public class OagisShipmentServices {
                 }
 
                 try {
-                    dispatcher.runSync("createOagisMessageInfo", comiCtx);
+                    dispatcher.runAsync("createOagisMessageInfo", comiCtx, true);
                 } catch (GenericServiceException e) {
                     String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
                     Debug.logError(e, errMsg, module);

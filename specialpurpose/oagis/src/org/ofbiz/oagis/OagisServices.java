@@ -159,8 +159,10 @@ public class OagisServices {
         oagisMsgInfoContext.put("userLogin", userLogin);
         try
         {
-            Map oagisMsgInfoResult = dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoContext);
+            dispatcher.runAsync("createOagisMessageInfo", oagisMsgInfoContext, true);
+            /* running async for better error handling
             if (ServiceUtil.isError(oagisMsgInfoResult)) return ServiceUtil.returnError("Error creating OagisMessageInfo");
+            */
             
         } catch (GenericServiceException e) {
             Debug.logError(e, "Saving message to database failed", module);
@@ -257,12 +259,14 @@ public class OagisServices {
         oagisMsgInfoCtx.put("outgoingMessage", "N");
         oagisMsgInfoCtx.put("userLogin", userLogin);
         try {
-            Map oagisMsgInfoResult = dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoCtx);
+            dispatcher.runAsync("createOagisMessageInfo", oagisMsgInfoCtx, true);
+            /* running async for better error handling
             if (ServiceUtil.isError(oagisMsgInfoResult)){
                 String errMsg = "Error creating OagisMessageInfo for the Incoming Message: "+ServiceUtil.getErrorMessage(oagisMsgInfoResult);
                 errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "CreateOagisMessageInfoServiceError"));
                 Debug.logError(errMsg, module);
             }
+            */
         } catch (GenericServiceException e){
             String errMsg = "Error creating OagisMessageInfo for the Incoming Message: "+e.toString();
             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
