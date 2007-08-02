@@ -48,7 +48,7 @@ under the License.
         <attribute name="errorMapList" type="java.util.List" mode="OUT" optional="true"/>
     </service>
 
-    <service name="createOagisMessageInfo" engine="simple" default-entity-name="OagisMessageInfo" 
+    <service name="createOagisMessageInfo" engine="simple" default-entity-name="OagisMessageInfo" require-new-transaction="true"
             location="org/ofbiz/oagis/OagisMessageServices.xml" invoke="createOagisMessageInfo" auth="true">
          <description>Create MessageInfo</description>
          <auto-attributes mode="IN" include="pk" optional="false"/>

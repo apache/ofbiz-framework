@@ -33,5 +33,4 @@ under the License.
         <action service="createOagisMsgErrInfosFromErrMapList" mode="sync"/>
         <action service="oagisSendConfirmBod" mode="sync"/>
     </eca>
-    
 </service-eca>
