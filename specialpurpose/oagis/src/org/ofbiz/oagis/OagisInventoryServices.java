@@ -210,7 +210,10 @@ public class OagisInventoryServices {
         if (inventoryMapList.size() > 0) {
             // prepare information to send mail
             Map sendMap = FastMap.newInstance();
+
+            String sendToEmail = UtilProperties.getPropertyValue("oagis.properties", "oagis.notification.email.sendTo");
     
+            /* DEJ20070802 changed to get email address from properties file, should be way easier to manage
             // get facility email address
             List facilityContactMechs = null;
             GenericValue contactMech = null;
@@ -221,6 +224,7 @@ public class OagisInventoryServices {
                 errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
                 Debug.logError(e, errMsg, module);
             }
+
             Iterator fcmIter  = facilityContactMechs.iterator();
             while(fcmIter.hasNext()) {
                 GenericValue facilityContactMech = (GenericValue) fcmIter.next();
@@ -238,47 +242,52 @@ public class OagisInventoryServices {
                     sendMap.put("sendTo", emailString);
                 }
             }
+            */
             
-            GenericValue productStoreEmail = null;
-            String productStoreId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryProductStoreId");
-            try {
-                productStoreEmail = delegator.findByPrimaryKey("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", "PRDS_OAGIS_CONFIRM"));
-            } catch (GenericEntityException e) {
-                String errMsg = "Error Getting Entity ProductStoreEmailSetting: " + e.toString();
-                errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
-                Debug.logError(e, errMsg, module);
-            }
-            if (productStoreEmail != null) {
-                String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
-                sendMap.put("bodyScreenUri", bodyScreenLocation);
-            } else {
-                sendMap.put("bodyScreenUri", "component://oagis/widget/EmailOagisMessageScreens.xml#InventoryMismatchNotice");
-            }
-            if (locale == null) {
-                locale = Locale.getDefault();
-            }
-            sendMap.put("subject", productStoreEmail.getString("subject"));
-            sendMap.put("sendFrom", productStoreEmail.getString("fromAddress"));
-            sendMap.put("sendCc", productStoreEmail.getString("ccAddress"));
-            sendMap.put("sendBcc", productStoreEmail.getString("bccAddress"));
-            sendMap.put("contentType", productStoreEmail.getString("contentType"));
-            
-            Map bodyParameters = UtilMisc.toMap("inventoryMapList", inventoryMapList, "locale", locale);
-            sendMap.put("bodyParameters", bodyParameters);
-            sendMap.put("userLogin", userLogin);
-            
-            // send the notification
-            Map sendResp = null;
-            try {
-                sendResp = dispatcher.runSync("sendMailFromScreen", sendMap);
-                if (ServiceUtil.isError(sendResp)){
-                    String errMsg = ServiceUtil.getErrorMessage(sendResp);
-                    errorMapList.add(UtilMisc.toMap("reasonCode", "SendMailServiceError", "description", errMsg));
+            if (UtilValidate.isNotEmpty(sendToEmail)) {
+                String productStoreId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryProductStoreId");
+                GenericValue productStoreEmail = null;
+                try {
+                    productStoreEmail = delegator.findByPrimaryKey("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", "PRDS_OAGIS_CONFIRM"));
+                } catch (GenericEntityException e) {
+                    String errMsg = "Error Getting Entity ProductStoreEmailSetting: " + e.toString();
+                    errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
+                    Debug.logError(e, errMsg, module);
                 }
-            } catch(GenericServiceException e) {
-                String errMsg = "Error Running Service sendMailFromScreen: " + e.toString();
-                errorMapList.add(UtilMisc.toMap("reasonCode", "GenericServiceException", "description", errMsg));
-                Debug.logError(e, errMsg, module);
+                if (productStoreEmail != null) {
+                    String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
+                    sendMap.put("bodyScreenUri", bodyScreenLocation);
+                } else {
+                    sendMap.put("bodyScreenUri", "component://oagis/widget/EmailOagisMessageScreens.xml#InventoryMismatchNotice");
+                }
+                if (locale == null) {
+                    locale = Locale.getDefault();
+                }
+
+                sendMap.put("sendTo", sendToEmail);
+                
+                sendMap.put("subject", productStoreEmail.getString("subject"));
+                sendMap.put("sendFrom", productStoreEmail.getString("fromAddress"));
+                sendMap.put("sendCc", productStoreEmail.getString("ccAddress"));
+                sendMap.put("sendBcc", productStoreEmail.getString("bccAddress"));
+                sendMap.put("contentType", productStoreEmail.getString("contentType"));
+                
+                Map bodyParameters = UtilMisc.toMap("inventoryMapList", inventoryMapList, "locale", locale);
+                sendMap.put("bodyParameters", bodyParameters);
+                sendMap.put("userLogin", userLogin);
+                
+                // send the notification
+                try {
+                    // run async so it will happen in the background AND so errors in sending won't mess this up
+                    dispatcher.runAsync("sendMailFromScreen", sendMap, true);
+                } catch(Exception e) {
+                    String errMsg = "Error Running Service sendMailFromScreen: " + e.toString();
+                    errorMapList.add(UtilMisc.toMap("reasonCode", "GenericServiceException", "description", errMsg));
+                    Debug.logError(e, errMsg, module);
+                }
+            } else {
+                // no send to email address, just log to file
+                Debug.logImportant("No sendTo email address found in process syncInventory service: inventoryMapList: " + inventoryMapList, module);
             }
         }
        
@@ -306,11 +315,13 @@ public class OagisInventoryServices {
             }
         }
         try {
-            Map comiResult = dispatcher.runSync("createOagisMessageInfo", comiCtx);
+            dispatcher.runAsync("createOagisMessageInfo", comiCtx, true);
+            /* now calling async for better error handling
             if (ServiceUtil.isError(comiResult)) {
                 String errMsg = ServiceUtil.getErrorMessage(comiResult);
                 errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageServiceError", "description", errMsg));
             }
+            */
         } catch (GenericServiceException e) {
             String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
             errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageInfoError", "description", errMsg));
@@ -513,11 +524,13 @@ public class OagisInventoryServices {
             }
         }
         try {
-            Map comiResult = dispatcher.runSync("createOagisMessageInfo", comiCtx);
+            dispatcher.runAsync("createOagisMessageInfo", comiCtx, true);
+            /* running async for better error handling
             if (ServiceUtil.isError(comiResult)) {
                 String errMsg = ServiceUtil.getErrorMessage(comiResult);
                 errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageServiceError", "description", errMsg));
             }
+            */
         } catch (GenericServiceException e) {
             String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
             // TODO: reconsider sending this error back to other server, not much they can do about it, and it may not be a critical error causing the message to be rejected...
@@ -753,11 +766,13 @@ public class OagisInventoryServices {
             }
         }
         try {
-            Map comiResult = dispatcher.runSync("createOagisMessageInfo", comiCtx);
+            dispatcher.runAsync("createOagisMessageInfo", comiCtx);
+            /* running async for better error handling
             if (ServiceUtil.isError(comiResult)) {
                 String errMsg = ServiceUtil.getErrorMessage(comiResult);
                 errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageServiceError", "description", errMsg));
             }
+            */
         } catch (GenericServiceException e) {
             String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
             // TODO: reconsider sending this error back to other server, not much they can do about it, and it may not be a critical error causing the message to be rejected...
