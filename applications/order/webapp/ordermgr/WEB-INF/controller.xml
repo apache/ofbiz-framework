@@ -1508,6 +1508,7 @@ under the License.
         <security https="true" auth="true"/>
         <event type="service-multi" path="" invoke="importOrderFromEbay"/>
         <response name="success" type="view" value="ManageOrdersFromEbay"/>
+        <response name="error" type="view" value="ManageOrdersFromEbay"/>
         <response name="failure" type="view" value="ManageOrdersFromEbay"/>
     </request-map>
     
