@@ -24,6 +24,14 @@ under the License.
     <simple-method method-name="createOagisMessageInfo" short-description="Create MessageInfo">
         <make-value entity-name="OagisMessageInfo" value-name="newEntity"/>
         <set-pk-fields  map-name="parameters" value-name="newEntity" />
+        
+        <!-- make sure it doesn't already exist: motivation: if it already exists we'll get a HUGE error message on the create with the whole XML file in it if debug is on for that, so we want a smaller error message -->
+        <find-by-primary-key map-name="newEntity" value-name="currentOagisMessageInfo"/>
+        <if-not-empty field-name="currentOagisMessageInfo">
+            <add-error><fail-message message="This message was already received, ie we have a duplicate combined ID for the message: ${newEntity}"/></add-error>
+            <check-errors/>
+        </if-not-empty>
+        
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
         <!--if-compare value="1" field-name="newEntity.confirmation" operator="equals" type="Integer">
