@@ -21,12 +21,14 @@ under the License.
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
     <!-- order status changes -->
-    <!--eca service="changeOrderStatus" event="commit" run-on-error="false">
+    <!--
+    <eca service="changeOrderStatus" event="commit" run-on-error="false">
         <condition field-name="statusId" operator="equals" value="ORDER_APPROVED"/>
         <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
-        <action service="oagisProcessShipment" mode="sync"/>
-    </eca-->
+        <action service="oagisProcessShipment" mode="async" persist="true"/>
+    </eca>
+    -->
 
     <eca service="oagisMessageHandler" event="commit" run-on-error="true">
         <condition field-name="errorMapList" operator="is-not-empty"/>
