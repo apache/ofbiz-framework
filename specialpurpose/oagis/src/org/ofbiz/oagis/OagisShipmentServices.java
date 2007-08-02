@@ -299,7 +299,6 @@ public class OagisShipmentServices {
         GenericDelegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
         String shipmentId = (String) context.get("shipmentId");
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         
         String sendToUrl = (String) context.get("sendToUrl");
         String saveToFilename = (String) context.get("saveToFilename");
@@ -308,12 +307,13 @@ public class OagisShipmentServices {
         
         Map result = ServiceUtil.returnSuccess();
         MapStack bodyParameters =  MapStack.create();
-        if (userLogin == null) {
-            try {
-                userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
-            } catch (GenericEntityException e) {
-                Debug.logError(e, "Error getting userLogin", module);
-            }
+
+        // the userLogin passed in will usually be the customer, so don't use it; use the system user instead
+        GenericValue userLogin = null;
+        try {
+            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error getting userLogin", module);
         }
         
         // check payment authorization
