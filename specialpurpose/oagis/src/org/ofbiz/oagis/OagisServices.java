@@ -370,6 +370,8 @@ public class OagisServices {
         String bsrVerb = UtilXml.childElementValue(bsrElement, "of:VERB");
         String bsrNoun = UtilXml.childElementValue(bsrElement, "of:NOUN");
         
+        // TODO: before dispatching the message, make sure the combined ID (primary of OagisMessageInfo entity) is not in the database, ie hasn't been received already
+        
         if (bsrVerb.equalsIgnoreCase("CONFIRM") && bsrNoun.equalsIgnoreCase("BOD")) {
             try {
                 serviceResult = dispatcher.runSync("receiveConfirmBod", UtilMisc.toMap("document",doc));
