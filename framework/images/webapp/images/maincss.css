@@ -1353,6 +1353,12 @@ white-space: nowrap;
 color: #0000ff;
 }
 
+.button-bar .opposed,
+.button-bar .opposed li,
+.button-bar ul .opposed {
+float: right;
+}
+
 /* ===== Button style decorator ===== */
 
 .button-style-1 ul li,
@@ -1440,31 +1446,22 @@ padding: 0;
 }
 
 .tab-bar ul li {
-background-color: #000099;
-background-image: url(/images/gradient_sub_uns.gif);
-background-repeat: repeat-x;
-border-right: 0.1em solid #69a9d9;
+background-color: #0366b0;
+border-right: 0.1em solid #5f9fcf;
+border-bottom: 0.1em solid #5f9fcf;
 margin: 0;
 padding: 0;
 }
 
-#app-navigation .opposed li,
-#app-navigation ul .opposed {
-border-left: 0.1em solid #69a9d9;
-border-right: none;
-}
-
 .tab-bar ul a {
-color: #ffff66;
+color: #ffffff;
 }
 
 .tab-bar ul a:hover,
 .tab-bar ul .selected,
 .tab-bar ul .selected a,
 .tab-bar ul .selected a:hover {
-background-color: #2626c1;
-background-image: url(/images/gradient_sub_sel.gif);
-background-repeat: repeat-x;
+background-color: #5f9fcf;
 color: #ffffff;
 text-decoration: none;
 }
@@ -1472,6 +1469,13 @@ text-decoration: none;
 .tab-bar ul .disabled {
 color: #D4D0C8;
 padding: 0.1em 0.4em 0.1em 0.4em;
+}
+
+.tab-bar .opposed,
+.tab-bar .opposed li,
+.tab-bar ul .opposed {
+border-left: 0.1em solid #5f9fcf;
+border-right: none;
 }
 
 /* ======================== */
