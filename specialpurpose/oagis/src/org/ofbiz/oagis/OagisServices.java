@@ -157,8 +157,7 @@ public class OagisServices {
         oagisMsgInfoContext.put("bsrNoun", "BOD");
         oagisMsgInfoContext.put("bsrRevision", "004");
         oagisMsgInfoContext.put("userLogin", userLogin);
-        try
-        {
+        try {
             dispatcher.runAsync("createOagisMessageInfo", oagisMsgInfoContext, true);
             /* running async for better error handling
             if (ServiceUtil.isError(oagisMsgInfoResult)) return ServiceUtil.returnError("Error creating OagisMessageInfo");
