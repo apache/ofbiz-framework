@@ -87,6 +87,8 @@ public class OagisServices {
         
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
+        
+        String errorReferenceId = (String) context.get("referenceId");
 
         String sendToUrl = (String) context.get("sendToUrl");
         if (UtilValidate.isEmpty(sendToUrl)) {
@@ -94,7 +96,17 @@ public class OagisServices {
         }
 
         String saveToFilename = (String) context.get("saveToFilename");
+        if (UtilValidate.isEmpty(saveToFilename)) {
+            String saveToFilenameBase = UtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.filename.base", "");
+            if (UtilValidate.isNotEmpty(saveToFilenameBase)) {
+                saveToFilename = saveToFilenameBase + "ConfirmBod" + errorReferenceId + ".xml";
+            }
+        }
         String saveToDirectory = (String) context.get("saveToDirectory");
+        if (UtilValidate.isEmpty(saveToDirectory)) {
+            saveToDirectory = UtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.directory");
+        }
+
         OutputStream out = (OutputStream) context.get("outputStream");
         
         GenericValue userLogin = null;
@@ -122,7 +134,7 @@ public class OagisServices {
         bodyParameters.put("errorLogicalId", context.get("logicalId"));
         bodyParameters.put("errorComponent", context.get("component"));
         bodyParameters.put("errorTask", context.get("task"));
-        bodyParameters.put("errorReferenceId", context.get("referenceId"));
+        bodyParameters.put("errorReferenceId", errorReferenceId);
         bodyParameters.put("errorMapList",(List) context.get("errorMapList"));
         bodyParameters.put("origRef", context.get("origRefId"));
         String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ConfirmBod");
@@ -444,7 +456,7 @@ public class OagisServices {
                 Debug.logError(e, errMsg, module);
                 return ServiceUtil.returnError(errMsg);
             }
-        } else if (UtilValidate.isNotEmpty(saveToFilename)) {
+        } else if (UtilValidate.isNotEmpty(saveToFilename) && UtilValidate.isNotEmpty(saveToDirectory)) {
             try {
                 File outdir = new File(saveToDirectory);
                 if (!outdir.exists()) {
