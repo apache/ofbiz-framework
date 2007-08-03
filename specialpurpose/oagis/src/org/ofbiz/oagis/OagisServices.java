@@ -18,11 +18,14 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 **/
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -31,19 +34,24 @@ import java.io.Writer;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Date;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.HttpClient;
+import org.ofbiz.base.util.SSLUtil;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -347,24 +355,35 @@ public class OagisServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         InputStream in = (InputStream) context.get("inputStream");
         List errorList = FastList.newInstance();
-        Map serviceResult = FastMap.newInstance();
         
         Document doc = null;
+        String xmlText = null;
         try {
-            doc = UtilXml.readXmlDocument(in, true, "OagisMessage");
+            BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+            StringBuffer xmlTextBuf = new StringBuffer();
+            String currentLine = null;
+            while ((currentLine = br.readLine()) != null) {
+                xmlTextBuf.append(currentLine);
+                xmlTextBuf.append('\n');
+            }
+            xmlText = xmlTextBuf.toString();
+
+            ByteArrayInputStream bis = new ByteArrayInputStream(xmlText.getBytes("UTF-8"));
+            doc = UtilXml.readXmlDocument(bis, true, "OagisMessage");
         } catch (SAXException e) {
-            String errMsg = "Error parsing the Received Message: "+e.toString();
+            String errMsg = "XML Error parsing the Received Message [" + e.toString() + "]; The text received we could not parse is: " + xmlText;
             errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SAXException"));
             Debug.logError(e, errMsg, module);
         } catch (ParserConfigurationException e) {
-            String errMsg = "Error parsing the Received Message: "+e.toString();
+            String errMsg = "Parser Configuration Error parsing the Received Message: " + e.toString();
             errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "ParserConfigurationException"));
             Debug.logError(e, errMsg, module);
         } catch (IOException e) {
-            String errMsg = "Error parsing the Received Message: "+e.toString();
+            String errMsg = "IO Error parsing the Received Message: " + e.toString();
             errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "IOException"));
             Debug.logError(e, errMsg, module);
         }
+
         if (UtilValidate.isNotEmpty(errorList)) {
             return ServiceUtil.returnError("Unable to parse received message");
         }
@@ -378,9 +397,10 @@ public class OagisServices {
         
         // TODO: before dispatching the message, make sure the combined ID (primary of OagisMessageInfo entity) is not in the database, ie hasn't been received already
         
+        Map subServiceResult = FastMap.newInstance();
         if (bsrVerb.equalsIgnoreCase("CONFIRM") && bsrNoun.equalsIgnoreCase("BOD")) {
             try {
-                serviceResult = dispatcher.runSync("receiveConfirmBod", UtilMisc.toMap("document",doc));
+                subServiceResult = dispatcher.runSync("receiveConfirmBod", UtilMisc.toMap("document",doc));
             } catch (GenericServiceException e) {
                 String errMsg = "Error running service receiveConfirmBod: "+e.toString();
                 errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
@@ -388,7 +408,7 @@ public class OagisServices {
             }
         } else if (bsrVerb.equalsIgnoreCase("SHOW") && bsrNoun.equalsIgnoreCase("SHIPMENT")) {
             try {
-                serviceResult = dispatcher.runSync("showShipment", UtilMisc.toMap("document",doc));
+                subServiceResult = dispatcher.runSync("showShipment", UtilMisc.toMap("document",doc));
             } catch (GenericServiceException e) {
                 String errMsg = "Error running service showShipment: "+e.toString();
                 errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
@@ -396,7 +416,7 @@ public class OagisServices {
             }
         } else if (bsrVerb.equalsIgnoreCase("SYNC") && bsrNoun.equalsIgnoreCase("INVENTORY")) {
             try {
-                serviceResult = dispatcher.runSync("syncInventory", UtilMisc.toMap("document",doc));
+                subServiceResult = dispatcher.runSync("syncInventory", UtilMisc.toMap("document",doc));
             } catch (GenericServiceException e) {
                 String errMsg = "Error running service syncInventory: "+e.toString();
                 errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
@@ -410,7 +430,7 @@ public class OagisServices {
             String docType = UtilXml.childElementValue(docRefElement, "of:DOCTYPE");
             if ("PO".equals(docType)){
                 try {
-                    serviceResult = dispatcher.runSync("receivePoAcknowledge", UtilMisc.toMap("document",doc));
+                    subServiceResult = dispatcher.runSync("receivePoAcknowledge", UtilMisc.toMap("document",doc));
                 } catch (GenericServiceException e) {
                     String errMsg = "Error running service receivePoAcknowledge: "+e.toString();
                     errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
@@ -418,7 +438,7 @@ public class OagisServices {
                 }
             } else if ("RMA".equals(docType)) {
                 try {
-                    serviceResult = dispatcher.runSync("receiveRmaAcknowledge", UtilMisc.toMap("document",doc));
+                    subServiceResult = dispatcher.runSync("receiveRmaAcknowledge", UtilMisc.toMap("document",doc));
                 } catch (GenericServiceException e) {
                     String errMsg = "Error running service receiveRmaAcknowledge: "+e.toString();
                     errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
@@ -433,20 +453,20 @@ public class OagisServices {
             return ServiceUtil.returnError(errMsg);
         }
         
-        List errorMapList = FastList.newInstance();
-        errorMapList = (List) serviceResult.get("errorMapList");
+        Map result = ServiceUtil.returnSuccess();
+        result.putAll(subServiceResult);
+        result.put("contentType", "text/plain");
+
+        List errorMapList = (List) subServiceResult.get("errorMapList");
         if (UtilValidate.isNotEmpty(errorList)) {
             Iterator errListItr = errorList.iterator();
             while (errListItr.hasNext()) {
                 Map errorMap = (Map) errListItr.next();
                 errorMapList.add(UtilMisc.toMap("description", errorMap.get("description"), "reasonCode", errorMap.get("reasonCode")));
             }
-            serviceResult.put("errorMapList", errorMapList);
+            result.put("errorMapList", errorMapList);
         }
         
-        Map result = FastMap.newInstance();
-        result.putAll(serviceResult);
-        result.put("contentType", "text/plain");
         return result;
     }
 }
