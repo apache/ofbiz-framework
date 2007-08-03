@@ -115,7 +115,7 @@ public class OagisShipmentServices {
         String confirmation = UtilXml.childElementValue(senderElement, "of:CONFIRMATION"); // of
         String authId = UtilXml.childElementValue(senderElement, "of:AUTHID"); // of
 
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         result.put("logicalId", logicalId);
         result.put("component", component);
         result.put("task", task);
@@ -163,13 +163,22 @@ public class OagisShipmentServices {
         try {
             shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
         } catch (GenericEntityException e) {
-            String errMsg = "Error Shipment from database: "+ e.toString();
+            String errMsg = "Error getting Shipment from database: "+ e.toString();
+            Debug.logInfo(e, errMsg, module);
             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericEntityException"));
-            Debug.logInfo(e, module);
-            result.putAll(ServiceUtil.returnError(errMsg));
+        }
+        
+        if (shipment == null) {
+            String errMsg = "Could not find Shipment id ID [" + shipmentId + "]";
+            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "ShipmentIdNotValid"));
+        }
+        
+        if (errorMapList.size() > 0) {
+            result.putAll(ServiceUtil.returnError("Errors found getting shipment information for incoming Show Shipment message"));
             result.put("errorMapList", errorMapList);
             return result;
-        }                    
+        }
+
         String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");                
         String originFacilityId = shipment.getString("originFacilityId");                              
           
