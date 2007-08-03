@@ -293,7 +293,9 @@ public class OagisShipmentServices {
         String saveToFilename = (String) context.get("saveToFilename");
         if (UtilValidate.isEmpty(saveToFilename)) {
             String saveToFilenameBase = UtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.filename.base", "");
-            saveToFilename = saveToFilenameBase + "ProcessShipment" + orderId + ".xml";
+            if (UtilValidate.isNotEmpty(saveToFilenameBase)) {
+                saveToFilename = saveToFilenameBase + "ProcessShipment" + orderId + ".xml";
+            }
         }
         String saveToDirectory = (String) context.get("saveToDirectory");
         if (UtilValidate.isEmpty(saveToDirectory)) {
@@ -534,12 +536,15 @@ public class OagisShipmentServices {
         String saveToFilename = (String) context.get("saveToFilename");
         if (UtilValidate.isEmpty(saveToFilename)) {
             String saveToFilenameBase = UtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.filename.base", "");
-            saveToFilename = saveToFilenameBase + "ProcessShipment" + returnId + ".xml";
+            if (UtilValidate.isNotEmpty(saveToFilenameBase)) {
+                saveToFilename = saveToFilenameBase + "ReceiveDelivery" + returnId + ".xml";
+            }
         }
         String saveToDirectory = (String) context.get("saveToDirectory");
         if (UtilValidate.isEmpty(saveToDirectory)) {
             saveToDirectory = UtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.directory");
         }
+
         OutputStream out = (OutputStream) context.get("outputStream");
         
         Map result = ServiceUtil.returnSuccess();
