@@ -75,6 +75,8 @@ under the License.
         <relation type="one" fk-name="OAGIS_MI_PROCSTS" title="Processing" rel-entity-name="StatusItem">
             <key-map field-name="processingStatusId" rel-field-name="statusId"/>
         </relation>
+        <!-- DEJ20070803: removing foreign keys because we want the info in this case more than we want the info to be correct
+            BIG NOTE: having these fks in place also makes the running of the createOagisMessageInfo service in a separate transaction impossible because of locking problems; this happens in Derby and may or may not in other databases
         <relation type="one" fk-name="OAGIS_MI_ORDHDR" rel-entity-name="OrderHeader">
             <key-map field-name="orderId"/>
         </relation>
@@ -84,6 +86,7 @@ under the License.
         <relation type="one" fk-name="OAGIS_MI_SHPMNT" rel-entity-name="Shipment">
             <key-map field-name="shipmentId"/>
         </relation>
+        -->
     </entity>
     <entity entity-name="OagisMessageErrorInfo" package-name="org.ofbiz.specialpurpose.oagis" title="OAGIS Message Error Info Entity">
         <field name="logicalId" type="very-short"></field>
