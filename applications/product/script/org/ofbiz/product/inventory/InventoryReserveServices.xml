@@ -269,6 +269,7 @@ under the License.
           <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
         </if-compare>
         <set-service-fields map-name="parameters" to-map-name="cancelOrderItemShipGrpInvResMap" service-name="cancelOrderItemShipGrpInvRes"/>
+        <set field="cancelOrderItemShipGrpInvResMap.cancelQuantity" from-field="parameters.quantity"/>
         <!-- Step 1 cancel our reservation, we'll later reserve Inventory we want-->
         <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
         <!-- Lets find the inventory to reserve -->
@@ -279,7 +280,6 @@ under the License.
             <field-map field-name="serialNumber" env-name="parameters.serialNumber"/>
         </entity-and>        
         <first-from-list list-name="inventoryItems" entry-name="inventoryItem"/>
-
         <!--Step 2 Check if its reserved for other order -->
         <set field="inventoryReservationLookUp.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
         <find-by-and map-name="inventoryReservationLookUp" list-name="invReservations" entity-name="OrderItemShipGrpInvRes"/>
@@ -310,6 +310,14 @@ under the License.
                 <set value="INV_PROMISED" field="availableInventoryItem.statusId"/>
                 <store-value value-name="availableInventoryItem"/>
                 <set from-field="availableInventoryItem.inventoryItemId" field="reserveOisgirMap.inventoryItemId"/>
+             <else>
+                <entity-and entity-name="InventoryItem" list-name="inventoryItems">                
+                    <field-map field-name="productId" env-name="parameters.productId"/>
+                    <field-map field-name="inventoryItemTypeId"  value="NON_SERIAL_INV_ITEM"/>
+                </entity-and>
+                <first-from-list list-name="inventoryItems" entry-name="availableInventoryItem"/>
+                <set from-field="availableInventoryItem.inventoryItemId" field="reserveOisgirMap.inventoryItemId"/>
+             </else>   
             </if-compare> 
             <!-- store OrderItemShipGrpInvRes record -->
             <set from-field="inventoryItemReservation.orderId" field="reserveOisgirMap.orderId"/>
@@ -591,6 +599,7 @@ under the License.
         </if-compare>
     </simple-method>
 </simple-methods>
+
 
 
 
