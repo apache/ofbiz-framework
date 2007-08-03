@@ -81,6 +81,10 @@ public class OagisServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
 
         String sendToUrl = (String) context.get("sendToUrl");
+        if (UtilValidate.isEmpty(sendToUrl)) {
+            sendToUrl = UtilProperties.getPropertyValue("oagis.properties", "url.send.confirmBod");
+        }
+
         String saveToFilename = (String) context.get("saveToFilename");
         String saveToDirectory = (String) context.get("saveToDirectory");
         OutputStream out = (OutputStream) context.get("outputStream");
@@ -132,6 +136,8 @@ public class OagisServices {
             }
         } else if (UtilValidate.isNotEmpty(sendToUrl)) {
             writer = new StringWriter();
+        } else {
+            return ServiceUtil.returnError("No send to information pass (url, file, or out stream)");
         }
 
         ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, new HtmlScreenRenderer());

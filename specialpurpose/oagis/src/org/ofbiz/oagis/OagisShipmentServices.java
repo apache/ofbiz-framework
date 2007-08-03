@@ -301,6 +301,10 @@ public class OagisShipmentServices {
         String shipmentId = (String) context.get("shipmentId");
         
         String sendToUrl = (String) context.get("sendToUrl");
+        if (UtilValidate.isEmpty(sendToUrl)) {
+            sendToUrl = UtilProperties.getPropertyValue("oagis.properties", "url.send.processShipment");
+        }
+        
         String saveToFilename = (String) context.get("saveToFilename");
         String saveToDirectory = (String) context.get("saveToDirectory");
         OutputStream out = (OutputStream) context.get("outputStream");
@@ -473,6 +477,8 @@ public class OagisShipmentServices {
                     }
                 } else if (UtilValidate.isNotEmpty(sendToUrl)) {
                     writer = new StringWriter();
+                } else {
+                    return ServiceUtil.returnError("No send to information pass (url, file, or out stream)");
                 }
 
                 ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, new HtmlScreenRenderer());
@@ -548,6 +554,10 @@ public class OagisShipmentServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         
         String sendToUrl = (String) context.get("sendToUrl");
+        if (UtilValidate.isEmpty(sendToUrl)) {
+            sendToUrl = UtilProperties.getPropertyValue("oagis.properties", "url.send.receiveDelivery");
+        }
+
         String saveToFilename = (String) context.get("saveToFilename");
         String saveToDirectory = (String) context.get("saveToDirectory");
         OutputStream out = (OutputStream) context.get("outputStream");
@@ -658,6 +668,8 @@ public class OagisShipmentServices {
                     }
                 } else if (UtilValidate.isNotEmpty(sendToUrl)) {
                     writer = new StringWriter();
+                } else {
+                    return ServiceUtil.returnError("No send to information pass (url, file, or out stream)");
                 }
 
                 ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, new HtmlScreenRenderer());
