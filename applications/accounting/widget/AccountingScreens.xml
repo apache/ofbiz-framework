@@ -247,6 +247,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleAddGlAccount"/>                
                 <set field="tabButtonItem" value=""/>
                 <set field="labelTitleProperty" value=""/>
+                <set field="glAccount" value=""/><!-- make sure glAccountId field is shown -->
             </actions>
 
             <widgets>
