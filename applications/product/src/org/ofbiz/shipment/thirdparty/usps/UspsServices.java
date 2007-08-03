@@ -488,6 +488,11 @@ public class UspsServices {
         result.put("state", UtilXml.childElementValue(respAddressElement, "State"));
         result.put("zip5", UtilXml.childElementValue(respAddressElement, "Zip5"));
         result.put("zip4", UtilXml.childElementValue(respAddressElement, "Zip4"));
+        Element returnTextElement = UtilXml.firstChildElement(respAddressElement, "ReturnText");
+        if (returnTextElement != null) {
+            result.put("returnText", UtilXml.elementValue(returnTextElement));
+        }
+
 
         return result;
     }
@@ -531,31 +536,30 @@ public class UspsServices {
             responseDocument = sendUspsRequest("CityStateLookup", requestDocument);
         } catch (UspsRequestException e) {
             Debug.log(e, module);
-            return ServiceUtil.returnError("Error sending request for USPS City/State Lookup service: " + e.getMessage());
+            return ServiceUtil.returnFailure("Error sending request for USPS City/State Lookup service: " + e.getMessage());
         }
 
         Element respAddressElement = UtilXml.firstChildElement(responseDocument.getDocumentElement(), "ZipCode");
         if (respAddressElement == null) {
-            return ServiceUtil.returnError("Incomplete response from USPS City/State Lookup service: no ZipCode element found");
+            return ServiceUtil.returnFailure("Incomplete response from USPS City/State Lookup service: no ZipCode element found");
         }
 
         Element respErrorElement = UtilXml.firstChildElement(respAddressElement, "Error");
         if (respErrorElement != null) {
-            return ServiceUtil.returnError("The following error was returned by the USPS City/State Lookup service: " +
-                    UtilXml.childElementValue(respErrorElement, "Description"));
+            return ServiceUtil.returnFailure(UtilXml.childElementValue(respErrorElement, "Description"));
         }
 
         Map result = ServiceUtil.returnSuccess();
 
         String city = UtilXml.childElementValue(respAddressElement, "City");
         if (UtilValidate.isEmpty(city)) {
-            return ServiceUtil.returnError("Incomplete response from USPS City/State Lookup service: no City element found");
+            return ServiceUtil.returnFailure("Incomplete response from USPS City/State Lookup service: no City element found");
         }
         result.put("city", city);
 
         String state = UtilXml.childElementValue(respAddressElement, "State");
         if (UtilValidate.isEmpty(state)) {
-            return ServiceUtil.returnError("Incomplete response from USPS City/State Lookup service: no State element found");
+            return ServiceUtil.returnFailure("Incomplete response from USPS City/State Lookup service: no State element found");
         }
         result.put("state", state);
 
