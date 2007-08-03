@@ -87,6 +87,8 @@ public class OagisShipmentServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
         
+        Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
+        
         List errorMapList = FastList.newInstance();
             
         GenericValue userLogin =null; 
@@ -129,7 +131,9 @@ public class OagisShipmentServices {
         oagisMsgInfoCtx.put("confirmation", confirmation);
         oagisMsgInfoCtx.put("authId", authId);
         oagisMsgInfoCtx.put("outgoingMessage", "N");
+        oagisMsgInfoCtx.put("receivedDate", nowTimestamp);
         oagisMsgInfoCtx.put("userLogin", userLogin);
+        oagisMsgInfoCtx.put("processingStatusId", "OAGMP_RECEIVED");
         if (OagisServices.debugSaveXmlIn) {
             try {
                 oagisMsgInfoCtx.put("fullMessageXml", UtilXml.writeXmlDocument(doc));
@@ -141,17 +145,17 @@ public class OagisShipmentServices {
         }
         
         try {
-            dispatcher.runAsync("createOagisMessageInfo", oagisMsgInfoCtx, true);
+            dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoCtx, 60, true);
             /* running async for better error handling
             if (ServiceUtil.isError(oagisMsgInfoResult)){
                 String errMsg = ServiceUtil.getErrorMessage(oagisMsgInfoResult);
-                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "CreateOagisMessageInfoServiceError"));
+                // errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "CreateOagisMessageInfoServiceError"));
                 Debug.logError(errMsg, module);
             }
             */
         } catch (GenericServiceException e){
             String errMsg = "Error creating OagisMessageInfo for the Incoming Message: "+e.toString();
-            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+            // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
             Debug.logError(e, errMsg, module);
         }
            
@@ -278,6 +282,14 @@ public class OagisShipmentServices {
             }   
         }  
         
+        oagisMsgInfoCtx.put("processingStatusId", "OAGMP_RECEIVED");
+        try {
+            dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoCtx, 60, true);
+        } catch (GenericServiceException e){
+            String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+            // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+            Debug.logError(e, errMsg, module);
+        }
         
         if (errorMapList.size() > 0) {
             //result.putAll(ServiceUtil.returnError("Errors found processing message"));
@@ -370,6 +382,7 @@ public class OagisShipmentServices {
                 String sentDate = dateFormat.format(timestamp);
                 bodyParameters.put("sentDate", sentDate);
                 comiCtx.put("sentDate", timestamp);
+
                 // prepare map to Create Oagis Message Info
                 comiCtx.put("processingStatusId", "OAGMP_TRIGGERED");
                 comiCtx.put("component", "INVENTORY");
@@ -379,7 +392,6 @@ public class OagisShipmentServices {
                 comiCtx.put("bsrVerb", "PROCESS");
                 comiCtx.put("bsrNoun", "SHIPMENT");
                 comiCtx.put("bsrRevision", "001");
-                comiCtx.put("processingStatusId", orderStatusId);
                 comiCtx.put("orderId", orderId);
                 comiCtx.put("userLogin", userLogin);
                 try {
