@@ -83,7 +83,7 @@ public class JSONServiceEventHandler implements EventHandler {
             String name = (String) en.nextElement();
             Object val = request.getAttribute(name);
             if (val instanceof String || val instanceof Number || val instanceof Map || val instanceof List) {
-                Debug.log("Adding attribute to JSON output: " + name, module);
+                if (Debug.verboseOn()) Debug.logVerbose("Adding attribute to JSON output: " + name, module);
                 attrMap.put(name, val);
             }
         }
