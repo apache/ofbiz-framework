@@ -1414,7 +1414,7 @@ under the License.
         <set from-field="parameters.orderItemSeqId" field="issueContext.orderItemSeqId"/>
         <set from-field="parameters.inventoryItemId" field="issueContext.inventoryItemId"/>
         <set from-field="parameters.quantity" field="issueContext.quantity"/>
-        <call-service service-name="issueOrderItemShipGrpInvResToShipment" in-map-name="issueContext">
+        <call-service service-name="issueOrderItemShipGrpInvResToShipment" in-map-name="issueContext" include-user-login="true">
             <result-to-field result-name="itemIssuanceId" field-name="parameters.itemIssuanceId"/>
         </call-service>
         <!-- place all issued items into a package for tracking num -->                
