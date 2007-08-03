@@ -1,6 +1,4 @@
-package org.ofbiz.oagis;
-
-/**
+/*
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
 distributed with this work for additional information
@@ -17,7 +15,9 @@ software distributed under the License is distributed on an
 KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
-**/
+*/
+package org.ofbiz.oagis;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
@@ -127,31 +127,13 @@ public class OagisServices {
         bodyParameters.put("origRef", context.get("origRefId"));
         String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ConfirmBod");
         
-        Writer writer = null;
-        if (out != null) {
-            writer = new OutputStreamWriter(out);
-        } else if (UtilValidate.isNotEmpty(saveToFilename)) {
-            try {
-                File outdir = new File(saveToDirectory);
-                if (!outdir.exists()) {
-                    outdir.mkdir();
-                }
-                writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, saveToFilename)), "UTF-8")));
-            } catch (Exception e) {
-                String errMsg = "Error opening file to save message to [" + saveToFilename + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
-            }
-        } else if (UtilValidate.isNotEmpty(sendToUrl)) {
-            writer = new StringWriter();
-        } else {
-            return ServiceUtil.returnError("No send to information pass (url, file, or out stream)");
-        }
-
-        ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, new HtmlScreenRenderer());
+        String outText = null;
         try {
+            Writer writer = new StringWriter();
+            ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, new HtmlScreenRenderer());
             screens.render(bodyScreenUri);
             writer.close();
+            outText = writer.toString();
         } catch (Exception e) {
             String errMsg = "Error rendering message: " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -171,8 +153,11 @@ public class OagisServices {
         oagisMsgInfoContext.put("bsrNoun", "BOD");
         oagisMsgInfoContext.put("bsrRevision", "004");
         oagisMsgInfoContext.put("userLogin", userLogin);
+        if (OagisServices.debugSaveXmlOut) {
+            oagisMsgInfoContext.put("fullMessageXml", outText);
+        }
         try {
-            dispatcher.runAsync("createOagisMessageInfo", oagisMsgInfoContext, true);
+            dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoContext, 60, true);
             /* running async for better error handling
             if (ServiceUtil.isError(oagisMsgInfoResult)) return ServiceUtil.returnError("Error creating OagisMessageInfo");
             */
@@ -181,31 +166,9 @@ public class OagisServices {
             Debug.logError(e, "Saving message to database failed", module);
         }
 
-        if (UtilValidate.isNotEmpty(sendToUrl)) {
-            HttpClient http = new HttpClient(sendToUrl);
-
-            // test parameters
-            http.setHostVerificationLevel(SSLUtil.HOSTCERT_NO_CHECK);
-            http.setAllowUntrusted(true);
-            http.setDebug(true);
-              
-            // needed XML post parameters
-            if (UtilValidate.isNotEmpty(certAlias)) {
-                http.setClientCertificateAlias(certAlias);
-            }
-            if (UtilValidate.isNotEmpty(basicAuthUsername)) {
-                http.setBasicAuthInfo(basicAuthUsername, basicAuthPassword);
-            }
-            http.setContentType("text/xml");
-            http.setKeepAlive(true);
-
-            try {
-                String resp = http.post(writer.toString());
-            } catch (Exception e) {
-                String errMsg = "Error posting message to server with UTL [" + sendToUrl + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
-            }
+        Map sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename);
+        if (sendMessageReturn != null) {
+            return sendMessageReturn;
         }
         
         return ServiceUtil.returnSuccess("Service Completed Successfully");
@@ -272,7 +235,7 @@ public class OagisServices {
         oagisMsgInfoCtx.put("outgoingMessage", "N");
         oagisMsgInfoCtx.put("userLogin", userLogin);
         try {
-            dispatcher.runAsync("createOagisMessageInfo", oagisMsgInfoCtx, true);
+            dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoCtx, 60, true);
             /* running async for better error handling
             if (ServiceUtil.isError(oagisMsgInfoResult)){
                 String errMsg = "Error creating OagisMessageInfo for the Incoming Message: "+ServiceUtil.getErrorMessage(oagisMsgInfoResult);
@@ -371,7 +334,7 @@ public class OagisServices {
             ByteArrayInputStream bis = new ByteArrayInputStream(xmlText.getBytes("UTF-8"));
             doc = UtilXml.readXmlDocument(bis, true, "OagisMessage");
         } catch (SAXException e) {
-            String errMsg = "XML Error parsing the Received Message [" + e.toString() + "]; The text received we could not parse is: " + xmlText;
+            String errMsg = "XML Error parsing the Received Message [" + e.toString() + "]; The text received we could not parse is: [" + xmlText + "]";
             errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SAXException"));
             Debug.logError(e, errMsg, module);
         } catch (ParserConfigurationException e) {
@@ -468,5 +431,63 @@ public class OagisServices {
         }
         
         return result;
+    }
+
+    public static Map sendMessageText(String outText, OutputStream out, String sendToUrl, String saveToDirectory, String saveToFilename) {
+        if (out != null) {
+            Writer outWriter = new OutputStreamWriter(out);
+            try {
+                outWriter.write(outText);
+                outWriter.close();
+            } catch (IOException e) {
+                String errMsg = "Error writing message to output stream: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            }
+        } else if (UtilValidate.isNotEmpty(saveToFilename)) {
+            try {
+                File outdir = new File(saveToDirectory);
+                if (!outdir.exists()) {
+                    outdir.mkdir();
+                }
+                Writer outWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, saveToFilename)), "UTF-8")));
+                outWriter.write(outText);
+                outWriter.close();
+            } catch (Exception e) {
+                String errMsg = "Error saving message to file [" + saveToFilename + "]: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            }
+        } else if (UtilValidate.isNotEmpty(sendToUrl)) {
+            HttpClient http = new HttpClient(sendToUrl);
+
+            // test parameters
+            http.setHostVerificationLevel(SSLUtil.HOSTCERT_NO_CHECK);
+            http.setAllowUntrusted(true);
+            http.setDebug(true);
+              
+            // needed XML post parameters
+            if (UtilValidate.isNotEmpty(certAlias)) {
+                http.setClientCertificateAlias(certAlias);
+            }
+            if (UtilValidate.isNotEmpty(basicAuthUsername)) {
+                http.setBasicAuthInfo(basicAuthUsername, basicAuthPassword);
+            }
+            http.setContentType("text/xml");
+            http.setKeepAlive(true);
+
+            try {
+                http.post(outText);
+            } catch (Exception e) {
+                String errMsg = "Error posting message to server with URL [" + sendToUrl + "]: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            }
+        } else {
+            if (Debug.infoOn()) Debug.logInfo("No send to information, so here is the message: " + outText, module);
+            return ServiceUtil.returnError("No send to information pass (url, file, or out stream)");
+        }
+        
+        return null;
     }
 }

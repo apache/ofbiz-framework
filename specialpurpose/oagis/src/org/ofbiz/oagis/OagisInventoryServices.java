@@ -315,7 +315,7 @@ public class OagisInventoryServices {
             }
         }
         try {
-            dispatcher.runAsync("createOagisMessageInfo", comiCtx, true);
+            dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
             /* now calling async for better error handling
             if (ServiceUtil.isError(comiResult)) {
                 String errMsg = ServiceUtil.getErrorMessage(comiResult);
@@ -324,7 +324,7 @@ public class OagisInventoryServices {
             */
         } catch (GenericServiceException e) {
             String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
-            errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageInfoError", "description", errMsg));
+            //errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageInfoError", "description", errMsg));
             Debug.logError(e, errMsg, module);
         }
         
@@ -524,7 +524,7 @@ public class OagisInventoryServices {
             }
         }
         try {
-            dispatcher.runAsync("createOagisMessageInfo", comiCtx, true);
+            dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
             /* running async for better error handling
             if (ServiceUtil.isError(comiResult)) {
                 String errMsg = ServiceUtil.getErrorMessage(comiResult);
@@ -533,8 +533,8 @@ public class OagisInventoryServices {
             */
         } catch (GenericServiceException e) {
             String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
-            // TODO: reconsider sending this error back to other server, not much they can do about it, and it may not be a critical error causing the message to be rejected...
-            errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageInfoError", "description", errMsg));
+            // reconsider sending this error back to other server, not much they can do about it, and it may not be a critical error causing the message to be rejected...
+            //errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageInfoError", "description", errMsg));
             Debug.logError(e, errMsg, module);
         }
         Map result = FastMap.newInstance();
@@ -766,7 +766,7 @@ public class OagisInventoryServices {
             }
         }
         try {
-            dispatcher.runAsync("createOagisMessageInfo", comiCtx);
+            dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
             /* running async for better error handling
             if (ServiceUtil.isError(comiResult)) {
                 String errMsg = ServiceUtil.getErrorMessage(comiResult);
@@ -775,8 +775,8 @@ public class OagisInventoryServices {
             */
         } catch (GenericServiceException e) {
             String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
-            // TODO: reconsider sending this error back to other server, not much they can do about it, and it may not be a critical error causing the message to be rejected...
-            errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageInfoError", "description", errMsg));
+            // reconsider sending this error back to other server, not much they can do about it, and it may not be a critical error causing the message to be rejected...
+            //errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageInfoError", "description", errMsg));
             Debug.logError(e, errMsg, module);
         }
         

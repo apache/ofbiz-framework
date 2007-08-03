@@ -1,6 +1,4 @@
-package org.ofbiz.oagis;
-
-/**
+/*
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
 distributed with this work for additional information
@@ -17,39 +15,29 @@ software distributed under the License is distributed on an
 KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
-**/
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
+*/
+
+package org.ofbiz.oagis;
+
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.HttpClient;
-import org.ofbiz.base.util.SSLUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -65,18 +53,16 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
+import org.ofbiz.party.party.PartyWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.widget.fo.FoFormRenderer;
 import org.ofbiz.widget.html.HtmlScreenRenderer;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
-import org.ofbiz.party.party.PartyWorker;
 
 
 public class OagisShipmentServices {
@@ -298,7 +284,6 @@ public class OagisShipmentServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
-        String shipmentId = (String) context.get("shipmentId");
         
         String sendToUrl = (String) context.get("sendToUrl");
         if (UtilValidate.isEmpty(sendToUrl)) {
@@ -306,8 +291,18 @@ public class OagisShipmentServices {
         }
         
         String saveToFilename = (String) context.get("saveToFilename");
+        if (UtilValidate.isEmpty(saveToFilename)) {
+            String saveToFilenameBase = UtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.filename.base", "");
+            saveToFilename = saveToFilenameBase + "ProcessShipment" + orderId + ".xml";
+        }
         String saveToDirectory = (String) context.get("saveToDirectory");
+        if (UtilValidate.isEmpty(saveToDirectory)) {
+            saveToDirectory = UtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.directory");
+        }
+        
         OutputStream out = (OutputStream) context.get("outputStream");
+        
+        if (Debug.infoOn()) Debug.logInfo("Call to oagisProcessShipment for orderId [" + orderId + "], sendToUrl=[" + sendToUrl + "], saveToDirectory=[" + saveToDirectory + "], saveToFilename=[" + saveToFilename + "]", module);
         
         Map result = ServiceUtil.returnSuccess();
         MapStack bodyParameters =  MapStack.create();
@@ -347,8 +342,45 @@ public class OagisShipmentServices {
         if (orderHeader != null) {
             String orderStatusId = orderHeader.getString("statusId");
             if (orderStatusId.equals("ORDER_APPROVED")) {
-                try {
+                String logicalId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.LOGICALID");
+                bodyParameters.put("logicalId", logicalId);
+                Map comiCtx = UtilMisc.toMap("logicalId", logicalId);
+                
+                String authId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.AUTHID");
+                bodyParameters.put("authId", authId);
+                comiCtx.put("authId", authId);
+    
+                String referenceId = delegator.getNextSeqId("OagisMessageInfo");
+                bodyParameters.put("referenceId", referenceId);
+                comiCtx.put("referenceId", referenceId);
                     
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
+                Timestamp timestamp = UtilDateTime.nowTimestamp();
+                String sentDate = dateFormat.format(timestamp);
+                bodyParameters.put("sentDate", sentDate);
+                comiCtx.put("sentDate", timestamp);
+                // prepare map to Create Oagis Message Info
+                comiCtx.put("processingStatusId", "OAGMP_TRIGGERED");
+                comiCtx.put("component", "INVENTORY");
+                comiCtx.put("task", "SHIPREQUES"); // Actual value of task is "SHIPREQUEST" which is more than 10 char
+                comiCtx.put("outgoingMessage", "Y");
+                comiCtx.put("confirmation", "1");
+                comiCtx.put("bsrVerb", "PROCESS");
+                comiCtx.put("bsrNoun", "SHIPMENT");
+                comiCtx.put("bsrRevision", "001");
+                comiCtx.put("processingStatusId", orderStatusId);
+                comiCtx.put("orderId", orderId);
+                comiCtx.put("userLogin", userLogin);
+                try {
+                    dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
+                } catch (GenericServiceException e){
+                    String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
+                    Debug.logError(e, errMsg, module);
+                }
+                if (Debug.infoOn()) Debug.logInfo("Saved OagisMessageInfo for oagisProcessShipment message for orderId [" + orderId + "]", module);
+
+                String shipmentId = null;
+                try {
                     // check to see if there is already a Shipment for this order
                     EntityCondition findShipmentCondition = new EntityConditionList(UtilMisc.toList(
                             new EntityExpr("primaryOrderId", EntityOperator.EQUALS, orderId),
@@ -437,110 +469,51 @@ public class OagisShipmentServices {
                     return ServiceUtil.returnError(errMsg);
                 }
                 
-                String logicalId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.LOGICALID");
-                bodyParameters.put("logicalId", logicalId);
-                Map comiCtx = UtilMisc.toMap("logicalId", logicalId);
-                
-                String authId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.AUTHID");
-                bodyParameters.put("authId", authId);
-                comiCtx.put("authId", authId);
-    
-                String referenceId = delegator.getNextSeqId("OagisMessageInfo");
-                bodyParameters.put("referenceId", referenceId);
-                comiCtx.put("referenceId", referenceId);
-                    
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
-                Timestamp timestamp = UtilDateTime.nowTimestamp();
-                String sentDate = dateFormat.format(timestamp);
-                bodyParameters.put("sentDate", sentDate);
-                comiCtx.put("sentDate", timestamp);
-               
                 bodyParameters.put("shipmentId", shipmentId);
                 bodyParameters.put("orderId", orderId);
                 bodyParameters.put("userLogin", userLogin);
+
+                
                 String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ProcessShipment");
 
-                Writer writer = null;
-                if (out != null) {
-                    writer = new OutputStreamWriter(out);
-                } else if (UtilValidate.isNotEmpty(saveToFilename)) {
-                    try {
-                        File outdir = new File(saveToDirectory);
-                        if (!outdir.exists()) {
-                            outdir.mkdir();
-                        }
-                        writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, saveToFilename)), "UTF-8")));
-                    } catch (Exception e) {
-                        String errMsg = "Error opening file to save message to [" + saveToFilename + "]: " + e.toString();
-                        Debug.logError(e, errMsg, module);
-                        return ServiceUtil.returnError(errMsg);
-                    }
-                } else if (UtilValidate.isNotEmpty(sendToUrl)) {
-                    writer = new StringWriter();
-                } else {
-                    return ServiceUtil.returnError("No send to information pass (url, file, or out stream)");
-                }
-
-                ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, new HtmlScreenRenderer());
+                String outText = null;
                 try {
+                    Writer writer = new StringWriter();
+                    ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, htmlScreenRenderer);
                     screens.render(bodyScreenUri);
                     writer.close();
+                    outText = writer.toString();
                 } catch (Exception e) {
                     String errMsg = "Error rendering message: " + e.toString();
                     Debug.logError(e, errMsg, module);
                     return ServiceUtil.returnError(errMsg);
                 }
-                
-                // TODO: should we make sure this is saved in error conditions
-                // prepare map to Create Oagis Message Info
-                comiCtx.put("component", "INVENTORY");
-                comiCtx.put("task", "SHIPREQUES"); // Actual value of task is "SHIPREQUEST" which is more than 10 char
-                comiCtx.put("outgoingMessage", "Y");
-                comiCtx.put("confirmation", "1");
-                comiCtx.put("bsrVerb", "PROCESS");
-                comiCtx.put("bsrNoun", "SHIPMENT");
-                comiCtx.put("bsrRevision", "001");
-                comiCtx.put("processingStatusId", orderStatusId);
-                comiCtx.put("orderId", orderId);
+                if (Debug.infoOn()) Debug.logInfo("Finished rendering oagisProcessShipment message for orderId [" + orderId + "]", module);
+
+                comiCtx.put("processingStatusId", "OAGMP_OGEN_SUCCESS");
                 comiCtx.put("shipmentId", shipmentId);
-                comiCtx.put("userLogin", userLogin);
                 if (OagisServices.debugSaveXmlOut) {
-                    comiCtx.put("fullMessageXml", writer.toString());
+                    comiCtx.put("fullMessageXml", outText);
                 }
-                
                 try {
-                    dispatcher.runAsync("createOagisMessageInfo", comiCtx, true);
+                    dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
                 } catch (GenericServiceException e){
                     String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
                     Debug.logError(e, errMsg, module);
                 }
-    
                 
-                if (UtilValidate.isNotEmpty(sendToUrl)) {
-                    HttpClient http = new HttpClient(sendToUrl);
+                Map sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename);
+                if (sendMessageReturn != null) {
+                    return sendMessageReturn;
+                }
+                if (Debug.infoOn()) Debug.logInfo("Message send done for oagisProcessShipment for orderId [" + orderId + "], sendToUrl=[" + sendToUrl + "], saveToDirectory=[" + saveToDirectory + "], saveToFilename=[" + saveToFilename + "]", module);
 
-                    // test parameters
-                    http.setHostVerificationLevel(SSLUtil.HOSTCERT_NO_CHECK);
-                    http.setAllowUntrusted(true);
-                    http.setDebug(true);
-                      
-                    // needed XML post parameters
-                    if (UtilValidate.isNotEmpty(certAlias)) {
-                        http.setClientCertificateAlias(certAlias);
-                    }
-                    if (UtilValidate.isNotEmpty(basicAuthUsername)) {
-                        http.setBasicAuthInfo(basicAuthUsername, basicAuthPassword);
-                    }
-                    http.setContentType("text/xml");
-                    http.setKeepAlive(true);
-
-                    try {
-                        http.post(writer.toString());
-                    } catch (Exception e) {
-                        String errMsg = "Error posting message to server with UTL [" + sendToUrl + "]: " + e.toString();
-                        Debug.logError(e, errMsg, module);
-                        return ServiceUtil.returnError(errMsg);
-                    }
+                comiCtx.put("processingStatusId", "OAGMP_SENT");
+                try {
+                    dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
+                } catch (GenericServiceException e){
+                    String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
+                    Debug.logError(e, errMsg, module);
                 }
             }
         }
@@ -559,7 +532,14 @@ public class OagisShipmentServices {
         }
 
         String saveToFilename = (String) context.get("saveToFilename");
+        if (UtilValidate.isEmpty(saveToFilename)) {
+            String saveToFilenameBase = UtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.filename.base", "");
+            saveToFilename = saveToFilenameBase + "ProcessShipment" + returnId + ".xml";
+        }
         String saveToDirectory = (String) context.get("saveToDirectory");
+        if (UtilValidate.isEmpty(saveToDirectory)) {
+            saveToDirectory = UtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.directory");
+        }
         OutputStream out = (OutputStream) context.get("outputStream");
         
         Map result = ServiceUtil.returnSuccess();
@@ -651,37 +631,19 @@ public class OagisShipmentServices {
                 bodyParameters.put("returnId", returnId);
                 String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ReceiveDelivery");
                 
-                Writer writer = null;
-                if (out != null) {
-                    writer = new OutputStreamWriter(out);
-                } else if (UtilValidate.isNotEmpty(saveToFilename)) {
-                    try {
-                        File outdir = new File(saveToDirectory);
-                        if (!outdir.exists()) {
-                            outdir.mkdir();
-                        }
-                        writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, saveToFilename)), "UTF-8")));
-                    } catch (Exception e) {
-                        String errMsg = "Error opening file to save message to [" + saveToFilename + "]: " + e.toString();
-                        Debug.logError(e, errMsg, module);
-                        return ServiceUtil.returnError(errMsg);
-                    }
-                } else if (UtilValidate.isNotEmpty(sendToUrl)) {
-                    writer = new StringWriter();
-                } else {
-                    return ServiceUtil.returnError("No send to information pass (url, file, or out stream)");
-                }
-
-                ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, new HtmlScreenRenderer());
+                String outText = null;
                 try {
+                    Writer writer = new StringWriter();
+                    ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, htmlScreenRenderer);
                     screens.render(bodyScreenUri);
                     writer.close();
+                    outText = writer.toString();
                 } catch (Exception e) {
                     String errMsg = "Error rendering message: " + e.toString();
                     Debug.logError(e, errMsg, module);
                     return ServiceUtil.returnError(errMsg);
                 }
-                
+
                 // TODO: call service with require-new-transaction=true to save the OagisMessageInfo data (to make sure it saves before)
                 // prepare map to Create Oagis Message Info
                 comiCtx.put("component", "INVENTORY");
@@ -695,41 +657,19 @@ public class OagisShipmentServices {
                 comiCtx.put("returnId", returnId);
                 comiCtx.put("userLogin", userLogin);
                 if (OagisServices.debugSaveXmlOut) {
-                    comiCtx.put("fullMessageXml", writer.toString());
+                    comiCtx.put("fullMessageXml", outText);
                 }
 
                 try {
-                    dispatcher.runAsync("createOagisMessageInfo", comiCtx, true);
+                    dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
                 } catch (GenericServiceException e) {
                     String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
                     Debug.logError(e, errMsg, module);
                 }
 
-                if (UtilValidate.isNotEmpty(sendToUrl)) {
-                    HttpClient http = new HttpClient(sendToUrl);
-
-                    // test parameters
-                    http.setHostVerificationLevel(SSLUtil.HOSTCERT_NO_CHECK);
-                    http.setAllowUntrusted(true);
-                    http.setDebug(true);
-                      
-                    // needed XML post parameters
-                    if (UtilValidate.isNotEmpty(certAlias)) {
-                        http.setClientCertificateAlias(certAlias);
-                    }
-                    if (UtilValidate.isNotEmpty(basicAuthUsername)) {
-                        http.setBasicAuthInfo(basicAuthUsername, basicAuthPassword);
-                    }
-                    http.setContentType("text/xml");
-                    http.setKeepAlive(true);
-
-                    try {
-                        http.post(writer.toString());
-                    } catch (Exception e) {
-                        String errMsg = "Error posting message to server with UTL [" + sendToUrl + "]: " + e.toString();
-                        Debug.logError(e, errMsg, module);
-                        return ServiceUtil.returnError(errMsg);
-                    }
+                Map sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename);
+                if (sendMessageReturn != null) {
+                    return sendMessageReturn;
                 }
             }
         }    
