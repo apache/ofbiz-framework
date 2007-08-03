@@ -19,14 +19,30 @@ under the License.
 -->
 <entity-engine-xml>
     <StatusType description="OAGIS Message Processing Status" statusTypeId="OAGIS_MP_STATUS" hasTable="N" parentTypeId=""/>
-    <StatusItem description="Received" sequenceId="01" statusCode="RECEIVED" statusId="OAGMP_RECEIVED" statusTypeId="OAGIS_MP_STATUS"/>
-    <StatusItem description="Processed - Success" sequenceId="08" statusCode="PROC_SUCCESS" statusId="OAGMP_PROC_SUCCESS" statusTypeId="OAGIS_MP_STATUS"/>
-    <StatusItem description="Processed - Error" sequenceId="09" statusCode="PROC_ERROR" statusId="OAGMP_PROC_ERROR" statusTypeId="OAGIS_MP_STATUS"/>
-    <StatusItem description="Sent" sequenceId="10" statusCode="SENT" statusId="OAGMP_SENT" statusTypeId="OAGIS_MP_STATUS"/>
+    
+    <StatusItem description="In Message Received" sequenceId="01" statusCode="RECEIVED" statusId="OAGMP_RECEIVED" statusTypeId="OAGIS_MP_STATUS"/>
+    <StatusItem description="In Processed - Success" sequenceId="05" statusCode="PROC_SUCCESS" statusId="OAGMP_PROC_SUCCESS" statusTypeId="OAGIS_MP_STATUS"/>
+    <StatusItem description="In Processed - Error" sequenceId="06" statusCode="PROC_ERROR" statusId="OAGMP_PROC_ERROR" statusTypeId="OAGIS_MP_STATUS"/>
+    <StatusItem description="Error Confirm Sent" sequenceId="09" statusCode="ERRCONFSENT" statusId="OAGMP_ERRCONFSENT" statusTypeId="OAGIS_MP_STATUS"/>
+    
+    <StatusItem description="Out Message Triggered" sequenceId="11" statusCode="TRIGGERED" statusId="OAGMP_TRIGGERED" statusTypeId="OAGIS_MP_STATUS"/>
+    <StatusItem description="Out Generated - Success" sequenceId="14" statusCode="OGEN_SUCCESS" statusId="OAGMP_OGEN_SUCCESS" statusTypeId="OAGIS_MP_STATUS"/>
+    <StatusItem description="Out Generated - Error" sequenceId="15" statusCode="OGEN_ERROR" statusId="OAGMP_OGEN_ERROR" statusTypeId="OAGIS_MP_STATUS"/>
+    <StatusItem description="Out Message Sent" sequenceId="18" statusCode="SENT" statusId="OAGMP_SENT" statusTypeId="OAGIS_MP_STATUS"/>
+    <StatusItem description="Out Message Send Error" sequenceId="19" statusCode="SEND_ERROR" statusId="OAGMP_SEND_ERROR" statusTypeId="OAGIS_MP_STATUS"/>
+
     <StatusItem description="Received Success Confirm" sequenceId="18" statusCode="REC_SUC_CON" statusId="OAGMP_REC_SUC_CON" statusTypeId="OAGIS_MP_STATUS"/>
     <StatusItem description="Received Error Confirm" sequenceId="19" statusCode="REC_ERR_CON" statusId="OAGMP_REC_ERR_CON" statusTypeId="OAGIS_MP_STATUS"/>
+
     <StatusValidChange condition="" statusId="OAGMP_RECEIVED" statusIdTo="OAGMP_PROC_SUCCESS" transitionName="Processing Succeeded"/>
     <StatusValidChange condition="" statusId="OAGMP_RECEIVED" statusIdTo="OAGMP_PROC_ERROR" transitionName="Processing Errored"/>
+    <StatusValidChange condition="" statusId="OAGMP_PROC_ERROR" statusIdTo="OAGMP_ERRCONFSENT" transitionName="Error Confirm Sent"/>
+    
+    <StatusValidChange condition="" statusId="OAGMP_TRIGGERED" statusIdTo="OAGMP_OGEN_SUCCESS" transitionName="Processing Succeeded"/>
+    <StatusValidChange condition="" statusId="OAGMP_TRIGGERED" statusIdTo="OAGMP_OGEN_ERROR" transitionName="Processing Errored"/>
+    <StatusValidChange condition="" statusId="OAGMP_OGEN_SUCCESS" statusIdTo="OAGMP_SENT" transitionName="Out Message Sent"/>
+    <StatusValidChange condition="" statusId="OAGMP_OGEN_SUCCESS" statusIdTo="OAGMP_SEND_ERROR" transitionName="Out Message Send Error"/>
+    
     <StatusValidChange condition="" statusId="OAGMP_SENT" statusIdTo="OAGMP_REC_SUC_CON" transitionName="Success Confirm Received"/>
     <StatusValidChange condition="" statusId="OAGMP_SENT" statusIdTo="OAGMP_REC_ERR_CON" transitionName="Error Confirm Received"/>
 </entity-engine-xml>
