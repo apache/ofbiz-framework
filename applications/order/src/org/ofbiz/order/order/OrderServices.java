@@ -1497,7 +1497,7 @@ public class OrderServices {
                     shippingTotal = ZERO;
                     Debug.log("No valid order items found - " + shippingTotal, module);
                 } else {
-                    shippingTotal = new BigDecimal(((Double) shippingEstMap.get("shippingTotal")).doubleValue());
+                    shippingTotal = UtilValidate.isEmpty(shippingEstMap.get("shippingTotal")) ? ZERO : new BigDecimal(((Double) shippingEstMap.get("shippingTotal")).doubleValue());
                     shippingTotal = shippingTotal.setScale(orderDecimals, orderRounding);
                     Debug.log("Got new shipping estimate - " + shippingTotal, module);
                 }
