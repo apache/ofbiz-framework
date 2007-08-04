@@ -86,9 +86,7 @@ public class OagisShipmentServices {
         Document doc = (Document) context.get("document");
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
-        
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        
         List errorMapList = FastList.newInstance();
             
         GenericValue userLogin =null; 
@@ -117,6 +115,11 @@ public class OagisShipmentServices {
         String confirmation = UtilXml.childElementValue(senderElement, "of:CONFIRMATION"); // of
         String authId = UtilXml.childElementValue(senderElement, "of:AUTHID"); // of
 
+        Element dataAreaElement = UtilXml.firstChildElement(showShipmentElement, "ns:DATAAREA"); // n
+        Element daShowShipmentElement = UtilXml.firstChildElement(dataAreaElement, "ns:SHOW_SHIPMENT"); // n
+        Element shipmentElement = UtilXml.firstChildElement(daShowShipmentElement, "ns:SHIPMENT"); // n                               
+        String shipmentId = UtilXml.childElementValue(shipmentElement, "of:DOCUMENTID"); // of           
+
         Map result = FastMap.newInstance();
         result.put("logicalId", logicalId);
         result.put("component", component);
@@ -132,6 +135,7 @@ public class OagisShipmentServices {
         oagisMsgInfoCtx.put("authId", authId);
         oagisMsgInfoCtx.put("outgoingMessage", "N");
         oagisMsgInfoCtx.put("receivedDate", nowTimestamp);
+        oagisMsgInfoCtx.put("shipmentId", shipmentId);
         oagisMsgInfoCtx.put("userLogin", userLogin);
         oagisMsgInfoCtx.put("processingStatusId", "OAGMP_RECEIVED");
         if (OagisServices.debugSaveXmlIn) {
@@ -159,10 +163,6 @@ public class OagisShipmentServices {
             Debug.logError(e, errMsg, module);
         }
            
-        Element dataAreaElement = UtilXml.firstChildElement(showShipmentElement, "ns:DATAAREA"); // n
-        Element daShowShipmentElement = UtilXml.firstChildElement(dataAreaElement, "ns:SHOW_SHIPMENT"); // n
-        Element shipmentElement = UtilXml.firstChildElement(daShowShipmentElement, "ns:SHIPMENT"); // n                               
-        String shipmentId = UtilXml.childElementValue(shipmentElement, "of:DOCUMENTID"); // of           
         GenericValue shipment = null;
         try {
             shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
