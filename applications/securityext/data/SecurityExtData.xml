@@ -40,4 +40,9 @@ under the License.
     <UserLogin userLoginId="admin" partyId="admin"/>
 
     <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="admin" fromDate="2001-01-01 12:00:00.0"/>
+    
+    <!-- Party for System UserLogin Account - just in case logic depends on it -->
+    <Party partyId="system" partyTypeId="PERSON"/>
+    <Person partyId="system" firstName="System" lastName="Account"/>
+    <UserLogin userLoginId="system" partyId="system"/>
 </entity-engine-xml>
