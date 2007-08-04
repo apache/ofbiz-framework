@@ -116,7 +116,7 @@ under the License.
     <Enumeration description="Search Parameters" enumCode="SEARCH_PARAM" enumId="PCLT_SEARCH_PARAM" sequenceId="01" enumTypeId="PCAT_LINK_TYPE"/>
     <Enumeration description="Absolute URL" enumCode="ABS_URL" enumId="PCLT_ABS_URL" sequenceId="02" enumTypeId="PCAT_LINK_TYPE"/>
     <Enumeration description="Category ID" enumCode="CAT_ID" enumId="PCLT_CAT_ID" sequenceId="03" enumTypeId="PCAT_LINK_TYPE"/>
-    
+
     <FacilityType description="Building" facilityTypeId="BUILDING" hasTable="N" parentTypeId=""/>
     <FacilityType description="Floor" facilityTypeId="FLOOR" hasTable="N" parentTypeId=""/>
     <FacilityType description="Office" facilityTypeId="OFFICE" hasTable="N" parentTypeId=""/>
@@ -166,7 +166,7 @@ under the License.
     <ProductAssocType description="Refurbished Equivalent" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_REFURB"/>
     <ProductAssocType description="Repair Service" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_REPAIR_SRV"/>
     <ProductAssocType description="Auto Reorder (needs recurrenceInfoId)" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_AUTORO"/>
-    
+
     <ProductAssocType description="Revision" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_REVISION"/>
     <ProductAssocType description="Manufacturing Bill of Materials" hasTable="N" parentTypeId="PRODUCT_COMPONENT" productAssocTypeId="MANUF_COMPONENT"/>
     <ProductAssocType description="Engineering Bill of Materials" hasTable="N" parentTypeId="PRODUCT_COMPONENT" productAssocTypeId="ENGINEER_COMPONENT"/>
@@ -189,7 +189,7 @@ under the License.
     <Enumeration description="Purchase Exclude Geo" enumCode="PURCHASE_EXCLUDE" enumId="PG_PURCH_EXCLUDE" sequenceId="02" enumTypeId="PROD_GEO"/>
     <Enumeration description="Shipment Include Geo" enumCode="SHIPMENT_INCLUDE" enumId="PG_SHIP_INCLUDE" sequenceId="03" enumTypeId="PROD_GEO"/>
     <Enumeration description="Shipment Exclude Geo" enumCode="SHIPMENT_EXCLUDE" enumId="PG_SHIP_EXCLUDE" sequenceId="04" enumTypeId="PROD_GEO"/>
-    
+
     <ProductCategoryContentType description="Category Name" hasTable="N" parentTypeId="" prodCatContentTypeId="CATEGORY_NAME"/>
     <ProductCategoryContentType description="Description" hasTable="N" parentTypeId="" prodCatContentTypeId="DESCRIPTION"/>
     <ProductCategoryContentType description="Description - Long" hasTable="N" parentTypeId="" prodCatContentTypeId="LONG_DESCRIPTION"/>
@@ -198,7 +198,7 @@ under the License.
     <ProductCategoryContentType description="Link 1 Alt Text" hasTable="N" parentTypeId="" prodCatContentTypeId="LINK1_ALT_TEXT"/>
     <ProductCategoryContentType description="Link 2 Alt Text" hasTable="N" parentTypeId="" prodCatContentTypeId="LINK2_ALT_TEXT"/>
     <ProductCategoryContentType description="Footer" hasTable="N" parentTypeId="" prodCatContentTypeId="FOOTER"/>
-    
+
     <ProductContentType description="Online Access" hasTable="N" parentTypeId="" productContentTypeId="ONLINE_ACCESS"/>
     <ProductContentType description="Digital Download" hasTable="N" parentTypeId="" productContentTypeId="DIGITAL_DOWNLOAD"/>
     <ProductContentType description="Fulfillment Email" hasTable="N" parentTypeId="" productContentTypeId="FULFILLMENT_EMAIL"/>
@@ -221,7 +221,7 @@ under the License.
     <ProductContentType description="Image Alt Text - Medium" hasTable="N" parentTypeId="" productContentTypeId="MEDIUM_IMAGE_ALT"/>
     <ProductContentType description="Image Alt Text - Large" hasTable="N" parentTypeId="" productContentTypeId="LARGE_IMAGE_ALT"/>
     <ProductContentType description="Image Alt Text - Detail" hasTable="N" parentTypeId="" productContentTypeId="DETAIL_IMAGE_ALT"/>
-    
+
     <ProdConfItemContentType description="Image" hasTable="N" parentTypeId="" confItemContentTypeId="IMAGE_URL"/>
     <ProdConfItemContentType description="Description" hasTable="N" parentTypeId="" confItemContentTypeId="DESCRIPTION"/>
     <ProdConfItemContentType description="Description - Long" hasTable="N" parentTypeId="" confItemContentTypeId="LONG_DESCRIPTION"/>
@@ -264,7 +264,7 @@ under the License.
     <ProductFeatureType description="Warranty" hasTable="N" parentTypeId="" productFeatureTypeId="WARRANTY"/>
     <ProductFeatureType description="Model Year" hasTable="N" parentTypeId="" productFeatureTypeId="MODEL_YEAR"/>
     <ProductFeatureType description="Year Made" hasTable="N" parentTypeId="" productFeatureTypeId="YEAR_MADE"/>
-    
+
     <ProductFeatureCategory productFeatureCategoryId="1000" description="Hazmat Features"/>
     <ProductFeature productFeatureId="1000" productFeatureCategoryId="1000" productFeatureTypeId="HAZMAT" description="Hazmat" idCode="Y"/>
     <ProductFeature productFeatureId="1001" productFeatureCategoryId="1000" productFeatureTypeId="HAZMAT" description="Non-Hazmat" idCode="N"/>
@@ -291,7 +291,7 @@ under the License.
     <ProductFeature productFeatureId="Y2008" description="2008" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
     <ProductFeature productFeatureId="Y2009" description="2009" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
     <ProductFeature productFeatureId="Y2010" description="2010" productFeatureCategoryId="1001" productFeatureTypeId="MODEL_YEAR"/>
-    
+
     <ProductFeatureCategory productFeatureCategoryId="1002" description="Equipment Class Features"/>
     <ProductFeature productFeatureId="EC_BOAT" description="Boat" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
     <ProductFeature productFeatureId="EC_FORKLIFT" description="Forklift" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
@@ -306,14 +306,14 @@ under the License.
     <ProductFeature productFeatureId="EC_MOBILE" description="Mobile" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
     <ProductFeature productFeatureId="EC_TANKER" description="Tanker" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
     <ProductFeature productFeatureId="EC_REEL_STAND" description="Reel Stand" productFeatureCategoryId="1002" productFeatureTypeId="EQUIP_CLASS"/>
-    
+
     <ProductMeterType description="Speedometer" productMeterTypeId="SPEEDOMETER"/>
     <ProductMeterType description="Tachometer" productMeterTypeId="TACHOMETER"/>
     <ProductMeterType description="Distance Meter" productMeterTypeId="DISTANCE"/>
     <ProductMeterType description="Motor Time Meter" productMeterTypeId="MOTOR_TIME"/>
     <ProductMeterType description="Use Count Meter" productMeterTypeId="USE_COUNT"/>
     <ProductMeterType description="Copy Count Meter" productMeterTypeId="COPY_COUNT"/>
-    
+
     <ProductMaintType description="Vehicle Maintenance" productMaintTypeId="VEHICLE_MAINT" parentTypeId=""/>
     <ProductMaintType description="Oil Change" productMaintTypeId="OIL_CHANGE" parentTypeId="VEHICLE_MAINT"/>
     <ProductMaintType description="Serpentine Belt Replacement" productMaintTypeId="SERP_BELT" parentTypeId="VEHICLE_MAINT"/>
@@ -321,7 +321,7 @@ under the License.
     <ProductMaintType description="Replace Battery" productMaintTypeId="REPLACE_BATTERY" parentTypeId="VEHICLE_MAINT"/>
 
     <ProductMaintType description="Wash" productMaintTypeId="WASH" parentTypeId=""/>
-    
+
     <EnumerationType description="Product Promotion Parent Enum Type" enumTypeId="PROD_PROMO" hasTable="N" parentTypeId=""/>
 
     <EnumerationType description="Product Promotion Input Parameter" enumTypeId="PROD_PROMO_IN_PARAM" hasTable="N" parentTypeId="PROD_PROMO"/>
@@ -359,14 +359,14 @@ under the License.
 
     <EnumerationType description="Product Promotion Action" enumTypeId="PROD_PROMO_ACTION" hasTable="N" parentTypeId="PROD_PROMO"/>
     <Enumeration description="Gift With Purchase" enumCode="GWP" enumId="PROMO_GWP" sequenceId="01" enumTypeId="PROD_PROMO_ACTION"/>
-    <Enumeration description="Free Shipping" enumCode="FREE_SHIPPING" enumId="PROMO_FREE_SHIPPING" sequenceId="02" enumTypeId="PROD_PROMO_ACTION"/>
+    <!--Enumeration description="Free Shipping" enumCode="FREE_SHIPPING" enumId="PROMO_FREE_SHIPPING" sequenceId="02" enumTypeId="PROD_PROMO_ACTION"/--> <!-- free shipping promo is commented out in java code for now... -->
     <Enumeration description="X Product for Y% Discount" enumCode="PROD_DISC" enumId="PROMO_PROD_DISC" sequenceId="03" enumTypeId="PROD_PROMO_ACTION"/>
     <Enumeration description="X Product for Y Discount" enumCode="PROD_AMDISC" enumId="PROMO_PROD_AMDISC" sequenceId="04" enumTypeId="PROD_PROMO_ACTION"/>
     <Enumeration description="X Product for Y Price" enumCode="PROD_PRICE" enumId="PROMO_PROD_PRICE" sequenceId="05" enumTypeId="PROD_PROMO_ACTION"/>
     <Enumeration description="Order Percent Discount" enumCode="ORDER_PERCENT" enumId="PROMO_ORDER_PERCENT" sequenceId="06" enumTypeId="PROD_PROMO_ACTION"/>
     <Enumeration description="Order Amount Flat" enumCode="ORDER_AMOUNT" enumId="PROMO_ORDER_AMOUNT" sequenceId="07" enumTypeId="PROD_PROMO_ACTION"/>
     <Enumeration description="Product for [Special Promo] Price" enumCode="PROD_SPPRC" enumId="PROMO_PROD_SPPRC" sequenceId="08" enumTypeId="PROD_PROMO_ACTION"/>
-    
+
     <EnumerationType description="Product Rating Field Type" enumTypeId="PROD_RATING_TYPE" hasTable="N" parentTypeId=""/>
     <Enumeration description="Min Rating" enumCode="MIN" enumId="PRDR_MIN" sequenceId="01" enumTypeId="PROD_RATING_TYPE"/>
     <Enumeration description="Max Rating" enumCode="MAX" enumId="PRDR_MAX" sequenceId="02" enumTypeId="PROD_RATING_TYPE"/>
@@ -381,12 +381,12 @@ under the License.
     <ProductPriceType description="Competitive Price" productPriceTypeId="COMPETITIVE_PRICE"/>
     <ProductPriceType description="Wholesale Price" productPriceTypeId="WHOLESALE_PRICE"/>
     <ProductPriceType description="Special Promo Price" productPriceTypeId="SPECIAL_PROMO_PRICE"/>
-    
+
     <ProductPricePurpose description="Purchase/Initial" productPricePurposeId="PURCHASE"/>
     <ProductPricePurpose description="Recurring Charge" productPricePurposeId="RECURRING_CHARGE"/>
     <ProductPricePurpose description="Usage Charge" productPricePurposeId="USAGE_CHARGE"/>
     <ProductPricePurpose description="Component Price" productPricePurposeId="COMPONENT_PRICE"/>
-    
+
     <ProductPriceActionType description="Percent Of List Price" productPriceActionTypeId="PRICE_POL"/>
     <ProductPriceActionType description="Percent Of Default Price" productPriceActionTypeId="PRICE_POD"/>
     <ProductPriceActionType description="Percent Of Average Cost" productPriceActionTypeId="PRICE_POAC"/>
@@ -458,7 +458,7 @@ under the License.
     <StatusValidChange condition="" statusId="INV_RETURNED" statusIdTo="INV_AVAILABLE" transitionName="Make Return Available"/>
     <StatusValidChange condition="" statusId="INV_RETURNED" statusIdTo="INV_ON_HOLD" transitionName="Make Return Held"/>
     <StatusValidChange condition="" statusId="INV_RETURNED" statusIdTo="INV_DEFECTIVE" transitionName="Mark Return Defective"/>
-    
+
     <!-- inventory transfer status -->
     <StatusType description="Inventory Transfer" hasTable="N" parentTypeId="" statusTypeId="INVENTORY_XFER_STTS"/>
     <StatusItem description="Requested" sequenceId="01" statusCode="REQUESTED" statusId="IXF_REQUESTED" statusTypeId="INVENTORY_XFER_STTS"/>
@@ -488,7 +488,7 @@ under the License.
     <VarianceReason varianceReasonId="VAR_STOLEN" description="Stolen"/>
     <VarianceReason varianceReasonId="VAR_FOUND" description="Found"/>
     <VarianceReason varianceReasonId="VAR_DAMAGED" description="Damaged"/>
-    <VarianceReason varianceReasonId="VAR_INTEGR" description="Integration"/>  
+    <VarianceReason varianceReasonId="VAR_INTEGR" description="Integration"/>
     <VarianceReason varianceReasonId="VAR_SAMPLE" description="Sample (Giveaway)"/>
 
     <!-- Supplier preference order for SupplierProduct entries -->
