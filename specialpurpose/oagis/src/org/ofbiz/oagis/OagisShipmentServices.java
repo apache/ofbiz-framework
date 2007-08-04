@@ -224,8 +224,11 @@ public class OagisShipmentServices {
                             isitspastCtx.put("shipmentId", shipmentId);      
                             isitspastCtx.put("shipmentPackageSeqId", shipmentPackageSeqId);
                             isitspastCtx.put("promisedDatetime", orderItemShipGrpInvReservation.get("promisedDatetime"));                    
-                            Element invDetailElement = UtilXml.firstChildElement(invItemElement, "ns:INVDETAIL"); //n                            
-                            if(UtilValidate.isNotEmpty(invDetailElement)) {
+                            List invDetailElementList = UtilXml.childElementList(invItemElement, "ns:INVDETAIL"); //n                            
+                            if(UtilValidate.isNotEmpty(invDetailElementList)) {
+                                Iterator invDetailElementItr = invDetailElementList.iterator();
+                                while(invDetailElementItr.hasNext()) {
+                                    Element invDetailElement = (Element) invDetailElementItr.next();
                                     String serialNumber = UtilXml.childElementValue(invDetailElement, "os:SERIALNUM"); // os                                                                                   
                                     isitspastCtx.put("serialNumber", serialNumber);                                        
                                     isitspastCtx.remove("itemIssuanceId");                            
@@ -241,6 +244,7 @@ public class OagisShipmentServices {
                                         String errMsg = "Error executing issueSerializedInvToShipmentPackageAndSetTracking Service: "+e.toString();
                                         errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                                     }
+                                }
                             } else {
                                 try {//TODO: I think this else part is for NON Serialized Inv item. So it will be different service that we need to call here.                    
                                     Map resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
