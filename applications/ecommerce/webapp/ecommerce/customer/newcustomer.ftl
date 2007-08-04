@@ -60,7 +60,7 @@ under the License.
 </script>
 </#if>
 
-<p class="head1">${uiLabelMap.PartyRequestNewAccount}</p>
+<h1>${uiLabelMap.PartyRequestNewAccount}</h1>
 <p class='tabletext'>${uiLabelMap.PartyAlreadyHaveAccount}, <a href='<@ofbizUrl>checkLogin/main</@ofbizUrl>' class='buttontext'>${uiLabelMap.CommonLoginHere}</a>.</p>
 
 <#macro fieldErrors fieldName>

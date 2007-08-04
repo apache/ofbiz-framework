@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-  <p class="head1">${uiLabelMap.PartyChangePassword}</p>
+  <h1>${uiLabelMap.PartyChangePassword}</h1>
 
     &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonGoBack}]</a>
     &nbsp;<a href="javascript:document.changepasswordform.submit()" class="buttontext">[${uiLabelMap.CommonSave}]</a>

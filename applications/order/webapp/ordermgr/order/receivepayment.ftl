@@ -18,12 +18,12 @@ under the License.
 -->
 
 <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session)>
-  <p class="head1">${uiLabelMap.OrderReceiveOfflinePayments}</p>
+  <h1>${uiLabelMap.OrderReceiveOfflinePayments}</h1>
 
   &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonBack}]</a>
   &nbsp;<a href="javascript:document.paysetupform.submit()" class="buttontext">[${uiLabelMap.CommonSave}]</a>
 
-  <form method="post" action="<@ofbizUrl>receiveOfflinePayments/${donePage}</@ofbizUrl>" name="paysetupform">    
+  <form method="post" action="<@ofbizUrl>receiveOfflinePayments/${donePage}</@ofbizUrl>" name="paysetupform">
     <#if requestParameters.workEffortId?exists>
     	<input type="hidden" name="workEffortId" value="${requestParameters.workEffortId}">
     </#if>
@@ -34,7 +34,7 @@ under the License.
         <td width="1" align="left"><div class="tableheadtext"><u>${uiLabelMap.OrderAmount}</u></div></td>
         <td width="1">&nbsp;&nbsp;&nbsp;</td>
         <td width="70%" align="left"><div class="tableheadtext"><u>${uiLabelMap.OrderReference}</u></div></td>
-      </tr>    
+      </tr>
       <#list paymentMethodTypes as payType>
       <tr>
         <td width="30%" align="right"><div class="tabletext">${payType.get("description",locale)?default(payType.paymentMethodTypeId)}</div></td>
@@ -46,10 +46,10 @@ under the License.
       </#list>
     </table>
   </form>
-  
+
   &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonBack}]</a>
   &nbsp;<a href="javascript:document.paysetupform.submit()" class="buttontext">[${uiLabelMap.CommonSave}]</a>
-   
+
 <br/>
 <#else>
   <h3>${uiLabelMap.OrderViewPermissionError}</h3>

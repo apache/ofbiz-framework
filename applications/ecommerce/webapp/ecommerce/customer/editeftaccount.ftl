@@ -22,10 +22,10 @@ under the License.
 &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonBack}</a>
 <#else>
     <#if !eftAccount?exists>
-      <p class="head1">${uiLabelMap.AccountingAddNewEftAccount}</p>
+      <h1>${uiLabelMap.AccountingAddNewEftAccount}</h1>
       <form method="post" action="<@ofbizUrl>createEftAccount?DONE_PAGE=${donePage}</@ofbizUrl>" name="editeftaccountform" style="margin: 0;">
     <#else>
-      <p class="head1">${uiLabelMap.PageTitleEditEFTAccount}</p>
+      <h1>${uiLabelMap.PageTitleEditEFTAccount}</h1>
       <form method="post" action="<@ofbizUrl>updateEftAccount?DONE_PAGE=${donePage}</@ofbizUrl>" name="editeftaccountform" style="margin: 0;">
         <input type="hidden" name="paymentMethodId" value="${paymentMethodId}">
     </#if>
@@ -104,7 +104,7 @@ under the License.
             </td>
             <td align="left" valign="top" width="80%">
               <div class="tabletext"><b>${uiLabelMap.PartyUseCurrentAddress}:</b></div>
-              <#list curPartyContactMechPurposes as curPartyContactMechPurpose> 
+              <#list curPartyContactMechPurposes as curPartyContactMechPurpose>
                 <#assign curContactMechPurposeType = curPartyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
                 <div class="tabletext">
                   <b>${curContactMechPurposeType.get("description",locale)?if_exists}</b>
@@ -118,7 +118,7 @@ under the License.
                 <#if curPostalAddress.attnName?exists><b>${uiLabelMap.PartyAddrAttnName}:</b> ${curPostalAddress.attnName}<br/></#if>
                 ${curPostalAddress.address1?if_exists}<br/>
                 <#if curPostalAddress.address2?exists>${curPostalAddress.address2}<br/></#if>
-                ${curPostalAddress.city}<#if curPostalAddress.stateProvinceGeoId?has_content>,&nbsp;${curPostalAddress.stateProvinceGeoId}</#if>&nbsp;${curPostalAddress.postalCode} 
+                ${curPostalAddress.city}<#if curPostalAddress.stateProvinceGeoId?has_content>,&nbsp;${curPostalAddress.stateProvinceGeoId}</#if>&nbsp;${curPostalAddress.postalCode}
                 <#if curPostalAddress.countryGeoId?exists><br/>${curPostalAddress.countryGeoId}</#if>
               </div>
               <div class="tabletext">(${uiLabelMap.CommonUpdated}:&nbsp;${(curPartyContactMech.fromDate.toString())?if_exists})</div>
@@ -161,7 +161,7 @@ under the License.
                   <#if postalAddress.attnName?exists><b>${uiLabelMap.PartyAddrAttnName}:</b> ${postalAddress.attnName}<br/></#if>
                   ${postalAddress.address1?if_exists}<br/>
                   <#if postalAddress.address2?exists>${postalAddress.address2}<br/></#if>
-                  ${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>,&nbsp;${postalAddress.stateProvinceGeoId}</#if>&nbsp;${postalAddress.postalCode} 
+                  ${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>,&nbsp;${postalAddress.stateProvinceGeoId}</#if>&nbsp;${postalAddress.postalCode}
                   <#if postalAddress.countryGeoId?exists><br/>${postalAddress.countryGeoId}</#if>
                 </div>
                 <div class="tabletext">(${uiLabelMap.CommonUpdated}:&nbsp;${(partyContactMech.fromDate.toString())?if_exists})</div>

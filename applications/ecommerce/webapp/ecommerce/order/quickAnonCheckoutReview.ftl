@@ -31,21 +31,21 @@ under the License.
             alert("You order is being processed, this may take a moment.");
         }
     }
-    
+
     function shippingMethodChanged(shippingMethod) {
         var submitToUri = "<@ofbizUrl>quickAnonProcessShipOptionsUpdateOrderItems</@ofbizUrl>?shipping_method=" + shippingMethod;
         dojo.io.bind({url: submitToUri,
             load: function(type, data, evt){
             if(type == "load"){
                 document.getElementById("orderItemsSection").innerHTML = data;
-            }        
-          },mimetype: "text/html"});    
+            }
+          },mimetype: "text/html"});
     }
-    
+
 // -->
 </script>
 
-<p class="head1">${uiLabelMap.OrderFinalCheckoutReview}</p>
+<h1>${uiLabelMap.OrderFinalCheckoutReview}</h1>
 <#if !isDemoStore?exists || isDemoStore><p>${uiLabelMap.OrderDemoFrontNote}.</p></#if>
 
 <#if cart?exists && 0 < cart.size()>

@@ -24,7 +24,7 @@ under the License.
   <#if !mechMap.contactMech?exists>
     <#-- When creating a new contact mech, first select the type, then actually create -->
     <#if !preContactMechTypeId?has_content>
-    <p class="head1">${uiLabelMap.PartyCreateNewContact}</p>
+    <h1>${uiLabelMap.PartyCreateNewContact}</h1>
     <form method="post" action='<@ofbizUrl>EditContactMech</@ofbizUrl>' name="createcontactmechform">
       <input type='hidden' name='facilityId' value='${facilityId}'>
       <input type='hidden' name='DONE_PAGE' value='${donePage?if_exists}'>
@@ -46,7 +46,7 @@ under the License.
 
   <#if mechMap.contactMechTypeId?has_content>
     <#if !mechMap.contactMech?has_content>
-      <p class="head1">${uiLabelMap.PartyCreateNewContact}</p>
+      <h1>${uiLabelMap.PartyCreateNewContact}</h1>
     &nbsp;<a href='<@ofbizUrl>authview/${donePage}?facilityId=${facilityId}</@ofbizUrl>' class="buttontext">[${uiLabelMap.CommonGoBack}]</a>
     &nbsp;<a href="javascript:document.editcontactmechform.submit()" class="buttontext">[${uiLabelMap.CommonSave}]</a>
       <#if contactMechPurposeType?exists>
@@ -56,13 +56,13 @@ under the License.
         <form method="post" action='<@ofbizUrl>${mechMap.requestName}</@ofbizUrl>' name="editcontactmechform">
         <input type='hidden' name='DONE_PAGE' value='${donePage}'>
         <input type='hidden' name='contactMechTypeId' value='${mechMap.contactMechTypeId}'>
-        <input type='hidden' name='facilityId' value='${facilityId}'>        
+        <input type='hidden' name='facilityId' value='${facilityId}'>
         <#if preContactMechTypeId?exists><input type='hidden' name='preContactMechTypeId' value='${preContactMechTypeId}'></#if>
         <#if contactMechPurposeTypeId?exists><input type='hidden' name='contactMechPurposeTypeId' value='${contactMechPurposeTypeId?if_exists}'></#if>
-        
+
         <#if paymentMethodId?exists><input type='hidden' name='paymentMethodId' value='${paymentMethodId}'></#if>
     <#else>
-      <p class="head1">${uiLabelMap.PartyEditContactInformation}</p>
+      <h1>${uiLabelMap.PartyEditContactInformation}</h1>
     &nbsp;<a href='<@ofbizUrl>authview/${donePage}?facilityId=${facilityId}</@ofbizUrl>' class='buttontext'>[${uiLabelMap.CommonGoBack}]</a>
     &nbsp;<a href="javascript:document.editcontactmechform.submit()" class="buttontext">[${uiLabelMap.CommonSave}]</a>
       <table width="90%" border="0" cellpadding="2" cellspacing="0">
@@ -71,8 +71,8 @@ under the License.
           <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.PartyContactPurposes}</div></td>
           <td width="5">&nbsp;</td>
           <td width="74%">
-            <table border='0' cellspacing='1' bgcolor='black'>  
-            <#if mechMap.facilityContactMechPurposes?has_content>          
+            <table border='0' cellspacing='1' bgcolor='black'>
+            <#if mechMap.facilityContactMechPurposes?has_content>
               <#list mechMap.facilityContactMechPurposes as facilityContactMechPurpose>
                 <#assign contactMechPurposeType = facilityContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
                 <tr>
@@ -89,8 +89,8 @@ under the License.
                   <td bgcolor='white'><div><a href='<@ofbizUrl>deleteFacilityContactMechPurpose?facilityId=${facilityId}&contactMechId=${contactMechId}&contactMechPurposeTypeId=${facilityContactMechPurpose.contactMechPurposeTypeId}&fromDate=${facilityContactMechPurpose.fromDate.toString()}&DONE_PAGE=${donePage}&useValues=true</@ofbizUrl>' class='buttontext'>&nbsp;${uiLabelMap.CommonDelete}&nbsp;</a></div></td>
                 </tr>
               </#list>
-              </#if>              
-           
+              </#if>
+
               <tr>
                 <form method="post" action='<@ofbizUrl>createFacilityContactMechPurpose?DONE_PAGE=${donePage}&useValues=true</@ofbizUrl>' name='newpurposeform'>
                 <input type="hidden" name='facilityId' value='${facilityId}'>
@@ -115,7 +115,7 @@ under the License.
         <input type="hidden" name="contactMechTypeId" value='${mechMap.contactMechTypeId}'>
         <input type="hidden" name='facilityId' value='${facilityId}'>
     </#if>
-  
+
   <#if "POSTAL_ADDRESS" = mechMap.contactMechTypeId?if_exists>
     <tr>
       <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.PartyToName}</div></td>
@@ -213,7 +213,7 @@ under the License.
           <input type="text" class="inputBox" size="60" maxlength="255" name="infoString" value="${(mechMap.contactMech.infoString)?if_exists}">
       *</td>
     </tr>
-  </#if>   
+  </#if>
   </form>
   </table>
 

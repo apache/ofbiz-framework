@@ -17,9 +17,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if security.hasEntityPermission("ORDERMGR", "_SEND_CONFIRMATION", session)>  
+<#if security.hasEntityPermission("ORDERMGR", "_SEND_CONFIRMATION", session)>
 
- <p class="head1">${uiLabelMap.OrderSendConfirmationEmail}</p>
+ <h1>${uiLabelMap.OrderSendConfirmationEmail}</h1>
 
   &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
   &nbsp;<a href="javascript:document.sendConfirmationForm.submit()" class="buttontext">${uiLabelMap.CommonSend}</a>
@@ -47,7 +47,7 @@ under the License.
                 <input type="text" size="40" name="sendTo" value="${sendTo}"/>
             </td>
         <tr>
-        </tr> 
+        </tr>
         <tr>
             <td width="26%" align="right">
                 <div class="tabletext">${uiLabelMap.OrderSendConfirmationEmailCCTo}</div>
@@ -91,13 +91,13 @@ under the License.
             <td width="54%">
                 <textarea name="body" class="textAreaBox" rows="30" cols="80">${screens.render(productStoreEmailSetting.bodyScreenLocation?default(""))}</textarea>
             </td>
-        </tr> 
+        </tr>
     </table>
 </form>
 
   &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
   &nbsp;<a href="javascript:document.sendConfirmationForm.submit()" class="buttontext">${uiLabelMap.CommonSend}</a>
-  
+
 <#else>
   <h3>${uiLabelMap.OrderViewPermissionError}</h3>
 </#if>

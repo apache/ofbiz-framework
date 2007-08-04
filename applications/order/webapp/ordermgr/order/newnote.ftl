@@ -17,8 +17,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if security.hasEntityPermission("ORDERMGR", "_VIEW", session)>  
-  <p class="head1">${uiLabelMap.OrderAddNote}</p>
+<#if security.hasEntityPermission("ORDERMGR", "_VIEW", session)>
+  <h1>${uiLabelMap.OrderAddNote}</h1>
 
   &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
   &nbsp;<a href="javascript:document.createnoteform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
@@ -30,9 +30,9 @@ under the License.
         <td width="54%">
           <textarea name="note" class="textAreaBox" rows="5" cols="70"></textarea>
         </td>
-      </tr> 
-      <tr> 
-         <td/><td class="tabletext">${uiLabelMap.OrderInternalNote} : 
+      </tr>
+      <tr>
+         <td/><td class="tabletext">${uiLabelMap.OrderInternalNote} :
 	 <select class="selectBox" name="internalNote" size="1"><option value=""></option><option value="Y" selected>${uiLabelMap.CommonYes}</option><option value="N">${uiLabelMap.CommonNo}</option></select></td>
       </tr>
       <tr>
@@ -42,7 +42,7 @@ under the License.
 
   &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
   &nbsp;<a href="javascript:document.createnoteform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
-  
+
 <#else>
   <h3>${uiLabelMap.OrderViewPermissionError}</h3>
 </#if>

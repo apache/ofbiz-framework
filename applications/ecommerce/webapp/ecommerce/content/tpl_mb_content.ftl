@@ -1,4 +1,4 @@
-<#ftl ns_prefixes={"ask":"http://www.automationgroups.com/dtd/ask/"}> 
+<#ftl ns_prefixes={"ask":"http://www.automationgroups.com/dtd/ask/"}>
 <#--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -26,7 +26,7 @@ under the License.
 </#macro>
 
 <#macro "ask:title">
-<h2 class="head1">${.node}</h2>
+<h2>${.node}</h2>
 <p/>
 </#macro>
 

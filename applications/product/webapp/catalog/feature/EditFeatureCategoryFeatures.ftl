@@ -30,7 +30,7 @@ under the License.
   <input type="hidden" name="productFeatureCategoryId" value="${productFeatureCategoryId}">
 </form>
 <br/>
-<p class="head2">${uiLabelMap.ProductProductFeatureMaintenance}</p>
+<h2>${uiLabelMap.ProductProductFeatureMaintenance}</h2>
 <#if (listSize > 0)>
     <#if productId?has_content>
       <#assign productString = "&productId=" + productId>
