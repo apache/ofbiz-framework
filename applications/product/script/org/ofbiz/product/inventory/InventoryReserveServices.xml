@@ -277,7 +277,8 @@ under the License.
             <field-map field-name="productId" env-name="parameters.productId"/>
             <field-map field-name="inventoryItemTypeId"  value="SERIALIZED_INV_ITEM"/>
             <field-map field-name="serialNumber" env-name="parameters.serialNumber"/>
-        </entity-and>        
+        </entity-and>
+        <clear-field field-name="inventoryItem"/>
         <first-from-list list-name="inventoryItems" entry-name="inventoryItem"/>
         <!--Step 2 Check if its reserved for other order -->
         <set field="inventoryReservationLookUp.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
