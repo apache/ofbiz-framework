@@ -185,7 +185,8 @@ public class OagisShipmentServices {
 
         String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");                
         String originFacilityId = shipment.getString("originFacilityId");                              
-          
+        String shippingFacilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.ShippingFacilityId");
+        
         List shipUnitElementList = UtilXml.childElementList(daShowShipmentElement, "ns:SHIPUNIT"); // n
         if(UtilValidate.isNotEmpty(shipUnitElementList)) {
             Iterator shipUnitElementItr = shipUnitElementList.iterator();
@@ -211,7 +212,7 @@ public class OagisShipmentServices {
                                 requireInventory = "N";
                             }                    
                             GenericValue orderItemShipGrpInvReservation = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGrpInvRes", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId,"shipGroupSeqId",shipGroupSeqId)));               
-                            Map isitspastCtx = UtilMisc.toMap("orderId", orderId, "shipGroupSeqId", shipGroupSeqId, "orderItemSeqId", orderItemSeqId, "quantity", orderItemShipGrpInvReservation.get("quantity"));                
+                            Map isitspastCtx = UtilMisc.toMap("orderId", orderId, "shipGroupSeqId", shipGroupSeqId, "orderItemSeqId", orderItemSeqId);                
                             isitspastCtx.put("productId", productId);
                             isitspastCtx.put("reservedDatetime", orderItemShipGrpInvReservation.get("reservedDatetime"));
                             isitspastCtx.put("requireInventory", requireInventory);
@@ -223,14 +224,17 @@ public class OagisShipmentServices {
                             isitspastCtx.put("inventoryItemId", orderItemShipGrpInvReservation.get("inventoryItemId"));                
                             isitspastCtx.put("shipmentId", shipmentId);      
                             isitspastCtx.put("shipmentPackageSeqId", shipmentPackageSeqId);
-                            isitspastCtx.put("promisedDatetime", orderItemShipGrpInvReservation.get("promisedDatetime"));                    
+                            isitspastCtx.put("promisedDatetime", orderItemShipGrpInvReservation.get("promisedDatetime"));
+                            isitspastCtx.put("shippingFacilityId", shippingFacilityId);
                             List invDetailElementList = UtilXml.childElementList(invItemElement, "ns:INVDETAIL"); //n                            
                             if(UtilValidate.isNotEmpty(invDetailElementList)) {
                                 Iterator invDetailElementItr = invDetailElementList.iterator();
                                 while(invDetailElementItr.hasNext()) {
                                     Element invDetailElement = (Element) invDetailElementItr.next();
                                     String serialNumber = UtilXml.childElementValue(invDetailElement, "of:SERIALNUM"); // os                                                                                   
-                                    isitspastCtx.put("serialNumber", serialNumber);                                        
+                                    isitspastCtx.put("serialNumber", serialNumber);
+                                    isitspastCtx.put("quantity", new Double (1));
+                                    isitspastCtx.put("inventoryItemId", orderItemShipGrpInvReservation.get("inventoryItemId"));
                                     isitspastCtx.remove("itemIssuanceId");                            
                                     try {
                                         Map resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
@@ -246,7 +250,8 @@ public class OagisShipmentServices {
                                     }
                                 }
                             } else {
-                                try {//TODO: I think this else part is for NON Serialized Inv item. So it will be different service that we need to call here.                    
+                                try {//TODO: I think this else part is for NON Serialized Inv item. So it will be different service that we need to call here.
+                                    isitspastCtx.put("quantity", orderItemShipGrpInvReservation.get("quantity"));
                                     Map resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
                                     if (ServiceUtil.isError(resultMap)){
                                         String errMsg = ServiceUtil.getErrorMessage(resultMap);
