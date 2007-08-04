@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -33,7 +33,7 @@ margin: 0px;
 }
 
 UL {
-margin-top: 0; 
+margin-top: 0;
 margin-bottom: 0;
 }
 
@@ -45,7 +45,7 @@ behavior: url("/images/pngbehavior.htc");
 clear: both;
 height: 0px;
 visibility: hidden;
-}  
+}
 
 TH {
 font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -173,7 +173,7 @@ font-family: Verdana, Arial, Helvetica, sans-serif;
 font-size: 12px;
 }
 
-#ecom-header-bar ul li { 
+#ecom-header-bar ul li {
 height: 14px;
 padding: 0px 8px 0px 8px;
 }
@@ -192,7 +192,7 @@ font-size: 10px;
 font-weight: bold;
 text-decoration: none;
 color: #000099;
-} 
+}
 #ecom-header-bar ul li:hover a {
 color: black;
 text-decoration: underline;
@@ -200,11 +200,11 @@ text-decoration: underline;
 
 
 /* ===== Layout/Formatting Styles ===== */
-/* NOTE: using a combination of a float left/right for the side bars AND 
+/* NOTE: using a combination of a float left/right for the side bars AND
   wide margins for the center to get 2 desired effects: 1. be able to end
   columns and put the footer at the bottom of the page and 2. not have the
   center column expand to full width below the columns.
-  
+
   The downside to this is that in some browsers we can't effectively use floats
   within divs in the main column.
 */
@@ -328,7 +328,7 @@ padding-top: 5px;
 float: left;
 margin-left: 10px;
 text-align: left;
-} 
+}
 
 /* ===== Text/Label Styles ===== */
 .tabletext, div.form-label, div.form-field {
@@ -362,7 +362,7 @@ visibility: hidden;
 
 .head1 {
 font-family: Verdana, Arial, Helvetica, sans-serif;
-margin: 0px; 
+margin: 0px;
 font-size: 12pt;
 font-weight: bold;
 color: #000099;
@@ -377,6 +377,30 @@ color: #000000;
 }
 
 .head3 {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+margin: 0px;
+font-size: 8pt;
+font-weight: bold;
+color: #000000;
+}
+
+h1 {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+margin: 0px;
+font-size: 12pt;
+font-weight: bold;
+color: #000099;
+}
+
+h2 {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+margin: 0px;
+font-size: 10pt;
+font-weight: bold;
+color: #000000;
+}
+
+h3 {
 font-family: Verdana, Arial, Helvetica, sans-serif;
 margin: 0px;
 font-size: 8pt;
@@ -680,16 +704,16 @@ border-color: #999999;
 
 
 .headersmalltext {
-font-size: 8pt; 
-font-family: Verdana, Arial, Helvetica, sans-serif; 
-font-weight: bold; 
+font-size: 8pt;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-weight: bold;
 color: black;
 }
 a.headersmalllink {
-font-size: 8pt; 
+font-size: 8pt;
 font-family: Verdana, Arial, Helvetica, sans-serif;
-font-weight: bold; 
-color: #000099; 
+font-weight: bold;
+color: #000099;
 text-decoration: none;
 }
 a.headersmalllink:hover {
