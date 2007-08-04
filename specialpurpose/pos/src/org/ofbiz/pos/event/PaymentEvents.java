@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -43,7 +43,7 @@ public class PaymentEvents {
             Debug.log("Processing [Cash] Amount : " + amount, module);
 
             // add the payment
-            trans.addPayment("CASH", amount);
+            trans.addPayment("CASH", amount, "N/A", null);
         } catch (GeneralException e) {
             // errors handled
         }
@@ -184,7 +184,7 @@ public class PaymentEvents {
                         break;
                 }
             }
-        }        
+        }
     }
 
     private static void processNoPayment(PosScreen pos, String paymentMethodTypeId) {
