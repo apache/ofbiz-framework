@@ -275,7 +275,6 @@ under the License.
         <!-- Lets find the inventory to reserve -->
         <entity-and entity-name="InventoryItem" list-name="inventoryItems">            
             <field-map field-name="productId" env-name="parameters.productId"/>
-            <field-map field-name="facilityId"/>
             <field-map field-name="inventoryItemTypeId"  value="SERIALIZED_INV_ITEM"/>
             <field-map field-name="serialNumber" env-name="parameters.serialNumber"/>
         </entity-and>        
