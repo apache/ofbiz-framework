@@ -229,7 +229,7 @@ public class OagisShipmentServices {
                                 Iterator invDetailElementItr = invDetailElementList.iterator();
                                 while(invDetailElementItr.hasNext()) {
                                     Element invDetailElement = (Element) invDetailElementItr.next();
-                                    String serialNumber = UtilXml.childElementValue(invDetailElement, "os:SERIALNUM"); // os                                                                                   
+                                    String serialNumber = UtilXml.childElementValue(invDetailElement, "of:SERIALNUM"); // os                                                                                   
                                     isitspastCtx.put("serialNumber", serialNumber);                                        
                                     isitspastCtx.remove("itemIssuanceId");                            
                                     try {
