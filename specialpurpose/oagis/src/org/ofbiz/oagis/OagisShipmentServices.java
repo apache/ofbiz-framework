@@ -211,7 +211,7 @@ public class OagisShipmentServices {
                                 requireInventory = "N";
                             }                    
                             GenericValue orderItemShipGrpInvReservation = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGrpInvRes", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId,"shipGroupSeqId",shipGroupSeqId)));               
-                            Map isitspastCtx = UtilMisc.toMap("orderId", orderId, "shipGroupSeqId", shipGroupSeqId, "orderItemSeqId", orderItemSeqId, "quantity", orderItemShipGrpInvReservation.get("quantity"), "quantityNotReserved", orderItemShipGrpInvReservation.get("quantity"));                
+                            Map isitspastCtx = UtilMisc.toMap("orderId", orderId, "shipGroupSeqId", shipGroupSeqId, "orderItemSeqId", orderItemSeqId, "quantity", orderItemShipGrpInvReservation.get("quantity"));                
                             isitspastCtx.put("productId", productId);
                             isitspastCtx.put("reservedDatetime", orderItemShipGrpInvReservation.get("reservedDatetime"));
                             isitspastCtx.put("requireInventory", requireInventory);
