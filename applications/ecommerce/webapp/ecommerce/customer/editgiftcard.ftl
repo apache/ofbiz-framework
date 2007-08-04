@@ -22,10 +22,10 @@ under the License.
 &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonBack}]</a>
 <#else>
     <#if !giftCard?exists>
-      <p class="head1">${uiLabelMap.AccountingAddNewGiftCard}</p>
+      <h1>${uiLabelMap.AccountingAddNewGiftCard}</h1>
       <form method="post" action="<@ofbizUrl>createGiftCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editgiftcardform" style="margin: 0;">
     <#else>
-      <p class="head1">${uiLabelMap.AccountingEditGiftCard}</p>
+      <h1>${uiLabelMap.AccountingEditGiftCard}</h1>
       <form method="post" action="<@ofbizUrl>updateGiftCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editgiftcardform" style="margin: 0;">
         <input type="hidden" name="paymentMethodId" value="${paymentMethodId}">
     </#if>

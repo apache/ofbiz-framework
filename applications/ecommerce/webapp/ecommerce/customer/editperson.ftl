@@ -17,10 +17,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if person?exists>
-  <p class="head1">${uiLabelMap.PartyEditPersonalInformation}</p>
+  <h1>${uiLabelMap.PartyEditPersonalInformation}</h1>
     <form method="post" action="<@ofbizUrl>updatePerson/${donePage}</@ofbizUrl>" name="editpersonform">
 <#else>
-  <p class="head1">${uiLabelMap.PartyAddNewPersonalInformation}</p>
+  <h1>${uiLabelMap.PartyAddNewPersonalInformation}</h1>
     <form method="post" action="<@ofbizUrl>createPerson/${donePage}</@ofbizUrl>" name="editpersonform">
 </#if>
 
@@ -42,7 +42,7 @@ under the License.
             <option>${uiLabelMap.CommonTitleMrs}</option>
             <option>${uiLabelMap.CommonTitleMs}</option>
             <option>${uiLabelMap.CommonTitleDr}</option>
-        </select>              
+        </select>
       </td>
     </tr>
     <tr>
@@ -128,7 +128,7 @@ under the License.
                <#if personData.maritalStatus == "S">${uiLabelMap.PartySingle}</#if>
                <#if personData.maritalStatus == "M">${uiLabelMap.PartyMarried}</#if>
                <#if personData.maritalStatus == "D">${uiLabelMap.PartyDivorced}</#if>
-             </option>            
+             </option>
           <option value="${personData.maritalStatus}"> -- </option>
           <#else>
           <option></option>

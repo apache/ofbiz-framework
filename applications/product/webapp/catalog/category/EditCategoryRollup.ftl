@@ -17,8 +17,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if productCategoryId?has_content> 
-<p class="head2">${uiLabelMap.ProductCategoryRollupParentCategories}</p>
+<#if productCategoryId?has_content>
+<h2>${uiLabelMap.ProductCategoryRollupParentCategories}</h2>
 
 <table border="1" cellpadding="2" cellspacing="0">
   <tr>
@@ -84,7 +84,7 @@ under the License.
 <hr/>
 <br/>
 
-<p class="head2">${uiLabelMap.ProductCategoryRollupChildCategories}</p>
+<h2>${uiLabelMap.ProductCategoryRollupChildCategories}</h2>
 
 <table border="1" cellpadding="2" cellspacing="0">
   <tr>

@@ -29,11 +29,11 @@ under the License.
 <#else>
 
     <#if !supplierProduct?exists>
-      <p class="head1">${uiLabelMap.EcommerceAddNewDigitalProduct}</p>
+      <h1>${uiLabelMap.EcommerceAddNewDigitalProduct}</h1>
       <form method="post" action="<@ofbizUrl>createCustomerDigitalDownloadProduct</@ofbizUrl>" name="editdigitaluploadform" style="margin: 0;">
         <input type="hidden" name="productStoreId" value="${productStore.productStoreId}">
     <#else>
-      <p class="head1">${uiLabelMap.EcommerceUpdateDigitalProduct}</p>
+      <h1>${uiLabelMap.EcommerceUpdateDigitalProduct}</h1>
       <form method="post" action="<@ofbizUrl>updateCustomerDigitalDownloadProduct</@ofbizUrl>" name="editdigitaluploadform" style="margin: 0;">
         <input type="hidden" name="productId" value="${parameters.productId}">
         <input type="hidden" name="currencyUomId" value="${parameters.currencyUomId}">
@@ -81,7 +81,7 @@ under the License.
               <a href="<@ofbizUrl>removeCustomerDigitalDownloadProductFile?contentId=${productContentAndInfo.contentId}&amp;productContentTypeId=${productContentAndInfo.productContentTypeId}&amp;fromDate=${productContentAndInfo.fromDate}&amp;productId=${parameters.productId}&amp;currencyUomId=${parameters.currencyUomId}&amp;minimumOrderQuantity=${parameters.minimumOrderQuantity}&amp;availableFromDate=${parameters.availableFromDate}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>
             </div>
         </#list>
-    
+
         <div><hr class="sepbar"/></div>
         <div class="tableheadtext">${uiLabelMap.EcommerceDigitalAddFromMyFiles}</div>
         <div>

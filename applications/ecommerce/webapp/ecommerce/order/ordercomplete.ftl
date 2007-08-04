@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<p class="head1">${uiLabelMap.OrderConfirmation}</p>
+<h1>${uiLabelMap.OrderConfirmation}</h1>
 <#if !isDemoStore?exists || isDemoStore><p>${uiLabelMap.OrderDemoFrontNote}.</p></#if>
 
 <#if orderHeader?has_content>
@@ -32,7 +32,7 @@ under the License.
         <a href="<@ofbizUrl>main</@ofbizUrl>" class="buttontextbig">${uiLabelMap.OrderContinueShopping}</a>
       </td>
     </tr>
-  </table>    
+  </table>
 <#else>
   <h3>${uiLabelMap.OrderSpecifiedNotFound}.</h3>
 </#if>

@@ -24,7 +24,7 @@ under the License.
   <#if !contactMech?exists>
     <#-- When creating a new contact mech, first select the type, then actually create -->
     <#if !requestParameters.preContactMechTypeId?exists && !preContactMechTypeId?exists>
-    <p class="head1">${uiLabelMap.PartyCreateNewContactInfo}</p>
+    <h1>${uiLabelMap.PartyCreateNewContactInfo}</h1>
     <form method="post" action='<@ofbizUrl>editcontactmech?DONE_PAGE=${donePage}</@ofbizUrl>' name="createcontactmechform">
       <table width="90%" border="0" cellpadding="2" cellspacing="0">
         <tr>
@@ -59,7 +59,7 @@ under the License.
         <#if preContactMechTypeId?has_content><input type='hidden' name='preContactMechTypeId' value='${preContactMechTypeId}'></#if>
         <#if paymentMethodId?has_content><input type='hidden' name='paymentMethodId' value='${paymentMethodId}'></#if>
     <#else>
-      <p class="head1">${uiLabelMap.PartyEditContactInfo}</p>
+      <h1>${uiLabelMap.PartyEditContactInfo}</h1>
       &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
       &nbsp;<a href="javascript:document.editcontactmechform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
       <table width="90%" border="0" cellpadding="2" cellspacing="0">

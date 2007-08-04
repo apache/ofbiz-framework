@@ -34,7 +34,7 @@ under the License.
 // -->
 </script>
 
-<p class="head1">${uiLabelMap.OrderFinalCheckoutReview}</p>
+<h1>${uiLabelMap.OrderFinalCheckoutReview}</h1>
 <#if !isDemoStore?exists || isDemoStore><p>${uiLabelMap.OrderDemoFrontNote}.</p></#if>
 
 <#if cart?exists && 0 < cart.size()>
