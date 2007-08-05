@@ -32,6 +32,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
@@ -41,12 +42,15 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -57,6 +61,10 @@ public class ProductsExportToGoogle {
 
     public static Map exportToGoogle(DispatchContext dctx, Map context) {
         Locale locale = (Locale) context.get("locale");
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        
+        Map result = null;
         try {
             String configString = "productsExport.properties";
                             
@@ -77,15 +85,11 @@ public class ProductsExportToGoogle {
         
             StringBuffer dataItemsXml = new StringBuffer();
             
-            Map result = buildDataItemsXml(dctx, context, dataItemsXml);
-            if (!ServiceUtil.isFailure(result)) { 
+            result = buildDataItemsXml(dctx, context, dataItemsXml);
+            if (!ServiceUtil.isFailure(result)) {
                 String token = authenticate(authenticationUrl, accountEmail, accountPassword);
                 if (token != null) {    
-                    result = postItem(token, postItemsUrl, developerKey, dataItemsXml, locale, (String)context.get("testMode"));
-                    String msg = ServiceUtil.getErrorMessage(result);
-                    if (msg != null && msg.length() > 0) {
-                        return ServiceUtil.returnFailure(msg);
-                    }
+                    result = postItem(token, postItemsUrl, developerKey, dataItemsXml, locale, (String)context.get("testMode"), (List)result.get("newProductsInGoogle"), (List)result.get("productsRemovedFromGoogle"), dispatcher, delegator);
                 } else {
                     Debug.logError("Error during authentication to Google Account", module);
                     return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.errorDuringAuthenticationToGoogle", locale));
@@ -97,7 +101,7 @@ public class ProductsExportToGoogle {
             Debug.logError("Exception in exportToGoogle", module);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.exceptionInExportToGoogle", locale));
         }
-        return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "productsExportToGoogle.productItemsSentCorrecltyToGoogle", locale));
+        return result;
     }
    
     private static String authenticate(String authenticationUrl, String accountEmail, String accountPassword) {
@@ -173,7 +177,7 @@ public class ProductsExportToGoogle {
     
     private static String toString(InputStream inputStream) throws IOException {
         String string;
-        StringBuilder outputBuilder = new StringBuilder();
+        StringBuffer outputBuilder = new StringBuffer();
         if (inputStream != null) {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             while (null != (string = reader.readLine())) {
@@ -184,7 +188,7 @@ public class ProductsExportToGoogle {
     }
     
     private static Map postItem(String token, String postItemsUrl, String developerKey, StringBuffer dataItems, 
-                                Locale locale, String testMode) throws IOException {
+                                Locale locale, String testMode, List newProductsInGoogle, List productsRemovedFromGoogle, LocalDispatcher dispatcher, GenericDelegator delegator) throws IOException {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Request To Google Base :\n" + dataItems.toString(), module);
         }
@@ -215,10 +219,10 @@ public class ProductsExportToGoogle {
             inputStream = connection.getInputStream();
             response = toString(inputStream);
             if (response != null && response.length() > 0) {
-                result = readResponseFromGoogle(response, locale);
-                String msg = ServiceUtil.getErrorMessage(result);
-                if (msg != null && msg.length() > 0) {
-                    result = ServiceUtil.returnFailure(msg);
+                result = readResponseFromGoogle(response, newProductsInGoogle, productsRemovedFromGoogle, dispatcher, delegator, locale);
+                //String msg = ServiceUtil.getErrorMessage(result);
+                if (ServiceUtil.isError(result)) {
+                    result = ServiceUtil.returnFailure((List)result.get(ModelService.ERROR_MESSAGE_LIST));
                 } else {
                     result = ServiceUtil.returnSuccess();
                 }
@@ -237,6 +241,8 @@ public class ProductsExportToGoogle {
     
     private static Map buildDataItemsXml(DispatchContext dctx, Map context, StringBuffer dataItemsXml) {
         Locale locale = (Locale)context.get("locale");
+        List newProductsInGoogle = FastList.newInstance();
+        List productsRemovedFromGoogle = FastList.newInstance();
         try {
              GenericDelegator delegator = dctx.getDelegator();
              LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -247,6 +253,12 @@ public class ProductsExportToGoogle {
              String statusId = (String)context.get("statusId");
              String trackingCodeId = (String)context.get("trackingCodeId");
              
+             if (!webSiteUrl.startsWith("http://") && !webSiteUrl.startsWith("https://")) {
+                 webSiteUrl = "http://" + webSiteUrl;
+             }
+             if (webSiteUrl.endsWith("/")) {
+                 webSiteUrl = webSiteUrl.substring(0, webSiteUrl.length() - 1);
+             }
              // Get the list of products to be exported to Google Base
              List productsList  = delegator.findByCondition("Product", new EntityExpr("productId", EntityOperator.IN, selectResult), null, null);
              
@@ -267,25 +279,47 @@ public class ProductsExportToGoogle {
                  
                  // Iterate the product list getting all the relevant data
                  Iterator productsListItr = productsList.iterator();
+                 int index = 0;
+                 String itemActionType = null;
                  while(productsListItr.hasNext()) {
+                     itemActionType = actionType;
                      GenericValue prod = (GenericValue)productsListItr.next();
                      String price = getProductPrice(dispatcher, prod);
                      if (price == null) {
                          Debug.logInfo("Price not found for product [" + prod.getString("productId")+ "]; product will not be exported.", module);
                          continue;
                      }
-                     String link = webSiteUrl + "/control/product/~product_id=" + prod.getString("productId") + trackingCodeId;
+                     // TODO: improve this (i.e. get the relative path from the properies file)
+                     String link = webSiteUrl + "/ecommerce/control/product/~product_id=" + prod.getString("productId") + trackingCodeId;
                      String title = UtilFormatOut.encodeXmlValue(prod.getString("productName"));
                      String description = UtilFormatOut.encodeXmlValue(prod.getString("description"));
-                     String image_link = "";
+                     String imageLink = "";
                      if (UtilValidate.isNotEmpty(prod.getString("largeImageUrl"))) {
-                         image_link = imageUrl + prod.getString("largeImageUrl");
+                         imageLink = webSiteUrl + prod.getString("largeImageUrl");
+                     } else if (UtilValidate.isNotEmpty(prod.getString("mediumImageUrl"))) {
+                         imageLink = webSiteUrl + prod.getString("mediumImageUrl");
+                     } else if (UtilValidate.isNotEmpty(prod.getString("smallImageUrl"))) {
+                         imageLink = webSiteUrl + prod.getString("smallImageUrl");
                      }
-                     
+
+                     String googleProductId = null;
+                     if (!"insert".equals(actionType)) {
+                         try {
+                             GenericValue googleProduct = delegator.findByPrimaryKey("GoodIdentification", UtilMisc.toMap("productId", prod.getString("productId"), "goodIdentificationTypeId", "GOOGLE_ID"));
+                             if (UtilValidate.isNotEmpty(googleProduct)) {
+                                googleProductId = googleProduct.getString("idValue");
+                             }
+                         } catch(GenericEntityException gee) {
+                             Debug.logError("Unable to get the Google id for product [" + prod.getString("productId") + "]: " + gee.getMessage(), module);
+                         }
+                     }
+                     if ("update".equals(actionType) && UtilValidate.isEmpty(googleProductId)) {
+                         itemActionType = "insert";
+                     }
                      Element entryElem = UtilXml.addChildElement(feedElem, "entry", feedDocument);
                      Element batchElem = UtilXml.addChildElement(entryElem, "batch:operation", feedDocument);
-                     batchElem.setAttribute("type", actionType);
-                     
+                     batchElem.setAttribute("type", itemActionType);
+
                      // status is draft or deactivate
                      if (statusId != null && ("draft".equals(statusId) || "deactivate".equals(statusId))) {
                          Element appControlElem = UtilXml.addChildElement(entryElem, "app:control", feedDocument);
@@ -303,8 +337,12 @@ public class ProductsExportToGoogle {
                      Element contentElem = UtilXml.addChildElementValue(entryElem, "content", description, feedDocument);
                      contentElem.setAttribute("type", "xhtml");
                      
-                     UtilXml.addChildElementValue(entryElem, "id", link, feedDocument);
-                     
+                     if (UtilValidate.isNotEmpty(googleProductId)) {
+                         UtilXml.addChildElementValue(entryElem, "id", googleProductId, feedDocument);
+                     } else {
+                         UtilXml.addChildElementValue(entryElem, "id", link, feedDocument);
+                     }
+
                      Element linkElem = UtilXml.addChildElement(entryElem, "link", feedDocument);
                      linkElem.setAttribute("rel", "alternate");
                      linkElem.setAttribute("type", "text/html");
@@ -314,9 +352,21 @@ public class ProductsExportToGoogle {
                      UtilXml.addChildElementValue(entryElem, "g:price", price, feedDocument);
                      
                      // if the product has an image it will be published on Google Product Search
-                     if (UtilValidate.isNotEmpty(image_link)) {
-                         UtilXml.addChildElementValue(entryElem, "g:image_link", image_link, feedDocument);
+                     if (UtilValidate.isNotEmpty(imageLink)) {
+                         UtilXml.addChildElementValue(entryElem, "g:image_link", imageLink, feedDocument);
                      }
+                     // if the product is exported to google for the first time, we add it to the list
+                     if ("insert".equals(itemActionType)) {
+                         newProductsInGoogle.add(prod.getString("productId"));
+                         productsRemovedFromGoogle.add(null);
+                     } else if ("delete".equals(itemActionType)) {
+                         newProductsInGoogle.add(null);
+                         productsRemovedFromGoogle.add(prod.getString("productId"));
+                     } else {
+                         newProductsInGoogle.add(null);
+                         productsRemovedFromGoogle.add(null);
+                     }
+                     index++;
                  }
                  
                  dataItemsXml.append(UtilXml.writeXmlDocument(feedDocument));
@@ -327,8 +377,11 @@ public class ProductsExportToGoogle {
          } catch (Exception e) {
             Debug.logError("Exception during building data items to Google", module);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.exceptionDuringBuildingDataItemsToGoogle", locale));
-         } 
-         return ServiceUtil.returnSuccess();
+         }
+         Map result = ServiceUtil.returnSuccess();
+         result.put("newProductsInGoogle", newProductsInGoogle);
+         result.put("productsRemovedFromGoogle", productsRemovedFromGoogle);
+         return result;
     }
 
     private static String getProductPrice(LocalDispatcher dispatcher, GenericValue product) {
@@ -346,32 +399,59 @@ public class ProductsExportToGoogle {
         return priceString;
     }
     
-    private static Map readResponseFromGoogle(String msg, Locale locale) {
-        StringBuffer message = new StringBuffer();
+    private static Map readResponseFromGoogle(String msg, List newProductsInGoogle, List productsRemovedFromGoogle, LocalDispatcher dispatcher, GenericDelegator delegator, Locale locale) {
+        List message = FastList.newInstance();
         try {
             Document docResponse = UtilXml.readXmlDocument(msg, true);
             Element elemResponse = docResponse.getDocumentElement();
             List atomEntryList = UtilXml.childElementList(elemResponse, "atom:entry");
             Iterator atomEntryElemIter = atomEntryList.iterator();
+            int index = 0;
             while (atomEntryElemIter.hasNext()) {
                 Element atomEntryElement = (Element)atomEntryElemIter.next();
-                List batchInterruptedEntryList = UtilXml.childElementList(atomEntryElement, "batch:interrupted");
-                Iterator batchInterruptedEntryElemIter = batchInterruptedEntryList.iterator();
-                while (batchInterruptedEntryElemIter.hasNext()) {
-                    Element batchInterruptedEntryElement = (Element)batchInterruptedEntryElemIter.next();
-                    String reason = batchInterruptedEntryElement.getAttribute("reason");
-                    message.append(reason);
+                String id = UtilXml.childElementValue(atomEntryElement, "atom:id", "");
+                if (UtilValidate.isNotEmpty(id) && newProductsInGoogle.get(index) != null) {
+                    String productId = (String)newProductsInGoogle.get(index);
+                    try {
+                        GenericValue googleProductId = delegator.makeValue("GoodIdentification", null);
+                        googleProductId.set("goodIdentificationTypeId", "GOOGLE_ID");
+                        googleProductId.set("productId", productId);
+                        googleProductId.set("idValue", id);
+                        delegator.createOrStore(googleProductId);
+                    } catch (GenericEntityException gee) {
+                        Debug.logError("Unable to create or update Google id for product [" + productId + "]: " + gee.getMessage(), module);
+                    }
                 }
+                if (UtilValidate.isNotEmpty(id) && productsRemovedFromGoogle.get(index) != null) {
+                    String productId = (String)productsRemovedFromGoogle.get(index);
+                    try {
+                        int count = delegator.removeByAnd("GoodIdentification", UtilMisc.toMap("goodIdentificationTypeId", "GOOGLE_ID", "productId", productId));
+                    } catch (GenericEntityException gee) {
+                        Debug.logError("Unable to remove Google id for product [" + productId + "]: " + gee.getMessage(), module);
+                    }
+                }
+                String title = UtilXml.childElementValue(atomEntryElement, "atom:title", "");
+                List batchStatusList = UtilXml.childElementList(atomEntryElement, "batch:status");
+                Iterator batchStatusEntryElemIter = batchStatusList.iterator();
+                while (batchStatusEntryElemIter.hasNext()) {
+                    Element batchStatusEntryElement = (Element)batchStatusEntryElemIter.next();
+                    if (UtilValidate.isNotEmpty(batchStatusEntryElement.getAttribute("reason"))) {
+                        message.add(title + " " + batchStatusEntryElement.getAttribute("reason"));
+                    }
+                }
+                String errors = UtilXml.childElementValue(atomEntryElement, "batch:status", "");
+                if (UtilValidate.isNotEmpty(errors)) {
+                    message.add(title + " " + errors);
+                }
+                index++;
             }
         } catch (Exception e) {
-            Debug.logError("Exception reading response from Google", module);
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.exceptionReadingResponseFromGoogle", locale));
+            Debug.logError("Exception reading response from Google: " + e.getMessage(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "productsExportToGoogle.exceptionReadingResponseFromGoogle", locale));
         }
         
-        if (message.length() > 0) {
-            Debug.logError("Error in the response from Google " + message.toString(), module);
-            message.insert(0, UtilProperties.getMessage(resource, "productsExportToGoogle.errorInTheResponseFromGoogle", locale));
-            return ServiceUtil.returnFailure(message.toString());
+        if (message.size() > 0) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "productsExportToGoogle.errorInTheResponseFromGoogle", locale), message);
         }
         return ServiceUtil.returnSuccess();
     }

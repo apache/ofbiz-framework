@@ -47,6 +47,7 @@ import org.ofbiz.product.product.ProductSearch.ProductSearchContext;
 import org.ofbiz.product.product.ProductSearch.ResultSortOrder;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 
 /**
@@ -480,7 +481,11 @@ public class ProductSearchEvents {
                     }
                     eli.close();
                 } else {
-                    productExportList = UtilMisc.toList(selectResult);
+                    if (selectResult.startsWith("[")) {
+                        productExportList = StringUtil.toList(selectResult);
+                    } else {
+                        productExportList.add(selectResult);
+                    }
                 }
                 String webSiteUrl = (String) request.getParameter("webSiteUrl");
                 String imageUrl = (String) request.getParameter("imageUrl");
@@ -501,12 +506,22 @@ public class ProductSearchEvents {
                     inMap.put("userLogin", userLogin);
                     Map exportResult = dispatcher.runSync("exportToGoogle", inMap);
                     if (ServiceUtil.isError(exportResult)) {
-                        errMsg = ServiceUtil.getErrorMessage(exportResult);
-                        Debug.logError(errMsg, module);
-                        request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                        List errorMessages = (List)exportResult.get(ModelService.ERROR_MESSAGE_LIST);
+                        if (UtilValidate.isNotEmpty(errorMessages)) {
+                            request.setAttribute("_ERROR_MESSAGE_LIST_", errorMessages);
+                        } else {
+                            request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(exportResult));
+                        }
                         return "error";
+                    } else if (ServiceUtil.isFailure(exportResult)) {
+                        List eventMessages = (List)exportResult.get(ModelService.ERROR_MESSAGE_LIST);
+                        if (UtilValidate.isNotEmpty(eventMessages)) {
+                            request.setAttribute("_EVENT_MESSAGE_LIST_", eventMessages);
+                        } else {
+                            request.setAttribute("_EVENT_MESSAGE_", ServiceUtil.getErrorMessage(exportResult));
+                        }
                     } else {
-                        request.setAttribute("_SUCCESS_MESSAGE_", exportResult.get("successMessage"));
+                        request.setAttribute("_EVENT_MESSAGE_", exportResult.get("successMessage"));
                     }
                 } catch (GenericServiceException e) {
                     errMsg = UtilProperties.getMessage(resource, "productsearchevents.exceptionCallingExportToGoogle", locale);

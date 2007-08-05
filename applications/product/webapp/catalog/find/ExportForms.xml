@@ -23,7 +23,7 @@ under the License.
     <form name="ProductsExportToGoogle" type="single" target="searchExportProductListToGoogle">
         <field name="selectResult"><hidden/></field>
         <field name="webSiteUrl"><text size="50" maxlength="250"/></field>
-        <field name="imageUrl"><text size="50" maxlength="250"/></field>
+        <!--<field name="imageUrl"><text size="50" maxlength="250"/></field>-->
         <field name="actionType" widget-style="selectBox">
             <drop-down no-current-selected-key="insert">
                 <option key="insert" description="${uiLabelMap.CommonInsert}"/>
@@ -32,7 +32,7 @@ under the License.
             </drop-down>
         </field>
         <field name="statusId">
-            <drop-down no-current-selected-key="draft">
+            <drop-down no-current-selected-key="publish">
                 <!--
                 <option key="deactivate" description="${uiLabelMap.ProductExportDeactivated}"/>
                 -->
