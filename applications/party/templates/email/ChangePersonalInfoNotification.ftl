@@ -25,7 +25,7 @@ under the License.
     </head>
     <body>
         <div class="head1">${title}</div>
-        <p class="tabletext">Hello ${parameters.partyAndPerson.salutation?if_exists} ${parameters.partyAndPerson.personalTitle?if_exists} ${parameters.partyAndPerson.firstName?if_exists} ${parameters.partyAndPerson.middleName?if_exists} ${parameters.partyAndPerson.lastName?if_exists} ${parameters.partyAndPerson.suffix?if_exists},</b></p>
+        <p class="tabletext">Hello ${(parameters.partyAndPerson.salutation)?if_exists} ${(parameters.partyAndPerson.personalTitle)?if_exists} ${(parameters.partyAndPerson.firstName)?if_exists} ${(parameters.partyAndPerson.middleName)?if_exists} ${(parameters.partyAndPerson.lastName)?if_exists} ${(parameters.partyAndPerson.suffix)?if_exists},</b></p>
         <p class="tabletext">Your personal information has been updated successfully.</p>
     </body>
 </html>
