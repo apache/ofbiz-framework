@@ -86,7 +86,7 @@ under the License.
                </#if>
                 <tr>
                   <td colspan='2'>
-                    <h2><b>${uiLabelMap.FacilityShipOnceOrAvailable}</b></h2>
+                    <h2>${uiLabelMap.FacilityShipOnceOrAvailable}</h2>
                   </td>
                 </tr>
                 <tr>
@@ -108,7 +108,7 @@ under the License.
                 <tr><td colspan="2"><hr class='sepbar'></td></tr>
                 <tr>
                   <td colspan="2">
-                    <h2><b>${uiLabelMap.FacilitySpecialInstructions}</b></h2>
+                    <h2>${uiLabelMap.FacilitySpecialInstructions}</h2>
                   </td>
                 </tr>
                 <tr>
@@ -133,7 +133,7 @@ under the License.
                 <tr><td colspan="2"><hr class='sepbar'></td></tr>
                 <tr>
                   <td colspan="2">
-                    <h2><b>${uiLabelMap.OrderGiftMessage}</b></h2>
+                    <h2>${uiLabelMap.OrderGiftMessage}</h2>
                   </td>
                 </tr>
                 <tr>

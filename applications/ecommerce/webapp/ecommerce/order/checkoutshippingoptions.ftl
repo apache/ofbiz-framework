@@ -80,7 +80,7 @@ function submitForm(form, mode, value) {
                       </#if>
                       <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId?if_exists}&nbsp;</#if>${carrierShipmentMethod.description?if_exists}
                       <#if shippingEst?has_content> - <#if (shippingEst > -1)><@ofbizCurrency amount=shippingEst isoCode=shoppingCart.getCurrency()/><#else>${uiLabelMap.OrderCalculatedOffline}</#if></#if>
-                    </div>                            
+                    </div>
                   </td>
                 </tr>
               </#list>
@@ -97,7 +97,7 @@ function submitForm(form, mode, value) {
               <tr><td colspan="2"><hr class="sepbar"/></td></tr>
               <tr>
                 <td colspan="2">
-                  <h2><b>${uiLabelMap.OrderShipAllAtOnce}?</b></h2>
+                  <h2>${uiLabelMap.OrderShipAllAtOnce}?</h2>
                 </td>
               </tr>
               <tr>
@@ -119,7 +119,7 @@ function submitForm(form, mode, value) {
               <tr><td colspan="2"><hr class="sepbar"/></td></tr>
               <tr>
                 <td colspan="2">
-                  <h2><b>${uiLabelMap.OrderSpecialInstructions}</b></h2>
+                  <h2>${uiLabelMap.OrderSpecialInstructions}</h2>
                 </td>
               </tr>
               <tr>
@@ -130,7 +130,7 @@ function submitForm(form, mode, value) {
               <tr><td colspan="2"><hr class="sepbar"/></td></tr>
               <tr>
                 <td colspan="2">
-                  <span class="head2"><b>${uiLabelMap.OrderPoNumber}</b></span>&nbsp;
+                  <h2>${uiLabelMap.OrderPoNumber}</h2>&nbsp;
                   <#if shoppingCart.getPoNumber()?exists && shoppingCart.getPoNumber() != "(none)">
                     <#assign currentPoNumber = shoppingCart.getPoNumber()>
                   </#if>
@@ -142,7 +142,7 @@ function submitForm(form, mode, value) {
               <tr>
                 <td colspan="2">
                   <div>
-                    <span class="head2"><b>${uiLabelMap.OrderIsThisGift}?</b></span>
+                    <h2>${uiLabelMap.OrderIsThisGift}?</h2>
                     <input type="radio" <#if "Y" == shoppingCart.getIsGift()?default("N")>checked</#if> name="is_gift" value="true"/><span class="tabletext">${uiLabelMap.CommonYes}</span>
                     <input type="radio" <#if "Y" != shoppingCart.getIsGift()?default("N")>checked</#if> name="is_gift" value="false"/><span class="tabletext">${uiLabelMap.CommonNo}</span>
                   </div>
@@ -151,7 +151,7 @@ function submitForm(form, mode, value) {
               <tr><td colspan="2"><hr class="sepbar"/></td></tr>
               <tr>
                 <td colspan="2">
-                  <h2><b>${uiLabelMap.OrderGiftMessage}</b></h2>
+                  <h2>${uiLabelMap.OrderGiftMessage}</h2>
                 </td>
               </tr>
               <tr>
@@ -165,7 +165,7 @@ function submitForm(form, mode, value) {
               <tr><td colspan="2"><hr class="sepbar"/></td></tr>
               <tr>
                 <td colspan="2">
-                  <h2><b>${uiLabelMap.PartyEmailAddresses}</b></h2>
+                  <h2>${uiLabelMap.PartyEmailAddresses}</h2>
                 </td>
               </tr>
               <tr>

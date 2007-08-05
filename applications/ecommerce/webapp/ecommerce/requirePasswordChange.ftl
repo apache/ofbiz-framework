@@ -24,7 +24,7 @@ under the License.
   <#assign username = autoUserLogin.userLoginId/>
 </#if>
 
-<div class="head1">${uiLabelMap.CommonLogin}</div>
+<h1>${uiLabelMap.CommonLogin}</h1>
 <br/>
 
 <div style="float: center; width: 49%; margin-right: 5px; text-align: center;" class="screenlet">

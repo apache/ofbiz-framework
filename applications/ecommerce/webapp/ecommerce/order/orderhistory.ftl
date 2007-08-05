@@ -45,10 +45,10 @@ under the License.
               <div class="tabletext"><b>${uiLabelMap.CommonStatus}</b></div>
             </td>
             <td width="10">&nbsp;</td>
-            <td width="15%"><b></b></td>                
+            <td width="15%"><b></b></td>
           </tr>
           <#list orderHeaderList as orderHeader>
-            <#assign status = orderHeader.getRelatedOneCache("StatusItem")>                               
+            <#assign status = orderHeader.getRelatedOneCache("StatusItem")>
             <tr><td colspan="9"><hr class="sepbar"/></td></tr>
             <tr>
               <td>
@@ -101,11 +101,11 @@ under the License.
               <div class="tabletext"><b>${uiLabelMap.CommonStatus}</b></div>
             </td>
             <td width="10">&nbsp;</td>
-            <td width="15%"><b></b></td>                
+            <td width="15%"><b></b></td>
           </tr>
 		<#if porderHeaderList?has_content>
           <#list porderHeaderList as porderHeader>
-            <#assign pstatus = porderHeader.getRelatedOneCache("StatusItem")>                               
+            <#assign pstatus = porderHeader.getRelatedOneCache("StatusItem")>
             <tr><td colspan="9"><hr class="sepbar"/></td></tr>
             <tr>
               <td>
@@ -131,7 +131,7 @@ under the License.
           </#list>
 		</#if>
           <#if !porderHeaderList?has_content>
-            <tr><td colspan="9"><div class="head3">${uiLabelMap.OrderNoOrderFound}</div></td></tr>
+            <tr><td colspan="9"><h3>${uiLabelMap.OrderNoOrderFound}</h3></td></tr>
           </#if>
         </table>
     </div>
@@ -159,7 +159,7 @@ under the License.
               <div class="tabletext"><b>${uiLabelMap.CommonDescription}</b></div>
             </td>
             <td width="10">&nbsp;</td>
-            <td width="10%"><b></b></td>                
+            <td width="10%"><b></b></td>
           </tr>
           <#list downloadOrderRoleAndProductContentInfoList as downloadOrderRoleAndProductContentInfo>
             <tr><td colspan="9"><hr class="sepbar"/></td></tr>

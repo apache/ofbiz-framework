@@ -55,7 +55,7 @@ under the License.
             <tr><td colspan="2"><hr class="sepbar"/></td></tr>
             <tr>
               <td colspan="2">
-                <h2><b>${uiLabelMap.OrderShipAllAtOnce}?</b></h2>
+                <h2>${uiLabelMap.OrderShipAllAtOnce}?</h2>
               </td>
             </tr>
             <tr>
@@ -77,7 +77,7 @@ under the License.
             <tr><td colspan="2"><hr class="sepbar"/></td></tr>
             <tr>
               <td colspan="2">
-                <h2><b>${uiLabelMap.OrderSpecialInstructions}</b></h2>
+                <h2>${uiLabelMap.OrderSpecialInstructions}</h2>
               </td>
             </tr>
             <tr>
@@ -88,7 +88,7 @@ under the License.
             <tr><td colspan="2"><hr class="sepbar"/></td></tr>
             <tr>
               <td colspan="2">
-                <span class="head2"><b>${uiLabelMap.OrderPoNumber}</b></span>&nbsp;
+                <h2>${uiLabelMap.OrderPoNumber}</h2>
                 <input type="text" class="inputBox" name="correspondingPoId" size="15" value="${shoppingCart.getPoNumber()?if_exists}"/>
               </td>
             </tr>
@@ -97,7 +97,7 @@ under the License.
             <tr>
               <td colspan="2">
                 <div>
-                  <span class="head2"><b>${uiLabelMap.OrderIsThisGift}?</b></span>
+                  <h2>${uiLabelMap.OrderIsThisGift}?</h2>
                   <input type="radio" <#if shoppingCart.getIsGift()?default("Y") == "Y">checked="checked"</#if> name="is_gift" value="true"/><span class="tabletext">${uiLabelMap.CommonYes}</span>
                   <input type="radio" <#if shoppingCart.getIsGift()?default("N") == "N">checked="checked"</#if> name="is_gift" value="false"/><span class="tabletext">${uiLabelMap.CommonNo}</span>
                 </div>
@@ -105,9 +105,8 @@ under the License.
             </tr>
             <tr><td colspan="2"><hr class="sepbar"/></td></tr>
             <tr>
-              <td colspan="2">
-                <h2><b>${uiLabelMap.OrderGiftMessage}</b></h2>
-              </td>
+              <td colspan="2"><h2>${uiLabelMap.OrderGiftMessage}</h2>
+            </td>
             </tr>
             <tr>
               <td colspan="2">
