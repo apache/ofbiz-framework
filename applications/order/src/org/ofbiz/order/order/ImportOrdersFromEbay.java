@@ -761,9 +761,6 @@ public class ImportOrdersFromEbay {
             }
             cart.setOrderDate(orderDate);
             
-            // create the shipment group item
-            cart.addItemGroup("00001", null);
-            
             // check if the producId exists and it is valid
             String productId = (String) parameters.get("productId");
             if (UtilValidate.isEmpty(productId)) {
@@ -796,7 +793,7 @@ public class ImportOrdersFromEbay {
             if (UtilValidate.isNotEmpty(shippingCost)) {
                 double shippingAmount = new Double(shippingCost).doubleValue();
                 if (shippingAmount > 0) {
-                    GenericValue shippingAdjustment = madeOrderAdjustment(delegator, "SHIPPING_CHARGES", cart.getOrderId(), null, null, shippingAmount);       
+                    GenericValue shippingAdjustment = makeOrderAdjustment(delegator, "SHIPPING_CHARGES", cart.getOrderId(), null, null, shippingAmount);       
                     if (shippingAdjustment != null) {
                         cart.addAdjustment(shippingAdjustment);
                     }
@@ -808,7 +805,7 @@ public class ImportOrdersFromEbay {
             if (UtilValidate.isNotEmpty(shippingTotalAdditionalCost)) {
                 double shippingAdditionalCost = new Double(shippingTotalAdditionalCost).doubleValue();
                 if (shippingAdditionalCost > 0) {
-                    GenericValue shippingAdjustment = madeOrderAdjustment(delegator, "MISCELLANEOUS_CHARGE", cart.getOrderId(), null, null, shippingAdditionalCost);       
+                    GenericValue shippingAdjustment = makeOrderAdjustment(delegator, "MISCELLANEOUS_CHARGE", cart.getOrderId(), null, null, shippingAdditionalCost);       
                     if (shippingAdjustment != null) {
                         cart.addAdjustment(shippingAdjustment);
                     }
@@ -953,7 +950,7 @@ public class ImportOrdersFromEbay {
         }
     }
     
-    private static GenericValue madeOrderAdjustment(GenericDelegator delegator, String orderAdjustmentTypeId, String orderId, String orderItemSeqId, String shipGroupSeqId, double amount) {
+    private static GenericValue makeOrderAdjustment(GenericDelegator delegator, String orderAdjustmentTypeId, String orderId, String orderItemSeqId, String shipGroupSeqId, double amount) {
         GenericValue orderAdjustment  = null;
         
         try {
