@@ -116,6 +116,7 @@ under the License.
 
     <StatusValidChange condition="" statusId="ORDER_CREATED" statusIdTo="ORDER_PROCESSING" transitionName="Process Order"/>
     <StatusValidChange condition="" statusId="ORDER_CREATED" statusIdTo="ORDER_APPROVED" transitionName="Approve Order"/>
+    <StatusValidChange condition="" statusId="ORDER_CREATED" statusIdTo="ORDER_HOLD" transitionName="Hold Order"/>
     <StatusValidChange condition="" statusId="ORDER_CREATED" statusIdTo="ORDER_REJECTED" transitionName="Reject Order"/>
     <StatusValidChange condition="" statusId="ORDER_CREATED" statusIdTo="ORDER_CANCELLED" transitionName="Cancel Order"/>
     <StatusValidChange condition="" statusId="ORDER_PROCESSING" statusIdTo="ORDER_APPROVED" transitionName="Approve Order"/>
