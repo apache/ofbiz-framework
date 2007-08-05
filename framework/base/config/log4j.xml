@@ -56,7 +56,7 @@
 
     <!-- ofbiz web file appender -->
     <appender name="ofbiz-html" class="org.apache.log4j.RollingFileAppender">
-        <param name="maxFileSize" value="200KB" />
+        <param name="maxFileSize" value="500KB" />
         <param name="maxBackupIndex" value="1" />
         <param name="File" value="runtime/logs/ofbiz.html" />
         <param name="threshold" value="info"/>
