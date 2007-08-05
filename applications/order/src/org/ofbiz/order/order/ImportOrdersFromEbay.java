@@ -822,12 +822,15 @@ public class ImportOrdersFromEbay {
                 String contactMechId = "";
                 String emailContactMechId = null;
                 String phoneContactMechId = null;
-                GenericValue partyAttribute = EntityUtil.getFirst(delegator.findByAnd("PartyAttribute", UtilMisc.toMap("attrValue", parameters.get("eiasTokenBuyer"))));
+                GenericValue partyAttribute = null;
+                if (UtilValidate.isNotEmpty((String)parameters.get("eiasTokenBuyer"))) {
+                    partyAttribute = EntityUtil.getFirst(delegator.findByAnd("PartyAttribute", UtilMisc.toMap("attrValue", (String)parameters.get("eiasTokenBuyer"))));
+                }
 
                 // if we get a party, check its contact information.
                 if (UtilValidate.isNotEmpty(partyAttribute)) {
                     partyId = (String) partyAttribute.get("partyId");
-                    GenericValue party = delegator.findByPrimaryKey("party", UtilMisc.toMap("partyId", partyId));
+                    GenericValue party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
                     
                     contactMechId = setShippingAddressContactMech(dispatcher, delegator, party, userLogin, parameters);
                     String emailBuyer = (String) parameters.get("emailBuyer");
@@ -853,7 +856,7 @@ public class ImportOrdersFromEbay {
                     String emailBuyer = (String) parameters.get("emailBuyer");
                     if (!(emailBuyer.equals("") || emailBuyer.equalsIgnoreCase("Invalid Request"))) {
                         createPartyEmail(dispatcher, partyId, emailBuyer, userLogin);
-                    }                        
+                    }       
                 } 
 
                 cart.setBillToCustomerPartyId(partyId);
@@ -885,8 +888,8 @@ public class ImportOrdersFromEbay {
                 }
             }
         } catch (Exception e) {
-            Debug.logError("Exception in createShoppingCart", module);
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.exceptionInCreateShoppingCart", locale));
+            Debug.logError("Exception in createShoppingCart: " + e.getMessage(), module);
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.exceptionInCreateShoppingCart", locale) + ": " + e.getMessage());
         }
         return ServiceUtil.returnSuccess();
     }
@@ -1097,26 +1100,30 @@ public class ImportOrdersFromEbay {
     public static void createEbayCustomer(LocalDispatcher dispatcher, String partyId, String ebayUserIdBuyer, String eias, GenericValue userLogin) {
         Map context = FastMap.newInstance();
         Map summaryResult = FastMap.newInstance();
-        try {
-            context.put("partyId", partyId);
-            context.put("attrName", "EBAY_BUYER_EIAS");
-            context.put("attrValue", eias);
-            context.put("userLogin", userLogin);
-            summaryResult = dispatcher.runSync("createPartyAttribute", context);
-        } catch (Exception e) {
-            Debug.logError(e, "Failed to create eBay EIAS party attribute");            
+        if (UtilValidate.isNotEmpty(eias)) {
+            try {
+                context.put("partyId", partyId);
+                context.put("attrName", "EBAY_BUYER_EIAS");
+                context.put("attrValue", eias);
+                context.put("userLogin", userLogin);
+                summaryResult = dispatcher.runSync("createPartyAttribute", context);
+            } catch (Exception e) {
+                Debug.logError(e, "Failed to create eBay EIAS party attribute");            
+            }
+            context.clear();
+            summaryResult.clear();
         }
-        context.clear();
-        summaryResult.clear();
-        try {
-            context.put("partyId", partyId);
-            context.put("attrName", "EBAY_BUYER_USER_ID");
-            context.put("attrValue", ebayUserIdBuyer);
-            context.put("userLogin", userLogin);
-            summaryResult = dispatcher.runSync("createPartyAttribute", context);
-        } catch (Exception e) {
-            Debug.logError(e, "Failed to create eBay userId party attribute");            
-        }        
+        if (UtilValidate.isNotEmpty(ebayUserIdBuyer)) {
+            try {
+                context.put("partyId", partyId);
+                context.put("attrName", "EBAY_BUYER_USER_ID");
+                context.put("attrValue", ebayUserIdBuyer);
+                context.put("userLogin", userLogin);
+                summaryResult = dispatcher.runSync("createPartyAttribute", context);
+            } catch (Exception e) {
+                Debug.logError(e, "Failed to create eBay userId party attribute");            
+            }
+        }
     }
 
     private static Map getCountryGeoId(GenericDelegator delegator, String geoCode) {
@@ -1229,7 +1236,7 @@ public class ImportOrdersFromEbay {
         Iterator shippingLocationsIterator = shippingLocations.iterator();
         while (shippingLocationsIterator.hasNext()) {
             GenericValue shippingLocation = (GenericValue) shippingLocationsIterator.next();
-            contactMechId = shippingLocation.getString("conatctMechId");
+            contactMechId = shippingLocation.getString("contactMechId");
             GenericValue postalAddress;
             try { 
                 // get the postal address for this contact mech
@@ -1315,11 +1322,24 @@ public class ImportOrdersFromEbay {
 
     private static String retrieveProductIdFromTitle(GenericDelegator delegator, String title) {
         String productId = "";
-        
         try {
-            List product = delegator.findByAnd("Product", UtilMisc.toMap("internalName", title));
-            if (UtilValidate.isNotEmpty(product) && product.size() == 1) {
-                productId = (String) ((GenericValue)product.get(0)).get("productId");
+            // First try to get an exact match: title == internalName
+            List products = delegator.findByAnd("Product", UtilMisc.toMap("internalName", title));
+            if (UtilValidate.isNotEmpty(products) && products.size() == 1) {
+                productId = (String) ((GenericValue)products.get(0)).get("productId");
+            }
+            // If it fails, attempt to get the product id from the first word of the title
+            if (UtilValidate.isEmpty(productId)) {
+                String titleFirstWord = null;
+                if (title != null && title.indexOf(' ') != -1) {
+                    titleFirstWord = title.substring(0, title.indexOf(' '));
+                }
+                if (UtilValidate.isEmpty(titleFirstWord)) {
+                    GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", titleFirstWord));
+                    if (UtilValidate.isNotEmpty(product)) {
+                        productId = product.getString("productId");
+                    }
+                }
             }
         } catch (GenericEntityException e) {
             productId = "";
