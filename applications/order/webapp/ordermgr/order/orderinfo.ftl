@@ -26,11 +26,11 @@ under the License.
             <li class="head3">&nbsp;${uiLabelMap.OrderOrder}&nbsp;#<a href="<@ofbizUrl>/orderview?orderId=${orderId}</@ofbizUrl>">${orderId}</a> ${externalOrder?if_exists} ${uiLabelMap.CommonInformation} [&nbsp;<a href="<@ofbizUrl>order.pdf?orderId=${orderId}</@ofbizUrl>" target="_blank">PDF</a>&nbsp;]</li>
                        
             <#if currentStatus.statusId == "ORDER_CREATED" || currentStatus.statusId == "ORDER_PROCESSING">
-                <li><a href="<@ofbizUrl>changeOrderItemStatus?statusId=ITEM_APPROVED&amp;${paramString}</@ofbizUrl>">${uiLabelMap.OrderApproveOrder}</a></li>
+                <li><a href="<@ofbizUrl>changeOrderStatus/orderview?statusId=ORDER_APPROVED&amp;setItemStatus=Y&amp;${paramString}</@ofbizUrl>">${uiLabelMap.OrderApproveOrder}</a></li>
             <#elseif currentStatus.statusId == "ORDER_APPROVED">
                 <li><a href="<@ofbizUrl>changeOrderStatus/orderview?statusId=ORDER_HOLD&amp;${paramString}</@ofbizUrl>">${uiLabelMap.OrderHold}</a></li>
             <#elseif currentStatus.statusId == "ORDER_HOLD">
-                <li><a href="<@ofbizUrl>changeOrderItemStatus?statusId=ITEM_APPROVED&amp;${paramString}</@ofbizUrl>">${uiLabelMap.OrderApproveOrder}</a></li>
+                <li><a href="<@ofbizUrl>changeOrderStatus/orderview?statusId=ORDER_APPROVED&amp;setItemStatus=Y&amp;${paramString}</@ofbizUrl>">${uiLabelMap.OrderApproveOrder}</a></li>
             </#if>
             <#if setOrderCompleteOption>
               <li><a href="<@ofbizUrl>changeOrderStatus?orderId=${orderId}&statusId=ORDER_COMPLETED</@ofbizUrl>">${uiLabelMap.OrderCompleteOrder}</a></li>
