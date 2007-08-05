@@ -342,6 +342,9 @@ public class OagisServices {
                 xmlTextBuf.append('\n');
             }
             xmlText = xmlTextBuf.toString();
+            
+            // DEJ20070804 adding this temporarily for debugging, should be changed to verbose at some point in the future
+            Debug.logInfo("Received OAGIS XML message, here is the text: \n" + xmlText, module);
 
             ByteArrayInputStream bis = new ByteArrayInputStream(xmlText.getBytes("UTF-8"));
             doc = UtilXml.readXmlDocument(bis, true, "OagisMessage");
@@ -369,6 +372,10 @@ public class OagisServices {
         Element bsrElement = UtilXml.firstChildElement(controlAreaElement, "os:BSR");
         String bsrVerb = UtilXml.childElementValue(bsrElement, "of:VERB");
         String bsrNoun = UtilXml.childElementValue(bsrElement, "of:NOUN");
+        
+        if (UtilValidate.isEmpty(bsrVerb) || UtilValidate.isEmpty(bsrNoun)) {
+            return ServiceUtil.returnError("Was able to receive and parse the XML message, but BSR->NOUN [" + bsrNoun + "] and/or BSR->VERB [" + bsrVerb + "] are empty");
+        }
         
         // TODO: before dispatching the message, make sure the combined ID (primary of OagisMessageInfo entity) is not in the database, ie hasn't been received already
         
