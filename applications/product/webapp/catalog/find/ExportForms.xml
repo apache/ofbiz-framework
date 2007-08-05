@@ -32,7 +32,7 @@ under the License.
             </drop-down>
         </field>
         <field name="statusId">
-            <drop-down no-current-selected-key="publish">
+            <drop-down no-current-selected-key="draft">
                 <!--
                 <option key="deactivate" description="${uiLabelMap.ProductExportDeactivated}"/>
                 -->
