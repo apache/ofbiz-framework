@@ -344,7 +344,7 @@ public class OagisServices {
             xmlText = xmlTextBuf.toString();
             
             // DEJ20070804 adding this temporarily for debugging, should be changed to verbose at some point in the future
-            Debug.logInfo("Received OAGIS XML message, here is the text: \n" + xmlText, module);
+            Debug.logWarning("Received OAGIS XML message, here is the text: \n" + xmlText, module);
 
             ByteArrayInputStream bis = new ByteArrayInputStream(xmlText.getBytes("UTF-8"));
             doc = UtilXml.readXmlDocument(bis, true, "OagisMessage");
