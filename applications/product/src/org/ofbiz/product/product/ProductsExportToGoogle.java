@@ -276,6 +276,7 @@ public class ProductsExportToGoogle {
                  feedElem.setAttribute("xmlns:openSearch", "http://a9.com/-/spec/opensearchrss/1.0/");
                  feedElem.setAttribute("xmlns:g", "http://base.google.com/ns/1.0");
                  feedElem.setAttribute("xmlns:batch", "http://schemas.google.com/gdata/batch");
+                 feedElem.setAttribute("xmlns:app", "http://purl.org/atom/app#");
                  
                  // Iterate the product list getting all the relevant data
                  Iterator productsListItr = productsList.iterator();
@@ -323,7 +324,6 @@ public class ProductsExportToGoogle {
                      // status is draft or deactivate
                      if (statusId != null && ("draft".equals(statusId) || "deactivate".equals(statusId))) {
                          Element appControlElem = UtilXml.addChildElement(entryElem, "app:control", feedDocument);
-                         appControlElem.setAttribute("xmlns:app", "http://purl.org/atom/app&#35;");
                          UtilXml.addChildElementValue(appControlElem, "app:draft", "yes", feedDocument);
                          
                          // status is deactivate
