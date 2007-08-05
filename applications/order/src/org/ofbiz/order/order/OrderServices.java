@@ -1592,6 +1592,8 @@ public class OrderServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemGettingOrderItemRecords", locale));
         }
 
+        String orderHeaderStatusId = orderHeader.getString("statusId");
+        
         boolean allCanceled = true;
         boolean allComplete = true;
         boolean allApproved = true;
@@ -1623,7 +1625,39 @@ public class OrderServices {
             } else if (allComplete) {
                 newStatus = "ORDER_COMPLETED";
             } else if (allApproved) {
-                if (!"ORDER_SENT".equals(orderHeader.getString("statusId"))) {
+                boolean changeToApprove = true;
+                
+                // NOTE DEJ20070805 I'm not sure why we would want to auto-approve the header... adding at least this one exeption so that we don't have to add processing, held, etc statuses to the item status list
+                // NOTE2 related to the above: appears this was a weird way to set the order header status by setting all order item statuses... changing that to be less weird and more direct
+                // this is a bit of a pain: if the current statusId = ProductStore.headerApprovedStatus and we don't have that status in the history then we don't want to change it on approving the items
+                if (UtilValidate.isNotEmpty(orderHeader.getString("productStoreId"))) {
+                    try {
+                        GenericValue productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", orderHeader.getString("productStoreId")));
+                        if (productStore != null) {
+                            String headerApprovedStatus = productStore.getString("headerApprovedStatus");
+                            if (UtilValidate.isNotEmpty(headerApprovedStatus)) {
+                                if (headerApprovedStatus.equals(orderHeaderStatusId)) {
+                                    Map orderStatusCheckMap = UtilMisc.toMap("orderId", orderId, "statusId", headerApprovedStatus, "orderItemSeqId", null);
+                                    List orderStatusList = delegator.findByAnd("OrderStatus", orderStatusCheckMap);
+                                    // should be 1 in the history, but just in case accept 0 too
+                                    if (orderStatusList.size() <= 1) {
+                                        changeToApprove = false;
+                                    }
+                                }
+                            }
+                        }
+                    } catch (GenericEntityException e) {
+                        String errMsg = "Database error checking if we should change order header status to approved: " + e.toString();
+                        Debug.logError(e, errMsg, module);
+                        return ServiceUtil.returnError(errMsg);
+                    }
+                }
+                
+                if ("ORDER_SENT".equals(orderHeaderStatusId)) changeToApprove = false;
+                if ("ORDER_COMPLETED".equals(orderHeaderStatusId)) changeToApprove = false;
+                if ("ORDER_CANCELLED".equals(orderHeaderStatusId)) changeToApprove = false;
+                
+                if (changeToApprove) {
                     newStatus = "ORDER_APPROVED";
                 }
             }
@@ -1866,6 +1900,7 @@ public class OrderServices {
 
     /** Service for changing the status on an order header */
     public static Map setOrderStatus(DispatchContext ctx, Map context) {
+        LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
@@ -1883,8 +1918,33 @@ public class OrderServices {
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorCannotGetOrderRoleEntity", locale) + e.getMessage());
             }
-            if (placingCustomer == null)
+            if (placingCustomer == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderYouDoNotHavePermissionToChangeThisOrdersStatus",locale));
+            }
+        }
+        
+        if ("Y".equals(context.get("setItemStatus"))) {
+            String newItemStatusId = null;
+            if ("ORDER_APPROVED".equals(statusId)) {
+                newItemStatusId = "ITEM_APPROVED";
+            } else if ("ORDER_COMPLETE".equals(statusId)) {
+                newItemStatusId = "ITEM_COMPLETE";
+            } else if ("ORDER_CANCELLED".equals(statusId)) {
+                newItemStatusId = "ITEM_CANCELLED";
+            }
+            
+            if (newItemStatusId != null) {
+                try {
+                    Map resp = dispatcher.runSync("changeOrderItemStatus", UtilMisc.toMap("orderId", orderId, "statusId", newItemStatusId, "userLogin", userLogin));
+                    if (ServiceUtil.isError(resp)) {
+                        return ServiceUtil.returnError("Error changing item status to " + newItemStatusId, null, null, resp);
+                    }
+                } catch (GenericServiceException e) {
+                    String errMsg = "Error changing item status to " + newItemStatusId + ": " + e.toString();
+                    Debug.logError(e, errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
+                }
+            }
         }
 
         try {
@@ -2909,7 +2969,7 @@ public class OrderServices {
                                 } else if ("FULFILLMENT_EXTSYNC".equals(fulfillmentType)) {
                                     Map resp = dispatcher.runSync(fulfillmentService, serviceCtx);
                                     if (ServiceUtil.isError(resp)) {
-                                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resp));
+                                        return ServiceUtil.returnError("Error running external fulfillment service", null, null, resp);
                                     }
                                 }
                             } catch (GenericServiceException e) {
@@ -3490,7 +3550,7 @@ public class OrderServices {
             }
 
             if (ServiceUtil.isError(paymentResp)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(paymentResp));
+                return ServiceUtil.returnError("Error processing payments: ", null, null, paymentResp);
             }
         }
         return ServiceUtil.returnSuccess();
@@ -3652,7 +3712,7 @@ public class OrderServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
             if (ServiceUtil.isError(resp)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resp));
+                return ServiceUtil.returnError("Error changing order item status: ", null, null, resp);
             }
         }
         return ServiceUtil.returnSuccess();
@@ -3716,7 +3776,7 @@ public class OrderServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
             if (ServiceUtil.isError(resp)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resp));
+                return ServiceUtil.returnError("Error creating picklist from orders: ", null, null, resp);
             }
         }
 
@@ -4204,7 +4264,7 @@ public class OrderServices {
                     return ServiceUtil.returnError(e.getMessage());
                 }
                 if (ServiceUtil.isError(payResp)) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(payResp));
+                    return ServiceUtil.returnError("Error processing order payments: ", null, null, payResp);
                 }
             }
 

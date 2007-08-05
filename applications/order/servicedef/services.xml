@@ -250,6 +250,7 @@ under the License.
         <description>Change the status of an existing order</description>
         <attribute name="orderId" type="String" mode="IN"/>
         <attribute name="statusId" type="String" mode="IN"/>
+        <attribute name="setItemStatus" type="String" mode="IN" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="false"/>
         <attribute name="orderStatusId" type="String" mode="OUT" optional="true"/>
         <attribute name="orderTypeId" type="String" mode="OUT" optional="true"/>
