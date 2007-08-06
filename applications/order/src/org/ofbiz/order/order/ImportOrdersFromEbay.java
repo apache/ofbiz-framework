@@ -379,12 +379,7 @@ public class ImportOrdersFromEbay {
                 Debug.logError("Cannot be retrieve itemId and transactionId from externalId", module);
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.errorDuringBuildItemAndTransactionIdFromExternalId", locale));
             }
-            
-            // the CompleteSale api wants only the first 12 characters of the ItemId for TransactionId = 0
-            if ("0".equals(transactionId)) {
-                itemId = itemId.substring(0, 11);
-            }
-            
+
             Document transDoc = UtilXml.makeEmptyXmlDocument("CompleteSaleRequest");
             Element transElem = transDoc.getDocumentElement();
             transElem.setAttribute("xmlns", "urn:ebay:apis:eBLBaseComponents");
@@ -1181,7 +1176,7 @@ public class ImportOrdersFromEbay {
         String partyId = "_NA_";
         String shipmentMethodTypeId = "NO_SHIPPING";
         
-   /*   if (shippingService != null) {
+        if (shippingService != null) {
             if ("USPSPriority".equals(shippingService)) {
                 partyId = "USPS";
                 shipmentMethodTypeId = "PRIORITY"; 
@@ -1216,7 +1211,7 @@ public class ImportOrdersFromEbay {
                 partyId = "_NA_";
                 shipmentMethodTypeId = "PICK_UP";
             } 
-        } */       
+        }
         
         cart.setCarrierPartyId(partyId);
         cart.setShipmentMethodTypeId(shipmentMethodTypeId);    
