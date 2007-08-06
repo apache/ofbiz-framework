@@ -945,20 +945,20 @@ under the License.
                                 <and>
                                     <if-empty field-name="inventoryItem.locationSeqId"/>
                                     <if-compare field-name="quantityNotTransferred" value="0.0" operator="greater" type="Double"/>
-                                    <if-compare field-name="inventoryItemAndLocation.availableToPromiseTotal" value="0.0" operator="greater" type="Double"/>
+                                    <if-compare field-name="inventoryItem.availableToPromiseTotal" value="0.0" operator="greater" type="Double"/>
                                 </and>
                             </condition>
                             <then>
                                 <clear-field field-name="inputMap"/>
-                                <set field="inputMap.inventoryItemId" from-field="inventoryItemAndLocation.inventoryItemId"/>
+                                <set field="inputMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
                                 <set field="inputMap.statusId" value="IXF_REQUESTED"/>
                                 <set field="inputMap.facilityId" from-field="parameters.facilityId"/>
                                 <set field="inputMap.facilityIdTo" from-field="parameters.facilityIdTo"/>
                                 <set field="inputMap.sendDate" from-field="parameters.sendDate"/>
                                 <!-- TODO: inventory transfers for serialized items are not yet implemented -->
-                                <if-compare field-name="inventoryItemAndLocation.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
-                                    <if-compare-field field-name="quantityNotTransferred" to-field-name="inventoryItemAndLocation.availableToPromiseTotal" operator="greater" type="Double">
-                                        <set field="inputMap.xferQty" from-field="inventoryItemAndLocation.availableToPromiseTotal"/>
+                                <if-compare field-name="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
+                                    <if-compare-field field-name="quantityNotTransferred" to-field-name="inventoryItem.availableToPromiseTotal" operator="greater" type="Double">
+                                        <set field="inputMap.xferQty" from-field="inventoryItem.availableToPromiseTotal"/>
                                     <else>
                                         <set field="inputMap.xferQty" from-field="quantityNotTransferred"/>
                                     </else>
