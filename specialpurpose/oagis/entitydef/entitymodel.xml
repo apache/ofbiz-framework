@@ -67,6 +67,7 @@ under the License.
         <field name="orderId" type="id"></field>
         <field name="returnId" type="id"></field>
         <field name="shipmentId" type="id"></field>
+        <field name="origRef" type="short-varchar"></field>
         <field name="fullMessageXml" type="very-long"></field>
         <prim-key field="logicalId"/>
         <prim-key field="component"/>
@@ -95,7 +96,7 @@ under the License.
         <field name="referenceId" type="id-long-ne"></field>
         <field name="errorSeqId" type="id"><!-- this is a secondary sequenced ID relative to the primary key of OagisMessageInfo --></field>
         <field name="reasonCode" type="short-varchar"></field>
-        <field name="description" type="long-varchar"></field>
+        <field name="description" type="very-long"></field>
         <prim-key field="logicalId"/>
         <prim-key field="component"/>
         <prim-key field="task"/>
