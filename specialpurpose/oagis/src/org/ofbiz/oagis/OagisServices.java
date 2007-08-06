@@ -301,6 +301,8 @@ public class OagisServices {
                 Element dataAreaConfirmMsgElement = (Element) dataAreaConfirmMsgListItr.next();
                 String description = UtilXml.childElementValue(dataAreaConfirmMsgElement, "of:DESCRIPTN");
                 String reasonCode = UtilXml.childElementValue(dataAreaConfirmMsgElement, "of:REASONCODE");
+                
+                // TODO: should we attach these to the Confirm BOD message instead of the original, and then have the Confirm BOD record point to the original record? this was is fine for now 
                 originalOagisMsgCtx.put("reasonCode", reasonCode);
                 originalOagisMsgCtx.put("description", description);
             
@@ -330,7 +332,7 @@ public class OagisServices {
         result.put("referenceId", referenceId);
         result.put("userLogin", userLogin);
         
-        if (errorMapList.size()>0){
+        if (errorMapList.size() > 0) {
             String errMsg = "Error Processing Received Message";
             result.put("errorMapList", errorMapList);
             //result.putAll(ServiceUtil.returnError(errMsg));
