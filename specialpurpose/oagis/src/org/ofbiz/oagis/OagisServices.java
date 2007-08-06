@@ -187,7 +187,6 @@ public class OagisServices {
     }
 
     public static Map receiveConfirmBod(DispatchContext ctx, Map context) {
-        
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Document doc = (Document) context.get("document");
@@ -220,9 +219,9 @@ public class OagisServices {
         String authId = UtilXml.childElementValue(docSenderElement, "of:AUTHID");
         String sentDate = UtilXml.childElementValue(docCtrlAreaElement, "os:DATETIMEANY");
           
-        Element dataAreaElement = UtilXml.firstChildElement(confirmBodElement, "n:DATAAREA");
-        Element dataAreaConfirmBodElement = UtilXml.firstChildElement(dataAreaElement, "n:CONFIRM_BOD");
-        Element dataAreaConfirmElement = UtilXml.firstChildElement(dataAreaConfirmBodElement, "n:CONFIRM");
+        Element dataAreaElement = UtilXml.firstChildElement(confirmBodElement, "ns:DATAAREA");
+        Element dataAreaConfirmBodElement = UtilXml.firstChildElement(dataAreaElement, "ns:CONFIRM_BOD");
+        Element dataAreaConfirmElement = UtilXml.firstChildElement(dataAreaConfirmBodElement, "ns:CONFIRM");
         Element dataAreaCtrlElement = UtilXml.firstChildElement(dataAreaConfirmElement, "os:CNTROLAREA");
         Element dataAreaSenderElement = UtilXml.firstChildElement(dataAreaCtrlElement, "os:SENDER");
         String dataAreaLogicalId = UtilXml.childElementValue(dataAreaSenderElement, "of:LOGICALID");
@@ -278,7 +277,7 @@ public class OagisServices {
         
         oagisMsgErrorCtx.put("userLogin", userLogin);
         
-        List dataAreaConfirmMsgList = UtilXml.childElementList(dataAreaConfirmElement, "n:CONFIRMMSG");
+        List dataAreaConfirmMsgList = UtilXml.childElementList(dataAreaConfirmElement, "ns:CONFIRMMSG");
         Iterator dataAreaConfirmMsgListItr = dataAreaConfirmMsgList.iterator();
         
         if (oagisMsgInfo != null){
