@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -53,7 +53,7 @@ public class Start implements Runnable {
 
     private static final String SHUTDOWN_COMMAND = "SHUTDOWN";
     private static final String STATUS_COMMAND = "STATUS";
-    private static final double REQUIRED_JDK = 1.4;
+    private static final double REQUIRED_JDK = 1.5;
 
     public void init(String[] args, boolean fullInit) throws IOException {
         String firstArg = args.length > 0 ? args[0] : "";
