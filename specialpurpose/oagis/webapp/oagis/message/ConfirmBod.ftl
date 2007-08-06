@@ -17,10 +17,9 @@
     specific language governing permissions and limitations
     under the License.
 -->
-
+<#--  xsi:schemaLocation="http://www.openapplications.org/002_confirm_bod_004 file:///C:/Documents%20and%20Settings/022523/My%20Documents/Vudu/XML%20Specs/OAG%20721/002_confirm_bod_004.xsd" -->
 <n:CONFIRM_BOD_004 xmlns:n="http://www.openapplications.org/002_confirm_bod_004"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.openapplications.org/002_confirm_bod_004 file:///C:/Documents%20and%20Settings/022523/My%20Documents/Vudu/XML%20Specs/OAG%20721/002_confirm_bod_004.xsd"
         xmlns:os="http://www.openapplications.org/oagis_segments"
         xmlns:of="http://www.openapplications.org/oagis_fields">
   <os:CNTROLAREA>

@@ -17,10 +17,10 @@
     specific language governing permissions and limitations
     under the License.
 -->
+<#-- xsi:schemaLocation="http://www.openapplications.org/161B_PROCESS_SHIPMENT_001 file:///C:/Documents%20and%20Settings/022523/My%20Documents/Vudu/XML%20Specs/REL%201%20-%20VER%202/161B_process_shipment_005.xsd" -->
 <n:PROCESS_SHIPMENT_001 
     xmlns:n="http://www.openapplications.org/161B_PROCESS_SHIPMENT_001" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:schemaLocation="http://www.openapplications.org/161B_PROCESS_SHIPMENT_001 file:///C:/Documents%20and%20Settings/022523/My%20Documents/Vudu/XML%20Specs/REL%201%20-%20VER%202/161B_process_shipment_005.xsd" 
 	xmlns:os="http://www.openapplications.org/oagis_segments" 
 	xmlns:of="http://www.openapplications.org/oagis_fields">
   <os:CNTROLAREA>
