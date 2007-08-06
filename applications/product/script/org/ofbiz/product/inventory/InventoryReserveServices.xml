@@ -275,7 +275,6 @@ under the License.
         <!-- Lets find the inventory to reserve -->
         <entity-and entity-name="InventoryItem" list-name="inventoryItems">            
             <field-map field-name="productId" env-name="parameters.productId"/>
-            <field-map field-name="facilityId" env-name="parameters.shippingFacilityId"/>
             <field-map field-name="inventoryItemTypeId"  value="SERIALIZED_INV_ITEM"/>
             <field-map field-name="serialNumber" env-name="parameters.serialNumber"/>
         </entity-and>
@@ -284,7 +283,7 @@ under the License.
         <!-- If no inventory item found for the serial number, than create it -->
         <if-empty field-name="inventoryItem">
             <set field="receiveCtx.productId" from-field="parameters.productId"/>
-            <set field="receiveCtx.facilityId" from-field="parameters.shippingFacilityId"/> 
+            <set field="receiveCtx.facilityId" from-field="facilityId"/>
             <set field="receiveCtx.quantityAccepted" from-field="parameters.quantity"/>
             <set field="receiveCtx.quantityRejected" value="0" type="Double"/>
             <set field="receiveCtx.inventoryItemTypeId" value="SERIALIZED_INV_ITEM"/>
@@ -305,48 +304,21 @@ under the License.
             <refresh-value value-name="inventoryItem"/>
             <set value="INV_PROMISED" field="inventoryItem.statusId"/>
             <store-value value-name="inventoryItem"/>
-            <!-- get something else for other order, First try to get a Shadow for resv if not available then we'll try getting serialized item-->
-            <!-- Get the product's total quantityOnHand in the facility -->
-            <set from-field="parameters.productId" field="inputMap.productId"/>
-            <set from-field="facilityId" field="inputMap.facilityId"/>
-            <call-service service-name="getInventoryAvailableByFacility" in-map-name="inputMap">
-                <result-to-field field-name="quantityOnHandTotal" result-name="quantityOnHandTotal"/>
-                <result-to-field field-name="availableToPromiseTotal" result-name="availableToPromiseTotal"/>
-            </call-service>
-            <if-compare operator="less" field-name="availableToPromiseTotal" value="1" type="Double">
-                <entity-and entity-name="InventoryItem" list-name="inventoryItems">                
-                    <field-map field-name="productId" env-name="parameters.productId"/>
-                    <field-map field-name="inventoryItemTypeId"  value="SERIALIZED_INV_ITEM"/>
-                    <field-map field-name="statusId"  value="INV_AVAILABLE"/>
-                </entity-and>
-                <first-from-list list-name="inventoryItems" entry-name="availableInventoryItem"/>
-                <!-- change status on available inventoryItem -->            
-                <set value="INV_PROMISED" field="availableInventoryItem.statusId"/>
-                <store-value value-name="availableInventoryItem"/>
-                <set from-field="availableInventoryItem.inventoryItemId" field="reserveOisgirMap.inventoryItemId"/>
-             <else>
-                <entity-and entity-name="InventoryItem" list-name="inventoryItems">                
-                    <field-map field-name="productId" env-name="parameters.productId"/>
-                    <field-map field-name="inventoryItemTypeId"  value="NON_SERIAL_INV_ITEM"/>
-                </entity-and>
-                <first-from-list list-name="inventoryItems" entry-name="availableInventoryItem"/>
-                <set from-field="availableInventoryItem.inventoryItemId" field="reserveOisgirMap.inventoryItemId"/>
-             </else>   
-            </if-compare> 
+            <!-- get something else for other order -->
             <!-- store OrderItemShipGrpInvRes record -->
             <set from-field="inventoryItemReservation.orderId" field="reserveOisgirMap.orderId"/>
+            <set from-field="parameters.productId" field="reserveOisgirMap.productId"/>
             <set from-field="inventoryItemReservation.orderItemSeqId" field="reserveOisgirMap.orderItemSeqId"/>
             <set from-field="inventoryItemReservation.shipGroupSeqId" field="reserveOisgirMap.shipGroupSeqId"/>
             <set from-field="inventoryItemReservation.reserveOrderEnumId" field="reserveOisgirMap.reserveOrderEnumId"/>
             <set from-field="inventoryItemReservation.reservedDatetime" field="reserveOisgirMap.reservedDatetime"/>
-            <set from-field="inventoryItemReservation.promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
             <set field="reserveOisgirMap.quantity" value="1" type="Double"/>
+            <set field="reserveOisgirMap.requireInventory" value="N"/>
             <if-not-empty field-name="inventoryItemReservation.sequenceId">
                 <set field="reserveOisgirMap.sequenceId" from-field="inventoryItemReservation.sequenceId"/>
             </if-not-empty>
-            <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
+            <call-service service-name="reserveProductInventory" in-map-name="reserveOisgirMap"/>
             <clear-field field-name="reserveOisgirMap"/>
-            <clear-field field-name="availableInventoryItem"/> 
         </if-not-empty>
 
         <!-- Step 3 Now Reserve for our order-->
@@ -613,6 +585,7 @@ under the License.
         </if-compare>
     </simple-method>
 </simple-methods>
+
 
 
 

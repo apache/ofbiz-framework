@@ -189,7 +189,6 @@ public class OagisShipmentServices {
 
         String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");                
         String originFacilityId = shipment.getString("originFacilityId");                              
-        String shippingFacilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.ShippingFacilityId");
         
         List shipUnitElementList = UtilXml.childElementList(daShowShipmentElement, "ns:SHIPUNIT"); // n
         if(UtilValidate.isNotEmpty(shipUnitElementList)) {
@@ -229,7 +228,6 @@ public class OagisShipmentServices {
                             isitspastCtx.put("shipmentId", shipmentId);      
                             isitspastCtx.put("shipmentPackageSeqId", shipmentPackageSeqId);
                             isitspastCtx.put("promisedDatetime", orderItemShipGrpInvReservation.get("promisedDatetime"));
-                            isitspastCtx.put("shippingFacilityId", shippingFacilityId);
                             List invDetailElementList = UtilXml.childElementList(invItemElement, "ns:INVDETAIL"); //n                            
                             if(UtilValidate.isNotEmpty(invDetailElementList)) {
                                 Iterator invDetailElementItr = invDetailElementList.iterator();
