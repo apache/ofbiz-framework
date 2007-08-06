@@ -115,6 +115,9 @@ public class OagisShipmentServices {
         String confirmation = UtilXml.childElementValue(senderElement, "of:CONFIRMATION"); // of
         String authId = UtilXml.childElementValue(senderElement, "of:AUTHID"); // of
 
+        String sentDate = UtilXml.childElementValue(controlAreaElement, "os:DATETIMEISO");
+        Timestamp sentTimestamp = OagisServices.parseIsoDateString(sentDate, errorMapList);
+        
         Element dataAreaElement = UtilXml.firstChildElement(showShipmentElement, "ns:DATAAREA"); // n
         Element daShowShipmentElement = UtilXml.firstChildElement(dataAreaElement, "ns:SHOW_SHIPMENT"); // n
         Element shipmentElement = UtilXml.firstChildElement(daShowShipmentElement, "ns:SHIPMENT"); // n                               
@@ -135,6 +138,7 @@ public class OagisShipmentServices {
         oagisMsgInfoCtx.put("authId", authId);
         oagisMsgInfoCtx.put("outgoingMessage", "N");
         oagisMsgInfoCtx.put("receivedDate", nowTimestamp);
+        oagisMsgInfoCtx.put("sentDate", sentTimestamp);
         oagisMsgInfoCtx.put("shipmentId", shipmentId);
         oagisMsgInfoCtx.put("userLogin", userLogin);
         oagisMsgInfoCtx.put("processingStatusId", "OAGMP_RECEIVED");
