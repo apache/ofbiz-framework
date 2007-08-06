@@ -139,25 +139,8 @@ public class OagisInventoryServices {
                 
                 String snapshotDateStr = UtilXml.childElementValue(inventoryElement, "os:DATETIMEISO");  
                 //Parse this into a valid Timestamp Object
-                Date dateTimeInvReceived = null;
-                Timestamp snapshotDate = null;      
-                try{
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
-                    dateTimeInvReceived = sdf.parse(snapshotDateStr);
-                }catch(ParseException e){
-                    Debug.logInfo("Message does not have timezone information in date field", module);
-                    try{
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'");
-                        dateTimeInvReceived = sdf.parse(snapshotDateStr);
-                    }catch(ParseException e1){
-                        String errMsg = "Error parsing Date: " + e1.toString();
-                        errorMapList.add(UtilMisc.toMap("reasonCode", "ParseException", "description", errMsg));
-                        Debug.logError(e, errMsg, module);
-                    }
-                }
-                if(dateTimeInvReceived !=null){
-                    snapshotDate = new Timestamp( dateTimeInvReceived.getTime() );
-                }
+                Timestamp snapshotDate = OagisServices.parseIsoDateString(snapshotDateStr, errorMapList);
+                
                 // get quantity on hand diff   
                 double quantityOnHandTotal = 0.0;
                 
@@ -380,7 +363,10 @@ public class OagisInventoryServices {
         String referenceId = UtilXml.childElementValue(docSenderElement, "of:REFERENCEID");
         String confirmation = UtilXml.childElementValue(docSenderElement, "of:CONFIRMATION");
         String authId = UtilXml.childElementValue(docSenderElement, "of:AUTHID");
-            
+
+        String sentDate = UtilXml.childElementValue(docCtrlAreaElement, "os:DATETIMEISO");
+        Timestamp sentTimestamp = OagisServices.parseIsoDateString(sentDate, errorMapList);
+        
         Element dataAreaElement = UtilXml.firstChildElement(receivePoElement, "ns:DATAAREA");
         Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "ns:ACKNOWLEDGE_DELIVERY");
 
@@ -506,6 +492,7 @@ public class OagisInventoryServices {
         comiCtx.put("authId", authId);
         comiCtx.put("referenceId", referenceId);
         comiCtx.put("receivedDate", timestamp);
+        comiCtx.put("sentDate", sentTimestamp);
         comiCtx.put("component", component);
         comiCtx.put("task", task);  
         comiCtx.put("outgoingMessage", "N");
@@ -588,6 +575,9 @@ public class OagisInventoryServices {
         String confirmation = UtilXml.childElementValue(docSenderElement, "of:CONFIRMATION");
         String authId = UtilXml.childElementValue(docSenderElement, "of:AUTHID");
             
+        String sentDate = UtilXml.childElementValue(docCtrlAreaElement, "os:DATETIMEISO");
+        Timestamp sentTimestamp = OagisServices.parseIsoDateString(sentDate, errorMapList);
+
         Element dataAreaElement = UtilXml.firstChildElement(receiveRmaElement, "n:DATAAREA");
         Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "n:ACKNOWLEDGE_DELIVERY");
         
@@ -748,6 +738,7 @@ public class OagisInventoryServices {
         comiCtx.put("authId", authId);
         comiCtx.put("referenceId", referenceId);
         comiCtx.put("receivedDate", timestamp);
+        comiCtx.put("sentDate", sentTimestamp);
         comiCtx.put("component", component);
         comiCtx.put("task", task);  
         comiCtx.put("outgoingMessage", "N");

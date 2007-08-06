@@ -33,7 +33,9 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -74,6 +76,9 @@ public class OagisServices {
     protected static final HtmlScreenRenderer htmlScreenRenderer = new HtmlScreenRenderer();
     protected static final FoFormRenderer foFormRenderer = new FoFormRenderer();
     
+    public static final SimpleDateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
+    public static final SimpleDateFormat isoDateFormatNoTzValue = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'");
+    
     public static final String resource = "OagisUiLabels";
 
     public static final String certAlias = UtilProperties.getPropertyValue("oagis.properties", "auth.client.certificate.alias");
@@ -111,7 +116,7 @@ public class OagisServices {
         
         GenericValue userLogin = null;
         try {
-            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "admin"));
+            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting userLogin", module);
         }
@@ -126,9 +131,8 @@ public class OagisServices {
         String referenceId = delegator.getNextSeqId("OagisMessageInfo");
         bodyParameters.put("referenceId", referenceId);
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
         Timestamp timestamp = UtilDateTime.nowTimestamp();
-        String sentDate = dateFormat.format(timestamp);
+        String sentDate = isoDateFormat.format(timestamp);
         bodyParameters.put("sentDate", sentDate);
         
         bodyParameters.put("errorLogicalId", context.get("logicalId"));
@@ -152,8 +156,7 @@ public class OagisServices {
             return ServiceUtil.returnError(errMsg);
         }
         
-        // TODO: call service with require-new-transaction=true to save the OagisMessageInfo data (to make sure it saves before)
-        Map oagisMsgInfoContext = new HashMap();
+        Map oagisMsgInfoContext = FastMap.newInstance();
         oagisMsgInfoContext.put("logicalId", logicalId);
         oagisMsgInfoContext.put("component", "EXCEPTION");
         oagisMsgInfoContext.put("task", "RECIEPT");
@@ -164,6 +167,7 @@ public class OagisServices {
         oagisMsgInfoContext.put("bsrVerb", "CONFIRM");
         oagisMsgInfoContext.put("bsrNoun", "BOD");
         oagisMsgInfoContext.put("bsrRevision", "004");
+        oagisMsgInfoContext.put("outgoingMessage", "Y");
         oagisMsgInfoContext.put("userLogin", userLogin);
         if (OagisServices.debugSaveXmlOut) {
             oagisMsgInfoContext.put("fullMessageXml", outText);
@@ -173,7 +177,6 @@ public class OagisServices {
             /* running async for better error handling
             if (ServiceUtil.isError(oagisMsgInfoResult)) return ServiceUtil.returnError("Error creating OagisMessageInfo");
             */
-            
         } catch (GenericServiceException e) {
             Debug.logError(e, "Saving message to database failed", module);
         }
@@ -194,9 +197,9 @@ public class OagisServices {
         
         GenericValue userLogin = null; 
         try {
-            userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId","admin"));
+            userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId", "system"));
         } catch (GenericEntityException e){
-            String errMsg = "Error Getting UserLogin with userLoginId 'admin':"+e.toString();
+            String errMsg = "Error Getting UserLogin with userLoginId 'system':"+e.toString();
             Debug.logError(e, errMsg, module);
         }
         
@@ -217,8 +220,10 @@ public class OagisServices {
         //String language = UtilXml.childElementValue(docSenderElement, "of:LANGUAGE");
         //String codepage = UtilXml.childElementValue(docSenderElement, "of:CODEPAGE");
         String authId = UtilXml.childElementValue(docSenderElement, "of:AUTHID");
-        String sentDate = UtilXml.childElementValue(docCtrlAreaElement, "os:DATETIMEANY");
-          
+
+        String sentDate = UtilXml.childElementValue(docCtrlAreaElement, "os:DATETIMEISO");
+        Timestamp sentTimestamp = OagisServices.parseIsoDateString(sentDate, errorMapList);
+        
         Element dataAreaElement = UtilXml.firstChildElement(confirmBodElement, "ns:DATAAREA");
         Element dataAreaConfirmBodElement = UtilXml.firstChildElement(dataAreaElement, "ns:CONFIRM_BOD");
         Element dataAreaConfirmElement = UtilXml.firstChildElement(dataAreaConfirmBodElement, "ns:CONFIRM");
@@ -228,23 +233,35 @@ public class OagisServices {
         String dataAreaComponent = UtilXml.childElementValue(dataAreaSenderElement, "of:COMPONENT");
         String dataAreaTask = UtilXml.childElementValue(dataAreaSenderElement, "of:TASK");
         String dataAreaReferenceId = UtilXml.childElementValue(dataAreaSenderElement, "of:REFERENCEID");
-        String dataAreaDate = UtilXml.childElementValue(dataAreaCtrlElement, "os:DATETIMEANY");
+        String dataAreaDate = UtilXml.childElementValue(dataAreaCtrlElement, "os:DATETIMEISO");
         String origRef = UtilXml.childElementValue(dataAreaConfirmElement, "of:ORIGREF");
           
         Timestamp timestamp = UtilDateTime.nowTimestamp();
-        Map oagisMsgInfoCtx = new HashMap();
+        
+        Map oagisMsgInfoCtx = FastMap.newInstance();
         oagisMsgInfoCtx.put("logicalId", logicalId);
         oagisMsgInfoCtx.put("component", component);
         oagisMsgInfoCtx.put("task", task);
         oagisMsgInfoCtx.put("referenceId", referenceId);
         oagisMsgInfoCtx.put("authId", authId);
         oagisMsgInfoCtx.put("receivedDate", timestamp);
+        oagisMsgInfoCtx.put("sentDate", sentTimestamp);
         oagisMsgInfoCtx.put("confirmation", confirmation);
         oagisMsgInfoCtx.put("bsrVerb", bsrVerb);
         oagisMsgInfoCtx.put("bsrNoun", bsrNoun);
         oagisMsgInfoCtx.put("bsrRevision", bsrRevision);
         oagisMsgInfoCtx.put("outgoingMessage", "N");
+        oagisMsgInfoCtx.put("origRef", origRef);
         oagisMsgInfoCtx.put("userLogin", userLogin);
+        if (OagisServices.debugSaveXmlIn) {
+            try {
+                oagisMsgInfoCtx.put("fullMessageXml", UtilXml.writeXmlDocument(doc));
+            } catch (IOException e) {
+                // this is just for debug info, so just log and otherwise ignore error
+                String errMsg = "Warning: error creating text from XML Document for saving to database: " + e.toString();
+                Debug.logWarning(errMsg, module);
+            }
+        }
         try {
             dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoCtx, 60, true);
             /* running async for better error handling
@@ -260,36 +277,35 @@ public class OagisServices {
             Debug.logError(e, errMsg, module);
         }
 
-        Map oagisMsgErrorCtx = new HashMap();
-        oagisMsgErrorCtx.put("logicalId", dataAreaLogicalId);
-        oagisMsgErrorCtx.put("component", dataAreaComponent);
-        oagisMsgErrorCtx.put("task", dataAreaTask);
-        oagisMsgErrorCtx.put("referenceId", dataAreaReferenceId);
+        Map originalOagisMsgCtx = FastMap.newInstance();
+        originalOagisMsgCtx.put("logicalId", dataAreaLogicalId);
+        originalOagisMsgCtx.put("component", dataAreaComponent);
+        originalOagisMsgCtx.put("task", dataAreaTask);
+        originalOagisMsgCtx.put("referenceId", dataAreaReferenceId);
           
-        GenericValue oagisMsgInfo = null;
+        GenericValue originalOagisMsgInfo = null;
         try {
-            oagisMsgInfo = delegator.findByPrimaryKey("OagisMessageInfo", oagisMsgErrorCtx);
+            originalOagisMsgInfo = delegator.findByPrimaryKey("OagisMessageInfo", originalOagisMsgCtx);
         } catch (GenericEntityException e){
             String errMsg = "Error Getting Entity OagisMessageInfo: "+e.toString();
             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericEntityException"));
             Debug.logError(e, errMsg, module);
         }
         
-        oagisMsgErrorCtx.put("userLogin", userLogin);
+        originalOagisMsgCtx.put("userLogin", userLogin);
         
         List dataAreaConfirmMsgList = UtilXml.childElementList(dataAreaConfirmElement, "ns:CONFIRMMSG");
         Iterator dataAreaConfirmMsgListItr = dataAreaConfirmMsgList.iterator();
-        
-        if (oagisMsgInfo != null){
-            while (dataAreaConfirmMsgListItr.hasNext()){
+        if (originalOagisMsgInfo != null) {
+            while (dataAreaConfirmMsgListItr.hasNext()) {
                 Element dataAreaConfirmMsgElement = (Element) dataAreaConfirmMsgListItr.next();
                 String description = UtilXml.childElementValue(dataAreaConfirmMsgElement, "of:DESCRIPTN");
                 String reasonCode = UtilXml.childElementValue(dataAreaConfirmMsgElement, "of:REASONCODE");
-                oagisMsgErrorCtx.put("reasonCode", reasonCode);
-                oagisMsgErrorCtx.put("description", description);
+                originalOagisMsgCtx.put("reasonCode", reasonCode);
+                originalOagisMsgCtx.put("description", description);
             
                 try {
-                    Map oagisMsgErrorInfoResult = dispatcher.runSync("createOagisMessageErrorInfo", oagisMsgErrorCtx);
+                    Map oagisMsgErrorInfoResult = dispatcher.runSync("createOagisMessageErrorInfo", originalOagisMsgCtx);
                     if (ServiceUtil.isError(oagisMsgErrorInfoResult)){
                         String errMsg = "Error creating OagisMessageErrorInfo: "+ServiceUtil.getErrorMessage(oagisMsgErrorInfoResult);
                         errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "CreateOagisMessageErrorInfoServiceError"));
@@ -301,13 +317,13 @@ public class OagisServices {
                     Debug.logError(e, errMsg, module);
                 }
             }
-        } else{
-            String errMsg = "No such message with an error was found in OagisMessageInfo Entity ; Not creating OagisMessageErrorInfo";
+        } else {
+            String errMsg = "No such message with an error was found; Not creating OagisMessageErrorInfo; ID info: " + originalOagisMsgCtx;
             Debug.logWarning(errMsg, module);
-            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "OagisMessageInfoNotFoundError"));
+            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "OriginalOagisMessageInfoNotFoundError"));
         }
         
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         result.put("logicalId", logicalId);
         result.put("component", component);
         result.put("task", task);
@@ -507,5 +523,29 @@ public class OagisServices {
         }
         
         return null;
+    }
+    
+    public static Timestamp parseIsoDateString(String dateString, List errorMapList) {
+        if (UtilValidate.isEmpty(dateString)) return null;
+        
+        Date dateTimeInvReceived = null;
+        try {
+            dateTimeInvReceived = isoDateFormat.parse(dateString);
+        } catch (ParseException e) {
+            Debug.logInfo("Message does not have timezone information in date field", module);
+            try {
+                dateTimeInvReceived = isoDateFormatNoTzValue.parse(dateString);
+            } catch (ParseException e1) {
+                String errMsg = "Error parsing Date: " + e1.toString();
+                if (errorMapList != null) errorMapList.add(UtilMisc.toMap("reasonCode", "ParseException", "description", errMsg));
+                Debug.logError(e, errMsg, module);
+            }
+        }
+
+        Timestamp snapshotDate = null;      
+        if (dateTimeInvReceived != null) {
+            snapshotDate = new Timestamp(dateTimeInvReceived.getTime());
+        }
+        return snapshotDate;
     }
 }
