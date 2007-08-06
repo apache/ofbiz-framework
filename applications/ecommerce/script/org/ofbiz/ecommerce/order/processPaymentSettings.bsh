@@ -52,6 +52,8 @@ if(paymentMethodTypeId != null){
     boolean isSingleUsePayment = singleUsePayment != null && "Y".equalsIgnoreCase(singleUsePayment) ? true : false;
     boolean doAppendPayment = appendPayment != null && "Y".equalsIgnoreCase(appendPayment) ? true : false;
     callResult = checkOutHelper.finalizeOrderEntryPayment(paymentMethodId, null, isSingleUsePayment, doAppendPayment);
+    ShoppingCart.CartPaymentInfo cpi = cart.getPaymentInfo(paymentMethodId, null, null, null, true);
+    cpi.securityCode = (String) request.getParameter("cardSecurityCode");
     ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
 }
 
