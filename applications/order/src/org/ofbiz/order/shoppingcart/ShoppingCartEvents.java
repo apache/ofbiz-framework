@@ -1450,6 +1450,7 @@ public class ShoppingCartEvents {
 
         String agreementId = request.getParameter("agreementId");
         String currencyUomId = request.getParameter("currencyUomId");
+        String workEffortId = request.getParameter("workEffortId");
         String shipBeforeDateStr = request.getParameter("shipBeforeDate");
         String shipAfterDateStr = request.getParameter("shipAfterDate");
         String orderName = request.getParameter("orderName");
@@ -1457,7 +1458,7 @@ public class ShoppingCartEvents {
         Map result = null;
 
         // set the agreement if specified otherwise set the currency
-        if (agreementId != null && agreementId.length() > 0) {
+        if (UtilValidate.isNotEmpty(agreementId)) {
             result = cartHelper.selectAgreement(agreementId);
         } else { 
             result = cartHelper.setCurrency(currencyUomId);
@@ -1466,6 +1467,9 @@ public class ShoppingCartEvents {
             request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(result));
             return "error";
         }
+
+        // set the work effort id
+        cart.setWorkEffortId(workEffortId);
 
         // set the order name
         cart.setOrderName(orderName);
