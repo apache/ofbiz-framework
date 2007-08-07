@@ -191,10 +191,33 @@ public class OagisShipmentServices {
         
         List shipUnitElementList = UtilXml.childElementList(daShowShipmentElement, "ns:SHIPUNIT"); // n
         if(UtilValidate.isNotEmpty(shipUnitElementList)) {
+            Element shipUnitElement = (Element)shipUnitElementList.get(0);
+            String trackingNum = UtilXml.childElementValue(shipUnitElement, "of:TRACKINGID"); // of
+            String carrierCode = UtilXml.childElementValue(shipUnitElement, "of:CARRIER"); // of
+            if(UtilValidate.isNotEmpty(carrierCode)){
+                String carrierPartyId = null;
+                if( carrierCode.startsWith("F")) {                
+                    carrierPartyId = "FEDEX";                                           
+                } else if(carrierCode.startsWith("U")) {
+                    carrierPartyId = "UPS";                                            
+                }
+                try {
+                    Map resultMap = dispatcher.runSync("updateShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", "00001", "carrierPatyId", carrierPartyId, "trackingIdNumber", trackingNum, "userLogin", userLogin));                        
+                    if (ServiceUtil.isError(resultMap)){
+                        String errMsg = ServiceUtil.getErrorMessage(resultMap);
+                        errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "updateShipmentRouteSegmentError"));
+                        Debug.logError(errMsg, module);
+                    }
+                }catch (GenericServiceException e) {
+                    Debug.logInfo(e, module);
+                    String errMsg = "Error executing updateShipmentRouteSegment Service: "+e.toString();
+                    errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                }
+            }
+            
             Iterator shipUnitElementItr = shipUnitElementList.iterator();
             while(shipUnitElementItr.hasNext()) {                 
-                Element shipUnitElement = (Element) shipUnitElementItr.next();
-                String trackingNum = UtilXml.childElementValue(shipUnitElement, "of:TRACKINGID"); // of
+                shipUnitElement = (Element) shipUnitElementItr.next();
                 String shipmentPackageSeqId = UtilXml.childElementValue(shipUnitElement, "of:SHPUNITSEQ"); // of
                 List invItemElementList = UtilXml.childElementList(shipUnitElement, "ns:INVITEM"); //n
                 if(UtilValidate.isNotEmpty(invItemElementList)) {
