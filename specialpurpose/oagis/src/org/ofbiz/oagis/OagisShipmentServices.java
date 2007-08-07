@@ -196,9 +196,9 @@ public class OagisShipmentServices {
             String carrierCode = UtilXml.childElementValue(shipUnitElement, "of:CARRIER"); // of
             if(UtilValidate.isNotEmpty(carrierCode)){
                 String carrierPartyId = null;
-                if( carrierCode.startsWith("F")) {                
+                if( carrierCode.startsWith("F") || carrierCode.startsWith("f")) {                
                     carrierPartyId = "FEDEX";                                           
-                } else if(carrierCode.startsWith("U")) {
+                } else if(carrierCode.startsWith("U")|| carrierCode.startsWith("u")) {
                     carrierPartyId = "UPS";                                            
                 }
                 try {
