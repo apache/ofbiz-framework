@@ -19,22 +19,15 @@
 package org.ofbiz.oagis;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-
-
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -53,14 +46,12 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 public class OagisInventoryServices {
     
