@@ -202,7 +202,7 @@ public class OagisShipmentServices {
                     carrierPartyId = "UPS";                                            
                 }
                 try {
-                    Map resultMap = dispatcher.runSync("updateShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", "00001", "carrierPatyId", carrierPartyId, "trackingIdNumber", trackingNum, "userLogin", userLogin));                        
+                    Map resultMap = dispatcher.runSync("updateShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", "00001", "carrierPartyId", carrierPartyId, "trackingIdNumber", trackingNum, "userLogin", userLogin));                        
                     if (ServiceUtil.isError(resultMap)){
                         String errMsg = ServiceUtil.getErrorMessage(resultMap);
                         errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "updateShipmentRouteSegmentError"));
