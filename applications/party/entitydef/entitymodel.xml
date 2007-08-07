@@ -1663,7 +1663,7 @@ under the License.
         <field name="statusId" type="id"></field>
         <field name="lastInviteDate" type="date-time"></field>
         <prim-key field="partyInvitationId"/>
-        <relation type="one" rel-entity-name="Party">
+        <relation type="one" fk-name="PTYINV_PTY" rel-entity-name="Party">
             <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
         </relation>        
         <relation type="one" rel-entity-name="StatusItem">
