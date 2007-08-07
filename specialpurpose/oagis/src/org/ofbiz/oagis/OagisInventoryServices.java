@@ -386,26 +386,8 @@ public class OagisInventoryServices {
                 }
                 
                 String datetimeReceived = UtilXml.childElementValue(receiptLnElement, "os:DATETIMEISO");
-                Date dateTimeInvReceived = null;
-                Timestamp timestampItemReceived = null;
-                try{
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
-                    dateTimeInvReceived = sdf.parse(datetimeReceived);
-                }catch(ParseException e){
-                    Debug.logInfo("Message does not have timezone information in date field", module);
-                    try{
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'");
-                        dateTimeInvReceived = sdf.parse(datetimeReceived);
-                    }catch(ParseException e1){
-                        String errMsg = "Error parsing Date: " + e1.toString();
-                        errorMapList.add(UtilMisc.toMap("reasonCode", "ParseException", "description", errMsg));
-                        Debug.logError(e, errMsg, module);
-                    }
-                }
-                if(dateTimeInvReceived !=null){
-                    timestampItemReceived = new Timestamp( dateTimeInvReceived.getTime() );
-                    ripCtx.put("datetimeReceived", timestampItemReceived);
-                }
+                Timestamp timestampItemReceived = OagisServices.parseIsoDateString(datetimeReceived, errorMapList);
+                ripCtx.put("datetimeReceived", timestampItemReceived);
                 // Check reference to PO number, if exists
                 GenericValue orderHeader = null;
                 if(orderId != null) {
