@@ -83,6 +83,7 @@ public class ShoppingCart implements Serializable {
     private double billingAccountAmt = 0.00;
     private String agreementId = null;
     private String quoteId = null;
+    private String workEffortId = null;
     private long nextItemSeq = 1;
 
     private String defaultItemDeliveryDate = null;
@@ -172,6 +173,7 @@ public class ShoppingCart implements Serializable {
         this.poNumber = cart.getPoNumber();
         this.orderId = cart.getOrderId();
         this.orderName = "Copy of " + cart.getOrderName();
+        this.workEffortId = cart.getWorkEffortId();
         this.firstAttemptOrderId = cart.getFirstAttemptOrderId();
         this.billingAccountId = cart.getBillingAccountId();
         this.agreementId = cart.getAgreementId();
@@ -348,7 +350,15 @@ public class ShoppingCart implements Serializable {
     public String getOrderName() {
         return orderName;
     }
+
+    public void setWorkEffortId(String workEffortId) {
+        this.workEffortId = workEffortId;
+    }
     
+    public String getWorkEffortId() {
+        return workEffortId;
+    }
+
     public void setAttribute(String name, Object value) {
         this.attributes.put(name, value);
     }
@@ -3698,6 +3708,7 @@ public class ShoppingCart implements Serializable {
         result.put("transactionId", this.getTransactionId());
         result.put("originFacilityId", this.getFacilityId());
         result.put("terminalId", this.getTerminalId());
+        result.put("workEffortId", this.getWorkEffortId());
         result.put("autoOrderShoppingListId", this.getAutoOrderShoppingListId());
 
         result.put("billToCustomerPartyId", this.getBillToCustomerPartyId());
