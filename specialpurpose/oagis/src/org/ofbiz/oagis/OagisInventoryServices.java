@@ -46,6 +46,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -546,8 +547,7 @@ public class OagisInventoryServices {
                 Debug.logError(e, errMsg, module);
             }
         }
-
-        // parse the message 
+        // parse the message
         Element receiveRmaElement = doc.getDocumentElement();
         receiveRmaElement.normalize();
         Element docCtrlAreaElement = UtilXml.firstChildElement(receiveRmaElement, "os:CNTROLAREA");
@@ -568,162 +568,16 @@ public class OagisInventoryServices {
         String sentDate = UtilXml.childElementValue(docCtrlAreaElement, "os:DATETIMEISO");
         Timestamp sentTimestamp = OagisServices.parseIsoDateString(sentDate, errorMapList);
 
-        Element dataAreaElement = UtilXml.firstChildElement(receiveRmaElement, "n:DATAAREA");
-        Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "n:ACKNOWLEDGE_DELIVERY");
+        Element dataAreaElement = UtilXml.firstChildElement(receiveRmaElement, "ns:DATAAREA");
+        Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "ns:ACKNOWLEDGE_DELIVERY");
         
         String inventoryItemTypeId = null;
         String returnId = null;
         String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.PoReceiptFacilityId");
         String locationSeqId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.ReturnReceiptLocationSeqId");
         
-        // get RECEIPTLN elements from message
-        List acknowledgeElementList = UtilXml.childElementList(acknowledgeDeliveryElement, "n:RECEIPTLN");
-        if (UtilValidate.isNotEmpty(acknowledgeElementList)) {
-            Iterator acknowledgeElementIter = acknowledgeElementList.iterator();
-            while (acknowledgeElementIter.hasNext()) {
-                Map ripCtx = FastMap.newInstance();
-                Element receiptLnElement = (Element) acknowledgeElementIter.next();
-                Element qtyElement = UtilXml.firstChildElement(receiptLnElement, "os:QUANTITY");
-                
-                String itemQtyStr = UtilXml.childElementValue(qtyElement, "of:VALUE");
-                double itemQty = Double.parseDouble(itemQtyStr);
-                String sign = UtilXml.childElementValue(qtyElement, "of:SIGN");
-                
-                String productId = UtilXml.childElementValue(receiptLnElement, "of:ITEM");
-                
-                Element documentRefElement = UtilXml.firstChildElement(receiptLnElement, "os:DOCUMNTREF");
-                returnId = UtilXml.childElementValue(documentRefElement, "of:DOCUMENTID");
-                ripCtx.put("returnId", returnId);
-                
-                String returnItemSeqId = UtilXml.childElementValue(documentRefElement, "of:LINENUM");
-                ripCtx.put("returnItemSeqId", returnItemSeqId);
-                
-                // get inventory item status
-                String invItemStatus = UtilXml.childElementValue(receiptLnElement, "of:DISPOSITN");
-                if ( invItemStatus.equals("ReceivedTOAvailable") || invItemStatus.equals("NotAvailableTOAvailable")) {
-                    ripCtx.put("statusId", "INV_AVAILABLE");    
-                } else if ( invItemStatus.equals("ReceivedTONotAvailable") || invItemStatus.equals("AvailableTONotAvailable") ) {
-                    ripCtx.put("statusId", "INV_ON_HOLD");
-                }
-                // get the serial number(s) 
-                List serialNumsList = FastList.newInstance();
-                List invDetailList = UtilXml.childElementList(receiptLnElement, "n:INVDETAIL");
-                if (UtilValidate.isNotEmpty(invDetailList)) {
-                    inventoryItemTypeId = "SERIALIZED_INV_ITEM";
-                    ripCtx.put("inventoryItemTypeId", inventoryItemTypeId);
-                    for (Iterator j = invDetailList.iterator(); j.hasNext();) {
-                        Element invDetailElement = (Element) j.next();
-                        String serialNumber = UtilXml.childElementValue(invDetailElement, "of:SERIALNUM");
-                        if (UtilValidate.isNotEmpty(serialNumber)) {
-                            serialNumsList.add(serialNumber);
-                        }
-                    }
-
-                    /* DEJ20070711 Commenting this out because it shouldn't happen, ie more likely the ITEM element will be filled 
-                     * than INVDETAIL->SERIALNUM, and this isn't a reliable way to look it up (may be more than 1 record for a given 
-                     * serialNumber for different products 
-                    // this is a Serialized Inventory Item. If the productId from the message is not valid then lets read it from InventoryItem in Ofbiz database.
-                    if (productId == null || "".equals(productId)) {
-                        try {
-                            GenericValue inventoryItem = EntityUtil.getFirst(delegator.findByAnd("InventoryItem", UtilMisc.toMap("serialNumber", serialNumber)));
-                            if (inventoryItem !=null) {
-                                productId = inventoryItem.getString("productId");
-                            }
-                        } catch (GenericEntityException e){
-                            String errMsg = "Error Getting Entity InventoryItem";
-                            Debug.logError(e, errMsg, module);
-                        }
-                    } */
-                } else {
-                    inventoryItemTypeId = "NON_SERIAL_INV_ITEM";
-                    ripCtx.put("inventoryItemTypeId", inventoryItemTypeId);
-                }
-                inventoryItemTypeId = "NON_SERIAL_INV_ITEM";
-                ripCtx.put("inventoryItemTypeId", inventoryItemTypeId);
-                
-                ripCtx.put("productId", productId);
-                ripCtx.put("facilityId",facilityId);
-                ripCtx.put("locationSeqId", locationSeqId);
-                ripCtx.put("userLogin", userLogin);
-
-                // sign handling for items
-                double quantityAccepted = 0.0;
-                double quantityRejected = 0.0;
-                if (sign.equals("+")) {
-                    quantityAccepted = itemQty;
-                    quantityRejected= 0.0;
-                } else {
-                    quantityRejected = itemQty;
-                    quantityAccepted = 0.0;
-                }
-                if (quantityAccepted > 0) {
-                    if (serialNumsList.size() > 0) {
-                        if (serialNumsList.size() != quantityAccepted) {
-                            // this is an error, do something about it, like add to the list to send back a Confirm BOD with error messages
-                            String errMsg = "Error: the quantity [" + quantityAccepted + "] did not match the number of serial numbers passed [" + serialNumsList.size() + "].";
-                            errorMapList.add(UtilMisc.toMap("reasonCode", "QuantitySerialMismatch", "description", errMsg));
-                        }
-
-                        Iterator serialNumIter = serialNumsList.iterator();
-                        while (serialNumIter.hasNext()) {
-                            String serialNum = (String) serialNumIter.next();
-                            
-                            // clone the context as it may be changted in the call
-                            Map localRipCtx = FastMap.newInstance();
-                            localRipCtx.putAll(ripCtx);
-                            
-                            localRipCtx.put("quantityAccepted", new Double(1.0));
-                            // always set this to 0, if needed we'll handle the rejected quantity separately
-                            localRipCtx.put("quantityRejected", new Double(0.0));
-
-                            localRipCtx.put("serialNumber", serialNum);
-                            
-                            try {
-                                Map ripResult = dispatcher.runSync("receiveInventoryProduct", localRipCtx);
-                                if (ServiceUtil.isError(ripResult)) {
-                                    String errMsg = ServiceUtil.getErrorMessage(ripResult);
-                                    errorMapList.add(UtilMisc.toMap("reasonCode", "ReceiveInventoryServiceError", "description", errMsg));
-                                }
-                            } catch (GenericServiceException e) {
-                                String errMsg = "Error running service receiveInventoryProduct: " + e.toString();
-                                errorMapList.add(UtilMisc.toMap("reasonCode", "GenericServiceException", "description", errMsg));
-                                Debug.logError(e, errMsg, module);
-                            }    
-                        }
-                    } else {
-                        // no serial numbers, just receive the quantity
-                        
-                        // clone the context as it may be changted in the call
-                        Map localRipCtx = FastMap.newInstance();
-                        localRipCtx.putAll(ripCtx);
-                        
-                        localRipCtx.put("quantityAccepted", new Double(quantityAccepted));
-                        // always set this to 0, if needed we'll handle the rejected quantity separately
-                        localRipCtx.put("quantityRejected", new Double(0.0));
-                        
-                        try {
-                            Map ripResult = dispatcher.runSync("receiveInventoryProduct", localRipCtx);
-                            if (ServiceUtil.isError(ripResult)) {
-                                String errMsg = ServiceUtil.getErrorMessage(ripResult);
-                                errorMapList.add(UtilMisc.toMap("reasonCode", "ReceiveInventoryServiceError", "description", errMsg));
-                            }
-                        } catch (GenericServiceException e) {
-                            String errMsg = "Error running service receiveInventoryProduct: " + e.toString();
-                            errorMapList.add(UtilMisc.toMap("reasonCode", "GenericServiceException", "description", errMsg));
-                            Debug.logError(e, errMsg, module);
-                        }    
-                    }
-                } else {
-                    // TODOLATER: need to run service receiveInventoryProduct and updateInventoryItem when quantityRejected > 0
-                    // NOTE DEJ20070711 this shouldn't happen for current needs, so save for later
-                }
-            }
-        }         
-        //prepare result Map for createOagisMessageinfo
-            
-        Timestamp timestamp = null;
-        timestamp = UtilDateTime.nowTimestamp();
-        Map comiCtx = new HashMap(); 
+        Timestamp timestamp = UtilDateTime.nowTimestamp();
+        Map comiCtx = FastMap.newInstance();
         comiCtx.put("logicalId", logicalId);
         comiCtx.put("authId", authId);
         comiCtx.put("referenceId", referenceId);
@@ -736,30 +590,214 @@ public class OagisInventoryServices {
         comiCtx.put("bsrVerb", bsrVerb);
         comiCtx.put("bsrNoun", bsrNoun);
         comiCtx.put("bsrRevision", bsrRevision);
+        comiCtx.put("processingStatusId", "OAGMP_RECEIVED");
         comiCtx.put("userLogin", userLogin);
-        if (OagisServices.debugSaveXmlIn) {
+//        if (OagisServices.debugSaveXmlIn) {
+//            try {
+//                comiCtx.put("fullMessageXml", UtilXml.writeXmlDocument(doc));
+//            } catch (IOException e) {
+//                // this is just for debug info, so just log and otherwise ignore error
+//                String errMsg = "Warning: error creating text from XML Document for saving to database: " + e.toString();
+//                Debug.logWarning(errMsg, module);
+//            }
+//        }
+//        try {
+//            dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
+//            /* running async for better error handling
+//            if (ServiceUtil.isError(comiResult)) { 
+//                String errMsg = ServiceUtil.getErrorMessage(comiResult);
+//                errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageServiceError", "description", errMsg)); 
+//            }
+//            */
+//        } catch (GenericServiceException e) {
+//            String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
+//            Debug.logError(e, errMsg, module);
+//        }
+        
+        String statusId = null;
+        // get RECEIPTLN elements from message
+        List acknowledgeElementList = UtilXml.childElementList(acknowledgeDeliveryElement, "ns:RECEIPTLN");
+        if (UtilValidate.isNotEmpty(acknowledgeElementList)) {
+            Iterator acknowledgeElementIter = acknowledgeElementList.iterator();
+            while (acknowledgeElementIter.hasNext()) {
+                Map ripCtx = FastMap.newInstance();
+                Element receiptLnElement = (Element) acknowledgeElementIter.next();
+                Element qtyElement = UtilXml.firstChildElement(receiptLnElement, "os:QUANTITY");
+
+                String itemQtyStr = UtilXml.childElementValue(qtyElement, "of:VALUE");
+                double itemQty = Double.parseDouble(itemQtyStr);
+                String sign = UtilXml.childElementValue(qtyElement, "of:SIGN");
+
+                String productId = UtilXml.childElementValue(receiptLnElement, "of:ITEM");
+                if ( productId == null ) {
+                    String errMsg = "productId not available in Message" ;
+                    errorMapList.add(UtilMisc.toMap("reasonCode", "ParseException", "description", errMsg));
+                    Debug.logError(errMsg, module);
+                }
+                Element documentRefElement = UtilXml.firstChildElement(receiptLnElement, "os:DOCUMNTREF");
+                returnId = UtilXml.childElementValue(documentRefElement, "of:DOCUMENTID");
+                ripCtx.put("returnId", returnId);
+
+                String returnHeaderTypeId = UtilXml.childElementValue(documentRefElement, "of:DOCTYPE");
+                if(returnHeaderTypeId.equals("RMA")) {
+                    returnHeaderTypeId = "CUSTOMER_RETURN";
+                }
+                String returnItemSeqId = UtilXml.childElementValue(documentRefElement, "of:LINENUM");
+                String datetimeReceived = UtilXml.childElementValue(receiptLnElement, "os:DATETIMEISO");
+                Timestamp timestampItemReceived = OagisServices.parseIsoDateString(datetimeReceived, errorMapList);
+                ripCtx.put("datetimeReceived", timestampItemReceived);
+
+                GenericValue returnHeader = null;
+                try {
+                    returnHeader = delegator.findByPrimaryKey("ReturnHeader", UtilMisc.toMap("returnId", returnId));
+                } catch  (GenericEntityException e) {
+                    String errMsg = "Error Getting ReturnHeader: " + e.toString();
+                    errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
+                    Debug.logError(e, errMsg, module);
+                }
+
+                if (UtilValidate.isNotEmpty(returnHeader)) {
+                    statusId = returnHeader.get("statusId").toString();
+                    if (statusId.equals("RETURN_ACCEPTED")) {
+                        // getting inventory item status
+                        String invItemStatus = UtilXml.childElementValue(receiptLnElement, "of:DISPOSITN");
+                        if ( invItemStatus.equals("ReceivedTOAvailable") || invItemStatus.equals("NotAvailableTOAvailable")) {
+                            ripCtx.put("statusId", "INV_AVAILABLE");
+                        } else if ( invItemStatus.equals("ReceivedTONotAvailable") || invItemStatus.equals("AvailableTONotAvailable") ) {
+                            ripCtx.put("statusId", "INV_ON_HOLD");
+                        }
+                        // geting the serial number(s)
+                        String serialNumber = null;
+                        List serialNumsList = FastList.newInstance();
+                        List invDetailList = UtilXml.childElementList(receiptLnElement, "ns:INVDETAIL");
+                        if (UtilValidate.isNotEmpty(invDetailList)) {
+                            inventoryItemTypeId = "SERIALIZED_INV_ITEM";
+                            ripCtx.put("inventoryItemTypeId", inventoryItemTypeId);
+                            for (Iterator j = invDetailList.iterator(); j.hasNext();) {
+                                Element invDetailElement = (Element) j.next();
+                                serialNumber = UtilXml.childElementValue(invDetailElement, "of:SERIALNUM");
+                                if (UtilValidate.isNotEmpty(serialNumber)) {
+                                    serialNumsList.add(serialNumber);
+                                }
+                            }
+                            
+                            /* DEJ20070711 Commenting this out because it shouldn't happen, ie more likely the ITEM element will be filled 
+                             * than INVDETAIL->SERIALNUM, and this isn't a reliable way to look it up (may be more than 1 record for a given 
+                             * serialNumber for different products 
+                             // this is a Serialized Inventory Item. If the productId from the message is not valid then lets read it from InventoryItem in Ofbiz database.
+                             if (productId == null || "".equals(productId)) {
+                             try {
+                                 GenericValue inventoryItem = EntityUtil.getFirst(delegator.findByAnd("InventoryItem", UtilMisc.toMap("serialNumber", serialNumber)));
+                                 if (inventoryItem !=null) {
+                                     productId = inventoryItem.getString("productId");
+                                 }
+                             } catch (GenericEntityException e){
+                                 String errMsg = "Error Getting Entity InventoryItem";
+                                 Debug.logError(e, errMsg, module);
+                            } */
+                        } else {
+                            inventoryItemTypeId = "NON_SERIAL_INV_ITEM";
+                            ripCtx.put("inventoryItemTypeId", inventoryItemTypeId);
+                        }
+                        ripCtx.put("facilityId",facilityId);
+                        ripCtx.put("locationSeqId", locationSeqId);
+                        ripCtx.put("userLogin", userLogin);
+
+                        // sign handling for items
+                        double quantityAccepted = 0.0;
+                        double quantityRejected = 0.0;
+                        if (sign.equals("+")) {
+                            quantityAccepted = itemQty;
+                            quantityRejected= 0.0;
+                        } else {
+                            quantityRejected = itemQty;
+                            quantityAccepted = 0.0;
+                        }
+                        if (quantityAccepted > 0) {
+                            if (serialNumsList.size() > 0) {
+                                if (serialNumsList.size() != quantityAccepted) {
+                                    String errMsg = "Error: the quantity [" + quantityAccepted + "] did not match the number of serial numbers passed [" + serialNumsList.size() + "].";
+                                    errorMapList.add(UtilMisc.toMap("reasonCode", "QuantitySerialMismatch", "description", errMsg));
+                                }
+
+                                Iterator serialNumIter = serialNumsList.iterator();
+                                while (serialNumIter.hasNext()) {
+                                    String serialNum = (String) serialNumIter.next();
+                                    try {
+                                        GenericValue inventoryItem = EntityUtil.getFirst(delegator.findByAnd("InventoryItem", UtilMisc.toMap("serialNumber", serialNum)));
+                                        if (inventoryItem != null) {
+                                            String inventoryItemProductId = inventoryItem.getString("productId");
+                                            if(inventoryItemProductId.equals(productId)) {
+                                                Map updateInvItmMap = FastMap.newInstance();
+                                                updateInvItmMap.put( "inventoryItemId" , inventoryItem.get("inventoryItemId").toString());
+                                                updateInvItmMap.put( "userLogin" , userLogin);
+                                                updateInvItmMap.put( "productId",productId);
+                                                updateInvItmMap.put( "statusId","INV_ON_HOLD");
+                                                try {
+                                                    Map test = dispatcher.runSync("updateInventoryItem", updateInvItmMap);
+                                                } catch (GenericServiceException e) {
+                                                    String errMsg = "Error running service updateInventoryItem: " + e.toString();
+                                                    errorMapList.add(UtilMisc.toMap("reasonCode", "GenericServiceException", "description", errMsg));
+                                                    Debug.logError(e, errMsg, module);
+                                                }
+                                            }
+                                        }
+                                    } catch (GenericEntityException e) {
+                                        String errMsg = "Error Getting Entity InventoryItem";
+                                        Debug.logError(e, errMsg, module);
+                                    }
+
+                                    // clone the context as it may be changed in the call
+                                    Map localRipCtx = FastMap.newInstance();
+                                    localRipCtx.putAll(ripCtx);
+                                    localRipCtx.put("quantityAccepted", new Double(1.0));
+                                    // always set this to 0, if needed we'll handle the rejected quantity separately
+                                    localRipCtx.put("quantityRejected", new Double(0.0));
+
+                                    localRipCtx.put("serialNumber", serialNum);
+                                    localRipCtx.put("productId", productId);
+                                    localRipCtx.put("returnItemSeqId", returnItemSeqId);
+                                    runReceiveInventoryProduct( localRipCtx , errorMapList , dispatcher);
+                                }
+                            } else {
+                                // no serial numbers, just receive the quantity
+                                // clone the context as it may be changted in the call
+                                Map localRipCtx = FastMap.newInstance();
+                                localRipCtx.putAll(ripCtx);
+                                localRipCtx.put("quantityAccepted", new Double(quantityAccepted));
+                                // always set this to 0, if needed we'll handle the rejected quantity separately
+                                localRipCtx.put("quantityRejected", new Double(0.0));
+                                localRipCtx.put("productId", productId);
+                                localRipCtx.put("returnItemSeqId", returnItemSeqId);
+                                runReceiveInventoryProduct( localRipCtx , errorMapList , dispatcher);
+                            }
+                        } else {
+                            // TODOLATER: need to run service receiveInventoryProduct and updateInventoryItem when quantityRejected > 0
+                            // NOTE DEJ20070711 this shouldn't happen for current needs, so save for later
+                        }
+                    } else { 
+                        String errMsg = "Return status is not RETURN_ACCEPTED";
+                        Debug.logError(errMsg, module);
+                        errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
+                    }
+                } else {
+                    String errMsg = "ReturnId Not Valid: Id not present in Database";
+                    Debug.logError(errMsg, module);
+                    errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
+                }
+            }
+            statusId = "RETURN_COMPLETED";
             try {
-                comiCtx.put("fullMessageXml", UtilXml.writeXmlDocument(doc));
-            } catch (IOException e) {
-                // this is just for debug info, so just log and otherwise ignore error
-                String errMsg = "Warning: error creating text from XML Document for saving to database: " + e.toString();
-                Debug.logWarning(errMsg, module);
+                dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("statusId", statusId, "returnId", returnId, "userLogin", userLogin));
+            } catch (GenericServiceException e) {
+                String errMsg = "Error Storing the value: " + e.toString();
+                errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
+                Debug.logError(e, errMsg, module);
             }
         }
-        try {
-            dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
-            /* running async for better error handling
-            if (ServiceUtil.isError(comiResult)) {
-                String errMsg = ServiceUtil.getErrorMessage(comiResult);
-                errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageServiceError", "description", errMsg));
-            }
-            */
-        } catch (GenericServiceException e) {
-            String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
-            // reconsider sending this error back to other server, not much they can do about it, and it may not be a critical error causing the message to be rejected...
-            //errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageInfoError", "description", errMsg));
-            Debug.logError(e, errMsg, module);
-        }
+
+        // prepare result Map for createOagisMessageinfo
+        
         
         Map result = FastMap.newInstance();
         result.put("logicalId", logicalId);
@@ -767,14 +805,40 @@ public class OagisInventoryServices {
         result.put("task", task);
         result.put("referenceId", referenceId);
         result.put("userLogin", userLogin);
-        
         if (errorMapList.size() > 0) {
             result.put("errorMapList", errorMapList);
             String errMsg = "Error Processing Received Messages";
             result.putAll(ServiceUtil.returnError(errMsg));
             return result;
         }
+        
+        comiCtx.put("returnId", returnId);
+        comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
+        try {
+            dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
+        } catch (GenericServiceException e){
+            String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+            Debug.logError(e, errMsg, module);
+        }
+        
         result.putAll(ServiceUtil.returnSuccess("Action Performed Successfully"));
         return result;
     }
+
+    public static void runReceiveInventoryProduct(Map localRipCtx, List errorMapList, LocalDispatcher dispatcher) {
+        try {
+            Map ripResult = dispatcher.runSync("receiveInventoryProduct",
+                    localRipCtx);
+            if (ServiceUtil.isError(ripResult)) {
+                String errMsg = ServiceUtil.getErrorMessage(ripResult);
+                errorMapList.add(UtilMisc.toMap("reasonCode", "ReceiveInventoryServiceError", "description", errMsg));
+            }
+        } catch (GenericServiceException e) {
+            String errMsg = "Error running service receiveInventoryProduct: "
+                    + e.toString();
+            errorMapList.add(UtilMisc.toMap("reasonCode", "GenericServiceException", "description", errMsg));
+            Debug.logError(e, errMsg, module);
+        }
+    }
+    
 }
