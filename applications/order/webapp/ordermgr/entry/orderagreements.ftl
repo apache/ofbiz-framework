@@ -104,6 +104,18 @@ under the License.
 
       <tr>
         <td>&nbsp;</td>
+        <td class="tableheadtext" align="right">
+          ${uiLabelMap.WorkEffortWorkEffortId}
+        </td>
+        <td>&nbsp;</td>
+        <td align="left">
+          <input type="text" name="workEffortId" size="15"/>
+          <a href="javascript:call_fieldlookup2(document.agreementForm.workEffortId,'LookupWorkEffort');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+        </td>
+      </tr>
+
+      <tr>
+        <td>&nbsp;</td>
         <td align='right' valign='top' nowrap>
           <div class='tableheadtext'>
             ${uiLabelMap.OrderShipAfterDateDefault}

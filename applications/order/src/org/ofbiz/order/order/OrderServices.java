@@ -965,6 +965,15 @@ public class OrderServices {
            }
        }
 
+       // if a workEffortId is passed, then prepare a OrderHeaderWorkEffort value
+       String workEffortId = (String) context.get("workEffortId");
+       if (UtilValidate.isNotEmpty(workEffortId)) {
+           GenericValue orderHeaderWorkEffort = delegator.makeValue("OrderHeaderWorkEffort", null);
+           orderHeaderWorkEffort.set("orderId", orderId);
+           orderHeaderWorkEffort.set("workEffortId", workEffortId);
+           toBeStored.add(orderHeaderWorkEffort);
+       }
+
         try {
             // store line items, etc so that they will be there for the foreign key checks
             delegator.storeAll(toBeStored);
