@@ -99,15 +99,14 @@ public class OagisInventoryServices {
         String authId = UtilXml.childElementValue(docSenderElement, "of:AUTHID");
         
         // data area elements
-        Element dataAreaElement = UtilXml.firstChildElement(syncInventoryRootElement, "ns:DATAAREA");
-        Element syncInventoryElement = UtilXml.firstChildElement(dataAreaElement, "ns:SYNC_INVENTORY");
-        
-        // get Inventory elements from message
-        List syncInventoryElementList = UtilXml.childElementList(syncInventoryElement, "ns:INVENTORY");
-        if (UtilValidate.isNotEmpty(syncInventoryElementList)) {
-            Iterator syncInventoryElementIter = syncInventoryElementList.iterator();
-            while (syncInventoryElementIter.hasNext()) {
-                Element inventoryElement = (Element) syncInventoryElementIter.next();
+        List dataAreaList = UtilXml.childElementList(syncInventoryRootElement, "ns:DATAAREA");
+        if (UtilValidate.isNotEmpty(dataAreaList)) {
+            Iterator dataAreaIter = dataAreaList.iterator();
+            while (dataAreaIter.hasNext()) {
+                Element dataAreaElement = (Element) dataAreaIter.next();
+                Element syncInventoryElement = UtilXml.firstChildElement(dataAreaElement, "ns:SYNC_INVENTORY");
+                Element inventoryElement = UtilXml.firstChildElement(syncInventoryElement, "ns:INVENTORY");
+
                 Element quantityElement = UtilXml.firstChildElement(inventoryElement, "os:QUANTITY");
                 
                 String itemQtyStr = UtilXml.childElementValue(quantityElement, "of:VALUE");
