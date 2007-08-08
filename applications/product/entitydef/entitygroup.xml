@@ -47,6 +47,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="ProductCategoryMemberAndRole" />
     <entity-group group="org.ofbiz" entity="ProductCategoryRole" />
     <entity-group group="org.ofbiz" entity="ProductCategoryRollup" />
+    <entity-group group="org.ofbiz" entity="ProductCategoryRollupAndChild" />
     <entity-group group="org.ofbiz" entity="ProductCategoryRollupAndRole" />
     <entity-group group="org.ofbiz" entity="ProductCategoryType" />
     <entity-group group="org.ofbiz" entity="ProductCategoryTypeAttr" />
