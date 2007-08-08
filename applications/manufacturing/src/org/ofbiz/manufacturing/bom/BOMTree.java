@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -345,7 +346,8 @@ public class BOMTree {
                     facilityId = shipment.getString("originFacilityId");
                 }
             }
-            workEffortId = root.createManufacturingOrder(facilityId, date, workEffortName, description, routingId, orderId, orderItemSeqId, shipmentId, true);
+            Map tmpMap = root.createManufacturingOrder(facilityId, date, workEffortName, description, routingId, orderId, orderItemSeqId, shipmentId, true, true);
+            workEffortId = (String)tmpMap.get("productionRunId");
         }
         return workEffortId;
     }
