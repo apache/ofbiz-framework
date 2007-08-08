@@ -274,9 +274,10 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
         // find the sub-content with matching mapKey
         List orderBy = UtilMisc.toList("-fromDate");
-        List exprs = UtilMisc.toList(new EntityExpr("contentId", EntityOperator.EQUALS, contentId),
-                //new EntityExpr("contentAssocTypeId", EntityOperator.EQUALS, "SUB_CONTENT"),
-                new EntityExpr("mapKey", EntityOperator.EQUALS, mapKey));
+        List exprs = UtilMisc.toList(new EntityExpr("contentId", EntityOperator.EQUALS, contentId));
+        if (UtilValidate.isNotEmpty(mapKey)) {
+                exprs.add(new EntityExpr("mapKey", EntityOperator.EQUALS, mapKey));
+        }
 
         List assocs;
         if (cache) {
