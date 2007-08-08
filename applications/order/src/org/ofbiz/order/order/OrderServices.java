@@ -1672,7 +1672,7 @@ public class OrderServices {
             }
 
             // now set the new order status
-            if (newStatus != null) {
+            if (newStatus != null && !newStatus.equals(orderHeaderStatusId)) {
                 Map serviceContext = UtilMisc.toMap("orderId", orderId, "statusId", newStatus, "userLogin", userLogin);
                 Map newSttsResult = null;
                 try {
