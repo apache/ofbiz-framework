@@ -313,7 +313,7 @@ under the License.
             <set from-field="inventoryItemReservation.reserveOrderEnumId" field="reserveOisgirMap.reserveOrderEnumId"/>
             <set from-field="inventoryItemReservation.reservedDatetime" field="reserveOisgirMap.reservedDatetime"/>
             <set field="reserveOisgirMap.quantity" value="1" type="Double"/>
-            <set field="reserveOisgirMap.requireInventory" value="N"/>
+            <set field="reserveOisgirMap.requireInventory" from-field="parameters.requireInventory"/>
             <if-not-empty field-name="inventoryItemReservation.sequenceId">
                 <set field="reserveOisgirMap.sequenceId" from-field="inventoryItemReservation.sequenceId"/>
             </if-not-empty>
