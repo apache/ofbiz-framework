@@ -499,15 +499,26 @@ public class BOMNode {
         }
     }
 
-    public String createManufacturingOrder(String facilityId, Date date, String workEffortName, String description, String routingId, String orderId, String orderItemSeqId, String shipmentId, boolean useSubstitute) throws GenericEntityException {
+    public Map createManufacturingOrder(String facilityId, Date date, String workEffortName, String description, String routingId, String orderId, String orderItemSeqId, String shipmentId, boolean useSubstitute, boolean ignoreSupplierProducts) throws GenericEntityException {
         String productionRunId = null;
-        if (isManufactured()) {
+        Timestamp endDate = null;
+        if (isManufactured(ignoreSupplierProducts)) {
             BOMNode oneChildNode = null;
             ArrayList childProductionRuns = new ArrayList();
+            Timestamp maxEndDate = null;
             for (int i = 0; i < childrenNodes.size(); i++) {
                 oneChildNode = (BOMNode)childrenNodes.get(i);
                 if (oneChildNode != null) {
-                    String childProductionRunId = oneChildNode.createManufacturingOrder(facilityId, date, null, null, null, null, null, shipmentId, false);
+                    Map tmpResult = oneChildNode.createManufacturingOrder(facilityId, date, null, null, null, null, null, shipmentId, false, false);
+                    String childProductionRunId = (String)tmpResult.get("productionRunId");
+                    Timestamp childEndDate = (Timestamp)tmpResult.get("endDate");
+                    if (maxEndDate == null) {
+                        maxEndDate = childEndDate;
+                    }
+                    if (childEndDate != null && maxEndDate.compareTo(childEndDate) < 0) {
+                        maxEndDate = childEndDate;
+                    }
+
                     if (childProductionRunId != null) {
                         childProductionRuns.add(childProductionRunId);
                     }
@@ -540,12 +551,17 @@ public class BOMNode {
             }
             
             serviceContext.put("pRQuantity", new Double(getQuantity()));
-            serviceContext.put("startDate", startDate);
+            if (UtilValidate.isNotEmpty(maxEndDate)) {
+                serviceContext.put("startDate", maxEndDate);
+            } else {
+                serviceContext.put("startDate", startDate);
+            }
             serviceContext.put("userLogin", userLogin);
             Map resultService = null;
             try {
                 resultService = dispatcher.runSync("createProductionRun", serviceContext);
                 productionRunId = (String)resultService.get("productionRunId");
+                endDate = (Timestamp)resultService.get("estimatedCompletionDate");
             } catch (GenericServiceException e) {
                 Debug.logError("Problem calling the createProductionRun service", module);
             }
@@ -562,7 +578,7 @@ public class BOMNode {
                 //Debug.logError(e, "Problem calling the getManufacturingComponents service", module);
             }
         }
-        return productionRunId;
+        return UtilMisc.toMap("productionRunId", productionRunId, "endDate", endDate);
     }
 
     public Timestamp getStartDate(String facilityId, Timestamp requiredBydate, boolean allNodes) {
@@ -620,7 +636,7 @@ public class BOMNode {
         return isWarehouseManaged;
     }
 
-    public boolean isManufactured() {
+    public boolean isManufactured(boolean ignoreSupplierProducts) {
         List supplierProducts = null;
         try {
             supplierProducts = product.getRelated("SupplierProduct", UtilMisc.toMap("supplierPrefOrderId", "10_MAIN_SUPPL"), UtilMisc.toList("minimumOrderQuantity"));
@@ -628,7 +644,10 @@ public class BOMNode {
             Debug.logError("Problem in BOMNode.isManufactured()", module);
         }
         supplierProducts = EntityUtil.filterByDate(supplierProducts, UtilDateTime.nowTimestamp(), "availableFromDate", "availableThruDate", true);
-        return childrenNodes.size() > 0 && UtilValidate.isEmpty(supplierProducts);
+        return childrenNodes.size() > 0 && (ignoreSupplierProducts || UtilValidate.isEmpty(supplierProducts));
+    }
+    public boolean isManufactured() {
+        return isManufactured(false);
     }
     
     public boolean isVirtual() {

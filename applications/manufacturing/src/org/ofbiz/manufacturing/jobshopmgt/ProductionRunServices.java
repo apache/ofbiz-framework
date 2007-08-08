@@ -432,6 +432,7 @@ public class ProductionRunServices {
             Debug.logError(e, "Problem calling the updateWorkEffort service", module);
         }
         result.put("productionRunId", productionRunId);
+        result.put("estimatedCompletionDate", startDate);
         result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "ManufacturingProductionRunCreated",UtilMisc.toMap("productionRunId", productionRunId), locale));
         return result;
     }
@@ -1848,8 +1849,12 @@ public class ProductionRunServices {
         try {
             resultService = dispatcher.runSync("createProductionRunsForProductBom", serviceContext);
         } catch (GenericServiceException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotCreated", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotCreated", locale) + ": " + e.getMessage());
         }
+        if (ServiceUtil.isError(resultService)) {
+            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resultService));
+        }
+
         String productionRunId = (String)resultService.get("productionRunId");
         result.put("productionRunId", productionRunId);
 
@@ -2149,6 +2154,9 @@ public class ProductionRunServices {
         String description = (String)context.get("description");
         String routingId = (String)context.get("routingId");
         String workEffortId = null;
+        if (quantity == null) {
+            quantity = new Double(1.0);
+        }
         try {
             ArrayList components = new ArrayList();
             BOMTree tree = new BOMTree(productId, "MANUF_COMPONENT", startDate, BOMTree.EXPLOSION_MANUFACTURING, delegator, dispatcher, userLogin);
@@ -2158,6 +2166,9 @@ public class ProductionRunServices {
             workEffortId = tree.createManufacturingOrders(facilityId, startDate, workEffortName, description, routingId, null, null, null, userLogin);
         } catch(GenericEntityException gee) {
             return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
+        }
+        if (workEffortId == null) {
+            return ServiceUtil.returnError("No production run is required for product with id [" + productId +"] in date [" + startDate + "]; please verify the validity dates of the bill of materials and routing.");
         }
         ArrayList productionRuns = new ArrayList();
         result.put("productionRuns" , productionRuns);
