@@ -459,6 +459,17 @@ under the License.
             <index-field name="parentProductCategoryId"/>
         </index>
     </entity>
+    <view-entity entity-name="ProductCategoryRollupAndChild" package-name="org.ofbiz.product.category">
+        <member-entity entity-alias="PCR" entity-name="ProductCategoryRollup"/>
+        <member-entity entity-alias="CPC" entity-name="ProductCategory"/>
+        <alias-all entity-alias="CPC"/>
+        <alias entity-alias="PCR" name="parentProductCategoryId"/>
+        <alias entity-alias="PCR" name="fromDate"/>
+        <alias entity-alias="PCR" name="thruDate"/>
+        <view-link entity-alias="PCR" rel-entity-alias="CPC">
+            <key-map field-name="productCategoryId"/>
+        </view-link>
+    </view-entity>
     <view-entity entity-name="ProductCategoryRollupAndRole"
             package-name="org.ofbiz.product.category"
             title="ProductCategoryRollup And ProductCategoryRole View Entity">
