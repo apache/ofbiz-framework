@@ -224,8 +224,14 @@ public class OagisShipmentServices {
                     Iterator invItemElementItr = invItemElementList.iterator();
                     while(invItemElementItr.hasNext()) {                 
                         Element invItemElement = (Element) invItemElementItr.next();
-                        String productId = UtilXml.childElementValue(invItemElement, "of:ITEM"); // of                
-                        try {                                    
+                        String productId = UtilXml.childElementValue(invItemElement, "of:ITEM"); // of
+                        
+                        try {
+                            Element quantityElement = UtilXml.firstChildElement(invItemElement, "os:QUANTITY"); // os
+                            String quantityValueStr = UtilXml.childElementValue(quantityElement, "of:VALUE"); // os
+                            // TODO: <of:NUMOFDEC>0</of:NUMOFDEC> should always be 0, but might want to add code to check
+                            Integer messageQuantity = Integer.valueOf(quantityValueStr);
+
                             GenericValue shipmentItem = EntityUtil.getFirst(delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId, "productId",productId)));                    
                             String shipmentItemSeqId = shipmentItem.getString("shipmentItemSeqId");                      
                             GenericValue orderShipment = EntityUtil.getFirst(delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItemSeqId)));                    
@@ -233,34 +239,99 @@ public class OagisShipmentServices {
                             String orderItemSeqId = orderShipment.getString("orderItemSeqId");                
                             GenericValue product = delegator.findByPrimaryKey("Product",UtilMisc.toMap("productId",productId));                    
                             String requireInventory = product.getString("requireInventory");                    
-                            if(requireInventory == null) {
+                            if (requireInventory == null) {
                                 requireInventory = "N";
-                            }                    
-                            GenericValue orderItemShipGrpInvReservation = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGrpInvRes", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId,"shipGroupSeqId",shipGroupSeqId)));               
-                            Map isitspastCtx = UtilMisc.toMap("orderId", orderId, "shipGroupSeqId", shipGroupSeqId, "orderItemSeqId", orderItemSeqId);                
-                            isitspastCtx.put("productId", productId);
-                            isitspastCtx.put("reservedDatetime", orderItemShipGrpInvReservation.get("reservedDatetime"));
-                            isitspastCtx.put("requireInventory", requireInventory);
-                            isitspastCtx.put("reserveOrderEnumId", orderItemShipGrpInvReservation.get("reserveOrderEnumId"));
-                            isitspastCtx.put("sequenceId", orderItemShipGrpInvReservation.get("sequenceId"));
-                            isitspastCtx.put("originFacilityId", originFacilityId);
-                            isitspastCtx.put("userLogin", userLogin);            
-                            isitspastCtx.put("trackingNum", trackingNum);
-                            isitspastCtx.put("inventoryItemId", orderItemShipGrpInvReservation.get("inventoryItemId"));                
-                            isitspastCtx.put("shipmentId", shipmentId);      
-                            isitspastCtx.put("shipmentPackageSeqId", shipmentPackageSeqId);
-                            isitspastCtx.put("promisedDatetime", orderItemShipGrpInvReservation.get("promisedDatetime"));
-                            List invDetailElementList = UtilXml.childElementList(invItemElement, "ns:INVDETAIL"); //n                            
-                            if(UtilValidate.isNotEmpty(invDetailElementList)) {
-                                Iterator invDetailElementItr = invDetailElementList.iterator();
-                                while(invDetailElementItr.hasNext()) {
-                                    Element invDetailElement = (Element) invDetailElementItr.next();
-                                    String serialNumber = UtilXml.childElementValue(invDetailElement, "of:SERIALNUM"); // os                                                                                   
-                                    isitspastCtx.put("serialNumber", serialNumber);
-                                    isitspastCtx.put("quantity", new Double (1));
-                                    isitspastCtx.put("inventoryItemId", orderItemShipGrpInvReservation.get("inventoryItemId"));
-                                    isitspastCtx.remove("itemIssuanceId");                            
+                            }
+                            
+                            // TODO and NOTE: could there be more than one reservation record for a given shipment item? for example if there wasn't enough quantity in one inventory item and reservations on two were needed? yes
+                            List orderItemShipGrpInvReservationList = delegator.findByAnd("OrderItemShipGrpInvRes", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId,"shipGroupSeqId",shipGroupSeqId));
+                            
+                            // find the total quantity for all reservations
+                            int totalReserved = 0;
+                            Iterator orderItemShipGrpInvReservationCountIter = orderItemShipGrpInvReservationList.iterator();
+                            while (orderItemShipGrpInvReservationCountIter.hasNext()) {
+                                GenericValue orderItemShipGrpInvReservation = (GenericValue) orderItemShipGrpInvReservationCountIter.next();
+                                if (orderItemShipGrpInvReservation.getDouble("quantity") != null) {
+                                    totalReserved += orderItemShipGrpInvReservation.getDouble("quantity").doubleValue();
+                                }
+                            }
+
+                            List serialNumberList = FastList.newInstance();
+                            List invDetailElementList = UtilXml.childElementList(invItemElement, "ns:INVDETAIL"); //n
+                            Iterator invDetailElementItr = invDetailElementList.iterator();
+                            while(invDetailElementItr.hasNext()) {
+                                Element invDetailElement = (Element) invDetailElementItr.next();
+                                String serialNumber = UtilXml.childElementValue(invDetailElement, "of:SERIALNUM"); // os
+                                if (UtilValidate.isNotEmpty(serialNumber)) {
+                                    serialNumberList.add(serialNumber);
+                                }
+                            }
+
+                            // do some validations
+                            boolean continueLoop = false;
+                            if(UtilValidate.isNotEmpty(serialNumberList)) {
+                                if (messageQuantity.intValue() != serialNumberList.size()) {
+                                    String errMsg = "Not enough serial numbers [" + serialNumberList.size() + "] for the quantity [" + messageQuantity.intValue() + "].";
+                                    errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumbersMissing"));
+                                    Debug.logInfo(errMsg, module);
+                                    continueLoop = true;
+                                }
+                            } 
+                            if ((int) totalReserved != messageQuantity.intValue()) {
+                                String errMsg = "Not enough serial numbers [" + serialNumberList.size() + "] for the quantity [" + messageQuantity.intValue() + "].";
+                                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumbersMissing"));
+                                Debug.logInfo(errMsg, module);
+                                continueLoop = true;
+                            }
+                            
+                            if (continueLoop) {
+                                continue;
+                            }
+                            
+                            Iterator serialNumberIter = serialNumberList.iterator();
+                            Iterator orderItemShipGrpInvReservationIter = orderItemShipGrpInvReservationList.iterator();
+                            while (orderItemShipGrpInvReservationIter.hasNext()) {
+                                GenericValue orderItemShipGrpInvReservation = (GenericValue) orderItemShipGrpInvReservationIter.next();
+                                int currentResQuantity = orderItemShipGrpInvReservation.getDouble("quantity").intValue();
+                                
+                                Map isitspastCtx = UtilMisc.toMap("orderId", orderId, "shipGroupSeqId", shipGroupSeqId, "orderItemSeqId", orderItemSeqId);                
+                                isitspastCtx.put("productId", productId);
+                                isitspastCtx.put("reservedDatetime", orderItemShipGrpInvReservation.get("reservedDatetime"));
+                                isitspastCtx.put("requireInventory", requireInventory);
+                                isitspastCtx.put("reserveOrderEnumId", orderItemShipGrpInvReservation.get("reserveOrderEnumId"));
+                                isitspastCtx.put("sequenceId", orderItemShipGrpInvReservation.get("sequenceId"));
+                                isitspastCtx.put("originFacilityId", originFacilityId);
+                                isitspastCtx.put("userLogin", userLogin);            
+                                isitspastCtx.put("trackingNum", trackingNum);
+                                isitspastCtx.put("inventoryItemId", orderItemShipGrpInvReservation.get("inventoryItemId"));                
+                                isitspastCtx.put("shipmentId", shipmentId);      
+                                isitspastCtx.put("shipmentPackageSeqId", shipmentPackageSeqId);
+                                isitspastCtx.put("promisedDatetime", orderItemShipGrpInvReservation.get("promisedDatetime"));
+                                
+                                if(UtilValidate.isNotEmpty(serialNumberList)) {
+                                    for (int i = 0; i < currentResQuantity; i++) {
+                                        String serialNumber = (String) serialNumberIter.next();
+                                        isitspastCtx.put("serialNumber", serialNumber);
+                                        isitspastCtx.put("quantity", new Double (1));
+                                        isitspastCtx.put("inventoryItemId", orderItemShipGrpInvReservation.get("inventoryItemId"));
+                                        isitspastCtx.remove("itemIssuanceId");                            
+                                        try {
+                                            Map resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
+                                            if (ServiceUtil.isError(resultMap)){
+                                                String errMsg = ServiceUtil.getErrorMessage(resultMap);
+                                                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "IssueSerializedInvServiceError"));
+                                                Debug.logError(errMsg, module);
+                                            }
+                                        } catch(GenericServiceException e) {
+                                            Debug.logInfo(e, module);
+                                            String errMsg = "Error executing issueSerializedInvToShipmentPackageAndSetTracking Service: "+e.toString();
+                                            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                                        }
+                                    }
+                                } else {
                                     try {
+                                        //TODO: I think this else part is for NON Serialized Inv item. So it will be different service that we need to call here.
+                                        isitspastCtx.put("quantity", new Double(currentResQuantity));
                                         Map resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
                                         if (ServiceUtil.isError(resultMap)){
                                             String errMsg = ServiceUtil.getErrorMessage(resultMap);
@@ -271,27 +342,18 @@ public class OagisShipmentServices {
                                         Debug.logInfo(e, module);
                                         String errMsg = "Error executing issueSerializedInvToShipmentPackageAndSetTracking Service: "+e.toString();
                                         errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
-                                    }
+                                    }            
                                 }
-                            } else {
-                                try {//TODO: I think this else part is for NON Serialized Inv item. So it will be different service that we need to call here.
-                                    isitspastCtx.put("quantity", orderItemShipGrpInvReservation.get("quantity"));
-                                    Map resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
-                                    if (ServiceUtil.isError(resultMap)){
-                                        String errMsg = ServiceUtil.getErrorMessage(resultMap);
-                                        errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "IssueSerializedInvServiceError"));
-                                        Debug.logError(errMsg, module);
-                                    }
-                                } catch(GenericServiceException e) {
-                                    Debug.logInfo(e, module);
-                                    String errMsg = "Error executing issueSerializedInvToShipmentPackageAndSetTracking Service: "+e.toString();
-                                    errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
-                                }            
                             }
+                            
+                        } catch (NumberFormatException e) {
+                            String errMsg = "Error in format for number: " + e.toString();
+                            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "NumberFormatException"));
+                            Debug.logInfo(e, errMsg, module);
                         } catch (GenericEntityException e) {
-                            String errMsg = "Error executing issueSerializedInvToShipmentPackageAndSetTracking Service: "+e.toString();
+                            String errMsg = "Error executing issueSerializedInvToShipmentPackageAndSetTracking Service: " + e.toString();
                             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericEntityException"));
-                            Debug.logInfo(e, module);
+                            Debug.logInfo(e, errMsg, module);
                         }
                     }
                 }
@@ -305,24 +367,25 @@ public class OagisShipmentServices {
                 }
             } catch(GenericServiceException e) {
                 Debug.logInfo(e, module);
-                String errMsg = "Error executing setShipmentStatusPackedAndShipped Service: "+e.toString();
+                String errMsg = "Error executing setShipmentStatusPackedAndShipped Service: " + e.toString();
                 errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
             }   
         }  
         
-        oagisMsgInfoCtx.put("processingStatusId", "OAGMP_RECEIVED");
-        try {
-            dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoCtx, 60, true);
-        } catch (GenericServiceException e){
-            String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
-            // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
-            Debug.logError(e, errMsg, module);
-        }
-        
         if (errorMapList.size() > 0) {
-            //result.putAll(ServiceUtil.returnError("Errors found processing message"));
+            // DEJ20070807 what was this next line commented out? if there are errors we want to return an error so this will roll back 
+            result.putAll(ServiceUtil.returnError("Errors found processing message"));
             result.put("errorMapList", errorMapList);
             return result;
+        } else {
+            oagisMsgInfoCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
+            try {
+                dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoCtx, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                Debug.logError(e, errMsg, module);
+            }
         }
         
         result.putAll(ServiceUtil.returnSuccess("Service Completed Successfully"));
