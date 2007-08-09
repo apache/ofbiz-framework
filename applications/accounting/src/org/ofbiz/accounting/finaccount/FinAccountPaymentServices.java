@@ -82,7 +82,13 @@ public class FinAccountPaymentServices {
 
         // obtain the order information
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
+        
+        // NOTE DEJ20070808: this means that we want store related settings for where the item is being purchased, 
+        //NOT where the account was setup; should this be changed to use settings from the store where the account was setup?
         String productStoreId = orh.getProductStoreId();
+        
+        // TODO, NOTE DEJ20070808: why is this setup this way anyway? for the allowAuthToNegative wouldn't that be better setup
+        //on the FinAccount and not on the ProductStoreFinActSetting? maybe an override on the FinAccount would be good...
 
         // get the financial account
         GenericValue finAccount;
@@ -114,8 +120,13 @@ public class FinAccountPaymentServices {
 
         try {
             // fin the store requires a pin number; validate the PIN with the code
-            GenericValue finAccountSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting",
-                    UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId));
+            Map findProductStoreFinActSettingMap = UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId);
+            GenericValue finAccountSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", findProductStoreFinActSettingMap);
+            
+            if (finAccountSettings == null) {
+                Debug.logWarning("In finAccountPreAuth could not find ProductStoreFinActSetting record, values searched by: " + findProductStoreFinActSettingMap, module);
+            }
+            if (Debug.verboseOn()) Debug.logVerbose("In finAccountPreAuth finAccountSettings=" + finAccountSettings, module);
 
             BigDecimal minBalance = FinAccountHelper.ZERO;
             String allowAuthToNegative = "N";
@@ -210,7 +221,7 @@ public class FinAccountPaymentServices {
             // turn amount into a big decimal, making sure to round and scale it to the same as availableBalance
             BigDecimal amountBd = (new BigDecimal(amount)).setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
 
-            Debug.log("Allow auth to negative: " + allowAuthToNegative + " :: available: " + availableBalance + " comp: " + minBalance + " = " + availableBalance.compareTo(minBalance) + " :: req: " + amountBd, module);
+            Debug.logInfo("Allow auth to negative: " + allowAuthToNegative + " :: available: " + availableBalance + " comp: " + minBalance + " = " + availableBalance.compareTo(minBalance) + " :: req: " + amountBd, module);
             // check the available balance to see if we can auth this tx
             if (("Y".equals(allowAuthToNegative) && availableBalance.compareTo(minBalance) > -1)
                     || (availableBalance.compareTo(amountBd) > -1)) {
