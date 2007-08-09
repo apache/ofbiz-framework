@@ -17,8 +17,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#escape x as x?xml>
+       <#if orderHeader.getString("orderTypeId") == "PURCHASE_ORDER" || orderContactMechValueMaps?has_content>
        <fo:table border-spacing="3pt">
-           <fo:table-column column-width="3.75in"/>
+          <fo:table-column column-width="3.75in"/>
           <fo:table-column column-width="3.75in"/>
           <fo:table-body>
             <fo:table-row>    <#-- this part could use some improvement -->
@@ -73,9 +74,9 @@ under the License.
             </fo:table-row>
          </fo:table-body>
        </fo:table>
-
        <fo:block white-space-collapse="false"> </fo:block> 
-
+       </#if>
+       
        <fo:table border-spacing="3pt">
           <fo:table-column column-width="1.75in"/>
           <fo:table-column column-width="4.25in"/>
