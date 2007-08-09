@@ -322,7 +322,7 @@ public class ServiceXaWrapper extends GenericXaResource {
                 }
             }
         } else {
-            if (Debug.infoOn()) Debug.logInfo("No " + msgPrefix + "service defined; nothing to do", module);
+            if (Debug.verboseOn()) Debug.logVerbose("No " + msgPrefix + "service defined; nothing to do", module);
         }
 
         this.xid = null;
