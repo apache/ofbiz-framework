@@ -221,9 +221,23 @@ public class OagisShipmentServices {
                 String shipmentPackageSeqId = UtilXml.childElementValue(shipUnitElement, "of:SHPUNITSEQ"); // of
                 List invItemElementList = UtilXml.childElementList(shipUnitElement, "ns:INVITEM"); //n
                 if(UtilValidate.isNotEmpty(invItemElementList)) {
-                    Iterator invItemElementItr = invItemElementList.iterator();
-                    while(invItemElementItr.hasNext()) {                 
-                        Element invItemElement = (Element) invItemElementItr.next();
+                    // sort the INVITEM elements by ITEM so that all shipments are processed in the same order, avoids deadlocking problems we've seen with concurrently processed orders
+                    List invitemMapList = FastList.newInstance();
+                    Iterator invItemElementIter = invItemElementList.iterator();
+                    while(invItemElementIter.hasNext()) {                 
+                        Element invItemElement = (Element) invItemElementIter.next();
+                        String productId = UtilXml.childElementValue(invItemElement, "of:ITEM"); // of
+                        Map invitemMap = FastMap.newInstance();
+                        invitemMap.put("productId", productId);
+                        invitemMap.put("invItemElement", invItemElement);
+                        invitemMapList.add(invitemMap);
+                    }
+                    UtilMisc.sortMaps(invitemMapList, UtilMisc.toList("productId"));
+                    
+                    Iterator invitemMapIter = invitemMapList.iterator();
+                    while(invitemMapIter.hasNext()) {
+                        Map invitemMap = (Map) invitemMapIter.next();
+                        Element invItemElement = (Element) invitemMap.get("invItemElement");
                         String productId = UtilXml.childElementValue(invItemElement, "of:ITEM"); // of
                         
                         try {
