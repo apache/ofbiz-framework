@@ -28,6 +28,12 @@ under the License.
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <action service="oagisProcessShipment" mode="async" persist="true"/>
     </eca>
+    
+    <eca service="updateReturnHeader" event="commit">
+        <condition field-name="statusId" operator="equals" value="RETURN_ACCEPTED"/>
+        <action service="oagisReceiveDelivery" mode="async" persist="true"/>
+    </eca>
+    
     -->
 
     <eca service="oagisMessageHandler" event="commit" run-on-error="true">
