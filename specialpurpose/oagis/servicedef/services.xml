@@ -85,7 +85,8 @@ under the License.
          <override name="errorSeqId" optional="true"/>        
     </service>
 
-    <service name="showShipment" engine="java" transaction-timeout="300"
+    <!-- DEJ20070808 added max-rety=3 because this is run async persisted just in case there is a transaction problem under heavy load -->
+    <service name="showShipment" engine="java" transaction-timeout="300" max-retry="3"
             location="org.ofbiz.oagis.OagisShipmentServices" invoke="showShipment" auth="false">
         <description>Process incoming shipment message</description>
         <implements service="oagisMessageErrorInfoInterface"/>
