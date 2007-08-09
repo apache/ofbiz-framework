@@ -17,17 +17,18 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#escape x as x?xml>
-       <#if orderHeader.getString("orderTypeId") == "PURCHASE_ORDER" || orderContactMechValueMaps?has_content>
        <fo:table border-spacing="3pt">
           <fo:table-column column-width="3.75in"/>
           <fo:table-column column-width="3.75in"/>
           <fo:table-body>
             <fo:table-row>    <#-- this part could use some improvement -->
              
+             <#assign createEmptyCell = true>
              <#-- a special purchased from address for Purchase Orders -->
              <#if orderHeader.getString("orderTypeId") == "PURCHASE_ORDER">
              <#if supplierGeneralContactMechValueMap?exists>
                <#assign contactMech = supplierGeneralContactMechValueMap.contactMech>
+               <#assign createEmptyCell = false>
                <fo:table-cell>
                  <fo:block>
                      ${uiLabelMap.OrderPurchasedFrom}:
@@ -44,6 +45,7 @@ under the License.
                </fo:table-cell>
              <#else>
                <#-- here we just display the name of the vendor, since there is no address -->
+               <#assign createEmptyCell = false>
                <fo:table-cell>
                  <#assign vendorParty = orderReadHelper.getBillFromParty()>
                  <fo:block>
@@ -59,6 +61,7 @@ under the License.
                <#assign contactMechPurpose = orderContactMechValueMap.contactMechPurposeType>
                <#if contactMech.contactMechTypeId == "POSTAL_ADDRESS">
                <#assign postalAddress = orderContactMechValueMap.postalAddress>
+               <#assign createEmptyCell = false>
                <fo:table-cell>
                  <fo:block font-weight="bold">${contactMechPurpose.get("description",locale)}:</fo:block>
                  <#if postalAddress?has_content>
@@ -71,11 +74,14 @@ under the License.
                </fo:table-cell>
                </#if>
              </#list>
+             <#-- The empty cell is required in order to fill the table-row element and avoid a validation error -->
+             <#if createEmptyCell>
+             <fo:table-cell></fo:table-cell>
+             </#if>
             </fo:table-row>
          </fo:table-body>
        </fo:table>
        <fo:block white-space-collapse="false"> </fo:block> 
-       </#if>
        
        <fo:table border-spacing="3pt">
           <fo:table-column column-width="1.75in"/>
