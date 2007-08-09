@@ -45,4 +45,6 @@ under the License.
     <Party partyId="system" partyTypeId="PERSON"/>
     <Person partyId="system" firstName="System" lastName="Account"/>
     <UserLogin userLoginId="system" partyId="system"/>
+    <!-- various automated processes will cause it to be put in this role anyway -->
+    <PartyRole partyId="system" roleTypeId="PACKER"/>
 </entity-engine-xml>
