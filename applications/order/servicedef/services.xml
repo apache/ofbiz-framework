@@ -806,4 +806,11 @@ under the License.
         <attribute type="String" mode="IN" name="paid" optional="true"/>
         <attribute type="String" mode="IN" name="shipped" optional="true"/>
     </service>
+    
+    <service name="checkOrderIsOnBackOrder" engine="simple" auth="false"
+            location="org/ofbiz/order/order/OrderServices.xml" invoke="checkOrderIsOnBackOrder">
+        <description>Check if an Order is on Back Order</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="isBackOrder" type="Boolean" mode="OUT" optional="false"/>       
+    </service>
 </services>
