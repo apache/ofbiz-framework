@@ -775,8 +775,7 @@ public class ImportOrdersFromEbay {
             
             Double unitPrice = new Double((String) parameters.get("transactionPrice"));
             double quantity = new Double((String) parameters.get("quantityPurchased")).doubleValue();
-            Double amount = new Double(quantity * unitPrice.doubleValue());
-            cart.addItemToEnd(productId, amount, quantity, unitPrice, null, null, null, "PRODUCT_ORDER_ITEM", dispatcher, Boolean.FALSE, Boolean.FALSE);
+            cart.addItemToEnd(productId, null, quantity, unitPrice, null, null, null, "PRODUCT_ORDER_ITEM", dispatcher, Boolean.FALSE, Boolean.FALSE);
            
             // set partyId from
             if (UtilValidate.isNotEmpty(payToPartyId)) {
