@@ -462,7 +462,13 @@ under the License.
             <set field="emailParams.contentType" from-field="storeEmail.contentType"/>
             <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
             <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
-            <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+            
+            <if-not-empty field-name="emailParams.sendTo">
+                <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+                <else>
+                    <log level="warning" message="Tried to send Update Personal Info Notifcation with no to address; partyId is [${partyId}], subject is: ${emailParams.subject}"/>
+                </else>
+            </if-not-empty>
         </if-not-empty>
     </simple-method>
 </simple-methods>
