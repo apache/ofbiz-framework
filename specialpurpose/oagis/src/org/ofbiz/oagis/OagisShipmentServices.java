@@ -88,7 +88,7 @@ public class OagisShipmentServices {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         List errorMapList = FastList.newInstance();
             
-        GenericValue userLogin =null; 
+        GenericValue userLogin = null; 
         try {
             userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));    
         } catch (GenericEntityException e){
@@ -669,7 +669,6 @@ public class OagisShipmentServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         String returnId = (String) context.get("returnId");
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         
         String sendToUrl = (String) context.get("sendToUrl");
         if (UtilValidate.isEmpty(sendToUrl)) {
@@ -688,17 +687,18 @@ public class OagisShipmentServices {
             saveToDirectory = UtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.directory");
         }
 
+        GenericValue userLogin = null;
+        try {
+            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error getting system userLogin", module);
+        }
+
         OutputStream out = (OutputStream) context.get("outputStream");
         
         Map result = ServiceUtil.returnSuccess();
         MapStack bodyParameters =  MapStack.create();
-        if (userLogin == null) {
-            try {
-                userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
-            } catch (GenericEntityException e) {
-                Debug.logError(e, "Error getting system userLogin", module);
-            }
-        }
+
         GenericValue returnHeader = null;
         String statusId = null;
         try {

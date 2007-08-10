@@ -63,20 +63,18 @@ public class OagisInventoryServices {
     
     public static Map syncInventory(DispatchContext ctx, Map context) {
         Document doc = (Document) context.get("document");
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         List errorMapList = FastList.newInstance();
         List inventoryMapList = FastList.newInstance();
         
-        if (userLogin == null) {
-            try {
-                userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
-            } catch (GenericEntityException e){
-                String errMsg = "Error Getting UserLogin: " + e.toString();
-                Debug.logError(e, errMsg, module);
-            }
+        GenericValue userLogin = null;
+        try {
+            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+        } catch (GenericEntityException e){
+            String errMsg = "Error Getting UserLogin: " + e.toString();
+            Debug.logError(e, errMsg, module);
         }
 
         String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryFacilityId");
@@ -322,18 +320,17 @@ public class OagisInventoryServices {
     
     public static Map receivePoAcknowledge(DispatchContext ctx, Map context) {
         Document doc = (Document) context.get("document");
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
         List errorMapList = FastList.newInstance();
         Map comiCtx = FastMap.newInstance();
-        if (userLogin == null) {
-            try {
-                userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
-            } catch (GenericEntityException e) {
-                String errMsg = "Error Getting UserLogin: " + e.toString();
-                Debug.logError(e, errMsg, module);
-            }
+
+        GenericValue userLogin = null;
+        try {
+            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+        } catch (GenericEntityException e) {
+            String errMsg = "Error Getting UserLogin: " + e.toString();
+            Debug.logError(e, errMsg, module);
         }
         
         // parse the message 
@@ -516,19 +513,18 @@ public class OagisInventoryServices {
     
     public static Map receiveRmaAcknowledge(DispatchContext ctx, Map context) {
         Document doc = (Document) context.get("document");
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
         List errorMapList = FastList.newInstance();
         
-        if (userLogin == null) {
-            try {
-                userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
-            } catch (GenericEntityException e) {
-                String errMsg = "Error Getting UserLogin: " + e.toString();
-                Debug.logError(e, errMsg, module);
-            }
+        GenericValue userLogin = null;
+        try {
+            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+        } catch (GenericEntityException e) {
+            String errMsg = "Error Getting UserLogin: " + e.toString();
+            Debug.logError(e, errMsg, module);
         }
+
         // parse the message
         Element receiveRmaElement = doc.getDocumentElement();
         receiveRmaElement.normalize();
@@ -822,5 +818,4 @@ public class OagisInventoryServices {
             Debug.logError(e, errMsg, module);
         }
     }
-    
 }
