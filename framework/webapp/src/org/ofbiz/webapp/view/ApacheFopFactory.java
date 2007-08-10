@@ -44,14 +44,14 @@ public class ApacheFopFactory {
         fopFactory.setStrictValidation(false);
         
         try {
-            String fopPath = UtilProperties.getPropertyValue("fop.properties", "fop.path","framework/widget/config");
+            String fopPath = UtilProperties.getPropertyValue("fop.properties", "fop.path", "framework/webapp/config");
             File userConfigFile = new File(fopPath + "/fop.xconf");
             fopFactory.setUserConfig(userConfigFile);
             String fopFontBaseUrl = fopFactory.getFontBaseURL();
             if (fopFontBaseUrl == null) {
                 String ofbizHome = System.getProperty("ofbiz.home");
                 fopFontBaseUrl = UtilProperties.getPropertyValue("fop.properties", "fop.font.base.url",
-                                    "file:///" + ofbizHome + "/framework/widget/config/");
+                                    "file://" + ofbizHome + "/framework/webapp/config/");
                 fopFactory.setFontBaseURL(fopFontBaseUrl);
             }
             Debug.logInfo("FOP-FontBaseURL: " + fopFontBaseUrl, module);
