@@ -792,7 +792,6 @@ public class OagisShipmentServices {
                     return ServiceUtil.returnError(errMsg);
                 }
 
-                // TODO: call service with require-new-transaction=true to save the OagisMessageInfo data (to make sure it saves before)
                 // prepare map to Create Oagis Message Info
                 comiCtx.put("component", "INVENTORY");
                 comiCtx.put("task", "RMA"); 
