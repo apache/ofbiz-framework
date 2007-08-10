@@ -214,7 +214,6 @@ under the License.
         </section>
     </screen>
 
-
     <!-- Simple fo decorator for pdf reports. -->
     <screen name="FoDecorator">
         <section>
@@ -225,6 +224,20 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://common/webcommon/includes/simple.fo.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Default "error" page for XSL-FO based output. -->
+    <screen name="FoError">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="logoImageUrl" value="http://localhost:8080/images/ofbiz_logo.jpg"/>
+                <!--<set field="defaultFontFamily" value="Arial"/>-->
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://common/webcommon/error.fo.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
