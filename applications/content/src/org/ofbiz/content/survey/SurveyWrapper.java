@@ -157,7 +157,7 @@ public class SurveyWrapper {
 
         Template template = this.getTemplate(templateUrl);
         try {
-            template.process(templateContext, writer);
+            FreeMarkerWorker.renderTemplate(template, templateContext, writer);
         } catch (TemplateException e) {
             Debug.logError(e, "Error rendering Survey with template at [" + templateUrl.toExternalForm() + "]", module);
         } catch (IOException e) {
@@ -166,10 +166,11 @@ public class SurveyWrapper {
     }
 
     // returns the FTL Template object
+    // Note: the template will not be cached
     protected Template getTemplate(URL templateUrl) {
         Configuration config = null;
         try {
-            config = FreeMarkerWorker.makeDefaultOfbizConfig();
+            config = FreeMarkerWorker.getDefaultOfbizConfig();
         } catch (IOException e) {
             Debug.logError(e, "Error creating default OFBiz FreeMarker Configuration", module);
         } catch (TemplateException e) {
