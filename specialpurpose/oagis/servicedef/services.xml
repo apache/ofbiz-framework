@@ -115,7 +115,7 @@ under the License.
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
     </service>
     
-    <service name="syncInventory" engine="java" transaction-timeout="300"
+    <service name="syncInventory" engine="java" transaction-timeout="300" max-retry="3"
             location="org.ofbiz.oagis.OagisInventoryServices" invoke="syncInventory" auth="false">
         <description>Process incoming Inventory Sync message</description>
         <implements service="oagisMessageErrorInfoInterface"/>
@@ -163,14 +163,14 @@ under the License.
         <attribute name="returnId" mode="IN" type="String" optional="false"/>
     </service>
     
-    <service name="receivePoAcknowledge" engine="java" transaction-timeout="300"
+    <service name="receivePoAcknowledge" engine="java" transaction-timeout="300" max-retry="3"
             location="org.ofbiz.oagis.OagisInventoryServices" invoke="receivePoAcknowledge" auth="false">
         <description>Process PO Acknowledge message</description>
         <implements service="oagisMessageErrorInfoInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
     </service>
 
-    <service name="receiveRmaAcknowledge" engine="java" transaction-timeout="300"
+    <service name="receiveRmaAcknowledge" engine="java" transaction-timeout="300" max-retry="3"
             location="org.ofbiz.oagis.OagisInventoryServices" invoke="receiveRmaAcknowledge" auth="false">
         <description>Process RMA Acknowledge message</description>
         <implements service="oagisMessageErrorInfoInterface"/>
