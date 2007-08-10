@@ -181,7 +181,7 @@ public class OagisShipmentServices {
         }
         
         if (errorMapList.size() > 0) {
-            result.putAll(ServiceUtil.returnError("Errors found getting shipment information for incoming Show Shipment message"));
+            result.putAll(ServiceUtil.returnError("Errors found getting shipment information for incoming Show Shipment message; here is the first: " + errorMapList.get(0)));
             result.put("errorMapList", errorMapList);
             return result;
         }
