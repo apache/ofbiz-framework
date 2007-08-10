@@ -97,6 +97,37 @@ public class OagisInventoryServices {
         String confirmation = UtilXml.childElementValue(docSenderElement, "of:CONFIRMATION");
         String authId = UtilXml.childElementValue(docSenderElement, "of:AUTHID");
         
+        // create oagis message info
+        Map comiCtx= FastMap.newInstance();
+        comiCtx.put("logicalId", logicalId);
+        comiCtx.put("component", component);
+        comiCtx.put("task", task);
+        comiCtx.put("referenceId", referenceId);
+        comiCtx.put("confirmation", confirmation);
+        comiCtx.put("authId", authId);
+        comiCtx.put("bsrVerb", bsrVerb);
+        comiCtx.put("bsrNoun", bsrNoun);
+        comiCtx.put("bsrRevision", bsrRevision);
+        comiCtx.put("receivedDate", UtilDateTime.nowTimestamp());
+        comiCtx.put("outgoingMessage", "N");
+        comiCtx.put("statusId", "OAGMP_RECEIVED");
+        comiCtx.put("userLogin", userLogin);
+        if (OagisServices.debugSaveXmlIn) {
+            try {
+                comiCtx.put("fullMessageXml", UtilXml.writeXmlDocument(doc));
+            } catch (IOException e) {
+                // this is just for debug info, so just log and otherwise ignore error
+                String errMsg = "Warning: error creating text from XML Document for saving to database: " + e.toString();
+                Debug.logWarning(errMsg, module);
+            }
+        }
+        try {
+            dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
+        } catch (GenericServiceException e) {
+            String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
+            Debug.logError(e, errMsg, module);
+        }
+
         // data area elements
         List dataAreaList = UtilXml.childElementList(syncInventoryRootElement, "ns:DATAAREA");
         if (UtilValidate.isNotEmpty(dataAreaList)) {
@@ -262,41 +293,12 @@ public class OagisInventoryServices {
                 Debug.logImportant("No sendTo email address found in process syncInventory service: inventoryMapList: " + inventoryMapList, module);
             }
         }
-       
-        // create oagis message info
-        Map comiCtx= FastMap.newInstance();
-        comiCtx.put("logicalId", logicalId);
-        comiCtx.put("component", component);
-        comiCtx.put("task", task);
-        comiCtx.put("referenceId", referenceId);
-        comiCtx.put("confirmation", confirmation);
-        comiCtx.put("authId", authId);
-        comiCtx.put("bsrVerb", bsrVerb);
-        comiCtx.put("bsrNoun", bsrNoun);
-        comiCtx.put("bsrRevision", bsrRevision);
-        comiCtx.put("receivedDate", UtilDateTime.nowTimestamp());
-        comiCtx.put("outgoingMessage", "N");
-        comiCtx.put("userLogin", userLogin);
-        if (OagisServices.debugSaveXmlIn) {
-            try {
-                comiCtx.put("fullMessageXml", UtilXml.writeXmlDocument(doc));
-            } catch (IOException e) {
-                // this is just for debug info, so just log and otherwise ignore error
-                String errMsg = "Warning: error creating text from XML Document for saving to database: " + e.toString();
-                Debug.logWarning(errMsg, module);
-            }
-        }
+        
+        comiCtx.put("statusId", "OAGMP_PROC_SUCCESS");
         try {
-            dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
-            /* now calling async for better error handling
-            if (ServiceUtil.isError(comiResult)) {
-                String errMsg = ServiceUtil.getErrorMessage(comiResult);
-                errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageServiceError", "description", errMsg));
-            }
-            */
+            dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
         } catch (GenericServiceException e) {
-            String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
-            //errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageInfoError", "description", errMsg));
+            String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
             Debug.logError(e, errMsg, module);
         }
         
@@ -355,6 +357,37 @@ public class OagisInventoryServices {
         String sentDate = UtilXml.childElementValue(docCtrlAreaElement, "os:DATETIMEISO");
         Timestamp sentTimestamp = OagisServices.parseIsoDateString(sentDate, errorMapList);
         
+        Timestamp timestamp = UtilDateTime.nowTimestamp();
+        comiCtx.put("logicalId", logicalId);
+        comiCtx.put("authId", authId);
+        comiCtx.put("referenceId", referenceId);
+        comiCtx.put("receivedDate", timestamp);
+        comiCtx.put("sentDate", sentTimestamp);
+        comiCtx.put("component", component);
+        comiCtx.put("task", task);  
+        comiCtx.put("outgoingMessage", "N");
+        comiCtx.put("confirmation", confirmation);
+        comiCtx.put("bsrVerb", bsrVerb);
+        comiCtx.put("bsrNoun", bsrNoun);
+        comiCtx.put("bsrRevision", bsrRevision);
+        comiCtx.put("statusId", "OAGMP_RECEIVED");
+        comiCtx.put("userLogin", userLogin);
+        if (OagisServices.debugSaveXmlIn) {
+            try {
+                comiCtx.put("fullMessageXml", UtilXml.writeXmlDocument(doc));
+            } catch (IOException e) {
+                // this is just for debug info, so just log and otherwise ignore error
+                String errMsg = "Warning: error creating text from XML Document for saving to database: " + e.toString();
+                Debug.logWarning(errMsg, module);
+            }
+        }
+        try {
+            dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
+        } catch (GenericServiceException e) {
+            String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
+            Debug.logError(e, errMsg, module);
+        }
+
         Element dataAreaElement = UtilXml.firstChildElement(receivePoElement, "ns:DATAAREA");
         Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "ns:ACKNOWLEDGE_DELIVERY");
 
@@ -454,46 +487,15 @@ public class OagisInventoryServices {
                 }    
             }
         }
-        //prepare result Map for createOagisMessageinfo
         
-        Timestamp timestamp = null;
-        timestamp = UtilDateTime.nowTimestamp();
-        comiCtx.put("logicalId", logicalId);
-        comiCtx.put("authId", authId);
-        comiCtx.put("referenceId", referenceId);
-        comiCtx.put("receivedDate", timestamp);
-        comiCtx.put("sentDate", sentTimestamp);
-        comiCtx.put("component", component);
-        comiCtx.put("task", task);  
-        comiCtx.put("outgoingMessage", "N");
-        comiCtx.put("confirmation", confirmation);
-        comiCtx.put("bsrVerb", bsrVerb);
-        comiCtx.put("bsrNoun", bsrNoun);
-        comiCtx.put("bsrRevision", bsrRevision);
-        comiCtx.put("userLogin", userLogin);
-        if (OagisServices.debugSaveXmlIn) {
-            try {
-                comiCtx.put("fullMessageXml", UtilXml.writeXmlDocument(doc));
-            } catch (IOException e) {
-                // this is just for debug info, so just log and otherwise ignore error
-                String errMsg = "Warning: error creating text from XML Document for saving to database: " + e.toString();
-                Debug.logWarning(errMsg, module);
-            }
-        }
+        comiCtx.put("statusId", "OAGMP_PROC_SUCCESS");
         try {
-            dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
-            /* running async for better error handling
-            if (ServiceUtil.isError(comiResult)) {
-                String errMsg = ServiceUtil.getErrorMessage(comiResult);
-                errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageServiceError", "description", errMsg));
-            }
-            */
+            dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
         } catch (GenericServiceException e) {
-            String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
-            // reconsider sending this error back to other server, not much they can do about it, and it may not be a critical error causing the message to be rejected...
-            //errorMapList.add(UtilMisc.toMap("reasonCode", "CreateOagisMessageInfoError", "description", errMsg));
+            String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
             Debug.logError(e, errMsg, module);
         }
+
         Map result = FastMap.newInstance();
         result.put("logicalId", logicalId);
         result.put("component", component);
