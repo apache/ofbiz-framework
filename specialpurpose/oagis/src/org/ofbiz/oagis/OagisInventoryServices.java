@@ -110,7 +110,7 @@ public class OagisInventoryServices {
         comiCtx.put("bsrRevision", bsrRevision);
         comiCtx.put("receivedDate", UtilDateTime.nowTimestamp());
         comiCtx.put("outgoingMessage", "N");
-        comiCtx.put("statusId", "OAGMP_RECEIVED");
+        comiCtx.put("processingStatusId", "OAGMP_RECEIVED");
         comiCtx.put("userLogin", userLogin);
         if (OagisServices.debugSaveXmlIn) {
             try {
@@ -294,7 +294,7 @@ public class OagisInventoryServices {
             }
         }
         
-        comiCtx.put("statusId", "OAGMP_PROC_SUCCESS");
+        comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
         try {
             dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
         } catch (GenericServiceException e) {
@@ -370,7 +370,7 @@ public class OagisInventoryServices {
         comiCtx.put("bsrVerb", bsrVerb);
         comiCtx.put("bsrNoun", bsrNoun);
         comiCtx.put("bsrRevision", bsrRevision);
-        comiCtx.put("statusId", "OAGMP_RECEIVED");
+        comiCtx.put("processingStatusId", "OAGMP_RECEIVED");
         comiCtx.put("userLogin", userLogin);
         if (OagisServices.debugSaveXmlIn) {
             try {
@@ -488,7 +488,7 @@ public class OagisInventoryServices {
             }
         }
         
-        comiCtx.put("statusId", "OAGMP_PROC_SUCCESS");
+        comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
         try {
             dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
         } catch (GenericServiceException e) {
