@@ -26,6 +26,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -104,6 +105,73 @@ public class ProductsExportToGoogle {
         return result;
     }
    
+    public static Map exportProductCategoryToGoogle(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
+        String productCategoryId = (String) context.get("productCategoryId");
+        String actionType = (String) context.get("actionType");
+        String webSiteUrl = (String) context.get("webSiteUrl");
+        String imageUrl = (String) context.get("imageUrl");
+        GenericValue userLogin = (GenericValue)context.get("userLogin");
+        if (userLogin == null) {
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.cannotRetrieveUserLogin", locale));
+        }
+        
+        try {
+            if (UtilValidate.isNotEmpty(productCategoryId)) {
+                List productsList = FastList.newInstance();
+                Map result = dispatcher.runSync("getProductCategoryMembers", UtilMisc.toMap("categoryId", productCategoryId));
+                
+                if (result.get("categoryMembers") != null) {
+                    List productCategoryMembers = (List)result.get("categoryMembers");
+                    if (productCategoryMembers != null) {
+                        Iterator i = productCategoryMembers.iterator();
+                        while (i.hasNext()) {
+                            GenericValue prodCatMemb = (GenericValue) i.next();
+                            
+                            if (prodCatMemb != null) {
+                                String productId = prodCatMemb.getString("productId");
+                                
+                                if (productId != null) {
+                                    GenericValue prod = prodCatMemb.getRelatedOne("Product");
+                                    Timestamp salesDiscontinuationDate = prod.getTimestamp("salesDiscontinuationDate");
+                                    // do not consider discontinued product
+                                    if (salesDiscontinuationDate == null) {
+                                        productsList.add(productId);
+                                    }
+                                }
+                            }
+                        }   
+                    }
+                }
+                
+                if (productsList.size() == 0) {
+                    return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.noProductsAvailableInProductCategory", locale));
+                } else {
+                    Map paramIn = FastMap.newInstance(); 
+                    paramIn.put("selectResult", productsList);
+                    paramIn.put("webSiteUrl", webSiteUrl);
+                    paramIn.put("imageUrl", imageUrl);
+                    paramIn.put("actionType", actionType);
+                    paramIn.put("statusId", "publish");
+                    paramIn.put("testMode", "N");
+                    paramIn.put("userLogin", userLogin);
+                    result = dispatcher.runSync("exportToGoogle", paramIn);
+                    
+                    if (ServiceUtil.isError(result)) { 
+                        return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(result));
+                    }    
+                }   
+            } else {
+                return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.missingParameterProductCategoryId", locale));
+            }
+        } catch (Exception e) {
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.exceptionInExportProductCategoryToGoogle", locale));
+        }
+        
+        return ServiceUtil.returnSuccess();
+    }
+    
     private static String authenticate(String authenticationUrl, String accountEmail, String accountPassword) {
         String postOutput = null;
         String token = null;
