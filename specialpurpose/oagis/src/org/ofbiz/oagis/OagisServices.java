@@ -218,7 +218,7 @@ public class OagisServices {
         try {
             userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId", "system"));
         } catch (GenericEntityException e){
-            String errMsg = "Error Getting UserLogin with userLoginId 'system':"+e.toString();
+            String errMsg = "Error Getting UserLogin with userLoginId 'system':" + e.toString();
             Debug.logError(e, errMsg, module);
         }
         
@@ -292,7 +292,7 @@ public class OagisServices {
             }
             */
         } catch (GenericServiceException e){
-            String errMsg = "Error creating OagisMessageInfo for the Incoming Message: "+e.toString();
+            String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
             Debug.logError(e, errMsg, module);
         }
@@ -307,7 +307,7 @@ public class OagisServices {
         try {
             originalOagisMsgInfo = delegator.findByPrimaryKey("OagisMessageInfo", originalOagisMsgCtx);
         } catch (GenericEntityException e){
-            String errMsg = "Error Getting Entity OagisMessageInfo: "+e.toString();
+            String errMsg = "Error Getting Entity OagisMessageInfo: " + e.toString();
             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericEntityException"));
             Debug.logError(e, errMsg, module);
         }
@@ -334,7 +334,7 @@ public class OagisServices {
                         Debug.logError(errMsg, module);
                     }
                 } catch (GenericServiceException e){
-                    String errMsg = "Error creating OagisMessageErrorInfo: "+e.toString();
+                    String errMsg = "Error creating OagisMessageErrorInfo: " + e.toString();
                     errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                     Debug.logError(e, errMsg, module);
                 }
@@ -433,7 +433,7 @@ public class OagisServices {
         try {
             oagisMessageInfo = delegator.findByPrimaryKey("OagisMessageInfo", UtilMisc.toMap("logicalId", logicalId, "component", component, "task", task, "referenceId", referenceId));
         } catch (GenericEntityException e) {
-            String errMsg = "Error Getting Entity OagisMessageInfo: "+e.toString();
+            String errMsg = "Error Getting Entity OagisMessageInfo: " + e.toString();
             Debug.logError(e, errMsg, module);
         }
         
@@ -441,27 +441,29 @@ public class OagisServices {
         if (UtilValidate.isEmpty(oagisMessageInfo)) {
             if (bsrVerb.equalsIgnoreCase("CONFIRM") && bsrNoun.equalsIgnoreCase("BOD")) {
                 try {
-                    subServiceResult = dispatcher.runSync("receiveConfirmBod", UtilMisc.toMap("document",doc));
+                    subServiceResult = dispatcher.runSync("receiveConfirmBod", UtilMisc.toMap("document", doc));
                 } catch (GenericServiceException e) {
-                    String errMsg = "Error running service receiveConfirmBod: "+e.toString();
+                    String errMsg = "Error running service receiveConfirmBod: " + e.toString();
                     errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                     Debug.logError(e, errMsg, module);
                 }
             } else if (bsrVerb.equalsIgnoreCase("SHOW") && bsrNoun.equalsIgnoreCase("SHIPMENT")) {
                 try {
-                    //subServiceResult = dispatcher.runSync("showShipment", UtilMisc.toMap("document",doc));
-                    // DEJ20070808 changed to run asynchronously and persisted so that if it fails it will retry
-                    dispatcher.runAsync("showShipment", UtilMisc.toMap("document",doc), true);
+                    //subServiceResult = dispatcher.runSync("showShipment", UtilMisc.toMap("document", doc));
+                    // DEJ20070808 changed to run asynchronously and persisted so that if it fails it will retry; for transaction deadlock and other reasons
+                    dispatcher.runAsync("showShipment", UtilMisc.toMap("document", doc), true);
                 } catch (GenericServiceException e) {
-                    String errMsg = "Error running service showShipment: "+e.toString();
+                    String errMsg = "Error running service showShipment: " + e.toString();
                     errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                     Debug.logError(e, errMsg, module);
                 }
             } else if (bsrVerb.equalsIgnoreCase("SYNC") && bsrNoun.equalsIgnoreCase("INVENTORY")) {
                 try {
-                    subServiceResult = dispatcher.runSync("syncInventory", UtilMisc.toMap("document",doc));
+                    //subServiceResult = dispatcher.runSync("syncInventory", UtilMisc.toMap("document", doc));
+                    // DEJ20070808 changed to run asynchronously and persisted so that if it fails it will retry; for transaction deadlock and other reasons
+                    dispatcher.runAsync("syncInventory", UtilMisc.toMap("document", doc), true);
                 } catch (GenericServiceException e) {
-                    String errMsg = "Error running service syncInventory: "+e.toString();
+                    String errMsg = "Error running service syncInventory: " + e.toString();
                     errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                     Debug.logError(e, errMsg, module);
                 }
@@ -473,17 +475,19 @@ public class OagisServices {
                 String docType = UtilXml.childElementValue(docRefElement, "of:DOCTYPE");
                 if ("PO".equals(docType)){
                     try {
-                        subServiceResult = dispatcher.runSync("receivePoAcknowledge", UtilMisc.toMap("document",doc));
+                        //subServiceResult = dispatcher.runSync("receivePoAcknowledge", UtilMisc.toMap("document", doc));
+                        dispatcher.runAsync("receivePoAcknowledge", UtilMisc.toMap("document", doc), true);
                     } catch (GenericServiceException e) {
-                        String errMsg = "Error running service receivePoAcknowledge: "+e.toString();
+                        String errMsg = "Error running service receivePoAcknowledge: " + e.toString();
                         errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                         Debug.logError(e, errMsg, module);
                     }
                 } else if ("RMA".equals(docType)) {
                     try {
-                        subServiceResult = dispatcher.runSync("receiveRmaAcknowledge", UtilMisc.toMap("document",doc));
+                        //subServiceResult = dispatcher.runSync("receiveRmaAcknowledge", UtilMisc.toMap("document", doc));
+                        dispatcher.runAsync("receiveRmaAcknowledge", UtilMisc.toMap("document", doc), true);
                     } catch (GenericServiceException e) {
-                        String errMsg = "Error running service receiveRmaAcknowledge: "+e.toString();
+                        String errMsg = "Error running service receiveRmaAcknowledge: " + e.toString();
                         errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                         Debug.logError(e, errMsg, module);
                     }

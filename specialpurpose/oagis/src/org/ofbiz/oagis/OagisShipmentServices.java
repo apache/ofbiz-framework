@@ -470,6 +470,24 @@ public class OagisShipmentServices {
         if (orderHeader != null) {
             String orderStatusId = orderHeader.getString("statusId");
             if (orderStatusId.equals("ORDER_APPROVED")) {
+                // first check some things...
+                OrderReadHelper orderReadHelper = new OrderReadHelper(orderHeader);
+                try {
+                    // before doing or saving anything see if any OrderItems are Products with isPhysical=Y
+                    if (!orderReadHelper.hasPhysicalProductItems()) {
+                        // no need to process shipment, return success
+                        return ServiceUtil.returnSuccess();
+                    }
+                } catch (GenericEntityException e) {
+                    String errMsg = "Error checking order: " + e.toString();
+                    Debug.logError(e, errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
+                }
+                if (!orderReadHelper.hasShippingAddress()) {
+                    return ServiceUtil.returnError("Cannot send Process Shipment for order [" + orderId + "], it has no shipping address.");
+                }
+
+
                 String logicalId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.LOGICALID");
                 bodyParameters.put("logicalId", logicalId);
                 Map comiCtx = UtilMisc.toMap("logicalId", logicalId);
@@ -482,12 +500,11 @@ public class OagisShipmentServices {
                 bodyParameters.put("referenceId", referenceId);
                 comiCtx.put("referenceId", referenceId);
                     
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
                 Timestamp timestamp = UtilDateTime.nowTimestamp();
-                String sentDate = dateFormat.format(timestamp);
+                String sentDate = OagisServices.isoDateFormat.format(timestamp);
                 bodyParameters.put("sentDate", sentDate);
                 comiCtx.put("sentDate", timestamp);
-
+                
                 // prepare map to Create Oagis Message Info
                 comiCtx.put("processingStatusId", "OAGMP_TRIGGERED");
                 comiCtx.put("component", "INVENTORY");
@@ -531,22 +548,22 @@ public class OagisShipmentServices {
                     }
                     
                     bodyParameters.put("shipment", shipment);
-                    OrderReadHelper orderReadHelper = new OrderReadHelper(orderHeader);
-                    if(orderReadHelper.hasShippingAddress()) {
-                        GenericValue  address = EntityUtil.getFirst(orderReadHelper.getShippingLocations());
-                        bodyParameters.put("address", address);
-                    }
+                    List shipmentItems = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId));
+                    bodyParameters.put("shipmentItems", shipmentItems);
+
+                    GenericValue  address = EntityUtil.getFirst(orderReadHelper.getShippingLocations());
+                    bodyParameters.put("address", address);
                     String emailString = orderReadHelper.getOrderEmailString();
                     bodyParameters.put("emailString", emailString);
                     String contactMechId = shipment.getString("destinationTelecomNumberId");
                     GenericValue telecomNumber = delegator.findByPrimaryKey("TelecomNumber", UtilMisc.toMap("contactMechId", contactMechId));
                     bodyParameters.put("telecomNumber", telecomNumber);
-                    List shipmentItems = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId));
-                    bodyParameters.put("shipmentItems", shipmentItems);
+                    
                     orderItemShipGroup = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGroup", UtilMisc.toMap("orderId", orderId)));
                     bodyParameters.put("orderItemShipGroup", orderItemShipGroup);
                     Set correspondingPoIdSet = FastSet.newInstance();
-                    List orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
+
+                    List orderItems = orderReadHelper.getOrderItems();
                     Iterator oiIter = orderItems.iterator();
                     while (oiIter.hasNext()) {
                         GenericValue orderItem = (GenericValue) oiIter.next();
