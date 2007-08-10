@@ -50,6 +50,8 @@ public class ScreenFopViewHandler implements ViewHandler {
     protected ServletContext servletContext = null;
     protected FoScreenRenderer foScreenRenderer = new FoScreenRenderer();
 
+    private final String DEFAULT_ERROR_TEMPLATE = "component://common/widget/CommonScreens.xml#FoError";
+
     /**
      * @see org.ofbiz.webapp.view.ViewHandler#init(javax.servlet.ServletContext)
      */
@@ -94,6 +96,9 @@ public class ScreenFopViewHandler implements ViewHandler {
             Reader reader = new StringReader(writer.toString());
             Source src = new StreamSource(reader);
 
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Transforming the following xsl-fo template: " + writer.toString(), module);
+            }
             /*
             try {
                 String buf = writer.toString();
@@ -112,24 +117,41 @@ public class ScreenFopViewHandler implements ViewHandler {
                 // Transform the FOP XML source
                 transformer.transform(src, res);
 
-                // We don't want to cache the images that get loaded by the FOP engine
-                fopFactory.getImageFactory().clearCaches();
-
-                // set the content type and length
-                response.setContentType(contentType);
-                response.setContentLength(out.size());
-
-                // write to the browser
-                try {
-                    out.writeTo(response.getOutputStream());
-                    response.getOutputStream().flush();
-                } catch (IOException e) {
-                    throw new ViewHandlerException("Unable write to browser OutputStream", e);
-                }
-
             } catch (TransformerException e) {
-                Debug.logError("FOP transform failed:" + e, module );
-                throw new ViewHandlerException("Unable to transform FO to " + contentType, e);
+                Debug.logError("FOP transform failed: " + e, module );
+                Debug.logInfo("Rendering the error message using the default error template: " + DEFAULT_ERROR_TEMPLATE, module );
+                try {
+                    writer = new StringWriter();
+                    out = new ByteArrayOutputStream();
+                    fopFactory = ApacheFopFactory.instance();
+                    transFactory = TransformerFactory.newInstance();
+                    transformer = transFactory.newTransformer();
+                    fop = fopFactory.newFop(contentType, out);
+                    res = new SAXResult(fop.getDefaultHandler());
+                    ScreenRenderer screens = new ScreenRenderer(writer, null, foScreenRenderer);
+                    screens.populateContextForRequest(request, response, servletContext);
+                    screens.getContext().put("errorMessage", e.toString());
+                    screens.render(DEFAULT_ERROR_TEMPLATE);
+                    transformer.transform(new StreamSource(new StringReader(writer.toString())), res);
+                } catch (Throwable t) {
+                    // If we cannot even create the error page, then we return the original error
+                    throw new ViewHandlerException("Unable to transform FO to " + contentType, e);
+                }
+            }
+
+            // We don't want to cache the images that get loaded by the FOP engine
+            fopFactory.getImageFactory().clearCaches();
+
+            // set the content type and length
+            response.setContentType(contentType);
+            response.setContentLength(out.size());
+
+            // write to the browser
+            try {
+                out.writeTo(response.getOutputStream());
+                response.getOutputStream().flush();
+            } catch (IOException e) {
+                throw new ViewHandlerException("Unable write to browser OutputStream", e);
             }
 
         } catch (TransformerConfigurationException e) {
