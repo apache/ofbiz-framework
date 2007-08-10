@@ -18,8 +18,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#escape x as x?xml>
-<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
-
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format"
+    <#-- inheritance -->
+    <#if defaultFontFamily?has_content>font-family="${defaultFontFamily}"</#if>
+>
     <fo:layout-master-set>
         <fo:simple-page-master master-name="simple-portrait"
               page-width="8.5in" page-height="11in"
