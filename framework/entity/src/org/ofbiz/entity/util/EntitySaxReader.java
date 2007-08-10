@@ -37,6 +37,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateHashModel;
 import javolution.text.CharArray;
 import javolution.text.Text;
+import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.xml.sax.XMLReaderImpl;
 import javolution.xml.sax.Attributes;
@@ -81,8 +82,10 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
     protected boolean useTryInsertMethod = false;
     protected boolean maintainTxStamps = false;
     protected boolean createDummyFks = false;
+    protected boolean checkDataOnly = false;
     protected boolean doCacheClear = true;
     protected boolean disableEeca = false;
+    protected List messageList = null;
 
     protected List valuesToWrite = new ArrayList(valuesPerWrite);
 
@@ -151,6 +154,14 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
         this.createDummyFks = createDummyFks;
     }
 
+    public boolean getCheckDataOnly() {
+        return this.checkDataOnly;
+    }
+
+    public void setCheckDataOnly(boolean checkDataOnly) {
+        this.checkDataOnly = checkDataOnly;
+    }
+
     public boolean getDoCacheClear() {
         return this.doCacheClear;
     }
@@ -161,6 +172,17 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
 
     public boolean getDisableEeca() {
         return this.disableEeca;
+    }
+    
+    public List getMessageList() {
+        if (this.checkDataOnly && this.messageList == null) {
+            messageList = FastList.newInstance();
+        }
+        return this.messageList;
+    }
+    
+    public void setMessageList(List messageList) {
+        this.messageList = messageList;
     }
 
     public void setDisableEeca(boolean disableEeca) {
@@ -254,7 +276,11 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
     }
 
     protected void writeValues(List valuesToWrite) throws GenericEntityException {
-        delegator.storeAll(valuesToWrite, doCacheClear, createDummyFks);
+        if (this.checkDataOnly) {
+            EntityDataAssert.checkValueList(valuesToWrite, delegator, this.getMessageList());
+        } else {
+            delegator.storeAll(valuesToWrite, doCacheClear, createDummyFks);
+        }
     }
 
     public void characters(char[] values, int offset, int count) throws org.xml.sax.SAXException {
@@ -374,7 +400,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
                 }
 
                 try {
-                    if (useTryInsertMethod) {
+                    if (this.useTryInsertMethod && !this.checkDataOnly) {
                         // this technique is faster for data sets where most, if not all, values do not already exist in the database
                         try {
                             currentValue.create();

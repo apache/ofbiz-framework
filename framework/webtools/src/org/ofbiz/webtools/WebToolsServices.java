@@ -42,6 +42,8 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.net.MalformedURLException;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
@@ -54,6 +56,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityDataAssert;
 import org.ofbiz.entity.util.EntityDataLoader;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntitySaxReader;
@@ -66,6 +69,8 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
 import freemarker.template.*;
 import freemarker.ext.dom.NodeModel;
 import freemarker.ext.beans.BeansWrapper;
@@ -96,6 +101,7 @@ public class WebToolsServices {
         String mostlyInserts = (String)context.get("mostlyInserts");
         String maintainTimeStamps = (String)context.get("maintainTimeStamps");
         String createDummyFks = (String)context.get("createDummyFks");
+        String checkDataOnly = (String) context.get("checkDataOnly");
 
         Integer txTimeout = (Integer)context.get("txTimeout");
 
@@ -170,6 +176,7 @@ public class WebToolsServices {
             try{
                 Map inputMap = UtilMisc.toMap("mostlyInserts", mostlyInserts, 
                                               "createDummyFks", createDummyFks,
+                                              "checkDataOnly", checkDataOnly,
                                               "maintainTimeStamps", maintainTimeStamps,
                                               "txTimeout", txTimeout,
                                               "userLogin", userLogin);
@@ -212,11 +219,12 @@ public class WebToolsServices {
 
         List messages = FastList.newInstance();
 
-        String path = (String)context.get("path");
-        String mostlyInserts = (String)context.get("mostlyInserts");
-        String maintainTimeStamps = (String)context.get("maintainTimeStamps");
-        String createDummyFks = (String)context.get("createDummyFks");
-        boolean deleteFiles = (String)context.get("deleteFiles") != null;
+        String path = (String) context.get("path");
+        String mostlyInserts = (String) context.get("mostlyInserts");
+        String maintainTimeStamps = (String) context.get("maintainTimeStamps");
+        String createDummyFks = (String) context.get("createDummyFks");
+        boolean deleteFiles = (String) context.get("deleteFiles") != null;
+        String checkDataOnly = (String) context.get("checkDataOnly");
 
         Integer txTimeout = (Integer)context.get("txTimeout");
         Long filePause = (Long)context.get("filePause");
@@ -253,6 +261,7 @@ public class WebToolsServices {
                     while (filesItr.hasNext()) {
                         Map parseEntityXmlFileArgs = UtilMisc.toMap("mostlyInserts", mostlyInserts, 
                                 "createDummyFks", createDummyFks,
+                                "checkDataOnly", checkDataOnly,
                                 "maintainTimeStamps", maintainTimeStamps,
                                 "txTimeout", txTimeout,
                                 "userLogin", userLogin);
@@ -322,7 +331,8 @@ public class WebToolsServices {
         boolean useDummyFks = "true".equals((String) context.get("createDummyFks"));
         boolean maintainTxs = "true".equals((String) context.get("maintainTimeStamps"));
         boolean tryInserts = "true".equals((String) context.get("mostlyInserts"));
-
+        boolean checkDataOnly = "true".equals((String) context.get("checkDataOnly"));
+        
         Integer txTimeoutInt = (Integer) context.get("txTimeout");
         int txTimeout = txTimeoutInt != null ? txTimeoutInt.intValue() : -1;
 
@@ -369,20 +379,34 @@ public class WebToolsServices {
         List infoMessages = new LinkedList();
         int totalRowsChanged = 0;
         if (urlList != null && urlList.size() > 0) {
-            messages.add("=-=-=-=-=-=-= Doing a data load with the following files:");
+            messages.add("=-=-=-=-=-=-= Doing a data " + (checkDataOnly ? "check" : "load") + " with the following files:");
             Iterator urlIter = urlList.iterator();
             while (urlIter.hasNext()) {
                 URL dataUrl = (URL) urlIter.next();
                 messages.add(dataUrl.toExternalForm());
             }
 
-            messages.add("=-=-=-=-=-=-= Starting the data load...");
+            messages.add("=-=-=-=-=-=-= Starting the data " + (checkDataOnly ? "check" : "load") + "...");
 
             urlIter = urlList.iterator();
             while (urlIter.hasNext()) {
                 URL dataUrl = (URL) urlIter.next();
                 try {
-                    int rowsChanged = EntityDataLoader.loadData(dataUrl, helperName, delegator, errorMessages, txTimeout, useDummyFks, maintainTxs, tryInserts);
+                    int rowsChanged = 0;
+                    if (checkDataOnly) {
+                        try {
+                            errorMessages.add("Checking data in [" + dataUrl.toExternalForm() + "]");
+                            rowsChanged = EntityDataAssert.assertData(dataUrl, delegator, errorMessages);
+                        } catch (SAXException e) {
+                            errorMessages.add("Error checking data in [" + dataUrl.toExternalForm() + "]: " + e.toString());
+                        } catch (ParserConfigurationException e) {
+                            errorMessages.add("Error checking data in [" + dataUrl.toExternalForm() + "]: " + e.toString());
+                        } catch (IOException e) {
+                            errorMessages.add("Error checking data in [" + dataUrl.toExternalForm() + "]: " + e.toString());
+                        }
+                    } else {
+                        rowsChanged = EntityDataLoader.loadData(dataUrl, helperName, delegator, errorMessages, txTimeout, useDummyFks, maintainTxs, tryInserts);
+                    }
                     totalRowsChanged += rowsChanged;
                     infoMessages.add(changedFormat.format(rowsChanged) + " of " + changedFormat.format(totalRowsChanged) + " from " + dataUrl.toExternalForm());
                 } catch (GenericEntityException e) {
@@ -390,20 +414,20 @@ public class WebToolsServices {
                 }
             }
         } else {
-            messages.add("=-=-=-=-=-=-= No data load files found.");
+            messages.add("=-=-=-=-=-=-= No data " + (checkDataOnly ? "check" : "load") + " files found.");
         }
 
         if (infoMessages.size() > 0) {
-            messages.add("=-=-=-=-=-=-= Here is a summary of the data load:");
+            messages.add("=-=-=-=-=-=-= Here is a summary of the data " + (checkDataOnly ? "check" : "load") + ":");
             messages.addAll(infoMessages);
         }
         
         if (errorMessages.size() > 0) {
-            messages.add("=-=-=-=-=-=-= The following errors occured in the data load:");
+            messages.add("=-=-=-=-=-=-= The following errors occured in the data " + (checkDataOnly ? "check" : "load") + ":");
             messages.addAll(errorMessages);
         }
 
-        messages.add("=-=-=-=-=-=-= Finished the data load with " + totalRowsChanged + " rows changed.");
+        messages.add("=-=-=-=-=-=-= Finished the data " + (checkDataOnly ? "check" : "load") + " with " + totalRowsChanged + " rows " + (checkDataOnly ? "checked" : "changed") + ".");
         
         Map resultMap = ServiceUtil.returnSuccess();
         resultMap.put("messages", messages);
@@ -428,6 +452,7 @@ public class WebToolsServices {
         boolean mostlyInserts = (String)context.get("mostlyInserts") != null;
         boolean maintainTimeStamps = (String)context.get("maintainTimeStamps") != null;
         boolean createDummyFks = (String)context.get("createDummyFks") != null;
+        boolean checkDataOnly = (String)context.get("checkDataOnly") != null;
         Integer txTimeout = (Integer)context.get("txTimeout");
 
         if (txTimeout == null) {
@@ -441,8 +466,9 @@ public class WebToolsServices {
             reader.setMaintainTxStamps(maintainTimeStamps);
             reader.setTransactionTimeout(txTimeout.intValue());
             reader.setCreateDummyFks(createDummyFks);
+            reader.setCheckDataOnly(checkDataOnly); 
 
-            long numberRead = (url != null? reader.parse(url): reader.parse(xmltext));
+            long numberRead = (url != null ? reader.parse(url) : reader.parse(xmltext));
             rowProcessed = new Long(numberRead);
         } catch (Exception ex){
             return ServiceUtil.returnError("Error parsing entity xml file: " + ex.toString());
