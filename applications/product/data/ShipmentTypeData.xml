@@ -30,7 +30,7 @@ under the License.
     <ShipmentContactMechType description="Ship-To Telecom Number" shipmentContactMechTypeId="SHIP_TO_TELECOM"/>
     <ShipmentContactMechType description="Ship-From Telecom Number" shipmentContactMechTypeId="SHIP_FROM_TELECOM"/>
     <ShipmentContactMechType description="Ship-To E-Mail" shipmentContactMechTypeId="SHIP_TO_EMAIL"/>
-    <ShipmentContactMechType description="Ship-From E-Mail" shipmentContactMechTypeId="SHIP_TO_EMAIL"/>
+    <ShipmentContactMechType description="Ship-From E-Mail" shipmentContactMechTypeId="SHIP_FROM_EMAIL"/>
 
     <ShipmentType description="Incoming" hasTable="N" parentTypeId="" shipmentTypeId="INCOMING_SHIPMENT"/>
     <ShipmentType description="Outgoing" hasTable="N" parentTypeId="" shipmentTypeId="OUTGOING_SHIPMENT"/>
