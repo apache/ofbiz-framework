@@ -57,26 +57,7 @@ public class EntityDataAssert {
             Iterator checkValueIter = checkValueList.iterator();
             while (checkValueIter.hasNext()) {
                 GenericValue checkValue = (GenericValue) checkValueIter.next();
-
-                // to check get the PK, find by that, compare all fields
-                GenericPK checkPK = checkValue.getPrimaryKey();
-                GenericValue currentValue = delegator.findByPrimaryKey(checkPK);
-
-                ModelEntity modelEntity = currentValue.getModelEntity();
-                List nonpkFieldNameList = modelEntity.getNoPkFieldNames();
-                Iterator nonpkFieldNameIter = nonpkFieldNameList.iterator();
-                while (nonpkFieldNameIter.hasNext()) {
-                    String nonpkFieldName = (String) nonpkFieldNameIter.next();
-                    Object checkField = checkValue.get(nonpkFieldName);
-                    Object currentField = currentValue.get(nonpkFieldName);
-
-                    if (checkField != null && !checkField.equals(currentField)) {
-                        StringBuffer matchError = new StringBuffer();
-                        matchError.append("Field [" + modelEntity.getEntityName() + "." + nonpkFieldName + "] did not match; file value [" + checkField + "], db value [" + currentField + "] pk [" + checkPK + "]");
-                        errorMessages.add(matchError.toString());
-                    }
-                }
-
+                checkSingleValue(checkValue, delegator, errorMessages);
                 rowsChecked++;
             }
         } catch (GenericEntityException e) {
@@ -88,5 +69,44 @@ public class EntityDataAssert {
         }
 
         return rowsChecked;
+    }
+    
+    public static void checkValueList(List valueList, GenericDelegator delegator, List errorMessages) throws GenericEntityException {
+        if (valueList == null) return;
+        
+        Iterator valueIter = valueList.iterator();
+        while (valueIter.hasNext()) {
+            GenericValue checkValue = (GenericValue) valueIter.next();
+            checkSingleValue(checkValue, delegator, errorMessages);
+        }
+    }
+    
+    public static void checkSingleValue(GenericValue checkValue, GenericDelegator delegator, List errorMessages) throws GenericEntityException {
+        // to check get the PK, find by that, compare all fields
+        GenericPK checkPK = checkValue.getPrimaryKey();
+        GenericValue currentValue = delegator.findByPrimaryKey(checkPK);
+        if (currentValue == null) {
+            errorMessages.add("Entity [" + checkPK.getEntityName() + "] record not found for pk: " + checkPK);
+        }
+
+        ModelEntity modelEntity = currentValue.getModelEntity();
+        List nonpkFieldNameList = modelEntity.getNoPkFieldNames();
+        Iterator nonpkFieldNameIter = nonpkFieldNameList.iterator();
+        while (nonpkFieldNameIter.hasNext()) {
+            String nonpkFieldName = (String) nonpkFieldNameIter.next();
+            // skip the fields the entity engine maintains
+            if (ModelEntity.CREATE_STAMP_FIELD.equals(nonpkFieldName) || ModelEntity.CREATE_STAMP_TX_FIELD.equals(nonpkFieldName) ||
+                    ModelEntity.STAMP_FIELD.equals(nonpkFieldName) || ModelEntity.STAMP_TX_FIELD.equals(nonpkFieldName)) {
+                continue;
+            }
+            
+            Object checkField = checkValue.get(nonpkFieldName);
+            Object currentField = currentValue.get(nonpkFieldName);
+
+            if (checkField != null && !checkField.equals(currentField)) {
+                errorMessages.add("Field [" + modelEntity.getEntityName() + "." + nonpkFieldName + 
+                        "] did not match; file value [" + checkField + "], db value [" + currentField + "] pk [" + checkPK + "]");
+            }
+        }
     }
 }
