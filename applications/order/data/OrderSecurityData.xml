@@ -130,6 +130,7 @@ under the License.
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_CREATE"/>
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="PARTYMGR_VIEW"/>
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="PARTYMGR_CREATE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="PARTYMGR_PCM_CREATE"/>
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="PARTYMGR_UPDATE"/>
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="PARTYMGR_NOTE"/>
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="PAY_INFO_VIEW"/>
