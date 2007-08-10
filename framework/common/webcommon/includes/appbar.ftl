@@ -40,7 +40,7 @@ under the License.
           <#if thisApp == contextPath>
             <#assign selected = true>
           </#if>
-          <li<#if selected> class="selected"</#if>><a href="${response.encodeURL(thisApp + "/control/main" + externalKeyParam)}" title=""><#if uiLabelMap?exists>${uiLabelMap[display.title]}<#else>${display.title}</#if></a></li>
+          <li<#if selected> class="selected"</#if>><a href="${response.encodeURL(thisApp + externalKeyParam)}" title=""><#if uiLabelMap?exists>${uiLabelMap[display.title]}<#else>${display.title}</#if></a></li>
         </#if>
       </#list>
     </ul>
