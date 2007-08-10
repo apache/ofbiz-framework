@@ -389,6 +389,21 @@ public class OrderReadHelper {
         }
         return false;
     }
+    
+    public boolean hasPhysicalProductItems() throws GenericEntityException {
+        Iterator orderItemIter = this.getOrderItems().iterator();
+        while (orderItemIter.hasNext()) {
+            GenericValue orderItem = (GenericValue) orderItemIter.next();
+            GenericValue product = orderItem.getRelatedOneCache("Product");
+            if (product != null) {
+                GenericValue productType = product.getRelatedOneCache("ProductType");
+                if ("Y".equals(productType.getString("isPhysical"))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public GenericValue getOrderItemShipGroup(String shipGroupSeqId) {
         try {
