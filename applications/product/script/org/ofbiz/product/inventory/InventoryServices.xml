@@ -333,7 +333,7 @@ under the License.
                     <then>
                         <set field="inventoryItem.availableToPromiseTotal" value="0" type="Double"/>
                         <set field="inventoryItem.quantityOnHandTotal" value="1" type="Double"/>
-                        <log level="always" message="Storing totals [${inventoryItem.inventoryItemId}] for other status [1/0]"/>
+                        <log level="always" message="Storing totals [${inventoryItem.inventoryItemId}] for other status [0/1]"/>
                         <store-value value-name="inventoryItem"/>
                     </then>
                 </else-if>
@@ -654,9 +654,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="balanceInventoryItems" short-description="Balances available-to-promise on inventory items">
-        <make-value entity-name="InventoryItem" value-name="lookupPKMap"/>
-        <set-pk-fields value-name="lookupPKMap" map-name="parameters"/>
-        <find-by-primary-key entity-name="InventoryItem" map-name="lookupPKMap" value-name="inventoryItem"/>
+        <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
 
         <!-- find all items which have a negative ATP -->
         <entity-condition entity-name="InventoryItem" list-name="inventoryItems">
@@ -707,7 +705,7 @@ under the License.
                              orders appearing on duplicate pick lists -->
 
                     <if-empty field-name="picklistItemList">
-                        <log level="always" message="Order #${oneRelatedRes.orderId} was not found on any picklist for this item [${oneRelatedRes.inventoryItemId}]"/>                                                                   
+                        <log level="info" message="Order [${oneRelatedRes.orderId}] was not found on any picklist for InventoryItem [${oneRelatedRes.inventoryItemId}]"/>                                                                   
                         <if>
                             <condition>
                                 <and>
@@ -764,7 +762,16 @@ under the License.
             <set field="resMap.requireInventory" value="N"/>
             <set from-field="oisgir.shipGroupSeqId" field="resMap.shipGroupSeqId"/>
             <set from-field="oisgir.sequenceId" field="resMap.sequenceId"/>
-            <call-service service-name="reserveProductInventory" in-map-name="resMap"/>
+            <log level="info" message="Re-reserving product [${resMap.productId}] for order item [${resMap.orderId}:${resMap.orderItemSeqId}] quantity [${resMap.quantity}]; facility [${inventoryItem.facilityId}]"/>
+            <if-empty field-name="inventoryItem.facilityId">
+                <log level="warning" message="In balanceInventoryItems there is no facilityId, so reserving from any facility for order item [${resMap.orderId}:${resMap.orderItemSeqId}]"></log>
+                <call-service service-name="reserveProductInventory" in-map-name="resMap"/>
+                
+                <else>
+                    <set from-field="inventoryItem.facilityId" field="resMap.facilityId"/>
+                    <call-service service-name="reserveProductInventoryByFacility" in-map-name="resMap"/>
+                </else>
+            </if-empty>
             <clear-field field-name="resMap"/>
         </iterate>
     </simple-method>
