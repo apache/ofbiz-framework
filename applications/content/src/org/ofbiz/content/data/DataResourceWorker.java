@@ -575,26 +575,26 @@ public class DataResourceWorker {
             locale = Locale.getDefault();
         }
 
-        // check for a cahced template
+        // check for a cached template
         if (cache) {
             String disableCache = UtilProperties.getPropertyValue("content", "disable.ftl.template.cache");
             if (disableCache == null || !disableCache.equalsIgnoreCase("true")) {
-                Template cachedTemplate = FreeMarkerWorker.getTemplateCached(dataResourceId);
-                if (cachedTemplate != null) {
-                    try {
+                try {
+                    Template cachedTemplate = FreeMarkerWorker.getTemplate("DataResource:" + dataResourceId);
+                    if (cachedTemplate != null) {
                         String subContentId = (String) templateContext.get("subContentId");
                         if (UtilValidate.isNotEmpty(subContentId)) {
                             templateContext.put("contentId", subContentId);
                             templateContext.put("subContentId", null);
                             templateContext.put("globalNodeTrail", null); // Force getCurrentContent to query for subContent
                         }
-                        FreeMarkerWorker.renderTemplateCached(cachedTemplate, templateContext, out);
-                    } catch (TemplateException e) {
-                        Debug.logError("Error rendering FTL template. " + e.getMessage(), module);
-                        throw new GeneralException("Error rendering FTL template", e);
+                        FreeMarkerWorker.renderTemplate(cachedTemplate, templateContext, out);
                     }
-                    return;
+                } catch (TemplateException e) {
+                    Debug.logError("Error rendering FTL template. " + e.getMessage(), module);
+                    throw new GeneralException("Error rendering FTL template", e);
                 }
+                return;
             }
         }
 

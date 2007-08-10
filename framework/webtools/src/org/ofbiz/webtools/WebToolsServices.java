@@ -146,7 +146,7 @@ public class WebToolsServices {
 
             Template template = null;
             try {
-                Configuration conf = org.ofbiz.base.util.template.FreeMarkerWorker.makeDefaultOfbizConfig();
+                Configuration conf = org.ofbiz.base.util.template.FreeMarkerWorker.getDefaultOfbizConfig();
                 template = new Template("FMImportFilter", templateReader, conf);
                 Map fmcontext = new HashMap();
 
