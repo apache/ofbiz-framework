@@ -43,8 +43,8 @@ under the License.
     <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="CATALOG_ADMIN"/>
     <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="CATALOG_PRICE_MAINT"/>
     <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="OFBTOOLS_VIEW"/>
+    <!-- NOTE DEJ20070810 where did this come from? has duplicate ID of that above: <SecurityGroup description="Catalog Admin View and Purchase Allow Products" groupId="CATALOGADMIN"/> -->
 
-    <SecurityGroup description="Catalog Admin View and Purchase Allow Products" groupId="CATALOGADMIN"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_PURCHASE_ALLOW"/>
     
