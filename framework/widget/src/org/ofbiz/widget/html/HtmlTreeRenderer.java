@@ -68,13 +68,10 @@ public class HtmlTreeRenderer implements TreeStringRenderer {
         context.put("depth", Integer.toString(depth));
         if (node.isRootNode()) {
             appendWhitespace(writer);
-            writer.write("<!-- begin tree widget -->");
-            appendWhitespace(writer);
             writer.write("<ul class=\"basic-tree\">");
-        } else {
-            appendWhitespace(writer);
-            writer.write(" <li>");
         }
+        appendWhitespace(writer);
+        writer.write("<li>");
 
         String pkName = node.getPkName();
         String entityId = null;
@@ -162,30 +159,25 @@ public class HtmlTreeRenderer implements TreeStringRenderer {
     }
 
     public void renderNodeEnd(Writer writer, Map context, ModelTree.ModelNode node) throws IOException {
-        if (node.isRootNode()) {
+        Boolean processChildren = (Boolean) context.get("processChildren");
+        if (processChildren.booleanValue()) {
+            appendWhitespace(writer);
+            writer.write("</ul>");
+        }
+        appendWhitespace(writer);
+        writer.write("</li>");
+        if (node.isRootNode()){
             appendWhitespace(writer);
             writer.write("</ul>");
             appendWhitespace(writer);
-            writer.write("<!-- end tree widget -->");
-            appendWhitespace(writer);
-        }
-        else {
-            Boolean processChildren = (Boolean) context.get("processChildren");
-            if (processChildren.booleanValue()) {
-                appendWhitespace(writer);
-                writer.write("</ul>");
-            }
-            writer.write("</li>");
         }
     }
 
     public void renderLastElement(Writer writer, Map context, ModelTree.ModelNode node) throws IOException {
-        if (!node.isRootNode()) {
-            Boolean processChildren = (Boolean) context.get("processChildren");
-            if (processChildren.booleanValue()) {
-                appendWhitespace(writer);
-                writer.write("<ul class=\"basic-tree\">");
-            }
+        Boolean processChildren = (Boolean) context.get("processChildren");
+        if (processChildren.booleanValue()) {
+            appendWhitespace(writer);
+            writer.write("<ul class=\"basic-tree\">");
         }
     }
     
