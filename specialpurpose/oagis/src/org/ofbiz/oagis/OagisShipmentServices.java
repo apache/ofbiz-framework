@@ -411,6 +411,18 @@ public class OagisShipmentServices {
         GenericDelegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
         
+        // Check if order is not on back order before processing shipment
+        try {
+            Map checkOrderResp = dispatcher.runSync("checkOrderIsOnBackOrder", UtilMisc.toMap("orderId", orderId));
+            if (((Boolean) checkOrderResp.get("isBackOrder")).booleanValue()) {
+                Debug.logWarning("Order [" + orderId + "] is on back order, cannot Process Shipment", module);
+                return ServiceUtil.returnSuccess();
+            }
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        
         String sendToUrl = (String) context.get("sendToUrl");
         if (UtilValidate.isEmpty(sendToUrl)) {
             sendToUrl = UtilProperties.getPropertyValue("oagis.properties", "url.send.processShipment");
