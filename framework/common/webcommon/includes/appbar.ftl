@@ -37,10 +37,14 @@ under the License.
           </#if>
         </#list>
         <#if permission == true>
-          <#if thisApp == contextPath>
+          <#if thisApp == contextPath || contextPath + "/" == thisApp>
             <#assign selected = true>
           </#if>
-          <li<#if selected> class="selected"</#if>><a href="${response.encodeURL(thisApp + externalKeyParam)}" title=""><#if uiLabelMap?exists>${uiLabelMap[display.title]}<#else>${display.title}</#if></a></li>
+          <#assign thisURL = thisApp>
+          <#if thisApp != "/">
+            <#assign thisURL = thisURL + "/control/main">
+          </#if>
+          <li<#if selected> class="selected"</#if>><a href="${response.encodeURL(thisURL + externalKeyParam)}" title=""><#if uiLabelMap?exists>${uiLabelMap[display.title]}<#else>${display.title}</#if></a></li>
         </#if>
       </#list>
     </ul>
