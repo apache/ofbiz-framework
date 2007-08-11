@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -110,6 +111,7 @@ public class ServiceMultiEventHandler implements EventHandler {
 
         // some needed info for when running the service
         Locale locale = UtilHttp.getLocale(request);
+        TimeZone timeZone = UtilHttp.getTimeZone(request);
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
@@ -207,6 +209,8 @@ public class ServiceMultiEventHandler implements EventHandler {
                     if ("userLogin".equals(paramName)) continue;
                     // don't include locale, that is also taken care of below
                     if ("locale".equals(paramName)) continue;
+                    // don't include timeZone, that is also taken care of below
+                    if ("timeZone".equals(paramName)) continue;
 
                     Object value = null;
                     if (modelParam.stringMapPrefix != null && modelParam.stringMapPrefix.length() > 0) {
@@ -273,7 +277,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                 }
 
                 // get only the parameters for this service - converted to proper type
-                serviceContext = modelService.makeValid(serviceContext, ModelService.IN_PARAM, true, null, locale);
+                serviceContext = modelService.makeValid(serviceContext, ModelService.IN_PARAM, true, null, timeZone, locale);
 
                 // include the UserLogin value object
                 if (userLogin != null) {
@@ -283,6 +287,11 @@ public class ServiceMultiEventHandler implements EventHandler {
                 // include the Locale object
                 if (locale != null) {
                     serviceContext.put("locale", locale);
+                }
+
+                // include the TimeZone object
+                if (timeZone != null) {
+                    serviceContext.put("timeZone", timeZone);
                 }
 
                 // Debug.logInfo("ready to call " + serviceName + " with context " + serviceContext, module);
