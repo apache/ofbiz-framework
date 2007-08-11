@@ -37,6 +37,10 @@ under the License.
     <eca service="reserveProductInventory" event="global-commit">
         <action service="oagisProcessShipment" mode="sync"/>
     </eca>
+
+    <eca service="reserveProductInventoryByFacility" event="global-commit">
+        <action service="oagisProcessShipment" mode="sync"/>
+    </eca>
     -->
 
     <eca service="oagisMessageHandler" event="commit" run-on-error="true">
