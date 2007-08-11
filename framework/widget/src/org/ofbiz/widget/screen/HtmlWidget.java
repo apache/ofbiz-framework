@@ -28,6 +28,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -72,6 +73,10 @@ public class HtmlWidget extends ModelScreenWidget {
         String location = locationExdr.expandString(context);
         //Debug.logInfo("Rendering template at location [" + location + "] with context: \n" + context, module);
         
+        if (UtilValidate.isEmpty(location)) {
+            throw new IllegalArgumentException("Template location is empty");
+        }
+        
         if (location.endsWith(".ftl")) {
             try {
                 FreeMarkerWorker.renderTemplateAtLocation(location, context, writer);
@@ -89,7 +94,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 writeError(writer, errMsg);
             }
         } else {
-            throw new IllegalArgumentException("Rending not yet support for the tempalte at location: " + location);
+            throw new IllegalArgumentException("Rendering not yet supported for the template at location: " + location);
         }
     }
  
@@ -182,6 +187,7 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 }
+
 
 
 
