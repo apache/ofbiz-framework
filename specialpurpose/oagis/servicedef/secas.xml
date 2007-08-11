@@ -34,10 +34,6 @@ under the License.
         <action service="oagisReceiveDelivery" mode="async" persist="true"/>
     </eca>
     
-    <eca service="reserveProductInventory" event="global-commit">
-        <action service="oagisProcessShipment" mode="sync"/>
-    </eca>
-
     <eca service="reserveProductInventoryByFacility" event="global-commit">
         <action service="oagisProcessShipment" mode="sync"/>
     </eca>
