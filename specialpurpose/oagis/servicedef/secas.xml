@@ -34,6 +34,9 @@ under the License.
         <action service="oagisReceiveDelivery" mode="async" persist="true"/>
     </eca>
     
+    <eca service="reserveProductInventory" event="global-commit">
+        <action service="oagisProcessShipment" mode="sync"/>
+    </eca>
     -->
 
     <eca service="oagisMessageHandler" event="commit" run-on-error="true">
@@ -41,4 +44,5 @@ under the License.
         <action service="createOagisMsgErrInfosFromErrMapList" mode="sync"/>
         <action service="oagisSendConfirmBod" mode="sync"/>
     </eca>
+
 </service-eca>
