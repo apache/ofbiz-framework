@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.base.util.template;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -33,6 +32,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TimeZone;
 
@@ -43,6 +43,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
 
@@ -75,55 +76,48 @@ public class FreeMarkerWorker {
 
     public static Map ftlTransforms = new HashMap();
     
+    public static final String FRAMEWORK_TRANSFORMS = "frameworkTransforms";
+    public static final String APPLICATION_TRANSFORMS = "applicationTransforms";
+
     static {
-        try {
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-
-            // note: loadClass is necessary for these since this class doesn't know anything about them at compile time
-            // double note: may want to make this more dynamic and configurable in the future
-            ftlTransforms.put("ofbizUrl", loader.loadClass("org.ofbiz.webapp.ftl.OfbizUrlTransform").newInstance());
-            ftlTransforms.put("ofbizContentUrl", loader.loadClass("org.ofbiz.webapp.ftl.OfbizContentTransform").newInstance());
-            ftlTransforms.put("ofbizCurrency", loader.loadClass("org.ofbiz.webapp.ftl.OfbizCurrencyTransform").newInstance());
-            ftlTransforms.put("ofbizAmount", loader.loadClass("org.ofbiz.webapp.ftl.OfbizAmountTransform").newInstance());
-            ftlTransforms.put("setRequestAttribute", loader.loadClass("org.ofbiz.webapp.ftl.SetRequestAttributeMethod").newInstance());
-            ftlTransforms.put("renderWrappedText", loader.loadClass("org.ofbiz.webapp.ftl.RenderWrappedTextTransform").newInstance());
-
-            ftlTransforms.put("menuWrap", loader.loadClass("org.ofbiz.widget.menu.MenuWrapTransform").newInstance());
-        } catch (ClassNotFoundException e) {
-            Debug.logError(e, "Could not pre-initialize dynamically loaded class: ", module);
-        } catch (IllegalAccessException e) {
-            Debug.logError(e, "Could not pre-initialize dynamically loaded class: ", module);
-        } catch (InstantiationException e) {
-            Debug.logError(e, "Could not pre-initialize dynamically loaded class: ", module);
+        // Load framework transforms first.
+        // Transforms properties file set up as key=transform name, property=transform class name
+        Properties props = UtilProperties.getProperties(FRAMEWORK_TRANSFORMS);
+        if (props == null || props.isEmpty()) {
+            Debug.logError("Unable to locate properties file " + FRAMEWORK_TRANSFORMS, module);
+        } else {
+            loadTransforms(props);
         }
 
-        // do the applications ones in a separate pass so the framework ones can load even if the applications are not present
-        try {
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-
-            ftlTransforms.put("editRenderSubContent", loader.loadClass("org.ofbiz.content.webapp.ftl.EditRenderSubContentTransform").newInstance());
-            ftlTransforms.put("renderSubContent", loader.loadClass("org.ofbiz.content.webapp.ftl.RenderSubContentTransform").newInstance());
-            ftlTransforms.put("loopSubContent", loader.loadClass("org.ofbiz.content.webapp.ftl.LoopSubContentTransform").newInstance());
-            ftlTransforms.put("traverseSubContent", loader.loadClass("org.ofbiz.content.webapp.ftl.TraverseSubContentTransform").newInstance());
-
-            ftlTransforms.put("checkPermission", loader.loadClass("org.ofbiz.content.webapp.ftl.CheckPermissionTransform").newInstance());
-            ftlTransforms.put("injectNodeTrailCsv", loader.loadClass("org.ofbiz.content.webapp.ftl.InjectNodeTrailCsvTransform").newInstance());
-            
-            ftlTransforms.put("editRenderSubContentCache", loader.loadClass("org.ofbiz.content.webapp.ftl.EditRenderSubContentCacheTransform").newInstance());
-            ftlTransforms.put("renderSubContentCache", loader.loadClass("org.ofbiz.content.webapp.ftl.RenderSubContentCacheTransform").newInstance());
-            ftlTransforms.put("loopSubContentCache", loader.loadClass("org.ofbiz.content.webapp.ftl.LoopSubContentCacheTransform").newInstance());
-            ftlTransforms.put("traverseSubContentCache", loader.loadClass("org.ofbiz.content.webapp.ftl.TraverseSubContentCacheTransform").newInstance());
-            ftlTransforms.put("wrapSubContentCache", loader.loadClass("org.ofbiz.content.webapp.ftl.WrapSubContentCacheTransform").newInstance());
-            ftlTransforms.put("limitedSubContent", loader.loadClass("org.ofbiz.content.webapp.ftl.LimitedSubContentCacheTransform").newInstance());
-            ftlTransforms.put("renderSubContentAsText", loader.loadClass("org.ofbiz.content.webapp.ftl.RenderSubContentAsText").newInstance());
-            ftlTransforms.put("renderContentAsText", loader.loadClass("org.ofbiz.content.webapp.ftl.RenderContentAsText").newInstance());
-            ftlTransforms.put("renderContent", loader.loadClass("org.ofbiz.content.webapp.ftl.RenderContentTransform").newInstance());
-        } catch (ClassNotFoundException e) {
-            Debug.logError("Could not pre-initialize dynamically loaded class: " + e.toString(), module);
-        } catch (IllegalAccessException e) {
-            Debug.logError("Could not pre-initialize dynamically loaded class: " + e.toString(), module);
-        } catch (InstantiationException e) {
-            Debug.logError("Could not pre-initialize dynamically loaded class: " + e.toString(), module);
+        // Load application transforms next.
+        props = UtilProperties.getProperties(APPLICATION_TRANSFORMS);
+        if (props == null || props.isEmpty()) {
+            Debug.logError("Unable to locate properties file " + APPLICATION_TRANSFORMS, module);
+        } else {
+            loadTransforms(props);
+        }
+    }
+    
+    /**
+     * Protected helper method.
+     */
+    protected static void loadTransforms(Properties props) {
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        for (Iterator i = props.keySet().iterator(); i.hasNext();) {
+            String key = (String)i.next();
+            String className = props.getProperty(key);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Adding FTL Transform " + key + " with class " + className, module);
+            }
+            try {
+                ftlTransforms.put(key, loader.loadClass(className).newInstance());
+            } catch (ClassNotFoundException e) {
+                Debug.logError(e, "Could not pre-initialize dynamically loaded class: " + className + " ", module);
+            } catch (IllegalAccessException e) {
+                Debug.logError(e, "Could not pre-initialize dynamically loaded class: " + className + " ", module);
+            } catch (InstantiationException e) {
+                Debug.logError(e, "Could not pre-initialize dynamically loaded class: " + className + " ", module);
+            }
         }
     }
 
