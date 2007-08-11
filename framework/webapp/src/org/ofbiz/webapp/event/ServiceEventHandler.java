@@ -294,7 +294,7 @@ public class ServiceEventHandler implements EventHandler {
         // get only the parameters for this service - converted to proper type
         // TODO: pass in a list for error messages, like could not convert type or not a proper X, return immediately with messages if there are any
         List errorMessages = new LinkedList();
-        serviceContext = model.makeValid(serviceContext, ModelService.IN_PARAM, true, errorMessages, locale);
+        serviceContext = model.makeValid(serviceContext, ModelService.IN_PARAM, true, errorMessages, timeZone, locale);
         if (errorMessages.size() > 0) {
             // uh-oh, had some problems...
             request.setAttribute("_ERROR_MESSAGE_LIST_", errorMessages);

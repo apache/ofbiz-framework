@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -201,6 +202,7 @@ public class CoreEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         //GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         Locale locale = UtilHttp.getLocale(request);
+        TimeZone timeZone = UtilHttp.getTimeZone(request);
         
         Map params = UtilHttp.getParameterMap(request);
         // get the schedule parameters
@@ -291,7 +293,7 @@ public class CoreEvents {
             // set even if null so that values will get nulled in the db later on
             serviceContext.put(name, value);
         }     
-        serviceContext = modelService.makeValid(serviceContext, ModelService.IN_PARAM, true, null, locale);
+        serviceContext = modelService.makeValid(serviceContext, ModelService.IN_PARAM, true, null, timeZone, locale);
         
         if (userLogin != null) {
             serviceContext.put("userLogin", userLogin);                             

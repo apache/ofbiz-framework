@@ -58,6 +58,18 @@ public class UtilDateTime {
     };
 
     public static final DecimalFormat df = new DecimalFormat("0.00;-0.00");
+    /**
+     * JDBC escape format for java.sql.Date conversions.
+     */
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
+    /**
+     * JDBC escape format for java.sql.Timestamp conversions.
+     */
+    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss.S";
+    /**
+     * JDBC escape format for java.sql.Time conversions.
+     */
+    public static final String TIME_FORMAT = "HH:mm:ss";
 
     public static double getInterval(Date from, Date thru) {
         return thru != null ? thru.getTime() - from.getTime() : 0;
@@ -884,22 +896,87 @@ public class UtilDateTime {
     }
 
     /**
+     * Returns an initialized DateFormat object.
+     * @param dateFormat optional format string
+     * @param tz
+     * @param locale can be null if dateFormat is not null
+     * @return DateFormat object
+     */
+    public static DateFormat toDateFormat(String dateFormat, TimeZone tz, Locale locale) {
+        DateFormat df = null;
+        if (dateFormat == null) {
+            df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+        } else {
+            df = new SimpleDateFormat(dateFormat);
+        }
+        df.setTimeZone(tz);
+        return df;
+    }
+
+    /**
+     * Returns an initialized DateFormat object.
+     * @param dateTimeFormat optional format string
+     * @param tz
+     * @param locale can be null if dateTimeFormat is not null
+     * @return DateFormat object
+     */
+    public static DateFormat toDateTimeFormat(String dateTimeFormat, TimeZone tz, Locale locale) {
+        DateFormat df = null;
+        if (dateTimeFormat == null) {
+            df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, locale);
+        } else {
+            df = new SimpleDateFormat(dateTimeFormat);
+        }
+        df.setTimeZone(tz);
+        return df;
+    }
+
+    /**
+     * Returns an initialized DateFormat object.
+     * @param timeFormat optional format string
+     * @param tz
+     * @param locale can be null if timeFormat is not null
+     * @return DateFormat object
+     */
+    public static DateFormat toTimeFormat(String timeFormat, TimeZone tz, Locale locale) {
+        DateFormat df = null;
+        if (timeFormat == null) {
+            df = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
+        } else {
+            df = new SimpleDateFormat(timeFormat);
+        }
+        df.setTimeZone(tz);
+        return df;
+    }
+
+    /**
      * Localized String to Timestamp conversion. To be used in tandem with timeStampToString().
-     * 
      */
     public static Timestamp stringToTimeStamp(String dateTimeString, TimeZone tz, Locale locale) throws ParseException {
-        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, locale);
-        dateFormat.setTimeZone(tz);
+        return stringToTimeStamp(dateTimeString, null, tz, locale);
+    }
+
+    /**
+     * Localized String to Timestamp conversion. To be used in tandem with timeStampToString().
+     */
+    public static Timestamp stringToTimeStamp(String dateTimeString, String dateTimeFormat, TimeZone tz, Locale locale) throws ParseException {
+        DateFormat dateFormat = toDateTimeFormat(dateTimeFormat, tz, locale);
         Date parsedDate = dateFormat.parse(dateTimeString);
         return new Timestamp(parsedDate.getTime());
     }
 
     /**
      * Localized Timestamp to String conversion. To be used in tandem with stringToTimeStamp().
-     * 
      */
     public static String timeStampToString(Timestamp stamp, TimeZone tz, Locale locale) {
-        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, locale);
+        return timeStampToString(stamp, null, tz, locale);
+    }
+
+    /**
+     * Localized Timestamp to String conversion. To be used in tandem with stringToTimeStamp().
+     */
+    public static String timeStampToString(Timestamp stamp, String dateTimeFormat, TimeZone tz, Locale locale) {
+        DateFormat dateFormat = toDateTimeFormat(dateTimeFormat, tz, locale);
         dateFormat.setTimeZone(tz);
         return dateFormat.format(stamp);
     }

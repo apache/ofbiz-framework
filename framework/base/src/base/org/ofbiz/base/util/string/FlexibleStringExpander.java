@@ -19,14 +19,17 @@
 package org.ofbiz.base.util.string;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
@@ -50,7 +53,7 @@ public class FlexibleStringExpander implements Serializable {
     protected String original;
     protected List stringElements = new LinkedList();
     protected static boolean localizeCurrency = false;
-    protected static String currencyCode = null;            
+    protected static String currencyCode = null;
     
     public FlexibleStringExpander(String original) {
         this.original = original;
@@ -142,6 +145,25 @@ public class FlexibleStringExpander implements Serializable {
      * @return The original String expanded by replacing varaible place holders.
      */
     public static String expandString(String original, Map context, Locale locale) {
+        return expandString(original, context, null, locale);
+    }
+    
+    /**
+     * Does on-the-fly parsing and expansion of the original String using
+     * varaible values from the passed context. Variables are denoted with
+     * the "${}" syntax and the variable name inside the curly-braces can use
+     * the "." (dot) syntax to access sub-Map entries and the "[]" square-brace
+     * syntax to access List elements.
+     * It Also supports the execution of bsh files by using the 'bsh:' prefix.
+     * Further it is possible to control the output by specifying the suffix 
+     *     '?currency(XXX)' to format the output according the current locale
+     *     and specified (XXX) currency
+     * 
+     * @param original The original String that will be expanded
+     * @param context A context Map containing the variable values
+     * @return The original String expanded by replacing varaible place holders.
+     */
+    public static String expandString(String original, Map context, TimeZone timeZone, Locale locale) {
         // if null or less than 3 return original; 3 chars because that is the minimum necessary for a ${}
         if (original == null || original.length() < 3) {
             return original;
@@ -166,14 +188,21 @@ public class FlexibleStringExpander implements Serializable {
         if (locale == null && context.containsKey("autoUserLogin")) {
             locale = UtilMisc.ensureLocale(((Map) context.get("autoUserLogin")).get("lastLocale"));
         }
+        
+        if (timeZone == null) {
+            timeZone = (TimeZone) context.get("timeZone");
+            if (timeZone == null) {
+                timeZone = TimeZone.getDefault();
+            }
+        }
 
         StringBuffer expanded = new StringBuffer();
         // TODO: for performance to save object build up and tear down times we should use Javolution to make OnTheFlyHandler reusable and use a factory methods instead of constructor
-        ParseElementHandler handler = new OnTheFlyHandler(expanded, context, locale);
+        ParseElementHandler handler = new OnTheFlyHandler(expanded, context, timeZone, locale);
         parseString(original, handler);
         
         //call back into this method with new String to take care of any/all nested expands
-        return expandString(expanded.toString(), context, locale);
+        return expandString(expanded.toString(), context, timeZone, locale);
     }
     
     public static void parseString(String original, ParseElementHandler handler) {
@@ -314,10 +343,12 @@ public class FlexibleStringExpander implements Serializable {
         protected StringBuffer targetBuffer;
         protected Map context;
         protected Locale locale;
+        protected TimeZone timeZone;
         
-        public OnTheFlyHandler(StringBuffer targetBuffer, Map context, Locale locale) {
+        public OnTheFlyHandler(StringBuffer targetBuffer, Map context, TimeZone timeZone, Locale locale) {
             this.targetBuffer = targetBuffer;
             this.context = context;
+            this.timeZone = timeZone;
             this.locale = locale;
         }
         
@@ -346,7 +377,19 @@ public class FlexibleStringExpander implements Serializable {
             FlexibleMapAccessor fma = new FlexibleMapAccessor(envName);
             Object envVal = fma.get(context, locale);
             if (envVal != null) {
-                if (localizeCurrency) {
+                if (envVal instanceof java.sql.Date) {
+                    DateFormat df = UtilDateTime.toDateFormat(UtilDateTime.DATE_FORMAT, timeZone, null);
+                    targetBuffer.append(df.format((java.util.Date) envVal));
+                } else if (envVal instanceof java.sql.Time) {
+                    DateFormat df = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, null);
+                    targetBuffer.append(df.format((java.util.Date) envVal));
+                } else if (envVal instanceof java.sql.Timestamp) {
+                    DateFormat df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, null);
+                    targetBuffer.append(df.format((java.util.Date) envVal));
+                } else if (envVal instanceof java.util.Date) {
+                    DateFormat df = UtilDateTime.toDateTimeFormat("EEE MMM dd hh:mm:ss z yyyy", timeZone, null);
+                    targetBuffer.append(df.format((java.util.Date) envVal));
+                } else if (localizeCurrency) {
                     targetBuffer.append(UtilFormatOut.formatCurrency(new Double(envVal.toString()), currencyCode, locale));
                 } else {
                     targetBuffer.append(envVal.toString());

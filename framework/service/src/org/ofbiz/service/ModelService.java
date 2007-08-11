@@ -707,7 +707,7 @@ public class ModelService extends AbstractMap implements Serializable {
      * @param mode The mode which to build the new map
      */
     public Map makeValid(Map source, String mode) {
-        return makeValid(source, mode, true, null, null);
+        return makeValid(source, mode, true, null);
     }
 
     /**
@@ -727,9 +727,22 @@ public class ModelService extends AbstractMap implements Serializable {
      * @param source The source map
      * @param mode The mode which to build the new map
      * @param includeInternal When false will exclude internal fields
-     * @param locale locale to use to do some type conversion
+     * @param locale Locale to use to do some type conversion
      */
     public Map makeValid(Map source, String mode, boolean includeInternal, List errorMessages, Locale locale) {
+        return makeValid(source, mode, includeInternal, errorMessages, null, locale);
+    }
+
+    /**
+     * Creates a new Map based from an existing map with just valid parameters.
+     * Tries to convert parameters to required type.
+     * @param source The source map
+     * @param mode The mode which to build the new map
+     * @param includeInternal When false will exclude internal fields
+     * @param tz TimeZone to use to do some type conversion
+     * @param locale Locale to use to do some type conversion
+     */
+    public Map makeValid(Map source, String mode, boolean includeInternal, List errorMessages, TimeZone timeZone, Locale locale) {
         Map target = new HashMap();
 
         if (source == null) {
@@ -741,6 +754,21 @@ public class ModelService extends AbstractMap implements Serializable {
         if (contextInfo.size() == 0) {
             return target;
         }
+
+        if (locale == null) {
+            locale = (Locale) source.get("locale");
+            if (locale == null) {
+                locale = Locale.getDefault();
+            }
+        }
+        
+        if (timeZone == null) {
+            timeZone = (TimeZone) source.get("timeZone");
+            if (timeZone == null) {
+                timeZone = TimeZone.getDefault();
+            }
+        }
+        
         Iterator i = contextParamList.iterator();
 
         while (i.hasNext()) {
@@ -770,7 +798,7 @@ public class ModelService extends AbstractMap implements Serializable {
 
                             try {
                                 // no need to fail on type conversion; the validator will catch this
-                                value = ObjectType.simpleTypeConvert(value, param.type, null, locale, false);
+                                value = ObjectType.simpleTypeConvert(value, param.type, null, timeZone, locale, false);
                             } catch (GeneralException e) {
                                 String errMsg = "Type conversion of field [" + key + "] to type [" + param.type + "] failed for value \"" + value + "\": " + e.toString();
                                 Debug.logWarning("[ModelService.makeValid] : " + errMsg, module);

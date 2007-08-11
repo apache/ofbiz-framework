@@ -195,12 +195,11 @@ public class FreeMarkerWorker {
         }
         env.setLocale(locale);
 
-        /* uncomment code block when framework time zone support is implemented
         TimeZone timeZone = (TimeZone) context.get("timeZone");
         if (timeZone == null) {
             timeZone = TimeZone.getDefault();
         }
-        env.setTimeZone(timeZone); */
+        env.setTimeZone(timeZone);
     }
 
     public static Configuration getDefaultOfbizConfig() throws TemplateException, IOException {

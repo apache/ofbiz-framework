@@ -25,7 +25,6 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javolution.util.FastList;
@@ -426,19 +425,24 @@ public class ObjectType {
         }
     }
 
+    public static Object simpleTypeConvert(Object obj, String type, String format, Locale locale, boolean noTypeFail) throws GeneralException {
+        return simpleTypeConvert(obj, type, format, TimeZone.getDefault(), locale, noTypeFail);
+    }
+
     /** 
      * Converts the passed object to the named simple type; supported types
      * include: String, Boolean, Double, Float, Long, Integer, Date (java.sql.Date),
-     * Time, Timestamp;
+     * Time, Timestamp, TimeZone;
      * @param obj Object to convert
      * @param type Name of type to convert to
      * @param format Optional (can be null) format string for Date, Time, Timestamp
+     * @param timeZone Optional (can be null) TimeZone for converting dates and times
      * @param locale Optional (can be null) Locale for formatting and parsing Double, Float, Long, Integer
      * @param noTypeFail Fail (Exception) when no type conversion is available, false will return the primary object
      * @return
      * @throws GeneralException
      */
-    public static Object simpleTypeConvert(Object obj, String type, String format, Locale locale, boolean noTypeFail) throws GeneralException {
+    public static Object simpleTypeConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail) throws GeneralException {
         if (obj == null) {
             return null;
         }
@@ -485,6 +489,13 @@ public class ObjectType {
                 Locale loc = UtilMisc.parseLocale(str);
                 if (loc != null) {
                     return loc;
+                } else {
+                    throw new GeneralException("Could not convert " + str + " to " + type + ": ");    
+                }
+            } else if ("TimeZone".equals(type) || "java.util.TimeZone".equals(type)) {
+                TimeZone tz = UtilDateTime.toTimeZone(str);
+                if (tz != null) {
+                    return tz;
                 } else {
                     throw new GeneralException("Could not convert " + str + " to " + type + ": ");    
                 }
@@ -565,87 +576,47 @@ public class ObjectType {
                     throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
                 }
             } else if ("Date".equals(type) || "java.sql.Date".equals(type)) {
+                DateFormat df = null;
                 if (format == null || format.length() == 0) {
-                    try {
-                        return java.sql.Date.valueOf(str);
-                    } catch (Exception e) {
-                        try {
-                            DateFormat df = null;
-                            if (locale != null) {
-                                df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-                            } else {
-                                df = DateFormat.getDateInstance(DateFormat.SHORT);
-                            }
-                            Date fieldDate = df.parse(str);
-
-                            return new java.sql.Date(fieldDate.getTime());
-                        } catch (ParseException e1) {
-                            throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
-                        }
-                    }
+                    df = UtilDateTime.toDateFormat(UtilDateTime.DATE_FORMAT, timeZone, null);
                 } else {
-                    try {
-                        SimpleDateFormat sdf = new SimpleDateFormat(format);
-                        java.util.Date fieldDate = sdf.parse(str);
-                        return new java.sql.Date(fieldDate.getTime());
-                    } catch (ParseException e) {
-                        throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
-                    }
+                    df = UtilDateTime.toDateFormat(format, timeZone, null);
+                }
+                try {
+                    Date fieldDate = df.parse(str);
+                    return new java.sql.Date(fieldDate.getTime());
+                } catch (ParseException e1) {
+                    throw new GeneralException("Could not convert " + str + " to " + type + ": ", e1);
                 }
             } else if ("Time".equals(type) || "java.sql.Time".equals(type)) {
+                DateFormat df = null;
                 if (format == null || format.length() == 0) {
-                    try {
-                        return java.sql.Time.valueOf(str);
-                    } catch (Exception e) {
-                        try {
-                            DateFormat df = null;
-                            if (locale != null) {
-                                df = DateFormat.getTimeInstance(DateFormat.SHORT, locale);
-                            } else {
-                                df = DateFormat.getTimeInstance(DateFormat.SHORT);
-                            }
-                            Date fieldDate = df.parse(str);
-
-                            return new java.sql.Time(fieldDate.getTime());
-                        } catch (ParseException e1) {
-                            throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
-                        }
-                    }
+                    df = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, null);
                 } else {
-                    try {
-                        SimpleDateFormat sdf = new SimpleDateFormat(format);
-                        java.util.Date fieldDate = sdf.parse(str);
-                        return new java.sql.Time(fieldDate.getTime());
-                    } catch (ParseException e) {
-                        throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
-                    }
+                    df = UtilDateTime.toTimeFormat(format, timeZone, null);
+                }
+                try {
+                    Date fieldDate = df.parse(str);
+                    return new java.sql.Time(fieldDate.getTime());
+                } catch (ParseException e1) {
+                    throw new GeneralException("Could not convert " + str + " to " + type + ": ", e1);
                 }
             } else if ("Timestamp".equals(type) || "java.sql.Timestamp".equals(type)) {
+                DateFormat df = null;
                 if (format == null || format.length() == 0) {
-                    try {
-                        return java.sql.Timestamp.valueOf(str);
-                    } catch (Exception e) {
-                        try {
-                            DateFormat df = null;
-                            if (locale != null) {
-                                df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale);
-                            } else {
-                                df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
-                            }
-                            Date fieldDate = df.parse(str);
-                            return new java.sql.Timestamp(fieldDate.getTime());
-                        } catch (ParseException e1) {
-                            throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
-                        }
+                    df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, null);
+                    // hack to mimic Timestamp.valueOf() method
+                    if (str.length() > 0 && !str.contains(".")) {
+                        str = str + ".0";
                     }
                 } else {
-                    try {
-                        SimpleDateFormat sdf = new SimpleDateFormat(format);
-                        java.util.Date fieldDate = sdf.parse(str);
-                        return new java.sql.Timestamp(fieldDate.getTime());
-                    } catch (ParseException e) {
-                        throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
-                    }
+                    df = UtilDateTime.toDateTimeFormat(format, timeZone, null);
+                }
+                try {
+                    Date fieldDate = df.parse(str);
+                    return new java.sql.Timestamp(fieldDate.getTime());
+                } catch (ParseException e1) {
+                    throw new GeneralException("Could not convert " + str + " to " + type + ": ", e1);
                 }
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
                 if (str.startsWith("[") && str.endsWith("]")) {
@@ -837,12 +808,13 @@ public class ObjectType {
             fromType = "Date";
             java.sql.Date dte = (java.sql.Date) obj;
             if ("String".equals(type) || "java.lang.String".equals(type)) {
+                DateFormat df = null;
                 if (format == null || format.length() == 0) {
-                    return dte.toString();
+                    df = UtilDateTime.toDateFormat(UtilDateTime.DATE_FORMAT, timeZone, null);
                 } else {
-                    SimpleDateFormat sdf = new SimpleDateFormat(format);
-                    return sdf.format(new java.util.Date(dte.getTime()));
+                    df = UtilDateTime.toDateFormat(format, timeZone, null);
                 }
+                return df.format(new java.util.Date(dte.getTime()));
             } else if ("Date".equals(type) || "java.sql.Date".equals(type)) {
                 return obj;
             } else if ("Time".equals(type) || "java.sql.Time".equals(type)) {
@@ -865,13 +837,13 @@ public class ObjectType {
             java.sql.Time tme = (java.sql.Time) obj;
 
             if ("String".equals(type) || "java.lang.String".equals(type)) {
+                DateFormat df = null;
                 if (format == null || format.length() == 0) {
-                    return tme.toString();
+                    df = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, null);
                 } else {
-                    SimpleDateFormat sdf = new SimpleDateFormat(format);
-
-                    return sdf.format(new java.util.Date(tme.getTime()));
+                    df = UtilDateTime.toTimeFormat(format, timeZone, null);
                 }
+                return df.format(new java.util.Date(tme.getTime()));
             } else if ("Date".equals(type) || "java.sql.Date".equals(type)) {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             } else if ("Time".equals(type) || "java.sql.Time".equals(type)) {
@@ -894,13 +866,13 @@ public class ObjectType {
             java.sql.Timestamp tme = (java.sql.Timestamp) obj;
 
             if ("String".equals(type) || "java.lang.String".equals(type)) {
+                DateFormat df = null;
                 if (format == null || format.length() == 0) {
-                    return tme.toString();
+                    df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, null);
                 } else {
-                    SimpleDateFormat sdf = new SimpleDateFormat(format);
-
-                    return sdf.format(new java.util.Date(tme.getTime()));
+                    df = UtilDateTime.toDateTimeFormat(format, timeZone, null);
                 }
+                return df.format(new java.util.Date(tme.getTime()));
             } else if ("Date".equals(type) || "java.sql.Date".equals(type)) {
                 return new java.sql.Date(tme.getTime());
             } else if ("Time".equals(type) || "java.sql.Time".equals(type)) {
@@ -949,6 +921,16 @@ public class ObjectType {
                 return loc;
             } else if ("String".equals(type) || "java.lang.String".equals(type)) {
                 return loc.toString();
+            } else {
+                throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
+            }
+        } else if (obj instanceof java.util.TimeZone) {
+            fromType = "TimeZone";
+            TimeZone tz = (TimeZone) obj;
+            if ("TimeZone".equals(type) || "java.util.TimeZone".equals(type)) {
+                return tz;
+            } else if ("String".equals(type) || "java.lang.String".equals(type)) {
+                return tz.getID();
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
