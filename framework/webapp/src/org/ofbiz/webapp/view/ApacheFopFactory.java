@@ -51,7 +51,7 @@ public class ApacheFopFactory {
             if (fopFontBaseUrl == null) {
                 String ofbizHome = System.getProperty("ofbiz.home");
                 fopFontBaseUrl = UtilProperties.getPropertyValue("fop.properties", "fop.font.base.url",
-                                    "file://" + ofbizHome + "/framework/webapp/config/");
+                                    "file:///" + ofbizHome + "/framework/webapp/config/");
                 fopFactory.setFontBaseURL(fopFontBaseUrl);
             }
             Debug.logInfo("FOP-FontBaseURL: " + fopFontBaseUrl, module);
