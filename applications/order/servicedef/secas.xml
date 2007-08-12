@@ -217,7 +217,7 @@ under the License.
     <eca service="processRefundReturn" event="commit">
         <action service="checkReturnComplete" mode="sync"/>
     </eca>
-    
+
     <!-- ShoppingList ECAs -->
     <eca service="createShoppingList" event="in-validate">
         <condition field-name="shippingMethodString" operator="is-not-empty"/>
@@ -287,7 +287,7 @@ under the License.
     </eca>
     <!-- WorkEffort -->
     <eca service="createQuoteWorkEffort" event="invoke">
-        <condition field-name="workEffotId" operator="is-empty" />
+        <condition field-name="workEffortId" operator="is-empty" />
         <action service="createWorkEffort" mode="sync"/>
     </eca>
 </service-eca>
