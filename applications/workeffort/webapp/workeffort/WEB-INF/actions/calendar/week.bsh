@@ -43,25 +43,22 @@ if (partyId != null) {
     eventsParam = "partyId=" + partyId;
 }
 
-Timestamp now = UtilDateTime.getWeekStart(UtilDateTime.nowTimestamp());
 Timestamp start = null;
 if(startParam != null) 
     start = new Timestamp(Long.parseLong(startParam));
     
 if(start == null) {
-    start = now;
+    start = UtilDateTime.getWeekStart(nowTimestamp, timeZone, locale);
 } else {
-    start = UtilDateTime.getWeekStart(start);
+    start = UtilDateTime.getWeekStart(start, timeZone, locale);
 }
     
-Timestamp prev = UtilDateTime.getDayStart(start,-7);
-Timestamp next = UtilDateTime.getDayStart(start,7);
-Timestamp end = UtilDateTime.getDayStart(start,6);
+Timestamp prev = UtilDateTime.getDayStart(start, -7, timeZone, locale);
+Timestamp next = UtilDateTime.getDayStart(start, 7, timeZone, locale);
+Timestamp end = UtilDateTime.getDayStart(start, 6, timeZone, locale);
 
 Map serviceCtx = UtilMisc.toMap("userLogin", userLogin,"start",start,"numPeriods",new Integer(7),"periodType",new Integer(Calendar.DATE));
-serviceCtx.put("partyId", partyId);
-serviceCtx.put("facilityId", facilityId);
-serviceCtx.put("fixedAssetId", fixedAssetId);
+serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, "fixedAssetId", fixedAssetId, "locale", locale, "timeZone", timeZone));
 
 Map result = dispatcher.runSync("getWorkEffortEventsByPeriod",serviceCtx);
 context.put("periods",result.get("periods"));
@@ -70,5 +67,4 @@ context.put("start",start);
 context.put("end",end);
 context.put("prev",prev);
 context.put("next",next);
-context.put("now",now);
 context.put("eventsParam", eventsParam);

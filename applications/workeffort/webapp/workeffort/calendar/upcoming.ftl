@@ -17,49 +17,35 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-  <tr>
-    <td width="100%">
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
-        <tr>
-          <td align="left" class="boxhead">${uiLabelMap.WorkEffortCalendarUpComingEventsView}</td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td width="100%">
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
-        <tr>
-          <td>
-          <#if days?has_content>
-              <table width="100%" cellpadding="2" cellspacing="0" border="0">
-                <tr>
-                  <td><div class="tabletext"><b>${uiLabelMap.CommonStartDateTime}</b></div></td>
-                  <td><div class="tabletext"><b>${uiLabelMap.CommonEndDateTime}</b></div></td>
-                  <td><div class="tabletext"><b>${uiLabelMap.WorkEffortEventName}</b></div></td>
-                </tr>                
-                <#list days as day>
-                  <#assign workEfforts = day.calendarEntries>
-                  <#if workEfforts?has_content>
-                    <tr><td colspan="3"><hr class="sepbar"/></td></tr>
-                    <#list workEfforts as calendarEntry>
-                      <#assign workEffort = calendarEntry.workEffort>
-                      <tr>
-                        <td><div class="tabletext">${workEffort.estimatedStartDate}</div></td>
-                        <td><div class="tabletext">${workEffort.estimatedCompletionDate}</div></td>
-                        <td><a class="buttontext" href="<@ofbizUrl>EditWorkEffort?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortName}</a></div></td>
-                      </tr>
-                    </#list>
-                  </#if>
-                </#list>
-              </table>
-            <#else>
-              <div class="tabletext">${uiLabelMap.WorkEffortNoEventsFound}.</div>
-            </#if>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>${uiLabelMap.WorkEffortCalendarUpComingEventsView}</h3>
+  </div>
+  <#if days?has_content>
+    <table class="basic-table hover-bar" cellspacing="0">
+      <tr class="header-row">
+        <th>${uiLabelMap.CommonStartDateTime}</th>
+        <th>${uiLabelMap.CommonEndDateTime}</th>
+        <th>${uiLabelMap.WorkEffortEventName}</th>
+      </tr>
+      <#list days as day>
+        <#assign workEfforts = day.calendarEntries>
+        <#if workEfforts?has_content>
+          <tr class="header-row"><th colspan="3"><hr/></th></tr>
+          <#assign alt_row = false>
+          <#list workEfforts as calendarEntry>
+            <#assign workEffort = calendarEntry.workEffort>
+            <tr<#if alt_row> class="alternate-row"</#if>>
+              <td>${workEffort.estimatedStartDate}</td>
+              <td>${workEffort.estimatedStartDate}</td>
+              <td class="button-col"><a href="<@ofbizUrl>EditWorkEffort?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortName}</a></td>
+            </tr>
+            <#assign alt_row = !alt_row>
+          </#list>
+        </#if>
+      </#list>
+    </table>
+  <#else>
+    <div class="screenlet-body">${uiLabelMap.WorkEffortNoEventsFound}.</div>
+  </#if>
+</div>
