@@ -22,7 +22,7 @@ under the License.
     <ul>
       <h2>${uiLabelMap.CommonWeek} ${start?date?string("w")}</h2>
       <li><a href="<@ofbizUrl>week?start=${next.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.WorkEffortNextWeek}</a></li>
-      <li><a href="<@ofbizUrl>week?start=${now.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.WorkEffortThisWeek}</a></li>
+      <li><a href="<@ofbizUrl>week?start=${nowTimestamp.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.WorkEffortThisWeek}</a></li>
       <li><a href="<@ofbizUrl>week?start=${prev.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.WorkEffortPreviousWeek}</a></li>
     </ul>
     <br class="clear"/>
@@ -44,7 +44,7 @@ under the License.
   </tr>
   <#list periods as period>
   <tr>
-    <td valign="top" nowrap width="1%" class="monthweekheader" height="36"><a href="<@ofbizUrl>day?start=${period.start.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>" class="monthweeknumber">${period.start?date?string("EEEE")?cap_first} ${period.start?date?string("d/M")?cap_first}</a><br/>
+    <td valign="top" nowrap width="1%" class="monthweekheader" height="36"><a href="<@ofbizUrl>day?start=${period.start.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>" class="monthweeknumber">${period.start?date?string("EEEE")?cap_first} ${period.start?date?string.short}</a><br/>
       <a href="<@ofbizUrl>EditWorkEffort?workEffortTypeId=EVENT&currentStatusId=CAL_TENTATIVE&estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}</@ofbizUrl>">${uiLabelMap.CommonAddNew}</a>
     </td>
     <#list period.calendarEntries as calEntry>

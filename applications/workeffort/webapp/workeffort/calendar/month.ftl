@@ -16,18 +16,13 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#-- I'm not quite sure why these should be "en". But I'm sure it works with it and don't without. 
-I assume it's because we calculate date before in this locale (set from command line) - JLR 21/10/2006
-Please see https://issues.apache.org/jira/browse/OFBIZ-392-->
-<#setting locale="en"> 
-<#assign locale="en"> 
 
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
       <h2>${start?date?string("MMMM yyyy")?cap_first}</h2>
       <li><a href='<@ofbizUrl>month?start=${next.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>'>${uiLabelMap.WorkEffortNextMonth}</a></li>
-      <li><a href='<@ofbizUrl>month?start=${now.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>'>${uiLabelMap.WorkEffortThisMonth}</a></li>
+      <li><a href='<@ofbizUrl>month?start=${nowTimestamp.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>'>${uiLabelMap.WorkEffortThisMonth}</a></li>
       <li><a href='<@ofbizUrl>month?start=${prev.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>'>${uiLabelMap.WorkEffortPreviousMonth}</a></li>
     </ul>
     <br class="clear"/>

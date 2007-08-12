@@ -18,6 +18,7 @@
  */
 
 import java.util.*;
+import java.text.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.webapp.pseudotag.*;
@@ -41,24 +42,21 @@ if (partyId != null) {
     eventsParam = "partyId=" + partyId;
 }
 
-Timestamp now = UtilDateTime.getDayStart(UtilDateTime.nowTimestamp());
 Timestamp start = null;
 if(startParam != null) {
     start = new Timestamp(Long.parseLong(startParam));
 }
 if(start == null) {
-    start = now;
+    start = UtilDateTime.getDayStart(nowTimestamp, timeZone, locale);
 } else {
-    start = UtilDateTime.getDayStart(start);
+    start = UtilDateTime.getDayStart(start, timeZone, locale);
 }
 
-Timestamp prev = UtilDateTime.getDayStart(start,-1);
-Timestamp next = UtilDateTime.getDayStart(start,1);
+Timestamp prev = UtilDateTime.getDayStart(start, -1, timeZone, locale);
+Timestamp next = UtilDateTime.getDayStart(start, 1, timeZone, locale);
 
 Map serviceCtx = UtilMisc.toMap("userLogin", userLogin,"start",start,"numPeriods",new Integer(24),"periodType",new Integer(Calendar.HOUR));
-serviceCtx.put("partyId", partyId);
-serviceCtx.put("facilityId", facilityId);
-serviceCtx.put("fixedAssetId", fixedAssetId);
+serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, "fixedAssetId", fixedAssetId, "locale", locale, "timeZone", timeZone));
 
 Map result = dispatcher.runSync("getWorkEffortEventsByPeriod",serviceCtx);
 context.put("periods",result.get("periods"));
@@ -66,5 +64,4 @@ context.put("maxConcurrentEntries",result.get("maxConcurrentEntries"));
 context.put("start",start);
 context.put("prev",prev);
 context.put("next",next);
-context.put("now",now);
 context.put("eventsParam", eventsParam);

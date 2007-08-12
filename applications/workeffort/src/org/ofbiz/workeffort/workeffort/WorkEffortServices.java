@@ -330,7 +330,8 @@ public class WorkEffortServices {
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");    
         Locale locale = (Locale) context.get("locale");
-        
+        TimeZone timeZone = (TimeZone) context.get("timeZone");
+
         Timestamp startDay = (Timestamp) context.get("start");
         Integer numPeriodsInteger = (Integer) context.get("numPeriods");
 
@@ -346,8 +347,6 @@ public class WorkEffortServices {
         //To be returned, the max concurrent entries for a single period
         int maxConcurrentEntries = 0;
                 
-        TimeZone curTz = TimeZone.getDefault();
-
         Integer periodTypeObject = (Integer) context.get("periodType");
         int periodType = 0;
         if (periodTypeObject != null) {
@@ -358,10 +357,10 @@ public class WorkEffortServices {
         if(numPeriodsInteger != null) numPeriods = numPeriodsInteger.intValue();
         
         // get a timestamp (date) for the beginning of today and for beginning of numDays+1 days from now
-        Timestamp startStamp = UtilDateTime.getDayStart(startDay, curTz, locale);
-        Timestamp endStamp = UtilDateTime.adjustTimestamp(startStamp, periodType, 1, curTz, locale);
+        Timestamp startStamp = UtilDateTime.getDayStart(startDay, timeZone, locale);
+        Timestamp endStamp = UtilDateTime.adjustTimestamp(startStamp, periodType, 1, timeZone, locale);
         long periodLen = endStamp.getTime() - startStamp.getTime();
-        endStamp = UtilDateTime.adjustTimestamp(startStamp, periodType, numPeriods, curTz, locale);
+        endStamp = UtilDateTime.adjustTimestamp(startStamp, periodType, numPeriods, timeZone, locale);
         
         // Get the WorkEfforts
         List validWorkEfforts = null;
@@ -395,8 +394,8 @@ public class WorkEffortServices {
         
             // For each day in the set we check all work efforts to see if they fall within range
             for (int i = 0; i < numPeriods; i++) {
-                Timestamp curPeriodStart = UtilDateTime.adjustTimestamp(startStamp, periodType, i, curTz, locale);
-                Timestamp curPeriodEnd = UtilDateTime.adjustTimestamp(curPeriodStart, periodType, 1, curTz, locale);
+                Timestamp curPeriodStart = UtilDateTime.adjustTimestamp(startStamp, periodType, i, timeZone, locale);
+                Timestamp curPeriodEnd = UtilDateTime.adjustTimestamp(curPeriodStart, periodType, 1, timeZone, locale);
                 List curWorkEfforts = new ArrayList();
                 Map entry = new HashMap();
                 for (int j = 0; j < validWorkEfforts.size(); j++) {
@@ -594,4 +593,5 @@ public class WorkEffortServices {
         resultMap.put("summaryOutByFacility", summaryOutByFacility);
         return resultMap;
     }
+
 }
