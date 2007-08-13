@@ -96,6 +96,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCreditCard"/>
+                <set field="cardNumberMinDisplay" value="min"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/editpaymentmethod.bsh"/>
             </actions>
             <widgets>

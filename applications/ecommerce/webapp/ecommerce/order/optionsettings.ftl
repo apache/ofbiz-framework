@@ -32,7 +32,7 @@ under the License.
                 <input type="radio" name="shipping_method" value="${shippingMethod}" <#if shippingMethod == chosenShippingMethod?default("N@A")>checked="checked"</#if>/>
               </td>
               <td valign="top">
-                <div class='tabletext'>
+                <div class="tabletext">
                     <#if shoppingCart.getShippingContactMechId()?exists>
                         <#assign shippingEst = shippingEstWpr.getShippingEstimate(carrierShipmentMethod)?default(-1)>
                     </#if>
