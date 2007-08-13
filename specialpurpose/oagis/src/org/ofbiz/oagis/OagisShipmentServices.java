@@ -122,13 +122,6 @@ public class OagisShipmentServices {
         Element shipmentElement = UtilXml.firstChildElement(daShowShipmentElement, "ns:SHIPMENT"); // n                               
         String shipmentId = UtilXml.childElementValue(shipmentElement, "of:DOCUMENTID"); // of           
 
-        Map result = FastMap.newInstance();
-        result.put("logicalId", logicalId);
-        result.put("component", component);
-        result.put("task", task);
-        result.put("referenceId", referenceId);
-        result.put("userLogin", userLogin);
-
         oagisMsgInfoCtx.put("logicalId", logicalId);
         oagisMsgInfoCtx.put("component", component);
         oagisMsgInfoCtx.put("task", task);
@@ -180,17 +173,11 @@ public class OagisShipmentServices {
             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "ShipmentIdNotValid"));
         }
         
-        if (errorMapList.size() > 0) {
-            result.putAll(ServiceUtil.returnError("Errors found getting shipment information for incoming Show Shipment message; here is the first: " + errorMapList.get(0)));
-            result.put("errorMapList", errorMapList);
-            return result;
-        }
-
         String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");                
         String originFacilityId = shipment.getString("originFacilityId");                              
         
         List shipUnitElementList = UtilXml.childElementList(daShowShipmentElement, "ns:SHIPUNIT"); // n
-        if(UtilValidate.isNotEmpty(shipUnitElementList)) {
+        if(errorMapList.size() == 0 && UtilValidate.isNotEmpty(shipUnitElementList)) {
             Element shipUnitElement = (Element)shipUnitElementList.get(0);
             String trackingNum = UtilXml.childElementValue(shipUnitElement, "of:TRACKINGID"); // of
             String carrierCode = UtilXml.childElementValue(shipUnitElement, "of:CARRIER"); // of
@@ -257,7 +244,7 @@ public class OagisShipmentServices {
                                 requireInventory = "N";
                             }
                             
-                            // TODO and NOTE: could there be more than one reservation record for a given shipment item? for example if there wasn't enough quantity in one inventory item and reservations on two were needed? yes
+                            // NOTE: there could be more than one reservation record for a given shipment item? for example if there wasn't enough quantity in one inventory item and reservations on two were needed
                             List orderItemShipGrpInvReservationList = delegator.findByAnd("OrderItemShipGrpInvRes", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId,"shipGroupSeqId",shipGroupSeqId));
                             
                             // find the total quantity for all reservations
@@ -297,6 +284,8 @@ public class OagisShipmentServices {
                                 Debug.logInfo(errMsg, module);
                                 continueLoop = true;
                             }
+                            
+                            // TODO: if serialNumber does not exist in database add an error message
                             
                             if (continueLoop) {
                                 continue;
@@ -359,7 +348,6 @@ public class OagisShipmentServices {
                                     }            
                                 }
                             }
-                            
                         } catch (NumberFormatException e) {
                             String errMsg = "Error in format for number: " + e.toString();
                             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "NumberFormatException"));
@@ -386,10 +374,43 @@ public class OagisShipmentServices {
             }   
         }  
         
+        Map result = FastMap.newInstance();
+        result.put("logicalId", logicalId);
+        result.put("component", component);
+        result.put("task", task);
+        result.put("referenceId", referenceId);
+        result.put("userLogin", userLogin);
+
         if (errorMapList.size() > 0) {
+            // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
+            Map saveErrorMapListCtx = FastMap.newInstance();
+            saveErrorMapListCtx.put("logicalId", logicalId);
+            saveErrorMapListCtx.put("component", component);
+            saveErrorMapListCtx.put("task", task);
+            saveErrorMapListCtx.put("referenceId", referenceId);
+            saveErrorMapListCtx.put("errorMapList", errorMapList);
+            try {
+                dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                Debug.logError(e, errMsg, module);
+            }
+
+            try {
+                Map sendConfirmBodCtx = FastMap.newInstance();
+                sendConfirmBodCtx.putAll(saveErrorMapListCtx);
+                // NOTE: this is different for each service, should be shipmentId or returnId or PO orderId or etc
+                sendConfirmBodCtx.put("origRefId", shipmentId);
+
+                // run async because this will send a message back to the other server and may take some time, and/or fail
+                dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                Debug.logError(e, errMsg, module);
+            }
+            
             // DEJ20070807 what was this next line commented out? if there are errors we want to return an error so this will roll back 
-            result.putAll(ServiceUtil.returnError("Errors found processing message"));
-            result.put("errorMapList", errorMapList);
+            result.putAll(ServiceUtil.returnError("Errors found processing message; information saved and return error sent back"));
             return result;
         } else {
             oagisMsgInfoCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");

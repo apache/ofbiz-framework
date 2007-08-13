@@ -351,20 +351,49 @@ public class OagisServices {
         result.put("task", task);
         result.put("referenceId", referenceId);
         result.put("userLogin", userLogin);
-        
+
         if (errorMapList.size() > 0) {
-            String errMsg = "Error Processing Received Message";
-            result.put("errorMapList", errorMapList);
-            //result.putAll(ServiceUtil.returnError(errMsg));
+            // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
+            Map saveErrorMapListCtx = FastMap.newInstance();
+            saveErrorMapListCtx.put("logicalId", logicalId);
+            saveErrorMapListCtx.put("component", component);
+            saveErrorMapListCtx.put("task", task);
+            saveErrorMapListCtx.put("referenceId", referenceId);
+            saveErrorMapListCtx.put("errorMapList", errorMapList);
+            try {
+                dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                Debug.logError(e, errMsg, module);
+            }
+
+            
+            // TODO and NOTE DEJ20070813: should we really send back a Confirm BOD if there is an error with the Confirm BOD they send us? probably so... will do for now...
+            try {
+                Map sendConfirmBodCtx = FastMap.newInstance();
+                sendConfirmBodCtx.putAll(saveErrorMapListCtx);
+                // NOTE: this is different for each service, should be shipmentId or returnId or PO orderId or etc
+                // no such thing for confirm bod: sendConfirmBodCtx.put("origRefId", shipmentId);
+
+                // run async because this will send a message back to the other server and may take some time, and/or fail
+                dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                Debug.logError(e, errMsg, module);
+            }
+            
+            // DEJ20070807 what was this next line commented out? if there are errors we want to return an error so this will roll back 
+            result.putAll(ServiceUtil.returnError("Errors found processing message; information saved and return error sent back"));
             return result;
-        }
-        
-        oagisMsgInfoCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
-        try {
-            dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoCtx, 60, true);
-        } catch (GenericServiceException e){
-            String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
-            Debug.logError(e, errMsg, module);
+        } else {
+            oagisMsgInfoCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
+            try {
+                dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoCtx, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                Debug.logError(e, errMsg, module);
+            }
         }
         
         result.putAll(ServiceUtil.returnSuccess("Service Completed Successfully"));
@@ -437,11 +466,12 @@ public class OagisServices {
             Debug.logError(e, errMsg, module);
         }
         
-        Map subServiceResult = FastMap.newInstance();
+        // call async, no additional results to return: Map subServiceResult = FastMap.newInstance();
         if (UtilValidate.isEmpty(oagisMessageInfo)) {
             if (bsrVerb.equalsIgnoreCase("CONFIRM") && bsrNoun.equalsIgnoreCase("BOD")) {
                 try {
-                    subServiceResult = dispatcher.runSync("receiveConfirmBod", UtilMisc.toMap("document", doc));
+                    // subServiceResult = dispatcher.runSync("receiveConfirmBod", UtilMisc.toMap("document", doc));
+                    dispatcher.runAsync("receiveConfirmBod", UtilMisc.toMap("document", doc), true);
                 } catch (GenericServiceException e) {
                     String errMsg = "Error running service receiveConfirmBod: " + e.toString();
                     errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
@@ -506,9 +536,10 @@ public class OagisServices {
         }
         
         Map result = ServiceUtil.returnSuccess();
-        result.putAll(subServiceResult);
         result.put("contentType", "text/plain");
 
+        /* no sub-service error processing to be done here, all handled in the sub-services:
+        result.putAll(subServiceResult);
         List errorMapList = (List) subServiceResult.get("errorMapList");
         if (UtilValidate.isNotEmpty(errorList)) {
             Iterator errListItr = errorList.iterator();
@@ -518,6 +549,7 @@ public class OagisServices {
             }
             result.put("errorMapList", errorMapList);
         }
+        */
         
         return result;
     }
