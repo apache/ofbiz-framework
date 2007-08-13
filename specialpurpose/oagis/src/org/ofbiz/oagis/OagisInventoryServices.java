@@ -98,7 +98,7 @@ public class OagisInventoryServices {
         String authId = UtilXml.childElementValue(docSenderElement, "of:AUTHID");
         
         // create oagis message info
-        Map comiCtx= FastMap.newInstance();
+        Map comiCtx = FastMap.newInstance();
         comiCtx.put("logicalId", logicalId);
         comiCtx.put("component", component);
         comiCtx.put("task", task);
@@ -294,14 +294,6 @@ public class OagisInventoryServices {
             }
         }
         
-        comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
-        try {
-            dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
-        } catch (GenericServiceException e) {
-            String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
-            Debug.logError(e, errMsg, module);
-        }
-        
         Map result = FastMap.newInstance();
         result.put("logicalId", logicalId);
         result.put("component", component);
@@ -309,14 +301,49 @@ public class OagisInventoryServices {
         result.put("referenceId", referenceId);
         result.put("userLogin", userLogin);
 
-        // check error list if there is any 
         if (errorMapList.size() > 0) {
-            result.put("errorMapList", errorMapList);
-            String errMsg = "Error Processing Received Messages";
-            result.putAll(ServiceUtil.returnError(errMsg));
+            // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
+            Map saveErrorMapListCtx = FastMap.newInstance();
+            saveErrorMapListCtx.put("logicalId", logicalId);
+            saveErrorMapListCtx.put("component", component);
+            saveErrorMapListCtx.put("task", task);
+            saveErrorMapListCtx.put("referenceId", referenceId);
+            saveErrorMapListCtx.put("errorMapList", errorMapList);
+            try {
+                dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                Debug.logError(e, errMsg, module);
+            }
+
+            try {
+                Map sendConfirmBodCtx = FastMap.newInstance();
+                sendConfirmBodCtx.putAll(saveErrorMapListCtx);
+                // NOTE: this is different for each service, should be shipmentId or returnId or PO orderId or etc
+                // for sync inventory no such ID: sendConfirmBodCtx.put("origRefId", shipmentId);
+
+                // run async because this will send a message back to the other server and may take some time, and/or fail
+                dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                Debug.logError(e, errMsg, module);
+            }
+            
+            // DEJ20070807 what was this next line commented out? if there are errors we want to return an error so this will roll back 
+            result.putAll(ServiceUtil.returnError("Errors found processing message; information saved and return error sent back"));
             return result;
+        } else {
+            comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
+            try {
+                dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                Debug.logError(e, errMsg, module);
+            }
         }
-        result.putAll(ServiceUtil.returnSuccess("Action Performed Successfully"));
+        
+        result.putAll(ServiceUtil.returnSuccess("Service Completed Successfully"));
         return result;
     }
     
@@ -393,6 +420,7 @@ public class OagisInventoryServices {
 
         String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.PoReceiptFacilityId");
         String productId = null;
+        String orderId = null;
         // get RECEIPTLN elements from message
         List acknowledgeElementList = UtilXml.childElementList(acknowledgeDeliveryElement, "ns:RECEIPTLN");
         if (UtilValidate.isNotEmpty(acknowledgeElementList)) {
@@ -409,7 +437,7 @@ public class OagisInventoryServices {
                 productId = UtilXml.childElementValue(receiptLnElement, "of:ITEM");
                 
                 Element documentRefElement = UtilXml.firstChildElement(receiptLnElement, "os:DOCUMNTREF");
-                String orderId = UtilXml.childElementValue(documentRefElement, "of:DOCUMENTID");
+                orderId = UtilXml.childElementValue(documentRefElement, "of:DOCUMENTID");
                 String orderTypeId = UtilXml.childElementValue(documentRefElement, "of:DOCTYPE");
                 if(orderTypeId.equals("PO")) {
                     orderTypeId = "PURCHASE_ORDER";
@@ -420,7 +448,7 @@ public class OagisInventoryServices {
                 ripCtx.put("datetimeReceived", timestampItemReceived);
                 // Check reference to PO number, if exists
                 GenericValue orderHeader = null;
-                if(orderId != null) {
+                if (orderId != null) {
                     try {
                         List toStore = FastList.newInstance();
                         orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
@@ -487,14 +515,6 @@ public class OagisInventoryServices {
                 }    
             }
         }
-        
-        comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
-        try {
-            dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
-        } catch (GenericServiceException e) {
-            String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
-            Debug.logError(e, errMsg, module);
-        }
 
         Map result = FastMap.newInstance();
         result.put("logicalId", logicalId);
@@ -502,14 +522,50 @@ public class OagisInventoryServices {
         result.put("task", task);
         result.put("referenceId", referenceId);
         result.put("userLogin", userLogin);
-        
+
         if (errorMapList.size() > 0) {
-            result.put("errorMapList", errorMapList);
-            String errMsg = "Error Processing Received Messages";
-            result.putAll(ServiceUtil.returnError(errMsg));
+            // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
+            Map saveErrorMapListCtx = FastMap.newInstance();
+            saveErrorMapListCtx.put("logicalId", logicalId);
+            saveErrorMapListCtx.put("component", component);
+            saveErrorMapListCtx.put("task", task);
+            saveErrorMapListCtx.put("referenceId", referenceId);
+            saveErrorMapListCtx.put("errorMapList", errorMapList);
+            try {
+                dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                Debug.logError(e, errMsg, module);
+            }
+
+            try {
+                Map sendConfirmBodCtx = FastMap.newInstance();
+                sendConfirmBodCtx.putAll(saveErrorMapListCtx);
+                // NOTE: this is different for each service, should be shipmentId or returnId or PO orderId or etc
+                sendConfirmBodCtx.put("origRefId", orderId);
+
+                // run async because this will send a message back to the other server and may take some time, and/or fail
+                dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                Debug.logError(e, errMsg, module);
+            }
+            
+            // DEJ20070807 what was this next line commented out? if there are errors we want to return an error so this will roll back 
+            result.putAll(ServiceUtil.returnError("Errors found processing message; information saved and return error sent back"));
             return result;
+        } else {
+            comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
+            try {
+                dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                Debug.logError(e, errMsg, module);
+            }
         }
-        result.putAll(ServiceUtil.returnSuccess("Action Performed Successfully"));
+        
+        result.putAll(ServiceUtil.returnSuccess("Service Completed Successfully"));
         return result;
     }
     
@@ -604,7 +660,7 @@ public class OagisInventoryServices {
                 String sign = UtilXml.childElementValue(qtyElement, "of:SIGN");
 
                 String productId = UtilXml.childElementValue(receiptLnElement, "of:ITEM");
-                if ( productId == null ) {
+                if (productId == null) {
                     String errMsg = "productId not available in Message" ;
                     errorMapList.add(UtilMisc.toMap("reasonCode", "ParseException", "description", errMsg));
                     Debug.logError(errMsg, module);
@@ -793,23 +849,50 @@ public class OagisInventoryServices {
         result.put("task", task);
         result.put("referenceId", referenceId);
         result.put("userLogin", userLogin);
+
         if (errorMapList.size() > 0) {
-            result.put("errorMapList", errorMapList);
-            String errMsg = "Error Processing Received Messages";
-            result.putAll(ServiceUtil.returnError(errMsg));
+            // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
+            Map saveErrorMapListCtx = FastMap.newInstance();
+            saveErrorMapListCtx.put("logicalId", logicalId);
+            saveErrorMapListCtx.put("component", component);
+            saveErrorMapListCtx.put("task", task);
+            saveErrorMapListCtx.put("referenceId", referenceId);
+            saveErrorMapListCtx.put("errorMapList", errorMapList);
+            try {
+                dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                Debug.logError(e, errMsg, module);
+            }
+
+            try {
+                Map sendConfirmBodCtx = FastMap.newInstance();
+                sendConfirmBodCtx.putAll(saveErrorMapListCtx);
+                // NOTE: this is different for each service, should be shipmentId or returnId or PO orderId or etc
+                sendConfirmBodCtx.put("origRefId", returnId);
+
+                // run async because this will send a message back to the other server and may take some time, and/or fail
+                dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                Debug.logError(e, errMsg, module);
+            }
+            
+            // DEJ20070807 what was this next line commented out? if there are errors we want to return an error so this will roll back 
+            result.putAll(ServiceUtil.returnError("Errors found processing message; information saved and return error sent back"));
             return result;
         } else {
-            comiCtx.put("returnId", returnId);
             comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
             try {
                 dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
             } catch (GenericServiceException e){
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                 Debug.logError(e, errMsg, module);
             }
         }
         
-        result.putAll(ServiceUtil.returnSuccess("Action Performed Successfully"));
+        result.putAll(ServiceUtil.returnSuccess("Service Completed Successfully"));
         result.put("inventoryItemIdList", invItemIds);
         return result;
     }
