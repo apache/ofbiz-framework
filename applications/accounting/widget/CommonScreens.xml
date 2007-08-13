@@ -333,4 +333,13 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="creditCardFields">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://accounting/webapp/accounting/common/creditcardfields.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>
