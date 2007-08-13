@@ -175,12 +175,16 @@ under the License.
         <description>Process RMA Acknowledge message</description>
         <implements service="oagisMessageErrorInfoInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
+        <attribute name="inventoryItemIdList" type="List" mode="OUT" optional="true"/>
     </service>
 
     <service name="oagisMessageHandler" engine="java" transaction-timeout="300"
             location="org.ofbiz.oagis.OagisServices" invoke="oagisMessageHandler" auth="false">
         <implements service="serviceStreamInterface"/>
         <implements service="oagisMessageErrorInfoInterface"/>
+        <!--Added the following attribute for RMA Acknowledge service to be used in the development environment.
+            Might not be used and hence can be removed in the production when the RMA service is called Asynchronously.-->
+        <attribute name="inventoryItemIdList" type="List" mode="OUT" optional="true"/>
     </service>
     
 </services>
