@@ -109,16 +109,17 @@ under the License.
         <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateReturnHeader"/></check-permission>
         <check-errors/>
 
-        <set from-field="parameters.returnId" field="lookupPKMap.returnId"/>
-        <find-by-primary-key entity-name="ReturnHeader" map-name="lookupPKMap" value-name="returnHeader"/>
+        <entity-one entity-name="ReturnHeader" value-name="returnHeader"/>
 
         <!-- test the total return amount vs the total order amount -->
         <if-compare field-name="parameters.statusId" value="RETURN_ACCEPTED" operator="equals">
             <!-- get the list of ReturnItems.  Note: return may be assosicated with many different orders -->
             <entity-condition entity-name="ReturnItem" list-name="returnItems" distinct="true">
-                <condition-expr field-name="returnId" operator="equals" env-name="returnHeader.returnId"/>
+                <condition-expr field-name="returnId" env-name="returnHeader.returnId"/>
             </entity-condition>
+            
             <!-- this block is for debugging and can be removed later -->
+            <!--
             <log level="verbose" message="Items and adjustments for return ${returnHeader.returnId}"/>
             <entity-condition entity-name="ReturnAdjustment" list-name="returnAdjustments" distinct="true">
                 <condition-expr field-name="returnId" operator="equals" env-name="returnHeader.returnId"/>
@@ -129,7 +130,8 @@ under the License.
             <iterate entry-name="returnAdjustment" list-name="returnAdjustments">
                 <log level="verbose" message="adjustment: ${returnAdjustment.returnItemSeqId} ${returnAdjustment.returnAdjustmentTypeId} [${returnAdjustment.description}] ${returnAdjustment.amount}"/>
             </iterate>
-            <!-- debugging block -->
+            -->
+            <!-- end debugging block -->
 
             <!-- this is used to make sure we don't return a negative amount -->
             <calculate field-name="returnTotalAmount"><number value="0.0"/></calculate>
@@ -141,6 +143,7 @@ under the License.
                   <condition>
                       <and>
                           <if-empty field-name="returnHeader.paymentMethodId"/>
+                          <if-empty field-name="parameters.paymentMethodId"/><!-- because we haven't done the set-nonpk-fields yet, check this too -->
                           <or>
                               <if-compare field-name="returnItem.returnTypeId" operator="equals" value="RTN_CSREPLACE"/>
                               <if-compare field-name="returnItem.returnTypeId" operator="equals" value="RTN_REPAIR_REPLACE"/>
