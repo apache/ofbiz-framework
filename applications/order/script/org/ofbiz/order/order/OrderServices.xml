@@ -850,25 +850,20 @@ under the License.
     </simple-method>
     
     <simple-method method-name="checkOrderIsOnBackOrder" short-description="Check if an Order is on Back Order" login-required="false">
-        <set field="orderItemShipGrpInvResLookup.orderId" from-field="parameters.orderId"/>
-        <set field="isBackOrder" value="false" type="Boolean"/>
-        <find-by-and entity-name="OrderItemShipGrpInvRes" map-name="orderItemShipGrpInvResLookup" list-name="orderItemShipGrpInvResList"/>
-        <iterate list-name="orderItemShipGrpInvResList" entry-name="orderItemShipGrpInvRes">
-            <set field="quantityNotAvailable" from-field="orderItemShipGrpInvRes.quantityNotAvailable"/>
-            <if>
-                <condition>
-                    <and>
-                        <not> <if-empty field-name="quantityNotAvailable"/> </not>
-                        <if-compare field-name="quantityNotAvailable" operator="greater" value="0" type="Double"/>
-                    </and>
-                </condition>
-                <then>
-                    <set field="isBackOrder" value="true" type="Boolean"/>
-                </then>
-            </if>
-        </iterate>
+        <set field="zeroEnv" value="0" type="Double"/>
+        <entity-condition entity-name="OrderItemShipGrpInvRes" list-name="orderItemShipGrpInvResList">
+            <condition-list combine="and">
+                <condition-expr field-name="orderId" env-name="parameters.orderId"/>
+                <condition-expr field-name="quantityNotAvailable" operator="not-equals" env-name="nullField"/>
+                <condition-expr field-name="quantityNotAvailable" operator="greater" env-name="zeroEnv"/>
+            </condition-list>
+        </entity-condition>
+        <if-empty field-name="orderItemShipGrpInvResList">
+            <set field="isBackOrder" value="false" type="Boolean"/>
+            <else>
+                <set field="isBackOrder" value="true" type="Boolean"/>
+            </else>
+        </if-empty>
         <field-to-result field-name="isBackOrder" result-name="isBackOrder"/>
     </simple-method>
 </simple-methods>
-
-
