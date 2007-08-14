@@ -116,4 +116,17 @@ under the License.
         <attribute name="applyStorePromotions" type="String" mode="IN" optional="true"/>
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="OUT" optional="false"/>
     </service>
+
+    <service name="getShoppingCartData" engine="java" auth="false"
+            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="getShoppingCartData">
+        <description>Get the ShoppingCart data</description>
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="totalQuantity" type="Double" mode="OUT" optional="true"/>
+        <attribute name="currencyIsoCode" type="String" mode="OUT" optional="true"/>
+        <attribute name="subTotal" type="Double" mode="OUT" optional="true"/>
+        <attribute name="totalShipping" type="Double" mode="OUT" optional="true"/>
+        <attribute name="totalSalesTax" type="Double" mode="OUT" optional="true"/>
+        <attribute name="displayGrandTotal" type="Double" mode="OUT" optional="true"/>
+        <attribute name="cartItemData" type="Map" mode="OUT"/>
+    </service>
 </services>
