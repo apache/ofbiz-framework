@@ -50,29 +50,32 @@ under the License.
                 <of:NOTES></of:NOTES>
                 <of:RECEIPTYPE>RMA</of:RECEIPTYPE>
                 <os:PARTNER>
-                    <of:NAME>${postalAddress.toName?if_exists}</of:NAME>
+                <#if postalAddress?has_content>
+                    <#if (partyNameView.firstName)?has_content><#assign partyName = partyNameView.firstName/></#if>
+                    <#if (partyNameView.middleName)?has_content><#assign partyName = partyName + " " + partyNameView.middleName/></#if>
+                    <#if (partyNameView.lastName)?has_content><#assign partyName = partyName + " " + partyNameView.lastName/></#if>
+                    <of:NAME>${postalAddress.toName?default(partyName)?if_exists}</of:NAME>
                     <of:PARTNRTYPE>SHIPFROM</of:PARTNRTYPE>
                     <of:CURRENCY>USD</of:CURRENCY>
-                    <#if postalAddress?has_content>
-                        <os:ADDRESS>
-                            <of:ADDRLINE>${postalAddress.address1?if_exists}</of:ADDRLINE>
-                            <#if postalAddress.address2?exists>
-                                <of:ADDRLINE>${postalAddress.address2?if_exists}</of:ADDRLINE>                        
-                            </#if>    
-                            <of:CITY>${postalAddress.city?if_exists}</of:CITY>
-                            <of:COUNTRY>${postalAddress.countryGeoId?if_exists}</of:COUNTRY>
-                            <of:FAX></of:FAX>
-                            <of:POSTALCODE>${postalAddress.postalCode?if_exists}</of:POSTALCODE>
-                            <of:STATEPROVN>${postalAddress.stateProvinceGeoId?if_exists}</of:STATEPROVN>
-                            <of:TELEPHONE>${telecomNumber.countryCode?if_exists}${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</of:TELEPHONE>
-                        </os:ADDRESS>
-                        <os:CONTACT>
-                            <of:NAME>${postalAddress.toName?if_exists}</of:NAME>
-                            <of:EMAIL>${emailString?if_exists}</of:EMAIL>
-                            <of:FAX></of:FAX>
-                            <of:TELEPHONE>${telecomNumber.countryCode?if_exists}${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</of:TELEPHONE>
-                        </os:CONTACT>
-                    </#if>
+                    <os:ADDRESS>
+                        <of:ADDRLINE>${postalAddress.address1?if_exists}</of:ADDRLINE>
+                        <#if postalAddress.address2?has_content>
+                        <of:ADDRLINE>${postalAddress.address2?if_exists}</of:ADDRLINE>                        
+                        </#if>    
+                        <of:CITY>${postalAddress.city?if_exists}</of:CITY>
+                        <of:COUNTRY>${postalAddress.countryGeoId?if_exists}</of:COUNTRY>
+                        <#-- <of:FAX></of:FAX> -->
+                        <of:POSTALCODE>${postalAddress.postalCode?if_exists}</of:POSTALCODE>
+                        <of:STATEPROVN>${postalAddress.stateProvinceGeoId?if_exists}</of:STATEPROVN>
+                        <of:TELEPHONE><#if telecomNumber.countryCode?has_content>${telecomNumber.countryCode}-</#if>${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</of:TELEPHONE>
+                    </os:ADDRESS>
+                    <os:CONTACT>
+                        <of:NAME>${postalAddress.attnName?default(partyName)?if_exists}</of:NAME>
+                        <of:EMAIL>${emailString?if_exists}</of:EMAIL>
+                        <#-- <of:FAX></of:FAX> -->
+                        <of:TELEPHONE><#if telecomNumber.countryCode?has_content>${telecomNumber.countryCode}-</#if>${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</of:TELEPHONE>
+                    </os:CONTACT>
+                </#if>
                 </os:PARTNER>
             </n:RECEIPTHDR>
             <n:RECEIPTUNT>
@@ -82,9 +85,9 @@ under the License.
                     <of:SIGN>+</of:SIGN>
                     <of:UOM>EACH</of:UOM>
                 </os:QUANTITY>
-                <n:RECEIPTITM>
                 <#list returnItems as returnItem>
                     <#assign returnReason = returnItem.getRelatedOne("ReturnReason")>
+                <n:RECEIPTITM>
                     <os:QUANTITY>
                         <of:VALUE>${returnItem.returnQuantity?if_exists}</of:VALUE>
                         <of:NUMOFDEC>0</of:NUMOFDEC>
@@ -98,11 +101,12 @@ under the License.
                         <of:DOCUMENTID>${returnId?if_exists}</of:DOCUMENTID>
                         <of:LINENUM>${returnItem.returnItemSeqId}</of:LINENUM>
                     </os:DOCUMNTREF>
-                    </#list>
+                    <#-- TODO: fill this in if available -->
                     <n:INVDETAIL>
                         <of:SERIALNUM></of:SERIALNUM>
                     </n:INVDETAIL>
                 </n:RECEIPTITM>
+                </#list>
             </n:RECEIPTUNT>
         </n:RECEIVE_DELIVERY>
     </n:DATAAREA>
