@@ -22,14 +22,14 @@ under the License.
 <script language="JavaScript" type="text/javascript">
 function shipBillAddr() {
     <#if requestParameters.singleUsePayment?default("N") == "Y">
-      <#assign singleUse = "&amp;singleUsePayment=Y">
+      <#assign singleUse = "&singleUsePayment=Y">
     <#else>
       <#assign singleUse = "">
     </#if>
     if (document.billsetupform.useShipAddr.checked) {
-        window.location.replace("setPaymentInformation?createNew=Y&amp;addGiftCard=${requestParameters.addGiftCard?if_exists}&amp;paymentMethodTypeId=${paymentMethodTypeId?if_exists}&amp;useShipAddr=Y${singleUse}");
+        window.location.replace("setPaymentInformation?createNew=Y&addGiftCard=${requestParameters.addGiftCard?if_exists}&paymentMethodTypeId=${paymentMethodTypeId?if_exists}&useShipAddr=Y${singleUse}");
     } else {
-        window.location.replace("setPaymentInformation?createNew=Y&amp;addGiftCard=${requestParameters.addGiftCard?if_exists}&amp;paymentMethodTypeId=${paymentMethodTypeId?if_exists}${singleUse}");
+        window.location.replace("setPaymentInformation?createNew=Y&addGiftCard=${requestParameters.addGiftCard?if_exists}&paymentMethodTypeId=${paymentMethodTypeId?if_exists}${singleUse}");
     }
 }
 </script>
@@ -50,8 +50,7 @@ function shipBillAddr() {
             <#else>
               <form method="post" action="<@ofbizUrl>enterCreditCardAndBillingAddress</@ofbizUrl>" name="${parameters.formNameValue}">
             </#if>
-          </#if>
-          <#if paymentMethodTypeId?if_exists == "EFT_ACCOUNT">
+          <#elseif paymentMethodTypeId?if_exists == "EFT_ACCOUNT">
             <#if eftAccount?has_content && postalAddress?has_content>
               <form method="post" action="<@ofbizUrl>changeEftAccountAndBillingAddress</@ofbizUrl>" name="${parameters.formNameValue}">
                 <input type="hidden" name="paymentMethodId" value="${eftAccount.paymentMethodId?if_exists}"/>
@@ -61,9 +60,10 @@ function shipBillAddr() {
             <#else>
               <form method="post" action="<@ofbizUrl>enterEftAccountAndBillingAddress</@ofbizUrl>" name="${parameters.formNameValue}">
             </#if>
-          </#if>
-          <#if paymentMethodTypeId?if_exists == "GIFT_CARD"> <#--Don't know much how this is handled -->
+          <#elseif paymentMethodTypeId?if_exists == "GIFT_CARD"> <#--Don't know much how this is handled -->
             <form method="post" action="<@ofbizUrl>enterGiftCard</@ofbizUrl>" name="${parameters.formNameValue}">
+          <#else>
+            <div class="tabletext">${uiLabelMap.AccountingPaymentMethodTypeNotHandled} ${paymentMethodTypeId?if_exists}</div>
           </#if>
 
           <#if requestParameters.singleUsePayment?default("N") == "Y">
