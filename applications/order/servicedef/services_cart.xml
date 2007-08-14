@@ -124,9 +124,13 @@ under the License.
         <attribute name="totalQuantity" type="Double" mode="OUT" optional="true"/>
         <attribute name="currencyIsoCode" type="String" mode="OUT" optional="true"/>
         <attribute name="subTotal" type="Double" mode="OUT" optional="true"/>
+        <attribute name="subTotalCurrencyFormatted" type="String" mode="OUT" optional="true"/>
         <attribute name="totalShipping" type="Double" mode="OUT" optional="true"/>
+        <attribute name="totalShippingCurrencyFormatted" type="String" mode="OUT" optional="true"/>
         <attribute name="totalSalesTax" type="Double" mode="OUT" optional="true"/>
+        <attribute name="totalSalesTaxCurrencyFormatted" type="String" mode="OUT" optional="true"/>
         <attribute name="displayGrandTotal" type="Double" mode="OUT" optional="true"/>
+        <attribute name="displayGrandTotalCurrencyFormatted" type="String" mode="OUT" optional="true"/>
         <attribute name="cartItemData" type="Map" mode="OUT"/>
     </service>
 </services>

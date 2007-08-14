@@ -758,14 +758,20 @@ public class ShoppingCartServices {
     
     public static Map getShoppingCartData(DispatchContext dctx, Map context){
         Map result = ServiceUtil.returnSuccess();
+        Locale locale = (Locale) context.get("locale");
         ShoppingCart shoppingCart = (ShoppingCart) context.get("shoppingCart");
         if(shoppingCart != null){
+            String isoCode = shoppingCart.getCurrency();
             result.put("totalQuantity",new Double(shoppingCart.getTotalQuantity()));
-            result.put("currencyIsoCode",shoppingCart.getCurrency());
+            result.put("currencyIsoCode",isoCode);
             result.put("subTotal",new Double(shoppingCart.getSubTotal()));
+            result.put("subTotalCurrencyFormatted",org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getSubTotal(),isoCode,locale));
             result.put("totalShipping",new Double(shoppingCart.getTotalShipping()));
+            result.put("totalShippingCurrencyFormatted",org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getTotalShipping(),isoCode,locale));
             result.put("totalSalesTax",new Double(shoppingCart.getTotalSalesTax()));
+            result.put("totalSalesTaxCurrencyFormatted",org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getTotalSalesTax(),isoCode,locale));
             result.put("displayGrandTotal",new Double(shoppingCart.getDisplayGrandTotal()));
+            result.put("displayGrandTotalCurrencyFormatted",org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getDisplayGrandTotal(),isoCode,locale));
 
             Iterator i = shoppingCart.iterator();
             Map cartItemData = FastMap.newInstance();
@@ -773,6 +779,7 @@ public class ShoppingCartServices {
                 ShoppingCartItem cartLine = (ShoppingCartItem) i.next();
                 int cartLineIndex = shoppingCart.getItemIndex(cartLine);
                 cartItemData.put("displayItemSubTotal_" + cartLineIndex ,new Double(cartLine.getDisplayItemSubTotal()));
+                cartItemData.put("displayItemSubTotalCurrencyFormatted_" + cartLineIndex ,org.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayItemSubTotal(),isoCode,locale));
             }
             result.put("cartItemData",cartItemData);
         }
