@@ -285,8 +285,8 @@ public class OagisShipmentServices {
                             boolean continueLoop = false;
                             if (UtilValidate.isNotEmpty(serialNumberList)) {
                                 if (messageQuantity.intValue() != serialNumberList.size()) {
-                                    String errMsg = "Not enough serial numbers [" + serialNumberList.size() + "] for the quantity [" + messageQuantity.intValue() + "].";
-                                    errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumbersMissing"));
+                                    String errMsg = "Error: the quantity in the message [" + messageQuantity.intValue() + "] did not match the number of serial numbers passed [" + serialNumberList.size() + "].";
+                                    errorMapList.add(UtilMisc.toMap("reasonCode", "QuantitySerialMismatch", "description", errMsg));
                                     Debug.logInfo(errMsg, module);
                                     continueLoop = true;
                                 }
