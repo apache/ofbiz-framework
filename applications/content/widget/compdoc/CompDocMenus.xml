@@ -20,11 +20,11 @@ under the License.
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    <menu name="empty" default-title-style="tabButton" default-menu-item-name="content" menu-width="100%"
+    <menu name="empty" menu-container-style="button-bar tab-bar" default-menu-item-name="content" menu-width="100%"
         default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
     </menu>
         
-    <menu name="find" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="content"
+    <menu name="find" menu-container-style="button-bar tab-bar" default-selected-style="selected" default-menu-item-name="content"
         default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="find" title="${uiLabelMap.CommonFind}">
             <link target="FindCompDocTemplate"/>
@@ -32,7 +32,7 @@ under the License.
     </menu>
         
         
-    <menu name="tree" default-title-style="tabButton" default-menu-item-name="content"
+    <menu name="tree" menu-container-style="button-bar tab-bar" default-selected-style="selected" default-menu-item-name="content"
         selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="viewtree" title="View Tree">
             <condition>
@@ -63,7 +63,7 @@ under the License.
         </menu-item>
     </menu>
         
-    <menu name="subtree" default-title-style="tabButton" default-menu-item-name="content"
+    <menu name="subtree" menu-container-style="button-bar tab-bar" default-selected-style="selected" default-menu-item-name="content"
         selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="viewtree" title="View Tree">
             <condition>
@@ -88,7 +88,7 @@ under the License.
         </menu-item>
     </menu>
      
-    <menu name="rootTemplateLine" default-title-style="tabButton" default-menu-item-name="content"
+    <menu name="rootTemplateLine" menu-container-style="button-bar button-style-1" default-menu-item-name="content"
         selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="edit-inplace" title="${contentName}[${contentId}]" widget-style="head2">
             <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
@@ -118,7 +118,7 @@ under the License.
 			-->
     </menu>
         
-    <menu name="childTemplateLine" default-title-style="tabButton" default-menu-item-name="content" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
+    <menu name="childTemplateLine" menu-container-style="button-bar button-style-1" default-menu-item-name="content" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="edit-inplace" title="${contentName} [${contentId}]">
             <link target="EditChildCompDoc?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caFromDate=${fromDate}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
@@ -156,7 +156,7 @@ under the License.
         </menu-item>
     </menu>
         
-    <menu name="rootInstanceLine" default-title-style="tabButton" default-menu-item-name="content" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
+    <menu name="rootInstanceLine" menu-container-style="button-bar button-style-1" default-menu-item-name="content" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="edit-inplace" title="${instanceContent.contentName}[${instanceContent.contentId}]"  widget-style="head2">
             <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
