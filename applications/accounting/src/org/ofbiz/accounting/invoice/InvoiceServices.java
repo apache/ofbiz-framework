@@ -481,16 +481,12 @@ public class InvoiceServices {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingOrderItemBillingFromOrder",locale), null, null, createOrderItemBillingResult);
                     }
 
-                    if ("ItemIssuance".equals(currentValue.getEntityName()) || "ShipmentReceipt".equals(currentValue.getEntityName())) {
+                    if ("ItemIssuance".equals(currentValue.getEntityName())) {
 
                         // create the ShipmentItemBilling record
                         GenericValue shipmentItemBilling = delegator.makeValue("ShipmentItemBilling", UtilMisc.toMap("invoiceId", invoiceId, "invoiceItemSeqId", invoiceItemSeqId));
                         shipmentItemBilling.put("shipmentId", currentValue.get("shipmentId"));
-    
-                        // ShipmentReceipt has no shipmentItemSeqId field
-                        if ("ItemIssuance".equals(currentValue.getEntityName())) {
                         shipmentItemBilling.put("shipmentItemSeqId", currentValue.get("shipmentItemSeqId"));
-                        }
                         shipmentItemBilling.create();
                     }
 
