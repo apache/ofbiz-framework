@@ -33,7 +33,7 @@ under the License.
             <of:LOGICALID>${logicalId}</of:LOGICALID>
             <of:COMPONENT>INVENTORY</of:COMPONENT>
             <of:TASK>RMA</of:TASK>
-            <of:REFERENCEID>${referenceId?if_exists}</of:REFERENCEID/>
+            <of:REFERENCEID>${referenceId?if_exists}</of:REFERENCEID>
             <of:CONFIRMATION>1</of:CONFIRMATION>
             <of:LANGUAGE>ENG</of:LANGUAGE>
             <of:CODEPAGE>NONE</of:CODEPAGE>
@@ -87,7 +87,7 @@ under the License.
                 </os:QUANTITY>
                 <#list returnItems as returnItem>
                     <#assign returnReason = returnItem.getRelatedOne("ReturnReason")/>
-                    <#assign serialNumberList = serialNumberListByReturnItemSeqIdMap.get(returnItem.returnItemSeqId)/>
+                    <#assign serialNumberList = serialNumberListByReturnItemSeqIdMap.get(returnItem.returnItemSeqId)?if_exists/>
                 <n:RECEIPTITM>
                     <os:QUANTITY>
                         <of:VALUE>${returnItem.returnQuantity?if_exists}</of:VALUE>
