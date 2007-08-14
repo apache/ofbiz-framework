@@ -91,6 +91,15 @@ under the License.
         <key-map field-name="issuedByUserLoginId" rel-field-name="userLoginId"/>
       </relation>
     </entity>
+    <view-entity entity-name="ItemIssuanceAndInventoryItem" package-name="org.ofbiz.shipment.issuance">
+        <member-entity entity-alias="IISS" entity-name="ItemIssuance"/>
+        <member-entity entity-alias="IITM" entity-name="InventoryItem"/>
+        <alias-all entity-alias="IISS"/>
+        <alias-all entity-alias="IITM"/>
+        <view-link entity-alias="IISS" rel-entity-alias="IITM">
+        <key-map field-name="inventoryItemId"/>
+        </view-link>
+    </view-entity>
     <entity entity-name="ItemIssuanceRole"
             package-name="org.ofbiz.shipment.issuance"
             title="Item Issuance Role Entity">
