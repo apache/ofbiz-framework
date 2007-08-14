@@ -278,6 +278,7 @@ under the License.
   <!-- ========================================================= -->
 
     <entity-group group="org.ofbiz" entity="ItemIssuance" />
+    <entity-group group="org.ofbiz" entity="ItemIssuanceAndInventoryItem" />
     <entity-group group="org.ofbiz" entity="ItemIssuanceRole" />
 
   <!-- ========================================================= -->
