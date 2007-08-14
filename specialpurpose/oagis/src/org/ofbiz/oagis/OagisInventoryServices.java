@@ -692,7 +692,7 @@ public class OagisInventoryServices {
                     Debug.logError(e, errMsg, module);
                 }
 
-                if (UtilValidate.isNotEmpty(returnHeader)) {
+                if (returnHeader != null) {
                     //getting ReturnHeader status
                     statusId = returnHeader.get("statusId").toString();
                     
@@ -829,9 +829,9 @@ public class OagisInventoryServices {
                         // NOTE DEJ20070711 this shouldn't happen for current needs, so save for later
                     }
                 } else {
-                    String errMsg = "ReturnId Not Valid: Id not present in Database";
+                    String errMsg = "Return ID [" + returnId + "] Not Found";
                     Debug.logError(errMsg, module);
-                    errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
+                    errorMapList.add(UtilMisc.toMap("reasonCode", "ReturnIdNotFound", "description", errMsg));
                 }
             }
             
