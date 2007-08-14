@@ -478,6 +478,8 @@ public class OagisInventoryServices {
                         Debug.logError(e, errMsg, module);
                     }
                 }
+                
+                /* NOTE DEJ20070813 this is only meant to be used in the Ack Delivery RMA message, so ignoring here and always settings status to AVAILABLE
                 // get inventory item status
                 String invItemStatus = UtilXml.childElementValue(receiptLnElement, "of:DISPOSITN");
                 if (invItemStatus.equals("ReceivedTOAvailable") || invItemStatus.equals("NotAvailableTOAvailable")) {
@@ -485,6 +487,9 @@ public class OagisInventoryServices {
                 } else if (invItemStatus.equals("ReceivedTONotAvailable") || invItemStatus.equals("AvailableTONotAvailable") ) {
                     ripCtx.put("statusId","INV_ON_HOLD");
                 }
+                */
+                
+                ripCtx.put("statusId","INV_AVAILABLE");    
                 ripCtx.put("inventoryItemTypeId", "NON_SERIAL_INV_ITEM");
                 ripCtx.put("productId", productId);
                 ripCtx.put("facilityId",facilityId);
