@@ -60,6 +60,8 @@ public class OagisInventoryServices {
     
     public static final Double doubleZero = new Double(0.0);
     public static final Double doubleOne = new Double(1.0);
+
+    public static final String syncInventoryFacilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryFacilityId");
     
     public static Map syncInventory(DispatchContext ctx, Map context) {
         Document doc = (Document) context.get("document");
@@ -76,8 +78,6 @@ public class OagisInventoryServices {
             String errMsg = "Error Getting UserLogin: " + e.toString();
             Debug.logError(e, errMsg, module);
         }
-
-        String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryFacilityId");
         
         Element syncInventoryRootElement = doc.getDocumentElement();
         syncInventoryRootElement.normalize();
@@ -170,7 +170,7 @@ public class OagisInventoryServices {
                             new EntityExpr("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, snapshotDate), 
                             new EntityExpr("productId", EntityOperator.EQUALS, productId),
                             new EntityExpr("inventoryItemTypeId", EntityOperator.EQUALS, "NON_SERIAL_INV_ITEM"),
-                            new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId)), EntityOperator.AND);
+                            new EntityExpr("facilityId", EntityOperator.EQUALS, syncInventoryFacilityId)), EntityOperator.AND);
                     try {
                         List invItemAndDetails = delegator.findByCondition("InventoryItemDetailForSum", condition, UtilMisc.toList("quantityOnHandSum"), null);
                         Iterator invItemAndDetailIter = invItemAndDetails.iterator();
@@ -192,7 +192,7 @@ public class OagisInventoryServices {
                         new EntityExpr("productId", EntityOperator.EQUALS, productId),
                         new EntityExpr("statusId", EntityOperator.EQUALS, statusId),
                         new EntityExpr("inventoryItemTypeId", EntityOperator.EQUALS, "SERIALIZED_INV_ITEM"),
-                        new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId)), EntityOperator.AND);
+                        new EntityExpr("facilityId", EntityOperator.EQUALS, syncInventoryFacilityId)), EntityOperator.AND);
                 try {
                     long invItemQuantCount = delegator.findCountByCondition("InventoryItemStatusForCount", serInvCondition, null);
                     quantityOnHandTotal += invItemQuantCount;
