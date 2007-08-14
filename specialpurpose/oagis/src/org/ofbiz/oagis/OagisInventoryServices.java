@@ -650,6 +650,7 @@ public class OagisInventoryServices {
         }
         
         String statusId = null;
+        //String inventoryItemId = null;
         List invItemIds = FastList.newInstance();
         // get RECEIPTLN elements from message
         List acknowledgeElementList = UtilXml.childElementList(acknowledgeDeliveryElement, "ns:RECEIPTLN");
@@ -791,7 +792,7 @@ public class OagisInventoryServices {
                                         updateInvItmMap.put( "productId",productId);
                                     }
                                     try {
-                                        Map test = dispatcher.runSync("updateInventoryItem", updateInvItmMap);
+                                        dispatcher.runSync("updateInventoryItem", updateInvItmMap);
                                     } catch (GenericServiceException e) {
                                         String errMsg = "Error running service updateInventoryItem: " + e.toString();
                                         errorMapList.add(UtilMisc.toMap("reasonCode", "GenericServiceException", "description", errMsg));
@@ -809,7 +810,7 @@ public class OagisInventoryServices {
                                     localRipCtx.put("serialNumber", serialNum);
                                     localRipCtx.put("productId", productId);
                                     localRipCtx.put("returnItemSeqId", returnItemSeqId);
-                                    runReceiveInventoryProduct( localRipCtx , errorMapList , dispatcher, invItemIds);
+                                    invItemIds.add(UtilMisc.toMap("inventoryItemId", runReceiveInventoryProduct( localRipCtx , errorMapList , dispatcher)));
                                 }
                             }
                         } else {
@@ -822,7 +823,29 @@ public class OagisInventoryServices {
                             localRipCtx.put("quantityRejected", new Double(0.0));
                             localRipCtx.put("productId", productId);
                             localRipCtx.put("returnItemSeqId", returnItemSeqId);
-                            runReceiveInventoryProduct( localRipCtx , errorMapList , dispatcher, invItemIds);
+                            String inventoryItemId = runReceiveInventoryProduct( localRipCtx , errorMapList , dispatcher);
+                            invItemIds.add(UtilMisc.toMap("inventoryItemId", inventoryItemId));
+                            if (("INV_ON_HOLD").equals(invItemStatusId)) {
+                                Map createPhysicalInvAndVarCtx = FastMap.newInstance();
+                                createPhysicalInvAndVarCtx.put("inventoryItemId", inventoryItemId);
+                                createPhysicalInvAndVarCtx.put("physicalInventoryDate", UtilDateTime.nowTimestamp());
+                                createPhysicalInvAndVarCtx.put("generalComments", "Damaged, in repair");
+                                createPhysicalInvAndVarCtx.put("varianceReasonId", "VAR_DAMAGED");
+                                createPhysicalInvAndVarCtx.put("availableToPromiseVar", new Double(-quantityAccepted));
+                                createPhysicalInvAndVarCtx.put("quantityOnHandVar", new Double(0.0));
+                                createPhysicalInvAndVarCtx.put("userLogin", userLogin);
+                                try {
+                                    Map cpivResult = dispatcher.runSync("createPhysicalInventoryAndVariance", createPhysicalInvAndVarCtx);
+                                    if (ServiceUtil.isError(cpivResult)) {
+                                        String errMsg = ServiceUtil.getErrorMessage(cpivResult);
+                                        errorMapList.add(UtilMisc.toMap("reasonCode", "CreatePhysicalInventoryAndVarianceServiceError", "description", errMsg));
+                                    }
+                                } catch (GenericServiceException e) {
+                                    String errMsg = "Error running service createPhysicalInventoryAndVariance: " + e.toString();
+                                    errorMapList.add(UtilMisc.toMap("reasonCode", "GenericServiceException", "description", errMsg));
+                                    Debug.logError(e, errMsg, module);
+                                }
+                            }
                         }
                     } else {
                         // TODOLATER: need to run service receiveInventoryProduct and updateInventoryItem when quantityRejected > 0
@@ -902,20 +925,23 @@ public class OagisInventoryServices {
         return result;
     }
 
-    public static void runReceiveInventoryProduct(Map localRipCtx, List errorMapList, LocalDispatcher dispatcher, List invItemIds) {
+    public static String runReceiveInventoryProduct(Map localRipCtx, List errorMapList, LocalDispatcher dispatcher) {
+        Map ripResult = FastMap.newInstance();
         try {
-            Map ripResult = dispatcher.runSync("receiveInventoryProduct", localRipCtx);
+            ripResult = dispatcher.runSync("receiveInventoryProduct", localRipCtx);
             if (ServiceUtil.isError(ripResult)) {
                 String errMsg = ServiceUtil.getErrorMessage(ripResult);
                 errorMapList.add(UtilMisc.toMap("reasonCode", "ReceiveInventoryServiceError", "description", errMsg));
-            } else {
-                invItemIds.add(UtilMisc.toMap("inventoryItemId", (String) ripResult.get("inventoryItemId")));
+                return null;
             }
         } catch (GenericServiceException e) {
             String errMsg = "Error running service receiveInventoryProduct: "
                     + e.toString();
             errorMapList.add(UtilMisc.toMap("reasonCode", "GenericServiceException", "description", errMsg));
             Debug.logError(e, errMsg, module);
+            return null;
         }
+        
+        return (String) ripResult.get("inventoryItemId");
     }
 }
