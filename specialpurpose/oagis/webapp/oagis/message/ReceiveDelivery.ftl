@@ -86,7 +86,8 @@ under the License.
                     <of:UOM>EACH</of:UOM>
                 </os:QUANTITY>
                 <#list returnItems as returnItem>
-                    <#assign returnReason = returnItem.getRelatedOne("ReturnReason")>
+                    <#assign returnReason = returnItem.getRelatedOne("ReturnReason")/>
+                    <#assign serialNumberList = serialNumberListByReturnItemSeqIdMap.get(returnItem.returnItemSeqId)/>
                 <n:RECEIPTITM>
                     <os:QUANTITY>
                         <of:VALUE>${returnItem.returnQuantity?if_exists}</of:VALUE>
@@ -101,10 +102,11 @@ under the License.
                         <of:DOCUMENTID>${returnId?if_exists}</of:DOCUMENTID>
                         <of:LINENUM>${returnItem.returnItemSeqId}</of:LINENUM>
                     </os:DOCUMNTREF>
-                    <#-- TODO: fill this in if available -->
+                    <#list serialNumberList?if_exists as serialNumber>
                     <n:INVDETAIL>
-                        <of:SERIALNUM></of:SERIALNUM>
+                        <of:SERIALNUM>${serialNumber}</of:SERIALNUM>
                     </n:INVDETAIL>
+                    </#list>
                 </n:RECEIPTITM>
                 </#list>
             </n:RECEIPTUNT>
