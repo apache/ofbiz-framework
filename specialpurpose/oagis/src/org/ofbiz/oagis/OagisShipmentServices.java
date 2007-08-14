@@ -854,11 +854,45 @@ public class OagisShipmentServices {
        
                 // calculate total qty of return items in a shipping unit received, order associated with return
                 double totalQty = 0.0;
+                Map serialNumberListByReturnItemSeqIdMap = FastMap.newInstance();
+                bodyParameters.put("serialNumberListByReturnItemSeqIdMap", serialNumberListByReturnItemSeqIdMap);
                 Iterator riIter = returnItems.iterator();
                 while (riIter.hasNext()) {
                     GenericValue returnItem = (GenericValue) riIter.next();
                     double itemQty = returnItem.getDouble("returnQuantity").doubleValue();
                     totalQty += itemQty;
+                    
+                    // for each ReturnItem also get serial numbers using ItemIssuanceAndInventoryItem
+                    // NOTE: technically if the ReturnItem.quantity != OrderItem.quantity then we don't know which serial number is being returned, so rather than guessing we will send it only in that case
+                    try {
+                        GenericValue orderItem = returnItem.getRelatedOne("OrderItem");
+                        if (orderItem != null) {
+                            if (orderItem.getDouble("quantity").doubleValue() == itemQty) {
+                                List itemIssuanceAndInventoryItemList = delegator.findByAnd("ItemIssuanceAndInventoryItem", 
+                                        UtilMisc.toMap("orderId", orderItem.get("orderId"), "orderItemSeqId", orderItem.get("orderItemSeqId"), 
+                                                "inventoryItemTypeId", "SERIALIZED_INV_ITEM"));
+                                if (itemIssuanceAndInventoryItemList.size() == itemQty) {
+                                    List serialNumberList = FastList.newInstance();
+                                    serialNumberListByReturnItemSeqIdMap.put(returnItem.get("returnItemSeqId"), serialNumberList);
+                                    Iterator itemIssuanceAndInventoryItemIter = itemIssuanceAndInventoryItemList.iterator();
+                                    while (itemIssuanceAndInventoryItemIter.hasNext()) {
+                                        GenericValue itemIssuanceAndInventoryItem = (GenericValue) itemIssuanceAndInventoryItemIter.next();
+                                        serialNumberList.add(itemIssuanceAndInventoryItem.get("serialNumber"));
+                                    }
+                                } else {
+                                    // TODO: again a quantity mismatch, whatever to do?
+                                    Debug.logWarning("Number of serial numbers [" + itemIssuanceAndInventoryItemList.size() + "] did not match quantity [" + itemQty + "] for return item: " + returnItem.getPrimaryKey(), module);
+                                }
+                            } else {
+                                // TODO: we don't know which serial numbers are returned, should we throw an error? probably not, just do what we can
+                                Debug.logWarning("Could not get matching serial numbers because order item quantity [" + orderItem.getDouble("quantity") + "] did not match quantity [" + itemQty + "] for return item: " + returnItem.getPrimaryKey(), module);
+                            }
+                        }
+                    } catch (GenericEntityException e) {
+                        String errMsg = "Error getting data for processing return message: " + e.toString();
+                        Debug.logError(e, errMsg, module);
+                        return ServiceUtil.returnError(errMsg);
+                    }
                 }
                 bodyParameters.put("totalQty", new Double(totalQty));
                 
