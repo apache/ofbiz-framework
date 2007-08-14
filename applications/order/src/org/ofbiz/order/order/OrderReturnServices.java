@@ -1473,13 +1473,13 @@ public class OrderReturnServices {
                                 if (UtilValidate.isNotEmpty(refurbItem)) {
                                     boolean inventoryAvailable = false;
                                     try {
-                                        Map invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.toMap("productStoreId", orderHeader.get("productStoreId"),
+                                        Map invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.toMap("productStoreId", orderHeader.get("productStoreId"),
                                                                                                                                        "productId", refurbItem.getString("productId"),
                                                                                                                                        "product", refurbItem, "quantity", quantity));
                                         if (ServiceUtil.isError(invReqResult)) {
-                                            Debug.logError("Error calling isStoreInventoryAvailableOrNotRequired service, result is: " + invReqResult, module);
+                                            Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult, module);
                                         } else {
-                                            inventoryAvailable = "Y".equals((String) invReqResult.get("availableOrNotRequired"));
+                                            inventoryAvailable = "Y".equals((String) invReqResult.get("available"));
                                         }
                                     } catch (GenericServiceException e) {
                                         Debug.logError(e, "Fatal error calling inventory checking services: " + e.toString(), module);
