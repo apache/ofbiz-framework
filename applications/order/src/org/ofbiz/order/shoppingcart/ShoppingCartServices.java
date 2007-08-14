@@ -26,6 +26,8 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -751,6 +753,29 @@ public class ShoppingCartServices {
 
         Map result = ServiceUtil.returnSuccess();
         result.put("shoppingCart", cart);
+        return result;
+    }
+    
+    public static Map getShoppingCartData(DispatchContext dctx, Map context){
+        Map result = ServiceUtil.returnSuccess();
+        ShoppingCart shoppingCart = (ShoppingCart) context.get("shoppingCart");
+        if(shoppingCart != null){
+            result.put("totalQuantity",new Double(shoppingCart.getTotalQuantity()));
+            result.put("currencyIsoCode",shoppingCart.getCurrency());
+            result.put("subTotal",new Double(shoppingCart.getSubTotal()));
+            result.put("totalShipping",new Double(shoppingCart.getTotalShipping()));
+            result.put("totalSalesTax",new Double(shoppingCart.getTotalSalesTax()));
+            result.put("displayGrandTotal",new Double(shoppingCart.getDisplayGrandTotal()));
+
+            Iterator i = shoppingCart.iterator();
+            Map cartItemData = FastMap.newInstance();
+            while (i.hasNext()) {
+                ShoppingCartItem cartLine = (ShoppingCartItem) i.next();
+                int cartLineIndex = shoppingCart.getItemIndex(cartLine);
+                cartItemData.put("displayItemSubTotal_" + cartLineIndex ,new Double(cartLine.getDisplayItemSubTotal()));
+            }
+            result.put("cartItemData",cartItemData);
+        }
         return result;
     }
 }
