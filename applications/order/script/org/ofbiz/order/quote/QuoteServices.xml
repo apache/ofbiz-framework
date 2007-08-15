@@ -709,6 +709,10 @@ under the License.
                     <call-object-method obj-field-name="item" method-name="getSelectedAmount" ret-field-name="createQuoteItemInMap.selectedAmount"/>
                     <call-object-method obj-field-name="item" method-name="getBasePrice" ret-field-name="createQuoteItemInMap.quoteUnitPrice"/>
                     <call-object-method obj-field-name="item" method-name="getItemComment" ret-field-name="createQuoteItemInMap.comments"/>
+                    <call-object-method obj-field-name="item" method-name="getReservStart" ret-field-name="createQuoteItemInMap.reservStart"/>
+                    <call-object-method obj-field-name="item" method-name="getReservLength" ret-field-name="createQuoteItemInMap.reservLength"/>
+                    <call-object-method obj-field-name="item" method-name="getReservPersons" ret-field-name="createQuoteItemInMap.reservPersons"/>
+
                     <call-service service-name="createQuoteItem" in-map-name="createQuoteItemInMap">
                         <result-to-field result-name="quoteItemSeqId" field-name="quoteItemSeqId"/>
                     </call-service>
@@ -802,6 +806,9 @@ under the License.
             <set field="createQuoteItemInMap.productId" from-field="custRequestItem.productId"/>
             <set field="createQuoteItemInMap.quantity" from-field="custRequestItem.quantity"/>
             <set field="createQuoteItemInMap.selectedAmount" from-field="custRequestItem.selectedAmount"/>
+            <set field="createQuoteItemInMap.reservStart" from-field="custRequestItem.reservStart"/>
+            <set field="createQuoteItemInMap.reservLength" from-field="custRequestItem.reservLength"/>
+            <set field="createQuoteItemInMap.reservPersons" from-field="custRequestItem.reservPersons"/>           
             <call-service service-name="createQuoteItem" in-map-name="createQuoteItemInMap"/>
         </iterate>
         <!-- roles -->

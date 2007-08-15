@@ -1328,6 +1328,9 @@ under the License.
       <field name="quantity" type="floating-point"></field>
       <field name="selectedAmount" type="floating-point"></field>
       <field name="quoteUnitPrice" type="currency-amount"></field>
+      <field name="reservStart" type="date-time"></field>
+      <field name="reservLength" type="floating-point"></field>
+      <field name="reservPersons" type="floating-point"></field>             
       <field name="estimatedDeliveryDate" type="date-time"></field>
       <field name="comments" type="comment"></field>
       <field name="isPromo" type="indicator"></field>
@@ -1652,6 +1655,9 @@ under the License.
       <field name="quantity" type="floating-point"></field>
       <field name="selectedAmount" type="floating-point"></field>
       <field name="maximumAmount" type="currency-amount"></field>
+      <field name="reservStart" type="date-time"></field>
+      <field name="reservLength" type="floating-point"></field>
+      <field name="reservPersons" type="floating-point"></field>       
       <field name="description" type="description"></field>
       <field name="story" type="very-long"></field>
       <prim-key field="custRequestId"/>

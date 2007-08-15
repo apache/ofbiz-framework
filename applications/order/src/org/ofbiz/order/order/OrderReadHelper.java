@@ -1620,18 +1620,16 @@ public class OrderReadHelper {
     }
 
     public String getCurrentOrderItemWorkEffort(GenericValue orderItem)    {
+        String orderItemSeqId = orderItem.getString("orderItemSeqId");
+        String orderId = orderItem.getString("orderId");
+        GenericDelegator delegator = orderItem.getDelegator();
         GenericValue workOrderItemFulFillment;
+        GenericValue workEffort;
         try {
-            workOrderItemFulFillment = orderItem.getRelatedOne("WorkOrderItemFulFillment");
-        }
-        catch (GenericEntityException e) {
-            return null;
-        }
-        GenericValue workEffort = null;
-        try {
-        workEffort = workOrderItemFulFillment.getRelatedOne("WorkEffort");
-        }
-        catch (GenericEntityException e) {
+            List workOrderItemFulFillments = delegator.findByAndCache("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
+            workOrderItemFulFillment = EntityUtil.getFirst(workOrderItemFulFillments);
+            workEffort = workOrderItemFulFillment.getRelatedOne("WorkEffort");
+        } catch (GenericEntityException e) {
             return null;
         }
         return workEffort.getString("workEffortId");
@@ -2659,6 +2657,14 @@ public class OrderReadHelper {
         return getOrderItemTotalBd(orderItem, adjustments).doubleValue();
     }
 
+    public static Double getWorkEffortRentalLenght(GenericValue workEffort){
+        Double length = null;
+        if (workEffort.get("estimatedStartDate") != null && workEffort.get("estimatedCompletionDate") != null) {
+            length = new Double(UtilDateTime.getInterval(workEffort.getTimestamp("estimatedStartDate"),workEffort.getTimestamp("estimatedCompletionDate"))/86400000);
+        }
+        return length;
+        }
+    
     public static BigDecimal getWorkEffortRentalQuantityBd(GenericValue workEffort){
         BigDecimal persons = new BigDecimal(1);
         if (workEffort.get("reservPersons") != null)

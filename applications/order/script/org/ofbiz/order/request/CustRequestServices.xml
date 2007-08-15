@@ -218,6 +218,9 @@ under the License.
                 <call-object-method obj-field-name="item" method-name="getQuantity" ret-field-name="createCustRequestItemInMap.quantity"/>
                 <!--<call-object-method obj-field-name="item" method-name="getSelectedAmount" ret-field-name="createCustRequestItemInMap.selectedAmount"/>-->
                 <!--<call-object-method obj-field-name="item" method-name="getItemComment" ret-field-name="createCustRequestItemInMap.comments"/>-->
+                <call-object-method obj-field-name="item" method-name="getReservStart" ret-field-name="createCustRequestItemInMap.reservStart"/>
+                <call-object-method obj-field-name="item" method-name="getReservLength" ret-field-name="createCustRequestItemInMap.reservLength"/>
+                <call-object-method obj-field-name="item" method-name="getReservPersons" ret-field-name="createCustRequestItemInMap.reservPersons"/>                                
                 <call-service service-name="createCustRequestItem" in-map-name="createCustRequestItemInMap">
                     <result-to-field result-name="custRequestItemSeqId" field-name="custRequestItemSeqId"/>
                 </call-service>
