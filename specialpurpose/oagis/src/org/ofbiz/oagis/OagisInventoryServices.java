@@ -859,9 +859,9 @@ public class OagisInventoryServices {
             }
             
             if (UtilValidate.isNotEmpty(statusId) && statusId.equals("RETURN_ACCEPTED")) {
-                statusId = "RETURN_COMPLETED";
                 try {
-                    dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("statusId", statusId, "returnId", returnId, "userLogin", userLogin));
+                    dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("statusId", "RETURN_RECEIVED", "returnId", returnId, "userLogin", userLogin));
+                    dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("statusId", "RETURN_COMPLETED", "returnId", returnId, "userLogin", userLogin));
                 } catch (GenericServiceException e) {
                     String errMsg = "Error Storing the value: " + e.toString();
                     errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
