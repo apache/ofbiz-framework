@@ -808,6 +808,7 @@ public class ImportOrdersFromEbay {
             
             // order has to be created ?
             if (create) {
+                Debug.logInfo("Importing new order from eBay", module);
                 // set partyId to
                 String partyId = null;
                 String contactMechId = "";
@@ -821,6 +822,7 @@ public class ImportOrdersFromEbay {
                 // if we get a party, check its contact information.
                 if (UtilValidate.isNotEmpty(partyAttribute)) {
                     partyId = (String) partyAttribute.get("partyId");
+                    Debug.logInfo("Found existing party associated to the eBay buyer: " + partyId, module);
                     GenericValue party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
                     
                     contactMechId = setShippingAddressContactMech(dispatcher, delegator, party, userLogin, parameters);
@@ -833,48 +835,68 @@ public class ImportOrdersFromEbay {
                 
                 // create party if none exists already
                 if (UtilValidate.isEmpty(partyId)) {
+                    Debug.logInfo("Creating new party for the eBay buyer.", module);
                     partyId = createCustomerParty(dispatcher, (String) parameters.get("buyerName"), userLogin);          
                     if (UtilValidate.isEmpty(partyId)) {
+                        Debug.logWarning("Using admin party for the eBay buyer.", module);
                         partyId = "admin";
                     }    
                 }   
                            
                 // create new party's contact information
                 if (UtilValidate.isEmpty(contactMechId)) {
+                    Debug.logInfo("Creating new postal address for party: " + partyId, module);
                     contactMechId = createAddress(dispatcher, partyId, userLogin, "SHIPPING_LOCATION", parameters);
+                    if (UtilValidate.isEmpty(contactMechId)) {
+                        return ServiceUtil.returnFailure("Unable to create postalAddress with input map: " + parameters);
+                    }
+                    Debug.logInfo("Created postal address: " + contactMechId, module);
+                    Debug.logInfo("Creating new phone number for party: " + partyId, module);
                     createPartyPhone(dispatcher, partyId, (String) parameters.get("shippingAddressPhone"), userLogin);
+                    Debug.logInfo("Creating association to eBay buyer for party: " + partyId, module);
                     createEbayCustomer(dispatcher, partyId, (String) parameters.get("ebayUserIdBuyer"), (String) parameters.get("eiasTokenBuyer"), userLogin);
                     String emailBuyer = (String) parameters.get("emailBuyer");
-                    if (!(emailBuyer.equals("") || emailBuyer.equalsIgnoreCase("Invalid Request"))) {
+                    if (UtilValidate.isNotEmpty(emailBuyer) && !emailBuyer.equalsIgnoreCase("Invalid Request")) {
+                        Debug.logInfo("Creating new email for party: " + partyId, module);
                         createPartyEmail(dispatcher, partyId, emailBuyer, userLogin);
-                    }       
+                    }                        
                 } 
 
+                Debug.logInfo("Setting cart roles for party: " + partyId, module);
                 cart.setBillToCustomerPartyId(partyId);
                 cart.setPlacingCustomerPartyId(partyId);
                 cart.setShipToCustomerPartyId(partyId);
                 cart.setEndUserCustomerPartyId(partyId);
                 
+                Debug.logInfo("Setting contact mech in cart: " + contactMechId, module);
                 cart.setShippingContactMechId(contactMechId);
                 cart.setMaySplit(Boolean.FALSE);
                 
+                Debug.logInfo("Setting shipment method: " + (String) parameters.get("shippingService"), module);
                 setShipmentMethodType(cart, (String) parameters.get("shippingService"));
                 
                 cart.makeAllShipGroupInfos();
 
                 // create the order
+                Debug.logInfo("Creating CheckOutHelper.", module);
                 CheckOutHelper checkout = new CheckOutHelper(dispatcher, delegator, cart);
+                Debug.logInfo("Creating order.", module);
                 Map orderCreate = checkout.createOrder(userLogin);
                 
                 String orderId = (String)orderCreate.get("orderId");
+                Debug.logInfo("Created order with id: " + orderId, module);
                 
                 // approve the order
                 if (UtilValidate.isNotEmpty(orderId)) {
+                    Debug.logInfo("Approving order with id: " + orderId, module);
                     boolean approved = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId);
+                    Debug.logInfo("Order approved with result: " + approved, module);
                     
                     // create the payment from the preference
                     if (approved) {
+                        Debug.logInfo("Creating payment for approved order.", module);
                         createPaymentFromPaymentPreferences(delegator, dispatcher, userLogin, orderId, externalId, cart.getOrderDate(), partyId);
+                        Debug.logInfo("Payment created.", module);
                     }
                 }
             }
@@ -996,6 +1018,7 @@ public class ImportOrdersFromEbay {
     
     private static String createAddress(LocalDispatcher dispatcher, String partyId, GenericValue userLogin, 
                                        String contactMechPurposeTypeId, Map address) {
+        Debug.logInfo("Creating postal address with input map: " + address, module);
         String contactMechId = null;
         try {
             Map context = FastMap.newInstance();
@@ -1005,8 +1028,8 @@ public class ImportOrdersFromEbay {
             context.put("userLogin", userLogin);
             context.put("contactMechPurposeTypeId", contactMechPurposeTypeId);       
             
-            String country = ((String)address.get("shippingAddressCountry")).toUpperCase();
-            String state = ((String)address.get("shippingAddressStateOrProvince")).toUpperCase();
+            String country = (String)address.get("shippingAddressCountry");
+            String state = (String)address.get("shippingAddressStateOrProvince");
             String city = (String)address.get("shippingAddressCityName");
             correctCityStateCountry(dispatcher, context, city, state, country);
 
@@ -1021,18 +1044,25 @@ public class ImportOrdersFromEbay {
     private static void correctCityStateCountry(LocalDispatcher dispatcher, Map map, String city, String state, String country) {
         try { 
             Debug.logInfo("correctCityStateCountry params: " + city + ", " + state + ", " + country, module);
-            String geoId = "USA";
-            if (country.indexOf("UNITED STATES") > -1 || country.indexOf("USA") > -1)
+            if (UtilValidate.isEmpty(country)) {
                 country = "US";
+            }
+            country = country.toUpperCase();
+            if (country.indexOf("UNITED STATES") > -1 || country.indexOf("USA") > -1) {
+                country = "US";
+            }
             Debug.logInfo("GeoCode: " + country, module);
             Map outMap = getCountryGeoId(dispatcher.getDelegator(), country);
-            geoId = (String)outMap.get("geoId");
+            String geoId = (String)outMap.get("geoId");
+            if (UtilValidate.isEmpty(geoId)) {
+                geoId = "USA";
+            }
             map.put("countryGeoId", geoId);
             Debug.logInfo("Country geoid: " + geoId, module);
             if (geoId.equals("USA") || geoId.equals("CAN")) {
-                if (state.length() > 0) {
-                    map.put("stateProvinceGeoId", state);
-                }   
+                if (UtilValidate.isNotEmpty(state)) {
+                    map.put("stateProvinceGeoId", state.toUpperCase());
+                }
                 map.put("city", city);
             } else {
                 map.put("city", city + ", " + state);
@@ -1122,12 +1152,9 @@ public class ImportOrdersFromEbay {
         try {
             Debug.logInfo("geocode: " + geoCode, module);
             
-            List geoEntities = delegator.findByAnd("Geo", UtilMisc.toMap("geoCode", geoCode.toUpperCase(), "geoTypeId", "COUNTRY"));
-            if (geoEntities != null && geoEntities.size() > 0) {
-                geo = (GenericValue)geoEntities.get(0);
-                Debug.logInfo("Found a geo entity " + geo, module);
-            }
-            else {
+            geo = EntityUtil.getFirst(delegator.findByAnd("Geo", UtilMisc.toMap("geoCode", geoCode.toUpperCase(), "geoTypeId", "COUNTRY")));
+            Debug.logInfo("Found a geo entity " + geo, module);
+            if (UtilValidate.isEmpty(geo)) {
                 geo = delegator.makeValue("Geo", null);
                 geo.set("geoId", geoCode + "_IMPORTED");
                 geo.set("geoTypeId", "COUNTRY");
@@ -1146,7 +1173,7 @@ public class ImportOrdersFromEbay {
         Map result = ServiceUtil.returnSuccess();
         result.put("geoId", (String)geo.get("geoId"));
         return result;
-    }   
+    }
     
     private static GenericValue externalOrderExists(GenericDelegator delegator, String externalId, String transactionId) throws GenericEntityException {
         Debug.logInfo("Checking for existing externalId: " + externalId +" and transactionId: " + transactionId, module);
