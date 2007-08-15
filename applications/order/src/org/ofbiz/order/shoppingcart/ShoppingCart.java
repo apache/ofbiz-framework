@@ -2345,27 +2345,21 @@ public class ShoppingCart implements Serializable {
             // set as the default shipping location the first from the list of available shipping locations
             String companyId = this.getBillToCustomerPartyId();
             if (companyId != null) {
-                try {
-                    List facilities = delegator.findByAndCache("Facility", UtilMisc.toMap("ownerPartyId", companyId));
-                    // TODO: improve code here to select the best ship to facility (from requirements?);
-                    //       for now, we consider the first one
-                    GenericValue facility = EntityUtil.getFirst(facilities);
-                    if (facility != null) {
-                        List facilityContactMechValueMaps = ContactMechWorker.getFacilityContactMechValueMaps(delegator, facility.getString("facilityId"), false, null);
-                        if (facilityContactMechValueMaps != null) {
-                            Iterator facilityContactMechValueMapsIt = facilityContactMechValueMaps.iterator();
-                            while (facilityContactMechValueMapsIt.hasNext()) {
-                                Map facilityContactMechValueMap = (Map)facilityContactMechValueMapsIt.next();
-                                if (facilityContactMechValueMap.get("postalAddress") != null) {
-                                    GenericValue postalAddress = (GenericValue)facilityContactMechValueMap.get("postalAddress");
-                                    this.setShippingContactMechId(0, postalAddress.getString("contactMechId"));
-                                    break;
-                                }
+                // the facilityId should be set prior to triggering default options, otherwise we do not set up facility information
+                String defaultFacilityId = getFacilityId();
+                if (defaultFacilityId != null) {
+                    List facilityContactMechValueMaps = ContactMechWorker.getFacilityContactMechValueMaps(delegator, defaultFacilityId, false, null);
+                    if (facilityContactMechValueMaps != null) {
+                        Iterator facilityContactMechValueMapsIt = facilityContactMechValueMaps.iterator();
+                        while (facilityContactMechValueMapsIt.hasNext()) {
+                            Map facilityContactMechValueMap = (Map)facilityContactMechValueMapsIt.next();
+                            if (facilityContactMechValueMap.get("postalAddress") != null) {
+                                GenericValue postalAddress = (GenericValue)facilityContactMechValueMap.get("postalAddress");
+                                this.setShippingContactMechId(0, postalAddress.getString("contactMechId"));
+                                break;
                             }
                         }
                     }
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, "Error setting shippingContactMechId in setDefaultCheckoutOptions() method.", module);
                 }
             }
             // shipping options

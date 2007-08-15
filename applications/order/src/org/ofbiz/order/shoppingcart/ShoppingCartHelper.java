@@ -408,6 +408,12 @@ public class ShoppingCartHelper {
         } catch (NumberFormatException e) {
             //throw new EventHandlerException("Invalid value for _rowCount");
         }
+
+        // assume that the facility is the same for all requirements
+        String facilityId = (String) context.get("facilityId_o_0");
+        if (UtilValidate.isNotEmpty(facilityId)) {
+            cart.setFacilityId(facilityId);
+        }
         
         // now loop throw the rows and prepare/invoke the service for each
         for (int i = 0; i < rowCount; i++) {

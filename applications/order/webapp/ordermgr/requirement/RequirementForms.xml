@@ -291,6 +291,7 @@ under the License.
         <field name="productId" widget-style="buttontext">
             <hyperlink also-hidden="true" target-type="inter-app" description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}" target-window="top"/>
         </field>
+        <field name="facilityId"><hidden value="${parameters.facilityId}"/></field>
         <field name="internalName" entry-name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
