@@ -638,8 +638,6 @@ public class OagisInventoryServices {
         Element dataAreaElement = UtilXml.firstChildElement(receiveRmaElement, "ns:DATAAREA");
         Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "ns:ACKNOWLEDGE_DELIVERY");
         
-        String inventoryItemTypeId = null;
-        String returnId = null;
         String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.PoReceiptFacilityId");
         String locationSeqId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.ReturnReceiptLocationSeqId");
         
@@ -679,16 +677,16 @@ public class OagisInventoryServices {
             Debug.logError(e, errMsg, module);
         }
         
-        String statusId = null;
+        String lastReturnId = null;
         //String inventoryItemId = null;
         List invItemIds = FastList.newInstance();
         // get RECEIPTLN elements from message
-        List acknowledgeElementList = UtilXml.childElementList(acknowledgeDeliveryElement, "ns:RECEIPTLN");
-        if (UtilValidate.isNotEmpty(acknowledgeElementList)) {
-            Iterator acknowledgeElementIter = acknowledgeElementList.iterator();
-            while (acknowledgeElementIter.hasNext()) {
+        List receiptLineElementList = UtilXml.childElementList(acknowledgeDeliveryElement, "ns:RECEIPTLN");
+        if (UtilValidate.isNotEmpty(receiptLineElementList)) {
+            Iterator receiptLineElementIter = receiptLineElementList.iterator();
+            while (receiptLineElementIter.hasNext()) {
                 Map ripCtx = FastMap.newInstance();
-                Element receiptLnElement = (Element) acknowledgeElementIter.next();
+                Element receiptLnElement = (Element) receiptLineElementIter.next();
                 Element qtyElement = UtilXml.firstChildElement(receiptLnElement, "os:QUANTITY");
 
                 String itemQtyStr = UtilXml.childElementValue(qtyElement, "of:VALUE");
@@ -702,9 +700,10 @@ public class OagisInventoryServices {
                     Debug.logError(errMsg, module);
                 }
                 Element documentRefElement = UtilXml.firstChildElement(receiptLnElement, "os:DOCUMNTREF");
-                returnId = UtilXml.childElementValue(documentRefElement, "of:DOCUMENTID");
+                String returnId = UtilXml.childElementValue(documentRefElement, "of:DOCUMENTID");
+                lastReturnId = returnId;
                 ripCtx.put("returnId", returnId);
-
+                
                 String returnHeaderTypeId = UtilXml.childElementValue(documentRefElement, "of:DOCTYPE");
                 if(returnHeaderTypeId.equals("RMA")) {
                     returnHeaderTypeId = "CUSTOMER_RETURN";
@@ -722,6 +721,12 @@ public class OagisInventoryServices {
                     errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
                     Debug.logError(e, errMsg, module);
                 }
+
+                String statusId = null;
+
+                // TODO: handle case where returnId is empty (hopefully!) because this return delivery was unanticipated
+                
+                // TODO: for the DISPOSITN of NotAvailableTOAvailable elements, we should ignore all return stuff and not try to do anything with the return
 
                 if (returnHeader != null) {
                     //getting ReturnHeader status
@@ -741,7 +746,7 @@ public class OagisInventoryServices {
                     List serialNumsList = FastList.newInstance();
                     List invDetailList = UtilXml.childElementList(receiptLnElement, "ns:INVDETAIL");
                     if (UtilValidate.isNotEmpty(invDetailList)) {
-                        inventoryItemTypeId = "SERIALIZED_INV_ITEM";
+                        String inventoryItemTypeId = "SERIALIZED_INV_ITEM";
                         ripCtx.put("inventoryItemTypeId", inventoryItemTypeId);
                         for (Iterator j = invDetailList.iterator(); j.hasNext();) {
                             Element invDetailElement = (Element) j.next();
@@ -766,7 +771,7 @@ public class OagisInventoryServices {
                              Debug.logError(e, errMsg, module);
                         } */
                     } else {
-                        inventoryItemTypeId = "NON_SERIAL_INV_ITEM";
+                        String inventoryItemTypeId = "NON_SERIAL_INV_ITEM";
                         ripCtx.put("inventoryItemTypeId", inventoryItemTypeId);
                     }
                         
@@ -859,6 +864,7 @@ public class OagisInventoryServices {
                                 Map createPhysicalInvAndVarCtx = FastMap.newInstance();
                                 createPhysicalInvAndVarCtx.put("inventoryItemId", inventoryItemId);
                                 createPhysicalInvAndVarCtx.put("physicalInventoryDate", UtilDateTime.nowTimestamp());
+                                // NOTE DEJ20070815: calling damaged for now as the only option so that all will feed into a check/repair process and go into the ON_HOLD status; we should at some point change OFBiz so these can go into the ON_HOLD status without having to call them damaged
                                 createPhysicalInvAndVarCtx.put("generalComments", "Damaged, in repair");
                                 createPhysicalInvAndVarCtx.put("varianceReasonId", "VAR_DAMAGED");
                                 createPhysicalInvAndVarCtx.put("availableToPromiseVar", new Double(-quantityAccepted));
@@ -886,19 +892,17 @@ public class OagisInventoryServices {
                     Debug.logError(errMsg, module);
                     errorMapList.add(UtilMisc.toMap("reasonCode", "ReturnIdNotFound", "description", errMsg));
                 }
-            }
-            
-            if (UtilValidate.isNotEmpty(statusId) && statusId.equals("RETURN_ACCEPTED")) {
-                try {
-                    dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("statusId", "RETURN_RECEIVED", "returnId", returnId, "userLogin", userLogin));
-                    dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("statusId", "RETURN_COMPLETED", "returnId", returnId, "userLogin", userLogin));
-                } catch (GenericServiceException e) {
-                    String errMsg = "Error Storing the value: " + e.toString();
-                    errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
-                    Debug.logError(e, errMsg, module);
+                if (UtilValidate.isNotEmpty(statusId) && statusId.equals("RETURN_ACCEPTED")) {
+                    try {
+                        dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("statusId", "RETURN_RECEIVED", "returnId", returnId, "userLogin", userLogin));
+                        dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("statusId", "RETURN_COMPLETED", "returnId", returnId, "userLogin", userLogin));
+                    } catch (GenericServiceException e) {
+                        String errMsg = "Error Storing the value: " + e.toString();
+                        errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
+                        Debug.logError(e, errMsg, module);
+                    }
                 }
             }
-            
         }
 
         Map result = FastMap.newInstance();
@@ -935,7 +939,8 @@ public class OagisInventoryServices {
                 Map sendConfirmBodCtx = FastMap.newInstance();
                 sendConfirmBodCtx.putAll(saveErrorMapListCtx);
                 // NOTE: this is different for each service, should be shipmentId or returnId or PO orderId or etc
-                sendConfirmBodCtx.put("origRefId", returnId);
+                // TODO: unfortunately there could be multiple returnIds for the message, so what to do...? 
+                sendConfirmBodCtx.put("origRefId", lastReturnId);
 
                 // run async because this will send a message back to the other server and may take some time, and/or fail
                 dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
