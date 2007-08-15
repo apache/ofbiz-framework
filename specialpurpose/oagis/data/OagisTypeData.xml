@@ -37,9 +37,13 @@ under the License.
     <StatusValidChange condition="" statusId="OAGMP_RECEIVED" statusIdTo="OAGMP_PROC_SUCCESS" transitionName="Processing Succeeded"/>
     <StatusValidChange condition="" statusId="OAGMP_RECEIVED" statusIdTo="OAGMP_PROC_ERROR" transitionName="Processing Errored"/>
     <StatusValidChange condition="" statusId="OAGMP_PROC_ERROR" statusIdTo="OAGMP_ERRCONFSENT" transitionName="Error Confirm Sent"/>
+    <!-- this transition is to restart and re-process failed incoming messages -->
+    <StatusValidChange condition="" statusId="OAGMP_PROC_ERROR" statusIdTo="OAGMP_RECEIVED" transitionName="Error Recoved to Received"/>
+    <StatusValidChange condition="" statusId="OAGMP_ERRCONFSENT" statusIdTo="OAGMP_RECEIVED" transitionName="Error Recoved to Received"/>
     
-    <StatusValidChange condition="" statusId="OAGMP_TRIGGERED" statusIdTo="OAGMP_OGEN_SUCCESS" transitionName="Processing Succeeded"/>
-    <StatusValidChange condition="" statusId="OAGMP_TRIGGERED" statusIdTo="OAGMP_OGEN_ERROR" transitionName="Processing Errored"/>
+    
+    <StatusValidChange condition="" statusId="OAGMP_TRIGGERED" statusIdTo="OAGMP_OGEN_SUCCESS" transitionName="Out Generation Succeeded"/>
+    <StatusValidChange condition="" statusId="OAGMP_TRIGGERED" statusIdTo="OAGMP_OGEN_ERROR" transitionName="Out Generation Errored"/>
     <StatusValidChange condition="" statusId="OAGMP_OGEN_SUCCESS" statusIdTo="OAGMP_SENT" transitionName="Out Message Sent"/>
     <StatusValidChange condition="" statusId="OAGMP_OGEN_SUCCESS" statusIdTo="OAGMP_SEND_ERROR" transitionName="Out Message Send Error"/>
     
