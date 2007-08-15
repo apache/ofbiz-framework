@@ -20,10 +20,6 @@ package org.ofbiz.oagis;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -65,6 +61,8 @@ public class OagisInventoryServices {
     
     public static Map syncInventory(DispatchContext ctx, Map context) {
         Document doc = (Document) context.get("document");
+        boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
+
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
@@ -122,7 +120,11 @@ public class OagisInventoryServices {
             }
         }
         try {
-            dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
+            if (isErrorRetry) {
+                dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
+            } else {
+                dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
+            }
         } catch (GenericServiceException e) {
             String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -302,6 +304,14 @@ public class OagisInventoryServices {
         result.put("userLogin", userLogin);
 
         if (errorMapList.size() > 0) {
+            try {
+                comiCtx.put("processingStatusId", "OAGMP_PROC_ERROR");
+                dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                Debug.logError(e, errMsg, module);
+            }
+
             // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
             Map saveErrorMapListCtx = FastMap.newInstance();
             saveErrorMapListCtx.put("logicalId", logicalId);
@@ -333,8 +343,8 @@ public class OagisInventoryServices {
             result.putAll(ServiceUtil.returnError("Errors found processing message; information saved and return error sent back"));
             return result;
         } else {
-            comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
             try {
+                comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
                 dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
             } catch (GenericServiceException e){
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
@@ -349,6 +359,8 @@ public class OagisInventoryServices {
     
     public static Map receivePoAcknowledge(DispatchContext ctx, Map context) {
         Document doc = (Document) context.get("document");
+        boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
+
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
         List errorMapList = FastList.newInstance();
@@ -409,7 +421,11 @@ public class OagisInventoryServices {
             }
         }
         try {
-            dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
+            if (isErrorRetry) {
+                dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
+            } else {
+                dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
+            }
         } catch (GenericServiceException e) {
             String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -529,6 +545,14 @@ public class OagisInventoryServices {
         result.put("userLogin", userLogin);
 
         if (errorMapList.size() > 0) {
+            try {
+                comiCtx.put("processingStatusId", "OAGMP_PROC_ERROR");
+                dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                Debug.logError(e, errMsg, module);
+            }
+
             // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
             Map saveErrorMapListCtx = FastMap.newInstance();
             saveErrorMapListCtx.put("logicalId", logicalId);
@@ -576,6 +600,8 @@ public class OagisInventoryServices {
     
     public static Map receiveRmaAcknowledge(DispatchContext ctx, Map context) {
         Document doc = (Document) context.get("document");
+        boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
+
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
         List errorMapList = FastList.newInstance();
@@ -643,7 +669,11 @@ public class OagisInventoryServices {
             }
         }
         try {
-            dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
+            if (isErrorRetry) {
+                dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
+            } else {
+                dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
+            }
         } catch (GenericServiceException e) {
             String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -879,6 +909,14 @@ public class OagisInventoryServices {
         result.put("userLogin", userLogin);
 
         if (errorMapList.size() > 0) {
+            try {
+                comiCtx.put("processingStatusId", "OAGMP_PROC_ERROR");
+                dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                Debug.logError(e, errMsg, module);
+            }
+
             // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
             Map saveErrorMapListCtx = FastMap.newInstance();
             saveErrorMapListCtx.put("logicalId", logicalId);

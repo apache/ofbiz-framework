@@ -24,8 +24,6 @@ import java.io.OutputStream;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -96,6 +94,8 @@ public class OagisShipmentServices {
 
     public static Map showShipment(DispatchContext ctx, Map context) {
         Document doc = (Document) context.get("document");
+        boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
+        
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
@@ -158,7 +158,11 @@ public class OagisShipmentServices {
         }
         
         try {
-            dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoCtx, 60, true);
+            if (isErrorRetry) {
+                dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoCtx, 60, true);
+            } else {
+                dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoCtx, 60, true);
+            }
             /* running async for better error handling
             if (ServiceUtil.isError(oagisMsgInfoResult)){
                 String errMsg = ServiceUtil.getErrorMessage(oagisMsgInfoResult);
@@ -424,6 +428,14 @@ public class OagisShipmentServices {
         result.put("userLogin", userLogin);
 
         if (errorMapList.size() > 0) {
+            try {
+                oagisMsgInfoCtx.put("processingStatusId", "OAGMP_PROC_ERROR");
+                dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoCtx, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                Debug.logError(e, errMsg, module);
+            }
+
             // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
             Map saveErrorMapListCtx = FastMap.newInstance();
             saveErrorMapListCtx.put("logicalId", logicalId);
@@ -455,12 +467,11 @@ public class OagisShipmentServices {
             result.putAll(ServiceUtil.returnError("Errors found processing message; information saved and return error sent back"));
             return result;
         } else {
-            oagisMsgInfoCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
             try {
+                oagisMsgInfoCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
                 dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoCtx, 60, true);
             } catch (GenericServiceException e){
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
-                // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                 Debug.logError(e, errMsg, module);
             }
         }

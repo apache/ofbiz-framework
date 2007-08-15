@@ -131,6 +131,7 @@ under the License.
         <description>Process incoming Inventory Sync message</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
+        <attribute name="isErrorRetry" type="Boolean" mode="IN" optional="true"/>
     </service>
     
     <!-- DEJ20070808 added max-rety=3 because this is run async persisted just in case there is a transaction problem under heavy load -->
@@ -139,6 +140,7 @@ under the License.
         <description>Process incoming shipment message</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
+        <attribute name="isErrorRetry" type="Boolean" mode="IN" optional="true"/>
     </service>
     
     <service name="receivePoAcknowledge" engine="java" transaction-timeout="300" max-retry="3"
@@ -146,6 +148,7 @@ under the License.
         <description>Process PO Acknowledge message</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
+        <attribute name="isErrorRetry" type="Boolean" mode="IN" optional="true"/>
     </service>
     
     <service name="receiveRmaAcknowledge" engine="java" transaction-timeout="300" max-retry="3"
@@ -153,6 +156,7 @@ under the License.
         <description>Process RMA Acknowledge message</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
+        <attribute name="isErrorRetry" type="Boolean" mode="IN" optional="true"/>
         <attribute name="inventoryItemIdList" type="List" mode="OUT" optional="true"/>
     </service>
 </services>
