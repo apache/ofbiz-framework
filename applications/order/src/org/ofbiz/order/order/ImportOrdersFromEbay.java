@@ -1325,7 +1325,7 @@ public class ImportOrdersFromEbay {
                 if (title != null && title.indexOf(' ') != -1) {
                     titleFirstWord = title.substring(0, title.indexOf(' '));
                 }
-                if (UtilValidate.isEmpty(titleFirstWord)) {
+                if (UtilValidate.isNotEmpty(titleFirstWord)) {
                     GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", titleFirstWord));
                     if (UtilValidate.isNotEmpty(product)) {
                         productId = product.getString("productId");
