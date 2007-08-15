@@ -186,7 +186,14 @@ under the License.
                     </else>
                 </if-not-empty>
             </iterate>
-
+            <!-- Checking that the Status change is Valid or Not-->
+            <set field="statusIdTo" from-field="parameters.statusId"/>
+            <set field="statusId" from-field="returnHeader.statusId"/>
+            <entity-one entity-name="StatusValidChange" value-name="statusValidChange"/>
+            <if-empty field-name="statusValidChange">
+                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderErrorReturnHeaderItemStatusNotChangedIsNotAValidChange"/></add-error>
+            </if-empty>
+            <check-errors/>
             <entity-and entity-name="ReturnAdjustment" list-name="returnAdjustments">
                 <field-map field-name="returnId" env-name="returnHeader.returnId"/>
             </entity-and>
