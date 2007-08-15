@@ -25,6 +25,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.sql.Timestamp;
 
 import javolution.util.FastMap;
 
@@ -311,8 +312,29 @@ public class ShoppingCartServices {
                     // product item
                     String prodCatalogId = item.getString("prodCatalogId");
                     String productId = item.getString("productId");
+                    
+                    //prepare the rental data
+                    Timestamp reservStart = null;
+                    Double reservLength = null;
+                    Double reservPersons = null;
+                    
+                    GenericValue workEffort = null;                   
+                    String workEffortId = orh.getCurrentOrderItemWorkEffort(item);
+                    if (workEffortId != null) {
+                        try {
+                            workEffort = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId));
+                        } catch (GenericEntityException e) {
+                            Debug.logError(e, module);
+                        }
+                    }             
+                    if (workEffort != null && "ASSET_USAGE".equals(workEffort.getString("workEffortTypeId"))){
+                        reservStart = workEffort.getTimestamp("estimatedStartDate");
+                        reservLength = OrderReadHelper.getWorkEffortRentalLenght(workEffort);
+                        reservPersons = workEffort.getDouble("reservPersons");
+                    }    //end of rental data
+                    
                     try {
-                        itemIndex = cart.addItemToEnd(productId, amount, quantityDbl, null, null, null, prodCatalogId, item.getString("orderItemTypeId"), dispatcher, null, null, skipInventoryChecks, skipProductChecks);
+                        itemIndex = cart.addItemToEnd(productId, amount, quantityDbl, null, reservStart, reservLength, reservPersons, null, null, prodCatalogId, item.getString("orderItemTypeId"), dispatcher, null, null, skipInventoryChecks, skipProductChecks);
                     } catch (ItemNotFoundException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -556,6 +578,12 @@ public class ShoppingCartServices {
                     // pass to the cart the quoteUnitPrice/amount value.
                     quoteUnitPrice = new Double(quoteUnitPrice.doubleValue() / amount.doubleValue());
                 }
+                
+                //rental product data
+                Timestamp reservStart = item.getTimestamp("reservStart");
+                Double reservLength = item.getDouble("reservLength");
+                Double reservPersons = item.getDouble("reservPersons");
+                
                 int itemIndex = -1;
                 if (item.get("productId") == null) {
                     // non-product item
@@ -571,7 +599,7 @@ public class ShoppingCartServices {
                     // product item
                     String productId = item.getString("productId");
                     try {
-                        itemIndex = cart.addItemToEnd(productId, amount, quantity.doubleValue(), quoteUnitPrice, null, null, null, null, dispatcher, new Boolean(!applyQuoteAdjustments), new Boolean(quoteUnitPrice.doubleValue() == 0));
+                        itemIndex = cart.addItemToEnd(productId, amount, quantity.doubleValue(), quoteUnitPrice, reservStart, reservLength, reservPersons, null, null, null, null, dispatcher, new Boolean(!applyQuoteAdjustments), new Boolean(quoteUnitPrice.doubleValue() == 0));
                     } catch (ItemNotFoundException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
