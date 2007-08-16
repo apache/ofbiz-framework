@@ -44,6 +44,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import javolution.util.FastList;
+import javolution.util.FastSet;
 
 /**
  * Product Worker class to reduce code in JSPs.
@@ -820,5 +821,28 @@ public class ProductWorker {
         }
         return false;
     }
-}
+    
+    public static Set getRefurbishedProductIdSet(String productId, GenericDelegator delegator) throws GenericEntityException {
+        Set productIdSet = FastSet.newInstance();
 
+        // find associated refurb items, we want serial number for main item or any refurb items too
+        List refubProductAssocs = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", 
+                UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_REFURB")), true);
+        Iterator refubProductAssocIter = refubProductAssocs.iterator();
+        while (refubProductAssocIter.hasNext()) {
+            GenericValue refubProductAssoc = (GenericValue) refubProductAssocIter.next();
+            productIdSet.add(refubProductAssoc.get("productIdTo"));
+        }
+        
+        // see if this is a refurb productId to, and find product(s) it is a refurb of
+        List refubProductToAssocs = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", 
+                UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", "PRODUCT_REFURB")), true);
+        Iterator refubProductToAssocIter = refubProductToAssocs.iterator();
+        while (refubProductToAssocIter.hasNext()) {
+            GenericValue refubProductToAssoc = (GenericValue) refubProductToAssocIter.next();
+            productIdSet.add(refubProductToAssoc.get("productId"));
+        }
+        
+        return productIdSet;
+    }
+}
