@@ -71,8 +71,8 @@ under the License.
     </service>
     
     <!-- Confirm BOD Messages, general flow and error handling -->    
-    <service name="oagisSendConfirmBod" engine="java" transaction-timeout="300"
-            location="org.ofbiz.oagis.OagisServices" invoke="oagisSendConfirmBod" auth="false">
+    <service name="oagisSendConfirmBod" engine="java" transaction-timeout="300" max-retry="3"
+        location="org.ofbiz.oagis.OagisServices" invoke="oagisSendConfirmBod" auth="true">
         <description>Send ConfirmBod</description>
         <attribute name="sendToUrl" type="String" mode="IN" optional="true"/>
         <attribute name="saveToFilename" type="String" mode="IN" optional="true"/>
@@ -86,18 +86,10 @@ under the License.
         <attribute name="origRefId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="receiveConfirmBod" engine="java" transaction-timeout="300"
-            location="org.ofbiz.oagis.OagisServices" invoke="receiveConfirmBod" auth="false">
+        location="org.ofbiz.oagis.OagisServices" invoke="receiveConfirmBod" auth="true">
         <description>Process incoming ConfirmBod</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
-    </service>
-    
-    <service name="exportMsgFromScreen" max-retry="0" engine="java"
-        location="org.ofbiz.oagis.OagisShipmentServices" invoke="exportMsgFromScreen">
-        <description>Export Message From Screen</description>
-        <attribute name="bodyScreenUri" type="String" mode="IN" optional="true"/>
-        <attribute name="bodyParameters" type="Map" mode="IN" optional="true"/>
-        <attribute name="body" type="String" mode="OUT" optional="true"/>
     </service>
     
     <!-- ==================================== -->
@@ -127,7 +119,7 @@ under the License.
     <!-- ==================================== -->
     <!-- Incoming Message Services -->
     <service name="syncInventory" engine="java" transaction-timeout="300" max-retry="3"
-        location="org.ofbiz.oagis.OagisInventoryServices" invoke="syncInventory" auth="false">
+        location="org.ofbiz.oagis.OagisInventoryServices" invoke="syncInventory" auth="true">
         <description>Process incoming Inventory Sync message</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
@@ -136,7 +128,7 @@ under the License.
     
     <!-- DEJ20070808 added max-rety=3 because this is run async persisted just in case there is a transaction problem under heavy load -->
     <service name="showShipment" engine="java" transaction-timeout="300" max-retry="3"
-        location="org.ofbiz.oagis.OagisShipmentServices" invoke="showShipment" auth="false">
+        location="org.ofbiz.oagis.OagisShipmentServices" invoke="showShipment" auth="true">
         <description>Process incoming shipment message</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
@@ -144,7 +136,7 @@ under the License.
     </service>
     
     <service name="receivePoAcknowledge" engine="java" transaction-timeout="300" max-retry="3"
-        location="org.ofbiz.oagis.OagisInventoryServices" invoke="receivePoAcknowledge" auth="false">
+        location="org.ofbiz.oagis.OagisInventoryServices" invoke="receivePoAcknowledge" auth="true">
         <description>Process PO Acknowledge message</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
@@ -152,7 +144,7 @@ under the License.
     </service>
     
     <service name="receiveRmaAcknowledge" engine="java" transaction-timeout="300" max-retry="3"
-        location="org.ofbiz.oagis.OagisInventoryServices" invoke="receiveRmaAcknowledge" auth="false">
+        location="org.ofbiz.oagis.OagisInventoryServices" invoke="receiveRmaAcknowledge" auth="true">
         <description>Process RMA Acknowledge message</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
