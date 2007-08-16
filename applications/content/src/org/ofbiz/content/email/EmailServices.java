@@ -178,7 +178,7 @@ public class EmailServices {
 
             MimeMessage mail = new MimeMessage(session);
             mail.setFrom(new InternetAddress(sendFrom));
-            mail.setSubject(subject);
+            mail.setSubject(subject, "UTF-8");
             mail.setHeader("X-Mailer", "Apache OFBiz, The Apache Open For Business Project");
             mail.setSentDate(new Date());
             mail.addRecipients(Message.RecipientType.TO, sendTo);
@@ -202,9 +202,8 @@ public class EmailServices {
                     MimeBodyPart mbp = new MimeBodyPart();
 
                     if (bodyPartContent instanceof String) {
-                        StringDataSource sdr = new StringDataSource((String) bodyPartContent, (String) bodyPart.get("type"));
                         Debug.logInfo("part of type: " + bodyPart.get("type") + " and size: " + bodyPart.get("content").toString().length() , module);
-                        mbp.setDataHandler(new DataHandler(sdr));
+                        mbp.setText((String) bodyPartContent, "UTF-8", ((String) bodyPart.get("type")).substring(5));
                     } else if (bodyPartContent instanceof byte[]) {
                         ByteArrayDataSource bads = new ByteArrayDataSource((byte[]) bodyPartContent, (String) bodyPart.get("type"));
                         Debug.logInfo("part of type: " + bodyPart.get("type") + " and size: " + ((byte[]) bodyPartContent).length , module);
@@ -223,7 +222,11 @@ public class EmailServices {
                 mail.saveChanges();
             } else {
                 // create the singelpart message
-                mail.setContent(body, contentType);
+                if (contentType.startsWith("text")) {
+                    mail.setText(body, "UTF-8", contentType.substring(5));
+                } else {
+                    mail.setContent(body, contentType);
+                }
                 mail.saveChanges();
             }
 
