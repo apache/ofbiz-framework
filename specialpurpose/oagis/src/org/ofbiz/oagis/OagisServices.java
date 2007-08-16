@@ -87,6 +87,19 @@ public class OagisServices {
     public static final boolean debugSaveXmlOut = "true".equals(UtilProperties.getPropertyValue("oagis.properties", "Oagis.Debug.Save.Xml.Out"));
     public static final boolean debugSaveXmlIn = "true".equals(UtilProperties.getPropertyValue("oagis.properties", "Oagis.Debug.Save.Xml.In"));
 
+    /** if TRUE then must exist, if FALSE must not exist, if null don't care */
+    public static final Boolean requireSerialNumberExist;
+    static {
+        String requireSerialNumberExistStr = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.RequireSerialNumberExist");
+        if ("true".equals(requireSerialNumberExistStr)) {
+            requireSerialNumberExist = Boolean.TRUE;
+        } else if ("false".equals(requireSerialNumberExistStr)) {
+            requireSerialNumberExist = Boolean.FALSE;
+        } else {
+            requireSerialNumberExist = null;
+        }
+    }
+
     public static Map oagisSendConfirmBod(DispatchContext ctx, Map context) {
         
         GenericDelegator delegator = ctx.getDelegator();

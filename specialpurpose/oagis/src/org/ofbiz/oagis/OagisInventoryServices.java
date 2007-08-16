@@ -149,10 +149,26 @@ public class OagisInventoryServices {
                  * In this message will it serve any purpose, since it is not handled.
                  */
                 String sign = UtilXml.childElementValue(quantityElement, "of:SIGN");
-                // TODO: Not used now, Later we may need it
+                // TODOLATER: Not used now, Later we may need it
                 //String uom = UtilXml.childElementValue(quantityElement, "of:UOM");
                 String productId = UtilXml.childElementValue(inventoryElement, "of:ITEM");
                 String itemStatus = UtilXml.childElementValue(inventoryElement, "of:ITEMSTATUS");
+                
+                // make sure productId is valid
+                try {
+                    GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                    if (product == null) {
+                        String errMsg = "Product with ID [" + productId + "] not found (invalid Product ID).";
+                        errorMapList.add(UtilMisc.toMap("reasonCode", "ProductIdNotValid", "description", errMsg));
+                        Debug.logError(errMsg, module);
+                        continue;
+                    }
+                } catch (GenericEntityException e) {
+                    String errMsg = "Error checking for valid Product ID: " + e.toString();
+                    errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
+                    Debug.logError(e, errMsg, module);
+                    continue;
+                }
                 
                 // if anything but "NOTAVAILABLE" set to available
                 boolean isAvailable = !"NOTAVAILABLE".equals(itemStatus);
@@ -437,7 +453,6 @@ public class OagisInventoryServices {
         Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "ns:ACKNOWLEDGE_DELIVERY");
 
         String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.PoReceiptFacilityId");
-        String productId = null;
         String orderId = null;
         // get RECEIPTLN elements from message
         List acknowledgeElementList = UtilXml.childElementList(acknowledgeDeliveryElement, "ns:RECEIPTLN");
@@ -452,7 +467,23 @@ public class OagisInventoryServices {
                 double itemQty = Double.parseDouble(itemQtyStr);
                 String sign = UtilXml.childElementValue(qtyElement, "of:SIGN");
                 
-                productId = UtilXml.childElementValue(receiptLnElement, "of:ITEM");
+                String productId = UtilXml.childElementValue(receiptLnElement, "of:ITEM");
+
+                // make sure productId is valid
+                try {
+                    GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                    if (product == null) {
+                        String errMsg = "Product with ID [" + productId + "] not found (invalid Product ID).";
+                        errorMapList.add(UtilMisc.toMap("reasonCode", "ProductIdNotValid", "description", errMsg));
+                        Debug.logError(errMsg, module);
+                        continue;
+                    }
+                } catch (GenericEntityException e) {
+                    String errMsg = "Error checking for valid Product ID: " + e.toString();
+                    errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
+                    Debug.logError(e, errMsg, module);
+                    continue;
+                }
                 
                 Element documentRefElement = UtilXml.firstChildElement(receiptLnElement, "os:DOCUMNTREF");
                 orderId = UtilXml.childElementValue(documentRefElement, "of:DOCUMENTID");
@@ -698,11 +729,27 @@ public class OagisInventoryServices {
                 String sign = UtilXml.childElementValue(qtyElement, "of:SIGN");
 
                 String productId = UtilXml.childElementValue(receiptLnElement, "of:ITEM");
-                if (productId == null) {
-                    String errMsg = "productId not available in Message" ;
-                    errorMapList.add(UtilMisc.toMap("reasonCode", "ParseException", "description", errMsg));
+                if (UtilValidate.isEmpty(productId)) {
+                    String errMsg = "Product ID Missing";
+                    errorMapList.add(UtilMisc.toMap("reasonCode", "ProductIdMissing", "description", errMsg));
                     Debug.logError(errMsg, module);
                 }
+                // make sure productId is valid
+                try {
+                    GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                    if (product == null) {
+                        String errMsg = "Product with ID [" + productId + "] not found (invalid Product ID).";
+                        errorMapList.add(UtilMisc.toMap("reasonCode", "ProductIdNotValid", "description", errMsg));
+                        Debug.logError(errMsg, module);
+                        continue;
+                    }
+                } catch (GenericEntityException e) {
+                    String errMsg = "Error checking for valid Product ID: " + e.toString();
+                    errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
+                    Debug.logError(e, errMsg, module);
+                    continue;
+                }
+
                 Element documentRefElement = UtilXml.firstChildElement(receiptLnElement, "os:DOCUMNTREF");
                 String returnId = UtilXml.childElementValue(documentRefElement, "of:DOCUMENTID");
                 lastReturnId = returnId;
@@ -712,7 +759,26 @@ public class OagisInventoryServices {
                 if(returnHeaderTypeId.equals("RMA")) {
                     returnHeaderTypeId = "CUSTOMER_RETURN";
                 }
+                
                 String returnItemSeqId = UtilXml.childElementValue(documentRefElement, "of:LINENUM");
+                if (UtilValidate.isNotEmpty(returnItemSeqId)) {
+                    // if there is a LINENUM/returnItemSeqId make sure it is valid
+                    try {
+                        GenericValue product = delegator.findByPrimaryKeyCache("ReturnItem", UtilMisc.toMap("returnId", returnId, "returnItemSeqId", returnItemSeqId));
+                        if (product == null) {
+                            String errMsg = "Return Item with ID [" + returnId + ":" + returnItemSeqId + "] not found (invalid Return/Item ID Combination).";
+                            errorMapList.add(UtilMisc.toMap("reasonCode", "ReturnAndItemIdNotValid", "description", errMsg));
+                            Debug.logError(errMsg, module);
+                            continue;
+                        }
+                    } catch (GenericEntityException e) {
+                        String errMsg = "Error checking for valid Return/Item ID: " + e.toString();
+                        errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
+                        Debug.logError(e, errMsg, module);
+                        continue;
+                    }
+                }
+                
                 String datetimeReceived = UtilXml.childElementValue(receiptLnElement, "os:DATETIMEISO");
                 Timestamp timestampItemReceived = OagisServices.parseIsoDateString(datetimeReceived, errorMapList);
                 ripCtx.put("datetimeReceived", timestampItemReceived);
@@ -730,7 +796,9 @@ public class OagisInventoryServices {
 
                 // TODO: for the DISPOSITN of NotAvailableTOAvailable elements, we need to ignore all return stuff and 
                 //not try to do anything with the return; note this may be a different DOCTYPE value or no DOCTYPE, so 
-                //may need to be a new/different service called from the message handler service 
+                //may need to be a new/different service called from the message handler service; note that when this
+                //is implemented need to verify that if configured for it that serial number is valid when present 
+                //otherwise return error
 
                 if (returnHeader != null) {
                     //getting ReturnHeader status
@@ -851,6 +919,35 @@ public class OagisInventoryServices {
                                     }
                                     invItemIds.add(UtilMisc.toMap("inventoryItemId", inventoryItem.getString("inventoryItemId")));
                                 } else {
+                                    if (OagisServices.requireSerialNumberExist != null) {
+                                        // according to requireSerialNumberExist make sure serialNumber does or does not exist in database, add an error message as needed
+                                        try {
+                                            Set productIdSet = ProductWorker.getRefurbishedProductIdSet(productId, delegator);
+                                            productIdSet.add(productId);
+                                            
+                                            EntityCondition bySerialNumberCondition = new EntityExpr(new EntityExpr("serialNumber", EntityOperator.EQUALS, serialNumber), 
+                                                    EntityOperator.AND, new EntityExpr("productId", EntityOperator.IN, productIdSet));
+                                            List inventoryItemsBySerialNumber = delegator.findByCondition("InventoryItem", bySerialNumberCondition, null, null);
+                                            if (OagisServices.requireSerialNumberExist.booleanValue()) {
+                                                if (inventoryItemsBySerialNumber.size() > 0) {
+                                                    String errMsg = "Referenced serial numbers must already exist, but serial number [" + serialNumber + "] was not found.";
+                                                    errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumberRequiredButNotFound"));
+                                                    continue;
+                                                }
+                                            } else {
+                                                if (inventoryItemsBySerialNumber.size() == 0) {
+                                                    String errMsg = "Referenced serial numbers must NOT already exist, but serial number [" + serialNumber + "] already exists.";
+                                                    errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumberRequiredNotExistButFound"));
+                                                    continue;
+                                                }
+                                            }
+                                        } catch (GenericEntityException e) {
+                                            String errMsg = "Error checking valid serial number: " + e.toString();
+                                            errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
+                                            Debug.logError(e, errMsg, module);
+                                        }
+                                    }
+                                    
                                     //clone the context as it may be changed in the call
                                     Map localRipCtx = FastMap.newInstance();
                                     localRipCtx.putAll(ripCtx);
