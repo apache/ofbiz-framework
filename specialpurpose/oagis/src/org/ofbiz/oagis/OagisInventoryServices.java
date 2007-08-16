@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -43,6 +44,7 @@ import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -683,6 +685,8 @@ public class OagisInventoryServices {
         // get RECEIPTLN elements from message
         List receiptLineElementList = UtilXml.childElementList(acknowledgeDeliveryElement, "ns:RECEIPTLN");
         if (UtilValidate.isNotEmpty(receiptLineElementList)) {
+            Map processedStatusIdByReturnIdMap = FastMap.newInstance();
+            
             Iterator receiptLineElementIter = receiptLineElementList.iterator();
             while (receiptLineElementIter.hasNext()) {
                 Map ripCtx = FastMap.newInstance();
@@ -724,13 +728,16 @@ public class OagisInventoryServices {
 
                 String statusId = null;
 
-                // TODO: handle case where returnId is empty (hopefully!) because this return delivery was unanticipated
-                
-                // TODO: for the DISPOSITN of NotAvailableTOAvailable elements, we should ignore all return stuff and not try to do anything with the return
+                // TODO: for the DISPOSITN of NotAvailableTOAvailable elements, we need to ignore all return stuff and 
+                //not try to do anything with the return; note this may be a different DOCTYPE value or no DOCTYPE, so 
+                //may need to be a new/different service called from the message handler service 
 
                 if (returnHeader != null) {
                     //getting ReturnHeader status
                     statusId = returnHeader.get("statusId").toString();
+                    
+                    // save this here so the status will be updated after all processed
+                    processedStatusIdByReturnIdMap.put(returnId, statusId);
                     
                     // getting inventory item status
                     String invItemStatusId = null;
@@ -800,7 +807,7 @@ public class OagisInventoryServices {
                     double quantityRejected = 0.0;
                     if (sign.equals("+")) {
                         quantityAccepted = itemQty;
-                        quantityRejected= 0.0;
+                        quantityRejected = 0.0;
                     } else {
                         quantityRejected = itemQty;
                         quantityAccepted = 0.0;
@@ -812,18 +819,27 @@ public class OagisInventoryServices {
                                 String serialNum = (String) serialNumIter.next();
                                 GenericValue inventoryItem = null;
                                 try {
-                                    inventoryItem = EntityUtil.getFirst(delegator.findByAnd("InventoryItem", UtilMisc.toMap("serialNumber", serialNum)));
+                                    // also look at the productId, and associated refurb productId(s) (or other way around, we might get a refurb sku 
+                                    //and need to look up by the non-refurb sku); serialNumbers may not be unique globally, but should be per product
+                                    Set productIdSet = ProductWorker.getRefurbishedProductIdSet(productId, delegator);
+                                    productIdSet.add(productId);
+                                    
+                                    EntityCondition bySerialNumberCondition = new EntityExpr(new EntityExpr("serialNumber", EntityOperator.EQUALS, serialNumber), 
+                                            EntityOperator.AND, new EntityExpr("productId", EntityOperator.IN, productIdSet));
+                                    List inventoryItemsBySerialNumber = delegator.findByCondition("InventoryItem", bySerialNumberCondition, null, null);
+                                    inventoryItem = EntityUtil.getFirst(inventoryItemsBySerialNumber);
                                 } catch (GenericEntityException e) {
-                                    String errMsg = "Error Getting Entity InventoryItem";
+                                    String errMsg = "Error Finding InventoryItem for product ID [" + productId + "], and seria lumber [" + serialNum + "]: " + e.toString();
+                                    errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
                                     Debug.logError(e, errMsg, module);
                                 }
                                 if (inventoryItem != null) {
                                     Map updateInvItmMap = FastMap.newInstance();
-                                    updateInvItmMap.put( "inventoryItemId" , inventoryItem.getString("inventoryItemId"));
-                                    updateInvItmMap.put( "userLogin" , userLogin);
-                                    updateInvItmMap.put( "statusId",invItemStatusId);
+                                    updateInvItmMap.put("inventoryItemId", inventoryItem.getString("inventoryItemId"));
+                                    updateInvItmMap.put("userLogin", userLogin);
+                                    updateInvItmMap.put("statusId", invItemStatusId);
                                     String inventoryItemProductId = inventoryItem.getString("productId");
-                                    if(!inventoryItemProductId.equals(productId)) {
+                                    if (!inventoryItemProductId.equals(productId)) {
                                         updateInvItmMap.put( "productId",productId);
                                     }
                                     try {
@@ -834,7 +850,6 @@ public class OagisInventoryServices {
                                         Debug.logError(e, errMsg, module);
                                     }
                                     invItemIds.add(UtilMisc.toMap("inventoryItemId", inventoryItem.getString("inventoryItemId")));
-                                    
                                 } else {
                                     //clone the context as it may be changed in the call
                                     Map localRipCtx = FastMap.newInstance();
@@ -845,7 +860,19 @@ public class OagisInventoryServices {
                                     localRipCtx.put("serialNumber", serialNum);
                                     localRipCtx.put("productId", productId);
                                     localRipCtx.put("returnItemSeqId", returnItemSeqId);
-                                    invItemIds.add(UtilMisc.toMap("inventoryItemId", runReceiveInventoryProduct( localRipCtx , errorMapList , dispatcher)));
+                                    
+                                    try {
+                                        Map ripResult = dispatcher.runSync("receiveInventoryProduct", localRipCtx);
+                                        if (ServiceUtil.isError(ripResult)) {
+                                            String errMsg = ServiceUtil.getErrorMessage(ripResult);
+                                            errorMapList.add(UtilMisc.toMap("reasonCode", "ReceiveInventoryServiceError", "description", errMsg));
+                                        }
+                                        invItemIds.add(ripResult.get("inventoryItemId"));
+                                    } catch (GenericServiceException e) {
+                                        String errMsg = "Error running service receiveInventoryProduct: " + e.toString();
+                                        errorMapList.add(UtilMisc.toMap("reasonCode", "GenericServiceException", "description", errMsg));
+                                        Debug.logError(e, errMsg, module);
+                                    }
                                 }
                             }
                         } else {
@@ -858,8 +885,23 @@ public class OagisInventoryServices {
                             localRipCtx.put("quantityRejected", new Double(0.0));
                             localRipCtx.put("productId", productId);
                             localRipCtx.put("returnItemSeqId", returnItemSeqId);
-                            String inventoryItemId = runReceiveInventoryProduct( localRipCtx , errorMapList , dispatcher);
+                            String inventoryItemId = null;
+                            
+                            try {
+                                Map ripResult = dispatcher.runSync("receiveInventoryProduct", localRipCtx);
+                                if (ServiceUtil.isError(ripResult)) {
+                                    String errMsg = ServiceUtil.getErrorMessage(ripResult);
+                                    errorMapList.add(UtilMisc.toMap("reasonCode", "ReceiveInventoryServiceError", "description", errMsg));
+                                }
+                                inventoryItemId = (String) ripResult.get("inventoryItemId");
+                            } catch (GenericServiceException e) {
+                                String errMsg = "Error running service receiveInventoryProduct: " + e.toString();
+                                errorMapList.add(UtilMisc.toMap("reasonCode", "GenericServiceException", "description", errMsg));
+                                Debug.logError(e, errMsg, module);
+                            }
+
                             invItemIds.add(UtilMisc.toMap("inventoryItemId", inventoryItemId));
+                            
                             if (("INV_ON_HOLD").equals(invItemStatusId)) {
                                 Map createPhysicalInvAndVarCtx = FastMap.newInstance();
                                 createPhysicalInvAndVarCtx.put("inventoryItemId", inventoryItemId);
@@ -892,7 +934,19 @@ public class OagisInventoryServices {
                     Debug.logError(errMsg, module);
                     errorMapList.add(UtilMisc.toMap("reasonCode", "ReturnIdNotFound", "description", errMsg));
                 }
+            }
+            
+            Iterator processedStatusIdByReturnIdEntryIter = processedStatusIdByReturnIdMap.entrySet().iterator();
+            while (processedStatusIdByReturnIdEntryIter.hasNext()) {
+                Map.Entry processedStatusIdByReturnIdEntry = (Map.Entry) processedStatusIdByReturnIdEntryIter.next();
+                String returnId = (String) processedStatusIdByReturnIdEntry.getKey();
+                String statusId = (String) processedStatusIdByReturnIdEntry.getValue();
+
                 if (UtilValidate.isNotEmpty(statusId) && statusId.equals("RETURN_ACCEPTED")) {
+                    // TODOLATER (see note below): check to see if all return items have been received, if so then set to received then completed
+                    // NOTE DEJ20070815 because of the way the inventory is being received, ie not through the return; reviewing other code it looks like nothing 
+                    //updates ReturnItem status or anything anyway, and there is no Return/Item stuff on the InventoryItemDetail to track it back; 
+                    //so giving up on attempt to do this, will support multiple returns per message, but all must be complete a complete one at that, which is a BAD assumption
                     try {
                         dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("statusId", "RETURN_RECEIVED", "returnId", returnId, "userLogin", userLogin));
                         dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("statusId", "RETURN_COMPLETED", "returnId", returnId, "userLogin", userLogin));
@@ -966,25 +1020,5 @@ public class OagisInventoryServices {
         result.putAll(ServiceUtil.returnSuccess("Service Completed Successfully"));
         result.put("inventoryItemIdList", invItemIds);
         return result;
-    }
-
-    public static String runReceiveInventoryProduct(Map localRipCtx, List errorMapList, LocalDispatcher dispatcher) {
-        Map ripResult = FastMap.newInstance();
-        try {
-            ripResult = dispatcher.runSync("receiveInventoryProduct", localRipCtx);
-            if (ServiceUtil.isError(ripResult)) {
-                String errMsg = ServiceUtil.getErrorMessage(ripResult);
-                errorMapList.add(UtilMisc.toMap("reasonCode", "ReceiveInventoryServiceError", "description", errMsg));
-                return null;
-            }
-        } catch (GenericServiceException e) {
-            String errMsg = "Error running service receiveInventoryProduct: "
-                    + e.toString();
-            errorMapList.add(UtilMisc.toMap("reasonCode", "GenericServiceException", "description", errMsg));
-            Debug.logError(e, errMsg, module);
-            return null;
-        }
-        
-        return (String) ripResult.get("inventoryItemId");
     }
 }

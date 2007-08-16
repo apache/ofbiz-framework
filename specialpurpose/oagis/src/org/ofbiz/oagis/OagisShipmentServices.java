@@ -51,6 +51,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.party.party.PartyWorker;
+import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -332,16 +333,9 @@ public class OagisShipmentServices {
 
                                         // according to requireSerialNumberExist make sure serialNumber does or does not exist in database, add an error message as needed
                                         if (requireSerialNumberExist != null) {
-                                            Set productIdSet = FastSet.newInstance();
+                                            Set productIdSet = ProductWorker.getRefurbishedProductIdSet(productId, delegator);
                                             productIdSet.add(productId);
-                                            // find associated refurb items, we want serial number for main item or any refurb items too
-                                            List refubProductAssocs = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", 
-                                                    UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_REFURB")), true);
-                                            Iterator refubProductAssocIter = refubProductAssocs.iterator();
-                                            while (refubProductAssocIter.hasNext()) {
-                                                GenericValue refubProductAssoc = (GenericValue) refubProductAssocIter.next();
-                                                productIdSet.add(refubProductAssoc.get("productIdTo"));
-                                            }
+                                            
                                             EntityCondition bySerialNumberCondition = new EntityExpr(new EntityExpr("serialNumber", EntityOperator.EQUALS, serialNumber), 
                                                     EntityOperator.AND, new EntityExpr("productId", EntityOperator.IN, productIdSet));
                                             List inventoryItemsBySerialNumber = delegator.findByCondition("InventoryItem", bySerialNumberCondition, null, null);
