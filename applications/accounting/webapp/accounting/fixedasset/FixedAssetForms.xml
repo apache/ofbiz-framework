@@ -136,7 +136,7 @@ under the License.
     <!-- list availability/occupation period on a fixed asset -->
     <form name="listFixedAssetCalendar" type="list" list-name="weeks" target="updateFixedAssetProductCalendar" default-table-style="calendar-table">
 
-        <field name="productId"><hidden value="parameters.productId"/></field>
+        <field name="productId"><hidden value="${parameters.productId}"/></field>
         <field name="week" title="${uiLabelMap.Common${month}} ${year}" widget-area-style="calendarWeek"><display description="${uiLabelMap.CommonWeek} ${week}"/></field>
         <field name="Monday" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
         <field name="MondayData" title="${uiLabelMap.CommonMonday}" widget-style="calendarContent"><display/></field>
