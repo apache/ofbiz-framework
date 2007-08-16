@@ -1352,7 +1352,11 @@ public class InvoiceServices {
                         Map createOrderAdjustmentContext = new HashMap();
                         createOrderAdjustmentContext.put("orderId", orderId);
                         createOrderAdjustmentContext.put("orderAdjustmentTypeId", "SHIPPING_CHARGES");
-                        createOrderAdjustmentContext.put("description", UtilProperties.getMessage(resource, "AccountingAdditionalShippingChargeForShipment", locale) + " #" + shipmentId);
+                        String addtlChargeDescription = shipment.getString("additionalShippingChargeDesc");
+                        if (UtilValidate.isEmpty(addtlChargeDescription)) {
+                            addtlChargeDescription = UtilProperties.getMessage(resource, "AccountingAdditionalShippingChargeForShipment", UtilMisc.toMap("shipmentId", shipmentId), locale);
+                        }
+                        createOrderAdjustmentContext.put("description", addtlChargeDescription);
                         createOrderAdjustmentContext.put("sourceReferenceId", shipmentId);
                         createOrderAdjustmentContext.put("amount", new Double(additionalShippingCharge.doubleValue()));
                         createOrderAdjustmentContext.put("userLogin", context.get("userLogin"));
