@@ -80,19 +80,6 @@ public class OagisShipmentServices {
     public static final String oagisSegmentsNamespacePrefix = "os";
     public static final String oagisFieldsNamespacePrefix = "of";
         
-    /** if TRUE then must exist, if FALSE must not exist, if null don't care */
-    public static final Boolean requireSerialNumberExist;
-    static {
-        String requireSerialNumberExistStr = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.RequireSerialNumberExist");
-        if ("true".equals(requireSerialNumberExistStr)) {
-            requireSerialNumberExist = Boolean.TRUE;
-        } else if ("false".equals(requireSerialNumberExistStr)) {
-            requireSerialNumberExist = Boolean.FALSE;
-        } else {
-            requireSerialNumberExist = null;
-        }
-    }
-
     public static Map showShipment(DispatchContext ctx, Map context) {
         Document doc = (Document) context.get("document");
         boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
@@ -187,7 +174,7 @@ public class OagisShipmentServices {
         }
         
         if (shipment == null) {
-            String errMsg = "Could not find Shipment id ID [" + shipmentId + "]";
+            String errMsg = "Could not find Shipment ID [" + shipmentId + "]";
             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "ShipmentIdNotValid"));
         }
         
@@ -229,14 +216,38 @@ public class OagisShipmentServices {
                     // sort the INVITEM elements by ITEM so that all shipments are processed in the same order, avoids deadlocking problems we've seen with concurrently processed orders
                     List invitemMapList = FastList.newInstance();
                     Iterator invItemElementIter = invItemElementList.iterator();
-                    while (invItemElementIter.hasNext()) {                 
+                    boolean foundBadProductId = false;
+                    while (invItemElementIter.hasNext()) {
                         Element invItemElement = (Element) invItemElementIter.next();
                         String productId = UtilXml.childElementValue(invItemElement, "of:ITEM"); // of
+
+                        // make sure productId is valid
+                        try {
+                            GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                            if (product == null) {
+                                String errMsg = "Product with ID [" + productId + "] not found (invalid Product ID).";
+                                errorMapList.add(UtilMisc.toMap("reasonCode", "ProductIdNotValid", "description", errMsg));
+                                Debug.logError(errMsg, module);
+                                foundBadProductId = true;
+                                continue;
+                            }
+                        } catch (GenericEntityException e) {
+                            String errMsg = "Error checking for valid Product ID: " + e.toString();
+                            errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
+                            Debug.logError(e, errMsg, module);
+                            continue;
+                        }
+
                         Map invitemMap = FastMap.newInstance();
                         invitemMap.put("productId", productId);
                         invitemMap.put("invItemElement", invItemElement);
                         invitemMapList.add(invitemMap);
                     }
+                    
+                    if (foundBadProductId) {
+                        continue;
+                    }
+                    
                     UtilMisc.sortMaps(invitemMapList, UtilMisc.toList("productId"));
                     
                     Iterator invitemMapIter = invitemMapList.iterator();
@@ -331,15 +342,15 @@ public class OagisShipmentServices {
                                     for (int i = 0; i < currentResQuantity; i++) {
                                         String serialNumber = (String) serialNumberIter.next();
 
-                                        // according to requireSerialNumberExist make sure serialNumber does or does not exist in database, add an error message as needed
-                                        if (requireSerialNumberExist != null) {
+                                        if (OagisServices.requireSerialNumberExist != null) {
+                                            // according to requireSerialNumberExist make sure serialNumber does or does not exist in database, add an error message as needed
                                             Set productIdSet = ProductWorker.getRefurbishedProductIdSet(productId, delegator);
                                             productIdSet.add(productId);
                                             
                                             EntityCondition bySerialNumberCondition = new EntityExpr(new EntityExpr("serialNumber", EntityOperator.EQUALS, serialNumber), 
                                                     EntityOperator.AND, new EntityExpr("productId", EntityOperator.IN, productIdSet));
                                             List inventoryItemsBySerialNumber = delegator.findByCondition("InventoryItem", bySerialNumberCondition, null, null);
-                                            if (requireSerialNumberExist.booleanValue()) {
+                                            if (OagisServices.requireSerialNumberExist.booleanValue()) {
                                                 if (inventoryItemsBySerialNumber.size() > 0) {
                                                     String errMsg = "Referenced serial numbers must already exist, but serial number [" + serialNumber + "] was not found.";
                                                     errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumberRequiredButNotFound"));
@@ -373,8 +384,8 @@ public class OagisShipmentServices {
                                     }
                                 } else {
                                     try {
-                                        //TODO: I think this else part is for NON Serialized Inv item. So it will be different service that we need to call here.
                                         isitspastCtx.put("quantity", new Double(currentResQuantity));
+                                        // NOTE: this same service is called for non-serialized inventory in spite of the name it is made to handle it
                                         Map resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
                                         if (ServiceUtil.isError(resultMap)){
                                             String errMsg = ServiceUtil.getErrorMessage(resultMap);
@@ -393,7 +404,7 @@ public class OagisShipmentServices {
                             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "NumberFormatException"));
                             Debug.logInfo(e, errMsg, module);
                         } catch (GenericEntityException e) {
-                            String errMsg = "Error executing issueSerializedInvToShipmentPackageAndSetTracking Service: " + e.toString();
+                            String errMsg = "Data Error processing Show Shipment: " + e.toString();
                             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericEntityException"));
                             Debug.logInfo(e, errMsg, module);
                         }
