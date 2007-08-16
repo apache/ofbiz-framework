@@ -1242,6 +1242,8 @@ under the License.
       <field name="shipGroupSeqId" type="id"></field>
       <field name="shipmentId" type="id"></field>
       <field name="shipmentItemSeqId" type="id"></field>
+      <field name="returnId" type="id"></field>
+      <field name="returnItemSeqId" type="id"></field>
       <field name="workEffortId" type="id"></field>
       <field name="fixedAssetId" type="id"></field>
       <field name="maintHistSeqId" type="id"></field>
