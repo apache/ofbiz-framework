@@ -57,30 +57,6 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
 
-    <simple-method method-name="createFixedAssetAndLinkToProduct" short-description="Create an FixedAsset and link the asset to the product">
-        <check-permission permission="ACCOUNTING" action="_CREATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
-            <fail-message message="Security Error: to run createFixedAssetAndLinkToProduct you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
-        </check-permission>        
-        <check-errors/>
-
-        <set field="createFixedAsset.fixedAssetTypeId" value="PROPERTY"/>
-        <if-not-empty field-name="parameters.productName">
-            <set field="createFixedAsset.fixedAssetName" from-field="parameters.productName"/>
-        </if-not-empty>
-        <if-not-empty field-name="parameters.internalName">
-            <set field="createFixedAsset.fixedAssetName" from-field="parameters.internalName"/>
-        </if-not-empty>
-        <call-service service-name="createFixedAsset" in-map-name="createFixedAsset">
-            <result-to-field result-name="fixedAssetId" field-name="newLink.fixedAssetId"/>
-        </call-service>
-
-        <set field="newLink.fixedAssetProductTypeId" value="FAPT_USE"/>
-        <set field="newLink.productId" from-field="parameters.productId"/>
-        <call-service service-name="addFixedAssetProduct" in-map-name="newLink"/>
-        
-    </simple-method>
-
     <!-- update an existing Fixed Asset header Record -->
     <simple-method method-name="updateFixedAsset" short-description="Update an existing FixedAsset">
         <check-permission permission="ACCOUNTING" action="_UPDATE" >
