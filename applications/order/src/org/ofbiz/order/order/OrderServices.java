@@ -1344,6 +1344,16 @@ public class OrderServices {
                     }
 
                     GenericValue shippingAddress = orh.getShippingAddress(shipGroupSeqId);
+                    // no shipping address, try the billing address
+                    if (shippingAddress == null) {
+                        List billingAddressList = orh.getBillingLocations();
+                        if (billingAddressList.size() > 0) {
+                            shippingAddress = (GenericValue) billingAddressList.get(0);
+                        }
+                    }
+                    
+                    // TODO and NOTE DEJ20070816: this is NOT a good way to determine if this is a face-to-face or immediatelyFulfilled order
+                    //this should be made consistent with the CheckOutHelper.makeTaxContext(int shipGroup, GenericValue shipAddress) method
                     if (shippingAddress == null) {
                         // face-to-face order; use the facility address
                         String facilityId = orderHeader.getString("originFacilityId");
@@ -1368,6 +1378,11 @@ public class OrderServices {
                         }
                     }
 
+                    // if shippingAddress is still null then don't calculate tax; it may be an situation where no tax is applicable, or the data is bad and we don't have a way to find an address to check tax for
+                    if (shippingAddress == null) {
+                        continue;
+                    }
+                    
                     // prepare the service context
                     // pass in BigDecimal values instead of Double
                     Map serviceContext = UtilMisc.toMap("productStoreId", orh.getProductStoreId(), "itemProductList", products, "itemAmountList", amounts,
