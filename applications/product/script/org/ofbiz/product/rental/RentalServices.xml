@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="createFixedAssetAndLinkToProduct" short-description="Create an FixedAsset and link the asset to the product, used when a asset usage product is created">
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-message message="Security Error: to run createFixedAssetAndLinkToProduct you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/>
+        </check-permission>        
+        <check-errors/>
+
+        <set field="createFixedAsset.fixedAssetTypeId" value="PROPERTY"/>
+        <if-not-empty field-name="parameters.productName">
+            <set field="createFixedAsset.fixedAssetName" from-field="parameters.productName"/>
+        </if-not-empty>
+        <if-not-empty field-name="parameters.internalName">
+            <set field="createFixedAsset.fixedAssetName" from-field="parameters.internalName"/>
+        </if-not-empty>
+        <call-service service-name="createFixedAsset" in-map-name="createFixedAsset">
+            <result-to-field result-name="fixedAssetId" field-name="newLink.fixedAssetId"/>
+        </call-service>
+
+        <set field="newLink.fixedAssetProductTypeId" value="FAPT_USE"/>
+        <set field="newLink.productId" from-field="parameters.productId"/>
+        <call-service service-name="addFixedAssetProduct" in-map-name="newLink"/>
+        
+    </simple-method>
+
+    <simple-method method-name="getProductFirstRelatedFixedAsset" 
+    		short-description="Most rental products are associated with one fixed asset only,
+    							 this service will return the first genericValue fixedAsset">
+        <check-permission permission="CATALOG" action="_VIEW"><fail-message message="Security Error: to run getProductFirstRelatedFixedAsset you must have the CATALOG_VIEW or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+		<entity-one entity-name="Product" value-name="product"/>
+		<get-related relation-name="FixedAssetProduct" value-name="product" list-name="productFixedAssets"/>
+		<if-not-empty field-name="productFixedAssets">
+		    <first-from-list list-name="productFixedAssets" entry-name="productFixedAsset"/>
+  		    <field-to-result field-name="productFixedAsset.fixedAssetId" result-name="fixedAssetId"/>
+		</if-not-empty>
+		<field-to-result field-name="parameters.productId" result-name="productId"/>
+    </simple-method>
+
+</simple-methods>
