@@ -288,9 +288,10 @@ public class OagisInventoryServices {
                     Debug.logImportant("No sendTo email address found in process syncInventory service: inventoryMapList: " + inventoryMapList, module);
                 }
             } catch (Throwable t) {
-                String errMsg = "Error processing Sync Inventory message: " + t.toString();
-                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "Exception"));
+                String errMsg = "System Error processing Sync Inventory message: " + t.toString();
                 Debug.logInfo(t, errMsg, module);
+                // in this case we don't want to return a Confirm BOD, so return an error now
+                return ServiceUtil.returnError(errMsg);
             }
         }
         
@@ -317,6 +318,7 @@ public class OagisInventoryServices {
             saveErrorMapListCtx.put("task", task);
             saveErrorMapListCtx.put("referenceId", referenceId);
             saveErrorMapListCtx.put("errorMapList", errorMapList);
+            saveErrorMapListCtx.put("userLogin", userLogin);
             try {
                 dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
             } catch (GenericServiceException e){
@@ -337,8 +339,8 @@ public class OagisInventoryServices {
                 Debug.logError(e, errMsg, module);
             }
             
-            // DEJ20070807 what was this next line commented out? if there are errors we want to return an error so this will roll back 
-            result.putAll(ServiceUtil.returnError("Errors found processing message; information saved and return error sent back"));
+            // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times 
+            result.putAll(ServiceUtil.returnSuccess("Errors found processing message; information saved and return error sent back"));
             return result;
         } else {
             try {
@@ -531,9 +533,10 @@ public class OagisInventoryServices {
                     }
                 }
             } catch (Throwable t) {
-                String errMsg = "Error processing Acknowledge Delivery PO message: " + t.toString();
-                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "Exception"));
+                String errMsg = "System Error processing Acknowledge Delivery PO message: " + t.toString();
                 Debug.logInfo(t, errMsg, module);
+                // in this case we don't want to return a Confirm BOD, so return an error now
+                return ServiceUtil.returnError(errMsg);
             }
         }
 
@@ -560,6 +563,7 @@ public class OagisInventoryServices {
             saveErrorMapListCtx.put("task", task);
             saveErrorMapListCtx.put("referenceId", referenceId);
             saveErrorMapListCtx.put("errorMapList", errorMapList);
+            saveErrorMapListCtx.put("userLogin", userLogin);
             try {
                 dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
             } catch (GenericServiceException e){
@@ -580,8 +584,8 @@ public class OagisInventoryServices {
                 Debug.logError(e, errMsg, module);
             }
             
-            // DEJ20070807 what was this next line commented out? if there are errors we want to return an error so this will roll back 
-            result.putAll(ServiceUtil.returnError("Errors found processing message; information saved and return error sent back"));
+            // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times 
+            result.putAll(ServiceUtil.returnSuccess("Errors found processing message; information saved and return error sent back"));
             return result;
         } else {
             comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
@@ -955,9 +959,10 @@ public class OagisInventoryServices {
                     }
                 }
             } catch (Throwable t) {
-                String errMsg = "Error processing Acknowledge Delivery RMA message: " + t.toString();
-                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "Exception"));
+                String errMsg = "System Error processing Acknowledge Delivery RMA message: " + t.toString();
                 Debug.logInfo(t, errMsg, module);
+                // in this case we don't want to return a Confirm BOD, so return an error now
+                return ServiceUtil.returnError(errMsg);
             }
         }
 
@@ -984,6 +989,7 @@ public class OagisInventoryServices {
             saveErrorMapListCtx.put("task", task);
             saveErrorMapListCtx.put("referenceId", referenceId);
             saveErrorMapListCtx.put("errorMapList", errorMapList);
+            saveErrorMapListCtx.put("userLogin", userLogin);
             try {
                 dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
             } catch (GenericServiceException e){
@@ -1005,8 +1011,8 @@ public class OagisInventoryServices {
                 Debug.logError(e, errMsg, module);
             }
             
-            // DEJ20070807 what was this next line commented out? if there are errors we want to return an error so this will roll back 
-            result.putAll(ServiceUtil.returnError("Errors found processing message; information saved and return error sent back"));
+            // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times 
+            result.putAll(ServiceUtil.returnSuccess("Errors found processing message; information saved and return error sent back"));
             return result;
         } else {
             comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");

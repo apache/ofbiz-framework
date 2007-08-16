@@ -168,7 +168,7 @@ public class OagisShipmentServices {
         try {
             shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
         } catch (GenericEntityException e) {
-            String errMsg = "Error getting Shipment from database: "+ e.toString();
+            String errMsg = "Error getting Shipment from database: " + e.toString();
             Debug.logInfo(e, errMsg, module);
             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericEntityException"));
         }
@@ -178,12 +178,12 @@ public class OagisShipmentServices {
             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "ShipmentIdNotValid"));
         }
         
-        String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");                
-        String originFacilityId = shipment.getString("originFacilityId");                              
-        
         List shipUnitElementList = UtilXml.childElementList(daShowShipmentElement, "ns:SHIPUNIT"); // n
         if (errorMapList.size() == 0 && UtilValidate.isNotEmpty(shipUnitElementList)) {
             try {
+                String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");
+                String originFacilityId = shipment.getString("originFacilityId");
+                
                 Element shipUnitElement = (Element)shipUnitElementList.get(0);
                 String trackingNum = UtilXml.childElementValue(shipUnitElement, "of:TRACKINGID"); // of
                 String carrierCode = UtilXml.childElementValue(shipUnitElement, "of:CARRIER"); // of
@@ -401,9 +401,10 @@ public class OagisShipmentServices {
                     }
                 }
             } catch (Throwable t) {
-                String errMsg = "Error processing Show Shipment message: " + t.toString();
-                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "Exception"));
+                String errMsg = "System Error processing Show Shipment message: " + t.toString();
                 Debug.logInfo(t, errMsg, module);
+                // in this case we don't want to return a Confirm BOD, so return an error now
+                return ServiceUtil.returnError(errMsg);
             }
         }  
         
@@ -430,6 +431,7 @@ public class OagisShipmentServices {
             saveErrorMapListCtx.put("task", task);
             saveErrorMapListCtx.put("referenceId", referenceId);
             saveErrorMapListCtx.put("errorMapList", errorMapList);
+            saveErrorMapListCtx.put("userLogin", userLogin);
             try {
                 dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
             } catch (GenericServiceException e){
@@ -450,8 +452,8 @@ public class OagisShipmentServices {
                 Debug.logError(e, errMsg, module);
             }
             
-            // DEJ20070807 what was this next line commented out? if there are errors we want to return an error so this will roll back 
-            result.putAll(ServiceUtil.returnError("Errors found processing message; information saved and return error sent back"));
+            // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times 
+            result.putAll(ServiceUtil.returnSuccess("Errors found processing message; information saved and return error sent back"));
             return result;
         } else {
             try {
