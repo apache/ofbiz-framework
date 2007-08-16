@@ -495,6 +495,8 @@ public class OagisServices {
             }
         }
         
+        Debug.logInfo("Processing OAGIS message with verb [" + bsrVerb + "] and noun [" + bsrNoun + "] with context: " + messageProcessContext, module);
+        
         if (bsrVerb.equalsIgnoreCase("CONFIRM") && bsrNoun.equalsIgnoreCase("BOD")) {
             try {
                 // subServiceResult = dispatcher.runSync("receiveConfirmBod", messageProcessContext);

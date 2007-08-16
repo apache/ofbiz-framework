@@ -183,46 +183,40 @@ public class OagisShipmentServices {
         
         List shipUnitElementList = UtilXml.childElementList(daShowShipmentElement, "ns:SHIPUNIT"); // n
         if (errorMapList.size() == 0 && UtilValidate.isNotEmpty(shipUnitElementList)) {
-            Element shipUnitElement = (Element)shipUnitElementList.get(0);
-            String trackingNum = UtilXml.childElementValue(shipUnitElement, "of:TRACKINGID"); // of
-            String carrierCode = UtilXml.childElementValue(shipUnitElement, "of:CARRIER"); // of
-            if (UtilValidate.isNotEmpty(carrierCode)){
-                String carrierPartyId = null;
-                if ( carrierCode.startsWith("F") || carrierCode.startsWith("f")) {                
-                    carrierPartyId = "FEDEX";                                           
-                } else if (carrierCode.startsWith("U")|| carrierCode.startsWith("u")) {
-                    carrierPartyId = "UPS";                                            
-                }
-                try {
+            try {
+                Element shipUnitElement = (Element)shipUnitElementList.get(0);
+                String trackingNum = UtilXml.childElementValue(shipUnitElement, "of:TRACKINGID"); // of
+                String carrierCode = UtilXml.childElementValue(shipUnitElement, "of:CARRIER"); // of
+                if (UtilValidate.isNotEmpty(carrierCode)){
+                    String carrierPartyId = null;
+                    if ( carrierCode.startsWith("F") || carrierCode.startsWith("f")) {                
+                        carrierPartyId = "FEDEX";                                           
+                    } else if (carrierCode.startsWith("U")|| carrierCode.startsWith("u")) {
+                        carrierPartyId = "UPS";                                            
+                    }
                     Map resultMap = dispatcher.runSync("updateShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", "00001", "carrierPartyId", carrierPartyId, "trackingIdNumber", trackingNum, "userLogin", userLogin));                        
                     if (ServiceUtil.isError(resultMap)){
                         String errMsg = ServiceUtil.getErrorMessage(resultMap);
                         errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "updateShipmentRouteSegmentError"));
                         Debug.logError(errMsg, module);
                     }
-                } catch (GenericServiceException e) {
-                    Debug.logInfo(e, module);
-                    String errMsg = "Error executing updateShipmentRouteSegment Service: "+e.toString();
-                    errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                 }
-            }
-            
-            Iterator shipUnitElementItr = shipUnitElementList.iterator();
-            while (shipUnitElementItr.hasNext()) {                 
-                shipUnitElement = (Element) shipUnitElementItr.next();
-                String shipmentPackageSeqId = UtilXml.childElementValue(shipUnitElement, "of:SHPUNITSEQ"); // of
-                List invItemElementList = UtilXml.childElementList(shipUnitElement, "ns:INVITEM"); //n
-                if (UtilValidate.isNotEmpty(invItemElementList)) {
-                    // sort the INVITEM elements by ITEM so that all shipments are processed in the same order, avoids deadlocking problems we've seen with concurrently processed orders
-                    List invitemMapList = FastList.newInstance();
-                    Iterator invItemElementIter = invItemElementList.iterator();
-                    boolean foundBadProductId = false;
-                    while (invItemElementIter.hasNext()) {
-                        Element invItemElement = (Element) invItemElementIter.next();
-                        String productId = UtilXml.childElementValue(invItemElement, "of:ITEM"); // of
+                
+                Iterator shipUnitElementItr = shipUnitElementList.iterator();
+                while (shipUnitElementItr.hasNext()) {                 
+                    shipUnitElement = (Element) shipUnitElementItr.next();
+                    String shipmentPackageSeqId = UtilXml.childElementValue(shipUnitElement, "of:SHPUNITSEQ"); // of
+                    List invItemElementList = UtilXml.childElementList(shipUnitElement, "ns:INVITEM"); //n
+                    if (UtilValidate.isNotEmpty(invItemElementList)) {
+                        // sort the INVITEM elements by ITEM so that all shipments are processed in the same order, avoids deadlocking problems we've seen with concurrently processed orders
+                        List invitemMapList = FastList.newInstance();
+                        Iterator invItemElementIter = invItemElementList.iterator();
+                        boolean foundBadProductId = false;
+                        while (invItemElementIter.hasNext()) {
+                            Element invItemElement = (Element) invItemElementIter.next();
+                            String productId = UtilXml.childElementValue(invItemElement, "of:ITEM"); // of
 
-                        // make sure productId is valid
-                        try {
+                            // make sure productId is valid
                             GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
                             if (product == null) {
                                 String errMsg = "Product with ID [" + productId + "] not found (invalid Product ID).";
@@ -231,40 +225,47 @@ public class OagisShipmentServices {
                                 foundBadProductId = true;
                                 continue;
                             }
-                        } catch (GenericEntityException e) {
-                            String errMsg = "Error checking for valid Product ID: " + e.toString();
-                            errorMapList.add(UtilMisc.toMap("reasonCode", "GenericEntityException", "description", errMsg));
-                            Debug.logError(e, errMsg, module);
+
+                            Map invitemMap = FastMap.newInstance();
+                            invitemMap.put("productId", productId);
+                            invitemMap.put("invItemElement", invItemElement);
+                            invitemMapList.add(invitemMap);
+                        }
+                        
+                        if (foundBadProductId) {
                             continue;
                         }
-
-                        Map invitemMap = FastMap.newInstance();
-                        invitemMap.put("productId", productId);
-                        invitemMap.put("invItemElement", invItemElement);
-                        invitemMapList.add(invitemMap);
-                    }
-                    
-                    if (foundBadProductId) {
-                        continue;
-                    }
-                    
-                    UtilMisc.sortMaps(invitemMapList, UtilMisc.toList("productId"));
-                    
-                    Iterator invitemMapIter = invitemMapList.iterator();
-                    while (invitemMapIter.hasNext()) {
-                        Map invitemMap = (Map) invitemMapIter.next();
-                        Element invItemElement = (Element) invitemMap.get("invItemElement");
-                        String productId = UtilXml.childElementValue(invItemElement, "of:ITEM"); // of
                         
-                        try {
+                        UtilMisc.sortMaps(invitemMapList, UtilMisc.toList("productId"));
+                        
+                        Iterator invitemMapIter = invitemMapList.iterator();
+                        while (invitemMapIter.hasNext()) {
+                            Map invitemMap = (Map) invitemMapIter.next();
+                            Element invItemElement = (Element) invitemMap.get("invItemElement");
+                            String productId = UtilXml.childElementValue(invItemElement, "of:ITEM"); // of
+                            
                             Element quantityElement = UtilXml.firstChildElement(invItemElement, "os:QUANTITY"); // os
                             String quantityValueStr = UtilXml.childElementValue(quantityElement, "of:VALUE"); // os
                             // TODO: <of:NUMOFDEC>0</of:NUMOFDEC> should always be 0, but might want to add code to check
                             Integer messageQuantity = Integer.valueOf(quantityValueStr);
 
-                            GenericValue shipmentItem = EntityUtil.getFirst(delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId, "productId",productId)));                    
+                            GenericValue shipmentItem = EntityUtil.getFirst(delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId, "productId",productId)));
+                            if (shipmentItem == null) {
+                                String errMsg = "Could not find Shipment Item for Shipment with ID [" + shipmentId + "] and Product with ID [" + productId + "].";
+                                errorMapList.add(UtilMisc.toMap("reasonCode", "ShipmentItemForProductNotFound", "description", errMsg));
+                                Debug.logError(errMsg, module);
+                                continue;
+                            }
+                            
                             String shipmentItemSeqId = shipmentItem.getString("shipmentItemSeqId");                      
-                            GenericValue orderShipment = EntityUtil.getFirst(delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItemSeqId)));                    
+                            GenericValue orderShipment = EntityUtil.getFirst(delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItemSeqId)));
+                            if (orderShipment == null) {
+                                String errMsg = "Could not find Order-Shipment record for Shipment with ID [" + shipmentId + "] and Item Seq-ID [" + shipmentItemSeqId + "].";
+                                errorMapList.add(UtilMisc.toMap("reasonCode", "OrderShipmentNotFound", "description", errMsg));
+                                Debug.logError(errMsg, module);
+                                continue;
+                            }
+                            
                             String orderId = orderShipment.getString("orderId");                
                             String orderItemSeqId = orderShipment.getString("orderItemSeqId");                
                             GenericValue product = delegator.findByPrimaryKey("Product",UtilMisc.toMap("productId", productId));                    
@@ -369,60 +370,41 @@ public class OagisShipmentServices {
                                         isitspastCtx.put("quantity", new Double (1));
                                         isitspastCtx.put("inventoryItemId", orderItemShipGrpInvReservation.get("inventoryItemId"));
                                         isitspastCtx.remove("itemIssuanceId");                            
-                                        try {
-                                            Map resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
-                                            if (ServiceUtil.isError(resultMap)){
-                                                String errMsg = ServiceUtil.getErrorMessage(resultMap);
-                                                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "IssueSerializedInvServiceError"));
-                                                Debug.logError(errMsg, module);
-                                            }
-                                        } catch(GenericServiceException e) {
-                                            Debug.logInfo(e, module);
-                                            String errMsg = "Error executing issueSerializedInvToShipmentPackageAndSetTracking Service: "+e.toString();
-                                            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
-                                        }
-                                    }
-                                } else {
-                                    try {
-                                        isitspastCtx.put("quantity", new Double(currentResQuantity));
-                                        // NOTE: this same service is called for non-serialized inventory in spite of the name it is made to handle it
                                         Map resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
                                         if (ServiceUtil.isError(resultMap)){
                                             String errMsg = ServiceUtil.getErrorMessage(resultMap);
                                             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "IssueSerializedInvServiceError"));
                                             Debug.logError(errMsg, module);
                                         }
-                                    } catch(GenericServiceException e) {
-                                        Debug.logInfo(e, module);
-                                        String errMsg = "Error executing issueSerializedInvToShipmentPackageAndSetTracking Service: "+e.toString();
-                                        errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
-                                    }            
+                                    }
+                                } else {
+                                    isitspastCtx.put("quantity", new Double(currentResQuantity));
+                                    // NOTE: this same service is called for non-serialized inventory in spite of the name it is made to handle it
+                                    Map resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
+                                    if (ServiceUtil.isError(resultMap)){
+                                        String errMsg = ServiceUtil.getErrorMessage(resultMap);
+                                        errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "IssueSerializedInvServiceError"));
+                                        Debug.logError(errMsg, module);
+                                    }
                                 }
                             }
-                        } catch (NumberFormatException e) {
-                            String errMsg = "Error in format for number: " + e.toString();
-                            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "NumberFormatException"));
-                            Debug.logInfo(e, errMsg, module);
-                        } catch (GenericEntityException e) {
-                            String errMsg = "Data Error processing Show Shipment: " + e.toString();
-                            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericEntityException"));
-                            Debug.logInfo(e, errMsg, module);
                         }
                     }
                 }
-            }
-            try {
-                Map resultMap = dispatcher.runSync("setShipmentStatusPackedAndShipped", UtilMisc.toMap("shipmentId", shipmentId, "userLogin", userLogin));               
-                if (ServiceUtil.isError(resultMap)){
-                    String errMsg = ServiceUtil.getErrorMessage(resultMap);
-                    errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SetShipmentStatusPackedAndShippedError"));
-                    Debug.logError(errMsg, module);
+                
+                if (errorMapList.size() == 0) {
+                    Map resultMap = dispatcher.runSync("setShipmentStatusPackedAndShipped", UtilMisc.toMap("shipmentId", shipmentId, "userLogin", userLogin));               
+                    if (ServiceUtil.isError(resultMap)){
+                        String errMsg = ServiceUtil.getErrorMessage(resultMap);
+                        errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SetShipmentStatusPackedAndShippedError"));
+                        Debug.logError(errMsg, module);
+                    }
                 }
-            } catch(GenericServiceException e) {
-                Debug.logInfo(e, module);
-                String errMsg = "Error executing setShipmentStatusPackedAndShipped Service: " + e.toString();
-                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
-            }   
+            } catch (Throwable t) {
+                String errMsg = "Error processing Show Shipment message: " + t.toString();
+                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "Exception"));
+                Debug.logInfo(t, errMsg, module);
+            }
         }  
         
         Map result = FastMap.newInstance();
