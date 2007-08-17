@@ -509,6 +509,7 @@ public class OagisShipmentServices {
         
         Map result = ServiceUtil.returnSuccess();
         MapStack bodyParameters =  MapStack.create();
+        bodyParameters.put("orderId", orderId);
 
         // the userLogin passed in will usually be the customer, so don't use it; use the system user instead
         GenericValue userLogin = null;

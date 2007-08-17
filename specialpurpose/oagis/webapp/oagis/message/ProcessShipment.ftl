@@ -130,6 +130,10 @@
           <of:DOCUMENTID>${replacementReturnId}</of:DOCUMENTID>
         </n:DOCUMNTREF>
         </#if>
+        <n:DOCUMNTREF>
+          <of:DOCTYPE>SO</of:DOCTYPE>
+          <of:DOCUMENTID>${orderId}</of:DOCUMENTID>
+        </n:DOCUMNTREF>
       </n:SHIPMENT>
     </n:PROCESS_SHIPMENT>
   </n:DATAAREA>
