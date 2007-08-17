@@ -117,11 +117,11 @@ under the License.
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="button-bar">
-                            <link target="ListFixedAssetCalendar?fixedAssetId=${fixedAssetId}&amp;month=-3" text="${uiLabelMap.CommonPrevious} ${uiLabelMap.CommonQuarter}" style="buttontext"/>
-                            <link target="ListFixedAssetCalendar?fixedAssetId=${fixedAssetId}&amp;month=-1" text="${uiLabelMap.CommonPrevious} ${uiLabelMap.CommonMonth}" style="buttontext"/>
-                            <link target="ListFixedAssetCalendar?fixedAssetId=${fixedAssetId}" text="${uiLabelMap.CommonThis} ${uiLabelMap.CommonMonth}" style="buttontext"/>
-                            <link target="ListFixedAssetCalendar?fixedAssetId=${fixedAssetId}&amp;month=1" text="${uiLabelMap.CommonNext} ${uiLabelMap.CommonMonth}" style="buttontext"/>
-                            <link target="ListFixedAssetCalendar?fixedAssetId=${fixedAssetId}&amp;month=3" text="${uiLabelMap.CommonNext} ${uiLabelMap.CommonQuarter}" style="buttontext"/>
+                            <link target="ListFixedAssetCalendar?productId=${parameters.productId}&amp;fixedAssetId=${fixedAssetId}&amp;month=-3" text="${uiLabelMap.CommonPrevious} ${uiLabelMap.CommonQuarter}" style="buttontext"/>
+                            <link target="ListFixedAssetCalendar?productId=${parameters.productId}&amp;fixedAssetId=${fixedAssetId}&amp;month=-1" text="${uiLabelMap.CommonPrevious} ${uiLabelMap.CommonMonth}" style="buttontext"/>
+                            <link target="ListFixedAssetCalendar?productId=${parameters.productId}&amp;fixedAssetId=${fixedAssetId}" text="${uiLabelMap.CommonThis} ${uiLabelMap.CommonMonth}" style="buttontext"/>
+                            <link target="ListFixedAssetCalendar?productId=${parameters.productId}&amp;fixedAssetId=${fixedAssetId}&amp;month=1" text="${uiLabelMap.CommonNext} ${uiLabelMap.CommonMonth}" style="buttontext"/>
+                            <link target="ListFixedAssetCalendar?productId=${parameters.productId}&amp;fixedAssetId=${fixedAssetId}&amp;month=3" text="${uiLabelMap.CommonNext} ${uiLabelMap.CommonQuarter}" style="buttontext"/>
                         </container>
                         <include-form name="listFixedAssetCalendar" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
                         <label text="${uiLabelMap.AccountingFixedAssetMessage1}"></label>
