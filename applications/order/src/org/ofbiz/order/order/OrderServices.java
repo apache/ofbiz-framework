@@ -608,7 +608,7 @@ public class OrderServices {
                 if(techDataCalendar == null ) {
                     techDataCalendar = delegator.makeValue("TechDataCalendar", null);
                     Debug.logInfo("create techdata calendar because it does not exist",module);
-                    String calendarId = delegator.getNextSeqId("techDataCalendar");
+                    String calendarId = delegator.getNextSeqId("TechDataCalendar");
                     techDataCalendar.set("calendarId", calendarId);
                     toBeStored.add(techDataCalendar);
                     Debug.logInfo("update fixed Asset",module);
@@ -1448,7 +1448,6 @@ public class OrderServices {
                 createOrderAdjContext.put("shipGroupSeqId", "_NA_");
                 createOrderAdjContext.put("description", "Tax adjustment due to order change");
                 createOrderAdjContext.put("amount", new Double(orderTaxDifference.doubleValue()));
-                createOrderAdjContext.put("amount", new Double(orderTaxDifference.doubleValue()));
                 createOrderAdjContext.put("userLogin", userLogin);
                 Map createOrderAdjResponse = null;
                 try {
@@ -1753,10 +1752,6 @@ public class OrderServices {
         }
 
         if (orderItemShipGroupAssocs != null) {
-            if (orderItemShipGroupAssocs == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorCannotCancelItemItemNotFound", UtilMisc.toMap("itemMsgInfo",itemMsgInfo), locale));
-            }
-
             Iterator i = orderItemShipGroupAssocs.iterator();
             while (i.hasNext()) {
                 GenericValue orderItemShipGroupAssoc = (GenericValue) i.next();
@@ -1819,6 +1814,8 @@ public class OrderServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderInvalidCancelQuantityCannotCancel", UtilMisc.toMap("thisCancelQty",thisCancelQty), locale));
                 }
             }
+        } else {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorCannotCancelItemItemNotFound", UtilMisc.toMap("itemMsgInfo",itemMsgInfo), locale));
         }
 
         return ServiceUtil.returnSuccess();
