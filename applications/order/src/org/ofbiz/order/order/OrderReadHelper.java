@@ -962,6 +962,19 @@ public class OrderReadHelper {
         return getShippableTotalBd(shipGroupSeqId).doubleValue();
     }
 
+    public BigDecimal getShippableQuantityBd() {
+        BigDecimal shippableQuantity = ZERO;
+        List shipGroups = getOrderItemShipGroups();
+        if (UtilValidate.isNotEmpty(shipGroups)) {
+            Iterator shipGroupsIt = shipGroups.iterator();
+            while (shipGroupsIt.hasNext()) {
+                GenericValue shipGroup = (GenericValue)shipGroupsIt.next();
+                shippableQuantity = shippableQuantity.add(getShippableQuantityBd(shipGroup.getString("shipGroupSeqId")));
+            }
+        }
+        return shippableQuantity.setScale(scale, rounding);
+    }
+
     public BigDecimal getShippableQuantityBd(String shipGroupSeqId) {
         BigDecimal shippableQuantity = ZERO;
         List validItems = getValidOrderItems(shipGroupSeqId);
