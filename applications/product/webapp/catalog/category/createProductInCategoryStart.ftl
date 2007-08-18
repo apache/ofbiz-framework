@@ -49,7 +49,7 @@ under the License.
         </#list>
         <tr>
             <td width="15%"><div class="tabletext">${uiLabelMap.ProductInternalName}:</div></td>
-            <td><input type="text" name="internalName" size="30" maxlength="60" class="inputBox"/></td>
+            <td><input type="text" name="internalName" size="30" maxlength="255" class="inputBox"/></td>
         </tr>
         <tr>
             <td width="15%"><div class="tabletext">${uiLabelMap.ProductProductName}:</div></td>

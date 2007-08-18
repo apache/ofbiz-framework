@@ -57,7 +57,7 @@ under the License.
             </drop-down>
         </field>
 
-        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text size="30" maxlength="60"/></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text size="30" maxlength="255"/></field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}" ><text size="30" maxlength="60"/></field>
         <field name="manufacturerPartyId" title="${uiLabelMap.ProductOemPartyId}" ><text size="20" maxlength="20"/></field>
         <field name="comments" title="${uiLabelMap.CommonComments}"><text size="60" maxlength="250"/></field>
