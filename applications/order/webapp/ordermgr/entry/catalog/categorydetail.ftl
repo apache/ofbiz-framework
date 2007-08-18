@@ -18,8 +18,9 @@ under the License.
 -->
 
 <#if productCategory?exists>
-        <h1>${categoryContentWrapper.get("CATEGORY_NAME")?if_exists}</h1>
-        <h1>${categoryContentWrapper.get("DESCRIPTION")?if_exists}</h1>
+    <h1>
+        <div>${categoryContentWrapper.get("CATEGORY_NAME")?if_exists}</div>
+        <div>${categoryContentWrapper.get("DESCRIPTION")?if_exists}</div>
         <#if hasQuantities?exists>
           <form method="post" action="<@ofbizUrl>addCategoryDefaults<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="thecategoryform" style='margin: 0;'>
             <input type='hidden' name='add_category_id' value='${productCategory.productCategoryId}'/>
@@ -32,6 +33,7 @@ under the License.
           </form>
         </#if>
         <a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${productCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSearchinCategory}</a>
+    </h1>
   <#assign longDescription = categoryContentWrapper.get("LONG_DESCRIPTION")?if_exists/>
   <#assign categoryImageUrl = categoryContentWrapper.get("CATEGORY_IMAGE_URL")?if_exists/>
   <#if categoryImageUrl?has_content || longDescription?has_content>

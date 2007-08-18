@@ -48,7 +48,7 @@ under the License.
 				
                 <!-- The default (main) stylesheets -->
                 <set field="layoutSettings.styleSheets[+0]" value="/ecommerce/images/blog.css" global="true"/>
-                <set field="layoutSettings.styleSheets[+0]" value="${productStore.styleSheet}" default-value="/ecommerce/images/ecommain.css" global="true"/>			
+                <set field="layoutSettings.styleSheets[+0]" value="${productStore.styleSheet}" default-value="/images/ecommain.css" global="true"/>			
             </actions>
             <widgets>
                 <!-- render header -->
