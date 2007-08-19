@@ -440,6 +440,7 @@ public class ShoppingCartServices {
         // set shopping cart type
         if (quote.getString("quoteTypeId").equals("PURCHASE_QUOTE")){
             cart.setOrderType("PURCHASE_ORDER");
+            cart.setBillFromVendorPartyId(quote.getString("partyId"));
         }
         try {
             cart.setUserLogin(userLogin, dispatcher);
@@ -481,6 +482,8 @@ public class ShoppingCartServices {
                     cart.setShipToCustomerPartyId(quoteRolePartyId);
                 } else if ("END_USER_CUSTOMER".equals(quoteRoleTypeId)) {
                     cart.setEndUserCustomerPartyId(quoteRolePartyId);
+                } else if ("BILL_FROM_VENDOR".equals(quoteRoleTypeId)) {
+                    cart.setBillFromVendorPartyId(quoteRolePartyId);
                 } else {
                     cart.addAdditionalPartyRole(quoteRolePartyId, quoteRoleTypeId);
                 }
