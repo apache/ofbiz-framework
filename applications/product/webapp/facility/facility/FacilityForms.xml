@@ -310,8 +310,35 @@ under the License.
         <field name="facilityId"><hidden/></field>
         <field name="facilityGroupId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="FacilityGroup" key-field-name="facilityGroupId" description="${facilityGroupName}">
-                </entity-options>
+                <entity-options entity-name="FacilityGroup" key-field-name="facilityGroupId" description="${facilityGroupName}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
+    </form>
+    <!-- FacilityRoles -->
+    <form name="EditFacilityRoles" type="list" paginate-target="EditFacilityRoles" title="" list-name="facilityRoles">
+        <auto-fields-entity entity-name="FacilityRole" default-field-type="display"/>
+        <field name="facilityId"><hidden/></field>
+        <field name="partyId">
+            <display-entity description="${groupName} ${firstName} ${lastName} [${partyId}]" entity-name="PartyNameView"/>
+        </field>
+        <field name="roleTypeId">
+            <display-entity entity-name="RoleType" description="${description}"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="removePartyFromFacility?facilityId=${facilityId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="AddPartyToFacility" type="single" target="addPartyToFacility" title="">
+        <auto-fields-entity entity-name="FacilityRole"/>
+        <field name="facilityId"><hidden/></field>
+        <field name="partyId">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="roleTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="RoleType" description="${description}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
