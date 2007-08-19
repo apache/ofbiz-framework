@@ -822,7 +822,7 @@ public class ShoppingCartServices {
         Locale locale = (Locale) context.get("locale");
         ShoppingCart shoppingCart = (ShoppingCart) context.get("shoppingCart");
         String productId = (String) context.get("productId");
-        if (shoppingCart != null && shoppingCart.items() > 0){
+        if (shoppingCart != null && shoppingCart.items() != null && shoppingCart.items().size() > 0){
             List allItems = shoppingCart.items(); 
             List items = shoppingCart.findAllCartItems(productId);
             if (items.size() > 0) {
