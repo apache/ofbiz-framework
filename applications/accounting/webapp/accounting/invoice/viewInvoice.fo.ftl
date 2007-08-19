@@ -270,7 +270,7 @@ under the License.
                    <fo:table-cell number-columns-spanned="3">
                    </fo:table-cell>
                    <fo:table-cell number-columns-spanned="2">
-                      <fo:block>Total excl. tax</fo:block>
+                      <fo:block>${uiLabelMap.AccountingTotalExclTax}</fo:block>
                    </fo:table-cell>
                    <fo:table-cell number-columns-spanned="1" text-align="right">
                       <fo:block>
