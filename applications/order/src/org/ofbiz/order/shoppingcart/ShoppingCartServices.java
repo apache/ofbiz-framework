@@ -816,4 +816,21 @@ public class ShoppingCartServices {
         }
         return result;
     }
+    
+    public static Map getShoppingCartItemIndex(DispatchContext dctx, Map context){
+        Map result = ServiceUtil.returnSuccess();
+        Locale locale = (Locale) context.get("locale");
+        ShoppingCart shoppingCart = (ShoppingCart) context.get("shoppingCart");
+        String productId = (String) context.get("productId");
+        if (shoppingCart != null && shoppingCart.items() > 0){
+            List allItems = shoppingCart.items(); 
+            List items = shoppingCart.findAllCartItems(productId);
+            if (items.size() > 0) {
+                ShoppingCartItem item = (ShoppingCartItem)items.get(0);
+                int itemIndex = shoppingCart.getItemIndex(item);
+                result.put("itemIndex", String.valueOf(itemIndex));
+            }
+        }
+        return result;
+    }
 }
