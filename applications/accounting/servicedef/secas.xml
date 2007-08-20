@@ -107,7 +107,7 @@ under the License.
     <!-- financial account transaction ecas -->
     <eca service="finAccountWithdraw" event="return" run-on-error="true">
         <condition field-name="productStoreId" operator="is-not-empty"/>
-        <action service="finAccountReplenish" mode="async" run-as-user="system"/>
+        <action service="finAccountReplenish" mode="async" persist="true" run-as-user="system"/>
     </eca>
 
     <!-- attempt replenish when payment method is updated -->

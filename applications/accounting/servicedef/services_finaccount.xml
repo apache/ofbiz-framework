@@ -104,6 +104,7 @@ under the License.
     </service>   
     <service name="expireFinAccountAuth" engine="simple" default-entity-name="FinAccountAuth"
             location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="expireFinAccountAuth">
+        <!-- NOTE: never set require-new-transaction on this service, needs to be called with other services in same transaction to protect operations such as the payment capture one -->
         <description>Expires a fin account authorization.  Will use current time if no time is supplied in parameter</description>
         <attribute name="finAccountAuthId" type="String" mode="IN" optional="false"/>
         <attribute name="expireDateTime" type="Timestamp" mode="IN" optional="true"/>
@@ -141,6 +142,7 @@ under the License.
     </service>
     <service name="finAccountWithdraw" engine="java"
             location="org.ofbiz.accounting.finaccount.FinAccountPaymentServices" invoke="finAccountWithdraw" auth="true">
+        <!-- NOTE: never set require-new-transaction on this service, needs to be called with other services in same transaction to protect operations such as the payment capture one -->
         <description>Deposit Funds into a Financial Account</description>
         <attribute name="finAccountId" type="String" mode="IN" optional="false"/>        
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
