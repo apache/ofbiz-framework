@@ -2929,13 +2929,13 @@ public class ShoppingCart implements Serializable {
         return productPromoUseInfoList.iterator();
     }
 
+    /** Get total discount for a given ProductPromo, or for ANY ProductPromo if the passed in productPromoId is null. */
     public double getProductPromoUseTotalDiscount(String productPromoId) {
-        if (productPromoId == null) return 0;
         double totalDiscount = 0;
         Iterator productPromoUseInfoIter = this.productPromoUseInfoList.iterator();
         while (productPromoUseInfoIter.hasNext()) {
             ProductPromoUseInfo productPromoUseInfo = (ProductPromoUseInfo) productPromoUseInfoIter.next();
-            if (productPromoId.equals(productPromoUseInfo.productPromoId)) {
+            if (productPromoId == null || productPromoId.equals(productPromoUseInfo.productPromoId)) {
                 totalDiscount += productPromoUseInfo.getTotalDiscountAmount();
             }
         }
