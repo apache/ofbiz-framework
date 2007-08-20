@@ -2928,6 +2928,43 @@ public class ShoppingCart implements Serializable {
     public Iterator getProductPromoUseInfoIter() {
         return productPromoUseInfoList.iterator();
     }
+    
+    public double getProductPromoTotal() {
+        double totalDiscount = 0;
+        List cartAdjustments = this.getAdjustments();
+        if (cartAdjustments != null) {
+            Iterator cartAdjustmentIter = cartAdjustments.iterator();
+            while (cartAdjustmentIter.hasNext()) {
+                GenericValue checkOrderAdjustment = (GenericValue) cartAdjustmentIter.next();
+                if (UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoId")) &&
+                        UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId")) &&
+                        UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId"))) {
+                    if (checkOrderAdjustment.get("amount") != null) {
+                        totalDiscount += checkOrderAdjustment.getDouble("amount").doubleValue();
+                    }
+                }
+            }
+        }
+
+        // remove cart lines that are promos (ie GWPs) and cart line adjustments from promo actions
+        Iterator cartItemIter = this.iterator();
+        while (cartItemIter.hasNext()) {
+            ShoppingCartItem checkItem = (ShoppingCartItem) cartItemIter.next();
+            Iterator checkOrderAdjustments = UtilMisc.toIterator(checkItem.getAdjustments());
+            while (checkOrderAdjustments != null && checkOrderAdjustments.hasNext()) {
+                GenericValue checkOrderAdjustment = (GenericValue) checkOrderAdjustments.next();
+                if (UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoId")) &&
+                        UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId")) &&
+                        UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId"))) {
+                    if (checkOrderAdjustment.get("amount") != null) {
+                        totalDiscount += checkOrderAdjustment.getDouble("amount").doubleValue();
+                    }
+                }
+            }
+        }
+
+        return totalDiscount;
+    }
 
     /** Get total discount for a given ProductPromo, or for ANY ProductPromo if the passed in productPromoId is null. */
     public double getProductPromoUseTotalDiscount(String productPromoId) {
