@@ -39,7 +39,7 @@ under the License.
         <property-to-field resource="security" property="password.lowercase" default="false" field-name="password_lowercase"/>
 
         <now-timestamp-to-env env-name="nowStamp"/>
-        <set field="parameters.roleTypeId" from-field="parameters.ROLETYPEID" default-value="CUSTOMER"/>
+        <set value="CUSTOMER" field="parameters.roleTypeId"/>
 
         <if-compare field-name="allowPassword" operator="not-equals" value="Y">
             <set from-field="defaultPassword" field="parameters.PASSWORD"/>
