@@ -86,6 +86,7 @@ under the License.
 
 <form method="post" action="<@ofbizUrl>createcustomer${previousParams}</@ofbizUrl>" name="newuserform" style="margin: 0;">
 <input type="hidden" name="emailProductStoreId" value="${productStoreId}"/>
+<input type="hidden" name="ROLETYPEID" value="${parameters.ROLETYPEID?if_exists}"/>
 
 <div class="screenlet">
     <div class="screenlet-header">
