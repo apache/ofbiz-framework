@@ -1555,7 +1555,13 @@ public class PaymentGatewayServices {
         // now invoke the capture service
         Map captureResult = null;
         try {
-            captureResult = dispatcher.runSync(serviceName, captureContext, TX_TIME, true);
+            // NOTE DEJ20070819 calling this with a new transaction synchronously caused a deadlock because in this 
+            //transaction OrderHeader was updated and with this transaction paused and waiting for the new transaction
+            //and the new transaction was waiting trying to read the same OrderHeader record; note that this only happens
+            //for FinAccounts because they are processed internally whereas others are not
+            // NOTE HOW TO FIX: don't call in separate transaction from here; individual services can have require-new-transaction
+            //set to true if they want to behave that way (had: [, TX_TIME, true])
+            captureResult = dispatcher.runSync(serviceName, captureContext);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Could not capture payment ... serviceName: " + serviceName + " ... context: " + captureContext, module);
             return null;
