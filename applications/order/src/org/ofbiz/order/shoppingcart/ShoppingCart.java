@@ -1898,7 +1898,7 @@ public class ShoppingCart implements Serializable {
     }
 
     public CartShipInfo getShipInfo(int idx) {
-        if (idx == -1 ) {
+        if (idx == -1) {
             return null;
         }
 
@@ -2108,7 +2108,7 @@ public class ShoppingCart implements Serializable {
                 }
             }
         }
-        csi.contactMechId = shippingContactMechId;
+        csi.setContactMechId(shippingContactMechId);
     }
 
     public void setShippingContactMechId(String shippingContactMechId) {
@@ -2118,7 +2118,7 @@ public class ShoppingCart implements Serializable {
     /** Returns the shipping contact mech id. */
     public String getShippingContactMechId(int idx) {
         CartShipInfo csi = this.getShipInfo(idx);
-        return csi.contactMechId;
+        return csi.getContactMechId();
     }
 
     public String getShippingContactMechId() {
@@ -4054,7 +4054,7 @@ public class ShoppingCart implements Serializable {
         public LinkedMap shipItemInfo = new LinkedMap();
         public List shipTaxAdj = new LinkedList();
         public String orderTypeId = null;
-        public String contactMechId = null;
+        private String internalContactMechId = null;
         public String shipmentMethodTypeId = null;
         public String supplierPartyId = null;
         public String carrierRoleTypeId = null;
@@ -4068,7 +4068,11 @@ public class ShoppingCart implements Serializable {
         public Timestamp shipAfterDate = null;
 
         public String getOrderTypeId() { return orderTypeId; }
-        public String getContactMechId() { return contactMechId; }
+        public String getContactMechId() { return internalContactMechId; }
+        public void setContactMechId(String contactMechId) {
+            this.internalContactMechId = contactMechId;
+            // Debug.logInfo(new Exception(), "Set CartShipInfo.contactMechId=" + this.internalContactMechId, module);
+        }
         public String getCarrierPartyId() { return carrierPartyId; }
         public String getSupplierPartyId() { return supplierPartyId; }
         public String getShipmentMethodTypeId() { return shipmentMethodTypeId; }
@@ -4078,10 +4082,10 @@ public class ShoppingCart implements Serializable {
             List values = new LinkedList();
             
             // create order contact mech for shipping address
-            if (contactMechId != null) {
+            if (this.internalContactMechId != null) {
                 GenericValue orderCm = delegator.makeValue("OrderContactMech", null);
                 orderCm.set("contactMechPurposeTypeId", "SHIPPING_LOCATION");
-                orderCm.set("contactMechId", contactMechId);
+                orderCm.set("contactMechId", this.internalContactMechId);
                 values.add(orderCm);
             }
 
@@ -4093,7 +4097,7 @@ public class ShoppingCart implements Serializable {
             shipGroup.set("supplierPartyId", supplierPartyId);
             shipGroup.set("shippingInstructions", shippingInstructions);
             shipGroup.set("giftMessage", giftMessage);
-            shipGroup.set("contactMechId", contactMechId);
+            shipGroup.set("contactMechId", this.internalContactMechId);
             shipGroup.set("maySplit", maySplit);
             shipGroup.set("isGift", isGift);
             shipGroup.set("shipGroupSeqId", shipGroupSeqId);
@@ -4219,9 +4223,9 @@ public class ShoppingCart implements Serializable {
                 // the products already in the cart
                 GenericValue shippingAddress = null;
                 try {
-                    shippingAddress = item.getDelegator().findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", contactMechId));
+                    shippingAddress = item.getDelegator().findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", this.internalContactMechId));
                 } catch(GenericEntityException gee) {
-                    Debug.logError(gee, "Error retrieving the shipping address for contactMechId [" + contactMechId + "].", module);
+                    Debug.logError(gee, "Error retrieving the shipping address for contactMechId [" + this.internalContactMechId + "].", module);
                 }
                 if (shippingAddress != null) {
                     GenericValue product = item.getProduct();

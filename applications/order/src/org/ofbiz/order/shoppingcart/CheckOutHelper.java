@@ -730,7 +730,7 @@ public class CheckOutHelper {
     }
 
     public void calcAndAddTax(GenericValue shipAddress) throws GeneralException {
-        if (!"SALES_ORDER".equals(cart.getOrderType()) || (UtilValidate.isEmpty(cart.getShippingContactMechId()) && cart.getBillingAddress()==null)) {
+        if (!"SALES_ORDER".equals(cart.getOrderType()) || (UtilValidate.isEmpty(cart.getShippingContactMechId()) && cart.getBillingAddress() == null && shipAddress == null)) {
             return;
         }
 
@@ -772,6 +772,8 @@ public class CheckOutHelper {
         List price = new ArrayList(totalItems);
         List shipAmt = new ArrayList(totalItems);
 
+        // Debug.logInfo("====== makeTaxContext passed in shipAddress=" + shipAddress, module);
+        
         for (int i = 0; i < totalItems; i++) {
             ShoppingCartItem cartItem = (ShoppingCartItem) csi.shipItemInfo.get(i);
             ShoppingCart.CartShipInfo.CartShipItemInfo itemInfo = csi.getShipItemInfo(cartItem);
@@ -788,6 +790,7 @@ public class CheckOutHelper {
         BigDecimal shipAmount = new BigDecimal(csi.shipEstimate);
         if (shipAddress == null) {
             shipAddress = cart.getShippingAddress(shipGroup);
+            // Debug.logInfo("====== makeTaxContext set shipAddress to cart.getShippingAddress(shipGroup): " + shipAddress, module);
         }
 
         // no shipping address; try the billing address
@@ -797,7 +800,7 @@ public class CheckOutHelper {
                 GenericValue billAddr = cpi.getBillingAddress(delegator);
                 if (billAddr != null) {
                     shipAddress = billAddr;
-                    Debug.logInfo("Found address from payment method.", module);
+                    Debug.logInfo("In makeTaxContext no shipping address, but found address with ID [" + shipAddress.get("contactMechId") + "] from payment method.", module);
                 }
                 break;
             }
