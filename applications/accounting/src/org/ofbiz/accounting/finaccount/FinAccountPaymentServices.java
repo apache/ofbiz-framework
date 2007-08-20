@@ -148,7 +148,7 @@ public class FinAccountPaymentServices {
                         result.put("authFlag", "0");
                         result.put("authCode", "A");
                         result.put("authRefNum", "0");
-                        Debug.logError("Unable to auth FinAccount: " + result, module);
+                        Debug.logWarning("Unable to auth FinAccount: " + result, module);
                         return result;
                     }
                 }
@@ -163,7 +163,7 @@ public class FinAccountPaymentServices {
                 result.put("authFlag", "0");
                 result.put("authCode", "A");
                 result.put("authRefNum", "0");
-                Debug.logError("Unable to auth FinAccount: " + result, module);
+                Debug.logWarning("Unable to auth FinAccount: " + result, module);
                 return result;
             }
 
@@ -176,13 +176,13 @@ public class FinAccountPaymentServices {
 
                 if (inGoodStanding != null && "N".equals(inGoodStanding)) {
                     Map result = ServiceUtil.returnSuccess();
-                    result.put("authMessage", "Account is currently in bad standing");
+                    result.put("authMessage", "Account is currently not in good standing");
                     result.put("authResult", Boolean.FALSE);
                     result.put("processAmount", amount);
                     result.put("authFlag", "0");
                     result.put("authCode", "A");
                     result.put("authRefNum", "0");
-                    Debug.logError("Unable to auth FinAccount: " + result, module);
+                    Debug.logWarning("Unable to auth FinAccount: " + result, module);
                     return result;
                 }
             }
@@ -202,7 +202,7 @@ public class FinAccountPaymentServices {
                     result.put("authFlag", "0");
                     result.put("authCode", "A");
                     result.put("authRefNum", "0");
-                    Debug.logError("Unable to auth FinAccount: " + result, module);
+                    Debug.logWarning("Unable to auth FinAccount: " + result, module);
                     return result;
                 }
             }
@@ -370,6 +370,21 @@ public class FinAccountPaymentServices {
                 partyId = billToParty.getString("partyId");
             }
         }
+        
+        // BIG NOTE: make sure the expireFinAccountAuth and finAccountWithdraw services are done in the SAME TRANSACTION 
+        //(ie no require-new-transaction in either of them AND no running async) 
+
+        // cancel the authorization before doing the withdraw to avoid problems with way negative available amount on account; should happen in same transaction to avoid conflict problems
+        Map releaseResult;
+        try {
+            releaseResult = dispatcher.runSync("expireFinAccountAuth", UtilMisc.toMap("userLogin", userLogin, "finAccountAuthId", finAccountAuthId));
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        if (ServiceUtil.isError(releaseResult)) {
+            return releaseResult;
+        }
 
         // build the withdraw context
         Map withdrawCtx = FastMap.newInstance();
@@ -392,18 +407,6 @@ public class FinAccountPaymentServices {
         }
         if (ServiceUtil.isError(withdrawResp)) {
             return withdrawResp;
-        }
-
-        // cancel the authorization
-        Map releaseResult;
-        try {
-            releaseResult = dispatcher.runSync("expireFinAccountAuth", UtilMisc.toMap("userLogin", userLogin, "finAccountAuthId", finAccountAuthId));
-        } catch (GenericServiceException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
-        }
-        if (ServiceUtil.isError(releaseResult)) {
-            return releaseResult;
         }
 
         // create the capture response
@@ -700,27 +703,29 @@ public class FinAccountPaymentServices {
 
         // get the product store settings
         GenericValue finAccountSettings;
+        Map psfasFindMap = UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccount.getString("finAccountTypeId"));
         try {
-            finAccountSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting",
-                    UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId",
-                            finAccount.getString("finAccountTypeId")));
+            finAccountSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", psfasFindMap);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
         if (finAccountSettings == null) {
+            Debug.logWarning("finAccountReplenish Warning: not replenishing FinAccount [" + finAccountId  + "] because no ProductStoreFinActSetting record found for: " + psfasFindMap, module);
             // no settings; don't replenish
             return ServiceUtil.returnSuccess();
         }
 
         Double replThres = finAccountSettings.getDouble("replenishThreshold");
         if (replThres == null) {
+            Debug.logWarning("finAccountReplenish Warning: not replenishing FinAccount [" + finAccountId  + "] because ProductStoreFinActSetting.replenishThreshold field was null for: " + psfasFindMap, module);
             return ServiceUtil.returnSuccess();
         }
         BigDecimal replenishThreshold = new BigDecimal(replThres);
 
         BigDecimal replenishLevel = finAccount.getBigDecimal("replenishLevel");
         if (replenishLevel == null || replenishLevel.compareTo(FinAccountHelper.ZERO) == 0) {
+            Debug.logWarning("finAccountReplenish Warning: not replenishing FinAccount [" + finAccountId  + "] because FinAccount.replenishLevel field was null or 0", module);
             // no replenish level set; this account goes not support auto-replenish
             return ServiceUtil.returnSuccess();
         }
@@ -730,6 +735,7 @@ public class FinAccountPaymentServices {
 
         // see if we are within the threshold for replenishment
         if (balance.compareTo(replenishThreshold) > -1) {
+            Debug.logInfo("finAccountReplenish Info: Not replenishing FinAccount [" + finAccountId  + "] because balance [" + balance + "] is greater than the replenishThreshold [" + replenishThreshold + "]", module);
             // not ready
             return ServiceUtil.returnSuccess();        
         }
@@ -750,14 +756,14 @@ public class FinAccountPaymentServices {
         String ownerPartyId = finAccount.getString("ownerPartyId");
         if (ownerPartyId == null) {
             // no owner cannot replenish; (not fatal, just not supported by this account)
-            Debug.logWarning("No owner attached to financial account [" + finAccountId + "] cannot auto-replenish", module);
+            Debug.logWarning("finAccountReplenish Warning: No owner attached to financial account [" + finAccountId + "] cannot auto-replenish", module);
             return ServiceUtil.returnSuccess();
         }
 
         // get the payment method to use to replenish
         String paymentMethodId = finAccount.getString("replenishPaymentId");
         if (paymentMethodId == null) {
-            Debug.logError("No payment method attached to financial account [" + finAccountId + "] cannot auto-replenish", module);
+            Debug.logWarning("finAccountReplenish Warning: No payment method (replenishPaymentId) attached to financial account [" + finAccountId + "] cannot auto-replenish", module);
             return ServiceUtil.returnError("No payment method associated with replenish account");
         }
 
@@ -770,7 +776,7 @@ public class FinAccountPaymentServices {
         }
         if (paymentMethod == null) {
             // no payment methods on file; cannot replenish
-            Debug.logWarning("No payment method found for ID [" + paymentMethodId + "] for party [" + ownerPartyId + "] cannot auto-replenish", module);
+            Debug.logWarning("finAccountReplenish Warning: No payment method found for ID [" + paymentMethodId + "] for party [" + ownerPartyId + "] cannot auto-replenish", module);
             return ServiceUtil.returnError("Cannot locate payment method ID [" + paymentMethodId + "]");
         }
 
@@ -805,22 +811,23 @@ public class FinAccountPaymentServices {
         depositCtx.put("orderItemSeqId", "00001"); // always one item on a replish order
         depositCtx.put("amount",  new Double(depositAmount.doubleValue()));
         depositCtx.put("userLogin", userLogin);
-        Map depositResp;
         try {
-            depositResp = dispatcher.runSync("finAccountDeposit", depositCtx);
+            Map depositResp = dispatcher.runSync("finAccountDeposit", depositCtx);
+            if (ServiceUtil.isError(depositResp)) {
+                return depositResp;
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-        if (ServiceUtil.isError(depositResp)) {
-            return depositResp;
-        }
 
         // say we are in good standing again
-        finAccount.set("inGoodStanding", "Y");
         try {
-            finAccount.store();
-        } catch (GenericEntityException e) {
+            Map ufaResp = dispatcher.runSync("updateFinAccount", UtilMisc.toMap("finAccountId", finAccountId, "inGoodStanding", "Y", "userLogin", userLogin));
+            if (ServiceUtil.isError(ufaResp)) {
+                return ufaResp;
+            }
+        } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }

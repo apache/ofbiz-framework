@@ -178,6 +178,7 @@ under the License.
         <entity-condition entity-name="FinAccountTrans" list-name="finAccountTransList">
             <condition-expr field-name="finAccountId" env-name="finAccountId"/>
         </entity-condition>
+        <set field="actualBalanceSum" value="0" type="BigDecimal"/>
         <iterate entry-name="finAccountTrans" list-name="finAccountTransList">
             <if>
                 <condition><if-compare field-name="finAccountTrans.finAccountTransTypeId" operator="equals" value="DEPOSIT"/></condition>
@@ -213,8 +214,9 @@ under the License.
         
         <!-- Okay, now just store the results -->
         <entity-one entity-name="FinAccount" value-name="finAccount"/>
-        <set field="finAccount.actualBalance" from-field="actualBalanceSum"/>
-        <set field="finAccount.availableBalance" from-field="availableBalanceSum"/>
+        <log level="info" message="Updating FinAccount with ID [${finAccountId}] with actualBalance=${actualBalanceSum}, and availableBalance=${availableBalanceSum}"/>
+        <set field="finAccount.actualBalance" from-field="actualBalanceSum" type="Double"/>
+        <set field="finAccount.availableBalance" from-field="availableBalanceSum" type="Double"/>
         <store-value value-name="finAccount"/>
     </simple-method>
 </simple-methods>
