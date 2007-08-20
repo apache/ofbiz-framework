@@ -72,18 +72,18 @@ public class WfsViewHandler implements ViewHandler {
 
         if (Debug.infoOn()) Debug.logInfo("Retreiving HTTP resource at: " + page, module);
         try {
-           String result = null;
+            String result = null;
             
-           List entityList = (List)request.getAttribute("entityList");
-           SimpleSequence simpleList = new SimpleSequence(entityList);
-           Map ctx = new HashMap();
-           ctx.put("entityList", simpleList);
-           StringWriter outWriter = new StringWriter();
-           Template template = getDocTemplate(page);
-           template.process(ctx, outWriter);
-           outWriter.close();
-           result = outWriter.toString();
-           Debug.logInfo(result, result);
+            List entityList = (List)request.getAttribute("entityList");
+            SimpleSequence simpleList = new SimpleSequence(entityList);
+            Map ctx = new HashMap();
+            ctx.put("entityList", simpleList);
+            StringWriter outWriter = new StringWriter();
+            Template template = getDocTemplate(page);
+            template.process(ctx, outWriter);
+            outWriter.close();
+            result = outWriter.toString();
+            Debug.logInfo(result, result);
             response.getWriter().print(result);
         } catch (FileNotFoundException e) {
             throw new ViewHandlerException(e.getMessage(), e);
@@ -97,20 +97,14 @@ public class WfsViewHandler implements ViewHandler {
     }
     
     public static Template getDocTemplate(String fileUrl)  throws FileNotFoundException, IOException, TemplateException, URISyntaxException { 
-
         Template template = null;
-                
         URL screenFileUrl = FlexibleLocation.resolveLocation(fileUrl, null);
         String urlStr = screenFileUrl.toString();
         URI uri = new URI(urlStr);
         File f = new File(uri);
-                
         FileReader templateReader = new FileReader(f);
-
         Configuration conf = makeDefaultOfbizConfig();
-
         template = new Template("FMImportFilter", templateReader, conf);
-
         return template;
     }
 

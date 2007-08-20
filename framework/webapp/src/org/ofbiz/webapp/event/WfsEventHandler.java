@@ -199,39 +199,28 @@ public class WfsEventHandler implements EventHandler {
     }
     
     public static String processWfsEntity(String entityName, Node domNode, String templatePath) throws TemplateException, FileNotFoundException, IOException, URISyntaxException {
-        
         String result = null;
-        
-            NodeModel nodeModel = NodeModel.wrap(domNode);
-    
-            Map ctx = new HashMap();
-            ctx.put("doc", nodeModel);
-            ctx.put("entityName", entityName);
-            StringWriter outWriter = new StringWriter();
-            Template template = getDocTemplate(templatePath);
-            template.process(ctx, outWriter);
-            outWriter.close();
-            result = outWriter.toString();
-
+        NodeModel nodeModel = NodeModel.wrap(domNode);
+        Map ctx = new HashMap();
+        ctx.put("doc", nodeModel);
+        ctx.put("entityName", entityName);
+        StringWriter outWriter = new StringWriter();
+        Template template = getDocTemplate(templatePath);
+        template.process(ctx, outWriter);
+        outWriter.close();
+        result = outWriter.toString();
         return result;
     }
-    
-    
+
     public static Template getDocTemplate(String fileUrl)  throws FileNotFoundException, IOException, TemplateException, URISyntaxException { 
-
         Template template = null;
-                
-                URL screenFileUrl = FlexibleLocation.resolveLocation(fileUrl, null);
-                String urlStr = screenFileUrl.toString();
-                URI uri = new URI(urlStr);
-                File f = new File(uri);
-                
-            FileReader templateReader = new FileReader(f);
-
-            Configuration conf = makeDefaultOfbizConfig();
-
-            template = new Template("FMImportFilter", templateReader, conf);
-
+        URL screenFileUrl = FlexibleLocation.resolveLocation(fileUrl, null);
+        String urlStr = screenFileUrl.toString();
+        URI uri = new URI(urlStr);
+        File f = new File(uri);
+        FileReader templateReader = new FileReader(f);
+        Configuration conf = makeDefaultOfbizConfig();
+        template = new Template("FMImportFilter", templateReader, conf);
         return template;
     }
 
