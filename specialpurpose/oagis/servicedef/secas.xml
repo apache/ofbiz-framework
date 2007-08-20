@@ -25,15 +25,17 @@ under the License.
         <condition field-name="statusId" operator="equals" value="ORDER_APPROVED"/>
         <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
-        <action service="oagisProcessShipment" mode="async" persist="true"/>
+        <action service="oagisSendProcessShipment" mode="async" persist="true"/>
     </eca>
     <eca service="updateReturnHeader" event="commit">
         <condition field-name="statusId" operator="equals" value="RETURN_ACCEPTED"/>
-        <action service="oagisReceiveDelivery" mode="async" persist="true"/>
+        <action service="oagisSendReceiveDelivery" mode="async" persist="true"/>
     </eca>
+    -->
     
+    <!-- causing double calls to oagisSendProcessShipment for non-backorder scenarios
     <eca service="reserveProductInventoryByFacility" event="global-commit">
-        <action service="oagisProcessShipment" mode="sync"/>
+        <action service="oagisSendProcessShipment" mode="async" persist="true"/>
     </eca>
     -->
 </service-eca>

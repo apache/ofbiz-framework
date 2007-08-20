@@ -80,7 +80,7 @@ public class OagisShipmentServices {
     public static final String oagisSegmentsNamespacePrefix = "os";
     public static final String oagisFieldsNamespacePrefix = "of";
         
-    public static Map showShipment(DispatchContext ctx, Map context) {
+    public static Map oagisReceiveShowShipment(DispatchContext ctx, Map context) {
         Document doc = (Document) context.get("document");
         boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
         
@@ -469,7 +469,7 @@ public class OagisShipmentServices {
         return result;
     }
 
-    public static Map oagisProcessShipment(DispatchContext ctx, Map context) {
+    public static Map oagisSendProcessShipment(DispatchContext ctx, Map context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericDelegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
@@ -505,7 +505,7 @@ public class OagisShipmentServices {
         
         OutputStream out = (OutputStream) context.get("outputStream");
         
-        if (Debug.infoOn()) Debug.logInfo("Call to oagisProcessShipment for orderId [" + orderId + "], sendToUrl=[" + sendToUrl + "], saveToDirectory=[" + saveToDirectory + "], saveToFilename=[" + saveToFilename + "]", module);
+        if (Debug.infoOn()) Debug.logInfo("Call to oagisSendProcessShipment for orderId [" + orderId + "], sendToUrl=[" + sendToUrl + "], saveToDirectory=[" + saveToDirectory + "], saveToFilename=[" + saveToFilename + "]", module);
         
         Map result = ServiceUtil.returnSuccess();
         MapStack bodyParameters =  MapStack.create();
@@ -598,7 +598,7 @@ public class OagisShipmentServices {
                     String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
                     Debug.logError(e, errMsg, module);
                 }
-                if (Debug.infoOn()) Debug.logInfo("Saved OagisMessageInfo for oagisProcessShipment message for orderId [" + orderId + "]", module);
+                if (Debug.infoOn()) Debug.logInfo("Saved OagisMessageInfo for oagisSendProcessShipment message for orderId [" + orderId + "]", module);
 
                 String shipmentId = null;
                 try {
@@ -709,7 +709,7 @@ public class OagisShipmentServices {
                     Debug.logError(e, errMsg, module);
                     return ServiceUtil.returnError(errMsg);
                 }
-                if (Debug.infoOn()) Debug.logInfo("Finished rendering oagisProcessShipment message for orderId [" + orderId + "]", module);
+                if (Debug.infoOn()) Debug.logInfo("Finished rendering oagisSendProcessShipment message for orderId [" + orderId + "]", module);
 
                 try {
                     comiCtx.put("processingStatusId", "OAGMP_OGEN_SUCCESS");
@@ -725,7 +725,7 @@ public class OagisShipmentServices {
                 
                 Map sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename);
 
-                if (Debug.infoOn()) Debug.logInfo("Message send done for oagisProcessShipment for orderId [" + orderId + "], sendToUrl=[" + sendToUrl + "], saveToDirectory=[" + saveToDirectory + "], saveToFilename=[" + saveToFilename + "]", module);
+                if (Debug.infoOn()) Debug.logInfo("Message send done for oagisSendProcessShipment for orderId [" + orderId + "], sendToUrl=[" + sendToUrl + "], saveToDirectory=[" + saveToDirectory + "], saveToFilename=[" + saveToFilename + "]", module);
                 try {
                     comiCtx.put("processingStatusId", "OAGMP_SENT");
                     dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
@@ -742,7 +742,7 @@ public class OagisShipmentServices {
         return result;
     }
     
-    public static Map oagisReceiveDelivery(DispatchContext dctx, Map context) {
+    public static Map oagisSendReceiveDelivery(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         String returnId = (String) context.get("returnId");

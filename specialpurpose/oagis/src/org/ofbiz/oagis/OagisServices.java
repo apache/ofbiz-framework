@@ -529,21 +529,21 @@ public class OagisServices {
             }
         } else if (bsrVerb.equalsIgnoreCase("SHOW") && bsrNoun.equalsIgnoreCase("SHIPMENT")) {
             try {
-                //subServiceResult = dispatcher.runSync("showShipment", messageProcessContext);
+                //subServiceResult = dispatcher.runSync("oagisReceiveShowShipment", messageProcessContext);
                 // DEJ20070808 changed to run asynchronously and persisted so that if it fails it will retry; for transaction deadlock and other reasons
-                dispatcher.runAsync("showShipment", messageProcessContext, true);
+                dispatcher.runAsync("oagisReceiveShowShipment", messageProcessContext, true);
             } catch (GenericServiceException e) {
-                String errMsg = "Error running service showShipment: " + e.toString();
+                String errMsg = "Error running service oagisReceiveShowShipment: " + e.toString();
                 errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                 Debug.logError(e, errMsg, module);
             }
         } else if (bsrVerb.equalsIgnoreCase("SYNC") && bsrNoun.equalsIgnoreCase("INVENTORY")) {
             try {
-                //subServiceResult = dispatcher.runSync("syncInventory", messageProcessContext);
+                //subServiceResult = dispatcher.runSync("oagisReceiveSyncInventory", messageProcessContext);
                 // DEJ20070808 changed to run asynchronously and persisted so that if it fails it will retry; for transaction deadlock and other reasons
-                dispatcher.runAsync("syncInventory", messageProcessContext, true);
+                dispatcher.runAsync("oagisReceiveSyncInventory", messageProcessContext, true);
             } catch (GenericServiceException e) {
-                String errMsg = "Error running service syncInventory: " + e.toString();
+                String errMsg = "Error running service oagisReceiveSyncInventory: " + e.toString();
                 errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                 Debug.logError(e, errMsg, module);
             }
@@ -555,19 +555,19 @@ public class OagisServices {
             String docType = UtilXml.childElementValue(docRefElement, "of:DOCTYPE");
             if ("PO".equals(docType)) {
                 try {
-                    //subServiceResult = dispatcher.runSync("receivePoAcknowledge", messageProcessContext);
-                    dispatcher.runAsync("receivePoAcknowledge", messageProcessContext, true);
+                    //subServiceResult = dispatcher.runSync("oagisReceiveAcknowledgeDeliveryPo", messageProcessContext);
+                    dispatcher.runAsync("oagisReceiveAcknowledgeDeliveryPo", messageProcessContext, true);
                 } catch (GenericServiceException e) {
-                    String errMsg = "Error running service receivePoAcknowledge: " + e.toString();
+                    String errMsg = "Error running service oagisReceiveAcknowledgeDeliveryPo: " + e.toString();
                     errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                     Debug.logError(e, errMsg, module);
                 }
             } else if ("RMA".equals(docType)) {
                 try {
-                    //subServiceResult = dispatcher.runSync("receiveRmaAcknowledge", messageProcessContext);
-                    dispatcher.runAsync("receiveRmaAcknowledge", messageProcessContext, true);
+                    //subServiceResult = dispatcher.runSync("oagisReceiveAcknowledgeDeliveryRma", messageProcessContext);
+                    dispatcher.runAsync("oagisReceiveAcknowledgeDeliveryRma", messageProcessContext, true);
                 } catch (GenericServiceException e) {
-                    String errMsg = "Error running service receiveRmaAcknowledge: " + e.toString();
+                    String errMsg = "Error running service oagisReceiveAcknowledgeDeliveryRma: " + e.toString();
                     errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                     Debug.logError(e, errMsg, module);
                 }

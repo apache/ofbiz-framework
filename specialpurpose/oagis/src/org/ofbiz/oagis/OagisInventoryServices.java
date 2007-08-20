@@ -61,7 +61,7 @@ public class OagisInventoryServices {
 
     public static final String syncInventoryFacilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryFacilityId");
     
-    public static Map syncInventory(DispatchContext ctx, Map context) {
+    public static Map oagisReceiveSyncInventory(DispatchContext ctx, Map context) {
         Document doc = (Document) context.get("document");
         boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
 
@@ -285,7 +285,7 @@ public class OagisInventoryServices {
                     dispatcher.runAsync("sendMailFromScreen", sendMap, true);
                 } else {
                     // no send to email address, just log to file
-                    Debug.logImportant("No sendTo email address found in process syncInventory service: inventoryMapList: " + inventoryMapList, module);
+                    Debug.logImportant("No sendTo email address found in process oagisReceiveSyncInventory service: inventoryMapList: " + inventoryMapList, module);
                 }
             } catch (Throwable t) {
                 String errMsg = "System Error processing Sync Inventory message: " + t.toString();
@@ -357,7 +357,7 @@ public class OagisInventoryServices {
         return result;
     }
     
-    public static Map receivePoAcknowledge(DispatchContext ctx, Map context) {
+    public static Map oagisReceiveAcknowledgeDeliveryPo(DispatchContext ctx, Map context) {
         Document doc = (Document) context.get("document");
         boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
 
@@ -602,7 +602,7 @@ public class OagisInventoryServices {
         return result;
     }
     
-    public static Map receiveRmaAcknowledge(DispatchContext ctx, Map context) {
+    public static Map oagisReceiveAcknowledgeDeliveryRma(DispatchContext ctx, Map context) {
         Document doc = (Document) context.get("document");
         boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
 
@@ -950,7 +950,7 @@ public class OagisInventoryServices {
                     String statusId = (String) processedStatusIdByReturnIdEntry.getValue();
 
                     if (UtilValidate.isNotEmpty(statusId) && statusId.equals("RETURN_ACCEPTED")) {
-                        // TODOLATER (see note below): check to see if all return items have been received, if so then set to received then completed
+                        // TODO (see note below): check to see if all return items have been received, if so then set to received then completed
                         // NOTE DEJ20070815 because of the way the inventory is being received, ie not through the return; reviewing other code it looks like nothing 
                         //updates ReturnItem status or anything anyway, and there is no Return/Item stuff on the InventoryItemDetail to track it back; 
                         //so giving up on attempt to do this, will support multiple returns per message, but all must be complete a complete one at that, which is a BAD assumption
