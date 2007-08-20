@@ -732,8 +732,10 @@ public class ProductionRunServices {
         }
         
         String currentStatusId = theTask.getString("currentStatusId");
-        
+        String oldStatusId = theTask.getString("currentStatusId"); // pass back old status for secas to check
+
         if (statusId != null && currentStatusId.equals(statusId)) {
+            result.put("oldStatusId", oldStatusId);
             result.put("newStatusId", currentStatusId);
             result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "ManufacturingProductionRunTaskStatusChanged",UtilMisc.toMap("newStatusId", currentStatusId), locale));
             return result;
@@ -776,6 +778,7 @@ public class ProductionRunServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
                 }
             }
+            result.put("oldStatusId", oldStatusId);
             result.put("newStatusId", "PRUN_RUNNING");
             result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusChanged",UtilMisc.toMap("newStatusId", "PRUN_DOC_PRINTED"), locale));
             return result;
@@ -854,10 +857,12 @@ public class ProductionRunServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
                 }
             }
+            result.put("oldStatusId", oldStatusId);
             result.put("newStatusId", "PRUN_COMPLETED");
             result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusChanged",UtilMisc.toMap("newStatusId", "PRUN_DOC_PRINTED"), locale));
             return result;
         }
+        result.put("oldStatusId", oldStatusId);
         result.put("newStatusId", currentStatusId);
         result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "ManufacturingProductionRunTaskStatusChanged",UtilMisc.toMap("newStatusId", currentStatusId), locale));
         return result;
