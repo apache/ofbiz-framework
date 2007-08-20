@@ -211,16 +211,18 @@ public class TaxAuthorityServices {
             if (UtilValidate.isNotEmpty(postalCodeGeoId)) {
             	geoIdSet.add(postalCodeGeoId);
             }
+        } else {
+            Debug.logWarning("shippingAddress was null, adding nothing to taxAuthoritySet", module);
         }
         
-        // Debug.logInfo("Tax calc geoIdSet before expand:" + geoIdSet, module);
+        //Debug.logInfo("Tax calc geoIdSet before expand:" + geoIdSet + "; this is for shippingAddress=" + shippingAddress, module);
         // get the most granular, or all available, geoIds and then find parents by GeoAssoc with geoAssocTypeId="REGIONS" and geoIdTo=<granular geoId> and find the GeoAssoc.geoId
         geoIdSet = GeoWorker.expandGeoRegionDeep(geoIdSet, delegator);
-        // Debug.logInfo("Tax calc geoIdSet after expand:" + geoIdSet, module);
+        //Debug.logInfo("Tax calc geoIdSet after expand:" + geoIdSet, module);
 
         List taxAuthorityRawList = delegator.findByConditionCache("TaxAuthority", new EntityExpr("taxAuthGeoId", EntityOperator.IN, geoIdSet), null, null);
         taxAuthoritySet.addAll(taxAuthorityRawList);
-        // Debug.logInfo("Tax calc taxAuthoritySet after expand:" + taxAuthoritySet, module);
+        //Debug.logInfo("Tax calc taxAuthoritySet after expand:" + taxAuthoritySet, module);
     }
 
     private static List getTaxAdjustments(GenericDelegator delegator, GenericValue product, GenericValue productStore, String payToPartyId, String billToPartyId, Set taxAuthoritySet, BigDecimal itemPrice, BigDecimal itemAmount, BigDecimal shippingAmount) {
@@ -355,7 +357,7 @@ public class TaxAuthorityServices {
                 if (taxAuthGeoId != null) adjValue.set("taxAuthGeoId", taxAuthGeoId);
 
                 // check to see if this party has a tax ID for this, and if the party is tax exempt in the primary (most-local) jurisdiction
-                if (UtilValidate.isNotEmpty(billToPartyId) && taxAuthGeoId != null) {
+                if (UtilValidate.isNotEmpty(billToPartyId) && UtilValidate.isNotEmpty(taxAuthGeoId)) {
                     // see if partyId is a member of any groups, if so honor their tax exemptions
                     // look for PartyRelationship with partyRelationshipTypeId=GROUP_ROLLUP, the partyIdTo is the group member, so the partyIdFrom is the groupPartyId
                     Set billToPartyIdSet = FastSet.newInstance();
