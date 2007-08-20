@@ -2946,7 +2946,7 @@ public class ShoppingCart implements Serializable {
             }
         }
 
-        // remove cart lines that are promos (ie GWPs) and cart line adjustments from promo actions
+        // add cart line adjustments from promo actions
         Iterator cartItemIter = this.iterator();
         while (cartItemIter.hasNext()) {
             ShoppingCartItem checkItem = (ShoppingCartItem) cartItemIter.next();
