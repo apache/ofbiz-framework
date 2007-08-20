@@ -338,8 +338,8 @@ under the License.
         <field name="postToGlAccountId" type="id"></field>
         <field name="fromDate" type="date-time"><description>Describes when account will be valid. If null, valid immediately.</description></field>
         <field name="thruDate" type="date-time"><description>Expiration date of the account. If null, will never expire.</description></field>
-        <field name="isFrozen" type="indicator"></field>
-        <field name="inGoodStanding" type="indicator"></field>
+        <field name="isFrozen" type="indicator"><description>This is meant to be set manually by a company representative to freeze an account so further transactions are not allowed.</description></field>
+        <field name="inGoodStanding" type="indicator"><description>This is set automatically by the auto-replenishment code to allow one transaction to bring the balance below zero and then if any other transactions are attempted during replenishment they will be rejected.</description></field>
         <field name="isRefundable" type="indicator"></field>
         <field name="replenishPaymentId" type="id"></field>
         <field name="replenishLevel" type="currency-amount"></field>
