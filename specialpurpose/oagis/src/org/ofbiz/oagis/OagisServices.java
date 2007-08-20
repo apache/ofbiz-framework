@@ -510,9 +510,29 @@ public class OagisServices {
                 // there was an error last time, tell the service this is a retry
                 messageProcessContext.put("isErrorRetry", Boolean.TRUE);
             } else {
-                String errMsg = "Message already received with ID: " + oagisMessageInfoKey;
-                Debug.logError(errMsg, module);
-                return ServiceUtil.returnError(errMsg);
+                String responseMsg = "Message already received with ID: " + oagisMessageInfoKey;
+                Debug.logError(responseMsg, module);
+
+                List errorMapList = UtilMisc.toList(UtilMisc.toMap("reasonCode", "MessageAlreadyReceive", "description", responseMsg));
+
+                Map sendConfirmBodCtx = FastMap.newInstance();
+                sendConfirmBodCtx.put("logicalId", logicalId);
+                sendConfirmBodCtx.put("component", component);
+                sendConfirmBodCtx.put("task", task);
+                sendConfirmBodCtx.put("referenceId", referenceId);
+                sendConfirmBodCtx.put("errorMapList", errorMapList);
+                sendConfirmBodCtx.put("userLogin", userLogin);
+
+                try {
+                    // run async because this will send a message back to the other server and may take some time, and/or fail
+                    dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
+                } catch (GenericServiceException e){
+                    String errMsg = "Error sending Confirm BOD: " + e.toString();
+                    Debug.logError(e, errMsg, module);
+                }
+                Map result = ServiceUtil.returnSuccess(responseMsg);
+                result.put("contentType", "text/plain");
+                return result;
             }
         }
         

@@ -335,7 +335,7 @@ public class OagisInventoryServices {
                 // run async because this will send a message back to the other server and may take some time, and/or fail
                 dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
             } catch (GenericServiceException e){
-                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                String errMsg = "Error sending Confirm BOD: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
             
@@ -580,7 +580,7 @@ public class OagisInventoryServices {
                 // run async because this will send a message back to the other server and may take some time, and/or fail
                 dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
             } catch (GenericServiceException e){
-                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                String errMsg = "Error sending Confirm BOD: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
             
@@ -737,6 +737,8 @@ public class OagisInventoryServices {
                         }
                     }
                     
+                    // TODOLATER: get the returnItem associated with the product received and update the receivedQuantity 
+                    
                     String datetimeReceived = UtilXml.childElementValue(receiptLnElement, "os:DATETIMEISO");
                     Timestamp timestampItemReceived = OagisServices.parseIsoDateString(datetimeReceived, errorMapList);
                     ripCtx.put("datetimeReceived", timestampItemReceived);
@@ -863,6 +865,8 @@ public class OagisInventoryServices {
                                         }
                                     }
                                     
+                                    // TODOLATER: another fun thing to check: see if the serial number matches a serial number attached to the original return (if possible!)
+                                    
                                     GenericValue inventoryItem = EntityUtil.getFirst(inventoryItemsBySerialNumber);
                                     if (inventoryItem != null) {
                                         Map updateInvItmMap = FastMap.newInstance();
@@ -950,12 +954,66 @@ public class OagisInventoryServices {
                     String statusId = (String) processedStatusIdByReturnIdEntry.getValue();
 
                     if (UtilValidate.isNotEmpty(statusId) && statusId.equals("RETURN_ACCEPTED")) {
-                        // TODO (see note below): check to see if all return items have been received, if so then set to received then completed
-                        // NOTE DEJ20070815 because of the way the inventory is being received, ie not through the return; reviewing other code it looks like nothing 
-                        //updates ReturnItem status or anything anyway, and there is no Return/Item stuff on the InventoryItemDetail to track it back; 
-                        //so giving up on attempt to do this, will support multiple returns per message, but all must be complete a complete one at that, which is a BAD assumption
-                        dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("statusId", "RETURN_RECEIVED", "returnId", returnId, "userLogin", userLogin));
-                        dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("statusId", "RETURN_COMPLETED", "returnId", returnId, "userLogin", userLogin));
+                        // check to see if all return items have been received, if so then set to received then completed
+                        
+                        // NOTE: an alternative method would be to see if the total has been received for each 
+                        //ReturnItem (receivedQuantity vs returnQuantity), but we may have a hard time matching 
+                        //those up so that information is probably not as reliable 
+                        
+                        // loop through ReturnItem records, get totals for each productId
+                        Map returnQuantityByProductIdMap = FastMap.newInstance();
+                        List returnItemList = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId));
+                        Iterator returnItemIter = returnItemList.iterator();
+                        while (returnItemIter.hasNext()) {
+                            GenericValue returnItem = (GenericValue) returnItemIter.next();
+                            String productId = returnItem.getString("productId");
+                            Double returnQuantityDbl = returnItem.getDouble("returnQuantity");
+                            if (UtilValidate.isNotEmpty(productId) && returnQuantityDbl != null) {
+                                double newTotal = returnQuantityDbl.doubleValue();
+                                Double existingTotal = (Double) returnQuantityByProductIdMap.get(productId);
+                                if (existingTotal != null) newTotal += existingTotal.doubleValue();
+                                returnQuantityByProductIdMap.put(productId, new Double(newTotal));
+                            }
+                        }
+                        
+                        // set to true, if we find any that aren't fully received, will set to false
+                        boolean fullReturnReceived = true;
+                        
+                        // for each productId see if total received is equal to the total for that ID
+                        Iterator returnQuantityByProductIdEntryIter = returnQuantityByProductIdMap.entrySet().iterator();
+                        while (returnQuantityByProductIdEntryIter.hasNext()) {
+                            Map.Entry returnQuantityByProductIdEntry = (Map.Entry) returnQuantityByProductIdEntryIter.next();
+                            String productId = (String) returnQuantityByProductIdEntry.getKey();
+                            double returnQuantity = ((Double) returnQuantityByProductIdEntry.getValue()).doubleValue();
+                            
+                            double inventoryQuantity = 0;
+                            // note no facilityId because we don't really care where the return items were received
+                            List inventoryItemDetailList = delegator.findByAnd("InventoryItemAndDetail", UtilMisc.toMap("productId", productId, "returnId", returnId));
+                            // NOTE only consider those with a quantityOnHandDiff > 0 so we just look at how many have been received, not what was actually done with them
+                            Iterator inventoryItemDetailIter = inventoryItemDetailList.iterator();
+                            while (inventoryItemDetailIter.hasNext()) {
+                                GenericValue inventoryItemDetail = (GenericValue) inventoryItemDetailIter.next();
+                                Double quantityOnHandDiff = inventoryItemDetail.getDouble("quantityOnHandDiff");
+                                if (quantityOnHandDiff != null && quantityOnHandDiff.doubleValue() > 0) {
+                                    inventoryQuantity += quantityOnHandDiff.doubleValue();
+                                }
+                            }
+                            
+                            if (inventoryQuantity < returnQuantity) {
+                                fullReturnReceived = false;
+                                break;
+                            } else if (inventoryQuantity > returnQuantity) {
+                                // TODOLATER: we received MORE than expected... what to do about that?!?
+                                String warnMsg = "Received more [" + inventoryQuantity + "] than were expected on return [" + returnQuantity + "] for Return ID [" + returnId + "] and Product ID [" + productId + "]";
+                                Debug.logWarning(warnMsg, module);
+                                // even with that, allow it to go through and complete the return
+                            }
+                        }
+                        
+                        if (fullReturnReceived) {
+                            dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("statusId", "RETURN_RECEIVED", "returnId", returnId, "userLogin", userLogin));
+                            dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("statusId", "RETURN_COMPLETED", "returnId", returnId, "userLogin", userLogin));
+                        }
                     }
                 }
             } catch (Throwable t) {
@@ -1007,7 +1065,7 @@ public class OagisInventoryServices {
                 // run async because this will send a message back to the other server and may take some time, and/or fail
                 dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
             } catch (GenericServiceException e){
-                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                String errMsg = "Error sending Confirm BOD: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
             
