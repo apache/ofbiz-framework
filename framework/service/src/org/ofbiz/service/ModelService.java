@@ -756,14 +756,20 @@ public class ModelService extends AbstractMap implements Serializable {
         }
 
         if (locale == null) {
-            locale = (Locale) source.get("locale");
+            // if statement here to avoid warning messages for Entity ECA service input validation, even though less efficient that doing a straight get
+            if (source.containsKey("locale")) {
+                locale = (Locale) source.get("locale");
+            }
             if (locale == null) {
                 locale = Locale.getDefault();
             }
         }
         
         if (timeZone == null) {
-            timeZone = (TimeZone) source.get("timeZone");
+            // if statement here to avoid warning messages for Entity ECA service input validation, even though less efficient that doing a straight get
+            if (source.containsKey("timeZone")) {
+                timeZone = (TimeZone) source.get("timeZone");
+            }
             if (timeZone == null) {
                 timeZone = TimeZone.getDefault();
             }
