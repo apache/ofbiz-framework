@@ -103,6 +103,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="InventoryItem" />
     <entity-group group="org.ofbiz" entity="InventoryItemAndLocation" />
     <entity-group group="org.ofbiz" entity="InventoryItemAttribute" />
+    <entity-group group="org.ofbiz" entity="InventoryItemAndDetail" />
     <entity-group group="org.ofbiz" entity="InventoryItemDetail" />
     <entity-group group="org.ofbiz" entity="InventoryItemDetailSummary" />
     <entity-group group="org.ofbiz" entity="InventoryItemDetailForSum" />
