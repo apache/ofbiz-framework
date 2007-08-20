@@ -448,7 +448,7 @@ public class OagisShipmentServices {
                 // run async because this will send a message back to the other server and may take some time, and/or fail
                 dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
             } catch (GenericServiceException e){
-                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                String errMsg = "Error sending Confirm BOD: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
             
@@ -882,7 +882,8 @@ public class OagisShipmentServices {
                                     }
                                 } else {
                                     // TODO: again a quantity mismatch, whatever to do?
-                                    Debug.logWarning("Number of serial numbers [" + itemIssuanceAndInventoryItemList.size() + "] did not match quantity [" + itemQty + "] for return item: " + returnItem.getPrimaryKey(), module);
+                                    // just logging this as info because the product may not be serialized or have serialized inventory 
+                                    Debug.logInfo("Number of serial numbers [" + itemIssuanceAndInventoryItemList.size() + "] did not match quantity [" + itemQty + "] for return item: " + returnItem.getPrimaryKey() + "; may not be a serialized inventory product", module);
                                 }
                             } else {
                                 // TODO: we don't know which serial numbers are returned, should we throw an error? probably not, just do what we can
