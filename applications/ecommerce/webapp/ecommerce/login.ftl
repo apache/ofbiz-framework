@@ -75,8 +75,6 @@ under the License.
         </div>
         <div class="screenlet-body" style="text-align: center;">
           <form method="post" action="<@ofbizUrl>newcustomer${previousParams}</@ofbizUrl>" style="margin: 0;">
-            <#-- optional field, default is 'CUSTOMER' -->
-            <#--input type="hidden" name="ROLETYPEID" value="--enter roletypeId here--"/-->
             <div class="tabletext">${uiLabelMap.CommonMayCreateNewAccountHere}:</div>
             <div><input type="submit" class="smallSubmit" value="${uiLabelMap.CommonMayCreate}"/></div>
           </form>
