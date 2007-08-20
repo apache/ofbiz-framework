@@ -801,8 +801,8 @@ public class CheckOutHelper {
                 if (billAddr != null) {
                     shipAddress = billAddr;
                     Debug.logInfo("In makeTaxContext no shipping address, but found address with ID [" + shipAddress.get("contactMechId") + "] from payment method.", module);
+                    break;
                 }
-                break;
             }
         }
 
