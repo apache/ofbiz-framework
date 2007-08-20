@@ -94,8 +94,8 @@ under the License.
     
     <!-- ==================================== -->
     <!-- Outgoing Message Services -->
-    <service name="oagisProcessShipment" max-retry="0" engine="java"
-        location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisProcessShipment">
+    <service name="oagisSendProcessShipment" max-retry="0" engine="java"
+        location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisSendProcessShipment">
         <description>Prepare and Optionally Send OAGIS Process Shipment Message.
             Note on usage: you can pass in either sendToUrl, saveToFilename, or outputStream. 
             If none are passed in the URL in oagis.properties will be used at the target for the message.</description>
@@ -106,8 +106,8 @@ under the License.
         <attribute name="orderId" mode="IN" type="String" optional="false"/>
     </service>
     
-    <service name="oagisReceiveDelivery" max-retry="0" engine="java"
-        location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisReceiveDelivery">
+    <service name="oagisSendReceiveDelivery" max-retry="0" engine="java"
+        location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisSendReceiveDelivery">
         <description>Receive Delivery</description>
         <attribute name="sendToUrl" type="String" mode="IN" optional="true"/>
         <attribute name="saveToFilename" type="String" mode="IN" optional="true"/>
@@ -118,8 +118,8 @@ under the License.
     
     <!-- ==================================== -->
     <!-- Incoming Message Services -->
-    <service name="syncInventory" engine="java" transaction-timeout="300" max-retry="3"
-        location="org.ofbiz.oagis.OagisInventoryServices" invoke="syncInventory" auth="true">
+    <service name="oagisReceiveSyncInventory" engine="java" transaction-timeout="300" max-retry="3"
+        location="org.ofbiz.oagis.OagisInventoryServices" invoke="oagisReceiveSyncInventory" auth="true">
         <description>Process incoming Inventory Sync message</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
@@ -127,24 +127,24 @@ under the License.
     </service>
     
     <!-- DEJ20070808 added max-rety=3 because this is run async persisted just in case there is a transaction problem under heavy load -->
-    <service name="showShipment" engine="java" transaction-timeout="300" max-retry="3"
-        location="org.ofbiz.oagis.OagisShipmentServices" invoke="showShipment" auth="true">
+    <service name="oagisReceiveShowShipment" engine="java" transaction-timeout="300" max-retry="3"
+        location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisReceiveShowShipment" auth="true">
         <description>Process incoming shipment message</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
         <attribute name="isErrorRetry" type="Boolean" mode="IN" optional="true"/>
     </service>
     
-    <service name="receivePoAcknowledge" engine="java" transaction-timeout="300" max-retry="3"
-        location="org.ofbiz.oagis.OagisInventoryServices" invoke="receivePoAcknowledge" auth="true">
+    <service name="oagisReceiveAcknowledgeDeliveryPo" engine="java" transaction-timeout="300" max-retry="3"
+        location="org.ofbiz.oagis.OagisInventoryServices" invoke="oagisReceiveAcknowledgeDeliveryPo" auth="true">
         <description>Process PO Acknowledge message</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
         <attribute name="isErrorRetry" type="Boolean" mode="IN" optional="true"/>
     </service>
     
-    <service name="receiveRmaAcknowledge" engine="java" transaction-timeout="300" max-retry="3"
-        location="org.ofbiz.oagis.OagisInventoryServices" invoke="receiveRmaAcknowledge" auth="true">
+    <service name="oagisReceiveAcknowledgeDeliveryRma" engine="java" transaction-timeout="300" max-retry="3"
+        location="org.ofbiz.oagis.OagisInventoryServices" invoke="oagisReceiveAcknowledgeDeliveryRma" auth="true">
         <description>Process RMA Acknowledge message</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>

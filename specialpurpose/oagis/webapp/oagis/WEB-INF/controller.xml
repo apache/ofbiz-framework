@@ -181,9 +181,9 @@
         <response name="error" type="view" value="UploadOagisMessage"/>
     </request-map>
 
-    <request-map uri="showShipment">
+    <request-map uri="oagisReceiveShowShipment">
         <security https="true" auth="false"/>
-        <event type="stream" invoke="showShipment"/>
+        <event type="stream" invoke="oagisReceiveShowShipment"/>
         <response name="success" type="none"/>
     </request-map>
 
@@ -193,21 +193,21 @@
         <response name="success" type="none"/>
     </request-map>
 
-    <request-map uri="syncInventory">
+    <request-map uri="oagisReceiveSyncInventory">
         <security https="true" auth="false"/>
-        <event type="stream" invoke="syncInventory"/>
+        <event type="stream" invoke="oagisReceiveSyncInventory"/>
         <response name="success" type="none"/>
     </request-map>
     
-    <request-map uri="receivePoAcknowledge">
+    <request-map uri="oagisReceiveAcknowledgeDeliveryPo">
         <security https="true" auth="false"/>
-        <event type="stream" invoke="receivePoAcknowledge"/>
+        <event type="stream" invoke="oagisReceiveAcknowledgeDeliveryPo"/>
         <response name="success" type="none"/>
     </request-map>
 
-    <request-map uri="receiveRmaAcknowledge">
+    <request-map uri="oagisReceiveAcknowledgeDeliveryRma">
         <security https="true" auth="false"/>
-        <event type="stream" invoke="receiveRmaAcknowledge"/>
+        <event type="stream" invoke="oagisReceiveAcknowledgeDeliveryRma"/>
         <response name="success" type="none"/>
     </request-map>
     
