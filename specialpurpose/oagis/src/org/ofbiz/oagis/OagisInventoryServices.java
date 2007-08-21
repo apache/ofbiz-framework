@@ -958,7 +958,9 @@ public class OagisInventoryServices {
                         
                         // NOTE: an alternative method would be to see if the total has been received for each 
                         //ReturnItem (receivedQuantity vs returnQuantity), but we may have a hard time matching 
-                        //those up so that information is probably not as reliable 
+                        //those up so that information is probably not as reliable; another note: as of 20070821
+                        //the receipt procesing code properly updates ReturnItem with receivedQuantity and status
+                        //so we _could_ possibly move to that method if needed
                         
                         // loop through ReturnItem records, get totals for each productId
                         Map returnQuantityByProductIdMap = FastMap.newInstance();
