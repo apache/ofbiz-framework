@@ -572,7 +572,9 @@ public class OagisServices {
             Element ackDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "ns:ACKNOWLEDGE_DELIVERY");
             Element receiptlnElement = UtilXml.firstChildElement(ackDeliveryElement, "ns:RECEIPTLN");
             Element docRefElement = UtilXml.firstChildElement(receiptlnElement, "os:DOCUMNTREF");
-            String docType = UtilXml.childElementValue(docRefElement, "of:DOCTYPE");
+            String docType = docRefElement != null ? UtilXml.childElementValue(docRefElement, "of:DOCTYPE") : null;
+            String disposition = UtilXml.childElementValue(receiptlnElement, "of:DISPOSITN");
+            
             if ("PO".equals(docType)) {
                 try {
                     //subServiceResult = dispatcher.runSync("oagisReceiveAcknowledgeDeliveryPo", messageProcessContext);
@@ -591,8 +593,16 @@ public class OagisServices {
                     errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                     Debug.logError(e, errMsg, module);
                 }
+            } else if (UtilValidate.isEmpty(docType) && ("NotAvailableTOAvailable".equals(disposition) || "AvailableTONotAvailable".equals(disposition))) {
+                try {
+                    dispatcher.runAsync("oagisReceiveAcknowledgeDeliveryStatus", messageProcessContext, true);
+                } catch (GenericServiceException e) {
+                    String errMsg = "Error running service oagisReceiveAcknowledgeDeliveryStatus: " + e.toString();
+                    errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                    Debug.logError(e, errMsg, module);
+                }
             } else {
-                return ServiceUtil.returnError("For Acknowledge Delivery message could not determine if it is for a PO or RMA. DOCTYPE from message is " + docType);
+                return ServiceUtil.returnError("For Acknowledge Delivery message could not determine if it is for a PO or RMA or Status Change. DOCTYPE from message is [" + docType + "], DISPOSITN is [" + disposition + "]");
             }
         } else {
             String errMsg = "Unknown Message Type Received, verb/noun combination not supported: verb=[" + bsrVerb + "], noun=[" + bsrNoun + "]";
