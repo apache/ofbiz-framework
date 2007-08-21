@@ -737,6 +737,21 @@ public class OagisInventoryServices {
                         }
                     }
                     
+                    // getting inventory item status
+                    String invItemStatusId = null;
+                    String disposition = UtilXml.childElementValue(receiptLnElement, "of:DISPOSITN");
+                    if ("ReceivedTOAvailable".equals(disposition)) {
+                        invItemStatusId = "INV_AVAILABLE";
+                    } else if ("ReceivedTONotAvailable".equals(disposition)) {
+                        invItemStatusId = "INV_ON_HOLD";
+                    } else if ("NotAvailableTOAvailable".equals(disposition) || "AvailableTONotAvailable".equals(disposition)) {
+                        // for RMA we should only get the ReceivedTO* DISPOSITN values; if we get something else we should return an error
+                        String errMsg = "Got DISPOSITN value [" + disposition + "] that is not valid for RMA, only for status change.";
+                        errorMapList.add(UtilMisc.toMap("reasonCode", "DispositnNotValidForRMA", "description", errMsg));
+                        continue;
+                    }
+                    ripCtx.put("statusId", invItemStatusId);
+                    
                     // TODOLATER: get the returnItem associated with the product received and update the receivedQuantity 
                     
                     String datetimeReceived = UtilXml.childElementValue(receiptLnElement, "os:DATETIMEISO");
@@ -745,40 +760,20 @@ public class OagisInventoryServices {
 
                     GenericValue returnHeader = delegator.findByPrimaryKey("ReturnHeader", UtilMisc.toMap("returnId", returnId));
 
-                    String statusId = null;
-
-                    // TODO: for the DISPOSITN of NotAvailableTOAvailable elements, we need to ignore all return stuff and 
-                    //not try to do anything with the return; note this may be a different DOCTYPE value or no DOCTYPE, so 
-                    //may need to be a new/different service called from the message handler service; note that when this
-                    //is implemented need to verify that if configured for it that serial number is valid when present 
-                    //otherwise return error
-
                     if (returnHeader != null) {
                         //getting ReturnHeader status
-                        statusId = returnHeader.get("statusId").toString();
+                        String statusId = returnHeader.get("statusId").toString();
                         
                         // save this here so the status will be updated after all processed
                         processedStatusIdByReturnIdMap.put(returnId, statusId);
                         
-                        // getting inventory item status
-                        String invItemStatusId = null;
-                        String invItemStatus = UtilXml.childElementValue(receiptLnElement, "of:DISPOSITN");
-                        if ( invItemStatus.equals("ReceivedTOAvailable") || invItemStatus.equals("NotAvailableTOAvailable")) {
-                            invItemStatusId = "INV_AVAILABLE";
-                        } else if ( invItemStatus.equals("ReceivedTONotAvailable") || invItemStatus.equals("AvailableTONotAvailable") ) {
-                            invItemStatusId = "INV_ON_HOLD";
-                        }
-                        ripCtx.put("statusId", invItemStatusId);
                         // geting the serial number(s)
-                        String serialNumber = null;
                         List serialNumsList = FastList.newInstance();
                         List invDetailList = UtilXml.childElementList(receiptLnElement, "ns:INVDETAIL");
                         if (UtilValidate.isNotEmpty(invDetailList)) {
-                            String inventoryItemTypeId = "SERIALIZED_INV_ITEM";
-                            ripCtx.put("inventoryItemTypeId", inventoryItemTypeId);
                             for (Iterator j = invDetailList.iterator(); j.hasNext();) {
                                 Element invDetailElement = (Element) j.next();
-                                serialNumber = UtilXml.childElementValue(invDetailElement, "of:SERIALNUM");
+                                String serialNumber = UtilXml.childElementValue(invDetailElement, "of:SERIALNUM");
                                 if (UtilValidate.isNotEmpty(serialNumber)) {
                                     serialNumsList.add(serialNumber);
                                 }
@@ -798,25 +793,17 @@ public class OagisInventoryServices {
                                  String errMsg = "Error Getting Entity InventoryItem";
                                  Debug.logError(e, errMsg, module);
                             } */
-                        } else {
-                            String inventoryItemTypeId = "NON_SERIAL_INV_ITEM";
-                            ripCtx.put("inventoryItemTypeId", inventoryItemTypeId);
                         }
                             
                         //do some validations
-                        boolean continueLoop = false;
                         Integer messageQuantity = Integer.valueOf(itemQtyStr);
                         if(UtilValidate.isNotEmpty(serialNumsList)) {
                             if (messageQuantity.intValue() != serialNumsList.size()) {
                                 String errMsg = "Not enough serial numbers [" + serialNumsList.size() + "] for the quantity [" + messageQuantity.intValue() + "].";
                                 errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumbersMissing"));
                                 Debug.logInfo(errMsg, module);
-                                continueLoop = true;
+                                continue;
                             }
-                        }
-                          
-                        if (continueLoop) {
-                            continue;
                         }
                           
                         ripCtx.put("facilityId",facilityId);
@@ -835,6 +822,9 @@ public class OagisInventoryServices {
                         }
                         if (quantityAccepted > 0) {
                             if (serialNumsList.size() > 0) {
+                                String inventoryItemTypeId = "SERIALIZED_INV_ITEM";
+                                ripCtx.put("inventoryItemTypeId", inventoryItemTypeId);
+
                                 Iterator serialNumIter = serialNumsList.iterator();
                                 while (serialNumIter.hasNext()) {
                                     String serialNum = (String) serialNumIter.next();
@@ -844,7 +834,7 @@ public class OagisInventoryServices {
                                     Set productIdSet = ProductWorker.getRefurbishedProductIdSet(productId, delegator);
                                     productIdSet.add(productId);
                                     
-                                    EntityCondition bySerialNumberCondition = new EntityExpr(new EntityExpr("serialNumber", EntityOperator.EQUALS, serialNumber), 
+                                    EntityCondition bySerialNumberCondition = new EntityExpr(new EntityExpr("serialNumber", EntityOperator.EQUALS, serialNum), 
                                             EntityOperator.AND, new EntityExpr("productId", EntityOperator.IN, productIdSet));
                                     List inventoryItemsBySerialNumber = delegator.findByCondition("InventoryItem", bySerialNumberCondition, null, null);
 
@@ -852,13 +842,13 @@ public class OagisInventoryServices {
                                         // according to requireSerialNumberExist make sure serialNumber does or does not exist in database, add an error message as needed
                                         if (OagisServices.requireSerialNumberExist.booleanValue()) {
                                             if (inventoryItemsBySerialNumber.size() > 0) {
-                                                String errMsg = "Referenced serial numbers must already exist, but serial number [" + serialNumber + "] was not found.";
+                                                String errMsg = "Referenced serial numbers must already exist, but serial number [" + serialNum + "] was not found.";
                                                 errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumberRequiredButNotFound"));
                                                 continue;
                                             }
                                         } else {
                                             if (inventoryItemsBySerialNumber.size() == 0) {
-                                                String errMsg = "Referenced serial numbers must NOT already exist, but serial number [" + serialNumber + "] already exists.";
+                                                String errMsg = "Referenced serial numbers must NOT already exist, but serial number [" + serialNum + "] already exists.";
                                                 errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumberRequiredNotExistButFound"));
                                                 continue;
                                             }
@@ -875,7 +865,8 @@ public class OagisInventoryServices {
                                         updateInvItmMap.put("statusId", invItemStatusId);
                                         String inventoryItemProductId = inventoryItem.getString("productId");
                                         if (!inventoryItemProductId.equals(productId)) {
-                                            updateInvItmMap.put( "productId",productId);
+                                            // got a new productId for the serial number; this may happen for refurbishment, etc
+                                            updateInvItmMap.put("productId",productId);
                                         }
                                         dispatcher.runSync("updateInventoryItem", updateInvItmMap);
                                         invItemIds.add(UtilMisc.toMap("inventoryItemId", inventoryItem.getString("inventoryItemId")));
@@ -899,6 +890,9 @@ public class OagisInventoryServices {
                                     }
                                 }
                             } else {
+                                String inventoryItemTypeId = "NON_SERIAL_INV_ITEM";
+                                ripCtx.put("inventoryItemTypeId", inventoryItemTypeId);
+
                                 // no serial numbers, just receive the quantity
                                 // clone the context as it may be changted in the call
                                 Map localRipCtx = FastMap.newInstance();
@@ -1063,6 +1057,288 @@ public class OagisInventoryServices {
                 // NOTE: this is different for each service, should be shipmentId or returnId or PO orderId or etc
                 // TODO: unfortunately there could be multiple returnIds for the message, so what to do...? 
                 sendConfirmBodCtx.put("origRefId", lastReturnId);
+
+                // run async because this will send a message back to the other server and may take some time, and/or fail
+                dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error sending Confirm BOD: " + e.toString();
+                Debug.logError(e, errMsg, module);
+            }
+            
+            // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times 
+            result.putAll(ServiceUtil.returnSuccess("Errors found processing message; information saved and return error sent back"));
+            return result;
+        } else {
+            comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
+            try {
+                dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                Debug.logError(e, errMsg, module);
+            }
+        }
+        
+        result.putAll(ServiceUtil.returnSuccess("Service Completed Successfully"));
+        result.put("inventoryItemIdList", invItemIds);
+        return result;
+    }
+
+    public static Map oagisReceiveAcknowledgeDeliveryStatus(DispatchContext ctx, Map context) {
+        Document doc = (Document) context.get("document");
+        boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
+
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        GenericDelegator delegator = ctx.getDelegator();
+        List errorMapList = FastList.newInstance();
+        
+        GenericValue userLogin = null;
+        try {
+            userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+        } catch (GenericEntityException e) {
+            String errMsg = "Error Getting UserLogin: " + e.toString();
+            Debug.logError(e, errMsg, module);
+        }
+
+        // parse the message
+        Element receiveStatusElement = doc.getDocumentElement();
+        receiveStatusElement.normalize();
+        Element docCtrlAreaElement = UtilXml.firstChildElement(receiveStatusElement, "os:CNTROLAREA");
+        Element docSenderElement = UtilXml.firstChildElement(docCtrlAreaElement, "os:SENDER");
+        Element docBsrElement = UtilXml.firstChildElement(docCtrlAreaElement, "os:BSR");
+            
+        String bsrVerb = UtilXml.childElementValue(docBsrElement, "of:VERB");
+        String bsrNoun = UtilXml.childElementValue(docBsrElement, "of:NOUN");
+        String bsrRevision = UtilXml.childElementValue(docBsrElement, "of:REVISION");
+            
+        String logicalId = UtilXml.childElementValue(docSenderElement, "of:LOGICALID");
+        String component = UtilXml.childElementValue(docSenderElement, "of:COMPONENT");
+        String task = UtilXml.childElementValue(docSenderElement, "of:TASK");
+        String referenceId = UtilXml.childElementValue(docSenderElement, "of:REFERENCEID");
+        String confirmation = UtilXml.childElementValue(docSenderElement, "of:CONFIRMATION");
+        String authId = UtilXml.childElementValue(docSenderElement, "of:AUTHID");
+            
+        String sentDate = UtilXml.childElementValue(docCtrlAreaElement, "os:DATETIMEISO");
+        Timestamp sentTimestamp = OagisServices.parseIsoDateString(sentDate, errorMapList);
+
+        Element dataAreaElement = UtilXml.firstChildElement(receiveStatusElement, "ns:DATAAREA");
+        Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "ns:ACKNOWLEDGE_DELIVERY");
+        
+        String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.PoReceiptFacilityId");
+        String locationSeqId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.ReturnReceiptLocationSeqId");
+        
+        Timestamp timestamp = UtilDateTime.nowTimestamp();
+        Map comiCtx = FastMap.newInstance();
+        comiCtx.put("logicalId", logicalId);
+        comiCtx.put("authId", authId);
+        comiCtx.put("referenceId", referenceId);
+        comiCtx.put("receivedDate", timestamp);
+        comiCtx.put("sentDate", sentTimestamp);
+        comiCtx.put("component", component);
+        comiCtx.put("task", task);  
+        comiCtx.put("outgoingMessage", "N");
+        comiCtx.put("confirmation", confirmation);
+        comiCtx.put("bsrVerb", bsrVerb);
+        comiCtx.put("bsrNoun", bsrNoun);
+        comiCtx.put("bsrRevision", bsrRevision);
+        comiCtx.put("processingStatusId", "OAGMP_RECEIVED");
+        comiCtx.put("userLogin", userLogin);
+        if (OagisServices.debugSaveXmlIn) {
+            try {
+                comiCtx.put("fullMessageXml", UtilXml.writeXmlDocument(doc));
+            } catch (IOException e) {
+                // this is just for debug info, so just log and otherwise ignore error
+                String errMsg = "Warning: error creating text from XML Document for saving to database: " + e.toString();
+                Debug.logWarning(errMsg, module);
+            }
+        }
+        try {
+            if (isErrorRetry) {
+                dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
+            } else {
+                dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
+            }
+        } catch (GenericServiceException e) {
+            String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
+            Debug.logError(e, errMsg, module);
+        }
+        
+        //String inventoryItemId = null;
+        List invItemIds = FastList.newInstance();
+        // get RECEIPTLN elements from message
+        List receiptLineElementList = UtilXml.childElementList(acknowledgeDeliveryElement, "ns:RECEIPTLN");
+        if (UtilValidate.isNotEmpty(receiptLineElementList)) {
+            try {
+                Iterator receiptLineElementIter = receiptLineElementList.iterator();
+                while (receiptLineElementIter.hasNext()) {
+                    Map uiiCtx = FastMap.newInstance();
+                    Element receiptLnElement = (Element) receiptLineElementIter.next();
+                    Element qtyElement = UtilXml.firstChildElement(receiptLnElement, "os:QUANTITY");
+
+                    String itemQtyStr = UtilXml.childElementValue(qtyElement, "of:VALUE");
+                    double itemQty = Double.parseDouble(itemQtyStr);
+                    String sign = UtilXml.childElementValue(qtyElement, "of:SIGN");
+
+                    String productId = UtilXml.childElementValue(receiptLnElement, "of:ITEM");
+                    if (UtilValidate.isEmpty(productId)) {
+                        String errMsg = "Product ID Missing";
+                        errorMapList.add(UtilMisc.toMap("reasonCode", "ProductIdMissing", "description", errMsg));
+                        Debug.logError(errMsg, module);
+                    }
+                    // make sure productId is valid
+                    GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                    if (product == null) {
+                        String errMsg = "Product with ID [" + productId + "] not found (invalid Product ID).";
+                        errorMapList.add(UtilMisc.toMap("reasonCode", "ProductIdNotValid", "description", errMsg));
+                        Debug.logError(errMsg, module);
+                        continue;
+                    }
+
+                    /* no place to put this in the InventoryItem update
+                    String datetimeReceived = UtilXml.childElementValue(receiptLnElement, "os:DATETIMEISO");
+                    Timestamp timestampItemReceived = OagisServices.parseIsoDateString(datetimeReceived, errorMapList);
+                    uiiCtx.put("datetimeReceived", timestampItemReceived);
+                    */
+
+                    String invItemStatusId = null;
+                    String disposition = UtilXml.childElementValue(receiptLnElement, "of:DISPOSITN");
+                    if ("NotAvailableTOAvailable".equals(disposition)) {
+                        invItemStatusId = "INV_AVAILABLE";
+                    } else if ("AvailableTONotAvailable".equals(disposition)) {
+                        invItemStatusId = "INV_ON_HOLD";
+                    } else if ("ReceivedTOAvailable".equals(disposition) || "ReceivedTONotAvailable".equals(disposition)) {
+                        String errMsg = "Got DISPOSITN value [" + disposition + "] that is not valid for Status Change, only for RMA/return.";
+                        errorMapList.add(UtilMisc.toMap("reasonCode", "DispositnNotValidForStatusChange", "description", errMsg));
+                        continue;
+                    }
+
+                    uiiCtx.put("statusId", invItemStatusId);
+
+                    // geting the serial number(s)
+                    List serialNumsList = FastList.newInstance();
+                    List invDetailList = UtilXml.childElementList(receiptLnElement, "ns:INVDETAIL");
+                    if (UtilValidate.isNotEmpty(invDetailList)) {
+                        for (Iterator j = invDetailList.iterator(); j.hasNext();) {
+                            Element invDetailElement = (Element) j.next();
+                            String serialNumber = UtilXml.childElementValue(invDetailElement, "of:SERIALNUM");
+                            if (UtilValidate.isNotEmpty(serialNumber)) {
+                                serialNumsList.add(serialNumber);
+                            }
+                        }
+                    }
+                    
+                    //do some validations
+                    Integer messageQuantity = Integer.valueOf(itemQtyStr);
+                    if(UtilValidate.isNotEmpty(serialNumsList)) {
+                        if (messageQuantity.intValue() != serialNumsList.size()) {
+                            String errMsg = "Not enough serial numbers [" + serialNumsList.size() + "] for the quantity [" + messageQuantity.intValue() + "].";
+                            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumbersMissing"));
+                            Debug.logInfo(errMsg, module);
+                            continue;
+                        }
+                    }
+                      
+                    uiiCtx.put("facilityId",facilityId);
+                    uiiCtx.put("locationSeqId", locationSeqId);
+                    uiiCtx.put("userLogin", userLogin);
+
+                    // sign handling for items
+                    if (!"+".equals(sign)) {
+                        String errMsg = "Got a sign [" + sign + "] that was not plus (+), this is not valid for a Status Change operation.";
+                        errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SignNotPlusForStatusChange"));
+                        continue;
+                    }
+                    
+                    if (serialNumsList.size() > 0) {
+                        String inventoryItemTypeId = "SERIALIZED_INV_ITEM";
+                        uiiCtx.put("inventoryItemTypeId", inventoryItemTypeId);
+
+                        Iterator serialNumIter = serialNumsList.iterator();
+                        while (serialNumIter.hasNext()) {
+                            String serialNum = (String) serialNumIter.next();
+
+                            // also look at the productId, and associated refurb productId(s) (or other way around, we might get a refurb sku 
+                            //and need to look up by the non-refurb sku); serialNumbers may not be unique globally, but should be per product
+                            Set productIdSet = ProductWorker.getRefurbishedProductIdSet(productId, delegator);
+                            productIdSet.add(productId);
+                            
+                            EntityCondition bySerialNumberCondition = new EntityExpr(new EntityExpr("serialNumber", EntityOperator.EQUALS, serialNum), 
+                                    EntityOperator.AND, new EntityExpr("productId", EntityOperator.IN, productIdSet));
+                            List inventoryItemsBySerialNumber = delegator.findByCondition("InventoryItem", bySerialNumberCondition, null, null);
+
+                            // this is a status update, so referenced serial number MUST already exist
+                            if (inventoryItemsBySerialNumber.size() > 0) {
+                                String errMsg = "Referenced serial numbers must already exist, but serial number [" + serialNum + "] was not found.";
+                                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumberRequiredButNotFound"));
+                                continue;
+                            }
+                            
+                            GenericValue inventoryItem = EntityUtil.getFirst(inventoryItemsBySerialNumber);
+                            if (inventoryItem != null) {
+                                Map updateInvItmMap = FastMap.newInstance();
+                                updateInvItmMap.put("inventoryItemId", inventoryItem.getString("inventoryItemId"));
+                                updateInvItmMap.put("userLogin", userLogin);
+                                updateInvItmMap.put("statusId", invItemStatusId);
+                                String inventoryItemProductId = inventoryItem.getString("productId");
+                                if (!inventoryItemProductId.equals(productId)) {
+                                    // got a new productId for the serial number; this may happen for refurbishment, etc
+                                    updateInvItmMap.put("productId",productId);
+                                }
+                                dispatcher.runSync("updateInventoryItem", updateInvItmMap);
+                                invItemIds.add(UtilMisc.toMap("inventoryItemId", inventoryItem.getString("inventoryItemId")));
+                            } else {
+                                // TODO: ERROR, referenced InventoryItem by serialNumber not found
+                            }
+                        }
+                    } else {
+                        String inventoryItemTypeId = "NON_SERIAL_INV_ITEM";
+                        uiiCtx.put("inventoryItemTypeId", inventoryItemTypeId);
+
+                        // TODO: somehow do status changes for non-serialized inventory
+                    }
+                }
+            } catch (Throwable t) {
+                String errMsg = "System Error processing Acknowledge Delivery RMA message: " + t.toString();
+                Debug.logInfo(t, errMsg, module);
+                // in this case we don't want to return a Confirm BOD, so return an error now
+                return ServiceUtil.returnError(errMsg);
+            }
+        }
+
+        Map result = FastMap.newInstance();
+        result.put("logicalId", logicalId);
+        result.put("component", component);
+        result.put("task", task);
+        result.put("referenceId", referenceId);
+        result.put("userLogin", userLogin);
+
+        if (errorMapList.size() > 0) {
+            try {
+                comiCtx.put("processingStatusId", "OAGMP_PROC_ERROR");
+                dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                Debug.logError(e, errMsg, module);
+            }
+
+            // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
+            Map saveErrorMapListCtx = FastMap.newInstance();
+            saveErrorMapListCtx.put("logicalId", logicalId);
+            saveErrorMapListCtx.put("component", component);
+            saveErrorMapListCtx.put("task", task);
+            saveErrorMapListCtx.put("referenceId", referenceId);
+            saveErrorMapListCtx.put("errorMapList", errorMapList);
+            saveErrorMapListCtx.put("userLogin", userLogin);
+            try {
+                dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
+            } catch (GenericServiceException e){
+                String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                Debug.logError(e, errMsg, module);
+            }
+
+            try {
+                Map sendConfirmBodCtx = FastMap.newInstance();
+                sendConfirmBodCtx.putAll(saveErrorMapListCtx);
 
                 // run async because this will send a message back to the other server and may take some time, and/or fail
                 dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
