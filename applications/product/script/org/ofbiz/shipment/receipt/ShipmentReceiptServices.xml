@@ -79,33 +79,33 @@ under the License.
             <set field="loops" from-field="parameters.quantityAccepted"/>
             <set field="parameters.quantityAccepted" value="1" type="Double"/>
         </if-compare>
-        <set from-field="parameters.quantityAccepted" field="parameters.quantityOnHandDiff"/>
-        <set from-field="parameters.quantityAccepted" field="parameters.availableToPromiseDiff"/>
+        <set field="parameters.quantityOnHandDiff" from-field="parameters.quantityAccepted"/>
+        <set field="parameters.availableToPromiseDiff" from-field="parameters.quantityAccepted"/>
   
         <loop count="${loops}" field="currentLoop">
             <log level="info" message="Looping and creating inventory info - ${currentLoop}"/>
+
             <clear-field field-name="serviceInMap"/>
             <set-service-fields service-name="createInventoryItem" map-name="parameters" to-map-name="serviceInMap"/>
             <call-service service-name="createInventoryItem" in-map-name="serviceInMap">
                 <result-to-field result-name="inventoryItemId" field-name="parameters.inventoryItemId"/>
             </call-service>
-            <check-errors/>
+            
             <clear-field field-name="serviceInMap"/>
             <set-service-fields service-name="createInventoryItemDetail" map-name="parameters" to-map-name="serviceInMap"/>
             <call-service service-name="createInventoryItemDetail" in-map-name="serviceInMap">
                 <result-to-field result-name="inventoryItemDetailSeqId" field-name="parameters.inventoryItemDetailSeqId"/>
             </call-service>
-            <check-errors/>
+            
             <clear-field field-name="serviceInMap"/>
             <set-service-fields service-name="createShipmentReceipt" map-name="parameters" to-map-name="serviceInMap"/>
             <call-service service-name="createShipmentReceipt" in-map-name="serviceInMap"/>
-            <check-errors/>
+            
             <!-- update serialized items to AVAILABLE (only if this is not a return), which then triggers other SECA chains -->
             <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field-name="parameters.inventoryItemTypeId">
                 <if-compare value="INV_RETURNED" operator="not-equals" field-name="parameters.statusId">
                     <!-- Retrieve the new inventoryItem -->
-                    <set field="inventoryItemLookup.inventoryItemId" from-field="parameters.inventoryItemId"/>
-                    <find-by-primary-key entity-name="InventoryItem" map-name="inventoryItemLookup" value-name="inventoryItem"/>
+                    <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
 
                     <!-- Don't reset the status if it's already set to INV_PROMISED downstream -->
                     <if-compare value="INV_PROMISED" operator="not-equals" field-name="inventoryItem.statusId">
@@ -113,15 +113,15 @@ under the License.
                         <set field="serviceInMap.inventoryItemId" from-field="parameters.inventoryItemId"/>
                         <set field="serviceInMap.statusId" value="INV_AVAILABLE"/> <!-- XXX set to returned instead -->
                         <call-service service-name="updateInventoryItem" in-map-name="serviceInMap"/>
-                        <check-errors/>
                     </if-compare>
                 </if-compare>
             </if-compare>
+            
             <clear-field field-name="serviceInMap"/>
             <set-service-fields service-name="balanceInventoryItems" map-name="parameters" to-map-name="serviceInMap"/>
             <call-service service-name="balanceInventoryItems" in-map-name="serviceInMap"/>
-            <check-errors/>
-            <set value="Received ${parameters.quantityAccepted} of ${parameters.productId} in inventory item ${parameters.inventoryItemId}" field="successMessageList[]"/>
+
+            <set field="successMessageList[]" value="Received ${parameters.quantityAccepted} of ${parameters.productId} in inventory item ${parameters.inventoryItemId}"/>
         </loop>
         <!-- return the last inventory item received -->
         <field-to-result field-name="parameters.inventoryItemId" result-name="inventoryItemId"/>
