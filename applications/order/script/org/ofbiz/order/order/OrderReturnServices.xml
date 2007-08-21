@@ -518,31 +518,38 @@ under the License.
                     <calcop field-name="quantityRejected" map-name="receipt" operator="get"/>
                 </calcop>
             </calculate>
-            <set from-field="receipt.returnId" field="newLookupMap.returnId"/>
-            <set from-field="receipt.returnItemSeqId" field="newLookupMap.returnItemSeqId"/>
-            <find-by-primary-key entity-name="ReturnItem" map-name="newLookupMap" value-name="returnItem"/>
-            <if-compare-field field-name="returnItem.returnQuantity" operator="greater-equals" to-field-name="totalsMap.${receipt.returnItemSeqId}" type="Double">
+            
+            <entity-one entity-name="ReturnItem" value-name="returnItem">
+                <field-map field-name="returnId" env-name="receipt.returnId"/>
+                <field-map field-name="returnItemSeqId" env-name="receipt.returnItemSeqId"/>
+            </entity-one>
+            <set field="returnItem.receivedQuantity" from-field="totalsMap.${receipt.returnItemSeqId}"/>
+            
+            <if-compare-field field-name="totalsMap.${receipt.returnItemSeqId}" operator="greater-equals" to-field-name="returnItem.returnQuantity" type="Double">
                 <!-- update the status for the item -->
                 <set field="returnItem.statusId" value="RETURN_RECEIVED"/>
                 <store-value value-name="returnItem"/>
+                
                 <!-- create status change history -->
-                <make-value entity-name="ReturnStatus" value-name="newValue"/>
-                <sequenced-id-to-env sequence-name="ReturnStatus" env-name="returnStatusId"/>
-                <set from-field="returnStatusId" field="newValue.returnStatusId"/>
+                <!-- TODO: this should be done with a createReturnStatus service call -->
+                <make-value entity-name="ReturnStatus" value-name="newReturnStatus"/>
+                <sequenced-id-to-env sequence-name="ReturnStatus" env-name="newReturnStatus.returnStatusId"/>
                 
-                <set from-field="returnItem.returnItemSeqId" field="newValue.returnId"/>
-                <set from-field="returnItem.returnId" field="newValue.returnId"/>
-                <set from-field="returnItem.statusId" field="newValuereturnId.returnId"/>
+                <set field="newReturnStatus.returnId" from-field="returnItem.returnItemSeqId"/>
+                <set field="newReturnStatus.returnId" from-field="returnItem.returnId"/>
+                <set field="newReturnStatus.statusId" from-field="returnItem.statusId"/>
                 
-                <now-timestamp-to-env env-name="nowTimestamp"/>
-                <set from-field="nowTimestamp" field="newValue.statusDatetime"/>
+                <now-timestamp-to-env env-name="newReturnStatus.statusDatetime"/>
                 
-                <create-value value-name="newValue"/>
+                <create-value value-name="newReturnStatus"/>
             </if-compare-field>
+
+            <!-- update the returnItem with at least receivedQuantity, and also statusId if applicable -->
+            <store-value value-name="returnItem"/>
         </iterate>
         
         <!-- check to see if all items have been received -->
-        <set value="true" field="allReceived"/>
+        <set field="allReceived" value="true"/>
         <find-by-and entity-name="ReturnItem" map-name="lookupPKMap" list-name="allReturnItems"/>
         <iterate list-name="allReturnItems" entry-name="item">
             <if-compare field-name="statusId" map-name="item" operator="not-equals" value="RETURN_RECEIVED">
@@ -576,14 +583,12 @@ under the License.
             <call-service service-name="updateReturnHeader" in-map-name="returnHeaderCtx"/>
             <!-- create the status history -->
             <make-value entity-name="ReturnStatus" value-name="newValue"/>
-            <sequenced-id-to-env sequence-name="ReturnStatus" env-name="returnStatusId"/>
-            <set from-field="returnStatusId" field="newValue.returnStatusId"/>
+            <sequenced-id-to-env sequence-name="ReturnStatus" env-name="newValue.returnStatusId"/>
             
-            <set from-field="returnHeader.returnId" field="newValue.returnId"/>
-            <set value="RETURN_RECEIVED" field="newValue.statusId"/>
+            <set field="newValue.returnId" from-field="returnHeader.returnId"/>
+            <set field="newValue.statusId" value="RETURN_RECEIVED"/>
             
-            <now-timestamp-to-env env-name="nowTimestamp"/>
-            <set from-field="nowTimestamp" field="newValue.statusDatetime"/>
+            <now-timestamp-to-env env-name="newValue.statusDatetime"/>
             
             <create-value value-name="newValue"/>
         </if-compare>
