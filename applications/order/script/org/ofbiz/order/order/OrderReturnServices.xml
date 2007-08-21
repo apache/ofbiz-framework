@@ -507,87 +507,87 @@ under the License.
         <find-by-primary-key entity-name="ReturnHeader" map-name="lookupPKMap" value-name="returnHeader"/>
         <find-by-and entity-name="ShipmentReceipt" map-name="lookupPKMap" list-name="shipmentReceipts"/>
         <iterate list-name="shipmentReceipts" entry-name="receipt">
-          <if-empty field-name="${receipt.returnItemSeqId}" map-name="totalsMap">
-            <calculate field-name="${receipt.returnItemSeqId}" map-name="totalsMap">
-              <number value="0"/>
+            <if-empty field-name="${receipt.returnItemSeqId}" map-name="totalsMap">
+                <calculate field-name="${receipt.returnItemSeqId}" map-name="totalsMap">
+                    <number value="0"/>
+                </calculate>
+            </if-empty>
+            <calculate field-name="${receipt.returnItemSeqId}" map-name="totalsMap" type="Double">
+                <calcop field-name="${receipt.returnItemSeqId}" map-name="totalsMap" operator="add">
+                    <calcop field-name="quantityAccepted" map-name="receipt" operator="get"/>
+                    <calcop field-name="quantityRejected" map-name="receipt" operator="get"/>
+                </calcop>
             </calculate>
-          </if-empty>
-          <calculate field-name="${receipt.returnItemSeqId}" map-name="totalsMap" type="Double">
-            <calcop field-name="${receipt.returnItemSeqId}" map-name="totalsMap" operator="add">
-              <calcop field-name="quantityAccepted" map-name="receipt" operator="get"/>
-              <calcop field-name="quantityRejected" map-name="receipt" operator="get"/>
-            </calcop>
-          </calculate>
-          <set from-field="receipt.returnId" field="newLookupMap.returnId"/>
-          <set from-field="receipt.returnItemSeqId" field="newLookupMap.returnItemSeqId"/>
-          <find-by-primary-key entity-name="ReturnItem" map-name="newLookupMap" value-name="returnItem"/>
-          <if-compare-field field-name="returnQuantity" map-name="returnItem" operator="greater-equals" to-field-name="${receipt.returnItemSeqId}" to-map-name="totalsMap" type="Double">
-            <!-- update the status for the item -->
-            <set field="returnItem.statusId" value="RETURN_RECEIVED"/>
-            <store-value value-name="returnItem"/>
-            <!-- create status change history -->
-            <make-value entity-name="ReturnStatus" value-name="newValue"/>
-            <sequenced-id-to-env sequence-name="ReturnStatus" env-name="returnStatusId"/>
-            <set from-field="returnStatusId" field="newValue.returnStatusId"/>
-
-            <set from-field="returnItem.returnItemSeqId" field="newValue.returnId"/>
-            <set from-field="returnItem.returnId" field="newValue.returnId"/>
-            <set from-field="returnItem.statusId" field="newValuereturnId.returnId"/>
-
-            <now-timestamp-to-env env-name="nowTimestamp"/>
-            <set from-field="nowTimestamp" field="newValue.statusDatetime"/>
-
-            <create-value value-name="newValue"/>
-          </if-compare-field>
+            <set from-field="receipt.returnId" field="newLookupMap.returnId"/>
+            <set from-field="receipt.returnItemSeqId" field="newLookupMap.returnItemSeqId"/>
+            <find-by-primary-key entity-name="ReturnItem" map-name="newLookupMap" value-name="returnItem"/>
+            <if-compare-field field-name="returnItem.returnQuantity" operator="greater-equals" to-field-name="totalsMap.${receipt.returnItemSeqId}" type="Double">
+                <!-- update the status for the item -->
+                <set field="returnItem.statusId" value="RETURN_RECEIVED"/>
+                <store-value value-name="returnItem"/>
+                <!-- create status change history -->
+                <make-value entity-name="ReturnStatus" value-name="newValue"/>
+                <sequenced-id-to-env sequence-name="ReturnStatus" env-name="returnStatusId"/>
+                <set from-field="returnStatusId" field="newValue.returnStatusId"/>
+                
+                <set from-field="returnItem.returnItemSeqId" field="newValue.returnId"/>
+                <set from-field="returnItem.returnId" field="newValue.returnId"/>
+                <set from-field="returnItem.statusId" field="newValuereturnId.returnId"/>
+                
+                <now-timestamp-to-env env-name="nowTimestamp"/>
+                <set from-field="nowTimestamp" field="newValue.statusDatetime"/>
+                
+                <create-value value-name="newValue"/>
+            </if-compare-field>
         </iterate>
-
+        
         <!-- check to see if all items have been received -->
         <set value="true" field="allReceived"/>
         <find-by-and entity-name="ReturnItem" map-name="lookupPKMap" list-name="allReturnItems"/>
         <iterate list-name="allReturnItems" entry-name="item">
-          <if-compare field-name="statusId" map-name="item" operator="not-equals" value="RETURN_RECEIVED">
-            <if-not-empty field-name="orderItemSeqId" map-name="item">
-                <!-- non-order items (i.e. adjustments) are not received -->
-                <set value="false" field="allReceived"/>
-            </if-not-empty>
-          </if-compare>
+            <if-compare field-name="statusId" map-name="item" operator="not-equals" value="RETURN_RECEIVED">
+                <if-not-empty field-name="orderItemSeqId" map-name="item">
+                    <!-- non-order items (i.e. adjustments) are not received -->
+                    <set value="false" field="allReceived"/>
+                </if-not-empty>
+            </if-compare>
         </iterate>
-
+        
         <!-- if the items are all received, then update the return header, store the status history change, and set the shipment to received -->
         <if-compare field-name="allReceived" operator="equals" value="true">
-
-          <!--  Go through all the items yet again and set their shipment status to PURCH_SHIP_RECEIVED (if it isn't already)
-          This activates SECAS such as creating return invoices. This MUST be done before updating the return header so that
-          the ReturnItemBillings are created and then whatever SECA binds to the return header update will have them. . -->
-          <iterate list-name="shipmentReceipts" entry-name="receipt">
-            <get-related-one relation-name="Shipment" value-name="receipt" to-value-name="shipment"/>
-            <if-not-empty field-name="shipment.shipmentId">
-                <if-compare field-name="statusId" map-name="shipment" operator="not-equals" value="RETURN_RECEIVED">
-                    <set field="serviceInput.shipmentId" from-field="shipment.shipmentId"/>
-                    <set field="serviceInput.statusId" value="PURCH_SHIP_RECEIVED"/>
-                    <call-service service-name="updateShipment" in-map-name="serviceInput"/>
-                </if-compare>
-            </if-not-empty>
-          </iterate>
-
-          <!-- update the return header -->
-          <set field="returnHeaderCtx.statusId" value="RETURN_RECEIVED"/>
-          <set from-field="returnHeader.returnId" field="returnHeaderCtx.returnId"/>
-          <call-service service-name="updateReturnHeader" in-map-name="returnHeaderCtx"/>
-          <!-- create the status history -->
-          <make-value entity-name="ReturnStatus" value-name="newValue"/>
-          <sequenced-id-to-env sequence-name="ReturnStatus" env-name="returnStatusId"/>
-          <set from-field="returnStatusId" field="newValue.returnStatusId"/>
-
-          <set from-field="returnHeader.returnId" field="newValue.returnId"/>
-          <set value="RETURN_RECEIVED" field="newValue.statusId"/>
-
-          <now-timestamp-to-env env-name="nowTimestamp"/>
-          <set from-field="nowTimestamp" field="newValue.statusDatetime"/>
-
-          <create-value value-name="newValue"/>
+            
+            <!--  Go through all the items yet again and set their shipment status to PURCH_SHIP_RECEIVED (if it isn't already)
+                This activates SECAS such as creating return invoices. This MUST be done before updating the return header so that
+                the ReturnItemBillings are created and then whatever SECA binds to the return header update will have them. . -->
+            <iterate list-name="shipmentReceipts" entry-name="receipt">
+                <get-related-one relation-name="Shipment" value-name="receipt" to-value-name="shipment"/>
+                <if-not-empty field-name="shipment.shipmentId">
+                    <if-compare field-name="statusId" map-name="shipment" operator="not-equals" value="RETURN_RECEIVED">
+                        <set field="serviceInput.shipmentId" from-field="shipment.shipmentId"/>
+                        <set field="serviceInput.statusId" value="PURCH_SHIP_RECEIVED"/>
+                        <call-service service-name="updateShipment" in-map-name="serviceInput"/>
+                    </if-compare>
+                </if-not-empty>
+            </iterate>
+            
+            <!-- update the return header -->
+            <set field="returnHeaderCtx.statusId" value="RETURN_RECEIVED"/>
+            <set from-field="returnHeader.returnId" field="returnHeaderCtx.returnId"/>
+            <call-service service-name="updateReturnHeader" in-map-name="returnHeaderCtx"/>
+            <!-- create the status history -->
+            <make-value entity-name="ReturnStatus" value-name="newValue"/>
+            <sequenced-id-to-env sequence-name="ReturnStatus" env-name="returnStatusId"/>
+            <set from-field="returnStatusId" field="newValue.returnStatusId"/>
+            
+            <set from-field="returnHeader.returnId" field="newValue.returnId"/>
+            <set value="RETURN_RECEIVED" field="newValue.statusId"/>
+            
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <set from-field="nowTimestamp" field="newValue.statusDatetime"/>
+            
+            <create-value value-name="newValue"/>
         </if-compare>
-
+        
         <!-- return the current return header status -->
         <field-to-result field-name="statusId" map-name="returnHeader" result-name="returnHeaderStatus"/>
     </simple-method>
@@ -601,18 +601,18 @@ under the License.
 
     <simple-method method-name="quickReturnFromOrder" short-description="Create Quick Return From Order">
         <if>
-          <condition>
-            <and>
-              <not><if-has-permission permission="ORDERMGR" action="_CREATE"/></not>
-              <not><if-compare-field field-name="partyId" map-name="userLogin" operator="equals" to-field-name="fromPartyId" to-map-name="parameters"/></not>
-            </and>
-          </condition>
-          <then>
-            <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunQuickReturnFromOrder"/></add-error>
-          </then>
+            <condition>
+                <and>
+                    <not><if-has-permission permission="ORDERMGR" action="_CREATE"/></not>
+                    <not><if-compare-field field-name="partyId" map-name="userLogin" operator="equals" to-field-name="fromPartyId" to-map-name="parameters"/></not>
+                </and>
+            </condition>
+            <then>
+                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunQuickReturnFromOrder"/></add-error>
+            </then>
         </if>
         <check-errors/>
-
+        
         <!-- get primary information from the order header -->
         <entity-one entity-name="OrderHeader" value-name="orderHeader">
             <field-map env-name="parameters.orderId" field-name="orderId"/>
