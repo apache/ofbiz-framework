@@ -134,10 +134,12 @@ public class ShippingEvents {
             carrierRoleTypeId = "CARRIER";
         }
 
-        if (shippingContactMechId == null) {
-            errorMessageList.add("Please Select Your Shipping Address.");
-            return ServiceUtil.returnError(errorMessageList);
-        }
+//  ShipmentCostEstimate entity allows null value for geoIdTo field. So if geoIdTo is null we should be using orderFlatPrice for shipping cost.
+//  So now calcShipmentCostEstimate service requires shippingContactMechId only if geoIdTo field has not null value.        
+//        if (shippingContactMechId == null) {
+//            errorMessageList.add("Please Select Your Shipping Address.");
+//            return ServiceUtil.returnError(errorMessageList);
+//        }
 
         // no shippable items; we won't change any shipping at all
         if (shippableQuantity == 0) {
@@ -213,6 +215,8 @@ public class ShippingEvents {
         if (ServiceUtil.isError(genericEstimate)) {
             Debug.logError(ServiceUtil.getErrorMessage(genericEstimate), module);
             throw new GeneralException();
+        } else if (ServiceUtil.isFailure(genericEstimate)) {
+            genericShipAmt = new Double(-1);
         } else {
             genericShipAmt = (Double) genericEstimate.get("shippingEstimateAmount");
         }
@@ -251,4 +255,5 @@ public class ShippingEvents {
         return externalShipAmt;
     }
 }
+
 

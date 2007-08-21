@@ -262,8 +262,6 @@ public class ShipmentServices {
             shipAddress = delegator.makeValue("PostalAddress", null);
             shipAddress.set("countryGeoId", shippingCountryCode);
             shipAddress.set("postalCodeGeoId", shippingPostalCode);
-        } else {
-            return ServiceUtil.returnError("Must have either shippingContactMechId or postalCode to run this service");
         }
         // Get the possible estimates.
         ArrayList estimateList = new ArrayList();
@@ -272,8 +270,11 @@ public class ShipmentServices {
         while (i.hasNext()) {
             GenericValue thisEstimate = (GenericValue) i.next();
             String toGeo = thisEstimate.getString("geoIdTo");
+            if(UtilValidate.isNotEmpty(toGeo) && shipAddress ==null){
+                // This estimate requires shipping address details. We don't have it so we cannot use this estimate.
+                continue;
+            }
             List toGeoList = GeoWorker.expandGeoGroup(toGeo, delegator);
-
             // Make sure we have a valid GEOID.
             if (toGeoList == null || toGeoList.size() == 0 ||
                     GeoWorker.containsGeo(toGeoList, shipAddress.getString("countryGeoId"), delegator) ||
@@ -357,6 +358,7 @@ public class ShipmentServices {
                         estimateList.add(thisEstimate);
                 }
             }
+
         }
 
         if (estimateList.size() < 1) {
