@@ -841,13 +841,13 @@ public class OagisInventoryServices {
                                     if (OagisServices.requireSerialNumberExist != null) {
                                         // according to requireSerialNumberExist make sure serialNumber does or does not exist in database, add an error message as needed
                                         if (OagisServices.requireSerialNumberExist.booleanValue()) {
-                                            if (inventoryItemsBySerialNumber.size() > 0) {
+                                            if (inventoryItemsBySerialNumber.size() == 0) {
                                                 String errMsg = "Referenced serial numbers must already exist, but serial number [" + serialNum + "] was not found.";
                                                 errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumberRequiredButNotFound"));
                                                 continue;
                                             }
                                         } else {
-                                            if (inventoryItemsBySerialNumber.size() == 0) {
+                                            if (inventoryItemsBySerialNumber.size() > 0) {
                                                 String errMsg = "Referenced serial numbers must NOT already exist, but serial number [" + serialNum + "] already exists.";
                                                 errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumberRequiredNotExistButFound"));
                                                 continue;
@@ -1267,28 +1267,24 @@ public class OagisInventoryServices {
                             List inventoryItemsBySerialNumber = delegator.findByCondition("InventoryItem", bySerialNumberCondition, null, null);
 
                             // this is a status update, so referenced serial number MUST already exist
-                            if (inventoryItemsBySerialNumber.size() > 0) {
+                            if (inventoryItemsBySerialNumber.size() == 0) {
                                 String errMsg = "Referenced serial numbers must already exist, but serial number [" + serialNum + "] was not found.";
                                 errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumberRequiredButNotFound"));
                                 continue;
                             }
                             
                             GenericValue inventoryItem = EntityUtil.getFirst(inventoryItemsBySerialNumber);
-                            if (inventoryItem != null) {
-                                Map updateInvItmMap = FastMap.newInstance();
-                                updateInvItmMap.put("inventoryItemId", inventoryItem.getString("inventoryItemId"));
-                                updateInvItmMap.put("userLogin", userLogin);
-                                updateInvItmMap.put("statusId", invItemStatusId);
-                                String inventoryItemProductId = inventoryItem.getString("productId");
-                                if (!inventoryItemProductId.equals(productId)) {
-                                    // got a new productId for the serial number; this may happen for refurbishment, etc
-                                    updateInvItmMap.put("productId",productId);
-                                }
-                                dispatcher.runSync("updateInventoryItem", updateInvItmMap);
-                                invItemIds.add(UtilMisc.toMap("inventoryItemId", inventoryItem.getString("inventoryItemId")));
-                            } else {
-                                // TODO: ERROR, referenced InventoryItem by serialNumber not found
+                            Map updateInvItmMap = FastMap.newInstance();
+                            updateInvItmMap.put("inventoryItemId", inventoryItem.getString("inventoryItemId"));
+                            updateInvItmMap.put("userLogin", userLogin);
+                            updateInvItmMap.put("statusId", invItemStatusId);
+                            String inventoryItemProductId = inventoryItem.getString("productId");
+                            if (!inventoryItemProductId.equals(productId)) {
+                                // got a new productId for the serial number; this may happen for refurbishment, etc
+                                updateInvItmMap.put("productId",productId);
                             }
+                            dispatcher.runSync("updateInventoryItem", updateInvItmMap);
+                            invItemIds.add(UtilMisc.toMap("inventoryItemId", inventoryItem.getString("inventoryItemId")));
                         }
                     } else {
                         String inventoryItemTypeId = "NON_SERIAL_INV_ITEM";
@@ -1298,7 +1294,7 @@ public class OagisInventoryServices {
                     }
                 }
             } catch (Throwable t) {
-                String errMsg = "System Error processing Acknowledge Delivery RMA message: " + t.toString();
+                String errMsg = "System Error processing Acknowledge Delivery Status message: " + t.toString();
                 Debug.logInfo(t, errMsg, module);
                 // in this case we don't want to return a Confirm BOD, so return an error now
                 return ServiceUtil.returnError(errMsg);
