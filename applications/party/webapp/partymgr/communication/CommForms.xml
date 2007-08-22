@@ -124,6 +124,14 @@ under the License.
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><date-time/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><date-time/></field>
         <field name="subject"><text size="60"/></field>
+        <field name="reasonEnumId">
+            <drop-down no-current-selected-key="" allow-empty="true">
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="CE_COMM_REASON"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>                              
         <field name="contentMimeTypeId">
             <drop-down no-current-selected-key="_NA_" allow-empty="false">
                 <entity-options description="${mimeTypeId}" entity-name="MimeType" key-field-name="mimeTypeId">
@@ -159,6 +167,7 @@ under the License.
         <field name="roleTypeIdTo"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
+        <field name="reasonEnumId"><display-entity entity-name="Enumeration" description="${description}" key-field-name="enumId"/></field>
         <field name="subject"><display/></field>
         <field map-name="subjectMap" name="eventNote" title="${uiLabelMap.CommonNote}"><display/></field>
         <field name="contentMimeTypeId"><display/></field>
@@ -198,6 +207,14 @@ under the License.
         <field name="custRequestId"><lookup size="20" target-form-name="LookupCustRequest"/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><date-find/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><date-find/></field>
+        <field name="reasonEnumId">
+            <drop-down no-current-selected-key="" allow-empty="true">
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="CE_COMM_REASON"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>   
         <field map-name="subjectMap" name="subject"><text-find/></field>
 
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
