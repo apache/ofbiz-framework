@@ -145,11 +145,16 @@ public class FinAccountServices {
             }
 
             // create the credit transaction
-            Map creditTransResult = dispatcher.runSync("createFinAccountTrans",
-                    UtilMisc.toMap("finAccountTransTypeId", "ADJUSTMENT", "finAccountId",
-                            creditAccount.getString("finAccountId"), "partyId", partyId, "amount",
-                            context.get("amount"), "comments", context.get("comments"), "userLogin", userLogin));
-
+            Map transactionMap = FastMap.newInstance();
+            transactionMap.put("finAccountTransTypeId", "ADJUSTMENT");
+            transactionMap.put("finAccountId", creditAccount.getString("finAccountId"));
+            transactionMap.put("partyId", partyId);
+            transactionMap.put("amount", context.get("amount"));
+            transactionMap.put("reasonEnumId", context.get("reasonEnumId"));
+            transactionMap.put("comments", context.get("comments"));
+            transactionMap.put("userLogin", userLogin);
+                        
+            Map creditTransResult = dispatcher.runSync("createFinAccountTrans", transactionMap);
             if (ServiceUtil.isError(creditTransResult) || ServiceUtil.isFailure(creditTransResult)) {
                 return creditTransResult;
             }
