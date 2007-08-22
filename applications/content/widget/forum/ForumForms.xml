@@ -51,11 +51,11 @@ under the License.
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="forumName" parameter-name="contentName"><text/></field>
         <field name="forumDescription" parameter-name="description"><text/></field>
-        <field name="fromDate"><date-time/></field>
+        <field name="caFromDate"><date-time/></field>
         <field name="contentTypeId"><hidden value="WEB_SITE_PUB_PT"/></field>
         <field name="ownerContentId"><hidden value="${parameters.forumGroupId}"/></field>
-        <field name="contentIdTo"><hidden value="${parameters.forumGroupId}"/></field>
-        <field name="contentAssocTypeId"><hidden value="SUBSITE"/></field>
+        <field name="caContentIdTo"><hidden value="${parameters.forumGroupId}"/></field>
+        <field name="caContentAssocTypeId"><hidden value="SUBSITE"/></field>
         <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
@@ -149,10 +149,10 @@ under the License.
         <field name="forumMessageTitle" parameter-name="description"><text/></field>
         <field name="contentTypeId"><hidden/></field>
         <field name="ownerContentId"><hidden value="${parameters.forumId}"/></field>
-        <field name="fromDate"><hidden value="${contentAssoc.fromDate}"/></field>
-        <field name="toDate"><hidden value="${contentAssoc.toDate}"/></field>
-        <field name="contentIdTo"><hidden/></field>
-        <field name="contentAssocTypeId"><hidden value="RESPONSE"/></field>
+        <field name="caFromDate"><hidden value="${contentAssoc.fromDate}"/></field>
+        <field name="caToDate"><hidden value="${contentAssoc.toDate}"/></field>
+        <field name="caContentIdTo"><hidden/></field>
+        <field name="caContentAssocTypeId"><hidden value="RESPONSE"/></field>
         <field name="forumMessageText" parameter-name="textData"><textarea rows="10"/></field>
         <field name="addButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -166,8 +166,8 @@ under the License.
         <field name="forumMessageTitle" parameter-name="description"><text default-value="${forumMessage.description}"/></field>
         <field name="contentTypeId"><hidden value="DOCUMENT"/></field>
         <field name="ownerContentId"><hidden value="${parameters.forumId}"/></field>
-        <field name="contentIdTo"><hidden value="${parameters.forumMessageIdTo}"/></field>
-        <field name="contentAssocTypeId"><hidden value="RESPONSE"/></field>
+        <field name="caContentIdTo"><hidden value="${parameters.forumMessageIdTo}"/></field>
+        <field name="caContentAssocTypeId"><hidden value="RESPONSE"/></field>
         <field name="forumMessageText" parameter-name="textData"><textarea rows="10" visual-editor-enable="true" visual-editor-buttons="undo redo bold italic underline bullet indent outdent link"/></field>
         <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
