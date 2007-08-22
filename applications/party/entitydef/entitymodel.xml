@@ -512,6 +512,7 @@ under the License.
       <field name="contentMimeTypeId" type="id-long"/>
       <field name="content" type="very-long"></field>
       <field name="note" type="comment"></field>
+      <field name="reasonEnumId" type="id"></field>
       <field name="contactListId" type="id"></field>
       <field name="headerString" type="very-long"></field>
       <field name="fromString" type="very-long"></field>
@@ -559,6 +560,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="COM_EVNT_MIMETYPE" rel-entity-name="MimeType">
           <key-map field-name="contentMimeTypeId" rel-field-name="mimeTypeId"/>
+      </relation>
+      <relation type="one" fk-name="COM_EVNT_RESENUM" rel-entity-name="Enumeration">
+          <key-map field-name="reasonEnumId" rel-field-name="enumId"/>
       </relation>
     </entity>
     
