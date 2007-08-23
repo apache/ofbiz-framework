@@ -857,37 +857,27 @@ public class OagisInventoryServices {
                                     
                                     // TODOLATER: another fun thing to check: see if the serial number matches a serial number attached to the original return (if possible!)
                                     
+                                    //clone the context as it may be changed in the call
+                                    Map localRipCtx = FastMap.newInstance();
+                                    localRipCtx.putAll(ripCtx);
+                                    localRipCtx.put("quantityAccepted", new Double(1.0));
+                                    // always set this to 0, if needed we'll handle the rejected quantity separately
+                                    localRipCtx.put("quantityRejected", new Double(0.0));
+                                    localRipCtx.put("serialNumber", serialNum);
+                                    localRipCtx.put("productId", productId);
+                                    localRipCtx.put("returnItemSeqId", returnItemSeqId);
+                                    
                                     GenericValue inventoryItem = EntityUtil.getFirst(inventoryItemsBySerialNumber);
                                     if (inventoryItem != null) {
-                                        Map updateInvItmMap = FastMap.newInstance();
-                                        updateInvItmMap.put("inventoryItemId", inventoryItem.getString("inventoryItemId"));
-                                        updateInvItmMap.put("userLogin", userLogin);
-                                        updateInvItmMap.put("statusId", invItemStatusId);
-                                        String inventoryItemProductId = inventoryItem.getString("productId");
-                                        if (!inventoryItemProductId.equals(productId)) {
-                                            // got a new productId for the serial number; this may happen for refurbishment, etc
-                                            updateInvItmMap.put("productId",productId);
-                                        }
-                                        dispatcher.runSync("updateInventoryItem", updateInvItmMap);
-                                        invItemIds.add(UtilMisc.toMap("inventoryItemId", inventoryItem.getString("inventoryItemId")));
-                                    } else {
-                                        //clone the context as it may be changed in the call
-                                        Map localRipCtx = FastMap.newInstance();
-                                        localRipCtx.putAll(ripCtx);
-                                        localRipCtx.put("quantityAccepted", new Double(1.0));
-                                        // always set this to 0, if needed we'll handle the rejected quantity separately
-                                        localRipCtx.put("quantityRejected", new Double(0.0));
-                                        localRipCtx.put("serialNumber", serialNum);
-                                        localRipCtx.put("productId", productId);
-                                        localRipCtx.put("returnItemSeqId", returnItemSeqId);
-                                        
-                                        Map ripResult = dispatcher.runSync("receiveInventoryProduct", localRipCtx);
-                                        if (ServiceUtil.isError(ripResult)) {
-                                            String errMsg = ServiceUtil.getErrorMessage(ripResult);
-                                            errorMapList.add(UtilMisc.toMap("reasonCode", "ReceiveInventoryServiceError", "description", errMsg));
-                                        }
-                                        invItemIds.add(ripResult.get("inventoryItemId"));
+                                        localRipCtx.put("inventoryItemId", inventoryItem.getString("inventoryItemId"));
                                     }
+
+                                    Map ripResult = dispatcher.runSync("receiveInventoryProduct", localRipCtx);
+                                    if (ServiceUtil.isError(ripResult)) {
+                                        String errMsg = ServiceUtil.getErrorMessage(ripResult);
+                                        errorMapList.add(UtilMisc.toMap("reasonCode", "ReceiveInventoryServiceError", "description", errMsg));
+                                    }
+                                    invItemIds.add(ripResult.get("inventoryItemId"));
                                 }
                             } else {
                                 String inventoryItemTypeId = "NON_SERIAL_INV_ITEM";
@@ -982,25 +972,26 @@ public class OagisInventoryServices {
                             String productId = (String) returnQuantityByProductIdEntry.getKey();
                             double returnQuantity = ((Double) returnQuantityByProductIdEntry.getValue()).doubleValue();
                             
-                            double inventoryQuantity = 0;
+                            double receivedQuantity = 0;
                             // note no facilityId because we don't really care where the return items were received
-                            List inventoryItemDetailList = delegator.findByAnd("InventoryItemAndDetail", UtilMisc.toMap("productId", productId, "returnId", returnId));
+                            List shipmentReceiptList = delegator.findByAnd("ShipmentReceipt", UtilMisc.toMap("productId", productId, "returnId", returnId));
                             // NOTE only consider those with a quantityOnHandDiff > 0 so we just look at how many have been received, not what was actually done with them
-                            Iterator inventoryItemDetailIter = inventoryItemDetailList.iterator();
-                            while (inventoryItemDetailIter.hasNext()) {
-                                GenericValue inventoryItemDetail = (GenericValue) inventoryItemDetailIter.next();
-                                Double quantityOnHandDiff = inventoryItemDetail.getDouble("quantityOnHandDiff");
-                                if (quantityOnHandDiff != null && quantityOnHandDiff.doubleValue() > 0) {
-                                    inventoryQuantity += quantityOnHandDiff.doubleValue();
+                            Iterator shipmentReceiptIter = shipmentReceiptList.iterator();
+                            while (shipmentReceiptIter.hasNext()) {
+                                GenericValue shipmentReceipt = (GenericValue) shipmentReceiptIter.next();
+                                Double quantityAccepted = shipmentReceipt.getDouble("quantityAccepted");
+                                if (quantityAccepted != null && quantityAccepted.doubleValue() > 0) {
+                                    receivedQuantity += quantityAccepted.doubleValue();
                                 }
                             }
                             
-                            if (inventoryQuantity < returnQuantity) {
+                            if (receivedQuantity < returnQuantity) {
                                 fullReturnReceived = false;
                                 break;
-                            } else if (inventoryQuantity > returnQuantity) {
+                            } else if (receivedQuantity > returnQuantity) {
                                 // TODOLATER: we received MORE than expected... what to do about that?!?
-                                String warnMsg = "Received more [" + inventoryQuantity + "] than were expected on return [" + returnQuantity + "] for Return ID [" + returnId + "] and Product ID [" + productId + "]";
+                                String warnMsg = "Received more [" + receivedQuantity + "] than were expected on return [" + returnQuantity + "] for Return ID [" + returnId + "] and Product ID [" + productId + "]";
+                                warnMsg = warnMsg + "; still completing return, but something should be done with these extras!";
                                 Debug.logWarning(warnMsg, module);
                                 // even with that, allow it to go through and complete the return
                             }
