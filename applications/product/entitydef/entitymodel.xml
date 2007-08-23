@@ -3908,6 +3908,16 @@ under the License.
         <field name="externalSubscriptionId" type="id"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
+        <!-- this subscription instance resource values -->
+        <field name="purchaseFromDate" type="date-time"></field>
+        <field name="purchaseThruDate" type="date-time"></field>
+        <field name="maxLifeTime" type="numeric"></field>
+        <field name="maxLifeTimeUomId" type="id"></field>
+        <field name="availableTime" type="numeric"></field>
+        <field name="availableTimeUomId" type="id"></field>
+        <field name="useCountLimit" type="numeric"></field>
+        <field name="useTime" type="numeric"></field>
+        <field name="useTimeUomId" type="id"></field>
         <prim-key field="subscriptionId"/>
         <relation type="one" fk-name="SUBSC_SRESRC" rel-entity-name="SubscriptionResource">
             <key-map field-name="subscriptionResourceId"/>
@@ -3917,6 +3927,15 @@ under the License.
         </relation>
         <relation type="one" fk-name="SUBSC_PARTY" rel-entity-name="Party">
             <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_UTU" title="UseTime" rel-entity-name="Uom">
+            <key-map field-name="useTimeUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_ATU" title="AvailableTime" rel-entity-name="Uom">
+            <key-map field-name="availableTimeUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_MTU" title="MaxLifeTime" rel-entity-name="Uom">
+            <key-map field-name="maxLifeTimeUomId" rel-field-name="uomId"/>
         </relation>
         <relation type="one" fk-name="SUBSC_ROLE_TYPE" rel-entity-name="RoleType">
             <key-map field-name="roleTypeId"/>
