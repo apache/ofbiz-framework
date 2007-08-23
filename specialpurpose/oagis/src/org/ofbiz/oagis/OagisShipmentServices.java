@@ -352,14 +352,14 @@ public class OagisShipmentServices {
                                                     EntityOperator.AND, new EntityExpr("productId", EntityOperator.IN, productIdSet));
                                             List inventoryItemsBySerialNumber = delegator.findByCondition("InventoryItem", bySerialNumberCondition, null, null);
                                             if (OagisServices.requireSerialNumberExist.booleanValue()) {
-                                                if (inventoryItemsBySerialNumber.size() > 0) {
-                                                    String errMsg = "Referenced serial numbers must already exist, but serial number [" + serialNumber + "] was not found.";
+                                                if (inventoryItemsBySerialNumber.size() == 0) {
+                                                    String errMsg = "Referenced serial numbers must already exist, but serial number [" + serialNumber + "] was not found. Product ID(s) considered are: " + productIdSet;
                                                     errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumberRequiredButNotFound"));
                                                     continue;
                                                 }
                                             } else {
-                                                if (inventoryItemsBySerialNumber.size() == 0) {
-                                                    String errMsg = "Referenced serial numbers must NOT already exist, but serial number [" + serialNumber + "] already exists.";
+                                                if (inventoryItemsBySerialNumber.size() > 0) {
+                                                    String errMsg = "Referenced serial numbers must NOT already exist, but serial number [" + serialNumber + "] already exists. Product ID(s) considered are: " + productIdSet;
                                                     errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumberRequiredNotExistButFound"));
                                                     continue;
                                                 }
