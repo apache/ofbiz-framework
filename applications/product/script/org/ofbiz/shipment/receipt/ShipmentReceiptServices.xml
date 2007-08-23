@@ -74,48 +74,99 @@ under the License.
     <simple-method method-name="receiveInventoryProduct" short-description="Receive Inventory in new Inventory Item(s)">
         <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run receiveInventoryProduct you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
         <check-errors/>
+        
+        <!-- NOTES
+            - for serialized items with a serial number passed in: the quantityAccepted _should_ always be 1
+            - if the type is SERIALIZED_INV_ITEM but there is not serial number (which is weird...) we'll create a bunch of individual InventoryItems
+            - DEJ20070822: something to consider for the future: maybe instead of this funny looping maybe for serialized items we should only allow a quantity of 1, ie return an error if it is not 1
+        -->
         <set field="loops" value="1" type="Double"/>
         <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field-name="parameters.inventoryItemTypeId">
+            <!-- if we are serialized and either a serialNumber or inventoyItemId is passed in and the quantityAccepted is greater than 1 then complain -->
+            <if>
+                <condition>
+                    <and>
+                        <or>
+                            <not><if-empty field-name="parameters.serialNumber"/></not>
+                            <not><if-empty field-name="parameters.inventoryItemId"/></not>
+                        </or>
+                        <if-compare field-name="parameters.quantityAccepted" operator="greater" value="1" type="Double"/>         
+                    </and>
+                </condition>
+                <then>
+                    <add-error><fail-message message="Tried to receive a serialized inventory item with serialNumber [${parameters.serialNumber}] or inventoryItemId [${parameters.inventoryItemId}] passed in and quantityAccepted [${parameters.quantityAccepted}] was greater than 1; we don't know what to do with that!"/></add-error>
+                </then>
+            </if>
+            
             <set field="loops" from-field="parameters.quantityAccepted"/>
             <set field="parameters.quantityAccepted" value="1" type="Double"/>
         </if-compare>
+
         <set field="parameters.quantityOnHandDiff" from-field="parameters.quantityAccepted"/>
         <set field="parameters.availableToPromiseDiff" from-field="parameters.quantityAccepted"/>
-  
-        <loop count="${loops}" field="currentLoop">
-            <log level="info" message="Looping and creating inventory info - ${currentLoop}"/>
 
-            <clear-field field-name="serviceInMap"/>
-            <set-service-fields service-name="createInventoryItem" map-name="parameters" to-map-name="serviceInMap"/>
-            <call-service service-name="createInventoryItem" in-map-name="serviceInMap">
-                <result-to-field result-name="inventoryItemId" field-name="parameters.inventoryItemId"/>
-            </call-service>
+        <!-- before getting going, see if there are any validation issues so far -->
+        <check-errors/>
+        
+        <loop count="${loops}" field="currentLoop">
+            <log level="info" message="receiveInventoryProduct Looping and creating inventory info - ${currentLoop}"/>
             
+            <!-- if there is an inventoryItemId, update it (this will happen when receiving serialized inventory already in the system, like for returns); if not create one -->
             <clear-field field-name="serviceInMap"/>
-            <set-service-fields service-name="createInventoryItemDetail" map-name="parameters" to-map-name="serviceInMap"/>
-            <call-service service-name="createInventoryItemDetail" in-map-name="serviceInMap">
-                <result-to-field result-name="inventoryItemDetailSeqId" field-name="parameters.inventoryItemDetailSeqId"/>
-            </call-service>
+            <if-empty field-name="parameters.inventoryItemId">
+                <set-service-fields service-name="createInventoryItem" map-name="parameters" to-map-name="serviceInMap"/>
+                <call-service service-name="createInventoryItem" in-map-name="serviceInMap">
+                    <result-to-field result-name="inventoryItemId" field-name="parameters.inventoryItemId"/>
+                </call-service>
+
+                <else>
+                    <set-service-fields service-name="updateInventoryItem" map-name="parameters" to-map-name="serviceInMap"/>
+                    <call-service service-name="updateInventoryItem" in-map-name="serviceInMap"/>
+                </else>
+            </if-empty>
+            
+            <!-- do this only for non-serialized inventory -->
+            <if-compare value="SERIALIZED_INV_ITEM" operator="not-equals" field-name="parameters.inventoryItemTypeId">
+                <clear-field field-name="serviceInMap"/>
+                <set-service-fields service-name="createInventoryItemDetail" map-name="parameters" to-map-name="serviceInMap"/>
+                <call-service service-name="createInventoryItemDetail" in-map-name="serviceInMap">
+                    <result-to-field result-name="inventoryItemDetailSeqId" field-name="parameters.inventoryItemDetailSeqId"/>
+                </call-service>
+            </if-compare>
             
             <clear-field field-name="serviceInMap"/>
             <set-service-fields service-name="createShipmentReceipt" map-name="parameters" to-map-name="serviceInMap"/>
             <call-service service-name="createShipmentReceipt" in-map-name="serviceInMap"/>
             
             <!-- update serialized items to AVAILABLE (only if this is not a return), which then triggers other SECA chains -->
-            <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field-name="parameters.inventoryItemTypeId">
-                <if-compare value="INV_RETURNED" operator="not-equals" field-name="parameters.statusId">
+            <if>
+                <condition>
+                    <and>
+                        <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field-name="parameters.inventoryItemTypeId"/>
+                        <if-empty field-name="parameters.returnId"/>
+                    </and>
+                </condition>
+                <then>
                     <!-- Retrieve the new inventoryItem -->
                     <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
-
-                    <!-- Don't reset the status if it's already set to INV_PROMISED downstream -->
-                    <if-compare value="INV_PROMISED" operator="not-equals" field-name="inventoryItem.statusId">
-                        <clear-field field-name="serviceInMap"/>
-                        <set field="serviceInMap.inventoryItemId" from-field="parameters.inventoryItemId"/>
-                        <set field="serviceInMap.statusId" value="INV_AVAILABLE"/> <!-- XXX set to returned instead -->
-                        <call-service service-name="updateInventoryItem" in-map-name="serviceInMap"/>
-                    </if-compare>
-                </if-compare>
-            </if-compare>
+                    
+                    <!-- Don't reset the status if it's already set to INV_PROMISED or INV_ON_HOLD -->
+                    <if>
+                        <condition>
+                            <and>
+                                <if-compare value="INV_PROMISED" operator="not-equals" field-name="inventoryItem.statusId"/>
+                                <if-compare value="INV_ON_HOLD" operator="not-equals" field-name="inventoryItem.statusId"/>
+                            </and>
+                        </condition>
+                        <then>
+                            <clear-field field-name="serviceInMap"/>
+                            <set field="serviceInMap.inventoryItemId" from-field="parameters.inventoryItemId"/>
+                            <set field="serviceInMap.statusId" value="INV_AVAILABLE"/> <!-- XXX set to returned instead -->
+                            <call-service service-name="updateInventoryItem" in-map-name="serviceInMap"/>
+                        </then>
+                    </if>
+                </then>
+            </if>
             
             <clear-field field-name="serviceInMap"/>
             <set-service-fields service-name="balanceInventoryItems" map-name="parameters" to-map-name="serviceInMap"/>

@@ -287,8 +287,8 @@ under the License.
                     <and>
                         <if-compare field-name="inventoryItem.statusId" value="INV_AVAILABLE" operator="equals"/>
                         <or>
-                            <if-compare field-name="inventoryItem.availableToPromiseTotal" value="1" operator="not-equals" type="Double"/>
-                            <if-compare field-name="inventoryItem.quantityOnHandTotal" value="1" operator="not-equals" type="Double"/>
+                            <if-compare field-name="inventoryItem.availableToPromiseTotal" operator="not-equals" value="1" type="Double"/>
+                            <if-compare field-name="inventoryItem.quantityOnHandTotal" operator="not-equals" value="1" type="Double"/>
                         </or>
                     </and>
                 </condition>
@@ -305,8 +305,8 @@ under the License.
                         <and>
                             <if-compare field-name="inventoryItem.statusId" value="INV_DELIVERED" operator="equals"/>
                             <or>
-                                <if-compare field-name="inventoryItem.availableToPromiseTotal" value="0" operator="not-equals" type="Double"/>
-                                <if-compare field-name="inventoryItem.quantityOnHandTotal" value="0" operator="not-equals" type="Double"/>
+                                <if-compare field-name="inventoryItem.availableToPromiseTotal" operator="not-equals" value="0" type="Double"/>
+                                <if-compare field-name="inventoryItem.quantityOnHandTotal" operator="not-equals" value="0" type="Double"/>
                             </or>
                         </and>
                     </condition>
@@ -322,11 +322,11 @@ under the License.
                 <else-if>
                     <condition>
                         <and>
-                            <if-compare field-name="inventoryItem.statusId" value="INV_AVAILABLE" operator="not-equals"/>
-                            <if-compare field-name="inventoryItem.statusId" value="INV_DELIVERED" operator="not-equals"/>
+                            <if-compare field-name="inventoryItem.statusId" operator="not-equals" value="INV_AVAILABLE"/>
+                            <if-compare field-name="inventoryItem.statusId" operator="not-equals" value="INV_DELIVERED"/>
                             <or>
-                                <if-compare field-name="inventoryItem.availableToPromiseTotal" value="0" operator="not-equals" type="Double"/>
-                                <if-compare field-name="inventoryItem.quantityOnHandTotal" value="1" operator="not-equals" type="Double"/>
+                                <if-compare field-name="inventoryItem.availableToPromiseTotal" operator="not-equals" value="0" type="Double"/>
+                                <if-compare field-name="inventoryItem.quantityOnHandTotal" operator="not-equals" value="1" type="Double"/>
                             </or>
                         </and>
                     </condition>
