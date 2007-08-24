@@ -107,8 +107,8 @@ under the License.
     </service>
     <service name="createPaymentApplicationsFromReturnItemResponse" engine="java"
             location="org.ofbiz.order.order.OrderReturnServices" invoke="createPaymentApplicationsFromReturnItemResponse">
-            <description>Creates PaymentApplications for each return item billing related to the return response until the responseAmount is reached or
-                all items are paid.</description>
+            <description>Creates PaymentApplications for each return item billing related to the return response until 
+                the responseAmount is reached or all items are paid.</description>
         <attribute name="returnItemResponseId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="cancelReturnItems" engine="simple"
