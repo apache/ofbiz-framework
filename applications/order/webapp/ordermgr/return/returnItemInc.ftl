@@ -92,7 +92,7 @@ under the License.
                     </tr>
                 <#else>
                     <#-- this is an order item -->
-                    <#assign returnItemType = returnItemTypeMap.get(returnableItems.get(orderItem).get("itemTypeKey"))/>
+                    <#assign returnItemType = (returnItemTypeMap.get(returnableItems.get(orderItem).get("itemTypeKey")))?if_exists/>
                     <input type="hidden" name="returnItemTypeId_o_${rowCount}" value="${returnItemType}"/>
                     <input type="hidden" name="orderId_o_${rowCount}" value="${orderItem.orderId}"/>
                     <input type="hidden" name="orderItemSeqId_o_${rowCount}" value="${orderItem.orderItemSeqId}"/>
