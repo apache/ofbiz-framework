@@ -69,7 +69,7 @@ under the License.
     <Geo abbreviation="TCD" geoCode="TD" geoId="TCD" geoName="Chad" geoSecCode="148" geoTypeId="COUNTRY"/>
     <Geo abbreviation="CHL" geoCode="CL" geoId="CHL" geoName="Chile" geoSecCode="152" geoTypeId="COUNTRY"/>
     <Geo abbreviation="CHN" geoCode="CN" geoId="CHN" geoName="China" geoSecCode="156" geoTypeId="COUNTRY"/>
-    <Geo abbreviation="TWN" geoCode="TW" geoId="TWN" geoName="Taiwan, Province Of China" geoSecCode="158" geoTypeId="COUNTRY"/>
+    <Geo abbreviation="TWN" geoCode="TW" geoId="TWN" geoName="Taiwan" geoSecCode="158" geoTypeId="COUNTRY"/>
     <Geo abbreviation="CXR" geoCode="CX" geoId="CXR" geoName="Christmas Island" geoSecCode="162" geoTypeId="COUNTRY"/>
     <Geo abbreviation="CCK" geoCode="CC" geoId="CCK" geoName="Cocos (keeling) Islands" geoSecCode="166" geoTypeId="COUNTRY"/>
     <Geo abbreviation="COL" geoCode="CO" geoId="COL" geoName="Colombia" geoSecCode="170" geoTypeId="COUNTRY"/>
