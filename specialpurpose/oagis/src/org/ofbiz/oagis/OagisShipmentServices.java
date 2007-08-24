@@ -657,12 +657,33 @@ public class OagisShipmentServices {
                     // Check if order was a return replacement order (associated with return)
                     GenericValue returnItemResponse = EntityUtil.getFirst(delegator.findByAnd("ReturnItemResponse", UtilMisc.toMap("replacementOrderId", orderId)));
                     if (returnItemResponse != null) {
-                        bodyParameters.put("shipnotes", "RETURNLABEL");
+                        boolean includeReturnLabel = false;
                         
                         // Get the associated return Id (replaceReturnId)
                         String returnItemResponseId = returnItemResponse.getString("returnItemResponseId");
-                        GenericValue returnItem = EntityUtil.getFirst(delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnItemResponseId", returnItemResponseId)));
-                        bodyParameters.put("replacementReturnId", returnItem.getString("returnId"));
+                        List returnItemList = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnItemResponseId", returnItemResponseId));
+                        GenericValue firstReturnItem = EntityUtil.getFirst(returnItemList);
+                        if (firstReturnItem != null) {
+                            bodyParameters.put("replacementReturnId", firstReturnItem.getString("returnId"));
+                        } else {
+                            Debug.logWarning("Could not find a ReturnItem for returnItemResponseId [" + returnItemResponseId + "]; this really shouldn't happen but isn't a real error either. It means a ReturnItemResponse was created but not attached to any item!", module);
+                        }
+
+                        // return label should only be sent when we want a return label to be included; this would be for a cross-ship replacement type ReturnItem
+                        
+                        // go through the returnItemList and if any are cross-ship replacement, then include a label (not for wait replacement in other words)
+                        Iterator returnItemIter = returnItemList.iterator();
+                        while (returnItemIter.hasNext()) {
+                            GenericValue returnItem = (GenericValue) returnItemIter.next();
+                            if ("returnTypeId".equals(returnItem.getString("RTN_CSREPLACE"))) {
+                                includeReturnLabel = true;
+                            }
+                        }
+                        
+                        if (includeReturnLabel) {
+                            bodyParameters.put("shipnotes", "RETURNLABEL");
+                        }
+                        
                     }
                     // tracking shipper account, other Party info
                     String partyId = shipment.getString("partyIdTo");
