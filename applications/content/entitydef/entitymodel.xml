@@ -187,7 +187,7 @@ under the License.
             title="Content Entity">
       <field name="contentId" type="id-ne"></field>
       <field name="contentTypeId" type="id"></field>
-      <field name="ownerContentId" type="id"></field> <!-- used for permissions checking -->
+      <field name="ownerContentId" type="id"><description>Used for permissions checking</description></field>
       <field name="decoratorContentId" type="id"></field> 
       <field name="instanceOfContentId" type="id"></field>
       <field name="dataResourceId" type="id"></field>
@@ -311,8 +311,8 @@ under the License.
     <entity entity-name="ContentAssoc"
             package-name="org.ofbiz.content.content"
             title="Content Association Entity">
-      <field name="contentId" type="id-ne"></field> <!-- "parent" content -->
-      <field name="contentIdTo" type="id-ne"></field> <!-- "child" or "sub" content -->
+      <field name="contentId" type="id-ne"><description>"parent" content</description></field>
+      <field name="contentIdTo" type="id-ne"><description>"child" or "sub" content</description></field>
       <field name="contentAssocTypeId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
