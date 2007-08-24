@@ -148,13 +148,13 @@ public class ContentManagementServices {
 
     /**
      * persistContentAndAssoc
-     * A combination method that will create or update all or one of the following
-     * a Content entity, a ContentAssoc related to the Content and 
+     * A combination method that will create or update all or one of the following:
+     * a Content entity, a ContentAssoc related to the Content, and 
      * the ElectronicText that may be associated with the Content.
      * The keys for determining if each entity is created is the presence
      * of the contentTypeId, contentAssocTypeId and dataResourceTypeId.
-     * This service tries to handle DataResource and ContentAssoc fields with and
-     * without "dr" and "ca" prefixes.
+     * This service tries to handle DataResource fields with and
+     * without "dr" prefixes.
      * Assumes binary data is always in field, "imageData".
      * 
      * This service does not accept straight ContentAssoc parameters. They must be prefaced with "ca" + cap first letter
@@ -213,7 +213,13 @@ public class ContentManagementServices {
         if (Debug.infoOn()) Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, null);
 
         GenericValue contentAssoc = delegator.makeValue("ContentAssoc", null);
+        String contentAssocTypeId = (String)context.get("contentAssocTypeId");
+        if (UtilValidate.isNotEmpty(contentAssocTypeId)) {
+            context.put("caContentAssocTypeId", contentAssocTypeId);
+        }
+        contentAssocTypeId = (String)context.get("caContentAssocTypeId");
         contentAssoc.setAllFields(context, false, "ca", null);
+        contentAssoc.put("contentId", context.get("caContentId"));
         context.putAll(contentAssoc);
 
         GenericValue electronicText = delegator.makeValue("ElectronicText", null);
@@ -296,7 +302,7 @@ public class ContentManagementServices {
                 //targetOperations.add("CONTENT_UPDATE");
                 Map contentContext = new HashMap();
                 ModelService contentModel = dispatcher.getDispatchContext().getModelService("updateContent");
-                contentContext.putAll(contentModel.makeValid(context, "IN"));
+                contentContext.putAll(contentModel.makeValid(content, "IN"));
                 contentContext.put("userLogin", userLogin);
                 contentContext.put("displayFailCond", bDisplayFailCond);
                 contentContext.put("skipPermissionCheck", context.get("skipPermissionCheck"));
@@ -309,7 +315,7 @@ public class ContentManagementServices {
                 //targetOperations.add("CONTENT_CREATE");
                 Map contentContext = new HashMap();
                 ModelService contentModel = dispatcher.getDispatchContext().getModelService("createContent");
-                contentContext.putAll(contentModel.makeValid(context, "IN"));
+                contentContext.putAll(contentModel.makeValid(content, "IN"));
                 contentContext.put("userLogin", userLogin);
                 contentContext.put("displayFailCond", bDisplayFailCond);
                 contentContext.put("skipPermissionCheck", context.get("skipPermissionCheck"));
@@ -362,14 +368,14 @@ public class ContentManagementServices {
         }
 
         // If parentContentIdTo or parentContentIdFrom exists, create association with newly created content
-        String contentAssocTypeId = (String)context.get("contentAssocTypeId");
-        if (UtilValidate.isEmpty(contentAssocTypeId)) 
-            contentAssocTypeId = (String)context.get("caContentAssocTypeId");
-
-        if (Debug.infoOn()) Debug.logInfo("CREATING contentASSOC contentAssocTypeId:" +  contentAssocTypeId, null);
+        if (Debug.infoOn()) {
+            Debug.logInfo("CREATING contentASSOC contentAssocTypeId:" + contentAssocTypeId, null);
+        }
         // create content assoc if the key values are present....
-        if (contentAssocTypeId != null && contentAssocTypeId.length() > 0 && contentAssoc.get("contentId") != null && contentAssoc.get("contentIdTo") != null ) {
-            if (Debug.infoOn()) Debug.logInfo("in persistContentAndAssoc, deactivateExisting:" +  deactivateExisting, null);
+        Debug.logInfo("contentAssoc: " + contentAssoc.toString(), null);
+        if (UtilValidate.isNotEmpty(contentAssocTypeId) && contentAssoc.get("contentId") != null && contentAssoc.get("contentIdTo") != null) {
+            if (Debug.infoOn())
+                Debug.logInfo("in persistContentAndAssoc, deactivateExisting:" + deactivateExisting, null);
             Map contentAssocContext = new HashMap();
             contentAssocContext.put("userLogin", userLogin);
             contentAssocContext.put("displayFailCond", bDisplayFailCond);
@@ -386,13 +392,18 @@ public class ContentManagementServices {
                     if (ServiceUtil.isError(thisResult) || ServiceUtil.isFailure(thisResult) || UtilValidate.isNotEmpty(errMsg)) {
                         return ServiceUtil.returnError(errMsg);
                     }
-//                    results.put("contentIdTo", thisResult.get("contentIdTo"));
-//                    results.put("contentIdFrom", thisResult.get("contentIdFrom"));
-//                    //results.put("contentId", thisResult.get("contentIdFrom"));
-//                    results.put("contentAssocTypeId", thisResult.get("contentAssocTypeId"));
-//                    results.put("fromDate", thisResult.get("fromDate"));
-//                    results.put("sequenceNum", thisResult.get("sequenceNum"));
-                    
+                    // results.put("contentIdTo",
+                    // thisResult.get("contentIdTo"));
+                    // results.put("contentIdFrom",
+                    // thisResult.get("contentIdFrom"));
+                    // results.put("contentId",
+                    // thisResult.get("contentIdFrom"));
+                    // results.put("contentAssocTypeId",
+                    // thisResult.get("contentAssocTypeId"));
+                    // results.put("fromDate", thisResult.get("fromDate"));
+                    // results.put("sequenceNum",
+                    // thisResult.get("sequenceNum"));
+
                     results.put("caContentIdTo", thisResult.get("contentIdTo"));
                     results.put("caContentId", thisResult.get("contentIdFrom"));
                     results.put("caContentAssocTypeId", thisResult.get("contentAssocTypeId"));
@@ -400,7 +411,7 @@ public class ContentManagementServices {
                     results.put("caSequenceNum", thisResult.get("sequenceNum"));
                 } else {
                     if (deactivateExisting) {
-                        contentAssoc.put("thruDate",UtilDateTime.nowTimestamp());
+                        contentAssoc.put("thruDate", UtilDateTime.nowTimestamp());
                     }
                     ModelService contentAssocModel = dispatcher.getDispatchContext().getModelService("updateContentAssoc");
                     Map ctx = contentAssocModel.makeValid(contentAssoc, "IN");
@@ -417,16 +428,16 @@ public class ContentManagementServices {
                 throw new GenericServiceException(e2.getMessage());
             }
             String errMsg = ServiceUtil.getErrorMessage(thisResult);
-           if (UtilValidate.isNotEmpty(errMsg)) {
-               return ServiceUtil.returnError(errMsg);
-           }
-       }
-       context.remove("skipPermissionCheck");
-       context.put("contentId", origContentId);
-       context.put("dataResourceId", origDataResourceId);
-       context.remove("dataResource");
-       Debug.logInfo("results:" + results, module);
-       return results;
+            if (UtilValidate.isNotEmpty(errMsg)) {
+                return ServiceUtil.returnError(errMsg);
+            }
+        }
+        context.remove("skipPermissionCheck");
+        context.put("contentId", origContentId);
+        context.put("dataResourceId", origDataResourceId);
+        context.remove("dataResource");
+        Debug.logInfo("results:" + results, module);
+        return results;
     }
 
     /**

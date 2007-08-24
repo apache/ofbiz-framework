@@ -64,7 +64,7 @@ under the License.
                 </entity-one>
                 <set field="objectName" from-field="forumGroup.contentName"/>
                 <set field="objectId"  from-field="forumGroup.contentId"/>
-                <entity-and entity-name="ContentAssocDataResourceViewFrom" list-name="forums">
+                <entity-and entity-name="ContentAssocDataResourceViewTo" list-name="forums">
                     <field-map field-name="contentIdStart" env-name="forumGroupId"/>
                 </entity-and>
             </actions>
