@@ -46,6 +46,7 @@ under the License.
         <!-- always create the WorkEfforts, even if dates aren't specified yet; when they are they will be set in the update service... -->
 
         <!-- the Ship WorkEffort entity -->
+        <!-- SC 20070816 I am commenting out the shipment work efforts because there seems to be no code 
         <set value="Shipment #${newEntity.shipmentId} Ship" field="shipWorkEffortMap.workEffortName"/>
         <set value="EVENT" field="shipWorkEffortMap.workEffortTypeId"/>
         <set value="CAL_TENTATIVE" field="shipWorkEffortMap.currentStatusId"/>
@@ -63,8 +64,9 @@ under the License.
             <set value="CAL_SENT" field="assignPartyToWorkEffortShip.statusId"/>
             <call-service service-name="assignPartyToWorkEffort" in-map-name="assignPartyToWorkEffortShip"/>
         </if-not-empty>
-
+        -->
         <!-- the Arrival WorkEffort entity -->
+        <!--
         <set value="Shipment #${newEntity.shipmentId} Arrival" field="arrivalWorkEffortMap.workEffortName"/>
         <set value="EVENT" field="arrivalWorkEffortMap.workEffortTypeId"/>
         <set value="CAL_TENTATIVE" field="arrivalWorkEffortMap.currentStatusId"/>
@@ -82,6 +84,7 @@ under the License.
             <set value="CAL_SENT" field="assignPartyToWorkEffortArrival.statusId"/>
             <call-service service-name="assignPartyToWorkEffort" in-map-name="assignPartyToWorkEffortArrival"/>
         </if-not-empty>
+        -->
 
         <create-value value-name="newEntity"/>
 
@@ -131,6 +134,7 @@ under the License.
         <check-errors/>
 
         <!-- Check the pickup and delivery dates for changes and update the corresponding WorkEfforts -->
+        <!--
         <if>
             <condition>
                 <or>
@@ -178,7 +182,8 @@ under the License.
                 <call-service service-name="updateWorkEffort" in-map-name="estimatedArrivalWorkEffortUpdMap"/>
             </then>
         </if>
-
+        -->
+        
         <!-- if the partyIdTo or partyIdFrom has changed, add WEPAs -->
         <if>
             <condition>
