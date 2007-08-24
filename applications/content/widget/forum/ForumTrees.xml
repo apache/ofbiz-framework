@@ -29,9 +29,9 @@ under the License.
             </entity-one>
             <!--include-screen name="responseTreeLine" location="component://content/widget/forum/ForumScreens.xml" /-->
             <sub-node node-name="node-body">
-                <entity-condition entity-name="ContentAssocViewFrom" use-cache="false" >
+                <entity-condition entity-name="ContentAssocViewTo" use-cache="false" >
                     <condition-list combine="and">
-                        <condition-expr field-name="caContentIdTo" operator="equals" env-name="rsp.contentId" />
+                        <condition-expr field-name="contentIdStart" operator="equals" env-name="rsp.contentId" />
                         <condition-list combine="or">
                             <condition-expr field-name="caContentAssocTypeId" operator="equals" value="RESPONSE" />
                             <condition-expr field-name="caContentAssocTypeId" operator="equals" value="PUBLISH_LINK" />
@@ -45,9 +45,9 @@ under the License.
         <node name="node-body" entry-name="rsp">
             <include-screen name="responseTreeLine"  location="${parameters.mainDecoratorLocation}" />
             <sub-node node-name="node-body">
-                <entity-condition entity-name="ContentAssocViewFrom" use-cache="true" >
+                <entity-condition entity-name="ContentAssocViewTo" use-cache="true" >
                     <condition-list combine="and">
-                        <condition-expr field-name="caContentIdTo" operator="equals" env-name="rsp.contentId" />
+                        <condition-expr field-name="contentIdStart" operator="equals" env-name="rsp.contentId" />
                         <condition-expr field-name="caContentAssocTypeId" operator="equals" value="RESPONSE" />
                         <condition-expr field-name="caThruDate" operator="equals" value=""/>
                     </condition-list> 

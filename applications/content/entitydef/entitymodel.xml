@@ -187,7 +187,7 @@ under the License.
             title="Content Entity">
       <field name="contentId" type="id-ne"></field>
       <field name="contentTypeId" type="id"></field>
-      <field name="ownerContentId" type="id"></field>
+      <field name="ownerContentId" type="id"></field> <!-- used for permissions checking -->
       <field name="decoratorContentId" type="id"></field> 
       <field name="instanceOfContentId" type="id"></field>
       <field name="dataResourceId" type="id"></field>
@@ -263,7 +263,7 @@ under the License.
         <key-map field-name="contentId" rel-field-name="contentIdStart" />
       </relation>
     </entity>
-    <view-entity entity-name="ContentAndRole" package-name="org.ofbiz.content.content" title="Content And Role Entity">
+    <view-entity entity-name="ContentAndRole" package-name="org.ofbiz.content.content" title="Content And Role View Entity">
         <member-entity entity-alias="CNT" entity-name="Content"/>
         <member-entity entity-alias="CRLE" entity-name="ContentRole"/>
         <alias-all entity-alias="CNT"/>
@@ -311,8 +311,8 @@ under the License.
     <entity entity-name="ContentAssoc"
             package-name="org.ofbiz.content.content"
             title="Content Association Entity">
-      <field name="contentId" type="id-ne"></field>
-      <field name="contentIdTo" type="id-ne"></field>
+      <field name="contentId" type="id-ne"></field> <!-- "parent" content -->
+      <field name="contentIdTo" type="id-ne"></field> <!-- "child" or "sub" content -->
       <field name="contentAssocTypeId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
@@ -359,7 +359,7 @@ under the License.
     </entity>
     <view-entity entity-name="ContentAssocDataResourceViewFrom"
                 package-name="org.ofbiz.content.content"
-                title="Main Assoc To and DataResource">
+                title="Main Assoc From and DataResource View Entity">
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
       <member-entity entity-alias="DR" entity-name="DataResource"/>
@@ -402,7 +402,7 @@ under the License.
     </view-entity>
     <view-entity entity-name="ContentAssocDataResourceViewTo"
                 package-name="org.ofbiz.content.content"
-                title="Main Assoc To and DataResource">
+                title="Main Assoc To and DataResource View Entity">
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
       <member-entity entity-alias="DR" entity-name="DataResource"/>
@@ -461,7 +461,7 @@ under the License.
     </entity>
    <view-entity entity-name="ContentAssocViewFrom"
                 package-name="org.ofbiz.content.content"
-                title="Main Assoc To">
+                title="Main Assoc From View Entity">
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
       <alias-all entity-alias="CO"/>
@@ -475,7 +475,7 @@ under the License.
     </view-entity>
     <view-entity entity-name="ContentAssocViewTo"
                 package-name="org.ofbiz.content.content"
-                title="Main Assoc To">
+                title="Main Assoc To View Entity">
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
       <alias-all entity-alias="CO"/>
@@ -504,7 +504,7 @@ under the License.
     </entity>
     <view-entity entity-name="ContentDataResourceView"
                 package-name="org.ofbiz.content.content"
-                title="Content and DataResource">
+                title="Content and DataResource View Entity">
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="DR" entity-name="DataResource"/>
       <alias-all entity-alias="CO" />
@@ -542,7 +542,7 @@ under the License.
     </view-entity>
     <view-entity entity-name="CommEventContentDataResource"
                 package-name="org.ofbiz.content.content"
-                title="CommEvent and Content and DataResource">
+                title="CommEvent and Content and DataResource View Entity">
       <member-entity entity-alias="CECA" entity-name="CommEventContentAssoc"/>
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="DR" entity-name="DataResource"/>
@@ -758,7 +758,7 @@ under the License.
     </entity>
     <view-entity entity-name="SubContentDataResourceView"
                 package-name="org.ofbiz.content.content"
-                title="Content and DataResource for SubContent">
+                title="Content and DataResource for SubContent View Entity">
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="DR" entity-name="DataResource"/>
       <alias-all entity-alias="CO" />

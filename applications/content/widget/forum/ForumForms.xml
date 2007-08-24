@@ -166,7 +166,7 @@ under the License.
         <field name="forumMessageTitle" parameter-name="description"><text default-value="${forumMessage.description}"/></field>
         <field name="contentTypeId"><hidden value="DOCUMENT"/></field>
         <field name="ownerContentId"><hidden value="${parameters.forumId}"/></field>
-        <field name="caContentIdTo"><hidden value="${parameters.forumMessageIdTo}"/></field>
+        <field name="caContentId"><hidden value="${parameters.forumMessageIdTo}"/></field>
         <field name="caContentAssocTypeId"><hidden value="RESPONSE"/></field>
         <field name="forumMessageText" parameter-name="textData"><textarea rows="10" visual-editor-enable="true" visual-editor-buttons="undo redo bold italic underline bullet indent outdent link"/></field>
         <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -176,7 +176,7 @@ under the License.
     <form name="EditForumThreadMessage" type="single" target="updateForumThreadMessage">
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="forumId"><hidden value="${parameters.forumId}"/></field>
-        <field name="rsp.contentId" parameter-name="contenId"><hidden/></field>
+        <field name="rsp.contentId" parameter-name="contentId"><hidden/></field>
         <field name="rsp.contentName" parameter-name="contentName"><hidden/></field>
         <field name="rsp.description" parameter-name="description"><text/></field>
         <field name="rsp.contentTypeId" parameter-name="contentTypeId"><hidden/></field>
