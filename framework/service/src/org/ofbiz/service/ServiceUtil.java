@@ -18,37 +18,28 @@
  *******************************************************************************/
 package org.ofbiz.service;
 
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transaction;
-
-import javolution.util.FastMap;
 import javolution.util.FastList;
-
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilValidate;
+import javolution.util.FastMap;
+import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.transaction.TransactionUtil;
-import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.transaction.GenericTransactionException;
+import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.config.ServiceConfigUtil;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transaction;
+import java.sql.Timestamp;
+import java.util.*;
 
 /**
  * Generic Service Utility Class
@@ -574,6 +565,20 @@ public class ServiceUtil {
             String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "serviceUtil.unable_to_cancel_job_retries", locale) + " : " + job;
             return ServiceUtil.returnError(errMsg);
         }
+    }
+
+    public static Map genericDateCondition(DispatchContext dctx, Map context) {
+        Timestamp fromDate = (Timestamp) context.get("fromDate");
+        Timestamp thruDate = (Timestamp) context.get("thruDate");
+        Timestamp now = UtilDateTime.nowTimestamp();
+        Boolean reply = Boolean.TRUE;
+                           
+        if (fromDate != null && fromDate.after(now)) reply = Boolean.FALSE;
+        if (thruDate != null && thruDate.before(now)) reply = Boolean.FALSE;
+
+        Map result = ServiceUtil.returnSuccess();
+        result.put("conditionReply", reply);
+        return result;
     }
 
     public static GenericValue getUserLogin(DispatchContext dctx, Map context, String runAsUser) {
