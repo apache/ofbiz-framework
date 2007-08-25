@@ -97,4 +97,12 @@ under the License.
         <description>Interface to describe services used to process incoming email</description>
         <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="IN"/>
     </service>
+
+    <!-- simple condition implementation -->
+    <service name="effectiveDateEcaCondition" engine="java" auth="false" use-transaction="false"
+            location="org.ofbiz.service.ServiceUtil" invoke="genericDateCondition">
+        <implements service="serviceEcaConditionInterface"/>
+        <attribute name="fromDate" mode="IN" type="java.sql.Timestamp" optional="true"/>
+        <attribute name="thruDate" mode="IN" type="java.sql.Timestamp" optional="true"/>
+    </service>
 </services>
