@@ -370,7 +370,7 @@ public class ModelService extends AbstractMap implements Serializable {
                 ModelParam param = (ModelParam) i.next();
                 if ("INOUT".equals(param.mode) || mode.equals(param.mode)) {
                     if (param.defaultValue != null && context.get(param.name) == null) {
-                        context.put(param.name, param.defaultValue);
+                        context.put(param.name, param.defaultValueObj);
                         Debug.log("Set default value for parameter: " + param.name, module);
                     }
                 }
