@@ -49,6 +49,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.party.party.PartyWorker;
@@ -361,31 +362,41 @@ public class OagisShipmentServices {
                                 }
 
                                 // do some validations
-                                boolean continueLoop = false;
                                 if (UtilValidate.isNotEmpty(serialNumberList)) {
                                     if (messageQuantity.intValue() != serialNumberList.size()) {
                                         String errMsg = "Error: the quantity in the message [" + messageQuantity.intValue() + "] did not match the number of serial numbers passed [" + serialNumberList.size() + "] for ShipmentItem with ID [" + shipmentId + "] and Item Seq-ID [" + shipmentItemSeqId + "].";
                                         errorMapList.add(UtilMisc.toMap("reasonCode", "QuantitySerialMismatch", "description", errMsg));
                                         Debug.logInfo(errMsg, module);
-                                        continueLoop = true;
+                                        continue;
                                     }
-                                } 
-                                if ((int) totalReserved != messageQuantity.intValue()) {
-                                    String errMsg = "Inventory reservation quantity [" + totalReserved + "] did not match the message quantity [" + messageQuantity.intValue() + "] for ShipmentItem with ID [" + shipmentId + ":" + shipmentItemSeqId + "], and OrderItem [" + orderShipment.getString("orderId") + ":" + orderShipment.getString("orderItemSeqId") + "]";
-                                    errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumbersMissing"));
-                                    Debug.logInfo(errMsg, module);
-                                    continueLoop = true;
                                 }
                                 
-                                if (continueLoop) {
+                                // because there may be more than one ShipmentItem for an OrderItem allow there to be more inventory reservations for the
+                                //OrderItem than there is quantity on the current ShipmentItem
+                                if ((int) totalReserved < messageQuantity.intValue()) {
+                                    String errMsg = "Inventory reservation quantity [" + totalReserved + "] was less than the message quantity [" + messageQuantity.intValue() + "] so cannot receive against reservations for ShipmentItem with ID [" + shipmentId + ":" + shipmentItemSeqId + "], and OrderItem [" + orderShipment.getString("orderId") + ":" + orderShipment.getString("orderItemSeqId") + "]";
+                                    errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumbersMissing"));
+                                    Debug.logInfo(errMsg, module);
                                     continue;
                                 }
                                 
+                                // just receive quantity for this ShipmentItem
+                                int quantityLeft = shipmentItem.getDouble("quantity").intValue();
+                                
                                 Iterator serialNumberIter = serialNumberList.iterator();
                                 Iterator orderItemShipGrpInvReservationIter = orderItemShipGrpInvReservationList.iterator();
-                                while (orderItemShipGrpInvReservationIter.hasNext()) {
+                                while (orderItemShipGrpInvReservationIter.hasNext() && quantityLeft > 0) {
                                     GenericValue orderItemShipGrpInvReservation = (GenericValue) orderItemShipGrpInvReservationIter.next();
-                                    int currentResQuantity = orderItemShipGrpInvReservation.getDouble("quantity").intValue();
+                                    int currentInvResQuantity = orderItemShipGrpInvReservation.getDouble("quantity").intValue();
+                                    
+                                    int quantityToUse;
+                                    if (quantityLeft > currentInvResQuantity) {
+                                        quantityToUse = currentInvResQuantity;
+                                        quantityLeft -= currentInvResQuantity;
+                                    } else {
+                                        quantityToUse = quantityLeft;
+                                        quantityLeft = 0;
+                                    }
                                     
                                     Map isitspastCtx = UtilMisc.toMap("orderId", orderId, "shipGroupSeqId", shipGroupSeqId, "orderItemSeqId", orderItemSeqId);                
                                     isitspastCtx.put("productId", productId);
@@ -402,7 +413,7 @@ public class OagisShipmentServices {
                                     isitspastCtx.put("promisedDatetime", orderItemShipGrpInvReservation.get("promisedDatetime"));
                                     
                                     if (UtilValidate.isNotEmpty(serialNumberList)) {
-                                        for (int i = 0; i < currentResQuantity; i++) {
+                                        for (int i = 0; i < quantityToUse; i++) {
                                             String serialNumber = (String) serialNumberIter.next();
 
                                             if (OagisServices.requireSerialNumberExist != null) {
@@ -440,7 +451,7 @@ public class OagisShipmentServices {
                                             }
                                         }
                                     } else {
-                                        isitspastCtx.put("quantity", new Double(currentResQuantity));
+                                        isitspastCtx.put("quantity", new Double(quantityToUse));
                                         // NOTE: this same service is called for non-serialized inventory in spite of the name it is made to handle it
                                         Map resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
                                         if (ServiceUtil.isError(resultMap)){
@@ -462,6 +473,9 @@ public class OagisShipmentServices {
                         errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SetShipmentStatusPackedAndShippedError"));
                         Debug.logError(errMsg, module);
                     }
+                } else {
+                    // however, we still don't want to save the partial results, so set rollbackOnly
+                    TransactionUtil.setRollbackOnly("Found business level errors in message processing, not saving results", null);
                 }
             } catch (Throwable t) {
                 String errMsg = "System Error processing Show Shipment message: " + t.toString();
@@ -517,6 +531,7 @@ public class OagisShipmentServices {
             
             // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times 
             result.putAll(ServiceUtil.returnSuccess("Errors found processing message; information saved and return error sent back"));
+            
             return result;
         } else {
             try {
