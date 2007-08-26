@@ -350,6 +350,15 @@ public class UtilMisc {
         return list;
     }
     
+    public static void addToListInMap(Object element, Map theMap, Object listKey) {
+        List theList = (List) theMap.get(listKey);
+        if (theList == null) {
+            theList = FastList.newInstance();
+            theMap.put(listKey, theList);
+        }
+        theList.add(element);
+    }
+    
     public static long toLong(Object value) {
         if (value != null) {
             if (value instanceof Long) {
