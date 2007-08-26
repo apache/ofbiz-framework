@@ -188,6 +188,7 @@ under the License.
         <description>Create a FixedAsset Registration</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
     </service>
     <service name="updateFixedAssetRegistration" default-entity-name="FixedAssetRegistration" engine="simple"
                 location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetRegistration" auth="true">

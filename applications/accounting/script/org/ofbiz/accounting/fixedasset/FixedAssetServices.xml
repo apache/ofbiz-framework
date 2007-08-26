@@ -488,6 +488,9 @@ under the License.
         <make-value value-name="newEntity" entity-name="FixedAssetRegistration"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field-name="newEntity.fromDate">
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
+        </if-empty>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFixedAssetRegistration" short-description="Update an existing FixedAsset Registration">
