@@ -171,6 +171,7 @@
     <request-map uri="LookupFacility"><security https="true" auth="true"/><response name="success" type="view" value="LookupFacility"/></request-map>
     <request-map uri="LookupFacilityLocation"><security auth="true" https="true"/><response name="success" type="view" value="LookupFacilityLocation"/></request-map>
     <request-map uri="LookupPartsProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartsProduct"/></request-map>
+    <request-map uri="LookupWorkEffortShort"><security auth="true" https="true"/><response name="success" type="view" value="LookupWorkEffortShort"/></request-map>
 
     <!-- end of request mappings -->
 
@@ -210,6 +211,7 @@
     <view-map name="LookupPartyGroup" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyGroup"/>
     <view-map name="LookupOrderHeader" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeader"/>
     <view-map name="LookupPartsProduct" type="screen" page="component://assetmaint/widget/ProductScreens.xml#LookupPartsProduct"/>
+    <view-map name="LookupWorkEffortShort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffortShort"/>
 
     <!-- Facility  screens -->
     <view-map name="FindFacility" type="screen" page="component://assetmaint/widget/FacilityScreens.xml#FindFacility"/>

@@ -46,7 +46,7 @@
         <field map-name="workEffort" name="estimatedCompletionDate" position="2"><date-time/></field>
         <field map-name="workEffort" name="actualStartDate" position="1"><date-time/></field>
         <field map-name="workEffort" name="actualCompletionDate" position="2"><date-time/></field>
-        <field map-name="workEffort" name="workEffortParentId"  title="${uiLabelMap.WorkEffortWorkEffortParentId}*"><lookup target-form-name="LookupWorkEffort"/></field>
+        <field map-name="workEffort" name="workEffortParentId"  title="${uiLabelMap.WorkEffortWorkEffortParentId}*"><lookup target-form-name="LookupWorkEffortShort"/></field>
         <field map-name="workEffort" name="facilityId"  title="${uiLabelMap.AccountingFacilityId}"  ><lookup target-form-name="LookupFacility"/></field>
         <field map-name="workEffort" name="fixedAssetId"  title="${uiLabelMap.AccountingFixedAssetId}"><hidden/></field>
         <field map-name="workEffort" name="moneyUomId" title="${uiLabelMap.CommonCurrency}"><ignored/></field>
