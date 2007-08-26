@@ -212,6 +212,12 @@ under the License.
       <alias entity-alias="WETO" name="workEffortToName" field="workEffortName"/>
       <alias entity-alias="WETO" name="workEffortToSetup" field="estimatedSetupMillis"/>
       <alias entity-alias="WETO" name="workEffortToRun" field="estimatedMilliSeconds"/>
+      <alias entity-alias="WETO" name="workEffortToCurrentStatusId" field="currentStatusId"/>
+      <alias entity-alias="WETO" name="workEffortToWorkEffortPurposeTypeId" field="workEffortPurposeTypeId"/>
+      <alias entity-alias="WETO" name="workEffortToEstimatedStartDate" field="estimatedStartDate"/>
+      <alias entity-alias="WETO" name="workEffortToEstimatedCompletionDate" field="estimatedCompletionDate"/>
+      <alias entity-alias="WETO" name="workEffortToActualStartDate" field="actualStartDate"/>
+      <alias entity-alias="WETO" name="workEffortToActualCompletionDate" field="actualCompletionDate"/>
       <view-link entity-alias="WA" rel-entity-alias="WETO">
         <key-map field-name="workEffortIdTo" rel-field-name="workEffortId"/>
       </view-link>
