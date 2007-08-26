@@ -43,6 +43,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.service.DispatchContext;
@@ -532,6 +533,11 @@ public class OagisInventoryServices {
                         errorMapList.add(UtilMisc.toMap("reasonCode", "ReceiveInventoryServiceError", "description", errMsg));
                     }
                 }
+                
+                if (errorMapList.size() > 0) {
+                    // however, we still don't want to save the partial results, so set rollbackOnly
+                    TransactionUtil.setRollbackOnly("Found business level errors in message processing, not saving results", null);
+                }
             } catch (Throwable t) {
                 String errMsg = "System Error processing Acknowledge Delivery PO message: " + t.toString();
                 Debug.logInfo(t, errMsg, module);
@@ -1003,6 +1009,11 @@ public class OagisInventoryServices {
                         }
                     }
                 }
+                
+                if (errorMapList.size() > 0) {
+                    // however, we still don't want to save the partial results, so set rollbackOnly
+                    TransactionUtil.setRollbackOnly("Found business level errors in message processing, not saving results", null);
+                }
             } catch (Throwable t) {
                 String errMsg = "System Error processing Acknowledge Delivery RMA message: " + t.toString();
                 Debug.logInfo(t, errMsg, module);
@@ -1283,6 +1294,11 @@ public class OagisInventoryServices {
 
                         // TODO: somehow do status changes for non-serialized inventory
                     }
+                }
+                
+                if (errorMapList.size() > 0) {
+                    // however, we still don't want to save the partial results, so set rollbackOnly
+                    TransactionUtil.setRollbackOnly("Found business level errors in message processing, not saving results", null);
                 }
             } catch (Throwable t) {
                 String errMsg = "System Error processing Acknowledge Delivery Status message: " + t.toString();
