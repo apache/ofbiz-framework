@@ -194,6 +194,16 @@ under the License.
         <description>Delete ShipmentItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    
+    <service name="splitShipmentItemByQuantity" engine="simple"
+        location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="splitShipmentItemByQuantity">
+        <description>Splits the specified ShipmentItem creating a new ShipmentItem with the given newItemQuantity.
+            NOTE that this does manage OrderShipment records, but NOTHING else, so it is only to be used for Shipment 
+            Plan stuff BEFORE the items are issued, shipment packed, etc.</description>
+        <auto-attributes entity-name="ShipmentItem" include="pk" mode="IN" optional="false"/>
+        <attribute name="newItemQuantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="newShipmentItemSeqId" type="String" mode="OUT" optional="true"/>
+    </service>
 
     <!-- ShipmentPackage Services -->
     <service name="createShipmentPackage" default-entity-name="ShipmentPackage" engine="simple"
