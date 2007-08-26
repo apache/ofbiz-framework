@@ -248,6 +248,7 @@ under the License.
         <entity-one entity-name="Shipment" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    
     <simple-method method-name="createShipmentForReturn" short-description="Create Shipment based on ReturnHeader">
         <entity-one entity-name="ReturnHeader" value-name="returnHeader">
             <field-map field-name="returnId" env-name="parameters.returnId"/>
@@ -527,6 +528,7 @@ under the License.
         <set-service-fields service-name="updateShipment" map-name="shipment" to-map-name="shipmentUpdateMap"/>
         <call-service service-name="updateShipment" in-map-name="shipmentUpdateMap"/>
     </simple-method>
+    
     <simple-method method-name="setShipmentSettingsFromFacilities" short-description="Set Shipment Settings From Facilities">
         <check-permission permission="FACILITY" action="_CREATE">
             <fail-message message="Security Error: to run setShipmentSettingsFromFacilities you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
@@ -585,6 +587,7 @@ under the License.
             <call-service service-name="updateShipment" in-map-name="shipmentUpdateMap"/>
         </if-compare-field>
     </simple-method>
+    
     <simple-method method-name="sendShipmentScheduledNotification" short-description="Send Shipment Scheduled Notification">
         <check-permission permission="FACILITY" action="_CREATE">
             <alt-permission permission="FACILITY" action="_UPDATE"/>
@@ -727,6 +730,86 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentItem" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="splitShipmentItemByQuantity" short-description="splitShipmentItemByQuantity">
+        <entity-one entity-name="ShipmentItem" value-name="originalShipmentItem"/>
+        
+        <!-- create new ShipmentItem -->
+        <clear-field field-name="inputMap"/>
+        <set field="inputMap.shipmentId" from-field="originalShipmentItem.shipmentId"/>
+        <set field="inputMap.productId" from-field="originalShipmentItem.productId"/>
+        <set field="inputMap.quantity" from-field="parameters.newItemQuantity"/>
+        <call-service service-name="createShipmentItem" in-map-name="inputMap">
+            <result-to-field result-name="shipmentItemSeqId" field-name="newShipmentItemSeqId"/>
+        </call-service>
+        
+        <!-- reduce the originalShipmentItem.quantity  -->
+        <calculate field-name="originalShipmentItem.quantity" type="Double">
+            <calcop operator="add" field-name="originalShipmentItem.quantity">
+                <calcop operator="negative" field-name="parameters.newItemQuantity"/>
+            </calcop>
+        </calculate>
+        <!-- update the original ShipmentItem -->
+        <set-service-fields service-name="updateShipmentItem" map-name="originalShipmentItem" to-map-name="updateOriginalShipmentItemMap"/>
+        <call-service service-name="updateShipmentItem" in-map-name="updateOriginalShipmentItemMap"/>
+        
+        <!-- split the OrderShipment record(s) as well for the new quantities, 
+            from originalShipmentItem.shipmentItemSeqId to newShipmentItemSeqId -->
+        <entity-and entity-name="OrderShipment" list-name="itemOrderShipmentList">
+            <field-map field-name="shipmentId" env-name="originalShipmentItem.shipmentId"/>
+            <field-map field-name="shipmentItemSeqId" env-name="originalShipmentItem.shipmentItemSeqId"/>
+        </entity-and>
+        
+        <set field="orderShipmentQuantityLeft" from-field="parameters.newItemQuantity"/>
+        <iterate entry-name="itemOrderShipment" list-name="itemOrderShipmentList">
+            <if-compare field-name="orderShipmentQuantityLeft" operator="greater" value="0" type="Double">
+                <if-compare-field field-name="itemOrderShipment.quantity" operator="greater" to-field-name="orderShipmentQuantityLeft" type="Double">
+                    <!-- there is enough in this OrderShipment record, so just adjust it and move on -->
+                    <clear-field field-name="updateOrderShipmentMap"/>
+                    <set-service-fields service-name="updateOrderShipment" map-name="itemOrderShipment" to-map-name="updateOrderShipmentMap"/>
+                    <calculate field-name="updateOrderShipmentMap.quantity" type="Double">
+                        <calcop operator="add" field-name="itemOrderShipment.quantity">
+                            <calcop operator="negative" field-name="orderShipmentQuantityLeft"/>
+                        </calcop>
+                    </calculate>
+                    <call-service service-name="updateOrderShipment" in-map-name="updateOrderShipmentMap"/>
+                    
+                    <clear-field field-name="createOrderShipmentMap"/>
+                    <set field="createOrderShipmentMap.orderId" from-field="itemOrderShipment.orderId"/>
+                    <set field="createOrderShipmentMap.orderItemSeqId" from-field="itemOrderShipment.orderItemSeqId"/>
+                    <set field="createOrderShipmentMap.shipmentId" from-field="itemOrderShipment.shipmentId"/>
+                    <set field="createOrderShipmentMap.shipmentItemSeqId" from-field="newShipmentItemSeqId"/>
+                    <set field="createOrderShipmentMap.quantity" from-field="orderShipmentQuantityLeft"/>
+                    <call-service service-name="createOrderShipment" in-map-name="createOrderShipmentMap"/>
+                    
+                    <set field="orderShipmentQuantityLeft" value="0" type="Double"/>
+                    
+                    <else>
+                        <!-- not enough on this one, create a new one for the new item and delete this one -->
+                        <clear-field field-name="deleteOrderShipmentMap"/>
+                        <set-service-fields service-name="deleteOrderShipment" map-name="itemOrderShipment" to-map-name="deleteOrderShipmentMap"/>
+                        <call-service service-name="deleteOrderShipment" in-map-name="deleteOrderShipmentMap"/>
+                        
+                        <clear-field field-name="createOrderShipmentMap"/>
+                        <set field="createOrderShipmentMap.orderId" from-field="itemOrderShipment.orderId"/>
+                        <set field="createOrderShipmentMap.orderItemSeqId" from-field="itemOrderShipment.orderItemSeqId"/>
+                        <set field="createOrderShipmentMap.shipmentId" from-field="itemOrderShipment.shipmentId"/>
+                        <set field="createOrderShipmentMap.shipmentItemSeqId" from-field="newShipmentItemSeqId"/>
+                        <set field="createOrderShipmentMap.quantity" from-field="itemOrderShipment.quantity"/>
+                        <call-service service-name="createOrderShipment" in-map-name="createOrderShipmentMap"/>
+                        
+                        <calculate field-name="orderShipmentQuantityLeft" type="Double">
+                            <calcop operator="add" field-name="orderShipmentQuantityLeft">
+                                <calcop operator="negative" field-name="itemOrderShipment.quantity"></calcop>
+                            </calcop>
+                        </calculate>
+                    </else>
+                </if-compare-field>
+            </if-compare>
+        </iterate>
+        
+        <field-to-result field-name="newShipmentItemSeqId"/>
     </simple-method>
 
     <!-- ShipmentPackage services -->
