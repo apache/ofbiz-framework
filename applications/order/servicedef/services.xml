@@ -522,6 +522,12 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
+    <service name="updateOrderShipment" default-entity-name="OrderShipment" engine="simple"
+        location="org/ofbiz/order/order/OrderServices.xml" invoke="updateOrderShipment" auth="true">
+        <description>Update OrderShipment</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
     <service name="deleteOrderShipment" default-entity-name="OrderShipment" engine="simple"
             location="org/ofbiz/order/order/OrderServices.xml" invoke="deleteOrderShipment" auth="true">
         <description>Delete OrderShipment</description>

@@ -99,17 +99,28 @@ under the License.
 
         <create-value value-name="newEntity"/>
     </simple-method>
+    <simple-method method-name="updateOrderShipment" short-description="Update OrderShipment">
+        <set value="Update OrderShipment" field="operationName"/>
+        <check-permission permission="ORDERMGR" action="_UPDATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunDeleteOrderShipment"/>
+        </check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="OrderShipment" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
     <simple-method method-name="deleteOrderShipment" short-description="Delete OrderShipment">
         <set value="Delete OrderShipment" field="operationName"/>
         <check-permission permission="ORDERMGR" action="_DELETE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunDeleteOrderShipment"/>
         </check-permission>
         <check-errors/>
-
+        
         <entity-one entity-name="OrderShipment" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
-
+    
     <!-- order requirement methods -->
     <simple-method method-name="createOrderRequirementCommitment" short-description="Create OrderRequirementCommitment">
         <!-- The permission checking is commented out to make this service work also when triggered from ecommerce orders -->
