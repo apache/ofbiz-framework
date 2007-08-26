@@ -25,7 +25,7 @@ under the License.
     <screen name="forums">
         <section>
             <actions>
-                <entity-condition entity-name="ContentAssocViewFrom" list-name="forums" use-cache="true">
+                <entity-condition entity-name="ContentAssocViewTo" list-name="forums" use-cache="true">
                     <condition-list combine="and">
                         <condition-expr field-name="contentIdStart" operator="equals" value="WebStoreFORUM"/>
                         <condition-list combine="or">
