@@ -116,7 +116,7 @@
         </field>
         <field name="currentStatusId" entry-name="workEffortToCurrentStatusId">
             <drop-down>
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[Task] ${description}">
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
                     <entity-constraint name="statusTypeId" value="TASK_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -124,7 +124,7 @@
         </field>
         <field name="workEffortPurposeTypeId" entry-name="workEffortToWorkEffortPurposeTypeId" title="${uiLabelMap.CommonPurpose}">
             <drop-down allow-empty="true">
-                <entity-options description="${workEffortPurposeTypeId}-${description}" entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId">
+                <entity-options description="${description}" entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
