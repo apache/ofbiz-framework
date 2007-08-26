@@ -38,7 +38,7 @@
       <of:CODEPAGE>NONE</of:CODEPAGE>
       <of:AUTHID>${authId?if_exists}</of:AUTHID>
     </os:SENDER>
-    <os:DATETIMEANY>${sentDate?if_exists}</os:DATETIMEANY>
+    <os:DATETIMEISO>${sentDate?if_exists}</os:DATETIMEISO>
   </os:CNTROLAREA>
   <n:DATAAREA>
     <n:CONFIRM_BOD>
@@ -50,7 +50,7 @@
             <of:TASK>${errorTask?if_exists}</of:TASK>
             <of:REFERENCEID>${errorReferenceId?if_exists}</of:REFERENCEID>
           </os:SENDER>
-          <os:DATETIMEANY></os:DATETIMEANY>
+          <os:DATETIMEISO></os:DATETIMEISO>
         </os:CNTROLAREA>
         <of:ORIGREF>${origRef?if_exists}</of:ORIGREF>
         <#if errorMapList?exists>
