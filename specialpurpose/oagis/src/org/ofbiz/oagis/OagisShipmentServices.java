@@ -57,7 +57,9 @@ import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceAuthException;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.service.ServiceValidationException;
 import org.ofbiz.widget.fo.FoFormRenderer;
 import org.ofbiz.widget.html.HtmlScreenRenderer;
 import org.ofbiz.widget.screen.ScreenRenderer;
@@ -94,7 +96,7 @@ public class OagisShipmentServices {
         GenericValue userLogin = null; 
         try {
             userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));    
-        } catch (GenericEntityException e){
+        } catch (GenericEntityException e) {
             String errMsg = "Error Getting UserLogin with userLoginId system: "+e.toString();
             Debug.logError(e, errMsg, module);
         }
@@ -154,13 +156,13 @@ public class OagisShipmentServices {
                 dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoCtx, 60, true);
             }
             /* running async for better error handling
-            if (ServiceUtil.isError(oagisMsgInfoResult)){
+            if (ServiceUtil.isError(oagisMsgInfoResult)) {
                 String errMsg = ServiceUtil.getErrorMessage(oagisMsgInfoResult);
                 // errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "CreateOagisMessageInfoServiceError"));
                 Debug.logError(errMsg, module);
             }
             */
-        } catch (GenericServiceException e){
+        } catch (GenericServiceException e) {
             String errMsg = "Error creating OagisMessageInfo for the Incoming Message: "+e.toString();
             // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
             Debug.logError(e, errMsg, module);
@@ -189,7 +191,7 @@ public class OagisShipmentServices {
                 Element shipUnitElement = (Element)shipUnitElementList.get(0);
                 String trackingNum = UtilXml.childElementValue(shipUnitElement, "of:TRACKINGID"); // of
                 String carrierCode = UtilXml.childElementValue(shipUnitElement, "of:CARRIER"); // of
-                if (UtilValidate.isNotEmpty(carrierCode)){
+                if (UtilValidate.isNotEmpty(carrierCode)) {
                     String carrierPartyId = null;
                     if ( carrierCode.startsWith("F") || carrierCode.startsWith("f")) {                
                         carrierPartyId = "FEDEX";                                           
@@ -197,7 +199,7 @@ public class OagisShipmentServices {
                         carrierPartyId = "UPS";                                            
                     }
                     Map resultMap = dispatcher.runSync("updateShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", "00001", "carrierPartyId", carrierPartyId, "trackingIdNumber", trackingNum, "userLogin", userLogin));                        
-                    if (ServiceUtil.isError(resultMap)){
+                    if (ServiceUtil.isError(resultMap)) {
                         String errMsg = ServiceUtil.getErrorMessage(resultMap);
                         errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "updateShipmentRouteSegmentError"));
                         Debug.logError(errMsg, module);
@@ -444,7 +446,7 @@ public class OagisShipmentServices {
                                             isitspastCtx.put("inventoryItemId", orderItemShipGrpInvReservation.get("inventoryItemId"));
                                             isitspastCtx.remove("itemIssuanceId");                            
                                             Map resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
-                                            if (ServiceUtil.isError(resultMap)){
+                                            if (ServiceUtil.isError(resultMap)) {
                                                 String errMsg = ServiceUtil.getErrorMessage(resultMap);
                                                 errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "IssueSerializedInvServiceError"));
                                                 Debug.logError(errMsg, module);
@@ -454,7 +456,7 @@ public class OagisShipmentServices {
                                         isitspastCtx.put("quantity", new Double(quantityToUse));
                                         // NOTE: this same service is called for non-serialized inventory in spite of the name it is made to handle it
                                         Map resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
-                                        if (ServiceUtil.isError(resultMap)){
+                                        if (ServiceUtil.isError(resultMap)) {
                                             String errMsg = ServiceUtil.getErrorMessage(resultMap);
                                             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "IssueSerializedInvServiceError"));
                                             Debug.logError(errMsg, module);
@@ -468,7 +470,7 @@ public class OagisShipmentServices {
                 
                 if (errorMapList.size() == 0) {
                     Map resultMap = dispatcher.runSync("setShipmentStatusPackedAndShipped", UtilMisc.toMap("shipmentId", shipmentId, "userLogin", userLogin));               
-                    if (ServiceUtil.isError(resultMap)){
+                    if (ServiceUtil.isError(resultMap)) {
                         String errMsg = ServiceUtil.getErrorMessage(resultMap);
                         errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SetShipmentStatusPackedAndShippedError"));
                         Debug.logError(errMsg, module);
@@ -496,7 +498,7 @@ public class OagisShipmentServices {
             try {
                 oagisMsgInfoCtx.put("processingStatusId", "OAGMP_PROC_ERROR");
                 dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoCtx, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
@@ -511,7 +513,7 @@ public class OagisShipmentServices {
             saveErrorMapListCtx.put("userLogin", userLogin);
             try {
                 dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
@@ -524,7 +526,7 @@ public class OagisShipmentServices {
 
                 // run async because this will send a message back to the other server and may take some time, and/or fail
                 dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error sending Confirm BOD: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
@@ -537,7 +539,7 @@ public class OagisShipmentServices {
             try {
                 oagisMsgInfoCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
                 dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoCtx, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
@@ -545,6 +547,28 @@ public class OagisShipmentServices {
         
         result.putAll(ServiceUtil.returnSuccess("Service Completed Successfully"));
         return result;
+    }
+    
+    public static Map oagisSendProcessShipmentsFromBackOrderSet(DispatchContext ctx, Map context) {
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        
+        Set noLongerOnBackOrderIdSet = (Set) context.get("noLongerOnBackOrderIdSet");
+        if (UtilValidate.isEmpty(noLongerOnBackOrderIdSet)) {
+            return ServiceUtil.returnSuccess();
+        }
+        
+        try {
+            Iterator noLongerOnBackOrderIdIter = noLongerOnBackOrderIdSet.iterator();
+            while (noLongerOnBackOrderIdIter.hasNext()) {
+                String orderId = (String) noLongerOnBackOrderIdIter.next();
+                dispatcher.runAsync("oagisSendProcessShipment", UtilMisc.toMap("orderId", orderId), true);
+            }
+        } catch (GenericServiceException e) {
+            String errMsg = "Error calling oagisSendProcessShipment service for orders with items no longer on backorder: " + e.toString();
+            return ServiceUtil.returnError(errMsg);
+        }
+        
+        return ServiceUtil.returnSuccess();
     }
 
     public static Map oagisSendProcessShipment(DispatchContext ctx, Map context) {
@@ -672,7 +696,7 @@ public class OagisShipmentServices {
                 comiCtx.put("userLogin", userLogin);
                 try {
                     dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
-                } catch (GenericServiceException e){
+                } catch (GenericServiceException e) {
                     String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
                     Debug.logError(e, errMsg, module);
                 }
@@ -817,7 +841,7 @@ public class OagisShipmentServices {
                         comiCtx.put("fullMessageXml", outText);
                     }
                     dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
-                } catch (GenericServiceException e){
+                } catch (GenericServiceException e) {
                     String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
                     Debug.logError(e, errMsg, module);
                 }
@@ -828,7 +852,7 @@ public class OagisShipmentServices {
                 try {
                     comiCtx.put("processingStatusId", "OAGMP_SENT");
                     dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
-                } catch (GenericServiceException e){
+                } catch (GenericServiceException e) {
                     String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
                     Debug.logError(e, errMsg, module);
                 }

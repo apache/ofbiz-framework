@@ -105,6 +105,10 @@ under the License.
         <attribute name="outputStream" type="java.io.OutputStream" mode="IN" optional="true"/>
         <attribute name="orderId" mode="IN" type="String" optional="false"/>
     </service>
+    <service name="oagisSendProcessShipmentsFromBackOrderSet" engine="java"
+        location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisSendProcessShipmentsFromBackOrderSet">
+        <attribute name="noLongerOnBackOrderIdSet" type="Set" mode="IN" optional="false"/>
+    </service>
     
     <service name="oagisSendReceiveDelivery" max-retry="0" engine="java"
         location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisSendReceiveDelivery">
