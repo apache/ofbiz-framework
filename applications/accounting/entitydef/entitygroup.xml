@@ -50,6 +50,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="FinAccountAndRole" />
     <entity-group group="org.ofbiz" entity="FinAccountAttribute" />
     <entity-group group="org.ofbiz" entity="FinAccountRole" />
+    <entity-group group="org.ofbiz" entity="FinAccountStatus" />
     <entity-group group="org.ofbiz" entity="FinAccountTrans" />
     <entity-group group="org.ofbiz" entity="FinAccountAuth" />
     <entity-group group="org.ofbiz" entity="FinAccountTransAttribute" />
