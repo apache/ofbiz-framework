@@ -55,6 +55,7 @@ under the License.
         <permission-service service-name="exampleGenericPermission" main-action="CREATE"/>
         <auto-attributes include="all" mode="IN" optional="false">
             <exclude field-name="statusDate"/>
+            <exclude field-name="statusEndDate"/>
         </auto-attributes>
     </service>
     
