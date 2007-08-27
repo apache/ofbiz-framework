@@ -27,7 +27,7 @@ under the License.
     <p>
         <b>Currency:</b> ${(accountCurrencyUom.description)?if_exists} [${ownedFinAccount.currencyUomId?if_exists}]
         <b>Date Opened:</b> ${ownedFinAccount.fromDate?if_exists}
-        <b>Is Frozen:</b> ${ownedFinAccount.isFrozen?default('N')}
+        <b>Status:</b> ${(finAccountStatusItem.description)?default("Active")}
         <#if ownedFinAccount.replenishLevel?exists>
             <b>Replenish Level:</b> <@ofbizCurrency amount=ownedFinAccount.replenishLevel isoCode=ownedFinAccount.currencyUomId/>
         </#if>

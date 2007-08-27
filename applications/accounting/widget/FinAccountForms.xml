@@ -81,8 +81,12 @@ under the License.
         <field name="organizationPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="ownerPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="postToGlAccountId"><lookup target-form-name="LookupGlAccount"/></field>
-        <field name="isFrozen">
-            <drop-down no-current-selected-key="N"><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
+        <field name="statusId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="StatusItem" description="${description}">
+                    <entity-constraint name="statusTypeId" value="FINACCT_STATUS"/>
+                </entity-options>
+            </drop-down>
         </field>
         <field name="isRefundable">
             <drop-down no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>

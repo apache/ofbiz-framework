@@ -61,11 +61,37 @@ under the License.
 
         <create-value value-name="newEntity"/>
         <field-to-result field-name="finAccountId" map-name="newEntity" result-name="finAccountId"/>
+        
+        <set-service-fields service-name="createFinAccountStatus" map-name="newEntity" to-map-name="createFinAccountStatusMap"/>
+        <call-service service-name="createFinAccountStatus" in-map-name="createFinAccountStatusMap"/>
     </simple-method>
     <simple-method method-name="updateFinAccount" short-description="Update a Financial Account">
         <entity-one entity-name="FinAccount" value-name="lookedUpValue"/>
         <field-to-result field-name="lookedUpValue.replenishPaymentId" result-name="oldReplenishPaymentId"/>
         <field-to-result field-name="lookedUpValue.replenishLevel" result-name="oldReplenishLevel"/>
+
+        <!-- handle statusId change stuff; first put the current statusId in the oldStatusId result -->
+        <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
+        <if-compare-field field-name="lookedUpValue.statusId" operator="not-equals" to-field-name="parameters.statusId">
+            <!-- if the record exists there should be a statusId, but just in case make it so it won't blow up -->
+            <if-not-empty field-name="lookedUpValue.statusId">
+                <!-- if statusId change is not in the StatusValidChange list, complain... -->
+                <entity-one entity-name="StatusValidChange" value-name="statusValidChange" auto-field-map="false">
+                    <field-map field-name="statusId" env-name="lookedUpValue.statusId"/>
+                    <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+                </entity-one>
+                <if-empty field-name="statusValidChange">
+                    <!-- no valid change record found? return an error... -->
+                    <add-error><fail-property resource="CommonUiLabels" property="CommonErrorNoStatusValidChange"/></add-error>
+                    <check-errors/>
+                </if-empty>
+            </if-not-empty>
+            
+            <!-- before we set the nonpk fields, if the statusId is different save a status history record -->
+            <set-service-fields service-name="createFinAccountStatus" map-name="parameters" to-map-name="createFinAccountStatusMap"/>
+            <call-service service-name="createFinAccountStatus" in-map-name="createFinAccountStatusMap"/>
+        </if-compare-field>
+
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
         
@@ -76,6 +102,27 @@ under the License.
     <simple-method method-name="deleteFinAccount" short-description="Delete a Financial Account">
         <entity-one value-name="finAccount" entity-name="FinAccount"/>
         <remove-value value-name="finAccount"/>
+    </simple-method>
+    
+    <simple-method method-name="createFinAccountStatus" short-description="Create FinAccountStatus">
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        
+        <!-- find the most recent status record and set the statusEndDate -->
+        <entity-and entity-name="FinAccountStatus" list-name="oldFinAccountStatusList">
+            <field-map field-name="finAccountId" env-name="parameters.finAccountId"/>
+            <order-by field-name="-statusDate"/>
+        </entity-and>
+        <first-from-list entry-name="oldFinAccountStatus" list-name="oldFinAccountStatusList"/>
+        <if-not-empty field-name="oldFinAccountStatus">
+            <set field="oldFinAccountStatus.statusEndDate" from-field="nowTimestamp"/>
+            <store-value value-name="oldFinAccountStatus"/>
+        </if-not-empty>
+        
+        <make-value entity-name="FinAccountStatus" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set field="newEntity.statusDate" from-field="nowTimestamp"/>
+        <create-value value-name="newEntity"/>  
     </simple-method>
 
     <!-- FinAccountTrans Services -->    

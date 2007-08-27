@@ -329,6 +329,7 @@ under the License.
     <entity entity-name="FinAccount" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Entity">
         <field name="finAccountId" type="id-ne"></field>
         <field name="finAccountTypeId" type="id"></field>
+        <field name="statusId" type="id"></field>
         <field name="finAccountName" type="name"></field>
         <field name="finAccountCode" type="long-varchar" encrypt="true"></field>
         <field name="finAccountPin" type="long-varchar" encrypt="true"></field>
@@ -338,13 +339,13 @@ under the License.
         <field name="postToGlAccountId" type="id"></field>
         <field name="fromDate" type="date-time"><description>Describes when account will be valid. If null, valid immediately.</description></field>
         <field name="thruDate" type="date-time"><description>Expiration date of the account. If null, will never expire.</description></field>
-        <field name="isFrozen" type="indicator"><description>This is meant to be set manually by a company representative to freeze an account so further transactions are not allowed.</description></field>
-        <field name="inGoodStanding" type="indicator"><description>This is set automatically by the auto-replenishment code to allow one transaction to bring the balance below zero and then if any other transactions are attempted during replenishment they will be rejected.</description></field>
         <field name="isRefundable" type="indicator"></field>
         <field name="replenishPaymentId" type="id"></field>
         <field name="replenishLevel" type="currency-amount"></field>
         <field name="actualBalance" type="currency-amount"><description>Calculated as the sum of FinAccountTrans.amount</description></field>
         <field name="availableBalance" type="currency-amount"><description>Calculated as actualBalance minus sum of outstanding FinAccountAuth.amount</description></field>
+        <field name="oldIsFrozen" col-name="IS_FROZEN" type="indicator"><description>DEPRECATED: This is meant to be set manually by a company representative to freeze an account so further transactions are not allowed.</description></field>
+        <field name="oldInGoodStanding" col-name="IN_GOOD_STANDING" type="indicator"><description>DEPRECATED: This is set automatically by the auto-replenishment code to allow one transaction to bring the balance below zero and then if any other transactions are attempted during replenishment they will be rejected.</description></field>
         <prim-key field="finAccountId"/>
         <relation type="one" fk-name="FINACCT_TYPE" rel-entity-name="FinAccountType">
             <key-map field-name="finAccountTypeId"/>
@@ -368,9 +369,7 @@ under the License.
             <key-map field-name="finAccountTypeId"/>
         </relation>
     </entity>
-    <view-entity entity-name="FinAccountAndRole"
-                 package-name="org.ofbiz.accounting.finaccount"
-                 title="Financial Account and Role View Entity">
+    <view-entity entity-name="FinAccountAndRole" package-name="org.ofbiz.accounting.finaccount" title="Financial Account and Role View Entity">
       <member-entity entity-alias="FA" entity-name="FinAccount"/>
       <member-entity entity-alias="FR" entity-name="FinAccountRole"/>
       <alias-all entity-alias="FA"/>
@@ -382,7 +381,6 @@ under the License.
         <key-map field-name="finAccountId"/>
       </view-link>
     </view-entity>
-
     <entity entity-name="FinAccountAttribute" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Attribute Entity">
         <field name="finAccountId" type="id-ne"></field>
         <field name="attrName" type="id-long-ne"></field>
@@ -430,6 +428,21 @@ under the License.
         <relation type="one" fk-name="FIN_ACT_RL_RTRL" rel-entity-name="PartyRole">
             <key-map field-name="partyId"/>
             <key-map field-name="roleTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="FinAccountStatus" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Status Entity">
+        <field name="finAccountId" type="id-ne"></field>
+        <field name="statusId" type="id"></field>
+        <field name="statusDate" type="date-time"></field>
+        <field name="statusEndDate" type="date-time"></field>
+        <prim-key field="finAccountId"/>
+        <prim-key field="statusId"/>
+        <prim-key field="statusDate"/>
+        <relation type="one" fk-name="FINACT_STTS_FNA" rel-entity-name="FinAccount">
+            <key-map field-name="finAccountId"/>
+        </relation>
+        <relation type="one" fk-name="FINACT_STTS_STI" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
         </relation>
     </entity>
     <entity entity-name="FinAccountTrans" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Transaction Entity">

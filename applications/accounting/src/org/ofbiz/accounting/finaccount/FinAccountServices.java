@@ -264,13 +264,13 @@ public class FinAccountServices {
             balance = FinAccountHelper.ZERO;
         }
 
-        Boolean isFrozen = Boolean.valueOf("Y".equals(finAccount.getString("isFrozen")));
-        Debug.log("FinAccount Balance [" + balance + "] Available [" + availableBalance + "] - Frozen: " + isFrozen, module);
+        String statusId = finAccount.getString("statusId");
+        Debug.log("FinAccount Balance [" + balance + "] Available [" + availableBalance + "] - Status: " + statusId, module);
 
         Map result = ServiceUtil.returnSuccess();
         result.put("availableBalance", new Double(availableBalance.doubleValue()));
         result.put("balance", new Double(balance.doubleValue()));
-        result.put("isFrozen", isFrozen);
+        result.put("statusId", statusId);
         return result;
     }
 
@@ -290,21 +290,21 @@ public class FinAccountServices {
         }
 
         if (finAccount != null) {            
-            String frozen = finAccount.getString("isFrozen");
-            if (frozen == null) frozen = "N";
+            String statusId = finAccount.getString("statusId");
+            if (statusId == null) statusId = "FNACT_ACTIVE";
 
             BigDecimal balance = finAccount.getBigDecimal("actualBalance");
             if (balance == null) {
                 balance = FinAccountHelper.ZERO;
             }
 
-            Debug.log("Account #" + finAccountId + " Balance: " + balance + " Frozen: " + frozen, module);
+            Debug.logInfo("Account #" + finAccountId + " Balance: " + balance + " Status: " + statusId, module);
 
-            if ("N".equals(frozen) && balance.compareTo(FinAccountHelper.ZERO) < 1) {
-                finAccount.set("isFrozen", "Y");
+            if ("FNACT_ACTIVE".equals(statusId) && balance.compareTo(FinAccountHelper.ZERO) < 1) {
+                finAccount.set("statusId", "FNACT_MANFROZEN");
                 Debug.logInfo("Financial account [" + finAccountId + "] has passed its threshold [" + balance + "] (Frozen)", module);
-            } else if ("Y".equals(frozen) && balance.compareTo(FinAccountHelper.ZERO) > 0) {
-                finAccount.set("isFrozen", "N");
+            } else if ("FNACT_MANFROZEN".equals(statusId) && balance.compareTo(FinAccountHelper.ZERO) > 0) {
+                finAccount.set("statusId", "FNACT_ACTIVE");
                 Debug.logInfo("Financial account [" + finAccountId + "] has been made current [" + balance + "] (Un-Frozen)", module);
             }
             try {

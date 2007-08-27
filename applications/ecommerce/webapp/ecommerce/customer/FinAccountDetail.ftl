@@ -31,8 +31,8 @@ under the License.
       <td><div class="tabletext">${ownedFinAccount.fromDate?if_exists}</div></td>
   </tr>
   <tr>
-      <td align="right"><div class="tableheadtext">Is Frozen:</div></td>
-      <td><div class="tabletext">${ownedFinAccount.isFrozen?default("N")}</div></td>
+      <td align="right"><div class="tableheadtext">Status:</div></td>
+      <td><div class="tabletext">${(finAccountStatusItem.description)?default("Active")}</div></td>
   </tr>
   <#if ownedFinAccount.replenishLevel?exists>
   <tr>
