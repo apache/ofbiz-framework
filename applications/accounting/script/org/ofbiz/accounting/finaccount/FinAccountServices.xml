@@ -22,6 +22,11 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="createFinAccount" short-description="Create a Financial Account">
+        <!-- if no statusId set to default to FNACT_ACTIVE -->
+        <if-empty field-name="parameters.statusId">
+            <set field="parameters.statusId" value="FNACT_ACTIVE"/>
+        </if-empty>
+        
         <make-value value-name="newEntity" entity-name="FinAccount"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
