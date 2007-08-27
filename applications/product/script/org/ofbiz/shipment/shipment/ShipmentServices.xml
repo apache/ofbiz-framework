@@ -190,16 +190,17 @@ under the License.
                 <and>
                     <not><if-empty field-name="parameters.partyIdFrom"/></not>
                     <if-compare-field field-name="parameters.partyIdFrom" operator="not-equals" to-field-name="lookedUpValue.partyIdFrom"/>
+                    <not><if-empty field-name="lookedUpValue.estimatedShipWorkEffId"/></not>
                 </and>
             </condition>
             <then>
-                <set from-field="lookedUpValue.estimatedShipWorkEffId" field="assignPartyToWorkEffortShip.workEffortId"/>
-                <set from-field="parameters.partyIdFrom" field="assignPartyToWorkEffortShip.partyId"/>
+                <set field="assignPartyToWorkEffortShip.workEffortId" from-field="lookedUpValue.estimatedShipWorkEffId"/>
+                <set field="assignPartyToWorkEffortShip.partyId" from-field="parameters.partyIdFrom"/>
                 <find-by-and entity-name="WorkEffortPartyAssignment" list-name="existingShipWepas" map-name="assignPartyToWorkEffortShip"/>
                 <filter-list-by-date list-name="existingShipWepas"/>
                 <if-empty field-name="existingShipWepas">
-                    <set value="CAL_ATTENDEE" field="assignPartyToWorkEffortShip.roleTypeId"/>
-                    <set value="CAL_SENT" field="assignPartyToWorkEffortShip.statusId"/>
+                    <set field="assignPartyToWorkEffortShip.roleTypeId" value="CAL_ATTENDEE"/>
+                    <set field="assignPartyToWorkEffortShip.statusId" value="CAL_SENT"/>
                     <call-service service-name="assignPartyToWorkEffort" in-map-name="assignPartyToWorkEffortShip"/>
                 </if-empty>
             </then>
@@ -209,16 +210,17 @@ under the License.
                 <and>
                     <not><if-empty field-name="parameters.partyIdTo"/></not>
                     <if-compare-field field-name="parameters.partyIdTo" operator="not-equals" to-field-name="lookedUpValue.partyIdTo"/>
+                    <not><if-empty field-name="lookedUpValue.estimatedArrivalWorkEffId"/></not>
                 </and>
             </condition>
             <then>
-                <set from-field="lookedUpValue.estimatedArrivalWorkEffId" field="assignPartyToWorkEffortArrival.workEffortId"/>
-                <set from-field="parameters.partyIdTo" field="assignPartyToWorkEffortArrival.partyId"/>
+                <set field="assignPartyToWorkEffortArrival.workEffortId" from-field="lookedUpValue.estimatedArrivalWorkEffId"/>
+                <set field="assignPartyToWorkEffortArrival.partyId" from-field="parameters.partyIdTo"/>
                 <find-by-and entity-name="WorkEffortPartyAssignment" list-name="existingArrivalWepas" map-name="assignPartyToWorkEffortArrival"/>
                 <filter-list-by-date list-name="existingArrivalWepas"/>
                 <if-empty field-name="existingArrivalWepas">
-                    <set value="CAL_ATTENDEE" field="assignPartyToWorkEffortArrival.roleTypeId"/>
-                    <set value="CAL_SENT" field="assignPartyToWorkEffortArrival.statusId"/>
+                    <set field="assignPartyToWorkEffortArrival.roleTypeId" value="CAL_ATTENDEE"/>
+                    <set field="assignPartyToWorkEffortArrival.statusId" value="CAL_SENT"/>
                     <call-service service-name="assignPartyToWorkEffort" in-map-name="assignPartyToWorkEffortArrival"/>
                 </if-empty>
             </then>
