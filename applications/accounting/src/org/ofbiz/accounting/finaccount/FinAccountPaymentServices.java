@@ -617,26 +617,37 @@ public class FinAccountPaymentServices {
         }
 
         // create the transaction
-        BigDecimal balance;
+        BigDecimal actualBalance;
         String refNum;
         try {
             refNum = FinAccountPaymentServices.createFinAcctPaymentTransaction(delegator, dispatcher, userLogin, amount,
                     productStoreId, partyId, orderId, orderItemSeqId, currencyUom, DEPOSIT, finAccountId);
             finAccount.refresh();
-            balance = finAccount.getBigDecimal("actualBalance");
+            actualBalance = finAccount.getBigDecimal("actualBalance");
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
 
         // make sure balance is not null
-        if (balance == null) {
-            balance = FinAccountHelper.ZERO;
+        if (actualBalance == null) {
+            actualBalance = FinAccountHelper.ZERO;
+        } else {
+            if (actualBalance.doubleValue() < 0) {
+                // balance went below zero, set negative pending replenishment status so that no more auths or captures will go through until it is replenished
+                try {
+                    Map rollbackCtx = UtilMisc.toMap("userLogin", userLogin, "finAccountId", finAccountId, "statusId", "FNACT_NEGPENDREPL");
+                    dispatcher.addRollbackService("updateFinAccount", rollbackCtx, true);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+            }
         }
 
         Map result = ServiceUtil.returnSuccess();
         result.put("previousBalance", previousBalance.doubleValue());
-        result.put("balance", balance.doubleValue());
+        result.put("balance", actualBalance.doubleValue());
         result.put("amount", amount);
         result.put("processResult", Boolean.TRUE);
         result.put("referenceNum", refNum);        
@@ -729,8 +740,8 @@ public class FinAccountPaymentServices {
 
         // configure rollback service to set status to Negative Pending Replenishment
         if ("FNACT_NEGPENDREPL".equals(statusId)) {
-            Map rollbackCtx = UtilMisc.toMap("userLogin", userLogin, "finAccountId", finAccountId, "statusId", "FNACT_NEGPENDREPL");
             try {
+                Map rollbackCtx = UtilMisc.toMap("userLogin", userLogin, "finAccountId", finAccountId, "statusId", "FNACT_NEGPENDREPL");
                 dispatcher.addRollbackService("updateFinAccount", rollbackCtx, true);
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
