@@ -217,7 +217,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createInventoryItemStatus" short-description="Create an inventory item status record">
-        <now-timestamp-to-env env-name="now"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <!-- find the most recent InventoryItemStatus record and set the statusEndDatetime -->
         <entity-and entity-name="InventoryItemStatus" list-name="oldInventoryItemStatusList">
@@ -226,14 +226,14 @@ under the License.
         </entity-and>
         <first-from-list entry-name="oldInventoryItemStatus" list-name="oldInventoryItemStatusList"/>
         <if-not-empty field-name="oldInventoryItemStatus">
-            <set field="oldInventoryItemStatus.statusEndDatetime" from-field="now"/>
+            <set field="oldInventoryItemStatus.statusEndDatetime" from-field="nowTimestamp"/>
             <store-value value-name="oldInventoryItemStatus"/>
         </if-not-empty>
         
         <make-value value-name="inventoryItemStatus" entity-name="InventoryItemStatus"/>
         <set-nonpk-fields map-name="parameters" value-name="inventoryItemStatus"/>
         <set-pk-fields map-name="parameters" value-name="inventoryItemStatus"/>
-        <set field="inventoryItemStatus.statusDatetime" from-field="now"/>
+        <set field="inventoryItemStatus.statusDatetime" from-field="nowTimestamp"/>
         
         <!-- make sure the current productId is set, if not passed in look up the current value -->
         <if-empty field-name="inventoryItemStatus.productId">
