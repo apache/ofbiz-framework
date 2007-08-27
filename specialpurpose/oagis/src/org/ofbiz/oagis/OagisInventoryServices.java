@@ -75,7 +75,7 @@ public class OagisInventoryServices {
         GenericValue userLogin = null;
         try {
             userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
-        } catch (GenericEntityException e){
+        } catch (GenericEntityException e) {
             String errMsg = "Error Getting UserLogin: " + e.toString();
             Debug.logError(e, errMsg, module);
         }
@@ -307,7 +307,7 @@ public class OagisInventoryServices {
             try {
                 comiCtx.put("processingStatusId", "OAGMP_PROC_ERROR");
                 dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
@@ -322,7 +322,7 @@ public class OagisInventoryServices {
             saveErrorMapListCtx.put("userLogin", userLogin);
             try {
                 dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
@@ -335,7 +335,7 @@ public class OagisInventoryServices {
 
                 // run async because this will send a message back to the other server and may take some time, and/or fail
                 dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error sending Confirm BOD: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
@@ -347,7 +347,7 @@ public class OagisInventoryServices {
             try {
                 comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
                 dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
                 // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                 Debug.logError(e, errMsg, module);
@@ -557,7 +557,7 @@ public class OagisInventoryServices {
             try {
                 comiCtx.put("processingStatusId", "OAGMP_PROC_ERROR");
                 dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
@@ -572,7 +572,7 @@ public class OagisInventoryServices {
             saveErrorMapListCtx.put("userLogin", userLogin);
             try {
                 dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
@@ -585,7 +585,7 @@ public class OagisInventoryServices {
 
                 // run async because this will send a message back to the other server and may take some time, and/or fail
                 dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error sending Confirm BOD: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
@@ -597,7 +597,7 @@ public class OagisInventoryServices {
             comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
             try {
                 dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
                 // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                 Debug.logError(e, errMsg, module);
@@ -795,7 +795,7 @@ public class OagisInventoryServices {
                                  if (inventoryItem !=null) {
                                      productId = inventoryItem.getString("productId");
                                  }
-                             } catch (GenericEntityException e){
+                             } catch (GenericEntityException e) {
                                  String errMsg = "Error Getting Entity InventoryItem";
                                  Debug.logError(e, errMsg, module);
                             } */
@@ -1033,7 +1033,7 @@ public class OagisInventoryServices {
             try {
                 comiCtx.put("processingStatusId", "OAGMP_PROC_ERROR");
                 dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
@@ -1048,7 +1048,7 @@ public class OagisInventoryServices {
             saveErrorMapListCtx.put("userLogin", userLogin);
             try {
                 dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
@@ -1062,7 +1062,7 @@ public class OagisInventoryServices {
 
                 // run async because this will send a message back to the other server and may take some time, and/or fail
                 dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error sending Confirm BOD: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
@@ -1074,7 +1074,7 @@ public class OagisInventoryServices {
             comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
             try {
                 dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
                 // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                 Debug.logError(e, errMsg, module);
@@ -1319,7 +1319,7 @@ public class OagisInventoryServices {
             try {
                 comiCtx.put("processingStatusId", "OAGMP_PROC_ERROR");
                 dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
@@ -1334,7 +1334,7 @@ public class OagisInventoryServices {
             saveErrorMapListCtx.put("userLogin", userLogin);
             try {
                 dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
@@ -1345,7 +1345,7 @@ public class OagisInventoryServices {
 
                 // run async because this will send a message back to the other server and may take some time, and/or fail
                 dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error sending Confirm BOD: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
@@ -1357,7 +1357,7 @@ public class OagisInventoryServices {
             comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
             try {
                 dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
                 // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                 Debug.logError(e, errMsg, module);

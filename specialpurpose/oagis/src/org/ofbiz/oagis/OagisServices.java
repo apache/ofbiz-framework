@@ -198,7 +198,7 @@ public class OagisServices {
         }
         try {
             dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoContext, 60, true);
-        } catch (GenericServiceException e){
+        } catch (GenericServiceException e) {
             String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
             Debug.logError(e, errMsg, module);
         }
@@ -212,7 +212,7 @@ public class OagisServices {
         oagisMsgInfoContext.put("processingStatusId", "OAGMP_SENT");
         try {
             dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoContext, 60, true);
-        } catch (GenericServiceException e){
+        } catch (GenericServiceException e) {
             String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
             Debug.logError(e, errMsg, module);
         }
@@ -229,7 +229,7 @@ public class OagisServices {
         GenericValue userLogin = null; 
         try {
             userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId", "system"));
-        } catch (GenericEntityException e){
+        } catch (GenericEntityException e) {
             String errMsg = "Error Getting UserLogin with userLoginId 'system':" + e.toString();
             Debug.logError(e, errMsg, module);
         }
@@ -298,7 +298,7 @@ public class OagisServices {
         try {
             dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoCtx, 60, true);
             /* running async for better error handling
-            if (ServiceUtil.isError(oagisMsgInfoResult)){
+            if (ServiceUtil.isError(oagisMsgInfoResult)) {
                 String errMsg = "Error creating OagisMessageInfo for the Incoming Message: "+ServiceUtil.getErrorMessage(oagisMsgInfoResult);
                 errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "CreateOagisMessageInfoServiceError"));
                 Debug.logError(errMsg, module);
@@ -328,7 +328,7 @@ public class OagisServices {
                     createOagisMessageErrorInfoForOriginal.put("description", description);
                 
                     Map oagisMsgErrorInfoResult = dispatcher.runSync("createOagisMessageErrorInfo", createOagisMessageErrorInfoForOriginal);
-                    if (ServiceUtil.isError(oagisMsgErrorInfoResult)){
+                    if (ServiceUtil.isError(oagisMsgErrorInfoResult)) {
                         String errMsg = "Error creating OagisMessageErrorInfo: " + ServiceUtil.getErrorMessage(oagisMsgErrorInfoResult);
                         errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "CreateOagisMessageErrorInfoServiceError"));
                         Debug.logError(errMsg, module);
@@ -360,7 +360,7 @@ public class OagisServices {
 
                 // this one will also go in another transaction as the create service for the base record did too
                 Map oagisMsgErrorInfoResult = dispatcher.runSync("createOagisMessageErrorInfo", createOagisMessageErrorInfoForCbod, 60, true);
-                if (ServiceUtil.isError(oagisMsgErrorInfoResult)){
+                if (ServiceUtil.isError(oagisMsgErrorInfoResult)) {
                     String errMsg = "Error creating OagisMessageErrorInfo: " + ServiceUtil.getErrorMessage(oagisMsgErrorInfoResult);
                     Debug.logError(errMsg, module);
                 }
@@ -389,7 +389,7 @@ public class OagisServices {
             saveErrorMapListCtx.put("userLogin", userLogin);
             try {
                 dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
@@ -403,7 +403,7 @@ public class OagisServices {
 
                 // run async because this will send a message back to the other server and may take some time, and/or fail
                 dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
@@ -415,7 +415,7 @@ public class OagisServices {
             oagisMsgInfoCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
             try {
                 dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoCtx, 60, true);
-            } catch (GenericServiceException e){
+            } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
                 // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                 Debug.logError(e, errMsg, module);
@@ -435,7 +435,7 @@ public class OagisServices {
         GenericValue userLogin = null; 
         try {
             userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));    
-        } catch (GenericEntityException e){
+        } catch (GenericEntityException e) {
             String errMsg = "Error Getting UserLogin with userLoginId system: "+e.toString();
             Debug.logError(e, errMsg, module);
         }
@@ -526,7 +526,7 @@ public class OagisServices {
                 try {
                     // run async because this will send a message back to the other server and may take some time, and/or fail
                     dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
-                } catch (GenericServiceException e){
+                } catch (GenericServiceException e) {
                     String errMsg = "Error sending Confirm BOD: " + e.toString();
                     Debug.logError(e, errMsg, module);
                 }
