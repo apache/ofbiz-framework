@@ -117,6 +117,7 @@ public class FinAccountPaymentServices {
 
         String finAccountTypeId = finAccount.getString("finAccountTypeId");
         finAccountId = finAccount.getString("finAccountId");
+        String statusId = finAccount.getString("statusId");
 
         try {
             // fin the store requires a pin number; validate the PIN with the code
@@ -167,36 +168,21 @@ public class FinAccountPaymentServices {
                 return result;
             }
 
-            // check for account being in bad standing
-            String inGoodStanding = finAccount.getString("inGoodStanding");
-            if (inGoodStanding != null && "N".equals(inGoodStanding)) {
+            // check for account being in bad standing somehow
+            if ("FNACT_NEGPENDREPL".equals(statusId) || "FNACT_MANFROZEN".equals(statusId) || "FNACT_CANCELLED".equals(statusId)) {
                 // refresh the finaccount
                 finAccount.refresh();
-                inGoodStanding = finAccount.getString("inGoodStanding");
+                statusId = finAccount.getString("statusId");
 
-                if (inGoodStanding != null && "N".equals(inGoodStanding)) {
+                if ("FNACT_NEGPENDREPL".equals(statusId) || "FNACT_MANFROZEN".equals(statusId) || "FNACT_CANCELLED".equals(statusId)) {
                     Map result = ServiceUtil.returnSuccess();
-                    result.put("authMessage", "Account is currently not in good standing");
-                    result.put("authResult", Boolean.FALSE);
-                    result.put("processAmount", amount);
-                    result.put("authFlag", "0");
-                    result.put("authCode", "A");
-                    result.put("authRefNum", "0");
-                    Debug.logWarning("Unable to auth FinAccount: " + result, module);
-                    return result;
-                }
-            }
-
-            // check for account being frozen
-            String isFrozen = finAccount.getString("isFrozen");
-            if (isFrozen != null && "Y".equals(isFrozen)) {
-                // refresh the finaccount
-                finAccount.refresh();
-                isFrozen = finAccount.getString("isFrozen");
-
-                if (isFrozen != null && "Y".equals(isFrozen)) {
-                    Map result = ServiceUtil.returnSuccess();
-                    result.put("authMessage", "Account is currently frozen");
+                    if ("FNACT_NEGPENDREPL".equals(statusId)) {
+                        result.put("authMessage", "Account is currently negative and pending replenishment");
+                    } else if ("FNACT_MANFROZEN".equals(statusId)) {
+                        result.put("authMessage", "Account is currently frozen");
+                    } else if ("FNACT_CANCELLED".equals(statusId)) {
+                        result.put("authMessage", "Account has been cancelled");
+                    }
                     result.put("authResult", Boolean.FALSE);
                     result.put("processAmount", amount);
                     result.put("authFlag", "0");
@@ -678,6 +664,7 @@ public class FinAccountPaymentServices {
             return ServiceUtil.returnError("Invalid financial account [" + finAccountId + "]");
         }
         String currency = finAccount.getString("currencyUomId");
+        String statusId = finAccount.getString("statusId");
 
         // look up the type -- determine auto-replenish is active
         GenericValue finAccountType;
@@ -740,13 +727,15 @@ public class FinAccountPaymentServices {
             return ServiceUtil.returnSuccess();        
         }
 
-        // configure rollback service to set good standing flag
-        Map rollbackCtx = UtilMisc.toMap("userLogin", userLogin, "finAccountId", finAccountId, "inGoodStanding", "N");
-        try {
-            dispatcher.addRollbackService("updateFinAccount", rollbackCtx, true);
-        } catch (GenericServiceException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
+        // configure rollback service to set status to Negative Pending Replenishment
+        if ("FNACT_NEGPENDREPL".equals(statusId)) {
+            Map rollbackCtx = UtilMisc.toMap("userLogin", userLogin, "finAccountId", finAccountId, "statusId", "FNACT_NEGPENDREPL");
+            try {
+                dispatcher.addRollbackService("updateFinAccount", rollbackCtx, true);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError(e.getMessage());
+            }
         }
 
         // the deposit is level - balance (500 - (-10) = 510 || 500 - (10) = 490)
@@ -822,14 +811,16 @@ public class FinAccountPaymentServices {
         }
 
         // say we are in good standing again
-        try {
-            Map ufaResp = dispatcher.runSync("updateFinAccount", UtilMisc.toMap("finAccountId", finAccountId, "inGoodStanding", "Y", "userLogin", userLogin));
-            if (ServiceUtil.isError(ufaResp)) {
-                return ufaResp;
+        if ("FNACT_NEGPENDREPL".equals(statusId)) {
+            try {
+                Map ufaResp = dispatcher.runSync("updateFinAccount", UtilMisc.toMap("finAccountId", finAccountId, "statusId", "FNACT_ACTIVE", "userLogin", userLogin));
+                if (ServiceUtil.isError(ufaResp)) {
+                    return ufaResp;
+                }
+            } catch (GenericServiceException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError(e.getMessage());
             }
-        } catch (GenericServiceException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
         }
         
         return ServiceUtil.returnSuccess();

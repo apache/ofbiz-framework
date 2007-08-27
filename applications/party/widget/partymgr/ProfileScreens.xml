@@ -208,6 +208,9 @@
                                             <entity-one entity-name="Uom" value-name="accountCurrencyUom" auto-field-map="false" use-cache="true">
                                                 <field-map field-name="uomId" env-name="ownedFinAccount.currencyUomId"/>
                                             </entity-one>
+                                            <entity-one entity-name="StatusItem" value-name="finAccountStatusItem">
+                                                <field-map field-name="statusId" env-name="ownedFinAccount.statusId"/>
+                                            </entity-one>
                                             <entity-one entity-name="FinAccountType" value-name="ownedFinAccountType" auto-field-map="false" use-cache="true">
                                                 <field-map field-name="finAccountTypeId" env-name="ownedFinAccount.finAccountTypeId"/>
                                             </entity-one>

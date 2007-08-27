@@ -42,6 +42,7 @@ under the License.
             <exclude field-name="actualBalance"/>
             <exclude field-name="availableBalance"/>
         </auto-attributes>
+        <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
         <attribute name="oldReplenishPaymentId" type="String" mode="OUT" optional="true"/>
         <attribute name="oldReplenishLevel" type="Double" mode="OUT" optional="true"/>
         <attribute name="replenishPaymentId" type="String" mode="OUT" optional="true"/>
@@ -62,7 +63,16 @@ under the License.
         <description>Update FinAccount.availableBalance based on a new FinAccountAuth; meant to be called as an EECA as it is for data maintenance</description>
         <attribute name="finAccountAuthId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="createFinAccountStatus" default-entity-name="FinAccountStatus" engine="simple"
+        location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="createFinAccountStatus" auth="true">
+        <description>Create a FinAccountStatus</description>
+        <auto-attributes include="all" mode="IN" optional="false">
+            <exclude field-name="statusDate"/>
+            <exclude field-name="statusEndDate"/>
+        </auto-attributes>
+    </service>
     
+    <!-- Financial Account Transaction -->
     <service name="createFinAccountTrans" engine="simple" default-entity-name="FinAccountTrans"
             location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="createFinAccountTrans">
         <description>Create a new Financial Account Transaction.  Will use current timestamp for entryDate and trasanctionDate if none is provided.</description>
@@ -174,11 +184,11 @@ under the License.
         <attribute name="finAccountId" type="String" mode="IN" optional="false"/>
         <attribute name="availableBalance" type="Double" mode="OUT" optional="false"/>
         <attribute name="balance" type="Double" mode="OUT" optional="false"/>
-        <attribute name="isFrozen" type="Boolean" mode="OUT" optional="false"/> 
+        <attribute name="statusId" type="String" mode="OUT" optional="false"/> 
     </service>
     <service name="checkFinAccountStatus" engine="java"
             location="org.ofbiz.accounting.finaccount.FinAccountServices" invoke="checkFinAccountStatus" auth="true">
-        <description>Checks the status of the financial account; changes the isFrozen flag</description>
+        <description>Checks the status of the financial account; may set statusId to FNACT_MANFROZEN or FNACT_ACTIVE</description>
         <attribute name="finAccountAuthId" type="String" mode="IN" optional="true"/>
         <attribute name="finAccountId" type="String" mode="IN" optional="true"/>
     </service>
