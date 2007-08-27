@@ -742,38 +742,57 @@ under the License.
 
         <!-- FIRST, cancel all the reservations -->
         <iterate list-name="allReservations" entry-name="oisgir">
-            <set from-field="oisgir.orderId" field="cancelOisgirMap.orderId"/>
-            <set from-field="oisgir.orderItemSeqId" field="cancelOisgirMap.orderItemSeqId"/>
-            <set from-field="oisgir.inventoryItemId" field="cancelOisgirMap.inventoryItemId"/>
-            <set from-field="oisgir.shipGroupSeqId" field="cancelOisgirMap.shipGroupSeqId"/>
-            <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOisgirMap"/>
             <clear-field field-name="cancelOisgirMap"/>
+            <set field="cancelOisgirMap.orderId" from-field="oisgir.orderId"/>
+            <set field="cancelOisgirMap.orderItemSeqId" from-field="oisgir.orderItemSeqId"/>
+            <set field="cancelOisgirMap.inventoryItemId" from-field="oisgir.inventoryItemId"/>
+            <set field="cancelOisgirMap.shipGroupSeqId" from-field="oisgir.shipGroupSeqId"/>
+            <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOisgirMap"/>
         </iterate>
 
         <!-- THEN, re-reserve the cancelled items -->
         <iterate list-name="allReservations" entry-name="oisgir">
             <!-- require inventory is N because it had to be N to begin with to have a negative ATP -->
-            <set from-field="inventoryItem.productId" field="resMap.productId"/>
-            <set from-field="oisgir.orderId" field="resMap.orderId"/>
-            <set from-field="oisgir.orderItemSeqId" field="resMap.orderItemSeqId"/>
-            <set from-field="oisgir.quantity" field="resMap.quantity"/>
-            <set from-field="oisgir.reservedDatetime" field="resMap.reservedDatetime"/>
-            <set from-field="oisgir.reserveOrderEnumId" field="resMap.reserveOrderEnumId"/>
+            <clear-field field-name="resMap"/>
+            <set field="resMap.productId" from-field="inventoryItem.productId"/>
+            <set field="resMap.orderId" from-field="oisgir.orderId"/>
+            <set field="resMap.orderItemSeqId" from-field="oisgir.orderItemSeqId"/>
+            <set field="resMap.quantity" from-field="oisgir.quantity"/>
+            <set field="resMap.reservedDatetime" from-field="oisgir.reservedDatetime"/>
+            <set field="resMap.reserveOrderEnumId" from-field="oisgir.reserveOrderEnumId"/>
             <set field="resMap.requireInventory" value="N"/>
-            <set from-field="oisgir.shipGroupSeqId" field="resMap.shipGroupSeqId"/>
-            <set from-field="oisgir.sequenceId" field="resMap.sequenceId"/>
+            <set field="resMap.shipGroupSeqId" from-field="oisgir.shipGroupSeqId"/>
+            <set field="resMap.sequenceId" from-field="oisgir.sequenceId"/>
             <log level="info" message="Re-reserving product [${resMap.productId}] for order item [${resMap.orderId}:${resMap.orderItemSeqId}] quantity [${resMap.quantity}]; facility [${inventoryItem.facilityId}]"/>
             <if-empty field-name="inventoryItem.facilityId">
                 <log level="warning" message="In balanceInventoryItems there is no facilityId, so reserving from any facility for order item [${resMap.orderId}:${resMap.orderItemSeqId}]"></log>
                 <call-service service-name="reserveProductInventory" in-map-name="resMap"/>
                 
                 <else>
-                    <set from-field="inventoryItem.facilityId" field="resMap.facilityId"/>
+                    <set field="resMap.facilityId" from-field="inventoryItem.facilityId"/>
                     <call-service service-name="reserveProductInventoryByFacility" in-map-name="resMap"/>
                 </else>
             </if-empty>
-            <clear-field field-name="resMap"/>
+            
+            <!-- maintain a Set (in a Map) of orderIds that we have reallocated for -->
+            <set field="touchedOrderIdSet.${oisgir.orderId}" value="Y"/>
         </iterate>
+        
+        <!-- now go through touchedOrderIdSet keys and make a Set/Map of orderIds that are no longer on back-order -->
+        <iterate-map key-name="touchedOrderId" value-name="throwAwayValue" map-name="touchedOrderIdSet">
+            <set field="checkOrderIsOnBackOrderMap.orderId" from-field="touchedOrderId"/>
+            <call-service service-name="checkOrderIsOnBackOrder" in-map-name="checkOrderIsOnBackOrderMap">
+                <result-to-field result-name="isBackOrder"/>
+            </call-service>
+            
+            <if-compare field-name="isBackOrder" operator="equals" value="false" type="Boolean">
+                <set field="noLongerOnBackOrderIdMap.${touchedOrderId}" value="Y"/>
+            </if-compare>
+        </iterate-map>
+        <if-not-empty field-name="noLongerOnBackOrderIdMap">
+            <call-object-method obj-field-name="noLongerOnBackOrderIdMap" method-name="keySet" ret-field-name="noLongerOnBackOrderIdSet"/>
+            <field-to-result field-name="noLongerOnBackOrderIdSet"/>
+        </if-not-empty>
     </simple-method>
 
     <!-- Inventory Transfer Services -->

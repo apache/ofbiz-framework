@@ -226,10 +226,11 @@ under the License.
 
     <service name="balanceInventoryItems" engine="simple"
             location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="balanceInventoryItems" auth="true">
-        <description>Balance inventory items based on the item passed</description>
+        <description>Balance inventory items based on the new item specified which will have available inventory that back-order (negative ATP) reservations can be reassigned to.</description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
         <attribute name="priorityOrderId" type="String" mode="IN" optional="true"/>
         <attribute name="priorityOrderItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="noLongerOnBackOrderIdSet" type="Set" mode="OUT" optional="true"/>
     </service>
 
     <service name="reserveAnInventoryItem" engine="simple"
