@@ -77,25 +77,33 @@ under the License.
 
         <!-- handle statusId change stuff; first put the current statusId in the oldStatusId result -->
         <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
-        <if-compare-field field-name="lookedUpValue.statusId" operator="not-equals" to-field-name="parameters.statusId">
-            <!-- if the record exists there should be a statusId, but just in case make it so it won't blow up -->
-            <if-not-empty field-name="lookedUpValue.statusId">
-                <!-- if statusId change is not in the StatusValidChange list, complain... -->
-                <entity-one entity-name="StatusValidChange" value-name="statusValidChange" auto-field-map="false">
-                    <field-map field-name="statusId" env-name="lookedUpValue.statusId"/>
-                    <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
-                </entity-one>
-                <if-empty field-name="statusValidChange">
-                    <!-- no valid change record found? return an error... -->
-                    <add-error><fail-property resource="CommonUiLabels" property="CommonErrorNoStatusValidChange"/></add-error>
-                    <check-errors/>
-                </if-empty>
-            </if-not-empty>
-            
-            <!-- before we set the nonpk fields, if the statusId is different save a status history record -->
-            <set-service-fields service-name="createFinAccountStatus" map-name="parameters" to-map-name="createFinAccountStatusMap"/>
-            <call-service service-name="createFinAccountStatus" in-map-name="createFinAccountStatusMap"/>
-        </if-compare-field>
+        <if>
+            <condition>
+                <and>
+                    <not><if-empty field-name="parameters.statusId"></if-empty></not>
+                    <if-compare-field operator="not-equals" field-name="lookedUpValue.statusId" to-field-name="parameters.statusId"></if-compare-field>
+                </and>
+            </condition>
+            <then>
+                <!-- if the record exists there should be a statusId, but just in case make it so it won't blow up -->
+                <if-not-empty field-name="lookedUpValue.statusId">
+                    <!-- if statusId change is not in the StatusValidChange list, complain... -->
+                    <entity-one entity-name="StatusValidChange" value-name="statusValidChange" auto-field-map="false">
+                        <field-map field-name="statusId" env-name="lookedUpValue.statusId"/>
+                        <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+                    </entity-one>
+                    <if-empty field-name="statusValidChange">
+                        <!-- no valid change record found? return an error... -->
+                        <add-error><fail-property resource="CommonUiLabels" property="CommonErrorNoStatusValidChange"/></add-error>
+                        <check-errors/>
+                    </if-empty>
+                </if-not-empty>
+                
+                <!-- before we set the nonpk fields, if the statusId is different save a status history record -->
+                <set-service-fields service-name="createFinAccountStatus" map-name="parameters" to-map-name="createFinAccountStatusMap"/>
+                <call-service service-name="createFinAccountStatus" in-map-name="createFinAccountStatusMap"/>
+            </then>
+        </if>
 
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
