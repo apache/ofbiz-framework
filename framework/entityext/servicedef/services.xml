@@ -27,7 +27,7 @@ under the License.
     <!-- simple generic service to watch and entity through an EECA -->
     <service name="watchEntity" engine="java" location="org.ofbiz.entityext.EntityWatchServices" invoke="watchEntity">
         <attribute name="newValue" type="GenericValue" mode="IN"/>
-        <attribute name="fieldName" type="String" mode="IN"/>
+        <attribute name="fieldName" type="String" mode="IN" optional="true"/>
     </service>
 
     <!-- Entity Engine Extension Services -->
