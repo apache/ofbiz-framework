@@ -274,7 +274,7 @@ under the License.
         
         <!-- Okay, now just store the results -->
         <entity-one entity-name="FinAccount" value-name="finAccount"/>
-        <log level="info" message="Updating FinAccount with ID [${finAccountId}] with actualBalance=${actualBalanceSum}, and availableBalance=${availableBalanceSum}"/>
+        <log level="info" message="In updateFinAccountBalancesFromTrans/Auth updating FinAccount with ID [${finAccountId}] with actualBalance: ${finAccount.actualBalance} -> ${actualBalanceSum}, and availableBalance: ${finAccount.availableBalance} -> ${availableBalanceSum}"/>
         <set field="finAccount.actualBalance" from-field="actualBalanceSum" type="Double"/>
         <set field="finAccount.availableBalance" from-field="availableBalanceSum" type="Double"/>
         <store-value value-name="finAccount"/>
