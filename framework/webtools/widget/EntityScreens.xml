@@ -182,8 +182,9 @@ under the License.
                 <if-has-permission permission="ENTITY_MAINT"/>
             </condition>
             <actions>
-                <set field="titleProperty" value="WebtoolsFindValues"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/FindGeneric.bsh"/>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap"/>
+                <set field="title" value="${uiLabelMap.WebtoolsFindValues}: ${entityName}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -205,8 +206,9 @@ under the License.
                 <if-has-permission permission="ENTITY_MAINT"/>
             </condition>
             <actions>
-                <set field="titleProperty" value="WebtoolsViewValue"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/ViewGeneric.bsh"/>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap"/>
+                <set field="title" value="${uiLabelMap.WebtoolsViewValue}: ${entityName}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -228,8 +230,9 @@ under the License.
                 <if-has-permission permission="ENTITY_MAINT"/>
             </condition>
             <actions>
-                <set field="titleProperty" value="WebtoolsRelations"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/ViewRelations.bsh"/>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap"/>
+                <set field="title" value="${uiLabelMap.WebtoolsRelations}: ${entityName}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -403,6 +406,7 @@ under the License.
         </section>
     </screen>
 </screens>
+
 
 
 
