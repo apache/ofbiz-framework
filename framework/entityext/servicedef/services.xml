@@ -23,6 +23,12 @@ under the License.
     <description>Entity Extension Services</description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
+    
+    <!-- simple generic service to watch and entity through an EECA -->
+    <service name="watchEntity" engine="java" location="org.ofbiz.entityext.EntityWatchServices" invoke="watchEntity">
+        <attribute name="newValue" type="GenericValue" mode="IN"/>
+        <attribute name="fieldName" type="String" mode="IN"/>
+    </service>
 
     <!-- Entity Engine Extension Services -->
     <service name="distributedClearAllEntityCaches" engine="jms" location="serviceMessenger" invoke="clearAllEntityCaches" auth="true">

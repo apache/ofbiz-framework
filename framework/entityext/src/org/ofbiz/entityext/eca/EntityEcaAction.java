@@ -64,15 +64,15 @@ public class EntityEcaAction implements java.io.Serializable {
         this.valueAttr = action.getAttribute("value-attr");
     }
 
-    public void runAction(DispatchContext dctx, GenericEntity value) throws GenericEntityException {
+    public void runAction(DispatchContext dctx, Map context, GenericEntity newValue) throws GenericEntityException {
         Map actionResult = null;
         
         try {
             // pull out context parameters needed for this service.
-            Map actionContext = dctx.getModelService(serviceName).makeValid(value, ModelService.IN_PARAM);
+            Map actionContext = dctx.getModelService(serviceName).makeValid(context, ModelService.IN_PARAM);
             // if value-attr is specified, insert the value object in that attr name
             if (valueAttr != null && valueAttr.length() > 0) {
-                actionContext.put(valueAttr, value);
+                actionContext.put(valueAttr, newValue);
             }
             
             //Debug.logInfo("Running Entity ECA action service " + this.serviceName + " triggered by entity: " + value.getEntityName(), module);
@@ -113,7 +113,7 @@ public class EntityEcaAction implements java.io.Serializable {
 
         // use the result to update the context fields.
         if (resultToValue) {
-            value.setNonPKFields(actionResult);
+            newValue.setNonPKFields(actionResult);
         }
     }
 }
