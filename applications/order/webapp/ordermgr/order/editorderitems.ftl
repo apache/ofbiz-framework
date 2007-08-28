@@ -29,6 +29,13 @@ float: right;
 }
 </style>
 
+<#-- price change rules -->
+<#assign allowPriceChange = false/>
+<#if (orderHeader.orderTypeId == 'PURCHASE_ORDER' || security.hasEntityPermission("ORDERMGR", "_SALES_PRICEMOD", session))>
+    <script language="javascript">alert("price mod ok");</script>
+    <#assign allowPriceChange = true/>
+</#if>
+
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
@@ -136,8 +143,13 @@ float: right;
                                 ${uiLabelMap.OrderRemaining}:&nbsp;${remainingQuantity}&nbsp;&nbsp;<br/>
                             </td>
                             <td class="align-text" valign="top" nowrap="nowrap">
-                                <input type="text" size="8" name="ipm_${orderItem.orderItemSeqId}" value="<@ofbizAmount amount=orderItem.unitPrice/>"/>
-                                    &nbsp;<input type="checkbox" name="opm_${orderItem.orderItemSeqId}" value="Y"/>
+                                <#-- check for permission to modify price -->
+                                <#if (allowPriceChange)>
+                                    <input type="text" size="8" name="ipm_${orderItem.orderItemSeqId}" value="<@ofbizAmount amount=orderItem.unitPrice/>"/>
+                                        &nbsp;<input type="checkbox" name="opm_${orderItem.orderItemSeqId}" value="Y"/>
+                                <#else>
+                                    <div class="tabletext"><@ofbizCurrency amount=orderItem.unitPrice isoCode=currencyUomId/> / <@ofbizCurrency amount=orderItem.unitListPrice isoCode=currencyUomId/></div>
+                                </#if>                                                                
                             </td>
                             <td class="align-text" valign="top" nowrap="nowrap">
                                 <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentsTotal(orderItem, orderAdjustments, true, false, false) isoCode=currencyUomId/>
@@ -243,17 +255,26 @@ float: right;
                                 <b>${adjustmentType.get("description",locale)}</b> ${orderHeaderAdjustment.comments?if_exists} :
                             </td>
                             <td nowrap="nowrap" width="30%">
-                                <input type="text" name="description" value="${orderHeaderAdjustment.get("description")?if_exists}" size="30" maxlength="60"/>
+                                <#if (allowPriceChange)>
+                                    <input type="text" name="description" value="${orderHeaderAdjustment.get("description")?if_exists}" size="30" maxlength="60"/>
+                                <#else>
+                                    ${orderHeaderAdjustment.get("description")?if_exists}
+                                </#if>
                             </td>
                             <td nowrap="nowrap" width="15%">
-                                <input type="text" name="amount" size="6" value="<@ofbizAmount amount=adjustmentAmount/>"/>
-                                <input class="smallSubmit" type="submit" value="${uiLabelMap.CommonUpdate}"/><a href="<@ofbizUrl>deleteOrderAdjustment?orderAdjustmentId=${orderAdjustmentId?if_exists}&amp;orderId=${orderId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                                <#if (allowPriceChange)>
+                                    <input type="text" name="amount" size="6" value="<@ofbizAmount amount=adjustmentAmount/>"/>
+                                    <input class="smallSubmit" type="submit" value="${uiLabelMap.CommonUpdate}"/><a href="<@ofbizUrl>deleteOrderAdjustment?orderAdjustmentId=${orderAdjustmentId?if_exists}&amp;orderId=${orderId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                                <#else>
+                                    <@ofbizAmount amount=adjustmentAmount/>    
+                                </#if>
                             </td>
                         </tr>
                     </table>
                 </form>
             </#if>
         </#list>
+
         <#-- add new adjustment -->
         <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_REJECTED">
             <form name="addAdjustmentForm" method="post" action="<@ofbizUrl>createOrderAdjustment?${paramString}</@ofbizUrl>">
