@@ -24,9 +24,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javolution.util.FastList;
+import javolution.util.FastSet;
+
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Element;
 
@@ -41,9 +45,8 @@ public class ServiceEcaRule implements java.io.Serializable {
     protected String eventName = null;
     protected boolean runOnFailure = false;
     protected boolean runOnError = false;
-    protected List conditions = new LinkedList();
-    protected List actions = new LinkedList();
-    protected List sets = new LinkedList();
+    protected List conditions = FastList.newInstance();
+    protected List actionsAndSets = FastList.newInstance();
     protected boolean enabled = true;
 
     protected ServiceEcaRule() {}
@@ -73,22 +76,22 @@ public class ServiceEcaRule implements java.io.Serializable {
         }
 
         if (Debug.verboseOn()) Debug.logVerbose("Conditions: " + conditions, module);
-
-        List setList = UtilXml.childElementList(eca, "set");
-        Iterator si = setList.iterator();
+        
+        Set nameSet = FastSet.newInstance();
+        nameSet.add("set");
+        nameSet.add("action");
+        List actionAndSetList = UtilXml.childElementList(eca, nameSet);
+        Iterator si = actionAndSetList.iterator();
         while (si.hasNext()) {
-            Element setElement = (Element) si.next();
-            sets.add(new ServiceEcaSetField(setElement));
+            Element actionOrSetElement = (Element) si.next();
+            if ("action".equals(actionOrSetElement.getNodeName())) {
+                this.actionsAndSets.add(new ServiceEcaAction(actionOrSetElement, this.eventName));
+            } else {
+                this.actionsAndSets.add(new ServiceEcaSetField(actionOrSetElement));
+            }
         }
 
-        List actList = UtilXml.childElementList(eca, "action");
-        Iterator ai = actList.iterator();
-        while (ai.hasNext()) {
-            Element actionElement = (Element) ai.next();
-            actions.add(new ServiceEcaAction(actionElement, eventName));
-        }
-
-        if (Debug.verboseOn()) Debug.logVerbose("Actions: " + actions, module);
+        if (Debug.verboseOn()) Debug.logVerbose("actions and sets (intermixed): " + actionsAndSets, module);
     }
 
     public void eval(String serviceName, DispatchContext dctx, Map context, Map result, boolean isError, boolean isFailure, Set actionsRun) throws GenericServiceException {
@@ -119,27 +122,25 @@ public class ServiceEcaRule implements java.io.Serializable {
 
         // if all conditions are true
         if (allCondTrue) {
-            // prepare the internal field setters
-            Iterator i = sets.iterator();
-            while (i.hasNext()) {
-                ServiceEcaSetField sf = (ServiceEcaSetField) i.next();
-                sf.eval(context);
-            }
-
-            // eval the actions
-            Iterator a = actions.iterator();
+            Iterator actionsAndSetIter = actionsAndSets.iterator();
             boolean allOkay = true;
-            while (a.hasNext() && allOkay) {
-                ServiceEcaAction ea = (ServiceEcaAction) a.next();
-                // in order to enable OR logic without multiple calls to the given service,
-                // only execute a given service name once per service call phase
-                if (!actionsRun.contains(ea.serviceName)) {
-                    if (Debug.infoOn()) Debug.logInfo("Running Service ECA Service: " + ea.serviceName + ", triggered by rule on Service: " + serviceName, module);
-                    if (ea.runAction(serviceName, dctx, context, result)) {
-                        actionsRun.add(ea.serviceName);
-                    } else {
-                        allOkay = false;
+            while (allOkay && actionsAndSetIter.hasNext()) {
+                Object setOrAction = actionsAndSetIter.next();
+                if (setOrAction instanceof ServiceEcaAction) {
+                    ServiceEcaAction ea = (ServiceEcaAction) setOrAction;
+                    // in order to enable OR logic without multiple calls to the given service,
+                    // only execute a given service name once per service call phase
+                    if (!actionsRun.contains(ea.serviceName)) {
+                        if (Debug.infoOn()) Debug.logInfo("Running Service ECA Service: " + ea.serviceName + ", triggered by rule on Service: " + serviceName, module);
+                        if (ea.runAction(serviceName, dctx, context, result)) {
+                            actionsRun.add(ea.serviceName);
+                        } else {
+                            allOkay = false;
+                        }
                     }
+                } else {
+                    ServiceEcaSetField sf = (ServiceEcaSetField) setOrAction;
+                    sf.eval(context);
                 }
             }
         }
