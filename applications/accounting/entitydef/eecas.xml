@@ -29,4 +29,11 @@
     <eca entity="FinAccountAuth" operation="create-store" event="return">
         <action service="updateFinAccountBalancesFromAuth" mode="sync"/>
     </eca>
+    
+    <!-- an example of how to use the watchEntity service to watch the actualBalance field
+    <eca entity="FinAccount" operation="create-store" event="run">
+        <set field-name="fieldName" value="actualBalance"/>
+        <action service="watchEntity" mode="sync" value-attr="newValue"/>
+    </eca>
+    -->
 </entity-eca>
