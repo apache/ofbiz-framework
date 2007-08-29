@@ -52,9 +52,7 @@ under the License.
             <display description="[${productPromo.createdByUserLogin}] ${uiLabelMap.CommonOn} ${productPromo.createdDate}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditProductPromoCode" type="single" target="updateProductPromoCode" title="" default-map-name="productPromoCode"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
-
+    <form name="EditProductPromoCode" type="single" target="updateProductPromoCode" title="" default-map-name="productPromoCode">        
         <alt-target use-when="productPromoCode==null" target="createProductPromoCode"/>
         <auto-fields-service service-name="updateProductPromoCode" map-name=""/>
 
@@ -68,7 +66,7 @@ under the License.
         <field use-when="productPromoCode!=null" name="productPromoCodeId" tooltip=""><display/></field>
         <field use-when="productPromoCode==null&amp;&amp;productPromoCodeId!=null" name="productPromoCodeId" tooltip="${uiLabelMap.ProductCouldNotFindProductPromoCode} [${productPromoCodeId}]"><display/></field>
         <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
-        <field use-when="productPromoCode==null&amp;&amp;productPromoCodeId==null" name="productPromoCodeId"><ignored/></field>
+        <field use-when="productPromoCode==null&amp;&amp;productPromoCodeId==null" name="productPromoCodeId" tooltip="${uiLabelMap.ProductPromoCodeBlank}"><text/></field>
 
         <field name="userEntered" widget-style="selectBox">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
