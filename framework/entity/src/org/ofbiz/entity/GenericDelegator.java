@@ -37,6 +37,7 @@ import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -2434,41 +2435,17 @@ public class GenericDelegator implements DelegatorInterface {
      *@return Long with the next seq id for the given sequence name
      */
     public String getNextSeqId(String seqName, long staggerMax) {
-        boolean beganTransaction = false;
-        try {
-            if (alwaysUseTransaction) {
-                beganTransaction = TransactionUtil.begin();
-            }
+        Long nextSeqLong = this.getNextSeqIdLong(seqName, staggerMax);
 
-            Long nextSeqLong = this.getNextSeqIdLong(seqName, staggerMax);
+        if (nextSeqLong == null) {
+            // NOTE: the getNextSeqIdLong method SHOULD throw a runtime exception when no sequence value is found, which means we should never see it get here
+            throw new IllegalArgumentException("Could not get next sequenced ID for sequence name: " + seqName);
+        }
 
-            if (nextSeqLong == null) {
-                throw new IllegalArgumentException("Could not get next sequenced ID for sequence name: " + seqName);
-            }
-
-            if (UtilValidate.isNotEmpty(this.getDelegatorInfo().sequencedIdPrefix)) {
-                return this.getDelegatorInfo().sequencedIdPrefix + nextSeqLong.toString();
-            } else {
-                return nextSeqLong.toString();
-            }
-        } catch (Exception e) {
-            String errMsg = "Failure in getNextSeqId operation for seqName [" + seqName + "]: " + e.toString() + ". Rolling back transaction";
-            Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            Debug.logError(e, "[GenericDelegator] Error getting next sequence ID: " + e.toString(), module);
-            return null;
-        } finally {
-            try {
-                // only commit the transaction if we started one...
-                TransactionUtil.commit(beganTransaction);
-            } catch (GenericTransactionException e1) {
-                Debug.logError(e1, "[GenericDelegator] Could not commit transaction: " + e1.toString(), module);
-            }
+        if (UtilValidate.isNotEmpty(this.getDelegatorInfo().sequencedIdPrefix)) {
+            return this.getDelegatorInfo().sequencedIdPrefix + nextSeqLong.toString();
+        } else {
+            return nextSeqLong.toString();
         }
     }
 
@@ -2506,21 +2483,24 @@ public class GenericDelegator implements DelegatorInterface {
 
             Long newSeqId = sequencer == null ? null : sequencer.getNextSeqId(seqName, staggerMax);
 
-            // only commit the transaction if we started one...
-            TransactionUtil.commit(beganTransaction);
-
             return newSeqId;
         } catch (GenericEntityException e) {
             String errMsg = "Failure in getNextSeqIdLong operation for seqName [" + seqName + "]: " + e.toString() + ". Rolling back transaction.";
-            Debug.logError(e, errMsg, module);
             try {
                 // only rollback the transaction if we started one...
                 TransactionUtil.rollback(beganTransaction, errMsg, e);
             } catch (GenericEntityException e2) {
                 Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
             }
-            Debug.logError(e, "[GenericDelegator] Error getting next sequence ID: " + e.toString(), module);
-            return null;
+            // rather than logging the problem and returning null, thus hiding the problem, throw an exception
+            throw new GeneralRuntimeException(errMsg, e);
+        } finally {
+            try {
+                // only commit the transaction if we started one...
+                TransactionUtil.commit(beganTransaction);
+            } catch (GenericTransactionException e1) {
+                Debug.logError(e1, "[GenericDelegator] Could not commit transaction: " + e1.toString(), module);
+            }
         }
     }
 
