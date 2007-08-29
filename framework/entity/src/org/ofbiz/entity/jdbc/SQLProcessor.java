@@ -444,7 +444,7 @@ public class SQLProcessor {
             stmt = _connection.createStatement();
             return stmt.executeUpdate(sql);
         } catch (SQLException sqle) {
-            Debug.logError(sqle, "SQLProcessor.executeUpdate(sql) : ERROR : ", module);
+            // passing on this exception as nested, no need to log it here: Debug.logError(sqle, "SQLProcessor.executeUpdate(sql) : ERROR : ", module);
             throw new GenericDataSourceException("SQL Exception while executing the following:" + _sql, sqle);
         } finally {
             if (stmt != null) {
