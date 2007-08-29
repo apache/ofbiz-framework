@@ -297,8 +297,14 @@ under the License.
 
     <!-- ========== GL Posting Services ========== -->
     <simple-method method-name="createAcctgTransAndEntries" short-description="Verifies and posts a set of AcctgTransEntries">
+        <!-- retrieve ledger rounding properties -->
+        <property-to-field resource="arithmetic" property="ledger.decimals" field-name="ledgerDecimals"/>
+        <property-to-field resource="arithmetic" property="ledger.rounding" field-name="ledgerRounding"/>
+        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${ledgerRounding}]"/>        
+
         <!-- first loop through and make sure all the entries are valid  -->
         <iterate list-name="parameters.acctgTransEntries" entry-name="acctgTransEntry">
+            <log level="info" message="${acctgTransEntry}"/>
             <!-- the organization party must be an internal organization -->
             <entity-one entity-name="PartyRole" value-name="partyRole" use-cache="true" auto-field-map="false">
                 <field-map field-name="partyId" env-name="acctgTransEntry.organizationPartyId"/>
@@ -310,23 +316,23 @@ under the License.
             </if-empty>
             <!-- add up debits and credits -->
             <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
-                <calculate field-name="debitTotal">
+                <calculate field-name="debitTotal" decimal-scale="${ledgerDecimals}" rounding-mode="${ledgerRounding}">
                     <calcop operator="get" field-name="acctgTransEntry.amount"/>
                     <calcop operator="get" field-name="debitTotal"/>
                 </calculate>
             </if-compare>
             <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
-                <calculate field-name="creditTotal">
+                <calculate field-name="creditTotal" decimal-scale="${ledgerDecimals}" rounding-mode="${ledgerRounding}">
                     <calcop operator="get" field-name="acctgTransEntry.amount"/>
                     <calcop operator="get" field-name="creditTotal"/>
                 </calculate>
             </if-compare>
         </iterate>
-        <calculate field-name="debitCreditDifference">
+        <calculate field-name="debitCreditDifference" decimal-scale="${ledgerDecimals}" rounding-mode="${ledgerRounding}">
             <calcop operator="get" field-name="debitTotal"/>
             <calcop operator="negative" field-name="creditTotal"/>
         </calculate>
-
+        <!-- <log level="info" message="In createAcctgTransAndEntries: debitTotal = [${debitTotal}] creditTotal=[${creditTotal}] debitCreditDifference=[${debitCreditDifference}]"/> -->
         <!-- if the debit and credit totals do not balance, return an error -->
         <if-compare field-name="debitCreditDifference" operator="greater-equals" value="0.000001" type="Double">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingDebitCreditMustEqual"/></add-error>
