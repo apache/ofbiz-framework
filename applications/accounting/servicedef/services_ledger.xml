@@ -263,9 +263,9 @@ under the License.
             location="org/ofbiz/accounting/ledger/AcctgTransServices.xml" invoke="calculateAcctgTransTrialBalance" auth="true">
         <description>Calculate Trial Balance for a AcctgTrans</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <attribute name="debitTotal" type="Double" mode="OUT" optional="false"/>
-        <attribute name="creditTotal" type="Double" mode="OUT" optional="false"/>
-        <attribute name="debitCreditDifference" type="Double" mode="OUT" optional="false"/>
+        <attribute name="debitTotal" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="creditTotal" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="debitCreditDifference" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="postAcctgTrans" default-entity-name="AcctgTrans" engine="simple"
             location="org/ofbiz/accounting/ledger/AcctgTransServices.xml" invoke="postAcctgTrans" auth="true"
