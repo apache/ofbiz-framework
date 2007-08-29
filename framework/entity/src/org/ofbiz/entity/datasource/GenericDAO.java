@@ -113,7 +113,8 @@ public class GenericDAO {
             return singleInsert(entity, modelEntity, modelEntity.getFieldsCopy(), sqlP);
         } catch (GenericEntityException e) {
             sqlP.rollback();
-            throw new GenericEntityException("Exception while inserting the following entity: " + entity.toString(), e);
+            // no need to create nested, just throw original which will have all info: throw new GenericEntityException("Exception while inserting the following entity: " + entity.toString(), e);
+            throw e;
         } finally {
             sqlP.close();
         }
@@ -168,7 +169,7 @@ public class GenericDAO {
             entity.synchronizedWithDatasource();
             return retVal;
         } catch (GenericEntityException e) {
-            throw new GenericEntityException("while inserting: " + entity.toString(), e);
+            throw new GenericEntityException("Error while inserting: " + entity.toString(), e);
         } finally {
             sqlP.close();
         }
@@ -212,7 +213,8 @@ public class GenericDAO {
             return singleUpdate(entity, modelEntity, fieldsToSave, sqlP);
         } catch (GenericEntityException e) {
             sqlP.rollback();
-            throw new GenericEntityException("Exception while updating the following entity: " + entity.toString(), e);
+            // no need to create nested, just throw original which will have all info: throw new GenericEntityException("Exception while updating the following entity: " + entity.toString(), e);
+            throw e;
         } finally {
             sqlP.close();
         }
@@ -270,7 +272,7 @@ public class GenericDAO {
             retVal = sqlP.executeUpdate();
             entity.synchronizedWithDatasource();
         } catch (GenericEntityException e) {
-            throw new GenericEntityException("while updating: " + entity.toString(), e);
+            throw new GenericEntityException("Error while updating: " + entity.toString(), e);
         } finally {
             sqlP.close();
         }
@@ -327,7 +329,7 @@ public class GenericDAO {
             while (fi.hasNext()) {
                 ModelField field = (ModelField) fi.next();
                 Object value = fieldsToSet.get(field.getName());
-                SqlJdbcUtil.setValue(sqlP, field, modelEntity.getEntityName(), value, modelFieldTypeReader );
+                SqlJdbcUtil.setValue(sqlP, field, modelEntity.getEntityName(), value, modelFieldTypeReader);
             }
 
             return sqlP.executeUpdate();
