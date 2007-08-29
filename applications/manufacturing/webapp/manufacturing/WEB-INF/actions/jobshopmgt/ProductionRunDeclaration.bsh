@@ -156,12 +156,15 @@ if (!UtilValidate.isEmpty(productionRunId)) {
         //  RoutingTasks list
         List productionRunRoutingTasks = productionRun.getProductionRunRoutingTasks();
         Iterator tasksIt = productionRunRoutingTasks.iterator();
-        String startTaskId = null;
-        String issueTaskId = null;
-        String completeTaskId = null;
+        String startTaskId = null;   // which production run task is ready to start and has the [Start] buton next to it
+        String issueTaskId = null;   // which production run task is ready to have products issued with [Issue Components] button
+        String completeTaskId = null;   // which task has the [Complete] button next to it
         while (tasksIt.hasNext()) {
             GenericValue task = (GenericValue)tasksIt.next();
+            // only PRUN_RUNNING tasks can have items issued or production run completed
             if (task.getString("currentStatusId").equals("PRUN_RUNNING")) {
+                // Use WorkEffortGoodStandard to figure out if there are products which are needed for this task (PRUNT_PRODNEEDED) and which have not been issued (ie, WEGS_CREATED).
+                // If so this task should have products issued
                 List components = delegator.findByAnd("WorkEffortGoodStandard", UtilMisc.toMap("workEffortId", task.getString("workEffortId"), "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"));
                 List notIssued = EntityUtil.filterByAnd(components, UtilMisc.toMap("statusId", "WEGS_CREATED"));
                 if (components.size() > 0 && notIssued.size() > 0) {
@@ -172,6 +175,7 @@ if (!UtilValidate.isEmpty(productionRunId)) {
                 }
             }
 
+            // the first CREATED and SCHEDULED task will be the startTaskId.  As the issue and complete tasks are filled out this condition will no longer be true
             if (startTaskId == null &&
                   issueTaskId == null &&
                   completeTaskId == null &&
