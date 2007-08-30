@@ -55,6 +55,7 @@ under the License.
     <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_ROLE_CREATE"/>
     <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_ROLE_UPDATE"/>
     <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_ROLE_DELETE"/>
+    <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_VIEW"/>
     <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="OFBTOOLS_VIEW"/>
     
     <SecurityGroupPermission groupId="ORDERSUPPLIER_LTD" permissionId="ORDERMGR_VIEW"/>
