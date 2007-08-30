@@ -519,6 +519,7 @@ under the License.
       <field name="toString" type="very-long"></field>
       <field name="ccString" type="very-long"></field>
       <field name="bccString" type="very-long"></field>
+      <field name="messageId" type="value"></field>
       <prim-key field="communicationEventId"/>
       <relation type="one" fk-name="COM_EVNT_TYPE" rel-entity-name="CommunicationEventType">
         <key-map field-name="communicationEventTypeId"/>
@@ -564,6 +565,9 @@ under the License.
       <relation type="one" fk-name="COM_EVNT_RESENUM" rel-entity-name="Enumeration">
           <key-map field-name="reasonEnumId" rel-field-name="enumId"/>
       </relation>
+      <index name="COMMEVT_MSG_ID" unique="true">
+          <index-field name="messageId"/>               
+      </index>
     </entity>
     
   <view-entity entity-name="CommunicationEventAndSubscr"
