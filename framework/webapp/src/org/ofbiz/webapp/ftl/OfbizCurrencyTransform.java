@@ -66,12 +66,12 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
     private static Double getAmount(Map args, String key) {
         if (args.containsKey(key)) {
             Object o = args.get(key);
-            if (Debug.verboseOn()) Debug.logVerbose("Amount Object : " + o.getClass().getName(), module);
 
             // handle nulls better
             if (o == null) {
                 o = 0.00;
             }
+            if (Debug.verboseOn()) Debug.logVerbose("Amount Object : " + o.getClass().getName(), module);
 
             if (o instanceof NumberModel) {
                 NumberModel s = (NumberModel) o;
