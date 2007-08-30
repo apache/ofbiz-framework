@@ -74,6 +74,32 @@ under the License.
         <action service="sendCommEventAsEmail" mode="sync"/>
     </eca>
 
+    <!-- same for auto email -->
+    <eca service="createCommunicationEvent" event="commit">
+        <condition field-name="statusId" operator="equals" value="COM_IN_PROGRESS"/>
+        <condition field-name="communicationEventTypeId" operator="equals" value="AUTO_EMAIL_COMM"/>
+        <condition field-name="contactListId" operator="is-empty"/>
+        <action service="sendCommEventAsEmail" mode="sync"/>
+    </eca>
+    <eca service="createCommunicationEvent" event="commit">
+        <condition field-name="statusId" operator="equals" value="COM_IN_PROGRESS"/>
+        <condition field-name="communicationEventTypeId" operator="equals" value="AUTO_EMAIL_COMM"/>
+        <condition field-name="contactListId" operator="is-not-empty"/>
+        <action service="sendCommEventAsEmail" mode="async"/>
+    </eca>
+    <eca service="updateCommunicationEvent" event="commit">
+        <condition field-name="statusId" operator="equals" value="COM_IN_PROGRESS"/>
+        <condition field-name="communicationEventTypeId" operator="equals" value="AUTO_EMAIL_COMM"/>
+        <condition field-name="contactListId" operator="is-empty"/>
+        <action service="sendCommEventAsEmail" mode="sync"/>
+    </eca>    
+    <eca service="updateCommunicationEvent" event="commit">
+        <condition field-name="statusId" operator="equals" value="COM_IN_PROGRESS"/>
+        <condition field-name="communicationEventTypeId" operator="equals" value="AUTO_EMAIL_COMM"/>
+        <condition field-name="contactListId" operator="is-not-empty"/>
+        <action service="sendCommEventAsEmail" mode="async"/>
+    </eca>
+
     <!-- After all the emails have been sent to a contact list, mark it as complete. -->
     <eca service="sendEmailToContactList" event="commit">
         <action service="setCommEventComplete" mode="sync"/>
