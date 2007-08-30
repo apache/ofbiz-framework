@@ -86,11 +86,7 @@ public class JavaMailContainer implements Container {
         ContainerConfig.Container cfg = ContainerConfig.getContainer("javamail-container", configFile);
         String dispatcherName = ContainerConfig.getPropertyValue(cfg, "dispatcher-name", "JavaMailDispatcher");
         String delegatorName = ContainerConfig.getPropertyValue(cfg, "delegator-name", "default");
-        if ("true".equals(ContainerConfig.getPropertyValue(cfg, "delete-mail", "false"))) {
-            this.deleteMail = true;
-        } else {
-            this.deleteMail = false;
-        }
+        this.deleteMail = "true".equals(ContainerConfig.getPropertyValue(cfg, "delete-mail", "false"));
         
         this.delegator = GenericDelegator.getGenericDelegator(delegatorName);
         this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
@@ -161,7 +157,7 @@ public class JavaMailContainer implements Container {
 
     protected Store getStore(Session session) throws ContainerException {
         // create the store object
-        Store store = null;
+        Store store;
         try {
             store = session.getStore();
         } catch (NoSuchProviderException e) {
@@ -177,6 +173,10 @@ public class JavaMailContainer implements Container {
             } catch (NoSuchProviderException e) {
                 throw new ContainerException(e);
             }
+        }
+
+        if (store == null) {
+            throw new ContainerException("No store configured!");
         }
 
         // test the store
@@ -306,9 +306,9 @@ public class JavaMailContainer implements Container {
             for (int i = 0; i < messages.length; i++) {
                 // process each un-read message
             	if (!messages[i].isSet(Flags.Flag.SEEN)) {
-            		long messageSize = ((MimeMessage) messages[i]).getSize();
+            		long messageSize = messages[i].getSize();
             		if (messages[i] instanceof MimeMessage && messageSize >= maxSize) {
-            			Debug.logWarning("Message from: " + ((MimeMessage)messages[i]).getFrom()[0] + "not received, to big, size:" + messageSize + " cannot be more than " + maxSize + " bytes", module);
+            			Debug.logWarning("Message from: " + messages[i].getFrom()[0] + "not received, to big, size:" + messageSize + " cannot be more than " + maxSize + " bytes", module);
             		} else {
             			this.processMessage(messages[i], session);
             			if (Debug.verboseOn()) Debug.logVerbose("Message from " + UtilMisc.toListArray(messages[i].getFrom()) + " with subject [" + messages[i].getSubject() + "]  has been processed." , module);
