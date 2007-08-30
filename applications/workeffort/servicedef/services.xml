@@ -133,6 +133,12 @@ under the License.
     </service>
     
     <!-- Services for finding Assigned WorkEfforts -->
+    <service name="getWorkEffortAssignedEventsForRole" engine="java"
+            location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedEventsForRole">
+        <description>Get the active WorkEffort Events where the logged in user is assigned in the specidied role.</description>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="events" type="java.util.List" mode="OUT" optional="false"/>
+    </service>
     <service name="getWorkEffortAssignedTasks" engine="java"
             location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedTasks">
         <description>Get WorkEffort Assigned Tasks</description>

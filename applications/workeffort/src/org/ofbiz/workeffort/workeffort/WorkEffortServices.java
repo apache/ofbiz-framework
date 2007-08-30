@@ -56,6 +56,39 @@ public class WorkEffortServices {
     
     public static final String module = WorkEffortServices.class.getName();
 
+    public static Map getWorkEffortAssignedEventsForRole(DispatchContext ctx, Map context) {
+        GenericDelegator delegator = ctx.getDelegator();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String roleTypeId = (String) context.get("roleTypeId");
+
+        List validWorkEfforts = null;
+
+        if (userLogin != null && userLogin.get("partyId") != null) {
+            try {
+                List conditionList = UtilMisc.toList(new EntityExpr("partyId", EntityOperator.EQUALS, userLogin.get("partyId")),
+                                new EntityExpr("roleTypeId", EntityOperator.EQUALS, roleTypeId),
+                                new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "EVENT"));
+                conditionList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_DECLINED"));
+                conditionList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_DELEGATED"));
+                conditionList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"));
+                conditionList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"));
+                validWorkEfforts = delegator.findByAnd("WorkEffortAndPartyAssign",
+                                                       conditionList,
+                                                       UtilMisc.toList("estimatedStartDate", "priority"));
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, module);
+                return ServiceUtil.returnError("Error finding desired WorkEffort records: " + e.toString());
+            }
+        }
+
+        Map result = new HashMap();
+        if (validWorkEfforts == null) {
+            validWorkEfforts = new LinkedList();
+        }
+        result.put("events", validWorkEfforts);
+        return result;
+    }
+
     public static Map getWorkEffortAssignedTasks(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
