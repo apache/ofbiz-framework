@@ -46,7 +46,9 @@
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="mapKey" type="String" mode="IN" optional="true"/>
         <attribute name="contentId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
         <override name="contentTypeId" default-value="DOCUMENT"/>
+        
     </service>
 
     <service name="createTextContent" engine="group" auth="true">
@@ -241,6 +243,7 @@
         <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
         <attribute mode="INOUT" name="contentIdFrom" optional="true" type="String"/>
+        <override name="fromDate" mode="INOUT"/>
         <!-- end of deprecated fields -->
     </service>
     <service name="updateContentAssoc" default-entity-name="ContentAssoc" engine="simple" auth="true"
