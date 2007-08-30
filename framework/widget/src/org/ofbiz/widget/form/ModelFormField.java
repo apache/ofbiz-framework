@@ -2250,6 +2250,7 @@ public class ModelFormField {
         protected int rows = 2;
         protected FlexibleStringExpander defaultValue;
         protected boolean visualEditorEnable = false;
+        protected boolean readOnly = false;
         protected FlexibleStringExpander visualEditorButtons;
 
         protected TextareaField() {
@@ -2270,6 +2271,7 @@ public class ModelFormField {
             
             visualEditorEnable = "true".equals(element.getAttribute("visual-editor-enable"));
             visualEditorButtons = new FlexibleStringExpander(element.getAttribute("visual-editor-buttons"));
+            readOnly = "true".equals(element.getAttribute("read-only"));
 
             String colsStr = element.getAttribute("cols");
             try {
@@ -2331,6 +2333,20 @@ public class ModelFormField {
          */
         public String getVisualEditorButtons(Map context) {
             return this.visualEditorButtons.expandString(context);
+        }
+
+        /**
+         * @return
+         */
+        public boolean isReadOnly() {
+            return readOnly;
+        }
+        
+        /**
+         * @param r
+         */
+        public void setReadOnly(boolean r) {
+            readOnly = r;
         }
 
         /**

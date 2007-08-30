@@ -309,6 +309,10 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append("htmlEditArea");
             buffer.append('"');
         }
+
+        if (textareaField.isReadOnly()) {
+            buffer.append(" readonly");
+        }
  
         buffer.append('>');
 
