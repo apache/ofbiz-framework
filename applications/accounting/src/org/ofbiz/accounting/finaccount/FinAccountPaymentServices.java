@@ -197,7 +197,14 @@ public class FinAccountPaymentServices {
             BigDecimal availableBalance = finAccount.getBigDecimal("availableBalance");
             if (availableBalance == null) {
                 availableBalance = FinAccountHelper.ZERO;
+            } else {
+                BigDecimal availableBalanceOriginal = availableBalance;
+                availableBalance = (availableBalance).setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
+                if (availableBalance != availableBalanceOriginal) {
+                    Debug.logWarning("In finAccountPreAuth for finAccountId [" + finAccountId + "] availableBalance [" + availableBalanceOriginal + "] was different after rounding [" + availableBalance + "]; it should never have made it into the database this way, so check whatever put it there.", module);
+                }
             }
+            
             
             Map result = ServiceUtil.returnSuccess();
             String authMessage = null;
@@ -232,7 +239,7 @@ public class FinAccountPaymentServices {
                 // refresh the account
                 finAccount.refresh();
             } else {
-                Debug.logError("Attempted to authorize [" + amount + "] against a balance of only [" + availableBalance + "]", module);
+                Debug.logWarning("Attempted to authorize [" + amount + "] against a balance of only [" + availableBalance + "] for finAccountId [" + finAccountId + "]", module);
                 refNum = "0"; // a refNum is always required from authorization
                 authMessage = "Insufficient funds";
                 processResult = Boolean.FALSE;

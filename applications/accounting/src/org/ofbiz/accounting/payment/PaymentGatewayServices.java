@@ -396,7 +396,7 @@ public class PaymentGatewayServices {
             result.put("processResult", "APPROVED");
             return result;
         } else {
-            Debug.logInfo("Only (" + finished + ") passed auth; returning FAILED", module);
+            Debug.logInfo("Only [" + finished + "/" + paymentPrefs.size() + "] OrderPaymentPreference authorizations passed; returning processResult=FAILED with no message so that message from ProductStore will be used", module);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             result.put("processResult", "FAILED");
             return result;
