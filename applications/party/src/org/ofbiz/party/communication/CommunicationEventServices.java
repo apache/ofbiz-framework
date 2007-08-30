@@ -49,7 +49,7 @@ public class CommunicationEventServices {
         String communicationEventId = (String) context.get("communicationEventId");
         
         Map result = ServiceUtil.returnSuccess();
-        List errorMessages = new LinkedList();                   // used to keep a list of all error messages returned from sending emails to contact list
+        List errorMessages = new LinkedList(); // used to keep a list of all error messages returned from sending emails to contact list
         
         try {
             // find the communication event and make sure that it is actually an email
@@ -58,11 +58,12 @@ public class CommunicationEventServices {
                 String errMsg = UtilProperties.getMessage(resource,"commeventservices.communication_event_not_found_failure", locale);
                 return ServiceUtil.returnError(errMsg + " " + communicationEventId);
             }
-            if ((communicationEvent.getString("communicationEventTypeId") == null) ||
-                !(communicationEvent.getString("communicationEventTypeId").equals("EMAIL_COMMUNICATION"))) {
+            String communicationEventType = communicationEvent.getString("communicationEventTypeId");
+            if (communicationEventType == null || !("EMAIL_COMMUNICATION".equals(communicationEventType) || "AUTO_EMAIL_COMM".equals(communicationEventType))) {
                 String errMsg = UtilProperties.getMessage(resource,"commeventservices.communication_event_must_be_email_for_email", locale);
                 return ServiceUtil.returnError(errMsg + " " + communicationEventId);
             }
+
             // make sure the from contact mech is an email if it is specified
             if ((communicationEvent.getRelatedOne("FromContactMech") == null) ||
                  (!(communicationEvent.getRelatedOne("FromContactMech").getString("contactMechTypeId").equals("EMAIL_ADDRESS")) ||
@@ -70,7 +71,7 @@ public class CommunicationEventServices {
                 String errMsg = UtilProperties.getMessage(resource,"commeventservices.communication_event_from_contact_mech_must_be_email", locale);
                 return ServiceUtil.returnError(errMsg + " " + communicationEventId);
             }
-                        
+
             // prepare the email
             Map sendMailParams = new HashMap();
             sendMailParams.put("sendFrom", communicationEvent.getRelatedOne("FromContactMech").getString("infoString"));
@@ -80,19 +81,23 @@ public class CommunicationEventServices {
             sendMailParams.put("userLogin", userLogin);
             
             // if there is no contact list, then send look for a contactMechIdTo and partyId
-            if ((communicationEvent.getString("contactListId") == null) ||
-                (communicationEvent.getString("contactListId").equals(""))) {
-                
-                // in this case, first make sure that the to contact mech actually is an email
-                if ((communicationEvent.getRelatedOne("ToContactMech") == null) || 
-                        (!(communicationEvent.getRelatedOne("ToContactMech").getString("contactMechTypeId").equals("EMAIL_ADDRESS")) ||
-                        (communicationEvent.getRelatedOne("ToContactMech").getString("infoString") == null))) {
-                       String errMsg = UtilProperties.getMessage(resource,"commeventservices.communication_event_to_contact_mech_must_be_email", locale);
-                       return ServiceUtil.returnError(errMsg + " " + communicationEventId);
-                   }
-                
+            if ((UtilValidate.isEmpty(communicationEvent.getString("contactListId")))) {
+                // send to address
+                String sendTo = communicationEvent.getString("toString");
+
+                if (UtilValidate.isEmpty(sendTo)) {
+                    GenericValue toContactMech = communicationEvent.getRelatedOne("ToContactMech");
+                    if (toContactMech != null && "EMAIL_ADDRESS".equals(toContactMech.getString("contactMechTypeId"))) {
+                        sendTo = toContactMech.getString("infoString");
+                    }
+                }
+                if (UtilValidate.isEmpty(sendTo)) {
+                    String errMsg = UtilProperties.getMessage(resource,"commeventservices.communication_event_to_contact_mech_must_be_email", locale);
+                    return ServiceUtil.returnError(errMsg + " " + communicationEventId);
+                }
+
                 sendMailParams.put("communicationEventId", communicationEventId);
-                sendMailParams.put("sendTo", communicationEvent.getRelatedOne("ToContactMech").getString("infoString"));
+                sendMailParams.put("sendTo", sendTo);
                 sendMailParams.put("partyId", communicationEvent.getString("partyIdTo"));  // who it's going to
                 
                 // send it
@@ -105,8 +110,17 @@ public class CommunicationEventServices {
                         errorMessages.add(ServiceUtil.getErrorMessage(completeResult));
                     }
                 }
-            } else {
 
+                // set the message ID on this communication event
+                String messageId = (String) tmpResult.get("messageId");
+                communicationEvent.set("messageId", messageId);
+                try {
+                    communicationEvent.store();
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+            } else {
                 // Call the sendEmailToContactList service if there's a contactListId present
                 Map sendEmailToContactListContext = new HashMap();
                 sendEmailToContactListContext.put("contactListId", communicationEvent.getString("contactListId"));
