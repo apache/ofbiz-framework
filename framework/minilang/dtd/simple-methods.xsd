@@ -4852,6 +4852,7 @@ under the License.
                     <xs:enumeration value="HalfDown"><xs:annotation><xs:documentation>Rounding mode to round towards "nearest neighbor" unless both neighbors are equidistant, in which case round down</xs:documentation></xs:annotation></xs:enumeration>
                     <xs:enumeration value="HalfEven"><xs:annotation><xs:documentation>Rounding mode to round towards the "nearest neighbor" unless both neighbors are equidistant, in which case, round towards the even neighbor</xs:documentation></xs:annotation></xs:enumeration>
                     <xs:enumeration value="Unnecessary"><xs:annotation><xs:documentation>Rounding mode to assert that the requested operation has an exact result, hence no rounding is necessary</xs:documentation></xs:annotation></xs:enumeration>
+                    <xs:enumeration value="${roundingMode}"><xs:annotation><xs:documentation>Convention for variable name for this attribute, in cases where it is determined at run-time.</xs:documentation></xs:annotation></xs:enumeration>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
