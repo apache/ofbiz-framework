@@ -147,7 +147,7 @@ under the License.
                 <set field="objectName" from-field="forum.contentName"/>
                 <set field="objectId"  from-field="forum.contentId"/>
                 <set field="forumNbrMessages" from-field="forum.childBranchCount" default-value="0"/>
-                <entity-and entity-name="ContentAssocViewFrom" list-name="forumMessages">
+                <entity-and entity-name="ContentAssocViewTo" list-name="forumMessages">
                     <field-map field-name="ownerContentId" env-name="parameters.forumId"/>
                     <order-by field-name="createdDate DESC"/>
                 </entity-and>

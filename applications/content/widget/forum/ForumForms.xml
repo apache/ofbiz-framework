@@ -153,6 +153,7 @@ under the License.
         <field name="caToDate"><hidden value="${contentAssoc.toDate}"/></field>
         <field name="caContentIdTo"><hidden/></field>
         <field name="caContentAssocTypeId"><hidden value="RESPONSE"/></field>
+        <field name="dataResourceTypeId"><hidden value="ELECTRONIC_TEXT"/></field>
         <field name="forumMessageText" parameter-name="textData"><textarea rows="10"/></field>
         <field name="addButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -183,9 +184,10 @@ under the License.
         <field name="rsp.ownerContentId" parameter-name="ownerContentId"><hidden/></field>
         <field name="rsp.caFromDate" parameter-name="fromDate"><hidden/></field>
         <field name="rsp.caThruDate" parameter-name="thruDate"><hidden/></field>
-        <field name="rsp.caContentIdTo" parameter-name="contentIdTo"><hidden/></field>
-        <field name="rsp.caContentAssocTypeId" parameter-name="contentAssocTypeId"><hidden/></field>
+        <field name="rsp.caContentIdTo" parameter-name="caContentIdTo"><hidden/></field>
+        <field name="rsp.caContentAssocTypeId" parameter-name="caContentAssocTypeId"><hidden/></field>
+        <field name="dataResourceTypeId"><hidden value="ELECTRONIC_TEXT"/></field>
         <field name="textData"><textarea rows="8"/></field>
-        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 </forms>
