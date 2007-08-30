@@ -250,13 +250,14 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditCommunication"/>
                 <set field="tabButtonItem" value="PartyCommEvents"/>
                 <set field="subTabButtonItem" value="CommunicationEvent"/>
+                <set field="entityName" value="CommunicationEvent"/>
 
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
                 <set field="parentCommEventId" from-field="parameters.parentCommEventId"/>
 
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom" default-value="${userLogin.partyId}"/>
-                <set field="partyIdTo" from-field="parameters.partyIdTo" default-value="${userLogin.partyId}"/>
+                <set field="partyIdTo" from-field="parameters.partyIdTo"/>
                 <set field="contactMechIdFrom" from-field="parameters.contactMechIdFrom"/>
                 <set field="contactMechIdTo" from-field="parameters.contactMechIdTo"/>
                 <set field="contactMechTypeId" from-field="parameters.contactMechTypeId"/>
@@ -282,25 +283,34 @@ under the License.
                                         <label style="head1" text="${uiLabelMap.PartyNewCommunication}"/>
                                     </fail-widgets>
                                 </section>
-                                <!-- 
                                 <section>
                                     <widgets>
                                         <container>
                                             <link style="smallSubmit" target="EditCommunicationEvent?partyId=${partyId}&amp;partyIdFrom=${partyId}" text="${uiLabelMap.PartyNewCommunication}"/>
-                                            <link style="smallSubmit" target="EditCommunicationEvent?partyId=${partyId}&amp;partyIdTo=${partyId}" text="${uiLabelMap.PartyReply}"/>
+                                            <link style="smallSubmit" target="EditCommunicationEvent?partyId=${partyId}&amp;parentCommEventId=${communicationEventId}" text="${uiLabelMap.PartyReply}"/>
+                                            <!--<link style="smallSubmit" target="EditCommunicationEvent?communicationEventTypeId=${communicationEvent.communicationEventTypeId}&amp;contactMechIdTo=${communicationEvent.contactMechIdFrom}&amp;contactMechIdFrom=${communicationEvent.contactMechIdTo}&amp;partyId=${partyId}&amp;partyIdTo=${partyId}&amp;partyIdFrom=${userLogin.partyId}&amp;parentCommEventId=${communicationEventId}&amp;toString=${communicationEvent.fromString}" text="${uiLabelMap.PartyReply}"/>-->
                                         </container>
                                     </widgets>
                                 </section>
-                                -->
                                 <section>
                                     <condition>
                                         <if-compare field-name="okayToUpdate" operator="equals" value="true" type="Boolean"/>
                                     </condition>
                                     <widgets>
-                                        <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="EditCommEvent"/>
+                                        <container style="widget-container">
+                                            <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="EditCommEvent"/>
+                                        </container>
+                                        <container style="widget-container">
+                                            <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListChildCommEvents"/>
+                                        </container>
                                     </widgets>
                                     <fail-widgets>
-                                        <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ViewCommEvent"/>
+                                        <container style="widget-container">
+                                            <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ViewCommEvent"/>
+                                        </container>
+                                        <container style="widget-container">
+                                            <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListChildCommEvents"/>
+                                        </container>
                                     </fail-widgets>
                                 </section>
                             </widgets>
