@@ -88,6 +88,8 @@
         <set field="assoc.createdDate" from-field="nowTimestamp"/>
 
         <create-value value-name="assoc"/>
+        <log level="info" message="assoc: ${assoc}"/>
+        <field-to-result field-name="assoc.fromDate" result-name="fromDate"/>
     </simple-method>
     <simple-method method-name="updateContentAssoc" short-description="Update a ContentAssoc Record">
         <entity-one entity-name="ContentAssoc" value-name="assoc" auto-field-map="true"/>
