@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.content.email;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
@@ -26,7 +28,9 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -37,45 +41,22 @@ import org.ofbiz.widget.html.HtmlScreenRenderer;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.xml.sax.SAXException;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.sql.Timestamp;
-import java.util.*;
-
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
-import javax.mail.Address;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Part;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.*;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.sql.Timestamp;
+import java.util.*;
 
 /**
  * Email Services
@@ -132,6 +113,7 @@ public class EmailServices {
         String sendVia = (String) context.get("sendVia");
         String authUser = (String) context.get("authUser");
         String authPass = (String) context.get("authPass");
+        String messageId = (String) context.get("messageId");
         String contentType = (String) context.get("contentType");
 
         boolean useSmtpAuth = false;
@@ -177,6 +159,10 @@ public class EmailServices {
             session.setDebug(debug);                        
 
             MimeMessage mail = new MimeMessage(session);
+            if (messageId != null) {
+                mail.setHeader("In-Reply-To", messageId);
+                mail.setHeader("References", messageId);
+            }
             mail.setFrom(new InternetAddress(sendFrom));
             mail.setSubject(subject, "UTF-8");
             mail.setHeader("X-Mailer", "Apache OFBiz, The Apache Open For Business Project");
@@ -237,6 +223,7 @@ public class EmailServices {
                 trans.connect(sendVia, authUser, authPass);
             }
             trans.sendMessage(mail, mail.getAllRecipients());
+            results.put("messageId", mail.getMessageID());
             trans.close();
         } catch (Exception e) {
             String errMsg = "Cannot send email message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc [" + sendBcc + "] subject [" + subject + "]";
@@ -452,13 +439,13 @@ public class EmailServices {
         serviceContext.put("partyId", partyId);
 
         if (Debug.verboseOn()) Debug.logVerbose("sendMailFromScreen sendMail context: " + serviceContext, module);
-        Map result = ServiceUtil.returnSuccess();
-      
+
+        Map result;
         try {
             if (isMultiPart) {
-                dispatcher.runSync("sendMailMultiPart", serviceContext);
+                result = dispatcher.runSync("sendMailMultiPart", serviceContext);
             } else {
-                dispatcher.runSync("sendMail", serviceContext);
+                result = dispatcher.runSync("sendMail", serviceContext);
             }
         } catch (Exception e) {
             String errMsg = "Error send email :" + e.toString();
@@ -743,11 +730,12 @@ public class EmailServices {
             if (idx == -1) idx = contentTypeRaw.length();
             contentType = contentTypeRaw.substring(0, idx);
             if (contentType == null || contentType.equals("")) contentType = "text/html";
-            Address [] addressesFrom = message.getFrom();
-            Address [] addressesTo = message.getRecipients(MimeMessage.RecipientType.TO);
-            Address [] addressesCC = message.getRecipients(MimeMessage.RecipientType.CC);
-            Address [] addressesBCC = message.getRecipients(MimeMessage.RecipientType.BCC);
-            Debug.logInfo("Processing Incoming Email message from: " + 
+            Address[] addressesFrom = message.getFrom();
+            Address[] addressesTo = message.getRecipients(MimeMessage.RecipientType.TO);
+            Address[] addressesCC = message.getRecipients(MimeMessage.RecipientType.CC);
+            Address[] addressesBCC = message.getRecipients(MimeMessage.RecipientType.BCC);
+            String messageId = message.getMessageID();
+            Debug.logInfo("Processing Incoming Email message [" + messageId + "] from: " + 
                     (addressesFrom[0] == null? "not found" : addressesFrom[0].toString()) + " to: " + 
                             (addressesTo[0] == null? "not found" : addressesTo[0].toString()), module);
 
@@ -769,6 +757,19 @@ public class EmailServices {
                 return ServiceUtil.returnSuccess(" Message Ignored: no 'From' address specified");
             }
 
+            // make sure this isn't a duplicate
+            List commEvents;
+            try {
+                commEvents = delegator.findByAnd("CommunicationEvent", UtilMisc.toMap("messageId", messageId));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError(e.getMessage());
+            }
+            if (commEvents != null && commEvents.size() > 0) {
+                Debug.logInfo("Incoming Email message ignored, duplicate 'messageId' : " + messageId, module);
+                return ServiceUtil.returnSuccess(" Message Ignored: deplicate messageId");
+            }
+
             // get the 'To' partyId
             List allResults = getListOfParyInfoFromEmailAddresses(addressesTo, addressesCC, addressesBCC, userLogin, dispatcher);
             Iterator itr = allResults.iterator();
@@ -778,8 +779,7 @@ public class EmailServices {
                 partyIdTo = (String)firstAddressTo.get("partyId");
                 contactMechIdTo = (String)firstAddressTo.get("contactMechId");
             }
-            
-            
+
             String deliveredTo = null;
             if (message.getHeader("Delivered-To") != null) {
                 deliveredTo = message.getHeader("Delivered-To")[0];
@@ -810,14 +810,19 @@ public class EmailServices {
             Map commEventMap = new HashMap();
             commEventMap.put("communicationEventTypeId", "AUTO_EMAIL_COMM");
             commEventMap.put("contactMechTypeId", "EMAIL_ADDRESS");
+            commEventMap.put("messageId", messageId);
+            
             String subject = message.getSubject();
             commEventMap.put("subject", subject);
-            
+                                    
+            // Set sent and received dates
             commEventMap.put("entryDate", nowTimestamp);
-            
-            //Set sent and received dates
             commEventMap.put("datetimeStarted", UtilDateTime.toTimestamp(message.getSentDate()));
             commEventMap.put("datetimeEnded", UtilDateTime.toTimestamp(message.getReceivedDate()));
+
+            // default role types (_NA_)
+            commEventMap.put("roleTypeIdFrom", "_NA_");
+            commEventMap.put("roleTypeIdTo", "_NA_");
 
             // get the content(type) part
             if (contentType.startsWith("text")) {
@@ -826,8 +831,27 @@ public class EmailServices {
             } else if (contentType.startsWith("multipart") || contentType.startsWith("Multipart")) {
                 contentIndex = "";
                 commEventMap = addMessageBody(commEventMap, (Multipart) message.getContent());
-            }                
-            
+            }
+
+            // check for for a reply to communication event (using in-reply-to the parent messageID)
+            String[] inReplyTo = message.getHeader("In-Reply-To");
+            if (inReplyTo != null && inReplyTo[0] != null) {
+                GenericValue parentCommEvent = null;
+                try {
+                    List events = delegator.findByAnd("CommunicationEvent", UtilMisc.toMap("messageId", inReplyTo[0]));
+                    parentCommEvent = EntityUtil.getFirst(events);
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+                if (parentCommEvent != null) {
+                    String parentCommEventId = parentCommEvent.getString("communicationEventId");
+                    String orgCommEventId = parentCommEvent.getString("origCommEventId");
+                    if (orgCommEventId == null) orgCommEventId = parentCommEventId;
+                    commEventMap.put("parentCommEventId", parentCommEventId);
+                    commEventMap.put("origCommEventId", orgCommEventId);
+                }
+            }
+
             // Retrieve all the addresses from the email
             Set emailAddressesFrom = new TreeSet();
             Set emailAddressesTo = new TreeSet();
@@ -853,10 +877,10 @@ public class EmailServices {
             String toString = StringUtil.join(UtilMisc.toList(emailAddressesTo), ",");
             String ccString = StringUtil.join(UtilMisc.toList(emailAddressesCC), ",");
             String bccString = StringUtil.join(UtilMisc.toList(emailAddressesBCC), ",");
-            
+
+            if (UtilValidate.isNotEmpty(fromString)) commEventMap.put("fromString", fromString);
             if (UtilValidate.isNotEmpty(toString)) commEventMap.put("toString", toString);
-            if (UtilValidate.isNotEmpty(ccString)) commEventMap.put("ccString", ccString);
-            if (UtilValidate.isNotEmpty(ccString)) commEventMap.put("fromString", fromString);
+            if (UtilValidate.isNotEmpty(ccString)) commEventMap.put("ccString", ccString);            
             if (UtilValidate.isNotEmpty(bccString)) commEventMap.put("bccString", bccString);
 
             // store from/to parties, but when not found make a note of the email to/from address in the workEffort Note Section.

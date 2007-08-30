@@ -31,14 +31,14 @@ under the License.
         <attribute name="sendCc" type="String" mode="IN" optional="true"/>
         <attribute name="sendBcc" type="String" mode="IN" optional="true"/>
         <attribute name="sendFrom" type="String" mode="IN" optional="false"/>
-        <attribute name="subject" type="String" mode="IN" optional="false"/>
         <attribute name="authUser" type="String" mode="IN" optional="true"/>
         <attribute name="authPass" type="String" mode="IN" optional="true"/>
         <attribute name="sendVia" type="String" mode="IN" optional="true"/>
         <attribute name="sendType" type="String" mode="IN" optional="true"/>
+        <attribute name="subject" type="String" mode="INOUT" optional="true"/>
         <attribute name="contentType" type="String" mode="INOUT" optional="true"/>
-        <attribute name="subject" type="String" mode="OUT" optional="true"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="messageId" type="String" mode="INOUT" optional="true"/>
     </service>
     <service name="sendMail" engine="java"
             location="org.ofbiz.content.email.EmailServices" invoke="sendMail">
