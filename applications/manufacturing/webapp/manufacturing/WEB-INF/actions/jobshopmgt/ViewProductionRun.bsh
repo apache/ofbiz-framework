@@ -71,6 +71,7 @@ if (!UtilValidate.isEmpty(productionRunId)) {
         //  RoutingTasks list
         List productionRunRoutingTasks = productionRun.getProductionRunRoutingTasks();
         context.put("productionRunRoutingTasks", productionRunRoutingTasks);
+        context.put("quantity", productionRun.getQuantity()); // this is useful to compute the total estimates runtime in the form
 
         //  Product component/parts list
         List productionRunComponentsData = productionRun.getProductionRunComponents();
