@@ -126,7 +126,8 @@ public class BOMNode {
                         oneChildNode.loadChildren(partBomTypeId, inDate, productFeatures, BOMTree.EXPLOSION);
                     break;
                     case BOMTree.EXPLOSION_MANUFACTURING:
-                        if (!oneChildNode.isWarehouseManaged()) {
+                        // for manfacturing trees, do not look through and create production runs for children unless there is no warehouse stocking of this node item 
+		        if (!oneChildNode.isWarehouseManaged()) {
                             oneChildNode.loadChildren(partBomTypeId, inDate, productFeatures, type);
                         }
                     break;
@@ -601,6 +602,10 @@ public class BOMNode {
         return minStartDate;
     }
 
+    /**
+     * Returns false if the product of this BOM Node is of type "WIP" or if it has no ProductFacility records defined for it,
+     * meaning that no active stock targets are set for this product.
+     */
     public boolean isWarehouseManaged() {
         boolean isWarehouseManaged = false;
         try {
@@ -608,32 +613,18 @@ public class BOMNode {
                 return false;
             }
             List pfs = getProduct().getRelatedCache("ProductFacility");
-            Iterator pfsIt = pfs.iterator();
-            GenericValue pf = null;
-            boolean found = false;
-            while(pfsIt.hasNext()) {
-                found = true;
-                pf = (GenericValue)pfsIt.next();
-                if (pf.getDouble("minimumStock") != null && pf.getDouble("minimumStock").doubleValue() > 0) {
-                    isWarehouseManaged = true;
-                }
-            }
-            // If no records are found, we try to search for substituted node's records
-            if (!found && getSubstitutedNode() != null) {
+            if (UtilValidate.isNotEmpty(pfs)) {
+                isWarehouseManaged = true;
+            } else {
                 pfs = getSubstitutedNode().getProduct().getRelatedCache("ProductFacility");
-                pfsIt = pfs.iterator();
-                pf = null;
-                while(pfsIt.hasNext()) {
-                    pf = (GenericValue)pfsIt.next();
-                    if (pf.getDouble("minimumStock") != null && pf.getDouble("minimumStock").doubleValue() > 0) {
-                        isWarehouseManaged = true;
-                    }
+                if (UtilValidate.isNotEmpty(pfs)) {
+                    isWarehouseManaged = true;
                 }
             }
         } catch(GenericEntityException gee) {
             Debug.logError("Problem in BOMNode.isWarehouseManaged()", module);
         }
-        return isWarehouseManaged;
+	return isWarehouseManaged;
     }
 
     public boolean isManufactured(boolean ignoreSupplierProducts) {
