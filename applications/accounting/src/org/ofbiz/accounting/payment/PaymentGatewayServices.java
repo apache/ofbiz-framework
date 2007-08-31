@@ -66,8 +66,8 @@ public class PaymentGatewayServices {
     public static final String CREDIT_SERVICE_TYPE = "PRDS_PAY_CREDIT";
     private static final int TX_TIME = 300;
     private static BigDecimal ZERO = BigDecimal.ZERO;
-    private static int decimals = -1;
-    private static int rounding = -1;
+    private static int decimals;
+    private static int rounding;
     static {
         decimals = UtilNumber.getBigDecimalScale("order.decimals");
         rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
@@ -143,7 +143,9 @@ public class PaymentGatewayServices {
         } else {
             transAmount = orderPaymentPreference.getDouble("maxAmount");
         }
-
+        
+        // round this before moving on just in case a funny number made it this far
+        transAmount = (new BigDecimal(transAmount)).setScale(decimals, rounding).doubleValue();
 
         // if our transaction amount exists and is zero, there's nothing to process, so return
         if ((transAmount != null) && (transAmount.doubleValue() <= 0)) {
