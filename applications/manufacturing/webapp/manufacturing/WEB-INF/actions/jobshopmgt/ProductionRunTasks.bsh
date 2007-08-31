@@ -40,5 +40,6 @@ if (!UtilValidate.isEmpty(productionRunId)) {
     if (productionRun.exist()){
         List productionRunRoutingTasks = productionRun.getProductionRunRoutingTasks();
         context.put("productionRunRoutingTasks", productionRunRoutingTasks);
+        context.put("quantity", productionRun.getQuantity()); // this is useful to compute the total estimates runtime in the form
     }
 }
