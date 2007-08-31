@@ -510,9 +510,9 @@ under the License.
             </entity-condition>
         </actions>
         <auto-fields-service service-name="updatePartyCarrierAccount"/>
-        <field name="partyId"><display /></field>
-        <field name="carrierPartyId"><display /></field>
-        <field name="fromDate"><display /></field>
+        <field name="partyId"><display/></field>
+        <field name="carrierPartyId"><display/></field>
+        <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
             <hyperlink target="updatePartyCarrierAccount?partyId=${partyId}&amp;carrierPartyId=${carrierPartyId}&amp;fromDate=${fromDate}&amp;thruDate=${context.thruDate}"
@@ -524,7 +524,7 @@ under the License.
         <auto-fields-service service-name="createPartyCarrierAccount"/>
         <field name="partyId"><hidden/></field>
         <field name="carrierPartyId">
-            <drop-down allow-empty="true">
+            <drop-down allow-empty="false">
                 <entity-options entity-name="PartyRole" description="${partyId}" key-field-name="partyId">
                     <entity-constraint name="roleTypeId" operator="equals" value="CARRIER"/>
                     <entity-constraint name="partyId" operator="not-equals" value="_NA_"/>                    
