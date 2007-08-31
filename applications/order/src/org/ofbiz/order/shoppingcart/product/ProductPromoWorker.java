@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.order.shoppingcart.product;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +38,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
@@ -65,6 +67,9 @@ public class ProductPromoWorker {
 
     public static final String module = ProductPromoWorker.class.getName();
     public static final String resource_error = "OrderErrorUiLabels";
+
+    public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
+    public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
 
     public static List getStoreProductPromos(GenericDelegator delegator, LocalDispatcher dispatcher, ServletRequest request) {
         List productPromos = FastList.newInstance();
@@ -1467,8 +1472,10 @@ public class ProductPromoWorker {
     }
 
     public static void doOrderItemPromoAction(GenericValue productPromoAction, ShoppingCartItem cartItem, double amount, String amountField, GenericDelegator delegator) {
+        // round the amount before setting to make sure we don't get funny numbers in there
+        BigDecimal amountBd = (new BigDecimal(amount)).setScale(decimals, rounding);
         GenericValue orderAdjustment = delegator.makeValue("OrderAdjustment",
-                UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT", amountField, new Double(amount),
+                UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT", amountField, amountBd,
                     "productPromoId", productPromoAction.get("productPromoId"),
                     "productPromoRuleId", productPromoAction.get("productPromoRuleId"),
                     "productPromoActionSeqId", productPromoAction.get("productPromoActionSeqId")));
@@ -1482,8 +1489,10 @@ public class ProductPromoWorker {
     }
 
     public static void doOrderPromoAction(GenericValue productPromoAction, ShoppingCart cart, double amount, String amountField, GenericDelegator delegator) {
+        // round the amount before setting to make sure we don't get funny numbers in there
+        BigDecimal amountBd = (new BigDecimal(amount)).setScale(decimals, rounding);
         GenericValue orderAdjustment = delegator.makeValue("OrderAdjustment",
-                UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT", amountField, new Double(amount),
+                UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT", amountField, amountBd,
                     "productPromoId", productPromoAction.get("productPromoId"),
                     "productPromoRuleId", productPromoAction.get("productPromoRuleId"),
                     "productPromoActionSeqId", productPromoAction.get("productPromoActionSeqId")));
