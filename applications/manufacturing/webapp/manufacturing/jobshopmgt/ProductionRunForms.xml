@@ -139,10 +139,10 @@ under the License.
         <!--<field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}" ><display/></field>-->
         <field name="estimatedTotalMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedTotalMilliSeconds}" ><display/></field>
     </form>
-     <form name="ListProductionRunRoutingTasks" type="list" target="ProductionRunTasks" title="" list-name="productionRunRoutingTasks">
-         <row-actions>
-             <set field="estimatedTotalMilliSeconds" value="${bsh:estimatedMilliSeconds * quantity}" type="Double"/>
-         </row-actions>
+    <form name="ListProductionRunRoutingTasks" type="list" target="ProductionRunTasks" title="" list-name="productionRunRoutingTasks">
+        <row-actions>
+            <set field="estimatedTotalMilliSeconds" value="${bsh:estimatedMilliSeconds * quantity}" type="Double"/>
+        </row-actions>
         <field name="priority" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
         <field name="workEffortId"  title="${uiLabelMap.ManufacturingTaskName}"><display description="${workEffortName} [${workEffortId}]" /></field>
         <field name="fixedAssetId"  title="${uiLabelMap.ManufacturingMachine}"><display/></field>
