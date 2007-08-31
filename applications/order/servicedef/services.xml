@@ -788,6 +788,7 @@ under the License.
         <attribute type="String" mode="IN" name="productId" optional="true"/>
         <attribute type="String" mode="IN" name="quantityPurchased" optional="false"/>
         <attribute type="String" mode="IN" name="transactionPrice" optional="false"/>
+        <attribute type="String" mode="IN" name="shippingService" optional="true"/>
         <attribute type="String" mode="IN" name="shippingServiceCost" optional="true"/>
         <attribute type="String" mode="IN" name="shippingTotalAdditionalCost" optional="true"/>
         <attribute type="String" mode="IN" name="amountPaid" optional="true"/>
