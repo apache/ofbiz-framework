@@ -1638,19 +1638,25 @@ public class OrderReadHelper {
     }
 
     public String getCurrentOrderItemWorkEffort(GenericValue orderItem)    {
-        String orderItemSeqId = orderItem.getString("orderItemSeqId");
-        String orderId = orderItem.getString("orderId");
-        GenericDelegator delegator = orderItem.getDelegator();
-        GenericValue workOrderItemFulFillment;
-        GenericValue workEffort;
-        try {
-            List workOrderItemFulFillments = delegator.findByAndCache("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
-            workOrderItemFulFillment = EntityUtil.getFirst(workOrderItemFulFillments);
-            workEffort = workOrderItemFulFillment.getRelatedOne("WorkEffort");
-        } catch (GenericEntityException e) {
-            return null;
-        }
-        return workEffort.getString("workEffortId");
+    	String orderItemSeqId = orderItem.getString("orderItemSeqId");
+    	String orderId = orderItem.getString("orderId");
+    	GenericDelegator delegator = orderItem.getDelegator();
+    	GenericValue workOrderItemFulFillment = null;
+    	GenericValue workEffort = null;
+    	try {
+    		List workOrderItemFulFillments = delegator.findByAndCache("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
+    		if (!UtilValidate.isEmpty(workOrderItemFulFillments)) {
+    			workOrderItemFulFillment = EntityUtil.getFirst(workOrderItemFulFillments);
+    			workEffort = workOrderItemFulFillment.getRelatedOne("WorkEffort");
+    		}
+    	} catch (GenericEntityException e) {
+    		return null;
+    	}
+    	if (workEffort != null) {
+    		return workEffort.getString("workEffortId");
+    	} else {
+    		return null;
+    	}
     }
 
     public String getCurrentItemStatus(GenericValue orderItem) {
