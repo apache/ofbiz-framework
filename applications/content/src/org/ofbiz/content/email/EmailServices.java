@@ -440,12 +440,12 @@ public class EmailServices {
 
         if (Debug.verboseOn()) Debug.logVerbose("sendMailFromScreen sendMail context: " + serviceContext, module);
 
-        Map result;
+        Map result = ServiceUtil.returnSuccess();
         try {
             if (isMultiPart) {
-                result = dispatcher.runSync("sendMailMultiPart", serviceContext);
+                dispatcher.runSync("sendMailMultiPart", serviceContext);
             } else {
-                result = dispatcher.runSync("sendMail", serviceContext);
+                dispatcher.runSync("sendMail", serviceContext);
             }
         } catch (Exception e) {
             String errMsg = "Error send email :" + e.toString();
