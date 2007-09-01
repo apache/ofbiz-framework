@@ -396,15 +396,40 @@ public class OagisInventoryServices {
 
         String sentDate = UtilXml.childElementValue(docCtrlAreaElement, "os:DATETIMEISO");
         Timestamp sentTimestamp = OagisServices.parseIsoDateString(sentDate, errorMapList);
-        
         Timestamp timestamp = UtilDateTime.nowTimestamp();
-        comiCtx.put("logicalId", logicalId);
+        
+        Map omiPkMap = UtilMisc.toMap("logicalId", logicalId, "component", component, "task", task, "referenceId", referenceId);
+
+        // always log this to make messages easier to find
+        Debug.log("Processing oagisReceiveAcknowledgeDeliveryPo for message ID [" + omiPkMap + "]", module);
+        
+        // before getting into this check to see if we've tried once and had an error, if so set isErrorRetry even if it wasn't passed in
+        GenericValue previousOagisMessageInfo = null;
+        try {
+            previousOagisMessageInfo = delegator.findByPrimaryKey("OagisMessageInfo", omiPkMap);
+        } catch (GenericEntityException e) {
+            String errMsg = "Error getting OagisMessageInfo from database for message ID [" + omiPkMap + "]: " + e.toString();
+            Debug.logInfo(e, errMsg, module);
+            // anything else to do about this? we don't really want to send the error back or anything...
+        }
+        
+        if (previousOagisMessageInfo != null) {
+            if ("OAGMP_PROC_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId")) ||
+                    "OAGMP_ERRCONFSENT".equals(previousOagisMessageInfo.getString("processingStatusId")) ||
+                    "OAGMP_SYS_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId"))) {
+                isErrorRetry = true;
+            } else {
+                // message already in the db, but is not in an error state...
+                String errMsg = "Message received for message ID [" + omiPkMap + "] was already partially processed but is not in an error state, needs manual review; message ID: " + omiPkMap;
+                Debug.logError(errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            }
+        }
+
+        comiCtx.putAll(omiPkMap);
         comiCtx.put("authId", authId);
-        comiCtx.put("referenceId", referenceId);
         comiCtx.put("receivedDate", timestamp);
         comiCtx.put("sentDate", sentTimestamp);
-        comiCtx.put("component", component);
-        comiCtx.put("task", task);  
         comiCtx.put("outgoingMessage", "N");
         comiCtx.put("confirmation", confirmation);
         comiCtx.put("bsrVerb", bsrVerb);
@@ -482,7 +507,7 @@ public class OagisInventoryServices {
                             ripCtx.put("orderId", orderId);
                             comiCtx.put("orderId", orderId);
                             GenericValue orderItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderId", orderId, "productId",productId,"quantity",new Double(itemQtyStr)));
-                            delegator.setNextSubSeqId(orderItem,"orderItemSeqId", 5, 1);
+                            delegator.setNextSubSeqId(orderItem, "orderItemSeqId", 5, 1);
                             delegator.create(orderItem);
                             ripCtx.put("orderItemSeqId", orderItem.get("orderItemSeqId"));
                         } else { 
@@ -491,9 +516,9 @@ public class OagisInventoryServices {
                                     "orderDate", timestampItemReceived, "statusId", "ORDER_CREATED", "entryDate", UtilDateTime.nowTimestamp(),
                                     "productStoreId", UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryProductStoreId","9001")));
                             toStore.add(orderHeader);
-                            GenericValue orderItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderId", orderId , 
-                                    "orderItemSeqId", UtilFormatOut.formatPaddedNumber(1L, 5) ,
-                                    "productId",productId ,"quantity",new Double(itemQtyStr) ));
+                            GenericValue orderItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderId", orderId, 
+                                    "orderItemSeqId", UtilFormatOut.formatPaddedNumber(1L, 5),
+                                    "productId", productId, "quantity", new Double(itemQtyStr)));
                             toStore.add(orderItem);
                             delegator.storeAll(toStore);
                         }
@@ -539,7 +564,23 @@ public class OagisInventoryServices {
                     TransactionUtil.setRollbackOnly("Found business level errors in message processing, not saving results", null);
                 }
             } catch (Throwable t) {
-                String errMsg = "System Error processing Acknowledge Delivery PO message: " + t.toString();
+                String errMsg = "System Error processing Acknowledge Delivery PO message for message [" + omiPkMap + "]: " + t.toString();
+                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SystemError"));
+
+                try {
+                    comiCtx.put("processingStatusId", "OAGMP_SYS_ERROR");
+                    dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
+
+                    Map saveErrorMapListCtx = FastMap.newInstance();
+                    saveErrorMapListCtx.putAll(omiPkMap);
+                    saveErrorMapListCtx.put("errorMapList", errorMapList);
+                    saveErrorMapListCtx.put("userLogin", userLogin);
+                    dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
+                } catch (GenericServiceException e) {
+                    String errMsg2 = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                    Debug.logError(e, errMsg2, module);
+                }
+                
                 Debug.logInfo(t, errMsg, module);
                 // in this case we don't want to return a Confirm BOD, so return an error now
                 return ServiceUtil.returnError(errMsg);
@@ -653,13 +694,39 @@ public class OagisInventoryServices {
         
         Timestamp timestamp = UtilDateTime.nowTimestamp();
         Map comiCtx = FastMap.newInstance();
-        comiCtx.put("logicalId", logicalId);
+
+        Map omiPkMap = UtilMisc.toMap("logicalId", logicalId, "component", component, "task", task, "referenceId", referenceId);
+
+        // always log this to make messages easier to find
+        Debug.log("Processing oagisReceiveAcknowledgeDeliveryRma for message ID [" + omiPkMap + "]", module);
+        
+        // before getting into this check to see if we've tried once and had an error, if so set isErrorRetry even if it wasn't passed in
+        GenericValue previousOagisMessageInfo = null;
+        try {
+            previousOagisMessageInfo = delegator.findByPrimaryKey("OagisMessageInfo", omiPkMap);
+        } catch (GenericEntityException e) {
+            String errMsg = "Error getting OagisMessageInfo from database for message ID [" + omiPkMap + "]: " + e.toString();
+            Debug.logInfo(e, errMsg, module);
+            // anything else to do about this? we don't really want to send the error back or anything...
+        }
+        
+        if (previousOagisMessageInfo != null) {
+            if ("OAGMP_PROC_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId")) ||
+                    "OAGMP_ERRCONFSENT".equals(previousOagisMessageInfo.getString("processingStatusId")) ||
+                    "OAGMP_SYS_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId"))) {
+                isErrorRetry = true;
+            } else {
+                // message already in the db, but is not in an error state...
+                String errMsg = "Message received for message ID [" + omiPkMap + "] was already partially processed but is not in an error state, needs manual review; message ID: " + omiPkMap;
+                Debug.logError(errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            }
+        }
+
+        comiCtx.putAll(omiPkMap);
         comiCtx.put("authId", authId);
-        comiCtx.put("referenceId", referenceId);
         comiCtx.put("receivedDate", timestamp);
         comiCtx.put("sentDate", sentTimestamp);
-        comiCtx.put("component", component);
-        comiCtx.put("task", task);  
         comiCtx.put("outgoingMessage", "N");
         comiCtx.put("confirmation", confirmation);
         comiCtx.put("bsrVerb", bsrVerb);
@@ -1015,7 +1082,23 @@ public class OagisInventoryServices {
                     TransactionUtil.setRollbackOnly("Found business level errors in message processing, not saving results", null);
                 }
             } catch (Throwable t) {
-                String errMsg = "System Error processing Acknowledge Delivery RMA message: " + t.toString();
+                String errMsg = "System Error processing Acknowledge Delivery RMA message for message [" + omiPkMap + "]: " + t.toString();
+                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SystemError"));
+
+                try {
+                    comiCtx.put("processingStatusId", "OAGMP_SYS_ERROR");
+                    dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
+
+                    Map saveErrorMapListCtx = FastMap.newInstance();
+                    saveErrorMapListCtx.putAll(omiPkMap);
+                    saveErrorMapListCtx.put("errorMapList", errorMapList);
+                    saveErrorMapListCtx.put("userLogin", userLogin);
+                    dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
+                } catch (GenericServiceException e) {
+                    String errMsg2 = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                    Debug.logError(e, errMsg2, module);
+                }
+                
                 Debug.logInfo(t, errMsg, module);
                 // in this case we don't want to return a Confirm BOD, so return an error now
                 return ServiceUtil.returnError(errMsg);
@@ -1131,13 +1214,39 @@ public class OagisInventoryServices {
         
         Timestamp timestamp = UtilDateTime.nowTimestamp();
         Map comiCtx = FastMap.newInstance();
-        comiCtx.put("logicalId", logicalId);
+
+        Map omiPkMap = UtilMisc.toMap("logicalId", logicalId, "component", component, "task", task, "referenceId", referenceId);
+
+        // always log this to make messages easier to find
+        Debug.log("Processing oagisReceiveAcknowledgeDeliveryRma for message ID [" + omiPkMap + "]", module);
+        
+        // before getting into this check to see if we've tried once and had an error, if so set isErrorRetry even if it wasn't passed in
+        GenericValue previousOagisMessageInfo = null;
+        try {
+            previousOagisMessageInfo = delegator.findByPrimaryKey("OagisMessageInfo", omiPkMap);
+        } catch (GenericEntityException e) {
+            String errMsg = "Error getting OagisMessageInfo from database for message ID [" + omiPkMap + "]: " + e.toString();
+            Debug.logInfo(e, errMsg, module);
+            // anything else to do about this? we don't really want to send the error back or anything...
+        }
+        
+        if (previousOagisMessageInfo != null) {
+            if ("OAGMP_PROC_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId")) ||
+                    "OAGMP_ERRCONFSENT".equals(previousOagisMessageInfo.getString("processingStatusId")) ||
+                    "OAGMP_SYS_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId"))) {
+                isErrorRetry = true;
+            } else {
+                // message already in the db, but is not in an error state...
+                String errMsg = "Message received for message ID [" + omiPkMap + "] was already partially processed but is not in an error state, needs manual review; message ID: " + omiPkMap;
+                Debug.logError(errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            }
+        }
+
+        comiCtx.putAll(omiPkMap);
         comiCtx.put("authId", authId);
-        comiCtx.put("referenceId", referenceId);
         comiCtx.put("receivedDate", timestamp);
         comiCtx.put("sentDate", sentTimestamp);
-        comiCtx.put("component", component);
-        comiCtx.put("task", task);  
         comiCtx.put("outgoingMessage", "N");
         comiCtx.put("confirmation", confirmation);
         comiCtx.put("bsrVerb", bsrVerb);
@@ -1294,6 +1403,9 @@ public class OagisInventoryServices {
 
                         // TODO: later somehow do status changes for non-serialized inventory
                         
+                        // for now just return an error message
+                        String errMsg = "No serial numbers were included in the message and right now this is not supported";
+                        errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "NoSerialNumbersInMessage"));
                     }
                 }
                 
@@ -1302,7 +1414,23 @@ public class OagisInventoryServices {
                     TransactionUtil.setRollbackOnly("Found business level errors in message processing, not saving results", null);
                 }
             } catch (Throwable t) {
-                String errMsg = "System Error processing Acknowledge Delivery Status message: " + t.toString();
+                String errMsg = "System Error processing Acknowledge Delivery Status message for message [" + omiPkMap + "]: " + t.toString();
+                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SystemError"));
+
+                try {
+                    comiCtx.put("processingStatusId", "OAGMP_SYS_ERROR");
+                    dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
+
+                    Map saveErrorMapListCtx = FastMap.newInstance();
+                    saveErrorMapListCtx.putAll(omiPkMap);
+                    saveErrorMapListCtx.put("errorMapList", errorMapList);
+                    saveErrorMapListCtx.put("userLogin", userLogin);
+                    dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
+                } catch (GenericServiceException e) {
+                    String errMsg2 = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                    Debug.logError(e, errMsg2, module);
+                }
+                
                 Debug.logInfo(t, errMsg, module);
                 // in this case we don't want to return a Confirm BOD, so return an error now
                 return ServiceUtil.returnError(errMsg);
@@ -1310,10 +1438,7 @@ public class OagisInventoryServices {
         }
 
         Map result = FastMap.newInstance();
-        result.put("logicalId", logicalId);
-        result.put("component", component);
-        result.put("task", task);
-        result.put("referenceId", referenceId);
+        result.putAll(omiPkMap);
         result.put("userLogin", userLogin);
 
         if (errorMapList.size() > 0) {
@@ -1327,10 +1452,7 @@ public class OagisInventoryServices {
 
             // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
             Map saveErrorMapListCtx = FastMap.newInstance();
-            saveErrorMapListCtx.put("logicalId", logicalId);
-            saveErrorMapListCtx.put("component", component);
-            saveErrorMapListCtx.put("task", task);
-            saveErrorMapListCtx.put("referenceId", referenceId);
+            saveErrorMapListCtx.putAll(omiPkMap);
             saveErrorMapListCtx.put("errorMapList", errorMapList);
             saveErrorMapListCtx.put("userLogin", userLogin);
             try {
