@@ -105,6 +105,7 @@ public class OagisServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         
         String errorReferenceId = (String) context.get("referenceId");
+        List errorMapList = (List) context.get("errorMapList");
 
         String sendToUrl = (String) context.get("sendToUrl");
         if (UtilValidate.isEmpty(sendToUrl)) {
@@ -146,11 +147,14 @@ public class OagisServices {
         String sentDate = isoDateFormat.format(timestamp);
         bodyParameters.put("sentDate", sentDate);
         
+        Map omiPkMap = FastMap.newInstance();
+        omiPkMap.put("logicalId", logicalId);
+        omiPkMap.put("component", "EXCEPTION");
+        omiPkMap.put("task", "RECIEPT");
+        omiPkMap.put("referenceId", referenceId);
+        
         Map oagisMsgInfoContext = FastMap.newInstance();
-        oagisMsgInfoContext.put("logicalId", logicalId);
-        oagisMsgInfoContext.put("component", "EXCEPTION");
-        oagisMsgInfoContext.put("task", "RECIEPT");
-        oagisMsgInfoContext.put("referenceId", referenceId);
+        oagisMsgInfoContext.putAll(omiPkMap);
         oagisMsgInfoContext.put("authId", authId);
         oagisMsgInfoContext.put("sentDate", timestamp);
         oagisMsgInfoContext.put("confirmation", "0");
@@ -169,11 +173,23 @@ public class OagisServices {
             Debug.logError(e, "Saving message to database failed", module);
         }
         
+        try {
+            // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
+            Map saveErrorMapListCtx = FastMap.newInstance();
+            saveErrorMapListCtx.putAll(omiPkMap);
+            saveErrorMapListCtx.put("errorMapList", errorMapList);
+            saveErrorMapListCtx.put("userLogin", userLogin);
+            dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
+        } catch (GenericServiceException e) {
+            String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+            Debug.logError(e, errMsg, module);
+        }
+        
         bodyParameters.put("errorLogicalId", context.get("logicalId"));
         bodyParameters.put("errorComponent", context.get("component"));
         bodyParameters.put("errorTask", context.get("task"));
         bodyParameters.put("errorReferenceId", errorReferenceId);
-        bodyParameters.put("errorMapList",(List) context.get("errorMapList"));
+        bodyParameters.put("errorMapList", errorMapList);
         bodyParameters.put("origRef", context.get("origRefId"));
         String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ConfirmBod");
         
@@ -192,11 +208,11 @@ public class OagisServices {
         
         if (Debug.infoOn()) Debug.logInfo("Finished rendering oagisSendConfirmBod message for errorReferenceId [" + errorReferenceId + "]", module);
 
-        oagisMsgInfoContext.put("processingStatusId", "OAGMP_OGEN_SUCCESS");
-        if (OagisServices.debugSaveXmlOut) {
-            oagisMsgInfoContext.put("fullMessageXml", outText);
-        }
         try {
+            oagisMsgInfoContext.put("processingStatusId", "OAGMP_OGEN_SUCCESS");
+            if (OagisServices.debugSaveXmlOut) {
+                oagisMsgInfoContext.put("fullMessageXml", outText);
+            }
             dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoContext, 60, true);
         } catch (GenericServiceException e) {
             String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
@@ -209,8 +225,8 @@ public class OagisServices {
         }
         if (Debug.infoOn()) Debug.logInfo("Message send done for oagisSendConfirmBod for errorReferenceId [" + errorReferenceId + "], sendToUrl=[" + sendToUrl + "], saveToDirectory=[" + saveToDirectory + "], saveToFilename=[" + saveToFilename + "]", module);
 
-        oagisMsgInfoContext.put("processingStatusId", "OAGMP_SENT");
         try {
+            oagisMsgInfoContext.put("processingStatusId", "OAGMP_SENT");
             dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoContext, 60, true);
         } catch (GenericServiceException e) {
             String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
@@ -505,9 +521,7 @@ public class OagisServices {
         
         // call async, no additional results to return: Map subServiceResult = FastMap.newInstance();
         if (UtilValidate.isNotEmpty(oagisMessageInfo)) {
-            if ("OAGMP_PROC_ERROR".equals(oagisMessageInfo.getString("processingStatusId")) ||
-                    "OAGMP_ERRCONFSENT".equals(oagisMessageInfo.getString("processingStatusId")) ||
-                    "OAGMP_SYS_ERROR".equals(oagisMessageInfo.getString("processingStatusId"))) {
+            if ("OAGMP_SYS_ERROR".equals(oagisMessageInfo.getString("processingStatusId"))) {
                 // there was an error last time, tell the service this is a retry
                 messageProcessContext.put("isErrorRetry", Boolean.TRUE);
             } else {

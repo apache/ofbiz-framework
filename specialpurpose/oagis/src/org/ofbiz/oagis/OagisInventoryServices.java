@@ -43,6 +43,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.product.ProductWorker;
@@ -414,13 +415,11 @@ public class OagisInventoryServices {
         }
         
         if (previousOagisMessageInfo != null) {
-            if ("OAGMP_PROC_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId")) ||
-                    "OAGMP_ERRCONFSENT".equals(previousOagisMessageInfo.getString("processingStatusId")) ||
-                    "OAGMP_SYS_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId"))) {
+            if ("OAGMP_SYS_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId"))) {
                 isErrorRetry = true;
             } else {
-                // message already in the db, but is not in an error state...
-                String errMsg = "Message received for message ID [" + omiPkMap + "] was already partially processed but is not in an error state, needs manual review; message ID: " + omiPkMap;
+                // message already in the db, but is not in a system error state...
+                String errMsg = "Message received for message ID [" + omiPkMap + "] was already partially processed but is not in a system error state, needs manual review; message ID: " + omiPkMap;
                 Debug.logError(errMsg, module);
                 return ServiceUtil.returnError(errMsg);
             }
@@ -558,11 +557,6 @@ public class OagisInventoryServices {
                         errorMapList.add(UtilMisc.toMap("reasonCode", "ReceiveInventoryServiceError", "description", errMsg));
                     }
                 }
-                
-                if (errorMapList.size() > 0) {
-                    // however, we still don't want to save the partial results, so set rollbackOnly
-                    TransactionUtil.setRollbackOnly("Found business level errors in message processing, not saving results", null);
-                }
             } catch (Throwable t) {
                 String errMsg = "System Error processing Acknowledge Delivery PO message for message [" + omiPkMap + "]: " + t.toString();
                 errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SystemError"));
@@ -631,8 +625,18 @@ public class OagisInventoryServices {
                 Debug.logError(e, errMsg, module);
             }
             
+            String errMsg = "Found business level errors in message processing, not saving results; first error is: " + errorMapList.get(0);
+            
             // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times 
-            result.putAll(ServiceUtil.returnSuccess("Errors found processing message; information saved and return error sent back"));
+            result.putAll(ServiceUtil.returnSuccess(errMsg));
+            
+            // however, we still don't want to save the partial results, so set rollbackOnly
+            try {
+                TransactionUtil.setRollbackOnly(errMsg, null);
+            } catch (GenericTransactionException e) {
+                Debug.logError(e, "Error setting rollback only ", module);
+            }
+
             return result;
         } else {
             comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
@@ -711,13 +715,11 @@ public class OagisInventoryServices {
         }
         
         if (previousOagisMessageInfo != null) {
-            if ("OAGMP_PROC_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId")) ||
-                    "OAGMP_ERRCONFSENT".equals(previousOagisMessageInfo.getString("processingStatusId")) ||
-                    "OAGMP_SYS_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId"))) {
+            if ("OAGMP_SYS_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId"))) {
                 isErrorRetry = true;
             } else {
-                // message already in the db, but is not in an error state...
-                String errMsg = "Message received for message ID [" + omiPkMap + "] was already partially processed but is not in an error state, needs manual review; message ID: " + omiPkMap;
+                // message already in the db, but is not in a system error state...
+                String errMsg = "Message received for message ID [" + omiPkMap + "] was already partially processed but is not in a system error state, needs manual review; message ID: " + omiPkMap;
                 Debug.logError(errMsg, module);
                 return ServiceUtil.returnError(errMsg);
             }
@@ -1076,11 +1078,6 @@ public class OagisInventoryServices {
                         }
                     }
                 }
-                
-                if (errorMapList.size() > 0) {
-                    // however, we still don't want to save the partial results, so set rollbackOnly
-                    TransactionUtil.setRollbackOnly("Found business level errors in message processing, not saving results", null);
-                }
             } catch (Throwable t) {
                 String errMsg = "System Error processing Acknowledge Delivery RMA message for message [" + omiPkMap + "]: " + t.toString();
                 errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SystemError"));
@@ -1149,9 +1146,18 @@ public class OagisInventoryServices {
                 String errMsg = "Error sending Confirm BOD: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
+            String errMsg = "Found business level errors in message processing, not saving results; first error is: " + errorMapList.get(0);
             
             // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times 
-            result.putAll(ServiceUtil.returnSuccess("Errors found processing message; information saved and return error sent back"));
+            result.putAll(ServiceUtil.returnSuccess(errMsg));
+            
+            // however, we still don't want to save the partial results, so set rollbackOnly
+            try {
+                TransactionUtil.setRollbackOnly(errMsg, null);
+            } catch (GenericTransactionException e) {
+                Debug.logError(e, "Error setting rollback only ", module);
+            }
+
             return result;
         } else {
             comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
@@ -1231,13 +1237,11 @@ public class OagisInventoryServices {
         }
         
         if (previousOagisMessageInfo != null) {
-            if ("OAGMP_PROC_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId")) ||
-                    "OAGMP_ERRCONFSENT".equals(previousOagisMessageInfo.getString("processingStatusId")) ||
-                    "OAGMP_SYS_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId"))) {
+            if ("OAGMP_SYS_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId"))) {
                 isErrorRetry = true;
             } else {
-                // message already in the db, but is not in an error state...
-                String errMsg = "Message received for message ID [" + omiPkMap + "] was already partially processed but is not in an error state, needs manual review; message ID: " + omiPkMap;
+                // message already in the db, but is not in a system error state...
+                String errMsg = "Message received for message ID [" + omiPkMap + "] was already partially processed but is not in a system error state, needs manual review; message ID: " + omiPkMap;
                 Debug.logError(errMsg, module);
                 return ServiceUtil.returnError(errMsg);
             }
@@ -1408,11 +1412,6 @@ public class OagisInventoryServices {
                         errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "NoSerialNumbersInMessage"));
                     }
                 }
-                
-                if (errorMapList.size() > 0) {
-                    // however, we still don't want to save the partial results, so set rollbackOnly
-                    TransactionUtil.setRollbackOnly("Found business level errors in message processing, not saving results", null);
-                }
             } catch (Throwable t) {
                 String errMsg = "System Error processing Acknowledge Delivery Status message for message [" + omiPkMap + "]: " + t.toString();
                 errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SystemError"));
@@ -1473,8 +1472,18 @@ public class OagisInventoryServices {
                 Debug.logError(e, errMsg, module);
             }
             
+            String errMsg = "Found business level errors in message processing, not saving results; first error is: " + errorMapList.get(0);
+            
             // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times 
-            result.putAll(ServiceUtil.returnSuccess("Errors found processing message; information saved and return error sent back"));
+            result.putAll(ServiceUtil.returnSuccess(errMsg));
+            
+            // however, we still don't want to save the partial results, so set rollbackOnly
+            try {
+                TransactionUtil.setRollbackOnly(errMsg, null);
+            } catch (GenericTransactionException e) {
+                Debug.logError(e, "Error setting rollback only ", module);
+            }
+
             return result;
         } else {
             comiCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
