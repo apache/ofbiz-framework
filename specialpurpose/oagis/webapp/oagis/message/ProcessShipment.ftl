@@ -79,7 +79,9 @@
               <of:FAX></of:FAX>
               <of:POSTALCODE>${address.postalCode?if_exists}</of:POSTALCODE>
               <of:STATEPROVN>${address.stateProvinceGeoId?if_exists}</of:STATEPROVN>
+              <#if telecomNumber?has_content>
               <of:TELEPHONE><#if telecomNumber.countryCode?has_content>${telecomNumber.countryCode}-</#if>${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</of:TELEPHONE>
+              </#if>
             </os:ADDRESS>
             <os:CONTACT>
               <#-- NOTE: this is the attention name -->

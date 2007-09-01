@@ -506,14 +506,15 @@ public class OagisServices {
         // call async, no additional results to return: Map subServiceResult = FastMap.newInstance();
         if (UtilValidate.isNotEmpty(oagisMessageInfo)) {
             if ("OAGMP_PROC_ERROR".equals(oagisMessageInfo.getString("processingStatusId")) ||
-                    "OAGMP_ERRCONFSENT".equals(oagisMessageInfo.getString("processingStatusId"))) {
+                    "OAGMP_ERRCONFSENT".equals(oagisMessageInfo.getString("processingStatusId")) ||
+                    "OAGMP_SYS_ERROR".equals(oagisMessageInfo.getString("processingStatusId"))) {
                 // there was an error last time, tell the service this is a retry
                 messageProcessContext.put("isErrorRetry", Boolean.TRUE);
             } else {
                 String responseMsg = "Message already received with ID: " + oagisMessageInfoKey;
                 Debug.logError(responseMsg, module);
 
-                List errorMapList = UtilMisc.toList(UtilMisc.toMap("reasonCode", "MessageAlreadyReceive", "description", responseMsg));
+                List errorMapList = UtilMisc.toList(UtilMisc.toMap("reasonCode", "MessageAlreadyReceived", "description", responseMsg));
 
                 Map sendConfirmBodCtx = FastMap.newInstance();
                 sendConfirmBodCtx.put("logicalId", logicalId);

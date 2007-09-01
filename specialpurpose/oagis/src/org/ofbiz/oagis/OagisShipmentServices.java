@@ -125,12 +125,37 @@ public class OagisShipmentServices {
         Element dataAreaElement = UtilXml.firstChildElement(showShipmentElement, "ns:DATAAREA"); // n
         Element daShowShipmentElement = UtilXml.firstChildElement(dataAreaElement, "ns:SHOW_SHIPMENT"); // n
         Element shipmentElement = UtilXml.firstChildElement(daShowShipmentElement, "ns:SHIPMENT"); // n                               
-        String shipmentId = UtilXml.childElementValue(shipmentElement, "of:DOCUMENTID"); // of           
+        String shipmentId = UtilXml.childElementValue(shipmentElement, "of:DOCUMENTID"); // of
+        
+        // always log this to make messages easier to find
+        Debug.log("Processing oagisReceiveShowShipment for shipmentId [" + shipmentId + "] referenceId [" + referenceId + "]", module);
+        
+        Map omiPkMap = UtilMisc.toMap("logicalId", logicalId, "component", component, "task", task, "referenceId", referenceId);
+        
+        // before getting into this check to see if we've tried once and had an error, if so set isErrorRetry even if it wasn't passed in
+        GenericValue previousOagisMessageInfo = null;
+        try {
+            previousOagisMessageInfo = delegator.findByPrimaryKey("OagisMessageInfo", omiPkMap);
+        } catch (GenericEntityException e) {
+            String errMsg = "Error getting OagisMessageInfo from database for shipment ID [" + shipmentId + "]: " + e.toString();
+            Debug.logInfo(e, errMsg, module);
+            // anything else to do about this? we don't really want to send the error back or anything...
+        }
+        
+        if (previousOagisMessageInfo != null) {
+            if ("OAGMP_PROC_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId")) ||
+                    "OAGMP_ERRCONFSENT".equals(previousOagisMessageInfo.getString("processingStatusId")) ||
+                    "OAGMP_SYS_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId"))) {
+                isErrorRetry = true;
+            } else {
+                // message already in the db, but is not in an error state...
+                String errMsg = "Message received for shipmentId [" + shipmentId + "] was already partially processed but is not in an error state, needs manual review; message ID: " + omiPkMap;
+                Debug.logError(errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            }
+        }
 
-        oagisMsgInfoCtx.put("logicalId", logicalId);
-        oagisMsgInfoCtx.put("component", component);
-        oagisMsgInfoCtx.put("task", task);
-        oagisMsgInfoCtx.put("referenceId", referenceId);
+        oagisMsgInfoCtx.putAll(omiPkMap);
         oagisMsgInfoCtx.put("confirmation", confirmation);
         oagisMsgInfoCtx.put("authId", authId);
         oagisMsgInfoCtx.put("outgoingMessage", "N");
@@ -163,7 +188,7 @@ public class OagisShipmentServices {
             }
             */
         } catch (GenericServiceException e) {
-            String errMsg = "Error creating OagisMessageInfo for the Incoming Message: "+e.toString();
+            String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
             // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
             Debug.logError(e, errMsg, module);
         }
@@ -172,7 +197,7 @@ public class OagisShipmentServices {
         try {
             shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
         } catch (GenericEntityException e) {
-            String errMsg = "Error getting Shipment from database: " + e.toString();
+            String errMsg = "Error getting Shipment from database for ID [" + shipmentId + "]: " + e.toString();
             Debug.logInfo(e, errMsg, module);
             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericEntityException"));
         }
@@ -480,7 +505,15 @@ public class OagisShipmentServices {
                     TransactionUtil.setRollbackOnly("Found business level errors in message processing, not saving results", null);
                 }
             } catch (Throwable t) {
-                String errMsg = "System Error processing Show Shipment message: " + t.toString();
+                try {
+                    oagisMsgInfoCtx.put("processingStatusId", "OAGMP_SYS_ERROR");
+                    dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoCtx, 60, true);
+                } catch (GenericServiceException e) {
+                    String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
+                    Debug.logError(e, errMsg, module);
+                }
+                
+                String errMsg = "System Error processing Show Shipment message for shipmentId [" + shipmentId + "]: " + t.toString();
                 Debug.logInfo(t, errMsg, module);
                 // in this case we don't want to return a Confirm BOD, so return an error now
                 return ServiceUtil.returnError(errMsg);
@@ -734,7 +767,11 @@ public class OagisShipmentServices {
                     String emailString = orderReadHelper.getOrderEmailString();
                     bodyParameters.put("emailString", emailString);
                     String contactMechId = shipment.getString("destinationTelecomNumberId");
+                    
                     GenericValue telecomNumber = delegator.findByPrimaryKey("TelecomNumber", UtilMisc.toMap("contactMechId", contactMechId));
+                    if (telecomNumber == null) {
+                        return ServiceUtil.returnError("In Send ProcessShipment Telecom number not found for orderId [" + orderId + "]");
+                    }
                     bodyParameters.put("telecomNumber", telecomNumber);
                     
                     orderItemShipGroup = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGroup", UtilMisc.toMap("orderId", orderId)));
