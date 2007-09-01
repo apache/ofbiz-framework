@@ -1292,7 +1292,8 @@ public class OagisInventoryServices {
                         String inventoryItemTypeId = "NON_SERIAL_INV_ITEM";
                         uiiCtx.put("inventoryItemTypeId", inventoryItemTypeId);
 
-                        // TODO: somehow do status changes for non-serialized inventory
+                        // TODO: later somehow do status changes for non-serialized inventory
+                        
                     }
                 }
                 
