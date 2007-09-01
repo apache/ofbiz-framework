@@ -585,7 +585,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
 
     public BigDecimal getBigDecimal(String name) {
         // this "hack" is needed for now until the Double/BigDecimal issues are all resolved
-        // NOTE: for this to be used properly it should really be used as the java-type in the field type def XML files
+        // NOTE: for things to generally work properly BigDecimal should really be used as the java-type in the field type def XML files
         Object value = get(name);
         if (value instanceof Double) {
             return new BigDecimal(((Double) value).doubleValue());
