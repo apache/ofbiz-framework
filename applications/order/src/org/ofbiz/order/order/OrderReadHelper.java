@@ -1457,12 +1457,12 @@ public class OrderReadHelper {
             GenericValue item = (GenericValue) i.next();
             Timestamp estimatedDeliveryDate = (Timestamp) item.get("estimatedDeliveryDate");
             if (estimatedDeliveryDate != null && UtilDateTime.nowTimestamp().after(estimatedDeliveryDate)) {
-        	return true;
+            return true;
             }            
         }
         return false;
     }*/
-	GenericDelegator delegator = orderHeader.getDelegator();
+    GenericDelegator delegator = orderHeader.getDelegator();
         GenericValue orderDeliverySchedule = null;
         try {
             orderDeliverySchedule = delegator.findByPrimaryKey("OrderDeliverySchedule", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", "_NA_"));
@@ -1473,19 +1473,19 @@ public class OrderReadHelper {
             estimatedShipDate = orderDeliverySchedule.getTimestamp("estimatedReadyDate");
         }
         if (estimatedShipDate != null && UtilDateTime.nowTimestamp().after(estimatedShipDate)) {
-    		return true;
+            return true;
         }
         return false;
     }
 
     public boolean getRejectedOrderItems() {
-    	List items = getOrderItems();	
+        List items = getOrderItems();    
         Iterator i = items.iterator();
         while (i.hasNext()) {
             GenericValue item = (GenericValue) i.next();
             List receipts = null;                  
             try {
-        	receipts = item.getRelated("ShipmentReceipt");
+            receipts = item.getRelated("ShipmentReceipt");
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }                         
@@ -1495,7 +1495,7 @@ public class OrderReadHelper {
                     GenericValue rec = (GenericValue) recIter.next();
                     Double rejected = rec.getDouble("quantityRejected");
                     if (rejected != null && rejected.doubleValue() > 0) {
-                	return true;
+                    return true;
                     }
                 }            
             }
@@ -1503,7 +1503,7 @@ public class OrderReadHelper {
         return false;
     }
 
-    public boolean getPartiallyReceivedItems() {	
+    public boolean getPartiallyReceivedItems() {    
         /*List exprs = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_APPROVED"));
         List itemsApproved = EntityUtil.filterByAnd(getOrderItems(), exprs);
         Iterator i = itemsApproved.iterator();
@@ -1512,18 +1512,18 @@ public class OrderReadHelper {
             int shippedQuantity = (int) getItemShippedQuantity(item);            
             Double orderedQuantity = (Double) item.get("quantity");            
             if (shippedQuantity != orderedQuantity.intValue() && shippedQuantity > 0) {
-        	return true;
+            return true;
             }            
         }
         return false;
     }*/
-    	List items = getOrderItems();	
+        List items = getOrderItems();    
         Iterator i = items.iterator();
         while (i.hasNext()) {
             GenericValue item = (GenericValue) i.next();
             List receipts = null;                  
             try {
-        	receipts = item.getRelated("ShipmentReceipt");
+            receipts = item.getRelated("ShipmentReceipt");
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }                         
@@ -1534,7 +1534,7 @@ public class OrderReadHelper {
                     Double acceptedQuantity = rec.getDouble("quantityAccepted");
                     Double orderedQuantity = (Double) item.get("quantity");            
                     if (acceptedQuantity.intValue() != orderedQuantity.intValue() && acceptedQuantity.intValue()  > 0) {
-                	return true;                    
+                    return true;                    
                     }
                 }            
             }
@@ -1638,25 +1638,25 @@ public class OrderReadHelper {
     }
 
     public String getCurrentOrderItemWorkEffort(GenericValue orderItem)    {
-    	String orderItemSeqId = orderItem.getString("orderItemSeqId");
-    	String orderId = orderItem.getString("orderId");
-    	GenericDelegator delegator = orderItem.getDelegator();
-    	GenericValue workOrderItemFulFillment = null;
-    	GenericValue workEffort = null;
-    	try {
-    		List workOrderItemFulFillments = delegator.findByAndCache("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
-    		if (!UtilValidate.isEmpty(workOrderItemFulFillments)) {
-    			workOrderItemFulFillment = EntityUtil.getFirst(workOrderItemFulFillments);
-    			workEffort = workOrderItemFulFillment.getRelatedOne("WorkEffort");
-    		}
-    	} catch (GenericEntityException e) {
-    		return null;
-    	}
-    	if (workEffort != null) {
-    		return workEffort.getString("workEffortId");
-    	} else {
-    		return null;
-    	}
+        String orderItemSeqId = orderItem.getString("orderItemSeqId");
+        String orderId = orderItem.getString("orderId");
+        GenericDelegator delegator = orderItem.getDelegator();
+        GenericValue workOrderItemFulFillment = null;
+        GenericValue workEffort = null;
+        try {
+            List workOrderItemFulFillments = delegator.findByAndCache("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
+            if (!UtilValidate.isEmpty(workOrderItemFulFillments)) {
+                workOrderItemFulFillment = EntityUtil.getFirst(workOrderItemFulFillments);
+                workEffort = workOrderItemFulFillment.getRelatedOne("WorkEffort");
+            }
+        } catch (GenericEntityException e) {
+            return null;
+        }
+        if (workEffort != null) {
+            return workEffort.getString("workEffortId");
+        } else {
+            return null;
+        }
     }
 
     public String getCurrentItemStatus(GenericValue orderItem) {
@@ -2083,7 +2083,7 @@ public class OrderReadHelper {
         
         List picked = null;
         try {
-        	picked = orderHeader.getDelegator().findByCondition("PicklistAndBinAndItem", pickedConditions, null, null);
+            picked = orderHeader.getDelegator().findByCondition("PicklistAndBinAndItem", pickedConditions, null, null);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             this.orderHeader = null;
