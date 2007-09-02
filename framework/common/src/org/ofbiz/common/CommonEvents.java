@@ -166,7 +166,7 @@ public class CommonEvents {
 
     /** Simple event to set the users per-session locale setting */
     public static String setSessionLocale(HttpServletRequest request, HttpServletResponse response) {
-        String localeString = request.getParameter("locale");
+        String localeString = request.getParameter("newLocale");
         if (UtilValidate.isNotEmpty(localeString)) {
             UtilHttp.setLocale(request, localeString);
 
@@ -243,6 +243,7 @@ public class CommonEvents {
         return "success";
     }
 }
+
 
 
 
