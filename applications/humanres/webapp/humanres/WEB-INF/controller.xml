@@ -115,7 +115,7 @@ under the License.
     
     <request-map uri="main">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListEmplPositions"/>
+        <response name="success" type="view" value="main"/>
     </request-map>
     
     
@@ -549,7 +549,7 @@ under the License.
     <request-map uri="LookupSalaryStep"><security auth="true" https="true"/><response name="success" type="view" value="LookupSalaryStep"/></request-map>
     <request-map uri="LookupPayGrade"><security auth="true" https="true"/><response name="success" type="view" value="LookupPayGrade"/></request-map>    
 
-    <view-map name="main" type="screen" page="component://humanres/widget/CommonScreens.xml#main"/>
+    <view-map name="main" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#ListEmplPositions"/>
     <view-map name="login" type="screen" page="component://humanres/widget/CommonScreens.xml#login"/>
     <view-map name="requirePasswordChange" type="screen" page="component://humanres/widget/CommonScreens.xml#requirePasswordChange"/>
     <view-map name="LookupLocales" type="screen" page="component://common/widget/LookupScreens.xml#LookupLocales"/>
