@@ -78,7 +78,7 @@ getEcaListForService(String selectedService){
             runOnFailure.setAccessible(false);
 
             //extract actions
-            actions = curRuleClass.getDeclaredField("actions");            
+            actions = curRuleClass.getDeclaredField("actionsAndSets");            
             actions.setAccessible(true);
             actionsVal = actions.get(curRule);
             if(actionsVal != null){
