@@ -89,13 +89,21 @@ under the License.
         <xs:attribute type="xs:string" name="name" use="required"/>
     </xs:attributeGroup>
     
-    <xs:element name="entity-xml-assert" substitutionGroup="TestCaseTypes">
+    <xs:element name="entity-xml" substitutionGroup="TestCaseTypes">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.entity-xml-assert"/>
+            <xs:attributeGroup ref="attlist.entity-xml"/>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.entity-xml-assert">
+    <xs:attributeGroup name="attlist.entity-xml">
         <xs:attribute type="xs:string" name="entity-xml-url" use="required"/>
+        <xs:attribute name="action" use="optional" default="assert">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="assert"/>
+                    <xs:enumeration value="load"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     
     <xs:element name="jython-test" substitutionGroup="TestCaseTypes">

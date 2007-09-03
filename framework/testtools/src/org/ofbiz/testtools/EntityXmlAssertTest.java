@@ -24,6 +24,7 @@ import junit.framework.AssertionFailedError;
 import org.w3c.dom.Element;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.util.EntityDataAssert;
+import org.ofbiz.entity.util.EntitySaxReader;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.location.FlexibleLocation;
@@ -38,6 +39,7 @@ public class EntityXmlAssertTest extends TestCaseBase {
     public static final String module = ServiceTest.class.getName();
 
     protected String entityXmlUrlString;
+    protected String action;
 
     /**
      * @param modelTestSuite
@@ -45,6 +47,8 @@ public class EntityXmlAssertTest extends TestCaseBase {
     public EntityXmlAssertTest(String caseName, ModelTestSuite modelTestSuite, Element mainElement) {
         super(caseName, modelTestSuite);
         this.entityXmlUrlString = mainElement.getAttribute("entity-xml-url");
+        this.action = mainElement.getAttribute("action");
+        if (UtilValidate.isEmpty(this.action)) this.action = "assert";
     }
 
     public int countTestCases() {
@@ -61,13 +65,21 @@ public class EntityXmlAssertTest extends TestCaseBase {
 
     public void run(TestResult result) {
         result.startTest(this);
-
+        
         try {
             URL entityXmlURL = FlexibleLocation.resolveLocation(entityXmlUrlString);
             GenericDelegator delegator = modelTestSuite.getDelegator();
             List errorMessages = new ArrayList();
 
-            EntityDataAssert.assertData(entityXmlURL, delegator, errorMessages);
+            if ("assert".equals(this.action)) {
+                EntityDataAssert.assertData(entityXmlURL, delegator, errorMessages);
+            } else if ("load".equals(this.action)) {
+                EntitySaxReader reader = new EntitySaxReader(delegator);
+                long numberRead = reader.parse(entityXmlURL);
+            } else {
+                // uh oh, bad value
+                result.addFailure(this, new AssertionFailedError("Bad value [" + this.action + "] for action attribute of entity-xml element"));
+            }
 
             if (UtilValidate.isNotEmpty(errorMessages)) {
                 Iterator failureIterator = errorMessages.iterator();

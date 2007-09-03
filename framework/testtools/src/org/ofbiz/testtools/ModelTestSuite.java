@@ -96,7 +96,10 @@ public class ModelTestSuite {
                     this.testList.add(new ServiceTest(caseName, this, childElement));
                 } else if ("simple-method-test".equals(nodeName)) {
                     this.testList.add(new SimpleMethodTest(caseName, this, childElement));
+                } else if ("entity-xml".equals(nodeName)) {
+                    this.testList.add(new EntityXmlAssertTest(caseName, this, childElement));
                 } else if ("entity-xml-assert".equals(nodeName)) {
+                    // this is the old, deprecated name for the element, changed because it now does assert or load
                     this.testList.add(new EntityXmlAssertTest(caseName, this, childElement));
                 } else if ("jython-test".equals(nodeName)) {
                     this.testList.add(new JythonTest(caseName, this, childElement));
