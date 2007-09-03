@@ -37,7 +37,7 @@ under the License.
         <tr>
           <td align='center'>
             <form method="post" name="chooseLanguage" action="<@ofbizUrl>setSessionLocale</@ofbizUrl>" style="margin: 0;">
-              <select name="locale" class="selectBox">
+              <select name="newLocale" class="selectBox">
                 <#assign initialDisplayName = locale.getDisplayName(locale)>
                 <#if 18 < initialDisplayName?length>
                   <assign initialDisplayName = initialDisplayName[0..15] + "...">
