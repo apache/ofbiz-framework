@@ -313,7 +313,7 @@ public class TransactionUtil implements Status {
         try {
             if (TransactionUtil.getStatus() == TransactionUtil.STATUS_ACTIVE) {
                 TransactionManager txMgr = TransactionFactory.getTransactionManager();
-                if (txMgr != null ) {
+                if (txMgr != null) {
                     pushTransactionBeginStackSave(clearTransactionBeginStack());
                     pushSetRollbackOnlyCauseSave(clearSetRollbackOnlyCause());
                     Transaction trans = txMgr.suspend();
