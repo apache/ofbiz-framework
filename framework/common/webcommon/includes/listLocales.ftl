@@ -50,7 +50,7 @@ display: block;
         </#if>
         <tr <#if altRow>class="alternate-row"</#if>>
             <td lang="${langAttr}" dir="${langDir}">
-                <a href="<@ofbizUrl>setSessionLocale</@ofbizUrl>?newLocale=${availableLocale.toString()}">${availableLocale.getDisplayName(availableLocale)}</a>
+                <a href="<@ofbizUrl>setSessionLocale</@ofbizUrl>?locale=${availableLocale.toString()}">${availableLocale.getDisplayName(availableLocale)}</a>
             </td>
         </tr>
     </#list>
