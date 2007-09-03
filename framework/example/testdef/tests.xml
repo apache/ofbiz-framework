@@ -23,7 +23,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-case case-name="userLoginEntityXmlAssert">
-        <entity-xml-assert entity-xml-url="component://example/testdef/assertdata/TestUserLoginData.xml"/>
+        <entity-xml action="assert" entity-xml-url="component://example/testdef/assertdata/TestUserLoginData.xml"/>
     </test-case>
     <test-case case-name="testCreateExampleService Through Service Engine">
         <service-test service-name="testCreateExampleService"/>
