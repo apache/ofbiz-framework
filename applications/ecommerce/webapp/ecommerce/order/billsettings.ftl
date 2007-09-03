@@ -251,7 +251,7 @@ function shipBillAddr() {
         <#else>
           <#-- initial screen show a list of options -->
           <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="billsetupform">
-            <input type="hidden" name="finalizeMode" value="payoption">
+            <input type="hidden" name="finalizeMode" value="payment">
             <input type="hidden" name="createNew" value="Y">
             <table width="100%" border="0" cellpadding="1" cellspacing="0">
               <#if productStorePaymentMethodTypeIdMap.GIFT_CARD?exists>

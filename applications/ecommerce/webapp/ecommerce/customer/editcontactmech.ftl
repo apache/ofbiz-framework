@@ -160,7 +160,7 @@ under the License.
       <td width="5">&nbsp;</td>
       <td width="74%">
         <input type="text" class='inputBox' size="12" maxlength="10" name="postalCode" value="${postalAddressData.postalCode?if_exists}">
-      </td>
+      *</td>
     </tr>
     <tr>
       <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.PartyCountry}</div></td>
@@ -229,6 +229,7 @@ under the License.
     &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
   </#if>
 </#if>
+
 
 
 
