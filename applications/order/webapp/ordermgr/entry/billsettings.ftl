@@ -78,7 +78,7 @@ function makeExpDate() {
                   <input type="radio" name="checkOutPaymentId" value="EXT_OFFLINE" <#if checkOutPaymentId?exists && checkOutPaymentId == "EXT_OFFLINE">checked="checked"</#if>/>
                 </td>
                 <td colspan="2" width="50%">
-                  <span class="tabletext">${uiLabelMap.OrderOfflineCheckMoney}</span>
+                  <span class="tabletext">${uiLabelMap.OrderPaymentOfflineCheckMoney}</span>
                 </td>
               </tr>
              <tr><td colspan="3"><hr class="sepbar"/></td></tr>                  
@@ -270,7 +270,7 @@ function makeExpDate() {
                 <td colspan="3"><hr class="sepbar"/></td>
               </tr>
 
-  	              <tr>
+                  <tr>
                 <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.AccountingCompanyNameCard}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
@@ -414,14 +414,14 @@ function makeExpDate() {
                   <input type="text" class="inputBox" size="20" maxlength="30" name="description" value="${creditCard.description?if_exists}"/>
                 </td>
               </tr>
-  	            </#if>  
-  	            
-  	            <#-- eft fields -->
-  	            <#if paymentMethodType =="EFT">
-  	              <#if !eftAccount?has_content>
-  	                <#assign eftAccount = requestParameters>
-  	              </#if>
-  	              <tr>
+                </#if>  
+                
+                <#-- eft fields -->
+                <#if paymentMethodType =="EFT">
+                  <#if !eftAccount?has_content>
+                    <#assign eftAccount = requestParameters>
+                  </#if>
+                  <tr>
                 <td colspan="3"><hr class="sepbar"/></td>
               </tr>
               <tr>
