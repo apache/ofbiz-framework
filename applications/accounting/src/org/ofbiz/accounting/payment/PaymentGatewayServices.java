@@ -853,6 +853,8 @@ public class PaymentGatewayServices {
 
     public static Map processReleaseResult(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         Boolean releaseResponse = (Boolean) context.get("releaseResult");
@@ -915,11 +917,13 @@ public class PaymentGatewayServices {
                 Iterator pi = paymentList.iterator();
                 while (pi.hasNext()) {
                     GenericValue pay = (GenericValue) pi.next();
-                    pay.set("statusId", "PMNT_CANCELLED");
                     try {
-                        pay.store();
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e, "Unable to store Payment : " + pay, module);
+                        Map cancelResults = dispatcher.runSync("setPaymentStatus", UtilMisc.toMap("userLogin", userLogin, "paymentId", pay.get("paymentId"), "statusId", "PMNT_CANCELLED"));
+                        if (ServiceUtil.isError(cancelResults)) {
+                            throw new GenericServiceException(ServiceUtil.getErrorMessage(cancelResults));
+                        }
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, "Unable to cancel Payment : " + pay, module);
                     }
                 }
             }
