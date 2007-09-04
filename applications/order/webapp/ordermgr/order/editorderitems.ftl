@@ -31,8 +31,7 @@ float: right;
 
 <#-- price change rules -->
 <#assign allowPriceChange = false/>
-<#if (orderHeader.orderTypeId == 'PURCHASE_ORDER' || security.hasEntityPermission("ORDERMGR", "_SALES_PRICEMOD", session))>
-    <script language="javascript">alert("price mod ok");</script>
+<#if (orderHeader.orderTypeId == 'PURCHASE_ORDER' || security.hasEntityPermission("ORDERMGR", "_SALES_PRICEMOD", session))>    
     <#assign allowPriceChange = true/>
 </#if>
 
