@@ -27,11 +27,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
-import org.ofbiz.base.util.UtilProperties;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.collections.MapComparator;
 
@@ -250,12 +251,97 @@ public class UtilMisc {
     }
     
     /**
+     * Create a Set from passed objX parameters
+     * @return The resulting Set
+     */
+    public static Set toSet(Object obj1) {
+        Set theSet = FastSet.newInstance();
+        theSet.add(obj1);
+        return theSet;
+    }
+
+    /**
+     * Create a Set from passed objX parameters
+     * @return The resulting Set
+     */
+    public static Set toSet(Object obj1, Object obj2) {
+        Set theSet = FastSet.newInstance();
+        theSet.add(obj1);
+        theSet.add(obj2);
+        return theSet;
+    }
+
+    /**
+     * Create a Set from passed objX parameters
+     * @return The resulting Set
+     */
+    public static Set toSet(Object obj1, Object obj2, Object obj3) {
+        Set theSet = FastSet.newInstance();
+        theSet.add(obj1);
+        theSet.add(obj2);
+        theSet.add(obj3);
+        return theSet;
+    }
+
+    /**
+     * Create a Set from passed objX parameters
+     * @return The resulting Set
+     */
+    public static Set toSet(Object obj1, Object obj2, Object obj3, Object obj4) {
+        Set theSet = FastSet.newInstance();
+        theSet.add(obj1);
+        theSet.add(obj2);
+        theSet.add(obj3);
+        theSet.add(obj4);
+        return theSet;
+    }
+
+    /**
+     * Create a Set from passed objX parameters
+     * @return The resulting Set
+     */
+    public static Set toSet(Object obj1, Object obj2, Object obj3, Object obj4, Object obj5) {
+        Set theSet = FastSet.newInstance();
+        theSet.add(obj1);
+        theSet.add(obj2);
+        theSet.add(obj3);
+        theSet.add(obj4);
+        theSet.add(obj5);
+        return theSet;
+    }
+
+    /**
+     * Create a Set from passed objX parameters
+     * @return The resulting Set
+     */
+    public static Set toSet(Object obj1, Object obj2, Object obj3, Object obj4, Object obj5, Object obj6) {
+        Set theSet = FastSet.newInstance();
+        theSet.add(obj1);
+        theSet.add(obj2);
+        theSet.add(obj3);
+        theSet.add(obj4);
+        theSet.add(obj5);
+        theSet.add(obj6);
+        return theSet;
+    }
+
+    public static Set toSet(Collection collection) {
+        if (collection == null) return null;
+        if (collection instanceof Set) {
+            return (Set) collection;
+        } else {
+            Set theSet = FastSet.newInstance();
+            theSet.addAll(collection);
+            return theSet;
+        }
+    }
+
+    /**
      * Create a list from passed objX parameters
      * @return The resulting List
      */
     public static List toList(Object obj1) {
-        List list = new ArrayList(1);
-
+        List list = FastList.newInstance();
         list.add(obj1);
         return list;
     }
@@ -265,8 +351,7 @@ public class UtilMisc {
      * @return The resulting List
      */
     public static List toList(Object obj1, Object obj2) {
-        List list = new ArrayList(2);
-
+        List list = FastList.newInstance();
         list.add(obj1);
         list.add(obj2);
         return list;
@@ -277,8 +362,7 @@ public class UtilMisc {
      * @return The resulting List
      */
     public static List toList(Object obj1, Object obj2, Object obj3) {
-        List list = new ArrayList(3);
-
+        List list = FastList.newInstance();
         list.add(obj1);
         list.add(obj2);
         list.add(obj3);
@@ -290,8 +374,7 @@ public class UtilMisc {
      * @return The resulting List
      */
     public static List toList(Object obj1, Object obj2, Object obj3, Object obj4) {
-        List list = new ArrayList(4);
-
+        List list = FastList.newInstance();
         list.add(obj1);
         list.add(obj2);
         list.add(obj3);
@@ -304,8 +387,7 @@ public class UtilMisc {
      * @return The resulting List
      */
     public static List toList(Object obj1, Object obj2, Object obj3, Object obj4, Object obj5) {
-        List list = new ArrayList(5);
-
+        List list = FastList.newInstance();
         list.add(obj1);
         list.add(obj2);
         list.add(obj3);
@@ -319,8 +401,7 @@ public class UtilMisc {
      * @return The resulting List
      */
     public static List toList(Object obj1, Object obj2, Object obj3, Object obj4, Object obj5, Object obj6) {
-        List list = new ArrayList(6);
-
+        List list = FastList.newInstance();
         list.add(obj1);
         list.add(obj2);
         list.add(obj3);
@@ -335,7 +416,9 @@ public class UtilMisc {
         if (collection instanceof List) {
             return (List) collection;
         } else {
-            return new ArrayList(collection);
+            List list = FastList.newInstance();
+            list.addAll(collection);
+            return list;
         }
     }
 
