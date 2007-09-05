@@ -230,9 +230,14 @@ public class ControlServlet extends HttpServlet {
                             response.getWriter().print(errorMessage);
                         }
                     } catch (Throwable t2) {
-                        int errorToSend = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-                        Debug.logWarning("Error while trying to write error message using response.getOutputStream or response.getWriter: " + t.toString() + "; sending error code [" + errorToSend + "], and message [" + errorMessage + "]", module);
-                        response.sendError(errorToSend, errorMessage);
+                        try {
+                            int errorToSend = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+                            Debug.logWarning("Error while trying to write error message using response.getOutputStream or response.getWriter: " + t.toString() + "; sending error code [" + errorToSend + "], and message [" + errorMessage + "]", module);
+                            response.sendError(errorToSend, errorMessage);
+                        } catch (Throwable t3) {
+                            // wow, still bad... just throw an IllegalStateException with the message and let the servlet container handle it
+                            throw new IllegalStateException(errorMessage);
+                        }
                     }
                 }
 
@@ -268,10 +273,19 @@ public class ControlServlet extends HttpServlet {
         }
 
         // run these two again before the ServerHitBin.countRequest call because on a logout this will end up creating a new visit
-        UtilHttp.setInitialRequestInfo(request);
-        VisitHandler.getVisitor(request, response);
-        
-        ServerHitBin.countRequest(webappName + "." + rname, request, requestStartTime, System.currentTimeMillis() - requestStartTime, userLogin, delegator);
+        if (response.isCommitted() && request.getSession(false) == null) {
+            // response committed and no session, and we can't get a new session, what to do!
+            // without a session we can't log the hit, etc; so just do nothing; this should NOT happen much!
+            Debug.logError("Error in ControlServlet output where response isCommitted and there is no session (probably because of a logout); not saving ServerHit/Bin information because there is no session and as the response isCommitted we can't get a new one. The output was successful, but we just can't save ServerHit/Bin info.", module);
+        } else {
+            try {
+                UtilHttp.setInitialRequestInfo(request);
+                VisitHandler.getVisitor(request, response);
+                ServerHitBin.countRequest(webappName + "." + rname, request, requestStartTime, System.currentTimeMillis() - requestStartTime, userLogin, delegator);
+            } catch (Throwable t) {
+                Debug.logError(t, "Error in ControlServlet saving ServerHit/Bin information; the output was successful, but can't save this tracking information. The error was: " + t.toString(), module);
+            }
+        }
         if (Debug.timingOn()) timer.timerString("[" + rname + "] Done rendering page, Servlet Finished", module);
     }
 
