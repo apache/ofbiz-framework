@@ -27,7 +27,7 @@
             <link target="EditFixedAsset?fixedAssetId=${fixedAssetId}"/>
         </menu-item>
         <menu-item name="FixedAssetChildren" title="${uiLabelMap.AccountingFixedAssetChildren}">
-            <link target="FixedAssetChildren?fixedAssetId=${fixedAssetId}&amp;trail=${fixedAssetId}"/>
+            <link target="FixedAssetChildren?rootAssetId=${fixedAssetId}&amp;trail=${fixedAssetId}"/>
         </menu-item>
         <menu-item name="ListFixedAssetCalendar" title="${uiLabelMap.AccountingFixedAssetCalendar}">
             <link target="ListFixedAssetCalendar?fixedAssetId=${fixedAssetId}"/>
