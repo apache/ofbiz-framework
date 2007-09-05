@@ -37,8 +37,7 @@
                                 <include-form name="FindFixedAssetMaint" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
                             </container>
                         </container>
-                        <label>&lt;br/&gt;</label>
-                        <container><link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/></container>
+                        <container style="button-bar"><link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/></container>
                         <include-form name="ListFixedAssetMaints" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
                     </decorator-section>
                 </decorator-screen>
@@ -68,8 +67,10 @@
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetId}" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/></container>
-                        <container><link target="printFixedAssetMaint.pdf?fixedAssetId=${fixedAssetId}&amp;maintHistSeqId=${maintHistSeqId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/></container>
+                        <container style="button-bar">
+                            <link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetId}" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/>
+                            <link target="printFixedAssetMaint.pdf?fixedAssetId=${fixedAssetId}&amp;maintHistSeqId=${maintHistSeqId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
+                        </container>
                         <container style="screenlet">
                             <container style="screenlet-header">
                                 <label style="boxhead">${uiLabelMap.AccountingNewFixedAssetMaint}</label>
@@ -244,7 +245,7 @@
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template  location="component://assetmaint/webapp/assetmaint/assetmaint/printFixedAssetMaint.fo.ftl"/></html>
+                    <html><html-template location="component://assetmaint/webapp/assetmaint/assetmaint/printFixedAssetMaint.fo.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>

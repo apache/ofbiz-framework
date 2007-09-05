@@ -16,14 +16,19 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<#if userLogin?has_content>
-    <div id="main-navigation">    
-        <ul>                               
-            <li<#if appbarItem?if_exists == "fixedAssets"> class="selected"</#if>><a href="<@ofbizUrl>/findFixedAssets</@ofbizUrl>">${uiLabelMap.AccountingFixedAssets}</a></li>     
-            <li<#if appbarItem?if_exists == "fixedAssetMaints"> class="selected"</#if>><a href="<@ofbizUrl>/findFixedAssetMaints</@ofbizUrl>">${uiLabelMap.AccountingFixedAssetMaints}</a></li>      
-            <li<#if appbarItem?if_exists == "facility"> class="selected"</#if>><a href="<@ofbizUrl>/FindFacility?facilityTypeId=WAREHOUSE</@ofbizUrl>">${uiLabelMap.ProductWarehouse}</a></li>
-        </ul>
-        <br class="clear"/>
-    </div> 
-</#if>
+<#assign selected = headerItem?default("void")>
+<div id="app-navigation">
+    <h2>${uiLabelMap.AssetMaintApplication}</h2>
+    <ul>                               
+        <#if userLogin?has_content>
+            <li<#if selected == "fixedAssets"> class="selected"</#if>><a href="<@ofbizUrl>/findFixedAssets</@ofbizUrl>">${uiLabelMap.AccountingFixedAssets}</a></li>     
+            <li<#if selected == "fixedAssetMaints"> class="selected"</#if>><a href="<@ofbizUrl>/findFixedAssetMaints</@ofbizUrl>">${uiLabelMap.AccountingFixedAssetMaints}</a></li>      
+            <li<#if selected == "facility"> class="selected"</#if>><a href="<@ofbizUrl>/FindFacility?facilityTypeId=WAREHOUSE</@ofbizUrl>">${uiLabelMap.ProductWarehouse}</a></li>
+            <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
+        <#else>
+            <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
+        </#if>
+    </ul>
+    <br class="clear"/>
+</div> 
 

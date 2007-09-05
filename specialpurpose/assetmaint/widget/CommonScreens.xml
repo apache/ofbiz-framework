@@ -29,6 +29,8 @@
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="activeApp" value="assetmaint" global="true"/>
+                <set field="appheaderTemplate" value="component://assetmaint/webapp/assetmaint/includes/appbar.ftl" global="true"/>
 
                 <!-- The two default (global) stylesheets are added to the list
                      of stylesheets to the first and second position -->
@@ -43,19 +45,7 @@
                 <set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>
             </actions>
             <widgets>
-                <!-- render header -->
-                <platform-specific><html><html-template location="component://common/webcommon/includes/header.ftl"/></html></platform-specific>
-                <!-- render appbar -->
-                <platform-specific><html><html-template location="component://assetmaint/webapp/assetmaint/includes/appbar.ftl"/></html></platform-specific>
-                <container style="contentarea">
-                    <container style="${MainColumnStyle}">
-                        <!-- render messages -->
-                        <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
-                        <decorator-section-include name="body"/>
-                    </container>
-                </container>
-                <!-- render footer -->
-                <platform-specific><html><html-template location="component://common/webcommon/includes/footer.ftl"/></html></platform-specific>
+                <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
             </widgets>
         </section>
     </screen>
@@ -90,7 +80,7 @@
     <screen name="CommonFixedAssetDecorator"><!--Appbar level decorator-->
         <section>
             <actions>
-                <set field="appbarItem" global="true" value="fixedAssets"/>
+                <set field="headerItem" global="true" value="fixedAssets"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator">
@@ -123,7 +113,7 @@
     <screen name="CommonFixedAssetMaintDecorator"><!--Appbar level decorator-->
         <section>
             <actions>
-                <set field="appbarItem" value="fixedAssetMaints"/>
+                <set field="headerItem" value="fixedAssetMaints"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator">
@@ -161,7 +151,7 @@
     <screen name="CommonFacilityDecorator">
         <section>
             <actions>
-                <set field="appbarItem" value="facility"/>
+                <set field="headerItem" value="facility"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-name="facility"/>
             </actions>

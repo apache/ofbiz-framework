@@ -23,7 +23,7 @@
     <screen name="FindFacility">
         <section>
             <actions>
-                <set field="appbarItem" value="facility"/>
+                <set field="headerItem" value="facility"/>
                 <entity-condition entity-name="Facility" list-name="facilities">
                     <condition-expr field-name="facilityTypeId" value="WAREHOUSE"/>
                     <order-by field-name="facilityId"/>
