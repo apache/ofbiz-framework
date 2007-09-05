@@ -85,8 +85,8 @@ under the License.
         <attribute name="errorMapList" type="java.util.List" mode="IN" optional="true"/>
         <attribute name="origRefId" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="receiveConfirmBod" engine="java" transaction-timeout="300"
-        location="org.ofbiz.oagis.OagisServices" invoke="receiveConfirmBod" auth="true">
+    <service name="oagisReceiveConfirmBod" engine="java" transaction-timeout="300"
+        location="org.ofbiz.oagis.OagisServices" invoke="oagisReceiveConfirmBod" auth="true">
         <description>Process incoming ConfirmBod</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>

@@ -728,7 +728,7 @@ public class OagisShipmentServices {
                 // prepare map to Create Oagis Message Info
                 comiCtx.put("processingStatusId", "OAGMP_TRIGGERED");
                 comiCtx.put("component", "INVENTORY");
-                comiCtx.put("task", "SHIPREQUES"); // Actual value of task is "SHIPREQUEST" which is more than 10 char
+                comiCtx.put("task", "SHIPREQUEST"); // Actual value of task is "SHIPREQUEST" which is more than 10 char, need this in the db so it will match Confirm BODs, etc
                 comiCtx.put("outgoingMessage", "Y");
                 comiCtx.put("confirmation", "1");
                 comiCtx.put("bsrVerb", "PROCESS");
