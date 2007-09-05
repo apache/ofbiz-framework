@@ -187,9 +187,9 @@
         <response name="success" type="none"/>
     </request-map>
 
-    <request-map uri="receiveConfirmBod">
+    <request-map uri="oagisReceiveConfirmBod">
         <security https="true" auth="false"/>
-        <event type="stream" invoke="receiveConfirmBod"/>
+        <event type="stream" invoke="oagisReceiveConfirmBod"/>
         <response name="success" type="none"/>
     </request-map>
 
