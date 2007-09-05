@@ -97,6 +97,10 @@
                                         <include-menu name="FixedAssetTabBar" location="component://assetmaint/widget/Menus.xml"/>
                                         <label style="head1" text="${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]  ${${extraFunctionName}}"/>
                                     </widgets>
+                                    <fail-widgets>
+                                        <include-menu name="FixedAssetTabBar" location="component://assetmaint/widget/Menus.xml"/>
+                                        <label style="head1" text="${uiLabelMap.${labelTitleProperty}}"/>
+                                    </fail-widgets>
                                 </section>
                             </widgets>
                             <fail-widgets>
