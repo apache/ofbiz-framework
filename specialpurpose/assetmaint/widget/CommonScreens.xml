@@ -92,10 +92,10 @@
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="fixedAssetId"/></not></condition>
+                                    <condition><not><if-empty field-name="fixedAsset"/></not></condition>
                                     <widgets>
                                         <include-menu name="FixedAssetTabBar" location="component://assetmaint/widget/Menus.xml"/>
-                                        <label style="head1" text="${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${fixedAsset.fixedAssetName} [${uiLabelMap.CommonId}:${fixedAssetId}]  ${${extraFunctionName}}"/>
+                                        <label style="head1" text="${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]  ${${extraFunctionName}}"/>
                                     </widgets>
                                 </section>
                             </widgets>

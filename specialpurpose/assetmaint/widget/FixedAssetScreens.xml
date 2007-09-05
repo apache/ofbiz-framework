@@ -88,15 +88,16 @@
                 <set field="titleProperty" value="AccountingEditFixedAsset"/>
                 <set field="labelTitleProperty" value="AccountingFixedAssetChildren"/>
                 <set field="tabButtonItem" value="FixedAssetChildren"/>
-                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
-                <set field="trail" from-field="parameters.trail" default-value="${parameters.fixedAssetId}"/>
-                <set field="fixedAssetId" from-field="parameters.trail"/>
+                <set field="rootAssetId" from-field="parameters.rootAssetId" default-value="${parameters.fixedAssetId}"/>
+                <set field="fixedAssetId" from-field="rootAssetId"/>
                 <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId" default-value="${parameters.trail}"/>
+                <set field="trail" from-field="parameters.trail" default-value="${parameters.fixedAssetId}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-tree name="TreeFixedAsset" location="component://accounting/widget/AccountingTrees.xml" />
+                        <include-tree name="TreeFixedAsset" location="component://assetmaint/widget/AssetMaintTrees.xml" />
                     </decorator-section>
                 </decorator-screen>
             </widgets>
