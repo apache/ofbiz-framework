@@ -223,24 +223,26 @@ under the License.
                 <td>${uiLabelMap.WebtoolsParameterName}</td>
                 <td>${uiLabelMap.WebtoolsOptional}</td>
                 <td>${uiLabelMap.CommonType}</td>
+                <#-- <td>Default Value</td> -->
                 <td>${uiLabelMap.WebtoolsMode}</td>
                 <td>${uiLabelMap.WebtoolsIsSetInternally}</td>
                 <td>${uiLabelMap.WebtoolsEntityName}</td>
                 <td>${uiLabelMap.WebtoolsFieldName}</td>
               </tr>
-              <#list paramList.paramList as params>
+              <#list paramList.paramList as modelParam>
                 <tr>
-                  <td>${params.name?if_exists}</td>
-                  <td>${params.optional?if_exists}</td>
-                  <td>${params.type?if_exists}</td>
-                  <td>${params.mode?if_exists}</td>
-                  <td>${params.internal?if_exists}</td>
+                  <td>${modelParam.name?if_exists}</td>
+                  <td>${modelParam.optional?if_exists}</td>
+                  <td>${modelParam.type?if_exists}</td>
+                  <#-- <td>[${modelParam.defaultValue?if_exists}]</td> -->
+                  <td>${modelParam.mode?if_exists}</td>
+                  <td>${modelParam.internal?if_exists}</td>
                   <td>
-                    <#if params.entityName?exists>
-                      <a href='<@ofbizUrl>${url}?constraint=default_entity_name@${params.entityName}</@ofbizUrl>'>${params.entityName?if_exists}</a>
+                    <#if modelParam.entityName?exists>
+                      <a href='<@ofbizUrl>${url}?constraint=default_entity_name@${modelParam.entityName}</@ofbizUrl>'>${modelParam.entityName?if_exists}</a>
                     </#if>
                   </td>
-                  <td>${params.fieldName?if_exists}</td>
+                  <td>${modelParam.fieldName?if_exists}</td>
                 </tr>
               </#list>
           </table>

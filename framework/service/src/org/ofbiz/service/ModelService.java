@@ -369,9 +369,10 @@ public class ModelService extends AbstractMap implements Serializable {
             while (i.hasNext()) {
                 ModelParam param = (ModelParam) i.next();
                 if ("INOUT".equals(param.mode) || mode.equals(param.mode)) {
-                    if (param.defaultValue != null && context.get(param.name) == null) {
-                        context.put(param.name, param.defaultValueObj);
-                        Debug.log("Set default value for parameter: " + param.name, module);
+                    Object defaultValueObj = param.getDefaultValue();
+                    if (defaultValueObj != null && context.get(param.name) == null) {
+                        context.put(param.name, defaultValueObj);
+                        Debug.logInfo("Set default value [" + defaultValueObj + "] for parameter [" + param.name + "]", module);
                     }
                 }
             }
@@ -1091,15 +1092,8 @@ public class ModelService extends AbstractMap implements Serializable {
                         if (UtilValidate.isNotEmpty(overrideParam.formLabel)) {
                             existingParam.formLabel = overrideParam.formLabel;
                         }
-                        if (overrideParam.defaultValue != null) {
-                            existingParam.defaultValue = overrideParam.defaultValue;
-                            existingParam.optional = true;
-                            if (overrideParam.defaultValueObj == null) {
-                                existingParam.defaultValueObj = this.convertDefaultValue(this.name, overrideParam.name,
-                                        existingParam.type, overrideParam.defaultValue);
-                            } else {
-                                existingParam.defaultValueObj = overrideParam.defaultValueObj;
-                            }
+                        if (overrideParam.getDefaultValue() != null) {
+                            existingParam.copyDefaultValue(overrideParam);
                         }
                         if (overrideParam.overrideFormDisplay) {
                             existingParam.formDisplay = overrideParam.formDisplay;
@@ -1117,18 +1111,6 @@ public class ModelService extends AbstractMap implements Serializable {
             // set the flag so we don't do this again
             this.inheritedParameters = true;
         }
-    }
-
-    protected Object convertDefaultValue(String serviceName, String name, String type, String value) {
-        Object converted;
-        try {
-            converted = ObjectType.simpleTypeConvert(value, type, null, null, false);
-        } catch (Exception e) {
-            Debug.logWarning("Service [" + serviceName + "] attribute [" + name + "] default value could not be converted to type [" + type + "]", module);
-            return value;
-        }
-
-        return converted;
     }
 
     public Document toWSDL(String locationURI) throws WSDLException {
