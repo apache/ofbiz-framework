@@ -552,11 +552,8 @@ public class ModelServiceReader implements Serializable {
             // default value
             String defValue = attribute.getAttribute("default-value");
             if (UtilValidate.isNotEmpty(defValue)) {
-                param.defaultValue = defValue;
-                if (param.type != null) {
-                    param.defaultValueObj = service.convertDefaultValue(service.name, param.name, param.type, defValue);
-                }
-                param.optional = true;
+                Debug.logInfo("Got a default-value [" + defValue + "] for service attribute [" + service.name + "." + param.name + "]", module);
+                param.setDefaultValue(defValue);
             }
             
             // set the entity name to the default if not specified
@@ -693,11 +690,7 @@ public class ModelServiceReader implements Serializable {
                 // default value
                 String defValue = attribute.getAttribute("default-value");
                 if (UtilValidate.isNotEmpty(defValue)) {
-                    param.defaultValue = defValue;
-                    if (param.type != null) {
-                        param.defaultValueObj = service.convertDefaultValue(service.name, param.name, param.type, defValue);
-                    }                    
-                    param.optional = true;
+                    param.setDefaultValue(defValue);
                 }
 
                 // override validators
