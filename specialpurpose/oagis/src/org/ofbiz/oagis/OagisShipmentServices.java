@@ -407,7 +407,14 @@ public class OagisShipmentServices {
                                 }
                                 
                                 // just receive quantity for this ShipmentItem
-                                int quantityLeft = shipmentItem.getDouble("quantity").intValue();
+                                int quantityLeft;
+                                int shipmentItemQuantity = shipmentItem.getDouble("quantity").intValue();
+                                if (shipmentItemQuantity <= messageQuantity.intValue()) {
+                                    quantityLeft = shipmentItemQuantity;
+                                } else {
+                                    quantityLeft = messageQuantity.intValue();
+                                }
+                                
                                 
                                 Iterator serialNumberIter = serialNumberList.iterator();
                                 Iterator orderItemShipGrpInvReservationIter = orderItemShipGrpInvReservationList.iterator();
@@ -493,6 +500,12 @@ public class OagisShipmentServices {
                 }
                 
                 if (errorMapList.size() == 0) {
+                    // TODOLATER: to support mulitple and partial Show Shipment messages per shipment: 
+                    //check here if the entire shipment has been issues, ie there should be sufficient 
+                    //ItemIssuance quantities for the ShipmentItem quantities
+                    // NOTE ON THIS DEJ20070906: this is actually really bad because it implies the shipment 
+                    //has been split and that isn't really allowed; maybe better to return an error!
+                    // TODO: if shipment is not completely fulfilled here return an error
                     Map resultMap = dispatcher.runSync("setShipmentStatusPackedAndShipped", UtilMisc.toMap("shipmentId", shipmentId, "userLogin", userLogin));               
                     if (ServiceUtil.isError(resultMap)) {
                         String errMsg = ServiceUtil.getErrorMessage(resultMap);
