@@ -144,6 +144,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="reasonEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="amount" type="Double" mode="INOUT" optional="false"/>
         <attribute name="balance" type="Double" mode="OUT" optional="false"/>
         <attribute name="previousBalance" type="Double" mode="OUT" optional="true"/>
@@ -161,6 +162,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="reasonEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="amount" type="Double" mode="INOUT" optional="false"/>
         <attribute name="balance" type="Double" mode="OUT" optional="false"/>
         <attribute name="previousBalance" type="Double" mode="OUT" optional="true"/>

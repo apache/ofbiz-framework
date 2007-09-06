@@ -387,6 +387,7 @@ public class FinAccountPaymentServices {
         withdrawCtx.put("partyId", partyId);
         withdrawCtx.put("orderId", orderId);
         withdrawCtx.put("amount", amount);
+        withdrawCtx.put("reasonEnumId", "FATR_PURCHASE");
         withdrawCtx.put("requireBalance", Boolean.FALSE); // for captures; if auth passed, allow
         withdrawCtx.put("userLogin", userLogin);
 
@@ -459,6 +460,7 @@ public class FinAccountPaymentServices {
         depositCtx.put("partyId", partyId);
         depositCtx.put("orderId", orderId);
         depositCtx.put("amount", amount);
+        depositCtx.put("reasonEnumId", "FATR_REFUND");
         depositCtx.put("userLogin", userLogin);
 
         Map depositResp;
@@ -495,6 +497,7 @@ public class FinAccountPaymentServices {
         String productStoreId = (String) context.get("productStoreId");
         String finAccountId = (String) context.get("finAccountId");
         String orderItemSeqId = (String) context.get("orderItemSeqId");
+        String reasonEnumId = (String) context.get("reasonEnumId");
         String orderId = (String) context.get("orderId");
         Boolean requireBalance = (Boolean) context.get("requireBalance");
         Double amount = (Double) context.get("amount");
@@ -550,7 +553,7 @@ public class FinAccountPaymentServices {
         } else {
             try {
                 refNum = FinAccountPaymentServices.createFinAcctPaymentTransaction(delegator, dispatcher, userLogin, amount,
-                        productStoreId, partyId, orderId, orderItemSeqId, currencyUom, WITHDRAWAL, finAccountId);
+                        productStoreId, partyId, orderId, orderItemSeqId, currencyUom, WITHDRAWAL, finAccountId, reasonEnumId);
                 finAccount.refresh();
                 balance = finAccount.getBigDecimal("actualBalance");
                 procResult = Boolean.TRUE;
@@ -583,6 +586,7 @@ public class FinAccountPaymentServices {
         String productStoreId = (String) context.get("productStoreId");
         String finAccountId = (String) context.get("finAccountId");
         String orderItemSeqId = (String) context.get("orderItemSeqId");
+        String reasonEnumId = (String) context.get("reasonEnumId");
         String orderId = (String) context.get("orderId");
         Boolean isRefund = (Boolean) context.get("isRefund");
         Double amount = (Double) context.get("amount");
@@ -628,7 +632,7 @@ public class FinAccountPaymentServices {
         String refNum;
         try {
             refNum = FinAccountPaymentServices.createFinAcctPaymentTransaction(delegator, dispatcher, userLogin, amount,
-                    productStoreId, partyId, orderId, orderItemSeqId, currencyUom, DEPOSIT, finAccountId);
+                    productStoreId, partyId, orderId, orderItemSeqId, currencyUom, DEPOSIT, finAccountId, reasonEnumId);
             finAccount.refresh();
             actualBalance = finAccount.getBigDecimal("actualBalance");
         } catch (GeneralException e) {
@@ -817,6 +821,7 @@ public class FinAccountPaymentServices {
         depositCtx.put("orderId", orderId);
         depositCtx.put("orderItemSeqId", "00001"); // always one item on a replish order
         depositCtx.put("amount",  new Double(depositAmount.doubleValue()));
+        depositCtx.put("reasonEnumId", "FATR_REPLENISH");
         depositCtx.put("userLogin", userLogin);
         try {
             Map depositResp = dispatcher.runSync("finAccountDeposit", depositCtx);
@@ -882,7 +887,7 @@ public class FinAccountPaymentServices {
     }
     
     private static String createFinAcctPaymentTransaction(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, Double amount,
-            String productStoreId, String partyId, String orderId, String orderItemSeqId, String currencyUom, String txType, String finAccountId) throws GeneralException {
+            String productStoreId, String partyId, String orderId, String orderItemSeqId, String currencyUom, String txType, String finAccountId, String reasonEnumId) throws GeneralException {
 
         final String coParty = ProductStoreWorker.getProductStorePayToPartyId(productStoreId, delegator);
         final String paymentMethodType = "FIN_ACCOUNT";
@@ -957,6 +962,7 @@ public class FinAccountPaymentServices {
         transCtx.put("partyId", partyId);
         transCtx.put("orderId", orderId);
         transCtx.put("orderItemSeqId", orderItemSeqId);
+        transCtx.put("reasonEnumId", reasonEnumId);
         transCtx.put("amount", amount);
         transCtx.put("userLogin", userLogin);
         transCtx.put("paymentId", paymentId);

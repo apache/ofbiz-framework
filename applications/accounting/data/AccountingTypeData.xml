@@ -96,6 +96,13 @@ under the License.
     <StatusValidChange condition="" statusId="FNACT_NEGPENDREPL" statusIdTo="FNACT_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="FNACT_MANFROZEN" statusIdTo="FNACT_ACTIVE" transitionName="Re-activate"/>
     <StatusValidChange condition="" statusId="FNACT_MANFROZEN" statusIdTo="FNACT_CANCELLED" transitionName="Cancel"/>
+
+    <!-- FinAccount Reasons for Purchase & Replenish -->
+    <EnumerationType description="Service Debit Reasons" enumTypeId="FINACCT_TRANS_REASON" parentTypeId="" hasTable="N"/>
+    <Enumeration description="Purchase" enumId="FATR_PURCHASE" enumCode="PURCHASE" enumTypeId="FINACCT_TRANS_REASON" sequenceId="01"/>
+    <Enumeration description="Initial Deposit" enumId="FATR_IDEPOSIT" enumCode="IDEPOSIT" enumTypeId="FINACCT_TRANS_REASON" sequenceId="02"/>
+    <Enumeration description="Replenishment" enumId="FATR_REPLENISH" enumCode="REPLENISH" enumTypeId="FINACCT_TRANS_REASON" sequenceId="03"/>
+    <Enumeration description="Refund" enumId="FATR_REFUND" enumCode="REFUND" enumTypeId="FINACCT_TRANS_REASON" sequenceId="04"/>
     
     <FixedAssetType description="Equipment" fixedAssetTypeId="EQUIPMENT" hasTable="N" parentTypeId=""/>
     <FixedAssetType description="The fixed asset used in the operation-routing definition" fixedAssetTypeId="PRODUCTION_EQUIPMENT" hasTable="N" parentTypeId=""/>
