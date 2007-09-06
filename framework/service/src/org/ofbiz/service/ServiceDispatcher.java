@@ -297,11 +297,15 @@ public class ServiceDispatcher {
 
             try {
                 // setup global transaction ECA listeners to execute later
-                if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "global-rollback", ctx, context, result, false, false);
-                if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "global-commit", ctx, context, result, false, false);
+                if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "global-rollback", ctx, context, result, isError, isFailure);
+                if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "global-commit", ctx, context, result, isError, isFailure);
 
                 // pre-auth ECA
-                if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "auth", ctx, context, result, false, false);
+                if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "auth", ctx, context, result, isError, isFailure);
+
+                // check for pre-auth failure/errors
+                isFailure = ServiceUtil.isFailure(result);
+                isError = ServiceUtil.isError(result);
 
                 context = checkAuth(localName, context, modelService);
                 Object userLogin = context.get("userLogin");
@@ -311,9 +315,9 @@ public class ServiceDispatcher {
                 }
 
                 // pre-validate ECA
-                if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "in-validate", ctx, context, result, false, false);
+                if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "in-validate", ctx, context, result, isError, isFailure);
 
-                // check for pre-validate failure/erros
+                // check for pre-validate failure/errors
                 isFailure = ServiceUtil.isFailure(result);
                 isError = ServiceUtil.isError(result);
 
@@ -328,9 +332,9 @@ public class ServiceDispatcher {
                 }
 
                 // pre-invoke ECA
-                if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "invoke", ctx, context, result, false, false);
+                if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "invoke", ctx, context, result, isError, isFailure);
 
-                // check for pre-invoke failure/erros
+                // check for pre-invoke failure/errors
                 isFailure = ServiceUtil.isFailure(result);
                 isError = ServiceUtil.isError(result);
 
