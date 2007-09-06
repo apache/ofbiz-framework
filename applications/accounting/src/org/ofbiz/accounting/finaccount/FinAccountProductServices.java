@@ -240,6 +240,7 @@ public class FinAccountProductServices {
         depositCtx.put("orderId", orderId);
         depositCtx.put("orderItemSeqId", orderItemSeqId);
         depositCtx.put("amount", new Double(deposit.doubleValue()));
+        depositCtx.put("reasonEnumId", "FATR_IDEPOSIT");
         depositCtx.put("userLogin", userLogin);
 
         Map depositResp;
