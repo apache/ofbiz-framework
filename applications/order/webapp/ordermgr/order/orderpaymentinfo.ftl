@@ -387,19 +387,25 @@ under the License.
       <td width="5">&nbsp;</td>
       <td nowrap="nowrap">
          <select name="paymentMethodId" class="selectBox">
-         <#list paymentMethodValueMaps as paymentMethodValueMap>
-         <#assign paymentMethod = paymentMethodValueMap.paymentMethod/>
-         <option value="${paymentMethod.get("paymentMethodId")?if_exists}">
-         <#if "CREDIT_CARD" == paymentMethod.paymentMethodTypeId>
-            <#assign creditCard = paymentMethodValueMap.creditCard/>
-            ${creditCard.cardType?if_exists} ${creditCard.cardNumber?if_exists} ${creditCard.expireDate?if_exists}                    
-         <#else>
-            ${paymentMethod.paymentMethodTypeId?if_exists} 
-            <#if paymentMethod.description?exists>${paymentMethod.description}</#if>
-            (${paymentMethod.paymentMethodId})
-         </#if> 
-         </option>
-         </#list>
+           <#list paymentMethodValueMaps as paymentMethodValueMap>
+             <#assign paymentMethod = paymentMethodValueMap.paymentMethod/>
+             <option value="${paymentMethod.get("paymentMethodId")?if_exists}">
+               <#if "CREDIT_CARD" == paymentMethod.paymentMethodTypeId>
+                 <#assign creditCard = paymentMethodValueMap.creditCard/>
+                 <#if (creditCard?has_content)>
+                   <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session)>
+                     ${creditCard.cardType?if_exists} ${creditCard.cardNumber?if_exists} ${creditCard.expireDate?if_exists}
+                   <#else>
+                     ${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
+                   </#if>
+                 </#if>
+               <#else>
+                 ${paymentMethod.paymentMethodTypeId?if_exists}
+                 <#if paymentMethod.description?exists>${paymentMethod.description}</#if>
+                   (${paymentMethod.paymentMethodId})
+                 </#if>
+               </option>
+           </#list>
          </select>
       </td>
    </tr>                    
