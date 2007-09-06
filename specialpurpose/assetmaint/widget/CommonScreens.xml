@@ -98,7 +98,6 @@
                                         <label style="head1" text="${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]  ${${extraFunctionName}}"/>
                                     </widgets>
                                     <fail-widgets>
-                                        <include-menu name="FixedAssetTabBar" location="component://assetmaint/widget/Menus.xml"/>
                                         <label style="head1" text="${uiLabelMap.${labelTitleProperty}}"/>
                                     </fail-widgets>
                                 </section>
@@ -129,16 +128,14 @@
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition>
-                                        <and>
-                                            <not><if-empty field-name="fixedAssetId"/></not>
-                                            <not><if-empty field-name="maintHistSeqId"/></not>
-                                        </and>
-                                    </condition>
+                                    <condition><not><if-empty field-name="maintHistSeqId"/></not></condition>
                                     <widgets>
                                         <include-menu name="FixedAssetMaintTabBar" location="component://assetmaint/widget/Menus.xml"/>
-                                        <label style="head1" text="${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${fixedAsset.fixedAssetName} [${uiLabelMap.CommonId}:${fixedAssetId}]  ${${extraFunctionName}}"/>
+                                        <label style="head1" text="${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${fixedAsset.fixedAssetName} [${fixedAssetId}]  ${${extraFunctionName}}"/>
                                     </widgets>
+                                    <fail-widgets>
+                                        <label style="head1" text="${uiLabelMap.${labelTitleProperty}}"/>
+                                    </fail-widgets>
                                 </section>
                             </widgets>
                             <fail-widgets>
