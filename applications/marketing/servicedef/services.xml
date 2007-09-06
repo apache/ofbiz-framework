@@ -364,7 +364,7 @@ under the License.
     <service name="marketingPermissionService" engine="simple"
              location="org/ofbiz/common/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
         <implements service="permissionInterface"/>
-        <attribute name="primaryPermission" type="String" mode="IN" optional="false" default-value="MARKETING"/>
+        <attribute name="primaryPermission" type="String" mode="IN" optional="true" default-value="MARKETING"/>
         <attribute name="altPermission" type="String" mode="IN" optional="true"/>
     </service>    
  </services>
