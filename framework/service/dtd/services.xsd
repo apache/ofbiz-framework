@@ -294,7 +294,9 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="default-value"/>
+        <xs:attribute type="xs:string" name="default-value">
+            <xs:annotation><xs:documentation>The value specified will be used for the attribute if no value is passed in. This will only happen if it is okay to not pass a value in, ie if optional=true. If optional=false a value must be passed in so this attribute would be ignored.</xs:documentation></xs:annotation>
+        </xs:attribute>
         <xs:attribute type="xs:string" name="form-label"/>
         <xs:attribute type="xs:string" name="entity-name"/>
         <xs:attribute type="xs:string" name="field-name"/>
