@@ -173,7 +173,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <container style="button-bar"><label/></container>
                         <include-form name="ListFixedAssetIdents" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <container style="button-bar"><label/></container>
                         <include-form name="AddFixedAssetIdent" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
@@ -194,7 +196,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <container style="button-bar"><label/></container>
                         <include-form name="ListFixedAssetRegistrations" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <container style="button-bar"><label/></container>
                         <include-form name="AddFixedAssetRegistration" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
@@ -215,7 +219,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetId}" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/></container>
+                        <container style="button-bar"><link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetId}" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/></container>
                         <include-form name="ListFixedAssetMaints" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
@@ -332,7 +336,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <container style="button-bar"><label/></container>
                         <include-form name="ListPartyFixedAssetAssignments" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <container style="button-bar"><label/></container>
                         <include-form name="AddPartyFixedAssetAssignment" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
