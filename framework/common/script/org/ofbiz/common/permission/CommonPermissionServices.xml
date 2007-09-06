@@ -43,8 +43,8 @@ under the License.
             <add-error><fail-property resource="CommonUiLabels" property="CommonPermissionMainActionAttributeMissing"/></add-error>
         </if-empty>
 
-        <log level="info" message="Checking for ${primaryPermission}_${mainAction}"/>
-        <log level="info" message="Checking for ${altPermission}_${mainAction}"/>
+        <log level="info" message="Checking for primary ${primaryPermission}_${mainAction}"/>
+        <log level="info" message="Checking for alternate ${altPermission}_${mainAction}"/>
         <check-errors/>
 
         <!-- check permission -->
