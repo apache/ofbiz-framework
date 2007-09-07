@@ -3711,6 +3711,22 @@ public class OrderServices {
     }
 
     public static Map massChangeApproved(DispatchContext dctx, Map context) {
+        return massChangeItemStatus(dctx, context, "ITEM_APPROVED");        
+    }
+
+    public static Map massCancelOrders(DispatchContext dctx, Map context) {
+        return massChangeItemStatus(dctx, context, "ITEM_CANCELLED");
+    }
+
+    public static Map massHoldOrders(DispatchContext dctx, Map context) {
+        return massChangeOrderStatus(dctx, context, "ORDER_HOLD");
+    }
+
+    public static Map massProcessOrders(DispatchContext dctx, Map context) {
+        return massChangeOrderStatus(dctx, context, "ORDER_PROCESSING");
+    }
+
+    public static Map massChangeOrderStatus(DispatchContext dctx, Map context, String statusId) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -3732,9 +3748,48 @@ public class OrderServices {
                 return ServiceUtil.returnError("Order #" + orderId + " was not found.");
             }
 
-            // by changing all the items to approved, the checkOrderItemStatus service will automatically set the order to approved.
             Map ctx = FastMap.newInstance();
-            ctx.put("statusId", "ITEM_APPROVED");
+            ctx.put("statusId", statusId);
+            ctx.put("orderId", orderId);
+            ctx.put("userLogin", userLogin);
+            Map resp = null;
+            try {
+                resp = dispatcher.runSync("changeOrderStatus", ctx);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError(e.getMessage());
+            }
+            if (ServiceUtil.isError(resp)) {
+                return ServiceUtil.returnError("Error changing order item status: ", null, null, resp);
+            }
+        }
+        return ServiceUtil.returnSuccess();
+    }
+
+    public static Map massChangeItemStatus(DispatchContext dctx, Map context, String statusId) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        List orderIds = (List) context.get("orderIdList");
+        Iterator i = orderIds.iterator();
+        while (i.hasNext()) {
+            String orderId = (String) i.next();
+            if (UtilValidate.isEmpty(orderId)) {
+                continue;
+            }
+            GenericValue orderHeader = null;
+            try {
+                orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError(e.getMessage());
+            }
+            if (orderHeader == null) {
+                return ServiceUtil.returnError("Order #" + orderId + " was not found.");
+            }
+
+            Map ctx = FastMap.newInstance();
+            ctx.put("statusId", statusId);
             ctx.put("orderId", orderId);
             ctx.put("userLogin", userLogin);
             Map resp = null;

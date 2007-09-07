@@ -160,6 +160,24 @@ under the License.
         <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="request-redirect" value="findorders"/>
     </request-map>
+    <request-map uri="massProcessOrders">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="massProcessOrders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
+        <response name="error" type="request-redirect" value="findorders"/>
+    </request-map>
+    <request-map uri="massHoldOrders">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="massHoldOrders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
+        <response name="error" type="request-redirect" value="findorders"/>
+    </request-map>
+    <request-map uri="massCancelOrders">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="massCancelOrders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
+        <response name="error" type="request-redirect" value="findorders"/>
+    </request-map>
     <request-map uri="massPickOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massPickOrders"/>
