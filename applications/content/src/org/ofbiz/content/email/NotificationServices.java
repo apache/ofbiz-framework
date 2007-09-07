@@ -205,12 +205,10 @@ public class NotificationServices {
                 return ServiceUtil.returnError("Problem finding template; see logs");
             }
                                     
-            InputStreamReader templateReader = new InputStreamReader(templateUrl.openStream());
-                        
             // process the template with the given data and write
             // the email body to the String buffer
             Writer writer = new StringWriter();
-            FreeMarkerWorker.renderTemplate(templateName, templateReader, templateData, writer);
+            FreeMarkerWorker.renderTemplate(templateUrl.toExternalForm(), templateData, writer);
 
             // extract the newly created body for the notification email
             String notificationBody = writer.toString();            

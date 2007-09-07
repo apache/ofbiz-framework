@@ -29,6 +29,7 @@ import java.io.*;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.base.start.Classpath;
 import org.ofbiz.base.component.ComponentConfig;
@@ -141,12 +142,6 @@ public class GenerateContainer implements Container {
 
     private void parseTemplate(File templateFile, Map dataMap) throws ContainerException {
         Debug.log("Parsing template : " + templateFile.getAbsolutePath(), module);
-        Reader reader = null;
-        try {
-            reader = new InputStreamReader(new FileInputStream(templateFile));
-        } catch (FileNotFoundException e) {
-            throw new ContainerException(e);
-        }
 
         // create the target file/directory
         String targetDirectoryName = args.length > 1 ? args[1] : null;
@@ -174,7 +169,7 @@ public class GenerateContainer implements Container {
             throw new ContainerException(e);
         }
         try {
-            FreeMarkerWorker.renderTemplate(templateFile.getAbsolutePath(), reader, dataMap, writer);
+            FreeMarkerWorker.renderTemplate(UtilURL.fromFilename(templateFile.getAbsolutePath()).toExternalForm(), dataMap, writer);
         } catch (Exception e) {
             throw new ContainerException(e);
         }

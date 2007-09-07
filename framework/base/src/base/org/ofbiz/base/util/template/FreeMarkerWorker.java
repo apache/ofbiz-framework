@@ -19,6 +19,7 @@
 package org.ofbiz.base.util.template;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
@@ -128,7 +129,7 @@ public class FreeMarkerWorker {
      * @param outWriter The Writer to render to
      */
     public static void renderTemplateAtLocation(String templateLocation, Map context, Writer outWriter) throws MalformedURLException, TemplateException, IOException {
-        renderTemplate(templateLocation, getTemplateReader(templateLocation), context, outWriter);
+        renderTemplate(templateLocation, context, outWriter);
     }
     
     /**
@@ -138,9 +139,8 @@ public class FreeMarkerWorker {
      * @param context The context Map
      * @param outWriter The Writer to render to
      */
-    public static void renderTemplate(String templateId, String templateString, Map context, Writer outWriter) throws TemplateException, IOException {
-        Reader templateReader = new StringReader(templateString);
-        renderTemplate(templateId, templateReader, context, outWriter);
+    public static void renderTemplate(String templateLocation, String templateString, Map context, Writer outWriter) throws TemplateException, IOException {
+        renderTemplate(templateLocation, context, outWriter);
     }
     
     /**
@@ -150,8 +150,8 @@ public class FreeMarkerWorker {
      * @param context The context Map
      * @param outWriter The Writer to render to
      */
-    public static void renderTemplate(String templateId, Reader templateReader, Map context, Writer outWriter) throws TemplateException, IOException {
-        Template template = getTemplate(templateId, templateReader);
+    public static void renderTemplate(String templateLocation, Map context, Writer outWriter) throws TemplateException, IOException {
+        Template template = getTemplate(templateLocation);
         renderTemplate(template, context, outWriter);
     }
  
@@ -220,8 +220,9 @@ public class FreeMarkerWorker {
         }
         return defaultOfbizConfig;
     }
-
-    public static Reader getTemplateReader(String templateLocation) throws IOException {
+    
+    /** Make sure to close the reader when you're done! That's why this method is private, BTW. */
+    private static Reader makeReader(String templateLocation) throws IOException {
         if (UtilValidate.isEmpty(templateLocation)) {
             throw new IllegalArgumentException("FreeMarker template location null or empty");
         }
@@ -229,14 +230,15 @@ public class FreeMarkerWorker {
         URL locationUrl = null;
         try {
             locationUrl = FlexibleLocation.resolveLocation(templateLocation);
-        }
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
         if (locationUrl == null) {
             throw new IllegalArgumentException("FreeMarker file not found at location: " + templateLocation);
         }
-        Reader templateReader = new InputStreamReader(locationUrl.openStream());
+        
+        InputStream locationIs = locationUrl.openStream();
+        Reader templateReader = new InputStreamReader(locationIs);
         
         String locationProtocol = locationUrl.getProtocol();
         if ("file".equals(locationProtocol) && Debug.verboseOn()) {
@@ -244,35 +246,28 @@ public class FreeMarkerWorker {
             int lastSlash = locationFile.lastIndexOf("/");
             String locationDir = locationFile.substring(0, lastSlash);
             String filename = locationFile.substring(lastSlash + 1);
-            Debug.logVerbose("FreeMarker render: filename=" + filename + ", locationDir=" + locationDir, module);
+            if (Debug.verboseOn()) Debug.logVerbose("FreeMarker render: filename=" + filename + ", locationDir=" + locationDir, module);
         }
         
         return templateReader;
     }
-    
+
     /**
      * Gets a Template instance from the template cache. If the Template instance isn't
      * found in the cache, then one will be created.
      * @param templateLocation Location of the template - file path or URL
      */
     public static Template getTemplate(String templateLocation) throws TemplateException, IOException {
-        return getTemplate(templateLocation, getTemplateReader(templateLocation));
-    }
-    
-    /**
-     * Gets a Template instance from the template cache. If the Template instance isn't
-     * found in the cache, then one will be created.
-     * @param templateId A unique ID for this template
-     * @param templateReader The Reader that reads the template
-     */
-    public static Template getTemplate(String templateId, Reader templateReader) throws TemplateException, IOException {
-        Template template = (Template) cachedTemplates.get(templateId);
+        Template template = (Template) cachedTemplates.get(templateLocation);
         if (template == null) {
             synchronized (cachedTemplates) {
-                template = (Template) cachedTemplates.get(templateId);
+                template = (Template) cachedTemplates.get(templateLocation);
                 if (template == null) {
-                    template = new Template(templateId, templateReader, getDefaultOfbizConfig());
-                    cachedTemplates.put(templateId, template);
+                    // only make the reader if we need it, and then close it right after!
+                    Reader templateReader = makeReader(templateLocation);
+                    template = new Template(templateLocation, templateReader, getDefaultOfbizConfig());
+                    templateReader.close();
+                    cachedTemplates.put(templateLocation, template);
                 }
             }
         }
@@ -612,12 +607,12 @@ public class FreeMarkerWorker {
             return new FlexibleTemplateSource(name);
         }
         public long getLastModified(Object templateSource) {
-            FlexibleTemplateSource fts = (FlexibleTemplateSource)templateSource;
+            FlexibleTemplateSource fts = (FlexibleTemplateSource) templateSource;
             return fts.getLastModified();
         }
         public Reader getReader(Object templateSource, String encoding) throws IOException {
-            FlexibleTemplateSource fts = (FlexibleTemplateSource)templateSource;
-            return getTemplateReader(fts.getTemplateLocation());
+            FlexibleTemplateSource fts = (FlexibleTemplateSource) templateSource;
+            return makeReader(fts.getTemplateLocation());
         }
         public void closeTemplateSource(Object templateSource) throws IOException {
             // do nothing
