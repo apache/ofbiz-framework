@@ -760,8 +760,17 @@ public class FinAccountPaymentServices {
             }
         }
 
-        // the deposit is level - balance (500 - (-10) = 510 || 500 - (10) = 490)
-        BigDecimal depositAmount = replenishLevel.subtract(balance);
+        String replenishMethod = finAccountSettings.getString("replenishMethodEnumId");
+        BigDecimal depositAmount;
+        if (replenishMethod == null || "FARP_TOP_OFF".equals(replenishMethod)) {
+            //the deposit is level - balance (500 - (-10) = 510 || 500 - (10) = 490)
+            depositAmount = replenishLevel.subtract(balance);
+        } else if ("FARP_REPLENISH_LEVEL".equals(replenishMethod)) {
+            //the deposit is replenish-level itself
+            depositAmount = replenishLevel;
+        } else {
+            return ServiceUtil.returnError("Unknown replenish method found");
+        }
 
         // get the owner party
         String ownerPartyId = finAccount.getString("ownerPartyId");
