@@ -408,4 +408,34 @@ under the License.
             </widgets>
        </section>
     </screen>
+    <screen name="EditProductStoreFinAccountSettings">
+       <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductStoreFinAccountSettings"/>
+                <set field="headerItem" value="store"/>
+                <set field="tabButtonItem" value="EditProductStoreFinAccountSettings"/>
+                <set field="labelTitleProperty" value="ProductStoreFinAccountSettings"/>
+
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="true"/>
+
+                <entity-one entity-name="ProductStoreFinActSetting" value-name="finAccountSetting"/>
+                <entity-condition entity-name="ProductStoreFinActSetting" list-name="productStoreFinActSettings">
+                    <condition-expr field-name="productStoreId" env-name="productStoreId"/>                    
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="widget-container">
+                            <include-form name="ListProductStoreFinAccountSettings" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                        </container>
+                        <container style="widget-container">
+                            <include-form name="EditProductStoreFinAccountSettings" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+       </section>
+    </screen>
 </screens>

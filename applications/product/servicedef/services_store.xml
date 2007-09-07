@@ -239,4 +239,23 @@ under the License.
         <description>Delete ProductStorePromoAppl</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- ProductStoreFinActSetting Services -->
+    <service name="createProductStoreFinActSetting" default-entity-name="ProductStoreFinActSetting" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreFinActSetting" auth="true">
+        <description>Create ProductStoreFinActSetting</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductStoreFinActSetting" default-entity-name="ProductStoreFinActSetting" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="updateProductStoreFinActSetting" auth="true">
+        <description>Update ProductStoreFinActSetting</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeProductStoreFinActSetting" default-entity-name="ProductStoreFinActSetting" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="removeProductStoreFinActSetting" auth="true">
+        <description>Remove ProductStoreFinActSetting</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

@@ -343,6 +343,37 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
 
+    <!-- Product Store FinAccount Settings -->
+    <simple-method method-name="createProductStoreFinActSetting" short-description="Create a ProductStoreFinActSetting">
+        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductStoreFinActSetting you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="finAcctSetting" entity-name="ProductStoreFinActSetting"/>
+        <set-pk-fields value-name="finAcctSetting" map-name="parameters"/>
+        <set-nonpk-fields value-name="finAcctSetting" map-name="parameters"/>
+        <create-value value-name="finAcctSetting"/>
+    </simple-method>
+    <simple-method method-name="updateProductStoreFinActSetting" short-description="Update a ProductStoreFinActSetting">
+        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductStoreFinActSetting you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupPk" entity-name="ProductStoreFinActSetting"/>
+        <set-pk-fields value-name="lookupPk" map-name="parameters"/>
+        <find-by-primary-key map-name="lookupPk" value-name="finAccountSetting"/>
+
+        <set-nonpk-fields value-name="finAccountSetting" map-name="parameters"/>
+        <store-value value-name="finAccountSetting"/>
+    </simple-method>
+    <simple-method method-name="removeProductStoreFinActSetting" short-description="Remove a ProductStoreFinActSetting">
+        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductStoreFinActSetting you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupPk" entity-name="ProductStoreFinActSetting"/>
+        <set-pk-fields value-name="lookupPk" map-name="parameters"/>
+        <find-by-primary-key map-name="lookupPk" value-name="finAccountSetting"/>
+        <remove-value value-name="finAccountSetting"/>
+    </simple-method>
+
     <!-- Store Inventory Services -->
     <simple-method method-name="reserveStoreInventory" short-description="Reserve Store Inventory">
         <entity-one entity-name="Product" value-name="product" use-cache="true"/>
