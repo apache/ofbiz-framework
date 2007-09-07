@@ -129,6 +129,7 @@ under the License.
         <field name="invoiceId"><hidden/></field>
         <field name="invoiceItemSeqId"><display/></field>
         <field name="invoiceItemTypeId"><display-entity description="${description}" entity-name="InvoiceItemType"/></field>
+        <field name="orderId" widget-style="linktext"><hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app" description="${orderId}"/></field>
         <field name="inventoryItemId" widget-area-style="align-text"><display/></field>
         <field name="quantity" widget-area-style="align-text"><display/></field>
         <field name="amount" title="${uiLabelMap.AccountingUnitPrice}" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>

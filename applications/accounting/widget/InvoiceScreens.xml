@@ -113,10 +113,7 @@ under the License.
                     <order-by field-name="invoiceTermId"/>
                 </entity-and>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/createApplicationList.bsh"/>
-                <entity-and entity-name="InvoiceItem" list-name="invoiceItems">
-                    <field-map field-name="invoiceId" value="${parameters.invoiceId}"/>
-                    <order-by field-name="invoiceItemSeqId"/>
-                </entity-and>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/orderListInvoiceItem.bsh"/>
                 <set field="invoiceAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotalBd(invoice)}"/>
                 <set field="notAppliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}"/>
                 <set field="appliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceAppliedBd(invoice)}"/>
