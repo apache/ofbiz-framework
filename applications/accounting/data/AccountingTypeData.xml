@@ -70,6 +70,10 @@ under the License.
     <Enumeration description="Manual Replenish" enumCode="MANUAL" enumId="FARP_MANUAL" sequenceId="02" enumTypeId="FARP_TYPE"/>
     <Enumeration description="No Replenish" enumCode="NONE" enumId="FARP_NONE" sequenceId="03" enumTypeId="FARP_TYPE"/>
     
+    <EnumerationType description="Financial Account Replenish Method" enumTypeId="FARP_METHOD" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Top-off" enumCode="TOP_OFF" enumId="FARP_TOP_OFF" sequenceId="01" enumTypeId="FARP_METHOD"/>
+    <Enumeration description="Replenish-level" enumCode="REPLENISH_LEVEL" enumId="FARP_REPLENISH_LEVEL" sequenceId="02" enumTypeId="FARP_METHOD"/>
+    
     <FinAccountTransType description="Deposit" finAccountTransTypeId="DEPOSIT" hasTable="N" parentTypeId=""/>
     <FinAccountTransType description="Withdraw" finAccountTransTypeId="WITHDRAWAL" hasTable="N" parentTypeId=""/>
     <FinAccountTransType description="Adjustment" finAccountTransTypeId="ADJUSTMENT" hasTable="N" parentTypeId=""/>
