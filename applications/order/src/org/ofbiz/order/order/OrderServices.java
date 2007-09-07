@@ -3718,6 +3718,10 @@ public class OrderServices {
         return massChangeItemStatus(dctx, context, "ITEM_CANCELLED");
     }
 
+    public static Map massRejectOrders(DispatchContext dctx, Map context) {
+        return massChangeItemStatus(dctx, context, "ITEM_REJECTED");
+    }
+
     public static Map massHoldOrders(DispatchContext dctx, Map context) {
         return massChangeOrderStatus(dctx, context, "ORDER_HOLD");
     }

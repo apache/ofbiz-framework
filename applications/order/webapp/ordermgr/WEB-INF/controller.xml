@@ -178,6 +178,12 @@ under the License.
         <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="request-redirect" value="findorders"/>
     </request-map>
+    <request-map uri="massRejectOrders">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="massRejectOrders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
+        <response name="error" type="request-redirect" value="findorders"/>
+    </request-map>
     <request-map uri="massPickOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massPickOrders"/>
