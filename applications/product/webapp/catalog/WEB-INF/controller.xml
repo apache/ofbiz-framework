@@ -2146,7 +2146,34 @@ under the License.
     </request-map>
 
     <!-- ================ ProductStore Segment Requests ================= -->
-    <request-map uri="ViewProductStoreSegments"><security https="true" auth="true"/><response name="success" type="view" value="ViewProductStoreSegments"/></request-map>
+    <request-map uri="ViewProductStoreSegments">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewProductStoreSegments"/>
+    </request-map>
+
+    <!-- ================ ProductStore FinAccount Settings ================ -->
+    <request-map uri="EditProductStoreFinAccountSettings">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductStoreFinAccountSettings"/>
+    </request-map>
+    <request-map uri="CreateProductStoreFinAccountSettings">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createProductStoreFinActSetting"/>
+        <response name="success" type="view" value="EditProductStoreFinAccountSettings"/>
+        <response name="error" type="view" value="EditProductStoreFinAccountSettings"/>
+    </request-map>
+    <request-map uri="UpdateProductStoreFinAccountSettings">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateProductStoreFinActSetting"/>
+        <response name="success" type="view" value="EditProductStoreFinAccountSettings"/>
+        <response name="error" type="view" value="EditProductStoreFinAccountSettings"/>
+    </request-map>
+    <request-map uri="RemoveProductStoreFinAccountSettings">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeProductStoreFinActSetting"/>
+        <response name="success" type="view" value="EditProductStoreFinAccountSettings"/>
+        <response name="error" type="view" value="EditProductStoreFinAccountSettings"/>
+    </request-map>
 
     <!-- ================ Keyword Thesaurus Requests ================= -->
     <request-map uri="editKeywordThesaurus">
@@ -2534,6 +2561,7 @@ under the License.
     <view-map name="EditProductStoreWebSites" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreWebSites"/>
     <view-map name="EditProductStoreKeywordOvrd" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreKeywordOvrd"/>
     <view-map name="ViewProductStoreSegments" type="screen" page="component://product/widget/catalog/StoreScreens.xml#ViewProductStoreSegments"/>
+    <view-map name="EditProductStoreFinAccountSettings" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreFinAccountSettings"/>    
 
     <view-map name="EditKeywordThesaurus" type="screen" page="component://product/widget/catalog/ThesaurusScreens.xml#EditKeywordThesaurus"/>
 

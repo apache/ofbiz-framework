@@ -3465,7 +3465,10 @@ under the License.
       </field>
       <field name="allowAuthToNegative" type="indicator"></field>
       <field name="minBalance" type="currency-amount"></field>        
-      <field name="replenishThreshold" type="currency-amount"></field> 
+      <field name="replenishThreshold" type="currency-amount"></field>
+      <field name="replenishMethodEnumId" type="id">
+        <description>Replenish Method for Replenish Account. Can be FARP_TOP_OFF or FARP_REPLENISH_LEVEL. Default FARP_TOP_OFF.</description>
+      </field>
       <prim-key field="productStoreId"/>
       <prim-key field="finAccountTypeId"/>
       <relation rel-entity-name="ProductStore" type="one" fk-name="PRSTFNAC_PRDS">
@@ -3476,6 +3479,9 @@ under the License.
       </relation>
       <relation rel-entity-name="Survey" type="one" fk-name="PRSTFNAC_SRVY">
         <key-map field-name="purchaseSurveyId" rel-field-name="surveyId"/>
+      </relation>
+      <relation type="one" fk-name="PRSTFNAC_FARPMTD" title="ReplenishMethod" rel-entity-name="Enumeration">
+        <key-map field-name="replenishMethodEnumId" rel-field-name="enumId"/>
       </relation>
     </entity>         
     <entity entity-name="ProductStoreFacility"

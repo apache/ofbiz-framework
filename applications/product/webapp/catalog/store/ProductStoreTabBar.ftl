@@ -29,6 +29,7 @@ under the License.
       <a href="<@ofbizUrl>EditProductStoreShipSetup?productStoreId=${productStoreId}</@ofbizUrl>" class="${selectedClassMap.EditProductStoreShipSetup?default(unselectedClassName)}">${uiLabelMap.OrderShipping}</a>
       <a href="<@ofbizUrl>EditProductStoreShipmentCostEstimates?productStoreId=${productStoreId}</@ofbizUrl>" class="${selectedClassMap.EditProductStoreShipmentCostEstimates?default(unselectedClassName)}">${uiLabelMap.ProductViewEstimates}</a>
       <a href="<@ofbizUrl>EditProductStorePaySetup?productStoreId=${productStoreId}</@ofbizUrl>" class="${selectedClassMap.EditProductStorePaySetup?default(unselectedClassName)}">${uiLabelMap.AccountingPayments}</a>
+      <a href="<@ofbizUrl>EditProductStoreFinAccountSettings?productStoreId=${productStoreId}</@ofbizUrl>" class="${selectedClassMap.EditProductStoreFinAccountSettings?default(unselectedClassName)}">${uiLabelMap.CommonFinAccounts}</a>
       <a href="<@ofbizUrl>EditProductStoreEmails?productStoreId=${productStoreId}</@ofbizUrl>" class="${selectedClassMap.EditProductStoreEmails?default(unselectedClassName)}">${uiLabelMap.CommonEmails}</a>
       <a href="<@ofbizUrl>EditProductStoreSurveys?productStoreId=${productStoreId}</@ofbizUrl>" class="${selectedClassMap.EditProductStoreSurveys?default(unselectedClassName)}">${uiLabelMap.CommonSurveys}</a>
       <a href="<@ofbizUrl>editProductStoreKeywordOvrd?productStoreId=${productStoreId}</@ofbizUrl>" class="${selectedClassMap.EditProductStoreKeywordOvrd?default(unselectedClassName)}">${uiLabelMap.ProductOverride}</a>

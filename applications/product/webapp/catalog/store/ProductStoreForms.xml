@@ -268,6 +268,49 @@
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 
+    <form name="ListProductStoreFinAccountSettings" type="list" target="UpdateProductStoreFinAccountSettings" list-name="productStoreFinActSettings">
+        <auto-fields-service service-name="updateProductStoreFinActSetting" default-field-type="display"/>
+        <field name="productStoreId"><ignored/></field>
+        <field name="finAccountTypeId">
+            <display-entity entity-name="FinAccountType" description="${description}" key-field-name="finAccountTypeId"/>
+        </field>
+        <field name="replenishMethodEnumId">
+            <display-entity entity-name="Enumeration" description="${description}" key-field-name="enumId"/>
+        </field>
+        <field name="remove" title="&amp;nbsp;">
+            <hyperlink target="RemoveProductStoreFinAccountSettings?productStoreId=${productStoreId}&amp;finAccountTypeId=${finAccountTypeId}" description="${uiLabelMap.CommonRemove}"/>
+        </field>
+        <field name="edit" title="&amp;nbsp;">
+            <hyperlink target="EditProductStoreFinAccountSettings?productStoreId=${productStoreId}&amp;finAccountTypeId=${finAccountTypeId}" description="${uiLabelMap.CommonEdit}"/>
+        </field>
+    </form>
+    <form name="EditProductStoreFinAccountSettings" type="single" target="UpdateProductStoreFinAccountSettings" default-map-name="finAccountSetting">
+        <alt-target use-when="finAccountSetting==null" target="CreateProductStoreFinAccountSettings"/>
+        <auto-fields-service service-name="updateProductStoreFinActSetting"/>
+
+        <field name="productStoreId"><hidden/></field>
+        <field name="finAccountTypeId" use-when="finAccountSetting!=null">
+            <display-entity entity-name="FinAccountType" also-hidden="true" description="${description}" key-field-name="finAccountTypeId"/>
+        </field>
+        <field name="finAccountTypeId" use-when="finAccountSetting==null">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="FinAccountType" description="${description}" key-field-name="finAccountTypeId"/>
+            </drop-down>            
+        </field>
+
+        <field name="replenishMethodEnumId">
+            <drop-down allow-empty="false" no-current-selected-key="FARP_TOP_OFF">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                    <entity-constraint name="enumTypeId" value="FARP_METHOD"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+
+        <field name="spacer" title="&amp;nbsp;"><display/></field>
+        <field name="submit" title="${uiLabelMap.CommonSubmit}"><submit/></field>
+    </form>
+
     <form name="CreateProductStoreCatalog" type="single" target="createProductStoreCatalog" title=""
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createProductStoreCatalog"/>
