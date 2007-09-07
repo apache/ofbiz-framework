@@ -55,7 +55,7 @@ import org.ofbiz.entity.util.ByteWrapper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-
+import org.ofbiz.base.crypto.HashCrypt;
 /**
  * Generic Entity Value Object - Handles persisntence for any defined entity.
  * <p>Note that this class extends <code>Observable</code> to achieve change notification for
@@ -1140,12 +1140,47 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
         return cachedHashCode;
     }
 
-    /** Creates a String for the entity, overrides the default toString
-     *@return    String corresponding to this entity
+    /**
+     * Creates a String for the entity, overrides the default toString
+     * This method is secure, it will not display encrypted fields
+     *
+     *@return String corresponding to this entity
      */
     public String toString() {
         StringBuffer theString = new StringBuffer();
+        theString.append("[GenericEntity:");
+        theString.append(getEntityName());
+        theString.append(']');
 
+        Iterator keyNames = new TreeSet(fields.keySet()).iterator();
+        while (keyNames.hasNext()) {
+            String curKey = (String) keyNames.next();
+            Object curValue = fields.get(curKey);
+            ModelField field = this.getModelEntity().getField(curKey);
+            if (field.getEncrypt()) {
+                String encryptField = (String) curValue;
+                curValue = HashCrypt.getDigestHash(encryptField);
+            }
+            theString.append('[');
+            theString.append(curKey);
+            theString.append(',');
+            theString.append(curValue);
+            theString.append('(');
+            theString.append(curValue != null ? curValue.getClass().getName() : "");
+            theString.append(')');
+            theString.append(']');
+        }
+        return theString.toString();
+    }
+
+    /**
+     * Creates a String for the entity, overrides the default toString
+     * This method is NOT secure, it WILL display encrypted fields
+     *
+     *@return String corresponding to this entity
+     */
+    public String toStringInsecure() {
+        StringBuffer theString = new StringBuffer();
         theString.append("[GenericEntity:");
         theString.append(getEntityName());
         theString.append(']');
