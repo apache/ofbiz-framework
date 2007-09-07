@@ -274,7 +274,7 @@ public class PaymentMethodServices {
         if (updatedCardNumber.startsWith("*")) {
             // get the masked card number from the db
             String origCardNumber = creditCard.getString("cardNumber");
-            Debug.log(origCardNumber);
+            Debug.log("CCInfo: " + creditCard.toString(), module);
             String origMaskedNumber = "";
             int cardLength = origCardNumber.length() - 4;
             for (int i = 0; i < cardLength; i++) {
