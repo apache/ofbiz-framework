@@ -28,6 +28,8 @@ import java.util.Map;
 
 import javax.transaction.Transaction;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.crypto.HashCrypt;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -37,10 +39,15 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.entity.util.EntityFindOptions;
+import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ModelService;
@@ -340,7 +347,47 @@ public class LoginServices {
         }
         return result;
     }
-
+    
+    private static void createUserLoginPasswordHistory(GenericDelegator delegator,String userLoginId, String currentPassword) throws GenericEntityException{
+        int passwordChangeHistoryLimit = 0;
+        try {
+            passwordChangeHistoryLimit = Integer.parseInt(UtilProperties.getPropertyValue("security.properties", "password.change.history.limit", "0"));
+        } catch (NumberFormatException nfe) {
+            //No valid value is found so don't bother to save any password history
+            passwordChangeHistoryLimit = 0;
+        }
+        if(passwordChangeHistoryLimit == 0 || passwordChangeHistoryLimit < 0){
+            // Not saving password history, so return from here.
+            return;
+        }
+        List exprs = FastList.newInstance();
+        EntityFindOptions efo = new EntityFindOptions();
+        efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
+        exprs.add(new EntityExpr("userLoginId", EntityOperator.EQUALS, userLoginId));
+        List orderBy = UtilMisc.toList("-fromDate");
+        EntityListIterator eli = delegator.findListIteratorByCondition("UserLoginPasswordHistory", new EntityConditionList(exprs, EntityOperator.AND),null, null,  orderBy,efo);
+        Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
+        GenericValue pwdHist;
+        if((pwdHist = (GenericValue) eli.next()) !=null){
+            // updating password so set end date on previous password in history
+            pwdHist.set("thruDate", nowTimestamp);
+            pwdHist.store();
+            // check if we have hit the limit on number of password changes to be saved. If we did then delete the oldest password from history.
+            eli.last();
+            int rowIndex = eli.currentIndex();
+            if(rowIndex==passwordChangeHistoryLimit){
+                eli.afterLast();
+                pwdHist = (GenericValue) eli.previous();
+                pwdHist.remove();
+            }
+        }
+        // save this password in history         
+        GenericValue userLoginPwdHistToCreate = delegator.makeValue("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId", userLoginId,"fromDate", nowTimestamp));
+        boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
+        userLoginPwdHistToCreate.set("currentPassword", useEncryption ? getPasswordHash(currentPassword) : currentPassword);
+        userLoginPwdHistToCreate.create();
+    }
+    
     /** Creates a UserLogin
      *@param ctx The DispatchContext that this service is operating in
      *@param context Map containing the input parameters
@@ -421,6 +468,7 @@ public class LoginServices {
 
         try {
             userLoginToCreate.create();
+            createUserLoginPasswordHistory(delegator,userLoginId, currentPassword);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "", module);
             Map messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
@@ -493,7 +541,6 @@ public class LoginServices {
         }
 
         List errorMessageList = new LinkedList();
-
         if (newPassword != null && newPassword.length() > 0) {
             checkNewPassword(userLoginToUpdate, currentPassword, newPassword, newPasswordVerify,
                 passwordHint, errorMessageList, adminUser, locale);
@@ -509,6 +556,7 @@ public class LoginServices {
 
         try {
             userLoginToUpdate.store();
+            createUserLoginPasswordHistory(delegator,userLoginId, newPassword);
         } catch (GenericEntityException e) {
             Map messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_write_failure", messageMap, locale);
@@ -732,6 +780,38 @@ public class LoginServices {
                 errorMessageList.add(errMsg);
             }
 
+        }
+
+        int passwordChangeHistoryLimit = 0;
+        try {
+            passwordChangeHistoryLimit = Integer.parseInt(UtilProperties.getPropertyValue("security.properties", "password.change.history.limit", "0"));
+        } catch (NumberFormatException nfe) {
+            //No valid value is found so don't bother to save any password history
+            passwordChangeHistoryLimit = 0;
+        }
+        Debug.logInfo(" checkNewPassword passwordChangeHistoryLimitpasswordChangeHistoryLimitpasswordChangeHistoryLimit" + passwordChangeHistoryLimit, module);
+        if(passwordChangeHistoryLimit > 0 ){
+            Debug.logInfo(" checkNewPassword Checking of user is tyring to use old password " + passwordChangeHistoryLimit, module);
+            GenericDelegator delegator = userLogin.getDelegator();
+            String newPasswordHash = newPassword;
+            if (useEncryption) {
+                newPasswordHash = LoginServices.getPasswordHash(newPassword);
+            }                
+            try {
+                List pwdHistList = delegator.findByAnd("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId",userLogin.getString("userLoginId"),"currentPassword",newPasswordHash));
+                Debug.logInfo(" checkNewPassword pwdHistListpwdHistList " + pwdHistList.size(), module);
+                if(pwdHistList.size() >0){
+                    Map messageMap = UtilMisc.toMap("passwordChangeHistoryLimit", passwordChangeHistoryLimit);
+                    errMsg = UtilProperties.getMessage(resource,"loginservices.password_must_be_different_from_last_passwords", messageMap, locale);
+                    errorMessageList.add(errMsg);
+                    Debug.logInfo(" checkNewPassword errorMessageListerrorMessageList " + pwdHistList.size(), module);
+                }
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, "", module);
+                Map messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
+                errMsg = UtilProperties.getMessage(resource,"loginevents.error_accessing_password_change_history", messageMap, locale);
+            }
+           
         }
 
         if (!UtilValidate.isNotEmpty(newPassword) || !UtilValidate.isNotEmpty(newPasswordVerify)) {

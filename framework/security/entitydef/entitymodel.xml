@@ -77,6 +77,20 @@ under the License.
       <field name="successiveFailedLogins" type="numeric"></field>
       <prim-key field="userLoginId"/>
     </entity>
+    <entity entity-name="UserLoginPasswordHistory"
+            package-name="org.ofbiz.security.login"
+            never-cache="true"
+            title="User Login Password History Entity">
+      <field name="userLoginId" type="id-vlong-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="currentPassword" type="short-varchar"></field>
+      <prim-key field="userLoginId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="USER_LPH_USER" rel-entity-name="UserLogin">
+        <key-map field-name="userLoginId"/>
+      </relation>
+    </entity>
     <entity entity-name="UserLoginHistory"
             package-name="org.ofbiz.security.login"
             never-cache="true"

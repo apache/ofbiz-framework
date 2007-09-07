@@ -32,6 +32,7 @@ under the License.
   <!-- ========================================================= -->
     
     <entity-group group="org.ofbiz" entity="UserLogin" />
+    <entity-group group="org.ofbiz" entity="UserLoginPasswordHistory" />
     <entity-group group="org.ofbiz" entity="UserLoginHistory" />
     <entity-group group="org.ofbiz" entity="UserLoginSession" />
 
