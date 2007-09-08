@@ -65,6 +65,7 @@ under the License.
         <xs:attribute type="xs:string" name="package-name" use="required"/>
         <xs:attribute type="xs:string" name="default-resource-name"/>
         <xs:attribute type="xs:string" name="dependent-on"/>
+        <xs:attribute type="xs:string" name="sequence-bank-size"/>
         <xs:attribute name="enable-lock" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
