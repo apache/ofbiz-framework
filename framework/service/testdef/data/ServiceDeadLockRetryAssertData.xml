@@ -19,6 +19,6 @@ under the License.
 -->
 <entity-engine-xml>
     <!-- assert data for service dead lock recovery test -->
-    <TestingType testingTypeId="SVCLRT_A" description="New description for SVCLRT_A"/>
-    <TestingType testingTypeId="SVCLRT_B" description="New description for SVCLRT_B"/>
+    <TestingType testingTypeId="SVCLRT_A" description="New description for SVCLRT_A from Thread B"/>
+    <TestingType testingTypeId="SVCLRT_B" description="New description for SVCLRT_B from Thread A"/>
 </entity-engine-xml>

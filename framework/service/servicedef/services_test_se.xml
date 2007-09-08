@@ -29,10 +29,10 @@ under the License.
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceDeadLockRetry">
         <implements service="testServiceInterface"/>
     </service>
-    <service name="testServiceDeadLockRetryThreadA" engine="java" auth="false"
+    <service name="testServiceDeadLockRetryThreadA" engine="java" auth="false" transaction-timeout="10"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceDeadLockRetryThreadA">
     </service>
-    <service name="testServiceDeadLockRetryThreadB" engine="java" auth="false"
+    <service name="testServiceDeadLockRetryThreadB" engine="java" auth="false" transaction-timeout="4"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceDeadLockRetryThreadB">
     </service>
     
@@ -41,10 +41,19 @@ under the License.
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetry">
         <implements service="testServiceInterface"/>
     </service>
-    <service name="testServiceLockWaitTimeoutRetryGrabber" engine="java" auth="false"
+    <service name="testServiceLockWaitTimeoutRetryGrabber" engine="java" auth="false" transaction-timeout="6"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryGrabber">
     </service>
-    <service name="testServiceLockWaitTimeoutRetryWaiter" engine="java" auth="false"
+    <service name="testServiceLockWaitTimeoutRetryWaiter" engine="java" auth="false" transaction-timeout="2"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryWaiter">
+    </service>
+    
+    <!-- lock wait timeout retry testing services - a scenario that I can't figure out yet how to recover automatically -->
+    <service name="testServiceLockWaitTimeoutRetryCantRecover" engine="java" auth="false" transaction-timeout="2"
+        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryCantRecover">
+        <implements service="testServiceInterface"/>
+    </service>
+    <service name="testServiceLockWaitTimeoutRetryCantRecoverWaiter" engine="java" auth="false" transaction-timeout="4"
+        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryCantRecoverWaiter">
     </service>
 </services>
