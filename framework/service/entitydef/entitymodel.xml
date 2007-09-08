@@ -40,47 +40,46 @@ under the License.
   <!-- org.ofbiz.service.schedule -->
   <!-- ========================================================= -->
 
-    <entity entity-name="JobSandbox"
-            package-name="org.ofbiz.service.schedule"
-            title="Job Scheduler Sandbox Entity">
-      <field name="jobId" type="id-ne"></field>
-      <field name="jobName" type="name"></field>
-      <field name="runTime" type="date-time"></field>
-      <field name="poolId" type="name"></field>
-      <field name="statusId" type="id"></field>
-      <field name="parentJobId" type="id"></field>
-      <field name="previousJobId" type="id"></field>
-      <field name="serviceName" type="name"></field>
-      <field name="loaderName" type="name"></field>
-      <field name="maxRetry" type="numeric"></field>
-      <field name="authUserLoginId" type="id-vlong"></field>
-      <field name="runAsUser" type="id-vlong"></field>
-      <field name="runtimeDataId" type="id"></field>
-      <field name="recurrenceInfoId" type="id"></field>
-      <field name="runByInstanceId" type="id"></field>
-      <field name="startDateTime" type="date-time"></field>
-      <field name="finishDateTime" type="date-time"></field>
-      <field name="cancelDateTime" type="date-time"></field>
-      <prim-key field="jobId"/>
-      <relation type="one" fk-name="JOB_SNDBX_RECINFO" rel-entity-name="RecurrenceInfo">
-        <key-map field-name="recurrenceInfoId"/>
-      </relation>
-      <relation type="one" fk-name="JOB_SNDBX_RNTMDTA" rel-entity-name="RuntimeData">
-        <key-map field-name="runtimeDataId"/>
-      </relation>
-      <relation type="one" fk-name="JOB_SNDBX_AUSRLGN" title="Auth" rel-entity-name="UserLogin">
-        <key-map field-name="authUserLoginId" rel-field-name="userLoginId"/>
-      </relation>
-      <relation type="one" fk-name="JOB_SNDBX_USRLGN" title="RunAs" rel-entity-name="UserLogin">
-        <key-map field-name="runAsUser" rel-field-name="userLoginId"/>
-      </relation>
-      <relation type="one" fk-name="JOB_SNDBX_STTS" rel-entity-name="StatusItem">
-        <key-map field-name="statusId"/>
-      </relation>
-      <index name="JOB_SNDBX_RUNSTAT">
-          <index-field name="runByInstanceId"/>
-          <index-field name="statusId"/>
-      </index>
+    <entity entity-name="JobSandbox" package-name="org.ofbiz.service.schedule" title="Job Scheduler Sandbox Entity"
+        sequence-bank-size="100">
+        <field name="jobId" type="id-ne"></field>
+        <field name="jobName" type="name"></field>
+        <field name="runTime" type="date-time"></field>
+        <field name="poolId" type="name"></field>
+        <field name="statusId" type="id"></field>
+        <field name="parentJobId" type="id"></field>
+        <field name="previousJobId" type="id"></field>
+        <field name="serviceName" type="name"></field>
+        <field name="loaderName" type="name"></field>
+        <field name="maxRetry" type="numeric"></field>
+        <field name="authUserLoginId" type="id-vlong"></field>
+        <field name="runAsUser" type="id-vlong"></field>
+        <field name="runtimeDataId" type="id"></field>
+        <field name="recurrenceInfoId" type="id"></field>
+        <field name="runByInstanceId" type="id"></field>
+        <field name="startDateTime" type="date-time"></field>
+        <field name="finishDateTime" type="date-time"></field>
+        <field name="cancelDateTime" type="date-time"></field>
+        <prim-key field="jobId"/>
+        <relation type="one" fk-name="JOB_SNDBX_RECINFO" rel-entity-name="RecurrenceInfo">
+            <key-map field-name="recurrenceInfoId"/>
+        </relation>
+        <relation type="one" fk-name="JOB_SNDBX_RNTMDTA" rel-entity-name="RuntimeData">
+            <key-map field-name="runtimeDataId"/>
+        </relation>
+        <relation type="one" fk-name="JOB_SNDBX_AUSRLGN" title="Auth" rel-entity-name="UserLogin">
+            <key-map field-name="authUserLoginId" rel-field-name="userLoginId"/>
+        </relation>
+        <relation type="one" fk-name="JOB_SNDBX_USRLGN" title="RunAs" rel-entity-name="UserLogin">
+            <key-map field-name="runAsUser" rel-field-name="userLoginId"/>
+        </relation>
+        <relation type="one" fk-name="JOB_SNDBX_STTS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+        <index name="JOB_SNDBX_RUNSTAT">
+            <index-field name="runByInstanceId"/>
+            <index-field name="statusId"/>
+        </index>
     </entity>
     <entity entity-name="RecurrenceInfo"
             package-name="org.ofbiz.service.schedule"
@@ -121,12 +120,10 @@ under the License.
       <field name="xName" type="very-long"></field>
       <prim-key field="recurrenceRuleId"/>
     </entity>
-    <entity entity-name="RuntimeData"
-            package-name="org.ofbiz.service.schedule"
-            title="Runtime Data Entity">
-      <field name="runtimeDataId" type="id-ne"></field>
-      <field name="runtimeInfo" type="very-long"></field>
-      <prim-key field="runtimeDataId"/>
+    <entity entity-name="RuntimeData" package-name="org.ofbiz.service.schedule" title="Runtime Data Entity"
+        sequence-bank-size="100">
+        <field name="runtimeDataId" type="id-ne"></field>
+        <field name="runtimeInfo" type="very-long"></field>
+        <prim-key field="runtimeDataId"/>
     </entity>
 </entitymodel>
-

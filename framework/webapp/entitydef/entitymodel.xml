@@ -69,7 +69,7 @@ under the License.
             never-cache="true"
             title="Server Hit Entity">
       <field name="visitId" type="id-ne"></field>
-      <field name="contentId" type="id-vlong-ne"></field>
+      <field name="contentId" type="id-vlong-ne"><!-- This is called contentId but has nothing to do with the Content entity in many cases. The value can vary. For example for the ControlServlet request it is "${webapp-name}.${request-map-name}" --></field>
       <field name="hitStartDateTime" type="date-time"></field>
       <field name="hitTypeId" type="id-ne"></field>
       <field name="numOfBytes" type="numeric"></field>
@@ -97,10 +97,7 @@ under the License.
         <key-map field-name="userLoginId"/>
       </relation>
     </entity>
-    <entity entity-name="ServerHitBin"
-            package-name="org.ofbiz.webapp.visit"
-            never-cache="true"
-            title="Server Hit Bin Entity">
+    <entity entity-name="ServerHitBin" package-name="org.ofbiz.webapp.visit" never-cache="true" title="Server Hit Bin Entity">
       <field name="serverHitBinId" type="id-ne"></field>
       <field name="contentId" type="id-vlong-ne"></field>
       <field name="hitTypeId" type="id-ne"></field>
@@ -165,7 +162,8 @@ under the License.
       <field name="description" type="description"></field>
       <prim-key field="userAgentTypeId"/>
     </entity>
-    <entity entity-name="Visit" package-name="org.ofbiz.webapp.visit" never-cache="true" title="Visit Entity">
+    <entity entity-name="Visit" package-name="org.ofbiz.webapp.visit" never-cache="true" title="Visit Entity" 
+        sequence-bank-size="100">
         <field name="visitId" type="id-ne"></field>
         <field name="visitorId" type="id"></field>
         <field name="userLoginId" type="id-vlong"></field>
@@ -206,7 +204,8 @@ under the License.
             <index-field name="thruDate"/>
         </index>
     </entity>
-    <entity entity-name="Visitor" package-name="org.ofbiz.webapp.visit" title="Visitor Entity">
+    <entity entity-name="Visitor" package-name="org.ofbiz.webapp.visit" title="Visitor Entity" 
+        sequence-bank-size="100">
         <field name="visitorId" type="id-ne"></field>
         <field name="userLoginId" type="id-vlong"></field>
         <prim-key field="visitorId"/>
