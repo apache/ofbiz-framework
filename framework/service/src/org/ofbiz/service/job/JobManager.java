@@ -27,6 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
@@ -103,7 +104,7 @@ public class JobManager {
     }
 
     public synchronized Iterator poll() {
-        List poll = new ArrayList();
+        List poll = FastList.newInstance();
         Collection jobEnt = null;
 
         // sort the results by time
@@ -135,61 +136,67 @@ public class JobManager {
         boolean pollDone = false;
 
         while (!pollDone) {
-            boolean beganTransaction;
-            try {
-                beganTransaction = TransactionUtil.begin();
-            } catch (GenericTransactionException e) {
-                Debug.logError(e, "Unable to start transaction; not polling for jobs", module);
-                return null;
-            }
-            if (!beganTransaction) {
-                Debug.logError("Unable to poll for jobs; transaction was not started by this process", module);
-                return null;
-            }
+            boolean beganTransaction = false;
 
             try {
+                beganTransaction = TransactionUtil.begin();
+                if (!beganTransaction) {
+                    Debug.logError("Unable to poll for jobs; transaction was not started by this process", module);
+                    return null;
+                }
+                
+                List localPoll = FastList.newInstance();
+                
                 // first update the jobs w/ this instance running information
                 delegator.storeByCondition("JobSandbox", updateFields, mainCondition);
 
                 // now query all the 'queued' jobs for this instance
                 jobEnt = delegator.findByAnd("JobSandbox", updateFields, order);
                 //jobEnt = delegator.findByCondition("JobSandbox", mainCondition, null, order);
-            } catch (GenericEntityException ee) {
-                Debug.logError(ee, "Cannot load jobs from datasource.", module);
-            } catch (Exception e) {
-                Debug.logError(e, "Unknown error.", module);
-            }
 
-            if (jobEnt != null && jobEnt.size() > 0) {
-                Iterator i = jobEnt.iterator();
-
-                while (i.hasNext()) {
-                    GenericValue v = (GenericValue) i.next();
-                    DispatchContext dctx = getDispatcher().getDispatchContext();
-
-                    if (dctx == null) {
-                        Debug.logError("Unable to locate DispatchContext object; not running job!", module);
-                        continue;
+                if (jobEnt != null && jobEnt.size() > 0) {
+                    Iterator i = jobEnt.iterator();
+                    while (i.hasNext()) {
+                        GenericValue v = (GenericValue) i.next();
+                        DispatchContext dctx = getDispatcher().getDispatchContext();
+                        if (dctx == null) {
+                            Debug.logError("Unable to locate DispatchContext object; not running job!", module);
+                            continue;
+                        }
+                        Job job = new PersistedServiceJob(dctx, v, null); // TODO fix the requester
+                        try {
+                            job.queue();
+                            localPoll.add(job);
+                        } catch (InvalidJobException e) {
+                            Debug.logError(e, module);
+                        }
                     }
-                    Job job = new PersistedServiceJob(dctx, v, null); // todo fix the requester
-                    try {
-                        job.queue();
-                        poll.add(job);
-                    } catch (InvalidJobException e) {
-                        Debug.logError(e, module);
-                    }
+                } else {
+                    pollDone = true;
                 }
-            } else {
-                pollDone = true;
+                
+                // nothing should go wrong at this point, so add to the general list
+                poll.addAll(localPoll);
+            } catch (Throwable t) {
+                // catch Throwable so nothing slips through the cracks... this is a fairly sensitive operation
+                String errMsg = "Error in polling JobSandbox: [" + t.toString() + "]. Rolling back transaction.";
+                Debug.logError(t, errMsg, module);
+                try {
+                    // only rollback the transaction if we started one...
+                    TransactionUtil.rollback(beganTransaction, errMsg, t);
+                } catch (GenericEntityException e2) {
+                    Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
+                }
+            } finally {
+                try {
+                    // only commit the transaction if we started one... but make sure we try
+                    TransactionUtil.commit(beganTransaction);
+                } catch (GenericTransactionException e) {
+                    String errMsg = "Transaction error trying to commit when polling and updating the JobSandbox: " + e.toString();
+                    // we don't really want to do anything different, so just log and move on
+                    Debug.logError(e, errMsg, module);
+                }
             }
-
-            // finished this run; commit the transaction
-            try {
-                TransactionUtil.commit(beganTransaction);
-            } catch (GenericTransactionException e) {
-                Debug.logError(e, module);
-            }
-
         }
         return poll.iterator();
     }
