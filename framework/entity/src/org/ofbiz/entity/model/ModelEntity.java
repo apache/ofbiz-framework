@@ -76,6 +76,9 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
     /** The entity-name of the Entity that this Entity is dependent on, if empty then no dependency */
     protected String dependentOn = "";
 
+    /** The sequence-bank-size of the Entity */
+    protected Integer sequenceBankSize = null;
+
     /** A List of the Field objects for the Entity */
     protected List fields = FastList.newInstance();
     protected Map fieldsMap = null;
@@ -237,6 +240,15 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
         this.noAutoStamp = UtilXml.checkBoolean(entityElement.getAttribute("no-auto-stamp"), false);
         this.neverCache = UtilXml.checkBoolean(entityElement.getAttribute("never-cache"), false);
         this.autoClearCache = UtilXml.checkBoolean(entityElement.getAttribute("auto-clear-cache"), true);
+        
+        String sequenceBankSizeStr = UtilXml.checkEmpty(entityElement.getAttribute("sequence-bank-size"));
+        if (UtilValidate.isNotEmpty(sequenceBankSizeStr)) {
+            try {
+                this.sequenceBankSize = Integer.valueOf(sequenceBankSizeStr);
+            } catch (NumberFormatException e) {
+                Debug.logError("Error parsing sequence-bank-size value [" + sequenceBankSizeStr + "] for entity [" + this.entityName + "]", module);
+            }
+        }
     }
 
 
@@ -400,6 +412,10 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
         }
     }
 
+    public Integer getSequenceBankSize() {
+        return this.sequenceBankSize;
+    }
+    
     public void updatePkLists() {
         pks = FastList.newInstance();
         nopks = FastList.newInstance();
@@ -1222,6 +1238,10 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
 
         if (!this.getAutoClearCache()) {
             root.setAttribute("auto-clear-cache", "false");
+        }
+
+        if (this.getSequenceBankSize() != null) {
+            root.setAttribute("sequence-bank-size", this.getSequenceBankSize().toString());
         }
 
         if (UtilValidate.isNotEmpty(this.getTitle())) {

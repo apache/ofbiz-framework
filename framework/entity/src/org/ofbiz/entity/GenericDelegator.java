@@ -2480,8 +2480,11 @@ public class GenericDelegator implements DelegatorInterface {
                     }
                 }
             }
+            
+            // might be null, but will usually match the entity name
+            ModelEntity seqModelEntity = this.getModelEntity(seqName);
 
-            Long newSeqId = sequencer == null ? null : sequencer.getNextSeqId(seqName, staggerMax);
+            Long newSeqId = sequencer == null ? null : sequencer.getNextSeqId(seqName, staggerMax, seqModelEntity);
 
             return newSeqId;
         } catch (GenericEntityException e) {

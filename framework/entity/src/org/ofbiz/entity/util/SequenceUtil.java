@@ -75,14 +75,14 @@ public class SequenceUtil {
         this.idColName = idField.getColName();
     }
 
-    public Long getNextSeqId(String seqName, long staggerMax) {
+    public Long getNextSeqId(String seqName, long staggerMax, ModelEntity seqModelEntity) {
         SequenceBank bank = (SequenceBank) sequences.get(seqName);
 
         if (bank == null) {
             synchronized(this) {
                 bank = (SequenceBank) sequences.get(seqName);
                 if (bank == null) {
-                    bank = new SequenceBank(seqName, this);
+                    bank = new SequenceBank(seqName, seqModelEntity, this);
                     sequences.put(seqName, bank);
                 }
             }
@@ -93,6 +93,7 @@ public class SequenceUtil {
     class SequenceBank {
 
         public static final long defaultBankSize = 10;
+        public static final long maxBankSize = 5000;
         public static final long startSeqId = 10000;
         public static final int minWaitMillis = 5;
         public static final int maxWaitMillis = 50;
@@ -102,13 +103,15 @@ public class SequenceUtil {
         long maxSeqId;
         String seqName;
         SequenceUtil parentUtil;
+        ModelEntity seqModelEntity;
 
-        public SequenceBank(String seqName, SequenceUtil parentUtil) {
+        public SequenceBank(String seqName, ModelEntity seqModelEntity, SequenceUtil parentUtil) {
             this.seqName = seqName;
             this.parentUtil = parentUtil;
+            this.seqModelEntity = seqModelEntity;
             curSeqId = 0;
             maxSeqId = 0;
-            fillBank(1);
+            fillBank(1, seqModelEntity);
         }
 
         public synchronized Long getNextSeqId(long staggerMax) {
@@ -123,7 +126,7 @@ public class SequenceUtil {
                 curSeqId += stagger;
                 return retSeqId;
             } else {
-                fillBank(stagger);
+                fillBank(stagger, seqModelEntity);
                 if ((curSeqId + stagger) <= maxSeqId) {
                     Long retSeqId = new Long(curSeqId);
                     curSeqId += stagger;
@@ -135,18 +138,23 @@ public class SequenceUtil {
             }
         }
 
-        protected synchronized void fillBank(long stagger) {
+        protected synchronized void fillBank(long stagger, ModelEntity seqModelEntity) {
             //Debug.logWarning("[SequenceUtil.SequenceBank.fillBank] Starting fillBank Thread Name is: " + Thread.currentThread().getName() + ":" + Thread.currentThread().toString(), module);
 
+            // no need to get a new bank, SeqIds available
+            if ((curSeqId + stagger) <= maxSeqId) return;
+            
             long bankSize = defaultBankSize;
+            if (seqModelEntity != null && seqModelEntity.getSequenceBankSize() != null) {
+                bankSize = seqModelEntity.getSequenceBankSize().longValue();
+            }
             if (stagger > 1) {
                 // NOTE: could use staggerMax for this, but if that is done it would be easier to guess a valid next id without a brute force attack
                 bankSize = stagger * defaultBankSize;
             }
+             
+            if (bankSize > maxBankSize) bankSize = maxBankSize;
             
-            // no need to get a new bank, SeqIds available
-            if ((curSeqId + stagger) <= maxSeqId) return;
-                
             long val1 = 0;
             long val2 = 0;
 
