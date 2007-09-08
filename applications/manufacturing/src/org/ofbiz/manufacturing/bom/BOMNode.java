@@ -627,6 +627,11 @@ public class BOMNode {
 	return isWarehouseManaged;
     }
 
+    /**
+     * A part is considered manufactured if it has child nodes AND unless ignoreSupplierProducts is set, if it also has no unexpired SupplierProducts defined
+     * @param ignoreSupplierProducts
+     * @return
+     */
     public boolean isManufactured(boolean ignoreSupplierProducts) {
         List supplierProducts = null;
         try {
@@ -637,6 +642,11 @@ public class BOMNode {
         supplierProducts = EntityUtil.filterByDate(supplierProducts, UtilDateTime.nowTimestamp(), "availableFromDate", "availableThruDate", true);
         return childrenNodes.size() > 0 && (ignoreSupplierProducts || UtilValidate.isEmpty(supplierProducts));
     }
+
+    /**
+     * By default, a part is manufactured if it has child nodes and it has NO SupplierProducts defined
+     * @return
+     */
     public boolean isManufactured() {
         return isManufactured(false);
     }
