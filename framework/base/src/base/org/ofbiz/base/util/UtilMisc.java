@@ -800,4 +800,13 @@ public class UtilMisc {
             }
         }
     }
+    
+    public static void staticWait(long timeout) throws InterruptedException {
+        new UtilMiscWaiter().safeWait(timeout);
+    }
+    protected static class UtilMiscWaiter {
+        public synchronized void safeWait(long timeout) throws InterruptedException {
+            this.wait(timeout);
+        }
+    }
 }
