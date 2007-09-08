@@ -19,5 +19,5 @@ under the License.
 -->
 <entity-engine-xml>
     <!-- assert data for service lock wait timeout recovery test -->
-    <TestingType testingTypeId="SVCLWTRT" description="New description for SVCLWTRT from Waiter service, this is the value that should be there."/>
+    <TestingType testingTypeId="SVCLWTRT" description="New description for SVCLWTRTCR from Lock Wait Timeout Lock Waiter, this is the value that should be there."/>
 </entity-engine-xml>

@@ -33,9 +33,16 @@ under the License.
         <entity-xml action="assert" entity-xml-url="component://service/testdef/data/ServiceDeadLockRetryAssertData.xml"/>
     </test-case>
     <test-case case-name="service-lock-wait-timeout-retry-test">
-        <service-test service-name="testServiceDeadLockRetry"/>
+        <service-test service-name="testServiceLockWaitTimeoutRetry"/>
     </test-case>
     <test-case case-name="service-lock-wait-timeout-retry-assert-data">
         <entity-xml action="assert" entity-xml-url="component://service/testdef/data/ServiceLockTimeoutRetryAssertData.xml"/>
+    </test-case>
+    
+    <test-case case-name="service-lock-wait-timeout-retry-test">
+        <service-test service-name="testServiceLockWaitTimeoutRetryCantRecover"/>
+    </test-case>
+    <test-case case-name="service-lock-wait-timeout-retry-assert-data">
+        <entity-xml action="assert" entity-xml-url="component://service/testdef/data/ServiceLockTimeoutRetryCantRecoverAssertData.xml"/>
     </test-case>
 </test-suite>

@@ -24,4 +24,7 @@ under the License.
     
     <!-- load data for service lock wait timeout recovery test -->
     <TestingType testingTypeId="SVCLWTRT" description="Original description for SVCLWTRT"/>
+    
+    <!-- load data for service lock wait timeout recovery test - case that can't find a way to auto-fix -->
+    <TestingType testingTypeId="SVCLWTRTCR" description="Original description for SVCLWTRTCR"/>
 </entity-engine-xml>
