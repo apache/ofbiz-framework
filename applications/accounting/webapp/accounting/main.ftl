@@ -19,7 +19,7 @@ under the License.
 <div>
 <table>
   <tr>
-     <td colspan="3"><h1 class="head1">${uiLabelMap.AccountingAgreements}</h1></td>
+     <td colspan="3"><h1>${uiLabelMap.AccountingAgreements}</h1></td>
   </tr>
   
   <tr>
