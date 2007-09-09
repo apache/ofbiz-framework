@@ -551,4 +551,23 @@ under the License.
         <implements service="permissionInterface"/>
         <attribute name="workEffortId" mode="IN" type="String" optional="true"></attribute>
     </service>    
+    
+    <!-- WorkEffort Skill Standard Services -->
+    <service name="createWorkEffortSkillStandard" engine="simple" default-entity-name="WorkEffortSkillStandard"
+            location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortSkillStandard" auth="true">
+        <description>Create WOrkEffortSkillStandard</description>        
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateWorkEffortSkillStandard" engine="simple" default-entity-name="WorkEffortSkillStandard"
+            location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="updateWorkEffortSkillStandard" auth="true">
+        <description>Update WOrkEffortSkillStandard</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteWorkEffortSkillStandard" engine="simple" default-entity-name="WorkEffortSkillStandard"
+            location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffortSkillStandard" auth="true">
+        <description>Delete WOrkEffortSkillStandard</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
 </services>

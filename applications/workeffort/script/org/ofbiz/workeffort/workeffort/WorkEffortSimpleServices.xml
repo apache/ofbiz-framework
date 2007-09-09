@@ -1143,4 +1143,21 @@ under the License.
             <remove-by-and entity-name="WorkEffortAssignmentRate" map-name="workEffortFindContext"/>
         </if-not-empty>
     </simple-method>
+    
+                  <!-- WorkEffortSkillStandard Services-->
+    <simple-method  method-name="createWorkEffortSkillStandard" short-description="Create WorkEffortSkillStandard">
+        <make-value entity-name="WorkEffortSkillStandard" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method  method-name="updateWorkEffortSkillStandard" short-description="Update WorkEffortSkillStandard">
+        <entity-one entity-name="WorkEffortSkillStandard" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method  method-name="deleteWorkEffortSkillStandard" short-description="Delete WorkEffortSkillStandard">
+        <entity-one entity-name="WorkEffortSkillStandard" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
 </simple-methods>
