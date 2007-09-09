@@ -26,7 +26,7 @@ under the License.
 </#if>
 
   <tr>
-    <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.AccountingCompanyNameOnCard}</div></td>
+    <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.AccountingCompanyNameCard}</div></td>
     <td width="5">&nbsp;</td>
     <td width="74%">
       <input type="text" class="inputBox" size="30" maxlength="60" name="companyNameOnCard" value="${creditCard.companyNameOnCard?if_exists}"/>
@@ -177,4 +177,5 @@ under the License.
       <input type="text" class="inputBox" size="20" maxlength="30" name="description" value="${paymentMethod.description?if_exists}"/>
     </td>
   </tr>
+
 

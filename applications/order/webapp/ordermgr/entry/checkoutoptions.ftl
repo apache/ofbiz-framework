@@ -290,7 +290,7 @@ function submitForm(form, mode, value) {
                         <a href="javascript:submitForm(document.checkoutInfoForm, 'NC', '');" class="buttontext">${uiLabelMap.AccountingCreditCard}</a>
                       </#if>
                       <#if productStorePaymentMethodTypeIdMap.EFT_ACCOUNT?exists>
-                        <a href="javascript:submitForm(document.checkoutInfoForm, 'NE', '');" class="buttontext">${uiLabelMap.AccountingEftAccount}</a>
+                        <a href="javascript:submitForm(document.checkoutInfoForm, 'NE', '');" class="buttontext">${uiLabelMap.AccountingEFTAccount}</a>
                       </#if>
                     </td>
                   </tr>
@@ -317,7 +317,7 @@ function submitForm(form, mode, value) {
                       <input type="radio" name="checkOutPaymentId" value="EXT_COD" <#if "EXT_COD" == checkOutPaymentId>checked="checked"</#if>/>
                     </td>
                     <td width="50%">
-                      <span class="tabletext">${uiLabelMap.OrderCOD}</span>
+                      <span class="tabletext">${uiLabelMap.FormFieldTitle_paymentCOD}</span>
                     </td>
                   </tr>
                   </#if>
@@ -359,7 +359,7 @@ function submitForm(form, mode, value) {
                     <#if (!finAccounts?has_content)>
                       <tr>
                         <td colspan="2">
-                          <div class="tabletext"><b>${uiLabelMap.AccountingNoPaymentMethodsOnFile}.</b></div>
+                          <div class="tabletext"><b>${uiLabelMap.AccountingNoPaymentMethods}</b></div>
                         </td>
                       </tr>
                     </#if>
@@ -471,7 +471,7 @@ function submitForm(form, mode, value) {
                   </tr>
                   <tr>
                     <td width="1%">
-                      <div class="tabletext">${uiLabelMap.AccountingNumber}</div>
+                      <div class="tabletext">${uiLabelMap.CommonNumber}</div>
                     </td>
                     <td width="50%">
                       <input type="text" size="15" class="inputBox" name="giftCardNumber" value="${(requestParameters.giftCardNumber)?if_exists}" onFocus="document.checkoutInfoForm.addGiftCard.checked=true;"/>
