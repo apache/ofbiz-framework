@@ -108,7 +108,7 @@ under the License.
         <tr>
           <td colspan="3" align="center">
             <br/>
-            <div class="head2">${uiLabelMap.AccountingTransactionTypeNotYetSupported}</div>
+            <h2>${uiLabelMap.AccountingTransactionTypeNotYetSupported}</h2>
             <br/>
           </td>
         </tr>

@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
         <hr class="sepbar"/>
-        <div class="head2">${uiLabelMap.WorkEffortDuplicateWorkEffort}</div>
+        <h2>${uiLabelMap.WorkEffortDuplicateWorkEffort}</h2>
         <form action="<@ofbizUrl>DuplicateWorkEffort</@ofbizUrl>" method="post" style="margin: 0;">
             <input type="hidden" name="oldWorkEffortId" value="${workEffortId?if_exists}"/>
             <div>

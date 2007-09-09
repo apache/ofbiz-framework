@@ -34,13 +34,13 @@ under the License.
 
 <h2>${uiLabelMap.ProductAddItemsShipment}: [${shipmentId?if_exists}]; ${uiLabelMap.OrderFromOrder}: [${orderId?if_exists}], ${uiLabelMap.OrderShipGroup}: [${shipGroupSeqId?if_exists}]</h2>
 <#if orderId?has_content && !orderHeader?exists>
-    <div class="head3" style="color: red;"><#assign uiLabelWithVar=uiLabelMap.ProductErrorOrderIdNotFound?interpret><@uiLabelWithVar/>.</div>
+    <h3 style="color: red;"><#assign uiLabelWithVar=uiLabelMap.ProductErrorOrderIdNotFound?interpret><@uiLabelWithVar/>.</h3>
 </#if>
 <#if orderHeader?exists>
     <#if orderHeader.orderTypeId == "SALES_ORDER" && shipment.shipmentTypeId?if_exists != "SALES_SHIPMENT">
-        <div class="head3" style="color: red;">${uiLabelMap.ProductWarningOrderType} ${(orderType.get("description",locale))?default(orderHeader.orderTypeId?if_exists)}, ${uiLabelMap.ProductNotSalesShipment}.</div>
+        <h3 style="color: red;">${uiLabelMap.ProductWarningOrderType} ${(orderType.get("description",locale))?default(orderHeader.orderTypeId?if_exists)}, ${uiLabelMap.ProductNotSalesShipment}.</h3>
     <#elseif orderHeader.orderTypeId == "PURCHASE_ORDER" && shipment.shipmentTypeId?if_exists != "PURCHASE_SHIPMENT" && shipment.shipmentTypeId?if_exists != "DROP_SHIPMENT">
-        <div class="head3" style="color: red;">${uiLabelMap.ProductWarningOrderType} ${(orderType.get("description",locale))?default(orderHeader.orderTypeId?if_exists)}, ${uiLabelMap.ProductNotPurchaseShipment}.</div>
+        <h3 style="color: red;">${uiLabelMap.ProductWarningOrderType} ${(orderType.get("description",locale))?default(orderHeader.orderTypeId?if_exists)}, ${uiLabelMap.ProductNotPurchaseShipment}.</h3>
     <#else>
         <h3>${uiLabelMap.ProductNoteOrderType} ${(orderType.get("description",locale))?default(orderHeader.orderTypeId?if_exists)}.</h3>
         <h3>${uiLabelMap.ProductShipmentType}: ${shipment.shipmentTypeId?if_exists}.</h3>
@@ -55,7 +55,7 @@ under the License.
     <#elseif "ORDER_COMPLETED" == orderHeader.statusId>
         <h3>${uiLabelMap.ProductNoteOrderStatus} ${(orderHeaderStatus.get("description",locale))?default(orderHeader.statusId?if_exists)}, ${uiLabelMap.ProductNoItemsLeft}.</h3>
     <#else>
-        <div class="head3" style="color: red;">${uiLabelMap.ProductWarningOrderStatus} ${(orderHeaderStatus.get("description",locale))?default(orderHeader.statusId?if_exists)}; ${uiLabelMap.ProductApprovedBeforeShipping}.</div>
+        <h3 style="color: red;">${uiLabelMap.ProductWarningOrderStatus} ${(orderHeaderStatus.get("description",locale))?default(orderHeader.statusId?if_exists)}; ${uiLabelMap.ProductApprovedBeforeShipping}.</h3>
     </#if>
 </#if>
 <#if orderItemDatas?exists>
