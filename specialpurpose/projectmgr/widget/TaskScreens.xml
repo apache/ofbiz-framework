@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <screen name="FindTaskList">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleUnassignedTask"/>
+                <set field="headerItem" value="task"/>
+                <set field="tabButtonItem" value="subtasks"/>
+                <set field="labelTitleProperty" value="PageTitleFindTask"/>
+                <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
+                <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ChildWorkEffort.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-empty field-name="workEffortId"/>
+                            </condition>
+                            <widgets>
+                                <container><label style="head1">${uiLabelMap.${titleProperty}}</label></container>
+                                <container style="button-bar"><link target="EditTask?workEffortTypeId=TASK" text="${uiLabelMap.ProjectMgrNewTask}" style="buttontext"/></container>
+                                <include-form name="ListTaskLists" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <container><label style="head1">${uiLabelMap.PageTitleEditSubTask}</label></container>                                
+                                <include-form name="ListChildEfforts" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                <platform-specific>
+                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/edittasklistandassoc.ftl"/></html>
+                                </platform-specific> 
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindTaskByRange">
+        <section>            
+            <actions>
+                <set field="titleProperty" value="PageTitleFindTask"/>
+                <set field="headerItem" value="task"/>                
+                <set field="labelTitleProperty" value="ProjectMgrTaskName"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindTaskList"/>
+                <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
+                <set field="parameters.workEffortTypeId" value="TASK"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListProjectsByDateRange.bsh"/>
+            </actions>                                                
+            <widgets>  
+                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">                                                                                                                
+                        <section>                                                        
+                            <widgets>                                                                             
+                                <platform-specific>
+                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/listtasksbydaterange.ftl"/></html>
+                                </platform-specific>
+                                <container style="button-bar"><link target="EditTask?workEffortTypeId=Task" text="${uiLabelMap.ProjectMgrNewTask}" style="buttontext"/></container>
+                                <include-form name="ListTaskLists" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                            </widgets>                            
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditTask">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditTaskList"/>
+                <set field="headerItem" value="task"/>
+                <set field="tabButtonItem" value="edittask"/>                
+                <set field="labelTitleProperty" value="PageTitleEditTaskList"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindTaskList"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>                
+                <set field="workEffortAssocTypeId" from-field="parameters.workEffortAssocTypeId"/>
+                <entity-one entity-name="WorkEffort" value-name="task"/>                
+            </actions>
+            <widgets>
+                
+                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>                                                       
+                            <!-- To add a new Project -->
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/edittask.ftl"/></html>
+                                </platform-specific>                                
+                            </widgets>                            
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditTaskListAndAssoc">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditTask"/>                
+                <set field="labelTitleProperty" value="PageTitleEditTask"/>
+                <set field="headerItem" value="task"/>
+                <set field="tabButtonItem" value="edittask"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE"/>
+                <set field="workEffortIdTo" from-field="parameters.workEffortIdTo"/>
+                <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
+                <set field="fromDate" from-field="parameters.fromDate"/>
+                <entity-one entity-name="WorkEffort" value-name="task"/>
+                <entity-one entity-name="WorkEffortAssoc" value-name="workEffortAssoc"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">                        
+                        <platform-specific>
+                            <html><html-template location="component://projectmgr/webapp/projectmgr/project/edittasklistandassoc.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+   <screen name="EditTaskSkills">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditSkill"/>
+                <set field="headerItem" value="task"/>
+                <set field="tabButtonItem" value="projectskills"/>
+                <set field="labelTitleProperty" value="PageTitleEditSkill"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <entity-one entity-name="WorkEffortSkillStandard" value-name="workEffortSkillStandard"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>                            
+                            <widgets>
+                                <container><label style="head1">${uiLabelMap.${titleProperty}}</label></container>
+                                <include-form name="ListTaskSkills" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                <platform-specific>
+                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/edittaskskills.ftl"/></html>
+                                </platform-specific>
+                            </widgets>                            
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>     
+    <screen name="ChildTaskWorkEfforts">
+        <section>
+            <actions>                
+                <set field="titleProperty" value="PageTitleListWorkEfforts"/>
+                <set field="headerItem" value="task"/>
+                <set field="tabButtonItem" value="treeDetails"/>
+                <set field="labelTitleProperty" value="PageTitleListWorkEfforts"/>
+                <set field="trail" from-field="parameters.trail" default-value="${parameters.workEffortId}"/>
+                <set field="workEffortId" from-field="parameters.trail"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><label style="head1">${uiLabelMap.PageTitleTreeWorkEfforts}</label></container>
+                        <container><link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort?DONE_PAGE=${donePage}" style="linktext"/></container>
+                        <include-tree name="TreeTaskWorkEffort" location="component://projectmgr/widget/WorkEffortTrees.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>     
+    <screen name="WorkEffortTreeLine">
+        <section>
+            <actions>
+                <set field="workEffortId" from-field="workEffortIdFrom" default-value="${workEffort.workEffortId}"/>
+                <set field="headerItem" value="task"/>
+                <set field="tabButtonItem" value="treeDetails"/>
+                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="ChildWorkEfforts?workEffortId=${workEffort.workEffortId}"/>                
+            </actions>
+            <widgets> 
+                <label text=" ${workEffort.workEffortName} - ${workEffort.description}" style="tabletext"/>
+                <link target="EditWorkEffort?workEffortId=${workEffort.workEffortId}" text="${workEffort.workEffortId}" style="buttontext"/>
+                <link target="AddTaskAndAssoc?workEffortIdFrom=${workEffort.workEffortId}" text="${uiLabelMap.WorkEffortAddChild}" style="buttontext"></link>
+                <link target="AddTaskAndAssoc?workEffortIdFrom=${workEffort.workEffortId}" text="${uiLabelMap.WorkEffortAddExistingWorkEffortChild}" style="buttontext"></link>
+                <section>
+                    <condition><not><if-empty field-name="workEffortAssoc"/></not></condition>
+                    <widgets>
+                        <link target="EditTaskListAndAssoc?workEffortIdFrom=${workEffortAssoc.workEffortIdFrom}&amp;workEffortIdTo=${workEffortAssoc.workEffortIdTo}&amp;workEffortAssocTypeId=${workEffortAssoc.workEffortAssocTypeId}&amp;fromDate=${workEffortAssoc.fromDate}&amp;DONE_PAGE=${donePage}" text="Edit Assoc" style="buttontext"></link>
+                        <link target="EditTaskListAndAssoc?workEffortIdFrom=${workEffortAssoc.workEffortIdFrom}&amp;workEffortIdTo=${workEffortAssoc.workEffortIdTo}&amp;workEffortAssocTypeId=${workEffortAssoc.workEffortAssocTypeId}&amp;fromDate=${workEffortAssoc.fromDate}&amp;DONE_PAGE=${donePage}" text="Edit Assoc Detail" style="buttontext"></link>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+</screens>

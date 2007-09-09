@@ -23,7 +23,8 @@
     <include location="component://product/webapp/catalog/WEB-INF/controller.xml"/>    
     <include location="component://order/webapp/ordermgr/WEB-INF/controller.xml"/>    
     <include location="component://accounting/webapp/accounting/WEB-INF/controller.xml"/>    
-    <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>    
+    <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>
+    <include location="component://humanres/webapp/humanres/WEB-INF/controller.xml"/>
 
     <description>Project Management Component Site Configuration File</description>
     <errorpage>/error/error.jsp</errorpage>
@@ -34,16 +35,310 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
     </request-map>
-
-
+   
+    <request-map uri="FindProject">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindProject"/>
+    </request-map>
+    <request-map uri="FindProjectByRange">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindProjectByRange"/>
+    </request-map>
+    <request-map uri="EditProject">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProject"/>
+    </request-map>
+    <request-map uri="createProject">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffort"/>
+        <response name="success" type="view" value="EditProject"/>
+        <response name="error" type="view" value="EditProject"/>
+    </request-map>
+    <request-map uri="updateProject">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffort"/>
+        <response name="success" type="view" value="EditProject"/>
+        <response name="error" type="view" value="EditProject"/>
+    </request-map>
+    <request-map uri="deleteProject">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteWorkEffort"/>
+        <response name="success" type="view" value="FindProject"/>
+        <response name="error" type="view" value="FindProject"/>
+    </request-map>
+    <request-map uri="ChildWorkEfforts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ChildWorkEfforts"/>
+    </request-map>
+    <request-map uri="EditProjectAndAssoc">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProjectAndAssoc"/>
+    </request-map>
+    <request-map uri="createProjectAndAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortAndAssoc"/>
+        <response name="success" type="view" value="FindProject"/>
+        <response name="error" type="view" value="FindProject"/>
+    </request-map>
+    <request-map uri="updateProjectAndAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffortAndAssoc"/>
+        <response name="success" type="view" value="FindProject"/>
+        <response name="error" type="view" value="FindProject"/>
+    </request-map>    
+    <request-map uri="FindTask">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindTask"/>
+    </request-map>
+    <request-map uri="EditTask">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditTask"/>
+    </request-map>
+    <request-map uri="createTask">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffort"/>
+        <response name="success" type="view" value="EditTask"/>
+        <response name="error" type="view" value="EditTask"/>
+    </request-map>
+    <request-map uri="updateTask">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffort"/>
+        <response name="success" type="view" value="EditTask"/>
+        <response name="error" type="view" value="EditTask"/>
+    </request-map>
+    <request-map uri="deleteTask">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteWorkEffort"/>
+        <response name="success" type="view" value="FindTask"/>
+        <response name="error" type="view" value="FindTask"/>
+    </request-map>    
+    <request-map uri="EditTaskAndAssoc">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditTaskAndAssoc"/>
+        <response name="error" type="view" value="EditTaskAndAssoc"/>
+    </request-map>
+    <request-map uri="createTaskAndAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortAndAssoc"/>
+        <response name="success" type="view" value="FindTask"/>
+        <response name="error" type="view" value="FindTask"/>
+    </request-map>
+    <request-map uri="updateTaskAndAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffortAndAssoc"/>
+        <response name="success" type="view" value="FindTask"/>
+        <response name="error" type="view" value="FindTask"/>
+    </request-map>
+    <request-map uri="FindTaskList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindTaskList"/>
+        <response name="error" type="view" value="FindTaskList"/>
+    </request-map>
+    <request-map uri="FindTaskByRange">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindTaskByRange"/>
+    </request-map>
+    <request-map uri="EditTaskList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditTaskList"/>
+        <response name="error" type="view" value="EditTaskList"/>
+    </request-map>
+    <request-map uri="createTaskList">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffort"/>
+        <response name="success" type="view" value="EditTaskList"/>
+        <response name="error" type="view" value="EditTaskList"/>
+    </request-map>    
+    <request-map uri="deleteTaskList">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteWorkEffort"/>
+        <response name="success" type="view" value="FindTaskList"/>
+        <response name="error" type="view" value="FindTaskList"/>
+    </request-map>
+    <request-map uri="EditTaskListAndAssoc">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditTaskListAndAssoc"/>
+        <response name="error" type="view" value="EditTaskListAndAssoc"/>
+    </request-map>
+    <request-map uri="createTaskListAndAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortAndAssoc"/>
+        <response name="success" type="view" value="FindTaskList"/>
+        <response name="error" type="view" value="FindTaskList"/>
+    </request-map>
+    <request-map uri="updateTaskListAndAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffortAndAssoc"/>
+        <response name="success" type="view" value="FindTaskList"/>
+        <response name="error" type="view" value="FindTaskList"/>
+    </request-map>
+    <request-map uri="ChildTaskWorkEfforts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ChildTaskWorkEfforts"/>
+    </request-map>
+    <request-map uri="FindPhase">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindPhase"/>
+    </request-map>
+    <request-map uri="createPhaseAndAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortAndAssoc"/>
+        <response name="success" type="view" value="FindPhase"/>
+        <response name="error" type="view" value="FindPhase"/>
+    </request-map>
+    <request-map uri="updatePhaseAndAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffortAndAssoc"/>
+        <response name="success" type="view" value="FindPhase"/>
+        <response name="error" type="view" value="FindPhase"/>
+    </request-map>
+    <request-map uri="projectView">
+        <security https="true" auth="true"/>        
+        <response name="success" type="view" value="projectView"/>
+        <response name="error" type="view" value="projectView"/>
+    </request-map>
+    <request-map uri="EditProjectSkills">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProjectSkills"/>
+    </request-map>
+    <request-map uri="createProjectSkillStandard">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortSkillStandard"/>
+        <response name="success" type="view" value="EditProjectSkills"/>
+        <response name="error" type="view" value="EditProjectSkills"/>
+    </request-map>
+    <request-map uri="updateWorkEffortSkillStandard">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffortSkillStandard"/>
+        <response name="success" type="view" value="EditProjectSkills"/>
+        <response name="error" type="view" value="EditProjectSkills"/>
+    </request-map>
+    <request-map uri="deleteWorkEffortSkillStandard">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteWorkEffortSkillStandard"/>
+        <response name="success" type="view" value="EditProjectSkills"/>
+        <response name="error" type="view" value="EditProjectSkills"/>
+    </request-map>
+    <request-map uri="EditTaskSkills">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditTaskSkills"/>
+    </request-map>
+    <request-map uri="createTaskSkillStandard">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortSkillStandard"/>
+        <response name="success" type="view" value="EditTaskSkills"/>
+        <response name="error" type="view" value="EditTaskSkills"/>
+    </request-map>
+    <request-map uri="updateTaskSkillStandard">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffortSkillStandard"/>
+        <response name="success" type="view" value="EditTaskSkills"/>
+        <response name="error" type="view" value="EditTaskSkills"/>
+    </request-map>
+    <request-map uri="projectView">
+        <security https="true" auth="true"/>        
+        <response name="success" type="view" value="projectView"/>
+        <response name="error" type="view" value="projectView"/>
+    </request-map>
+    <request-map uri="ListWorkEffortPartyAssigns">
+        <security https="true" auth="true"/>        
+        <response name="success" type="view" value="ListWorkEffortPartyAssigns"/>
+        <response name="error" type="view" value="ListWorkEffortPartyAssigns"/>
+    </request-map>
+    <request-map uri="createWorkEffortPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="assignPartyToWorkEffort"/>
+        <response name="success" type="view" value="ListWorkEffortPartyAssigns"/>
+        <response name="error" type="view" value="ListWorkEffortPartyAssigns"/>
+    </request-map>
+    <request-map uri="updateWorkEffortPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePartyToWorkEffortAssignment"/>
+        <response name="success" type="view" value="ListWorkEffortPartyAssigns"/>
+        <response name="error" type="view" value="ListWorkEffortPartyAssigns"/>
+    </request-map>
+    <request-map uri="EditTimeEntries">
+        <security https="true" auth="true"/>        
+        <response name="success" type="view" value="EditTimeEntries"/>
+        <response name="error" type="view" value="EditTimeEntries"/>     
+    </request-map>
+    <request-map uri="createTimeEntry">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createTimeEntry"/>
+        <response name="success" type="view" value="EditTimeEntries"/>
+        <response name="error" type="view" value="EditTimeEntries"/>
+    </request-map>
+    <request-map uri="updateTimeEntry">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateTimeEntry"/>
+        <response name="success" type="view" value="EditTimeEntries"/>
+        <response name="error" type="view" value="EditTimeEntries"/>
+    </request-map>
+    <request-map uri="deleteTimeEntry">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteTimeEntry"/>
+        <response name="success" type="view" value="EditTimeEntries"/>
+        <response name="error" type="view" value="EditTimeEntries"/>
+    </request-map>
+    <request-map uri="FindTimeSheet">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindTimeSheet"/>
+        <response name="error" type="view" value="FindTimeSheet"/>
+    </request-map>
+    <request-map uri="EditTimeSheet">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditTimeSheet"/>
+        <response name="error" type="view" value="FindTimeSheet"/>
+    </request-map>
+    <request-map uri="createTimesheets">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createTimesheets"/>
+        <response name="success" type="view" value="FindTimeSheet"/>
+        <response name="error" type="view" value="FindTimeSheet"/>
+    </request-map>
+    <request-map uri="updateTimeSheet">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateTimesheet"/>
+        <response name="success" type="view" value="EditTimeSheet"/>
+        <response name="error" type="view" value="EditTimeSheet"/>
+    </request-map>
+    <request-map uri="deleteTimeSheet">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteTimesheet"/>
+        <response name="success" type="view" value="FindTimeSheet"/>
+        <response name="error" type="view" value="FindTimeSheet"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
     <view-map name="error" page="/error/error.jsp"/>
 
-    <view-map name="main" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#FindRequest"/>
+    <view-map name="main" type="screen" page="component://projectmgr/widget/TaskScreens.xml#FindTaskByRange"/>
     <view-map name="login" type="screen" page="component://projectmgr/widget/CommonScreens.xml#login"/> 
     <view-map name="requirePasswordChange" type="screen" page="component://projectmgr/widget/CommonScreens.xml#requirePasswordChange"/>
-    
+    <view-map name="FindProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindProject"/>    
+    <view-map name="FindProjectByRange" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindProjectByRange"/>    
+    <view-map name="EditProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProject"/>
+    <view-map name="EditWorkEffort" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProject"/>
+    <view-map name="ChildWorkEfforts" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ChildWorkEfforts"/>
+    <view-map name="EditProjectAndAssoc" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectAndAssoc"/>
+    <view-map name="FindTask" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindTask"/>
+    <view-map name="FindTaskByRange" type="screen" page="component://projectmgr/widget/TaskScreens.xml#FindTaskByRange"/>
+    <view-map name="EditTask" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTask"/>
+    <view-map name="AddTaskAndAssoc" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#AddTaskAndAssoc"/>
+    <view-map name="EditTaskAndAssoc" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskAndAssoc"/>
+    <view-map name="FindTaskList" type="screen" page="component://projectmgr/widget/TaskScreens.xml#FindTaskList"/>
+    <view-map name="EditTaskList" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskList"/>
+    <view-map name="EditTaskListAndAssoc" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskListAndAssoc"/>
+    <view-map name="ChildTaskWorkEfforts" type="screen" page="component://projectmgr/widget/TaskScreens.xml#ChildTaskWorkEfforts"/>
+    <view-map name="ListWorkEffortPartyAssigns" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ListWorkEffortPartyAssigns"/> 
+    <view-map name="FindPhase" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindPhase"/>
+    <view-map name="EditProjectSkills" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectSkills"/>
+    <view-map name="EditTaskSkills" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskSkills"/>
+    <view-map name="projectView" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ProjectSummary"/>
+    <view-map name="EditPartySkills" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditPartySkills"/>
+    <view-map name="EditTimeEntries" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditTimeEntries"/>
+    <view-map name="FindTimeSheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#FindTimeSheet"/>
+    <view-map name="EditTimeSheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#EditTimeSheet"/>
     <!-- end of view mappings -->
 </site-conf>
