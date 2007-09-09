@@ -21,6 +21,8 @@ under the License.
     <!-- load data for service dead lock recovery test -->
     <TestingType testingTypeId="SVCLRT_A" description="Original description for SVCLRT_A"/>
     <TestingType testingTypeId="SVCLRT_B" description="Original description for SVCLRT_B"/>
+    <TestingType testingTypeId="SVCLRT_AONLY" description="Original description for SVCLRT_AONLY; only thread A will change this to make sure it is not failing"/>
+    <TestingType testingTypeId="SVCLRT_BONLY" description="Original description for SVCLRT_BONLY; only thread B will change this to make sure it is not failing"/>
     
     <!-- load data for service lock wait timeout recovery test -->
     <TestingType testingTypeId="SVCLWTRT" description="Original description for SVCLWTRT"/>

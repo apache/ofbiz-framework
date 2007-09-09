@@ -24,4 +24,7 @@ under the License.
         make it into the database at the end. -->
     <TestingType testingTypeId="SVCLRT_A" description="New description for SVCLRT_A"/>
     <TestingType testingTypeId="SVCLRT_B" description="New description for SVCLRT_B"/>
+    <!-- these two are both changed only by their respective threads, checking to make sure both threads succeeded -->
+    <TestingType testingTypeId="SVCLRT_AONLY" description="New description for SVCLRT_AONLY; this is only changed by thread A so if it doesn't match something happened to thread A!"/>
+    <TestingType testingTypeId="SVCLRT_BONLY" description="New description for SVCLRT_BONLY; this is only changed by thread B so if it doesn't match something happened to thread B!"/>
 </entity-engine-xml>

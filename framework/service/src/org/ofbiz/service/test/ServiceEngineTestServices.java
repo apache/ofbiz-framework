@@ -83,6 +83,11 @@ public class ServiceEngineTestServices {
             GenericValue testingTypeB = delegator.findByPrimaryKey("TestingType", UtilMisc.toMap("testingTypeId", "SVCLRT_B"));
             testingTypeB.set("description", "New description for SVCLRT_B");
             testingTypeB.store();
+
+            Debug.logInfo("In testServiceDeadLockRetryThreadA done with updating SVCLRT_B, updating SVCLRT_AONLY", module);
+            GenericValue testingTypeAOnly = delegator.findByPrimaryKey("TestingType", UtilMisc.toMap("testingTypeId", "SVCLRT_AONLY"));
+            testingTypeAOnly.set("description", "New description for SVCLRT_AONLY; this is only changed by thread A so if it doesn't match something happened to thread A!");
+            testingTypeAOnly.store();
         } catch (GenericEntityException e) {
             String errMsg = "Entity Engine Exception running dead lock test thread A: " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -112,6 +117,11 @@ public class ServiceEngineTestServices {
             GenericValue testingTypeA = delegator.findByPrimaryKey("TestingType", UtilMisc.toMap("testingTypeId", "SVCLRT_A"));
             testingTypeA.set("description", "New description for SVCLRT_A");
             testingTypeA.store();
+
+            Debug.logInfo("In testServiceDeadLockRetryThreadA done with updating SVCLRT_A, updating SVCLRT_BONLY", module);
+            GenericValue testingTypeAOnly = delegator.findByPrimaryKey("TestingType", UtilMisc.toMap("testingTypeId", "SVCLRT_BONLY"));
+            testingTypeAOnly.set("description", "New description for SVCLRT_BONLY; this is only changed by thread B so if it doesn't match something happened to thread B!");
+            testingTypeAOnly.store();
         } catch (GenericEntityException e) {
             String errMsg = "Entity Engine Exception running dead lock test thread B: " + e.toString();
             Debug.logError(e, errMsg, module);
