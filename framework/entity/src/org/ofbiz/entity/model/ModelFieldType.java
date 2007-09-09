@@ -52,7 +52,7 @@ public class ModelFieldType implements Serializable {
     public ModelFieldType(Element fieldTypeElement) {
         this.type = UtilXml.checkEmpty(fieldTypeElement.getAttribute("type"));
         this.javaType = UtilXml.checkEmpty(fieldTypeElement.getAttribute("java-type"));
-        this.sqlType = UtilXml.checkEmpty(fieldTypeElement.getAttribute("sql-type"));
+        this.sqlType = UtilXml.checkEmpty(fieldTypeElement.getAttribute("sql-type")).toUpperCase();
         this.sqlTypeAlias = UtilXml.checkEmpty(fieldTypeElement.getAttribute("sql-type-alias"));
 
         NodeList validateList = fieldTypeElement.getElementsByTagName("validate");
