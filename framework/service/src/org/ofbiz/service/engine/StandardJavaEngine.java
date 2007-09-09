@@ -52,8 +52,9 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
     public Map runSync(String localName, ModelService modelService, Map context) throws GenericServiceException {
         Object result = serviceInvoker(localName, modelService, context);
 
-        if (result == null || !(result instanceof Map))
+        if (result == null || !(result instanceof Map)) {
             throw new GenericServiceException("Service did not return expected result");
+        }
         return (Map) result;
     }
 
@@ -62,28 +63,33 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
         // static java service methods should be: public Map methodName(DispatchContext dctx, Map context)
         DispatchContext dctx = dispatcher.getLocalContext(localName);
 
-        if (modelService == null)
+        if (modelService == null) {
             Debug.logError("ERROR: Null Model Service.", module);
-        if (dctx == null)
+        }
+        if (dctx == null) {
             Debug.logError("ERROR: Null DispatchContext.", module);
-        if (context == null)
+        }
+        if (context == null) {
             Debug.logError("ERROR: Null Service Context.", module);
+        }
 
         Class[] paramTypes = new Class[] {DispatchContext.class, Map.class};
         Object[] params = new Object[] {dctx, context};
         Object result = null;
 
         // check the package and method names
-        if (modelService.location == null || modelService.invoke == null)
+        if (modelService.location == null || modelService.invoke == null) {
             throw new GenericServiceException("Cannot locate service to invoke (location or invoke name missing)");
+        }
 
         // get the classloader to use
         ClassLoader cl = null;
 
-        if (dctx == null)
+        if (dctx == null) {
             cl = this.getClass().getClassLoader();
-        else
+        } else {
             cl = dctx.getClassLoader();
+        }
 
         try {
             Class c = cl.loadClass(this.getLocation(modelService));

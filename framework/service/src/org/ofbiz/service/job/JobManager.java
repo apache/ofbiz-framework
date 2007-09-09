@@ -88,8 +88,9 @@ public class JobManager {
 
     /** Queues a Job to run now. */
     public void runJob(Job job) throws JobManagerException {
-        if (job.isValid())
+        if (job.isValid()) {
             jp.queueNow(job);
+        }
     }
 
     /** Returns the ServiceDispatcher. */

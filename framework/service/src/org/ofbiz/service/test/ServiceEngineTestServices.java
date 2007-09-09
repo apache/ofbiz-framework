@@ -18,7 +18,10 @@
  */
 package org.ofbiz.service.test;
 
+import java.util.List;
 import java.util.Map;
+
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -42,8 +45,18 @@ public class ServiceEngineTestServices {
             GenericResultWaiter threadAWaiter = dispatcher.runAsyncWait("testServiceDeadLockRetryThreadA", null, false);
             GenericResultWaiter threadBWaiter = dispatcher.runAsyncWait("testServiceDeadLockRetryThreadB", null, false);
             // make sure to wait for these to both finish to make sure results aren't checked until they are done
-            threadAWaiter.waitForResult();
-            threadBWaiter.waitForResult();
+            Map threadAResult = threadAWaiter.waitForResult();
+            Map threadBResult = threadBWaiter.waitForResult();
+            List errorList = FastList.newInstance();
+            if (ServiceUtil.isError(threadAResult)) {
+                errorList.add("Error running testServiceDeadLockRetryThreadA: " + ServiceUtil.getErrorMessage(threadAResult));
+            }
+            if (ServiceUtil.isError(threadBResult)) {
+                errorList.add("Error running testServiceDeadLockRetryThreadB: " + ServiceUtil.getErrorMessage(threadBResult));
+            }
+            if (errorList.size() > 0) {
+                return ServiceUtil.returnError("Error(s) running sub-services in testServiceDeadLockRetry", errorList, null, null);
+            }
         } catch (Exception e) {
             String errMsg = "Error running deadlock test services: " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -59,7 +72,7 @@ public class ServiceEngineTestServices {
         try {
             // grab entity SVCLRT_A by changing, then wait, then find and change SVCLRT_B
             GenericValue testingTypeA = delegator.findByPrimaryKey("TestingType", UtilMisc.toMap("testingTypeId", "SVCLRT_A"));
-            testingTypeA.set("description", "New description for SVCLRT_A from Thread A");
+            testingTypeA.set("description", "New description for SVCLRT_A");
             testingTypeA.store();
             
             // wait at least long enough for the other method to have locked resource B
@@ -68,7 +81,7 @@ public class ServiceEngineTestServices {
 
             Debug.logInfo("In testServiceDeadLockRetryThreadA done with wait, updating SVCLRT_B", module);
             GenericValue testingTypeB = delegator.findByPrimaryKey("TestingType", UtilMisc.toMap("testingTypeId", "SVCLRT_B"));
-            testingTypeB.set("description", "New description for SVCLRT_B from Thread A");
+            testingTypeB.set("description", "New description for SVCLRT_B");
             testingTypeB.store();
         } catch (GenericEntityException e) {
             String errMsg = "Entity Engine Exception running dead lock test thread A: " + e.toString();
@@ -88,7 +101,7 @@ public class ServiceEngineTestServices {
         try {
             // grab entity SVCLRT_B by changing, then wait, then change SVCLRT_A
             GenericValue testingTypeB = delegator.findByPrimaryKey("TestingType", UtilMisc.toMap("testingTypeId", "SVCLRT_B"));
-            testingTypeB.set("description", "New description for SVCLRT_B from Thread B");
+            testingTypeB.set("description", "New description for SVCLRT_B");
             testingTypeB.store();
             
             // wait at least long enough for the other method to have locked resource B
@@ -97,7 +110,7 @@ public class ServiceEngineTestServices {
 
             Debug.logInfo("In testServiceDeadLockRetryThreadB done with wait, updating SVCLRT_A", module);
             GenericValue testingTypeA = delegator.findByPrimaryKey("TestingType", UtilMisc.toMap("testingTypeId", "SVCLRT_A"));
-            testingTypeA.set("description", "New description for SVCLRT_A from Thread B");
+            testingTypeA.set("description", "New description for SVCLRT_A");
             testingTypeA.store();
         } catch (GenericEntityException e) {
             String errMsg = "Entity Engine Exception running dead lock test thread B: " + e.toString();
@@ -119,8 +132,18 @@ public class ServiceEngineTestServices {
             GenericResultWaiter grabberWaiter = dispatcher.runAsyncWait("testServiceLockWaitTimeoutRetryGrabber", null, false);
             GenericResultWaiter waiterWaiter = dispatcher.runAsyncWait("testServiceLockWaitTimeoutRetryWaiter", null, false);
             // make sure to wait for these to both finish to make sure results aren't checked until they are done
-            grabberWaiter.waitForResult();
-            waiterWaiter.waitForResult();
+            Map grabberResult = grabberWaiter.waitForResult();
+            Map waiterResult = waiterWaiter.waitForResult();
+            List errorList = FastList.newInstance();
+            if (ServiceUtil.isError(grabberResult)) {
+                errorList.add("Error running testServiceLockWaitTimeoutRetryGrabber: " + ServiceUtil.getErrorMessage(grabberResult));
+            }
+            if (ServiceUtil.isError(waiterResult)) {
+                errorList.add("Error running testServiceLockWaitTimeoutRetryWaiter: " + ServiceUtil.getErrorMessage(waiterResult));
+            }
+            if (errorList.size() > 0) {
+                return ServiceUtil.returnError("Error(s) running sub-services in testServiceLockWaitTimeoutRetry", errorList, null, null);
+            }
         } catch (Exception e) {
             String errMsg = "Error running deadlock test services: " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -206,7 +229,10 @@ public class ServiceEngineTestServices {
 
             Debug.logInfo("In testServiceLockWaitTimeoutRetryCantRecover (grabber) just updated SVCLWTRTCR, running sub-service in own transaction", module);
             // timeout is 5 seconds so it is longer than the tx timeout for this service, so will fail quickly; with this transaction keeping a lock on the record and that one trying to get it, bam we cause the error
-            dispatcher.runSync("testServiceLockWaitTimeoutRetryCantRecoverWaiter", null, 5, true);
+            Map waiterResult = dispatcher.runSync("testServiceLockWaitTimeoutRetryCantRecoverWaiter", null, 5, true);
+            if (ServiceUtil.isError(waiterResult)) {
+                return ServiceUtil.returnError("Error running testServiceLockWaitTimeoutRetryCantRecoverWaiter", null, null, waiterResult);
+            }
             
             Debug.logInfo("In testServiceLockWaitTimeoutRetryCantRecover (grabber) successfully finished running sub-service in own transaction", module);
         } catch (GenericServiceException e) {

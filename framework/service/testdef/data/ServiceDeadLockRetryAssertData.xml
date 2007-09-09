@@ -19,6 +19,9 @@ under the License.
 -->
 <entity-engine-xml>
     <!-- assert data for service dead lock recovery test -->
-    <TestingType testingTypeId="SVCLRT_A" description="New description for SVCLRT_A from Thread B"/>
-    <TestingType testingTypeId="SVCLRT_B" description="New description for SVCLRT_B from Thread A"/>
+    <!-- NOTE we don't know which thread (A or B) these will be from because that is a race condition thing decided by 
+        the database about which transaction to terminate, and the terminated one will be the one that re-tries and 
+        make it into the database at the end. -->
+    <TestingType testingTypeId="SVCLRT_A" description="New description for SVCLRT_A"/>
+    <TestingType testingTypeId="SVCLRT_B" description="New description for SVCLRT_B"/>
 </entity-engine-xml>
