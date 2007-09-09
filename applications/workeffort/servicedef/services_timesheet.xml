@@ -42,6 +42,15 @@ under the License.
         <description>Deletes Timesheet</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="createTimesheets" engine="simple" 
+            location="org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="createTimesheets" auth="true">
+        <description>Creates Timesheet for multiple Parties in a single shot</description>
+        <attribute name="partyIdList" type="List" mode="IN" optional="true"/>
+        <attribute name="clientPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDate" type="String" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="String" mode="IN" optional="true"/>
+        <attribute name="comments" type="String" mode="IN" optional="true"/>
+    </service>
     <service name="createTimesheetForThisWeek" default-entity-name="Timesheet" engine="simple" auth="true"
         location="org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="createTimesheetForThisWeek">
         <description>Creates Timesheet</description>
