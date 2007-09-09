@@ -38,7 +38,7 @@ under the License.
         <table width="100%" cellpadding="2" cellspacing="0" border="1">
           <tr>
             <#if !(task?exists)>
-              <td><input type="hidden" name="workEffortTypeId" value="${parameters.workEffortTypeId?if_exists}"/></td>
+              <td><input type="hidden" name="workEffortTypeId" value="TASK"/></td>
             <#else>
               <td><input type="hidden" name="workEffortTypeId" value="${task.workEffortTypeId?if_exists}"/></td>
               <td><input type="hidden" name="workEffortId" value="${task.workEffortId?if_exists}"/></td>
@@ -47,8 +47,6 @@ under the License.
           </tr>
           <#if task?exists>
             <tr>
-              <td class="label" >${uiLabelMap.ProjectMgrWorkEffortIdFrom}</td>            
-              <td>${(workEffort.workEffortName)?if_exists} [${(workEffort.workEffortId)?if_exists}]<span class="tooltip">${uiLabelMap.CommonNotModifRecreat}</td>
               <td><input type="hidden" name="workEffortIdFrom" value="${workEffortIdFrom?if_exists}"/></td>
               <td><input type="hidden" name="workEffortParentId" value="${workEffortIdFrom?if_exists}"/></td> 
             </tr> 
