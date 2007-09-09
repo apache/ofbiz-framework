@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+	
+	<!--================ Project Lists==============-->
+    <form name="ListProjects" type="list" list-name="projects">
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${workEffortId}" target="EditProject?workEffortId=${workEffortId}"/>
+        </field>
+        <field name="workEffortName" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="workEffortTypeId" title="${uiLabelMap.ProjectMgrWorkEffortTypeId}"><display-entity entity-name="WorkEffortType"/></field>
+        <field name="workEffortPurposeTypeId" title="${uiLabelMap.ProjectMgrWorkEffortPurposeTypeId}"><display-entity entity-name="WorkEffortPurposeType"/></field>
+        <field name="projectView" title="${uiLabelMap.ProjectMgrProjectSummary}" widget-style="linktext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.ProjectMgrProjectSummary}" target="projectView?workEffortId=${workEffortId}"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="linktext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteProject?workEffortId=${workEffortId}"/>
+        </field>
+    </form>                                        	
+    <form name="ListChildEfforts"  target="updateProjectAndAssoc" title="" list-name="projects" type="list" separate-columns="true">
+        <actions>                 
+            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" env-name="currentStatusId"/>
+            </entity-one>
+        </actions>
+        <field name="workEffortTypeId"><hidden/></field>
+        <field name="workEffortId"><hidden/></field>
+        <field name="workEffortIdFrom"><hidden/></field>
+        <field name="fromDate"><hidden/></field>
+        <field name="workEffortAssocTypeId"><hidden/></field>
+        <field name="workEffortIdTo" entry-name="workEffortId"><hidden/></field>
+        <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}*"><display/></field>
+               
+        <field name="currentStatusId">
+            <drop-down allow-empty="false" current-description="${currentStatus.description}">
+                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
+                    <entity-constraint name="statusId" value="${currentStatusId}"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text size="15"/></field>
+        <field name="priority" title="${uiLabelMap.CommonPriority}" widget-style="selectBox" position="1">
+            <drop-down allow-empty="true">
+                <option key="1" description="1 (${uiLabelMap.WorkEffortPriorityHigh})"/><option key="2"/><option key="3"/><option key="4"/><option key="5"/>
+                <option key="6"/><option key="7"/><option key="8"/><option key="9" description="9 (${uiLabelMap.WorkEffortPriorityLow})"/>
+            </drop-down>
+        </field>      
+        <field name="actualStartDate" entry-name="workEffortToActualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><date-time/></field>
+        <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><date-time/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form>
+   
+ <!--================ Task Lists==============-->    
+    <form name="ListTasks" target="updateTaskAndAssoc" title="" list-name="tasks" type="list" separate-columns="true">
+        <actions>                 
+            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" env-name="currentStatusId"/>
+            </entity-one>
+        </actions>
+        <field name="workEffortTypeId"><hidden/></field>
+        <field name="workEffortId"><hidden/></field>
+        <field name="workEffortIdFrom"><hidden/></field>
+        <field name="fromDate"><hidden/></field>
+        <field name="workEffortAssocTypeId"><hidden/></field>
+        <field name="workEffortIdTo" entry-name="workEffortId"><hidden/></field>
+        <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}*"><display/></field>
+               
+        <field name="currentStatusId">
+            <drop-down allow-empty="false" current-description="${currentStatus.description}">
+                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
+                    <entity-constraint name="statusId" value="${currentStatusId}"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text size="15"/></field>
+        <field name="priority" title="${uiLabelMap.CommonPriority}" widget-style="selectBox" position="1">
+            <drop-down allow-empty="true">
+                <option key="1" description="1 (${uiLabelMap.WorkEffortPriorityHigh})"/><option key="2"/><option key="3"/><option key="4"/><option key="5"/>
+                <option key="6"/><option key="7"/><option key="8"/><option key="9" description="9 (${uiLabelMap.WorkEffortPriorityLow})"/>
+            </drop-down>
+        </field>      
+        <field name="actualStartDate" entry-name="workEffortToActualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><date-time/></field>
+        <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><date-time/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="timeEntries" title="${uiLabelMap.ProjectMgrTimeEntries}" widget-style="linktext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.ProjectMgrTimeEntries}" target="EditTimeEntries?workEffortId=${workEffortId}"/>
+        </field>
+    </form> 
+    <form name="ListUnassignedTasks" target="updateTaskAndAssoc" title="" list-name="tasks" type="list" separate-columns="true">
+        <actions>                 
+            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" env-name="currentStatusId"/>
+            </entity-one>
+        </actions>
+        <field name="workEffortTypeId"><hidden/></field>
+        <field name="workEffortId"><hidden/></field>        
+        <field name="workEffortAssocTypeId"><hidden/></field>
+        <field name="workEffortIdTo" entry-name="workEffortId"><hidden/></field>
+        <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}*"><display/></field>
+        <field name="workEffortIdFrom" title="${uiLabelMap.ProjectMgrWorkEffortIdFrom}"><lookup target-form-name="LookupWorkEffort"/></field>
+        <field name="fromDate"><date-time/></field>
+        <field name="currentStatusId">
+            <drop-down allow-empty="false" current-description="${currentStatus.description}">
+                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
+                    <entity-constraint name="statusId" value="${currentStatusId}"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text size="15"/></field>
+        <field name="priority" title="${uiLabelMap.CommonPriority}" widget-style="selectBox" position="1">
+            <drop-down allow-empty="true">
+                <option key="1" description="1 (${uiLabelMap.WorkEffortPriorityHigh})"/><option key="2"/><option key="3"/><option key="4"/><option key="5"/>
+                <option key="6"/><option key="7"/><option key="8"/><option key="9" description="9 (${uiLabelMap.WorkEffortPriorityLow})"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form>       
+    <form name="ListPhases" target="updatePhaseAndAssoc" title="" list-name="phases" type="list" separate-columns="true">
+        <actions>                 
+            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" env-name="currentStatusId"/>
+            </entity-one>
+        </actions>
+        <field name="workEffortTypeId"><hidden/></field>
+        <field name="workEffortId"><hidden/></field>
+        <field name="workEffortIdFrom"><hidden/></field>
+        <field name="fromDate"><hidden/></field>
+        <field name="workEffortAssocTypeId"><hidden/></field>
+        <field name="workEffortIdTo" entry-name="workEffortId"><hidden/></field>
+        <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}*"><display/></field>
+        <field name="currentStatusId">
+            <drop-down allow-empty="false" current-description="${currentStatus.description}">
+                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
+                    <entity-constraint name="statusId" value="${currentStatusId}"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text size="15"/></field>        
+        <field name="actualStartDate" entry-name="workEffortToActualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><date-time/></field>
+        <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><date-time/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form>
+    <form name="ListPhaseInfo" type="list" list-name="phases">
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${workEffortId}" target="EditPhase?workEffortId=${workEffortId}"/>
+        </field>
+        <field name="workEffortName" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="workEffortTypeId" title="${uiLabelMap.ProjectMgrWorkEffortTypeId}"><display-entity entity-name="WorkEffortType"/></field>
+        <field name="workEffortPurposeTypeId" title="${uiLabelMap.ProjectMgrWorkEffortPurposeTypeId}"><display-entity entity-name="WorkEffortPurposeType"/></field>
+        <field name="projectView" title="${uiLabelMap.ProjectMgrProjectSummary}" widget-style="linktext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.ProjectMgrProjectSummary}" target="projectView?workEffortId=${workEffortId}"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="linktext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteProject?workEffortId=${workEffortId}"/>
+        </field>
+    </form>
+    <form name="ListAssociatedParties" type="list" list-name="associatedParties">
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${workEffortId}" target="EditPhase?workEffortId=${workEffortId}"/>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyId}" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="roleTypeId" title="${uiLabelMap.ProjectMgrPartyRoleTypeId}"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
+    </form>
+    <form name="ListProjectSkills" type="list" target="updateWorkEffortSkillStandard" list-name="workEffortSkillStandardList">
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}"><display/></field>
+        <field name="skillTypeId" title="${uiLabelMap.ProjectMgrSkillType}">
+            <drop-down allow-empty="false" current-description="${currentStatus.description}">
+                <entity-options entity-name="SkillType" key-field-name="skillTypeId" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="estimatedNumPeople" title="${uiLabelMap.ProjectMgrEstimatedNumPeople}"><text/></field>
+        <field name="estimatedDuration" title="${uiLabelMap.ProjectMgrEstimatedDuration}"><text/></field>
+        <field name="estimatedCost" title="${uiLabelMap.ProjectMgrEstimatedCost}" widget-style="linktext"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="linktext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortSkillStandard?workEffortId=${workEffortId}&amp;skillTypeId=${skillTypeId}"/>
+        </field>
+    </form>
+    <form name="ListWorkEffortPartyAssigns" separate-columns="false" target="updateWorkEffortPartyAssign" title="" type="list">
+        <actions>
+            <entity-condition entity-name="WorkEffortPartyAssignment">
+                <condition-expr field-name="workEffortId" operator="equals" env-name="workEffortId"/>
+                <order-by field-name="roleTypeId"/>
+            </entity-condition>
+        </actions>
+        <field name="workEffortId"><hidden/></field>
+        <field name="partyId" widget-style="buttontext">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyId}" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="fromDate"><display/></field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
+            <display-entity entity-name="RoleType"/>
+        </field>
+        <field name="statusDateTime"><display/></field>
+        
+        <field name="thruDate"><date-time/></field>
+        <field name="statusId">
+            <drop-down no-current-selected-key="PARTYASSIGN_UNASSIGNED">
+                <entity-options description="${description}" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="PRTYASGN_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="expectationEnumId" title="${uiLabelMap.CommonExpectation}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="WORK_EFF_EXPECT"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="facilityId"><lookup target-form-name="LookupFacility"/></field>
+        <field name="mustRsvp"><check/></field>
+        <field name="comments"><text size="60" maxlength="255"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="EditWorkEffortPartyAssign" default-map-name="workEffortPartyAssignment" target="updateWorkEffortPartyAssign" title="" type="single">
+        <alt-target target="createWorkEffortPartyAssign" use-when="workEffortPartyAssignment==null"/>
+        <field name="workEffortId"><hidden/></field>
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
+            <drop-down>
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-constraint name="parentTypeId" operator="equals" value="PROJECT_TEAM"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate"><date-time/></field>
+
+        <field name="thruDate"><date-time/></field>
+        <field name="statusId">
+            <drop-down no-current-selected-key="PARTYASSIGN_UNASSIGNED">
+                <entity-options description="${description}" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="PRTYASGN_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="expectationEnumId" title="${uiLabelMap.CommonExpectation}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="WORK_EFF_EXPECT"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="facilityId"><lookup target-form-name="LookupFacility"/></field>
+        <field name="mustRsvp" widget-style="tabletext"><check/></field>
+        <field name="comments"><text size="60" maxlength="255"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form> 
+    <form name="ListTimeEntries" type="list" list-name="timesheetEntries" target="updateTimeEntry">
+        <actions>
+            <entity-condition entity-name="TimeEntry">
+                <condition-expr field-name="workEffortId" env-name="workEffortId"/>
+                <order-by field-name="timesheetId"/>
+                <order-by field-name="partyId"/>
+                <order-by field-name="rateTypeId"/>
+                <order-by field-name="-fromDate"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateTimeEntry"/>        
+        <field name="fixedAssetId"><hidden/></field>
+        <field name="maintHistSeqId"><hidden/></field>
+        <field name="timeEntryId"><hidden/></field>
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${workEffortId}" target="EditProject?workEffortId=${workEffortId}"/>
+        </field>
+        <field name="timesheetId">
+            <lookup size="10" target-form-name="LookupTimesheet">
+                <sub-hyperlink target="EditTimesheet?timesheetId=${timesheetId}" link-style="buttontext" description="TS:${timesheetId}"/>
+            </lookup>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup size="12" target-form-name="LookupPerson" default-value="${timesheet.partyId}"/></field>        
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
+            <drop-down>
+                <entity-options entity-name="RateType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="invoiceId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
+        <field name="invoiceItemSeqId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
+        <field name="invoiceInfo"><hidden/></field>
+        <field name="comments"><text size="60"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteTimeEntry?workEffortId=${workEffortId}&amp;timeEntryId=${timeEntryId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form> 
+</forms>

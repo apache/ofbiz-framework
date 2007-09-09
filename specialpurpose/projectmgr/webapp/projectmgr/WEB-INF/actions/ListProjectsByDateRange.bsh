@@ -1,0 +1,131 @@
+/*
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+  
+import java.util.*;
+import java.lang.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.UtilMisc;
+
+
+import org.ofbiz.entity.util.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.condition.*;
+import java.sql.Timestamp;
+
+fromDate = parameters.get("fromDate");
+thruDate = parameters.get("thruDate");
+
+workEffortTypeId = parameters.get("workEffortTypeId");
+findAll = parameters.get("findAll");
+if (findAll == null) {
+    findAll = "N";
+}
+if(workEffortTypeId.equals("PROJECT")) {
+    if ( !(UtilValidate.isEmpty(fromDate) || UtilValidate.isEmpty(thruDate))) {
+        conditions = UtilMisc.toList(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROJECT"));
+        conditions.add(new EntityExpr("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate ));
+        conditions.add(new EntityExpr("createdStamp", EntityOperator.LESS_THAN_EQUAL_TO, thruDate ));
+        allConditions = new EntityConditionList( conditions, EntityOperator.AND );
+        orderBy = UtilMisc.toList("createdStamp DESC");
+        listProjects = delegator.findByConditionCache("WorkEffort", allConditions, null, orderBy );
+        List projects = new LinkedList();
+        itr = listProjects.iterator();
+        while (itr.hasNext()) {
+            GenericValue project = itr.next();
+            workEffortId = project.get("workEffortId");    
+            GenericValue workEffortAssoc = EntityUtil.getFirst(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdTo", workEffortId)));
+            if (workEffortAssoc == null) {
+                projects.add(UtilMisc.toMap("workEffortId", project.getString("workEffortId"),
+                                         "workEffortName", project.getString("workEffortName"),  
+                                         "workEffortTypeId", project.getString("workEffortTypeId"),
+                                         "workEffortPurposeTypeId", project.getString("workEffortPurposeTypeId")));
+                context.put("projects", projects);        
+            }
+        }
+     } else { 
+         if (findAll.equals("Y") ){
+             List listProjects = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortTypeId", workEffortTypeId));
+             List projects = new LinkedList();
+             itr = listProjects.iterator();
+             while (itr.hasNext()) {
+                 GenericValue project = itr.next();
+                 workEffortId = project.get("workEffortId");    
+                 GenericValue workEffortAssoc = EntityUtil.getFirst(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdTo", workEffortId)));
+                 if (workEffortAssoc == null) {
+                     projects.add(UtilMisc.toMap("workEffortId", project.getString("workEffortId"),
+                                              "workEffortName", project.getString("workEffortName"),  
+                                              "workEffortTypeId", project.getString("workEffortTypeId"),
+                                              "workEffortPurposeTypeId", project.getString("workEffortPurposeTypeId")));
+                     context.put("projects", projects);        
+                 }
+             }
+         } else {
+             List projects=null;
+             context.put("projects", projects);
+         }
+    }
+} else {
+    if ( !(UtilValidate.isEmpty(fromDate) || UtilValidate.isEmpty(thruDate))) {
+
+        conditions = UtilMisc.toList(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "TASK"));
+        conditions.add(new EntityExpr("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate ));
+        conditions.add(new EntityExpr("createdStamp", EntityOperator.LESS_THAN_EQUAL_TO, thruDate ));
+
+        allConditions = new EntityConditionList( conditions, EntityOperator.AND );
+        orderBy = UtilMisc.toList("createdStamp DESC");
+        tasks = delegator.findByConditionCache("WorkEffort", allConditions, null, orderBy );
+        List unAssignedTasks = new LinkedList();
+        itr = tasks.iterator();
+        while (itr.hasNext()) {
+            GenericValue task = itr.next();
+            workEffortId = task.get("workEffortId");    
+            GenericValue workEffortAssoc = EntityUtil.getFirst(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdTo", workEffortId)));
+            if (workEffortAssoc == null) {
+            unAssignedTasks.add(UtilMisc.toMap("workEffortId", task.getString("workEffortId"),
+                                                 "workEffortName", task.getString("workEffortName"),  
+                                                 "workEffortTypeId", task.getString("workEffortTypeId"),
+                                                 "workEffortPurposeTypeId", task.getString("workEffortPurposeTypeId")));
+                context.put("tasks", unAssignedTasks);        
+            }
+        }
+    } else {         
+        if (findAll.equals("Y") ){
+        List tasks = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortTypeId", workEffortTypeId));
+        List unAssignedTasks = new LinkedList();
+        itr = tasks.iterator();
+        while (itr.hasNext()) {
+            GenericValue task = itr.next();
+            workEffortId = task.get("workEffortId");    
+            GenericValue workEffortAssoc = EntityUtil.getFirst(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdTo", workEffortId)));
+            if (workEffortAssoc == null) {
+            unAssignedTasks.add(UtilMisc.toMap("workEffortId", task.getString("workEffortId"),
+                                                 "workEffortName", task.getString("workEffortName"),  
+                                                 "workEffortTypeId", task.getString("workEffortTypeId"),
+                                                 "workEffortPurposeTypeId", task.getString("workEffortPurposeTypeId")));
+                context.put("tasks", unAssignedTasks);        
+            }
+        }        
+    } else {
+        List unAssignedTasks=null;
+        context.put("tasks", unAssignedTasks);
+     }
+}
+}

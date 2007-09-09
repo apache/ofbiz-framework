@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+	<!--================ UnAssigned Tasks Lists==============-->
+    <form name="ListTaskLists" type="list" list-name="tasks">
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${workEffortName} [${workEffortId}]" target="EditTask?workEffortId=${workEffortId}"/>
+        </field>
+        <field name="workEffortName" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="workEffortTypeId" title="${uiLabelMap.ProjectMgrWorkEffortTypeId}"><display-entity entity-name="WorkEffortType"/></field>
+        <field name="workEffortPurposeTypeId" title="${uiLabelMap.ProjectMgrWorkEffortPurposeTypeId}"><display-entity entity-name="WorkEffortPurposeType"/></field>        
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="linktext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteTask?workEffortId=${workEffortId}"/>
+        </field>
+    </form>
+    <form name="ListChildEfforts" target="updateTaskListAndAssoc" title="" list-name="tasks" type="list" separate-columns="true">
+        <actions>                 
+            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" env-name="currentStatusId"/>
+            </entity-one>
+        </actions>
+        <field name="workEffortTypeId"><hidden/></field>
+        <field name="workEffortIdTo"><hidden/></field>
+        <field name="workEffortIdFrom"><hidden/></field>
+        <field name="fromDate"><hidden/></field>
+        <field name="workEffortAssocTypeId"><hidden/></field>
+        <field name="workEffortId" entry-name="workEffortIdTo"><hidden/></field>
+        <!--field name="workEffortId" entry-name="workEffortIdTo" position="1" title="${uiLabelMap.CommonName}*" widget-style="buttontext">
+            <display-entity entity-name="WorkEffort" description="${workEffortName}">
+                <sub-hyperlink target="FindTaskList?workEffortIdFrom=${workEffortIdTo}&amp;workEffortTypeId=TASK&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN" description="${workEffortIdTo}" link-style="buttontext"/>
+            </display-entity>
+        </field-->
+        <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}*"><display/></field>        
+        <field name="currentStatusId">
+            <drop-down allow-empty="false" current-description="${currentStatus.description}">
+                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
+                    <entity-constraint name="statusId" value="${currentStatusId}"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text size="15"/></field>
+        <field name="actualStartDate" entry-name="workEffortToActualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><date-time/></field>
+        <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><date-time/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form>
+    <form name="ListTaskSkills" type="list" target="updateTaskSkillStandard" list-name="workEffortSkillStandard">
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${workEffortId}" target="EditPhase?workEffortId=${workEffortId}"/>
+        </field>
+        <field name="skillTypeId" title="${uiLabelMap.ProjectMgrSkillType}">
+            <drop-down allow-empty="false" current-description="${currentStatus.description}">
+                <entity-options entity-name="SkillType" key-field-name="skillTypeId" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="estimatedNumPeople" title="${uiLabelMap.ProjectMgrEstimatedNumPeople}"><text/></field>
+        <field name="estimatedDuration" title="${uiLabelMap.ProjectMgrEstimatedDuration}"><text/></field>
+        <field name="estimatedCost" title="${uiLabelMap.ProjectMgrEstimatedCost}" widget-style="linktext"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form> 
+</forms>

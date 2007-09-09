@@ -28,6 +28,7 @@
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AssetMaintUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <!-- The two default (global) stylesheets are added to the list
@@ -80,11 +81,47 @@
         </section>
     </screen>
 
-    <screen name="CommonWorkEffortDecorator">
+    <screen name="CommonProjectDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="workeffort"/>
-                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="headerItem" value="projects"/>                
+                <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
+                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not>                                            
+                                            <if-empty field-name="workEffortId"/>                                                
+                                        </not>                                        
+                                    </condition>
+                                    <widgets>                                        
+                                        <include-menu name="ProjectTabBar" location="component://projectmgr/widget/Menus.xml"/>
+                                    </widgets>
+                                 </section>   
+                                                                                                                                      
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.WorkEffortViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonTaskDecorator">
+        <section>
+            <actions>
+                <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
                 <entity-one entity-name="WorkEffort" value-name="workEffort"/>
             </actions>
             <widgets>
@@ -101,12 +138,9 @@
                                             <if-empty field-name="workEffortId"/>
                                         </not>
                                     </condition>
-                                    <widgets>
-                                        <include-menu name="WorkEffortTabBar" location="component://workeffort/widget/WorkEffortMenus.xml"/>
-                                        <container>
-                                            <label style="head1">${uiLabelMap.WorkEffortWorkEffortId}: ${workEffortId}</label>
-                                        </container>
-                                    </widgets>
+                                    <widgets>                                        
+                                        <include-menu name="TaskTabBar" location="component://projectmgr/widget/Menus.xml"/>
+                                    </widgets>                                    
                                 </section>
                                 
                                 <decorator-section-include name="body"/>
@@ -119,8 +153,7 @@
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>
-    
+    </screen>          
     <screen name="CommonTimesheetDecorator">
         <section>
             <actions>
@@ -139,8 +172,8 @@
                                 <section>
                                     <condition><not><if-empty field-name="timesheetId"/></not></condition>
                                     <widgets>
-                                        <include-menu name="TimesheetTabBar" location="component://workeffort/widget/TimesheetMenus.xml"/>
-                                        <container><label style="head1">${uiLabelMap.TimesheetTimesheetId}: ${timesheetId}</label></container>
+                                        <include-menu name="TimesheetTabBar" location="component://projectmgr/widget/Menus.xml"/>
+                                        <!--container><label style="head1">${uiLabelMap.TimesheetTimesheetId}: ${timesheetId}</label></container-->
                                     </widgets>
                                 </section>
                                 

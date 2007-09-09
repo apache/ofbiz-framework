@@ -20,15 +20,15 @@
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    <menu name="ProjectMgrAppBar" default-menu-item-name="task" id="app-navigation" type="simple" selected-menuitem-context-field-name="headerItem" default-selected-style="selected" title="${uiLabelMap.ProjectManagerApplication}">
+    <menu name="ProjectMgrAppBar" default-menu-item-name="task" id="app-navigation" type="simple" selected-menuitem-context-field-name="headerItem" default-selected-style="selected" title="${uiLabelMap.ProjectManagerApplication}" menu-container-style="button-bar tab-bar">
     
-        <menu-item name="task" title="${uiLabelMap.WorkEffortTaskList}"><link target="mytasks"/></menu-item>
-        <menu-item name="projects" title="${uiLabelMap.WorkEffortProjects}"><link target="FindWorkEffort?workEffortTypeId=PROJECT"/></menu-item>
+        <menu-item name="task" title="${uiLabelMap.WorkEffortTaskList}"><link target="FindTaskByRange?workEffortTypeId=TASK"/></menu-item>
+        <menu-item name="projects" title="${uiLabelMap.WorkEffortProjects}"><link target="FindProjectByRange?workEffortTypeId=PROJECT"/></menu-item>
         <menu-item name="calendar" title="${uiLabelMap.WorkEffortCalendar}"><link target="day"/></menu-item>
         <menu-item name="mytime" title="${uiLabelMap.TimesheetMyTime}"><link target="MyTimesheets"/></menu-item>
         <menu-item name="request" title="${uiLabelMap.WorkEffortRequestList}"><link target="requestlist"/></menu-item>
         <menu-item name="workeffort" title="${uiLabelMap.WorkEffortWorkEffort}"><link target="FindWorkEffort"/></menu-item>
-        <menu-item name="timesheet" title="${uiLabelMap.Timesheet}"><link target="FindTimesheet"/></menu-item>
+        <menu-item name="timesheet" title="${uiLabelMap.Timesheet}"><link target="FindTimeSheet?findAll=N"/></menu-item>
         
         <menu-item name="Logout" title="Logout" align-style="col-right" widget-style="headerButtonRight" selected-style="headerButtonRightSelected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
@@ -39,5 +39,30 @@
             <link target="${checkLoginUrl}"/>
         </menu-item>
     </menu>
-    
+    <menu name="ProjectTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected">
+        <menu-item name="editproject" title="${uiLabelMap.ProjectMgrEditPoject}"><link target="EditProject?workEffortId=${workEffortId}"/></menu-item>
+        <menu-item name="phases" title="${uiLabelMap.ProjectMgrPhases}"><link target="FindPhase?workEffortIdFrom=${workEffortId}&amp;workEffortTypeId=PHASE&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
+        <menu-item name="subprojects" title="${uiLabelMap.ProjectMgrSubProjects}"><link target="FindProject?workEffortIdFrom=${workEffortId}&amp;workEffortTypeId=PROJECT&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
+        <menu-item name="tasks" title="${uiLabelMap.ProjectMgrTasks}"><link target="FindTask?workEffortIdFrom=${workEffortId}&amp;workEffortTypeId=TASK&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>        
+        <menu-item name="projectskills" title="${uiLabelMap.ProjectMgrSkillStandards}"><link target="EditProjectSkills?workEffortId=${workEffortId}"/></menu-item>
+        <menu-item name="parties" title="${uiLabelMap.ProjectMgrParties}"><link target="ListWorkEffortPartyAssigns?workEffortId=${workEffortId}"/></menu-item>
+        <menu-item name="treeDetails" title="${uiLabelMap.ProjectMgrTreeDetails}"><link target="ChildWorkEfforts?workEffortId=${workEffortId}&amp;trail=${workEffortId}&amp;workEffortTypeId=PROJECT&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
+    </menu>
+    <menu name="TaskTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected">
+        <menu-item name="edittask" title="${uiLabelMap.ProjectMgrEditTask}"><link target="EditTask?workEffortId=${workEffortId}"/></menu-item>
+        <menu-item name="subtasks" title="${uiLabelMap.ProjectMgrSubTasks}"><link target="FindTaskList?workEffortIdFrom=${workEffortId}&amp;workEffortTypeId=TASK&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
+        <menu-item name="projectskills" title="${uiLabelMap.ProjectMgrSkillStandards}"><link target="EditTaskSkills?workEffortId=${workEffortId}"/></menu-item>
+        <menu-item name="treeDetails" title="${uiLabelMap.ProjectMgrTreeDetails}"><link target="ChildTaskWorkEfforts?workEffortId=${workEffortId}&amp;trail=${workEffortId}&amp;workEffortTypeId=TASK&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
+    </menu>
+    <menu name="TimesheetTabBar" menu-container-style="button-bar tab-bar" default-menu-item-name="edittimesheet" default-selected-style="selected">
+        <menu-item name="edittimesheet" title="${uiLabelMap.Timesheet}">
+            <link target="EditTimeSheet?timesheetId=${timesheetId}"/>
+        </menu-item>
+        <menu-item name="TimesheetRoles" title="${uiLabelMap.PartyParties}">
+            <link target="EditTimesheetRoles?timesheetId=${timesheetId}"/>
+        </menu-item>
+        <menu-item name="TimesheetEntries" title="${uiLabelMap.CommonEntries}">
+            <link target="EditTimesheetEntries?timesheetId=${timesheetId}"/>
+        </menu-item>
+    </menu>
 </menus>
