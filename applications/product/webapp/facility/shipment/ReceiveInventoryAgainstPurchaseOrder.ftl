@@ -32,7 +32,7 @@ under the License.
     </script>
 
     <#assign productId = parameters.productId?if_exists/>
-    <div class="head3">${uiLabelMap.ProductReceiveInventoryAgainstPurchaseOrder}</div>
+    <h3>${uiLabelMap.ProductReceiveInventoryAgainstPurchaseOrder}</h3>
 
     <div class="errorMessage">
         <#if ! isPurchaseShipment>
@@ -221,7 +221,7 @@ under the License.
             <script language="JavaScript" type="text/javascript">selectAll('selectAllForm');</script>
         </#if>
         <#if itemsAvailableToReceive && totalReadyToReceive < totalAvailableToReceive>
-            <div class="head3">${uiLabelMap.ProductReceiveInventoryAddProductToReceive}</div>
+            <h3>${uiLabelMap.ProductReceiveInventoryAddProductToReceive}</h3>
             <form name="addProductToReceive" method="post" action="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder</@ofbizUrl>">
                 <input type="hidden" name="shipmentId" value="${shipmentId}"/>
                 <input type="hidden" name="purchaseOrderId" value="${orderId}"/>

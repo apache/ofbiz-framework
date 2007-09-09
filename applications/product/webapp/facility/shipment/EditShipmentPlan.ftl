@@ -44,8 +44,8 @@ under the License.
     <br/>
     </#if>
     ${listShipmentPlanForm.renderFormString(context)}
-    <div class="head2">${uiLabelMap.ProductShipmentTotalWeight}: ${totWeight}</div>
-    <div class="head2">${uiLabelMap.ProductShipmentTotalVolume}: ${totVolume}</div>
+    <h2>${uiLabelMap.ProductShipmentTotalWeight}: ${totWeight}</h2>
+    <h2>${uiLabelMap.ProductShipmentTotalVolume}: ${totVolume}</h2>
     ${shipmentPlanToOrderItemsForm.renderFormString(context)}
 <#else>
   <h3>${uiLabelMap.ProductShipmentNotFoundId} : [${shipmentId?if_exists}]</h3>

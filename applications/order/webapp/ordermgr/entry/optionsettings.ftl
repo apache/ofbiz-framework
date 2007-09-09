@@ -39,7 +39,7 @@ under the License.
               <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
               <tr>
                 <td colspan="2">
-                    <div class="head1"><b>${uiLabelMap.OrderShipGroup} # ${currIndex}</b><#if supplier?has_content> - ${supplier.groupName?default(supplier.partyId)}</#if></div>
+                    <h1><b>${uiLabelMap.OrderShipGroup} # ${currIndex}</b><#if supplier?has_content> - ${supplier.groupName?default(supplier.partyId)}</#if></h1>
                 </td>
               </tr>
 

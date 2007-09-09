@@ -24,7 +24,7 @@ under the License.
         <link rel="stylesheet" href="${baseUrl}/images/maincss.css" type="text/css"/>
     </head>
     <body>
-        <div class="head1">${title}</div>
+        <h1>${title}</h1>
         <p class="tabletext">Hello ${parameters.USER_TITLE?if_exists} ${parameters.USER_FIRST_NAME?if_exists} ${parameters.USER_MIDDLE_NAME?if_exists} ${parameters.USER_LAST_NAME?if_exists} ${parameters.USER_SUFFIX?if_exists},</p>
         <p class="tabletext">Your account has been created.</p>
     </body>
