@@ -88,8 +88,6 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
             GenericValue jobV = null;
             // Build the value object(s).
             try {
-                List toBeStored = new LinkedList();
-
                 // Create the runtime data
                 String dataId = dispatcher.getDelegator().getNextSeqId("RuntimeData");
 
@@ -97,7 +95,7 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
                         UtilMisc.toMap("runtimeDataId", dataId));
 
                 runtimeData.set("runtimeInfo", XmlSerializer.serialize(context));
-                toBeStored.add(runtimeData);
+                runtimeData.create();
 
                 // Get the userLoginId out of the context
                 String authUserLoginId = null;
@@ -122,9 +120,7 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
                 }
 
                 jobV = dispatcher.getDelegator().makeValue("JobSandbox", jFields);
-                toBeStored.add(jobV);
-                dispatcher.getDelegator().storeAll(toBeStored);
-
+                jobV.create();
             } catch (GenericEntityException e) {
                 throw new GenericServiceException("Unable to create persisted job", e);
             } catch (SerializeException e) {
@@ -167,4 +163,3 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
         }
     }
 }
-
