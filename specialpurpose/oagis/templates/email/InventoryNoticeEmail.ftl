@@ -27,7 +27,7 @@
   </head>
 
   <body>
-    <div class="head1">${title}</div>
+    <h1>${title}</h1>
     <#-- custom logo or text can be inserted here -->
     <br/>
     <div class="screenlet-header">  

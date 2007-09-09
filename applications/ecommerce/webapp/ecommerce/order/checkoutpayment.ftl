@@ -128,7 +128,7 @@ function submitForm(form, mode, value) {
             <#if !paymentMethodList?has_content>
               <tr>
                 <td colspan="3">
-                  <div class='tabletext'><b>${uiLabelMap.AccountingNoPaymentMethodsOnFile}.</b></div>
+                  <div class='tabletext'><b>${uiLabelMap.AccountingNoPaymentMethods}.</b></div>
                 </td>
               </tr>
             <#else/>
