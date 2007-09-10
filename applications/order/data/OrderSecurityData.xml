@@ -51,6 +51,7 @@ under the License.
     <SecurityGroup description="Order entry with purchasing permissions" groupId="ORDERPURCH"/>
     <SecurityGroup description="Order entry permission for all stores.  No special role is needed." groupId="ORDERENTRY_ALL"/>
     
+    <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_VIEW"/>
     <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_ROLE_VIEW"/>
     <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_ROLE_CREATE"/>
     <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_ROLE_UPDATE"/>

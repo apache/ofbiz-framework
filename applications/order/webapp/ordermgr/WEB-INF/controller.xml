@@ -700,6 +700,12 @@ under the License.
         <response name="success" type="view" value="checkoutshippingaddress"/>
         <response name="error" type="view" value="showcart"/>
     </request-map>
+    <request-map uri="cartUpdateShipToCustomerParty">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="setCartShipToCustomerParty"/>
+        <response name="success" type="view" value="quickcheckout"/>
+        <response name="error" type="view" value="showcart"/>
+    </request-map>
     <request-map uri="checkout">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="setQuickCheckOutOptions"/>
@@ -1125,6 +1131,12 @@ under the License.
     <request-map uri="approveRequirements">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="approveRequirement"/>
+        <response name="success" type="view" value="ApproveRequirements"/>
+        <response name="error" type="view" value="ApproveRequirements"/>
+    </request-map>
+    <request-map uri="createTransfersFromRequirements">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="createTransferFromRequirement"/>
         <response name="success" type="view" value="ApproveRequirements"/>
         <response name="error" type="view" value="ApproveRequirements"/>
     </request-map>

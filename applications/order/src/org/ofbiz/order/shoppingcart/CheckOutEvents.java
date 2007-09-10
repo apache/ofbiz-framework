@@ -257,6 +257,13 @@ public class CheckOutEvents {
         return "success";
     }
 
+    public static String setCartShipToCustomerParty(HttpServletRequest request, HttpServletResponse response) {
+        ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
+        String shipToCustomerPartyId = request.getParameter("shipToCustomerPartyId");
+        cart.setShipToCustomerPartyId(shipToCustomerPartyId);
+        return "success";
+    }
+
     public static String checkPaymentMethods(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");

@@ -63,6 +63,10 @@ function submitForm(form, mode, value) {
         // selected shipping address
         form.action="<@ofbizUrl>updateCheckoutOptions/quickcheckout</@ofbizUrl>";
         form.submit();
+    } else if (mode == "SC") {
+        // selected ship to party
+        form.action="<@ofbizUrl>cartUpdateShipToCustomerParty</@ofbizUrl>";
+        form.submit();
     }
 }
 
@@ -86,6 +90,16 @@ function submitForm(form, mode, value) {
             </div>
             <div class="screenlet-body" style="height: 100%;">
                 <table width="100%" border="0" cellpadding="1" cellspacing="0">
+                  <tr>
+                    <td colspan="2">
+                      <span class="tabletext">${uiLabelMap.OrderShipToParty}:</span>
+                      <select name="shipToCustomerPartyId" onChange="javascript:submitForm(document.checkoutInfoForm, 'SC', null);">
+                          <#list cartParties as cartParty>
+                          <option value="${cartParty}">${cartParty}</option>
+                          </#list>
+                      </select>
+                    </td>
+                  </tr>
                   <tr>
                     <td colspan="2">
                       <span class="tabletext">${uiLabelMap.CommonAdd}:</span>
