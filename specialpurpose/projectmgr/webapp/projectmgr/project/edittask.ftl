@@ -78,11 +78,11 @@ under the License.
             <td>          
               <select name="currentStatusId" class="selectBox">
               <#if task?exists>
-                <#assign currentStatusId = task.currentStatusId?if_exists>
-                <option SELECTED value="${currentStatusId}">${currentStatusId}</option>  
-                <#assign statusValidChangeToDetailList = delegator.findByAnd("StatusValidChangeToDetail", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", currentStatusId))>
+                <#assign currentStatus = task.getRelatedOne("CurrentStatusItem")?if_exists>
+                <option value="${currentStatus.statusId}">${currentStatus.description}</option>  
+                <#assign statusValidChangeToDetailList = delegator.findByAnd("StatusValidChangeToDetail", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", currentStatus.statusId))>
                 <#list statusValidChangeToDetailList as statusValidChangeToDetail> 
-                  <option value=${statusValidChangeToDetail.statusId}>${statusValidChangeToDetail.description}</option>
+                  <option value=${statusValidChangeToDetail.statusIdTo}>${statusValidChangeToDetail.description}</option>
                 </#list>
               <#else>
                 <#assign statusItemTasks = delegator.findByAnd("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusTypeId", "TASK_STATUS"))>
@@ -139,7 +139,7 @@ under the License.
               <#if task?exists>
                 <#assign scopeEnumId = task.scopeEnumId?if_exists>            
                 <#list enumerations as enumeration>                    
-                  <option <#if "${enumeration.enumId}" == scopeEnumId?if_exists>selected="selected"</#if>>${enumeration.description}</option>
+                  <option value="${enumeration.enumId}" <#if "${enumeration.enumId}" == scopeEnumId?if_exists>selected="selected"</#if>>${enumeration.description}</option>
                 </#list>
               <#else>
                 <#list enumerations as enumeration>                    
