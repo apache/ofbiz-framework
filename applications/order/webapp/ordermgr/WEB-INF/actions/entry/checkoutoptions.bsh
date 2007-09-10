@@ -50,7 +50,8 @@ context.put("shoppingCart", shoppingCart);
 context.put("userLogin", userLogin);
 context.put("productStoreId", productStore.get("productStoreId"));
 context.put("productStore", productStore);
-context.put("shippingContactMechList", ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false));
+shipToParty = delegator.findByPrimaryKeyCache("Party", UtilMisc.toMap("partyId", shoppingCart.getShipToCustomerPartyId()));
+context.put("shippingContactMechList", ContactHelper.getContactMech(shipToParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false));
 context.put("emailList",  ContactHelper.getContactMechByType(party, "EMAIL_ADDRESS", false));
 
 if (shoppingCart.getShipmentMethodTypeId() != null && shoppingCart.getCarrierPartyId() != null) {
@@ -66,3 +67,33 @@ if (shoppingCart.getShippingAddress() == null && profiledefs != null && profiled
 if (shoppingCart.selectedPayments() == 0 && profiledefs != null && profiledefs.get("defaultPayMeth") != null) {
     shoppingCart.addPayment(profiledefs.get("defaultPayMeth"));
 }
+
+// create a list containing all the parties associated to the current cart, useful to change
+// the ship to party id
+List cartParties = UtilMisc.toList(shoppingCart.getShipToCustomerPartyId());
+if (!cartParties.contains(partyId)) {
+    cartParties.add(partyId);
+}
+if (!cartParties.contains(shoppingCart.getOrderPartyId())) {
+    cartParties.add(shoppingCart.getOrderPartyId());
+}
+if (!cartParties.contains(shoppingCart.getPlacingCustomerPartyId())) {
+    cartParties.add(shoppingCart.getPlacingCustomerPartyId());
+}
+if (!cartParties.contains(shoppingCart.getBillToCustomerPartyId())) {
+    cartParties.add(shoppingCart.getBillToCustomerPartyId());
+}
+if (!cartParties.contains(shoppingCart.getEndUserCustomerPartyId())) {
+    cartParties.add(shoppingCart.getEndUserCustomerPartyId());
+}
+if (!cartParties.contains(shoppingCart.getSupplierAgentPartyId())) {
+    cartParties.add(shoppingCart.getSupplierAgentPartyId());
+}
+List salesReprs = (List)shoppingCart.getAdditionalPartyRoleMap().get("SALES_REP");
+for (int i = 0; i < salesReprs.size(); i++) {
+    String salesRep = (String)salesReprs.get(i);
+    if (!cartParties.contains(salesRep)) {
+        cartParties.add(salesRep);
+    }
+}
+context.put("cartParties", cartParties);
