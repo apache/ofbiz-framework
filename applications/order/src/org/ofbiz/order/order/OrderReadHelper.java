@@ -1947,7 +1947,7 @@ public class OrderReadHelper {
             GenericValue orderItem = (GenericValue) orderItems.next();
 
             BigDecimal itemQuantityDbl = orderItem.getBigDecimal("quantity");
-            if (itemQuantityDbl == null) {
+            if (itemQuantityDbl == null || itemQuantityDbl.compareTo(ZERO) == 0) {
                 continue;
             }
             BigDecimal itemQuantity = itemQuantityDbl;
