@@ -21,7 +21,10 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createOrderAdjustment" short-description="Create an OrderAdjustment">
-        <check-permission permission="ORDERMGR" action="_CREATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateOrderAdjustement"/></check-permission>
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <alt-permission permission="ORDERMGR_ROLE" action="_CREATE"/>
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateOrderAdjustement"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="OrderAdjustment" value-name="newEntity"/>
