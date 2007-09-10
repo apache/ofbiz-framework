@@ -18,12 +18,11 @@ under the License.
 -->
 
 <#if orderHeader?has_content>
-
 <div class="screenlet">
     <div class="screenlet-title-bar">
     <ul>
       <li class="head3">&nbsp;${uiLabelMap.OrderOrderItems}</li>
-      <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session)>
+      <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) || security.hasRolePermission("ORDERMGR", "_UPDATE", "", "", session)>
         <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED">
           <#if orderHeader.statusId != "ORDER_COMPLETED">
             <#--
