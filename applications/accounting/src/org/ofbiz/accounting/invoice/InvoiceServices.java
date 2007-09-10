@@ -196,6 +196,10 @@ public class InvoiceServices {
                 invoiceType = "PURCHASE_INVOICE";
             }
 
+            // Set the precision depending on the type of invoice
+            int invoiceTypeDecimals = UtilNumber.getBigDecimalScale("invoice." + invoiceType + ".decimals");
+            if (invoiceTypeDecimals == -1) invoiceTypeDecimals = decimals;
+            
             // Make an order read helper from the order
             OrderReadHelper orh = new OrderReadHelper(orderHeader);
 
@@ -418,7 +422,7 @@ public class InvoiceServices {
                         shippingApplies = true;
                     }
 
-                    BigDecimal billingAmount = orderItem.getBigDecimal("unitPrice").setScale(decimals, rounding);
+                    BigDecimal billingAmount = orderItem.getBigDecimal("unitPrice").setScale(invoiceTypeDecimals, rounding);
                     
                     Map createInvoiceItemContext = FastMap.newInstance();
                     createInvoiceItemContext.put("invoiceId", invoiceId);
@@ -449,18 +453,18 @@ public class InvoiceServices {
                     }
 
                     // this item total
-                    BigDecimal thisAmount = billingAmount.multiply(billingQuantity).setScale(decimals, rounding);
+                    BigDecimal thisAmount = billingAmount.multiply(billingQuantity).setScale(invoiceTypeDecimals, rounding);
 
                     // add to the ship amount only if it applies to this item
                     if (shippingApplies) {
-                        invoiceShipProRateAmount = invoiceShipProRateAmount.add(thisAmount).setScale(decimals, rounding);
+                        invoiceShipProRateAmount = invoiceShipProRateAmount.add(thisAmount).setScale(invoiceTypeDecimals, rounding);
                     }
 
                     // increment the invoice subtotal
                     invoiceSubTotal = invoiceSubTotal.add(thisAmount).setScale(100, rounding);
 
                     // increment the invoice quantity
-                    invoiceQuantity = invoiceQuantity.add(billingQuantity).setScale(decimals, rounding);
+                    invoiceQuantity = invoiceQuantity.add(billingQuantity).setScale(invoiceTypeDecimals, rounding);
 
                     // create the OrderItemBilling record
                     Map createOrderItemBillingContext = FastMap.newInstance();
@@ -520,7 +524,7 @@ public class InvoiceServices {
                         if (adj.get("amount") == null) { // JLR 17/4/7 : fix a bug coming from POS in case of use of a discount (on item(s) or sale, item(s) here) and a cash amount higher than total (hence issuing change)
                             continue;
                         }                        
-                        if (adjAlreadyInvoicedAmount.abs().compareTo(adj.getBigDecimal("amount").setScale(decimals, rounding).abs()) > 0) {
+                        if (adjAlreadyInvoicedAmount.abs().compareTo(adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, rounding).abs()) > 0) {
                             continue;
                         }
         
@@ -534,7 +538,7 @@ public class InvoiceServices {
                             if (adj.getString("orderAdjustmentTypeId").equals("SALES_TAX")) {
                                 amount = amount.setScale(taxDecimals, taxRounding);
                             } else {
-                                amount = amount.setScale(decimals, rounding);
+                                amount = amount.setScale(invoiceTypeDecimals, rounding);
                             }
                         } else if (adj.get("sourcePercentage") != null) { 
                             // pro-rate the amount
@@ -544,7 +548,7 @@ public class InvoiceServices {
                             amount = billingAmount.multiply(percent); 
                             amount = amount.divide(originalOrderItem.getBigDecimal("quantity"), 100, rounding);
                             amount = amount.multiply(billingQuantity);
-                            amount = amount.setScale(decimals, rounding);
+                            amount = amount.setScale(invoiceTypeDecimals, rounding);
                         }
                         if (amount.signum() != 0) {
                             Map createInvoiceItemAdjContext = FastMap.newInstance();
@@ -615,7 +619,7 @@ public class InvoiceServices {
     
                                 // add to the ship amount only if it applies to this item
                                 if (shippingApplies) {
-                                    invoiceShipProRateAmount = invoiceShipProRateAmount.add(thisAdjAmount).setScale(decimals, rounding);
+                                    invoiceShipProRateAmount = invoiceShipProRateAmount.add(thisAdjAmount).setScale(invoiceTypeDecimals, rounding);
                                 }
                             }
     
@@ -640,7 +644,7 @@ public class InvoiceServices {
                 BigDecimal adjAlreadyInvoicedAmount = null;
                 try {
                     Map checkResult = dispatcher.runSync("calculateInvoicedAdjustmentTotal", UtilMisc.toMap("orderAdjustment", adj));
-                    adjAlreadyInvoicedAmount = ((BigDecimal) checkResult.get("invoicedTotal")).setScale(decimals, rounding);
+                    adjAlreadyInvoicedAmount = ((BigDecimal) checkResult.get("invoicedTotal")).setScale(invoiceTypeDecimals, rounding);
                 } catch (GenericServiceException e) {
                     String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingCalculateInvoicedAdjustmentTotalService", locale);
                     Debug.logError(e, errMsg, module);
@@ -652,7 +656,7 @@ public class InvoiceServices {
                 if (null == adj.get("amount")) { // JLR 17/4/7 : fix a bug coming from POS in case of use of a discount (on item(s) or sale, sale here) and a cash amount higher than total (hence issuing change)
                     continue;
                 }
-                if (adjAlreadyInvoicedAmount.abs().compareTo(adj.getBigDecimal("amount").setScale(decimals, rounding).abs()) > 0) {
+                if (adjAlreadyInvoicedAmount.abs().compareTo(adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, rounding).abs()) > 0) {
                     continue;
                 }
 
@@ -664,7 +668,7 @@ public class InvoiceServices {
                     // these will effect the shipping pro-rate (unless commented)
                     // other adjustment type
                     BigDecimal adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, 
-                            orderSubTotal, invoiceSubTotal, adj.getBigDecimal("amount").setScale(decimals, rounding), decimals, rounding, userLogin, dispatcher, locale);
+                            orderSubTotal, invoiceSubTotal, adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, rounding), invoiceTypeDecimals, rounding, userLogin, dispatcher, locale);
                     // invoiceShipProRateAmount += adjAmount;
                     // do adjustments compound or are they based off subtotal? Here we will (unless commented)
                     // invoiceSubTotal += adjAmount;
@@ -690,9 +694,9 @@ public class InvoiceServices {
                     
                     // The base amount in this case is the adjustment amount minus the total already invoiced for that adjustment, since
                     //  it won't be prorated
-                    BigDecimal baseAmount = adj.getBigDecimal("amount").setScale(decimals, rounding).subtract(adjAlreadyInvoicedAmount);
+                    BigDecimal baseAmount = adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, rounding).subtract(adjAlreadyInvoicedAmount);
                     BigDecimal adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, 
-                            divisor, multiplier, baseAmount, decimals, rounding, userLogin, dispatcher, locale);
+                            divisor, multiplier, baseAmount, invoiceTypeDecimals, rounding, userLogin, dispatcher, locale);
                 } else {
 
                     // Pro-rate the shipping amount based on shippable information
@@ -700,9 +704,9 @@ public class InvoiceServices {
                     BigDecimal multiplier = invoiceShipProRateAmount;
                     
                     // The base amount in this case is the adjustment amount, since we want to prorate based on the full amount
-                    BigDecimal baseAmount = adj.getBigDecimal("amount").setScale(decimals, rounding);
+                    BigDecimal baseAmount = adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, rounding);
                     BigDecimal adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, 
-                            divisor, multiplier, baseAmount, decimals, rounding, userLogin, dispatcher, locale);
+                            divisor, multiplier, baseAmount, invoiceTypeDecimals, rounding, userLogin, dispatcher, locale);
                 }
 
                 // Increment the counter
@@ -730,9 +734,9 @@ public class InvoiceServices {
                     // The base amount in this case is the adjustment amount minus the total already invoiced for that adjustment, since
                     //  it won't be prorated
                     //  Note this should use invoice decimals & rounding instead of taxDecimals and taxRounding for tax adjustments, because it will be added to the invoice 
-                    BigDecimal baseAmount = adj.getBigDecimal("amount").setScale(decimals, rounding).subtract(adjAlreadyInvoicedAmount);
+                    BigDecimal baseAmount = adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, rounding).subtract(adjAlreadyInvoicedAmount);
                     adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, 
-                             divisor, multiplier, baseAmount, decimals, rounding, userLogin, dispatcher, locale);
+                             divisor, multiplier, baseAmount, invoiceTypeDecimals, rounding, userLogin, dispatcher, locale);
                 } else {
 
                     // Pro-rate the tax amount based on shippable information
@@ -741,11 +745,11 @@ public class InvoiceServices {
                     
                     // The base amount in this case is the adjustment amount, since we want to prorate based on the full amount
                     //  Note this should use invoice decimals & rounding instead of taxDecimals and taxRounding for tax adjustments, because it will be added to the invoice 
-                    BigDecimal baseAmount = adj.getBigDecimal("amount").setScale(decimals, rounding);
+                    BigDecimal baseAmount = adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, rounding);
                     adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, 
-                            divisor, multiplier, baseAmount, decimals, rounding, userLogin, dispatcher, locale);
+                            divisor, multiplier, baseAmount, invoiceTypeDecimals, rounding, userLogin, dispatcher, locale);
                 }
-                invoiceSubTotal = invoiceSubTotal.add(adjAmount).setScale(decimals, rounding);                
+                invoiceSubTotal = invoiceSubTotal.add(adjAmount).setScale(invoiceTypeDecimals, rounding);                
 
                 // Increment the counter
                 invoiceItemSeqNum++;
