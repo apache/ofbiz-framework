@@ -79,15 +79,19 @@ under the License.
               <select name="currentStatusId" class="selectBox">
               <#if task?exists>
                 <#assign currentStatusId = task.currentStatusId?if_exists>
+                <option SELECTED value="${currentStatusId}">${currentStatusId}</option>  
                 <#assign statusValidChangeToDetailList = delegator.findByAnd("StatusValidChangeToDetail", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", currentStatusId))>
                 <#list statusValidChangeToDetailList as statusValidChangeToDetail> 
-                  <option SELECTED value="${currentStatusId}">${currentStatusId}</option>  
-                  <option value=${statusValidChangeToDetail.statusId}>[${uiLabelMap.WorkEffortGeneral}]${statusValidChangeToDetail.description}</option>
+                  <option value=${statusValidChangeToDetail.statusId}>${statusValidChangeToDetail.description}</option>
                 </#list>
               <#else>
                 <#assign statusItemTasks = delegator.findByAnd("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusTypeId", "TASK_STATUS"))>
+                <#assign statusItemCalender = delegator.findByAnd("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusTypeId", "CALENDAR_STATUS"))>
+                <#list statusItemCalender as statusItem> 
+                  <option value="${statusItem.statusId}">${statusItem.description}</option>
+                </#list>                     
                 <#list statusItemTasks as statusItem>
-                  <option value="${statusItem.statusId?if_exists}">[${uiLabelMap.WorkEffortTask}]${statusItem.description}</option>
+                  <option value="${statusItem.statusId}">${statusItem.description}</option>
                 </#list>                
               </#if>        
             </select>
