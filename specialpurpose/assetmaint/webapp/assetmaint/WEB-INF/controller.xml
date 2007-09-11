@@ -186,7 +186,6 @@
     <view-map name="FindFixedAssets" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#FindFixedAssets" />
     <view-map name="EditFixedAsset" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#EditFixedAsset" />
     <view-map name="FixedAssetChildren" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#FixedAssetChildren"/>
-    <view-map name="ListFixedAssetCalendar" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssetCalendar"/> 
     <view-map name="updateFixedAssetCalendar" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#updateFixedAssetCalendar"/> 
     <view-map name="EditFixedAssetStdCosts" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#EditFixedAssetStdCosts"/>
     <view-map name="EditFixedAssetIdents" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetIdents"/>
@@ -203,7 +202,6 @@
     <view-map name="EditItemIssuances" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditItemIssuances"/>
     <view-map name="PrintFixedAssetMaint" type="screenfop" page="component://assetmaint/widget/AssetmaintScreens.xml#PrintFixedAssetMaint"/>
 
-
     <!-- Lookup request mappings -->
     <view-map name="LookupFixedAsset" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupFixedAsset"/>
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
@@ -216,5 +214,11 @@
     <!-- Facility  screens -->
     <view-map name="FindFacility" type="screen" page="component://assetmaint/widget/FacilityScreens.xml#FindFacility"/>
     
+    <!-- Asset Maint Calendar screens -->
+    <view-map name="day" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#CalendarDay"/>
+    <view-map name="week" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#CalendarWeek"/>
+    <view-map name="month" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#CalendarMonth"/>
+    <view-map name="EditWorkEffort" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditFixedAssetMaint"/>
+    <view-map name="WorkEffortSummary" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditFixedAssetMaint"/>
     <!-- end of view mappings -->
 </site-conf>
