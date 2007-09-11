@@ -191,7 +191,7 @@ under the License.
     <service name="createProductPromoCode" default-entity-name="ProductPromoCode" engine="simple"
                 location="org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoCode" auth="true">
         <description>Create a ProductPromoCode</description>
-        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="createdDate"/>
             <exclude field-name="createdByUserLogin"/>
@@ -215,6 +215,12 @@ under the License.
         <description>Delete a ProductPromoCode</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="createBulkProductPromoCode" engine="java"
+            location="org.ofbiz.product.promo.PromoServices" invoke="importPromoCodesFromFile" auth="true">
+        <description>Creates several ProductPromoCode from an uploaded list of promo codes (one code per line)</description>
+        <implements service="uploadFileInterface"/>
+        <auto-attributes mode="IN" entity-name="ProductPromoCode" include="nonpk" optional="true"/>        
+    </service>
 
     <service name="createProductPromoCodeEmail" default-entity-name="ProductPromoCodeEmail" engine="simple"
                 location="org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoCodeEmail" auth="true">
@@ -226,6 +232,12 @@ under the License.
                 location="org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoCodeEmail" auth="true">
         <description>Delete a ProductPromoCodeEmail</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="createBulkProductPromoCodeEmail" engine="java"
+                location="org.ofbiz.product.promo.PromoServices" invoke="importPromoCodeEmailsFromFile" auth="true">
+        <description>Create several ProductPromoCodeEmail from an uploaded list of emails (one address per line)</description>
+        <implements service="uploadFileInterface"/>
+        <attribute name="productPromoCodeId" type="String" mode="IN" optional="false"/>        
     </service>
 
     <service name="createProductPromoCodeParty" default-entity-name="ProductPromoCodeParty" engine="simple"

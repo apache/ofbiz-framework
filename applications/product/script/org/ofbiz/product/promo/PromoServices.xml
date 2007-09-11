@@ -152,7 +152,11 @@ under the License.
 
         <make-value value-name="newEntity" entity-name="ProductPromoCode"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <sequenced-id-to-env sequence-name="ProductPromoCode" env-name="newEntity.productPromoCodeId" stagger-max="100"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field-name="newEntity.productPromoCodeId">
+            <sequenced-id-to-env sequence-name="ProductPromoCode" env-name="newEntity.productPromoCodeId" stagger-max="100"/>
+        </if-empty>
+        
         <field-to-result field-name="productPromoCodeId" map-name="newEntity"/>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
