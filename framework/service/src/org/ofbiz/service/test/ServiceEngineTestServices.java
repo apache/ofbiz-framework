@@ -28,6 +28,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericResultWaiter;
 import org.ofbiz.service.GenericServiceException;
@@ -224,6 +225,10 @@ public class ServiceEngineTestServices {
      * 
      * TODO: there's got to be some way to do this, but how?!? :(
      * 
+     * NOTE: maybe this will work: create a list that the service engine maintains of services it will run after the 
+     * current service run is complete, and AFTER it has committed or rolled back its transaction; if a service finds
+     * it has a lock wait timeout, add itself to the list for its parent service (somehow...) and off we go!
+     * 
      * @param dctx
      * @param context
      * @return
@@ -276,4 +281,26 @@ public class ServiceEngineTestServices {
 
         return ServiceUtil.returnSuccess();
     }
+    
+    public static Map testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        try {
+            TransactionUtil.setRollbackOnly("Intentionally setting rollback only for testing purposes", null);
+            
+            Map resultMap = dispatcher.runSync("testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService", null, 60, true);
+            if (ServiceUtil.isError(resultMap)) {
+                return ServiceUtil.returnError("Error running sub-service in testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent", null, null, resultMap);
+            }
+        } catch (Exception e) {
+            String errMsg = "Error running sub-service with own tx: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+        
+        return ServiceUtil.returnSuccess();
+    }    
+    public static Map testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService(DispatchContext dctx, Map context) {
+        // this service doesn't actually have to do anything, the problem was in just pausing and resuming the transaciton with setRollbackOnly
+        return ServiceUtil.returnSuccess();
+    }    
 }
