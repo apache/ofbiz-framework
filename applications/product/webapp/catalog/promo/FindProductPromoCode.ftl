@@ -50,13 +50,31 @@ under the License.
         </#list>
     </table>
     <br/>
+
+    <h3>${uiLabelMap.ProductPromotionUploadSetOfPromotionCodes}:</h3>
+    <div class="tabletext">
+        <form method="post" action="<@ofbizUrl>createBulkProductPromoCode</@ofbizUrl>" enctype="multipart/form-data" style="margin: 0;">
+            <input type="hidden" name="productPromoId" value="${productPromoId}"/>            
+            ${uiLabelMap.ProductPromoUserEntered}: <select name="userEntered" class="selectBox"><option>N</option><option>Y</option></select>
+            ${uiLabelMap.ProductPromotionReqEmailOrParty}: <select name="requireEmailOrParty" class="selectBox"><option>N</option><option>Y</option></select>
+            ${uiLabelMap.ProductPromotionUseLimits}:
+            ${uiLabelMap.ProductPromotionPerCode}<input type="text" size="5" name="useLimitPerCode" class="inputBox">
+            ${uiLabelMap.ProductPromotionPerCustomer}<input type="text" size="5" name="useLimitPerCustomer" class="inputBox">
+            <div>
+              <input type="file" size="40" name="uploadedFile" class="inputBox">
+              <input type="submit" value="${uiLabelMap.CommonUpload}">
+            </div>
+        </form>
+    </div>
+    <br/>
+
     <h3>${uiLabelMap.ProductPromotionAddSetOfPromotionCodes}:</h3>
     <div class="tabletext">
-        <form method="post" action="<@ofbizUrl>createProductPromoCodeSet</@ofbizUrl>" style="margin: 0;">
-            <input type="hidden" name="userEntered" value="N"/>
-            <input type="hidden" name="requireEmailOrParty" value="N"/>
+        <form method="post" action="<@ofbizUrl>createProductPromoCodeSet</@ofbizUrl>" style="margin: 0;">            
             <input type="hidden" name="productPromoId" value="${productPromoId}"/>
             ${uiLabelMap.CommonQuantity}: <input type="text" size="5" name="quantity" class="inputBox">
+            ${uiLabelMap.ProductPromoUserEntered}: <select name="userEntered" class="selectBox"><option>N</option><option>Y</option></select>
+            ${uiLabelMap.ProductPromotionReqEmailOrParty}: <select name="requireEmailOrParty" class="selectBox"><option>N</option><option>Y</option></select>
             ${uiLabelMap.ProductPromotionUseLimits}:
             ${uiLabelMap.ProductPromotionPerCode}<input type="text" size="5" name="useLimitPerCode" class="inputBox">
             ${uiLabelMap.ProductPromotionPerCustomer}<input type="text" size="5" name="useLimitPerCustomer" class="inputBox">

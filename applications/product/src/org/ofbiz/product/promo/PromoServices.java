@@ -18,13 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.product.promo;
 
-import java.sql.Timestamp;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
+import javolution.util.FastList;
+import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -33,11 +31,17 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.entity.util.EntityListIterator;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.service.*;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.sql.Timestamp;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Promotions Services
@@ -103,6 +107,137 @@ public class PromoServices {
             return ServiceUtil.returnError(errMsg);
         }
         
+        return ServiceUtil.returnSuccess();
+    }
+
+    public static Map importPromoCodesFromFile(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+
+        // check the uploaded file
+        ByteWrapper wrapper = (ByteWrapper) context.get("uploadedFile");
+        if (wrapper == null) {
+            return ServiceUtil.returnError("Uploaded file not valid or corrupted");
+        }
+
+        // get the createProductPromoCode Model
+        ModelService promoModel;
+        try {
+            promoModel = dispatcher.getDispatchContext().getModelService("createProductPromoCode");
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        // make a temp context for invocations
+        Map invokeCtx = promoModel.makeValid(context, ModelService.IN_PARAM);
+
+        // read the bytes into a reader
+        BufferedReader reader = new BufferedReader(new StringReader(new String(wrapper.getBytes())));
+        List errors = FastList.newInstance();
+        int lines = 0;
+        String line;
+
+        // read the uploaded file and process each line
+        try {
+            while ((line = reader.readLine()) != null) {
+                // check to see if we should ignore this line
+                if (line.length() > 0 && !line.startsWith("#")) {
+                    if (line.length() > 0 && line.length() <= 20) {
+                        // valid promo code
+                        Map inContext = FastMap.newInstance();
+                        inContext.putAll(invokeCtx);
+                        inContext.put("productPromoCodeId", line);
+                        Map result = dispatcher.runSync("createProductPromoCode", inContext);
+                        if (result != null && ServiceUtil.isError(result)) {
+                            errors.add(line + ": " + ServiceUtil.getErrorMessage(result));
+                        }
+                    } else {
+                        // not valid ignore and notify
+                        errors.add(line + ": is not a valid promo code; must be between 1 and 20 characters");
+                    }
+                    ++lines;
+                }
+            }
+        } catch (IOException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                Debug.logError(e, module);
+            }
+        }
+
+        // return errors or success
+        if (errors.size() > 0) {
+            return ServiceUtil.returnError(errors);
+        } else if (lines == 0) {
+            return ServiceUtil.returnError("Empty file; nothing to do");
+        }
+
+        return ServiceUtil.returnSuccess();
+    }
+
+    public static Map importPromoCodeEmailsFromFile(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+
+        String productPromoCodeId = (String) context.get("productPromoCodeId");
+        ByteWrapper wrapper = (ByteWrapper) context.get("uploadedFile");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        
+        if (wrapper == null) {
+            return ServiceUtil.returnError("Uploaded file not valid or corrupted");
+        }
+
+        // read the bytes into a reader
+        BufferedReader reader = new BufferedReader(new StringReader(new String(wrapper.getBytes())));
+        List errors = FastList.newInstance();
+        int lines = 0;
+        String line;
+
+        // read the uploaded file and process each line
+        try {
+            while ((line = reader.readLine()) != null) {
+                if (line.length() > 0 && !line.startsWith("#")) {
+                    if (UtilValidate.isEmail(line)) {
+                        // valid email address
+                        Map result = dispatcher.runSync("createProductPromoCodeEmail", UtilMisc.toMap("productPromoCodeId",
+                                productPromoCodeId, "emailAddress", line, "userLogin", userLogin));
+                        if (result != null && ServiceUtil.isError(result)) {
+                            errors.add(line + ": " + ServiceUtil.getErrorMessage(result));
+                        }
+                    } else {
+                        // not valid ignore and notify
+                        errors.add(line + ": is not a valid email address");
+                    }
+                    ++lines;
+                }
+            }
+        } catch (IOException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                Debug.logError(e, module);
+            }
+        }
+
+        // return errors or success
+        if (errors.size() > 0) {
+            return ServiceUtil.returnError(errors);
+        } else if (lines == 0) {
+            return ServiceUtil.returnError("Empty file; nothing to do");
+        }
+
         return ServiceUtil.returnSuccess();
     }
 }
