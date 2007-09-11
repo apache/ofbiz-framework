@@ -193,6 +193,8 @@
         <!--  field name="scheduleWorkEffortId"  position="1"  title="${uiLabelMap.WorkEffortWorkEffort}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${fixedAssetMaint.scheduleWorkEffortId}" target="EditWorkEffort?workEffortId=${fixedAssetMaint.scheduleWorkEffortId}"/>
         </field -->
+        <field map-name="workEffort" title="${uiLabelMap.WorkEffortEstimatedStartDate}" position="1"  name="estimatedStartDate"><date-time/></field>
+        <field map-name="workEffort" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}" position="2"  name="estimatedCompletionDate"><date-time/></field>
         <field map-name="workEffort" title="${uiLabelMap.WorkEffortActualStartDate}" position="1"  name="actualStartDate"><date-time/></field>
         <field map-name="workEffort" title="${uiLabelMap.WorkEffortActualCompletionDate}" position="2"  name="actualCompletionDate"><date-time/></field>
         <field name="quickAssignPartyId" title="${uiLabelMap.PartyPartyId}" use-when="fixedAssetMaint == null" field-name="partyId">

@@ -52,6 +52,7 @@
                 <set field="titleProperty" value="AccountingFixedAssetMaint"/>
                 <set field="labelTitleProperty" value="AccountingFixedAssetMaint"/>
                 <set field="tabButtonItemFixedAssetMaint" value="EditFixedAssetMaint"/>
+                <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/assetmaint/editMaint.bsh"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
                 <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>

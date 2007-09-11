@@ -53,7 +53,7 @@
         <section>
             <actions>
                 <set field="titleProperty" value="AccountingEditFixedAsset" />
-                <set field="labelTitleProperty" value="AccountingEditFixedAsset" />
+                <set field="labelTitleProperty" value="AssetMaintMaintenanceCalendar" />
                 <set field="tabButtonItem" value="EditFixedAsset" />
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId" />
                 <entity-one entity-name="FixedAsset" value-name="fixedAsset" />
@@ -149,4 +149,77 @@
             </widgets>
         </section>
     </screen>
+
+    <screen name="CommonCalendarDecorator">
+        <section>
+            <actions>
+                <set field="layoutSettings.styleSheets[]" value="/images/calendarstyles.css" global="true"/>
+                <set field="titleProperty" value="AssetMaintMaintenanceCalendar"/>
+                <set field="tabButtonItem" value="ListFixedAssetCalendar"/>
+                <set field="labelTitleProperty" value="AssetMaintMaintenanceCalendar"/>
+                <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/workeffort/viewCalendar.bsh"/>
+                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-menu name="CalendarTabBar" location="component://assetmaint/widget/Menus.xml"/>
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CalendarDay">
+        <section>
+            <actions>
+                <set field="parameters.viewMode" value="D"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCalendarDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://workeffort/webapp/workeffort/calendar/day.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CalendarWeek">
+        <section>
+            <actions>
+                <set field="parameters.viewMode" value="W"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCalendarDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://workeffort/webapp/workeffort/calendar/week.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CalendarMonth">
+        <section>
+            <actions>
+                <set field="parameters.viewMode" value="M"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCalendarDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://workeffort/webapp/workeffort/calendar/month.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>
