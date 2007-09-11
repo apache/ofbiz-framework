@@ -48,12 +48,21 @@ under the License.
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryWaiter">
     </service>
     
-    <!-- lock wait timeout retry testing services - a scenario that I can't figure out yet how to recover automatically -->
+    <!-- lock wait timeout retry testing services - a scenario that we can't do automatically with the single service because the parent owns the tx we have to have end before it will succeed -->
     <service name="testServiceLockWaitTimeoutRetryCantRecover" engine="java" auth="false" transaction-timeout="2"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryCantRecover">
         <implements service="testServiceInterface"/>
     </service>
     <service name="testServiceLockWaitTimeoutRetryCantRecoverWaiter" engine="java" auth="false" transaction-timeout="4"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryCantRecoverWaiter">
+    </service>
+
+    <!-- make sure that if rollback only is set on the tx of the parent service you can still run a child service in a separate tx -->
+    <service name="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent" engine="java" auth="false"
+        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent">
+        <implements service="testServiceInterface"/>
+    </service>
+    <service name="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService" engine="java" auth="false" require-new-transaction="true"
+        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService">
     </service>
 </services>

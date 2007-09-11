@@ -45,4 +45,8 @@ under the License.
     <test-case case-name="service-lock-wait-timeout-retry-assert-data">
         <entity-xml action="assert" entity-xml-url="component://service/testdef/data/ServiceLockTimeoutRetryCantRecoverAssertData.xml"/>
     </test-case>
+    
+    <test-case case-name="service-own-tx-sub-service-after-set-rollback-only-in-parent">
+        <service-test service-name="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent"/>
+    </test-case>
 </test-suite>
