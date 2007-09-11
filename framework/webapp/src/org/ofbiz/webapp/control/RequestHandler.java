@@ -900,7 +900,7 @@ public class RequestHandler implements Serializable {
     }
 
     public boolean trackStats(HttpServletRequest request) {
-        String appStats = context.getInitParameter("track-stats");
+        String appStats = context.getInitParameter("track-serverhit");
         if (appStats != null && !"false".equalsIgnoreCase(appStats)) {
             String uriString =  RequestHandler.getRequestUri(request.getPathInfo());
             return !"false".equalsIgnoreCase(requestManager.getRequestAttribute(uriString, ConfigXMLReader.REQUEST_TRACK_STATS));

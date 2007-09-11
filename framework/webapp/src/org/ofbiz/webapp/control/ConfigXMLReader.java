@@ -99,7 +99,7 @@ public class ConfigXMLReader {
     public static final String REQUEST_MAPPING = "request-map";
     public static final String REQUEST_URI = "uri";
     public static final String REQUEST_EDIT = "edit";
-    public static final String REQUEST_TRACK_STATS = "track-stats";
+    public static final String REQUEST_TRACK_STATS = "track-serverhit";
     public static final String REQUEST_TRACK_VISIT = "track-visit";
 
     public static final String REQUEST_DESCRIPTION = "description";
