@@ -68,6 +68,16 @@ under the License.
         location="org.ofbiz.oagis.OagisServices" invoke="oagisMessageHandler" auth="false">
         <implements service="serviceStreamInterface"/>
         <implements service="oagisMessageIdOutInterface"/>
+        <attribute name="isErrorRetry" type="Boolean" mode="IN" optional="true"/>
+        <override name="outputStream" optional="true"/>
+    </service>
+    
+    <service name="oagisReReceiveMessage" engine="java" transaction-timeout="300"
+        location="org.ofbiz.oagis.OagisServices" invoke="oagisReReceiveMessage" auth="false">
+        <attribute name="logicalId" type="String" mode="IN" optional="true"/>
+        <attribute name="component" type="String" mode="IN" optional="true"/>
+        <attribute name="task" type="String" mode="IN" optional="true"/>
+        <attribute name="referenceId" type="String" mode="IN" optional="false"/>
     </service>
     
     <!-- Confirm BOD Messages, general flow and error handling -->    

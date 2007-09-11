@@ -692,6 +692,11 @@ public class OagisInventoryServices {
 
         Element dataAreaElement = UtilXml.firstChildElement(receiveRmaElement, "ns:DATAAREA");
         Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "ns:ACKNOWLEDGE_DELIVERY");
+
+        // get the first returnId from the list so we at least have something in the info record
+        Element firstReceiptlnElement = UtilXml.firstChildElement(acknowledgeDeliveryElement, "ns:RECEIPTLN");
+        Element firstDocRefElement = UtilXml.firstChildElement(firstReceiptlnElement, "os:DOCUMNTREF");
+        String firstReturnId = UtilXml.childElementValue(firstDocRefElement, "of:DOCUMENTID");
         
         String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.PoReceiptFacilityId");
         String locationSeqId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.ReturnReceiptLocationSeqId");
@@ -735,6 +740,7 @@ public class OagisInventoryServices {
         comiCtx.put("bsrNoun", bsrNoun);
         comiCtx.put("bsrRevision", bsrRevision);
         comiCtx.put("processingStatusId", "OAGMP_RECEIVED");
+        comiCtx.put("returnId", firstReturnId);
         comiCtx.put("userLogin", userLogin);
         if (OagisServices.debugSaveXmlIn) {
             try {
@@ -846,7 +852,8 @@ public class OagisInventoryServices {
                         List serialNumsList = FastList.newInstance();
                         List invDetailList = UtilXml.childElementList(receiptLnElement, "ns:INVDETAIL");
                         if (UtilValidate.isNotEmpty(invDetailList)) {
-                            for (Iterator j = invDetailList.iterator(); j.hasNext();) {
+                            Iterator j = invDetailList.iterator();
+                            while (j.hasNext()) {
                                 Element invDetailElement = (Element) j.next();
                                 String serialNumber = UtilXml.childElementValue(invDetailElement, "of:SERIALNUM");
                                 if (UtilValidate.isNotEmpty(serialNumber)) {
