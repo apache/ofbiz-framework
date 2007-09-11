@@ -27,12 +27,6 @@ under the License.
     
     <!-- create a new Fixed Asset header record -->
     <simple-method method-name="createFixedAsset" short-description="Create an FixedAsset">
-        <check-permission permission="ACCOUNTING" action="_CREATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
-            <fail-message message="Security Error: to run createFixedAsset you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
-        </check-permission>        
-        <check-errors/>
-        
           <!-- create new entity and create all the fields -->
         <make-value value-name="newEntity" entity-name="FixedAsset"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -59,12 +53,6 @@ under the License.
 
     <!-- update an existing Fixed Asset header Record -->
     <simple-method method-name="updateFixedAsset" short-description="Update an existing FixedAsset">
-        <check-permission permission="ACCOUNTING" action="_UPDATE" >
-            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
-            <fail-message message="Security Error: to run updateFixedAsset you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
-        </check-permission>        
-        <check-errors/>
-
         <entity-one entity-name="FixedAsset" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -76,12 +64,6 @@ under the License.
     
     <!-- add a product to a fixed Asset -->
     <simple-method method-name="addFixedAssetProduct" short-description="Add Product to FixedAsset">
-        <check-permission permission="ACCOUNTING" action="_CREATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
-            <fail-message message="Security Error: to run updateFixedAssetProduct you must have the ACCOUNTING_CREATEUPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
-        </check-permission>        
-        <check-errors/>
-
         <make-value value-name="newEntity" entity-name="FixedAssetProduct"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -95,12 +77,6 @@ under the License.
 
     <!-- update the product to fixed Asset link -->    
     <simple-method method-name="updateFixedAssetProduct" short-description="Update Products of a FixedAsset">
-        <check-permission permission="ACCOUNTING" action="_UPDATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
-            <fail-message message="Security Error: to run updateFixedAssetProduct you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
-        </check-permission>        
-        <check-errors/>
-
         <entity-one entity-name="FixedAssetProduct" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -108,12 +84,6 @@ under the License.
     
     <!-- remove the productlink from the Fixed Asset -->
     <simple-method method-name="removeFixedAssetProduct" short-description="Remove Product From FixedAsset">
-        <check-permission permission="ACCOUNTING" action="_DELETE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_DELETE"/>
-            <fail-message message="Security Error: to run removeFixedAssetProduct you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
-        </check-permission>        
-        <check-errors/>
-
         <entity-one entity-name="FixedAssetProduct" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -237,6 +207,7 @@ under the License.
         <set value="CREATE" field="checkAction"/>
         <!-- note the the user must be associated with the target FixedAsset with the role limited permission -->
         <set value="fixedAssetIdTo" field="fixedAssetIdName"/>
+        <!-- TODO: Create the checkFixedAssetRelatedPermission simple method -->
         <call-simple-method method-name="checkFixedAssetRelatedPermission"/>
         <check-errors/>
 
@@ -398,11 +369,6 @@ under the License.
 
     <!-- create a new FixedAssetStdCost -->
     <simple-method method-name="createFixedAssetStdCost" short-description="Create a FixedAssetStdCost">
-        <check-permission permission="ACCOUNTING" action="_CREATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
-            <fail-message message="Security Error: to run createFixedAssetStdCost you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
-        </check-permission>
-        <check-errors/>
         <!-- TODO: we should cancel the existing costs of the same type -->
         <!-- create new entity and create all the fields -->
 
@@ -423,24 +389,12 @@ under the License.
     </simple-method>
     <!-- update an existing FixedAssetStdCost -->
     <simple-method method-name="updateFixedAssetStdCost" short-description="Update an existing FixedAssetStdCost">
-        <check-permission permission="ACCOUNTING" action="_UPDATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
-            <fail-message message="Security Error: to run updateFixedAssetStdCost you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
-        </check-permission>
-        <check-errors/>
-
         <entity-one entity-name="FixedAssetStdCost" value-name="fixedAssetStdCost"/>
         <set-nonpk-fields map-name="parameters" value-name="fixedAssetStdCost"/>
         <store-value value-name="fixedAssetStdCost"/>
     </simple-method>
     <!-- cancel an existing Agreement -->
     <simple-method method-name="cancelFixedAssetStdCost" short-description="Cancel an existing FixedAssetStdCost">
-        <check-permission permission="ACCOUNTING" action="_UPDATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
-            <fail-message message="Security Error: to run cancelFixedAssetStdCost you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
-        </check-permission>
-        <check-errors/>
-
         <entity-one entity-name="FixedAssetStdCost" value-name="fixedAssetStdCost"/>
         <now-timestamp-to-env env-name="fixedAssetStdCost.thruDate"/>
         <store-value value-name="fixedAssetStdCost"/>
@@ -448,43 +402,23 @@ under the License.
 
     <!-- Fixed Asset Identification "FIXED_ASSET_IDENT"-->
     <simple-method method-name="createFixedAssetIdent" short-description="Create an FixedAssetIdent">
-        <check-permission permission="ACCOUNTING" action="_CREATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
-            <fail-message message="Security Error: to run createFixedAsset you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
-        </check-permission>        
-        <check-errors/>
         <make-value value-name="newEntity" entity-name="FixedAssetIdent"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFixedAssetIdent" short-description="Update an existing FixedAssetIdent">
-        <check-permission permission="ACCOUNTING" action="_UPDATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
-            <fail-message message="Security Error: to run updateFixedAsset you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
-        </check-permission>        
-        <check-errors/>
         <entity-one entity-name="FixedAssetIdent" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeFixedAssetIdent" short-description="Remove Fixed Assets Idents FixedAssetIdent">
-        <check-permission permission="ACCOUNTING" action="_DELETE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_DELETE"/>
-            <fail-message message="Security Error: to run removeFixedAssetProduct you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
-        </check-permission>        
-        <check-errors/>
         <entity-one entity-name="FixedAssetIdent" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
     <!-- FixedAsset Registration Create/Update/Delete"-->
     <simple-method method-name="createFixedAssetRegistration" short-description="Create FixedAsset Registration">
-        <check-permission permission="ACCOUNTING" action="_CREATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
-            <fail-message message="Security Error: to run createFixedAssetRegistration you must have the ACCOUNTING_CREATEUPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
-        </check-permission>        
-        <check-errors/>
         <make-value value-name="newEntity" entity-name="FixedAssetRegistration"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
@@ -494,32 +428,17 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFixedAssetRegistration" short-description="Update an existing FixedAsset Registration">
-        <check-permission permission="ACCOUNTING" action="_UPDATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
-            <fail-message message="Security Error: to run updateFixedAssetRegistration you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
-        </check-permission>        
-        <check-errors/>
         <entity-one entity-name="FixedAssetRegistration" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteFixedAssetRegistration" short-description="Delete FixedAsset Registration">
-        <check-permission permission="ACCOUNTING" action="_DELETE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_DELETE"/>
-            <fail-message message="Security Error: to run deleteFixedAssetRegistration you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
-        </check-permission>        
-        <check-errors/>
         <entity-one entity-name="FixedAssetRegistration" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
     <!--  create/update/delete FixedAssetMaint -->
     <simple-method method-name="createFixedAssetMaint" short-description="create a FixedAssetMaint">
-        <check-permission permission="ACCOUNTING" action="_CREATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
-            <fail-message message="Security Error: to run createFixedAssetMaint you must have the ACCOUNTING_CREATEUPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
-        </check-permission>        
-        <check-errors/>
         <make-value entity-name="FixedAssetMaint" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="maintHistSeqId"/> <!-- this finds the next sub-sequence ID -->
@@ -567,11 +486,6 @@ under the License.
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateFixedAssetMaint" short-description="Update an existing FixedAsset Maintenance">
-        <check-permission permission="ACCOUNTING" action="_UPDATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
-            <fail-message message="Security Error: to run updateFixedAssetMaint you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
-        </check-permission>        
-        <check-errors/>
         <entity-one entity-name="FixedAssetMaint" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <if-not-empty field-name="parameters.productMaintSeqId">
@@ -585,54 +499,29 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteFixedAssetMaint" short-description="Delete FixedAsset Maintenance">
-        <check-permission permission="ACCOUNTING" action="_DELETE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_DELETE"/>
-            <fail-message message="Security Error: to run deleteFixedAssetMaint you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
-        </check-permission>        
-        <check-errors/>
         <entity-one entity-name="FixedAssetMaint" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
     <!--  create/update/delete FixedAssetMaintMeter -->
     <simple-method method-name="createFixedAssetMaintMeter" short-description="create a FixedAssetMaintMeter">
-        <check-permission permission="ACCOUNTING" action="_CREATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
-            <fail-message message="Security Error: to run createFixedAssetMaintMeter you must have the ACCOUNTING_CREATEUPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
-        </check-permission>        
-        <check-errors/>
         <make-value entity-name="FixedAssetMaintMeter" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateFixedAssetMaintMeter" short-description="Update an existing FixedAsset Maintenance Meter Reading">
-        <check-permission permission="ACCOUNTING" action="_UPDATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
-            <fail-message message="Security Error: to run updateFixedAssetMaintMeter you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
-        </check-permission>        
-        <check-errors/>
         <entity-one entity-name="FixedAssetMaintMeter" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteFixedAssetMaintMeter" short-description="Delete FixedAsset Maintenance Meter">
-        <check-permission permission="ACCOUNTING" action="_DELETE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_DELETE"/>
-            <fail-message message="Security Error: to run deleteFixedAssetMaintMeter you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
-        </check-permission>        
-        <check-errors/>
         <entity-one entity-name="FixedAssetMaintMeter" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
     <!--  create/update/delete FixedAssetMaintOrder -->
     <simple-method method-name="createFixedAssetMaintOrder" short-description="Create a FixedAsset Maintenance Order">
-        <check-permission permission="ACCOUNTING" action="_CREATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
-            <fail-property resource="AccountingUiLabels" property="AccountingCreateFixedAssetMaintOrderPermissionError"/>            
-        </check-permission>        
-        <check-errors/>
            <!-- Check, should exist orderId and orderItemId -->
         <entity-one entity-name="OrderHeader" value-name="lookedUpValue"/>
         <if-empty field-name="lookedUpValue">
@@ -670,11 +559,6 @@ under the License.
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="deleteFixedAssetMaintOrder" short-description="Delete FixedAsset Maintenance Order">
-        <check-permission permission="ACCOUNTING" action="_DELETE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_DELETE"/>
-            <fail-property resource="AccountingUiLabels" property="AccountingDeleteFixedAssetMaintOrderPermissionError"/>            
-        </check-permission>        
-        <check-errors/>
         <entity-one entity-name="FixedAssetMaintOrder" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -702,4 +586,27 @@ under the License.
         <remove-value value-name="newEntity"/>
     </simple-method>
         
+    <!-- ==============Permission Checking Service============= -->
+    <simple-method method-name="fixedAssetPermissionCheck" short-description="Fixed Asset permission logic">
+        <if-has-permission permission="ACCOUNTING_ADMIN">
+            <set field="hasPermission" type="Boolean" value="true"/>
+            <else>
+                <if-has-permission permission="ACCOUNTING" action="_${parameters.mainAction}">
+                    <set field="hasPermission" type="Boolean" value="true"/>
+                    <else>
+                        <if-has-permission permission="ACCOUNTING_ROLE" action="_${parameters.mainAction}">
+                            <set field="hasPermission" type="Boolean" value="true"/>
+                            <else>
+                                <set field="hasPermission" type="Boolean" value="false"/>
+                                <set field="failMessage" value="Security Error: you must have the ACCOUNTING_${parameters.mainAction} or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_${parameters.mainAction} permission"/>
+                                <field-to-result field-name="failMessage"/>
+                            </else>
+                        </if-has-permission>
+                    </else>
+                </if-has-permission>
+            </else>
+        </if-has-permission>
+        <field-to-result field-name="hasPermission"/>
+    </simple-method>
+
 </simple-methods>
