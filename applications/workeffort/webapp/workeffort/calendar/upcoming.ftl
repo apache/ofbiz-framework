@@ -38,7 +38,7 @@ under the License.
             <tr<#if alt_row> class="alternate-row"</#if>>
               <td>${workEffort.estimatedStartDate}</td>
               <td>${workEffort.estimatedStartDate}</td>
-              <td class="button-col"><a href="<@ofbizUrl>EditWorkEffort?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortName}</a></td>
+              <td class="button-col"><a href="<@ofbizUrl>EditWorkEffort?workEffortId=${workEffort.workEffortId}${addlParam?if_exists}</@ofbizUrl>">${workEffort.workEffortName}</a></td>
             </tr>
             <#assign alt_row = !alt_row>
           </#list>
