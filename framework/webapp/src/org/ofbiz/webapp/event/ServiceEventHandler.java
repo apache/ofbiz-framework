@@ -166,9 +166,11 @@ public class ServiceEventHandler implements EventHandler {
                     FileItem item = (FileItem) i.next();
                     String fieldName = item.getFieldName();
                     //byte[] itemBytes = item.get();
-
-                    //Debug.log("Item Info : " + item.getName() + " / " + item.getSize() + " / " + item.getContentType(), module);
-                    if (item.isFormField() || item.getSize() == 0) {
+                    /*
+                    Debug.log("Item Info [" + fieldName + "] : " + item.getName() + " / " + item.getSize() + " / " +
+                            item.getContentType() + " FF: " + item.isFormField(), module);
+                    */
+                    if (item.isFormField() || item.getName() == null) {
                         if (multiPartMap.containsKey(fieldName)) {
                             Object mapValue = multiPartMap.get(fieldName);
                             if (mapValue instanceof List) {
