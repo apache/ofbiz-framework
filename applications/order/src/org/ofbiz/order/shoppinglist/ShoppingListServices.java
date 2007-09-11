@@ -391,10 +391,27 @@ public class ShoppingListServices {
             }
         }
     }
-
+    /**
+     * Create a new shoppingCart form a shoppingList
+     * @param dispatcher
+     * @param shoppingList
+     * @param locale
+     * @return
+     */
     public static ShoppingCart makeShoppingListCart(LocalDispatcher dispatcher, GenericValue shoppingList, Locale locale) {
+    	return makeShoppingListCart(null, dispatcher, shoppingList, locale); }
+
+    /**
+     * Add a shoppinglist to an existing shoppingcart
+     * 
+     * @param shoppingCart
+     * @param dispatcher
+     * @param shoppingList
+     * @param locale
+     * @return
+     */
+    public static ShoppingCart makeShoppingListCart(ShoppingCart listCart, LocalDispatcher dispatcher, GenericValue shoppingList, Locale locale) {
         GenericDelegator delegator = dispatcher.getDelegator();
-        ShoppingCart listCart = null;
         if (shoppingList != null && shoppingList.get("productStoreId") != null) {
             String productStoreId = shoppingList.getString("productStoreId");
             String currencyUom = shoppingList.getString("currencyUom");
@@ -417,9 +434,20 @@ public class ShoppingListServices {
             }
 
             if (UtilValidate.isNotEmpty(items)) {
-                listCart = new ShoppingCart(delegator, productStoreId, locale, currencyUom);
-                listCart.setOrderPartyId(shoppingList.getString("partyId"));
-                listCart.setAutoOrderShoppingListId(shoppingList.getString("shoppingListId"));
+            	if (listCart == null) {
+            		listCart = new ShoppingCart(delegator, productStoreId, locale, currencyUom);
+            		listCart.setOrderPartyId(shoppingList.getString("partyId"));
+            		listCart.setAutoOrderShoppingListId(shoppingList.getString("shoppingListId"));
+            	} else {
+            		if (!listCart.getPartyId().equals(shoppingList.getString("partyId"))){
+            			Debug.logError("CANNOT add shoppingList: " + shoppingList.getString("shoppingListId") 
+            					+ " of partyId: " + shoppingList.getString("partyId")
+            					+ " to a shoppingcart with a different orderPartyId: " 
+            					+ listCart.getPartyId(), module);
+                		return listCart;
+            		}
+            	}
+            	
 
                 Iterator i = items.iterator();
                 while (i.hasNext()) {
@@ -431,7 +459,7 @@ public class ShoppingListServices {
                     if (shoppingListItem.get("reservLength") != null) {
                         reservLength = shoppingListItem.getDouble("reservLength");
                     }
-                    Double reservPersons = null;;
+                    Double reservPersons = null;
                     if (shoppingListItem.get("reservPersons") != null) {
                         reservPersons = shoppingListItem.getDouble("reservPersons");
                     }
