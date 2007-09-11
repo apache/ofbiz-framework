@@ -99,6 +99,8 @@ public class ConfigXMLReader {
     public static final String REQUEST_MAPPING = "request-map";
     public static final String REQUEST_URI = "uri";
     public static final String REQUEST_EDIT = "edit";
+    public static final String REQUEST_TRACK_STATS = "track-stats";
+    public static final String REQUEST_TRACK_VISIT = "track-visit";
 
     public static final String REQUEST_DESCRIPTION = "description";
     public static final String ERROR_PAGE = "error";
@@ -195,12 +197,16 @@ public class ConfigXMLReader {
             // Get the URI info.
             String uri = requestMapElement.getAttribute(REQUEST_URI);
             String edit = requestMapElement.getAttribute(REQUEST_EDIT);
+            String stats = requestMapElement.getAttribute(REQUEST_TRACK_STATS);
+            String visit = requestMapElement.getAttribute(REQUEST_TRACK_VISIT);
 
             if (edit == null || edit.equals(""))
                 edit = "true";
             if (uri != null) {
                 uriMap.put(REQUEST_URI, uri);
                 uriMap.put(REQUEST_EDIT, edit);
+                uriMap.put(REQUEST_TRACK_STATS, stats);
+                uriMap.put(REQUEST_TRACK_VISIT, visit);
             }
 
             // Check for security.

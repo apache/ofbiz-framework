@@ -176,13 +176,13 @@ public class RequestHandler implements Serializable {
             }
 
             // If its the first visit run the first visit events.
-            if (session.getAttribute("visit") == null) {
+            if (this.trackVisit(request) && session.getAttribute("visit") == null) {
                 Debug.logInfo("This is the first request in this visit." + " sessionId=" + UtilHttp.getSessionId(request), module);
                 // This isn't an event because it is required to run. We do not want to make it optional.
-                VisitHandler.getVisit(session);
+                GenericValue visit = VisitHandler.getVisit(session);
                 Collection events = requestManager.getFirstVisitEvents();
 
-                if (events != null) {
+                if (visit != null && events != null) {
                     Iterator i = events.iterator();
 
                     while (i.hasNext()) {
@@ -203,6 +203,8 @@ public class RequestHandler implements Serializable {
                         }
                     }
                 }
+            } else {
+                Debug.log("Track visit is disabled for this request");
             }
 
             // Invoke the pre-processor (but NOT in a chain)
@@ -277,8 +279,9 @@ public class RequestHandler implements Serializable {
                     eventReturnString = this.runEvent(request, response, eventType, eventPath, eventMethod);
 
                     // save the server hit
-                    ServerHitBin.countEvent(cname + "." + eventMethod, request, eventStartTime,
-                            System.currentTimeMillis() - eventStartTime, userLogin, delegator);
+                    if (this.trackStats(request))
+                        ServerHitBin.countEvent(cname + "." + eventMethod, request, eventStartTime,
+                                System.currentTimeMillis() - eventStartTime, userLogin, delegator);
 
                     // set the default event return
                     if (eventReturnString == null) {
@@ -352,7 +355,6 @@ public class RequestHandler implements Serializable {
             // special case to avoid login/logout looping: if request was "logout" before the login, change to null for default success view; do the same for "login" to avoid going back to the same page
             if ("logout".equals(previousRequest) || "/logout".equals(previousRequest) || "login".equals(previousRequest) || "/login".equals(previousRequest) || "checkLogin".equals(previousRequest) || "/checkLogin".equals(previousRequest)) {
                 Debug.logWarning("Found special _PREVIOUS_REQUEST_ of [" + previousRequest + "], setting to null to avoid problems, not running request again", module);
-                previousRequest = null;
             } else {
                 if (Debug.infoOn()) Debug.logInfo("[Doing Previous Request]: " + previousRequest + " sessionId=" + UtilHttp.getSessionId(request), module);
                 doRequest(request, response, previousRequest, userLogin, delegator);
@@ -654,7 +656,7 @@ public class RequestHandler implements Serializable {
 
         String vname = (String) req.getAttribute("_CURRENT_VIEW_");
 
-        if (vname != null) {
+        if (this.trackStats(req) && vname != null) {
             ServerHitBin.countView(cname + "." + vname, req, viewStartTime,
                 System.currentTimeMillis() - viewStartTime, userLogin, delegator);
         }
@@ -748,7 +750,7 @@ public class RequestHandler implements Serializable {
             httpServer = UtilProperties.getPropertyValue("url.properties", "force.http.host");
         }
         if (enableHttps == null) {
-            enableHttps = Boolean.valueOf(UtilProperties.propertyValueEqualsIgnoreCase("url.properties", "port.https.enabled", "Y"));
+            enableHttps = UtilProperties.propertyValueEqualsIgnoreCase("url.properties", "port.https.enabled", "Y");
         }
 
         // create the path the the control servlet
@@ -757,11 +759,10 @@ public class RequestHandler implements Serializable {
         String requestUri = RequestHandler.getRequestUri(url);
         StringBuffer newURL = new StringBuffer();
 
-        boolean useHttps = enableHttps.booleanValue();
         boolean didFullSecure = false;
         boolean didFullStandard = false;
-        if (useHttps || fullPath || secure) {
-            if (secure || (useHttps && requestManager.requiresHttps(requestUri) && !request.isSecure())) {
+        if (enableHttps || fullPath || secure) {
+            if (secure || (enableHttps && requestManager.requiresHttps(requestUri) && !request.isSecure())) {
                 String server = httpsServer;
                 if (server == null || server.length() == 0) {
                     server = request.getServerName();
@@ -774,7 +775,7 @@ public class RequestHandler implements Serializable {
                 }
 
                 didFullSecure = true;
-            } else if (fullPath || (useHttps && !requestManager.requiresHttps(requestUri) && request.isSecure())) {
+            } else if (fullPath || (enableHttps && !requestManager.requiresHttps(requestUri) && request.isSecure())) {
                 String server = httpServer;
                 if (server == null || server.length() == 0) {
                     server = request.getServerName();
@@ -895,6 +896,26 @@ public class RequestHandler implements Serializable {
                     Debug.logError(e, module);
                 }
             }
+        }
+    }
+
+    public boolean trackStats(HttpServletRequest request) {
+        String appStats = context.getInitParameter("track-stats");
+        if (appStats != null && !"false".equalsIgnoreCase(appStats)) {
+            String uriString =  RequestHandler.getRequestUri(request.getPathInfo());
+            return !"false".equalsIgnoreCase(requestManager.getRequestAttribute(uriString, ConfigXMLReader.REQUEST_TRACK_STATS));
+        } else {
+            return false;
+        }
+    }
+
+    public boolean trackVisit(HttpServletRequest request) {
+        String appVisit = context.getInitParameter("track-visit");
+        if (appVisit != null && !"false".equalsIgnoreCase(appVisit)) {
+            String uriString =  RequestHandler.getRequestUri(request.getPathInfo());
+            return !"false".equalsIgnoreCase(requestManager.getRequestAttribute(uriString, ConfigXMLReader.REQUEST_TRACK_VISIT));
+        } else {
+            return false;
         }
     }
 }
