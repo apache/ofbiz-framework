@@ -509,7 +509,7 @@ public class ModelService extends AbstractMap implements Serializable {
                 String msg = model.getParam(key).getPrimaryFailMessage(locale);
                 if (msg == null) {
                     String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "ModelService.following_required_parameter_missing", locale) ;
-                    msg = errMsg + " [" + model.name + "." + key + "]";
+                    msg = errMsg + " [" + mode + "] [" + model.name + "." + key + "]";
                 }
                 missingMsgs.add(msg);
             }
