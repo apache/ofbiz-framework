@@ -22,20 +22,20 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
 import javax.transaction.Transaction;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import org.apache.commons.collections.map.LRUMap;
-import org.w3c.dom.Element;
 
+import org.apache.commons.collections.map.LRUMap;
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -53,6 +53,7 @@ import org.ofbiz.service.group.ServiceGroupReader;
 import org.ofbiz.service.jms.JmsListenerFactory;
 import org.ofbiz.service.job.JobManager;
 import org.ofbiz.service.job.JobManagerException;
+import org.w3c.dom.Element;
 
 /**
  * Global Service Dispatcher
@@ -277,11 +278,17 @@ public class ServiceDispatcher {
         boolean beganTrans = false;
         try {
             if (modelService.useTransaction) {
-                beganTrans = TransactionUtil.begin(modelService.transactionTimeout);
-                // isolate the transaction if defined
-                if (modelService.requireNewTransaction && !beganTrans) {
-                    parentTransaction = TransactionUtil.suspend();
-                    // now start a new transaction
+                if (TransactionUtil.isTransactionInPlace()) {
+                    // if a new transaction is needed, do it here; if not do nothing, just use current tx
+                    if (modelService.requireNewTransaction) {
+                        parentTransaction = TransactionUtil.suspend();
+                        if (TransactionUtil.isTransactionInPlace()) {
+                            throw new GenericTransactionException("In service " + modelService.name + " transaction is still in place after suspend, status is " + TransactionUtil.getStatusString());
+                        }
+                        // now start a new transaction
+                        beganTrans = TransactionUtil.begin(modelService.transactionTimeout);
+                    }
+                } else {
                     beganTrans = TransactionUtil.begin(modelService.transactionTimeout);
                 }
                 // enlist for XAResource debugging
@@ -481,7 +488,7 @@ public class ServiceDispatcher {
             } finally {
                 // if there was an error, rollback transaction, otherwise commit
                 if (isError) {
-                    String errMsg = "Error is Service [" + modelService.name + "]: " + ServiceUtil.getErrorMessage(result);
+                    String errMsg = "Error in Service [" + modelService.name + "]: " + ServiceUtil.getErrorMessage(result);
                     Debug.logError(errMsg, module);
                     
                     // rollback the transaction
@@ -585,11 +592,14 @@ public class ServiceDispatcher {
 
         try {
             if (service.useTransaction) {
-                beganTrans = TransactionUtil.begin(service.transactionTimeout);
-                // isolate the transaction if defined
-                if (service.requireNewTransaction && !beganTrans) {
-                    parentTransaction = TransactionUtil.suspend();
-                    // now start a new transaction
+                if (TransactionUtil.isTransactionInPlace()) {
+                    // if a new transaction is needed, do it here; if not do nothing, just use current tx
+                    if (service.requireNewTransaction) {
+                        parentTransaction = TransactionUtil.suspend();
+                        // now start a new transaction
+                        beganTrans = TransactionUtil.begin(service.transactionTimeout);
+                    }
+                } else {
                     beganTrans = TransactionUtil.begin(service.transactionTimeout);
                 }
                 // enlist for XAResource debugging
