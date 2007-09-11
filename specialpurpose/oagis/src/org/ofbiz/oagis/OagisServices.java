@@ -46,6 +46,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.SSLUtil;
 import org.ofbiz.base.util.UtilDateTime;
@@ -432,11 +433,60 @@ public class OagisServices {
         return result;
     }
     
+    public static Map oagisReReceiveMessage(DispatchContext ctx, Map context) {
+        GenericDelegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+
+        String logicalId = (String) context.get("logicalId");
+        String component = (String) context.get("component");
+        String task = (String) context.get("task");
+        String referenceId = (String) context.get("referenceId");
+        Map oagisMessageInfoKey = UtilMisc.toMap("logicalId", logicalId, "component", component, "task", task, "referenceId", referenceId);
+        
+        try {
+            GenericValue oagisMessageInfo = null;
+            
+            if (UtilValidate.isNotEmpty(referenceId) && (UtilValidate.isEmpty(component) || UtilValidate.isEmpty(task) || UtilValidate.isEmpty(referenceId))) {
+                // try looking up by just the referenceId, those alone are often unique, return error if there is more than one result
+                List oagisMessageInfoList = delegator.findByAnd("OagisMessageInfo", UtilMisc.toMap("referenceId", referenceId));
+                if (oagisMessageInfoList.size() == 1) {
+                    oagisMessageInfo = (GenericValue) oagisMessageInfoList.get(0);
+                } else if (oagisMessageInfoList.size() > 1) {
+                    return ServiceUtil.returnError("Looked up by referenceId because logicalId, component, or task were not passed in but found more than one [" + oagisMessageInfoList.size() + "] record with referenceId [" + referenceId + "]");
+                }
+            } else {
+                oagisMessageInfo = delegator.findByPrimaryKey("OagisMessageInfo", oagisMessageInfoKey);
+            }
+            
+            if (oagisMessageInfo == null) {
+                return ServiceUtil.returnError("Could not find OagisMessageInfo record with key [" + oagisMessageInfoKey + "], not rerunning message.");
+            }
+            
+            String fullMessageXml = oagisMessageInfo.getString("fullMessageXml");
+            if (UtilValidate.isEmpty(fullMessageXml)) {
+                return ServiceUtil.returnError("There was no fullMessageXml text in OagisMessageInfo record with key [" + oagisMessageInfoKey + "], not rerunning message.");
+            }
+            
+            // we know we have text now, run it!
+            ByteArrayInputStream bis = new ByteArrayInputStream(fullMessageXml.getBytes("UTF-8"));
+            Map result = dispatcher.runSync("oagisMessageHandler", UtilMisc.toMap("inputStream", bis, "isErrorRetry", Boolean.TRUE));
+            if (ServiceUtil.isError(result)) {
+                return ServiceUtil.returnError("Error trying to re-receive message with ID [" + oagisMessageInfoKey + "]", null, null, result);
+            }
+            return ServiceUtil.returnSuccess();
+        } catch (Exception e) {
+            String errMsg = "Error re-receiving message with ID [" + oagisMessageInfoKey + "]: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+    }
+    
     public static Map oagisMessageHandler(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         InputStream in = (InputStream) context.get("inputStream");
         List errorList = FastList.newInstance();
+        Boolean isErrorRetry = (Boolean) context.get("isErrorRetry");
 
         GenericValue userLogin = null; 
         try {
@@ -511,7 +561,7 @@ public class OagisServices {
         
         // call async, no additional results to return: Map subServiceResult = FastMap.newInstance();
         if (UtilValidate.isNotEmpty(oagisMessageInfo)) {
-            if ("OAGMP_SYS_ERROR".equals(oagisMessageInfo.getString("processingStatusId"))) {
+            if (Boolean.TRUE.equals(isErrorRetry) || "OAGMP_SYS_ERROR".equals(oagisMessageInfo.getString("processingStatusId"))) {
                 // there was an error last time, tell the service this is a retry
                 messageProcessContext.put("isErrorRetry", Boolean.TRUE);
             } else {
