@@ -287,81 +287,79 @@ public class WorkEffortServices {
         return resultMap;
     } 
         
-    private static List getWorkEffortEvents(DispatchContext ctx, Timestamp startStamp, Timestamp endStamp, String partyId, String facilityId, String fixedAssetId) {
-        Set partyIds = new HashSet();
-        partyIds.add(partyId);
-        return getWorkEffortEvents(ctx, startStamp, endStamp, partyIds, facilityId, fixedAssetId);
-    }
-
-    private static List getWorkEffortEvents(DispatchContext ctx, Timestamp startStamp, Timestamp endStamp, Collection partyIds, String facilityId, String fixedAssetId) {
-        GenericDelegator delegator = ctx.getDelegator();
-        List validWorkEfforts = new ArrayList();
-        try {
-            List entityExprList = UtilMisc.toList(
-                    new EntityExpr("estimatedCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, startStamp),
-                    new EntityExpr("estimatedStartDate", EntityOperator.LESS_THAN, endStamp));
-            // Filter out all the canceled work efforts
-            entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"));
-            entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CANCELLED"));
-            
-            List typesList = UtilMisc.toList(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "EVENT"));
-            if (partyIds != null && partyIds.size() > 0) {
-                entityExprList.add(new EntityExpr("partyId", EntityOperator.IN, partyIds));
-            }
-            if (UtilValidate.isNotEmpty(facilityId)) {
-                entityExprList.add(new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId));
-                typesList.add(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_HEADER"));
-                entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CREATED"));
-                entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_COMPLETED"));
-                entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CLOSED"));
-            }
-            if (UtilValidate.isNotEmpty(fixedAssetId)) {
-                entityExprList.add(new EntityExpr("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
-                typesList.add(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"));
-                entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CREATED"));
-                entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_COMPLETED"));
-                entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CLOSED"));
-            }
-            EntityCondition typesCondition = null;
-            if (typesList.size() == 1) {
-                typesCondition = (EntityExpr)typesList.get(0);
-            } else {
-                typesCondition = new EntityConditionList(typesList, EntityJoinOperator.OR);
-            }
-            entityExprList.add(typesCondition);
-
-            List tempWorkEfforts = null;
-            if (partyIds != null && partyIds.size() > 0) {
-                tempWorkEfforts = delegator.findByAnd("WorkEffortAndPartyAssign", entityExprList, UtilMisc.toList("estimatedStartDate"));
-            } else {
-                tempWorkEfforts = delegator.findByAnd("WorkEffort", entityExprList, UtilMisc.toList("estimatedStartDate"));
-            }
-
-            // This block needs to be here to filter duplicate workeffort ids when 
-            // more than one of the selected party ids is assigned to the WorkEffort
-            
-            Set tempWeKeys = new HashSet();
-            Iterator tempWorkEffortIter = tempWorkEfforts.iterator();
-            while (tempWorkEffortIter.hasNext()) {
-                GenericValue tempWorkEffort = (GenericValue) tempWorkEffortIter.next();
-                String tempWorkEffortId = tempWorkEffort.getString("workEffortId");
-                if (tempWeKeys.contains(tempWorkEffortId)) {
-                    tempWorkEffortIter.remove();
-                } else {
-                    tempWeKeys.add(tempWorkEffortId);
-                }
-            }
-            
-            validWorkEfforts = new ArrayList(tempWorkEfforts);
-        } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
+    private static List getDefaultWorkEffortExprList(Collection partyIds, String facilityId, String fixedAssetId) {
+        List entityExprList = UtilMisc.toList(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"), new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CANCELLED"));
+        List typesList = UtilMisc.toList(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "EVENT"));
+        if (partyIds != null && partyIds.size() > 0) {
+            entityExprList.add(new EntityExpr("partyId", EntityOperator.IN, partyIds));
         }
-        return validWorkEfforts;        
+        if (UtilValidate.isNotEmpty(facilityId)) {
+            entityExprList.add(new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId));
+            typesList.add(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_HEADER"));
+            entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CREATED"));
+            entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_COMPLETED"));
+            entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CLOSED"));
+        }
+        if (UtilValidate.isNotEmpty(fixedAssetId)) {
+            entityExprList.add(new EntityExpr("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
+            typesList.add(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"));
+            entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CREATED"));
+            entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_COMPLETED"));
+            entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CLOSED"));
+        }
+        EntityCondition typesCondition = null;
+        if (typesList.size() == 1) {
+            typesCondition = (EntityExpr) typesList.get(0);
+        } else {
+            typesCondition = new EntityConditionList(typesList, EntityJoinOperator.OR);
+        }
+        entityExprList.add(typesCondition);
+        return entityExprList;
     }
 
+    /**
+     * Get Work Efforts by period.
+     * <p>
+     * This method takes the following parameters:
+     * </p>
+     * <ul>
+     * <li>start - TimeStamp (Period start date/time)</li>
+     * <li>numPeriods - Integer</li>
+     * <li>periodType - Integer (see java.util.Calendar)</li>
+     * <li>eventStatus - String</li>
+     * <li>partyId - String</li>
+     * <li>partyIds - List</li>
+     * <li>facilityId - String</li>
+     * <li>fixedAssetId - String</li>
+     * <li>filterOutCanceledEvents - Boolean</li>
+     * <li>entityExprList - List</li>
+     * </ul>
+     * <p>
+     * The method will find all matching Work Effort events and return them as a List called
+     * <b>periods</b> - one List element per period. It also returns a
+     * <b>maxConcurrentEntries</b> Integer - which indicates the maximum number of
+     * Work Efforts found in one period.
+     * </p>
+     * <p>
+     * Each <b>periods</b> list element is a Map containing the following
+     * key/value pairs:
+     * </p>
+     * <ul>
+     * <li>start - TimeStamp (Period start date/time)</li>
+     * <li>end - TimeStamp (Period end date/time)</li>
+     * <li>calendarEntries - List of Maps. Each Map contains the following
+     * key/value pairs:</li>
+     * <ul>
+     * <li>workEffort - GenericValue</li>
+     * <li>periodSpan - Integer (Number of periods this Work Effort spans)</li>
+     * <li>startOfPeriod - Boolean (true if this is the first occurrence in the period range)</li>
+     * </ul>
+     * </ul>
+     */
     public static Map getWorkEffortEventsByPeriod(DispatchContext ctx, Map context) {
+        GenericDelegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");    
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         TimeZone timeZone = (TimeZone) context.get("timeZone");
 
@@ -374,32 +372,35 @@ public class WorkEffortServices {
         String fixedAssetId = (String) context.get("fixedAssetId");
         Boolean filterOutCanceledEvents = (Boolean) context.get("filterOutCanceledEvents");
         if (filterOutCanceledEvents == null) {
-        	filterOutCanceledEvents = Boolean.FALSE;
+            filterOutCanceledEvents = Boolean.FALSE;
         }
-        
-        //To be returned, the max concurrent entries for a single period
+
+        // To be returned, the max concurrent entries for a single period
         int maxConcurrentEntries = 0;
-                
+
         Integer periodTypeObject = (Integer) context.get("periodType");
         int periodType = 0;
         if (periodTypeObject != null) {
             periodType = periodTypeObject.intValue();
         }
-        
+
         int numPeriods = 0;
-        if(numPeriodsInteger != null) numPeriods = numPeriodsInteger.intValue();
-        
+        if (numPeriodsInteger != null) {
+            numPeriods = numPeriodsInteger.intValue();
+        }
+
         // get a timestamp (date) for the beginning of today and for beginning of numDays+1 days from now
         Timestamp startStamp = UtilDateTime.getDayStart(startDay, timeZone, locale);
         Timestamp endStamp = UtilDateTime.adjustTimestamp(startStamp, periodType, 1, timeZone, locale);
         long periodLen = endStamp.getTime() - startStamp.getTime();
         endStamp = UtilDateTime.adjustTimestamp(startStamp, periodType, numPeriods, timeZone, locale);
-        
+
         // Get the WorkEfforts
         List validWorkEfforts = null;
         Collection partyIdsToUse = partyIds;
-        if (partyIdsToUse == null) partyIdsToUse = new HashSet();
-        
+        if (partyIdsToUse == null) {
+            partyIdsToUse = new HashSet();
+        }
         if (UtilValidate.isNotEmpty(partyId)) {
             if (partyId.equals(userLogin.getString("partyId")) || security.hasEntityPermission("WORKEFFORTMGR", "_VIEW", userLogin)) {
                 partyIdsToUse.add(partyId);
@@ -412,19 +413,52 @@ public class WorkEffortServices {
                 partyIdsToUse.add(userLogin.getString("partyId"));
             }
         }
-                
+
+        List entityExprList = (List) context.get("entityExprList");
+        if (entityExprList == null) {
+            entityExprList = getDefaultWorkEffortExprList(partyIds, facilityId, fixedAssetId);
+        }
+        entityExprList.add(new EntityExpr("estimatedCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, startStamp));
+        entityExprList.add(new EntityExpr("estimatedStartDate", EntityOperator.LESS_THAN, endStamp));
+        if (filterOutCanceledEvents.booleanValue()) {
+            entityExprList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "EVENT_CANCELLED"));
+        }
+
         // Use the View Entity
         if (partyIdsToUse.size() > 0 || UtilValidate.isNotEmpty(facilityId) || UtilValidate.isNotEmpty(fixedAssetId)) {
-            validWorkEfforts = getWorkEffortEvents(ctx, startStamp, endStamp, partyIdsToUse, facilityId, fixedAssetId);
+            try {
+                List tempWorkEfforts = null;
+                if (partyIds != null && partyIds.size() > 0) {
+                    tempWorkEfforts = delegator.findByAnd("WorkEffortAndPartyAssign", entityExprList, UtilMisc.toList("estimatedStartDate"));
+                } else {
+                    tempWorkEfforts = delegator.findByAnd("WorkEffort", entityExprList, UtilMisc.toList("estimatedStartDate"));
+                }
+
+                // This block needs to be here to filter duplicate workeffort ids when
+                // more than one of the selected party ids is assigned to the WorkEffort
+
+                Set tempWeKeys = new HashSet();
+                Iterator tempWorkEffortIter = tempWorkEfforts.iterator();
+                while (tempWorkEffortIter.hasNext()) {
+                    GenericValue tempWorkEffort = (GenericValue) tempWorkEffortIter.next();
+                    String tempWorkEffortId = tempWorkEffort.getString("workEffortId");
+                    if (tempWeKeys.contains(tempWorkEffortId)) {
+                        tempWorkEffortIter.remove();
+                    } else {
+                        tempWeKeys.add(tempWorkEffortId);
+                    }
+                }
+
+                validWorkEfforts = new ArrayList(tempWorkEfforts);
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, module);
+            }
         }
-        if (filterOutCanceledEvents.booleanValue()) {
-        	validWorkEfforts = EntityUtil.filterOutByCondition(validWorkEfforts, new EntityExpr("currentStatusId", EntityOperator.EQUALS, "EVENT_CANCELLED"));
-        }
-        
+
         // Split the WorkEffort list into a map with entries for each period, period start is the key
         List periods = new ArrayList();
         if (validWorkEfforts != null) {
-        
+
             // For each day in the set we check all work efforts to see if they fall within range
             for (int i = 0; i < numPeriods; i++) {
                 Timestamp curPeriodStart = UtilDateTime.adjustTimestamp(startStamp, periodType, i, timeZone, locale);
@@ -432,49 +466,55 @@ public class WorkEffortServices {
                 List curWorkEfforts = new ArrayList();
                 Map entry = new HashMap();
                 for (int j = 0; j < validWorkEfforts.size(); j++) {
-                    
+
                     GenericValue workEffort = (GenericValue) validWorkEfforts.get(j);
                     // Debug.log("Got workEffort: " + workEffort.toString(), module);
-            
+
                     Timestamp estimatedStartDate = workEffort.getTimestamp("estimatedStartDate");
                     Timestamp estimatedCompletionDate = workEffort.getTimestamp("estimatedCompletionDate");
-            
-                    if (estimatedStartDate == null || estimatedCompletionDate == null) continue;
-                    
+
+                    if (estimatedStartDate == null || estimatedCompletionDate == null)
+                        continue;
+
                     if (estimatedStartDate.compareTo(curPeriodEnd) < 0 && estimatedCompletionDate.compareTo(curPeriodStart) > 0) {
-                        //Debug.logInfo("Task start: "+estimatedStartDate+" Task end: "+estimatedCompletionDate+" Period start: "+curPeriodStart+" Period end: "+curPeriodEnd, module);
-                       
+                        // Debug.logInfo("Task start: "+estimatedStartDate+" Task end: "+estimatedCompletionDate+" Period start: "+curPeriodStart+" Period end: "+curPeriodEnd, module);
+
                         Map calEntry = new HashMap();
-                        calEntry.put("workEffort",workEffort);
-                                               
+                        calEntry.put("workEffort", workEffort);
+
                         long length = ((estimatedCompletionDate.after(endStamp) ? endStamp.getTime() : estimatedCompletionDate.getTime()) - (estimatedStartDate.before(startStamp) ? startStamp.getTime() : estimatedStartDate.getTime()));
-                        int periodSpan = (int) Math.ceil((double) length / periodLen);                                                
+                        int periodSpan = (int) Math.ceil((double) length / periodLen);
                         calEntry.put("periodSpan", new Integer(periodSpan));
 
-                        if(i == 0) calEntry.put("startOfPeriod", Boolean.TRUE); //If this is the first priod any valid entry is starting here
-                        else {
-                            boolean startOfPeriod = ((estimatedStartDate.getTime() - curPeriodStart.getTime()) >= 0);                            
+                        if (i == 0) {
+                            // If this is the first period any valid entry is starting here
+                            calEntry.put("startOfPeriod", Boolean.TRUE);
+                        } else {
+                            boolean startOfPeriod = ((estimatedStartDate.getTime() - curPeriodStart.getTime()) >= 0);
                             calEntry.put("startOfPeriod", new Boolean(startOfPeriod));
                         }
                         curWorkEfforts.add(calEntry);
                     }
-        
+
                     // if startDate is after hourEnd, continue to the next day, we haven't gotten to this one yet...
-                    if (estimatedStartDate.after(curPeriodEnd)) break;
-                    
+                    if (estimatedStartDate.after(curPeriodEnd))
+                        break;
+
                     // if completionDate is before the hourEnd, remove from list, we are done with it
                     if (estimatedCompletionDate.before(curPeriodEnd)) {
                         validWorkEfforts.remove(j);
                         j--;
                     }
                 }
-                //For calendar we want to include empty periods aswell
-                //if (curWorkEfforts.size() > 0)  
+                // For calendar we want to include empty periods as well
+                // if (curWorkEfforts.size() > 0)
                 int numEntries = curWorkEfforts.size();
-                if(numEntries > maxConcurrentEntries) maxConcurrentEntries = numEntries;
-                entry.put("start",curPeriodStart);
-                entry.put("end",curPeriodEnd);                
-                entry.put("calendarEntries",curWorkEfforts);
+                if (numEntries > maxConcurrentEntries) {
+                    maxConcurrentEntries = numEntries;
+                }
+                entry.put("start", curPeriodStart);
+                entry.put("end", curPeriodEnd);
+                entry.put("calendarEntries", curWorkEfforts);
                 periods.add(entry);
             }
         }

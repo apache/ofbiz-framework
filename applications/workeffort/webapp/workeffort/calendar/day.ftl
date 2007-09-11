@@ -21,9 +21,9 @@ under the License.
   <div class="screenlet-title-bar">
     <ul>
       <h2>${start?date?string("EEEE")?cap_first} ${start?date?string.long}</h2>
-      <li><a href="<@ofbizUrl>day?start=${next.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.WorkEffortNextDay}</a></li>
-      <li><a href="<@ofbizUrl>day?start=${nowTimestamp.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.CommonToday}</a></li>
-      <li><a href="<@ofbizUrl>day?start=${prev.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.WorkEffortPreviousDay}</a></li>
+      <li><a href="<@ofbizUrl>day?start=${next.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if>${addlParam?if_exists}</@ofbizUrl>">${uiLabelMap.WorkEffortNextDay}</a></li>
+      <li><a href="<@ofbizUrl>day?start=${nowTimestamp.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if>${addlParam?if_exists}</@ofbizUrl>">${uiLabelMap.CommonToday}</a></li>
+      <li><a href="<@ofbizUrl>day?start=${prev.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if>${addlParam?if_exists}</@ofbizUrl>">${uiLabelMap.WorkEffortPreviousDay}</a></li>
     </ul>
     <br class="clear"/>
   </div>
@@ -46,7 +46,7 @@ under the License.
   <#list periods as period>              
   <tr>                  
     <td valign="top" nowrap width="1%" class="monthweekheader" height="36"><span class="monthweeknumber">${period.start?time?string.short}</span><br/>
-      <a href="<@ofbizUrl>EditWorkEffort?workEffortTypeId=EVENT&currentStatusId=CAL_TENTATIVE&estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}</@ofbizUrl>">${uiLabelMap.CommonAddNew}</a></td>
+      <a href="<@ofbizUrl>EditWorkEffort?workEffortTypeId=EVENT&currentStatusId=CAL_TENTATIVE&estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${addlParam?if_exists}</@ofbizUrl>">${uiLabelMap.CommonAddNew}</a></td>
     <#list period.calendarEntries as calEntry>
     <#if calEntry.startOfPeriod>
     <td class="calendarentry" rowspan="${calEntry.periodSpan}" colspan="1" width="${entryWidth?string("#")}%" valign="top">
@@ -59,7 +59,7 @@ under the License.
     <#else>
       ${calEntry.workEffort.estimatedStartDate?time?string.short}-${calEntry.workEffort.estimatedCompletionDate?time?string.short}
     </#if>
-    <br/><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${calEntry.workEffort.workEffortId}</@ofbizUrl>" class="event">${calEntry.workEffort.workEffortName?default("Undefined")}</a>&nbsp;</td>
+    <br/><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${calEntry.workEffort.workEffortId}${addlParam?if_exists}</@ofbizUrl>" class="event">${calEntry.workEffort.workEffortName?default("Undefined")}${addlParam?if_exists}</a>&nbsp;</td>
     </#if>
     </#list>
     <#if period.calendarEntries?size < maxConcurrentEntries>

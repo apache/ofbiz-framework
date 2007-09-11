@@ -187,6 +187,7 @@ under the License.
         <attribute name="numPeriods" type="java.lang.Integer" mode="IN" optional="false"/>
         <attribute name="periodType" type="java.lang.Integer" mode="IN" optional="false"/>
         <attribute name="filterOutCanceledEvents" type="java.lang.Boolean" mode="IN" optional="true"/>
+        <attribute name="entityExprList" type="java.util.List" mode="IN" optional="true"/>
         <attribute name="periods" type="java.util.List" mode="OUT" optional="false"/>
         <attribute name="maxConcurrentEntries" type="java.lang.Integer" mode="OUT" optional="false"/>
     </service>
