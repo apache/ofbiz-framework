@@ -109,7 +109,7 @@ under the License.
         <response name="error" type="none"/>
         <response name="success" type="none"/>
     </request-map>
-    <request-map uri="xmlrpc">
+    <request-map uri="xmlrpc" track-stats="false" track-visit="false">
         <event type="xmlrpc"/>
         <response name="error" type="none"/>
         <response name="success" type="none"/>
