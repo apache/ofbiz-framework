@@ -90,10 +90,12 @@ if (!cartParties.contains(shoppingCart.getSupplierAgentPartyId())) {
     cartParties.add(shoppingCart.getSupplierAgentPartyId());
 }
 List salesReprs = (List)shoppingCart.getAdditionalPartyRoleMap().get("SALES_REP");
-for (int i = 0; i < salesReprs.size(); i++) {
-    String salesRep = (String)salesReprs.get(i);
-    if (!cartParties.contains(salesRep)) {
-        cartParties.add(salesRep);
+if (salesReprs != null) {
+    for (int i = 0; i < salesReprs.size(); i++) {
+        String salesRep = (String)salesReprs.get(i);
+        if (!cartParties.contains(salesRep)) {
+            cartParties.add(salesRep);
+        }
     }
 }
 context.put("cartParties", cartParties);
