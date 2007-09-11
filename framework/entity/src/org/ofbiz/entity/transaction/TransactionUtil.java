@@ -146,6 +146,10 @@ public class TransactionUtil implements Status {
             return STATUS_NO_TRANSACTION;
         }
     }
+    
+    public static String getStatusString() throws GenericTransactionException {
+        return getTransactionStateString(getStatus());
+    }
 
     public static boolean isTransactionInPlace() throws GenericTransactionException {
         int status = getStatus();
@@ -311,7 +315,7 @@ public class TransactionUtil implements Status {
 
     public static Transaction suspend() throws GenericTransactionException {
         try {
-            if (TransactionUtil.getStatus() == TransactionUtil.STATUS_ACTIVE) {
+            if (TransactionUtil.getStatus() != TransactionUtil.STATUS_NO_TRANSACTION) {
                 TransactionManager txMgr = TransactionFactory.getTransactionManager();
                 if (txMgr != null) {
                     pushTransactionBeginStackSave(clearTransactionBeginStack());
@@ -323,7 +327,7 @@ public class TransactionUtil implements Status {
                     return null;
                 }
             } else {
-                Debug.logWarning("No transaction active, so not suspending.", module);
+                Debug.logWarning("No transaction in place, so not suspending.", module);
                 return null;
             }
         } catch (SystemException e) {
@@ -409,6 +413,19 @@ public class TransactionUtil implements Status {
     }
 
     public static String getTransactionStateString(int state) {
+        /*
+         * javax.transaction.Status
+         * STATUS_ACTIVE           0
+         * STATUS_MARKED_ROLLBACK  1
+         * STATUS_PREPARED         2
+         * STATUS_COMMITTED        3
+         * STATUS_ROLLEDBACK       4
+         * STATUS_UNKNOWN          5        
+         * STATUS_NO_TRANSACTION   6
+         * STATUS_PREPARING        7
+         * STATUS_COMMITTING       8
+         * STATUS_ROLLING_BACK     9
+         */
         switch (state) {
             case Status.STATUS_ACTIVE:
                 return "Transaction Active (" + state + ")";

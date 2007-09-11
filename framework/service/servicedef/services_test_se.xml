@@ -32,7 +32,7 @@ under the License.
     <service name="testServiceDeadLockRetryThreadA" engine="java" auth="false" transaction-timeout="10"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceDeadLockRetryThreadA">
     </service>
-    <service name="testServiceDeadLockRetryThreadB" engine="java" auth="false" transaction-timeout="4"
+    <service name="testServiceDeadLockRetryThreadB" engine="java" auth="false" transaction-timeout="10"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceDeadLockRetryThreadB">
     </service>
     
