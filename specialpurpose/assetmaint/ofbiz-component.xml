@@ -37,13 +37,13 @@
 
     <!-- service resources: model(s), eca(s) and group definitions -->
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
-
+    <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
 
     <webapp name="assetmaint"
         title="AssetMaint"
         server="default-server"
         location="webapp/assetmaint"
-        base-permission="OFBTOOLS"
+        base-permission="ASSETMAINT"
         mount-point="/assetmaint"
-        app-bar-display="false"/>
+        app-bar-display="true"/>
 </ofbiz-component>
