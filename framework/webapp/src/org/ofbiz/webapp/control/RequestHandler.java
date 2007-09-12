@@ -160,7 +160,7 @@ public class RequestHandler implements Serializable {
                     throw new RequestHandlerException("Unknown request [" + requestUri + "]; this request does not exist or cannot be called directly.");
                 } else {
                     for (int i = 0; i < clientCerts.length; i++) {
-                        Debug.log(clientCerts[i].getSubjectX500Principal().getName(), module);
+                        Debug.logInfo(clientCerts[i].getSubjectX500Principal().getName(), module);
                     }
                    
                     // check if this is a trusted cert
