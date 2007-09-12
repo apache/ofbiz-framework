@@ -395,5 +395,18 @@ under the License.
             <link target="EditFinAccountAuths?finAccountId=${finAccountId}"/>
         </menu-item>
     </menu>
+    <menu name="PartyAccountsTabBar" default-menu-item-name="PartyAccountsSummary" default-selected-style="selected"
+        menu-container-style="button-bar button-style-1" type="simple">  
+        <menu-item name="PartyAccountsSummary" title="${uiLabelMap.CommonSummary}">
+            <link target="PartyAccountsSummary?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+        <menu-item name="EditGlJournalEntry" title="${uiLabelMap.AcctgEditGlJournalEntry}">
+            <link target="EditGlJournalEntry"/>
+        </menu-item>
+        <menu-item name="ListUnpostedAcctgTrans" title="${uiLabelMap.AccountingManualPostTrans}">
+            <link target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+    </menu>
+    
 </menus>
     

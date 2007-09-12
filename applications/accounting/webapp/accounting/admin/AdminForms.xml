@@ -24,7 +24,7 @@ under the License.
     <form name="ListCompanies" type="list" title="Internal Organizations" list-name="parties">
         <field name="partyId" title="${uiLabelMap.AccountingCompanies}"><display-entity entity-name="PartyGroup" description="${groupName}"/></field>
         <field name="admin" title="${uiLabelMap.AccountingAdmin}"><hyperlink target="AdminMain?organizationPartyId=${partyId}" description="${uiLabelMap.AccountingAdmin}"/></field>
-        <field name="accounts" title="${uiLabelMap.AccountingAccounts}"><hyperlink target="ListGlAccountOrganization?organizationPartyId=${partyId}" description="${uiLabelMap.AccountingAccounts}"/></field>
+        <field name="accounts" title="${uiLabelMap.AccountingAccounts}"><hyperlink target="EditGlJournalEntry?organizationPartyId=${partyId}" description="${uiLabelMap.AccountingAccounts}"/></field>
     </form>
     
     <form name="PartyAcctgPreference" type="single" target="createPartyAcctgPreference" default-service-name="createPartyAcctgPreference" default-map-name="partyAcctgPreference">

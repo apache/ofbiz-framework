@@ -430,19 +430,33 @@ under the License.
         <response name="error" type="view" value="CaptureTransaction"/>
     </request-map>
 
-    <!-- GlAccount requests -->
+    <!-- Party Accounts requests -->
+    <request-map uri="PartyAccountsSummary">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PartyAccountsSummary"/>
+    </request-map>
     <request-map uri="createGlJournalEntry">
         <security https="true" auth="true"/>
         <event type="service" invoke="createGlJournalEntry"/>
         <response name="success" type="view" value="EditGlJournalEntry"/>
         <response name="error" type="view" value="EditGlJournalEntry"/>
     </request-map>
-
     <request-map uri="EditGlJournalEntry">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditGlJournalEntry"/>
     </request-map>
+    <request-map uri="ListUnpostedAcctgTrans">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListUnpostedAcctgTrans"/>
+    </request-map>
+    <request-map uri="postAcctgTrans">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="postAcctgTrans"/>
+        <response name="success" type="view" value="ListUnpostedAcctgTrans"/>
+        <response name="error" type="view" value="ListUnpostedAcctgTrans"/>
+    </request-map>
 
+    <!-- GlAccount requests -->
     <request-map uri="AssignGlAccount">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="AssignGlAccount"/>
@@ -1105,16 +1119,6 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PartyAcctgPreference"/>
     </request-map>
-    <request-map uri="ListUnpostedAcctgTrans">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListUnpostedAcctgTrans"/>
-    </request-map>
-    <request-map uri="postAcctgTrans">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="postAcctgTrans"/>
-        <response name="success" type="view" value="ListUnpostedAcctgTrans"/>
-        <response name="error" type="view" value="ListUnpostedAcctgTrans"/>
-    </request-map>
     <request-map uri="createPartyAcctgPreference">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPartyAcctgPreference"/>
@@ -1438,9 +1442,13 @@ under the License.
     <view-map name="editPaymentApplications" type="screen" page="component://accounting/widget/PaymentScreens.xml#EditPaymentApplications"/>
     <view-map name="ManualTransaction" type="screen" page="component://accounting/widget/PaymentScreens.xml#ManualTransaction"/>
     <view-map name="PrintChecks" type="screenfop" page="component://accounting/widget/PaymentScreens.xml#PrintChecks" content-type="application/pdf" encoding="none"/>
-
-    <!-- GlAccount, GlJournalEntry, AcctgTrans -->
+    
+    <!-- Party Accounts -->
+    <view-map name="PartyAccountsSummary" type="screen" page="component://accounting/widget/AccountingScreens.xml#PartyAccountsSummary"/>
     <view-map name="EditGlJournalEntry" type="screen" page="component://accounting/widget/AccountingScreens.xml#EditGlJournalEntry"/>
+    <view-map name="ListUnpostedAcctgTrans" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListUnpostedAcctgTrans"/>
+    
+    <!-- GlAccount, GlJournalEntry, AcctgTrans -->
     <view-map name="AddGlAccount" type="screen" page="component://accounting/widget/AccountingScreens.xml#AddGlAccount"/>
     <view-map name="FindGlobalGlAccount" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListGlAccounts"/>
     <view-map name="ListGlobalGlAccounts" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListGlAccounts"/>
@@ -1524,7 +1532,6 @@ under the License.
     <view-map name="TimePeriods" type="screen" page="component://accounting/widget/AdminScreens.xml#TimePeriods"/>
     <view-map name="PartyAcctgPreference" type="screen" page="component://accounting/widget/AdminScreens.xml#PartyAcctgPreference"/>
     <view-map name="ViewFXConversions" type="screen" page="component://accounting/widget/AdminScreens.xml#ViewFXConversions"/>
-    <view-map name="ListUnpostedAcctgTrans" type="screen" page="component://accounting/widget/AdminScreens.xml#ListUnpostedAcctgTrans"/>
     <view-map name="GlAccountPurInvoice" type="screen" page="component://accounting/widget/AdminScreens.xml#GlAccountPurInvoice"/>
     <view-map name="GlAccountSalInvoice" type="screen" page="component://accounting/widget/AdminScreens.xml#GlAccountSalInvoice"/>
     <view-map name="GlAccountTypePaymentType" type="screen" page="component://accounting/widget/AdminScreens.xml#GlAccountTypePaymentType"/>
