@@ -224,6 +224,9 @@ under the License.
         <field name="invoiceId"><display/></field>
         <field name="invoiceItemSeqId"><display/></field>
         <field name="effectiveDate"><display/></field>
+        <field name="amountApplied">
+            <display type="currency" currency="${currencyUomId}"/>
+        </field>
         <field name="amount">
             <display type="currency" currency="${currencyUomId}"/>
         </field>
