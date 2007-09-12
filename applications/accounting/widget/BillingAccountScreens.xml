@@ -202,11 +202,20 @@ under the License.
 
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/>
                 <entity-one entity-name="BillingAccount" value-name="billingAccount"/>
+                <entity-condition entity-name="BillingAccountAndRole" list-name="billToCustomers" filter-by-date="true">
+                    <condition-list>
+                        <condition-expr field-name="billingAccountId" env-name="billingAccountId"/>
+                        <condition-expr field-name="roleTypeId" value="BILL_TO_CUSTOMER"/>
+                    </condition-list>
+                </entity-condition>
+                <set field="billToCustomer" from-field="billToCustomers[0]"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBillingAccountDecorator">
                     <decorator-section name="body">
                         <include-form name="ListBillingAccountPayments" location="component://accounting/widget/BillingAccountForms.xml"/>
+                        <label style="head1">${uiLabelMap.AccountingCreatePayment}</label>
+                        <include-form name="CreateIncomingBillingAccountPayment" location="component://accounting/widget/BillingAccountForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

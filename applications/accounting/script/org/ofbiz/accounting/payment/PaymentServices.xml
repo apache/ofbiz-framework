@@ -219,5 +219,21 @@ under the License.
         <set field="param.statusId" value="PMNT_SENT"/>
         <call-service service-name="setPaymentStatus" in-map-name="param"/>
     </simple-method>
-    
+
+    <simple-method method-name="createPaymentAndApplication" short-description="Create a payment and a payment application for the full amount">
+        <set-service-fields service-name="createPayment" map-name="parameters" to-map-name="createPaymentInMap"/>
+        <call-service service-name="createPayment" in-map-name="createPaymentInMap">
+            <result-to-field field-name="paymentId" result-name="paymentId"/>
+        </call-service>
+        <check-errors/>
+        <set-service-fields service-name="createPaymentApplication" map-name="parameters" to-map-name="createPaymentAppInMap"/>
+        <set field="createPaymentAppInMap.paymentId" from-field="paymentId"/>
+        <set field="createPaymentAppInMap.amountApplied" from-field="parameters.amount"/>
+        <call-service service-name="createPaymentApplication" in-map-name="createPaymentAppInMap">
+            <result-to-field field-name="paymentApplicationId" result-name="paymentApplicationId"/>
+        </call-service>
+        <check-errors/>
+        <field-to-result field-name="paymentId" result-name="paymentId"/>
+        <field-to-result field-name="paymentApplicationId" result-name="paymentApplicationId"/>
+    </simple-method>
 </simple-methods>
