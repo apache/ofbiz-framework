@@ -31,4 +31,9 @@ under the License.
         <attribute type="String" mode="IN" name="facilityId" optional="false"/>
     </service>
     
+    <service name="assetMaintPermissionCheck" engine="simple"
+            location="component://assetmaint/script/org/ofbiz/assetmaint/FixedAssetMaintEvents.xml" invoke="assetMaintPermissionCheck">
+        <description>Asset Maintentance Permission Checking Logic</description>
+        <implements service="permissionInterface"/>
+    </service>
 </services>
