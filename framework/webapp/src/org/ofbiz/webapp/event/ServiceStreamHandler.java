@@ -68,15 +68,18 @@ public class ServiceStreamHandler implements EventHandler {
         context.put("inputStream", in);
         context.put("outputStream", out);
 
-        Debug.log("Running service with context: " + context, module);
+        if (Debug.infoOn()) Debug.logInfo("Running service with context: " + context, module);
+        
         Map resp;
         try {
             resp = dispatcher.runSync(eventMethod, context);
         } catch (GenericServiceException e) {
+            outputError(out, e, "Exception thrown in runSync()");
             throw new EventHandlerException(e.getMessage(), e);
         }
         Debug.log("Received respone: " + resp, module);
         if (ServiceUtil.isError(resp)) {
+            outputError(out, null, ServiceUtil.getErrorMessage(resp));
             throw new EventHandlerException(ServiceUtil.getErrorMessage(resp));
         }
         String contentType = (String) resp.get("contentType");
@@ -93,5 +96,20 @@ public class ServiceStreamHandler implements EventHandler {
         }
         
         return null;
+    }
+
+    private void outputError(OutputStream stream, Exception error, String message) {
+        PrintStream out = new PrintStream(stream);
+        if (message != null)
+            out.println("Error message: " + message);
+        if (error != null)
+            out.println("Exception occured: " + error.toString());
+        out.flush();
+        out.close();
+        try {
+            stream.close();
+        } catch (IOException e) {
+            Debug.logError(e, module);
+        }
     }
 }
