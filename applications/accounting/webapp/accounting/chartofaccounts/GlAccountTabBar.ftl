@@ -23,8 +23,6 @@ under the License.
     <li<#if selected == "FindGlobalGlAccount"> class="selected"</#if>><a href="<@ofbizUrl>FindGlobalGlAccount</@ofbizUrl>">${uiLabelMap.AcctgChartOfAcctsTabMenu}</a></li>
     <li<#if selected == "GlAccountNavigate"> class="selected"</#if>><a href="<@ofbizUrl>GlAccountNavigate</@ofbizUrl>">${uiLabelMap.AcctgNavigateAccts}</a></li>
     <li<#if selected == "AssignGlAccount"> class="selected"</#if>><a href="<@ofbizUrl>AssignGlAccount</@ofbizUrl>">${uiLabelMap.AcctgAssignGlAccount}</a></li>
-    <li<#if selected == "EditGlJournalEntry"> class="selected"</#if>><a href="<@ofbizUrl>EditGlJournalEntry</@ofbizUrl>">${uiLabelMap.AcctgEditGlJournalEntry}</a></li>
-    <li<#if selected == "ListGlAccountOrganization"> class="selected"</#if>><a href="<@ofbizUrl>ListGlAccountOrganization</@ofbizUrl>">${uiLabelMap.AcctgListGlAcctOrg}</a></li>
   </ul>
   <br class="clear"/>
 </div>

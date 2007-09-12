@@ -26,6 +26,33 @@ under the License.
         <field name="admin" title="${uiLabelMap.AccountingAdmin}"><hyperlink target="AdminMain?organizationPartyId=${partyId}" description="${uiLabelMap.AccountingAdmin}"/></field>
         <field name="accounts" title="${uiLabelMap.AccountingAccounts}"><hyperlink target="EditGlJournalEntry?organizationPartyId=${partyId}" description="${uiLabelMap.AccountingAccounts}"/></field>
     </form>
+
+    <form name="ListGlAccountOrganization" list-name="listIt" target="" title="" type="list" paginate-target="ListGlAccountOrganization">
+        <actions>
+            <entity-condition entity-name="GlAccountOrganization">
+                <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
+                <order-by field-name="glAccountId"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-entity entity-name="GlAccountOrganization" default-field-type="display"/>
+        <field name="glAccountId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${glAccountId}" target="GlAccountNavigate?glAccountId=${glAccountId}"/>
+        </field>
+    </form>
+
+    <!-- Displays the form for assigning accounts to a party or company -->
+    <!-- TODO: Localize field names --> 
+    <form name="AssignGlAccount" type="single" target="createGlAccountOrganization" title="" default-map-name="account">
+        <field name="glAccountId">
+            <drop-down>
+                <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}"> 
+                    <entity-order-by field-name="glAccountId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.AccountingCreateAssignment}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
     
     <form name="PartyAcctgPreference" type="single" target="createPartyAcctgPreference" default-service-name="createPartyAcctgPreference" default-map-name="partyAcctgPreference">
         <alt-target use-when="partyAcctgPreference!=null" target="updatePartyAcctgPreference"/>
