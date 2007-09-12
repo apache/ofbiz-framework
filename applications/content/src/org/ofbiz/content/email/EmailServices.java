@@ -936,19 +936,24 @@ public class EmailServices {
                 if (Debug.infoOn()) Debug.logInfo(attachmentCount + " attachments added to CommunicationEvent:" + communicationEventId,module);
             }
             
-            //For all other addresses create a CommunicationEventRole
+            // For all other addresses create a CommunicationEventRole
             while (itr.hasNext()) {
                 Map address = (Map) itr.next();
                 String partyId = (String)address.get("partyId");
-                
+
                 // It's not clear what the "role" of this communication event should be, so we'll just put _NA_
-                //Check if "_NA_" role exists for the partyId. If not, then first associate that role with the partyId
-                GenericValue partyRole = delegator.findByPrimaryKey("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "_NA_"));
-                if (partyRole == null) {
-                    dispatcher.runSync("createPartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "_NA_", "userLogin", userLogin));
+                // check and see if this role was already created and ignore if true
+                Map commEventRoleMap = UtilMisc.toMap("communicationEventId", communicationEventId, "partyId", partyId, "roleTypeId", "_NA_");
+                GenericValue commEventRole = delegator.findByPrimaryKey("CommunicationEventRole", commEventRoleMap);
+                if (commEventRole == null) {
+                    // Check if "_NA_" role exists for the partyId. If not, then first associate that role with the partyId
+                    GenericValue partyRole = delegator.findByPrimaryKey("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "_NA_"));
+                    if (partyRole == null) {
+                        dispatcher.runSync("createPartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "_NA_", "userLogin", userLogin));
+                    }
+                    Map input = UtilMisc.toMap("communicationEventId", communicationEventId, "partyId", partyId, "roleTypeId", "_NA_", "userLogin", userLogin, "contactMechId", (String)address.get("contactMechId"));
+                    dispatcher.runSync("createCommunicationEventRole", input);
                 }
-                Map input = UtilMisc.toMap("communicationEventId", communicationEventId, "partyId", partyId, "roleTypeId", "_NA_", "userLogin", userLogin, "contactMechId", (String)address.get("contactMechId"));
-                dispatcher.runSync("createCommunicationEventRole", input);
             }
             
             Map results = ServiceUtil.returnSuccess();
