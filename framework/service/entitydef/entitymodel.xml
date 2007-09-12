@@ -33,6 +33,7 @@ under the License.
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
   <!--  - org.ofbiz.service.schedule -->
+  <!--  - org.ofbiz.service.semaphore -->
   <!-- ========================================================= -->
 
 
@@ -41,7 +42,7 @@ under the License.
   <!-- ========================================================= -->
 
     <entity entity-name="JobSandbox" package-name="org.ofbiz.service.schedule" title="Job Scheduler Sandbox Entity"
-        sequence-bank-size="100">
+            sequence-bank-size="100">
         <field name="jobId" type="id-ne"></field>
         <field name="jobName" type="name"></field>
         <field name="runTime" type="date-time"></field>
@@ -121,9 +122,21 @@ under the License.
       <prim-key field="recurrenceRuleId"/>
     </entity>
     <entity entity-name="RuntimeData" package-name="org.ofbiz.service.schedule" title="Runtime Data Entity"
-        sequence-bank-size="100">
+            sequence-bank-size="100">
         <field name="runtimeDataId" type="id-ne"></field>
         <field name="runtimeInfo" type="very-long"></field>
         <prim-key field="runtimeDataId"/>
     </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.service.semaphore -->
+  <!-- ========================================================= -->
+    <entity entity-name="ServiceSemaphore" package-name="org.ofbiz.service.semaphore" title="Semaphore Lock Entity"
+            sequence-bank-size="100">
+        <field name="serviceName" type="name"></field>
+        <field name="lockThread" type="name"></field>
+        <field name="lockTime" type="date-time"></field>        
+        <prim-key field="serviceName"/>
+    </entity>
+
 </entitymodel>

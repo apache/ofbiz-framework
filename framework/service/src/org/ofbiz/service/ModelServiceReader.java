@@ -258,7 +258,8 @@ public class ModelServiceReader implements Serializable {
         service.name = UtilXml.checkEmpty(serviceElement.getAttribute("name"));
         service.engineName = UtilXml.checkEmpty(serviceElement.getAttribute("engine"));
         service.location = UtilXml.checkEmpty(serviceElement.getAttribute("location"));
-        service.invoke = UtilXml.checkEmpty(serviceElement.getAttribute("invoke"));  
+        service.invoke = UtilXml.checkEmpty(serviceElement.getAttribute("invoke"));
+        service.semaphore = UtilXml.checkEmpty(serviceElement.getAttribute("semaphore"));
         service.defaultEntityName = UtilXml.checkEmpty(serviceElement.getAttribute("default-entity-name"));
         service.fromLoader = isFromURL ? readerURL.toExternalForm() : handler.getLoaderName();        
 

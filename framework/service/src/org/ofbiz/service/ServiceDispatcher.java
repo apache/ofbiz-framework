@@ -18,24 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.service;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.transaction.Transaction;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
-
 import org.apache.commons.collections.map.LRUMap;
 import org.ofbiz.base.config.GenericConfigException;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralRuntimeException;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilTimer;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -53,7 +40,14 @@ import org.ofbiz.service.group.ServiceGroupReader;
 import org.ofbiz.service.jms.JmsListenerFactory;
 import org.ofbiz.service.job.JobManager;
 import org.ofbiz.service.job.JobManagerException;
+import org.ofbiz.service.semaphore.ServiceSemaphore;
 import org.w3c.dom.Element;
+
+import javax.transaction.Transaction;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Global Service Dispatcher
@@ -237,6 +231,13 @@ public class ServiceDispatcher {
      * @throws GenericServiceException
      */
     public Map runSync(String localName, ModelService modelService, Map context, boolean validateOut) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        // check for semaphore and aquire a lock
+        ServiceSemaphore lock = null;
+        if ("wait".equals(modelService.semaphore) || "fail".equals(modelService.semaphore)) {
+            lock = new ServiceSemaphore(delegator, modelService);
+            lock.acquire();
+        }
+
         long serviceStartTime = System.currentTimeMillis();
         boolean debugging = checkDebug(modelService, 1, true);
         if (Debug.verboseOn()) {
@@ -540,6 +541,11 @@ public class ServiceDispatcher {
             Debug.logTiming("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", module);
         } else if (timeToRun > 200) {
             Debug.logInfo("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", module);
+        }
+
+        // release the semaphore lock
+        if (lock != null) {
+            lock.release();
         }
         
         return result;
