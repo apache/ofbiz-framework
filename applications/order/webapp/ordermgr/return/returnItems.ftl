@@ -157,21 +157,22 @@ under the License.
                 <input name="description_o_${rowCount}" value="${item.description}" type="text" class='inputBox' size="15">
             </#if>
             </div></td>
-        <td><div class="tabletextright">
+        <td><div class="tabletext">
             <#if readOnly>
-                ${item.returnQuantity?string.number}
+                ${item.returnQuantity?string.number} 
             <#else>
                 <input name="returnQuantity_o_${rowCount}" value="${item.returnQuantity}" type="text" class='inputBox' size="8" align="right">
             </#if>
+            <#if item.receivedQuantity?exists> (${item.receivedQuantity} received)</#if>
             </div></td>
-        <td><div class="tabletextright">
+        <td><div class="tabletext">
             <#if readOnly>
                 <@ofbizCurrency amount=item.returnPrice isoCode=orderHeader.currencyUom/>
             <#else>
                 <input name="returnPrice_o_${rowCount}" value="${item.returnPrice}" type="text" class='inputBox' size="8" align="right">
             </#if>
             </div></td>
-        <td class="tabletextright">
+        <td class="tabletext">
             <#if returnItemSubTotal?exists><@ofbizCurrency amount=returnItemSubTotal isoCode=orderHeader.currencyUom/></#if>
         </td>
         <td><div class="tabletext">
