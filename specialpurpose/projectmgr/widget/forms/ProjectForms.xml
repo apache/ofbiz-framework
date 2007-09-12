@@ -92,7 +92,6 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><text size="15"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}" widget-style="selectBox" position="1">
             <drop-down allow-empty="true">
                 <option key="1" description="1 (${uiLabelMap.WorkEffortPriorityHigh})"/><option key="2"/><option key="3"/><option key="4"/><option key="5"/>
@@ -101,6 +100,7 @@
         </field>      
         <field name="actualStartDate" entry-name="workEffortToActualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><date-time/></field>
         <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><date-time/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><textarea cols="6"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="timeEntries" title="${uiLabelMap.ProjectMgrTimeEntries}" widget-style="linktext">
             <hyperlink also-hidden="false" description="${uiLabelMap.ProjectMgrTimeEntries}" target="EditTimeEntries?workEffortId=${workEffortId}"/>
@@ -158,8 +158,10 @@
             </drop-down>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="15"/></field>        
-        <field name="actualStartDate" entry-name="workEffortToActualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><date-time/></field>
-        <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><date-time/></field>
+        <field name="estimatedStartDate" entry-name="workEffortToEstimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><date-time/></field>
+        <field name="estimatedCompletionDate"  entry-name="workEffortToEstimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><date-time/></field>        
+        <field name="actualStartDate" entry-name="workEffortToActualStartDate" title="${uiLabelMap.FormFieldTitle_actualStartDate}"><date-time/></field>
+        <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
     <form name="ListPhaseInfo" type="list" list-name="phases">

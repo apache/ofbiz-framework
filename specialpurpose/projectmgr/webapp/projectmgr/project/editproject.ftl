@@ -17,6 +17,22 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<script language="JavaScript" type="text/javascript">
+
+function estimatedTimeHourToMilliSec() {
+
+  estimatedTimeInHours = document.editProjectForm.jestimatedHours.value;
+  jEstimatedMilliSec = estimatedTimeInHours*60*60*1000;
+  document.editProjectForm.estimatedMilliSeconds.value = jEstimatedMilliSec;
+}
+  
+function actualTimeHourToMilliSec() {
+
+  actualTimeInHours = document.editProjectForm.jactualHours.value;
+  jActualMilliSec = actualTimeInHours*60*60*1000;
+  document.editProjectForm.actualMilliSeconds.value = jActualMilliSec;
+}
+</script>
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
@@ -30,7 +46,7 @@ under the License.
   </div> 
   <div class="screenlet-body">    
     <#if project?has_content>
-        <a href="<@ofbizUrl>EditProject?DONE_PAGE=${donePage}</@ofbizUrl>"></a>
+        <a href="<@ofbizUrl>EditProject</@ofbizUrl>"></a>
         <form name="editProjectForm" action="<@ofbizUrl>updateProject</@ofbizUrl>">
     <#else>
         <form name="editProjectForm" action="<@ofbizUrl>createProject</@ofbizUrl>">
@@ -57,6 +73,22 @@ under the License.
             <tr>    
               <td class="label" >${uiLabelMap.CommonDescription}</td>
               <td><input type="text" name="description" value="${project.description?if_exists}"/></td>
+            </tr>
+            <tr>
+              <td class="label">${uiLabelMap.CommonPurpose}</td>
+              <td>
+                <select name="workEffortPurposeTypeId" class="selectBox">
+                <#if project.workEffortPurposeTypeId?exists>
+                  <#assign workEffortPurposeType = delegator.findByPrimaryKey("WorkEffortPurposeType", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortPurposeTypeId", project.workEffortPurposeTypeId?if_exists))/>
+                  <option SELECTED value="${project.workEffortPurposeTypeId?if_exists}">${workEffortPurposeType.description?if_exists}</option>  
+                </#if>
+                  <option>--</option>
+                  <#assign workEffortPurposeTypes = delegator.findAll("WorkEffortPurposeType", Static["org.ofbiz.base.util.UtilMisc"].toList("description"))>
+                  <#list workEffortPurposeTypes as workEffortPurposeType>                    
+                    <option value="${workEffortPurposeType.workEffortPurposeTypeId?if_exists}">${workEffortPurposeType.description?if_exists}</option>
+                  </#list>  
+                </select>
+              </td>  
             </tr>
             <tr>    
               <td class="label" >${uiLabelMap.CommonStatus}</td>
@@ -97,10 +129,14 @@ under the License.
               <td class="label">${uiLabelMap.ProjectMgrWorkEffortScopeEnumId}</td>
               <td>             
                 <select name="scopeEnumId" class="selectBox">
+                  <#if project.scopeEnumId?exists>
+                    <#assign enumeration = delegator.findByPrimaryKey("Enumeration", Static["org.ofbiz.base.util.UtilMisc"].toMap("enumId", project.scopeEnumId?if_exists ))>
+                    <option SELECTED value=${enumeration.enumId?if_exists}>${enumeration.description?if_exists}</option>
+                  </#if>
                   <#assign enumerations = delegator.findByAnd("Enumeration", Static["org.ofbiz.base.util.UtilMisc"].toMap("enumTypeId", "WORK_EFF_SCOPE"))>
-                  <#assign scopeEnumId = project.scopeEnumId?if_exists>            
+                  <option--</option>
                   <#list enumerations as enumeration>                    
-                    <option <#if "${enumeration.enumId}" == scopeEnumId?if_exists>selected="selected"</#if>>${enumeration.description}</option>
+                    <option value=${enumeration.enumId?if_exists}>${enumeration.description?if_exists}</option>
                   </#list>
                 </select>
               </td>
@@ -132,6 +168,24 @@ under the License.
                 <input type="text" name="actualCompletionDate" value="${project.actualCompletionDate?if_exists}"/>
                 <a href="javascript:call_cal(document.editProjectForm.actualCompletionDate,'${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
               </td>
+            </tr>
+            <tr>
+              <td class="label">${uiLabelMap.ProjectMgrEstimatedHours}</td>
+              <td>
+                <input type="text" name="jestimatedHours" value="${estimatedHours?if_exists}" size="8" onchange="estimatedTimeHourToMilliSec()"/>
+              </td>
+              <td>
+                <input type="hidden" name="estimatedMilliSeconds" value="${estimatedMilliSeconds?if_exists}"/>
+              </td>
+            </tr>
+            <tr>
+              <td class="label">${uiLabelMap.ProjectMgrActualHours}</td>
+              <td>
+                <input type="text" name="jactualHours" value="${actualHours?if_exists}" size="8" onchange="actualTimeHourToMilliSec()"/>
+              </td>
+              <td>
+                <input type="hidden" name="actualMilliSeconds" value="${actualMilliSeconds?if_exists}"/>
+              </td>
             </tr>  
           <#else>
             <tr>    
@@ -141,6 +195,17 @@ under the License.
             <tr>    
               <td class="label" >${uiLabelMap.CommonDescription}</td>
               <td><input type="text" name="description" value=""/></td>
+            </tr>
+            <tr>
+              <td class="label">${uiLabelMap.CommonPurpose}</td>
+              <td>
+                <select name="workEffortPurposeTypeId" class="selectBox">
+                  <#assign workEffortPurposeTypes = delegator.findAll("WorkEffortPurposeType", Static["org.ofbiz.base.util.UtilMisc"].toList("description"))>
+                  <#list workEffortPurposeTypes as workEffortPurposeType>                    
+                    <option value="${workEffortPurposeType.workEffortPurposeTypeId?if_exists}">${workEffortPurposeType.description?if_exists}</option>
+                  </#list>  
+                </select>
+              </td>  
             </tr>
             <tr>    
               <td class="label" >${uiLabelMap.CommonStatus}</td>
@@ -219,6 +284,24 @@ under the License.
                 <input type="text" name="actualCompletionDate" value=""/>
                 <a href="javascript:call_cal(document.editProjectForm.actualCompletionDate,'${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
               </td> 
+            </tr>
+            <tr>
+              <td class="label">${uiLabelMap.ProjectMgrEstimatedHours}</td>
+              <td>
+                <input type="text" name="jestimatedHours" value="" size="8" onchange="estimatedTimeHourToMilliSec()"/>
+              </td>
+              <td>
+                <input type="hidden" name="estimatedMilliSeconds"/>
+              </td>
+            </tr>
+            <tr>
+              <td class="label">${uiLabelMap.ProjectMgrActualHours}</td>
+              <td>
+                <input type="text" name="jactualHours" value="" size="8" onchange="actualTimeHourToMilliSec()"/>
+              </td>
+              <td>
+                <input type="hidden" name="actualMilliSeconds"/>
+              </td>
             </tr>   
           </#if>   
           <tr>

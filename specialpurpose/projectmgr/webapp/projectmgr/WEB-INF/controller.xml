@@ -192,11 +192,6 @@
         <response name="success" type="view" value="FindPhase"/>
         <response name="error" type="view" value="FindPhase"/>
     </request-map>
-    <request-map uri="projectView">
-        <security https="true" auth="true"/>        
-        <response name="success" type="view" value="projectView"/>
-        <response name="error" type="view" value="projectView"/>
-    </request-map>
     <request-map uri="EditProjectSkills">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditProjectSkills"/>
