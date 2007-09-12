@@ -54,7 +54,8 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListGlAccountOrganization" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/>
+                        <include-form name="ListGlAccountOrganization" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        <include-form name="AssignGlAccount" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

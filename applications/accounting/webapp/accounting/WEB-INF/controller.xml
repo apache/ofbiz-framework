@@ -513,7 +513,7 @@ under the License.
         <security https="true" auth="true"/>
         <event type="service" invoke="createGlAccountOrganization"/>
         <response name="success" type="view" value="ListGlAccountOrganization"/>
-        <response name="error" type="view" value="EditGlobalGlAccountOrganizations"/>
+        <response name="error" type="view" value="ListGlAccountOrganization"/>
     </request-map>
     <request-map uri="updateGlAccountOrganization">
         <security https="true" auth="true"/>
