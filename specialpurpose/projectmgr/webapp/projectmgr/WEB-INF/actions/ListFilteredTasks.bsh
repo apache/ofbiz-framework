@@ -93,16 +93,13 @@ if (filterTaskNotAssigned.equals("Y")) {
                     }
                     if(!innerFlag) {                            
                         Map taskMap = FastMap.newInstance();
-                        taskMap.put("currentStatusId", task.getString("currentStatusId"));
-                        taskMap.put("workEffortId", task.getString("workEffortId"));
-                        taskMap.put("workEffortName", task.getString("workEffortName"));
-                        taskMap.put("priority", task.getString("priority"));
-                        taskMap.put("description", task.getString("description"));
-                        taskMap.put("workEffortTypeId", task.getString("workEffortTypeId"));
-                        taskMap.put("workEffortPurposeTypeId", task.getString("workEffortPurposeTypeId"));
-                        taskMap.put("workEffortAssocTypeId", "WORK_EFF_BREAKDOWN");
+                        taskMap.putAll((Map) task);                        
                         unassignedTasks.add(taskMap);
                     }
+                } else {
+                    Map taskMap = FastMap.newInstance();
+                    taskMap.putAll((Map) task);                    
+                    unassignedTasks.add(taskMap);
                 }
             }            
             context.put("tasks", unassignedTasks);
@@ -143,17 +140,8 @@ if (filterTaskNotAssigned.equals("Y")) {
                         workEffortTypeId = task.get("workEffortTypeId");
                         if(workEffortTypeId.equals("TASK")) {                        
                             Map taskMap = FastMap.newInstance();
-                            taskMap.put("currentStatusId", task.getString("currentStatusId"));
-                            taskMap.put("fromDate", workEffortAssoc.getString("fromDate"));
-                            taskMap.put("workEffortId", task.getString("workEffortId"));
-                            taskMap.put("workEffortName", task.getString("workEffortName"));
-                            taskMap.put("priority", task.getString("priority"));
-                            taskMap.put("description", task.getString("description"));
-                            taskMap.put("workEffortTypeId", task.getString("workEffortTypeId"));
-                            taskMap.put("workEffortToActualStartDate", workEffortAssoc.getString("workEffortToActualStartDate"));
-                            taskMap.put("workEffortToActualCompletionDate", workEffortAssoc.getString("workEffortToActualCompletionDate"));
-                            taskMap.put("workEffortPurposeTypeId", task.getString("workEffortPurposeTypeId"));
-                            taskMap.put("workEffortAssocTypeId", "WORK_EFF_BREAKDOWN");
+                            taskMap.putAll((Map) task);
+                            taskMap.putAll((Map) workEffortAssoc);
                             tasks.add(taskMap);
                             context.put("tasks", tasks);
                         }                    

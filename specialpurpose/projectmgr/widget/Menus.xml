@@ -39,10 +39,11 @@
         </menu-item>
     </menu>
     <menu name="ProjectTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected">
+        <menu-item name="projectView" title="${uiLabelMap.ProjectMgrProjectSummary}"><link target="projectView?workEffortId=${workEffortId}"/></menu-item>
         <menu-item name="editproject" title="${uiLabelMap.ProjectMgrEditPoject}"><link target="EditProject?workEffortId=${workEffortId}"/></menu-item>
-        <menu-item name="phases" title="${uiLabelMap.ProjectMgrPhases}"><link target="FindPhase?workEffortIdFrom=${workEffortId}&amp;workEffortTypeId=PHASE&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
-        <menu-item name="subprojects" title="${uiLabelMap.ProjectMgrSubProjects}"><link target="FindProject?workEffortIdFrom=${workEffortId}&amp;workEffortTypeId=PROJECT&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
-        <menu-item name="tasks" title="${uiLabelMap.ProjectMgrTasks}"><link target="FindTask?workEffortIdFrom=${workEffortId}&amp;workEffortTypeId=TASK&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>        
+        <menu-item name="phases" title="${uiLabelMap.ProjectMgrPhases}"><link target="FindPhase?workEffortId=${workEffortId}&amp;workEffortIdFrom=${workEffortId}&amp;workEffortTypeId=PHASE&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
+        <menu-item name="subprojects" title="${uiLabelMap.ProjectMgrSubProjects}"><link target="FindProject?workEffortId=${workEffortId}&amp;workEffortIdFrom=${workEffortId}&amp;workEffortTypeId=PROJECT&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
+        <menu-item name="tasks" title="${uiLabelMap.ProjectMgrTasks}"><link target="FindTask?workEffortId=${workEffortId}&amp;workEffortIdFrom=${workEffortId}&amp;workEffortTypeId=TASK&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>        
         <menu-item name="projectskills" title="${uiLabelMap.ProjectMgrSkillStandards}"><link target="EditProjectSkills?workEffortId=${workEffortId}"/></menu-item>
         <menu-item name="parties" title="${uiLabelMap.ProjectMgrParties}"><link target="ListWorkEffortPartyAssigns?workEffortId=${workEffortId}"/></menu-item>
         <menu-item name="treeDetails" title="${uiLabelMap.ProjectMgrTreeDetails}"><link target="ChildWorkEfforts?workEffortId=${workEffortId}&amp;trail=${workEffortId}&amp;workEffortTypeId=PROJECT&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>

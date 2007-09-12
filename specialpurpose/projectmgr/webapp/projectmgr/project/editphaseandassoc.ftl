@@ -52,39 +52,11 @@ under the License.
             <td>${(workEffort.workEffortName)?if_exists} [${(workEffort.workEffortId)?if_exists}]<span class="tooltip">${uiLabelMap.CommonNotModifRecreat}</td>
             <td><input type="hidden" name="workEffortIdFrom" value="${workEffortIdFrom?if_exists}"/></td>
             <td><input type="hidden" name="workEffortParentId" value="${workEffortIdFrom?if_exists}"/></td> 
-          </tr>
-          <tr>
-            <td class="label" >${uiLabelMap.ProjectMgrWorkEffortAssocTypeId}</td>
-            <td>
-              <select class="selectBox" name="workEffortAssocTypeId"> 
-                <#assign WorkEffortAssocTypes = delegator.findAll("WorkEffortAssocType", Static["org.ofbiz.base.util.UtilMisc"].toList("description"))>
-                <#list WorkEffortAssocTypes as WorkEffortAssocType>
-                  <option value="${WorkEffortAssocType.workEffortAssocTypeId?if_exists}">${WorkEffortAssocType.description?if_exists}</option>
-                </#list>
-              </select>   
-            </td>
-          </tr>
-          <tr>
-            <td class="label" >${uiLabelMap.CommonSequenceNum}</td>
-            <td><input type="text" name="sequenceNum" value=""/></td>
-          </tr>
-          <tr>
-            <td class="label" >${uiLabelMap.CommonFromDate}</td>
-            <td>
-              <input type="text" size="20" name="fromDate"/>
-              <a href="javascript:call_cal(document.addProjectAndAssocForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
-            </td>
-          </tr>
-          <tr>
-            <td class="label" >${uiLabelMap.CommonThruDate}</td>
-            <td>
-              <input type="text" size="20" name="thruDate"/>
-              <a href="javascript:call_cal(document.addProjectAndAssocForm.thruDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
-            </td>
+            <td><input type="hidden" name="workEffortAssocTypeId" value="WORK_EFF_BREAKDOWN"/>
           </tr>
           <tr>
             <td width="20%">
-              Enter the WorkEffort Details below
+              ${uiLabelMap.ProjectMgrPhaseDetails}
             </td> 
           </tr>
           <tr>    
@@ -110,7 +82,7 @@ under the License.
             </#if>
           </tr>   
           <tr>    
-            <td class="label" >${uiLabelMap.CommonStatus}*</td>
+            <td class="label" >${uiLabelMap.CommonStatus}</td>
             <td>    
               <select name="currentStatusId" class="selectBox">
                 <#if phase?exists>
@@ -134,7 +106,7 @@ under the License.
                     <option value="${statusItem.statusId?if_exists}">[${uiLabelMap.WorkEffortEvent}]${statusItem.description}</option>
                   </#list>
                 </#if>        
-              </select><span class="tooltip">${uiLabelMap.CommonRequired}</span>
+              </select>
             </td>
           </tr>    
           <tr>

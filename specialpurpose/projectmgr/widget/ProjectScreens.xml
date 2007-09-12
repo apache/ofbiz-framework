@@ -100,13 +100,9 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditProject"/>
-                <set field="headerItem" value="projects"/>
                 <set field="tabButtonItem" value="editproject"/>                
                 <set field="labelTitleProperty" value="PageTitleEditProject"/>
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindProjectList"/>
-                <set field="workEffortId" from-field="parameters.workEffortId"/>                
-                <set field="workEffortAssocTypeId" from-field="parameters.workEffortAssocTypeId"/>
-                <entity-one entity-name="WorkEffort" value-name="project"/>                
+                <entity-one entity-name="WorkEffort" value-name="project"/>
             </actions>
             <widgets>                
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -342,10 +338,8 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditPhase"/>
-                <set field="headerItem" value="projects"/>
                 <set field="tabButtonItem" value="phases"/>
                 <set field="labelTitleProperty" value="PageTitleFindPhase"/>
-                <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
                 <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
                 <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ChildWorkEffort.bsh"/>
@@ -378,9 +372,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
                 <set field="tabButtonItem" value="parties"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
-                
-                <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
             </actions>            
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -406,11 +397,8 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditSkill"/>
-                <set field="headerItem" value="projects"/>
                 <set field="tabButtonItem" value="projectskills"/>
                 <set field="labelTitleProperty" value="PageTitleEditSkill"/>
-                <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <entity-one entity-name="WorkEffortSkillStandard" value-name="workEffortSkillStandard"/>
                 <entity-and entity-name="WorkEffortSkillStandard" list-name="workEffortSkillStandardList">
                     <field-map field-name="workEffortId"/>
                 </entity-and>
@@ -440,10 +428,8 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListTimeEntries"/>
-                <set field="headerItem" value="projects"/>
                 <set field="tabButtonItem" value="tasks"/>
                 <set field="labelTitleProperty" value="PageTitleEditSkill"/>
-                <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -468,7 +454,8 @@ under the License.
     </screen>
     <screen name="ProjectSummary">        
         <section>
-            <actions>                                                
+            <actions>
+                <set field="tabButtonItem" value="projectView"/>
                 <entity-one entity-name="WorkEffort" value-name="project"/>
             </actions>                        
             <widgets>
@@ -484,7 +471,6 @@ under the License.
                                     <include-screen name="PhasesInfo"/>
                                     <include-screen name="PartiesInfo"/>
                                     <!--include-screen name="ProjectTeamInfo"/-->
-                                    
                                 </container>
                                 <container style="righthalf">
                                     <include-screen name="SubProjectsInfo"/>
@@ -572,7 +558,7 @@ under the License.
             <widgets>                
                 <container style="screenlet">
                     <container style="screenlet-title-bar">
-                        <label style="boxhead" text="">${uiLabelMap.ProjectMgrPhaseList}</label>
+                        <label style="boxhead" text="">${uiLabelMap.ProjectMgrProjectTeam}</label>
                     </container>
                     <container style="screenlet-body">
                         <include-form name="ListAssociatedParties" location="component://projectmgr/widget/forms/ProjectForms.xml"/>

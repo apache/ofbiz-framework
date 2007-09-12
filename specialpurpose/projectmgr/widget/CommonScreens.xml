@@ -86,7 +86,7 @@
             <actions>
                 <set field="headerItem" value="projects"/>                
                 <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
-                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

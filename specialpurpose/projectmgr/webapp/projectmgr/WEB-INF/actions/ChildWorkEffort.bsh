@@ -27,11 +27,11 @@ import org.ofbiz.entity.util.EntityUtil;
 import javolution.util.FastMap;
 
 workEffortIdFrom = parameters.get("workEffortIdFrom");
-
+workEffortAssocTypeId = parameters.get("workEffortAssocTypeId");
 workEffortTypeId = parameters.get("workEffortTypeId");
 
 if(workEffortIdFrom != null) {
-    List workEffortAssocs = delegator.findByAnd("WorkEffortAssocView", UtilMisc.toMap("workEffortIdFrom", workEffortIdFrom, "workEffortAssocTypeId", "WORK_EFF_BREAKDOWN"));
+    List workEffortAssocs = delegator.findByAnd("WorkEffortAssocView", UtilMisc.toMap("workEffortIdFrom", workEffortIdFrom, "workEffortAssocTypeId",workEffortAssocTypeId));
     if(workEffortAssoc != null) {
         List childProjects = new LinkedList();
         List childTasks = new LinkedList();
@@ -44,50 +44,24 @@ if(workEffortIdFrom != null) {
             String workEffortTypeId = workEffort.get("workEffortTypeId");
             if(workEffortTypeId.equals("PROJECT")) {                
                 Map projectMap = FastMap.newInstance();
-                projectMap.put("currentStatusId", workEffort.getString("currentStatusId"));
-                projectMap.put("fromDate", workEffortAssoc.getString("fromDate"));
-                projectMap.put("workEffortId", workEffort.getString("workEffortId"));
-                projectMap.put("workEffortName", workEffort.getString("workEffortName"));
-                projectMap.put("priority", workEffort.getString("priority"));
-                projectMap.put("workEffortToActualStartDate", workEffortAssoc.getString("workEffortToActualStartDate"));
-                projectMap.put("workEffortToActualCompletionDate", workEffortAssoc.getString("workEffortToActualCompletionDate"));
-                projectMap.put("description", workEffort.getString("description"));
-                projectMap.put("workEffortTypeId", workEffort.getString("workEffortTypeId"));
-                projectMap.put("workEffortPurposeTypeId", workEffort.getString("workEffortPurposeTypeId"));
-                projectMap.put("workEffortAssocTypeId", "WORK_EFF_BREAKDOWN");
+                projectMap.putAll((Map) workEffort);
+                projectMap.putAll((Map) workEffortAssoc);
                 childProjects.add(projectMap);                
                 context.put("projects", childProjects);        
             }
             else {
                 if(workEffortTypeId.equals("TASK")) {                    
                     Map taskMap = FastMap.newInstance();
-                    taskMap.put("currentStatusId", workEffort.getString("currentStatusId"));
-                    taskMap.put("fromDate", workEffortAssoc.getString("fromDate"));
-                    taskMap.put("workEffortId", workEffort.getString("workEffortId"));
-                    taskMap.put("workEffortName", workEffort.getString("workEffortName"));
-                    taskMap.put("priority", workEffort.getString("priority")); 
-                    taskMap.put("workEffortToActualStartDate", workEffortAssoc.getString("workEffortToActualStartDate"));
-                    taskMap.put("workEffortToActualCompletionDate", workEffortAssoc.getString("workEffortToActualCompletionDate"));
-                    taskMap.put("description", workEffort.getString("description"));
-                    taskMap.put("workEffortTypeId", workEffort.getString("workEffortTypeId"));
-                    taskMap.put("workEffortPurposeTypeId", workEffort.getString("workEffortPurposeTypeId"));
-                    taskMap.put("workEffortAssocTypeId", "WORK_EFF_BREAKDOWN");
+                    taskMap.putAll((Map) workEffort);
+                    taskMap.putAll((Map) workEffortAssoc);
                     childTasks.add(taskMap);                    
                     context.put("tasks", childTasks);
                 }
                 else {
                     if(workEffortTypeId.equals("PHASE")) {                        
                         Map phaseMap = FastMap.newInstance();
-                        phaseMap.put("currentStatusId", workEffort.getString("currentStatusId"));
-                        phaseMap.put("fromDate", workEffortAssoc.getString("fromDate"));
-                        phaseMap.put("workEffortId", workEffort.getString("workEffortId"));
-                        phaseMap.put("workEffortName", workEffort.getString("workEffortName"));
-                        phaseMap.put("workEffortToActualStartDate", workEffortAssoc.getString("workEffortToActualStartDate"));
-                        phaseMap.put("workEffortToActualCompletionDate", workEffortAssoc.getString("workEffortToActualCompletionDate"));
-                        phaseMap.put("description", workEffort.getString("description"));
-                        phaseMap.put("workEffortAssocTypeId", "WORK_EFF_BREAKDOWN");
-                        phaseMap.put("workEffortTypeId", workEffort.getString("workEffortTypeId"));
-                        phaseMap.put("workEffortPurposeTypeId", workEffort.getString("workEffortPurposeTypeId"));
+                        taskMap.putAll((Map) workEffort);
+                        taskMap.putAll((Map) workEffortAssoc);
                         childPhases.add(phaseMap);                    
                         context.put("phases", childPhases);
                     }
@@ -118,4 +92,5 @@ else {
         context.put("projects", projects);
     }
 }
+
 
