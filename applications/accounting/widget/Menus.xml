@@ -402,7 +402,7 @@ under the License.
             <link target="PartyAccountsSummary?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
         <menu-item name="EditGlJournalEntry" title="${uiLabelMap.AcctgEditGlJournalEntry}">
-            <link target="EditGlJournalEntry"/>
+            <link target="EditGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
         <menu-item name="ListUnpostedAcctgTrans" title="${uiLabelMap.AccountingManualPostTrans}">
             <link target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
