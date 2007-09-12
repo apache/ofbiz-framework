@@ -209,5 +209,24 @@ under the License.
         <field name="termValue" title="${uiLabelMap.PartyTermValue}"><text size="10"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="ListBillingAccountPayments" type="list" list-name="payments" paginate-target="BillingAccountPayments">
+        <actions>
+            <entity-condition entity-name="PaymentAndApplication" list-name="payments">
+                <condition-expr field-name="billingAccountId" env-name="billingAccountId"/>
+            </entity-condition>
+        </actions>
+        <field name="paymentId" widget-style="buttontext">
+            <hyperlink description="${paymentId}" target="paymentOverview?paymentId=${paymentId}"/>
+        </field>
+        <field name="paymentMethodTypeId" title="${uiLabelMap.CommonType}">
+            <display-entity entity-name="PaymentMethodType" description="${description}"/>
+        </field>
+        <field name="invoiceId"><display/></field>
+        <field name="invoiceItemSeqId"><display/></field>
+        <field name="effectiveDate"><display/></field>
+        <field name="amount">
+            <display type="currency" currency="${currencyUomId}"/>
+        </field>
+    </form>
 
 </forms>
