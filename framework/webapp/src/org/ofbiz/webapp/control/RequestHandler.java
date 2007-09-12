@@ -159,8 +159,10 @@ public class RequestHandler implements Serializable {
                 if (clientCerts == null) {
                     throw new RequestHandlerException("Unknown request [" + requestUri + "]; this request does not exist or cannot be called directly.");
                 } else {
-                    for (int i = 0; i < clientCerts.length; i++) {
-                        Debug.logInfo(clientCerts[i].getSubjectX500Principal().getName(), module);
+                    if (Debug.infoOn()) {
+                        for (int i = 0; i < clientCerts.length; i++) {
+                            Debug.logInfo(clientCerts[i].getSubjectX500Principal().getName(), module);
+                        }
                     }
                    
                     // check if this is a trusted cert
@@ -177,7 +179,8 @@ public class RequestHandler implements Serializable {
 
             // If its the first visit run the first visit events.
             if (this.trackVisit(request) && session.getAttribute("visit") == null) {
-                Debug.logInfo("This is the first request in this visit." + " sessionId=" + UtilHttp.getSessionId(request), module);
+                if (Debug.infoOn())
+                    Debug.logInfo("This is the first request in this visit." + " sessionId=" + UtilHttp.getSessionId(request), module);
                 // This isn't an event because it is required to run. We do not want to make it optional.
                 GenericValue visit = VisitHandler.getVisit(session);
                 Collection events = requestManager.getFirstVisitEvents();
@@ -203,8 +206,6 @@ public class RequestHandler implements Serializable {
                         }
                     }
                 }
-            } else {
-                Debug.log("Track visit is disabled for this request");
             }
 
             // Invoke the pre-processor (but NOT in a chain)
@@ -279,9 +280,10 @@ public class RequestHandler implements Serializable {
                     eventReturnString = this.runEvent(request, response, eventType, eventPath, eventMethod);
 
                     // save the server hit
-                    if (this.trackStats(request))
+                    if (this.trackStats(request)) {
                         ServerHitBin.countEvent(cname + "." + eventMethod, request, eventStartTime,
                                 System.currentTimeMillis() - eventStartTime, userLogin, delegator);
+                    }
 
                     // set the default event return
                     if (eventReturnString == null) {

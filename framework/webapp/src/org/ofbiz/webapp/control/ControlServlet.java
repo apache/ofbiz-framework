@@ -283,8 +283,6 @@ public class ControlServlet extends HttpServlet {
                 VisitHandler.getVisitor(request, response);
                 if (requestHandler.trackStats(request)) {
                     ServerHitBin.countRequest(webappName + "." + rname, request, requestStartTime, System.currentTimeMillis() - requestStartTime, userLogin, delegator);
-                } else {
-                    Debug.log("Track status is disabled for this request");
                 }
             } catch (Throwable t) {
                 Debug.logError(t, "Error in ControlServlet saving ServerHit/Bin information; the output was successful, but can't save this tracking information. The error was: " + t.toString(), module);
