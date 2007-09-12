@@ -22,12 +22,11 @@ under the License.
 <h1>${title?if_exists} ${labelTitleProperty?if_exists} ${uiLabelMap.CommonFor} ${uiLabelMap.Organization}: ${organizationPartyId}</h1>
 <div class="button-bar button-style-1">
   <ul>
+    <li<#if selected == "ListGlAccountOrganization"> class="selected"</#if>><a href="<@ofbizUrl>ListGlAccountOrganization?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AcctgListGlAcctOrg}</a></li>
     <li<#if selected == "TimePeriods"> class="selected"</#if>><a href="<@ofbizUrl>TimePeriods?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.TimePeriod}</a></li>
     <li<#if selected == "PartyAcctgPreference"> class="selected"</#if>><a href="<@ofbizUrl>PartyAcctgPreference?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingPreference}</a></li>
     <li<#if selected == "ChecksTabButton"> class="selected"</#if>><a href="<@ofbizUrl>listChecksToPrint?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingChecks}</a></li>
     <li<#if selected == "ViewFXConversions"> class="selected"</#if>><a href="<@ofbizUrl>viewFXConversions?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingFX}</a></li>
-    <li<#if selected == "EditGlJournalEntry"> class="selected"</#if>><a href="<@ofbizUrl>EditGlJournalEntry?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingManualJournalEntry}</a></li>
-    <li<#if selected == "ListUnpostedAcctgTrans"> class="selected"</#if>><a href="<@ofbizUrl>ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingManualPostTrans}</a></li>
     <li<#if selected == "GlAccountAssignment"> class="selected"</#if>><a href="<@ofbizUrl>GlAccountAssignment?organizationPartyId=${organizationPartyId}</@ofbizUrl>">${uiLabelMap.AccountingGlAccountDefault}</a></li>
   </ul>
   <br class="clear"/>

@@ -1459,7 +1459,6 @@ under the License.
     <view-map name="ListGlobalGlAccounts" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListGlAccounts"/>
     <view-map name="ListGlAccountsReport" type="screenfop" page="component://accounting/widget/AccountingScreens.xml#ListGlAccountsReport" content-type="application/pdf" encoding="none"/>
     <view-map name="ListGlAccountsExport" type="screenxml" page="component://accounting/widget/AccountingScreens.xml#ListGlAccountsExport" content-type="text/xml"/>
-    <view-map name="ListGlAccountOrganization" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListGlAccountOrganization"/>
     <view-map name="GlAccountNavigate" type="screen" page="component://accounting/widget/AccountingScreens.xml#GlAccountNavigate"/>
     <view-map name="AssignGlAccount" type="screen" page="component://accounting/widget/AccountingScreens.xml#AssignGlAccount"/>
  
@@ -1533,6 +1532,7 @@ under the License.
     <view-map name="EditTaxAuthorityPartyInfo" type="screen" page="component://accounting/widget/TaxAuthorityScreens.xml#EditTaxAuthorityPartyInfo"/>
 
     <!-- administrative pages -->
+    <view-map name="ListGlAccountOrganization" type="screen" page="component://accounting/widget/AdminScreens.xml#ListGlAccountOrganization"/>
     <view-map name="ListCompanies" type="screen" page="component://accounting/widget/AdminScreens.xml#ListCompanies"/>
     <view-map name="TimePeriods" type="screen" page="component://accounting/widget/AdminScreens.xml#TimePeriods"/>
     <view-map name="PartyAcctgPreference" type="screen" page="component://accounting/widget/AdminScreens.xml#PartyAcctgPreference"/>

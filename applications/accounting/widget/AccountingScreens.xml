@@ -182,26 +182,6 @@ under the License.
         </section>
     </screen>
     
-    <screen name="ListGlAccountOrganization">
-        <section>
-            <actions>
-                <set field="titleProperty" value="AcctgListGlAcctOrg"/>
-                <set field="tabButtonItem" value="ListGlAccountOrganization"/>
-                <set field="labelTitleProperty" value="AcctgListGlAcctOrg"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="GenericDecorator">
-                    <decorator-section name="body">
-                        <include-form name="ListGlAccountOrganization" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/>
-                        <!-- include-form name="ListGlAccount" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/ -->
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="AssignGlAccount">
         <section>
             <actions>
