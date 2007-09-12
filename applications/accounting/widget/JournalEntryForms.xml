@@ -22,6 +22,7 @@ under the License.
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="FindGlJournalEntry" type="single" target="FindGlJournalEntry" title="" default-map-name="journal">
+        <field name="organizationPartyId"><hidden/></field>
         <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
             <drop-down>
                 <entity-options entity-name="AcctgTransType" description="${description}">
@@ -36,15 +37,6 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="organizationPartyId" parameter-name="organizationPartyId">
-            <drop-down>
-                <entity-options entity-name="PartyRoleAndPartyDetail" key-field-name="partyId" description="${partyId}">
-                <!-- entity-options entity-name="PartyRoleAndPartyDetail" description="${organizationPartyId}" -->
-                    <entity-constraint name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
-                    <entity-order-by field-name="partyId"/>
-                </entity-options>
-            </drop-down>
-        </field>
         <field name="partyId" parameter-name="partyId">
             <drop-down>
                 <entity-options entity-name="Party" key-field-name="partyId" description="${partyId}">
@@ -55,20 +47,6 @@ under the License.
         <field name="invoiceId"><text size="20" maxlength="20"/></field>
         <field name="paymentId"><text size="20" maxlength="20"/></field>
         <field name="produtId"><text size="20" maxlength="20"/></field>
-        <field name="debitGlAccountId">
-            <drop-down>
-                <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}" key-field-name="glAccountId">
-                    <entity-order-by field-name="glAccountId"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="creditGlAccountId">
-            <drop-down>
-                <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}" key-field-name="glAccountId">
-                    <entity-order-by field-name="glAccountId"/>
-                </entity-options>
-            </drop-down>
-        </field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
@@ -77,9 +55,30 @@ under the License.
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map field-name="inputFields" env-name="parameters"/>
-                <field-map field-name="entityName" value="AcctgTrans"/>
+                <field-map field-name="entityName" value="AcctgTransAndEntries"/>
             </service>
         </actions>
+        <field name="acctgTransId" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${acctgTransId}" target="ListAcctgTransEntries?acctgTransId=${acctgTransId}"/> 
+        </field>                
+        <field name="transactionDate"><display/></field>                
+        <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
+        <field name="glFiscalTypeId"><display-entity entity-name="GlFiscalType" description="${description}"/></field>
+        <field name="invoiceId" use-when="invoiceId!=null" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/> 
+        </field>
+        <field name="invoiceId" use-when="invoiceId==null"><display/></field>
+        <field name="paymentId" use-when="paymentId!=null">
+            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/> 
+        </field>
+        <field name="paymentId" use-when="paymentId==null"><display/></field>
+        <field name="partyId"><display/></field>                
+        <field name="post" title="${uiLabelMap.AccountingPostTransaction}" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.AccountingPostTransaction}" target="postAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}" also-hidden="false"/> 
+        </field>              
+    </form>
+
+    <form name="ListUnpostedAcctgTrans" type="list" title="Unposted Accounting Transactions" list-name="transactions">
         <field name="acctgTransId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${acctgTransId}" target="ListAcctgTransEntries?acctgTransId=${acctgTransId}"/> 
         </field>                
