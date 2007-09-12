@@ -95,6 +95,26 @@ under the License.
         </section>
     </screen>
 
+    <screen name="PartyAccountsSummary">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PartyAccountsSummary"/>
+                <set field="tabButtonItem" value="PartyAccountsSummary"/>
+                <set field="labelTitleProperty" value="PartyAccountsSummary"/>
+                <!-- entity-condition entity-name="GlAccountOrganization" list-name="entityList" use-cache="true" >
+                    <condition-expr field-name="glAccountId" operator="greater" value="0" />
+                </entity-condition -->
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyAccountsDecorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <label style="head1">${uiLabelMap.PartyAccountsSummary}</label>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="EditGlJournalEntry">
         <section>
             <actions>
@@ -110,7 +130,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="GenericDecorator">
+                <decorator-screen name="CommonPartyAccountsDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="EditGlJournalEntry" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/>
                     </decorator-section>
@@ -118,6 +138,30 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="ListUnpostedAcctgTrans">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="tabButtonItem" value="ListUnpostedAcctgTrans"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.PageTitleUnpostedTransactions}"/>
+                <set field="partyId" from-field="parameters.organizationPartyId"/>
+                <entity-condition entity-name="AcctgTrans" list-name="transactions">
+                    <condition-expr field-name="isPosted" operator="not-equals" value="Y"/>
+                    <order-by field-name="transactionDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListUnpostedAcctgTrans" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="ListGlAccountOrganization">
         <section>
             <actions>
