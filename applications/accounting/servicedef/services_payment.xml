@@ -112,16 +112,16 @@ under the License.
         <description>Create a payment and a payment application for the full amount</description>
         <auto-attributes entity-name="Payment" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Payment" include="pk" mode="INOUT" optional="true"/>
-        <override name="paymentTypeId" optional="false"/>
-        <override name="partyIdFrom" optional="false"/>
-        <override name="partyIdTo" optional="false"/>
-        <override name="statusId" optional="false"/>
-        <override name="amount" optional="false"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
         <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="billingAccountId" type="String" mode="IN" optional="true"/>
         <attribute name="overrideGlAccountId" type="String" mode="IN" optional="true"/>
         <attribute name="taxAuthGeoId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentApplicationId" type="String" mode="OUT" optional="false"/>
+        <override name="paymentTypeId" optional="false"/>
+        <override name="partyIdFrom" optional="false"/>
+        <override name="partyIdTo" optional="false"/>
+        <override name="statusId" optional="false"/>
+        <override name="amount" optional="false"/>
     </service>
 </services>
