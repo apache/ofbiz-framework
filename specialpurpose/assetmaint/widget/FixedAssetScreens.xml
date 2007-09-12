@@ -53,7 +53,7 @@
         <section>
             <actions>
                 <set field="titleProperty" value="AccountingEditFixedAsset" />
-                <set field="labelTitleProperty" value="AssetMaintMaintenanceCalendar" />
+                <set field="labelTitleProperty" value="AccountingEditFixedAsset" />
                 <set field="tabButtonItem" value="EditFixedAsset" />
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId" />
                 <entity-one entity-name="FixedAsset" value-name="fixedAsset" />
