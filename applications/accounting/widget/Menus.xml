@@ -398,14 +398,24 @@ under the License.
     
     <menu name="PartyAccountsTabBar" default-menu-item-name="PartyAccountsSummary" default-selected-style="selected"
         menu-container-style="button-bar tab-bar" type="simple">  
-        <menu-item name="PartyAccountsSummary" title="${uiLabelMap.CommonSummary}">
+        <menu-item name="PartyAccountsSummary" title="${uiLabelMap.AcctgPartyGlJournalSummary}">
             <link target="PartyAccountsSummary?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
-        <menu-item name="EditGlJournalEntry" title="${uiLabelMap.AcctgEditGlJournalEntry}">
-            <link target="EditGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
+        <menu-item name="FindGlJournalEntry" title="${uiLabelMap.AcctgGlJournalEntry}">
+            <link target="FindGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
         <menu-item name="ListUnpostedAcctgTrans" title="${uiLabelMap.AccountingManualPostTrans}">
             <link target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+    </menu>
+    
+    <menu name="JournalEntryActionsBar" menu-container-style="button-bar button-style-2" type="simple" 
+        default-selected-style="selected">  
+        <menu-item name="FindGlJournalEntry" title="${uiLabelMap.AcctgFindGlJournalEntry}">
+            <link target="FindGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+        <menu-item name="NewJournalEnty" title="${uiLabelMap.AcctgNewGlJournalEntry}">
+            <link target="EditGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
     </menu>
     

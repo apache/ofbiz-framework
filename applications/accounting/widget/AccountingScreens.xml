@@ -115,11 +115,30 @@ under the License.
         </section>
     </screen>
 
+    <screen name="FindGlJournalEntry">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AcctgFindGlJournalEntry"/>
+                <set field="tabButtonItem" value="FindGlJournalEntry"/>
+                <set field="labelTitleProperty" value="AcctgFindGlJournalEntry"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyAccountsDecorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-menu name="JournalEntryActionsBar" location="component://accounting/widget/Menus.xml"/>
+                        <include-form name="FindGlJournalEntry" location="component://accounting/widget/JournalEntryForms.xml"/>
+                        <include-form name="ListJournalEntries" location="component://accounting/widget/JournalEntryForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="EditGlJournalEntry">
         <section>
             <actions>
                 <set field="titleProperty" value="AcctgEditGlJournalEntry"/>
-                <set field="tabButtonItem" value="EditGlJournalEntry"/>
+                <set field="tabButtonItem" value="FindGlJournalEntry"/>
                 <set field="labelTitleProperty" value="AcctgEditGlJournalEntry"/>
                 <!-- entity-condition entity-name="GlAccountOrganization" list-name="entityList" use-cache="true" >
                     <condition-expr field-name="glAccountId" operator="greater" value="0" />
@@ -132,7 +151,8 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="EditGlJournalEntry" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/>
+                        <include-menu name="JournalEntryActionsBar" location="component://accounting/widget/Menus.xml"/>
+                        <include-form name="EditGlJournalEntry" location="component://accounting/widget/JournalEntryForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
