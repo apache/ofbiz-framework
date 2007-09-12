@@ -133,6 +133,9 @@ public class ModelService extends AbstractMap implements Serializable {
     
     /** Permission service resource-description */
     public String permissionResourceDesc;
+
+    /** Semaphore setting (wait, fail, none) */
+    public String semaphore;
     
     /** Set of services this service implements */
     public Set implServices = new ListOrderedSet();

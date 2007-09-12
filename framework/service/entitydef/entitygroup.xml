@@ -29,5 +29,10 @@ under the License.
     <entity-group group="org.ofbiz" entity="RecurrenceInfo" />
     <entity-group group="org.ofbiz" entity="RecurrenceRule" />
     <entity-group group="org.ofbiz" entity="RuntimeData" />
+    
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.service.semaphore -->
+  <!-- ========================================================= -->
+    <entity-group group="org.ofbiz" entity="ServiceSemaphore" />
 </entitygroup>
 
