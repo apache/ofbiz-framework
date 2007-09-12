@@ -246,12 +246,13 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
+                        <section><condition><not><if-empty field-name="organizationPartyId"/></not></condition>
                             <widgets>
                                 <include-menu name="PartyAccountsTabBar" location="component://accounting/widget/Menus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                         </section>
+                        <!-- Todo: Add fail widget to show partyId missing error -->
                     </decorator-section>
                 </decorator-screen>
             </widgets>
