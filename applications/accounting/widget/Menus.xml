@@ -22,12 +22,6 @@ under the License.
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     
     <menu name="InvoiceTabBar" menu-container-style="button-bar button-style-1" default-selected-style="selected"> 
-        <menu-item name="find" title="${uiLabelMap.CommonFind}" >
-            <condition>
-                <if-compare field-name="tabButtonItem" operator="not-equals" value="find"/>
-            </condition>
-            <link target="findInvoices"/>
-        </menu-item>
         <menu-item name="invoiceOverview" title="${uiLabelMap.AccountingInvoiceOverview}">
             <condition>
                 <not><if-empty field-name="invoice.invoiceId"/></not>
