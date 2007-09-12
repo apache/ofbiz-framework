@@ -663,7 +663,7 @@ public class LoginWorker {
                 new EntityExpr("serialNumber", EntityOperator.EQUALS, "")), EntityOperator.OR));
 
         EntityConditionList condition = new EntityConditionList(conds, EntityOperator.AND);
-        Debug.log("Doing issuer lookup: " + condition.toString(), module);
+        Debug.logInfo("Doing issuer lookup: " + condition.toString(), module);
         long count = delegator.findCountByCondition("X509IssuerProvision", condition, null, null);
         return count > 0;
     }
