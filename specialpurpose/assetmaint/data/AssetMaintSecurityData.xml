@@ -28,13 +28,10 @@ under the License.
     <SecurityGroup description="Asset Maintenance Admin group, has all maintenance permissions." groupId="ASSETMAINTADMIN"/>
     <SecurityGroup description="Asset Maintenance Technician group, has view and update." groupId="ASSETMAINTTECH"/>
 
-    <SecurityGroupPermission groupId="ASSETMAINTADMIN" permissionId="ACCOUNTING_CREATE"/>
     <SecurityGroupPermission groupId="ASSETMAINTADMIN" permissionId="ASSETMAINT_ADMIN"/>
-    <SecurityGroupPermission groupId="ASSETMAINTADMIN" permissionId="ASSETMAINT_VIEW"/>
 
     <SecurityGroupPermission groupId="ASSETMAINTTECH" permissionId="ASSETMAINT_VIEW"/>
     <SecurityGroupPermission groupId="ASSETMAINTTECH" permissionId="ASSETMAINT_UPDATE"/>
-    <SecurityGroupPermission groupId="ASSETMAINTTECH" permissionId="ACCOUNTING_UPDATE"/>
     
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="ASSETMAINT_ADMIN"/>
 </entity-engine-xml>
