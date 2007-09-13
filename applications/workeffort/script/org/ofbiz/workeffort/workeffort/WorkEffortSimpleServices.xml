@@ -278,17 +278,15 @@ under the License.
         <check-errors/>
         <make-value value-name="newValue" entity-name="WorkEffortContactMech"/>
         <if-empty map-name="parameters" field-name="contactMechId">
-            <if-not-empty map-name="parameters" field-name="addToParty">
-                <call-map-processor xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
-                    processor-name="partyContactMech" in-map-name="parameters" out-map-name="context"/>
+            <if-not-empty field-name="parameters.partyId">
+                <set-service-fields service-name="createPartyContactMech" map-name="parameters" to-map-name="context"/>
                 <call-service service-name="createPartyContactMech" in-map-name="context">
                     <default-message>Party Contact Mechanism successfully created.</default-message>
                     <result-to-field result-name="contactMechId" map-name="newValue"/>
                 </call-service> 
                 <log level="info" message="Party ContactMech created"/>             
                 <else>
-                    <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
-                        processor-name="contactMech" in-map-name="parameters" out-map-name="context"/>
+                    <set-service-fields service-name="createContactMech" map-name="parameters" to-map-name="context"/>
                     <call-service service-name="createContactMech" in-map-name="context">
                         <default-message>Contact Mechanism successfully created.</default-message>
                         <result-to-field result-name="contactMechId" map-name="newValue"/>

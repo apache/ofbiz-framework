@@ -625,6 +625,26 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditWorkEffortContactMechs">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditWorkEffortContactMechs"/>
+                <set field="tabButtonItem" value="WorkEffortContactMechs"/>
+                <set field="labelTitleProperty" value="PageTitleEditWorkEffortContactMechs"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><label style="head1">${uiLabelMap.CommonCreate}</label></container>
+                        <include-form name="AddWorkEffortContactMech" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                        <container><label style="head1">${uiLabelMap.WorkEffortContactMechs}</label></container>
+                        <include-form name="ListWorkEffortContactMechs" location="component://workeffort/widget/WorkEffortForms.xml"/>                        
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
     <screen name="WorkEffortSearchResults">
         <section>
