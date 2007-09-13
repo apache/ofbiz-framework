@@ -37,7 +37,6 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
         <field name="destinationFacilityId">
             <radio no-current-selected-key="">
                 <option key="" description="No Facility Specified"/>
@@ -45,6 +44,9 @@ under the License.
                     <entity-order-by field-name="facilityName"/>
                 </entity-options>
             </radio>
+        </field>
+        <field name="needsInventoryReceive">
+            <drop-down no-current-selected-key="N"><option key="N"/><option key="Y"/></drop-down>
         </field>
         
         <field service-name="updateReturnHeader" name="fromPartyId"/>
