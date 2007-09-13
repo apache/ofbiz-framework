@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.entity.transaction;
+package org.ofbiz.entity.connection;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -27,6 +27,7 @@ import java.util.Set;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.transaction.TransactionFactory;
 import org.ofbiz.minerva.pool.jdbc.xa.XAPoolDataSource;
 import org.ofbiz.minerva.pool.jdbc.xa.wrapper.XADataSourceImpl;
 import org.w3c.dom.Element;
@@ -34,13 +35,12 @@ import org.w3c.dom.Element;
 /**
  * MinervaConnectionFactory - Central source for Minerva JDBC Objects
  */
-public class MinervaConnectionFactory {
+public class MinervaConnectionFactory implements ConnectionFactoryInterface {
         
-    public static final String module = MinervaConnectionFactory.class.getName();                
-        
+    public static final String module = MinervaConnectionFactory.class.getName();
     protected static Map dsCache = new HashMap();
 
-    public static Connection getConnection(String helperName, Element jotmJdbcElement) throws SQLException, GenericEntityException {
+    public Connection getConnection(String helperName, Element jotmJdbcElement) throws SQLException, GenericEntityException {
         XAPoolDataSource pds = (XAPoolDataSource) dsCache.get(helperName);        
         if (pds != null) {                                  
             return TransactionFactory.getCursorConnection(helperName, pds.getConnection());
@@ -113,7 +113,7 @@ public class MinervaConnectionFactory {
         }                
     }
     
-    public static void closeAll() {
+    public void closeAll() {
         Set cacheKeys = dsCache.keySet();
         Iterator i = cacheKeys.iterator();
         while (i.hasNext()) {
@@ -123,6 +123,7 @@ public class MinervaConnectionFactory {
         }                                                                             
     }
 
+    // static methods for webtools
     public static Set getPooledData(String helperName) throws GenericEntityException {
         XAPoolDataSource pds = (XAPoolDataSource) dsCache.get(helperName);
         if (pds == null) {

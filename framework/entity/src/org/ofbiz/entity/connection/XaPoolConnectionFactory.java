@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.entity.transaction;
+package org.ofbiz.entity.connection;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -30,6 +30,7 @@ import org.enhydra.jdbc.standard.StandardXADataSource;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.transaction.TransactionFactory;
 import org.w3c.dom.Element;
 
 /**

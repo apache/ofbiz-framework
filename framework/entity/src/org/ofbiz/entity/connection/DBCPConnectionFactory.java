@@ -1,4 +1,4 @@
-package org.ofbiz.entity.transaction;
+package org.ofbiz.entity.connection;
 
 import org.apache.commons.dbcp.ConnectionFactory;
 import org.apache.commons.dbcp.DriverConnectionFactory;
@@ -9,25 +9,26 @@ import org.apache.commons.dbcp.managed.XAConnectionFactory;
 import org.apache.commons.pool.impl.GenericObjectPool;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.transaction.TransactionFactory;
 import org.w3c.dom.Element;
 
 import javax.transaction.TransactionManager;
 import java.sql.Connection;
 import java.sql.Driver;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * DBCPConnectionFactory
  */
-public class DBCPConnectionFactory {
+public class DBCPConnectionFactory implements ConnectionFactoryInterface {
 
     public static final String module = DBCPConnectionFactory.class.getName();
-
     protected static Map dsCache = new HashMap();
 
-    public static Connection getConnection(String helperName, Element jotmJdbcElement) throws SQLException, GenericEntityException {
+    public Connection getConnection(String helperName, Element jotmJdbcElement) throws SQLException, GenericEntityException {
         ManagedDataSource mds = (ManagedDataSource) dsCache.get(helperName);
         if (mds != null) {
             return TransactionFactory.getCursorConnection(helperName, mds.getConnection());
@@ -70,8 +71,13 @@ public class DBCPConnectionFactory {
             maxIdle = maxIdle > minSize ? maxIdle : minSize;
 
             // load the driver
-            System.setProperty("jdbc.drivers", driverName);
-            Driver jdbcDriver = DriverManager.getDriver(dbUri);
+            Driver jdbcDriver;
+            try {
+                jdbcDriver = (Driver) Class.forName(driverName, true, Thread.currentThread().getContextClassLoader()).newInstance();
+            } catch (Exception e) {
+                Debug.logError(e, module);
+                throw new GenericEntityException(e.getMessage(), e);
+            }
 
             // connection factory properties
             Properties cfProps = new Properties();
@@ -90,12 +96,13 @@ public class DBCPConnectionFactory {
             pool.setMaxActive(maxSize);
             pool.setMaxIdle(maxIdle);
             pool.setMinIdle(minSize);
-            pool.setMaxWait(120000);            
+            pool.setMaxWait(120000);
 
 
             // create the pool object factory
             PoolableConnectionFactory factory = new PoolableConnectionFactory(xacf, pool, null, null, true, true);
             factory.setValidationQuery("select example_type_id from example_type limit 1");
+            factory.setDefaultReadOnly(false);
 
             String transIso = jotmJdbcElement.getAttribute("isolation-level");
             if (transIso != null && transIso.length() > 0) {
@@ -121,5 +128,10 @@ public class DBCPConnectionFactory {
 
             return TransactionFactory.getCursorConnection(helperName, mds.getConnection());
         }
-    }    
+    }
+
+    public void closeAll() {
+        // no methods on the pool to shutdown; so just clearing for GC
+        dsCache.clear();
+    }
 }
