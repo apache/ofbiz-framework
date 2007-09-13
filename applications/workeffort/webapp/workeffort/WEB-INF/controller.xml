@@ -574,6 +574,24 @@ under the License.
         <response name="error" type="view" value="EditWorkEffortKeywords"/>
     </request-map>
 
+    <!-- WorkEffort ContactMechs -->
+    <request-map uri="EditWorkEffortContactMechs">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditWorkEffortContactMechs"/>
+    </request-map>       
+    <request-map uri="createWorkEffortContactMech">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortContactMech"/>
+        <response name="success" type="view" value="EditWorkEffortContactMechs"/>
+        <response name="error" type="view" value="EditWorkEffortContactMechs"/>
+    </request-map>
+    <request-map uri="deleteWorkEffortContactMech">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteWorkEffortContactMech"/>
+        <response name="success" type="view" value="EditWorkEffortContactMechs"/>
+        <response name="error" type="view" value="EditWorkEffortContactMechs"/>
+    </request-map>
+
     <!-- Work Efort Advanced Search --> 
      <request-map uri="WorkEffortSearchOptions">
         <security https="true" auth="true"/>
@@ -599,7 +617,8 @@ under the License.
     <request-map uri="LookupPartyGroup"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyGroup"/></request-map>
     <request-map uri="LookupPartyAndUserLoginAndPerson"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyAndUserLoginAndPerson"/></request-map>    
     <request-map uri="LookupCommEvent"><security https="true" auth="true"/><response name="success" type="view" value="LookupCommEvent"/></request-map>
-    
+    <request-map uri="LookupContactMech"><security https="true" auth="true"/><response name="success" type="view" value="LookupContactMech"/></request-map>
+
     <request-map uri="LookupProduct"><security https="true" auth="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
     <request-map uri="LookupVariantProduct"><security https="true" auth="true"/><response name="success" type="view" value="LookupVariantProduct"/></request-map>
     <request-map uri="LookupProductFeature"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductFeature"/></request-map>
@@ -674,6 +693,7 @@ under the License.
     <view-map name="EditWorkEffortReviews" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortReviews"/>    
     
     <view-map name="EditWorkEffortKeywords" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortKeywords"/>
+    <view-map name="EditWorkEffortContactMechs" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortContactMechs"/>
     <view-map name="WorkEffortSearchOptions" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#WorkEffortSearchOptions"/>
     <view-map name="WorkEffortSearchResults" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#WorkEffortSearchResults"/>
 
@@ -703,5 +723,6 @@ under the License.
     <view-map name="LookupOrderHeader" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeader"/>
     <view-map name="LookupInvoice" page="component://accounting/widget/LookupScreens.xml#LookupInvoice" type="screen"/>
     <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
+    <view-map name="LookupContactMech" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupContactMech"/>
     <!-- end of view mappings -->
 </site-conf>

@@ -556,19 +556,37 @@ under the License.
     <!-- WorkEffort Skill Standard Services -->
     <service name="createWorkEffortSkillStandard" engine="simple" default-entity-name="WorkEffortSkillStandard"
             location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortSkillStandard" auth="true">
-        <description>Create WOrkEffortSkillStandard</description>        
+        <description>Create WorkEffortSkillStandard</description>        
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="updateWorkEffortSkillStandard" engine="simple" default-entity-name="WorkEffortSkillStandard"
             location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="updateWorkEffortSkillStandard" auth="true">
-        <description>Update WOrkEffortSkillStandard</description>
+        <description>Update WorkEffortSkillStandard</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="deleteWorkEffortSkillStandard" engine="simple" default-entity-name="WorkEffortSkillStandard"
             location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffortSkillStandard" auth="true">
-        <description>Delete WOrkEffortSkillStandard</description>
+        <description>Delete WorkEffortSkillStandard</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+
+    <!-- WorkEffort Contact Mech Services -->
+    <service name="createWorkEffortContactMech" engine="simple"
+            location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortContactMech" auth="true">
+        <description>Create WorkEffortContactMech; if contactMechId is not provided, a new contact mech is created (if partyId is set then the new contact mech is also associated to the party)</description>
+        <auto-attributes entity-name="WorkEffortContactMech" mode="IN" include="nonpk" optional="true"/>
+        <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
+        <attribute name="workEffortId" mode="IN" type="String" optional="false"></attribute>
+        <attribute name="contactMechTypeId" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="infoString" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
+    </service>
+    <service name="deleteWorkEffortContactMech" engine="simple" default-entity-name="WorkEffortContactMech"
+            location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffortContactMech" auth="true">
+        <description>Delete WorkEffortContactMech</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 </services>
