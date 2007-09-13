@@ -29,10 +29,10 @@ under the License.
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceDeadLockRetry">
         <implements service="testServiceInterface"/>
     </service>
-    <service name="testServiceDeadLockRetryThreadA" engine="java" auth="false" transaction-timeout="10"
+    <service name="testServiceDeadLockRetryThreadA" engine="java" auth="false"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceDeadLockRetryThreadA">
     </service>
-    <service name="testServiceDeadLockRetryThreadB" engine="java" auth="false" transaction-timeout="10"
+    <service name="testServiceDeadLockRetryThreadB" engine="java" auth="false"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceDeadLockRetryThreadB">
     </service>
     
@@ -58,9 +58,12 @@ under the License.
     </service>
 
     <!-- make sure that if rollback only is set on the tx of the parent service you can still run a child service in a separate tx -->
+    <service name="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper" engine="java" auth="false"
+        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper">
+        <implements service="testServiceInterface"/>
+    </service>
     <service name="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent" engine="java" auth="false"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent">
-        <implements service="testServiceInterface"/>
     </service>
     <service name="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService" engine="java" auth="false" require-new-transaction="true"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService">
