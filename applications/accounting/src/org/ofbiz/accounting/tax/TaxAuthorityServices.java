@@ -57,6 +57,9 @@ public class TaxAuthorityServices {
     public static final BigDecimal ZERO_BASE = new BigDecimal("0.000"); 
     public static final BigDecimal ONE_BASE = new BigDecimal("1.000"); 
     public static final BigDecimal PERCENT_SCALE = new BigDecimal("100.000"); 
+    public static int salestaxFinalDecimals=UtilNumber.getBigDecimalScale("salestax.final.decimals");
+    public static int salestaxCalcDecimals=UtilNumber.getBigDecimalScale("salestax.calc.decimals");
+    public static int salestaxRounding=UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
 
     public static Map rateProductTaxCalcForDisplay(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
@@ -69,9 +72,6 @@ public class TaxAuthorityServices {
 
         if (quantity == null) quantity = ONE_BASE;
         BigDecimal amount = basePrice.multiply(quantity);
-        int salestaxFinalDecimals=UtilNumber.getBigDecimalScale("salestax.final.decimals");
-        int salestaxCalcDecimals=UtilNumber.getBigDecimalScale("salestax.calc.decimals");
-        int salestaxRounding=UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
         
         BigDecimal taxTotal = ZERO_BASE;
         BigDecimal taxPercentage = ZERO_BASE;
@@ -209,7 +209,7 @@ public class TaxAuthorityServices {
             }
             String postalCodeGeoId = ContactMechWorker.getPostalAddressPostalCodeGeoId(shippingAddress, delegator);
             if (UtilValidate.isNotEmpty(postalCodeGeoId)) {
-            	geoIdSet.add(postalCodeGeoId);
+                geoIdSet.add(postalCodeGeoId);
             }
         } else {
             Debug.logWarning("shippingAddress was null, adding nothing to taxAuthoritySet", module);
@@ -330,7 +330,7 @@ public class TaxAuthorityServices {
                 }
 
                 // taxRate is in percentage, so needs to be divided by 100
-                BigDecimal taxAmount = (taxable.multiply(taxRate)).divide(PERCENT_SCALE, 3, BigDecimal.ROUND_CEILING);
+                BigDecimal taxAmount = (taxable.multiply(taxRate)).divide(PERCENT_SCALE, salestaxCalcDecimals, salestaxRounding);
 
                 String taxAuthGeoId = taxAuthorityRateProduct.getString("taxAuthGeoId");
                 String taxAuthPartyId = taxAuthorityRateProduct.getString("taxAuthPartyId");
