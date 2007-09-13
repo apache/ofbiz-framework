@@ -52,7 +52,7 @@ under the License.
                       <b>${uiLabelMap.PartyMechPurposeTypeNotFound}: "${partyContactMechPurpose.contactMechPurposeTypeId}"</b>
                     </#if>
                     <#if partyContactMechPurpose.thruDate?has_content>
-                      (${uiLabelMap.CommonExpire}: ${partyContactMechPurpose.thruDate.toString()})
+                      (${uiLabelMap.CommonExpire}: ${partyContactMechPurpose.thruDate})
                     </#if>
                   </div>
                 </#list>
@@ -108,8 +108,8 @@ under the License.
                 <#else>
                   <div>${contactMech.infoString?if_exists}</div>
                 </#if>
-                <div>(${uiLabelMap.CommonUpdated}:&nbsp;${partyContactMech.fromDate.toString()})</div>
-                <#if partyContactMech.thruDate?has_content><div><b>${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${partyContactMech.thruDate.toString()}</b></div></#if>
+                <div>(${uiLabelMap.CommonUpdated}:&nbsp;${partyContactMech.fromDate})</div>
+                <#if partyContactMech.thruDate?has_content><div><b>${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${partyContactMech.thruDate}</b></div></#if>
                 <#-- create cust request -->
                 <#if custRequestTypes?exists>
                   <form name="createCustRequestForm" action="<@ofbizUrl>createCustRequest</@ofbizUrl>" method="POST">
