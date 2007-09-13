@@ -532,7 +532,7 @@ under the License.
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     </service>
 
-    <service name="receiveInventoryProduct" engine="simple"
+    <service name="receiveInventoryProduct" engine="simple" transaction-timeout="600"
             location="org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="receiveInventoryProduct" auth="true">
         <description>Receive Inventory In Warehouse</description>
         <auto-attributes entity-name="InventoryItem" include="nonpk" mode="IN" optional="true">
