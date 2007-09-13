@@ -208,7 +208,7 @@ public class JobInvoker implements Runnable {
                     stop();
                 }
             } else {
-                Debug.log("Invoker: " + thread.getName() + " received job -- " + job.getJobName() + " from poller - " + jp.toString(), module);
+                Debug.logInfo("Invoker [" + thread.getName() + "] received job [" + job.getJobName() + "] from poller [" + jp.toString() + "]", module);
                 
                 // setup the current job settings
                 this.currentJob = job;
