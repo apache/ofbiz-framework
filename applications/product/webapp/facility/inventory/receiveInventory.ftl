@@ -103,7 +103,7 @@ under the License.
       </tr>
       <tr>
         <td width="14%">&nbsp;</td>
-        <td width="6%" align="right" nowrap>>${uiLabelMap.ProductProductName}</td>
+        <td width="6%" align="right" nowrap>${uiLabelMap.ProductProductName}</td>
         <td width="6%">&nbsp;</td>
         <td width="74%">
           <a href="/catalog/control/EditProduct?productId=${product.productId}${externalKeyParam?if_exists}" target="catalog" class="buttontext">${product.internalName?if_exists}</a>
@@ -203,7 +203,7 @@ under the License.
       </tr>
       <tr>
         <td width="14%">&nbsp;</td>
-        <td width="6%" align="right" nowrap>${uiLabelMap.ProductQuantityRejected}/td>
+        <td width="6%" align="right" nowrap>${uiLabelMap.ProductQuantityRejected}</td>
         <td width="6%">&nbsp;</td>
         <td width="74%">
           <input type="text" name="quantityRejected" size="5" value="0" />
