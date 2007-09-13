@@ -82,7 +82,8 @@ under the License.
                 <path refid="local.class.path"/>
             </classpath>
             <src path="${src.dir}"/>
-            <exclude name="org/ofbiz/entity/transaction/XaPoolConnectionFactory.java"/>
+            <exclude name="org/ofbiz/entity/connection/XaPoolConnectionFactory.java"/>
+            <exclude name="org/ofbiz/entity/connection/TyrexConnectionFactory.java"/>
         </javac>
         <copy todir="${build.dir}/classes">
             <!-- don't put the DTDs in the jar file... -->

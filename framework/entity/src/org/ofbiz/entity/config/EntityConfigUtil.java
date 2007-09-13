@@ -48,6 +48,7 @@ public class EntityConfigUtil {
     protected static String txFactoryUserTxJndiServerName;
     protected static String txFactoryTxMgrJndiName;
     protected static String txFactoryTxMgrJndiServerName;
+    protected static String connFactoryClass;
 
     protected static Map resourceLoaderInfos = FastMap.newInstance();
     protected static Map delegatorInfos = FastMap.newInstance();
@@ -92,6 +93,7 @@ public class EntityConfigUtil {
     }
 
     public static void initialize(Element rootElement) throws GenericEntityException {
+        // load the transaction factory
         Element transactionFactoryElement = UtilXml.firstChildElement(rootElement, "transaction-factory");
         if (transactionFactoryElement == null) {
             throw new GenericEntityConfException("ERROR: no transaction-factory definition was found in " + ENTITY_ENGINE_XML_FILENAME);
@@ -116,6 +118,14 @@ public class EntityConfigUtil {
             txFactoryTxMgrJndiName = null;
             txFactoryTxMgrJndiServerName = null;
         }
+
+        // load the connection factory
+        Element connectionFactoryElement = UtilXml.firstChildElement(rootElement, "connection-factory");
+        if (connectionFactoryElement == null) {
+            throw new GenericEntityConfException("ERROR: no connection-factory definition was found in " + ENTITY_ENGINE_XML_FILENAME);
+        }
+
+        connFactoryClass = connectionFactoryElement.getAttribute("class");
 
         // not load all of the maps...
         List childElements = null;
@@ -212,6 +222,10 @@ public class EntityConfigUtil {
 
     public static String getTxFactoryTxMgrJndiServerName() {
         return txFactoryTxMgrJndiServerName;
+    }
+
+    public static String getConnectionFactoryClass() {
+        return connFactoryClass;
     }
 
     public static ResourceLoaderInfo getResourceLoaderInfo(String name) {

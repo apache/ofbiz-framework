@@ -38,7 +38,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.jdbc.ConnectionFactory;
-import org.ofbiz.entity.transaction.MinervaConnectionFactory;
 import org.ofbiz.entity.transaction.TransactionFactoryInterface;
 
 /**
@@ -90,15 +89,7 @@ public class GeronimoTransactionFactory implements TransactionFactoryInterface {
         DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
 
         if (datasourceInfo != null && datasourceInfo.inlineJdbcElement != null) {
-            try {
-                Connection con = MinervaConnectionFactory.getConnection(helperName, datasourceInfo.inlineJdbcElement);
-                if (con != null) return con;
-            } catch (Exception ex) {
-                Debug.logError(ex, "Geronimo is the configured transaction manager but there was an error getting a database Connection through Geronimo for the " + helperName + " datasource. Please check your configuration, class path, etc.", module);
-            }
-        
-            Connection otherCon = ConnectionFactory.tryGenericConnectionSources(helperName, datasourceInfo.inlineJdbcElement);
-            return otherCon;
+            return ConnectionFactory.getManagedConnection(helperName, datasourceInfo.inlineJdbcElement);                        
         } else {            
             Debug.logError("Geronimo is the configured transaction manager but no inline-jdbc element was specified in the " + helperName + " datasource. Please check your configuration", module);
             return null;
@@ -106,7 +97,7 @@ public class GeronimoTransactionFactory implements TransactionFactoryInterface {
     }
     
     public void shutdown() {
-        MinervaConnectionFactory.closeAll();
+        ConnectionFactory.closeAllManagedConnections();
         if (transactionContextManager != null) {
             // TODO: need to do anything for this?
             transactionContextManager = null;

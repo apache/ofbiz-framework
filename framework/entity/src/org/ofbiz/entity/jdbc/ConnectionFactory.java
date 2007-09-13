@@ -18,18 +18,18 @@
  *******************************************************************************/
 package org.ofbiz.entity.jdbc;
 
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.connection.ConnectionFactoryInterface;
+import org.ofbiz.entity.transaction.TransactionFactory;
+import org.w3c.dom.Element;
+
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-
-import org.w3c.dom.Element;
-
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.transaction.MinervaConnectionFactory;
-import org.ofbiz.entity.transaction.TransactionFactory;
 
 /**
  * ConnectionFactory - central source for JDBC connections
@@ -38,6 +38,7 @@ import org.ofbiz.entity.transaction.TransactionFactory;
 public class ConnectionFactory {
     // Debug module name
     public static final String module = ConnectionFactory.class.getName();
+    private static ConnectionFactoryInterface _factory = null;
 
     public static Connection getConnection(String driverName, String connectionUrl, Properties props, String userName, String password) throws SQLException {
         // first register the JDBC driver with the DriverManager
@@ -75,58 +76,60 @@ public class ConnectionFactory {
         }
         return con;
     }
-    
+
+    @Deprecated
     public static Connection tryGenericConnectionSources(String helperName, Element inlineJdbcElement) throws SQLException, GenericEntityException {
-        // Minerva Based
-        try {
-            Connection con = MinervaConnectionFactory.getConnection(helperName, inlineJdbcElement);
-            if (con != null) return con;
-        } catch (Exception ex) {
-            Debug.logError(ex, "There was an error getting a Minerva datasource.", module);
-        }
+        return getManagedConnectionFactory().getConnection(helperName, inlineJdbcElement);
+    }
 
-        /* DEJ20040103 XAPool still seems to have some serious issues and isn't working right, of course we may not be using it right, but I don't really feel like trying to track it down now
-        // XAPool & JOTM Based
-        try {
-            Connection con = XaPoolConnectionFactory.getConnection(helperName, inlineJdbcElement);
-            if (con != null) return con;
-        } catch (Exception ex) {
-            Debug.logError(ex, "There was an error getting a Minerva datasource.", module);
-        }
-        */
+    public static ConnectionFactoryInterface getManagedConnectionFactory() {
+        if (_factory == null) { // don't want to block here
+            synchronized (TransactionFactory.class) {
+                // must check if null again as one of the blocked threads can still enter
+                if (_factory == null) {
+                    try {
+                        String className = EntityConfigUtil.getConnectionFactoryClass();
 
-        /* DEJ20050103 This pretty much never works anyway, so leaving out to reduce error messages when things go bad
-        // next try DBCP
-        try {
-            Connection con = DBCPConnectionFactory.getConnection(helperName, inlineJdbcElement);
-            if (con != null) return con;
-        } catch (Exception ex) {
-            Debug.logError(ex, "There was an error getting a DBCP datasource.", module);
-        }
-        
-        // Default to plain JDBC.
-        String driverClassName = inlineJdbcElement.getAttribute("jdbc-driver");
-        if (driverClassName != null && driverClassName.length() > 0) {
-            try {
-                ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                Class clazz = loader.loadClass(driverClassName);
-                clazz.newInstance();
-            } catch (ClassNotFoundException e) {
-                Debug.logWarning(e, "Could not find JDBC driver class named " + driverClassName, module);
-                return null;
-            } catch (java.lang.IllegalAccessException e) {
-                Debug.logWarning(e, "Not allowed to access JDBC driver class named " + driverClassName, module);
-                return null;
-            } catch (java.lang.InstantiationException e) {
-                Debug.logWarning(e, "Could not create new instance of JDBC driver class named " + driverClassName, module);
-                return null;
+                        if (className == null) {
+                            throw new IllegalStateException("Could not find connection factory class name definition");
+                        }
+                        Class cfClass = null;
+
+                        if (className != null && className.length() > 0) {
+                            try {
+                                ClassLoader loader = Thread.currentThread().getContextClassLoader();
+                                cfClass = loader.loadClass(className);
+                            } catch (ClassNotFoundException e) {
+                                Debug.logWarning(e, module);
+                                throw new IllegalStateException("Error loading ConnectionFactoryInterface class \"" + className + "\": " + e.getMessage());
+                            }
+                        }
+
+                        try {
+                            _factory = (ConnectionFactoryInterface) cfClass.newInstance();
+                        } catch (IllegalAccessException e) {
+                            Debug.logWarning(e, module);
+                            throw new IllegalStateException("Error loading ConnectionFactoryInterface class \"" + className + "\": " + e.getMessage());
+                        } catch (InstantiationException e) {
+                            Debug.logWarning(e, module);
+                            throw new IllegalStateException("Error loading ConnectionFactoryInterface class \"" + className + "\": " + e.getMessage());
+                        }
+                    } catch (SecurityException e) {
+                        Debug.logError(e, module);
+                        throw new IllegalStateException("Error loading ConnectionFactoryInterface class: " + e.getMessage());
+                    }
+                }
             }
-            return DriverManager.getConnection(inlineJdbcElement.getAttribute("jdbc-uri"),
-                    inlineJdbcElement.getAttribute("jdbc-username"), inlineJdbcElement.getAttribute("jdbc-password"));
         }
-        */
+        return _factory;    
+    }
 
-        return null;
+    public static Connection getManagedConnection(String helperName, Element inlineJdbcElement) throws SQLException, GenericEntityException {
+        return getManagedConnectionFactory().getConnection(helperName, inlineJdbcElement);
+    }
+
+    public static void closeAllManagedConnections() {
+        getManagedConnectionFactory().closeAll();
     }
 
     public static void loadDriver(String driverName) throws SQLException {

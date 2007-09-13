@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.entity.transaction;
+package org.ofbiz.entity.connection;
 
 //import java.util.*;
 //import java.sql.*;

@@ -29,6 +29,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     <!-- the transaction factory class to use, one is needed for each way of getting JTA interfaces -->
     <!-- Use this one for Geronimo -->
     <transaction-factory class="org.ofbiz.geronimo.GeronimoTransactionFactory"/>
+
     <!-- Use this one for getting the JTA objects from JNDI -->
     <!-- NOTE: to use the JndiFactory you must specify the necessary JNDI properties
     <transaction-factory class="org.ofbiz.entity.transaction.JNDIFactory">
@@ -44,6 +45,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         JBoss uses two different objects for the UserTransaction and TransactionManager interfaces;
         they are located in JNDI at: "java:comp/UserTransaction" and "java:/TransactionManager" respectively
     -->
+
+    <!-- the connection factory class to use, one is needed for obtaining connections/pools for defined resources -->
+    <connection-factory class="org.ofbiz.entity.connection.MinervaConnectionFactory"/>
 
     <delegator name="default" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main" distributed-cache-clear-enabled="false">
         <group-map group-name="org.ofbiz" datasource-name="localderby"/>
