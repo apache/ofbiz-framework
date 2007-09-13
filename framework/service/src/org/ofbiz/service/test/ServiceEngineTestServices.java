@@ -136,6 +136,8 @@ public class ServiceEngineTestServices {
         return ServiceUtil.returnSuccess();
     }
 
+    // ==================================================
+    
     public static Map testServiceLockWaitTimeoutRetry(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
@@ -217,6 +219,8 @@ public class ServiceEngineTestServices {
         return ServiceUtil.returnSuccess();
     }
 
+    // ==================================================
+    
     /**
      * NOTE that this is a funny case where the auto-retry in the service engine for the call to
      * testServiceLockWaitTimeoutRetryCantRecoverWaiter would NOT be able to recover because it would try again
@@ -282,6 +286,22 @@ public class ServiceEngineTestServices {
         return ServiceUtil.returnSuccess();
     }
     
+    // ==================================================
+    
+    public static Map testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        try {
+            Map resultMap = dispatcher.runSync("testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent", null, 60, true);
+            if (ServiceUtil.isError(resultMap)) {
+                return ServiceUtil.returnError("Error running main test service in testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper", null, null, resultMap);
+            }
+        } catch (GenericServiceException e) {
+            String errMsg = "This is the expected error running sub-service with own tx after the parent has set rollback only, logging and ignoring: " + e.toString();
+            Debug.logError(e, errMsg, module);
+        }
+        
+        return ServiceUtil.returnSuccess();
+    }
     public static Map testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {

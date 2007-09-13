@@ -47,6 +47,6 @@ under the License.
     </test-case>
     
     <test-case case-name="service-own-tx-sub-service-after-set-rollback-only-in-parent">
-        <service-test service-name="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent"/>
+        <service-test service-name="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper"/>
     </test-case>
 </test-suite>
