@@ -86,8 +86,6 @@
             </else>
         </if-has-permission>
         <field-to-result field-name="hasPermission"/>
-        <log level="info" message="assetMaintPermissionCheck ran"/>
-        <log level="info" message="hasPermission = ${hasPermission}"/>
     </simple-method>
 
 </simple-methods>
