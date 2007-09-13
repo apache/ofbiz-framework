@@ -322,54 +322,59 @@ public class OagisServices {
             */
 
             List dataAreaConfirmMsgList = UtilXml.childElementList(dataAreaConfirmElement, "ns:CONFIRMMSG");
+            if (UtilValidate.isEmpty(dataAreaConfirmMsgList)) {
+                String errMsg = "No CONFIRMMSG elements found in Confirm BOD message: " + omiPkMap;
+                Debug.logWarning(errMsg, module);
+                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "NoCONFIRMMSGElements"));
+            } else {
+                Map originalOmiPkMap = UtilMisc.toMap("logicalId", dataAreaLogicalId, "component", dataAreaComponent, "task", dataAreaTask, "referenceId", dataAreaReferenceId);
+                GenericValue originalOagisMsgInfo = delegator.findByPrimaryKey("OagisMessageInfo", originalOmiPkMap);
+                if (originalOagisMsgInfo != null) {
+                    Iterator dataAreaConfirmMsgListItr = dataAreaConfirmMsgList.iterator();
+                    while (dataAreaConfirmMsgListItr.hasNext()) {
+                        Element dataAreaConfirmMsgElement = (Element) dataAreaConfirmMsgListItr.next();
+                        String description = UtilXml.childElementValue(dataAreaConfirmMsgElement, "of:DESCRIPTN");
+                        String reasonCode = UtilXml.childElementValue(dataAreaConfirmMsgElement, "of:REASONCODE");
+                        
+                        Map createOagisMessageErrorInfoForOriginal = FastMap.newInstance();
+                        createOagisMessageErrorInfoForOriginal.putAll(originalOmiPkMap);
+                        createOagisMessageErrorInfoForOriginal.put("reasonCode", reasonCode);
+                        createOagisMessageErrorInfoForOriginal.put("description", description);
+                        createOagisMessageErrorInfoForOriginal.put("userLogin", userLogin);
+                    
+                        // this will run in the same transaction
+                        Map oagisMsgErrorInfoResult = dispatcher.runSync("createOagisMessageErrorInfo", createOagisMessageErrorInfoForOriginal);
+                        if (ServiceUtil.isError(oagisMsgErrorInfoResult)) {
+                            String errMsg = "Error creating OagisMessageErrorInfo: " + ServiceUtil.getErrorMessage(oagisMsgErrorInfoResult);
+                            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "CreateOagisMessageErrorInfoServiceError"));
+                            Debug.logError(errMsg, module);
+                        }
+                    }
+                } else {
+                    String errMsg = "No such message with an error was found; Not creating OagisMessageErrorInfo record(s) for original message, but saving info for this message anyway; ID info: " + omiPkMap;
+                    Debug.logWarning(errMsg, module);
+                    errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "OriginalOagisMessageInfoNotFoundError"));
+                }
 
-            Map originalOmiPkMap = UtilMisc.toMap("logicalId", dataAreaLogicalId, "component", dataAreaComponent, "task", dataAreaTask, "referenceId", dataAreaReferenceId);
-            GenericValue originalOagisMsgInfo = delegator.findByPrimaryKey("OagisMessageInfo", originalOmiPkMap);
-            if (originalOagisMsgInfo != null) {
+                // now attach all of the messages to the CBOD OagisMessageInfo record
                 Iterator dataAreaConfirmMsgListItr = dataAreaConfirmMsgList.iterator();
                 while (dataAreaConfirmMsgListItr.hasNext()) {
                     Element dataAreaConfirmMsgElement = (Element) dataAreaConfirmMsgListItr.next();
                     String description = UtilXml.childElementValue(dataAreaConfirmMsgElement, "of:DESCRIPTN");
                     String reasonCode = UtilXml.childElementValue(dataAreaConfirmMsgElement, "of:REASONCODE");
                     
-                    Map createOagisMessageErrorInfoForOriginal = FastMap.newInstance();
-                    createOagisMessageErrorInfoForOriginal.putAll(originalOmiPkMap);
-                    createOagisMessageErrorInfoForOriginal.put("reasonCode", reasonCode);
-                    createOagisMessageErrorInfoForOriginal.put("description", description);
-                    createOagisMessageErrorInfoForOriginal.put("userLogin", userLogin);
-                
-                    // this will run in the same transaction
-                    Map oagisMsgErrorInfoResult = dispatcher.runSync("createOagisMessageErrorInfo", createOagisMessageErrorInfoForOriginal);
+                    Map createOagisMessageErrorInfoForCbod = FastMap.newInstance();
+                    createOagisMessageErrorInfoForCbod.putAll(omiPkMap);
+                    createOagisMessageErrorInfoForCbod.put("reasonCode", reasonCode);
+                    createOagisMessageErrorInfoForCbod.put("description", description);
+                    createOagisMessageErrorInfoForCbod.put("userLogin", userLogin);
+
+                    // this one will also go in another transaction as the create service for the base record did too
+                    Map oagisMsgErrorInfoResult = dispatcher.runSync("createOagisMessageErrorInfo", createOagisMessageErrorInfoForCbod, 60, true);
                     if (ServiceUtil.isError(oagisMsgErrorInfoResult)) {
                         String errMsg = "Error creating OagisMessageErrorInfo: " + ServiceUtil.getErrorMessage(oagisMsgErrorInfoResult);
-                        errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "CreateOagisMessageErrorInfoServiceError"));
                         Debug.logError(errMsg, module);
                     }
-                }
-            } else {
-                String errMsg = "No such message with an error was found; Not creating OagisMessageErrorInfo record(s) for original message, but saving info for this message anyway; ID info: " + omiPkMap;
-                Debug.logWarning(errMsg, module);
-                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "OriginalOagisMessageInfoNotFoundError"));
-            }
-
-            // now attach all of the messages to the CBOD OagisMessageInfo record
-            Iterator dataAreaConfirmMsgListItr = dataAreaConfirmMsgList.iterator();
-            while (dataAreaConfirmMsgListItr.hasNext()) {
-                Element dataAreaConfirmMsgElement = (Element) dataAreaConfirmMsgListItr.next();
-                String description = UtilXml.childElementValue(dataAreaConfirmMsgElement, "of:DESCRIPTN");
-                String reasonCode = UtilXml.childElementValue(dataAreaConfirmMsgElement, "of:REASONCODE");
-                
-                Map createOagisMessageErrorInfoForCbod = FastMap.newInstance();
-                createOagisMessageErrorInfoForCbod.putAll(omiPkMap);
-                createOagisMessageErrorInfoForCbod.put("reasonCode", reasonCode);
-                createOagisMessageErrorInfoForCbod.put("description", description);
-                createOagisMessageErrorInfoForCbod.put("userLogin", userLogin);
-
-                // this one will also go in another transaction as the create service for the base record did too
-                Map oagisMsgErrorInfoResult = dispatcher.runSync("createOagisMessageErrorInfo", createOagisMessageErrorInfoForCbod, 60, true);
-                if (ServiceUtil.isError(oagisMsgErrorInfoResult)) {
-                    String errMsg = "Error creating OagisMessageErrorInfo: " + ServiceUtil.getErrorMessage(oagisMsgErrorInfoResult);
-                    Debug.logError(errMsg, module);
                 }
             }
         } catch (Throwable t) {
