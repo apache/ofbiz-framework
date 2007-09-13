@@ -45,7 +45,7 @@ under the License.
                 </entity-options>
             </radio>
         </field>
-        <field name="needsInventoryReceive">
+        <field name="needsInventoryReceive" tooltip="If this is Y then the return will be automatically Completed when it is Accepted, skipping the Received status and process.">
             <drop-down no-current-selected-key="N"><option key="N"/><option key="Y"/></drop-down>
         </field>
         
