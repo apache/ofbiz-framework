@@ -735,9 +735,11 @@ public class EmailServices {
             Address[] addressesCC = message.getRecipients(MimeMessage.RecipientType.CC);
             Address[] addressesBCC = message.getRecipients(MimeMessage.RecipientType.BCC);
             String messageId = message.getMessageID();
-            Debug.logInfo("Processing Incoming Email message [" + messageId + "] from: " + 
-                    (addressesFrom[0] == null? "not found" : addressesFrom[0].toString()) + " to: " + 
-                            (addressesTo[0] == null? "not found" : addressesTo[0].toString()), module);
+            
+            String aboutThisEmail = "message [" + messageId + "] from [" + 
+                (addressesFrom[0] == null? "not found" : addressesFrom[0].toString()) + "] to [" + 
+                (addressesTo[0] == null? "not found" : addressesTo[0].toString()) + "]";
+            if (Debug.verboseOn()) Debug.logVerbose("Processing Incoming Email " + aboutThisEmail, module);
 
             // ignore the message when the spam status = yes
             String spamHeaderName = UtilProperties.getPropertyValue("general.properties", "mail.spam.name", "N");
@@ -766,8 +768,10 @@ public class EmailServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
             if (commEvents != null && commEvents.size() > 0) {
-                Debug.logInfo("Incoming Email message ignored, duplicate 'messageId' : " + messageId, module);
+                Debug.logInfo("Ignoring Duplicate Email: " + aboutThisEmail, module);
                 return ServiceUtil.returnSuccess(" Message Ignored: deplicate messageId");
+            } else {
+                Debug.logInfo("Persisting New Email: " + aboutThisEmail, module);
             }
 
             // get the 'To' partyId
