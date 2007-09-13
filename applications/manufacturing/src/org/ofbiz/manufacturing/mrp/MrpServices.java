@@ -496,7 +496,7 @@ public class MrpServices {
                     parameters.put("inventoryEventPlanTypeId", "MRP_REQUIREMENT");
                     double componentEventQuantity = node.getQuantity();
                     try {
-                        InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, new Double(-1.0 * componentEventQuantity), null, null, false, delegator);
+                        InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, new Double(-1.0 * componentEventQuantity), null, product.get("productId") + ": " + eventDate, false, delegator);
                     } catch (GenericEntityException e) {
                         Debug.logError("Error : delegator.findByPrimaryKey(\"InventoryEventPlanned\", parameters) ="+parameters+"--"+e.getMessage(), module);
                         logMrpError(node.getProduct().getString("productId"), "Unable to create event (processBomComponent)", delegator);
@@ -639,13 +639,17 @@ public class MrpServices {
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError("Problem running createOrUpdateInventoryEventPlanned");
                         }
+			// days to ship is only relevant for sales order to plan for preparatory days to ship.  Otherwise MRP will push event dates for manufacturing parts
+                        // as well and cause problems
+                        daysToShip = 0;
                         if (productFacility != null) {
                             reorderQuantity = (productFacility.getDouble("reorderQuantity") != null? productFacility.getDouble("reorderQuantity").doubleValue(): -1);
                             minimumStock = (productFacility.getDouble("minimumStock") != null? productFacility.getDouble("minimumStock").doubleValue(): 0);
-                            daysToShip = (productFacility.getLong("daysToShip") != null? productFacility.getLong("daysToShip").intValue(): 0);
+                            if ("SALES_ORDER_SHIP".equals(inventoryEventForMRP.getString("inventoryEventPlanTypeId"))) {
+                                daysToShip = (productFacility.getLong("daysToShip") != null? productFacility.getLong("daysToShip").intValue(): 0);
+                            }
                         } else {
                             minimumStock = 0;
-                            daysToShip = 0;
                             reorderQuantity = -1;
                         }
                         // -----------------------------------------------------
