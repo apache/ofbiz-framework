@@ -62,6 +62,7 @@ ofbiz/trunk/framework/catalina/lib/tomcat-ajp.jar
 ofbiz/trunk/framework/catalina/lib/tomcat-coyote.jar
 ofbiz/trunk/framework/catalina/lib/tomcat-http.jar
 ofbiz/trunk/framework/catalina/lib/tomcat-util.jar
+ofbiz/trunk/framework/entity/lib/commons-dbcp-20070730.jar
 ofbiz/trunk/framework/entity/lib/jdbc/derby-10.2.2.0.jar
 ofbiz/trunk/framework/jetty/lib/ant.jar
 ofbiz/trunk/framework/jetty/lib/org.mortbay.jetty.jar
