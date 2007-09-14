@@ -1237,7 +1237,7 @@ public class OagisInventoryServices {
         Map omiPkMap = UtilMisc.toMap("logicalId", logicalId, "component", component, "task", task, "referenceId", referenceId);
 
         // always log this to make messages easier to find
-        Debug.log("Processing oagisReceiveAcknowledgeDeliveryRma for message ID [" + omiPkMap + "]", module);
+        Debug.log("Processing oagisReceiveAcknowledgeDeliveryStatus for message ID [" + omiPkMap + "]", module);
         
         // before getting into this check to see if we've tried once and had an error, if so set isErrorRetry even if it wasn't passed in
         GenericValue previousOagisMessageInfo = null;
@@ -1329,11 +1329,14 @@ public class OagisInventoryServices {
                     */
 
                     String invItemStatusId = null;
+                    String reqFromItemStatusId = null;
                     String disposition = UtilXml.childElementValue(receiptLnElement, "of:DISPOSITN");
                     if ("NotAvailableTOAvailable".equals(disposition)) {
                         invItemStatusId = "INV_AVAILABLE";
+                        reqFromItemStatusId = "INV_ON_HOLD";
                     } else if ("AvailableTONotAvailable".equals(disposition)) {
                         invItemStatusId = "INV_ON_HOLD";
+                        reqFromItemStatusId = "INV_AVAILABLE";
                     } else if ("ReceivedTOAvailable".equals(disposition) || "ReceivedTONotAvailable".equals(disposition)) {
                         String errMsg = "Got DISPOSITN value [" + disposition + "] that is not valid for Status Change, only for RMA/return.";
                         errorMapList.add(UtilMisc.toMap("reasonCode", "DispositnNotValidForStatusChange", "description", errMsg));
@@ -1402,6 +1405,12 @@ public class OagisInventoryServices {
                             }
                             
                             GenericValue inventoryItem = EntityUtil.getFirst(inventoryItemsBySerialNumber);
+                            if (UtilValidate.isNotEmpty(reqFromItemStatusId) && !reqFromItemStatusId.equals(inventoryItem.getString("statusId"))) {
+                                String errMsg = "Referenced serial number [" + serialNum + "] has status [" + inventoryItem.getString("statusId") + "] but we were expecting [" + reqFromItemStatusId + "]; this may mean the Acknowledge Delivery RMA message has not yet come in for this item.";
+                                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumberRequiredButNotFound"));
+                                continue;
+                            }
+                            
                             Map updateInvItmMap = FastMap.newInstance();
                             updateInvItmMap.put("inventoryItemId", inventoryItem.getString("inventoryItemId"));
                             updateInvItmMap.put("userLogin", userLogin);
