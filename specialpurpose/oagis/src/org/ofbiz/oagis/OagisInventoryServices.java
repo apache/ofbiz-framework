@@ -816,6 +816,11 @@ public class OagisInventoryServices {
                             Debug.logError(errMsg, module);
                             continue;
                         }
+                    } else {
+                        String errMsg = "No Return Item ID (LINENUM) found in DOCUMNTREF for Return [" + returnId + "]; this is a required field.";
+                        errorMapList.add(UtilMisc.toMap("reasonCode", "ReturnItemIdLinenumMissing", "description", errMsg));
+                        Debug.logError(errMsg, module);
+                        continue;
                     }
                     
                     // getting inventory item status
