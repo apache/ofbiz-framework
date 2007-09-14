@@ -576,6 +576,7 @@ under the License.
     <service name="createWorkEffortContactMech" engine="simple"
             location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortContactMech" auth="true">
         <description>Create WorkEffortContactMech; if contactMechId is not provided, a new contact mech is created (if partyId is set then the new contact mech is also associated to the party)</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <auto-attributes entity-name="WorkEffortContactMech" mode="IN" include="nonpk" optional="true"/>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <attribute name="workEffortId" mode="IN" type="String" optional="false"></attribute>
@@ -587,6 +588,7 @@ under the License.
     <service name="deleteWorkEffortContactMech" engine="simple" default-entity-name="WorkEffortContactMech"
             location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffortContactMech" auth="true">
         <description>Delete WorkEffortContactMech</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 </services>
