@@ -457,6 +457,7 @@ under the License.
     <service name="createFacility" default-entity-name="Facility" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="createFacility" auth="true">
         <description>Create a Facility</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="facilityTypeId" optional="false"/>
@@ -466,18 +467,21 @@ under the License.
     <service name="updateFacility" default-entity-name="Facility" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="updateFacility" auth="true">
         <description>Update a Facility</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteFacility" default-entity-name="Facility" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="deleteFacility" auth="true">
         <description>Delete a Facility</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createFacilityLocation" default-entity-name="FacilityLocation" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="createFacilityLocation" auth="true">
         <description>Create a Facility Location</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="locationSeqId" type="String" mode="OUT" optional="false"/>
@@ -485,18 +489,21 @@ under the License.
     <service name="updateFacilityLocation" default-entity-name="FacilityLocation" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="updateFacilityLocation" auth="true">
         <description>Update a Facility Location</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteFacilityLocation" default-entity-name="FacilityLocation" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="deleteFacilityLocation" auth="true">
         <description>Delete a Facility Location</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createFacilityGroup" default-entity-name="FacilityGroup" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="createFacilityGroup" auth="true">
         <description>Create a Facility Group</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="facilityGroupName" optional="false"/>
@@ -505,12 +512,14 @@ under the License.
     <service name="updateFacilityGroup" default-entity-name="FacilityGroup" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="updateFacilityGroup" auth="true">
         <description>Update a Facility Group</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteFacilityGroup" default-entity-name="FacilityGroup" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="deleteFacilityGroup" auth="true">
         <description>Delete a Facility Group</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -608,12 +617,14 @@ under the License.
     <service name="addContactMechToFacility" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="addContactMechToFacility" auth="true">
         <description>Add ContactMech To Facility</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="removeContactMechFromFacility" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="removeContactMechFromFacility" auth="true">
         <description>Remove ContactMech From Facility</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
     </service>
@@ -621,6 +632,7 @@ under the License.
     <service name="addFacilityToGroup" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="addFacilityToGroup" auth="true">
         <description>Add Facility To FacilityGroup</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
@@ -630,6 +642,7 @@ under the License.
     <service name="updateFacilityToGroup" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="updateFacilityToGroup" auth="true">
         <description>Update Facility -> Group Member</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
@@ -639,6 +652,7 @@ under the License.
     <service name="removeFacilityFromGroup" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="removeFacilityFromGroup" auth="true">
         <description>Remove Facility From FacilityGroup</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
@@ -647,6 +661,7 @@ under the License.
     <service name="addFacilityGroupToGroup" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="addFacilityGroupToGroup" auth="true">
         <description>Add FacilityGroup To FacilityGroup</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
         <attribute name="parentFacilityGroupId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
@@ -656,6 +671,7 @@ under the License.
     <service name="updateFacilityGroupToGroup" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="updateFacilityGroupToGroup" auth="true">
         <description>Update FacilityGroup To FacilityGroup Rollup</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
         <attribute name="parentFacilityGroupId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
@@ -665,6 +681,7 @@ under the License.
     <service name="removeFacilityGroupFromGroup" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="removeFacilityGroupFromGroup" auth="true">
         <description>Remove FacilityGroup From FacilityGroup</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
         <attribute name="parentFacilityGroupId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
@@ -673,6 +690,7 @@ under the License.
     <service name="addPartyToFacility" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="addPartyToFacility" auth="true">
         <description>Add Party To Facility</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
@@ -680,6 +698,7 @@ under the License.
     <service name="addPartyToFacilityGroup" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="addPartyToFacilityGroup" auth="true">
         <description>Add Party To FacilityGroup</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
@@ -688,6 +707,7 @@ under the License.
     <service name="removePartyFromFacility" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="removePartyFromFacility" auth="true">
         <description>Remove Party From Facility</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
@@ -695,6 +715,7 @@ under the License.
     <service name="removePartyFromFacilityGroup" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="removePartyFromFacilityGroup" auth="true">
         <description>Remove Party From FacilityGroup</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>

@@ -36,7 +36,9 @@ under the License.
                 <not>
                     <or>
                         <if-has-permission permission="CATALOG" action="_${checkAction}"/>
+                        <if-has-permission permission="CATALOG_ADMIN"/>
                         <if-has-permission permission="FACILITY" action="_${checkAction}"/>
+                        <if-has-permission permission="FACILITY_ADMIN"/>
                         <and>
                             <not><if-empty field-name="alternatePermissionRoot"/></not>
                             <if-has-permission permission="${alternatePermissionRoot}" action="_${checkAction}"/>
