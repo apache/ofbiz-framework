@@ -16,7 +16,7 @@ ofbiz/trunk/framework/base/lib/ant-1.7.0.jar
 ofbiz/trunk/framework/base/lib/avalon-framework-4.2.0.jar
 ofbiz/trunk/framework/base/lib/avalon-util-exception-1.0.0.jar
 ofbiz/trunk/framework/base/lib/jakarta-regexp-1.5.jar
-ofbiz/trunk/framework/base/lib/log4j-1.2.14.jar
+ofbiz/trunk/framework/base/lib/log4j-1.2.15.jar
 ofbiz/trunk/framework/base/lib/mx4j-3.0.1.jar
 ofbiz/trunk/framework/base/lib/mx4j-remote-3.0.1.jar
 ofbiz/trunk/framework/base/lib/resolver.jar
