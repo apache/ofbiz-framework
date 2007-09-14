@@ -199,11 +199,11 @@ public class MrpServices {
                     }
                 }
             }
-            parameters = UtilMisc.toMap("productId", productId, "eventDate", requiredByDate, "inventoryEventPlanTypeId", "SALE_ORDER_SHIP");
+            parameters = UtilMisc.toMap("productId", productId, "eventDate", requiredByDate, "inventoryEventPlanTypeId", "SALES_ORDER_SHIP");
             try {
                 InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, eventQuantityTmp, null, genericResult.getString("orderId") + "-" + genericResult.getString("orderItemSeqId"), false, delegator);
             } catch (GenericEntityException e) {
-                return ServiceUtil.returnError("Problem initializing the InventoryEventPlanned entity (SALE_ORDER_SHIP)");
+                return ServiceUtil.returnError("Problem initializing the InventoryEventPlanned entity (SALES_ORDER_SHIP)");
             }
         }
         // ----------------------------------------
