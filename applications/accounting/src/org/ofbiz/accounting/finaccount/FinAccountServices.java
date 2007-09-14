@@ -364,6 +364,8 @@ public class FinAccountServices {
 
                         // make sure there is an order available to refund
                         if (orderId != null && orderItemSeqId != null) {
+                            GenericValue orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId",orderId));
+                            GenericValue productStore = delegator.getRelatedOne("ProductStore", orderHeader);
                             GenericValue orderItem = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
                             if (!"ITEM_CANCELLED".equals(orderItem.getString("statusId"))) {
                                 
@@ -379,7 +381,7 @@ public class FinAccountServices {
                                     refundAmount = refundAmount.add(refAmt);
 
                                     // create the return header
-                                    Map rhCtx = UtilMisc.toMap("returnHeaderTypeId", "CUSTOMER_RETURN", "userLogin", userLogin);
+                                    Map rhCtx = UtilMisc.toMap("returnHeaderTypeId", "CUSTOMER_RETURN", "fromPartyId", finAccount.getString("ownerPartyId"), "toPartyId", productStore.getString("payToPartyId"), "userLogin", userLogin);
                                     Map rhResp = dispatcher.runSync("createReturnHeader", rhCtx);
                                     if (ServiceUtil.isError(rhResp)) {
                                         throw new GeneralException(ServiceUtil.getErrorMessage(rhResp));
