@@ -331,11 +331,6 @@ public class OrderReadHelper {
         return ((GenericValue) orderTerms.get(0)).getLong("termDays");
     }
 
-    /** @deprecated */
-    public String getShippingMethod() {
-        throw new IllegalArgumentException("You must call the getShippingMethod method with the shipGroupdSeqId parameter, this is no londer supported since a single OrderShipmentPreference is no longer used.");
-    }
-
     public String getShippingMethod(String shipGroupSeqId) {
         try {
             GenericValue shipGroup = orderHeader.getDelegator().findByPrimaryKey("OrderItemShipGroup",
@@ -358,11 +353,6 @@ public class OrderReadHelper {
             Debug.logWarning(e, module);
         }
         return "";
-    }
-
-    /** @deprecated */
-    public String getShippingMethodCode() {
-        throw new IllegalArgumentException("You must call the getShippingMethodCode method with the shipGroupdSeqId parameter, this is no londer supported since a single OrderShipmentPreference is no longer used.");
     }
 
     public String getShippingMethodCode(String shipGroupSeqId) {
