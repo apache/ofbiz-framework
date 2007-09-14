@@ -274,8 +274,6 @@ under the License.
 
     <!-- Create a WorkEffortContactMech -->
     <simple-method method-name="createWorkEffortContactMech" short-description="Create a WorkEffortContactMech">
-        <check-permission permission="WORKEFFORTMGR" action="_CREATE"><fail-message message="You do not have permission to perform this operation for this work effort."/></check-permission>
-        <check-errors/>
         <make-value value-name="newValue" entity-name="WorkEffortContactMech"/>
         <if-empty map-name="parameters" field-name="contactMechId">
             <if-not-empty field-name="parameters.partyId">
@@ -307,8 +305,6 @@ under the License.
     </simple-method>
     
     <simple-method method-name="updateWorkEffortContactMech" short-description="Update a WorkEffortContactMech">
-        <check-permission permission="WORKEFFORTMGR" action="_UPDATE"><fail-message message="You do not have permission to perform this operation for this work effort."/></check-permission>
-        <check-errors/>
         <make-value entity-name="WorkEffortContactMech" value-name="newWorkEffortContactMech"/>
         <!-- Find old value -->
         <entity-one entity-name="WorkEffortContactMech" value-name="workEffortContactMech"/>
@@ -346,8 +342,6 @@ under the License.
     </simple-method>    
     
     <simple-method method-name="deleteWorkEffortContactMech" short-description="Delete a WorkEffortContactMech">
-        <check-permission permission="WORKEFFORTMGR" action="_DELETE"><fail-message message="You do not have permission to perform this operation for this work effort."/></check-permission>
-        <check-errors/>
         <!-- Find old value -->
         <entity-one entity-name="WorkEffortContactMech" value-name="workEffortContactMech"/>
         <if-empty field-name="workEffortContactMech">
