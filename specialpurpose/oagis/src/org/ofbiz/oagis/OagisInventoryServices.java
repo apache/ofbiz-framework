@@ -958,8 +958,9 @@ public class OagisInventoryServices {
                                     if (ServiceUtil.isError(ripResult)) {
                                         String errMsg = ServiceUtil.getErrorMessage(ripResult);
                                         errorMapList.add(UtilMisc.toMap("reasonCode", "ReceiveInventoryServiceError", "description", errMsg));
+                                    } else {
+                                        invItemIds.add(ripResult.get("inventoryItemId"));
                                     }
-                                    invItemIds.add(ripResult.get("inventoryItemId"));
                                 }
                             } else {
                                 String inventoryItemTypeId = "NON_SERIAL_INV_ITEM";
