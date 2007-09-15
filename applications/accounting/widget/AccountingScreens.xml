@@ -134,25 +134,18 @@ under the License.
         </section>
     </screen>
 
-    <screen name="EditGlJournalEntry">
+    <screen name="NewGlJournalEntry">
         <section>
             <actions>
-                <set field="titleProperty" value="AcctgEditGlJournalEntry"/>
+                <set field="titleProperty" value="AcctgNewGlJournalEntry"/>
                 <set field="tabButtonItem" value="FindGlJournalEntry"/>
-                <set field="labelTitleProperty" value="AcctgEditGlJournalEntry"/>
-                <!-- entity-condition entity-name="GlAccountOrganization" list-name="entityList" use-cache="true" >
-                    <condition-expr field-name="glAccountId" operator="greater" value="0" />
-                </entity-condition -->
-                <entity-condition entity-name="GlAccount" list-name="entityList" use-cache="true" >
-                    <condition-expr field-name="glAccountId" operator="greater" value="0" />
-                    <!--limit-range start="0" size="25" / -->
-                </entity-condition>
+                <set field="labelTitleProperty" value="AcctgNewGlJournalEntry"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-menu name="JournalEntryActionsBar" location="component://accounting/widget/Menus.xml"/>
-                        <include-form name="EditGlJournalEntry" location="component://accounting/widget/JournalEntryForms.xml"/>
+                        <include-form name="NewGlJournalEntry" location="component://accounting/widget/JournalEntryForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
