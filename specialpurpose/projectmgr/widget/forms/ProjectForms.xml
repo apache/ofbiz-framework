@@ -245,44 +245,11 @@
         <field name="facilityId"><lookup target-form-name="LookupFacility"/></field>
         <field name="mustRsvp"><check/></field>
         <field name="comments"><text size="60" maxlength="255"/></field>
+        <field name="PartySkills" title="${uiLabelMap.ProjectMgrPartySkills}" widget-style="buttontext">
+            <hyperlink target="EditPartySkills?partyId=${partyId}&amp;workEffortId=${workEffortId}" description="${uiLabelMap.ProjectMgrPartySkills}" also-hidden="false"/>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="EditWorkEffortPartyAssign" default-map-name="workEffortPartyAssignment" target="updateWorkEffortPartyAssign" title="" type="single">
-        <alt-target target="createWorkEffortPartyAssign" use-when="workEffortPartyAssignment==null"/>
-        <field name="workEffortId"><hidden/></field>
-        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
-            <drop-down>
-                <entity-options entity-name="RoleType" description="${description}">
-                    <entity-constraint name="parentTypeId" operator="equals" value="PROJECT_TEAM"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="fromDate"><date-time/></field>
-
-        <field name="thruDate"><date-time/></field>
-        <field name="statusId">
-            <drop-down no-current-selected-key="PARTYASSIGN_UNASSIGNED">
-                <entity-options description="${description}" entity-name="StatusItem">
-                    <entity-constraint name="statusTypeId" operator="equals" value="PRTYASGN_STATUS"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="expectationEnumId" title="${uiLabelMap.CommonExpectation}">
-            <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
-                    <entity-constraint name="enumTypeId" operator="equals" value="WORK_EFF_EXPECT"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="facilityId"><lookup target-form-name="LookupFacility"/></field>
-        <field name="mustRsvp" widget-style="tabletext"><check/></field>
-        <field name="comments"><text size="60" maxlength="255"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form> 
     <form name="ListTimeEntries" type="list" list-name="timesheetEntries" target="updateTimeEntry">
         <actions>
             <entity-condition entity-name="TimeEntry">

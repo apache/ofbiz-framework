@@ -60,8 +60,8 @@ if(workEffortIdFrom != null) {
                 else {
                     if(workEffortTypeId.equals("PHASE")) {                        
                         Map phaseMap = FastMap.newInstance();
-                        taskMap.putAll((Map) workEffort);
-                        taskMap.putAll((Map) workEffortAssoc);
+                        phaseMap.putAll((Map) workEffort);
+                        phaseMap.putAll((Map) workEffortAssoc);
                         childPhases.add(phaseMap);                    
                         context.put("phases", childPhases);
                     }
@@ -92,5 +92,6 @@ else {
         context.put("projects", projects);
     }
 }
+
 
 

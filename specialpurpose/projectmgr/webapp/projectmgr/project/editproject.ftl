@@ -66,6 +66,12 @@ function actualTimeHourToMilliSec() {
               <td class="label" >${uiLabelMap.ProjectMgrWorkEffortId}</td>    
               <td>${project.workEffortId?if_exists}<span class="tooltip">${uiLabelMap.CommonNotModifRecreat}</span></td>    
             </tr>
+            <tr>
+              <td class="label" >${uiLabelMap.ProjectMgrQuickAssignPartyId}</td>
+              <td><input type="text" name="quickAssignPartyId" value=""/>
+                <a href="javascript:call_fieldlookup2(document.editProjectForm.quickAssignPartyId,'LookupPartyName');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a></td>
+              </td>
+            </tr>
             <tr>    
               <td class="label" >${uiLabelMap.CommonName}</td>
               <td>${project.workEffortName?if_exists}<span class="tooltip">${uiLabelMap.CommonNotModifRecreat}</span></td>

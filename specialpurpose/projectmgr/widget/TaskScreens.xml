@@ -44,8 +44,12 @@ under the License.
                                 <include-form name="ListTaskLists" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                             </widgets>
                             <fail-widgets>
-                                <container><label style="head1">${uiLabelMap.PageTitleEditSubTask}</label></container>                                
-                                <include-form name="ListChildEfforts" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditSubTask}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="ListChildEfforts" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                    </container>
+                                </container>
                                 <platform-specific>
                                     <html><html-template location="component://projectmgr/webapp/projectmgr/project/edittasklistandassoc.ftl"/></html>
                                 </platform-specific> 
@@ -153,8 +157,14 @@ under the License.
                     <decorator-section name="body">
                         <section>                            
                             <widgets>
-                                <container><label style="head1">${uiLabelMap.${titleProperty}}</label></container>
-                                <include-form name="ListTaskSkills" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <label style="boxhead">${uiLabelMap.${titleProperty}}</label>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <include-form name="ListTaskSkills" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                    </container>
+                                </container>
                                 <platform-specific>
                                     <html><html-template location="component://projectmgr/webapp/projectmgr/project/edittaskskills.ftl"/></html>
                                 </platform-specific>

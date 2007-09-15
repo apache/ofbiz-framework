@@ -29,6 +29,7 @@
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AssetMaintUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <!-- The two default (global) stylesheets are added to the list
@@ -86,7 +87,6 @@
             <actions>
                 <set field="headerItem" value="projects"/>                
                 <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
-                <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -154,6 +154,32 @@
             </widgets>
         </section>
     </screen>          
+    <screen name="CommonSkillTypeDecorator">
+        <section>
+            <actions>                
+                <set field="skillTypeId" from-field="parameters.skillTypeId"/>
+                <entity-one entity-name="SkillType" value-name="skillType"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for PartyAbility, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.WorkEffortViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="CommonTimesheetDecorator">
         <section>
             <actions>

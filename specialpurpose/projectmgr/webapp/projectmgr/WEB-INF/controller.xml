@@ -50,7 +50,7 @@
     </request-map>
     <request-map uri="createProject">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffort"/>
+        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffort"/>
         <response name="success" type="view" value="EditProject"/>
         <response name="error" type="view" value="EditProject"/>
     </request-map>
@@ -76,7 +76,7 @@
     </request-map>
     <request-map uri="createProjectAndAssoc">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffortAndAssoc"/>
+        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortAndAssoc"/>
         <response name="success" type="view" value="FindProject"/>
         <response name="error" type="view" value="FindProject"/>
     </request-map>
@@ -96,7 +96,7 @@
     </request-map>
     <request-map uri="createTask">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffort"/>
+        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortAndAssoc"/>
         <response name="success" type="view" value="EditTask"/>
         <response name="error" type="view" value="EditTask"/>
     </request-map>
@@ -119,7 +119,7 @@
     </request-map>
     <request-map uri="createTaskAndAssoc">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffortAndAssoc"/>
+        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortAndAssoc"/>
         <response name="success" type="view" value="FindTask"/>
         <response name="error" type="view" value="FindTask"/>
     </request-map>
@@ -145,7 +145,7 @@
     </request-map>
     <request-map uri="createTaskList">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffort"/>
+        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffort"/>
         <response name="success" type="view" value="EditTaskList"/>
         <response name="error" type="view" value="EditTaskList"/>
     </request-map>    
@@ -162,7 +162,7 @@
     </request-map>
     <request-map uri="createTaskListAndAssoc">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffortAndAssoc"/>
+        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortAndAssoc"/>
         <response name="success" type="view" value="FindTaskList"/>
         <response name="error" type="view" value="FindTaskList"/>
     </request-map>
@@ -182,7 +182,7 @@
     </request-map>
     <request-map uri="createPhaseAndAssoc">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffortAndAssoc"/>
+        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortAndAssoc"/>
         <response name="success" type="view" value="FindPhase"/>
         <response name="error" type="view" value="FindPhase"/>
     </request-map>
@@ -237,18 +237,6 @@
     </request-map>
     <request-map uri="ListWorkEffortPartyAssigns">
         <security https="true" auth="true"/>        
-        <response name="success" type="view" value="ListWorkEffortPartyAssigns"/>
-        <response name="error" type="view" value="ListWorkEffortPartyAssigns"/>
-    </request-map>
-    <request-map uri="createWorkEffortPartyAssign">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="assignPartyToWorkEffort"/>
-        <response name="success" type="view" value="ListWorkEffortPartyAssigns"/>
-        <response name="error" type="view" value="ListWorkEffortPartyAssigns"/>
-    </request-map>
-    <request-map uri="updateWorkEffortPartyAssign">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePartyToWorkEffortAssignment"/>
         <response name="success" type="view" value="ListWorkEffortPartyAssigns"/>
         <response name="error" type="view" value="ListWorkEffortPartyAssigns"/>
     </request-map>
@@ -335,5 +323,7 @@
     <view-map name="EditTimeEntries" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditTimeEntries"/>
     <view-map name="FindTimeSheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#FindTimeSheet"/>
     <view-map name="EditTimeSheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#EditTimeSheet"/>
+    <view-map name="EditSkillTypes" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditSkillTypes"/>
+    <view-map name="EditPartySkills" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditPartySkills"/>
     <!-- end of view mappings -->
 </site-conf>
