@@ -859,7 +859,7 @@ public class OagisShipmentServices {
                         Iterator returnItemIter = returnItemList.iterator();
                         while (returnItemIter.hasNext()) {
                             GenericValue returnItem = (GenericValue) returnItemIter.next();
-                            if ("returnTypeId".equals(returnItem.getString("RTN_CSREPLACE"))) {
+                            if ("RTN_CSREPLACE".equals(returnItem.getString("returnTypeId"))) {
                                 includeReturnLabel = true;
                             }
                         }
@@ -899,9 +899,7 @@ public class OagisShipmentServices {
                 bodyParameters.put("orderId", orderId);
                 bodyParameters.put("userLogin", userLogin);
 
-                
                 String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ProcessShipment");
-
                 String outText = null;
                 try {
                     Writer writer = new StringWriter();
