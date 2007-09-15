@@ -35,4 +35,25 @@ under the License.
         <call-service service-name="wfAcceptRoleAssignment" in-map-name="context">
             <default-message>Work Effort successfully created.</default-message></call-service>
     </simple-method>
+    <simple-method method-name="createWorkEffort" short-description="Creates WorkEffort">
+        <call-map-processor xml-resource="org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
+                processor-name="createWorkEffortMap" in-map-name="parameters" out-map-name="context"/>
+        <check-errors/>
+        <call-service service-name="createWorkEffort" in-map-name="context">
+            <default-message>Work Effort successfully created.</default-message>
+            <result-to-request result-name="workEffortId"/>
+        </call-service>
+    </simple-method>
+    <simple-method method-name="createWorkEffortAndAssoc" short-description="Creates WorkEffort">
+        <call-map-processor xml-resource="org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
+                processor-name="createWorkEffortMap" in-map-name="parameters" out-map-name="context"/>
+        <check-errors/>
+        <call-map-processor xml-resource="org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
+                processor-name="createWorkEffortAssocMap" in-map-name="parameters" out-map-name="context"/>
+        <check-errors/>
+        <call-service service-name="createWorkEffortAndAssoc" in-map-name="context">
+            <default-message>Work Effort successfully created.</default-message>
+            <result-to-request result-name="workEffortId"/>
+        </call-service>
+    </simple-method>
 </simple-methods>
