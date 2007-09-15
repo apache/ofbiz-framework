@@ -421,6 +421,7 @@ public class UtilXml {
      * returns the first element. */
     public static Element firstChildElement(Element element, String childElementName) {
         if (element == null) return null;
+        if (UtilValidate.isEmpty(childElementName)) return null;
         // get the first element with the given name
         Node node = element.getFirstChild();
 
@@ -429,7 +430,6 @@ public class UtilXml {
                 if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null ||
                         childElementName.equals(node.getNodeName()))) {
                     Element childElement = (Element) node;
-
                     return childElement;
                 }
             } while ((node = node.getNextSibling()) != null);
