@@ -409,7 +409,7 @@ under the License.
             <link target="FindGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
         <menu-item name="NewJournalEnty" title="${uiLabelMap.AcctgNewGlJournalEntry}">
-            <link target="EditGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
+            <link target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
     </menu>
     

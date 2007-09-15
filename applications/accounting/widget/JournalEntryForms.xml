@@ -97,7 +97,7 @@ under the License.
         </field>              
     </form>
 
-    <form name="EditGlJournalEntry" type="single" target="createGlJournalEntry" title="" default-map-name="journal">
+    <form name="NewGlJournalEntry" type="single" target="createGlJournalEntry" title="" default-map-name="journal">
         <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
             <drop-down>
                 <entity-options entity-name="AcctgTransType" description="${description}">

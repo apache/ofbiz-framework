@@ -443,16 +443,16 @@ under the License.
     <request-map uri="createGlJournalEntry">
         <security https="true" auth="true"/>
         <event type="service" invoke="createGlJournalEntry"/>
-        <response name="success" type="view" value="EditGlJournalEntry"/>
-        <response name="error" type="view" value="EditGlJournalEntry"/>
+        <response name="success" type="view" value="NewGlJournalEntry"/>
+        <response name="error" type="view" value="NewGlJournalEntry"/>
     </request-map>
     <request-map uri="FindGlJournalEntry">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindGlJournalEntry"/>
     </request-map>
-    <request-map uri="EditGlJournalEntry">
+    <request-map uri="NewGlJournalEntry">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditGlJournalEntry"/>
+        <response name="success" type="view" value="NewGlJournalEntry"/>
     </request-map>
     <request-map uri="ListUnpostedAcctgTrans">
         <security https="true" auth="true"/>
@@ -1455,7 +1455,7 @@ under the License.
     <!-- Party Accounts -->
     <view-map name="PartyAccountsSummary" type="screen" page="component://accounting/widget/AccountingScreens.xml#PartyAccountsSummary"/>
     <view-map name="FindGlJournalEntry" type="screen" page="component://accounting/widget/AccountingScreens.xml#FindGlJournalEntry"/>
-    <view-map name="EditGlJournalEntry" type="screen" page="component://accounting/widget/AccountingScreens.xml#EditGlJournalEntry"/>
+    <view-map name="NewGlJournalEntry" type="screen" page="component://accounting/widget/AccountingScreens.xml#NewGlJournalEntry"/>
     <view-map name="ListUnpostedAcctgTrans" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListUnpostedAcctgTrans"/>
     
     <!-- GlAccount, GlJournalEntry, AcctgTrans -->
