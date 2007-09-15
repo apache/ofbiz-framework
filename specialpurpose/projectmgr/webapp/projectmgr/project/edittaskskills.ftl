@@ -16,7 +16,14 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<div class="head1">${uiLabelMap.PageTitleAddSkill}</div></td>  
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <ul>      
+      <li class="head3">&nbsp;${uiLabelMap.PageTitleAddSkill}</li>      
+    </ul>
+    <br class="clear" />
+  </div>
+  <div class="screenlet-body">  
 <form name="editTaskSkillForm" action="<@ofbizUrl>createTaskSkillStandard</@ofbizUrl>">
   <table width="100%" cellpadding="2" cellspacing="0" border="1">
     <tr>
@@ -53,3 +60,5 @@ under the License.
     </tr>    
   </table>    
 </form>
+</div>
+</div>

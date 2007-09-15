@@ -102,6 +102,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProject"/>
                 <set field="tabButtonItem" value="editproject"/>                
                 <set field="labelTitleProperty" value="PageTitleEditProject"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-name="project"/>
             </actions>
             <widgets>                
@@ -340,6 +341,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditPhase"/>
                 <set field="tabButtonItem" value="phases"/>
                 <set field="labelTitleProperty" value="PageTitleFindPhase"/>
+                <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
                 <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
                 <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ChildWorkEffort.bsh"/>
@@ -372,6 +374,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
                 <set field="tabButtonItem" value="parties"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
             </actions>            
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -379,7 +383,7 @@ under the License.
                         <container style="screenlet">
                              <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleListWorkEffortPartyAssigns}</label></container>
                              <container style="screenlet-body">
-                                 <include-form name="ListWorkEffortPartyAssigns" location="component://workeffort/widget/WorkEffortPartyAssignForms.xml"/>
+                                 <include-form name="ListWorkEffortPartyAssigns" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                              </container>
                         </container> 
                         <container style="screenlet">
@@ -399,6 +403,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditSkill"/>
                 <set field="tabButtonItem" value="projectskills"/>
                 <set field="labelTitleProperty" value="PageTitleEditSkill"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-and entity-name="WorkEffortSkillStandard" list-name="workEffortSkillStandardList">
                     <field-map field-name="workEffortId"/>
                 </entity-and>
@@ -423,6 +428,31 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
+    </screen>
+    <screen name="EditPartySkills">
+        <section>
+            <actions>
+                <set field="headerItem" value="PartyReview"/>
+                <set field="tabButtonItem" value="parties"/>                
+                <set field="partyId" from-field="parameters.partyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                             <link target="EditPartySkill" text="${uiLabelMap.HumanResNewPartySkill}" style="buttontext"/>
+                        </container>
+                        <container style="boxoutside">
+                            <container style="screenlet-header">
+                                <label style="boxhead">${uiLabelMap.HumanResEditPartySkill}</label>
+                            </container>
+                            <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                            <include-form name="EditPartySkill" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>    
+                        </container>                        
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section> 
     </screen>
     <screen name="EditTimeEntries">
         <section>

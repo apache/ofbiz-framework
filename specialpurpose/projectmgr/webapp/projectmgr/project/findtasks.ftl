@@ -40,6 +40,7 @@ function lookupTasks(click) {
       <table width="">
         <tr>
           <td><input type="hidden" name="workEffortIdFrom" value="${parameters.workEffortIdFrom?if_exists}"/></td>          
+          <td><input type="hidden" name="workEffortId" value="${parameters.workEffortIdFrom?if_exists}"/></td>
           <td><input type="hidden" name="workEffortAssocTypeId" value="${parameters.workEffortAssocTypeId?if_exists}"/></td>
         </tr>
         <tr>
