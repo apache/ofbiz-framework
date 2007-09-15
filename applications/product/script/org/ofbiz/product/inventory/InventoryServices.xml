@@ -297,7 +297,7 @@ under the License.
                 <then>
                     <set field="inventoryItem.availableToPromiseTotal" value="1" type="Double"/>
                     <set field="inventoryItem.quantityOnHandTotal" value="1" type="Double"/>
-                    <log level="always" message="Storing totals [${inventoryItem.inventoryItemId}] for INV_AVAIABLE [1/1]"/>
+                    <log level="always" message="In updateSerializedInventoryTotals Storing totals for item [${inventoryItem.inventoryItemId}] INV_AVAIABLE [1/1]"/>
                     <store-value value-name="inventoryItem"/>
                 </then>
 
@@ -315,7 +315,7 @@ under the License.
                     <then>
                         <set field="inventoryItem.availableToPromiseTotal" value="0" type="Double"/>
                         <set field="inventoryItem.quantityOnHandTotal" value="0" type="Double"/>
-                        <log level="always" message="Storing totals [${inventoryItem.inventoryItemId}] for INV_DELIVERED [0/0]"/>
+                        <log level="always" message="In updateSerializedInventoryTotals Storing totals [${inventoryItem.inventoryItemId}] for INV_DELIVERED [0/0]"/>
                         <store-value value-name="inventoryItem"/>
                     </then>
                 </else-if>
@@ -335,7 +335,7 @@ under the License.
                     <then>
                         <set field="inventoryItem.availableToPromiseTotal" value="0" type="Double"/>
                         <set field="inventoryItem.quantityOnHandTotal" value="1" type="Double"/>
-                        <log level="always" message="Storing totals [${inventoryItem.inventoryItemId}] for other status [0/1]"/>
+                        <log level="always" message="In updateSerializedInventoryTotals Storing totals [${inventoryItem.inventoryItemId}] for other status [0/1]"/>
                         <store-value value-name="inventoryItem"/>
                     </then>
                 </else-if>

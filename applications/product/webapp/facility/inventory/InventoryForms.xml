@@ -79,7 +79,7 @@ under the License.
         </field>
         <field name="unitCost"><text/></field>
 
-        <field use-when="&quot;NON_SERIAL_INV_ITEM&quot;.equals(inventoryItemTypeId)" name="totals" title="${uiLabelMap.ProductAvailablePromiseQuantityHand}">
+        <field name="totals" title="${uiLabelMap.ProductAvailablePromiseQuantityHand}">
                 <display description="${inventoryItem.availableToPromiseTotal} / ${inventoryItem.quantityOnHandTotal}"/>
         </field>
         
