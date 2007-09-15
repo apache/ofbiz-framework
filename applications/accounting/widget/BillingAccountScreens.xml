@@ -103,7 +103,9 @@ under the License.
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />                
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/>
                 <entity-one entity-name="BillingAccount" value-name="billingAccount"/>
-            </actions>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="roleTypeId" from-field="parameters.roleTypeId"/>
+            </actions> 
             <widgets>
                 <decorator-screen name="CommonBillingAccountDecorator">
                     <decorator-section name="body">
