@@ -29,6 +29,7 @@ under the License.
     <li<#if selected == "TerminationReason"> class="selected"</#if>><a href="<@ofbizUrl>findTerminationReasons</@ofbizUrl>">${uiLabelMap.HumanResTerminationReason}</a></li>        
     <li<#if selected == "UnemploymentClaim"> class="selected"</#if>><a href="<@ofbizUrl>findUnemploymentClaims</@ofbizUrl>">${uiLabelMap.HumanResUnemploymentClaim}</a></li>        
     <li<#if selected == "EmploymentApp"> class="selected"</#if>><a href="<@ofbizUrl>findEmploymentApps</@ofbizUrl>">${uiLabelMap.HumanResEmploymentApp}</a></li>
+    <li<#if selected == "SkillType"> class="selected"</#if>><a href="<@ofbizUrl>findSkillTypes</@ofbizUrl>">${uiLabelMap.HumanResSkillType}</a></li>
     <#if userLogin?has_content>
       <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
     <#else>

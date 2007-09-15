@@ -539,6 +539,27 @@ under the License.
     <request-map uri="viewprofile">
         <response name="success" type="view" value="viewprofile"/>
     </request-map>
+    <request-map uri="findSkillTypes">
+        <response name="success" type="view" value="EditSkillTypes"/>
+    </request-map>
+    <request-map uri="EditSkillTypes">
+        <response name="success" type="view" value="EditSkillTypes"/>
+    </request-map>
+    <request-map uri="createSkillType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createSkillType"/>
+        <response name="success" type="view" value="EditSkillTypes"/>
+    </request-map>
+    <request-map uri="updateSkillType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateSkillType"/>
+        <response name="success" type="view" value="EditSkillTypes"/>
+    </request-map>
+    <request-map uri="deleteSkillType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteSkillType"/>
+        <response name="success" type="view" value="EditSkillTypes"/>               
+    </request-map>
     <!-- ===================Lookup Request===================== -->
     <request-map uri="LookupPartyName"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupPayment"><security auth="true" https="true"/><response name="success" type="view" value="LookupPayment"/></request-map>    
@@ -598,4 +619,5 @@ under the License.
     <view-map name="LookupTerminationReason"  type="screen" page="component://humanres/widget/LookupScreens.xml#LookupTerminationReason"/>
     <view-map name="LookupSalaryStep"  type="screen" page="component://humanres/widget/LookupScreens.xml#LookupSalaryStep"/>
     <view-map name="LookupPayGrade"  type="screen" page="component://humanres/widget/LookupScreens.xml#LookupPayGrade"/>
+    <view-map name="EditSkillTypes" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditSkillTypes"/>
 </site-conf>

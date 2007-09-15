@@ -446,4 +446,23 @@ under the License.
         <entity-one entity-name="ValidResponsibility" value-name="lookedUpValue"/>        
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    <!-- Skill Types -->
+    <simple-method method-name="createSkillType" short-description="Create a SkillType">
+        <make-value entity-name="SkillType" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>        
+        <sequenced-id-to-env sequence-name="SkillType" env-name="newEntity.skillTypeId"/>        
+        <field-to-result field-name="newEntity.skillTypeId" result-name="skillTypeId"/>
+        <create-value value-name="newEntity"/>        
+    </simple-method>
+    
+    <simple-method method-name="updateSkillType" short-description="Update SkillType">
+        <entity-one entity-name="SkillType" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteSkillType" short-description="Delete SkillType">
+        <entity-one entity-name="SkillType" value-name="lookedUpValue"/>        
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
 </simple-methods>        
