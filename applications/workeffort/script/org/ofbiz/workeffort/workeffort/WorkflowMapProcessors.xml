@@ -34,7 +34,9 @@ under the License.
     <process field="currentStatusId"><copy/><not-empty><fail-property resource="WorkEffortUiLabels" property="WorkEffortStatusIdMissing"/></not-empty></process>
     <process field="universalId"><copy/></process>
     <process field="scopeEnumId"><copy/></process>
-    <process field="priority"><copy/></process>
+    <process field="priority"><copy/>
+        <convert type="Long"><fail-property resource="WorkEffortUiLabels" property="PriorityFormatNotCorrect"/></convert>
+    </process>
     <process field="percentComplete"><copy/></process>
     <process field="workEffortName"><copy/><not-empty><fail-property resource="WorkEffortUiLabels" property="WorkEffortNameIsMissing"/></not-empty></process>
     <process field="description"><copy/></process>
@@ -77,4 +79,12 @@ under the License.
         <not-empty><fail-property resource="WorkEffortUiLabels" property="WorkEffortEmailAddressIsMissing"/></not-empty>
         <validate-method method="isEmail"><fail-property resource="WorkEffortUiLabels" property="WorkEffortEmailAddressNotFormatted"/></validate-method></process>
   </simple-map-processor>  
+  <simple-map-processor name="createWorkEffortAssocMap">
+      <process field="workEffortIdFrom"><copy/></process>
+      <process field="workEffortIdTo"><copy/></process>
+      <process field="workEffortAssocTypeId"><copy/></process>
+      <process field="sequenceNum"><copy/></process>
+      <process field="fromDate"><copy/></process>
+      <process field="thruDate"><copy/></process>
+  </simple-map-processor>
 </simple-map-processors>
