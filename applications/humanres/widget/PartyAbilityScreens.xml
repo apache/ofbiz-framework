@@ -172,4 +172,31 @@
             </widgets>
         </section>
     </screen>                    
+    <screen name="EditSkillTypes">
+        <section>                        
+            <actions>
+                <set field="headerItem" value="SkillType"/>
+                <set field="titleProperty" value="PageTitleEditSkillType"/>
+                <set field="skillTypeId" from-field="parameters.skillTypeId"/>
+                <entity-one entity-name="SkillType" value-name="skillType" />
+            </actions>            
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">                                                                                       
+                        <container>
+                            <link target="EditSkillTypes" text="${uiLabelMap.HumanResNewSkillType}" style="buttontext" />
+                        </container>
+                        <label>&lt;br/&gt;</label>
+                        <container style="boxoutside">
+                            <container style="screenlet-header">
+                                <label style="boxhead">${uiLabelMap.PageTitleEditSkillType}</label>
+                            </container>                                    
+                            <include-form name="ListSkillTypes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                            <include-form name="EditSkillType" location="component://humanres/widget/forms/PartyAbilityForms.xml" />
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>            
+        </section>
+    </screen>
 </screens>

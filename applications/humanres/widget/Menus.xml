@@ -62,5 +62,6 @@
             <link target="EditSalarySteps?payGradeId=${payGradeId}"/>
         </menu-item>        
     </menu>
+    <menu name="SkillType" type="simple" id="app-navigation" default-selected-style="selected"/>
     
 </menus>    

@@ -529,5 +529,27 @@ under the License.
         location="org/ofbiz/humanres/permission/HumanResPermissionServices.xml" invoke="humanResManagerPermission" auth="true">
         <implements service="permissionInterface"/>
     </service>
+    <service name="createSkillType" engine="simple" default-entity-name="SkillType"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createSkillType" auth="true">
+        <description>Create Valid SkillType</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="updateSkillType" engine="simple" default-entity-name="SkillType"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updateSkillType" auth="true">
+        <description>Update Valid SkillType</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteSkillType" engine="simple" default-entity-name="SkillType"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deleteSkillType" auth="true">
+        <description>Delete Valid SkillType</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
 </services>
+
 

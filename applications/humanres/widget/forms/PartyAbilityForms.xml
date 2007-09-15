@@ -295,4 +295,26 @@ under the License.
         <field name="submitButton" use-when="personTraining==null" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>        
         <field name="submitButton" use-when="personTraining!=null" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
      </form>      
+     <form name="ListSkillTypes" type="list" title="" target="updateSkillType">
+        <actions>
+            <entity-condition entity-name="SkillType"><order-by field-name="skillTypeId"/></entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateSkillType"/>        
+        <field name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommomDescription}"/>
+        <field name="submitButton" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteSkillType?skillTypeId=${skillTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>            
+    <form name="EditSkillType" type="single" target="updateSkillType" title="" default-map-name="skillType">
+        <alt-target use-when="skillType==null" target="createSkillType"/>
+        <auto-fields-service service-name="createSkillType"/>
+        <field use-when="skillType!=null" name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="skillType==null&amp;&amp;skillTypeId==null" name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}"><ignored/></field>
+        <field use-when="skillType==null&amp;&amp;skillTypeId!=null" name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${skillTypeId}]"><display/></field>        
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="submitButton" use-when="skillType==null" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="submitButton" use-when="skillType!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>
