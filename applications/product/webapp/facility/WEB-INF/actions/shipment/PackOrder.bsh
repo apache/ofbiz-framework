@@ -133,7 +133,7 @@ if (UtilValidate.isNotEmpty(orderId)) {
                 productStoreId = orh.getProductStoreId();
                 shippableItemInfo = orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId);
                 shippableItems = delegator.findByAnd("OrderItemAndShipGrpInvResAndItemSum", UtilMisc.toMap("orderId", orderId, "shipGroupSeqId", shipGroupSeqId));
-                shippableTotal = new Double(orh.getShippableTotalBd(shipGroupSeqId).doubleValue());
+                shippableTotal = new Double(orh.getShippableTotal(shipGroupSeqId).doubleValue());
                 shippableWeight = new Double(orh.getShippableWeightBd(shipGroupSeqId).doubleValue());
                 shippableQuantity = new Double(orh.getShippableQuantityBd(shipGroupSeqId).doubleValue());
                 shipmentCostEstimate = packSession.getShipmentCostEstimate(orderItemShipGroup, productStoreId, shippableItemInfo, shippableTotal, shippableWeight, shippableQuantity);

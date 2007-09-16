@@ -111,7 +111,7 @@ public class ShippingEvents {
         String contactMechId = shipAddr.getString("contactMechId");
         return getShipGroupEstimate(dispatcher, delegator, orh.getOrderTypeId(), shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId,
                 contactMechId, orh.getProductStoreId(), orh.getShippableItemInfo(shipGroupSeqId), orh.getShippableWeightBd(shipGroupSeqId).doubleValue(),
-                orh.getShippableQuantityBd(shipGroupSeqId).doubleValue(), orh.getShippableTotalBd(shipGroupSeqId).doubleValue());
+                orh.getShippableQuantityBd(shipGroupSeqId).doubleValue(), orh.getShippableTotal(shipGroupSeqId).doubleValue());
     }
 
     public static Map getShipGroupEstimate(LocalDispatcher dispatcher, GenericDelegator delegator, String orderTypeId,
