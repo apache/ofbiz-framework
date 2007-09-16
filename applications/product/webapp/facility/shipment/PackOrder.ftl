@@ -232,7 +232,7 @@ under the License.
               <#list itemInfos as itemInfo>                                            
               <#-- <#list itemInfos as orderItem>  -->
                 <#assign orderItem = itemInfo.orderItem/>
-                <#assign shippedQuantity = orderReadHelper.getItemShippedQuantityBd(orderItem)?if_exists>
+                <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)?if_exists>
                 <#assign orderItemQuantity = itemInfo.quantity/>
                 <#assign orderProduct = orderItem.getRelatedOne("Product")?if_exists/>
                 <#assign product = Static["org.ofbiz.product.product.ProductWorker"].findProduct(delegator, itemInfo.productId)?if_exists/>

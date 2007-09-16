@@ -2017,7 +2017,7 @@ public class OrderReadHelper {
         return quantityPicked.setScale(scale, rounding);
     }
 
-    public BigDecimal getItemShippedQuantityBd(GenericValue orderItem) {
+    public BigDecimal getItemShippedQuantity(GenericValue orderItem) {
         BigDecimal quantityShipped = ZERO;
         List issuance = getOrderItemIssuances(orderItem);
         if (issuance != null) {
@@ -2031,11 +2031,6 @@ public class OrderReadHelper {
             }
         }
         return quantityShipped.setScale(scale, rounding);
-    }
-
-    /** @deprecated */
-    public double getItemShippedQuantity(GenericValue orderItem) {
-        return getItemShippedQuantityBd(orderItem).doubleValue();
     }
 
     public BigDecimal getItemReservedQuantityBd(GenericValue orderItem) {
