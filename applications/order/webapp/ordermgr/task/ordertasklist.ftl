@@ -107,7 +107,7 @@ under the License.
                           <td><div class="tabletext"><span style="white-space: nowrap;">${orderHeaderAndRole.getString("orderDate")}</span></div></td>
                           <td><div class="tabletext">${statusItem.get("description",locale)?default(statusItem.statusId?default("N/A"))}</div></td>
                           <td align="right"><div class="tabletext">${orh.getTotalOrderItemsQuantity()?string.number}</div></td>
-                          <td align="right"><div class="tabletext"><@ofbizCurrency amount=orh.getOrderGrandTotalBd() isoCode=orderHeaderAndRole.currencyUom?if_exists/></div></td>
+                          <td align="right"><div class="tabletext"><@ofbizCurrency amount=orh.getOrderGrandTotal() isoCode=orderHeaderAndRole.currencyUom?if_exists/></div></td>
                           <td width="1">&nbsp;&nbsp;</td>
                           <td align='right'>
                             <a href="<@ofbizUrl>OrderDeliveryScheduleInfo?orderId=${orderHeaderAndRole.orderId}</@ofbizUrl>" class='buttontext'>Schedule&nbsp;Delivery</a>

@@ -33,7 +33,7 @@ if(orderId != null){
 if(orderHeader != null){
    orh = new OrderReadHelper(orderHeader);
    context.put("orh", orh);
-   context.put("overrideAmount", new Double(orh.getOrderGrandTotalBd().doubleValue()));
+   context.put("overrideAmount", new Double(orh.getOrderGrandTotal().doubleValue()));
 }
 
 if(orderPaymentPreferenceId != null){

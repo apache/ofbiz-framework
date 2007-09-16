@@ -110,7 +110,7 @@ public class PaymentGatewayServices {
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
 
         // get the total remaining
-        BigDecimal orderGrandTotal = orh.getOrderGrandTotalBd();
+        BigDecimal orderGrandTotal = orh.getOrderGrandTotal();
         orderGrandTotal = orderGrandTotal.setScale(decimals, rounding);
         double totalRemaining = orderGrandTotal.doubleValue();
 
@@ -329,7 +329,7 @@ public class PaymentGatewayServices {
 
         // get the order amounts
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
-        BigDecimal orderGrandTotal = orh.getOrderGrandTotalBd();
+        BigDecimal orderGrandTotal = orh.getOrderGrandTotal();
         orderGrandTotal = orderGrandTotal.setScale(decimals, rounding);
         double totalRemaining = orderGrandTotal.doubleValue();
 
@@ -1058,7 +1058,7 @@ public class PaymentGatewayServices {
         // Check if the outstanding amount for the order is greater than the
         // amount that we are going to capture.
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
-        BigDecimal orderGrandTotal = orh.getOrderGrandTotalBd();
+        BigDecimal orderGrandTotal = orh.getOrderGrandTotal();
         orderGrandTotal = orderGrandTotal.setScale(decimals, rounding);
         BigDecimal totalPayments = PaymentWorker.getPaymentsTotal(orh.getOrderPayments());
         totalPayments = totalPayments.setScale(decimals, rounding);
