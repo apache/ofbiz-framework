@@ -974,7 +974,7 @@ public class OrderReadHelper {
         return shippableQuantity.setScale(scale, rounding);
     }
 
-    public BigDecimal getShippableWeightBd(String shipGroupSeqId) {
+    public BigDecimal getShippableWeight(String shipGroupSeqId) {
         BigDecimal shippableWeight = ZERO;
         List validItems = getValidOrderItems(shipGroupSeqId);
         if (validItems != null) {
@@ -986,11 +986,6 @@ public class OrderReadHelper {
         }
 
         return shippableWeight.setScale(scale, rounding);
-    }
-
-    /** @deprecated Use getShippableWeightBd() instead */
-    public double getShippableWeight(String shipGroupSeqId) {
-        return getShippableWeightBd(shipGroupSeqId).doubleValue();
     }
 
     public BigDecimal getItemWeightBd(GenericValue item) {
