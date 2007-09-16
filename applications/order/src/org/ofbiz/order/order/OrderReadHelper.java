@@ -1259,7 +1259,7 @@ public class OrderReadHelper {
 
     public BigDecimal getOrderGrandTotal() {
         if (totalPrice == null) {
-            totalPrice = getOrderGrandTotalBd(getValidOrderItems(), getAdjustments());
+            totalPrice = getOrderGrandTotal(getValidOrderItems(), getAdjustments());
         }// else already set
         return totalPrice;
     }
