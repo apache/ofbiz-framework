@@ -64,6 +64,7 @@ under the License.
                 <field-map field-name="compareDate" env-name="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
+            <set field="paidInvoice" value="${bsh: org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId).compareTo(BigDecimal.ZERO)==0}" type="Boolean"/>
             <set field="amountToApply" value="${bsh:
                 import java.text.NumberFormat;
                 return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId)));}"/>
@@ -84,7 +85,10 @@ under the License.
         <field name="invoiceDate"><display description="${bsh:invoiceDate.toString().substring(0,10)}"/></field>
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="capture"><hyperlink target="capturePaymentsByInvoice?invoiceId=${invoiceId}&amp;billingAccountId=${billingAccountId}" description="${uiLabelMap.AccountingCapture}"/></field>
+        <field name="capture" use-when="${bsh:!paidInvoice}" widget-style="buttontext">
+            <hyperlink target="capturePaymentsByInvoice?invoiceId=${invoiceId}&amp;billingAccountId=${billingAccountId}" description="${uiLabelMap.AccountingCapture}"/>
+        </field>
+        <field name="capture" use-when="${bsh:paidInvoice}"><display/></field>
     </form>
 
     <form name="EditBillingAccount" type="single" target="updateBillingAccount" title="" default-map-name="billingAccount">
