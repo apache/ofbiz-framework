@@ -756,13 +756,8 @@ public class OrderReadHelper {
         return OrderReadHelper.calcOrderAdjustmentsBd(getOrderHeaderAdjustments(), getOrderItemsSubTotalBd(), false, false, true);
     }
 
-    public BigDecimal getHeaderTaxTotalBd() {
+    public BigDecimal getHeaderTaxTotal() {
         return OrderReadHelper.calcOrderAdjustmentsBd(getOrderHeaderAdjustments(), getOrderItemsSubTotalBd(), false, true, false);
-    }
-
-    /** @deprecated Use getHeaderTaxTotalBd() instead */
-    public double getHeaderTaxTotal() {
-        return getHeaderTaxTotalBd().doubleValue();
     }
 
     public BigDecimal getTaxTotalBd() {
@@ -1969,7 +1964,7 @@ public class OrderReadHelper {
             // pro-rated factor (subtotal not returned / item subtotal), which shouldn't be rounded to 2 decimals
             orderFactorNotReturned = totalSubTotalNotReturned.divide(orderItemsSubTotal, 100, rounding);
         }
-        BigDecimal orderTaxNotReturned = this.getHeaderTaxTotalBd().multiply(orderFactorNotReturned).setScale(scale, rounding);
+        BigDecimal orderTaxNotReturned = this.getHeaderTaxTotal().multiply(orderFactorNotReturned).setScale(scale, rounding);
         BigDecimal orderShippingNotReturned = this.getShippingTotal().multiply(orderFactorNotReturned).setScale(scale, rounding);
 
         return totalTaxNotReturned.add(totalShippingNotReturned).add(orderTaxNotReturned).add(orderShippingNotReturned).setScale(scale, rounding);
