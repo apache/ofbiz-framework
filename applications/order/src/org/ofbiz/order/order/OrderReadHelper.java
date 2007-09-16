@@ -1767,16 +1767,6 @@ public class OrderReadHelper {
         return returnedQuantity.setScale(scale, rounding);
     }
 
-    /** @deprecated */
-    public double getOrderReturnedTotal() {
-        return getOrderReturnedTotalBd().doubleValue();
-    }
-
-    /** @deprecated */
-    public double getOrderReturnedTotal(boolean includeAll) {
-        return getOrderReturnedTotalBd(includeAll).doubleValue();
-    }
-
     /** 
      * Get the returned total by return type (credit, refund, etc.).  Specify returnTypeId = null to get sum over all
      * return types.  Specify includeAll = true to sum up over all return statuses except cancelled.  Specify includeAll
@@ -1835,7 +1825,7 @@ public class OrderReadHelper {
     }
 
     /** Gets the total return amount (all return types) for COMPLETED and RECEIVED returns. */
-    public BigDecimal getOrderReturnedTotalBd() {
+    public BigDecimal getOrderReturnedTotal() {
         return getOrderReturnedTotalByTypeBd(null, false);
     }
 
@@ -1843,7 +1833,7 @@ public class OrderReadHelper {
      * Gets the total returned over all return types.  Specify true to include all return statuses
      * except cancelled.  Specify false to include only COMPLETED and RECEIVED returns.
      */ 
-    public BigDecimal getOrderReturnedTotalBd(boolean includeAll) {
+    public BigDecimal getOrderReturnedTotal(boolean includeAll) {
         return getOrderReturnedTotalByTypeBd(null, includeAll);
     }
 
