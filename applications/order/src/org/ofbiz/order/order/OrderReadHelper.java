@@ -1326,13 +1326,8 @@ public class OrderReadHelper {
         return getOrderHeaderStatuses(getOrderStatuses());
     }
 
-    public BigDecimal getOrderAdjustmentsTotalBd() {
-        return getOrderAdjustmentsTotalBd(getValidOrderItems(), getAdjustments());
-    }
-
-    /** @deprecated Use getOrderAdjustmentsTotalBd() instead */
-    public double getOrderAdjustmentsTotal() {
-        return getOrderAdjustmentsTotalBd().doubleValue();
+    public BigDecimal getOrderAdjustmentsTotal() {
+        return getOrderAdjustmentsTotal(getValidOrderItems(), getAdjustments());
     }
 
     public BigDecimal getOrderAdjustmentTotalBd(GenericValue adjustment) {
@@ -2382,7 +2377,7 @@ public class OrderReadHelper {
 
     public static BigDecimal getOrderGrandTotal(List orderItems, List adjustments) {
         BigDecimal total = getOrderItemsTotalBd(orderItems, adjustments);
-        BigDecimal adj = getOrderAdjustmentsTotalBd(orderItems, adjustments);
+        BigDecimal adj = getOrderAdjustmentsTotal(orderItems, adjustments);
         return total.add(adj).setScale(scale,rounding);
     }
 
@@ -2422,13 +2417,8 @@ public class OrderReadHelper {
         return newOrderStatuses;
     }
 
-    public static BigDecimal getOrderAdjustmentsTotalBd(List orderItems, List adjustments) {
+    public static BigDecimal getOrderAdjustmentsTotal(List orderItems, List adjustments) {
         return calcOrderAdjustmentsBd(getOrderHeaderAdjustments(adjustments, null), getOrderItemsSubTotalBd(orderItems, adjustments), true, true, true);
-    }
-
-    /** @deprecated */
-    public static double getOrderAdjustmentsTotal(List orderItems, List adjustments) {
-        return getOrderAdjustmentsTotalBd(orderItems, adjustments).doubleValue();
     }
 
     public static List getOrderSurveyResponses(GenericValue orderHeader) {
