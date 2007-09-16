@@ -981,14 +981,14 @@ public class OrderReadHelper {
             Iterator i = validItems.iterator();
             while (i.hasNext()) {
                 GenericValue item = (GenericValue) i.next();
-                shippableWeight = shippableWeight.add(this.getItemWeightBd(item).multiply( getOrderItemQuantityBd(item))).setScale(scale, rounding);
+                shippableWeight = shippableWeight.add(this.getItemWeight(item).multiply( getOrderItemQuantityBd(item))).setScale(scale, rounding);
             }
         }
 
         return shippableWeight.setScale(scale, rounding);
     }
 
-    public BigDecimal getItemWeightBd(GenericValue item) {
+    public BigDecimal getItemWeight(GenericValue item) {
         GenericDelegator delegator = orderHeader.getDelegator();
         BigDecimal itemWeight = ZERO;
 
@@ -1025,11 +1025,6 @@ public class OrderReadHelper {
         }
 
         return itemWeight;
-    }
-
-    /** @deprecated Use getItemWeightBd() instead */
-    public double getItemWeight(GenericValue item) {
-        return getItemWeightBd(item).doubleValue();
     }
 
     public List getShippableSizes() {
@@ -1228,7 +1223,7 @@ public class OrderReadHelper {
         Map itemInfo = FastMap.newInstance();
         itemInfo.put("productId", item.getString("productId"));
         itemInfo.put("quantity", getOrderItemQuantity(item));
-        itemInfo.put("weight", new Double(this.getItemWeight(item)));
+        itemInfo.put("weight", new Double(this.getItemWeight(item).doubleValue()));
         itemInfo.put("size",  new Double(this.getItemSize(item)));
         itemInfo.put("piecesIncluded", new Long(this.getItemPiecesIncluded(item)));
         itemInfo.put("featureSet", this.getItemFeatureSet(item));
