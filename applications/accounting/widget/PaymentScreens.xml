@@ -253,42 +253,74 @@ under the License.
                                 <if-compare field-name="payment.statusId" operator="equals"  value="PMNT_NOT_PAID"/>
                             </condition>
                             <widgets>
-                                <container>
-                                    <label style="head1" text="${uiLabelMap.AccountingPaymentHeader}"/>
-                                    <link target="editPayment?paymentId=${paymentId}" text="${uiLabelMap.CommonUpdate}" style="buttontext"/>
-                                    <include-form name="paymentHeader" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                <container style="lefthalf">
+                                    <container style="screenlet">
+                                        <container style="screenlet-title-bar">
+                                            <label style="boxhead">${uiLabelMap.AccountingPaymentHeader}</label>
+                                        </container>
+                                        <container style="screenlet-body">
+                                            <link target="editPayment?paymentId=${paymentId}" text="${uiLabelMap.CommonUpdate}" style="buttontext"/>
+                                            <include-form name="paymentHeader" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                        </container>
+                                    </container>
                                 </container>
-                                <container>
-                                    <label style="head1" text="${uiLabelMap.AccountingPaymentsApplied}: ${appliedAmount?currency(${payment.currencyUomId})}, ${uiLabelMap.AccountingOpenPayments}: ${notAppliedAmount?currency(${payment.currencyUomId})}"/>
-                                    <link target="editPaymentApplications?paymentId=${paymentId}" text="${uiLabelMap.CommonUpdate}" style="buttontext"/>
-                                    <include-form name="paymentApplications" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                <container style="righthalf">
+                                    <container style="screenlet">
+                                        <container style="screenlet-title-bar">
+                                            <label style="boxhead">${uiLabelMap.AccountingPaymentsApplied}: ${appliedAmount?currency(${payment.currencyUomId})}, ${uiLabelMap.AccountingOpenPayments}: ${notAppliedAmount?currency(${payment.currencyUomId})}</label>
+                                        </container>
+                                        <container style="screenlet-body">
+                                            <link target="editPaymentApplications?paymentId=${paymentId}" text="${uiLabelMap.CommonUpdate}" style="buttontext"/>
+                                            <include-form name="paymentApplications" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                        </container>
+                                    </container>                
                                 </container>
-                                <container>
-                                    <label style="head1" text="${uiLabelMap.AccountingTransactions}"/>
-                                    <include-form name="AcctgTransAndEntries" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                </container>
+                                <container style="screenlet bothclear">
+                                    <container style="screenlet-title-bar">
+                                        <label style="boxhead" text="${uiLabelMap.AccountingTransactions}"/>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <include-form name="AcctgTransAndEntries" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                    </container>
+                                </container>                
                             </widgets>
                             <fail-widgets>
-                                <container>
-                                    <label style="head1" text="${uiLabelMap.AccountingPaymentHeader}"/>
-                                    <include-form name="paymentHeader" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                <container style="lefthalf">
+                                    <container style="screenlet">
+                                        <container style="screenlet-title-bar">
+                                            <label style="boxhead">${uiLabelMap.AccountingPaymentHeader}</label>
+                                        </container>
+                                        <container style="screenlet-body">
+                                            <include-form name="paymentHeader" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                        </container>
+                                    </container>
                                 </container>
-                                <container>
-                                    <label style="head1" text="${uiLabelMap.AccountingPaymentsApplied}: ${appliedAmount?currency(${payment.currencyUomId})}, open: ${notAppliedAmount?currency(${payment.currencyUomId})}"/>
-                                    <section>
-                                        <condition>
-                                            <if-compare field-name="payment.statusId" operator="not-equals"  value="PMNT_CONFIRMED"/>
-                                        </condition>
-                                        <widgets>
-                                            <link target="editPaymentApplications?paymentId=${paymentId}" text="${uiLabelMap.CommonUpdate}" style="buttontext"/>
-                                        </widgets>
-                                    </section>
-                                    <include-form name="paymentApplications" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                <container style="righthalf">
+                                    <container style="screenlet">
+                                        <container style="screenlet-title-bar">
+                                            <label style="boxhead">${uiLabelMap.AccountingPaymentsApplied}: ${appliedAmount?currency(${payment.currencyUomId})}, ${uiLabelMap.AccountingOpenPayments}: ${notAppliedAmount?currency(${payment.currencyUomId})}</label>
+                                        </container>
+                                        <container style="screenlet-body">
+                                            <section>
+                                                <condition>
+                                                    <if-compare field-name="payment.statusId" operator="not-equals"  value="PMNT_CONFIRMED"/>
+                                                </condition>
+                                                <widgets>
+                                                    <link target="editPaymentApplications?paymentId=${paymentId}" text="${uiLabelMap.CommonUpdate}" style="buttontext"/>
+                                                </widgets>
+                                            </section>
+                                            <include-form name="paymentApplications" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                        </container>
+                                    </container>                
                                 </container>
-                                <container>
-                                    <label style="head1" text="${uiLabelMap.AccountingTransactions}"/>
-                                    <include-form name="AcctgTransAndEntries" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                </container>
+                                <container style="screenlet bothclear">
+                                    <container style="screenlet-title-bar">
+                                        <label style="boxhead" text="${uiLabelMap.AccountingTransactions}"/>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <include-form name="AcctgTransAndEntries" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                    </container>
+                                </container>                
                             </fail-widgets>
                         </section>
                     </decorator-section>
