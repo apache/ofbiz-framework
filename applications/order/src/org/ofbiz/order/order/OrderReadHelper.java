@@ -1965,7 +1965,7 @@ public class OrderReadHelper {
         return getOrderReturnedRefundTotalBd().add(getBillingAccountReturnedCreditTotalBd()).subtract(getBillingAccountReturnedRefundTotalBd());
     }
 
-    public BigDecimal getOrderBackorderQuantityBd() {
+    public BigDecimal getOrderBackorderQuantity() {
         BigDecimal backorder = ZERO;
         List items = this.getValidOrderItems();
         if (items != null) {
@@ -1986,11 +1986,6 @@ public class OrderReadHelper {
             }
         }
         return backorder.setScale(scale, rounding);
-    }
-
-    /** @deprecated */
-    public double getOrderBackorderQuantity() {
-        return getOrderBackorderQuantityBd().doubleValue();
     }
 
     public BigDecimal getItemPickedQuantityBd(GenericValue orderItem) {

@@ -556,7 +556,7 @@ public class OrderLookupServices {
             while (i.hasNext()) {
                 GenericValue orderHeader = (GenericValue) i.next();
                 OrderReadHelper orh = new OrderReadHelper(orderHeader);
-                BigDecimal backorderQty = orh.getOrderBackorderQuantityBd();
+                BigDecimal backorderQty = orh.getOrderBackorderQuantity();
                 if (backorderQty.compareTo(new BigDecimal("0")) == 1) {
                     filterInventoryProblems.add(orh.getOrderId());
                 }
