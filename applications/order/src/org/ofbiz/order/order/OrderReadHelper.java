@@ -1837,7 +1837,7 @@ public class OrderReadHelper {
         return getOrderReturnedTotalByTypeBd(null, includeAll);
     }
 
-    public BigDecimal getOrderNonReturnedTaxAndShippingBd() {
+    public BigDecimal getOrderNonReturnedTaxAndShipping() {
         // first make a Map of orderItemSeqId key, returnQuantity value
         List returnedItemsBase = getOrderReturnItems();
         List returnedItems = new ArrayList(returnedItemsBase.size());
@@ -1963,11 +1963,6 @@ public class OrderReadHelper {
     /** Gets the total return refund amount with refunds and credits to the billing account figured in */
     public BigDecimal getReturnedRefundTotalWithBillingAccountBd() {
         return getOrderReturnedRefundTotalBd().add(getBillingAccountReturnedCreditTotalBd()).subtract(getBillingAccountReturnedRefundTotalBd());
-    }
-
-    /** @deprecated */
-    public double getOrderNonReturnedTaxAndShipping() {
-        return getOrderNonReturnedTaxAndShippingBd().doubleValue();
     }
 
     public BigDecimal getOrderBackorderQuantityBd() {
