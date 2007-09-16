@@ -1330,13 +1330,8 @@ public class OrderReadHelper {
         return getOrderAdjustmentsTotal(getValidOrderItems(), getAdjustments());
     }
 
-    public BigDecimal getOrderAdjustmentTotalBd(GenericValue adjustment) {
+    public BigDecimal getOrderAdjustmentTotal(GenericValue adjustment) {
         return calcOrderAdjustmentBd(adjustment, getOrderItemsSubTotalBd());
-    }
-
-    /** @deprecated Use getOrderAdjustmentsTotalBd() instead */
-    public double getOrderAdjustmentTotal(GenericValue adjustment) {
-        return getOrderAdjustmentTotalBd(adjustment).doubleValue();
     }
 
     public int hasSurvey() {
