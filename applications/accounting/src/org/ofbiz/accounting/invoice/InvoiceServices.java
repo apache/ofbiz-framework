@@ -220,7 +220,7 @@ public class InvoiceServices {
             BigDecimal totalItemsInOrder = orh.getTotalOrderItemsQuantityBd();
 
             // get some price totals
-            BigDecimal shippableAmount = orh.getShippableTotalBd(null);
+            BigDecimal shippableAmount = orh.getShippableTotal(null);
             BigDecimal orderSubTotal = orh.getOrderItemsSubTotalBd();
 
             // these variables are for pro-rating order amounts across invoices, so they should not be rounded off for maximum accuracy

@@ -913,7 +913,7 @@ public class OrderReadHelper {
         return taxApplies;
     }
 
-    public BigDecimal getShippableTotalBd(String shipGroupSeqId) {
+    public BigDecimal getShippableTotal(String shipGroupSeqId) {
         BigDecimal shippableTotal = ZERO;
         List validItems = getValidOrderItems(shipGroupSeqId);
         if (validItems != null) {
@@ -935,11 +935,6 @@ public class OrderReadHelper {
             }
         }
         return shippableTotal.setScale(scale, rounding);
-    }
-
-    /** @deprecated Use getShippableTotalBd() instead */
-    public double getShippableTotal(String shipGroupSeqId) {
-        return getShippableTotalBd(shipGroupSeqId).doubleValue();
     }
 
     public BigDecimal getShippableQuantityBd() {
