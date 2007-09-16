@@ -1180,7 +1180,7 @@ public class OrderServices {
             BigDecimal updatedTotal = orh.getOrderGrandTotal();
 
             // calculate subTotal as grandTotal - returnsTotal - (tax + shipping of items not returned)
-            BigDecimal remainingSubTotal = updatedTotal.subtract(orh.getOrderReturnedTotal()).subtract(orh.getOrderNonReturnedTaxAndShippingBd());
+            BigDecimal remainingSubTotal = updatedTotal.subtract(orh.getOrderReturnedTotal()).subtract(orh.getOrderNonReturnedTaxAndShipping());
 
             if (currentTotal == null || currentSubTotal == null || updatedTotal.compareTo(currentTotal) != 0 ||
                     remainingSubTotal.compareTo(currentSubTotal) != 0) {
