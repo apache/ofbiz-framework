@@ -110,7 +110,7 @@ public class ShippingEvents {
 
         String contactMechId = shipAddr.getString("contactMechId");
         return getShipGroupEstimate(dispatcher, delegator, orh.getOrderTypeId(), shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId,
-                contactMechId, orh.getProductStoreId(), orh.getShippableItemInfo(shipGroupSeqId), orh.getShippableWeightBd(shipGroupSeqId).doubleValue(),
+                contactMechId, orh.getProductStoreId(), orh.getShippableItemInfo(shipGroupSeqId), orh.getShippableWeight(shipGroupSeqId).doubleValue(),
                 orh.getShippableQuantity(shipGroupSeqId).doubleValue(), orh.getShippableTotal(shipGroupSeqId).doubleValue());
     }
 
