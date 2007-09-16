@@ -752,13 +752,8 @@ public class OrderReadHelper {
         return null;
     }
 
-    public BigDecimal getShippingTotalBd() {
+    public BigDecimal getShippingTotal() {
         return OrderReadHelper.calcOrderAdjustmentsBd(getOrderHeaderAdjustments(), getOrderItemsSubTotalBd(), false, false, true);
-    }
-
-    /** @deprecated Use getShippingTotalBd() instead */
-    public double getShippingTotal() {
-        return getShippingTotalBd().doubleValue();
     }
 
     public BigDecimal getHeaderTaxTotalBd() {
@@ -1975,7 +1970,7 @@ public class OrderReadHelper {
             orderFactorNotReturned = totalSubTotalNotReturned.divide(orderItemsSubTotal, 100, rounding);
         }
         BigDecimal orderTaxNotReturned = this.getHeaderTaxTotalBd().multiply(orderFactorNotReturned).setScale(scale, rounding);
-        BigDecimal orderShippingNotReturned = this.getShippingTotalBd().multiply(orderFactorNotReturned).setScale(scale, rounding);
+        BigDecimal orderShippingNotReturned = this.getShippingTotal().multiply(orderFactorNotReturned).setScale(scale, rounding);
 
         return totalTaxNotReturned.add(totalShippingNotReturned).add(orderTaxNotReturned).add(orderShippingNotReturned).setScale(scale, rounding);
     }
