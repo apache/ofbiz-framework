@@ -97,6 +97,8 @@ under the License.
 
         <field use-when="partyId != null" name="partyId"><hidden/></field>
         <field use-when="roleTypeId != null" name="roleTypeId"><hidden/></field>
+        <field name="partyId"  use-when="partyId == null" title="${uiLabelMap.AccountingPartyBilledTo}"><lookup target-form-name="LookupPartyName"/></field>
+        <field use-when="roleTypeId == null" name="roleTypeId"><hidden value="BILL_TO_CUSTOMER"/></field>
         
         <field name="accountCurrencyUomId">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
