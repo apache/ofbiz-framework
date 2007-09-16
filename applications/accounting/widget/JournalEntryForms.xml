@@ -59,7 +59,7 @@ under the License.
             </service>
         </actions>
         <field name="acctgTransId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${acctgTransId}" target="ListAcctgTransEntries?acctgTransId=${acctgTransId}"/> 
+            <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/> 
         </field>                
         <field name="transactionDate"><display/></field>                
         <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
@@ -78,7 +78,7 @@ under the License.
 
     <form name="ListUnpostedAcctgTrans" type="list" title="Unposted Accounting Transactions" list-name="transactions">
         <field name="acctgTransId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${acctgTransId}" target="ListAcctgTransEntries?acctgTransId=${acctgTransId}"/> 
+            <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/> 
         </field>                
         <field name="transactionDate"><display/></field>                
         <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
@@ -156,4 +156,87 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
+    <form name="EditAcctgTrans" type="single" target="updateAcctgTrans" default-map-name="acctgTrans" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <field name="acctgTransId"><display/></field>
+        <field name="organizationPartyId"  map-name="parameter"><hidden/></field>
+        <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="AcctgTransType" description="${description}">
+                    <entity-order-by field-name="acctgTransTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="glFiscalTypeId" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="GlFiscalType" description="${description}">
+                    <entity-order-by field-name="glFiscalTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="transactionDate"><date-time/></field>
+        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field> 
+    </form>
+
+    <form name="EditAcctgTransEntry" type="single" target="updateAcctgTransEntry" default-map-name="acctgTransEntry" default-entity-name="AcctgTransEntry">
+        <alt-target use-when="acctgTransEntry==null" target="createAcctgTransEntry"/>
+        <field name="acctgTransId"><hidden/></field>
+        <field name="acctgTransEntrySeqId"><hidden/></field>     
+        <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
+            <drop-down>
+                <entity-options entity-name="AcctgTransType" description="${description}">
+                    <entity-order-by field-name="acctgTransTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="acctgTransEntryTypeId" ><hidden value="_NA_"/></field>
+        <field name="description"><text size="30"/></field>
+        <field name="glAccountId" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}" key-field-name="glAccountId">
+                <entity-order-by field-name="glAccountId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="amount"><text size="30"/></field>
+        <field name="voucherRef"><text size="30"/></field>
+        <field name="partyId"><text size="30"/></field>
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="productId"><text size="20"/></field>
+        <field name="debitCreditFlag">
+            <drop-down current="selected">
+                <option description="Credit" key="C"/>
+                <option description="Debit" key="D"/>
+            </drop-down>
+        </field>
+        <field name="reconcileStatusId"><text size="30"/></field>
+        <field name="settlementTermId"><text size="20"/></field>
+        <field name="isSummary"><text size="10"/></field>
+        <field use-when="acctgTransEntry!=null" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
+        <field use-when="acctgTransEntry==null" name="createButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
+    </form>
+    <form name="ListAcctgTransEntries" type="list" list-name="acctgTransEntries"  default-entity-name="AcctgTransEntry">
+        <field name="acctgTransId"><hidden/></field>
+        <field name="acctgTransEntrySeqId"><hidden/></field>     
+        <field name="glAccountId">
+            <display-entity entity-name="GlAccount" description="${accountName}">
+                <sub-hyperlink target="ListGlAccountEntries?glAccountId=${glAccountId}" description="[${glAccountId}]"/>
+             </display-entity>
+        </field>
+        <field name="description"><display/></field>
+        <field name="voucherRef"><display/></field>
+        <field name="partyId"><display/></field>
+        <field name="organizationPartyId"><display/></field>
+        <field name="productId"><display/></field>
+        <field name="debitCreditFlag"><display/></field>
+        <field name="amount"><display/></field>
+        <field name="reconcileStatusId"><display/></field>
+        <field name="settlementTermId"><display/></field>
+        <field name="isSummary"><display/></field>
+        <field name="EditButton" title="" widget-style="buttontext" use-when="isPosted==null">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;editAcctgTransEntrySeqId=${acctgTransEntrySeqId}&amp;organizationPartyId=${organizationPartyId}"/>
+        </field>
+        <field name="removeButton" title="" widget-style="buttontext" use-when="isPosted==null">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteAcctgTransEntry?acctgTransId=${acctgTransId}&amp;acctgTransEntrySeqId=${acctgTransEntrySeqId}&amp;organizationPartyId=${organizationPartyId}"/>
+        </field>
+    </form>
 </forms>

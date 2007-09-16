@@ -403,8 +403,7 @@ under the License.
         </menu-item>
     </menu>
     
-    <menu name="JournalEntryActionsBar" menu-container-style="button-bar button-style-2" type="simple" 
-        default-selected-style="selected">  
+    <menu name="JournalEntryActionsBar" menu-container-style="button-bar button-style-2" type="simple">  
         <menu-item name="FindGlJournalEntry" title="${uiLabelMap.AcctgFindGlJournalEntry}">
             <link target="FindGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
         </menu-item>

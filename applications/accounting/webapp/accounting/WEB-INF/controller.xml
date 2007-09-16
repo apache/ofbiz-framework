@@ -454,6 +454,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="NewGlJournalEntry"/>
     </request-map>
+    <request-map uri="EditAcctgTrans">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditAcctgTrans"/>
+    </request-map>
     <request-map uri="ListUnpostedAcctgTrans">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListUnpostedAcctgTrans"/>
@@ -463,6 +467,30 @@ under the License.
         <event type="service" invoke="postAcctgTrans"/>
         <response name="success" type="view" value="ListUnpostedAcctgTrans"/>
         <response name="error" type="view" value="ListUnpostedAcctgTrans"/>
+    </request-map>
+    <request-map uri="updateAcctgTrans">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateAcctgTrans"/>
+        <response name="success" type="view" value="EditAcctgTrans"/>
+        <response name="error" type="view" value="EditAcctgTrans"/>
+    </request-map>
+    <request-map uri="createAcctgTransEntry">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createAcctgTransEntry"/>
+        <response name="success" type="view" value="EditAcctgTrans"/>
+        <response name="error" type="view" value="EditAcctgTrans"/>
+    </request-map>
+    <request-map uri="updateAcctgTransEntry">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateAcctgTransEntry"/>
+        <response name="success" type="view" value="EditAcctgTrans"/>
+        <response name="error" type="view" value="EditAcctgTrans"/>
+    </request-map>
+    <request-map uri="deleteAcctgTransEntry">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteAcctgTransEntry"/>
+        <response name="success" type="view" value="EditAcctgTrans"/>
+        <response name="error" type="view" value="EditAcctgTrans"/>
     </request-map>
 
     <!-- GlAccount requests -->
@@ -1456,6 +1484,7 @@ under the License.
     <view-map name="PartyAccountsSummary" type="screen" page="component://accounting/widget/AccountingScreens.xml#PartyAccountsSummary"/>
     <view-map name="FindGlJournalEntry" type="screen" page="component://accounting/widget/AccountingScreens.xml#FindGlJournalEntry"/>
     <view-map name="NewGlJournalEntry" type="screen" page="component://accounting/widget/AccountingScreens.xml#NewGlJournalEntry"/>
+    <view-map name="EditAcctgTrans" type="screen" page="component://accounting/widget/AccountingScreens.xml#EditAcctgTrans"/>
     <view-map name="ListUnpostedAcctgTrans" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListUnpostedAcctgTrans"/>
     
     <!-- GlAccount, GlJournalEntry, AcctgTrans -->
