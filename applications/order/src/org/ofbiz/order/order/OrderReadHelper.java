@@ -1735,7 +1735,7 @@ public class OrderReadHelper {
     * Get the total quantity of returned items for an order. This will count
     * only the ReturnItems that are directly correlated to an OrderItem.
     */
-    public BigDecimal getOrderReturnedQuantityBd() {
+    public BigDecimal getOrderReturnedQuantity() {
         List returnedItemsBase = getOrderReturnItems();
         List returnedItems = new ArrayList(returnedItemsBase.size());
 
@@ -1765,11 +1765,6 @@ public class OrderReadHelper {
             }
         }
         return returnedQuantity.setScale(scale, rounding);
-    }
-
-    /** @deprecated */
-    public double getOrderReturnedQuantity() {
-        return getOrderReturnedQuantityBd().doubleValue();
     }
 
     /** @deprecated */
