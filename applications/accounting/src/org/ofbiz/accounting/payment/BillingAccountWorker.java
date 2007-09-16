@@ -190,7 +190,7 @@ public class BillingAccountWorker {
             while (ohi.hasNext()) {
                 GenericValue orderHeader = (GenericValue) ohi.next();
                 OrderReadHelper orh = new OrderReadHelper(orderHeader);
-                balance = balance.add(orh.getOrderGrandTotalBd());
+                balance = balance.add(orh.getOrderGrandTotal());
             }
         }
 

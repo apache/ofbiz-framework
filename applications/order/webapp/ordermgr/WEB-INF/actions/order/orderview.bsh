@@ -105,7 +105,7 @@ if (orderHeader != null) {
     taxAmount += OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, true, false);
     context.put("taxAmount", taxAmount);
 
-    grandTotal = OrderReadHelper.getOrderGrandTotalBd(orderItems, orderAdjustments);
+    grandTotal = OrderReadHelper.getOrderGrandTotal(orderItems, orderAdjustments);
     context.put("grandTotal", grandTotal);
 
     orderItemList = orderReadHelper.getOrderItems();

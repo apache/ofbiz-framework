@@ -1257,16 +1257,11 @@ public class OrderReadHelper {
         return emails.toString();
     }
 
-    public BigDecimal getOrderGrandTotalBd() {
+    public BigDecimal getOrderGrandTotal() {
         if (totalPrice == null) {
             totalPrice = getOrderGrandTotalBd(getValidOrderItems(), getAdjustments());
         }// else already set
         return totalPrice;
-    }
-
-    /** @deprecated Use getOrderGrandTotalBd() instead */
-    public double getOrderGrandTotal() {
-        return getOrderGrandTotalBd().doubleValue();
     }
 
     /**
@@ -1276,7 +1271,7 @@ public class OrderReadHelper {
      */
     public double getOrderOpenAmount() throws GenericEntityException {
         GenericDelegator delegator = orderHeader.getDelegator();
-        BigDecimal total = getOrderGrandTotalBd();
+        BigDecimal total = getOrderGrandTotal();
         double openAmount = 0;
         List prefs = getPaymentPreferences();
 
@@ -2385,15 +2380,10 @@ public class OrderReadHelper {
         return productStore;
     }
 
-    public static BigDecimal getOrderGrandTotalBd(List orderItems, List adjustments) {
+    public static BigDecimal getOrderGrandTotal(List orderItems, List adjustments) {
         BigDecimal total = getOrderItemsTotalBd(orderItems, adjustments);
         BigDecimal adj = getOrderAdjustmentsTotalBd(orderItems, adjustments);
         return total.add(adj).setScale(scale,rounding);
-    }
-
-    /** @deprecated */
-    public static double getOrderGrandTotal(List orderItems, List adjustments) {
-        return getOrderGrandTotalBd(orderItems, adjustments).doubleValue();
     }
 
     public static List getOrderHeaderAdjustments(List adjustments, String shipGroupSeqId) {

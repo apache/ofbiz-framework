@@ -33,7 +33,7 @@ under the License.
                 <table border='0' width='100%' cellpadding='2' cellspacing='0'>
                   <tr>
                     <td class="tabletext" width="25%">${uiLabelMap.OrderOrderTotal}</td>
-                    <td class="tabletext"><@ofbizCurrency amount=orh.getOrderGrandTotalBd() isoCode=orh.getCurrency()/></td>
+                    <td class="tabletext"><@ofbizCurrency amount=orh.getOrderGrandTotal() isoCode=orh.getCurrency()/></td>
                   </tr>  
                   <tr>
                     <td class="tabletext" width="25%">${uiLabelMap.OrderAmountAlreadyCredited}</td>

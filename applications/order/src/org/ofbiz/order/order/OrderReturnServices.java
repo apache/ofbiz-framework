@@ -114,7 +114,7 @@ public class OrderReturnServices {
             countNewReturnItems = Boolean.FALSE;
         }
         BigDecimal returnTotal = orh.getOrderReturnedTotalBd(countNewReturnItems.booleanValue());
-        BigDecimal orderTotal = orh.getOrderGrandTotalBd();
+        BigDecimal orderTotal = orh.getOrderGrandTotal();
         BigDecimal available = orderTotal.subtract(returnTotal).subtract(adj);
 
 
@@ -1990,7 +1990,7 @@ public class OrderReturnServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderReturnTotalCannotLessThanZero", locale));
                 }
                 OrderReadHelper helper = new OrderReadHelper(OrderReadHelper.getOrderHeader(delegator, orderId));
-                BigDecimal grandTotal = helper.getOrderGrandTotalBd();
+                BigDecimal grandTotal = helper.getOrderGrandTotal();
                 if (returnAmount == null) {
                     Debug.logInfo("No returnAmount found for order:" + orderId, module);
                 } else {

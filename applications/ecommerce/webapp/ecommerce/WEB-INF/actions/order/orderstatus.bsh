@@ -175,7 +175,7 @@ if (orderHeader != null) {
 
     context.put("orderShippingTotal", orderShippingTotal);
     context.put("orderTaxTotal", orderTaxTotal);   
-    context.put("orderGrandTotal", OrderReadHelper.getOrderGrandTotalBd(orderItems, orderAdjustments));
+    context.put("orderGrandTotal", OrderReadHelper.getOrderGrandTotal(orderItems, orderAdjustments));
     context.put("placingCustomerPerson", placingCustomerPerson);
 
     context.put("billingAccount", billingAccount);
