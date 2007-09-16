@@ -760,13 +760,8 @@ public class OrderReadHelper {
         return OrderReadHelper.calcOrderAdjustmentsBd(getOrderHeaderAdjustments(), getOrderItemsSubTotalBd(), false, true, false);
     }
 
-    public BigDecimal getTaxTotalBd() {
+    public BigDecimal getTaxTotal() {
         return OrderReadHelper.calcOrderAdjustmentsBd(getAdjustments(), getOrderItemsSubTotalBd(), false, true, false);
-    }
-
-    /** @deprecated Use getTaxTotalBd() instead */
-    public double getTaxTotal() {
-        return getTaxTotalBd().doubleValue();
     }
 
     public Set getItemFeatureSet(GenericValue item) {
