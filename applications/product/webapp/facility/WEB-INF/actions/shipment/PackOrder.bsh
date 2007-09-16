@@ -135,7 +135,7 @@ if (UtilValidate.isNotEmpty(orderId)) {
                 shippableItems = delegator.findByAnd("OrderItemAndShipGrpInvResAndItemSum", UtilMisc.toMap("orderId", orderId, "shipGroupSeqId", shipGroupSeqId));
                 shippableTotal = new Double(orh.getShippableTotal(shipGroupSeqId).doubleValue());
                 shippableWeight = new Double(orh.getShippableWeightBd(shipGroupSeqId).doubleValue());
-                shippableQuantity = new Double(orh.getShippableQuantityBd(shipGroupSeqId).doubleValue());
+                shippableQuantity = new Double(orh.getShippableQuantity(shipGroupSeqId).doubleValue());
                 shipmentCostEstimate = packSession.getShipmentCostEstimate(orderItemShipGroup, productStoreId, shippableItemInfo, shippableTotal, shippableWeight, shippableQuantity);
                 context.put("shipmentCostEstimateForShipGroup", shipmentCostEstimate);
                 context.put("productStoreId", productStoreId);
