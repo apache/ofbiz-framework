@@ -139,6 +139,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AcctgNewGlJournalEntry"/>
                 <set field="tabButtonItem" value="FindGlJournalEntry"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="labelTitleProperty" value="AcctgNewGlJournalEntry"/>
             </actions>
             <widgets>
@@ -146,6 +147,60 @@ under the License.
                     <decorator-section name="body">
                         <include-menu name="JournalEntryActionsBar" location="component://accounting/widget/Menus.xml"/>
                         <include-form name="NewGlJournalEntry" location="component://accounting/widget/JournalEntryForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditAcctgTrans">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="Edit Accounting transaction"/>
+                <set field="tabButtonItem" value="FindGlJournalEntry"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
+                <set field="acctgTransId" from-field="parameters.acctgTransId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/chartofaccounts/editGlJournalEntry.bsh"/>
+                <set field="isPosted" from-field="parameters.isPosted"/>
+                
+                <entity-one entity-name="AcctgTrans" value-name="acctgTrans"/>
+                <entity-one entity-name="AcctgTransEntry" value-name="acctgTransEntry">
+                    <field-map field-name="acctgTransId"/>
+                    <field-map field-name="acctgTransEntrySeqId" env-name="parameters.editAcctgTransEntrySeqId"/>
+                </entity-one>
+                <entity-and entity-name="AcctgTransEntry" list-name="acctgTransEntries">
+                    <field-map field-name="acctgTransId"/>
+                    <order-by field-name="acctgTransEntrySeqId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="acctgTransId"/></not>
+                            </condition>
+                            <widgets>
+                                <container>
+                                    <include-form name="EditAcctgTrans" location="component://accounting/widget/JournalEntryForms.xml"/>
+                                    <include-form name="ListAcctgTransEntries" location="component://accounting/widget/JournalEntryForms.xml"/>
+                                </container>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                               <if-empty field-name="isPosted"/>
+                            </condition>
+                            <widgets>
+                                <container>
+                                    <link target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AcctgNewGlJournalEntry}" style="buttontext"/>
+                                </container>
+                                <container>
+                                    <include-form name="EditAcctgTransEntry" location="component://accounting/widget/JournalEntryForms.xml"/>
+                                </container>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
