@@ -308,7 +308,7 @@ public class JavaMailContainer implements Container {
             	if (!messages[i].isSet(Flags.Flag.SEEN)) {
             		long messageSize = messages[i].getSize();
             		if (messages[i] instanceof MimeMessage && messageSize >= maxSize) {
-            			Debug.logWarning("Message from: " + messages[i].getFrom()[0] + "not received, to big, size:" + messageSize + " cannot be more than " + maxSize + " bytes", module);
+            			Debug.logWarning("Message from: " + messages[i].getFrom()[0] + "not received, too big, size:" + messageSize + " cannot be more than " + maxSize + " bytes", module);
             		} else {
             			this.processMessage(messages[i], session);
             			if (Debug.verboseOn()) Debug.logVerbose("Message from " + UtilMisc.toListArray(messages[i].getFrom()) + " with subject [" + messages[i].getSubject() + "]  has been processed." , module);
