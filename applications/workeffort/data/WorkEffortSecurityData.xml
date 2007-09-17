@@ -23,10 +23,11 @@ under the License.
     <SecurityPermission description="View operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_VIEW"/>
     <SecurityPermission description="Create operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_CREATE"/>
     <SecurityPermission description="Update operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_UPDATE"/>
-    <SecurityPermission description="Delete operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_DELETE"/>    
-    <SecurityPermission description="View work effort roles in the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_VIEW"/>
-    <SecurityPermission description="Create work effort roles in the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_CREATE"/>
-    <SecurityPermission description="Update work effort roles in the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_UPDATE"/>
+    <SecurityPermission description="Delete operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_DELETE"/>
+    <SecurityPermission description="Limited View operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_VIEW"/>
+    <SecurityPermission description="Limited Create operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_CREATE"/>
+    <SecurityPermission description="Limited Update operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_UPDATE"/>
+    <SecurityPermission description="Limited Update operations the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_DELETE"/>
     <SecurityPermission description="ALL operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_ADMIN"/>
     
     
