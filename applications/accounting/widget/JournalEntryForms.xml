@@ -141,12 +141,20 @@ under the License.
         <field name="debitGlAccountId">
             <drop-down>
                 <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}" key-field-name="glAccountId">
+                    <entity-constraint name="glAccountClassId" operator="equals" value="${parameters.debitGlAccountClassId}"/>
+                    <entity-order-by field-name="glAccountId"/>
+                </entity-options> 
+                <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}" key-field-name="glAccountId">
                     <entity-order-by field-name="glAccountId"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="creditGlAccountId">
             <drop-down>
+                <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}" key-field-name="glAccountId">
+                    <entity-constraint name="glAccountClassId" operator="equals" value="${parameters.creditGlAccountClassId}"/>
+                    <entity-order-by field-name="glAccountId"/>
+                </entity-options> 
                 <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}" key-field-name="glAccountId">
                     <entity-order-by field-name="glAccountId"/>
                 </entity-options>

@@ -411,6 +411,14 @@ under the License.
             <link target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
     </menu>
+    <menu name="JournalEntryShortcuts" menu-container-style="${shortCutsMenuStyle}" type="simple">  
+        <menu-item name="CreateSalesJournalEntry" title="${uiLabelMap.AccountingCreateSalesJournalEntry}">
+            <link target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CURRENT_ASSET&amp;creditGlAccountClassId=REVENUE&amp;acctgTransTypeId=SALES_ACCTG_TRANS"/>
+        </menu-item>
+        <menu-item name="CreatePaymentJournalEntry" title="${uiLabelMap.AccountingCreatePaymentJournalEntry}">
+            <link target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CASH_EQUIVALENT&amp;creditGlAccountClassId=CURRENT_LIABILITY&amp;acctgTransTypeId=PAYMENT_ACCTG_TRANS"/>
+        </menu-item>
+    </menu>
     
 </menus>
     
