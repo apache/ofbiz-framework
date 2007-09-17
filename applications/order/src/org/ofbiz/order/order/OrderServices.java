@@ -1540,7 +1540,7 @@ public class OrderServices {
                     Debug.log("New Shipping Total [" + orderId + " / " + shipGroupSeqId + "] : " + shippingTotal, module);
                 }
 
-                BigDecimal currentShipping = OrderReadHelper.getAllOrderItemsAdjustmentsTotalBd(orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId), orh.getAdjustments(), false, false, true);
+                BigDecimal currentShipping = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId), orh.getAdjustments(), false, false, true);
                 currentShipping = currentShipping.add(OrderReadHelper.calcOrderAdjustments(orh.getOrderHeaderAdjustments(shipGroupSeqId), orh.getOrderItemsSubTotal(), false, false, true));
 
                 if (Debug.infoOn()) {
@@ -2486,7 +2486,7 @@ public class OrderServices {
             List orderHeaderAdjustments = orh.getOrderHeaderAdjustments();
             BigDecimal orderSubTotal = orh.getOrderItemsSubTotal();
 
-            BigDecimal shippingAmount = OrderReadHelper.getAllOrderItemsAdjustmentsTotalBd(orderItems, orderAdjustments, false, false, true);
+            BigDecimal shippingAmount = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, false, true);
             shippingAmount = shippingAmount.add(OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true));
 
             result = ServiceUtil.returnSuccess();

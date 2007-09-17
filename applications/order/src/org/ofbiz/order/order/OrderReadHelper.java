@@ -1799,7 +1799,7 @@ public class OrderReadHelper {
                 returnedAmount = returnedAmount.add(returnedItem.getBigDecimal("returnPrice").multiply(returnedItem.getBigDecimal("returnQuantity"))).setScale(scale, rounding);
             }
             Map itemAdjustmentCondition = UtilMisc.toMap("returnId", returnedItem.get("returnId"), "returnItemSeqId", returnedItem.get("returnItemSeqId"));
-            returnedAmount = returnedAmount.add(getReturnAdjustmentTotalBd(orderHeader.getDelegator(), itemAdjustmentCondition));
+            returnedAmount = returnedAmount.add(getReturnAdjustmentTotal(orderHeader.getDelegator(), itemAdjustmentCondition));
             if(orderId.equals(returnedItem.getString("orderId")) && (!returnHeaderList.contains(returnedItem.getString("returnId")))) {
                 returnHeaderList.add(returnedItem.getString("returnId"));
             }
@@ -1809,7 +1809,7 @@ public class OrderReadHelper {
         while(returnHeaderIterator.hasNext()) {
             String returnId = (String) returnHeaderIterator.next();
             Map returnHeaderAdjFilter = UtilMisc.toMap("returnId", returnId, "returnItemSeqId", "_NA_");
-            returnedAmount =returnedAmount.add(getReturnAdjustmentTotalBd(orderHeader.getDelegator(), returnHeaderAdjFilter)).setScale(scale, rounding);
+            returnedAmount =returnedAmount.add(getReturnAdjustmentTotal(orderHeader.getDelegator(), returnHeaderAdjFilter)).setScale(scale, rounding);
         }
         return returnedAmount.setScale(scale, rounding);
     }
@@ -2145,7 +2145,7 @@ public class OrderReadHelper {
     }
 
     public BigDecimal getOrderItemAdjustmentTotal(GenericValue orderItem, GenericValue adjustment) {
-        return calcItemAdjustmentBd(adjustment, orderItem);
+        return calcItemAdjustment(adjustment, orderItem);
     }
 
     public String getAdjustmentType(GenericValue adjustment) {
@@ -2507,7 +2507,7 @@ public class OrderReadHelper {
         return rentalAdjustment; // return total rental adjustment
         }
 
-    public static BigDecimal getAllOrderItemsAdjustmentsTotalBd(List orderItems, List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping) {
+    public static BigDecimal getAllOrderItemsAdjustmentsTotal(List orderItems, List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping) {
         BigDecimal result = ZERO;
         Iterator itemIter = UtilMisc.toIterator(orderItems);
 
@@ -2517,11 +2517,6 @@ public class OrderReadHelper {
         return result;
     }
 
-    /** @deprecated */
-    public static double getAllOrderItemsAdjustmentsTotal(List orderItems, List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping) {
-        return getAllOrderItemsAdjustmentsTotalBd(orderItems, adjustments, includeOther, includeTax, includeShipping).doubleValue();
-    }
-
     /** The passed adjustments can be all adjustments for the order, ie for all line items */
     public static BigDecimal getOrderItemAdjustmentsTotal(GenericValue orderItem, List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping) {
         return getOrderItemAdjustmentsTotal(orderItem, adjustments, includeOther, includeTax, includeShipping, false, false);
@@ -2529,7 +2524,7 @@ public class OrderReadHelper {
 
     /** The passed adjustments can be all adjustments for the order, ie for all line items */
     public static BigDecimal getOrderItemAdjustmentsTotal(GenericValue orderItem, List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
-        return calcItemAdjustmentsBd(getOrderItemQuantity(orderItem), orderItem.getBigDecimal("unitPrice"),
+        return calcItemAdjustments(getOrderItemQuantity(orderItem), orderItem.getBigDecimal("unitPrice"),
                 getOrderItemAdjustmentList(orderItem, adjustments),
                 includeOther, includeTax, includeShipping, forTax, forShipping);
     }
@@ -2545,7 +2540,7 @@ public class OrderReadHelper {
 
     // Order Item Adjs Utility Methods
 
-    public static BigDecimal calcItemAdjustmentsBd(BigDecimal quantity, BigDecimal unitPrice, List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
+    public static BigDecimal calcItemAdjustments(BigDecimal quantity, BigDecimal unitPrice, List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
         BigDecimal adjTotal = ZERO;
 
         if (adjustments != null && adjustments.size() > 0) {
@@ -2555,7 +2550,7 @@ public class OrderReadHelper {
             while (adjIt.hasNext()) {
                 GenericValue orderAdjustment = (GenericValue) adjIt.next();
 
-                adjTotal = adjTotal.add(OrderReadHelper.calcItemAdjustmentBd(orderAdjustment, quantity, unitPrice));
+                adjTotal = adjTotal.add(OrderReadHelper.calcItemAdjustment(orderAdjustment, quantity, unitPrice));
             }
         }
         return adjTotal;
@@ -2577,21 +2572,11 @@ public class OrderReadHelper {
         return adjTotal;
     }
 
-    /** @deprecated */
-    public static double calcItemAdjustments(Double quantity, Double unitPrice, List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
-        return calcItemAdjustmentsBd(new BigDecimal(quantity.doubleValue()), new BigDecimal(unitPrice.doubleValue()), adjustments, includeOther, includeTax, includeShipping, forTax, forShipping).doubleValue();
+    public static BigDecimal calcItemAdjustment(GenericValue itemAdjustment, GenericValue item) {
+        return calcItemAdjustment(itemAdjustment, getOrderItemQuantity(item), item.getBigDecimal("unitPrice"));
     }
 
-    public static BigDecimal calcItemAdjustmentBd(GenericValue itemAdjustment, GenericValue item) {
-        return calcItemAdjustmentBd(itemAdjustment, getOrderItemQuantity(item), item.getBigDecimal("unitPrice"));
-    }
-
-    /** @deprecated */
-    public static double calcItemAdjustment(GenericValue itemAdjustment, GenericValue item) {
-        return calcItemAdjustmentBd(itemAdjustment, item).doubleValue();
-    }
-
-    public static BigDecimal calcItemAdjustmentBd(GenericValue itemAdjustment, BigDecimal quantity, BigDecimal unitPrice) {
+    public static BigDecimal calcItemAdjustment(GenericValue itemAdjustment, BigDecimal quantity, BigDecimal unitPrice) {
         BigDecimal adjustment = ZERO;
         if (itemAdjustment.get("amount") != null) {
             adjustment = adjustment.add(setScaleByType("SALES_TAX".equals(itemAdjustment.get("orderAdjustmentTypeId")), itemAdjustment.getBigDecimal("amount")));
@@ -2610,11 +2595,6 @@ public class OrderReadHelper {
         }
         if (Debug.verboseOn()) Debug.logVerbose("calcItemAdjustmentRecurring: " + itemAdjustment + ", quantity=" + quantity + ", unitPrice=" + unitPrice + ", adjustmentRecurring=" + adjustmentRecurring, module);
         return adjustmentRecurring.setScale(scale, rounding);
-    }
-
-    /** @deprecated */
-    public static double calcItemAdjustment(GenericValue itemAdjustment, Double quantity, Double unitPrice) {
-        return calcItemAdjustmentBd(itemAdjustment, new BigDecimal(quantity.doubleValue()), new BigDecimal(unitPrice.doubleValue())).doubleValue();
     }
 
     public static List filterOrderAdjustments(List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
@@ -2751,7 +2731,7 @@ public class OrderReadHelper {
      * @param condition
      * @return
      */
-    public static BigDecimal getReturnAdjustmentTotalBd(GenericDelegator delegator, Map condition) {
+    public static BigDecimal getReturnAdjustmentTotal(GenericDelegator delegator, Map condition) {
         BigDecimal total = ZERO;
         List adjustments;
         try {
@@ -2768,11 +2748,6 @@ public class OrderReadHelper {
             Debug.logError(e, OrderReturnServices.module);
         }
         return total.setScale(scale, rounding);
-    }
-
-    /** @deprecated */
-    public static double getReturnAdjustmentTotal(GenericDelegator delegator, Map condition) {
-        return getReturnAdjustmentTotalBd(delegator, condition).doubleValue();
     }
 
     // little helper method to set the scale according to tax type
