@@ -35,7 +35,7 @@ under the License.
         title="HR"
         server="default-server"
         location="webapp/humanres"
-        base-permission="OFBTOOLS"
+        base-permission="OFBTOOLS,HUMANRES"
         mount-point="/humanres"
         app-bar-display="true"/>
 </ofbiz-component>
