@@ -414,6 +414,7 @@ public class RequestHandler implements Serializable {
             } else if (nextView != null && nextView.startsWith("cross-redirect:")) {
                 // check for a cross-application redirect
                 Debug.logInfo("[RequestHandler.doRequest]: Response is a Cross-Application redirect." + " sessionId=" + UtilHttp.getSessionId(request), module);
+                nextView = nextView.substring(15);
                 String url = nextView.startsWith("/") ? nextView : "/" + nextView;
                 callRedirect(url + this.makeQueryString(request), response, request);
             } else if (nextView != null && nextView.startsWith("request-redirect:")) {
