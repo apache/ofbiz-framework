@@ -753,15 +753,15 @@ public class OrderReadHelper {
     }
 
     public BigDecimal getShippingTotal() {
-        return OrderReadHelper.calcOrderAdjustmentsBd(getOrderHeaderAdjustments(), getOrderItemsSubTotal(), false, false, true);
+        return OrderReadHelper.calcOrderAdjustments(getOrderHeaderAdjustments(), getOrderItemsSubTotal(), false, false, true);
     }
 
     public BigDecimal getHeaderTaxTotal() {
-        return OrderReadHelper.calcOrderAdjustmentsBd(getOrderHeaderAdjustments(), getOrderItemsSubTotal(), false, true, false);
+        return OrderReadHelper.calcOrderAdjustments(getOrderHeaderAdjustments(), getOrderItemsSubTotal(), false, true, false);
     }
 
     public BigDecimal getTaxTotal() {
-        return OrderReadHelper.calcOrderAdjustmentsBd(getAdjustments(), getOrderItemsSubTotal(), false, true, false);
+        return OrderReadHelper.calcOrderAdjustments(getAdjustments(), getOrderItemsSubTotal(), false, true, false);
     }
 
     public Set getItemFeatureSet(GenericValue item) {
@@ -966,7 +966,7 @@ public class OrderReadHelper {
                 }
                 if (product != null) {
                     if (ProductWorker.shippingApplies(product)) {
-                        shippableQuantity = shippableQuantity.add(getOrderItemQuantityBd(item)).setScale(scale, rounding);
+                        shippableQuantity = shippableQuantity.add(getOrderItemQuantity(item)).setScale(scale, rounding);
                     }
                 }
             }
@@ -981,7 +981,7 @@ public class OrderReadHelper {
             Iterator i = validItems.iterator();
             while (i.hasNext()) {
                 GenericValue item = (GenericValue) i.next();
-                shippableWeight = shippableWeight.add(this.getItemWeight(item).multiply( getOrderItemQuantityBd(item))).setScale(scale, rounding);
+                shippableWeight = shippableWeight.add(this.getItemWeight(item).multiply( getOrderItemQuantity(item))).setScale(scale, rounding);
             }
         }
 
@@ -1331,7 +1331,7 @@ public class OrderReadHelper {
     }
 
     public BigDecimal getOrderAdjustmentTotal(GenericValue adjustment) {
-        return calcOrderAdjustmentBd(adjustment, getOrderItemsSubTotal());
+        return calcOrderAdjustment(adjustment, getOrderItemsSubTotal());
     }
 
     public int hasSurvey() {
@@ -2095,7 +2095,7 @@ public class OrderReadHelper {
         for (int i = 0; i < orderItems.size(); i++) {
             GenericValue oi = (GenericValue) orderItems.get(i);
 
-            totalItems = totalItems.add(getOrderItemQuantityBd(oi)).setScale(scale, rounding);
+            totalItems = totalItems.add(getOrderItemQuantity(oi)).setScale(scale, rounding);
         }
         return totalItems.setScale(scale, rounding);
     }
@@ -2144,13 +2144,8 @@ public class OrderReadHelper {
         return getOrderItemAdjustmentsTotal(orderItem, true, false, false);
     }
 
-    public BigDecimal getOrderItemAdjustmentTotalBd(GenericValue orderItem, GenericValue adjustment) {
+    public BigDecimal getOrderItemAdjustmentTotal(GenericValue orderItem, GenericValue adjustment) {
         return calcItemAdjustmentBd(adjustment, orderItem);
-    }
-
-    /** @deprecated */
-    public double getOrderItemAdjustmentTotal(GenericValue orderItem, GenericValue adjustment) {
-        return getOrderItemAdjustmentTotalBd(orderItem, adjustment).doubleValue();
     }
 
     public String getAdjustmentType(GenericValue adjustment) {
@@ -2223,7 +2218,7 @@ public class OrderReadHelper {
         return orderHeader;
     }
 
-    public static BigDecimal getOrderItemQuantityBd(GenericValue orderItem) {
+    public static BigDecimal getOrderItemQuantity(GenericValue orderItem) {
 
         BigDecimal cancelQty = orderItem.getBigDecimal("cancelQuantity");
         BigDecimal orderQty = orderItem.getBigDecimal("quantity");
@@ -2232,11 +2227,6 @@ public class OrderReadHelper {
         if (orderQty == null) orderQty = ZERO;
 
         return orderQty.subtract(cancelQty).setScale(scale, rounding);
-    }
-
-    /** @deprecated */
-    public static Double getOrderItemQuantity(GenericValue orderItem) {
-        return new Double(getOrderItemQuantityBd(orderItem).doubleValue());
     }
 
     public static Double getOrderItemShipGroupQuantity(GenericValue shipGroupAssoc) {
@@ -2318,7 +2308,7 @@ public class OrderReadHelper {
     }
 
     public static BigDecimal getOrderAdjustmentsTotal(List orderItems, List adjustments) {
-        return calcOrderAdjustmentsBd(getOrderHeaderAdjustments(adjustments, null), getOrderItemsSubTotal(orderItems, adjustments), true, true, true);
+        return calcOrderAdjustments(getOrderHeaderAdjustments(adjustments, null), getOrderItemsSubTotal(orderItems, adjustments), true, true, true);
     }
 
     public static List getOrderSurveyResponses(GenericValue orderHeader) {
@@ -2356,7 +2346,7 @@ public class OrderReadHelper {
 
     // ================= Order Adjustments =================
 
-    public static BigDecimal calcOrderAdjustmentsBd(List orderHeaderAdjustments, BigDecimal subTotal, boolean includeOther, boolean includeTax, boolean includeShipping) {
+    public static BigDecimal calcOrderAdjustments(List orderHeaderAdjustments, BigDecimal subTotal, boolean includeOther, boolean includeTax, boolean includeShipping) {
         BigDecimal adjTotal = ZERO;
 
         if (orderHeaderAdjustments != null && orderHeaderAdjustments.size() > 0) {
@@ -2366,18 +2356,13 @@ public class OrderReadHelper {
             while (adjIt.hasNext()) {
                 GenericValue orderAdjustment = (GenericValue) adjIt.next();
 
-                adjTotal = adjTotal.add(OrderReadHelper.calcOrderAdjustmentBd(orderAdjustment, subTotal)).setScale(scale, rounding);
+                adjTotal = adjTotal.add(OrderReadHelper.calcOrderAdjustment(orderAdjustment, subTotal)).setScale(scale, rounding);
             }
         }
         return adjTotal.setScale(scale, rounding);
     }
 
-    /** @deprecated */
-    public static double calcOrderAdjustments(List orderHeaderAdjustments, double subTotal, boolean includeOther, boolean includeTax, boolean includeShipping) {
-        return calcOrderAdjustmentsBd(orderHeaderAdjustments, new BigDecimal(subTotal), includeOther, includeTax, includeShipping).doubleValue();
-    }
-
-    public static BigDecimal calcOrderAdjustmentBd(GenericValue orderAdjustment, BigDecimal orderSubTotal) {
+    public static BigDecimal calcOrderAdjustment(GenericValue orderAdjustment, BigDecimal orderSubTotal) {
         BigDecimal adjustment = ZERO;
 
         if (orderAdjustment.get("amount") != null) {
@@ -2392,11 +2377,6 @@ public class OrderReadHelper {
             adjustment = adjustment.add(amount);
         }        
         return adjustment.setScale(scale, rounding);
-    }
-
-    /** @deprecated */
-    public static double calcOrderAdjustment(GenericValue orderAdjustment, double orderSubTotal) {
-        return calcOrderAdjustmentBd(orderAdjustment, new BigDecimal(orderSubTotal)).doubleValue();
     }
 
     // ================= Order Item Adjustments =================
@@ -2418,7 +2398,7 @@ public class OrderReadHelper {
                 while (weIter != null && weIter.hasNext()) {
                     GenericValue workEffort = (GenericValue) weIter.next();
                     if (workEffort.getString("workEffortId").compareTo(orderItem.getString("orderItemSeqId")) == 0)    {
-                        itemTotal = itemTotal.multiply(getWorkEffortRentalQuantityBd(workEffort)).setScale(scale, rounding);
+                        itemTotal = itemTotal.multiply(getWorkEffortRentalQuantity(workEffort)).setScale(scale, rounding);
                         break;
                     }
 //                    Debug.log("Item : " + orderItem.getString("orderId") + " / " + orderItem.getString("orderItemSeqId") + " = " + itemTotal, module);
@@ -2438,7 +2418,7 @@ public class OrderReadHelper {
     /** The passed adjustments can be all adjustments for the order, ie for all line items */
     public static BigDecimal getOrderItemSubTotal(GenericValue orderItem, List adjustments, boolean forTax, boolean forShipping) {
         BigDecimal unitPrice = orderItem.getBigDecimal("unitPrice");
-        BigDecimal quantity = getOrderItemQuantityBd(orderItem);
+        BigDecimal quantity = getOrderItemQuantity(orderItem);
         BigDecimal result = ZERO;
 
         if (unitPrice == null || quantity == null) {
@@ -2460,7 +2440,7 @@ public class OrderReadHelper {
                     try {
                         workEffort = WorkOrderItemFulfillment.getRelatedOneCache("WorkEffort");
                     } catch (GenericEntityException e) {}
-                    result = result.multiply(getWorkEffortRentalQuantityBd(workEffort));
+                    result = result.multiply(getWorkEffortRentalQuantity(workEffort));
                 }
             }
         }
@@ -2494,7 +2474,7 @@ public class OrderReadHelper {
         return length;
         }
     
-    public static BigDecimal getWorkEffortRentalQuantityBd(GenericValue workEffort){
+    public static BigDecimal getWorkEffortRentalQuantity(GenericValue workEffort){
         BigDecimal persons = new BigDecimal(1);
         if (workEffort.get("reservPersons") != null)
             persons = workEffort.getBigDecimal("reservPersons");
@@ -2527,11 +2507,6 @@ public class OrderReadHelper {
         return rentalAdjustment; // return total rental adjustment
         }
 
-    /** @deprecated */
-    public static double getWorkEffortRentalQuantity(GenericValue workEffort) {
-        return getWorkEffortRentalQuantityBd(workEffort).doubleValue();
-    }
-
     public static BigDecimal getAllOrderItemsAdjustmentsTotalBd(List orderItems, List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping) {
         BigDecimal result = ZERO;
         Iterator itemIter = UtilMisc.toIterator(orderItems);
@@ -2554,7 +2529,7 @@ public class OrderReadHelper {
 
     /** The passed adjustments can be all adjustments for the order, ie for all line items */
     public static BigDecimal getOrderItemAdjustmentsTotal(GenericValue orderItem, List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
-        return calcItemAdjustmentsBd(getOrderItemQuantityBd(orderItem), orderItem.getBigDecimal("unitPrice"),
+        return calcItemAdjustmentsBd(getOrderItemQuantity(orderItem), orderItem.getBigDecimal("unitPrice"),
                 getOrderItemAdjustmentList(orderItem, adjustments),
                 includeOther, includeTax, includeShipping, forTax, forShipping);
     }
@@ -2608,7 +2583,7 @@ public class OrderReadHelper {
     }
 
     public static BigDecimal calcItemAdjustmentBd(GenericValue itemAdjustment, GenericValue item) {
-        return calcItemAdjustmentBd(itemAdjustment, getOrderItemQuantityBd(item), item.getBigDecimal("unitPrice"));
+        return calcItemAdjustmentBd(itemAdjustment, getOrderItemQuantity(item), item.getBigDecimal("unitPrice"));
     }
 
     /** @deprecated */

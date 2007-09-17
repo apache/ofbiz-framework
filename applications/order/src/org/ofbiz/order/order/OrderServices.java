@@ -1338,7 +1338,7 @@ public class OrderServices {
                     BigDecimal orderSubTotal = OrderReadHelper.getOrderItemsSubTotal(validOrderItems, allAdjustments);
 
                     // shipping amount
-                    BigDecimal orderShipping = OrderReadHelper.calcOrderAdjustmentsBd(orderHeaderAdjustments, orderSubTotal, false, false, true);
+                    BigDecimal orderShipping = OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true);
 
                     // build up the list of tax calc service parameters
                     for (int i = 0; i < validOrderItems.size(); i++) {
@@ -1541,7 +1541,7 @@ public class OrderServices {
                 }
 
                 BigDecimal currentShipping = OrderReadHelper.getAllOrderItemsAdjustmentsTotalBd(orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId), orh.getAdjustments(), false, false, true);
-                currentShipping = currentShipping.add(OrderReadHelper.calcOrderAdjustmentsBd(orh.getOrderHeaderAdjustments(shipGroupSeqId), orh.getOrderItemsSubTotal(), false, false, true));
+                currentShipping = currentShipping.add(OrderReadHelper.calcOrderAdjustments(orh.getOrderHeaderAdjustments(shipGroupSeqId), orh.getOrderItemsSubTotal(), false, false, true));
 
                 if (Debug.infoOn()) {
                     Debug.log("Old Shipping Total [" + orderId + " / " + shipGroupSeqId + "] : " + currentShipping, module);
@@ -2487,7 +2487,7 @@ public class OrderServices {
             BigDecimal orderSubTotal = orh.getOrderItemsSubTotal();
 
             BigDecimal shippingAmount = OrderReadHelper.getAllOrderItemsAdjustmentsTotalBd(orderItems, orderAdjustments, false, false, true);
-            shippingAmount = shippingAmount.add(OrderReadHelper.calcOrderAdjustmentsBd(orderHeaderAdjustments, orderSubTotal, false, false, true));
+            shippingAmount = shippingAmount.add(OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true));
 
             result = ServiceUtil.returnSuccess();
             result.put("shippingAmount", shippingAmount);

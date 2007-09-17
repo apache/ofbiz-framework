@@ -1859,7 +1859,7 @@ public class ShoppingCart implements Serializable {
 
     /** Returns the order level shipping amount */
     public BigDecimal getOrderShipping() {
-        return OrderReadHelper.calcOrderAdjustmentsBd(this.getAdjustments(), new BigDecimal(this.getSubTotal()), false, false, true);
+        return OrderReadHelper.calcOrderAdjustments(this.getAdjustments(), new BigDecimal(this.getSubTotal()), false, false, true);
     }
 
     // ----------------------------------------
@@ -2456,7 +2456,7 @@ public class ShoppingCart implements Serializable {
     }
 
     public double getOrderOtherAdjustmentTotal() {
-        return OrderReadHelper.calcOrderAdjustmentsBd(this.getAdjustments(), new BigDecimal(this.getSubTotal()), true, false, false).doubleValue();
+        return OrderReadHelper.calcOrderAdjustments(this.getAdjustments(), new BigDecimal(this.getSubTotal()), true, false, false).doubleValue();
     }
 
     /** Returns the sub-total in the cart (item-total - discount). */
@@ -3346,7 +3346,7 @@ public class ShoppingCart implements Serializable {
                     /*
                     if ((productPromoAction.get("productId") == null || productPromoAction.getString("productId").equals(this.getShipmentMethodTypeId())) &&
                         (productPromoAction.get("partyId") == null || productPromoAction.getString("partyId").equals(this.getCarrierPartyId()))) {
-                        Double shippingAmount = new Double(OrderReadHelper.calcOrderAdjustmentBd(orderAdjustment, new BigDecimal(getSubTotal())).negate().doubleValue());
+                        Double shippingAmount = new Double(OrderReadHelper.calcOrderAdjustment(orderAdjustment, new BigDecimal(getSubTotal())).negate().doubleValue());
                         // always set orderAdjustmentTypeId to SHIPPING_CHARGES for free shipping adjustments
                         GenericValue fsOrderAdjustment = getDelegator().makeValue("OrderAdjustment",
                                 UtilMisc.toMap("orderItemSeqId", orderAdjustment.get("orderItemSeqId"), "orderAdjustmentTypeId", "SHIPPING_CHARGES", "amount", shippingAmount,
@@ -4265,7 +4265,7 @@ public class ShoppingCart implements Serializable {
             BigDecimal taxTotal = ZERO;
             for (int i = 0; i < shipTaxAdj.size(); i++) {
                 GenericValue v = (GenericValue) shipTaxAdj.get(i);
-                taxTotal = taxTotal.add(OrderReadHelper.calcOrderAdjustmentBd(v, new BigDecimal(cart.getSubTotal())));
+                taxTotal = taxTotal.add(OrderReadHelper.calcOrderAdjustment(v, new BigDecimal(cart.getSubTotal())));
             }
 
             Iterator iter = shipItemInfo.values().iterator();

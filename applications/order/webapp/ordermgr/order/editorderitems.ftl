@@ -244,7 +244,7 @@ float: right;
         </#if>
         <#list orderHeaderAdjustments as orderHeaderAdjustment>
             <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType")>
-            <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustmentBd(orderHeaderAdjustment, orderSubTotal)>
+            <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
             <#assign orderAdjustmentId = orderHeaderAdjustment.get("orderAdjustmentId")>
             <#if adjustmentAmount != 0>
                 <form name="updateOrderAdjustmentForm${orderAdjustmentId}" method="post" action="<@ofbizUrl>updateOrderAdjustment?orderAdjustmentId=${orderAdjustmentId?if_exists}&amp;orderId=${orderId?if_exists}</@ofbizUrl>">

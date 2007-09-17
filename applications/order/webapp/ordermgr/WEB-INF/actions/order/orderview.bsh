@@ -98,11 +98,11 @@ if (orderHeader != null) {
     context.put("otherAdjAmount", otherAdjAmount);
 
     shippingAmount = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, false, true);
-    shippingAmount += OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true);
+    shippingAmount = shippingAmount.add(OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true));
     context.put("shippingAmount", shippingAmount);
 
     taxAmount = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, true, false);
-    taxAmount += OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, true, false);
+    taxAmount = taxAmount.add(OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, true, false));
     context.put("taxAmount", taxAmount);
 
     grandTotal = OrderReadHelper.getOrderGrandTotal(orderItems, orderAdjustments);

@@ -485,6 +485,7 @@ under the License.
 
         <if-empty field-name="estimatedShipCost" map-name="shipment">
             <call-bsh><![CDATA[
+                    import java.math.BigDecimal;
                     import org.ofbiz.order.order.OrderReadHelper;
 
                     orderReadHelper = new OrderReadHelper(orderHeader);
@@ -494,7 +495,7 @@ under the License.
                     orderSubTotal = orderReadHelper.getOrderItemsSubTotal();
 
                     shippingAmount = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, false, true);
-                    shippingAmount += OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true);
+                    shippingAmount = shippingAmount.add(OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true));
                     //org.ofbiz.base.util.Debug.log("shippingAmmount=" + shippingAmount);
                     shipment.put("estimatedShipCost", shippingAmount);
             ]]></call-bsh>

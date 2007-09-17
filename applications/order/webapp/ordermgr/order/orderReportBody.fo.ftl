@@ -69,7 +69,7 @@ under the License.
            </#list>
           <#list orderHeaderAdjustments as orderHeaderAdjustment>
             <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType")>
-            <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustmentBd(orderHeaderAdjustment, orderSubTotal)>
+            <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
             <#if adjustmentAmount != 0>
             <fo:table-row>
                <fo:table-cell></fo:table-cell>
