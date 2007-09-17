@@ -505,7 +505,7 @@ under the License.
           <tr><td colspan="7"><hr class="sepbar"/></td></tr>
           <#list orderHeaderAdjustments as orderHeaderAdjustment>
             <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType")>
-            <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustmentBd(orderHeaderAdjustment, orderSubTotal)>
+            <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
             <#if adjustmentAmount != 0>
               <tr>
                 <td align="right" colspan="5">					
