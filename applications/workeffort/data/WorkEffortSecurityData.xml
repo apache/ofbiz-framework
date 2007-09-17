@@ -27,7 +27,7 @@ under the License.
     <SecurityPermission description="Limited View operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_VIEW"/>
     <SecurityPermission description="Limited Create operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_CREATE"/>
     <SecurityPermission description="Limited Update operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_UPDATE"/>
-    <SecurityPermission description="Limited Update operations the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_DELETE"/>
+    <SecurityPermission description="Limited Delete operations the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_DELETE"/>
     <SecurityPermission description="ALL operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_ADMIN"/>
     
     
