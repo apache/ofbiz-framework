@@ -247,30 +247,30 @@ under the License.
         <field name="billingAccountId"><hidden/></field>
         <field name="currencyUomId"><hidden value="${billingAccount.accountCurrencyUomId}"/></field>
         <field name="statusId"><hidden value="PMNT_NOT_PAID"/></field>
-        <field name="partyIdFrom" position="1"><lookup target-form-name="LookupPartyName"/></field>
-        <field position="1" name="organizationPartyId" parameter-name="partyIdTo">
+        <field name="partyIdFrom"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="organizationPartyId" parameter-name="partyIdTo">
             <drop-down allow-empty="false">
                 <entity-options description="${partyId}" entity-name="PartyAcctgPreference" key-field-name="partyId">
                     <entity-order-by field-name="partyId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field position="1" name="paymentTypeId">
+        <field name="paymentTypeId">
             <drop-down allow-empty="false" no-current-selected-key="CUSTOMER_DEPOSIT">
                 <entity-options description="${description}" entity-name="PaymentType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field position="1" name="paymentMethodTypeId">
+        <field name="paymentMethodTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PaymentMethodType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="amount" position="1"><text/></field>
-        <field position="1" name="createButton">
+        <field name="amount"><text/></field>
+        <field name="createButton">
             <submit button-type="button"/>
         </field>
     </form>
