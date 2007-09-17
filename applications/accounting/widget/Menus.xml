@@ -419,6 +419,17 @@ under the License.
             <link target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CASH_EQUIVALENT&amp;creditGlAccountClassId=CURRENT_LIABILITY&amp;acctgTransTypeId=PAYMENT_ACCTG_TRANS"/>
         </menu-item>
     </menu>
+    <menu name="AccountingReports" menu-container-style="${shortCutsMenuStyle}" type="simple">  
+        <menu-item name="TrialBalance" title="${uiLabelMap.AccountingTrialBalance}">
+            <link target="TrialBalance?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+        <menu-item name="IncomeStatement" title="${uiLabelMap.AccountingIncomeStatement}">
+            <link target="IncomeStatement?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+        <menu-item name="BalanceSheet" title="${uiLabelMap.AccountingBalanceSheet}">
+            <link target="BalanceSheet?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+    </menu>
     
 </menus>
     

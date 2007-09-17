@@ -115,6 +115,7 @@ under the License.
                                         <include-screen name="JournalEntryShortcuts"/>
                                     </container>
                                     <container style="righthalf">
+                                        <include-screen name="AccountingReports"/>
                                     </container>
                                 </widgets>
                             </section>                        
@@ -464,6 +465,16 @@ under the License.
             </actions>
             <widgets>
                 <include-menu name="JournalEntryShortcuts" location="component://accounting/widget/Menus.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AccountingReports">
+        <section>
+            <actions>
+                <set field="shortCutsMenuStyle" value=""/>
+            </actions>
+            <widgets>
+                <include-menu name="AccountingReports" location="component://accounting/widget/Menus.xml"/>
             </widgets>
         </section>
     </screen>
