@@ -1811,7 +1811,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /** Returns the "other" adjustments. */
     public double getOtherAdjustments() {
-        return OrderReadHelper.calcItemAdjustmentsBd(new BigDecimal(quantity), new BigDecimal(getBasePrice()), this.getAdjustments(), true, false, false, false, false).doubleValue();
+        return OrderReadHelper.calcItemAdjustments(new BigDecimal(quantity), new BigDecimal(getBasePrice()), this.getAdjustments(), true, false, false, false, false).doubleValue();
     }
 
     /** Returns the "other" adjustments. */

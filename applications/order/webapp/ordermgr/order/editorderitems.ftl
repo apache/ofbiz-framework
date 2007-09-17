@@ -198,7 +198,7 @@ float: right;
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td class="align-text">
-                                    <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].calcItemAdjustmentBd(orderItemAdjustment, orderItem) isoCode=currencyUomId/>
+                                    <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].calcItemAdjustment(orderItemAdjustment, orderItem) isoCode=currencyUomId/>
                                 </td>
                                 <td colspan="3">&nbsp;</td>
                             </tr>
