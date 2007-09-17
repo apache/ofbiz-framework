@@ -109,6 +109,15 @@ under the License.
                 <decorator-screen name="CommonPartyAccountsDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <label style="head1">${uiLabelMap.PartyAccountsSummary}</label>
+                            <section>
+                                <widgets>                                                   
+                                    <container style="lefthalf">
+                                        <include-screen name="JournalEntryShortcuts"/>
+                                    </container>
+                                    <container style="righthalf">
+                                    </container>
+                                </widgets>
+                            </section>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -447,5 +456,17 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="JournalEntryShortcuts">
+        <section>
+            <actions>
+                <set field="shortCutsMenuStyle" value=""/>
+            </actions>
+            <widgets>
+                <include-menu name="JournalEntryShortcuts" location="component://accounting/widget/Menus.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    
 </screens>
 
