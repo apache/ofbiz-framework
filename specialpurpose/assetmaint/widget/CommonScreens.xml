@@ -86,9 +86,11 @@
                 <decorator-screen name="main-decorator">
                     <decorator-section name="body">
                         <section>
-                            <!-- TODO: do check for ASSETMAINT, _VIEW permission -->
                             <condition>
-                                <if-has-permission permission="OFBTOOLS" action="_VIEW"/>
+                                <or>
+                                    <if-has-permission permission="ASSETMAINT" action="_VIEW"/>
+                                    <if-has-permission permission="ASSETMAINT_ADMIN"/>
+                                </or>
                             </condition>
                             <widgets>
                                 <section>
@@ -101,12 +103,12 @@
                                         <label style="head1" text="${uiLabelMap.${labelTitleProperty}}"/>
                                     </fail-widgets>
                                 </section>
+                                <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3" text="${uiLabelMap.AcccountingViewPermissionError}"/>
+                                <label style="head3" text="${uiLabelMap.AssetMaintViewPermissionError}"/>
                             </fail-widgets>
                         </section>                    
-                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -122,9 +124,11 @@
                 <decorator-screen name="main-decorator">
                     <decorator-section name="body">
                         <section>
-                            <!-- TODO: do check for ACCOUNTING, WORKEFFORT, ASSETMAINT, _VIEW permission -->
                             <condition>
-                                <if-has-permission permission="OFBTOOLS" action="_VIEW"/>
+                                <or>
+                                    <if-has-permission permission="ASSETMAINT" action="_VIEW"/>
+                                    <if-has-permission permission="ASSETMAINT_ADMIN"/>
+                                </or>
                             </condition>
                             <widgets>
                                 <section>
@@ -137,12 +141,12 @@
                                         <label style="head1" text="${uiLabelMap.${labelTitleProperty}}"/>
                                     </fail-widgets>
                                 </section>
+                                <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3" text="${uiLabelMap.AcccountingViewPermissionError}"/>
+                                <label style="head3" text="${uiLabelMap.AssetMaintViewPermissionError}"/>
                             </fail-widgets>
                         </section>                    
-                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -161,7 +165,10 @@
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="FACILITY" action="_VIEW"/>
+                                <or>
+                                    <if-has-permission permission="ASSETMAINT" action="_VIEW"/>
+                                    <if-has-permission permission="ASSETMAINT_ADMIN"/>
+                                </or>
                             </condition>
                             <widgets>
                                 <section>
@@ -181,7 +188,7 @@
                                 </section>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
+                                <label style="head3">${uiLabelMap.AssetMaintViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>

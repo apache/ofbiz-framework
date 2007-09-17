@@ -38,45 +38,6 @@
             </widgets>
         </section>
     </screen>
-    <screen name="CommonFacilityDecorator">
-        <section>
-            <actions>
-                <set field="facilityId" from-field="parameters.facilityId"/>
-                <entity-one entity-name="Facility" value-name="facility"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="FACILITY" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <section>
-                                    <condition>
-                                        <or>
-                                            <not><if-empty field-name="facility"/></not>
-                                            <not><if-empty field-name="displayWithNoFacility"/></not>
-                                        </or>
-                                    </condition>
-                                    <widgets>
-                                        <include-menu name="FacilityTabBar" location="component://assetmaint/widget/Menus.xml"/>
-                                        <decorator-section-include name="body"/>
-                                    </widgets>
-                                    <fail-widgets>
-                                        <label style="head3">${uiLabelMap.ProductErrorFacilityIdNotFound}</label>
-                                    </fail-widgets>
-                                </section>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="head3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="ViewFacilityInventoryByProduct">
         <section>
             <actions>
@@ -102,7 +63,7 @@
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/countFacilityInventoryByProduct.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
 
                         <container>

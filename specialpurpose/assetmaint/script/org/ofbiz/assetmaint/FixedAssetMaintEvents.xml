@@ -71,22 +71,9 @@
 
     <!-- ==============Permission Checking Service============= -->
     <simple-method method-name="assetMaintPermissionCheck" short-description="Asset Maintenance permission logic">
-        <if-has-permission permission="ASSETMAINT_ADMIN">
-            <set field="hasPermission" type="Boolean" value="true"/>
-            <else>
-                <if-has-permission permission="ASSETMAINT" action="_${parameters.mainAction}">
-                    <set field="hasPermission" type="Boolean" value="true"/>
-                    <else>
-                        <set field="hasPermission" type="Boolean" value="false"/>
-                        <set field="failMessage" value="Security Error: you must have one of the following permissions:
-                            ACCOUNTING_${parameters.mainAction}, ACCOUNTING_ROLE_${parameters.mainAction}, ACCOUNTING_ADMIN, ASSETMAINT_${parameters.mainAction}, ASSETMAINT_ADMIN"/>
-                        <field-to-result field-name="failMessage"/>
-                    </else>
-                </if-has-permission>
-            </else>
-        </if-has-permission>
-        <field-to-result field-name="hasPermission"/>
+        <set field="primaryPermission" value="ASSETMAINT"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
     </simple-method>
 
 </simple-methods>
-    
+  
