@@ -248,7 +248,7 @@ under the License.
         <field name="currencyUomId"><hidden value="${billingAccount.accountCurrencyUomId}"/></field>
         <field name="statusId"><hidden value="PMNT_NOT_PAID"/></field>
         <field name="partyIdFrom" position="1"><lookup target-form-name="LookupPartyName"/></field>
-        <field position="2" name="organizationPartyId" parameter-name="partyIdTo">
+        <field position="1" name="organizationPartyId" parameter-name="partyIdTo">
             <drop-down allow-empty="false">
                 <entity-options description="${partyId}" entity-name="PartyAcctgPreference" key-field-name="partyId">
                     <entity-order-by field-name="partyId"/>
