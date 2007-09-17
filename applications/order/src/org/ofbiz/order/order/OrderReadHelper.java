@@ -2033,7 +2033,7 @@ public class OrderReadHelper {
         return quantityShipped.setScale(scale, rounding);
     }
 
-    public BigDecimal getItemReservedQuantityBd(GenericValue orderItem) {
+    public BigDecimal getItemReservedQuantity(GenericValue orderItem) {
         BigDecimal reserved = ZERO;
 
         List reses = getOrderItemShipGrpInvResList(orderItem);
@@ -2048,11 +2048,6 @@ public class OrderReadHelper {
             }
         }
         return reserved.setScale(scale, rounding);
-    }
-
-    /** @deprecated */
-    public double getItemReservedQuantity(GenericValue orderItem) {
-        return getItemReservedQuantityBd(orderItem).doubleValue();
     }
 
     public BigDecimal getItemBackorderedQuantityBd(GenericValue orderItem) {
@@ -2087,7 +2082,7 @@ public class OrderReadHelper {
     }
 
     public BigDecimal getItemPendingShipmentQuantityBd(GenericValue orderItem) {
-        BigDecimal reservedQty = getItemReservedQuantityBd(orderItem);
+        BigDecimal reservedQty = getItemReservedQuantity(orderItem);
         BigDecimal backordered = getItemBackorderedQuantityBd(orderItem);
         return reservedQty.subtract(backordered).setScale(scale, rounding);
     }
