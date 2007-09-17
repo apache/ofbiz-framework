@@ -22,9 +22,14 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
 
     <!-- ECAs used to extend service permission checking -->
-    <eca service="fixedAssetPermissionCheck" event="return" run-on-failure="true" run-on-error="true">
+    <eca service="fixedAssetPermissionCheck" event="return" run-on-failure="true">
         <condition field-name="hasPermission" operator="equals" value="false" type="Boolean"/>
-        <action service="assetMaintPermissionCheck" mode="sync"/>
+        <action service="assetMaintPermissionCheck" mode="sync" ignore-failure="false"/>
+    </eca>
+
+    <eca service="facilityGenericPermission" event="return" run-on-failure="true">
+        <condition field-name="hasPermission" operator="equals" value="false" type="Boolean"/>
+        <action service="assetMaintPermissionCheck" mode="sync" ignore-failure="false"/>
     </eca>
 
 </service-eca>
