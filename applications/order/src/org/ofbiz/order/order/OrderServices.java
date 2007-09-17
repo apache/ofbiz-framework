@@ -1335,7 +1335,7 @@ public class OrderServices {
                     // adjustments and total
                     List allAdjustments = orh.getAdjustments();
                     List orderHeaderAdjustments = OrderReadHelper.getOrderHeaderAdjustments(allAdjustments, shipGroupSeqId);
-                    BigDecimal orderSubTotal = OrderReadHelper.getOrderItemsSubTotalBd(validOrderItems, allAdjustments);
+                    BigDecimal orderSubTotal = OrderReadHelper.getOrderItemsSubTotal(validOrderItems, allAdjustments);
 
                     // shipping amount
                     BigDecimal orderShipping = OrderReadHelper.calcOrderAdjustmentsBd(orderHeaderAdjustments, orderSubTotal, false, false, true);
@@ -1346,7 +1346,7 @@ public class OrderServices {
                         String productId = orderItem.getString("productId");
                         try {
                             products.add(i, delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId)));  // get the product entity
-                            amounts.add(i, OrderReadHelper.getOrderItemSubTotalBd(orderItem, allAdjustments, true, false)); // get the item amount
+                            amounts.add(i, OrderReadHelper.getOrderItemSubTotal(orderItem, allAdjustments, true, false)); // get the item amount
                             shipAmts.add(i, OrderReadHelper.getOrderItemAdjustmentsTotalBd(orderItem, allAdjustments, false, false, true)); // get the shipping amount
                             itPrices.add(i, orderItem.getBigDecimal("unitPrice"));
                         } catch (GenericEntityException e) {
@@ -1541,7 +1541,7 @@ public class OrderServices {
                 }
 
                 BigDecimal currentShipping = OrderReadHelper.getAllOrderItemsAdjustmentsTotalBd(orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId), orh.getAdjustments(), false, false, true);
-                currentShipping = currentShipping.add(OrderReadHelper.calcOrderAdjustmentsBd(orh.getOrderHeaderAdjustments(shipGroupSeqId), orh.getOrderItemsSubTotalBd(), false, false, true));
+                currentShipping = currentShipping.add(OrderReadHelper.calcOrderAdjustmentsBd(orh.getOrderHeaderAdjustments(shipGroupSeqId), orh.getOrderItemsSubTotal(), false, false, true));
 
                 if (Debug.infoOn()) {
                     Debug.log("Old Shipping Total [" + orderId + " / " + shipGroupSeqId + "] : " + currentShipping, module);
@@ -2484,7 +2484,7 @@ public class OrderServices {
             List orderItems = orh.getValidOrderItems();
             List orderAdjustments = orh.getAdjustments();
             List orderHeaderAdjustments = orh.getOrderHeaderAdjustments();
-            BigDecimal orderSubTotal = orh.getOrderItemsSubTotalBd();
+            BigDecimal orderSubTotal = orh.getOrderItemsSubTotal();
 
             BigDecimal shippingAmount = OrderReadHelper.getAllOrderItemsAdjustmentsTotalBd(orderItems, orderAdjustments, false, false, true);
             shippingAmount = shippingAmount.add(OrderReadHelper.calcOrderAdjustmentsBd(orderHeaderAdjustments, orderSubTotal, false, false, true));

@@ -217,11 +217,11 @@ public class InvoiceServices {
             String billFromVendorPartyId = orh.getBillFromParty().getString("partyId");
 
             // get some quantity totals
-            BigDecimal totalItemsInOrder = orh.getTotalOrderItemsQuantityBd();
+            BigDecimal totalItemsInOrder = orh.getTotalOrderItemsQuantity();
 
             // get some price totals
             BigDecimal shippableAmount = orh.getShippableTotal(null);
-            BigDecimal orderSubTotal = orh.getOrderItemsSubTotalBd();
+            BigDecimal orderSubTotal = orh.getOrderItemsSubTotal();
 
             // these variables are for pro-rating order amounts across invoices, so they should not be rounded off for maximum accuracy
             BigDecimal invoiceShipProRateAmount = ZERO;
