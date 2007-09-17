@@ -75,8 +75,6 @@ public class GenericDelegator implements DelegatorInterface {
 
     public static final String module = GenericDelegator.class.getName();
 
-    /** set this to true for better performance; set to false to be able to reload definitions at runtime throught the cache manager */
-    public static final boolean keepLocalReaders = true;
     protected ModelReader modelReader = null;
     protected ModelGroupReader modelGroupReader = null;
 
@@ -137,10 +135,8 @@ public class GenericDelegator implements DelegatorInterface {
         //if (Debug.infoOn()) Debug.logInfo("Creating new Delegator with name \"" + delegatorName + "\".", module);
 
         this.delegatorName = delegatorName;
-        if (keepLocalReaders) {
-            modelReader = ModelReader.getModelReader(delegatorName);
-            modelGroupReader = ModelGroupReader.getModelGroupReader(delegatorName);
-        }
+        modelReader = ModelReader.getModelReader(delegatorName);
+        modelGroupReader = ModelGroupReader.getModelGroupReader(delegatorName);
 
         cache = new Cache(delegatorName);
 
@@ -265,32 +261,14 @@ public class GenericDelegator implements DelegatorInterface {
      *@return ModelReader that corresponds to this delegator
      */
     public ModelReader getModelReader() {
-        if (keepLocalReaders) {
-            return this.modelReader;
-        } else {
-            try {
-                return ModelReader.getModelReader(delegatorName);
-            } catch (GenericEntityException e) {
-                Debug.logError(e, "Error loading entity model", module);
-                return null;
-            }
-        }
+        return this.modelReader;
     }
 
     /** Gets the instance of ModelGroupReader that corresponds to this delegator
      *@return ModelGroupReader that corresponds to this delegator
      */
     public ModelGroupReader getModelGroupReader() {
-        if (keepLocalReaders) {
-            return this.modelGroupReader;
-        } else {
-            try {
-                return ModelGroupReader.getModelGroupReader(delegatorName);
-            } catch (GenericEntityException e) {
-                Debug.logError(e, "Error loading entity group model", module);
-                return null;
-            }
-        }
+        return this.modelGroupReader;
     }
 
     /** Gets the instance of ModelEntity that corresponds to this delegator and the specified entityName
