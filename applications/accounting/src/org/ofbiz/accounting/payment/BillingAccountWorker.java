@@ -54,7 +54,7 @@ import org.ofbiz.service.ServiceUtil;
 public class BillingAccountWorker {
     
     public static final String module = BillingAccountWorker.class.getName();
-    private static BigDecimal ZERO = new BigDecimal("0");
+    private static BigDecimal ZERO = BigDecimal.ZERO;
     private static int decimals = -1;
     private static int rounding = -1;
     static {

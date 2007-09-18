@@ -784,7 +784,7 @@ public class CheckOutHelper {
             product.add(i, cartItem.getProduct());
             amount.add(i, new BigDecimal(cartItem.getItemSubTotal(itemInfo.quantity)));
             price.add(i, new BigDecimal(cartItem.getBasePrice()));
-            shipAmt.add(i, new BigDecimal("0.00")); // no per item shipping yet
+            shipAmt.add(i, BigDecimal.ZERO); // no per item shipping yet
         }
 
         BigDecimal shipAmount = new BigDecimal(csi.shipEstimate);

@@ -36,8 +36,8 @@ invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invo
 context.put("invoice", invoice);
 
 other = parameters.get("other");		// allow the display of the invoice in the currency of the other party. sales: partyId, purch: partyIdFrom using the convertUom service.
-BigDecimal conversionRate = new BigDecimal("1");
-private static BigDecimal ZERO = new BigDecimal("0");
+BigDecimal conversionRate = BigDecimal.ONE;
+private static BigDecimal ZERO = BigDecimal.ZERO;
 private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
 private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 if (other != null && other.equalsIgnoreCase("y")) {

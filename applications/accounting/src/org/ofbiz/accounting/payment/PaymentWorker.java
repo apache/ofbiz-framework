@@ -215,7 +215,7 @@ public class PaymentWorker {
             throw new IllegalArgumentException("Payment list cannot be null");            
         }
 
-        BigDecimal paymentsTotal = new BigDecimal("0");
+        BigDecimal paymentsTotal = BigDecimal.ZERO;
         Iterator i = payments.iterator();
         while (i.hasNext()) {
             GenericValue payment = (GenericValue) i.next();
@@ -261,7 +261,7 @@ public class PaymentWorker {
     }
 
     public static BigDecimal getPaymentAppliedBd(GenericValue payment) {
-        BigDecimal paymentApplied = new BigDecimal("0");
+        BigDecimal paymentApplied = BigDecimal.ZERO;
         List paymentApplications = null;
         try {
             paymentApplications = payment.getRelated("PaymentApplication");

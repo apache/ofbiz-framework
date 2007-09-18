@@ -67,7 +67,7 @@ public class ShoppingCart implements Serializable {
     public static final int taxCalcScale = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
     public static final int taxFinalScale = UtilNumber.getBigDecimalScale("salestax.final.decimals");
     public static final int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
-    public static final BigDecimal ZERO = (new BigDecimal("0")).setScale(scale, rounding);    
+    public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(scale, rounding);    
     public static final BigDecimal percentage = (new BigDecimal("0.01")).setScale(scale, rounding);    
 
     private String orderType = "SALES_ORDER"; // default orderType

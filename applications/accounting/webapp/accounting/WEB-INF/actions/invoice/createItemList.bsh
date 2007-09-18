@@ -33,9 +33,9 @@ int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 // find existing items
 invoiceItemsDb = null;
 List invoiceItems = new LinkedList();
-BigDecimal invoiceAmount = new BigDecimal("0.00");
-BigDecimal total = new BigDecimal("0.00");
-BigDecimal quantity = new BigDecimal("0.00");
+BigDecimal invoiceAmount = BigDecimal.ZERO;
+BigDecimal total = BigDecimal.ZERO;
+BigDecimal quantity = BigDecimal.ZERO;
 if ((invoiceId != null) && (invoice != null)) {    
     invoiceItemsDb = invoice.getRelated("InvoiceItem", UtilMisc.toList("invoiceItemSeqId"));
     if (invoiceItemsDb != null && invoiceItemsDb.size() > 0) {
@@ -44,14 +44,14 @@ if ((invoiceId != null) && (invoice != null)) {
         while (i.hasNext())    {
             item = i.next();
             if (item.get("quantity") == null || item.getDouble("quantity").doubleValue() == 0.00) {
-               quantity = new BigDecimal("1.00");    
+               quantity = BigDecimal.ONE;
             } else {
                 quantity = item.getBigDecimal("quantity");
             }
             if (item.get("amount")!= null) {
                 total = item.getBigDecimal("amount").multiply(quantity).setScale(decimals,rounding);
             } else {
-                total = new BigDecimal("0.00");
+                total = BigDecimal.ZERO;
             }
             invoiceAmount = invoiceAmount.add(total);
             Map itemmap = new HashMap();

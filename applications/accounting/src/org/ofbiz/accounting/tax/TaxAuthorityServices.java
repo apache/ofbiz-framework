@@ -54,8 +54,8 @@ import org.ofbiz.service.ServiceUtil;
 public class TaxAuthorityServices {
 
     public static final String module = TaxAuthorityServices.class.getName();
-    public static final BigDecimal ZERO_BASE = new BigDecimal("0.000"); 
-    public static final BigDecimal ONE_BASE = new BigDecimal("1.000"); 
+    public static final BigDecimal ZERO_BASE = BigDecimal.ZERO; 
+    public static final BigDecimal ONE_BASE = BigDecimal.ONE; 
     public static final BigDecimal PERCENT_SCALE = new BigDecimal("100.000"); 
     public static int salestaxFinalDecimals=UtilNumber.getBigDecimalScale("salestax.final.decimals");
     public static int salestaxCalcDecimals=UtilNumber.getBigDecimalScale("salestax.calc.decimals");

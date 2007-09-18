@@ -350,7 +350,7 @@ public class FinAccountServices {
             // now we make sure there is something to refund
             if (actualBalance.doubleValue() > 0) {
                 BigDecimal remainingBalance = new BigDecimal(actualBalance.toString());
-                BigDecimal refundAmount = new BigDecimal(0);
+                BigDecimal refundAmount = BigDecimal.ZERO;
 
                 EntityCondition condition = new EntityExpr("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT");
                 EntityListIterator eli = null;

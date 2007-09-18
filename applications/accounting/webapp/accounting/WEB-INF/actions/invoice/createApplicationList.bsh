@@ -30,7 +30,7 @@ import java.text.NumberFormat;
 
 int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
 int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
-NULL = new BigDecimal("0.00");
+NULL = BigDecimal.ZERO;
 
 delegator = request.getAttribute("delegator");
 invoiceId = request.getParameter("invoiceId");

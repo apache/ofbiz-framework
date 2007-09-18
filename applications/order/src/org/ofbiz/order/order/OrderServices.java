@@ -90,7 +90,7 @@ public class OrderServices {
     public static final int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
     public static final int orderDecimals = UtilNumber.getBigDecimalScale("order.decimals");
     public static final int orderRounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
-    public static final BigDecimal ZERO = (new BigDecimal("0")).setScale(taxDecimals, taxRounding);    
+    public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(taxDecimals, taxRounding);    
 
     /** Service for creating a new order */
     public static Map createOrder(DispatchContext ctx, Map context) {

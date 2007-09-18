@@ -57,7 +57,7 @@ import org.ofbiz.service.ServiceUtil;
 public class PriceServices {
 
     public static final String module = PriceServices.class.getName();
-    public static final BigDecimal ONE_BASE = new BigDecimal("1.000"); 
+    public static final BigDecimal ONE_BASE = BigDecimal.ONE; 
     public static final BigDecimal PERCENT_SCALE = new BigDecimal("100.000"); 
 
     public static final int taxCalcScale = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
