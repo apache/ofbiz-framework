@@ -35,6 +35,7 @@ import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
@@ -699,89 +700,88 @@ public class OagisShipmentServices {
             Debug.logError(e, "Error getting userLogin", module);
         }
         
-        // check payment authorization
-        Map serviceContext = FastMap.newInstance();
-        serviceContext.put("orderId", orderId);
-        serviceContext.put("userLogin", userLogin);
-        serviceContext.put("reAuth", new Boolean("true"));
-        Map authResult = null;
-        try {
-            authResult = dispatcher.runSync("authOrderPayments", serviceContext);
-            if (!authResult.get("processResult").equals("APPROVED")) {
-                return ServiceUtil.returnError("No valid payment available, cannot process Shipment");            
-            }
-        } catch (GenericServiceException e) {
-            String errMsg = "Error authorizing payment: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
-        }
         GenericValue orderHeader = null;
         GenericValue orderItemShipGroup = null;
+
+        String logicalId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.LOGICALID");
+        String referenceId = null;
+        String task = "SHIPREQUEST"; // Actual value of task is "SHIPREQUEST" which is more than 10 char, need this in the db so it will match Confirm BODs, etc
+        String component = "INVENTORY";
+        Map omiPkMap = null;
+        
+        String shipmentId = null;
+
         try {
+            // see if there are any OagisMessageInfo for this order that are in the OAGMP_OGEN_SUCCESS or OAGMP_SENT statuses, if so don't send again; these need to be manually reviewed before resending to avoid accidental duplicate messages
+            List previousOagisMessageInfoList = delegator.findByAnd("OagisMessageInfo", UtilMisc.toMap("orderId", orderId, "task", task, "component", component));
+            if (EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_OGEN_SUCCESS")).size() > 0) {
+                // this isn't really an error, just a failed constraint so return success
+                String successMsg = "Found existing message info(s) in OAGMP_OGEN_SUCCESS, so not sending Process Shipment message for order [" + orderId + "] existing message(s) are: " + EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_OGEN_SUCCESS"));
+                return ServiceUtil.returnSuccess(successMsg);
+            }
+            if (EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_SENT")).size() > 0) {
+                // this isn't really an error, just a failed constraint so return success
+                String successMsg = "Found existing message info(s) in OAGMP_SENT status, so not sending Process Shipment message for order [" + orderId + "] existing message(s) are: " + EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_SENT"));
+                return ServiceUtil.returnSuccess(successMsg);
+            }
+            
+            // check payment authorization
+            Map authServiceContext = FastMap.newInstance();
+            authServiceContext.put("orderId", orderId);
+            authServiceContext.put("userLogin", userLogin);
+            authServiceContext.put("reAuth", new Boolean("true"));
+            Map authResult = dispatcher.runSync("authOrderPayments", authServiceContext);
+            if (!authResult.get("processResult").equals("APPROVED")) {
+                return ServiceUtil.returnError("No authorized payment available, not sending Process Shipment");            
+            }
+            
             orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
-        }
-        if (orderHeader != null) {
-            String orderStatusId = orderHeader.getString("statusId");
-            if (orderStatusId.equals("ORDER_APPROVED")) {
-                // first check some things...
-                OrderReadHelper orderReadHelper = new OrderReadHelper(orderHeader);
-                try {
+            if (orderHeader != null) {
+                String orderStatusId = orderHeader.getString("statusId");
+                if (orderStatusId.equals("ORDER_APPROVED")) {
+                    // first check some things...
+                    OrderReadHelper orderReadHelper = new OrderReadHelper(orderHeader);
                     // before doing or saving anything see if any OrderItems are Products with isPhysical=Y
                     if (!orderReadHelper.hasPhysicalProductItems()) {
                         // no need to process shipment, return success
                         return ServiceUtil.returnSuccess();
                     }
-                } catch (GenericEntityException e) {
-                    String errMsg = "Error checking order: " + e.toString();
-                    Debug.logError(e, errMsg, module);
-                    return ServiceUtil.returnError(errMsg);
-                }
-                if (!orderReadHelper.hasShippingAddress()) {
-                    return ServiceUtil.returnError("Cannot send Process Shipment for order [" + orderId + "], it has no shipping address.");
-                }
+                    if (!orderReadHelper.hasShippingAddress()) {
+                        return ServiceUtil.returnError("Cannot send Process Shipment for order [" + orderId + "], it has no shipping address.");
+                    }
 
+                    referenceId = delegator.getNextSeqId("OagisMessageInfo");
+                    omiPkMap = UtilMisc.toMap("logicalId", logicalId, "component", component, "task", task, "referenceId", referenceId);
 
-                String logicalId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.LOGICALID");
-                bodyParameters.put("logicalId", logicalId);
-                Map comiCtx = UtilMisc.toMap("logicalId", logicalId);
-                
-                String authId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.AUTHID");
-                bodyParameters.put("authId", authId);
-                comiCtx.put("authId", authId);
-    
-                String referenceId = delegator.getNextSeqId("OagisMessageInfo");
-                bodyParameters.put("referenceId", referenceId);
-                comiCtx.put("referenceId", referenceId);
+                    String authId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.AUTHID");
+                    Timestamp timestamp = UtilDateTime.nowTimestamp();
+                    String sentDate = OagisServices.isoDateFormat.format(timestamp);
                     
-                Timestamp timestamp = UtilDateTime.nowTimestamp();
-                String sentDate = OagisServices.isoDateFormat.format(timestamp);
-                bodyParameters.put("sentDate", sentDate);
-                comiCtx.put("sentDate", timestamp);
-                
-                // prepare map to Create Oagis Message Info
-                comiCtx.put("processingStatusId", "OAGMP_TRIGGERED");
-                comiCtx.put("component", "INVENTORY");
-                comiCtx.put("task", "SHIPREQUEST"); // Actual value of task is "SHIPREQUEST" which is more than 10 char, need this in the db so it will match Confirm BODs, etc
-                comiCtx.put("outgoingMessage", "Y");
-                comiCtx.put("confirmation", "1");
-                comiCtx.put("bsrVerb", "PROCESS");
-                comiCtx.put("bsrNoun", "SHIPMENT");
-                comiCtx.put("bsrRevision", "001");
-                comiCtx.put("orderId", orderId);
-                comiCtx.put("userLogin", userLogin);
-                try {
-                    dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
-                } catch (GenericServiceException e) {
-                    String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
-                    Debug.logError(e, errMsg, module);
-                }
-                if (Debug.infoOn()) Debug.logInfo("Saved OagisMessageInfo for oagisSendProcessShipment message for orderId [" + orderId + "]", module);
+                    bodyParameters.putAll(omiPkMap);
+                    bodyParameters.put("authId", authId);
+                    bodyParameters.put("sentDate", sentDate);
+        
+                    // prepare map to Create Oagis Message Info
+                    try {
+                        Map comiCtx = FastMap.newInstance();
+                        comiCtx.putAll(omiPkMap);
+                        comiCtx.put("processingStatusId", "OAGMP_TRIGGERED");
+                        comiCtx.put("outgoingMessage", "Y");
+                        comiCtx.put("confirmation", "1");
+                        comiCtx.put("bsrVerb", "PROCESS");
+                        comiCtx.put("bsrNoun", "SHIPMENT");
+                        comiCtx.put("bsrRevision", "001");
+                        comiCtx.put("orderId", orderId);
+                        comiCtx.put("sentDate", timestamp);
+                        comiCtx.put("authId", authId);
+                        comiCtx.put("userLogin", userLogin);
+                        dispatcher.runSync("createOagisMessageInfo", comiCtx, 60, true);
+                    } catch (GenericServiceException e) {
+                        String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
+                        Debug.logError(e, errMsg, module);
+                    }
+                    if (Debug.infoOn()) Debug.logInfo("Saved OagisMessageInfo for oagisSendProcessShipment message for orderId [" + orderId + "]", module);
 
-                String shipmentId = null;
-                try {
                     // check to see if there is already a Shipment for this order
                     EntityCondition findShipmentCondition = new EntityConditionList(UtilMisc.toList(
                             new EntityExpr("primaryOrderId", EntityOperator.EQUALS, orderId),
@@ -885,62 +885,87 @@ public class OagisShipmentServices {
                             }
                         }
                     }
-                } catch (GenericServiceException e) {
-                    String errMsg = "Error preparing data for OAGIS Process Shipment message: " + e.toString();
-                    Debug.logError(e, errMsg, module);
-                    return ServiceUtil.returnError(errMsg);
-                } catch (GenericEntityException e) {
-                    String errMsg = "Error preparing data for OAGIS Process Shipment message: " + e.toString();
-                    Debug.logError(e, errMsg, module);
-                    return ServiceUtil.returnError(errMsg);
-                }
-                
-                bodyParameters.put("shipmentId", shipmentId);
-                bodyParameters.put("orderId", orderId);
-                bodyParameters.put("userLogin", userLogin);
+                    
+                    bodyParameters.put("shipmentId", shipmentId);
+                    bodyParameters.put("orderId", orderId);
+                    bodyParameters.put("userLogin", userLogin);
 
-                String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ProcessShipment");
-                String outText = null;
-                try {
+                    String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ProcessShipment");
+                    String outText = null;
                     Writer writer = new StringWriter();
                     ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, htmlScreenRenderer);
                     screens.render(bodyScreenUri);
                     writer.close();
                     outText = writer.toString();
-                } catch (Exception e) {
-                    String errMsg = "Error rendering message: " + e.toString();
-                    Debug.logError(e, errMsg, module);
-                    return ServiceUtil.returnError(errMsg);
-                }
-                if (Debug.infoOn()) Debug.logInfo("Finished rendering oagisSendProcessShipment message for orderId [" + orderId + "]", module);
+                    if (Debug.infoOn()) Debug.logInfo("Finished rendering oagisSendProcessShipment message for orderId [" + orderId + "]", module);
 
-                try {
-                    comiCtx.put("processingStatusId", "OAGMP_OGEN_SUCCESS");
-                    comiCtx.put("shipmentId", shipmentId);
-                    if (OagisServices.debugSaveXmlOut) {
-                        comiCtx.put("fullMessageXml", outText);
+                    try {
+                        Map uomiCtx = FastMap.newInstance();
+                        uomiCtx.putAll(omiPkMap);
+                        uomiCtx.put("processingStatusId", "OAGMP_OGEN_SUCCESS");
+                        uomiCtx.put("shipmentId", shipmentId);
+                        uomiCtx.put("userLogin", userLogin);
+                        if (OagisServices.debugSaveXmlOut) {
+                            uomiCtx.put("fullMessageXml", outText);
+                        }
+                        dispatcher.runSync("updateOagisMessageInfo", uomiCtx, 60, true);
+                    } catch (GenericServiceException e) {
+                        String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
+                        Debug.logError(e, errMsg, module);
                     }
-                    dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
-                } catch (GenericServiceException e) {
-                    String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
-                    Debug.logError(e, errMsg, module);
-                }
-                
-                Map sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename);
+                    
+                    Map sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename);
 
-                if (Debug.infoOn()) Debug.logInfo("Message send done for oagisSendProcessShipment for orderId [" + orderId + "], sendToUrl=[" + sendToUrl + "], saveToDirectory=[" + saveToDirectory + "], saveToFilename=[" + saveToFilename + "]", module);
-                try {
-                    comiCtx.put("processingStatusId", "OAGMP_SENT");
-                    dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
-                } catch (GenericServiceException e) {
-                    String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
-                    Debug.logError(e, errMsg, module);
-                }
-                
-                if (sendMessageReturn != null) {
-                    return sendMessageReturn;
+                    if (Debug.infoOn()) Debug.logInfo("Message send done for oagisSendProcessShipment for orderId [" + orderId + "], sendToUrl=[" + sendToUrl + "], saveToDirectory=[" + saveToDirectory + "], saveToFilename=[" + saveToFilename + "]", module);
+                    try {
+                        Map uomiCtx = FastMap.newInstance();
+                        uomiCtx.putAll(omiPkMap);
+                        uomiCtx.put("processingStatusId", "OAGMP_SENT");
+                        uomiCtx.put("userLogin", userLogin);
+                        dispatcher.runSync("updateOagisMessageInfo", uomiCtx, 60, true);
+                    } catch (GenericServiceException e) {
+                        String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
+                        Debug.logError(e, errMsg, module);
+                    }
+                    
+                    if (sendMessageReturn != null) {
+                        return sendMessageReturn;
+                    }
                 }
             }
+        } catch (Throwable t) {
+            String errMsg = "System Error doing Process Shipment message for orderId [" + orderId + "] shipmentId [" + shipmentId + "] message [" + omiPkMap + "]: " + t.toString();
+            Debug.logError(t, errMsg, module);
+            
+            // if we have a referenceId and the omiPkMap not null, save the error status
+            if (omiPkMap != null) {
+                try {
+                    // only do this if there is a record already in place
+                    if (delegator.findByPrimaryKey("OagisMessageInfo", omiPkMap) == null) {
+                        return ServiceUtil.returnError(errMsg);
+                    }
+                    
+                    Map uomiCtx = FastMap.newInstance();
+                    uomiCtx.putAll(omiPkMap);
+                    uomiCtx.put("processingStatusId", "OAGMP_SYS_ERROR");
+                    uomiCtx.put("orderId", orderId);
+                    uomiCtx.put("shipmentId", shipmentId);
+                    uomiCtx.put("userLogin", userLogin);
+                    dispatcher.runSync("updateOagisMessageInfo", uomiCtx, 60, true);
+
+                    List errorMapList = UtilMisc.toList(UtilMisc.toMap("description", errMsg, "reasonCode", "SystemError"));
+                    Map saveErrorMapListCtx = FastMap.newInstance();
+                    saveErrorMapListCtx.putAll(omiPkMap);
+                    saveErrorMapListCtx.put("errorMapList", errorMapList);
+                    saveErrorMapListCtx.put("userLogin", userLogin);
+                    dispatcher.runSync("createOagisMsgErrInfosFromErrMapList", saveErrorMapListCtx, 60, true);
+                } catch (GeneralException e) {
+                    String errMsg2 = "Error saving message error info: " + e.toString();
+                    Debug.logError(e, errMsg2, module);
+                }
+            }
+            
+            return ServiceUtil.returnError(errMsg);
         }
         return result;
     }
