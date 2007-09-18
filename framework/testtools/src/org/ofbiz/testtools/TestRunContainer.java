@@ -18,13 +18,20 @@
  *******************************************************************************/
 package org.ofbiz.testtools;
 
-import java.util.Enumeration;
-
+import javolution.util.FastMap;
 import junit.framework.*;
-
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
+import org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
+
+import java.io.*;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A Container implementation to run the tests configured through this testtools stuff.
@@ -32,10 +39,13 @@ import org.ofbiz.base.util.Debug;
 public class TestRunContainer implements Container {
 
     public static final String module = TestRunContainer.class.getName();
-    protected TestResult results = null;
+    public static final String logFile = "runtime/logs/tests-junit.xml";
+
     protected String configFile = null;
     protected String component = null;
     protected String testCase = null;
+    protected String outFile = null;
+    protected String logLevel = null;
 
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
@@ -65,13 +75,46 @@ public class TestRunContainer implements Container {
                     if ("case".equalsIgnoreCase(argumentName)) {
                         this.testCase = argumentVal;
                     }
+                    if ("results".equalsIgnoreCase(argumentName)) {
+                        this.outFile = argumentVal;
+                    }
+                    if ("loglevel".equalsIgnoreCase(argumentName)) {
+                        this.logLevel = argumentVal;
+                    }
                 }
             }
         }
     }
 
     public boolean start() throws ContainerException {
-        //ContainerConfig.Container jc = ContainerConfig.getContainer("junit-container", configFile);
+        // configure log4j output logging
+        if (logLevel != null) {
+            int llevel = Debug.getLevelFromString(logLevel);
+
+            for (int v = 0; v < 9; v++) {
+                if (v < llevel) {
+                    Debug.set(v, false);
+                } else {
+                    Debug.set(v, true);
+                }
+            }
+        }
+
+        // configure xml output
+        if (outFile == null) {
+            outFile = logFile;
+        }
+
+        JunitXmlListener xml;
+        try {
+            xml = new JunitXmlListener(new FileOutputStream(outFile));
+        } catch (FileNotFoundException e) {
+            throw new ContainerException(e);
+        }
+
+        TestResult results = new TestResult();
+        results.addListener(new JunitListener());
+        results.addListener(xml);
 
         // get the tests to run
         JunitSuiteWrapper jsWrapper = new JunitSuiteWrapper(component, testCase);
@@ -79,17 +122,19 @@ public class TestRunContainer implements Container {
             throw new ContainerException("No tests found (" + component + " / " + testCase + ")");
         }
 
-        // load the tests into the suite
-        TestSuite suite = new TestSuite();
-        jsWrapper.populateTestSuite(suite);
+        List testSuites = jsWrapper.makeTestSuites();
+        Iterator i = testSuites.iterator();
+        while (i.hasNext()) {
+            TestSuite suite = (TestSuite) i.next();
+            JUnitTest test = new JUnitTest();
+            test.setName(suite.getName());
+            xml.startTestSuite(test);
 
-        // holder for the results
-        results = new TestResult();
-        results.addListener(new JunitListener());
-
-        // run the tests
-        suite.run(results);
-
+            // run the tests
+            suite.run(results);
+            xml.endTestSuite(test);            
+        }
+       
         // dispay the results
         Debug.log("[JUNIT] Pass: " + results.wasSuccessful() + " | # Tests: " + results.runCount() + " | # Failed: " +
                 results.failureCount() + " # Errors: " + results.errorCount(), module);
@@ -119,11 +164,26 @@ public class TestRunContainer implements Container {
         return true;
     }
 
-    public void stop() throws ContainerException {
-        try {
-            Thread.sleep(2000);
-        } catch (Exception e) {
-            throw new ContainerException(e);
+    public void stop() throws ContainerException {        
+    }
+
+    class JunitXmlListener extends XMLJUnitResultFormatter {
+
+        Map<String, Long> startTimes = FastMap.newInstance();
+
+        public JunitXmlListener(OutputStream out) {
+            this.setOutput(out);            
+        }
+
+        public void startTestSuite(JUnitTest suite) {
+            startTimes.put(suite.getName(), System.currentTimeMillis());
+            super.startTestSuite(suite);
+        }
+
+        public void endTestSuite(JUnitTest suite) throws BuildException {
+            long startTime = startTimes.get(suite.getName());
+            suite.setRunTime((System.currentTimeMillis() - startTime));
+            super.endTestSuite(suite);
         }
     }
 
@@ -138,11 +198,11 @@ public class TestRunContainer implements Container {
         }
 
         public void endTest(Test test) {
-            Debug.logInfo("[JUNIT] : " + test.getClass().getName() + " finished.", module);
+            //Debug.logInfo("[JUNIT] : " + test.getClass().getName() + " finished.", module);
         }
 
         public void startTest(Test test) {
-           Debug.logInfo("[JUNIT] : " + test.getClass().getName() + " starting...", module);
+           //Debug.logInfo("[JUNIT] : " + test.getClass().getName() + " starting...", module);
         }
     }
 }

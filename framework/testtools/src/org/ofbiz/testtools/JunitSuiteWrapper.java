@@ -66,7 +66,8 @@ public class JunitSuiteWrapper {
             }
         }
     }
-    
+
+    @Deprecated
     public void populateTestSuite(TestSuite suite) {
         Iterator modelTestSuiteIter = this.modelTestSuiteList.iterator();
         while (modelTestSuiteIter.hasNext()) {
@@ -78,6 +79,26 @@ public class JunitSuiteWrapper {
                 suite.addTest(tst);
             }
         }
+    }
+
+    public List makeTestSuites() {
+        List testSuites = FastList.newInstance();
+
+        Iterator modelTestSuiteIter = this.modelTestSuiteList.iterator();
+        while (modelTestSuiteIter.hasNext()) {
+            ModelTestSuite modelTestSuite = (ModelTestSuite) modelTestSuiteIter.next();
+            TestSuite suite = new TestSuite();
+            suite.setName(modelTestSuite.getSuiteName());
+            List testList = modelTestSuite.getTestList();
+            Iterator testIter = testList.iterator();
+            while (testIter.hasNext()) {
+                Test tst = (Test) testIter.next();
+                suite.addTest(tst);
+            }
+            testSuites.add(suite);
+        }
+
+        return testSuites;
     }
     
     public List getAllTestList() {
