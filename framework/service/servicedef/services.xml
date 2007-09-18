@@ -26,7 +26,7 @@ under the License.
 
     <!-- Service Engine Services -->
 	<service name="purgeOldJobs" engine="java"
-            location="org.ofbiz.service.ServiceUtil" invoke="purgeOldJobs" auth="true" use-transaction="false">
+            location="org.ofbiz.service.ServiceUtil" invoke="purgeOldJobs" auth="true" use-transaction="false" semaphore="wait">
 		<description>Cleans out old jobs which have been around longer then what is defined in serviceengine.xml</description>
         <required-permissions join-type="AND">
             <check-permission permission="SERVICE_INVOKE_ANY"/>
