@@ -33,6 +33,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
+import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -488,7 +490,7 @@ public class ComponentConfig {
             String fullLocation = getFullLocation(resourceLoaderName, location);
             URL url = null;
             try {
-                url = new URL(fullLocation);
+                url = FlexibleLocation.resolveLocation(location);
             } catch (java.net.MalformedURLException e) {
                 throw new ComponentException("Error with malformed URL while trying to load URL resource at location [" + fullLocation + "]", e);
             }
