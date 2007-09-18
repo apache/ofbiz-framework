@@ -23,9 +23,15 @@ import java.io.IOException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.sql.Timestamp;
+import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
+import java.text.ParseException;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilMisc;
@@ -33,6 +39,7 @@ import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.content.data.DataResourceWorker;
 import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
@@ -57,6 +64,8 @@ public class SimpleContentViewHandler implements ViewHandler {
     	
         String contentId = request.getParameter("contentId");
         String rootContentId = request.getParameter("rootContentId");
+        String mapKey = request.getParameter("mapKey");
+        String fromDateStr = request.getParameter("fromDate");
     	String dataResourceId = request.getParameter("dataResourceId");
         String contentRevisionSeqId = request.getParameter("contentRevisionSeqId");
         String mimeTypeId = request.getParameter("mimeTypeId");
@@ -80,9 +89,24 @@ public class SimpleContentViewHandler implements ViewHandler {
             GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
             if (UtilValidate.isEmpty(dataResourceId)) {
                 if (UtilValidate.isEmpty(contentRevisionSeqId)) {
-                   GenericValue content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
-                   dataResourceId = content.getString("dataResourceId");
-                   Debug.logInfo("SCVH(0b)- dataResourceId:" + dataResourceId, module);
+                    if (UtilValidate.isEmpty(mapKey)) {
+                        GenericValue content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
+                        dataResourceId = content.getString("dataResourceId");
+                        Debug.logInfo("SCVH(0b)- dataResourceId:" + dataResourceId, module);
+                    } else {
+                        Timestamp fromDate = null;
+                        if (UtilValidate.isEmpty(fromDateStr)) {
+                            fromDateStr = UtilDateTime.nowAsString();
+                        }
+                        try {
+                            fromDate = UtilDateTime.stringToTimeStamp(fromDateStr, null, locale);
+                        } catch (ParseException e) {
+                            fromDate = UtilDateTime.nowTimestamp();
+                        }
+                        GenericValue content = ContentWorker.getSubContent(delegator, contentId, mapKey, null, null, null, fromDate);
+                        dataResourceId = content.getString("dataResourceId");
+                        Debug.logInfo("SCVH(0b)- dataResourceId:" + dataResourceId, module);
+                    }
                 } else {
                    GenericValue contentRevisionItem = delegator.findByPrimaryKeyCache("ContentRevisionItem", UtilMisc.toMap("contentId", rootContentId, "itemContentId", contentId, "contentRevisionSeqId", contentRevisionSeqId));
                    if (contentRevisionItem == null) {
