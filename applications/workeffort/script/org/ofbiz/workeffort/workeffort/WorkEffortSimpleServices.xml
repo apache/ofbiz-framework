@@ -263,12 +263,6 @@ under the License.
     </simple-method>
     <simple-method method-name="unassignPartyFromWorkEffort" short-description="Service that deletes a WorkEffortPartyAssignment entity">
         <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
-        <if-compare-field field-name="userLogin.partyId" operator="not-equals" to-field-name="workEffortPartyAssignment.partyId">                
-            <check-permission permission="WORKEFFORTMGR" action="_DELETE">
-                <fail-message message="You cannot delete this Work Effort Party Assignment, you must either be associated with it or have administration permission."/>
-            </check-permission>
-            <check-errors/>
-        </if-compare-field>
         <remove-value value-name="workEffortPartyAssignment"/>
     </simple-method>
 
