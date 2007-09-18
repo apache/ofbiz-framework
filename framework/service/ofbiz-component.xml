@@ -35,6 +35,7 @@ under the License.
 
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_test_se.xml"/>
+    <service-resource type="eca" loader="main" location="servicedef/secas_test_se.xml"/>
     
     <test-suite loader="main" location="testdef/servicetests.xml"/>
 

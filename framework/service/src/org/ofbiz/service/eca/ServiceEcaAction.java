@@ -98,10 +98,11 @@ public class ServiceEcaAction implements java.io.Serializable {
         } else {
             // standard ECA
             if (serviceMode.equals("sync")) {
-                if (newTransaction)
+                if (newTransaction) {
                     actionResult = dispatcher.runSync(serviceName, actionContext, -1, true);
-                else
+                } else {
                     actionResult = dispatcher.runSync(serviceName, actionContext);
+                }
             } else if (serviceMode.equals("async")) {
                 dispatcher.runAsync(serviceName, actionContext, persist);
             }

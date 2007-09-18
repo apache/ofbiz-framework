@@ -68,4 +68,19 @@ under the License.
     <service name="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService" engine="java" auth="false" require-new-transaction="true"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService">
     </service>
+
+    <!-- make sure services are running on global-commit and global-rollback -->    
+    <service name="testServiceEcaGlobalEventExec" engine="java" auth="false"
+        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceEcaGlobalEventExec">
+        <implements service="testServiceInterface"/>
+    </service>
+    <service name="testServiceEcaGlobalEventExecOnCommit" engine="java" auth="false"
+        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceEcaGlobalEventExecOnCommit">
+    </service>
+    <service name="testServiceEcaGlobalEventExecToRollback" engine="java" auth="false"
+        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceEcaGlobalEventExecToRollback">
+    </service>
+    <service name="testServiceEcaGlobalEventExecOnRollback" engine="java" auth="false"
+        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceEcaGlobalEventExecOnRollback">
+    </service>
 </services>

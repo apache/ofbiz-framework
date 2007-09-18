@@ -303,8 +303,14 @@ public class ServiceEngineTestServices {
         return ServiceUtil.returnSuccess();
     }
     public static Map testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
+            // change the SVC_SRBO value first to test that the rollback really does revert/reset
+            GenericValue testingType = delegator.findByPrimaryKey("TestingType", UtilMisc.toMap("testingTypeId", "SVC_SRBO"));
+            testingType.set("description", "New description for SVC_SRBO; this should be reset on the rollback, if this is in the db then the test failed");
+            testingType.store();
+            
             TransactionUtil.setRollbackOnly("Intentionally setting rollback only for testing purposes", null);
             
             Map resultMap = dispatcher.runSync("testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService", null, 60, true);
@@ -322,5 +328,57 @@ public class ServiceEngineTestServices {
     public static Map testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService(DispatchContext dctx, Map context) {
         // this service doesn't actually have to do anything, the problem was in just pausing and resuming the transaciton with setRollbackOnly
         return ServiceUtil.returnSuccess();
-    }    
+    }
+    
+    
+    // ==================================================
+    
+    public static Map testServiceEcaGlobalEventExec(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        try {
+            // this will return an error, but we'll ignore the result
+            dispatcher.runSync("testServiceEcaGlobalEventExecToRollback", null, 60, true);
+        } catch (GenericServiceException e) {
+            String errMsg = "Error calling sub-service, it should return an error but not throw an exception, so something went wrong: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+        
+        // this service doesn't actually have to do anything, just a placeholder for ECA rules, this one should commit
+        return ServiceUtil.returnSuccess();
+    }
+    public static Map testServiceEcaGlobalEventExecOnCommit(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+
+        try {
+            GenericValue testingType = delegator.findByPrimaryKey("TestingType", UtilMisc.toMap("testingTypeId", "SVC_SECAGC"));
+            testingType.set("description", "New description for SVC_SECAGC, what it should be after the global-commit test");
+            testingType.store();
+        } catch (GenericEntityException e) {
+            String errMsg = "Entity Engine Exception: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+
+        return ServiceUtil.returnSuccess();
+    }
+    public static Map testServiceEcaGlobalEventExecToRollback(DispatchContext dctx, Map context) {
+        // this service doesn't actually have to do anything, just a placeholder for ECA rules, this one should rollback
+        return ServiceUtil.returnError("Intentional rollback to test global-rollback");
+    }
+    public static Map testServiceEcaGlobalEventExecOnRollback(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+
+        try {
+            GenericValue testingType = delegator.findByPrimaryKey("TestingType", UtilMisc.toMap("testingTypeId", "SVC_SECAGR"));
+            testingType.set("description", "New description for SVC_SECAGR, what it should be after the global-rollback test");
+            testingType.store();
+        } catch (GenericEntityException e) {
+            String errMsg = "Entity Engine Exception: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+
+        return ServiceUtil.returnSuccess();
+    }
 }
