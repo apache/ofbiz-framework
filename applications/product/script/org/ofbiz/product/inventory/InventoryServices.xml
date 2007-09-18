@@ -728,7 +728,7 @@ under the License.
         </iterate>
 
         <!-- sort the list by date -->
-        <string-to-list string="reservedDatetime" list-name="orderByList"/>
+        <set field="orderByList[]" value="reservedDatetime"/>
         <set field="orderByList[]" value="sequenceId"/>
         <order-value-list list-name="reservations" order-by-list-name="orderByList"/>
 
@@ -754,6 +754,14 @@ under the License.
 
         <!-- THEN, re-reserve the cancelled items -->
         <iterate list-name="allReservations" entry-name="oisgir">
+            <!-- maintain a Set (in a Map) of orderIds that we have reallocated for, but only if they had some quantityNotReserved -->
+            <if-not-empty field-name="oisgir.quantityNotAvailable">
+                <if-compare field-name="oisgir.quantityNotAvailable" operator="greater" value="0" type="Double">
+                    <set field="touchedOrderIdMap.${oisgir.orderId}" value="Y"/>
+                    <log level="verbose" message="Adding ${oisgir.orderId} to touchedOrderIdMap"/>
+                </if-compare>
+            </if-not-empty>
+            
             <!-- require inventory is N because it had to be N to begin with to have a negative ATP -->
             <clear-field field-name="resMap"/>
             <set field="resMap.productId" from-field="inventoryItem.productId"/>
@@ -775,13 +783,10 @@ under the License.
                     <call-service service-name="reserveProductInventoryByFacility" in-map-name="resMap"/>
                 </else>
             </if-empty>
-            
-            <!-- maintain a Set (in a Map) of orderIds that we have reallocated for -->
-            <set field="touchedOrderIdSet.${oisgir.orderId}" value="Y"/>
         </iterate>
         
-        <!-- now go through touchedOrderIdSet keys and make a Set/Map of orderIds that are no longer on back-order -->
-        <iterate-map key-name="touchedOrderId" value-name="throwAwayValue" map-name="touchedOrderIdSet">
+        <!-- now go through touchedOrderIdMap keys and make a Set/Map of orderIds that are no longer on back-order -->
+        <iterate-map key-name="touchedOrderId" value-name="throwAwayValue" map-name="touchedOrderIdMap">
             <set field="checkOrderIsOnBackOrderMap.orderId" from-field="touchedOrderId"/>
             <call-service service-name="checkOrderIsOnBackOrder" in-map-name="checkOrderIsOnBackOrderMap">
                 <result-to-field result-name="isBackOrder"/>
