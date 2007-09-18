@@ -205,6 +205,12 @@ public class OagisShipmentServices {
         if (shipment == null) {
             String errMsg = "Could not find Shipment ID [" + shipmentId + "]";
             errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "ShipmentIdNotValid"));
+        } else {
+            Set invalidStatusSet = UtilMisc.toSet("SHIPMENT_CANCELLED", "SHIPMENT_PICKED", "SHIPMENT_PACKED", "SHIPMENT_SHIPPED", "SHIPMENT_DELIVERED");
+            if (invalidStatusSet.contains(shipment.get("statusId"))) {
+                String errMsg = "Shipment with ID [" + shipmentId + "] is in a status [" + shipment.get("statusId") + "] that means it has been or is being shipped, so this Show Shipment message may be a duplicate.";
+                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "ShipmentInBadStatus"));
+            }
         }
         
         List shipUnitElementList = UtilXml.childElementList(daShowShipmentElement, "ns:SHIPUNIT"); // n
