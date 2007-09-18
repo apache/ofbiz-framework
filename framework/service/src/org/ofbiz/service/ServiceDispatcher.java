@@ -472,6 +472,9 @@ public class ServiceDispatcher {
                 isFailure = ServiceUtil.isFailure(result);
                 isError = ServiceUtil.isError(result);
                 
+                // global-commit-post-run ECA, like global-commit but gets the context after the service is run
+                if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "global-commit-post-run", ctx, ecaContext, result, isError, isFailure);
+                
                 // check for failure and log on info level; this is used for debugging
                 if (isFailure) {
                     Debug.logWarning("Service Failure [" + modelService.name + "]: " + ServiceUtil.getErrorMessage(result), module);

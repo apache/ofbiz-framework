@@ -46,8 +46,9 @@ under the License.
         <xs:attribute name="event" use="required">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
-                    <xs:enumeration value="global-commit"/>
-                    <xs:enumeration value="global-rollback"/>
+                    <xs:enumeration value="global-commit"><xs:annotation><xs:documentation>Runs when the transaction the service is running in is successfully committed.</xs:documentation></xs:annotation></xs:enumeration>
+                    <xs:enumeration value="global-commit-post-run"><xs:annotation><xs:documentation>Like global-commit, but gets its context post/after the run of the service and all non-global ECA rules.</xs:documentation></xs:annotation></xs:enumeration>
+                    <xs:enumeration value="global-rollback"><xs:annotation><xs:documentation>Runs when the transaction the service is running in is rolled back.</xs:documentation></xs:annotation></xs:enumeration>
                     <xs:enumeration value="auth"/>
                     <xs:enumeration value="in-validate"/>
                     <xs:enumeration value="out-validate"/>
