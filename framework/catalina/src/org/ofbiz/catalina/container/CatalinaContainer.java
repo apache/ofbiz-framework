@@ -608,7 +608,7 @@ public class CatalinaContainer implements Container {
             embedded.stop();
         } catch (LifecycleException e) {
             // don't throw this; or it will kill the rest of the shutdown process
-            Debug.logError(e, module);
+            Debug.logVerbose(e, module); // happens usually when running tests, disabled unless in verbose
         }
     }
 
