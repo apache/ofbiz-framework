@@ -48,7 +48,7 @@ public class AgreementServices {
     
     public static final String module = AgreementServices.class.getName();
     // set some BigDecimal properties
-    private static BigDecimal ZERO = new BigDecimal("0");
+    private static BigDecimal ZERO = BigDecimal.ZERO;
     private static int decimals = -1;
     private static int rounding = -1;
     static {
@@ -96,7 +96,7 @@ public class AgreementServices {
         try {
             BigDecimal amount = ((BigDecimal)context.get("amount"));
             BigDecimal quantity = (BigDecimal)context.get("quantity");
-            quantity = quantity == null ? new BigDecimal("1") : quantity;
+            quantity = quantity == null ? BigDecimal.ONE : quantity;
             boolean negative = amount.signum() < 0;
             // Ensure that price and quantity are positive since the terms may not be linear.
             amount = amount.abs();

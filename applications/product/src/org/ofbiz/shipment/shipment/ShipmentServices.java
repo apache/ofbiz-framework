@@ -49,7 +49,7 @@ public class ShipmentServices {
     public static final String resource_error = "OrderErrorUiLabels";
     public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
     public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
-    public static final BigDecimal ZERO = (new BigDecimal("0")).setScale(decimals, rounding);    
+    public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);    
 
     public static Map createShipmentEstimate(DispatchContext dctx, Map context) {
         Map result = new HashMap();

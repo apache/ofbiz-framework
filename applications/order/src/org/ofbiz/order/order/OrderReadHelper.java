@@ -70,7 +70,7 @@ public class OrderReadHelper {
     public static final int taxCalcScale = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
     public static final int taxFinalScale = UtilNumber.getBigDecimalScale("salestax.final.decimals");
     public static final int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
-    public static final BigDecimal ZERO = (new BigDecimal("0")).setScale(scale, rounding);    
+    public static final BigDecimal ZERO = (BigDecimal.ZERO).setScale(scale, rounding);    
     public static final BigDecimal percentage = (new BigDecimal("0.01")).setScale(scale, rounding);    
 
     protected GenericValue orderHeader = null;
@@ -2475,7 +2475,7 @@ public class OrderReadHelper {
         }
     
     public static BigDecimal getWorkEffortRentalQuantity(GenericValue workEffort){
-        BigDecimal persons = new BigDecimal(1);
+        BigDecimal persons = BigDecimal.ONE;
         if (workEffort.get("reservPersons") != null)
             persons = workEffort.getBigDecimal("reservPersons");
         BigDecimal secondPersonPerc = ZERO;
@@ -2489,7 +2489,7 @@ public class OrderReadHelper {
             length = (workEffort.getTimestamp("estimatedCompletionDate").getTime() - workEffort.getTimestamp("estimatedStartDate").getTime()) / 86400000;
 
         BigDecimal rentalAdjustment = ZERO;
-        if (persons.compareTo(new BigDecimal(1)) == 1)    {
+        if (persons.compareTo(BigDecimal.ONE) == 1)    {
             if (persons.compareTo(new BigDecimal(2)) == 1) {
                 persons = persons.subtract(new BigDecimal(2));
                 if(nthPersonPerc.signum() == 1)

@@ -41,7 +41,7 @@ public class Calculate extends MethodOperation {
     
     public static final String module = Calculate.class.getName();
     
-    public static final BigDecimal ZERO = new BigDecimal(0.0);
+    public static final BigDecimal ZERO = BigDecimal.ZERO;
     public static final int TYPE_DOUBLE = 1;
     public static final int TYPE_FLOAT = 2;
     public static final int TYPE_LONG = 3;

@@ -70,7 +70,7 @@ public class OrderReturnServices {
     public static final String resource_error = "OrderErrorUiLabels";
 
     //  set some BigDecimal properties
-    private static BigDecimal ZERO = new BigDecimal("0");
+    private static BigDecimal ZERO = BigDecimal.ZERO;
     private static int decimals = -1;
     private static int rounding = -1;
     static {

@@ -43,7 +43,7 @@ public class UtilMisc {
 
     public static final String module = UtilMisc.class.getName();
     
-    public static final BigDecimal ZERO_BD = new BigDecimal(0.0);
+    public static final BigDecimal ZERO_BD = BigDecimal.ZERO;
 
     /**
      * Get an iterator from a collection, returning null if collection is null

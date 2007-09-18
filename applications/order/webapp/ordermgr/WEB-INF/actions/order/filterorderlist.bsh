@@ -34,7 +34,7 @@ if (state.hasFilter("filterInventoryProblems") && UtilValidate.isNotEmpty(orderH
         orderHeader = (GenericValue) ohi.next();
         orderReadHelper = OrderReadHelper.getHelper(orderHeader);
         backorderQty = orderReadHelper.getOrderBackorderQuantity();
-        if (backorderQty.compareTo(new BigDecimal("0")) == 1) {
+        if (backorderQty.compareTo(BigDecimal.ZERO) == 1) {
             filterInventoryProblems.add(orderHeader.get("orderId"));
         }
     }

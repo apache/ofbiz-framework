@@ -42,7 +42,7 @@ import org.ofbiz.entity.util.EntityUtil;
 public class InvoiceWorker {
     
     public static String module = InvoiceWorker.class.getName();
-    private static BigDecimal ZERO = new BigDecimal("0");
+    private static BigDecimal ZERO = BigDecimal.ZERO;
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
     private static int taxDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
@@ -92,7 +92,7 @@ public class InvoiceWorker {
     }
     public static BigDecimal getInvoiceTaxTotalBd(GenericValue invoice) {
         BigDecimal invoiceTaxTotal = ZERO;
-        BigDecimal ONE = new BigDecimal("1");
+        BigDecimal ONE = BigDecimal.ONE;
 
         if (invoice == null)
            throw new IllegalArgumentException("The invoiceId passed does not match an existing invoice"); 
@@ -158,7 +158,7 @@ public class InvoiceWorker {
                 if (amount == null)
                     amount = ZERO;
                 if (quantity == null)
-                    quantity = new BigDecimal("1");
+                    quantity = BigDecimal.ONE;
                 if ("ITM_SALES_TAX".equals(invoiceItem.get("invoiceItemTypeId"))) {
                     invoiceTaxTotal = invoiceTaxTotal.add( amount.multiply(quantity)).setScale(taxDecimals, taxRounding);
                 } else {

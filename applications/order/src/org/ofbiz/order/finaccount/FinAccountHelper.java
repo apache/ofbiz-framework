@@ -48,7 +48,7 @@ public class FinAccountHelper {
       */
      public static int decimals = UtilNumber.getBigDecimalScale("finaccount.decimals");
      public static int rounding = UtilNumber.getBigDecimalRoundingMode("finaccount.rounding");
-     public static final BigDecimal ZERO = (new BigDecimal("0.0")).setScale(decimals, rounding);
+     public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
      
      public static final String giftCertFinAccountTypeId = "GIFTCERT_ACCOUNT";
      public static final boolean defaultPinRequired = false;

@@ -100,7 +100,7 @@ public class InvoiceServices {
     public static String module = InvoiceServices.class.getName();
 
     // set some BigDecimal properties
-    private static BigDecimal ZERO = new BigDecimal("0");
+    private static BigDecimal ZERO = BigDecimal.ZERO;
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
     private static int taxDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
@@ -689,8 +689,8 @@ public class InvoiceServices {
                 if ("N".equalsIgnoreCase(prorateShipping)) {
 
                     // Set the divisor and multiplier to 1 to avoid prorating
-                    BigDecimal divisor = new BigDecimal("1");
-                    BigDecimal multiplier = new BigDecimal("1");
+                    BigDecimal divisor = BigDecimal.ONE;
+                    BigDecimal multiplier = BigDecimal.ONE;
                     
                     // The base amount in this case is the adjustment amount minus the total already invoiced for that adjustment, since
                     //  it won't be prorated
@@ -728,8 +728,8 @@ public class InvoiceServices {
                 if ("N".equalsIgnoreCase(prorateTaxes)) {
 
                     // Set the divisor and multiplier to 1 to avoid prorating
-                    BigDecimal divisor = new BigDecimal("1");
-                    BigDecimal multiplier = new BigDecimal("1");
+                    BigDecimal divisor = BigDecimal.ONE;
+                    BigDecimal multiplier = BigDecimal.ONE;
                     
                     // The base amount in this case is the adjustment amount minus the total already invoiced for that adjustment, since
                     //  it won't be prorated
@@ -2473,7 +2473,7 @@ public class InvoiceServices {
                     // get the invoice item applied value
                     BigDecimal quantity = null;
                     if (invoiceItem.get("quantity") == null) {
-                        quantity = new BigDecimal("1");
+                        quantity = BigDecimal.ONE;
                     } else {
                         quantity = invoiceItem.getBigDecimal("quantity").setScale(decimals,rounding);
                     }
@@ -2729,7 +2729,7 @@ public class InvoiceServices {
                         // get the invoiceItem
                         invoiceItem = (GenericValue) i.next();
                         if (debug) Debug.logInfo("Start processing item: " + invoiceItem.getString("invoiceItemSeqId"), module);
-                        BigDecimal itemQuantity = new BigDecimal("1");
+                        BigDecimal itemQuantity = BigDecimal.ONE;
                         if (invoiceItem.get("quantity") != null && invoiceItem.getBigDecimal("quantity").signum() != 0) {
                             itemQuantity = new BigDecimal(invoiceItem.getString("quantity")).setScale(decimals,rounding);
                         }
