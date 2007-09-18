@@ -137,12 +137,41 @@ if (reviews != null && reviews.size() > 0) {
     }
 }
 
-// an example of getting features of a certain type to show
-sizeProductFeatureAndAppls = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureTypeId", "SIZE"), UtilMisc.toList("sequenceNum", "defaultSequenceNum"));
+// Show all features and their values:
+List productFeatures = new LinkedList();
+productFeatureAndAppls = delegator.findByAnd("ProductFeatureAndAppl", 
+        UtilMisc.toMap("productId", productId), 
+        UtilMisc.toList("productFeatureTypeId","sequenceNum", "defaultSequenceNum"));
+pfIter = productFeatureAndAppls.iterator();
+oldProductFeatureTypeId = null;
+values = new LinkedList();
+while (pfIter.hasNext()) {
+    productFeatureAppl = pfIter.next();
+    Debug.logInfo("processing product: " + productId + "  " + productFeatureAppl.getString("productFeatureTypeId") + "--" + productFeatureAppl.getString("description"), ""); 
+    if (oldProductFeatureTypeId != null && !oldProductFeatureTypeId.equals(productFeatureAppl.getString("productFeatureTypeId"))) {
+        productFeatures.add(
+            UtilMisc.toMap("description", 
+                delegator.findByPrimaryKeyCache("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", oldProductFeatureTypeId)).getString("description"),
+                "abbreviation",oldProductFeatureTypeId, 
+                "types", values));
+        values = new LinkedList();
+    } 
+    values.add(productFeatureAppl.getString("description"));
+    oldProductFeatureTypeId = productFeatureAppl.getString("productFeatureTypeId");
+}
+if (values.size() != 0) {
+    productFeatures.add(
+            UtilMisc.toMap("description", 
+                delegator.findByPrimaryKeyCache("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", oldProductFeatureTypeId)).getString("description"),
+                "abbreviation",oldProductFeatureTypeId, 
+                "types", values));
+    context.put("productFeatures", productFeatures);
+} else {
+    context.remove("productFeatures");
+}
 
 context.put("product", product);
 context.put("productStoreId", productStoreId);
 context.put("categoryId", categoryId);
 context.put("productReviews", reviews);
-context.put("sizeProductFeatureAndAppls", sizeProductFeatureAndAppls);
     
