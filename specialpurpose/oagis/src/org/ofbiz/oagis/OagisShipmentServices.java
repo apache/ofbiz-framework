@@ -632,6 +632,7 @@ public class OagisShipmentServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         
         Set noLongerOnBackOrderIdSet = (Set) context.get("noLongerOnBackOrderIdSet");
+        Debug.logInfo("Running oagisSendProcessShipmentsFromBackOrderSet with noLongerOnBackOrderIdSet=" + noLongerOnBackOrderIdSet, module);
         if (UtilValidate.isEmpty(noLongerOnBackOrderIdSet)) {
             return ServiceUtil.returnSuccess();
         }
@@ -738,7 +739,7 @@ public class OagisShipmentServices {
             orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
             if (orderHeader != null) {
                 String orderStatusId = orderHeader.getString("statusId");
-                if (orderStatusId.equals("ORDER_APPROVED")) {
+                if ("ORDER_APPROVED".equals(orderStatusId) && "SALES_ORDER".equals(orderHeader.getString("orderTypeId"))) {
                     // first check some things...
                     OrderReadHelper orderReadHelper = new OrderReadHelper(orderHeader);
                     // before doing or saving anything see if any OrderItems are Products with isPhysical=Y

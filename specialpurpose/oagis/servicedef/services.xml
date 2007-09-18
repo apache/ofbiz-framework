@@ -117,7 +117,7 @@ under the License.
     </service>
     <service name="oagisSendProcessShipmentsFromBackOrderSet" engine="java"
         location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisSendProcessShipmentsFromBackOrderSet">
-        <attribute name="noLongerOnBackOrderIdSet" type="Set" mode="IN" optional="false"/>
+        <attribute name="noLongerOnBackOrderIdSet" type="Set" mode="IN" optional="true"/>
     </service>
     
     <service name="oagisSendReceiveDelivery" max-retry="0" engine="java"
