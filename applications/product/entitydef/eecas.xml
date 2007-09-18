@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entity-eca.xsd">
     <!-- Product Keyword Indexing ECAs -->
     <eca entity="Product" operation="create-store" event="return">
-        <condition field-name="autoCreateKeywords" operator="equals" value="Y"/>
+        <condition field-name="autoCreateKeywords" operator="not-equals" value="N"/>
         <action service="indexProductKeywords" mode="sync" value-attr="productInstance"/>
     </eca>
     <eca entity="ProductAttribute" operation="create-store" event="return">
