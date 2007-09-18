@@ -730,6 +730,12 @@ public class DataResourceWorker {
             if (context != null)
                 https = (String) context.get("https");
         }
+        
+        String rootDir = (String) templateContext.get("rootDir");
+        if (UtilValidate.isEmpty(rootDir)) {
+            if (context != null)
+                rootDir = (String) context.get("rootDir");
+        }
 
         String dataResourceId = dataResource.getString("dataResourceId");
         String dataResourceTypeId = dataResource.getString("dataResourceTypeId");
@@ -790,7 +796,6 @@ public class DataResourceWorker {
         } else if (dataResourceTypeId.endsWith("_FILE")) {
             String dataResourceMimeTypeId = dataResource.getString("mimeTypeId");
             String objectInfo = dataResource.getString("objectInfo");
-            String rootDir = (String) context.get("rootDir");
 
             if (dataResourceMimeTypeId == null || dataResourceMimeTypeId.startsWith("text")) {
                 renderFile(dataResourceTypeId, objectInfo, rootDir, out);
