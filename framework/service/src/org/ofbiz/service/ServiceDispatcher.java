@@ -313,7 +313,7 @@ public class ServiceDispatcher {
                     
                     // NOTE: general pattern here is to do everything up to the main service call, and retry it all if 
                     //needed because those will be part of the same transaction and have been rolled back
-                    // TODO: if there is an ECA called async or in a new transaciton it won't get rolled back
+                    // TODO: if there is an ECA called async or in a new transaction it won't get rolled back
                     //but will be called again, which means the service may complete multiple times! that would be for
                     //pre-invoke and earlier events only of course
                     
@@ -383,13 +383,18 @@ public class ServiceDispatcher {
 
                     //Debug.logInfo("After [" + modelService.name + "] invoke; isFailure=" + isFailure + ", isError=" + isError, module);
 
-                    // crazy stuff here: see if there was a deadlock error and if so retry... which we can ONLY do if we own the transaction!
                     if (beganTrans) {
+                        // crazy stuff here: see if there was a deadlock or other such error and if so retry... which we can ONLY do if we own the transaction!
+
+                        String errMsg = ServiceUtil.getErrorMessage(result);
+                        
                         // look for the string DEADLOCK in an upper-cased error message; tested on: Derby, MySQL
                         // - Derby 10.2.2.0 deadlock string: "A lock could not be obtained due to a deadlock"
-                        // - MySQL TODO
+                        // - MySQL ? deadlock string: "Deadlock found when trying to get lock; try restarting transaction"
+                        // - Postgres ? deadlock string: TODO
+                        // - Other ? deadlock string: TODO
                         // TODO need testing in other databases because they all return different error messages for this!
-                        String errMsg = ServiceUtil.getErrorMessage(result);
+
                         // NOTE DEJ20070908 are there other things we need to check? I don't think so because these will 
                         //be Entity Engine errors that will be caught and come back in an error message... IFF the 
                         //service is written to not ignore it of course!
@@ -417,6 +422,7 @@ public class ServiceDispatcher {
                                 // just log and let things roll through, will be considered an error and ECAs, etc will run according to that 
                                 Debug.logError("After rollback attempt for lock retry did not begin a new transaction!", module);
                             } else {
+                                // deadlocks can be resolved by retring immediately as conflicting operations in the other thread will have cleared
                                 needsLockRetry = true;
                                 
                                 // reset state variables
@@ -425,6 +431,14 @@ public class ServiceDispatcher {
                                 isError = false;
                                 
                                 Debug.logWarning(retryMsg, module);
+                            }
+                            
+                            // look for lock wait timeout error, retry in a different way by running after the parent transaction finishes, ie attach to parent tx
+                            // - Derby 10.2.2.0 lock wait timeout string: "A lock could not be obtained within the time requested"
+                            // - MySQL ? lock wait timeout string: "Lock wait timeout exceeded; try restarting transaction"
+                            if (errMsg != null && (errMsg.indexOf("A lock could not be obtained within the time requested") >= 0 ||
+                                    errMsg.indexOf("Lock wait timeout exceeded") >= 0)) {
+                                // TODO: add to run after parent tx
                             }
                         }
                     }
