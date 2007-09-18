@@ -463,7 +463,13 @@ under the License.
         <response name="success" type="view" value="EditWorkEffortNotes"/>
         <response name="error" type="view" value="EditWorkEffortNotes"/>
     </request-map>
-
+    <request-map uri="updateWorkEffortNote">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffortNote"/>
+        <response name="success" type="view" value="EditWorkEffortNotes"/>
+        <response name="error" type="view" value="EditWorkEffortNotes"/>
+    </request-map>
+ 
     <!-- WorkEffort Content Requests -->
     <request-map uri="EditWorkEffortContents">
         <security https="true" auth="true"/>

@@ -644,6 +644,7 @@ under the License.
             title="Work Effort Note Entity">
       <field name="workEffortId" type="id-ne"></field>
       <field name="noteId" type="id-ne"></field>
+      <field name="internalNote" type="indicator"></field>
       <prim-key field="workEffortId"/>
       <prim-key field="noteId"/>
       <relation type="one" fk-name="WKEFF_NTE_WEFF" rel-entity-name="WorkEffort">
