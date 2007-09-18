@@ -47,14 +47,26 @@ public abstract class GenericXaResource extends Thread implements XAResource {
         try {
             if (tm != null && tm.getStatus() == Status.STATUS_ACTIVE) {
                 Transaction tx = tm.getTransaction();
-                if (tx != null) {
-                    this.setTransaction(tx);
-                    tx.enlistResource(this);
-                } else {
-                    throw new XAException(XAException.XAER_NOTA);
-                }
+                this.enlist(tx);
             } else {
                 throw new XAException("No transaction manager or invalid status");
+            }
+        } catch (SystemException e) {
+            throw new XAException("Unable to get transaction status");
+        }
+    }
+
+    /**
+     * Enlists this resource in the current transaction
+     * @throws XAException
+     */
+    public void enlist(Transaction tx) throws XAException {
+        try {
+            if (tx != null) {
+                this.setTransaction(tx);
+                tx.enlistResource(this);
+            } else {
+                throw new XAException(XAException.XAER_NOTA);
             }
         } catch (SystemException e) {
             throw new XAException("Unable to get transaction status");
