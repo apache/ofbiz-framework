@@ -147,7 +147,6 @@ oldProductFeatureTypeId = null;
 values = new LinkedList();
 while (pfIter.hasNext()) {
     productFeatureAppl = pfIter.next();
-    Debug.logInfo("processing product: " + productId + "  " + productFeatureAppl.getString("productFeatureTypeId") + "--" + productFeatureAppl.getString("description"), ""); 
     if (oldProductFeatureTypeId != null && !oldProductFeatureTypeId.equals(productFeatureAppl.getString("productFeatureTypeId"))) {
         productFeatures.add(
             UtilMisc.toMap("description", 
