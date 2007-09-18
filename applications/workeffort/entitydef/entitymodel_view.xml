@@ -231,6 +231,7 @@ under the License.
       <member-entity entity-alias="WEN" entity-name="WorkEffortNote"/>
       <member-entity entity-alias="ND" entity-name="NoteData"/>
       <alias entity-alias="WEN" name="workEffortId"/>
+      <alias entity-alias="WEN" name="internalNote"/>
       <alias entity-alias="WEN" name="noteId"/>
       <alias entity-alias="ND" name="noteName"/>
       <alias entity-alias="ND" name="noteInfo"/>

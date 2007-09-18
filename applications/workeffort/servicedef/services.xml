@@ -130,9 +130,16 @@ under the License.
         <attribute name="noteInfo" type="String" mode="IN" optional="false"/>
         <attribute name="noteParty" type="String" mode="IN" optional="true"/>
         <attribute name="noteName" type="String" mode="IN" optional="true"/>
+        <attribute name="internalNote" type="String" mode="IN" optional="true"/>
         <attribute name="noteId" type="String" mode="OUT" optional="false"/>
     </service>
-    
+    <service name="updateWorkEffortNote" engine="simple"
+            location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="updateWorkEffortNote" auth="true">
+        <description>Update a WorkEffort Note</description>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="noteId" type="String" mode="IN" optional="false"/>
+        <attribute name="internalNote" type="String" mode="IN" optional="false"/>
+    </service>     
     <!-- Services for finding Assigned WorkEfforts -->
     <service name="getWorkEffortAssignedEventsForRole" engine="java"
             location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedEventsForRole">

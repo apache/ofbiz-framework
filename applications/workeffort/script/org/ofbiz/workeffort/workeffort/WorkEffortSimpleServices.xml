@@ -529,9 +529,14 @@ under the License.
         <make-value value-name="newWorkEffortNote" entity-name="WorkEffortNote"/>
         <set from-field="newEntity.noteId" field="newWorkEffortNote.noteId"/>
         <set from-field="parameters.workEffortId" field="newWorkEffortNote.workEffortId"/>
+        <set from-field="parameters.internalNote" field="newWorkEffortNote.internalNote"/>
         <create-value value-name="newWorkEffortNote"/>
     </simple-method>
-    
+    <simple-method method-name="updateWorkEffortNote" short-description="Update Work Effort Note">
+        <entity-one entity-name="WorkEffortNote" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>  
+    </simple-method>    
     <simple-method method-name="createWorkEffortAndAssoc" short-description="Create a WorkEffort and association">
         <if-empty field-name="parameters.fromDate">
             <now-timestamp-to-env env-name="parameters.fromDate"/>
