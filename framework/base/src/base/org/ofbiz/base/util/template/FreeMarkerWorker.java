@@ -140,7 +140,11 @@ public class FreeMarkerWorker {
      * @param outWriter The Writer to render to
      */
     public static void renderTemplate(String templateLocation, String templateString, Map context, Writer outWriter) throws TemplateException, IOException {
-        renderTemplate(templateLocation, context, outWriter);
+        if (UtilValidate.isEmpty(templateString)) {
+            renderTemplate(templateLocation, context, outWriter);
+        } else {
+            renderTemplateFromString(templateString, templateLocation, context, outWriter);
+        }
     }
     
     /**
@@ -152,6 +156,23 @@ public class FreeMarkerWorker {
      */
     public static void renderTemplate(String templateLocation, Map context, Writer outWriter) throws TemplateException, IOException {
         Template template = getTemplate(templateLocation);
+        renderTemplate(template, context, outWriter);
+    }
+ 
+    public static void renderTemplateFromString(String templateString, String templateLocation, Map context, Writer outWriter) throws TemplateException, IOException {
+        Template template = (Template) cachedTemplates.get(templateLocation);
+        if (template == null) {
+            synchronized (cachedTemplates) {
+                template = (Template) cachedTemplates.get(templateLocation);
+            }
+        }
+        
+        if (template == null) {
+            Reader templateReader  =new StringReader(templateString);
+            template = new Template(templateLocation, templateReader, getDefaultOfbizConfig());
+            templateReader.close();
+            cachedTemplates.put(templateLocation, template);
+        }
         renderTemplate(template, context, outWriter);
     }
  
