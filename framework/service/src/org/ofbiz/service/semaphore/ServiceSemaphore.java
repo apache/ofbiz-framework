@@ -18,6 +18,9 @@ import java.util.Map;
  * ServiceSemaphore
  */
 public class ServiceSemaphore {
+    // TODO: make sleep and max wait settings configurable per service
+    // TODO: add something to make sure semaphores are cleaned up on failures and when the thread somehow goes away without cleaning it up
+    // TODO: write service engine test cases to make sure semaphore both blocking and timing out (use config to set sleep and wait to low values so it times out quickly)
 
     public static final String module = ServiceSemaphore.class.getName();
     public static final int SEMAPHORE_MODE_FAIL = 0;
@@ -31,11 +34,12 @@ public class ServiceSemaphore {
     protected ModelService model;
 
     protected int wait = 0;
-    protected int mode = 2;
+    protected int mode = SEMAPHORE_MODE_NONE;
+    protected Timestamp lockTime = null;
 
     public ServiceSemaphore(GenericDelegator delegator, ModelService model) {
-        this.mode = "wait".equals(model.semaphore) ? 1 : ("fail".equals(model.semaphore) ? 0 : 2);
         this.delegator = delegator;
+        this.mode = "wait".equals(model.semaphore) ? SEMAPHORE_MODE_WAIT : ("fail".equals(model.semaphore) ? SEMAPHORE_MODE_FAIL : SEMAPHORE_MODE_NONE);
         this.model = model;
         this.lock = null;
     }
@@ -43,8 +47,55 @@ public class ServiceSemaphore {
     public void acquire() throws SemaphoreWaitException, SemaphoreFailException {
         if (mode == SEMAPHORE_MODE_NONE) return;
 
+        lockTime = UtilDateTime.nowTimestamp();
+        
+        if (this.checkLockNeedToWait()) {
+            waitOrFail();
+        }
+    }
+
+    public void release() throws SemaphoreFailException {
+        if (mode == SEMAPHORE_MODE_NONE) return;
+
+        // remove the lock file
+        dbWrite(lock, true);
+    }
+    
+    private void waitOrFail() throws SemaphoreWaitException, SemaphoreFailException {
+        if (SEMAPHORE_MODE_FAIL == mode) {
+            // fail
+            throw new SemaphoreFailException("Service [" + model.name + "] is locked");
+        } else if (SEMAPHORE_MODE_WAIT == mode) {
+            boolean timedOut = true;
+            while (wait < MAX_WAIT) {
+                wait++;
+                try {
+                    Thread.sleep(SLEEP);               
+                } catch (InterruptedException e) {
+                    Debug.logInfo(e, "Sleep interrupted: ServiceSemaphone.waitOrFail()", module);
+                }
+
+                // try again
+                if (!checkLockNeedToWait()) {
+                    timedOut = false;
+                    break;
+                }
+            }
+            if (timedOut) {
+                double waitTimeSec = ((double) (System.currentTimeMillis() - lockTime.getTime()) / 1000.0);
+                String errMsg = "Service [" + model.name + "] with wait semaphore exceeded wait timeout, waited [" + waitTimeSec + "], wait started at " + lockTime;
+                Debug.logWarning(errMsg, module);
+                throw new SemaphoreWaitException(errMsg);
+            }
+        } else if (SEMAPHORE_MODE_NONE == mode) {
+            Debug.logWarning("Semaphore mode [none] attempted to aquire a lock; but should not have!", module);
+        } else {
+            throw new SemaphoreFailException("Found invalid Semaphore mode [" + mode + "]");
+        }
+    }
+
+    private boolean checkLockNeedToWait() throws SemaphoreFailException {
         String threadName = Thread.currentThread().getName();
-        Timestamp lockTime = UtilDateTime.nowTimestamp();
         GenericValue semaphore;
 
         try {
@@ -59,43 +110,12 @@ public class ServiceSemaphore {
 
             // use the special method below so we can reuse the unqiue tx functions
             dbWrite(semaphore, false);
-        } else {             
-            waitOrFail(mode);
-        }
-    }
-
-    public void release() throws SemaphoreFailException {
-        if (mode == SEMAPHORE_MODE_NONE) return;
-
-        // remove the lock file
-        dbWrite(lock, true);
-    }
-
-    private void waitOrFail(int mode) throws SemaphoreWaitException, SemaphoreFailException {
-        switch (mode) {
-            case SEMAPHORE_MODE_FAIL:
-                // fail
-                throw new SemaphoreFailException("Service [" + model.name + "] is locked");
-            case SEMAPHORE_MODE_WAIT:
-                if (wait < MAX_WAIT) {
-                    ++wait;
-                    try {
-                        Thread.sleep(SLEEP);               
-                    } catch (InterruptedException e) {
-                        Debug.logInfo(e, "Sleep interrupted: ServiceSemaphone.waitOrFail()", module);
-                    }
-
-                    // try again
-                    acquire();
-                    break;
-                } else {
-                    throw new SemaphoreWaitException("Service [" + model.name + "] wait timeout exceeded");
-                }
-            case SEMAPHORE_MODE_NONE:
-                Debug.logWarning("Semaphore mode [none] attempted to aquire a lock; but should not have!", module);
-                break;
-            default:
-                throw new SemaphoreFailException();
+            
+            // we own the lock, no waiting
+            return false;
+        } else {
+            // found a semaphore, need to wait
+            return true;
         }
     }
 
