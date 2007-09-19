@@ -33,25 +33,49 @@ under the License.
                         <container>
                             <label style="head1" text="${uiLabelMap.OrderReports}"/>
                         </container>
-                        <container>
-                            <label style="head2" text="${uiLabelMap.OrderReportSalesByStore}"/>
-                            <include-form name="SalesByStoreReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                        <container style="lefthalf">
+                            <container style="screenlet">
+                                <container style="screenlet-title-bar">
+                                    <label style="boxhead" text="">${uiLabelMap.OrderReportSalesByStore}</label>
+                                </container>
+                                <container style="screenlet-body">
+                                    <include-form name="SalesByStoreReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                                </container>
+                            </container>                
+                            <container style="screenlet">
+                                <container style="screenlet-title-bar">
+                                    <label style="boxhead" text="">${uiLabelMap.OrderReportOpenOrderItems}</label>
+                                </container>
+                                <container style="screenlet-body">
+                                    <include-form name="OpenOrderItemsReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                                </container>
+                            </container>                
+                            <container style="screenlet">
+                                <container style="screenlet-title-bar">
+                                    <label style="boxhead" text="">${uiLabelMap.OrderReportPurchasesByOrganization}</label>
+                                </container>
+                                <container style="screenlet-body">
+                                    <include-form name="PurchasesByOrganizationReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                                </container>
+                            </container>                
                         </container>
-                        <container>
-                            <label style="head2" text="${uiLabelMap.OrderReportOpenOrderItems}"/>
-                            <include-form name="OpenOrderItemsReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
-                        </container>
-                        <container>
-                            <label style="head2" text="${uiLabelMap.OrderReportPurchasesByOrganization}"/>
-                            <include-form name="PurchasesByOrganizationReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
-                        </container>
-                        <container>
-                            <label style="head2" text="${uiLabelMap.OrderReportPurchasesByProduct}"/>
-                            <include-form name="OrderPurchaseProductOptions" location="component://order/widget/ordermgr/ReportForms.xml"/>
-                        </container>
-                        <container>
-                            <label style="head2" text="${uiLabelMap.OrderReportPurchasesByPaymentMethod}"/>
-                            <include-form name="OrderPurchasePaymentOptions" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                        <container style="righthalf">
+                            <container style="screenlet">
+                                <container style="screenlet-title-bar">
+                                    <label style="boxhead" text="">${uiLabelMap.OrderReportPurchasesByProduct}</label>
+                                </container>
+                                <container style="screenlet-body">
+                                    <include-form name="OrderPurchaseProductOptions" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                                </container>
+                            </container>                
+                            <container style="screenlet">
+                                <container style="screenlet-title-bar">
+                                    <label style="boxhead" text="">${uiLabelMap.OrderReportPurchasesByPaymentMethod}</label>
+                                </container>
+                                <container style="screenlet-body">
+                                    <include-form name="OrderPurchasePaymentOptions" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                                </container>
+                            </container>                
                         </container>
                     </decorator-section>
                 </decorator-screen>
