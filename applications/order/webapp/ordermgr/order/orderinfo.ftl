@@ -65,8 +65,11 @@ under the License.
                   <hr class="sepbar"/>
                   <#list orderHeaderStatuses as orderHeaderStatus>
                     <#assign loopStatusItem = orderHeaderStatus.getRelatedOne("StatusItem")>
+                    <#assign userlogin = orderHeaderStatus.getRelatedOne("UserLogin")>
                     <div class="tabletext">
                       ${loopStatusItem.get("description",locale)} - ${orderHeaderStatus.statusDatetime?default("0000-00-00 00:00:00")?string}
+                      &nbsp;
+                      ${uiLabelMap.CommonBy} - <#--${orderHeaderStatus.statusUserLogin?string}-->${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, userlogin.get("partyId"), true)}
                     </div>
                   </#list>
                 </#if>
