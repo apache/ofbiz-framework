@@ -536,6 +536,11 @@ public class ServiceDispatcher {
             Debug.logError(te, "Problems with the transaction", module);
             throw new GenericServiceException("Problems with the transaction.", te.getNested());
         } finally {
+            // release the semaphore lock
+            if (lock != null) {
+                lock.release();
+            }
+            
             // resume the parent transaction
             if (parentTransaction != null) {
                 try {
@@ -560,11 +565,6 @@ public class ServiceDispatcher {
             Debug.logInfo("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", module);
         }
 
-        // release the semaphore lock
-        if (lock != null) {
-            lock.release();
-        }
-        
         return result;
     }
 

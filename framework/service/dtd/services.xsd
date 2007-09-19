@@ -101,8 +101,8 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="transaction-timeout"/>
-        <xs:attribute type="xs:string" name="max-retry" default="-1"/>
+        <xs:attribute type="xs:int" name="transaction-timeout" default="0"/>
+        <xs:attribute type="xs:int" name="max-retry" default="-1"/>
         <xs:attribute name="debug" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -121,6 +121,8 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
+    <xs:attribute type="xs:int" name="semaphore-wait-seconds" default="300"/>
+    <xs:attribute type="xs:int" name="semaphore-sleep" default="500"/>
     <xs:element name="notification">
         <xs:complexType>
             <xs:attributeGroup ref="attlist.notification"/>

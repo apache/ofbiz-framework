@@ -17,8 +17,7 @@ import java.util.Map;
 /**
  * ServiceSemaphore
  */
-public class ServiceSemaphore {
-    // TODO: make sleep and max wait settings configurable per service
+public class ServiceSemaphore {   
     // TODO: add something to make sure semaphores are cleaned up on failures and when the thread somehow goes away without cleaning it up
     // TODO: write service engine test cases to make sure semaphore both blocking and timing out (use config to set sleep and wait to low values so it times out quickly)
 
@@ -26,8 +25,6 @@ public class ServiceSemaphore {
     public static final int SEMAPHORE_MODE_FAIL = 0;
     public static final int SEMAPHORE_MODE_WAIT = 1;
     public static final int SEMAPHORE_MODE_NONE = 2;
-    public static final long MAX_WAIT = 600;
-    public static final long SLEEP = 500;
 
     protected GenericDelegator delegator;
     protected GenericValue lock;
@@ -66,11 +63,15 @@ public class ServiceSemaphore {
             // fail
             throw new SemaphoreFailException("Service [" + model.name + "] is locked");
         } else if (SEMAPHORE_MODE_WAIT == mode) {
+            // get the wait and sleep values
+            long maxWaitCount = ((model.semaphoreWait * 1000) / model.semaphoreSleep);
+            long sleep = model.semaphoreSleep;
+
             boolean timedOut = true;
-            while (wait < MAX_WAIT) {
+            while (wait < maxWaitCount) {
                 wait++;
                 try {
-                    Thread.sleep(SLEEP);               
+                    Thread.sleep(sleep);               
                 } catch (InterruptedException e) {
                     Debug.logInfo(e, "Sleep interrupted: ServiceSemaphone.waitOrFail()", module);
                 }
