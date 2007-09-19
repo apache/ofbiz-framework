@@ -136,6 +136,12 @@ public class ModelService extends AbstractMap implements Serializable {
 
     /** Semaphore setting (wait, fail, none) */
     public String semaphore;
+
+    /** Semaphore wait time (in milliseconds) */
+    public int semaphoreWait;
+
+    /** Semaphore sleep time (in milliseconds) */
+    public int semaphoreSleep;
     
     /** Set of services this service implements */
     public Set implServices = new ListOrderedSet();

@@ -273,6 +273,31 @@ public class ModelServiceReader implements Serializable {
         service.useTransaction = !"false".equalsIgnoreCase(serviceElement.getAttribute("use-transaction"));
         service.requireNewTransaction = !"false".equalsIgnoreCase(serviceElement.getAttribute("require-new-transaction"));
 
+        // set the semaphore sleep/wait times
+        String semaphoreWaitStr = UtilXml.checkEmpty(serviceElement.getAttribute("semaphore-wait-seconds"));
+        int semaphoreWait = 300;
+        if (!UtilValidate.isEmpty(semaphoreWaitStr)) {
+            try {
+                semaphoreWait = Integer.parseInt(semaphoreWaitStr);
+            } catch (NumberFormatException e) {
+                Debug.logWarning(e, "Setting semaphore-wait to 5 minutes (default)", module);
+                semaphoreWait = 300;
+            }
+        }
+        service.semaphoreWait = semaphoreWait;
+
+        String semaphoreSleepStr = UtilXml.checkEmpty(serviceElement.getAttribute("semaphore-sleep"));
+        int semaphoreSleep = 500;
+        if (!UtilValidate.isEmpty(semaphoreSleepStr)) {
+            try {
+                semaphoreSleep = Integer.parseInt(semaphoreSleepStr);
+            } catch (NumberFormatException e) {
+                Debug.logWarning(e, "Setting semaphore-sleep to 1/2 second (default)", module);
+                semaphoreSleep = 500;
+            }
+        }
+        service.semaphoreSleep = semaphoreSleep;
+
         // set the max retry field
         String maxRetryStr = UtilXml.checkEmpty(serviceElement.getAttribute("max-retry"));
         int maxRetry = -1;
