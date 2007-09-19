@@ -22,19 +22,30 @@
  * the OrderItemQuantityReportGroupByItem view.
  */
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
 
 productStoreId = parameters.get("productStoreId");
 orderTypeId = parameters.get("orderTypeId");
 orderStatusId = parameters.get("orderStatusId");
+fromOrderDate = parameters.get("fromOrderDate");
+thruOrderDate = parameters.get("thruOrderDate");
+ 
 
 // search by orderTypeId is mandatory
 conditions = UtilMisc.toList(new EntityExpr("orderTypeId", EntityOperator.EQUALS, orderTypeId));
+
+if (!fromOrderDate.equals("")){
+    conditions.add(new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromOrderDate));
+}
+if (!thruOrderDate.equals("")){
+    conditions.add(new EntityExpr("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, thruOrderDate));
+}
+
 if (productStoreId != null && productStoreId.length() > 0) {
     conditions.add(new EntityExpr("productStoreId", EntityOperator.EQUALS, productStoreId));
     // for generating a title (given product store)
@@ -69,6 +80,72 @@ fieldsToSelect.add("shipAfterDate");
 fieldsToSelect.add("itemDescription");
 findOptions = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
 listIt = delegator.findListIteratorByCondition("OrderItemQuantityReportGroupByItem", allConditions, null, fieldsToSelect, UtilMisc.toList("orderDate DESC"), findOptions);
-context.put("listIt", listIt);
+List orderItemList = new ArrayList();
+Double totalCostPrice = new Double(0.0);
+Double totalListPrice = new Double(0.0);
+Double totalMarkup = new Double(0.0);
+Double totalDiscount = new Double(0.0);
+Double totalRetailPrice = new Double(0.0);
+Double totalquantityOrdered = new Double(0.0);
+Double totalquantityOpen = new Double(0.0);
+
+while ((listValue = (GenericValue) listIt.next()) != null) {
+    orderId = listValue.get("orderId");
+    productId = listValue.get("productId");
+    orderDate = listValue.get("orderDate");
+    quantityOrdered = listValue.get("quantityOrdered");
+    quantityOpen = listValue.get("quantityOpen");
+    quantityIssued = listValue.get("quantityIssued");
+    itemDescription = listValue.get("itemDescription");
+    shipAfterDate = listValue.get("shipAfterDate");
+    shipBeforeDate = listValue.get("shipBeforeDate");    
+    fieldsToSelect = UtilMisc.toList("price","productPriceTypeId");
+    productIdCondExpr =  UtilMisc.toList(new EntityExpr("productId", EntityOperator.EQUALS, productId));    
+    prodPriceCond = new EntityConditionList(productIdCondExpr, EntityOperator.AND);    
+    productPrices = delegator.findByCondition("ProductPrice", prodPriceCond, fieldsToSelect, null);    
+    Double costPrice = new Double(0.0);
+    Double retailPrice = new Double(0.0);
+    Double listPrice = new Double(0.0);
+    
+    Iterator productPricesItr = productPrices.iterator();
+    while (productPricesItr.hasNext()) {
+        productPriceMap = productPricesItr.next();
+        if (productPriceMap.get("productPriceTypeId").equals("AVERAGE_COST")) {
+            costPrice = productPriceMap.get("price");
+        } else if (productPriceMap.get("productPriceTypeId").equals("DEFAULT_PRICE")) {
+            retailPrice = productPriceMap.get("price");
+        } else if (productPriceMap.get("productPriceTypeId").equals("LIST_PRICE")) {
+            listPrice = productPriceMap.get("price");
+        }      
+    }
+    
+    totalListPrice += listPrice;
+    totalRetailPrice += retailPrice;
+    totalCostPrice += costPrice;    
+    totalquantityOrdered += quantityOrdered;
+    totalquantityOpen += quantityOpen;    
+    orderItemMap = UtilMisc.toMap("orderDate", orderDate, "orderId", orderId, "productId", productId, "itemDescription", itemDescription, "quantityOrdered", quantityOrdered,"quantityIssued", quantityIssued);
+    orderItemMap.put("quantityOpen",quantityOpen);
+    orderItemMap.put("shipAfterDate",shipAfterDate);
+    orderItemMap.put("shipBeforeDate",shipBeforeDate);
+    orderItemMap.put("costPrice",costPrice);
+    orderItemMap.put("retailPrice",retailPrice);
+    orderItemMap.put("listPrice",listPrice);
+    orderItemMap.put("discount",(Double.toString(listPrice- retailPrice)));
+    orderItemMap.put("calculatedMarkup",(Double.toString(retailPrice- costPrice)));    
+    orderItemList.add(orderItemMap);    
+}
+
+listIt.close();
+List totalAmountList = new ArrayList();
+if (UtilValidate.isNotEmpty(orderItemList)) { 
+    totalAmountMap = UtilMisc.toMap("totalCostPrice", totalCostPrice, "totalListPrice", totalListPrice, "totalRetailPrice", totalRetailPrice, "totalquantityOrdered", totalquantityOrdered, "quantityOrdered", quantityOrdered,"totalquantityOpen", totalquantityOpen);
+    totalAmountMap.put("totalDiscount",(totalListPrice - totalRetailPrice));
+    totalAmountMap.put("totalMarkup",(totalRetailPrice - totalCostPrice));
+    totalAmountList.add(totalAmountMap);
+}
+context.put("orderItemList", orderItemList);
+context.put("totalAmountList", totalAmountList);
+
 
 
