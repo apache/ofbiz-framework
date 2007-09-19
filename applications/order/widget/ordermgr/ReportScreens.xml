@@ -220,6 +220,7 @@ under the License.
                     <decorator-section name="body">
                         <label style="head2" text="${uiLabelMap.OrderReportOpenOrderItems} - ${productStore.storeName}"/>
                         <include-form name="OpenOrderItemsList" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                        <include-form name="OpenOrderItemsTotal" location="component://order/widget/ordermgr/ReportForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -267,4 +268,5 @@ under the License.
 
 
 </screens>
+
 

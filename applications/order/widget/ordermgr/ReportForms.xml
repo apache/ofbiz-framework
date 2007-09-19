@@ -124,13 +124,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="fromOrderDate" title="${uiLabelMap.CommonFromDate} (${uiLabelMap.OrderDate}&gt;=)"><date-time type="timestamp"/></field>
+        <field name="thruOrderDate" title="${uiLabelMap.CommonThruDate} (${uiLabelMap.OrderDate}&lt;)"><date-time type="timestamp"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
     <!-- list open order items -->
-    <form name="OpenOrderItemsList" type="list" list-name="listIt"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
-        paginate-target="OpenOrderItemsReport">
+    <form name="OpenOrderItemsList" type="list" list-name="orderItemList"
+        default-title-style="tableheadtext" default-widget-style="tabletext" paginate-target="OpenOrderItemsReport">
         <field name="orderDate" title="${uiLabelMap.OrderDate}"><display/></field>
         <field name="orderId" title="${uiLabelMap.OrderOrderId}" widget-style="buttontext">
             <hyperlink target="orderview?orderId=${orderId}" description="${orderId}"/>
@@ -143,8 +144,25 @@ under the License.
         <field name="shipAfterDate" title="${uiLabelMap.OrderShipAfterDate}"><display/></field>
         <field name="shipBeforeDate" title="${uiLabelMap.OrderShipBeforeDate}"><display/></field>
         <field name="comments" title="${uiLabelMap.CommonComments}"><display/></field>
+        <field name="costPrice" title="${uiLabelMap.ProductCostPrice}"><display/></field>
+        <field name="listPrice" title="${uiLabelMap.ProductListPrice}"><display/></field>
+        <field name="retailPrice" title="${uiLabelMap.ProductRetailPrice}"><display/></field>
+        <field name="discount" title="${uiLabelMap.ProductDiscount}"><display/></field>
+        <field name="calculatedMarkup" title="${uiLabelMap.CalculatedMarkup}"><display/></field>
     </form>
-
+    
+    <form name="OpenOrderItemsTotal" type="list" list-name="totalAmountList" default-title-style="tableheadtext"
+         default-widget-style="tabletext">
+        <field name="" title="Total"><display/></field>
+        <field name="totalquantityOrdered"><display/></field>
+        <field name="totalquantityOpen"><display/></field>                
+        <field name="totalCostPrice"><display/></field>
+        <field name="totalListPrice"><display/></field>
+        <field name="totalRetailPrice"><display/></field>
+        <field name="totalDiscount"><display/></field>
+        <field name="totalMarkup"><display/></field>
+    </form>
+    
     <!-- form for generating a report of total product purchases (quantity and value) -->
     <form name="PurchasesByOrganizationReport" type="single" target="PurchasesByOrganizationReport.pdf" title=""
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
@@ -175,5 +193,4 @@ under the License.
         <field name="thruOrderDate" title="${uiLabelMap.CommonThruDate}"><date-time type="timestamp"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-
 </forms>
