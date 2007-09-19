@@ -92,6 +92,7 @@
         <field-to-result field-name="assoc.fromDate" result-name="fromDate"/>
     </simple-method>
     <simple-method method-name="updateContentAssoc" short-description="Update a ContentAssoc Record">
+        <set field="contentId" from-field="parameters.contentIdFrom" default-value="parameters.contentId" />
         <entity-one entity-name="ContentAssoc" value-name="assoc" auto-field-map="true"/>
         <set-nonpk-fields value-name="assoc" map-name="parameters"/>
 
