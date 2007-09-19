@@ -133,17 +133,24 @@ under the License.
     <form name="ListOrdersFromEbay" type="multi" use-row-submit="true" list-name="orderList" target="ImportOrderFromEbay">
         <row-actions>
             <set field="canImportOrder" value="${bsh: org.ofbiz.base.util.UtilValidate.isEmpty(orderId) &amp;&amp; org.ofbiz.base.util.UtilValidate.isEmpty(errorMessage)}" type="Boolean"/>
+            <set field="allowProductIdChange" value="${bsh: org.ofbiz.base.util.UtilValidate.isEmpty(orderId) &amp;&amp; org.ofbiz.base.util.UtilValidate.isNotEmpty(errorMessage)}" type="Boolean"/>
         </row-actions>
         <field name="productStoreId"><hidden/></field>
         <field name="externalId" title="${uiLabelMap.OrderImportEbayItem}"><display/></field>
         <field name="transactionId"><display/></field>
         <field name="orderId"><hyperlink target="orderview?orderId=${orderId}" description="${orderId}"/></field>
         <field name="createdDate"><display/></field>
+        <!--
+        <field name="productId" use-when="!${allowProductIdChange}"><display/></field>
+        <field name="productId" use-when="${allowProductIdChange}"><lookup target-form-name="LookupProduct"/></field>
+        -->
         <field name="productId"><display/></field>
         <field name="productName" entry-name="productId"><display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/></field>
         <field name="title"><display/></field>
         <field name="quantityPurchased" title="${uiLabelMap.OrderQuantitySold}"><display/></field>
         <field name="transactionPrice" title="${uiLabelMap.OrderUnitPrice}"><display/></field>
+        <field name="salesTaxAmount"><display/></field>
+        <field name="salesTaxPercent"><hidden/></field>
         <field name="shippingServiceCost"><display/></field>
         <field name="shippingTotalAdditionalCost"><display/></field>
         <field name="amountPaid"><display/></field>
@@ -156,7 +163,9 @@ under the License.
         <field name="checkoutStatus"><display/></field>
         <field name="completeStatus"><display/></field>
         <field name="buyerName"><display/></field>
+        <field name="shippingAddressStreet"><hidden/></field>
         <field name="emailBuyer"><display/></field>
+        <field name="shippingAddressStreet2"><hidden/></field>
         <field name="shippingAddressPhone"><hidden/></field>
         <field name="shippingAddressStreet1"><hidden/></field>
         <field name="shippingAddressPostalCode"><hidden/></field>
