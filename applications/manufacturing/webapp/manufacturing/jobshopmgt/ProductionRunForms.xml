@@ -635,8 +635,7 @@ under the License.
     <form name="IssueProductionRunComponent" type="single" target="issueProductionRunTaskComponent" title="">
         <auto-fields-service service-name="issueProductionRunTaskComponent"/>
         <field name="productionRunId"><hidden/></field>
-        <field name="workEffort"><ignored/></field>
-        <field name="workEffortGoodStandard"><ignored/></field>
+        <field name="fromDate"><ignored/></field>
         <field name="reserveOrderEnumId"><ignored/></field>
         <field name="workEffortId" title="${uiLabelMap.ManufacturingTask}">
             <drop-down allow-empty="false">
