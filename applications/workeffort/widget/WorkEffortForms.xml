@@ -778,10 +778,6 @@ under the License.
         </field>
         <field name="noteInfo" title="${uiLabelMap.CommonNote}" widget-style="tabletext"><display/></field>
         <field name="noteParty" title="${uiLabelMap.CommonBy}" widget-style="tabletext"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${noteDateTime}"/></field>
-
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteWorkEffortTimeEntry?workEffortId=${workEffortId}&amp;timeEntryId=${timeEntryId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
-        </field>
         <field name="isPritable" use-when="internalNote.equals(&quot;N&quot;)"><display description="${uiLabelMap.OrderPrintableNote}"/></field>
         <field name="isPritable" use-when="internalNote.equals(&quot;Y&quot;)"><display description="${uiLabelMap.OrderNotPrintableNote}"/></field>
         <field name="Private/Public"  widget-style="buttontext" use-when="internalNote.equals(&quot;N&quot;)">
