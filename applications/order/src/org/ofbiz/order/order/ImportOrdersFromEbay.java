@@ -93,18 +93,13 @@ public class ImportOrdersFromEbay {
             // get the xmlGatewayUri
             String xmlGatewayUri = UtilProperties.getPropertyValue(configString, "productsExport.eBay.xmlGatewayUri");
             
-            StringBuffer ebayDetailsItemsXml = new StringBuffer();
             StringBuffer sellerTransactionsItemsXml = new StringBuffer();
             
-            if (!ServiceUtil.isFailure(buildGetEbayDetailsRequest(context, ebayDetailsItemsXml, token))) { 
-                postItem(xmlGatewayUri, ebayDetailsItemsXml, devID, appID, certID, "GeteBayDetails", compatibilityLevel, siteID);
-                
-                if (!ServiceUtil.isFailure(buildGetSellerTransactionsRequest(context, sellerTransactionsItemsXml, token))) { 
-                    result = postItem(xmlGatewayUri, sellerTransactionsItemsXml, devID, appID, certID, "GetSellerTransactions", compatibilityLevel, siteID);
-                    String success = (String)result.get(ModelService.SUCCESS_MESSAGE);
-                    if (success != null) { 
-                        result = checkOrders(delegator, dispatcher, locale, context, success);
-                    }
+            if (!ServiceUtil.isFailure(buildGetSellerTransactionsRequest(context, sellerTransactionsItemsXml, token))) { 
+                result = postItem(xmlGatewayUri, sellerTransactionsItemsXml, devID, appID, certID, "GetSellerTransactions", compatibilityLevel, siteID);
+                String success = (String)result.get(ModelService.SUCCESS_MESSAGE);
+                if (success != null) { 
+                    result = checkOrders(delegator, dispatcher, locale, context, success);
                 }
             }
         } catch (Exception e) {        
@@ -133,6 +128,8 @@ public class ImportOrdersFromEbay {
             order.put("shippingService", (String) context.get("shippingService"));
             order.put("shippingServiceCost", (String) context.get("shippingServiceCost"));
             order.put("shippingTotalAdditionalCost", (String) context.get("shippingTotalAdditionalCost"));
+            order.put("salesTaxAmount", (String) context.get("salesTaxAmount"));
+            order.put("salesTaxPercent", (String) context.get("salesTaxPercent"));
             order.put("amountPaid", (String) context.get("amountPaid"));
             order.put("paidTime", (String) context.get("paidTime"));
             order.put("shippedTime", (String) context.get("shippedTime"));
@@ -140,7 +137,9 @@ public class ImportOrdersFromEbay {
             order.put("buyerName", (String) context.get("buyerName"));
             order.put("emailBuyer", (String) context.get("emailBuyer"));
             order.put("shippingAddressPhone", (String) context.get("shippingAddressPhone"));
+            order.put("shippingAddressStreet", (String) context.get("shippingAddressStreet"));
             order.put("shippingAddressStreet1", (String) context.get("shippingAddressStreet1"));
+            order.put("shippingAddressStreet2", (String) context.get("shippingAddressStreet2"));
             order.put("shippingAddressPostalCode", (String) context.get("shippingAddressPostalCode"));
             order.put("shippingAddressCountry", (String) context.get("shippingAddressCountry"));
             order.put("shippingAddressStateOrProvince", (String) context.get("shippingAddressStateOrProvince"));
@@ -505,7 +504,9 @@ public class ImportOrdersFromEbay {
                                     while (shippingAddressElemIter.hasNext()) {
                                         Element shippingAddressElement = (Element)shippingAddressElemIter.next();
                                         order.put("buyerName", UtilXml.childElementValue(shippingAddressElement, "Name", ""));
+                                        order.put("shippingAddressStreet", UtilXml.childElementValue(shippingAddressElement, "Street", ""));
                                         order.put("shippingAddressStreet1", UtilXml.childElementValue(shippingAddressElement, "Street1", ""));
+                                        order.put("shippingAddressStreet2", UtilXml.childElementValue(shippingAddressElement, "Street2", ""));
                                         order.put("shippingAddressCityName", UtilXml.childElementValue(shippingAddressElement, "CityName", ""));
                                         order.put("shippingAddressStateOrProvince", UtilXml.childElementValue(shippingAddressElement, "StateOrProvince", ""));
                                         order.put("shippingAddressCountry", UtilXml.childElementValue(shippingAddressElement, "Country", ""));
@@ -787,7 +788,7 @@ public class ImportOrdersFromEbay {
             if (UtilValidate.isNotEmpty(shippingCost)) {
                 double shippingAmount = new Double(shippingCost).doubleValue();
                 if (shippingAmount > 0) {
-                    GenericValue shippingAdjustment = makeOrderAdjustment(delegator, "SHIPPING_CHARGES", cart.getOrderId(), null, null, shippingAmount);       
+                    GenericValue shippingAdjustment = makeOrderAdjustment(delegator, "SHIPPING_CHARGES", cart.getOrderId(), null, null, shippingAmount, 0.0);       
                     if (shippingAdjustment != null) {
                         cart.addAdjustment(shippingAdjustment);
                     }
@@ -799,9 +800,26 @@ public class ImportOrdersFromEbay {
             if (UtilValidate.isNotEmpty(shippingTotalAdditionalCost)) {
                 double shippingAdditionalCost = new Double(shippingTotalAdditionalCost).doubleValue();
                 if (shippingAdditionalCost > 0) {
-                    GenericValue shippingAdjustment = makeOrderAdjustment(delegator, "MISCELLANEOUS_CHARGE", cart.getOrderId(), null, null, shippingAdditionalCost);       
+                    GenericValue shippingAdjustment = makeOrderAdjustment(delegator, "MISCELLANEOUS_CHARGE", cart.getOrderId(), null, null, shippingAdditionalCost, 0.0);       
                     if (shippingAdjustment != null) {
                         cart.addAdjustment(shippingAdjustment);
+                    }
+                }
+            }
+            
+            // Apply sales tax as order adjustment
+            String salesTaxAmount = (String) parameters.get("salesTaxAmount");
+            String salesTaxPercent = (String) parameters.get("salesTaxPercent");
+            if (UtilValidate.isNotEmpty(salesTaxAmount)) {
+                double salesTaxAmountTotal = new Double(salesTaxAmount).doubleValue();
+                if (salesTaxAmountTotal > 0) {
+                    double salesPercent = 0.0;
+                    if (UtilValidate.isNotEmpty(salesTaxPercent)) {
+                        salesPercent = new Double(salesTaxPercent).doubleValue();
+                    }
+                    GenericValue salesTaxAdjustment = makeOrderAdjustment(delegator, "SALES_TAX", cart.getOrderId(), null, null, salesTaxAmountTotal, salesPercent);
+                    if (salesTaxAdjustment != null) {
+                        cart.addAdjustment(salesTaxAdjustment);
                     }
                 }
             }
@@ -966,7 +984,8 @@ public class ImportOrdersFromEbay {
         }
     }
     
-    private static GenericValue makeOrderAdjustment(GenericDelegator delegator, String orderAdjustmentTypeId, String orderId, String orderItemSeqId, String shipGroupSeqId, double amount) {
+    private static GenericValue makeOrderAdjustment(GenericDelegator delegator, String orderAdjustmentTypeId, String orderId, 
+                                                    String orderItemSeqId, String shipGroupSeqId, double amount, double sourcePercentage) {
         GenericValue orderAdjustment  = null;
         
         try {
@@ -979,6 +998,9 @@ public class ImportOrdersFromEbay {
       
             Map inputMap = UtilMisc.toMap("orderAdjustmentTypeId", orderAdjustmentTypeId,  "orderId", orderId, "orderItemSeqId", orderItemSeqId, 
                                           "shipGroupSeqId", shipGroupSeqId, "amount", new Double(amount));
+            if (sourcePercentage != 0) {
+                inputMap.put("sourcePercentage", new Double(sourcePercentage));
+            }
             orderAdjustment = delegator.makeValue("OrderAdjustment", inputMap);
         } catch (Exception e) {
             Debug.logError(e, "Failed to made order adjustment for order " + orderId, module);
@@ -1024,6 +1046,7 @@ public class ImportOrdersFromEbay {
             Map context = FastMap.newInstance();
             context.put("partyId", partyId);
             context.put("address1", (String)address.get("shippingAddressStreet1"));
+            context.put("address2", (String)address.get("shippingAddressStreet2"));
             context.put("postalCode", (String)address.get("shippingAddressPostalCode"));
             context.put("userLogin", userLogin);
             context.put("contactMechPurposeTypeId", contactMechPurposeTypeId);       
@@ -1270,6 +1293,7 @@ public class ImportOrdersFromEbay {
                 //
                 // now compare values.  If all fields match, that's our shipping address.  Return the related contact mech id.
                 if (    parameters.get("shippingAddressStreet1").toString().equals((postalAddress.get("address1").toString())) &&
+                        parameters.get("shippingAddressStreet2").toString().equals((postalAddress.get("address2").toString())) &&
                         parameters.get("city").toString().equals((postalAddress.get("city").toString())) &&
                         parameters.get("stateProvinceGeoId").toString().equals((postalAddress.get("stateProvinceGeoId").toString())) &&
                         parameters.get("countryGeoId").toString().equals((postalAddress.get("countryGeoId").toString())) &&

@@ -807,13 +807,17 @@ under the License.
         <attribute type="String" mode="IN" name="shippingService" optional="true"/>
         <attribute type="String" mode="IN" name="shippingServiceCost" optional="true"/>
         <attribute type="String" mode="IN" name="shippingTotalAdditionalCost" optional="true"/>
+        <attribute type="String" mode="IN" name="salesTaxAmount" optional="true"/>
+        <attribute type="String" mode="IN" name="salesTaxPercent" optional="true"/>
         <attribute type="String" mode="IN" name="amountPaid" optional="true"/>
         <attribute type="String" mode="IN" name="paidTime" optional="true"/>
         <attribute type="String" mode="IN" name="shippedTime" optional="true"/>
         <attribute type="String" mode="IN" name="buyerName" optional="true"/>
         <attribute type="String" mode="IN" name="emailBuyer" optional="true"/>
         <attribute type="String" mode="IN" name="shippingAddressPhone" optional="true"/>
+        <attribute type="String" mode="IN" name="shippingAddressStreet" optional="true"/>
         <attribute type="String" mode="IN" name="shippingAddressStreet1" optional="true"/>
+        <attribute type="String" mode="IN" name="shippingAddressStreet2" optional="true"/>
         <attribute type="String" mode="IN" name="shippingAddressPostalCode" optional="true"/>
         <attribute type="String" mode="IN" name="shippingAddressCountry" optional="true"/>
         <attribute type="String" mode="IN" name="shippingAddressStateOrProvince" optional="true"/>
