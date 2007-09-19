@@ -93,15 +93,17 @@ under the License.
           <div class="tabletext">${prodCatMem.comments}</div>
           </#if>
           
-          <#-- list all feature types and values with the product -->
-          <#if productFeatures?has_content>
+          <#-- example of showing a certain type of feature with the product -->
+          <#if sizeProductFeatureAndAppls?has_content>
             <div class="tabletext">
-            <#list productFeatures as productFeature>
-                <b>${productFeature.description?default(productFeature.abbreviation)}(s):</b>
-                <#list productFeature.types as type> 
-                  ${type}<#if type_has_next>,</#if>
-                </#list>
-            </#list>
+              <#if (sizeProductFeatureAndAppls?size == 1)>
+                Size:
+              <#else>
+                Sizes Available:
+              </#if>
+              <#list sizeProductFeatureAndAppls as sizeProductFeatureAndAppl>
+                ${sizeProductFeatureAndAppl.abbrev?default(sizeProductFeatureAndAppl.description?default(sizeProductFeatureAndAppl.productFeatureId))}<#if sizeProductFeatureAndAppl_has_next>,</#if>
+              </#list>
             </div>
           </#if>
           <div class="tabletext">
