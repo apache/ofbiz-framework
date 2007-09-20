@@ -48,7 +48,7 @@ public class AliasKeyManager implements X509KeyManager {
             String[] aliases = keyManager.getClientAliases(keyType[i], null); // ignoring the issuers 
             if (aliases != null && aliases.length > 0) {
                 for (int x = 0; x < aliases.length; x++) {
-                    if (this.alias.equals(aliases[i])) {
+                    if (this.alias.equals(aliases[x])) {
                         if (Debug.verboseOn()) Debug.logVerbose("chooseClientAlias for keyType [" + keyType[i] + "] got alias " + this.alias, module);
                         //Debug.logInfo(new Exception(), "Location where chooseClientAlias is called", module);
                         return this.alias;
