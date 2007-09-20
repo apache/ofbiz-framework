@@ -369,7 +369,7 @@ public class PayflowPro {
                 String addAvs = (String) parameters.get("AVSADDR");
                 String zipAvs = (String) parameters.get("AVSZIP");
                 avsCode = addAvs + zipAvs;
-                if ("N".equals(addAvs) || "N".equals(zipAvs)) {
+                if (addAvs == null || "N".equals(addAvs) || zipAvs == null || "N".equals(zipAvs)) {
                     avsCheckOkay = false;
                 }
             }
@@ -382,7 +382,7 @@ public class PayflowPro {
             boolean checkCvv2 = UtilProperties.propertyValueEqualsIgnoreCase(resource, "payment.verisign.checkAvs", "Y");
             if (checkCvv2 && !isSale) {
                 cvvCode = (String) parameters.get("CVV2MATCH");
-                if ("N".equals(cvvCode)) {
+                if (cvvCode == null || "N".equals(cvvCode)) {
                     cvv2CheckOkay = false;
                 }
             }
