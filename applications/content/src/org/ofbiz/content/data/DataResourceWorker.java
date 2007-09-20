@@ -68,7 +68,7 @@ import javolution.util.FastMap;
 /**
  * DataResourceWorker Class
  */
-public class DataResourceWorker {
+public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerInterface {
 
     public static final String module = DataResourceWorker.class.getName();
     public static final String err_resource = "ContentErrorUiLabel";
@@ -1134,5 +1134,15 @@ public class DataResourceWorker {
         streamDataResource(baos, delegator, dataResourceId, https, webSiteId, locale, rootDir);
         ByteWrapper byteWrapper = new ByteWrapper(baos.toByteArray());
         return byteWrapper;
+    }
+    
+    public String renderDataResourceAsTextExt(GenericDelegator delegator, String dataResourceId, Map templateContext,
+            Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
+        return renderDataResourceAsText(delegator, dataResourceId, templateContext, locale, targetMimeTypeId, cache);
+    }
+    
+    public void renderDataResourceAsTextExt(GenericDelegator delegator, String dataResourceId, Writer out, Map templateContext,
+            Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
+        renderDataResourceAsText(delegator, dataResourceId, out, templateContext, locale, targetMimeTypeId, cache);
     }
 }
