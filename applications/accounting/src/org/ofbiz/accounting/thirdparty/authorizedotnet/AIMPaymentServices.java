@@ -155,7 +155,7 @@ public class AIMPaymentServices {
         
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError("No authorization transaction found for the OrderPaymentPreference; cannot Capture");
+            return ServiceUtil.returnError("No authorization transaction found for the OrderPaymentPreference; cannot Refund");
         }
         
         context.put("creditCard",creditCard);
@@ -167,7 +167,6 @@ public class AIMPaymentServices {
         buildMerchantInfo(context,props,request);
         buildGatewayResponeConfig(context,props,request);
         buildEmailSettings(context,props,request);
-        //props.put("transType","PRIOR_AUTH_CAPTURE");
         props.put("transType","CREDIT");
         props.put("cardtype", (String)creditCard.get("cardType"));
         buildRefundTransaction(context,props,request);
@@ -214,6 +213,7 @@ public class AIMPaymentServices {
             }
 
             if (canDoVoid) {
+                Debug.logWarning("Refund was unsuccessful; will now attempt a VOID transaction.", module);
                 Double authAmountObj = authTransaction.getDouble("amount");
                 Double refundAmountObj = (Double)context.get("refundAmount");
 
@@ -230,7 +230,7 @@ public class AIMPaymentServices {
                 } else {
                     // TODO: Modify the code to (a) do a void of the whole transaction, and (b)
                     // create a new auth-capture of the difference.
-                    return ServiceUtil.returnError("Cannot perform a VOID transaction: authAmount [" + authAmount + "] is different than refundAmount [" + refundAmount + "]");
+                    return ServiceUtil.returnFailure("Cannot perform a VOID transaction: authAmount [" + authAmount + "] is different than voidAmount [" + refundAmount + "]");
                 }
             }
         }
@@ -368,15 +368,7 @@ public class AIMPaymentServices {
     }
 
     private static boolean isTestMode() {
-        boolean ret = true;
-        String testReq = (String)AIMProperties.get("testReq");
-        if(testReq != null) {
-            if(testReq.equals("TRUE"))
-                ret = true;
-            else
-                ret = false;
-        }
-        return ret;
+         return ("TRUE".equals((String) AIMProperties.get("testReq"))); 
     }
 
     private static String getVersion() {
