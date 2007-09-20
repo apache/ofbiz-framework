@@ -64,7 +64,7 @@
 	<classpathentry kind="lib" path="framework/base/lib/mx4j-remote-3.0.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/mx4j-3.0.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/mail.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/log4j-1.2.14.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/junitperf.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/junit.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/jdbm-1.0.jar"/>
