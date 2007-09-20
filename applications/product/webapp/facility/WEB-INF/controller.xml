@@ -1127,6 +1127,14 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="InventoryReports"/>
     </request-map>
+    <request-map uri="InventoryItemTotals">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="InventoryItemTotals"/>
+    </request-map>
+    <request-map uri="InventoryItemGrandTotals">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="InventoryItemGrandTotals"/>
+    </request-map>
 
     <!-- ================ Lookup Requests ================= -->
     <request-map uri="LookupOrderHeaderAndShipInfo"><security https="true" auth="true"/><response name="success" type="view" value="LookupOrderHeaderAndShipInfo"/></request-map>
@@ -1211,6 +1219,8 @@ under the License.
     <view-map name="QuickShipOrder" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#QuickShipOrder"/>
     
     <view-map name="InventoryReports" type="screen" page="component://product/widget/facility/ReportScreens.xml#InventoryReports"/>
+    <view-map name="InventoryItemTotals" type="screen" page="component://product/widget/facility/FacilityScreens.xml#InventoryItemTotals"/>
+    <view-map name="InventoryItemGrandTotals" type="screen" page="component://product/widget/facility/FacilityScreens.xml#InventoryItemGrandTotals"/>
 
     <view-map name="LookupOrderHeaderAndShipInfo" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeaderAndShipInfo"/>
     <view-map name="LookupPurchaseOrderHeaderAndShipInfo" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupPurchaseOrderHeaderAndShipInfo"/>

@@ -343,4 +343,23 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
+    <form name="ListInventoryItemTotals" type="list" target="" title="" list-name="inventoryItemTotals" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="InventoryItemTotals" override-list-size="${overrideListSize}">
+        
+        <field name="inventoryItemGrandTotals"><hidden/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><display/></field>
+        <field name="quantityOnHand" title="${uiLabelMap.ProductQoh}" widget-area-style="tabletextright"><display/></field>
+        <field name="availableToPromise" title="${uiLabelMap.ProductAtp}" widget-area-style="tabletextright"><display/></field>
+        <field name="costPrice" title="${uiLabelMap.ProductCostPrice}" widget-area-style="tabletextright"><display/></field>
+        <field name="retailPrice" title="${uiLabelMap.ProductRetailPrice}" widget-area-style="tabletextright"><display/></field>
+        <field name="totalCostPrice" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductCostPrice}" widget-area-style="tabletextright"><display/></field>
+        <field name="totalRetailPrice" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductRetailPrice}" widget-area-style="tabletextright"><display/></field>
+    </form>
+    <form name="ListInventoryItemGrandTotals" type="list" list-name="inventoryItemGrandTotals">
+        <field name="qohGrandTotal" title="${uiLabelMap.ProductQoh} ${uiLabelMap.CommonTotal} ${uiLabelMap.CommonQty}" widget-area-style="tabletextright"><display/></field>
+        <field name="atpGrandTotal" title="${uiLabelMap.ProductAtp} ${uiLabelMap.CommonTotal} ${uiLabelMap.CommonQty}" widget-area-style="tabletextright"><display/></field>
+        <field name="totalCostPriceGrandTotal" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductCostPrice}" widget-area-style="tabletextright"><display/></field>
+        <field name="totalRetailPriceGrandTotal" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductRetailPrice}" widget-area-style="tabletextright"><display/></field>
+    </form>
 </forms>
