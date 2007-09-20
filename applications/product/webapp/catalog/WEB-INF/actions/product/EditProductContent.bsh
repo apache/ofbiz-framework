@@ -50,17 +50,6 @@ productContent = null;
 if (product != null) productContent = product.getRelated("ProductContent", null, UtilMisc.toList("productContentTypeId"));
 context.put("productContent", productContent);
 
-if (productContent != null) {
-    List productContentDatas = new LinkedList();
-    Iterator productContentIter = productContent.iterator();
-    while (productContentIter.hasNext()) {
-        GenericValue productContent = (GenericValue) productContentIter.next();
-        GenericValue content = productContent.getRelatedOne("Content");
-        productContentDatas.add(UtilMisc.toMap("productContent", productContent, "content", content));
-    }
-    
-    context.put("productContentList", productContentDatas);
-}
 // End ProductContent stuff
 
 boolean tryEntity = true;

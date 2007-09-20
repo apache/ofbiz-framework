@@ -16,72 +16,27 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script language="JavaScript" type="text/javascript">
-function insertNowTimestamp(field) {
-  eval('document.productForm.' + field + '.value="${nowTimestampString}";');
-};
-function insertImageName(type,nameValue) {
-  eval('document.productForm.' + type + 'ImageUrl.value=nameValue;');
-};
-</script>
+<#if product?exists>
+    <script language="JavaScript" type="text/javascript">
+    function insertNowTimestamp(field) {
+      eval('document.productForm.' + field + '.value="${nowTimestampString}";');
+    };
+    function insertImageName(type,nameValue) {
+      eval('document.productForm.' + type + 'ImageUrl.value=nameValue;');
+    };
+    </script>
 
-<#if fileType?has_content>
-    <h3>${uiLabelMap.ProductResultOfImageUpload}</h3>
-    <#if !(clientFileName?has_content)>
-        <div class='tabletext'>${uiLabelMap.ProductNoFileSpecifiedForUpload}.</div>
-    <#else>
-        <div class='tabletext'>${uiLabelMap.ProductTheFileOnYourComputer}: <b>${clientFileName?if_exists}</b></div>
-        <div class='tabletext'>${uiLabelMap.ProductServerFileName}: <b>${fileNameToUse?if_exists}</b></div>
-        <div class='tabletext'>${uiLabelMap.ProductServerDirectory}: <b>${imageServerPath?if_exists}</b></div>
-        <div class='tabletext'>${uiLabelMap.ProductTheUrlOfYourUploadedFile}: <b><a href="<@ofbizContentUrl>${imageUrl?if_exists}</@ofbizContentUrl>">${imageUrl?if_exists}</a></b></div>
-    </#if>
-<br/>
-</#if>    
-
-<#if !(product?exists)>
-    <h3>${uiLabelMap.ProductCouldNotFindProduct} "${productId}".</h3>
-<#else>
-    <table border="1" cellpadding="2" cellspacing="0">
-    <tr class="tableheadtext">
-        <td>${uiLabelMap.ProductContent}</td>
-        <td>${uiLabelMap.ProductType}</td>
-        <td>${uiLabelMap.CommonFrom}</td>
-        <td>${uiLabelMap.CommonThru}</td>
-        <td>${uiLabelMap.ProductPurchaseFrom}</td>
-        <td>${uiLabelMap.ProductPurchaseThru}</td>
-        <td>${uiLabelMap.ProductUseCount}</td>
-        <td>${uiLabelMap.ProductUseTime}</td>
-        <td>${uiLabelMap.ProductUseTimeUom}</td>
-        <td>${uiLabelMap.ProductUseRole}</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-    </tr>
-    <#list productContentList as entry>
-        <#assign productContent=entry.productContent/>
-        <#assign productContentType=productContent.getRelatedOneCache("ProductContentType")/>
-        <tr class="tabletext">
-            <td><a href="<@ofbizUrl>EditProductContentContent?productId=${productContent.productId}&amp;contentId=${productContent.contentId}&amp;productContentTypeId=${productContent.productContentTypeId}&amp;fromDate=${productContent.fromDate}</@ofbizUrl>" class="buttontext">${entry.content.description?default("[${uiLabelMap.ProductNoDescription}]")} [${entry.content.contentId}]</td>
-            <td>${productContentType.get("description",locale)?default(productContent.productContentTypeId)}</td>
-            <td>${productContent.fromDate?default("${uiLabelMap.CommonNA}")}</td>
-            <td>${productContent.thruDate?default("${uiLabelMap.CommonNA}")}</td>
-            <td>${productContent.purchaseFromDate?default("${uiLabelMap.CommonNA}")}</td>
-            <td>${productContent.purchaseThruDate?default("${uiLabelMap.CommonNA}")}</td>
-            <td>${productContent.useCountLimit?default("${uiLabelMap.CommonNA}")}</td>
-            <td>${productContent.useTime?default("${uiLabelMap.CommonNA}")}</td>
-            <td>${productContent.useTimeUomId?default("${uiLabelMap.CommonNA}")}</td>
-            <td>${productContent.useRoleTypeId?default("${uiLabelMap.CommonNA}")}</td>
-            <td><a href="<@ofbizUrl>removeContentFromProduct?productId=${productContent.productId}&amp;contentId=${productContent.contentId}&amp;productContentTypeId=${productContent.productContentTypeId}&amp;fromDate=${productContent.fromDate}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonDelete}]</a></td>
-            <td><a href="/content/control/EditContent?contentId=${productContent.contentId}&externalLoginKey=${requestAttributes.externalLoginKey?if_exists}" class="buttontext">[${uiLabelMap.ProductEditContent} ${entry.content.contentId}]</td>
-         </tr>
-    </#list>
-    </table>
-    <h2>${uiLabelMap.ProductCreateNewProductContent}</h2>
-    <#if productId?has_content && product?has_content>
-        ${sections.render("PrepareAddProductContentAssoc")}
-    </#if>
-    <h2>${uiLabelMap.ProductAddContentProduct}</h2>
-    <#if productId?has_content && product?has_content>
-        ${sections.render("AddProductContentAssoc")}
+    <#if fileType?has_content>
+        <h3>${uiLabelMap.ProductResultOfImageUpload}</h3>
+        <#if !(clientFileName?has_content)>
+            <div class='tabletext'>${uiLabelMap.ProductNoFileSpecifiedForUpload}.</div>
+        <#else>
+            <div class='tabletext'>${uiLabelMap.ProductTheFileOnYourComputer}: <b>${clientFileName?if_exists}</b></div>
+            <div class='tabletext'>${uiLabelMap.ProductServerFileName}: <b>${fileNameToUse?if_exists}</b></div>
+            <div class='tabletext'>${uiLabelMap.ProductServerDirectory}: <b>${imageServerPath?if_exists}</b></div>
+            <div class='tabletext'>${uiLabelMap.ProductTheUrlOfYourUploadedFile}: <b><a href="<@ofbizContentUrl>${imageUrl?if_exists}</@ofbizContentUrl>">${imageUrl?if_exists}</a></b></div>
+        </#if>
+    <br/>
     </#if>
 
     <hr class="sepbar"/>

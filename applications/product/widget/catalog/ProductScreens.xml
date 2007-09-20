@@ -667,17 +667,17 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <include-form name="ListProductContentInfos" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <container>
+                            <label style="head2">${uiLabelMap.ProductCreateNewProductContent}</label>
+                        </container>
+                        <include-form name="PrepareAddProductContentAssoc" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <container>
+                            <label style="head2">${uiLabelMap.ProductAddContentProduct}</label>
+                        </container>
+                        <include-form name="AddProductContentAssoc" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                         <platform-specific>
-                            <html>
-                                <html-template-decorator location="component://product/webapp/catalog/product/EditProductContent.ftl">
-                                    <html-template-decorator-section name="PrepareAddProductContentAssoc">
-                                        <include-form name="PrepareAddProductContentAssoc" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                                    </html-template-decorator-section>
-                                    <html-template-decorator-section name="AddProductContentAssoc">
-                                        <include-form name="AddProductContentAssoc" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                                    </html-template-decorator-section>
-                                </html-template-decorator>
-                            </html>
+                            <html><html-template location="component://product/webapp/catalog/product/EditProductContent.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -693,12 +693,15 @@ under the License.
     
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="ProductContent" value-name="productContent"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductContentContent.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="${contentFormName}" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <include-form name="ListAssociatedContentInfos" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <include-form name="CreateSimpleTextContentForAlternateLocale" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
