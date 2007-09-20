@@ -20,7 +20,7 @@
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="ListFindTimeSheet" type="list" list-name="timeSheetList">
+    <form name="ListFindTimeSheet" type="list" list-name="timeSheetList" paginate-target="FindTimeSheet">
         <field name="timesheetId" title="${uiLabelMap.TimesheetTimesheetId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${timesheetId}" target="EditTimeSheet?timesheetId=${timesheetId}"/>
         </field>

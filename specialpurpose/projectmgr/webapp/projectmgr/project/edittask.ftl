@@ -54,13 +54,13 @@ under the License.
           <tr>    
             <#if task?exists>
               <td class="label" >${uiLabelMap.ProjectMgrWorkEffortId}</td>    
-              <td>${task.workEffortId?if_exists}</td>    
+              <td>${task.workEffortId?if_exists}<span class="tooltip">${uiLabelMap.CommonNotModifRecreat}</span></td>    
             </#if>
           </tr>    
           <tr>
             <td class="label" >${uiLabelMap.CommonName}*</td>
             <#if task?exists>
-              <td>${task.workEffortName?if_exists} <span class="tooltip">${uiLabelMap.CommonRequired}</span></td>
+              <td>${task.workEffortName?if_exists}</td>
             <#else>
               <td><input type="text" name="workEffortName" value=""/><span class="tooltip">${uiLabelMap.CommonRequired}</span></td>
             </#if>
@@ -137,9 +137,11 @@ under the License.
             <#assign enumerations = delegator.findByAnd("Enumeration", Static["org.ofbiz.base.util.UtilMisc"].toMap("enumTypeId", "WORK_EFF_SCOPE"))>
             <select name="scopeEnumId" class="selectBox">
               <#if task?exists>
-                <#assign scopeEnumId = task.scopeEnumId?if_exists>            
+                <#assign currentScope = task.getRelatedOne("ScopeEnumeration")?if_exists>
+                <option value="${currentScope.enumId}">${currentScope.description}</option>
+                <option>--<option>
                 <#list enumerations as enumeration>                    
-                  <option value="${enumeration.enumId}" <#if "${enumeration.enumId}" == scopeEnumId?if_exists>selected="selected"</#if>>${enumeration.description}</option>
+                  <option value="${enumeration.enumId}">${enumeration.description}</option>
                 </#list>
               <#else>
                 <#list enumerations as enumeration>                    

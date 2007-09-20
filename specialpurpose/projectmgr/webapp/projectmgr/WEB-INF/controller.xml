@@ -202,13 +202,13 @@
         <response name="success" type="view" value="EditProjectSkills"/>
         <response name="error" type="view" value="EditProjectSkills"/>
     </request-map>
-    <request-map uri="updateWorkEffortSkillStandard">
+    <request-map uri="updateProjectSkillStandard">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateWorkEffortSkillStandard"/>
         <response name="success" type="view" value="EditProjectSkills"/>
         <response name="error" type="view" value="EditProjectSkills"/>
     </request-map>
-    <request-map uri="deleteWorkEffortSkillStandard">
+    <request-map uri="deleteProjectSkillStandard">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteWorkEffortSkillStandard"/>
         <response name="success" type="view" value="EditProjectSkills"/>
@@ -291,6 +291,62 @@
         <response name="success" type="view" value="FindTimeSheet"/>
         <response name="error" type="view" value="FindTimeSheet"/>
     </request-map>
+    <request-map uri="EditTaskNotes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditTaskNotes"/>
+        <response name="error" type="view" value="EditTaskNotes"/>
+    </request-map>
+    <request-map uri="createTaskNote">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortNote"/>
+        <response name="success" type="view" value="EditTaskNotes"/>
+        <response name="error" type="view" value="EditTaskNotes"/>
+    </request-map>
+    <request-map uri="updateTaskNote">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffortNote"/>
+        <response name="success" type="view" value="EditTaskNotes"/>
+        <response name="error" type="view" value="EditTaskNotes"/>
+    </request-map>
+    <request-map uri="updateTaskNoteSummary">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffortNote"/>
+        <response name="success" type="view" value="taskView"/>
+        <response name="error" type="view" value="taskView"/>
+    </request-map>
+    <request-map uri="updateProjectNote">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffortNote"/>
+        <response name="success" type="view" value="projectView"/>
+        <response name="error" type="view" value="projectView"/>
+    </request-map>
+    <request-map uri="taskView">
+        <security https="true" auth="true"/>        
+        <response name="success" type="view" value="taskView"/>
+        <response name="error" type="view" value="taskView"/>
+    </request-map>
+    <request-map uri="newNotesForProject">
+        <security https="true" auth="true"/>        
+        <response name="success" type="view" value="projectView"/>
+        <response name="error" type="view" value="projectView"/>
+    </request-map>
+    <request-map uri="createNewNotesForProject">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortNote"/>
+        <response name="success" type="view" value="projectView"/>
+        <response name="error" type="view" value="projectView"/>
+    </request-map>
+    <request-map uri="newNotesForTask">
+        <security https="true" auth="true"/>        
+        <response name="success" type="view" value="taskView"/>
+        <response name="error" type="view" value="taskView"/>
+    </request-map>
+    <request-map uri="createNewNotesForTask">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortNote"/>
+        <response name="success" type="view" value="taskView"/>
+        <response name="error" type="view" value="taskView"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -325,5 +381,8 @@
     <view-map name="EditTimeSheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#EditTimeSheet"/>
     <view-map name="EditSkillTypes" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditSkillTypes"/>
     <view-map name="EditPartySkills" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditPartySkills"/>
+    <view-map name="EditWorkEffortNotes" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectNotes"/>
+    <view-map name="EditTaskNotes" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskNotes"/>
+    <view-map name="taskView" type="screen" page="component://projectmgr/widget/TaskScreens.xml#TaskSummary"/>
     <!-- end of view mappings -->
 </site-conf>

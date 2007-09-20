@@ -87,4 +87,11 @@ under the License.
       <process field="fromDate"><copy/></process>
       <process field="thruDate"><copy/></process>
   </simple-map-processor>
+  <simple-map-processor name="createWorkEffortNoteMap">
+    <process field="workEffortId"><copy/></process>
+    <process field="internalNote"><copy/></process>
+    <process field="noteName"><copy/></process>
+    <process field="noteParty"><copy/></process>
+    <process field="noteInfo"><copy/><not-empty><fail-property resource="WorkEffortUiLabels" property="WorkEffortNoteMissing"/></not-empty></process>
+  </simple-map-processor>
 </simple-map-processors>

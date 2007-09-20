@@ -104,6 +104,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditProject"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-name="project"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/MilliSecToHour.bsh"/>
             </actions>
             <widgets>                
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -432,9 +433,9 @@ under the License.
     <screen name="EditPartySkills">
         <section>
             <actions>
-                <set field="headerItem" value="PartyReview"/>
                 <set field="tabButtonItem" value="parties"/>                
                 <set field="partyId" from-field="parameters.partyId"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -460,6 +461,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListTimeEntries"/>
                 <set field="tabButtonItem" value="tasks"/>
                 <set field="labelTitleProperty" value="PageTitleEditSkill"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -482,10 +484,39 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditProjectNotes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListProjectNotes"/>
+                <set field="tabButtonItem" value="notes"/>
+                <set field="labelTitleProperty" value="PageTitleListProjectNotes"/>
+
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.${titleProperty}}</label></container>
+                            <container style="screenlet-body">
+                                <include-form name="ListProjectNotes" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                            </container>
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddProjectNotes}</label></container>
+                            <container style="screenlet-body">
+                                <include-form name="AddWorkEffortNote" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                            </container>
+                        </container>                        
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="ProjectSummary">        
         <section>
             <actions>
                 <set field="tabButtonItem" value="projectView"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="workEffortIdFrom" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-name="project"/>
             </actions>                        
             <widgets>
@@ -500,11 +531,11 @@ under the License.
                                     <include-screen name="ProjectInfo"/>
                                     <include-screen name="PhasesInfo"/>
                                     <include-screen name="PartiesInfo"/>
-                                    <!--include-screen name="ProjectTeamInfo"/-->
                                 </container>
                                 <container style="righthalf">
                                     <include-screen name="SubProjectsInfo"/>
                                     <include-screen name="TasksInfo"/>                                    
+                                    <include-screen name="NoteInfo"/>
                                 </container>
                             </widgets>
                         </section>
@@ -594,6 +625,22 @@ under the License.
                         <include-form name="ListAssociatedParties" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                     </container>
                 </container>                
+            </widgets>
+        </section>
+    </screen>
+    <screen name="NoteInfo">
+        <section>
+            <actions>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <entity-and entity-name="WorkEffortNoteAndData" list-name="workEffortNoteandDetails">
+                    <field-map field-name="workEffortId" env-name="workEffortId"/>
+                    <order-by field-name="-noteDateTime"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/summary/noteinfo.ftl"/></html>
+                </platform-specific>
             </widgets>
         </section>
     </screen>

@@ -90,15 +90,15 @@ under the License.
             <tr>    
               <#if task?exists>
                 <td class="label" >${uiLabelMap.ProjectMgrWorkEffortId}</td>    
-                <td>${task.workEffortId?if_exists}</td>    
+                <td>${task.workEffortId?if_exists}<span class="tooltip">${uiLabelMap.CommonNotModifRecreat}</span></td>    
               </#if>
             </tr>    
             <tr>
               <td class="label" >${uiLabelMap.CommonName}*</td>
               <#if task?exists>
-                <td>${task.workEffortName?if_exists} <span class="tooltip">${uiLabelMap.CommonRequired}</span></td>
+                <td>${task.workEffortName?if_exists}</td>
               <#else>
-                <td><input type="text" name="workEffortName" value=""/><span class="tooltip">${uiLabelMap.CommonRequired}</span></td>
+                <td><input type="text" name="workEffortName" value=""/></td>
               </#if>
             </tr>
             <tr>    
@@ -114,10 +114,10 @@ under the License.
               <td>    
                 <select name="currentStatusId" class="selectBox">
                   <#if task?exists>
-                    <#assign currentStatusId = task.currentStatusId?if_exists>
-                    <#assign statusValidChangeToDetailList = delegator.findByAnd("StatusValidChangeToDetail", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", currentStatusId))>
+                    <#assign currentStatus = task.geRelatedOne("CurrentStatusItem")?if_exists>
+                    <option SELECTED value="${currentStatus.currentStatusId}">${currentStatus.description}</option>
+                    <#assign statusValidChangeToDetailList = delegator.findByAnd("StatusValidChangeToDetail", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", currentStatus.currentStatusId))>
                     <#list statusValidChangeToDetailList as statusValidChangeToDetail> 
-                      <option SELECTED value="${currentStatusId}">${currentStatusId}</option>  
                       <option value=${statusValidChangeToDetail.statusId}>[${uiLabelMap.WorkEffortGeneral}]${statusValidChangeToDetail.description}</option>
                     </#list>
                   <#else>
