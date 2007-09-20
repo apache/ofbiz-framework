@@ -197,9 +197,13 @@ under the License.
                             <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunDeclaration.ftl"/></html>
                         </platform-specific>
                         <container>
-                            <label style="head2">${uiLabelMap.ManufacturingMaterials}</label>
+                            <label style="head2">${uiLabelMap.ManufacturingMaterialsRequiredByRunningTask}</label>
                         </container>
-                        <include-form name="ListProductionRunDeclComponents" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                        <include-form name="ListIssueProductionRunDeclComponents" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                        <container>
+                            <label style="head2">${uiLabelMap.ManufacturingReturnMaterials}</label>
+                        </container>
+                        <include-form name="ListReturnProductionRunDeclComponents" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
                         <container>
                             <label style="head2">${uiLabelMap.ManufacturingListOfProductionRunFixedAssets}</label>
                         </container>

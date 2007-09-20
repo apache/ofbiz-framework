@@ -648,6 +648,12 @@ under the License.
         <response name="success" type="view" value="ProductionRunDeclaration"/>
         <response name="error" type="view" value="ProductionRunDeclaration"/>
     </request-map>
+    <request-map uri="issueProductionRunTaskComponents">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="issueProductionRunTaskComponent"/>
+        <response name="success" type="view" value="ProductionRunDeclaration"/>
+        <response name="error" type="view" value="ProductionRunDeclaration"/>
+    </request-map>
     <request-map uri="createProductionRunTaskProduct">
         <security https="true" auth="true"/>
         <event type="service" invoke="productionRunTaskProduce"/>

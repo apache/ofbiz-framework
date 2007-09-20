@@ -29,6 +29,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.widget.html.HtmlFormWrapper;
 import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 
+import javolution.util.FastList;
 
 userLogin = request.getAttribute("userLogin");
 
@@ -191,7 +192,9 @@ if (!UtilValidate.isEmpty(productionRunId)) {
 
         //  Product components list
         List productionRunComponents = productionRun.getProductionRunComponents();
-        List productionRunComponentsData = new LinkedList();
+        List productionRunComponentsData = FastList.newInstance();
+        List productionRunComponentsDataReadyForIssuance = FastList.newInstance();
+        List productionRunComponentsAlreadyIssued = FastList.newInstance();
         if (productionRunComponents != null){
             GenericValue component;
             for (Iterator iter=productionRunComponents.iterator(); iter.hasNext();){
@@ -203,6 +206,7 @@ if (!UtilValidate.isEmpty(productionRunId)) {
                 Map componentData = component.getAllFields();
                 componentData.put("internalName", componentName);
                 componentData.put("workEffortName", workEffortName);
+                componentData.put("facilityId", productionRunTask.getString("facilityId"));
                 Iterator issuances = (delegator.findByAnd("WorkEffortAndInventoryAssign", UtilMisc.toMap("workEffortId", component.getString("workEffortId"), "productId", product.getString("productId")))).iterator();
                 double totalIssued = 0.0;
                 while (issuances.hasNext()) {
@@ -233,9 +237,17 @@ if (!UtilValidate.isEmpty(productionRunId)) {
                     componentData.put("isRunning", "null");
                 }
                 productionRunComponentsData.add(componentData);
+                if (component.getString("workEffortId").equals(issueTaskId)) {
+                    productionRunComponentsDataReadyForIssuance.add(componentData);
+                }
+                if (totalIssued > 0.0) {
+                    productionRunComponentsAlreadyIssued.add(componentData);
+                }
             }
         }
         context.put("productionRunComponentsData", productionRunComponentsData);
+        context.put("productionRunComponentsDataReadyForIssuance", productionRunComponentsDataReadyForIssuance);
+        context.put("productionRunComponentsAlreadyIssued", productionRunComponentsAlreadyIssued);
 
         // Fixed assets list
         List productionRunFixedAssetsData = new LinkedList();
