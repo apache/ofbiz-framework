@@ -244,6 +244,8 @@ under the License.
                             <!--<link target="ViewFacilityInventoryByProductSimple?facilityId=${facilityId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>-->
                             <link target="ViewFacilityInventoryByProductReport?${searchParameterString}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
                             <link target="ViewFacilityInventoryByProductExport?${searchParameterString}" text="${uiLabelMap.CommonExport}" style="buttontext"/>
+                            <link target="InventoryItemTotals?facilityId=${facilityId}&amp;action=Y" text="${uiLabelMap.ProductInventoryItemTotals}" style="buttontext"/>
+                            <link target="InventoryItemGrandTotals?facilityId=${facilityId}&amp;action=Y" text="${uiLabelMap.ProductInventoryItemGrandTotals}" style="buttontext"/>
                         </container>
 
                         <include-form name="FindFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
@@ -364,6 +366,56 @@ under the License.
         </section>
     </screen>
 
+    <screen name="InventoryItemTotals">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="ViewFacilityInventoryByProduct"/>
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                
+                <entity-one entity-name="Facility" value-name="facility" use-cache="true"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/InventoryItemTotals.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head2" text="${uiLabelMap.ProductInventoryItemTotals} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
+                        </container>
+                        <include-form name="ListInventoryItemTotals" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="InventoryItemGrandTotals">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="ViewFacilityInventoryByProduct"/>
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                
+                <entity-one entity-name="Facility" value-name="facility" use-cache="true"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/InventoryItemTotals.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head2" text="${uiLabelMap.ProductInventoryItemGrandTotals} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
+                        </container>
+                        <include-form name="ListInventoryItemGrandTotals" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="EditFacilityGroups">
         <section>
             <actions>
