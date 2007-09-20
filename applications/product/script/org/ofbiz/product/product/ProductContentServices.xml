@@ -102,6 +102,15 @@ under the License.
         <set-service-fields service-name="updateSimpleTextContent" map-name="parameters" to-map-name="updateSimpleText"/>
         <call-service service-name="updateSimpleTextContent" in-map-name="updateSimpleText"/>
     </simple-method>
+    <simple-method method-name="createSimpleTextContentForAlternateLocale" short-description="Create Simple Text Content For Alternate Locale">
+        <set-service-fields service-name="createSimpleTextContent" map-name="parameters" to-map-name="createSimpleTextMap"/>
+        <call-service service-name="createSimpleTextContent" in-map-name="createSimpleTextMap">
+            <result-to-field result-name="contentId" field-name="createContentAssocMap.contentIdTo"/>
+        </call-service>
+        <set field="createContentAssocMap.contentId" from-field="parameters.mainContentId"/>
+        <set field="createContentAssocMap.contentAssocTypeId" value="ALTERNATE_LOCALE"/>
+        <call-service service-name="createContentAssoc" in-map-name="createContentAssocMap"/>
+    </simple-method>
 
     <!-- ProductFeatureDataResource -->
     <simple-method method-name="createProductFeatureDataResource" short-description="Create ProductFeature-DataResource">

@@ -401,6 +401,14 @@ under the License.
         <attribute name="text" type="String" mode="IN" optional="true"/>
     </service>
     
+    <service name="createSimpleTextContentForAlternateLocale" engine="simple" location="org/ofbiz/product/product/ProductContentServices.xml" invoke="createSimpleTextContentForAlternateLocale">
+        <auto-attributes mode="IN" entity-name="Content" optional="true"/>
+        <attribute name="mainContentId" type="String" mode="IN" optional="false"/>
+        <attribute name="text" type="String" mode="IN" optional="false"/>
+        <override name="localeString" optional="false"/>
+        <override name="contentId" mode="INOUT"/>
+    </service>
+
     <!-- SupplierProduct Services -->
     <service name="createSupplierProduct" default-entity-name="SupplierProduct" engine="simple"
         location="org/ofbiz/product/supplier/SupplierProductServices.xml" invoke="createSupplierProduct" auth="true">
