@@ -184,7 +184,7 @@ under the License.
                                                         <if-empty field-name="orderItemShipGrpInvRes.quantityNotAvailable"/>
                                                         <if-compare field-name="orderItemShipGrpInvRes.quantityNotAvailable" operator="equals" value="0" type="Double"/>
                                                         <and>
-                                                            <if-compare field-name="orderItemShipGrpInvRes.quantity" operator="greater" value="0" type="Double"/>
+                                                            <if-compare-field field-name="orderItemShipGrpInvRes.quantity" operator="greater" to-field-name="orderItemShipGrpInvRes.quantityNotAvailable" type="Double"/>
                                                             <if-compare field-name="orderItemShipGroup.maySplit" operator="equals" value="Y"/>
                                                         </and>
                                                     </or>
