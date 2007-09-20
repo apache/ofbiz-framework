@@ -69,7 +69,7 @@ under the License.
                     <div class="tabletext">
                       ${loopStatusItem.get("description",locale)} - ${orderHeaderStatus.statusDatetime?default("0000-00-00 00:00:00")?string}
                       &nbsp;
-                      ${uiLabelMap.CommonBy} - <#--${orderHeaderStatus.statusUserLogin?string}-->${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, userlogin.get("partyId"), true)}
+                      ${uiLabelMap.CommonBy} - <#--${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, userlogin.getString("partyId"), true)}--> [${orderHeaderStatus.statusUserLogin}]
                     </div>
                   </#list>
                 </#if>
