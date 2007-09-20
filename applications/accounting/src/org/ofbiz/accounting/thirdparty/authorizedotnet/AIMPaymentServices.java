@@ -525,6 +525,7 @@ public class AIMPaymentServices {
         String amount = ((Double)params.get("processAmount")).toString();
         String number = UtilFormatOut.checkNull(cc.getString("cardNumber"));
         String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
+        String cardSecurityCode = (String) params.get("cardSecurityCode");
 
         AIMRequest.put("x_Amount",amount);
         AIMRequest.put("x_Currency_Code",currency);
@@ -532,6 +533,9 @@ public class AIMPaymentServices {
         AIMRequest.put("x_Type", props.getProperty("transType"));
         AIMRequest.put("x_Card_Num",number);
         AIMRequest.put("x_Exp_Date",expDate);
+        if (UtilValidate.isNotEmpty(cardSecurityCode)) {
+            AIMRequest.put("x_card_code", cardSecurityCode);
+        }
     }
 
     private static void buildCaptureTransaction(Map params, Properties props, Map AIMRequest) {
