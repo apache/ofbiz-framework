@@ -38,6 +38,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
 import org.ofbiz.widget.WidgetContentWorker;
+import org.ofbiz.widget.WidgetDataResourceWorker;
 import org.ofbiz.widget.screen.ModelScreenWidget;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
 import org.ofbiz.service.LocalDispatcher;
@@ -287,6 +288,7 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
         //Boolean nullThruDatesOnly = new Boolean(false);
         String mimeTypeId = "text/html";
         String expandedContentId = content.getContentId(context);
+        String expandedDataResourceId = content.getDataResourceId(context);
         String renderedContent = null;
         LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
         GenericDelegator delegator = (GenericDelegator) context.get("delegator");
@@ -294,11 +296,23 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
         // make a new map for content rendering; so our current map does not get clobbered
         Map contentContext = FastMap.newInstance();
         contentContext.putAll(context);
-
+        String dataResourceId = (String)contentContext.get("dataResourceId");
         if (Debug.verboseOn()) Debug.logVerbose("expandedContentId:" + expandedContentId, module);
         
         try {
-            if (UtilValidate.isNotEmpty(expandedContentId)) {
+            if (UtilValidate.isNotEmpty(expandedDataResourceId)) {
+               if (WidgetDataResourceWorker.dataresourceWorker != null) {
+                   renderedContent = WidgetDataResourceWorker.dataresourceWorker.renderDataResourceAsTextExt(delegator, expandedDataResourceId, contentContext, locale, mimeTypeId, false);
+               } else {
+                   Debug.logError("Not rendering content, not WidgetDataResourceWorker.dataresourceWorker found.", module);
+               }
+            } else if (UtilValidate.isNotEmpty(dataResourceId)) {
+                if (WidgetDataResourceWorker.dataresourceWorker != null) {
+                    renderedContent = WidgetDataResourceWorker.dataresourceWorker.renderDataResourceAsTextExt(delegator, dataResourceId, contentContext, locale, mimeTypeId, false);
+                } else {
+                    Debug.logError("Not rendering content, not WidgetDataResourceWorker.dataresourceWorker found.", module);
+                }
+            } else if (UtilValidate.isNotEmpty(expandedContentId)) {
                 if (WidgetContentWorker.contentWorker != null) {
                     renderedContent = WidgetContentWorker.contentWorker.renderContentAsTextExt(dispatcher, delegator, expandedContentId, contentContext, locale, mimeTypeId, true);
                 } else {
