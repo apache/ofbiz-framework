@@ -47,9 +47,6 @@ under the License.
             </#if>
           </tr>    
           <tr>
-            <td class="label" >${uiLabelMap.ProjectMgrWorkEffortIdFrom}</td>
-            <#assign workEffort=delegator.findByPrimaryKey("WorkEffort", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortId", workEffortIdFrom?if_exists ))>                     
-            <td>${(workEffort.workEffortName)?if_exists} [${(workEffort.workEffortId)?if_exists}]<span class="tooltip">${uiLabelMap.CommonNotModifRecreat}</td>
             <td><input type="hidden" name="workEffortIdFrom" value="${workEffortIdFrom?if_exists}"/></td>
             <td><input type="hidden" name="workEffortParentId" value="${workEffortIdFrom?if_exists}"/></td> 
             <td><input type="hidden" name="workEffortAssocTypeId" value="WORK_EFF_BREAKDOWN"/>
@@ -86,10 +83,10 @@ under the License.
             <td>    
               <select name="currentStatusId" class="selectBox">
                 <#if phase?exists>
-                  <#assign currentStatusId = phase.currentStatusId?if_exists>
-                  <#assign statusValidChangeToDetailList = delegator.findByAnd("StatusValidChangeToDetail", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", currentStatusId))>
+                  <#assign currentStatus = phase.getRelatedOne("CurrentStatusItem")?if_exists>
+                  <option value="${currentStatus.statusId}">${currentStatus.description}</option>
+                  <#assign statusValidChangeToDetailList = delegator.findByAnd("StatusValidChangeToDetail", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", currentStatus.statusId))>
                   <#list statusValidChangeToDetailList as statusValidChangeToDetail> 
-                    <option SELECTED value="${currentStatusId}">${currentStatusId}</option>  
                     <option value=${statusValidChangeToDetail.statusId}>[${uiLabelMap.WorkEffortGeneral}]${statusValidChangeToDetail.description}</option>
                   </#list>
                 <#else>

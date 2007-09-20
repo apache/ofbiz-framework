@@ -100,9 +100,9 @@ function actualTimeHourToMilliSec() {
               <td class="label" >${uiLabelMap.CommonStatus}</td>
               <td>    
                 <select name="currentStatusId" class="selectBox">
-                  <#assign currentStatusId = project.currentStatusId?if_exists>
-                  <#assign statusValidChangeToDetailList = delegator.findByAnd("StatusValidChangeToDetail", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", currentStatusId))>
-                    <option SELECTED value="${currentStatusId}">${currentStatusId}</option>  
+                  <#assign currentStatus = project.getRelatedOne("CurrentStatusItem")?if_exists>
+                  <option value="${currentStatus.statusId}">${currentStatus.description}</option>
+                  <#assign statusValidChangeToDetailList = delegator.findByAnd("StatusValidChangeToDetail", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", currentStatus.statusId))>
                     <option>--</option>
                   <#list statusValidChangeToDetailList as statusValidChangeToDetail>
                     <option value=${statusValidChangeToDetail.statusId}>[${uiLabelMap.WorkEffortGeneral}]${statusValidChangeToDetail.description}</option>
@@ -136,11 +136,11 @@ function actualTimeHourToMilliSec() {
               <td>             
                 <select name="scopeEnumId" class="selectBox">
                   <#if project.scopeEnumId?exists>
-                    <#assign enumeration = delegator.findByPrimaryKey("Enumeration", Static["org.ofbiz.base.util.UtilMisc"].toMap("enumId", project.scopeEnumId?if_exists ))>
-                    <option SELECTED value=${enumeration.enumId?if_exists}>${enumeration.description?if_exists}</option>
+                    <#assign currentScope = project.getRelatedOne("ScopeEnumeration")?if_exists>
+                    <option value="${currentScope.enumId}">${currentScope.description}</option>
                   </#if>
                   <#assign enumerations = delegator.findByAnd("Enumeration", Static["org.ofbiz.base.util.UtilMisc"].toMap("enumTypeId", "WORK_EFF_SCOPE"))>
-                  <option--</option>
+                  <option>--</option>
                   <#list enumerations as enumeration>                    
                     <option value=${enumeration.enumId?if_exists}>${enumeration.description?if_exists}</option>
                   </#list>

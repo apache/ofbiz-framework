@@ -56,4 +56,13 @@ under the License.
             <result-to-request result-name="workEffortId"/>
         </call-service>
     </simple-method>
+    <simple-method method-name="createWorkEffortNote" short-description="Creates WorkEffortNote">
+        <call-map-processor xml-resource="org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
+                processor-name="createWorkEffortNoteMap" in-map-name="parameters" out-map-name="context"/>
+        <check-errors/>
+        <call-service service-name="createWorkEffortNote" in-map-name="context">
+            <default-message>Note is successfully created.</default-message>
+            <result-to-request result-name="noteId"/>
+        </call-service>
+    </simple-method>
 </simple-methods>

@@ -37,11 +37,12 @@ under the License.
     <table width="100%" cellpadding="2" cellspacing="0" border="0">
       <#if timesheet?exists>
         <td><input type="hidden" name="timesheetId" value="${timesheet.timesheetId?if_exists}"/></td>
+        <td><input type="hidden" name="partyId" value="${timesheet.partyId?if_exists}"/></td>
       </#if>
       <#if timesheet?exists>
         <tr>
           <td class="label">${uiLabelMap.TimesheetTimesheetId}</td>
-          <td>${timesheet.timesheetId?if_exists}</td>
+          <td>${timesheet.timesheetId?if_exists}<span class="tooltip">${uiLabelMap.CommonNotModifRecreat}</span></td>
         </tr>
       </#if>
       <tr>

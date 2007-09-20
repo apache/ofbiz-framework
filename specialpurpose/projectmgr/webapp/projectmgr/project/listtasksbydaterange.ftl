@@ -30,29 +30,38 @@ under the License.
         <tr>
           <td><b>${uiLabelMap.ProjectMgrToFindTask}</b></td>
         </tr>
-        <tr>
-          <td align="right">${uiLabelMap.CommonFromDate}</td>
-          <td>
-            <input type="text" size="20" name="fromDate" class="field text">
-             <a href="javascript:call_cal(document.listTasksByDateRange.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
-          </td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td align="right">${uiLabelMap.CommonThruDate}</td>
-          <td>
-            <input type="text" size="20" name="thruDate" class="field text">
-            <a href="javascript:call_cal(document.listTasksByDateRange.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
-          </td>
-          <td>&nbsp;</td>
-        </tr>
+        <tr><td>
+          <fieldset class="right">
+            <div class="form-row">
+              <div class="field-label">
+                <label for="fromDate">${uiLabelMap.CommonFromDate}<span class="requiredLabel"></span></label>
+              </div>
+              <div class="field-widget">
+                <input name="fromDate" class="field text" type="text" size=20 value="" title=""/>
+                <a href="javascript:call_cal(document.listTasksByDateRange.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field-label">
+                <label for="thruDate">${uiLabelMap.CommonThruDate}<span class="requiredLabel"></span></label>
+              </div>
+              <div class="field-widget">
+                <input name="thruDate" class="field text" type="text" size=20 value="" title="" />
+                <a href="javascript:call_cal(document.listTasksByDateRange.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+              </div>
+            </div>
+          </fieldset>
+        </td></tr>
         <tr><td>&nbsp;</td></tr>
-        <tr>
-          <td>&nbsp;</td>
-          <td align="left">
-            <a href="javascript:document.listTasksByDateRange.submit()" class="buttontext">${uiLabelMap.CommonFind}</a>
-          </td>
-        </tr>
+        <tr><td>
+          <fieldset class="right">
+            <div class="form-row">
+              <div>
+                <a href="javascript:document.listProjectsByDateRange.submit()" class="buttontext">${uiLabelMap.CommonFind}</a>
+              </div>
+            </div>
+          </fieldset>
+        </td></tr>
       </table>
     </form>
   </div>

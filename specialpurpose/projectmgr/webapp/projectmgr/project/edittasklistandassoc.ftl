@@ -45,40 +45,9 @@ under the License.
             </#if>
           </tr>
           <tr>
-            <td class="label" >${uiLabelMap.ProjectMgrWorkEffortIdFrom}</td>
-            <#assign workEffort=delegator.findByPrimaryKey("WorkEffort", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortId", workEffortIdFrom?if_exists ))>                     
-            <td>${(workEffort.workEffortName)?if_exists} [${(workEffort.workEffortId)?if_exists}]<span class="tooltip">${uiLabelMap.CommonNotModifRecreat}</td>
             <td><input type="hidden" name="workEffortIdFrom" value="${workEffortIdFrom?if_exists}"/></td>
+            <td><input type="hidden" name="workEffortAssocTypeId" value="WORK_EFF_BREAKDOWN"/></td>
             <td><input type="hidden" name="workEffortParentId" value="${workEffortIdFrom?if_exists}"/></td> 
-          </tr>
-          <tr>
-            <td class="label" >${uiLabelMap.ProjectMgrWorkEffortAssocTypeId}</td>
-            <td>
-              <select class="selectBox" name="workEffortAssocTypeId"> 
-                <#assign WorkEffortAssocTypes = delegator.findAll("WorkEffortAssocType", Static["org.ofbiz.base.util.UtilMisc"].toList("description"))>
-                <#list WorkEffortAssocTypes as WorkEffortAssocType>
-                  <option value="${WorkEffortAssocType.workEffortAssocTypeId?if_exists}">${WorkEffortAssocType.description?if_exists}</option>
-                </#list>
-              </select>   
-            </td>
-          </tr>
-          <tr>
-            <td class="label" >${uiLabelMap.CommonSequenceNum}</td>
-            <td><input type="text" name="sequenceNum" value=""/></td>
-          </tr>
-          <tr>
-            <td class="label" >${uiLabelMap.CommonFromDate}</td>
-            <td>
-              <input type="text" size="20" name="fromDate"/>
-              <a href="javascript:call_cal(document.addProjectAndAssocForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
-            </td>
-          </tr>
-          <tr>
-            <td class="label" >${uiLabelMap.CommonThruDate}</td>
-            <td>
-              <input type="text" size="20" name="thruDate"/>
-              <a href="javascript:call_cal(document.addProjectAndAssocForm.thruDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
-            </td>
           </tr>
           <tr>
             <td width="20%">
@@ -112,10 +81,10 @@ under the License.
             <td>    
               <select name="currentStatusId" class="selectBox">
                 <#if task?exists>
-                  <#assign currentStatusId = task.currentStatusId?if_exists>
-                  <#assign statusValidChangeToDetailList = delegator.findByAnd("StatusValidChangeToDetail", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", currentStatusId))>
+                  <#assign currentStatus = task.geRelatedOne("CurrentStatusItem")?if_exists>
+                  <option SELECTED value="${currentStatus.currentStatusId}">${currentStatus.description}</option>
+                  <#assign statusValidChangeToDetailList = delegator.findByAnd("StatusValidChangeToDetail", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", currentStatus.currentStatusId))>
                   <#list statusValidChangeToDetailList as statusValidChangeToDetail> 
-                    <option SELECTED value="${currentStatusId}">${currentStatusId}</option>  
                     <option value=${statusValidChangeToDetail.statusId}>[${uiLabelMap.WorkEffortGeneral}]${statusValidChangeToDetail.description}</option>
                   </#list>
                 <#else>
@@ -175,9 +144,11 @@ under the License.
               <#assign enumerations = delegator.findByAnd("Enumeration", Static["org.ofbiz.base.util.UtilMisc"].toMap("enumTypeId", "WORK_EFF_SCOPE"))>
               <select name="scopeEnumId" class="selectBox">
                 <#if task?exists>
-                  <#assign scopeEnumId = task.scopeEnumId?if_exists>            
+                  <#assign currentScope = task.getRelatedOne("ScopeEnumeration")?if_exists>
+                  <option value="${currentScope.enumId}">${currentScope.description}</option>
+                  <option>--</option>
                   <#list enumerations as enumeration>                    
-                    <option <#if "${enumeration.enumId}" == scopeEnumId?if_exists>selected="selected"</#if>>${enumeration.description}</option>
+                    <option value="${enumeration.enumId}">${enumeration.description}</option>
                   </#list>
                 <#else>
                   <#list enumerations as enumeration>                    
