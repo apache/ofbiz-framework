@@ -97,13 +97,13 @@ under the License.
     <ProductCategory description="Speed Boats" longDescription="long description of Speed Boats"
         primaryParentCategoryId="BoatRental" productCategoryId="SpeedBoats" productCategoryTypeId="CATALOG_CATEGORY"/>
 
-    <ProductCategoryRollup productCategoryId="ConfRooms" parentProductCategoryId="HotelFac" fromDate="2004-10-18 15:21:07.613" lastUpdatedStamp="2004-10-18 15:21:13.066" lastUpdatedTxStamp="2004-10-18 15:21:13.066" createdStamp="2004-10-18 15:21:13.066" createdTxStamp="2004-10-18 15:21:13.066"/>
-    <ProductCategoryRollup productCategoryId="Rooms" parentProductCategoryId="HotelFac" fromDate="2004-10-18 15:22:29.139" lastUpdatedStamp="2004-10-18 15:22:34.937" lastUpdatedTxStamp="2004-10-18 15:22:34.937" createdStamp="2004-10-18 15:22:34.937" createdTxStamp="2004-10-18 15:22:34.937"/>
-    <ProductCategoryRollup productCategoryId="Suites" parentProductCategoryId="HotelFac" fromDate="2004-10-18 15:23:05.706" lastUpdatedStamp="2004-10-18 15:23:10.615" lastUpdatedTxStamp="2004-10-18 15:23:10.615" createdStamp="2004-10-18 15:23:10.615" createdTxStamp="2004-10-18 15:23:10.615"/>
-    <ProductCategoryRollup productCategoryId="SpeedBoats" parentProductCategoryId="BoatRental" fromDate="2004-10-18 15:23:54.452" lastUpdatedStamp="2004-10-18 15:23:59.363" lastUpdatedTxStamp="2004-10-18 15:23:59.363" createdStamp="2004-10-18 15:23:59.363" createdTxStamp="2004-10-18 15:23:59.363"/>
-    <ProductCategoryRollup productCategoryId="MotorBoats" parentProductCategoryId="BoatRental" fromDate="2004-10-18 15:30:56.77" lastUpdatedStamp="2004-10-18 15:31:07.867" lastUpdatedTxStamp="2004-10-18 15:31:07.867" createdStamp="2004-10-18 15:31:07.867" createdTxStamp="2004-10-18 15:31:07.867"/>
-    <ProductCategoryRollup productCategoryId="RowBoats" parentProductCategoryId="BoatRental" fromDate="2004-10-18 15:32:27.359" lastUpdatedStamp="2004-10-18 15:32:32.796" lastUpdatedTxStamp="2004-10-18 15:32:32.796" createdStamp="2004-10-18 15:32:32.796" createdTxStamp="2004-10-18 15:32:32.796"/>
-    <ProductCategoryRollup productCategoryId="SailBoats" parentProductCategoryId="BoatRental" fromDate="2004-10-18 15:32:48.86" lastUpdatedStamp="2004-10-18 15:32:52.325" lastUpdatedTxStamp="2004-10-18 15:32:52.325" createdStamp="2004-10-18 15:32:52.325" createdTxStamp="2004-10-18 15:32:52.325"/>
+    <ProductCategoryRollup productCategoryId="ConfRooms" parentProductCategoryId="HotelFac" fromDate="2004-10-18 15:21:07.613"/>
+    <ProductCategoryRollup productCategoryId="Rooms" parentProductCategoryId="HotelFac" fromDate="2004-10-18 15:22:29.139"/>
+    <ProductCategoryRollup productCategoryId="Suites" parentProductCategoryId="HotelFac" fromDate="2004-10-18 15:23:05.706"/>
+    <ProductCategoryRollup productCategoryId="SpeedBoats" parentProductCategoryId="BoatRental" fromDate="2004-10-18 15:23:54.452"/>
+    <ProductCategoryRollup productCategoryId="MotorBoats" parentProductCategoryId="BoatRental" fromDate="2004-10-18 15:30:56.77"/>
+    <ProductCategoryRollup productCategoryId="RowBoats" parentProductCategoryId="BoatRental" fromDate="2004-10-18 15:32:27.359"/>
+    <ProductCategoryRollup productCategoryId="SailBoats" parentProductCategoryId="BoatRental" fromDate="2004-10-18 15:32:48.86"/>
 
     <!-- categories for e-commerce -->
     <ProdCatalogCategory prodCatalogId="RentalCatalog" productCategoryId="RentBrowseRoot" fromDate="2001-05-13 12:00:00.0"
@@ -142,7 +142,7 @@ under the License.
     <ProductPrice productId="Cap" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="EUR" productStoreGroupId="_NA_" fromDate="2003-03-04 18:50:45.25" price="5.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     
     <!-- allocate products to categories -->
-    <ProductCategoryMember productCategoryId="RentalPromo" productId="RoomLux" fromDate="2004-10-18 20:39:58.563" lastUpdatedStamp="2004-10-18 20:40:12.411" lastUpdatedTxStamp="2004-10-18 20:40:12.411" createdStamp="2004-10-18 20:40:12.411" createdTxStamp="2004-10-18 20:40:12.411"/>
-    <ProductCategoryMember productCategoryId="RentalPromo" productId="RoomStd" fromDate="2004-10-18 20:40:12.749" lastUpdatedStamp="2004-10-18 20:40:30.044" lastUpdatedTxStamp="2004-10-18 20:40:30.044" createdStamp="2004-10-18 20:40:30.044" createdTxStamp="2004-10-18 20:40:30.044"/>
-    <ProductCategoryMember productCategoryId="RentalPromo" productId="Cap" fromDate="2004-10-18 20:40:12.749" lastUpdatedStamp="2004-10-18 20:40:30.044" lastUpdatedTxStamp="2004-10-18 20:40:30.044" createdStamp="2004-10-18 20:40:30.044" createdTxStamp="2004-10-18 20:40:30.044"/>
+    <ProductCategoryMember productCategoryId="RentalPromo" productId="RoomLux" fromDate="2004-10-18 20:39:58.563"/>
+    <ProductCategoryMember productCategoryId="RentalPromo" productId="RoomStd" fromDate="2004-10-18 20:40:12.749"/>
+    <ProductCategoryMember productCategoryId="RentalPromo" productId="Cap" fromDate="2004-10-18 20:40:12.749"/>
 </entity-engine-xml>
