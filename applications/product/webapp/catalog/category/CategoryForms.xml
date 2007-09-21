@@ -76,7 +76,7 @@ under the License.
         <field name="prodCatContentTypeId" title="${uiLabelMap.ProductType}">
             <display-entity entity-name="ProductCategoryContentType" also-hidden="false" description="${description}"/>
         </field>
-     <field name="fromDate"><display/></field>
+        <field name="fromDate"><display/></field>
         <field name="thruDate"><display/></field>
         <!--
         jacopoc: I've disabled the ability to update a content record because it was not working
