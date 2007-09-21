@@ -138,6 +138,10 @@ public class AIMPaymentServices {
         Map reply = processCard(request, props);
 
         processCaptureTransResult(reply,results);
+        // if there is no captureRefNum, then the capture failed
+        if (results.get("captureRefNum") == null) {
+             return ServiceUtil.returnError((String) results.get("captureMessage")); 
+        } 
         return results;
     }
 
@@ -319,6 +323,10 @@ public class AIMPaymentServices {
 
         //now we need to process the result
         processAuthCaptureTransResult(reply, results);
+        // if there is no captureRefNum, then the capture failed
+        if (results.get("captureRefNum") == null) {
+             return ServiceUtil.returnError((String) results.get("captureMessage"));
+        }
         return results;
     }
 
