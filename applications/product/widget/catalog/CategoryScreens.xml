@@ -146,6 +146,7 @@ under the License.
                 </entity-one>
                 <set field="textDataMap.text" from-field="electronicText.textData"/>
                 <set field="textDataMap.textDataResourceId" from-field="content.dataResourceId"/>
+                <set field="contentId" from-field="content.contentId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCategoryDecorator">
@@ -155,6 +156,8 @@ under the License.
                             <widgets><link target="/content/control/gotoContent?contentId=${contentId}" text="${uiLabelMap.ContentContent} ${uiLabelMap.CommonPage}" url-mode="inter-app" style="buttontext"/></widgets>
                         </section>
                         <include-form name="EditCategoryContentSimpleText" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                        <include-form name="ListAssociatedContentInfos" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <include-form name="CreateSimpleTextContentForAlternateLocale" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

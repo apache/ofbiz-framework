@@ -373,13 +373,13 @@ under the License.
         <field name="useTime"><display/></field>
         <field name="useTimeUomId"><display/></field>
         <field name="useRoleTypeId"><display/></field>
+        <field name="editContent" title="${uiLabelMap.ProductEditContent}" widget-style="buttontext">
+            <hyperlink target="/content/control/EditContent?contentId=${contentId}" target-type="inter-app"
+                description="${contentId}" also-hidden="false"/>
+        </field>
         <field name="removeContent" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeContentFromProduct?productId=${productId}&amp;contentId=${contentId}&amp;productContentTypeId=${productContentTypeId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
-        </field>
-        <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="/content/control/EditContent?contentId=${contentId}" target-type="inter-app"
-                description="${uiLabelMap.ProductEditContent} ${contentId}" also-hidden="false"/>
         </field>
     </form>
     
@@ -483,35 +483,6 @@ under the License.
         <field name="mainContentId" entry-name="contentId"><hidden/></field>
         <field name="localeString"><text/></field>
         <field name="text"><text/></field>
-        <!--
-        <auto-fields-service service-name="createSimpleTextContentForAlternateLocale"/>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" ></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"></field>
-        <field name="purchaseFromDate" title="${uiLabelMap.ProductPurchaseFromDate}"></field>
-        <field name="purchaseThruDate" title="${uiLabelMap.ProductPurchaseThruDate}"></field>
-        <field name="useCountLimit" title="${uiLabelMap.ProductUseCountLimit}"></field>
-        <field name="useTime" title="${uiLabelMap.ProductUseTime}"></field>
-        <field name="useTimeUomId" title="${uiLabelMap.ProductUseTimeUom}" widget-style="selectBox">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="Uom" key-field-name="uomId" description="${description}">
-                    <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="useRoleTypeId" title="${uiLabelMap.ProductUseRole}"></field>
-        <field name="description" title="${uiLabelMap.ProductDescription}" map-name="content"><text size="40"/></field>
-        <field name="subject" title="${uiLabelMap.ProductSubject}" map-name="emailData"><text size="40"/></field>
-        <field name="plainBody" title="${uiLabelMap.ContentPlainBody}" widget-style="textAreaBox" map-name="emailData"><textarea cols="60" rows="7"/></field>
-        <field name="htmlBody" title="${uiLabelMap.ContentHtmlBody}" widget-style="textAreaBox" map-name="emailData"><textarea cols="60" rows="7"/></field>
-        <field use-when="contentId == null" name="contentId" title="${uiLabelMap.ProductContentId}" tooltip="${uiLabelMap.ProductOptional}"><text maxlength="20"/></field>
-        <field use-when="contentId != null" name="contentId" title="${uiLabelMap.ProductContentId}" tooltip="${uiLabelMap.ProductNotModificationRecrationProductContentAssociation}" map-name="productContentData" ><display/></field>
-        <field name="productId"><hidden/></field>
-        <field name="subjectDataResourceId" map-name="emailData"><hidden/></field>
-        <field name="plainBodyDataResourceId" map-name="emailData"><hidden/></field>
-        <field name="htmlBodyDataResourceId" map-name="emailData"><hidden/></field>
-        <field name="productContentTypeId"><hidden/></field>
-        -->
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
     <form name="EditProductContentEmail" type="single" target="updateEmailContentForProduct" title="${uiLabelMap.ProductUpdateEmailContentProduct}">
