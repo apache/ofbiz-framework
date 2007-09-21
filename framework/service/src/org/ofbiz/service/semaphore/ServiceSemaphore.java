@@ -7,10 +7,13 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.GenericTransactionException;
+import org.ofbiz.entity.transaction.GenericXaResource;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.service.ModelService;
 
 import javax.transaction.Transaction;
+import javax.transaction.xa.Xid;
+import javax.transaction.xa.XAException;
 import java.sql.Timestamp;
 import java.util.Map;
 
@@ -146,24 +149,25 @@ public class ServiceSemaphore {
                 Debug.logError(e, module);
                 isError = true;
                 throw new SemaphoreFailException("Cannot obtain unique transaction for semaphore logging");
+            } finally {
+                if (isError) {
+                    try {
+                        TransactionUtil.rollback(beganTx, "ServiceSemaphore: dbWrite()", new Exception());
+                    } catch (GenericTransactionException e) {
+                        Debug.logError(e, module);
+                    }
+                }
+                if (!isError && beganTx) {
+                    try {
+                        TransactionUtil.commit(beganTx);
+                    } catch (GenericTransactionException e) {
+                        Debug.logError(e, module);
+                    }
+                }
             }
         } catch (GenericTransactionException e) {
             Debug.logError(e, module);
-        } finally {
-            if (isError) {
-                try {
-                    TransactionUtil.rollback(beganTx, "ServiceSemaphore: dbWrite()", new Exception());
-                } catch (GenericTransactionException e) {
-                    Debug.logError(e, module);
-                }
-            }
-            if (!isError && beganTx) {
-                try {
-                    TransactionUtil.commit(beganTx);
-                } catch (GenericTransactionException e) {
-                    Debug.logError(e, module);
-                }
-            }
+        } finally {            
             if (parent != null) {
                 try {
                     TransactionUtil.resume(parent);
