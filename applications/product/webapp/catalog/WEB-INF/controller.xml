@@ -425,6 +425,12 @@ under the License.
         <response name="success" type="view" value="EditCategoryContent"/>
         <response name="error" type="view" value="EditCategoryContent"/>
     </request-map>
+    <request-map uri="createSimpleTextContentForAlternateLocaleInCategory">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createSimpleTextContentForAlternateLocale"/>
+        <response name="success" type="view" value="EditCategoryContent"/>
+        <response name="error" type="view" value="EditCategoryContentContent"/>
+    </request-map>
     
     <!-- ================ Product Category Attribute Requests ================= -->
     <request-map uri="EditCategoryAttributes">
