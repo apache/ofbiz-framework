@@ -84,6 +84,7 @@ under the License.
       <alias entity-alias="OH" name="productStoreId"/>
       <alias entity-alias="OH" name="terminalId"/>
       <alias entity-alias="OH" name="webSiteId"/>
+      <alias entity-alias="OH" name="currencyUom"/>
       <alias entity-alias="PF" name="orderPaymentPreferenceId"/>
       <alias entity-alias="PF" name="paymentMethodTypeId"/>
       <alias entity-alias="OH" name="orderStatusId" field="statusId"/>
