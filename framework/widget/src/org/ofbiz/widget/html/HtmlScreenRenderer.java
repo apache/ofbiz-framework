@@ -300,13 +300,7 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
         if (Debug.verboseOn()) Debug.logVerbose("expandedContentId:" + expandedContentId, module);
         
         try {
-            if (UtilValidate.isNotEmpty(expandedDataResourceId)) {
-               if (WidgetDataResourceWorker.dataresourceWorker != null) {
-                   renderedContent = WidgetDataResourceWorker.dataresourceWorker.renderDataResourceAsTextExt(delegator, expandedDataResourceId, contentContext, locale, mimeTypeId, false);
-               } else {
-                   Debug.logError("Not rendering content, not WidgetDataResourceWorker.dataresourceWorker found.", module);
-               }
-            } else if (UtilValidate.isNotEmpty(dataResourceId)) {
+            if (UtilValidate.isNotEmpty(dataResourceId)) {
                 if (WidgetDataResourceWorker.dataresourceWorker != null) {
                     renderedContent = WidgetDataResourceWorker.dataresourceWorker.renderDataResourceAsTextExt(delegator, dataResourceId, contentContext, locale, mimeTypeId, false);
                 } else {
@@ -317,6 +311,12 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
                     renderedContent = WidgetContentWorker.contentWorker.renderContentAsTextExt(dispatcher, delegator, expandedContentId, contentContext, locale, mimeTypeId, true);
                 } else {
                     Debug.logError("Not rendering content, not ContentWorker found.", module);
+                }
+            } else if (UtilValidate.isNotEmpty(expandedDataResourceId)) {
+                if (WidgetDataResourceWorker.dataresourceWorker != null) {
+                    renderedContent = WidgetDataResourceWorker.dataresourceWorker.renderDataResourceAsTextExt(delegator, expandedDataResourceId, contentContext, locale, mimeTypeId, false);
+                } else {
+                    Debug.logError("Not rendering content, not WidgetDataResourceWorker.dataresourceWorker found.", module);
                 }
             }
             if (UtilValidate.isEmpty(renderedContent)) {
