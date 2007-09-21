@@ -424,11 +424,13 @@ public class ServiceUtil {
                     Iterator curIter = curList.iterator();
                     while (curIter.hasNext()) {
                         GenericValue job = (GenericValue) curIter.next();
+                        String runtimeId = job.getString("runtimeDataId");
                         String jobId = job.getString("jobId");
                         boolean beganTx2 = false;
                         try {
                             beganTx2 = TransactionUtil.begin();
                             job.remove();
+                            runtimeToDelete.add(runtimeId);
                         } catch (GenericEntityException e) {
                             Debug.logInfo("Cannot remove job data for ID: " + jobId, module);
                             try {
