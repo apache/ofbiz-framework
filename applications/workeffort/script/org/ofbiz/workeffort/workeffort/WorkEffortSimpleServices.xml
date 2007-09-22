@@ -240,14 +240,14 @@ under the License.
     </simple-method>
     <simple-method method-name="updatePartyToWorkEffortAssignment" short-description="Update WorkEffortPartyAssignment entity">
         <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
-        
+        <!-- to be dropped later (use now workEffortGenericPermission)
         <if-compare-field field-name="userLogin.partyId" operator="not-equals" to-field-name="workEffortPartyAssignment.partyId">                
             <check-permission permission="WORKEFFORTMGR" action="_UPDATE">
                 <fail-message message="You cannot update this Work Effort Party Assignment, you must either be associated with it or have administration permission."/>
                </check-permission>
             <check-errors/>
         </if-compare-field>
-        
+         -->
         <set from-field="workEffortPartyAssignment.statusId" field="oldStatusId"/>
         <set-nonpk-fields map-name="parameters" value-name="workEffortPartyAssignment"/>
         

@@ -39,6 +39,7 @@ under the License.
     <service name="createWorkEffort" default-entity-name="WorkEffort" engine="simple"
             location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffort">
         <description>Create a WorkEffort Entity</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <implements service="interfaceWorkEffort"/>        
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <attribute name="quickAssignPartyId" type="String" mode="IN" optional="true"/>
@@ -51,6 +52,7 @@ under the License.
     <service name="updateWorkEffort" default-entity-name="WorkEffort" engine="simple"
             location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="updateWorkEffort">
         <description>Update a WorkEffort Entity</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <implements service="interfaceWorkEffort"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
@@ -64,6 +66,7 @@ under the License.
     <service name="duplicateWorkEffort" engine="simple"
         location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="duplicateWorkEffort" auth="true">
         <description>Duplicate a Work Effort using a new workEffortId</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="oldWorkEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="duplicateWorkEffortAssocs" type="String" mode="IN" optional="true"/>
@@ -88,6 +91,7 @@ under the License.
     <service name="assignPartyToWorkEffort" default-entity-name="WorkEffortPartyAssignment" engine="simple"
             location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="assignPartyToWorkEffort">
         <description>Create a WorkEffortPartyAssignment Entity</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true">
             <exclude field-name="statusDateTime"/>
@@ -98,6 +102,7 @@ under the License.
     <service name="updatePartyToWorkEffortAssignment" default-entity-name="WorkEffortPartyAssignment" engine="simple"
             location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="updatePartyToWorkEffortAssignment">
         <description>Update a WorkEffortPartyAssignment Entity</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true">
             <exclude field-name="statusDateTime"/>
@@ -126,6 +131,7 @@ under the License.
     <service name="createWorkEffortNote" engine="simple"
             location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortNote" auth="true">
         <description>Create a WorkEffort Note</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="noteInfo" type="String" mode="IN" optional="false"/>
         <attribute name="noteParty" type="String" mode="IN" optional="true"/>
@@ -218,6 +224,7 @@ under the License.
             Create a WorkEffort Assoc, for linking task to describe a project or
             for linking routing with its routingTasks
         </description>
+        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
@@ -228,6 +235,7 @@ under the License.
             Update a WorkEffort Assoc, for linking task to describe a project or
             for linking routing with its routingTasks
         </description>
+        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
@@ -237,6 +245,7 @@ under the License.
             Remove a WorkEffort Assoc, for linking task to describe a project or
             for linking routing with its routingTasks
         </description>
+        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createWorkEffortAndAssoc" engine="simple" location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortAndAssoc" auth="true">
@@ -261,6 +270,7 @@ under the License.
             Create a WorkEffort - Product Assoc, for linking WorkEffort to In or Out  Product,
             for routing it's the link between Manafactured Product with its routings
         </description>
+        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
@@ -271,6 +281,7 @@ under the License.
             Update a WorkEffort - Product Assoc, for linking WorkEffort to In or Out  Product,
             for routing it's the link between Manafactured Product with its routings
         </description>
+        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
@@ -284,6 +295,7 @@ under the License.
     <service name="assignInventoryToWorkEffort" default-entity-name="WorkEffortInventoryAssign" engine="simple"
             location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="assignInventoryToWorkEffort" auth="true">
         <description>Create or update WorkEffortInventoryAssign</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
@@ -452,6 +464,7 @@ under the License.
         invoke="createWorkEffortContent"
         default-entity-name="WorkEffortContent" auth="true">
         <description>Create a Work Effort Content</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false" />
         <auto-attributes include="nonpk" mode="IN" optional="true" />
         <override name="fromDate" optional="true" />
@@ -461,6 +474,7 @@ under the License.
         invoke="updateWorkEffortContent"
         default-entity-name="WorkEffortContent" auth="true">
         <description>Update a Work Effort Content</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
