@@ -31,7 +31,10 @@ under the License.
     <PartyContactMechPurpose partyId="Company" contactMechId="9000" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="Company" contactMechId="9000" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="Company" contactMechId="9000" contactMechPurposeTypeId="PAYMENT_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
-    <PartyAcctgPreference partyId="Company" taxFormId="US_IRS_1120" cogsMethodId="COGS_AVG_COST" baseCurrencyUomId="USD" invoiceSequenceEnumId="INVSQ_ENF_SEQ" invoiceIdPrefix="CI" lastInvoiceNumber="000000" quoteSequenceEnumId="INVSQ_ENF_SEQ" quoteIdPrefix="CQ" lastQuoteNumber="000000" orderSequenceEnumId="INVSQ_ENF_SEQ" orderIdPrefix="CO" lastOrderNumber="000000"/>
+    <PartyAcctgPreference partyId="Company" taxFormId="US_IRS_1120" cogsMethodId="COGS_AVG_COST" baseCurrencyUomId="USD" 
+        invoiceSequenceEnumId="INVSQ_ENF_SEQ" invoiceIdPrefix="CI" lastInvoiceNumber="000000" 
+        quoteSequenceEnumId="INVSQ_ENF_SEQ" quoteIdPrefix="CQ" lastQuoteNumber="000000" 
+        orderSequenceEnumId="INVSQ_ENF_SEQ" orderIdPrefix="CO" lastOrderNumber="000000"/>
     
     <!-- Sub-Organizations -->
     <Party partyId="MARKETING" partyTypeId="PARTY_GROUP" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-27 09:37:41.016" lastUpdatedTxStamp="2004-03-27 09:37:41.016" createdStamp="2004-03-27 09:37:41.016" createdTxStamp="2004-03-27 09:37:41.016"/>
