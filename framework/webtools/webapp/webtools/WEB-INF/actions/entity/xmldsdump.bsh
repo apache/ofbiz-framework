@@ -210,10 +210,17 @@ if (tobrowser) {
     writer.println("<entity-engine-xml>");
 
     Iterator i = passedEntityNames.iterator();
-    while(i.hasNext()) { 
+    while(i.hasNext()) {
+        String curEntityName = (String) i.next();
+        if (UtilValidate.isNotEmpty(entityFrom)) {
+            curModelEntity = reader.getModelEntity(curEntityName);
+            if (curModelEntity instanceof ModelViewEntity) {
+                continue;
+            }
+        }
+     
         boolean beganTransaction = TransactionUtil.begin(3600);
         try {
-            String curEntityName = (String)i.next();
             EntityListIterator values = delegator.findListIteratorByCondition(curEntityName, entityDateCond, null, null, UtilMisc.toList("-createdTxStamp"), efo);
 
             GenericValue value = null;
