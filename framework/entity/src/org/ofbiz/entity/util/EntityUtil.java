@@ -469,13 +469,15 @@ public class EntityUtil {
         while (genericValueIter.hasNext()) {
             GenericValue value = (GenericValue) genericValueIter.next();
             Object fieldValue = value.get(fieldName);
-            if (distinct) {
-                if (!distinctSet.contains(fieldValue)) {
+            if (fieldValue != null) {
+                if (distinct) {
+                    if (!distinctSet.contains(fieldValue)) {
+                        fieldList.add(fieldValue);
+                        distinctSet.add(fieldValue);
+                    }
+                } else {
                     fieldList.add(fieldValue);
-                    distinctSet.add(fieldValue);
                 }
-            } else {
-                fieldList.add(fieldValue);
             }
         }
         
@@ -495,13 +497,15 @@ public class EntityUtil {
         GenericValue value = null;
         while ((value = (GenericValue) genericValueEli.next()) != null) {
             Object fieldValue = value.get(fieldName);
-            if (distinct) {
-                if (!distinctSet.contains(fieldValue)) {
+            if (fieldValue != null) {
+                if (distinct) {
+                    if (!distinctSet.contains(fieldValue)) {
+                        fieldList.add(fieldValue);
+                        distinctSet.add(fieldValue);
+                    }
+                } else {
                     fieldList.add(fieldValue);
-                    distinctSet.add(fieldValue);
                 }
-            } else {
-                fieldList.add(fieldValue);
             }
         }
         
