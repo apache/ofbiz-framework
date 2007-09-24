@@ -176,6 +176,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="ProductMaint" />
     <entity-group group="org.ofbiz" entity="ProductMaintType" />
     <entity-group group="org.ofbiz" entity="ProductReview" />
+    <entity-group group="org.ofbiz" entity="ProductRole" />
     <entity-group group="org.ofbiz" entity="ProductSearchConstraint" />
     <entity-group group="org.ofbiz" entity="ProductSearchResult" />
     <entity-group group="org.ofbiz" entity="ProductType" />
@@ -336,5 +337,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="ShippingDocument" />
     <entity-group group="org.ofbiz" entity="PackedQtyVsOrderItemQuantity" />
 </entitygroup>
+
+
 
 

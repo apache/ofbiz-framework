@@ -55,6 +55,7 @@ under the License.
         <#if product?exists && product.productTypeId?if_exists == "ASSET_USAGE">
             <a href="<@ofbizUrl>EditProductAssetUsage?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductAssetUsage?default(unselectedClassName)}">${uiLabelMap.ProductAssetUsage}</a>
         </#if>
-        <a href="<@ofbizUrl>EditProductWorkEfforts?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductWorkEfforts?default(unselectedClassName)}">${uiLabelMap.WorkEffortWorkEffort}</a>        
+        <a href="<@ofbizUrl>EditProductWorkEfforts?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductWorkEfforts?default(unselectedClassName)}">${uiLabelMap.WorkEffortWorkEffort}</a>
+        <a href="<@ofbizUrl>EditProductParties?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductParties?default(unselectedClassName)}">${uiLabelMap.PartyParties}</a>
     </div>
 </#if>
