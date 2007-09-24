@@ -2083,7 +2083,7 @@ public class ShoppingCart implements Serializable {
     /** Sets the shipping contact mech id. */
     public void setShippingContactMechId(int idx, String shippingContactMechId) {
         CartShipInfo csi = this.getShipInfo(idx);
-        if (isSalesOrder()) {
+        if (isSalesOrder() && UtilValidate.isNotEmpty(shippingContactMechId)) {
             // Verify if the new address is compatible with the ProductGeos rules of
             // the products already in the cart
             GenericValue shippingAddress = null;
