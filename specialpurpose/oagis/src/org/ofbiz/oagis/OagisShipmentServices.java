@@ -733,16 +733,6 @@ public class OagisShipmentServices {
                 return ServiceUtil.returnSuccess(successMsg);
             }
             
-            // check payment authorization
-            Map authServiceContext = FastMap.newInstance();
-            authServiceContext.put("orderId", orderId);
-            authServiceContext.put("userLogin", userLogin);
-            authServiceContext.put("reAuth", new Boolean("true"));
-            Map authResult = dispatcher.runSync("authOrderPayments", authServiceContext);
-            if (!authResult.get("processResult").equals("APPROVED")) {
-                return ServiceUtil.returnError("No authorized payment available, not sending Process Shipment");            
-            }
-            
             orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
             if (orderHeader == null) {
                 return ServiceUtil.returnError("Could not find OrderHeader with ID [" + orderId + "]");
@@ -767,6 +757,16 @@ public class OagisShipmentServices {
                 return ServiceUtil.returnError("Cannot send Process Shipment for order [" + orderId + "], it has no shipping address.");
             }
 
+            // check payment authorization
+            Map authServiceContext = FastMap.newInstance();
+            authServiceContext.put("orderId", orderId);
+            authServiceContext.put("userLogin", userLogin);
+            authServiceContext.put("reAuth", new Boolean("true"));
+            Map authResult = dispatcher.runSync("authOrderPayments", authServiceContext);
+            if (!authResult.get("processResult").equals("APPROVED")) {
+                return ServiceUtil.returnError("No authorized payment available, not sending Process Shipment");            
+            }
+            
             referenceId = delegator.getNextSeqId("OagisMessageInfo");
             omiPkMap = UtilMisc.toMap("logicalId", logicalId, "component", component, "task", task, "referenceId", referenceId);
 
