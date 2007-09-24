@@ -25,12 +25,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
+import java.io.Serializable;
 
 /**
  * Contains extra information about Messages
  *
  */
-public class MessageString {
+public class MessageString implements Serializable {
     
     public static final String module = MessageString.class.getName();
     
