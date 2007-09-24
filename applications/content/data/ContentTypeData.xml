@@ -247,8 +247,9 @@ under the License.
     <SurveyApplType surveyApplTypeId="PORDER_PLACE" description="Purchase Order Placement"/>
     <SurveyApplType surveyApplTypeId="PORDITM_PLACE" description="Purchase Order Item Placement"/>
 
-    <SurveyQuestionType surveyQuestionTypeId="CONTENT" description="Content Record"/>
     <SurveyQuestionType surveyQuestionTypeId="BOOLEAN" description="Boolean (Yes/No)"/>
+    <SurveyQuestionType surveyQuestionTypeId="CONTENT" description="Content Record"/>
+    <SurveyQuestionType surveyQuestionTypeId="COUNTRY" description="Country"/>
     <SurveyQuestionType surveyQuestionTypeId="CREDIT_CARD" description="Credit Card Number"/>
     <SurveyQuestionType surveyQuestionTypeId="GIFT_CARD" description="Gift Card Number"/>
     <SurveyQuestionType surveyQuestionTypeId="DATE" description="Date String (mm/dd/yyyy)"/>
@@ -260,6 +261,7 @@ under the License.
     <SurveyQuestionType surveyQuestionTypeId="PASSWORD" description="Password"/>
     <SurveyQuestionType surveyQuestionTypeId="SEPERATOR_LINE" description="Seperator Line"/>
     <SurveyQuestionType surveyQuestionTypeId="SEPERATOR_TEXT" description="Seperator Text"/>
+    <SurveyQuestionType surveyQuestionTypeId="STATE_PROVINCE" description="State/Province"/>
     <SurveyQuestionType surveyQuestionTypeId="TEXT_SHORT" description="Short Text (single-line)"/>
     <SurveyQuestionType surveyQuestionTypeId="TEXT_LONG" description="Long Text (single-line)"/>
     <SurveyQuestionType surveyQuestionTypeId="TEXTAREA" description="Text (multi-line)"/>
