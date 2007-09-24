@@ -133,12 +133,7 @@ public class SurveyWrapper {
             String surveyMultiRespColId = surveyQuestionAndAppl.getString("surveyMultiRespColId");
             if (UtilValidate.isNotEmpty(surveyMultiRespColId)) {
                 String surveyMultiRespId = surveyQuestionAndAppl.getString("surveyMultiRespId");
-                List surveyQuestionAndApplList = (List) sqaaWithColIdListByMultiRespId.get(surveyMultiRespId);
-                if (surveyQuestionAndApplList == null) {
-                    surveyQuestionAndApplList = FastList.newInstance();
-                    sqaaWithColIdListByMultiRespId.put(surveyMultiRespId, surveyQuestionAndApplList);
-                }
-                surveyQuestionAndApplList.add(surveyQuestionAndAppl);
+                UtilMisc.addToListInMap(surveyQuestionAndAppl, sqaaWithColIdListByMultiRespId, surveyMultiRespId);
             }
         }
 
@@ -154,6 +149,7 @@ public class SurveyWrapper {
         templateContext.put("surveyResponseId", responseId);
         templateContext.put("sequenceSort", UtilMisc.toList("sequenceNum"));
         templateContext.put("additionalFields", passThru);
+        templateContext.put("delegator", this.delegator);
 
         Template template = this.getTemplate(templateUrl);
         try {
