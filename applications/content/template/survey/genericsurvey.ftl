@@ -87,6 +87,20 @@ under the License.
         <option value="">Nothing to choose</option>
       </#if>
     </select>
+  <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "STATE_PROVINCE"/>
+    <select class="selectBox" name="${questionFieldName}">
+    <#assign states = Static["org.ofbiz.common.CommonWorkers"].getStateList(delegator)>
+    <#list states as state>
+        <option value='${state.geoId}'>${state.geoName?default(state.geoId)}</option>
+    </#list>
+    </select>
+  <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "COUNTRY"/>
+    <select class="selectBox" name="${questionFieldName}">
+    <#assign countries = Static["org.ofbiz.common.CommonWorkers"].getCountryList(delegator)>
+    <#list countries as country>
+        <option value='${country.geoId}'>${country.get("geoName",locale)?default(country.geoId)}</option>
+    </#list>
+    </select>
   <#else/>
     <div class="tabletext">Unsupported question type : ${surveyQuestionAndAppl.surveyQuestionTypeId}</div>
   </#if>
@@ -121,6 +135,8 @@ under the License.
 
 <table width="100%" border="0" cellpadding="2" cellspacing="0">
   <#assign lastSurveyMultiRespId = ""/>
+  <#assign haveOpenMultiRespHeader = false/>
+  
   <#list surveyQuestionAndAppls as surveyQuestionAndAppl>
    <#if !alreadyShownSqaaPkWithColId.contains(surveyQuestionAndAppl.getPrimaryKey())>
     <#-- Get and setup MultiResp info for this question -->
@@ -144,6 +160,7 @@ under the License.
     
     <#-- this is before the rest because it will be done if the current row is not a MultiResp (or is different MultiResp) but the last row was... -->
     <#if closeMultiRespHeader>
+      <#assign haveOpenMultiRespHeader = false/>
           </table>
         </td>
       </tr>
@@ -151,6 +168,7 @@ under the License.
   
     <#-- -->
     <#if openMultiRespHeader>
+      <#assign haveOpenMultiRespHeader = true/>
       <tr width="100%">
         <td colspan="5" width="100%">
           <table width="100%" border="1" cellpadding="1" cellspacing="0">
@@ -168,7 +186,7 @@ under the License.
     </#if>
   
   <#if surveyMultiResp?has_content>
-    <#assign sqaaWithColIdList = sqaaWithColIdListByMultiRespId[surveyMultiResp.surveyMultiRespId]/>
+    <#assign sqaaWithColIdList = (sqaaWithColIdListByMultiRespId[surveyMultiResp.surveyMultiRespId])?if_exists/>
     <tr>
       <td align="left">
         <@renderSurveyQuestionText surveyQuestionAndAppl=surveyQuestionAndAppl/>
@@ -236,6 +254,12 @@ under the License.
   </#if>
    </#if>
   </#list>
+  <#-- one last check for a multi-resp table left open before moving on, will happen if last question was in a multi-resp -->
+    <#if haveOpenMultiRespHeader>
+          </table>
+        </td>
+      </tr>
+    </#if>
   <tr>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
