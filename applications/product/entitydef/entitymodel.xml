@@ -2190,6 +2190,33 @@ under the License.
         <key-map field-name="parentTypeId" rel-field-name="productAssocTypeId"/>
       </relation>
     </entity>
+    <entity entity-name="ProductRole"
+            package-name="org.ofbiz.product.product"
+            title="Product Role Entity">
+      <field name="productId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="comments" type="comment"></field>
+      <prim-key field="productId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one-nofk" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PROD_RLE_PTYRLE" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <!-- <relation type="one" fk-name="PROD_RLE_CATEGORY" rel-entity-name="Product">
+        <key-map field-name="productCategoryId"/>
+      </relation> -->
+    </entity>    
     <entity entity-name="ProductAttribute"
             package-name="org.ofbiz.product.product"
             title="Product Attribute Entity">

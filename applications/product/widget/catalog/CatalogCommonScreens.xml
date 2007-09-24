@@ -78,7 +78,7 @@ under the License.
                                         </container>
                                         
                                         <!-- add Create Product and View Product (in ecommerce) links -->
-                                        <container>
+                                        <container style="button-bar">
                                             <link target="EditProduct" text="${uiLabelMap.ProductNewProduct}" style="buttontext"/>
                                             <link target="CreateVirtualWithVariantsForm" text="${uiLabelMap.ProductNewVirtualProduct}" style="buttontext"/>
                                             <link target="/ecommerce/control/product?product_id=${productId}" url-mode="inter-app" text="${uiLabelMap.ProductProductPage}" style="buttontext"/>

@@ -512,8 +512,31 @@ under the License.
     <request-map uri="ProductBarCode.pdf">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ProductBarCode.pdf"/>
+    </request-map>    
+
+    <!-- ================ Product Roles Requests ================= -->
+    <request-map uri="EditProductParties">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductParties"/>
     </request-map>
-    
+    <request-map uri="addPartyToProduct">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="addPartyToProduct"/>
+        <response name="success" type="view" value="EditProductParties"/>
+        <response name="error" type="view" value="EditProductParties"/>
+    </request-map>
+    <request-map uri="updatePartyToProduct">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updatePartyToProduct"/>
+        <response name="success" type="view" value="EditProductParties"/>
+        <response name="error" type="view" value="EditProductParties"/>
+    </request-map>
+    <request-map uri="removePartyFromProduct">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="removePartyFromProduct"/>
+        <response name="success" type="view" value="EditProductParties"/>
+        <response name="error" type="view" value="EditProductParties"/>
+    </request-map>
 
     <!-- ================ Product Asset Usage (rental) Requests ================= -->
     <request-map uri="EditProductAssetUsage">
@@ -2505,6 +2528,7 @@ under the License.
     <view-map name="EditProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProduct"/>
     <view-map name="EditProductPrices" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductPrices"/>
     <view-map name="EditProductAssetUsage" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductAssetUsage"/>
+    <view-map name="EditProductParties" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductParties"/>
     <view-map name="showFixedAssetProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#showFixedAssetProduct"/>
     <view-map name="newFixedAssetProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#newFixedAssetProduct"/>
     <view-map name="ProductBarCode.pdf" type="screenfop" page="component://product/widget/catalog/ProductScreens.xml#ProductBarCode.fo" content-type="application/pdf" encoding="none"/>
