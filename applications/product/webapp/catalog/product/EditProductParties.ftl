@@ -44,7 +44,7 @@ under the License.
             <input type="hidden" name="partyId" value="${(productRole.partyId)?if_exists}">
             <input type="hidden" name="roleTypeId" value="${(productRole.roleTypeId)?if_exists}">
             <input type="hidden" name="fromDate" value="${(productRole.getTimestamp("fromDate"))?if_exists}">
-            <input type="text" size="25" name="thruDate" value="${(productRole. getTimestamp("thruDate"))?if_exists}" class="inputBox" <#if hasExpired> style="color: red;"</#if>>
+            <input type="text" size="25" name="thruDate" value="${(productRole. getTimestamp("thruDate"))?if_exists}"<#if hasExpired> class="alert"</#if>>
             <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${(productRole.getTimestamp("thruDate"))?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
             <input type="submit" value="${uiLabelMap.CommonUpdate}">
           </form>

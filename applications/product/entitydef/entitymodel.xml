@@ -2213,9 +2213,9 @@ under the License.
         <key-map field-name="partyId"/>
         <key-map field-name="roleTypeId"/>
       </relation>
-      <!-- <relation type="one" fk-name="PROD_RLE_CATEGORY" rel-entity-name="Product">
-        <key-map field-name="productCategoryId"/>
-      </relation> -->
+      <relation type="one" fk-name="PROD_RLE_PRODUCT" rel-entity-name="Product">
+        <key-map field-name="productId"/>
+      </relation>
     </entity>    
     <entity entity-name="ProductAttribute"
             package-name="org.ofbiz.product.product"
