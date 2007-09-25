@@ -37,6 +37,7 @@ under the License.
     <SecurityPermission description="View purchase orders in the Order Manager." permissionId="ORDERMGR_PURCHASE_VIEW"/>
     <SecurityPermission description="Create purchase orders in the Order Manager." permissionId="ORDERMGR_PURCHASE_CREATE"/>
     <SecurityPermission description="Create sales orders for all stores in the Order Manager." permissionId="ORDERMGR_SALES_CREATE"/>
+    <SecurityPermission description="Update sales orders for all stores in the Order Manager." permissionId="ORDERMGR_SALES_UPDATE"/>
     <SecurityPermission description="Send order confirmation notification." permissionId="ORDERMGR_SEND_CONFIRMATION"/>
     <SecurityPermission description="Quote price manager in the Order Manager." permissionId="ORDERMGR_QUOTE_PRICE"/>
     <SecurityPermission description="Create Customer Requests in the Order Manager." permissionId="ORDERMGR_CRQ_CREATE"/>
@@ -125,6 +126,7 @@ under the License.
     
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_SALES_ENTRY"/>
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_SALES_CREATE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_SALES_UPDATE"/>
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_ROLE_VIEW"/>
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_VIEW"/>
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_NOTE"/>
