@@ -1284,7 +1284,7 @@ public class InvoiceServices {
             GenericValue productStore = orh.getProductStore();
 
             // If shipping charges are not prorated, the shipments need to be examined for additional shipping charges
-            if (productStore.getString("prorateShipping").equals("N")) {
+            if ("N".equalsIgnoreCase(productStore.getString("prorateShipping"))) {
     
                 // Get the set of filtered shipments
                 List invoiceableShipments = null;
