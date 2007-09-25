@@ -113,6 +113,10 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     public static void renderContentAsText(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Writer out,
             Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
         GenericValue content;
+        if (UtilValidate.isEmpty(contentId)) {
+            Debug.logError("No content ID found.", module);
+            return;
+        }
         if (cache) {
             content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
         } else {
@@ -178,6 +182,10 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         String templateDataResourceId = content.getString("templateDataResourceId");
         String dataResourceId = content.getString("dataResourceId");
         contentId = content.getString("contentId");
+        if (UtilValidate.isEmpty(contentId)) {
+            Debug.logError("No dataResourceId found.", module);
+            return;
+        }
 
         if (templateContext == null) {
             templateContext = FastMap.newInstance();
@@ -216,6 +224,10 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
             // now if no template; just render the data
             if (UtilValidate.isEmpty(templateDataResourceId) || templateContext.containsKey("ignoreTemplate")) {
+                if (UtilValidate.isEmpty(contentId)) {
+                    Debug.logError("No content ID found.", module);
+                    return;
+                }
                 DataResourceWorker.renderDataResourceAsText(delegator, dataResourceId, out, templateContext, locale, mimeTypeId, cache);
 
             // there is a template; render the data and then the template
