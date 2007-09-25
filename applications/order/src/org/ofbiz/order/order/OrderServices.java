@@ -92,6 +92,69 @@ public class OrderServices {
     public static final int orderRounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
     public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(taxDecimals, taxRounding);    
 
+
+    private static boolean hasPermission(String orderId, GenericValue userLogin, String action, Security security, GenericDelegator delegator) {
+        OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
+        String orderTypeId = orh.getOrderTypeId();
+        String partyId = null;
+        GenericValue orderParty = orh.getEndUserParty();
+        if (UtilValidate.isEmpty(orderParty)) {
+            orderParty = orh.getPlacingParty();
+        }
+        if (UtilValidate.isNotEmpty(orderParty)) {
+            partyId = orderParty.getString("partyId");
+        }
+        boolean hasPermission = hasPermission(orderTypeId, partyId, userLogin, action, security);
+        if (!hasPermission) {
+            GenericValue placingCustomer = null;
+            try {
+                Map placingCustomerFields = UtilMisc.toMap("orderId", orderId, "partyId", userLogin.getString("partyId"), "roleTypeId", "PLACING_CUSTOMER");
+                placingCustomer = delegator.findByPrimaryKey("OrderRole", placingCustomerFields);
+            } catch (GenericEntityException e) {
+                Debug.logError("Could not select OrderRoles for order " + orderId + " due to " + e.getMessage(), module);
+            }
+            hasPermission = (placingCustomer != null);
+        }
+        return hasPermission;
+    }
+
+    private static boolean hasPermission(String orderTypeId, String partyId, GenericValue userLogin, String action, Security security) {
+        boolean hasPermission = security.hasEntityPermission("ORDERMGR", "_" + action, userLogin);
+        if (!hasPermission) {
+            if (orderTypeId.equals("SALES_ORDER")) {
+                if (security.hasEntityPermission("ORDERMGR", "_SALES_" + action, userLogin)) {
+                    hasPermission = true;
+                } else {
+                    // check sales agent/customer relationship
+                    List repsCustomers = new LinkedList();
+                    try {
+                        repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party").getRelatedByAnd("FromPartyRelationship",
+                                UtilMisc.toMap("roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId)));
+                    } catch (GenericEntityException ex) {
+                        Debug.logError("Could not determine if " + partyId + " is a customer of user " + userLogin.getString("userLoginId") + " due to " + ex.getMessage(), module);
+                    }
+                    if ((repsCustomers != null) && (repsCustomers.size() > 0) && (security.hasEntityPermission("SALESREP", "_ORDER_" + action, userLogin))) {
+                        hasPermission = true;
+                    }
+                    if (!hasPermission) {
+                        // check sales sales rep/customer relationship
+                        try {
+                            repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party").getRelatedByAnd("FromPartyRelationship",
+                                    UtilMisc.toMap("roleTypeIdFrom", "SALES_REP", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId)));
+                        } catch (GenericEntityException ex) {
+                            Debug.logError("Could not determine if " + partyId + " is a customer of user " + userLogin.getString("userLoginId") + " due to " + ex.getMessage(), module);
+                        }
+                        if ((repsCustomers != null) && (repsCustomers.size() > 0) && (security.hasEntityPermission("SALESREP", "_ORDER_" + action, userLogin))) {
+                            hasPermission = true;
+                        }
+                    }
+                }
+            } else if ((orderTypeId.equals("PURCHASE_ORDER") && (security.hasEntityPermission("ORDERMGR", "_PURCHASE_" + action, userLogin)))) {
+                hasPermission = true;
+            }
+        }
+        return hasPermission;
+    }
     /** Service for creating a new order */
     public static Map createOrder(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
@@ -112,39 +175,9 @@ public class OrderServices {
         //                 if it is an AGENT (sales rep) creating an order for his customer
         //  PURCHASE ORDERS - if there is a PURCHASE_ORDER permission
         Map resultSecurity = new HashMap();
-        boolean hasPermission = false;
-        if (orderTypeId.equals("SALES_ORDER")) {
-            if (security.hasEntityPermission("ORDERMGR", "_SALES_CREATE", userLogin)) {
-                hasPermission = true;
-            } else {
-                // check sales agent/customer relationship
-                List repsCustomers = new LinkedList();
-                try {
-                    repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party").getRelatedByAnd("FromPartyRelationship",
-                            UtilMisc.toMap("roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId)));
-                } catch (GenericEntityException ex) {
-                    Debug.logError("Could not determine if " + partyId + " is a customer of user " + userLogin.getString("userLoginId") + " due to " + ex.getMessage(), module);
-                }
-                if ((repsCustomers != null) && (repsCustomers.size() > 0) && (security.hasEntityPermission("SALESREP", "_ORDER_CREATE", userLogin))) {
-                    hasPermission = true;
-                }
-                if (!hasPermission) {
-                    // check sales sales rep/customer relationship
-                    try {
-                        repsCustomers = EntityUtil.filterByDate(userLogin.getRelatedOne("Party").getRelatedByAnd("FromPartyRelationship",
-                                UtilMisc.toMap("roleTypeIdFrom", "SALES_REP", "roleTypeIdTo", "CUSTOMER", "partyIdTo", partyId)));
-                    } catch (GenericEntityException ex) {
-                        Debug.logError("Could not determine if " + partyId + " is a customer of user " + userLogin.getString("userLoginId") + " due to " + ex.getMessage(), module);
-                    }
-                    if ((repsCustomers != null) && (repsCustomers.size() > 0) && (security.hasEntityPermission("SALESREP", "_ORDER_CREATE", userLogin))) {
-                        hasPermission = true;
-                    }
-                }
-            }
-        } else if ((orderTypeId.equals("PURCHASE_ORDER") && (security.hasEntityPermission("ORDERMGR", "_PURCHASE_CREATE", userLogin)))) {
-            hasPermission = true;
-        }
+        boolean hasPermission = OrderServices.hasPermission(orderTypeId, partyId, userLogin, "CREATE", security);
         // final check - will pass if userLogin's partyId = partyId for order or if userLogin has ORDERMGR_CREATE permission
+        // jacopoc: what is the meaning of this code block? FIXME
         if (!hasPermission) {
             partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, resultSecurity, "ORDERMGR", "_CREATE");
             if (resultSecurity.size() > 0) {
@@ -1266,16 +1299,9 @@ public class OrderServices {
 
         // check and make sure we have permission to change the order
         Security security = ctx.getSecurity();
-        if (!security.hasEntityPermission("ORDERMGR", "_UPDATE", userLogin)) {
-            GenericValue placingCustomer = null;
-            try {
-                Map placingCustomerFields = UtilMisc.toMap("orderId", orderId, "partyId", userLogin.getString("partyId"), "roleTypeId", "PLACING_CUSTOMER");
-                placingCustomer = delegator.findByPrimaryKey("OrderRole", placingCustomerFields);
-            } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorCannotGetOrderRoleEntity ",locale) + e.getMessage());
-            }
-            if (placingCustomer == null)
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderYouDoNotHavePermissionToChangeThisOrdersStatus",locale));
+        boolean hasPermission = OrderServices.hasPermission(orderId, userLogin, "UPDATE", security, delegator);
+        if (!hasPermission) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderYouDoNotHavePermissionToChangeThisOrdersStatus",locale));
         }
 
         // get the order header
@@ -1489,16 +1515,9 @@ public class OrderServices {
 
         // check and make sure we have permission to change the order
         Security security = ctx.getSecurity();
-        if (!security.hasEntityPermission("ORDERMGR", "_UPDATE", userLogin)) {
-            GenericValue placingCustomer = null;
-            try {
-                Map placingCustomerFields = UtilMisc.toMap("orderId", orderId, "partyId", userLogin.getString("partyId"), "roleTypeId", "PLACING_CUSTOMER");
-                placingCustomer = delegator.findByPrimaryKey("OrderRole", placingCustomerFields);
-            } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorCannotGetOrderRoleEntity",locale) + e.getMessage());
-            }
-            if (placingCustomer == null)
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderYouDoNotHavePermissionToChangeThisOrdersStatus",locale));
+        boolean hasPermission = OrderServices.hasPermission(orderId, userLogin, "UPDATE", security, delegator);
+        if (!hasPermission) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderYouDoNotHavePermissionToChangeThisOrdersStatus",locale));
         }
 
         // get the order header
@@ -1593,17 +1612,9 @@ public class OrderServices {
 
         // check and make sure we have permission to change the order
         Security security = ctx.getSecurity();
-        if (!security.hasEntityPermission("ORDERMGR", "_UPDATE", userLogin)) {
-            GenericValue placingCustomer = null;
-            try {
-                Map placingCustomerFields = UtilMisc.toMap("orderId", orderId, "partyId", userLogin.getString("partyId"), "roleTypeId", "PLACING_CUSTOMER");
-                placingCustomer = delegator.findByPrimaryKey("OrderRole", placingCustomerFields);
-            } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorCannotGetOrderRoleEntity",locale) + e.getMessage());
-            }
-            if (placingCustomer == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderYouDoNotHavePermissionToChangeThisOrdersStatus",locale));
-            }
+        boolean hasPermission = OrderServices.hasPermission(orderId, userLogin, "UPDATE", security, delegator);
+        if (!hasPermission) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderYouDoNotHavePermissionToChangeThisOrdersStatus",locale));
         }
 
         // get the order header
@@ -1734,17 +1745,10 @@ public class OrderServices {
 
         // check and make sure we have permission to change the order
         Security security = ctx.getSecurity();
-        if (!security.hasEntityPermission("ORDERMGR", "_UPDATE", userLogin)) {
-            GenericValue placingCustomer = null;
-            try {
-                Map placingCustomerFields = UtilMisc.toMap("orderId", orderId, "partyId", userLogin.getString("partyId"), "roleTypeId", "PLACING_CUSTOMER");
-                placingCustomer = delegator.findByPrimaryKey("OrderRole", placingCustomerFields);
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorCannotGetOrderRoleEntity", UtilMisc.toMap("itemMsgInfo",itemMsgInfo),locale));
-            }
-            if (placingCustomer == null)
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderYouDoNotHavePermissionToChangeThisOrdersStatus",locale));
+        
+        boolean hasPermission = OrderServices.hasPermission(orderId, userLogin, "UPDATE", security, delegator);
+        if (!hasPermission) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderYouDoNotHavePermissionToChangeThisOrdersStatus",locale));
         }
 
         Map fields = UtilMisc.toMap("orderId", orderId);
@@ -1847,16 +1851,9 @@ public class OrderServices {
 
         // check and make sure we have permission to change the order
         Security security = ctx.getSecurity();
-        if (!security.hasEntityPermission("ORDERMGR", "_UPDATE", userLogin)) {
-            GenericValue placingCustomer = null;
-            try {
-                Map placingCustomerFields = UtilMisc.toMap("orderId", orderId, "partyId", userLogin.getString("partyId"), "roleTypeId", "PLACING_CUSTOMER");
-                placingCustomer = delegator.findByPrimaryKey("OrderRole", placingCustomerFields);
-            } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorCannotGetOrderRoleEntity",locale) + e.getMessage());
-            }
-            if (placingCustomer == null)
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderYouDoNotHavePermissionToChangeThisOrdersStatus",locale));
+        boolean hasPermission = OrderServices.hasPermission(orderId, userLogin, "UPDATE", security, delegator);
+        if (!hasPermission) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderYouDoNotHavePermissionToChangeThisOrdersStatus",locale));
         }
 
         Map fields = UtilMisc.toMap("orderId", orderId);
@@ -1943,17 +1940,9 @@ public class OrderServices {
 
         // check and make sure we have permission to change the order
         Security security = ctx.getSecurity();
-        if (!security.hasEntityPermission("ORDERMGR", "_UPDATE", userLogin)) {
-            GenericValue placingCustomer = null;
-            try {
-                Map placingCustomerFields = UtilMisc.toMap("orderId", orderId, "partyId", userLogin.getString("partyId"), "roleTypeId", "PLACING_CUSTOMER");
-                placingCustomer = delegator.findByPrimaryKey("OrderRole", placingCustomerFields);
-            } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorCannotGetOrderRoleEntity", locale) + e.getMessage());
-            }
-            if (placingCustomer == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderYouDoNotHavePermissionToChangeThisOrdersStatus",locale));
-            }
+        boolean hasPermission = OrderServices.hasPermission(orderId, userLogin, "UPDATE", security, delegator);
+        if (!hasPermission) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderYouDoNotHavePermissionToChangeThisOrdersStatus",locale));
         }
         
         if ("Y".equals(context.get("setItemStatus"))) {
