@@ -54,6 +54,8 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.control.RequestHandler;
 
+import javolution.util.FastList;
+
 /**
  * Shopping cart events.
  */
@@ -471,13 +473,27 @@ public class ShoppingCartEvents {
     }
 
     public static String quickInitPurchaseOrder(HttpServletRequest request, HttpServletResponse response) {
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
-        
+        Locale locale = UtilHttp.getLocale(request);
+
         ShoppingCart cart = new WebShoppingCart(request);
         // TODO: the code below here needs some cleanups
-        cart.setBillToCustomerPartyId(request.getParameter("billToCustomerPartyId_o_0"));
-        cart.setBillFromVendorPartyId(request.getParameter("supplierPartyId_o_0"));
-        cart.setOrderPartyId(request.getParameter("supplierPartyId_o_0"));
+        String billToCustomerPartyId = request.getParameter("billToCustomerPartyId_o_0");
+        String supplierPartyId = request.getParameter("supplierPartyId_o_0");
+        if (UtilValidate.isEmpty(billToCustomerPartyId) && UtilValidate.isEmpty(supplierPartyId)) {
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderCouldNotInitPurchaseOrder", locale));
+            return "error";
+        }
+        cart.setBillToCustomerPartyId(billToCustomerPartyId);
+        cart.setBillFromVendorPartyId(supplierPartyId);
+        cart.setOrderPartyId(supplierPartyId);
+        String agreementId = request.getParameter("agreementId_o_0");
+        if (agreementId != null && agreementId.length() > 0) {
+            ShoppingCartHelper sch = new ShoppingCartHelper(delegator, dispatcher, cart);
+            sch.selectAgreement(agreementId);
+        }
 
         cart.setOrderType("PURCHASE_ORDER");
         
@@ -676,6 +692,61 @@ public class ShoppingCartEvents {
     /** Main get cart method; uses the locale & currency from the session */
     public static ShoppingCart getCartObject(HttpServletRequest request) {
         return getCartObject(request, null, null);
+    }
+
+    public static String switchCurrentCartObject(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession(true);
+        String cartIndexStr = request.getParameter("cartIndex");
+        int cartIndex = -1;
+        if (UtilValidate.isNotEmpty(cartIndexStr) && UtilValidate.isInteger(cartIndexStr)) {
+            try {
+                cartIndex = Integer.parseInt(cartIndexStr);
+            } catch(NumberFormatException nfe) {
+                Debug.logWarning("Invalid value for cart index =" + cartIndexStr, module);
+            }
+        }
+        List cartList = (List) session.getAttribute("shoppingCartList");
+        if (UtilValidate.isEmpty(cartList)) {
+            cartList = FastList.newInstance();
+            session.setAttribute("shoppingCartList", cartList);
+        }
+        ShoppingCart currentCart = (ShoppingCart) session.getAttribute("shoppingCart");
+        if (currentCart != null) {
+            cartList.add(currentCart);
+            session.setAttribute("shoppingCartList", cartList);
+            session.removeAttribute("shoppingCart");
+            //destroyCart(request, response);
+        }
+        ShoppingCart newCart = null;
+        if (cartIndex >= 0 && cartIndex < cartList.size()) {
+            newCart = (ShoppingCart) cartList.remove(cartIndex);
+        } else {
+            String productStoreId = request.getParameter("productStoreId");
+            if (UtilValidate.isNotEmpty(productStoreId)) {
+                session.setAttribute("productStoreId", productStoreId);
+            }
+            newCart = getCartObject(request);
+        }
+        session.setAttribute("shoppingCart", newCart);
+        return "success";
+    }
+
+    public static String clearCartFromList(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession(true);
+        String cartIndexStr = request.getParameter("cartIndex");
+        int cartIndex = -1;
+        if (UtilValidate.isNotEmpty(cartIndexStr) && UtilValidate.isInteger(cartIndexStr)) {
+            try {
+                cartIndex = Integer.parseInt(cartIndexStr);
+            } catch(NumberFormatException nfe) {
+                Debug.logWarning("Invalid value for cart index =" + cartIndexStr, module);
+            }
+        }
+        List cartList = (List) session.getAttribute("shoppingCartList");
+        if (UtilValidate.isNotEmpty(cartList) && cartIndex >= 0 && cartIndex < cartList.size()) {
+            cartList.remove(cartIndex);
+        }
+        return "success";
     }
 
     /** Update the cart's UserLogin object if it isn't already set. */
