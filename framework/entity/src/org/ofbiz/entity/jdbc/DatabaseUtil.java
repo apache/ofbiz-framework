@@ -712,12 +712,12 @@ public class DatabaseUtil {
             try {
                 connection = getConnection();
             } catch (SQLException e) {
-                String message = "Unable to esablish a connection with the database... Error was:" + e.toString();
+                String message = "Unable to establish a connection with the database... Error was:" + e.toString();
                 Debug.logError(message, module);
                 if (messages != null) messages.add(message);
                 return null;
             } catch (GenericEntityException e) {
-                String message = "Unable to esablish a connection with the database... Error was:" + e.toString();
+                String message = "Unable to establish a connection with the database... Error was:" + e.toString();
                 Debug.logError(message, module);
                 if (messages != null) messages.add(message);
                 return null;
@@ -725,7 +725,7 @@ public class DatabaseUtil {
         }
 
         if (connection == null) {
-            String message = "Unable to esablish a connection with the database, no additional information available.";
+            String message = "Unable to establish a connection with the database, no additional information available.";
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
             return null;
@@ -777,45 +777,219 @@ public class DatabaseUtil {
         }
         // Db/Driver support settings
         if (Debug.infoOn()) {
-            try {
                 Debug.logInfo("Database Setting/Support Information (those with a * should be true):", module);
+            try {
                 Debug.logInfo("- supports transactions    [" + dbData.supportsTransactions() + "]*", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- supports transactions    [ DETECTION FAILED ]*", module);
+            }
+            try {
                 Debug.logInfo("- isolation None           [" + dbData.supportsTransactionIsolationLevel(Connection.TRANSACTION_NONE) + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- isolation None           [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- isolation ReadCommitted  [" + dbData.supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_COMMITTED) + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- isolation ReadCommitted  [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- isolation ReadUncommitted[" + dbData.supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_UNCOMMITTED) + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- isolation ReadUncommitted[ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- isolation RepeatableRead [" + dbData.supportsTransactionIsolationLevel(Connection.TRANSACTION_REPEATABLE_READ) + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- isolation RepeatableRead [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- isolation Serializable   [" + dbData.supportsTransactionIsolationLevel(Connection.TRANSACTION_SERIALIZABLE) + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- isolation Serializable   [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- default fetchsize        [" + con.createStatement().getFetchSize() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- default fetchsize        [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- forward only type        [" + dbData.supportsResultSetType(ResultSet.TYPE_FORWARD_ONLY) + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- forward only type        [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- scroll sensitive type    [" + dbData.supportsResultSetType(ResultSet.TYPE_SCROLL_SENSITIVE) + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- scroll sensitive type    [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- scroll insensitive type  [" + dbData.supportsResultSetType(ResultSet.TYPE_SCROLL_INSENSITIVE) + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- scroll insensitive type  [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- is case sensitive        [" + dbData.supportsMixedCaseIdentifiers() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- is case sensitive        [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- stores LowerCase         [" + dbData.storesLowerCaseIdentifiers() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- stores LowerCase         [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- stores MixedCase         [" + dbData.storesMixedCaseIdentifiers() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- stores MixedCase         [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- stores UpperCase         [" + dbData.storesUpperCaseIdentifiers() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- stores UpperCase         [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- max table name length    [" + dbData.getMaxTableNameLength() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- max table name length    [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- max column name length   [" + dbData.getMaxColumnNameLength() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- max column name length   [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- max schema name length   [" + dbData.getMaxSchemaNameLength() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- max schema name length   [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- concurrent connections   [" + dbData.getMaxConnections() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- concurrent connections   [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- concurrent statements    [" + dbData.getMaxStatements() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- concurrent statements    [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- ANSI SQL92 Entry         [" + dbData.supportsANSI92EntryLevelSQL() + "]", module);
-                Debug.logInfo("- ANSI SQL92 Itermediate   [" + dbData.supportsANSI92IntermediateSQL() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- ANSI SQL92 Entry         [ DETECTION FAILED ]", module);
+            }
+            try {
+                Debug.logInfo("- ANSI SQL92 Intermediate  [" + dbData.supportsANSI92IntermediateSQL() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- ANSI SQL92 Intermediate  [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- ANSI SQL92 Full          [" + dbData.supportsANSI92FullSQL() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- ANSI SQL92 Full          [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- ODBC SQL Grammar Core    [" + dbData.supportsCoreSQLGrammar() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- ODBC SQL Grammar Core    [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- ODBC SQL Grammar Extended[" + dbData.supportsExtendedSQLGrammar() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- ODBC SQL Grammar Extended[ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- ODBC SQL Grammar Minimum [" + dbData.supportsMinimumSQLGrammar() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- ODBC SQL Grammar Minimum [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- outer joins              [" + dbData.supportsOuterJoins() + "]*", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- outer joins              [ DETECTION FAILED]*", module);
+            }
+            try {
                 Debug.logInfo("- limited outer joins      [" + dbData.supportsLimitedOuterJoins() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- limited outer joins      [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- full outer joins         [" + dbData.supportsFullOuterJoins() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- full outer joins         [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- group by                 [" + dbData.supportsGroupBy() + "]*", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- group by                 [ DETECTION FAILED ]*", module);
+            }
+            try {
                 Debug.logInfo("- group by not in select   [" + dbData.supportsGroupByUnrelated() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- group by not in select   [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- column aliasing          [" + dbData.supportsColumnAliasing() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- column aliasing          [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- order by not in select   [" + dbData.supportsOrderByUnrelated() + "]", module);
-                // this doesn't work in HSQLDB, other databases? Debug.logInfo("- named parameters         [" + dbData.supportsNamedParameters() + "]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- order by not in select   [ DETECTION FAILED ]", module);
+            }
+            try { 
+                //this doesn't work in HSQLDB, other databases?
+                //crashed (vm-death) with MS SQL Server 2000, runs properly with MS SQL Server 2005 
+                //Debug.logInfo("- named parameters         [" + dbData.supportsNamedParameters() + "]", module);
+                Debug.logInfo("- named parameters         [ SKIPPED ]", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- named parameters JDBC-3  [ DETECTION FAILED ]", module);
+            }
+            try {
                 Debug.logInfo("- alter table add column   [" + dbData.supportsAlterTableWithAddColumn() + "]*", module);
+            } catch (Exception e) {
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- alter table add column   [ DETECTION FAILED ]*", module);
+            }
+            try {
                 Debug.logInfo("- non-nullable column      [" + dbData.supportsNonNullableColumns() + "]*", module);
             } catch (Exception e) {
-                Debug.logWarning(e, "Unable to get misc. support/setting information", module);
+                Debug.logVerbose(e, module);
+                Debug.logWarning("- non-nullable column      [ DETECTION FAILED ]*", module);
             }
         }
     }
@@ -826,19 +1000,19 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String message = "Unable to esablish a connection with the database... Error was:" + e.toString();
+            String message = "Unable to establish a connection with the database... Error was:" + e.toString();
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
             return null;
         } catch (GenericEntityException e) {
-            String message = "Unable to esablish a connection with the database... Error was:" + e.toString();
+            String message = "Unable to establish a connection with the database... Error was:" + e.toString();
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
             return null;
         }
 
         if (connection == null) {
-            String message = "Unable to esablish a connection with the database, no additional information available.";
+            String message = "Unable to establish a connection with the database, no additional information available.";
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
             return null;
@@ -956,12 +1130,12 @@ public class DatabaseUtil {
             try {
                 connection = getConnection();
             } catch (SQLException e) {
-                String message = "Unable to esablish a connection with the database... Error was:" + e.toString();
+                String message = "Unable to establish a connection with the database... Error was:" + e.toString();
                 Debug.logError(e, message, module);
                 if (messages != null) messages.add(message);
                 return null;
             } catch (GenericEntityException e) {
-                String message = "Unable to esablish a connection with the database... Error was:" + e.toString();
+                String message = "Unable to establish a connection with the database... Error was:" + e.toString();
                 Debug.logError(e, message, module);
                 if (messages != null) messages.add(message);
                 return null;
@@ -1072,72 +1246,39 @@ public class DatabaseUtil {
                 }
 
                 if (getPks) {
-                    boolean foundPks = false;
-                    ResultSet rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, null);
-                    if (!rsPks.next()) {
-                        try {
-                            rsPks.close();
-                        } catch (SQLException e) {
-                            String message = "Unable to close ResultSet for primary key list, continuing anyway... Error was:" + e.toString();
-                            Debug.logError(message, module);
-                            if (messages != null) messages.add(message);
-                        }
-                        rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, "%");
-                        if (!rsPks.next()) {
-                            // TODO: now what to do? I guess try one table name at a time...
-                        } else {
-                            foundPks = true;
-                        }
-                    } else {
-                        foundPks = true;
-                    }
-                    if (foundPks) {
-                        do {
-                            try {
-                                String tableName = ColumnCheckInfo.fixupTableName(rsPks.getString("TABLE_NAME"), lookupSchemaName, needsUpperCase);
-                                String columnName = rsPks.getString("COLUMN_NAME");
-                                if (needsUpperCase && columnName != null) {
-                                    columnName = columnName.toUpperCase();
-                                }
-                                Map tableColInfo = (Map) colInfo.get(tableName);
-                                if (tableColInfo == null) {
-                                    // not looking for info on this table
-                                    continue;
-                                }
-                                ColumnCheckInfo ccInfo = (ColumnCheckInfo) tableColInfo.get(columnName);
-                                if (ccInfo == null) {
-                                    // this isn't good, what to do?
-                                    Debug.logWarning("Got primary key information for a column that we didn't get column information for: tableName=[" + tableName + "], columnName=[" + columnName + "]", module);
-                                    continue;
-                                }
+                    int pkCount = 0;
 
-                                /*
-                                KEY_SEQ short => sequence number within primary key
-                                PK_NAME String => primary key name (may be null)
-                                */
-                                ccInfo.isPk = true;
-                                ccInfo.pkSeq = rsPks.getShort("KEY_SEQ");
-                                ccInfo.pkName = rsPks.getString("PK_NAME");
-                            } catch (SQLException e) {
-                                String message = "Error getting primary key info for column. Error was:" + e.toString();
-                                Debug.logError(message, module);
-                                if (messages != null) messages.add(message);
-                                continue;
-                            }
-                        } while (rsPks.next());
-                    }
-
+                    // first try getting all at once for databases that support that and can generally perform WAY better, if that fails get one at a time so it will at least work
                     try {
-                        rsPks.close();
-                    } catch (SQLException e) {
-                        String message = "Unable to close ResultSet for primary key list, continuing anyway... Error was:" + e.toString();
-                        Debug.logError(message, module);
-                        if (messages != null) messages.add(message);
+                        ResultSet rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, null);
+                        pkCount += checkPrimaryKeyInfo(rsPks, lookupSchemaName, needsUpperCase, colInfo, messages);
+                    } catch (Exception e1) {
+                        Debug.logWarning("Error getting primary key info from database with null tableName, will try other means: " + e1.toString(), module);
                     }
+                    if (pkCount == 0) {
+                        try {
+                            ResultSet rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, "%");
+                            pkCount += checkPrimaryKeyInfo(rsPks, lookupSchemaName, needsUpperCase, colInfo, messages);
+                        } catch (Exception e1) {
+                            Debug.logWarning("Error getting primary key info from database with % tableName, will try other means: " + e1.toString(), module);
+                        }
+                    }
+                    if (pkCount == 0) {
+                        Debug.logInfo("Searching in " + tableNames.size() + " tables for primary key fields ...", module);
+                        Iterator it = tableNames.iterator();
+                        while (it.hasNext()) {
+                            String curTable = (String) it.next();
+                            curTable = curTable.substring(curTable.indexOf('.') + 1); //cut off schema name
+                            ResultSet rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, curTable);
+                            pkCount += checkPrimaryKeyInfo(rsPks, lookupSchemaName, needsUpperCase, colInfo, messages);
+                        }
+                    }
+                    
+                    Debug.logInfo("Reviewed " + pkCount + " primary key fields from database.", module);
                 }
             } catch (SQLException e) {
-                String message = "Error getting column meta data for Error was:" + e.toString() + ". Not checking columns.";
-                Debug.logError(message, module);
+                String message = "Error getting column meta data for Error was: [" + e.toString() + "]. Not checking columns.";
+                Debug.logError(e, message, module);
                 if (messages != null) messages.add(message);
                 // we are returning an empty set in this case because databases like SapDB throw an exception when there are no tables in the database
                 // colInfo = null;
@@ -1155,18 +1296,67 @@ public class DatabaseUtil {
             }
         }
     }
+    
+    public int checkPrimaryKeyInfo(ResultSet rsPks, String lookupSchemaName, boolean needsUpperCase, Map colInfo, Collection messages) throws SQLException {
+        int pkCount = 0;
+        try {
+            while (rsPks.next()) {
+                pkCount++;
+                try {
+                    String tableName = ColumnCheckInfo.fixupTableName(rsPks.getString("TABLE_NAME"), lookupSchemaName, needsUpperCase);
+                    String columnName = rsPks.getString("COLUMN_NAME");
+                    if (needsUpperCase && columnName != null) {
+                        columnName = columnName.toUpperCase();
+                    }
+                    Map tableColInfo = (Map) colInfo.get(tableName);
+                    if (tableColInfo == null) {
+                        // not looking for info on this table
+                        continue;
+                    }
+                    ColumnCheckInfo ccInfo = (ColumnCheckInfo) tableColInfo.get(columnName);
+                    if (ccInfo == null) {
+                        // this isn't good, what to do?
+                        Debug.logWarning("Got primary key information for a column that we didn't get column information for: tableName=[" + tableName + "], columnName=[" + columnName + "]", module);
+                        continue;
+                    }
+        
+                    
+                    // KEY_SEQ short => sequence number within primary key
+                    // PK_NAME String => primary key name (may be null)
+                    
+                    ccInfo.isPk = true;
+                    ccInfo.pkSeq = rsPks.getShort("KEY_SEQ");
+                    ccInfo.pkName = rsPks.getString("PK_NAME");
+                } catch (SQLException e) {
+                    String message = "Error getting primary key info for column. Error was:" + e.toString();
+                    Debug.logError(message, module);
+                    if (messages != null) messages.add(message);
+                    continue;
+                }
+            }
+        } finally {
+            try {
+                rsPks.close();
+            } catch (SQLException sqle) {
+                String message = "Unable to close ResultSet for primary key list, continuing anyway... Error was:" + sqle.toString();
+                Debug.logError(message, module);
+                if (messages != null) messages.add(message);
+            }
+        }
+        return pkCount;
+    }
 
     public Map getReferenceInfo(Set tableNames, Collection messages) {
         Connection connection = null;
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String message = "Unable to esablish a connection with the database... Error was:" + e.toString();
+            String message = "Unable to establish a connection with the database... Error was:" + e.toString();
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
             return null;
         } catch (GenericEntityException e) {
-            String message = "Unable to esablish a connection with the database... Error was:" + e.toString();
+            String message = "Unable to establish a connection with the database... Error was:" + e.toString();
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
             return null;
@@ -1320,12 +1510,12 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String message = "Unable to esablish a connection with the database... Error was:" + e.toString();
+            String message = "Unable to establish a connection with the database... Error was:" + e.toString();
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
             return null;
         } catch (GenericEntityException e) {
-            String message = "Unable to esablish a connection with the database... Error was:" + e.toString();
+            String message = "Unable to establish a connection with the database... Error was:" + e.toString();
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
             return null;
@@ -1469,11 +1659,11 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         }
@@ -1617,12 +1807,12 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(errMsg, module);
             if (messages != null) messages.add(errMsg);
             return;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(errMsg, module);
             if (messages != null) messages.add(errMsg);
             return;
@@ -1671,11 +1861,11 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         }
@@ -1776,11 +1966,11 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         }
@@ -1849,14 +2039,14 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             if (messages != null) {
                 messages.add(errMsg);
             }
             return;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             if (messages != null) {
                 messages.add(errMsg);
@@ -1906,11 +2096,11 @@ public class DatabaseUtil {
             connection = getConnection();
         } catch (SQLException e) {
             if (messages != null)
-                messages.add("Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString());
+                messages.add("Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString());
             return;
         } catch (GenericEntityException e) {
             if (messages != null)
-                messages.add("Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString());
+                messages.add("Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString());
             return;
         }
 
@@ -2083,11 +2273,11 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         }
@@ -2148,6 +2338,9 @@ public class DatabaseUtil {
             mainCols.append(mainField.getColName());
 
             ModelField relField = relModelEntity.getField(keyMap.getRelFieldName());
+            if (relField == null) {
+                Debug.logError("The field '" + keyMap.getRelFieldName() + "' was not found at related entity - check relations at entity '" + entity.getEntityName() + "'!", module);
+            }
 
             if (relCols.length() > 0) {
                 relCols.append(", ");
@@ -2257,11 +2450,11 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         }
@@ -2337,9 +2530,9 @@ public class DatabaseUtil {
             try {
                 connection = getConnection();
             } catch (SQLException e) {
-                return "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+                return "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             } catch (GenericEntityException e) {
-                return "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+                return "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             }
 
             // now add constraint clause
@@ -2419,11 +2612,11 @@ public class DatabaseUtil {
             try {
                 connection = getConnection();
             } catch (SQLException e) {
-                String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+                String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 return errMsg;
             } catch (GenericEntityException e) {
-                String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+                String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 return errMsg;
             }
@@ -2523,11 +2716,11 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         }
@@ -2632,11 +2825,11 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         }
@@ -2730,11 +2923,11 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         }
@@ -2851,11 +3044,11 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         }
@@ -2931,11 +3124,11 @@ public class DatabaseUtil {
             try {
                 connection = getConnection();
             } catch (SQLException e) {
-                String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+                String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 messages.add(errMsg);
             } catch (GenericEntityException e) {
-                String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+                String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 messages.add(errMsg);
             }
