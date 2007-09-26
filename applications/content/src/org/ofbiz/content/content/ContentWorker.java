@@ -182,7 +182,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         String templateDataResourceId = content.getString("templateDataResourceId");
         String dataResourceId = content.getString("dataResourceId");
         contentId = content.getString("contentId");
-        if (UtilValidate.isEmpty(contentId)) {
+        if (UtilValidate.isEmpty(dataResourceId)) {
             Debug.logError("No dataResourceId found.", module);
             return;
         }
