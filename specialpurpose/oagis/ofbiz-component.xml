@@ -29,6 +29,7 @@ under the License.
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
     <entity-resource type="group" reader-name="main" loader="main" location="entitydef/entitygroup.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/OagisTypeData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/OagisSecurityData.xml"/>
     
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <!-- Uncomment To activate automatic messaging to the partner
@@ -39,7 +40,7 @@ under the License.
         title="Oagis"
         server="default-server"
         location="webapp/oagis"
-        base-permission="OFBTOOLS"
+        base-permission="OFBTOOLS,OAGIS"
         mount-point="/oagis"
         app-bar-display="true"/>
 </ofbiz-component>
