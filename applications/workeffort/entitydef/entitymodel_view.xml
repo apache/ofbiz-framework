@@ -702,5 +702,17 @@ under the License.
       <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
         <key-map field-name="contentId" rel-field-name="contentIdStart" />
       </relation>
+    </view-entity>
+
+    <view-entity entity-name="WorkEffortContactMechView" 
+            package-name="org.ofbiz.workeffort.workeffort"
+            title="Work Effort Contact Mech View Entity">
+      <member-entity entity-alias="WECM" entity-name="WorkEffortContactMech"/>
+      <member-entity entity-alias="CM" entity-name="ContactMech"/>
+      <alias-all entity-alias="WECM"/>
+      <alias-all entity-alias="CM"/>
+      <view-link entity-alias="WECM" rel-entity-alias="CM">
+          <key-map field-name="contactMechId"/>
+      </view-link>
     </view-entity>    
 </entitymodel>
