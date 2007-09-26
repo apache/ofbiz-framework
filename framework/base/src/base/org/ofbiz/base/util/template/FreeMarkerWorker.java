@@ -164,15 +164,15 @@ public class FreeMarkerWorker {
         if (template == null) {
             synchronized (cachedTemplates) {
                 template = (Template) cachedTemplates.get(templateLocation);
+                if (template == null) {
+                    Reader templateReader = new StringReader(templateString);
+                    template = new Template(templateLocation, templateReader, getDefaultOfbizConfig());
+                    templateReader.close();
+                    cachedTemplates.put(templateLocation, template);
+                }
             }
         }
         
-        if (template == null) {
-            Reader templateReader  =new StringReader(templateString);
-            template = new Template(templateLocation, templateReader, getDefaultOfbizConfig());
-            templateReader.close();
-            cachedTemplates.put(templateLocation, template);
-        }
         renderTemplate(template, context, outWriter);
     }
  
