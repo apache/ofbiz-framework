@@ -17,42 +17,13 @@
  * under the License.
  */
 
-import java.util.HashMap;
-import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.accounting.payment.PaymentWorker;
-import org.ofbiz.party.contact.ContactMechWorker;
-import org.ofbiz.securityext.login.*;
-import org.ofbiz.webapp.control.*;
-
 // standard partymgr permissions
-if (security.hasEntityPermission("PARTYMGR", "_VIEW", session)) {
-    context.put("hasViewPermission", true);
-} else {
-    context.put("hasViewPermission", false);
-}
-if (security.hasEntityPermission("PARTYMGR", "_CREATE", session)) {
-    context.put("hasCreatePermission", true);
-} else {
-    context.put("hasCreatePermission", false);
-}
-if (security.hasEntityPermission("PARTYMGR", "_UPDATE", session)) {
-    context.put("hasUpdatePermission", true);
-} else {
-    context.put("hasUpdatePermission", false);
-}
-if (security.hasEntityPermission("PARTYMGR", "_DELETE", session)) {
-    context.put("hasDeletePermission", true);
-} else {
-    context.put("hasDeletePermission", false);
-}
-
+context.put("hasViewPermission", security.hasEntityPermission("PARTYMGR", "_VIEW", session));
+context.put("hasCreatePermission", security.hasEntityPermission("PARTYMGR", "_CREATE", session));
+context.put("hasUpdatePermission", security.hasEntityPermission("PARTYMGR", "_UPDATE", session));
+context.put("hasDeletePermission", security.hasEntityPermission("PARTYMGR", "_DELETE", session));
 // extended pay_info permissions
-if (security.hasEntityPermission("PAY_INFO", "_VIEW", session)) {
-    context.put("hasPayInfoPermission", true);
-} else {
-    context.put("hasPayInfoPermission", false);
-}
-
+context.put("hasPayInfoPermission", security.hasEntityPermission("PAY_INFO", "_VIEW", session));
 // extended pcm (party contact mechanism) permissions
 context.put("hasPcmCreatePermission", security.hasEntityPermission("PARTYMGR_PCM", "_CREATE", session));
 context.put("hasPcmUpdatePermission", security.hasEntityPermission("PARTYMGR_PCM", "_UPDATE", session));
