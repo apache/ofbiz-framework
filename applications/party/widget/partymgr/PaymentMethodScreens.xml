@@ -25,16 +25,16 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="find"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for PARTYMGR, _VIEW permission -->
                             <condition>
                                 <or>
-                                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
-                                    <if-compare-field field-name="paymentMethod.partyId" operator="equals" to-field-name="userLogin.partyId"/>
+                                    <if-compare field-name="hasViewPermission" operator="equals" value="true" type="Boolean"/>
+                                    <if-compare field-name="hasPayInfoPermission" operator="equals" value="true" type="Boolean"/>
                                 </or>
                             </condition>
                             <widgets>
@@ -54,6 +54,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="editcreditcard">
         <section>
             <actions>
