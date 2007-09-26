@@ -832,7 +832,10 @@ under the License.
         <field name="emailAddress" type="id-vlong-ne"></field>
         <field name="verifyHash" type="value"></field>
         <field name="expireDate" type="date-time"></field>
-        <prim-key field="emailAddress"/>
+        <prim-key field="emailAddress"/>        
+        <index name="EMAIL_VERIFY_HASH" unique="true">
+            <index-field name="verifyHash"/>
+        </index>
     </entity>
     <view-entity entity-name="PartyContactDetailByPurpose"
         package-name="org.ofbiz.party.contact"
