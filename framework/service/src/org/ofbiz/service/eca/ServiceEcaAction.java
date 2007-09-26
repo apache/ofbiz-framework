@@ -45,6 +45,7 @@ public class ServiceEcaAction implements java.io.Serializable {
 
     protected boolean newTransaction = false;
     protected boolean resultToContext = true;
+    protected boolean resultToResult = false;
     protected boolean ignoreFailure = false;
     protected boolean ignoreError = false;    
     protected boolean persist = false;
@@ -62,6 +63,8 @@ public class ServiceEcaAction implements java.io.Serializable {
         
         // default is true, so anything but false is true
         this.resultToContext = !"false".equals(action.getAttribute("result-to-context"));
+        // default is false, so anything but true is false
+        this.resultToResult = "true".equals(action.getAttribute("result-to-result"));
         this.newTransaction = !"false".equals(action.getAttribute("new-transaction"));
         this.ignoreFailure = !"false".equals(action.getAttribute("ignore-failure"));
         this.ignoreError = !"false".equals(action.getAttribute("ignore-error"));
@@ -99,13 +102,13 @@ public class ServiceEcaAction implements java.io.Serializable {
             }
         } else {
             // standard ECA
-            if (serviceMode.equals("sync")) {
+            if (this.serviceMode.equals("sync")) {
                 if (newTransaction) {
-                    actionResult = dispatcher.runSync(serviceName, actionContext, -1, true);
+                    actionResult = dispatcher.runSync(this.serviceName, actionContext, -1, true);
                 } else {
-                    actionResult = dispatcher.runSync(serviceName, actionContext);
+                    actionResult = dispatcher.runSync(this.serviceName, actionContext);
                 }
-            } else if (serviceMode.equals("async")) {
+            } else if (this.serviceMode.equals("async")) {
                 dispatcher.runAsync(serviceName, actionContext, persist);
             }
         }
@@ -123,6 +126,11 @@ public class ServiceEcaAction implements java.io.Serializable {
         // use the result to update the context fields.
         if (resultToContext) {
             context.putAll(dctx.getModelService(this.serviceName).makeValid(actionResult, ModelService.OUT_PARAM, false, null));
+        }
+
+        // use the result to update the result fields
+        if (resultToResult) {
+            result.putAll(dctx.getModelService(selfService).makeValid(actionResult, ModelService.OUT_PARAM, false, null));
         }
 
         // if we aren't ignoring errors check it here...
