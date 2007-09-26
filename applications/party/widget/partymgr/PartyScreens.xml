@@ -302,16 +302,18 @@ under the License.
 
                 <set field="labelTitleProperty" value="PageTitleEditContactMech"/>
 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.bsh"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/editcontactmech.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for PARTYMGR, _VIEW permission -->
                             <condition>
                                 <or>
-                                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+                                    <if-compare field-name="hasViewPermission" operator="equals" value="true" type="Boolean"/>
+                                    <if-compare field-name="hasPcmCreatePermission" operator="equals" value="true" type="Boolean"/>
+                                    <if-compare field-name="hasPcmUpdatePermission" operator="equals" value="true" type="Boolean"/>
                                     <not><if-empty field-name="mechMap.partyContactMech"/></not>
                                 </or>
                             </condition>

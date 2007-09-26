@@ -52,3 +52,7 @@ if (security.hasEntityPermission("PAY_INFO", "_VIEW", session)) {
 } else {
     context.put("hasPayInfoPermission", false);
 }
+
+// extended pcm (party contact mechanism) permissions
+context.put("hasPcmCreatePermission", security.hasEntityPermission("PARTYMGR_PCM", "_CREATE", session));
+context.put("hasPcmUpdatePermission", security.hasEntityPermission("PARTYMGR_PCM", "_UPDATE", session));
