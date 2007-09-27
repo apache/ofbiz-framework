@@ -40,6 +40,7 @@ under the License.
                         <set-service-fields to-map-name="callSvcMap" service-name="issueProductionRunTaskComponent" map-name="component"/>
                         <set from-field="reserveOrderEnumId" field="callSvcMap.reserveOrderEnumId"/>
                         <set field="callSvcMap.description" value="BOM Part"/>
+                        <set field="callSvcMap.failIfItemsAreNotAvailable" value="Y"/>
                         <call-service service-name="issueProductionRunTaskComponent" in-map-name="callSvcMap"/>
                     </if-not-empty>
                 </iterate>
@@ -93,10 +94,20 @@ under the License.
             <field-to-list field-name="orderByString" list-name="orderByList"/>
             <set from-field="productId" field="lookupFieldMap.productId"/>
             <set from-field="workEffort.facilityId" field="lookupFieldMap.facilityId"/>
+            <!-- if locationSeqId is passed, then only the inventory items in the location are considered -->
             <if-not-empty field-name="parameters.locationSeqId">
                 <set from-field="parameters.locationSeqId" field="lookupFieldMap.locationSeqId"/>
             </if-not-empty>
-            <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItemList" order-by-list-name="orderByList"/>
+            <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="primaryInventoryItemList" order-by-list-name="orderByList"/>
+            <!-- if secondaryLocationSeqId is also passed, then also the inventory items in the secondary location are considered, after the ones in the main location -->
+            <if-not-empty field-name="parameters.locationSeqId">
+                <if-not-empty field-name="parameters.secondaryLocationSeqId">
+                    <set from-field="parameters.secondaryLocationSeqId" field="lookupFieldMap.locationSeqId"/>
+                </if-not-empty>
+            </if-not-empty>
+            <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="secondaryInventoryItemList" order-by-list-name="orderByList"/>
+            <set from-field="primaryInventoryItemList" field="inventoryItemList"/>
+            <list-to-list list-name="secondaryInventoryItemList" to-list-name="inventoryItemList"/>
     
             <set from-field="estimatedQuantity" field="parameters.quantityNotIssued"/>
 
@@ -107,6 +118,11 @@ under the License.
             
             <!-- if quantityNotIssued is not 0, then pull it from the last non-serialized inventory item found, in the quantityNotIssued field -->
             <if-compare field-name="parameters.quantityNotIssued" operator="not-equals" value="0" type="Double">
+                <if-compare field-name="parameters.failIfItemsAreNotAvailable" operator="equals" value="Y" type="String">
+                    <add-error><fail-property property="ManufacturingMaterialsNotAvailable" resource="ManufacturingUiLabels"/></add-error>
+                    <add-error><fail-message message=" ${productId}: ${parameters.quantityNotIssued}"/></add-error>
+                </if-compare>
+                <check-errors/>
                 <if-not-empty field-name="lastNonSerInventoryItem">
                     <!-- create ItemIssuance record -->
                     <set from-field="parameters.workEffortId" field="issuanceCreateMap.workEffortId"/>
@@ -141,7 +157,7 @@ under the License.
                     <call-service service-name="createInventoryItem" in-map-name="createInvItemInMap">
                         <result-to-field result-name="inventoryItemId" field-name="createInvItemOutMap.inventoryItemId"/>
                     </call-service>
-                    
+
                     <!-- create ItemIssuance record -->
                     <set field="issuanceCreateMap.workEffortId" from-field="parameters.workEffortId"/>
                     <set field="issuanceCreateMap.inventoryItemId" from-field="createInvItemOutMap.inventoryItemId"/>
@@ -166,7 +182,6 @@ under the License.
                     <clear-field field-name="createDetailMap"/>
                 </else>
                 </if-not-empty>
-
                 <calculate field-name="quantityNotIssued" map-name="parameters"><number value="0"/></calculate>
             </if-compare>
             <if-not-empty field-name="workEffortGoodStandard">

@@ -273,6 +273,7 @@ under the License.
         <field name="productionRunId"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
+        <field name="failIfItemsAreNotAvailable"><hidden value="Y"/></field>
         <field name="task" entry-name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTaskId}">
             <display description="${workEffortName} [${workEffortId}]"/>
         </field>
@@ -284,6 +285,14 @@ under the License.
         <field name="locationSeqId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductFacilityLocation" description="${locationSeqId}">
+                    <entity-constraint name="productId" env-name="productId"/>
+                    <entity-constraint name="facilityId" env-name="facilityId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="secondaryLocationSeqId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProductFacilityLocation" description="${locationSeqId}" key-field-name="locationSeqId">
                     <entity-constraint name="productId" env-name="productId"/>
                     <entity-constraint name="facilityId" env-name="facilityId"/>
                 </entity-options>
