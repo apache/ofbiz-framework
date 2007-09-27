@@ -101,6 +101,8 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
                 <!-- The default (global) shortcut icon -->
                 <set field="layoutSettings.shortcutIcon" value="/images/ofbiz.ico" global="true"/>
+                <!-- The default (global) logo -->
+                <set field="layoutSettings.commonHeaderImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>
             </actions>
             <widgets>
                 <!-- render header -->
