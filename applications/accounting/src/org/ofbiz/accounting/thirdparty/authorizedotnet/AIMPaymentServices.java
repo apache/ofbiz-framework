@@ -449,7 +449,7 @@ public class AIMPaymentServices {
         if (AIMProperties == null)
             AIMProperties = props;
 
-        Debug.logInfo("Created Authorize.Net properties file: " + props.toString(),module);
+        if (isTestMode()) { Debug.logInfo("Created Authorize.Net properties file: " + props.toString(),module); }
 
         return props;
 
