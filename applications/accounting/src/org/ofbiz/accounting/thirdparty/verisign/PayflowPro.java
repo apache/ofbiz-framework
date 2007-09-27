@@ -379,7 +379,7 @@ public class PayflowPro {
         boolean cvv2CheckOkay = true;
         String cvvCode = null;
         if (!isReAuth) {
-            boolean checkCvv2 = UtilProperties.propertyValueEqualsIgnoreCase(resource, "payment.verisign.checkAvs", "Y");
+            boolean checkCvv2 = UtilProperties.propertyValueEqualsIgnoreCase(resource, "payment.verisign.checkCvv2", "Y");
             if (checkCvv2 && !isSale) {
                 cvvCode = (String) parameters.get("CVV2MATCH");
                 if (cvvCode == null || "N".equals(cvvCode)) {
