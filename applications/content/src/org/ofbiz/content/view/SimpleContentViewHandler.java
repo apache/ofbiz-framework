@@ -65,6 +65,7 @@ public class SimpleContentViewHandler implements ViewHandler {
         String contentId = request.getParameter("contentId");
         String rootContentId = request.getParameter("rootContentId");
         String mapKey = request.getParameter("mapKey");
+        String contentAssocTypeId = request.getParameter("contentAssocTypeId");
         String fromDateStr = request.getParameter("fromDate");
     	String dataResourceId = request.getParameter("dataResourceId");
         String contentRevisionSeqId = request.getParameter("contentRevisionSeqId");
@@ -89,21 +90,24 @@ public class SimpleContentViewHandler implements ViewHandler {
             GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
             if (UtilValidate.isEmpty(dataResourceId)) {
                 if (UtilValidate.isEmpty(contentRevisionSeqId)) {
-                    if (UtilValidate.isEmpty(mapKey)) {
+                    if (UtilValidate.isEmpty(mapKey) && UtilValidate.isEmpty(contentAssocTypeId)) {
                         GenericValue content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
                         dataResourceId = content.getString("dataResourceId");
                         Debug.logInfo("SCVH(0b)- dataResourceId:" + dataResourceId, module);
                     } else {
                         Timestamp fromDate = null;
-                        if (UtilValidate.isEmpty(fromDateStr)) {
-                            fromDateStr = UtilDateTime.nowAsString();
+                        if (UtilValidate.isNotEmpty(fromDateStr)) {
+                            try {
+                                fromDate = UtilDateTime.stringToTimeStamp(fromDateStr, null, locale);
+                            } catch (ParseException e) {
+                                fromDate = UtilDateTime.nowTimestamp();
+                            }
                         }
-                        try {
-                            fromDate = UtilDateTime.stringToTimeStamp(fromDateStr, null, locale);
-                        } catch (ParseException e) {
-                            fromDate = UtilDateTime.nowTimestamp();
+                        List assocList = null;
+                        if (UtilValidate.isNotEmpty(contentAssocTypeId)) {
+                            assocList = UtilMisc.toList(contentAssocTypeId);
                         }
-                        GenericValue content = ContentWorker.getSubContent(delegator, contentId, mapKey, null, null, null, fromDate);
+                        GenericValue content = ContentWorker.getSubContent(delegator, contentId, mapKey, null, null, assocList, fromDate);
                         dataResourceId = content.getString("dataResourceId");
                         Debug.logInfo("SCVH(0b)- dataResourceId:" + dataResourceId, module);
                     }
