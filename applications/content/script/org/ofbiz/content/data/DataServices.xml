@@ -388,7 +388,6 @@ under the License.
 
     <simple-method method-name="updateElectronicText" short-description="Update Electronic Text">
         <make-value entity-name="ElectronicText" value-name="lookupKeyValue"/>
-<log level="always" message="updateElectronicText, lookupKeyValue: ${lookupKeyValue}"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key entity-name="ElectronicText" map-name="lookupKeyValue" value-name="lookedUpValue"/>
 
