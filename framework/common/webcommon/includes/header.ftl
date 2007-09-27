@@ -58,7 +58,9 @@ under the License.
     <ul>
       <#if layoutSettings.headerImageUrl?exists>
         <li class="logo-area"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.headerImageUrl}</@ofbizContentUrl>"/></li>
-      </#if>       
+      <#else>
+        <li class="logo-area"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.commonHeaderImageUrl}</@ofbizContentUrl>"/></li>
+      </#if>
       <li class="control-area"<#if layoutSettings.headerRightBackgroundUrl?has_content> background="${layoutSettings.headerRightBackgroundUrl}"</#if>>
         <br />
         <p>
