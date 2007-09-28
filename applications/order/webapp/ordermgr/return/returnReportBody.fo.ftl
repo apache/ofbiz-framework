@@ -35,13 +35,13 @@ under the License.
 
       <#-- Items returned -->
       <fo:block font-size="10pt">
-        <fo:table border-style="solid" border-width="0.2pt" height="5in">
-          <fo:table-column column-width="0.85in"/>
-          <fo:table-column column-width="0.85in"/>
-          <fo:table-column column-width="2in"/>
+        <fo:table border-style="solid" border-width="0.2pt" width="7.25in" height="5in">
+          <fo:table-column column-width="0.875in"/>
+          <fo:table-column column-width="0.875in"/>
+          <fo:table-column column-width="3.25in"/>
           <fo:table-column column-width="0.5in"/>
-          <fo:table-column column-width="0.85in"/>
-          <fo:table-column column-width="0.85in"/>
+          <fo:table-column column-width="0.875in"/>
+          <fo:table-column column-width="0.875in"/>
           <fo:table-body>
 
             <fo:table-row text-align="center" font-weight="bold">
@@ -93,12 +93,12 @@ under the License.
 
       <#-- total -->
         <fo:table space-before="5mm" font-size="10pt">
-          <fo:table-column column-width="0.85in"/>
-          <fo:table-column column-width="0.85in"/>
-          <fo:table-column column-width="2in"/>
+          <fo:table-column column-width="0.875in"/>
+          <fo:table-column column-width="0.875in"/>
+          <fo:table-column column-width="3.25in"/>
           <fo:table-column column-width="0.5in"/>
-          <fo:table-column column-width="0.85in"/>
-          <fo:table-column column-width="0.85in"/>
+          <fo:table-column column-width="0.875in"/>
+          <fo:table-column column-width="0.875in"/>
           <fo:table-body>
             <fo:table-row>
               <fo:table-cell/>
