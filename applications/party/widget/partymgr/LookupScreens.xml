@@ -68,6 +68,31 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <!-- A specialized lookup to search for customers to which the logged in user is associated as a sales representative -->
+    <screen name="LookupCustomerNameForSalesRep">
+        <section>
+            <condition>
+                <or>
+                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+                </or>
+            </condition>
+            <actions>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="${uiLabelMap.PartyLookupPartyByName}"/>
+                <set field="queryString" from-field="result.queryString"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-form name="lookupCustomerNameForSalesRep" location="component://party/webapp/partymgr/lookup/LookupForms.xml"/>
+                        <include-form name="listLookupCustomerNameForSalesRep" location="component://party/webapp/partymgr/lookup/LookupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
     <screen name="LookupPerson">
         <section>
