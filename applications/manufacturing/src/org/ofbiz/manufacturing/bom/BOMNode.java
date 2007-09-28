@@ -616,7 +616,9 @@ public class BOMNode {
             if (UtilValidate.isNotEmpty(pfs)) {
                 isWarehouseManaged = true;
             } else {
-                pfs = getSubstitutedNode().getProduct().getRelatedCache("ProductFacility");
+                if (getSubstitutedNode() != null && getSubstitutedNode().getProduct() != null) {
+                    pfs = getSubstitutedNode().getProduct().getRelatedCache("ProductFacility");
+                }
                 if (UtilValidate.isNotEmpty(pfs)) {
                     isWarehouseManaged = true;
                 }
