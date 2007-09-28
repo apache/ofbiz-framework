@@ -22,15 +22,15 @@ under the License.
         <#assign toPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", returnHeader.toPartyId, "compareDate", returnHeader.entryDate, "userLogin", userLogin))/>
         
         <fo:table>
-          <fo:table-column column-width="2.75in"/>
-          <fo:table-column column-width="0.5in"/>
+          <fo:table-column column-width="3.50in"/>
+          <fo:table-column column-width="1.00in"/>
           <fo:table-column column-width="2.75in"/>
           <fo:table-body>
           <fo:table-row>
 
             <fo:table-cell>
             <fo:table border-style="solid" border-width="0.2pt" height="1in">
-              <fo:table-column column-width="2.75in"/>
+              <fo:table-column column-width="3.50in"/>
               <fo:table-body>
                 <fo:table-row><fo:table-cell border-style="solid" border-width="0.2pt" padding="1mm"><fo:block font-weight="bold">${uiLabelMap.OrderReturnFromAddress}</fo:block></fo:table-cell></fo:table-row>
                 <fo:table-row><fo:table-cell padding="1mm">
@@ -54,7 +54,7 @@ ${postalAddressFrom.city}<#if (postalAddressFrom.stateProvinceGeoId)?has_content
               <fo:table-body>
                 <fo:table-row><fo:table-cell padding="1mm" border-style="solid" border-width="0.2pt"><fo:block font-weight="bold">${uiLabelMap.OrderReturnToAddress}</fo:block></fo:table-cell></fo:table-row>
                 <fo:table-row><fo:table-cell padding="1mm">
-                  <fo:block white-space-collapse="false"><#if toPartyNameResult.fullName?has_content>${toPartyNameResult.fullName}<#else/><#if postalAddressTo?exists><#if (postalAddressTo.toName)?has_content>${postalAddressTo.toName}</#if><#if (postalAddressTo.attnName)?has_content>
+                  <fo:block white-space-collapse="false"><#if toPartyNameResult.fullName?has_content>${toPartyNameResult.fullName}<fo:block /><#else/><#if postalAddressTo?exists><#if (postalAddressTo.toName)?has_content>${postalAddressTo.toName}</#if><#if (postalAddressTo.attnName)?has_content>
 ${postalAddressTo.attnName}</#if></#if></#if><#if postalAddressTo?exists>
 ${postalAddressTo.address1}<#if (postalAddressTo.address2)?has_content>
 ${postalAddressTo.address2}</#if>
