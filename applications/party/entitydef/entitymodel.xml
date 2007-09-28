@@ -1885,6 +1885,37 @@ under the License.
         <key-map field-name="roleTypeIdValidTo" rel-field-name="roleTypeId"/>
       </relation>
     </entity>
+    <view-entity entity-name="PartyRelationshipAndDetail" package-name="org.ofbiz.party.party" title="Party Relationship And Details">
+      <member-entity entity-alias="PTY" entity-name="Party"/>
+      <member-entity entity-alias="PTYREL" entity-name="PartyRelationship"/>
+      <member-entity entity-alias="PER" entity-name="Person"/>
+      <member-entity entity-alias="PTYGRP" entity-name="PartyGroup"/>
+      <alias-all entity-alias="PTYREL"/>
+      <alias entity-alias="PTY" name="partyId"/>
+      <alias entity-alias="PTY" name="partyTypeId"/>
+      <alias entity-alias="PTY" name="description"/>
+      <alias entity-alias="PER" name="firstName"/>
+      <alias entity-alias="PER" name="middleName"/>
+      <alias entity-alias="PER" name="lastName"/>
+      <alias entity-alias="PER" name="firstNameLocal"/>
+      <alias entity-alias="PER" name="lastNameLocal"/>
+      <alias entity-alias="PER" name="personalTitle"/>
+      <alias entity-alias="PER" name="suffix"/>
+      <alias entity-alias="PTYGRP" name="groupName"/>
+      <alias entity-alias="PTYGRP" name="groupNameLocal"/>
+      <view-link entity-alias="PTY" rel-entity-alias="PTYREL" rel-optional="true">
+        <key-map field-name="partyId" rel-field-name="partyIdTo"/>
+      </view-link>
+      <view-link entity-alias="PTY" rel-entity-alias="PER" rel-optional="true">
+        <key-map field-name="partyId"/>
+      </view-link>
+      <view-link entity-alias="PTY" rel-entity-alias="PTYGRP" rel-optional="true">
+        <key-map field-name="partyId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+    </view-entity>
     <entity entity-name="PartyRole"
             package-name="org.ofbiz.party.party"
             title="Party Role Entity">
