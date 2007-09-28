@@ -475,17 +475,23 @@ public class AIMPaymentServices {
             if (params.get("orderPaymentPreference") != null) {
                 GenericValue opp = (GenericValue) params.get("orderPaymentPreference");
                 if ("CREDIT_CARD".equals(opp.getString("paymentMethodTypeId"))) {
-                    GenericValue creditCard = opp.getRelatedOne("CreditCard");
+                    // sometimes the ccAuthCapture interface is used, in which case the creditCard is passed directly
+                    GenericValue creditCard = (GenericValue) params.get("creditCard");
+                    if (creditCard == null || ! (opp.get("paymentMethodId").equals(creditCard.get("paymentMethodId")))) {
+                        creditCard = opp.getRelatedOne("CreditCard");
+                    }
                     AIMRequest.put("x_First_Name",UtilFormatOut.checkNull(creditCard.getString("firstNameOnCard")));
                     AIMRequest.put("x_Last_Name",UtilFormatOut.checkNull(creditCard.getString("lastNameOnCard")));
                     AIMRequest.put("x_Company",UtilFormatOut.checkNull(creditCard.getString("companyNameOnCard")));
                     if (UtilValidate.isNotEmpty(creditCard.getString("contactMechId"))) {
                         GenericValue address = creditCard.getRelatedOne("PostalAddress");
-                        AIMRequest.put("x_Address",UtilFormatOut.checkNull(address.getString("address1")));
-                        AIMRequest.put("x_City",UtilFormatOut.checkNull(address.getString("city")));
-                        AIMRequest.put("x_State",UtilFormatOut.checkNull(address.getString("stateProvinceGeoId")));
-                        AIMRequest.put("x_Zip",UtilFormatOut.checkNull(address.getString("postalCode")));
-                        AIMRequest.put("x_Country",UtilFormatOut.checkNull(address.getString("countryGeoId")));
+                        if (address != null) {
+                            AIMRequest.put("x_Address",UtilFormatOut.checkNull(address.getString("address1")));
+                            AIMRequest.put("x_City",UtilFormatOut.checkNull(address.getString("city")));
+                            AIMRequest.put("x_State",UtilFormatOut.checkNull(address.getString("stateProvinceGeoId")));
+                            AIMRequest.put("x_Zip",UtilFormatOut.checkNull(address.getString("postalCode")));
+                            AIMRequest.put("x_Country",UtilFormatOut.checkNull(address.getString("countryGeoId")));
+                        }
                     }
                 } else {
                     Debug.logWarning("Payment preference " + opp + " is not a credit card", module);
