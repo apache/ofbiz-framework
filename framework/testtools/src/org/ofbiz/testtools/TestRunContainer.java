@@ -39,12 +39,11 @@ import java.util.Map;
 public class TestRunContainer implements Container {
 
     public static final String module = TestRunContainer.class.getName();
-    public static final String logFile = "runtime/logs/tests-junit.xml";
+    public static final String logDir = "runtime/logs/test-results/";
 
     protected String configFile = null;
     protected String component = null;
     protected String testCase = null;
-    protected String outFile = null;
     protected String logLevel = null;
 
     /**
@@ -75,15 +74,17 @@ public class TestRunContainer implements Container {
                     if ("case".equalsIgnoreCase(argumentName)) {
                         this.testCase = argumentVal;
                     }
-                    if ("results".equalsIgnoreCase(argumentName)) {
-                        this.outFile = argumentVal;
-                    }
                     if ("loglevel".equalsIgnoreCase(argumentName)) {
                         this.logLevel = argumentVal;
                     }
                 }
             }
         }
+
+        // make sure the log dir exists
+        File dir = new File(logDir);
+        if (!dir.exists())
+            dir.mkdir();
     }
 
     public boolean start() throws ContainerException {
@@ -100,22 +101,6 @@ public class TestRunContainer implements Container {
             }
         }
 
-        // configure xml output
-        if (outFile == null) {
-            outFile = logFile;
-        }
-
-        JunitXmlListener xml;
-        try {
-            xml = new JunitXmlListener(new FileOutputStream(outFile));
-        } catch (FileNotFoundException e) {
-            throw new ContainerException(e);
-        }
-
-        TestResult results = new TestResult();
-        results.addListener(new JunitListener());
-        results.addListener(xml);
-
         // get the tests to run
         JunitSuiteWrapper jsWrapper = new JunitSuiteWrapper(component, testCase);
         if (jsWrapper.getAllTestList().size() == 0) {
@@ -128,37 +113,52 @@ public class TestRunContainer implements Container {
             TestSuite suite = (TestSuite) i.next();
             JUnitTest test = new JUnitTest();
             test.setName(suite.getName());
+
+            // create the XML logger
+            JunitXmlListener xml;
+            try {
+                xml = new JunitXmlListener(new FileOutputStream(logDir + suite.getName() + ".xml"));
+            } catch (FileNotFoundException e) {
+                throw new ContainerException(e);
+            }
+
+            // per-suite results
+            TestResult results = new TestResult();
+            results.addListener(new JunitListener());
+            results.addListener(xml);
+
+            // add the suite to the xml listener
             xml.startTestSuite(test);
 
             // run the tests
             suite.run(results);
             xml.endTestSuite(test);            
-        }
-       
-        // dispay the results
-        Debug.log("[JUNIT] Pass: " + results.wasSuccessful() + " | # Tests: " + results.runCount() + " | # Failed: " +
-                results.failureCount() + " # Errors: " + results.errorCount(), module);
-        if (Debug.importantOn()) {
-            Debug.log("[JUNIT] ----------------------------- ERRORS ----------------------------- [JUNIT]", module);
-            Enumeration err = results.errors();
-            if (!err.hasMoreElements()) {
-                Debug.log("None");
-            } else {
-                while (err.hasMoreElements()) {
-                    Debug.log("--> " + err.nextElement(), module);
+
+            // dispay the results
+            Debug.log("[JUNIT] Pass: " + results.wasSuccessful() + " | # Tests: " + results.runCount() + " | # Failed: " +
+                    results.failureCount() + " # Errors: " + results.errorCount(), module);
+            if (Debug.importantOn()) {
+                Debug.log("[JUNIT] ----------------------------- ERRORS ----------------------------- [JUNIT]", module);
+                Enumeration err = results.errors();
+                if (!err.hasMoreElements()) {
+                    Debug.log("None");
+                } else {
+                    while (err.hasMoreElements()) {
+                        Debug.log("--> " + err.nextElement(), module);
+                    }
                 }
-            }
-            Debug.log("[JUNIT] ------------------------------------------------------------------ [JUNIT]", module);
-            Debug.log("[JUNIT] ---------------------------- FAILURES ---------------------------- [JUNIT]", module);
-            Enumeration fail = results.failures();
-            if (!fail.hasMoreElements()) {
-                Debug.log("None");
-            } else {
-                while (fail.hasMoreElements()) {
-                    Debug.log("--> " + fail.nextElement(), module);
+                Debug.log("[JUNIT] ------------------------------------------------------------------ [JUNIT]", module);
+                Debug.log("[JUNIT] ---------------------------- FAILURES ---------------------------- [JUNIT]", module);
+                Enumeration fail = results.failures();
+                if (!fail.hasMoreElements()) {
+                    Debug.log("None");
+                } else {
+                    while (fail.hasMoreElements()) {
+                        Debug.log("--> " + fail.nextElement(), module);
+                    }
                 }
+                Debug.log("[JUNIT] ------------------------------------------------------------------ [JUNIT]", module);
             }
-            Debug.log("[JUNIT] ------------------------------------------------------------------ [JUNIT]", module);
         }
 
         return true;
