@@ -203,7 +203,7 @@ framework\images\webapp\images\calendar1.js
 ==  JSON-LIB Notice                                                    ==
 =========================================================================
 
-This product incudes software developed by
+This product includes software developed by
 Douglas Crockford (http://www.crockford.com).
 
 =========================================================================
@@ -243,5 +243,11 @@ If any of the above provisions are held to be in violation of applicable
 law, void, or unenforceable in any jurisdiction, then such provisions are
 waived to the extent necessary for this Disclaimer to be otherwise
 enforceable in such jurisdiction.
+
+=========================================================================
+==  WhizzyWig Notice                                                  ==
+=========================================================================
+This product includes software developed by
+John Goodman (http://www.unverse.net).
 
 ================================================================
