@@ -407,6 +407,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
         expandMap.put("DOUBLE_HEIGHT", TEXT_DOUBLE_HEIGHT);
         expandMap.put("CENTER", ALIGN_CENTER);
         expandMap.put("BOLD", TEXT_BOLD);
+        expandMap.put("UNDERLINE", TEXT_UNDERLINE);
         expandMap.put("LF", LF);
         expandMap.put("transactionId", trans.getTransactionId());
         expandMap.put("terminalId", trans.getTerminalId());
