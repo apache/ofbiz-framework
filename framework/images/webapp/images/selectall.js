@@ -164,9 +164,6 @@ function confirmActionLink(msg, newLocation) {
     var agree = confirm(msg);
     if (agree) {
         if (newLocation != null) location.replace(newLocation);
-        return true;
-    } else {
-        return false;
     }
 }
 
@@ -178,10 +175,7 @@ function confirmActionFormLink(msg, formName) {
     var agree = confirm(msg);
     if (agree) {
         if (formName != null) document.forms[formName].submit();
-        return true;
-    } else {
-        return false;
-    }
+    } 
 }
 
 function submitFormDisableSubmits(form) {
