@@ -36,9 +36,10 @@ under the License.
                 <set field="layoutSettings.extraHead" value="&lt;link rel=&quot;stylesheet&quot; href=&quot;/content/images/contentForum.css&quot; type=&quot;text/css&quot;/&gt;"/>
                 <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
+                <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>                
                 <set field="activeApp" value="contentmgr" global="true"/>
                 <set field="applicationMenuName" value="ContentAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://content/widget/content/ContentMenus.xml" global="true"/>
+                <set field="applicationMenuLocation" value="component://content/widget/content/ContentMenus.xml" global="true"/>                
             </actions>
             <widgets>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
