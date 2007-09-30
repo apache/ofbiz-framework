@@ -56,7 +56,7 @@
 .forummenuwrapper { 
         color:#8B008B; 
         background:#D4D0C8;
-        font-size:10; 
+        font-size:10pt; 
         text-decoration:none;
         margin-left:12px;
         margin-right:20px;
@@ -86,7 +86,7 @@
 .forumtitle{ 
         color:#8B008B; 
         background:#D4D0C8;
-        font-size:22; 
+        font-size:22pt; 
         font-weight:bold;
         text-align:left;
         font-family:verdana, arial, sans-serif;
@@ -98,7 +98,7 @@
 .forumtitleboxed { 
         color:#8B008B; 
         background:#D4D0C8;
-        font-size:22; 
+        font-size:22pt; 
         text-decoration:none;
         border:1px solid black;
         padding:4px;
