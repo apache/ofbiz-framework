@@ -1176,6 +1176,7 @@ The following libraries distributed with Apache OFBiz are licensed under the
 MIT/X License:
 ofbiz/trunk/framework/base/lib/icu4j_3_6.jar
 ofbiz/trunk/framework/entity/lib/ofbiz-minerva.jar
+ofbiz/trunk/framework/images/webapp/images/htmledit/whizzywig_v55i.js
 =========================================================================
 The MIT License
 
