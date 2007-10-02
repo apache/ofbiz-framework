@@ -36,7 +36,7 @@ under the License.
         <#assign roleType = role.getRelatedOne("RoleType")>
         <tr> 
           <td><a href="/partymgr/control/viewprofile?partyId=${role.partyId}&externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${role.partyId}</a></td>
-          <td><span class="tabletext">${roleType.get("description",locale)}</span></td>
+          <td><span class="tabletext">${roleType.get("description",locale)?if_exists}</span></td>
           <td><span class="tabletext">${role.fromDate?string}</span></td>
           <td><span class="tabletext">${role.thruDate?default("${uiLabelMap.CommonNA}")?string?if_exists}</span></td>
           <#if role.thruDate?exists>
@@ -61,7 +61,7 @@ under the License.
         <td>
           <select class="selectBox" name="roleTypeId">
             <#list roleTypes as roleType>
-              <option value="${roleType.roleTypeId}">${roleType.get("description",locale)}</option>
+              <option value="${roleType.roleTypeId}">${roleType.get("description",locale)?if_exists}</option>
             </#list>
           </select>
         </td>
