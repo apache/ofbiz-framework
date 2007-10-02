@@ -116,7 +116,7 @@ under the License.
           ${uiLabelMap.PartyPartyInTheRoleOf}
           <select name="roleTypeIdTo">
             <#list roleTypes as roleType>
-              <option <#if "_NA_" == roleType.roleTypeId>selected="selected"</#if> value="${roleType.roleTypeId}">${roleType.get("description",locale)}<#-- [${roleType.roleTypeId}]--></option>
+              <option <#if "_NA_" == roleType.roleTypeId>selected="selected"</#if> value="${roleType.roleTypeId}">${roleType.get("description",locale)?if_exists}<#-- [${roleType.roleTypeId}]--></option>
             </#list>
           </select>
           ${uiLabelMap.CommonIsA}
@@ -128,7 +128,7 @@ under the License.
           ${uiLabelMap.PartyPartyOfTheRoleParty}
           <select name="roleTypeIdFrom">
             <#list roleTypesForCurrentParty as roleType>
-              <option <#if "_NA_" == roleType.roleTypeId>selected="selected"</#if> value="${roleType.roleTypeId}">${roleType.get("description",locale)}<#-- [${roleType.roleTypeId}]--></option>
+              <option <#if "_NA_" == roleType.roleTypeId>selected="selected"</#if> value="${roleType.roleTypeId}">${roleType.get("description",locale)?if_exists}<#-- [${roleType.roleTypeId}]--></option>
             </#list>
           </select>
           <#-- set security group specific to this party relationship -->
@@ -153,7 +153,7 @@ under the License.
           ${uiLabelMap.PartyPartyCurrentInTheRoleOf}
           <select name="roleTypeIdTo">
             <#list roleTypesForCurrentParty as roleType>
-              <option <#if "_NA_" == roleType.roleTypeId>selected="selected"</#if> value="${roleType.roleTypeId}">${roleType.get("description",locale)}<#-- [${roleType.roleTypeId}]--></option>
+              <option <#if "_NA_" == roleType.roleTypeId>selected="selected"</#if> value="${roleType.roleTypeId}">${roleType.get("description",locale)?if_exists}<#-- [${roleType.roleTypeId}]--></option>
             </#list>
           </select>
           ${uiLabelMap.CommonIsA}
@@ -168,7 +168,7 @@ under the License.
           ${uiLabelMap.PartyPartyInTheRoleOf}
           <select name="roleTypeIdFrom">
             <#list roleTypes as roleType>
-              <option <#if "_NA_" == roleType.roleTypeId>selected="selected"</#if> value="${roleType.roleTypeId}">${roleType.get("description",locale)}<#-- [${roleType.roleTypeId}]--></option>
+              <option <#if "_NA_" == roleType.roleTypeId>selected="selected"</#if> value="${roleType.roleTypeId}">${roleType.get("description",locale)?if_exists}<#-- [${roleType.roleTypeId}]--></option>
             </#list>
           </select>
           <br/>${uiLabelMap.CommonAnd} ${uiLabelMap.PartyRelationSecurity}
