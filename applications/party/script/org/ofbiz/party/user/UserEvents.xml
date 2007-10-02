@@ -30,7 +30,7 @@ under the License.
         <call-simple-method method-name="createUser"/>
     </simple-method>
     <simple-method method-name="createProspect" short-description="Create Prospect" login-required="false">
-        <set field="require_email" value="true" />
+        <set field="parameters.require_email" default-value="true" />
         <set field="require_phone" value="false" />
         <set field="require_login" value="false" />
         <set field="create_allow_password" value="true" />

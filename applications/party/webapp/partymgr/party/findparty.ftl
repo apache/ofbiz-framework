@@ -85,7 +85,7 @@ under the License.
                 </#if>
                 <option value="ANY">${uiLabelMap.CommonAnyRoleType}</option>
                 <#list roleTypes as roleType>
-                  <option value="${roleType.roleTypeId}">${roleType.get("description",locale)?if_exists}</option>
+                  <option value="${roleType.roleTypeId}">${roleType.get("description",locale)}</option>
                 </#list>
               </select>
             </td>
