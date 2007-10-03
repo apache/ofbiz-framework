@@ -985,7 +985,7 @@ under the License.
         <field name="contactMechTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="ContactMechType"/></field>
         <field name="contactMechId" use-when="telecomNumber != null" title="${uiLabelMap.CommonDescription}"><display description="${telecomNumber.contryCode} ${telecomNumber.areaCode} ${telecomNumber.contactNumber} ${telecomNumber.askForName}"/></field>
         <field name="contactMechId" use-when="postalAddress != null" title="${uiLabelMap.CommonDescription}"><display description="${postalAddress.address1} ${postalAddress.address2} ${postalAddress.city} ${postalAddress.postalCode} ${postalAddress.countryGeoId} ${postalAddress.stateProvinceGeoId}"/></field>
-        <field name="contactMechId" use-when="telecomNumber == null &amp;&amp; postalAddress == null" title="${uiLabelMap.CommonDescription}"><display description="${infoString}aaa"/></field>
+        <field name="contactMechId" use-when="telecomNumber == null &amp;&amp; postalAddress == null" title="${uiLabelMap.CommonDescription}"><display description="${infoString}"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortContactMech?workEffortId=${workEffortId}&amp;contactMechId=${contactMechId}"/>
         </field>
