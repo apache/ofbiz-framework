@@ -464,7 +464,7 @@ under the License.
       <alias entity-alias="OI" name="estimatedShipDate"/>
       <alias entity-alias="OI" name="autoCancelDate"/>
       <alias entity-alias="OI" name="correspondingPoId"/>
-      <alias entity-alias="OI" name="orderItemTypId"/>
+      <alias entity-alias="OI" name="orderItemTypeId"/>
       <alias entity-alias="OI" name="itemDescription"/>
       <alias entity-alias="OI" name="orderItemSeqId"/>      
       <view-link entity-alias="OT" rel-entity-alias="OH">
