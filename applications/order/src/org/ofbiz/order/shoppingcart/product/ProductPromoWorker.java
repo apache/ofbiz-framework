@@ -512,6 +512,17 @@ public class ProductPromoWorker {
             if (productPromoCode == null) {
                 return "The promotion code [" + productPromoCodeId + "] is not valid.";
             }
+            Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
+            if (productPromoCode.getTimestamp("thruDate") != null) {
+                if (nowTimestamp.after(productPromoCode.getTimestamp("thruDate"))) {
+                    return "The promotion code [" + productPromoCodeId + "] is expired in: " + productPromoCode.getTimestamp("thruDate");
+                }
+            }
+            if (productPromoCode.getTimestamp("fromDate") != null) {
+                if (nowTimestamp.before(productPromoCode.getTimestamp("fromDate"))) {
+                    return "The promotion code [" + productPromoCodeId + "] will be activated in: " + productPromoCode.getTimestamp("fromDate");
+                }
+            }
             
             if ("Y".equals(productPromoCode.getString("requireEmailOrParty"))) {
                 boolean hasEmailOrParty = false;
@@ -524,7 +535,6 @@ public class ProductPromoWorker {
                     }
                     
                     // check email address in ProductPromoCodeEmail
-                    Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
                     List validEmailCondList = new ArrayList();
                     validEmailCondList.add(new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
                     validEmailCondList.add(new EntityExpr("productPromoCodeId", EntityOperator.EQUALS, productPromoCodeId));
