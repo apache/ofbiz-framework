@@ -84,4 +84,17 @@ under the License.
             <display description="[${productPromoCode.createdByUserLogin}] ${uiLabelMap.CommonOn} ${productPromoCode.createdDate}" also-hidden="false"/>
         </field>
     </form>
+    
+    <form name="ListProductPromoCodes" type="list" title="" list-name="productPromoCodes">
+        <auto-fields-entity entity-name="ProductPromoCode" default-field-type="display"/>
+        <field name="productPromoId"><hidden/></field>
+        <field name="productPromoCodeId" widget-style="buttontext">
+            <hyperlink target="EditProductPromoCode?productPromoCodeId=${productPromoCodeId}"
+                description="${productPromoCodeId}" also-hidden="false"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deleteProductPromoCode?productPromoCodeId=${productPromoCodeId}&amp;productPromoId=${productPromoId}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
 </forms>

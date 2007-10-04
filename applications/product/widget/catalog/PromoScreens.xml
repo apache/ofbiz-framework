@@ -47,7 +47,7 @@ under the License.
                                             <label style="head1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${productPromo.promoName} [${uiLabelMap.CommonId}:${productPromoId}]  ${${extraFunctionName}}</label>
                                         </container>
                                         <container>
-                                            <link target="EditProductPromo" text="[${uiLabelMap.ProductNewProductPromo}]" style="buttontext"/>
+                                            <link target="EditProductPromo" text="${uiLabelMap.ProductNewProductPromo}" style="buttontext"/>
                                         </container>
                                     </widgets>
                                 </section>
@@ -234,6 +234,22 @@ under the License.
                         <container>
                             <link target="EditProductPromoCode?productPromoId=${productPromoId}" text="${uiLabelMap.ProductNewPromotionCode}" style="buttontext"/>
                         </container>
+                        <section>
+                            <condition>
+                                <if-compare field-name="manualOnly" operator="equals" value="Y"/>
+                            </condition>
+                            <widgets>
+                                <container>
+                                    <link target="FindProductPromoCode?manualOnly=N&amp;productPromoId=${productPromoId}" text="${uiLabelMap.ProductPromotionManualImported}" style="buttontext"/>
+                                </container>
+                            </widgets>
+                            <fail-widgets>
+                                <container>
+                                    <link target="FindProductPromoCode?manualOnly=Y&amp;productPromoId=${productPromoId}" text="${uiLabelMap.ProductPromotionManual}" style="buttontext"/>
+                                </container>
+                            </fail-widgets>
+                        </section>
+                        <include-form name="ListProductPromoCodes" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
                         <platform-specific>
                             <html><html-template location="component://product/webapp/catalog/promo/FindProductPromoCode.ftl"/></html>
                         </platform-specific>
