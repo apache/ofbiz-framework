@@ -160,6 +160,9 @@ under the License.
         <field-to-result field-name="productPromoCodeId" map-name="newEntity"/>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
+        <if-empty field-name="newEntity.fromDate">
+            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
+        </if-empty>
         <set from-field="nowTimestamp" field="newEntity.createdDate"/>
         <set from-field="nowTimestamp" field="newEntity.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
