@@ -430,7 +430,14 @@ under the License.
         <response name="success" type="view" value="EditTimesheetRoles"/>
         <response name="error" type="view" value="EditTimesheetRoles"/>
     </request-map>
-
+    
+    <request-map uri="deleteTimesheetRole">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteTimesheetRole"/>
+        <response name="success" type="view" value="EditTimesheetRoles"/>
+        <response name="error" type="view" value="EditTimesheetRoles"/>
+    </request-map>
+    
     <request-map uri="EditTimesheetEntries"><security https="true" auth="true"/><response name="success" type="view" value="EditTimesheetEntries"/></request-map>
     <request-map uri="createTimesheetEntry">
         <security https="true" auth="true"/>
