@@ -181,6 +181,8 @@ public class ResourceBundleMapWrapper implements Map, Serializable {
                     if (this.resourceBundle.getObject((String) arg0) != null) {
                         return true;
                     }
+                } catch (NullPointerException e) {
+                    // happens when arg0 is null
                 } catch (MissingResourceException e) {
                     // nope, not found... nothing, will automatically return false below
                 }
