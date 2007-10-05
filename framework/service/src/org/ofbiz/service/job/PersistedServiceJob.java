@@ -140,13 +140,12 @@ public class PersistedServiceJob extends GenericServiceJob {
         if (Debug.verboseOn()) Debug.logVerbose("Next runtime returned: " + next, module);
 
         if (next > runtime) {
-            String newJobId = job.getDelegator().getNextSeqId("JobSandbox");
             String pJobId = job.getString("parentJobId");
             if (pJobId == null) {
                 pJobId = job.getString("jobId");
             }
             GenericValue newJob = GenericValue.create(job);
-            newJob.set("jobId", newJobId);
+            newJob.remove("jobId");
             newJob.set("previousJobId", job.getString("jobId"));
             newJob.set("parentJobId", pJobId);
             newJob.set("statusId", "SERVICE_PENDING");
@@ -154,7 +153,7 @@ public class PersistedServiceJob extends GenericServiceJob {
             newJob.set("runByInstanceId", null);
             newJob.set("runTime", new java.sql.Timestamp(next));
             nextRecurrence = next;
-            delegator.create(newJob);
+            delegator.createSetNextSeqId(newJob);
             if (Debug.verboseOn()) Debug.logVerbose("Created next job entry: " + newJob, module);
         }
     }

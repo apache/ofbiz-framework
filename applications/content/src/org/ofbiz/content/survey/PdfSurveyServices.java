@@ -93,12 +93,12 @@ public class PdfSurveyServices {
             GenericValue survey = null;
             surveyId = (String) context.get("surveyId");
             if (UtilValidate.isEmpty(surveyId)) {
-                surveyId = delegator.getNextSeqId("Survey");
                 survey = delegator.makeValue("Survey", UtilMisc.toMap("surveyName", surveyName));
                 survey.set("surveyId", surveyId);
                 survey.set("allowMultiple", "Y");
                 survey.set("allowUpdate", "Y");
-                survey.create();
+                survey = delegator.createSetNextSeqId(survey);
+                surveyId = survey.getString("surveyId");
             }
             
             // create a SurveyQuestionCategory to put the questions in

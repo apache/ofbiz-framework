@@ -131,7 +131,6 @@ public class VisitHandler {
                             }
                             
                             visit = delegator.makeValue("Visit", null);
-                            visit.set("visitId", delegator.getNextSeqId("Visit"));
                             visit.set("sessionId", session.getId());
                             visit.set("fromDate", new Timestamp(session.getCreationTime()));
 
@@ -167,7 +166,7 @@ public class VisitHandler {
                                 Debug.logError("Unable to get localhost internet address: " + e.toString(), module);
                             }
                             try {
-                                visit.create();
+                                visit = delegator.createSetNextSeqId(visit);
                                 session.setAttribute("visit", visit);
                             } catch (GenericEntityException e) {
                                 Debug.logError(e, "Could not create new visit:", module);
@@ -207,45 +206,40 @@ public class VisitHandler {
                             Debug.logError("Could not find delegator in request or with delegatorName [" + delegatorName + "] in session, not creating/getting Visitor entity", module);
                         } else {
                             // first try to get the current ID from the visitor cookie
-                            String visitorId = null;
+                            String cookieVisitorId = null;
                             Cookie[] cookies = request.getCookies();
                             if (Debug.verboseOn()) Debug.logVerbose("Cookies:" + cookies, module);
                             if (cookies != null) {
                                 for (int i = 0; i < cookies.length; i++) {
                                     if (cookies[i].getName().equals(visitorCookieName)) {
-                                        visitorId = cookies[i].getValue();
+                                        cookieVisitorId = cookies[i].getValue();
                                         break;
                                     }
                                 }
                             }
                             
-                            if (Debug.infoOn()) Debug.logInfo("Found visitorId [" + visitorId + "] in cookie", module);
+                            if (Debug.infoOn()) Debug.logInfo("Found visitorId [" + cookieVisitorId + "] in cookie", module);
                             
-                            if (UtilValidate.isEmpty(visitorId)) {
+                            if (UtilValidate.isEmpty(cookieVisitorId)) {
                                 // no visitor cookie? create visitor and send back cookie too
-                                visitorId = delegator.getNextSeqId("Visitor");
-            
                                 visitor = delegator.makeValue("Visitor", null);
-                                visitor.set("visitorId", visitorId);
                                 try {
-                                    visitor.create();
+                                    delegator.createSetNextSeqId(visitor);
                                 } catch (GenericEntityException e) {
                                     Debug.logError(e, "Could not create new visitor:", module);
                                     visitor = null;
                                 }
                             } else {
                                 try {
-                                    visitor = delegator.findByPrimaryKey("Visitor", UtilMisc.toMap("visitorId", visitorId));
+                                    visitor = delegator.findByPrimaryKey("Visitor", UtilMisc.toMap("visitorId", cookieVisitorId));
                                     if (visitor == null) {
                                         // looks like we have an ID that doesn't exist in our database, so we'll create a new one
-                                        String cookieVisitorId = visitorId;
-                                        visitorId = delegator.getNextSeqId("Visitor");
-                                        visitor = delegator.makeValue("Visitor", UtilMisc.toMap("visitorId", visitorId));
-                                        delegator.create(visitor);
-                                        if (Debug.infoOn()) Debug.logInfo("The visitorId [" + cookieVisitorId + "] found in cookie was invalid, creating new Visitor with ID [" + visitorId + "]", module);
+                                        visitor = delegator.makeValue("Visitor", null);
+                                        visitor = delegator.createSetNextSeqId(visitor);
+                                        if (Debug.infoOn()) Debug.logInfo("The visitorId [" + cookieVisitorId + "] found in cookie was invalid, creating new Visitor with ID [" + visitor.getString("visitorId") + "]", module);
                                     }
                                 } catch (GenericEntityException e) {
-                                    Debug.logError(e, "Error finding visitor with ID from cookie: " + visitorId, module);
+                                    Debug.logError(e, "Error finding visitor with ID from cookie: " + cookieVisitorId, module);
                                     visitor = null;
                                 }
                             }

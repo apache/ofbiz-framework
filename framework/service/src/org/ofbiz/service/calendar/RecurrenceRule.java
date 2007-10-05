@@ -653,8 +653,7 @@ public class RecurrenceRule {
         String freqStr = freq[frequency];
 
         try {
-            String ruleId = delegator.getNextSeqId("RecurrenceRule");
-            GenericValue value = delegator.makeValue("RecurrenceRule", UtilMisc.toMap("recurrenceRuleId", ruleId));
+            GenericValue value = delegator.makeValue("RecurrenceRule", null);
 
             value.set("frequency", freqStr);
             value.set("intervalNumber", new Long(interval));
@@ -662,9 +661,8 @@ public class RecurrenceRule {
             if (endTime > 0) {
                 value.set("untilDateTime", new java.sql.Timestamp(endTime));
             }
-            delegator.create(value);
+            delegator.createSetNextSeqId(value);
             RecurrenceRule newRule = new RecurrenceRule(value);
-
             return newRule;
         } catch (GenericEntityException ee) {
             throw new RecurrenceRuleException(ee.getMessage(), ee);

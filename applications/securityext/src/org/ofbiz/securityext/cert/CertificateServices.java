@@ -84,7 +84,6 @@ public class CertificateServices {
         Map x500Map = KeyStoreUtil.getCertX500Map(cert);       
         if (importIssuer != null && "Y".equalsIgnoreCase(importIssuer)) {
             GenericValue provision = delegator.makeValue("X509IssuerProvision", null);
-            provision.set("certProvisionId", delegator.getNextSeqId("X509IssuerProvision"));
             provision.set("commonName", x500Map.get("CN"));
             provision.set("organizationalUnit", x500Map.get("OU"));
             provision.set("organizationName", x500Map.get("O"));
@@ -94,7 +93,7 @@ public class CertificateServices {
             provision.set("serialNumber", cert.getSerialNumber().toString(16));
 
             try {
-                delegator.create(provision);
+                delegator.createSetNextSeqId(provision);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
             }

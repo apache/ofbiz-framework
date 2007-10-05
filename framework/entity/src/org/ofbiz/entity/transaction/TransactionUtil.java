@@ -179,7 +179,7 @@ public class TransactionUtil implements Status {
                 int status = ut.getStatus();
                 Debug.logVerbose("[TransactionUtil.commit] current status : " + getTransactionStateString(status), module);
 
-                if (status != STATUS_NO_TRANSACTION) {
+                if (status != STATUS_NO_TRANSACTION && status != STATUS_COMMITTING && status != STATUS_COMMITTED && status != STATUS_ROLLING_BACK && status != STATUS_ROLLEDBACK) {
                     ut.commit();
 
                     // clear out the stamps to keep it clean
@@ -190,7 +190,7 @@ public class TransactionUtil implements Status {
 
                     Debug.logVerbose("[TransactionUtil.commit] transaction committed", module);
                 } else {
-                    Debug.logWarning("[TransactionUtil.commit] Not committing transaction, status is STATUS_NO_TRANSACTION", module);
+                    Debug.logWarning("[TransactionUtil.commit] Not committing transaction, status is " + getStatusString(), module);
                 }
             } catch (RollbackException e) {
                 RollbackOnlyCause rollbackOnlyCause = getSetRollbackOnlyCause();
