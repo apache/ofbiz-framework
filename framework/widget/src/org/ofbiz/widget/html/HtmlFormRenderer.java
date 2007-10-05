@@ -1018,8 +1018,8 @@ public class HtmlFormRenderer implements FormStringRenderer {
         buffer.append("<!-- begin form widget -->");
         this.appendWhitespace(buffer);
         buffer.append("<form method=\"post\" ");
-        String targ = modelForm.getTarget(context);
         String targetType = modelForm.getTargetType();
+        String targ = modelForm.getTarget(context, targetType);
         // The 'action' attribute is mandatory in a form definition,
         // even if it is empty.
         buffer.append(" action=\"");

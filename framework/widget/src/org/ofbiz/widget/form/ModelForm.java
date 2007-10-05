@@ -1831,7 +1831,7 @@ public class ModelForm {
     /** iterate through altTargets list to see if any should be used, if not return original target
      * @return The target for this Form
      */
-    public String getTarget(Map context) {
+    public String getTarget(Map context, String targetType) {
         try {
             // use the same Interpreter (ie with the same context setup) for all evals
             Interpreter bsh = this.getBshInterpreter(context);
@@ -1849,7 +1849,7 @@ public class ModelForm {
                         "Return value from target condition eval was not a Boolean: " + retVal.getClass().getName() + " [" + retVal + "] of form " + this.name);
                 }
 
-                if (condTrue) {
+                if (condTrue && !targetType.equals("inter-app")) {
                     return altTarget.target;
                 }
             }
@@ -2091,7 +2091,7 @@ public class ModelForm {
     public String getPaginateTarget(Map context) {
         String targ = this.paginateTarget.expandString(context);
         if (UtilValidate.isEmpty(targ)) {
-            targ = getTarget(context);
+            targ = getTarget(context, null);
         }
         
         return targ;
@@ -2117,15 +2117,15 @@ public class ModelForm {
             Object value = context.get(field);
 
             if (value == null) {
-        	// try parameters.VIEW_INDEX as that is an old OFBiz convention
-        	Map parameters = (Map) context.get("parameters");
-        	if (parameters != null) {
-        	    value = parameters.get("VIEW_INDEX");
-        	    
-        	    if (value == null) {
-        		value = parameters.get(field);
-        	    }
-        	}
+            // try parameters.VIEW_INDEX as that is an old OFBiz convention
+            Map parameters = (Map) context.get("parameters");
+            if (parameters != null) {
+                value = parameters.get("VIEW_INDEX");
+                
+                if (value == null) {
+                value = parameters.get(field);
+                }
+            }
             }
 
             if (value instanceof Integer) { 
@@ -2156,15 +2156,15 @@ public class ModelForm {
             Object value = context.get(field);
             
             if (value == null) {
-        	// try parameters.VIEW_SIZE as that is an old OFBiz convention
-        	Map parameters = (Map) context.get("parameters");
-        	if (parameters != null) {
-        	    value = parameters.get("VIEW_SIZE");
-        	    
-        	    if (value == null) {
-        		value = parameters.get(field);
-        	    }
-        	}
+            // try parameters.VIEW_SIZE as that is an old OFBiz convention
+            Map parameters = (Map) context.get("parameters");
+            if (parameters != null) {
+                value = parameters.get("VIEW_SIZE");
+                
+                if (value == null) {
+                value = parameters.get(field);
+                }
+            }
             }
             
             if (value instanceof Integer) { 
