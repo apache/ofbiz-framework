@@ -549,7 +549,6 @@ public class ServerHitBin {
                 // persist each bin when time ends if option turned on
                 if (UtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist." + ServerHitBin.typeIds[type] + ".bin", "true")) {
                     GenericValue serverHitBin = delegator.makeValue("ServerHitBin", null);
-                    serverHitBin.set("serverHitBinId", getDelegator().getNextSeqId("ServerHitBin"));
                     serverHitBin.set("contentId", this.id);
                     serverHitBin.set("hitTypeId", ServerHitBin.typeIds[this.type]);
                     serverHitBin.set("binStartDateTime", new java.sql.Timestamp(this.startTime));
@@ -572,7 +571,7 @@ public class ServerHitBin {
                         Debug.logError("Unable to get localhost internet address: " + e.toString(), module);
                     }
                     try {
-                        serverHitBin.create();
+                        delegator.createSetNextSeqId(serverHitBin);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Could not save ServerHitBin:", module);
                     }

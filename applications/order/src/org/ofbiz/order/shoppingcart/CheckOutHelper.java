@@ -1093,7 +1093,6 @@ public class CheckOutHelper {
                 throw new GeneralException("Problem getting parsed currency amount from DecimalFormat", e);
             }
             GenericValue newPref = delegator.makeValue("OrderPaymentPreference", null);
-            newPref.set("orderPaymentPreferenceId", delegator.getNextSeqId("OrderPaymentPreference"));
             newPref.set("orderId", orderId);
             newPref.set("paymentMethodTypeId", "CASH");
             newPref.set("statusId", "PAYMENT_RECEIVED");
@@ -1102,7 +1101,7 @@ public class CheckOutHelper {
             if (userLogin != null) {
                 newPref.set("createdByUserLogin", userLogin.getString("userLoginId"));
             }
-            delegator.create(newPref);
+            delegator.createSetNextSeqId(newPref);
         }
     }
 

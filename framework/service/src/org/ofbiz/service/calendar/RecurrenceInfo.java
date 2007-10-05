@@ -296,12 +296,11 @@ public class RecurrenceInfo {
         try {
             RecurrenceRule r = RecurrenceRule.makeRule(delegator, frequency, interval, count, endTime);
             String ruleId = r.primaryKey();
-            String infoId = delegator.getNextSeqId("RecurrenceInfo");
-            GenericValue value = delegator.makeValue("RecurrenceInfo", UtilMisc.toMap("recurrenceInfoId", infoId));
+            GenericValue value = delegator.makeValue("RecurrenceInfo", null);
 
             value.set("recurrenceRuleId", ruleId);
             value.set("startDateTime", new java.sql.Timestamp(startTime));
-            delegator.create(value);
+            delegator.createSetNextSeqId(value);
             RecurrenceInfo newInfo = new RecurrenceInfo(value);
 
             return newInfo;

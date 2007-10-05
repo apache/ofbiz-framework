@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
@@ -513,6 +514,21 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
      */
     public void setBytes(String name, byte[] bytes) {
         this.set(name, new ByteWrapper(bytes));
+    }
+    
+    public void setNextSeqId() {
+        List pkFieldNameList = this.modelEntity.getPkFieldNames();
+        if (pkFieldNameList.size() != 1) {
+            throw new IllegalArgumentException("Cannot setNextSeqId for entity [" + this.getEntityName() + "] that does not have a single primary key field, instead has [" + pkFieldNameList.size() + "]");
+        }
+        
+        String pkFieldName = (String) pkFieldNameList.get(0);
+        if (this.get(pkFieldName) != null) {
+            // don't throw exception, too much of a pain and usually intended: throw new IllegalArgumentException("Cannot setNextSeqId, pk field [" + pkFieldName + "] of entity [" + this.getEntityName() + "] already has a value [" + this.get(pkFieldName) + "]");
+        }
+        
+        String sequencedValue = this.getDelegator().getNextSeqId(this.getEntityName());
+        this.set(pkFieldName, sequencedValue);
     }
 
     public Boolean getBoolean(String name) {

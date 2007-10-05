@@ -204,7 +204,6 @@ public class JobManager {
 
     public synchronized void reloadCrashedJobs() {
         String instanceId = UtilProperties.getPropertyValue("general.properties", "unique.instanceId", "ofbiz0");
-        List toStore = new ArrayList();
         List crashed = null;
 
         List exprs = UtilMisc.toList(new EntityExpr("finishDateTime", EntityOperator.EQUALS, null));
@@ -217,48 +216,46 @@ public class JobManager {
         }
 
         if (crashed != null && crashed.size() > 0) {
-            Iterator i = crashed.iterator();
-            while (i.hasNext()) {
-                GenericValue job = (GenericValue) i.next();
-                long runtime = job.getTimestamp("runTime").getTime();
-                RecurrenceInfo ri = JobManager.getRecurrenceInfo(job);
-                if (ri != null) {
-                    long next = ri.next();
-                    if (next <= runtime) {
-                        Timestamp now = UtilDateTime.nowTimestamp();
-                        // only re-schedule if there is no new recurrences since last run
-                        Debug.log("Scheduling Job : " + job, module);
-
-                        String newJobId = job.getDelegator().getNextSeqId("JobSandbox");
-                        String pJobId = job.getString("parentJobId");
-                        if (pJobId == null) {
-                            pJobId = job.getString("jobId");
+            try {
+                int rescheduled = 0;
+                Iterator i = crashed.iterator();
+                while (i.hasNext()) {
+                    GenericValue job = (GenericValue) i.next();
+                    long runtime = job.getTimestamp("runTime").getTime();
+                    RecurrenceInfo ri = JobManager.getRecurrenceInfo(job);
+                    if (ri != null) {
+                        long next = ri.next();
+                        if (next <= runtime) {
+                            Timestamp now = UtilDateTime.nowTimestamp();
+                            // only re-schedule if there is no new recurrences since last run
+                            Debug.log("Scheduling Job : " + job, module);
+    
+                            String pJobId = job.getString("parentJobId");
+                            if (pJobId == null) {
+                                pJobId = job.getString("jobId");
+                            }
+                            GenericValue newJob = GenericValue.create(job);
+                            newJob.set("statusId", "SERVICE_PENDING");
+                            newJob.set("runTime", now);
+                            newJob.set("previousJobId", job.getString("jobId"));
+                            newJob.set("parentJobId", pJobId);
+                            newJob.set("startDateTime", null);
+                            newJob.set("runByInstanceId", null);
+                            delegator.createSetNextSeqId(newJob);
+    
+                            // set the cancel time on the old job to the same as the re-schedule time
+                            job.set("statusId", "SERVICE_CRASHED");
+                            job.set("cancelDateTime", now);
+                            delegator.store(job);
+                            
+                            rescheduled++;
                         }
-                        GenericValue newJob = GenericValue.create(job);
-                        newJob.set("statusId", "SERVICE_PENDING");
-                        newJob.set("runTime", now);
-                        newJob.set("jobId", newJobId);
-                        newJob.set("previousJobId", job.getString("jobId"));
-                        newJob.set("parentJobId", pJobId);
-                        newJob.set("startDateTime", null);
-                        newJob.set("runByInstanceId", null);
-                        toStore.add(newJob);
-
-                        // set the cancel time on the old job to the same as the re-schedule time
-                        job.set("statusId", "SERVICE_CRASHED");
-                        job.set("cancelDateTime", now);
-                        toStore.add(job);
                     }
                 }
-            }
-
-            if (toStore.size() > 0) {
-                try {
-                    delegator.storeAll(toStore);
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                }
-                if (Debug.infoOn()) Debug.logInfo("-- " + toStore.size() + " jobs re-scheduled", module);
+    
+                if (Debug.infoOn()) Debug.logInfo("-- " + rescheduled + " jobs re-scheduled", module);
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
             }
 
         } else {
@@ -343,11 +340,10 @@ public class JobManager {
         // persist the context
         String dataId = null;
         try {
-            dataId = delegator.getNextSeqId("RuntimeData");
-            GenericValue runtimeData = delegator.makeValue("RuntimeData", UtilMisc.toMap("runtimeDataId", dataId));
-
+            GenericValue runtimeData = delegator.makeValue("RuntimeData", null);
             runtimeData.set("runtimeInfo", XmlSerializer.serialize(context));
-            delegator.create(runtimeData);
+            runtimeData = delegator.createSetNextSeqId(runtimeData);
+            dataId = runtimeData.getString("runtimeDataId");
         } catch (GenericEntityException ee) {
             throw new JobManagerException(ee.getMessage(), ee);
         } catch (SerializeException se) {
@@ -405,8 +401,7 @@ public class JobManager {
         if (UtilValidate.isEmpty(jobName)) {
             jobName = Long.toString((new Date().getTime()));
         }
-        String jobId = delegator.getNextSeqId("JobSandbox");
-        Map jFields = UtilMisc.toMap("jobId", jobId, "jobName", jobName, "runTime", new java.sql.Timestamp(startTime),
+        Map jFields = UtilMisc.toMap("jobName", jobName, "runTime", new java.sql.Timestamp(startTime),
                 "serviceName", serviceName, "recurrenceInfoId", infoId, "runtimeDataId", dataId);
 
         // set the pool ID
@@ -426,7 +421,7 @@ public class JobManager {
         GenericValue jobV = null;
         try {
             jobV = delegator.makeValue("JobSandbox", jFields);
-            delegator.create(jobV);
+            delegator.createSetNextSeqId(jobV);
         } catch (GenericEntityException e) {
             throw new JobManagerException(e.getMessage(), e);
         }

@@ -511,6 +511,89 @@ public class GenericDelegator implements DelegatorInterface {
         return this.create(value, true);
     }
 
+    /** Sets the sequenced ID (for entity with one primary key field ONLY), and then does a create in the database 
+     * as normal. The reason to do it this way is that it will retry and fix the sequence if somehow the sequencer 
+     * is in a bad state and returning a value that already exists.
+     *@param value The GenericValue to create a value in the datasource from
+     *@return GenericValue instance containing the new instance
+     */
+    public GenericValue createSetNextSeqId(GenericValue value) throws GenericEntityException {
+        boolean doCacheClear = true;
+        
+        GenericHelper helper = getEntityHelper(value.getEntityName());
+        // just make sure it is this delegator...
+        value.setDelegator(this);
+        // this will throw an IllegalArgumentException if the entity for the value does not have one pk field, or if it already has a value set for the one pk field
+        value.setNextSeqId();
+        
+        boolean beganTransaction = false;
+        try {
+            if (alwaysUseTransaction) {
+                beganTransaction = TransactionUtil.begin();
+            }
+
+            Map ecaEventMap = this.getEcaEntityEventMap(value.getEntityName());
+            this.evalEcaRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_CREATE, value, ecaEventMap, (ecaEventMap == null), false);
+
+            if (value == null) {
+                throw new GenericEntityException("Cannot create a null value");
+            }
+
+            this.evalEcaRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_CREATE, value, ecaEventMap, (ecaEventMap == null), false);
+
+            value.setDelegator(this);
+            this.encryptFields(value);
+            try {
+                value = helper.create(value);
+            } catch (GenericEntityException e) {
+                // see if this was caused by an existing record before resetting the sequencer and trying again
+                // NOTE: use the helper directly so ECA rules, etc won't be run
+                GenericValue existingValue = helper.findByPrimaryKey(value.getPrimaryKey());
+                if (existingValue == null) {
+                    throw e;
+                } else {
+                    Debug.logInfo("Error creating entity record with a sequenced value [" + value.getPrimaryKey() + "], trying again about to refresh bank for entity [" + value.getEntityName() + "]", module);
+                    
+                    // found an existing value... was probably a duplicate key, so clean things up and try again
+                    this.sequencer.forceBankRefresh(value.getEntityName(), 1);
+                    
+                    value.setNextSeqId();
+                    value = helper.create(value);
+                    Debug.logInfo("Successfully created new entity record on retry with a sequenced value [" + value.getPrimaryKey() + "], after getting refreshed bank for entity [" + value.getEntityName() + "]", module);
+                }
+            }
+
+            if (value != null) {
+                value.setDelegator(this);
+                if (value.lockEnabled()) {
+                    refresh(value, doCacheClear);
+                } else {
+                    if (doCacheClear) {
+                        this.evalEcaRules(EntityEcaHandler.EV_CACHE_CLEAR, EntityEcaHandler.OP_CREATE, value, ecaEventMap, (ecaEventMap == null), false);
+                        this.clearCacheLine(value);
+                    }
+                }
+            }
+
+            this.evalEcaRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_CREATE, value, ecaEventMap, (ecaEventMap == null), false);
+            return value;
+        } catch (GenericEntityException e) {
+            String errMsg = "Failure in create operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
+            Debug.logError(e, errMsg, module);
+            try {
+                // only rollback the transaction if we started one...
+                TransactionUtil.rollback(beganTransaction, errMsg, e);
+            } catch (GenericEntityException e2) {
+                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
+            }
+            // after rolling back, rethrow the exception
+            throw e;
+        } finally {
+            // only commit the transaction if we started one... this will throw an exception if it fails
+            TransactionUtil.commit(beganTransaction);
+        }
+    }
+
     /** Creates a Entity in the form of a GenericValue and write it to the datasource
      *@param value The GenericValue to create a value in the datasource from
      *@param doCacheClear boolean that specifies whether or not to automatically clear cache entries related to this operation
@@ -640,9 +723,8 @@ public class GenericDelegator implements DelegatorInterface {
 
         if (serializedPK != null) {
             GenericValue entitySyncRemove = this.makeValue("EntitySyncRemove", null);
-            entitySyncRemove.set("entitySyncRemoveId", this.getNextSeqId("EntitySyncRemove"));
             entitySyncRemove.set("primaryKeyRemoved", serializedPK);
-            entitySyncRemove.create();
+            this.createSetNextSeqId(entitySyncRemove);
         }
     }
 

@@ -76,6 +76,21 @@ public class SequenceUtil {
     }
 
     public Long getNextSeqId(String seqName, long staggerMax, ModelEntity seqModelEntity) {
+        SequenceBank bank = this.getBank(seqName, seqModelEntity);
+        return bank.getNextSeqId(staggerMax);
+    }
+    
+    public void forceBankRefresh(String seqName, long staggerMax) {
+        // don't use the get method because we don't want to create if it fails
+        SequenceBank bank = (SequenceBank) sequences.get(seqName);
+        if (bank == null) {
+            return;
+        }
+        
+        bank.refresh(staggerMax);
+    }
+    
+    private SequenceBank getBank(String seqName, ModelEntity seqModelEntity) {
         SequenceBank bank = (SequenceBank) sequences.get(seqName);
 
         if (bank == null) {
@@ -87,11 +102,11 @@ public class SequenceUtil {
                 }
             }
         }
-        return bank.getNextSeqId(staggerMax);
+        
+        return bank;
     }
 
     class SequenceBank {
-
         public static final long defaultBankSize = 10;
         public static final long maxBankSize = 5000;
         public static final long startSeqId = 10000;
@@ -126,7 +141,7 @@ public class SequenceUtil {
                 curSeqId += stagger;
                 return retSeqId;
             } else {
-                fillBank(stagger, seqModelEntity);
+                fillBank(stagger, this.seqModelEntity);
                 if ((curSeqId + stagger) <= maxSeqId) {
                     Long retSeqId = new Long(curSeqId);
                     curSeqId += stagger;
@@ -136,6 +151,11 @@ public class SequenceUtil {
                     return null;
                 }
             }
+        }
+        
+        public void refresh(long staggerMax) {
+            this.curSeqId = this.maxSeqId;
+            this.fillBank(staggerMax, this.seqModelEntity);
         }
 
         protected synchronized void fillBank(long stagger, ModelEntity seqModelEntity) {

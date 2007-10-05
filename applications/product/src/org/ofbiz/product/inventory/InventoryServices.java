@@ -110,15 +110,7 @@ public class InventoryServices {
                     newItem.set("availableToPromiseTotal", new Double(0));
                     newItem.set("quantityOnHandTotal", new Double(0));
                     
-                    String newSeqId = null;
-                    try {
-                        newSeqId = delegator.getNextSeqId("InventoryItem");
-                    } catch (IllegalArgumentException e) {
-                        return ServiceUtil.returnError("ERROR: Could not get next sequence id for InventoryItem, cannot create item.");
-                    }
-                    
-                    newItem.set("inventoryItemId", newSeqId);
-                    newItem.create();
+                    delegator.createSetNextSeqId(newItem);
                     
                     results.put("inventoryItemId", newItem.get("inventoryItemId"));
     
