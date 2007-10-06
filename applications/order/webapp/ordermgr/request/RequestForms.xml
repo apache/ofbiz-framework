@@ -199,6 +199,9 @@ under the License.
         <field name="fromPartyId" title="${uiLabelMap.OrderRequestingParty}">
             <lookup target-form-name="LookupPartyName"/>
         </field>
+        <field name="fulfillContactMechId">
+            <lookup target-form-name="LookupPreferredContactMech" target-parameter="fromPartyId"/>
+        </field>
         <field name="createdDate"><hidden/></field>
         <field name="createdByUserLogin"><hidden/></field>
         <field name="lastModifiedDate"><hidden/></field>

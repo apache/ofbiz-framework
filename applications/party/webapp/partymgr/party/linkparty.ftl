@@ -70,9 +70,11 @@ under the License.
             <div>
               <span class="label">${uiLabelMap.PartyLink}</span>
               <input type="text" name="partyId" value="${partyId?if_exists}"/>
+              <a href="javascript:call_fieldlookup2(document.linkpartycnf.partyId,'LookupPartyName');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
               &nbsp;
               <span class="label">${uiLabelMap.CommonTo}</span>
               <input type="text" name="partyIdTo" value="${partyIdTo?if_exists}"/>
+              <a href="javascript:call_fieldlookup2(document.linkpartycnf.partyIdTo,'LookupPartyName');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
               <a href="javascript:document.linkpartycnf.submit()" class="smallSubmit">${uiLabelMap.CommonLink}</a>
             </div>
           </form>

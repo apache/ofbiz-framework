@@ -1503,6 +1503,7 @@ under the License.
     <request-map uri="LookupProductAndPrice"><security https="true" auth="true"/><response name="success" type="view" value="LookupProductAndPrice"/></request-map>
     <request-map uri="LookupProductFeature"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductFeature"/></request-map>
     <request-map uri="LookupUserLoginAndPartyDetails"><security https="true" auth="true"/><response name="success" type="view" value="LookupUserLoginAndPartyDetails"/></request-map>
+    <request-map uri="LookupPreferredContactMech"><security https="true" auth="true"/><response name="success" type="view" value="LookupPreferredContactMech"/></request-map>
     <request-map uri="LookupVariantProduct"><security https="true" auth="true"/><response name="success" type="view" value="LookupVariantProduct"/></request-map>
 
     <request-map uri="LookupFacility"><security https="true" auth="true"/><response name="success" type="view" value="LookupFacility"/></request-map>
@@ -1715,6 +1716,7 @@ under the License.
     <view-map name="LookupProductAndPrice" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductAndPrice"/>
     <view-map name="LookupProductFeature" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductFeature"/>
     <view-map name="LookupUserLoginAndPartyDetails" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupUserLoginAndPartyDetails"/>    
+    <view-map name="LookupPreferredContactMech" type="screen" page="component://marketing/widget/ContactListScreens.xml#LookupPreferredContactMech"/>
     <view-map name="LookupVariantProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupVariantProduct"/>
 
     <view-map name="LookupFacility" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupFacility"/>

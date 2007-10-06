@@ -1407,6 +1407,7 @@ under the License.
     
     <!-- ================ Entity Lookup Requests ================= -->
     <request-map uri="LookupProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
+    <request-map uri="LookupProductFeature"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductFeature"/></request-map>
     <request-map uri="LookupVariantProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupVariantProduct"/></request-map>
     <request-map uri="LookupProductCategory"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductCategory"/></request-map>
     <request-map uri="LookupProductStore"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductStore"/></request-map>
@@ -1592,6 +1593,7 @@ under the License.
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
 
     <view-map name="LookupProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct"/>
+    <view-map name="LookupProductFeature" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductFeature"/>
     <view-map name="LookupVariantProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupVariantProduct"/>
     <view-map name="LookupProductCategory" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductCategory"/>
     <view-map name="LookupProductStore" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductStore"/>
