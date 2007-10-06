@@ -68,20 +68,24 @@ public class SurveyWrapper {
     protected String partyId = null;
     protected String surveyId = null;
     protected Map passThru = null;
+    protected Map defaultValues = null;
     protected boolean edit = false;
 
     protected SurveyWrapper() {}
 
-    public SurveyWrapper(GenericDelegator delegator, String responseId, String partyId, String surveyId, Map passThru) {
+    public SurveyWrapper(GenericDelegator delegator, String responseId, String partyId, String surveyId, Map passThru, Map defaultValues) {
         this.delegator = delegator;
         this.responseId = responseId;
         this.partyId = partyId;
         this.surveyId = surveyId;
-        if (passThru != null) {
-            this.passThru = new HashMap(passThru);
-        }
+        this.setPassThru(passThru);
+        this.setDefaultValues(defaultValues);
         this.checkParameters();
     }
+
+     public SurveyWrapper(GenericDelegator delegator, String responseId, String partyId, String surveyId, Map passThru) {
+         this(delegator, responseId, partyId, surveyId, passThru, null);
+     }
 
     public SurveyWrapper(GenericDelegator delegator, String surveyId) {
         this(delegator, null, null, surveyId, null);
@@ -90,6 +94,28 @@ public class SurveyWrapper {
     protected void checkParameters() {
         if (delegator == null || surveyId == null) {
             throw new IllegalArgumentException("Missing one or more required parameters (delegator, surveyId)");
+        }
+    }
+
+    /**
+     * Sets the pass-thru values (hidden form fields)
+     * @param passThru
+     */
+    public void setPassThru(Map passThru) {
+        if (passThru != null) {
+            this.passThru = FastMap.newInstance();
+            this.passThru.putAll(passThru);
+        }
+    }
+
+    /**
+     * Sets the default values
+     * @param defaultValues
+     */
+    public void setDefaultValues(Map defaultValues) {
+        if (defaultValues != null) {
+            this.defaultValues = FastMap.newInstance();
+            this.defaultValues.putAll(defaultValues);
         }
     }
 
@@ -149,6 +175,7 @@ public class SurveyWrapper {
         templateContext.put("surveyResponseId", responseId);
         templateContext.put("sequenceSort", UtilMisc.toList("sequenceNum"));
         templateContext.put("additionalFields", passThru);
+        templateContext.put("defaultValues", defaultValues);
         templateContext.put("delegator", this.delegator);
 
         Template template = this.getTemplate(templateUrl);

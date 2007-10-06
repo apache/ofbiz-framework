@@ -39,10 +39,9 @@ public class ProductStoreSurveyWrapper extends SurveyWrapper {
 
     protected ProductStoreSurveyWrapper() {}
 
-    public ProductStoreSurveyWrapper(GenericValue productStoreSurveyAppl, String partyId, Map passThru) {
+    public ProductStoreSurveyWrapper(GenericValue productStoreSurveyAppl, String partyId, Map passThru, Map defaultValues) {
         this.productStoreSurveyAppl = productStoreSurveyAppl;
 
-        this.passThru = passThru;
         if (this.productStoreSurveyAppl != null) {
             this.partyId = partyId;
             this.delegator = productStoreSurveyAppl.getDelegator();
@@ -52,7 +51,13 @@ public class ProductStoreSurveyWrapper extends SurveyWrapper {
         } else {
             throw new IllegalArgumentException("Required parameter productStoreSurveyAppl missing");
         }
+        this.setDefaultValues(defaultValues);
+        this.setPassThru(passThru);
         this.checkParameters();
+    }
+
+    public ProductStoreSurveyWrapper(GenericValue productStoreSurveyAppl, String partyId, Map passThru) {
+        this(productStoreSurveyAppl, partyId, passThru, null);
     }
 
     public void callResult(boolean b) {

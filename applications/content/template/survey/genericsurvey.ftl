@@ -45,27 +45,27 @@ under the License.
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "TEXTAREA"/>
     <textarea class="textAreaBox" cols="40" rows="5" name="${questionFieldName}">${(answer.textResponse)?if_exists}</textarea>
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "TEXT_SHORT"/>
-    <input type="text" size="15" class="inputBox" name="${questionFieldName}" value="${(answer.textResponse)?if_exists}">
+    <input type="text" size="15" class="inputBox" name="${questionFieldName}" value="${(answer.textResponse)?default(defValue?if_exists)}">
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "TEXT_LONG"/>
-    <input type="text" size="35" class="inputBox" name="${questionFieldName}" value="${(answer.textResponse)?if_exists}">
+    <input type="text" size="35" class="inputBox" name="${questionFieldName}" value="${(answer.textResponse)?default(defValue?if_exists)}">
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "EMAIL"/>
-    <input type="text" size="30" class="inputBox" name="${questionFieldName}" value="${(answer.textResponse)?if_exists}">
+    <input type="text" size="30" class="inputBox" name="${questionFieldName}" value="${(answer.textResponse)?default(defValue?if_exists)}">
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "URL"/>
-    <input type="text" size="40" class="inputBox" name="${questionFieldName}" value="${(answer.textResponse)?if_exists}">
+    <input type="text" size="40" class="inputBox" name="${questionFieldName}" value="${(answer.textResponse)?default(defValue?if_exists)}">
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "DATE"/>
-    <input type="text" size="12" class="inputBox" name="${questionFieldName}" value="${(answer.textResponse)?if_exists}">
+    <input type="text" size="12" class="inputBox" name="${questionFieldName}" value="${(answer.textResponse)?default(defValue?if_exists)}">
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "CREDIT_CARD"/>
-    <input type="text" size="20" class="inputBox" name="${questionFieldName}" value="${(answer.textResponse)?if_exists}">
+    <input type="text" size="20" class="inputBox" name="${questionFieldName}" value="${(answer.textResponse)?default(defValue?if_exists)}">
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "GIFT_CARD"/>
-    <input type="text" size="20" class="inputBox" name="${questionFieldName}" value="${(answer.textResponse)?if_exists}">
+    <input type="text" size="20" class="inputBox" name="${questionFieldName}" value="${(answer.textResponse)?default(defValue?if_exists)}">
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "NUMBER_CURRENCY"/>
-    <input type="text" size="6" class="inputBox" name="${questionFieldName}" value="${(answer.currencyResponse)?if_exists}">
+    <input type="text" size="6" class="inputBox" name="${questionFieldName}" value="${(answer.currencyResponse)?default(defValue?if_exists)}">
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "NUMBER_FLOAT"/>
-    <input type="text" size="6" class="inputBox" name="${questionFieldName}" value="${(answer.floatResponse)?if_exists}">
+    <input type="text" size="6" class="inputBox" name="${questionFieldName}" value="${(answer.floatResponse)?default(defValue?if_exists)}">
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "NUMBER_LONG"/>
-    <input type="text" size="6" class="inputBox" name="${questionFieldName}" value="${(answer.numericResponse?string("#"))?if_exists}">
+    <input type="text" size="6" class="inputBox" name="${questionFieldName}" value="${(answer.numericResponse?default(defValue)?string("#"))?if_exists}">
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "PASSWORD"/>
-    <input type="password" size="30" class="textBox" name="${questionFieldName}" value="${(answer.textResponse)?if_exists}">
+    <input type="password" size="30" class="textBox" name="${questionFieldName}" value="${(answer.textResponse)?default(defValue?if_exists)}">
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "CONTENT"/>
      <#if (answer.contentId)?has_content>
       <#assign content = answer.getRelatedOne("Content")>
@@ -86,6 +86,43 @@ under the License.
       <#else>
         <option value="">Nothing to choose</option>
       </#if>
+    </select>
+  <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "ENUMERATION"/>
+    <select class="selectBox" name="${questionFieldName}">
+    <#assign formatString = surveyQuestionAndAppl.get("formatString")?if_exists/>
+    <#assign enums = surveyQuestionAndAppl.getRelated("Enumeration")/>
+    <#list enums as enum>
+        <#if (((answer.textResponse)?has_content && answer.textResponse == enum.enumId) || (defValue == enum.enumId))>
+            <#assign selected = 'selected'/>
+        <#else>
+          <#assign selected = ''/>
+        </#if>
+        <#if (formatString?has_content)>
+            <#assign description = Static["org.ofbiz.base.util.string.FlexibleStringExpander"].expandString(formatString, enum)/>
+        <#else>
+            <#assign description = geo.getString("description")/>
+        </#if>
+        <option value='${enum.enumId}' ${selected}>${description}</option>
+    </#list>
+    </select>
+  <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "GEO"/>
+    <select class="selectBox" name="${questionFieldName}">
+    <#assign formatString = surveyQuestionAndAppl.get("formatString")?if_exists/>
+    <#assign parentGeoId = surveyQuestionAndAppl.get("geoId")?if_exists/>
+    <#assign geos = Static["org.ofbiz.common.geo.GeoWorker"].expandGeoGroup(parentGeoId, delegator)>
+    <#list geos as geo>
+        <#if (((answer.textResponse)?has_content && answer.textResponse == geo.geoId) || (defValue == geo.geoId))>
+          <#assign selected = 'selected'/>
+        <#else>
+          <#assign selected = ''/>
+        </#if>
+        <#if (formatString?has_content)>
+            <#assign description = Static["org.ofbiz.base.util.string.FlexibleStringExpander"].expandString(formatString, geo)/>
+        <#else>
+            <#assign description = geo.getString("geoName")/>
+        </#if>
+        <option value='${geo.geoId}' ${selected}>${description}</option>
+    </#list>
     </select>
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "STATE_PROVINCE"/>
     <select class="selectBox" name="${questionFieldName}">
@@ -222,9 +259,15 @@ under the License.
       		<#assign align = "right"/>
     	</#if>
     </#if>
+    
     <#-- get an answer from the answerMap -->
     <#if surveyAnswers?has_content>
       <#assign answer = surveyAnswers.get(surveyQuestionAndAppl.surveyQuestionId)?if_exists/>
+    </#if>
+
+    <#-- get the default value from value map -->
+    <#if defaultValues?has_content>
+      <#assign defValue = defaultValues.get(surveyQuestionAndAppl.surveyQuestionId)?if_exists/>
     </#if>
 
     <tr>

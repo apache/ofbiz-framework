@@ -191,7 +191,31 @@
         <check-permission action="_CREATE" permission="CONTENTMGR">
             <fail-message message="Security Error: to run createSurveyQuestion you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
         </check-permission>
+        <if>
+            <condition>
+
+                <and>
+                    <if-compare field-name="surveyQuestionTypeId" value="ENUMERATION" operator="equals"/>
+                    <if-empty field-name="enumTypeId"/>
+                </and>
+            </condition>
+            <then>
+                <add-error><fail-message message="Question type ENUMERATION requires enumTypeId to be set"/></add-error>
+            </then>
+        </if>
+        <if>
+            <condition>
+                <and>
+                    <if-compare field-name="surveyQuestionTypeId" value="GEO" operator="equals"/>
+                    <if-empty field-name="geoId"/>
+                </and>
+            </condition>
+            <then>
+                <add-error><fail-message message="Question type GEO requires geoId to be set"/></add-error>
+            </then>
+        </if>
         <check-errors/>
+        
         <make-value entity-name="SurveyQuestion" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <sequenced-id-to-env sequence-name="SurveyQuestion" env-name="newEntity.surveyQuestionId"/>
@@ -202,7 +226,30 @@
         <check-permission action="_UPDATE" permission="CONTENTMGR">
             <fail-message message="Security Error: to run updateSurveyQuestion you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
         </check-permission>
+        <if>
+            <condition>
+                <and>
+                    <if-compare field-name="parameters.surveyQuestionTypeId" value="ENUMERATION" operator="equals"/>
+                    <if-empty field-name="parameters.enumTypeId"/>
+                </and>
+            </condition>
+            <then>
+                <add-error><fail-message message="Question type ENUMERATION requires enumTypeId to be set"/></add-error>
+            </then>
+        </if>
+        <if>
+            <condition>
+                <and>
+                    <if-compare field-name="parameters.surveyQuestionTypeId" value="GEO" operator="equals"/>
+                    <if-empty field-name="parameters.geoId"/>
+                </and>
+            </condition>
+            <then>
+                <add-error><fail-message message="Question type GEO requires geoId to be set"/></add-error>
+            </then>
+        </if>
         <check-errors/>
+
         <make-value entity-name="SurveyQuestion" value-name="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
@@ -695,6 +742,12 @@
             </if-compare>
             <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="OPTION">
                 <set from-field="answers.${currentFieldName}" field="responseAnswer.surveyOptionSeqId"/>
+            </if-compare>
+            <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="GEO">
+                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+            </if-compare>
+            <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="ENUMERATION">
+                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
             </if-compare>
             <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="CONTENT">
                 <!-- <log level="always" message="Found CONTENT type question"/> -->
