@@ -22,6 +22,21 @@ import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.content.survey.*;
 
+if (survey == null) {
+    surveyResponseId = parameters.get("surveyResponseId");
+    if (!UtilValidate.isEmpty(surveyResponseId)) {
+        surveyResponse = delegator.findByPrimaryKey("SurveyResponse", UtilMisc.toMap("surveyResponseId", surveyResponseId));
+        if (surveyResponse != null) {
+            surveyId = surveyResponse.getString("surveyId");
+            if (!UtilValidate.isEmpty(surveyId)) {
+                survey = delegator.findByPrimaryKey("Survey", UtilMisc.toMap("surveyId", surveyId));
+                context.put("survey", survey);
+                context.put("surveyId", surveyId);
+            }
+        }
+    }
+}
+
 if (survey != null) {
     surveyWrapper = new SurveyWrapper(delegator, surveyId);
     context.put("surveyWrapper", surveyWrapper);

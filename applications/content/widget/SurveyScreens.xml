@@ -26,8 +26,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindSurvey"/>
                 <set field="tabButtonItem" value="Survey"/>
                 <set field="labelTitleProperty" value="PageTitleFindSurvey"/>
-                
-                <set field="surveyId" from-field="parameters.surveyId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSurveyDecorator">
@@ -57,8 +55,6 @@ under the License.
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="headerItem" value="survey"/>
-                <set field="surveyId" from-field="parameters.surveyId"/>
-                <entity-one entity-name="Survey" value-name="survey"/>
             </actions>
             <widgets>
                 <decorator-screen name="mainContentDecorator" location="component://content/widget/CommonScreens.xml">
