@@ -20,44 +20,29 @@ under the License.
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <include location="component://common/webcommon/WEB-INF/common-requests.xml"/>    
     <description>Facility Handheld Demo</description>
-    <owner>Copyright 2001-2006 The Apache Software Foundation</owner>
-    <errorpage>/error/error.jsp</errorpage>
+    <owner>Copyright 2001-2007 The Apache Software Foundation</owner>
 
-    <handler name="java" type="request" class="org.ofbiz.webapp.event.JavaEventHandler"/>
     <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
-    <handler name="soap" type="request" class="org.ofbiz.webapp.event.SOAPEventHandler"/>
-    <handler name="service" type="request" class="org.ofbiz.webapp.event.ServiceEventHandler"/>
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
-    <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
 
     <!-- view handlers -->
-    <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
-
     <handler name="ftl" type="view" class="org.ofbiz.webapp.ftl.FreeMarkerViewHandler"/>
-    <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
-    <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->
+    <!--
     <preprocessor>
-        <!-- Events to run on every request before security (chains exempt) -->
-        <!-- <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/> -->
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
     </preprocessor>
+    -->
+    <!-- Events to run on every request after all other processing (chains exempt) -->
+    <!--
     <postprocessor>
-        <!-- Events to run on every request after all other processing (chains exempt) -->
-        <!-- <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/> -->
+        <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
     </postprocessor>
+    -->
     
     <!-- Security Mappings -->
-    <request-map uri="checkLogin" edit="false">
-        <description>Verify a user is logged in.</description>
-        <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkLogin" />
-        <response name="success" type="view" value="main" />
-        <response name="error" type="view" value="login" />
-    </request-map>
-    
     <request-map uri="login">
         <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="login"/>
@@ -65,15 +50,7 @@ under the License.
         <response name="requirePasswordChange" type="view" value="login"/>
         <response name="error" type="view" value="login"/>
     </request-map>
-    
-    <request-map uri="logout">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
-        <response name="success" type="request" value="checkLogin"/>
-        <response name="error" type="view" value="main"/>
-    </request-map>
     <!-- End of Security Mappings -->
-
     
     <!-- Request Mappings -->
     <request-map uri="main">
@@ -173,7 +150,6 @@ under the License.
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
-    <view-map name="error" type="jsp" page="/error/error.jsp"/>
     <view-map name="main" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#facilities"/>
     <view-map name="login" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#login"/>
 

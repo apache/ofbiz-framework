@@ -20,33 +20,26 @@
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-
+    <include location="component://common/webcommon/WEB-INF/common-requests.xml"/>    
     <description>Oagis Component Site Configuration File</description>
-    <errorpage>/error/error.jsp</errorpage>
 
     <!-- event handlers -->
-    <handler name="java" type="request" class="org.ofbiz.webapp.event.JavaEventHandler"/>
-    <handler name="soap" type="request" class="org.ofbiz.webapp.event.SOAPEventHandler"/>
-    <handler name="service" type="request" class="org.ofbiz.webapp.event.ServiceEventHandler"/>
-    <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
     <handler name="stream" type="request" class="org.ofbiz.webapp.event.ServiceStreamHandler"/>
 
     <!-- view handlers -->
-    <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
-    <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
-    <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopViewHandler"/>
     <handler name="screenxml" type="view" class="org.ofbiz.widget.screen.ScreenXmlViewHandler"/>
-    <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
         
+    <!-- Events to run on every request before security (chains exempt) -->
+    <!--
     <preprocessor>
-        <!-- Events to run on every request before security (chains exempt) -->
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="check509CertLogin"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
     </preprocessor>
+    -->
+    <!-- Events to run on every request after all other processing (chains exempt) -->
+    <!--
     <postprocessor>
-        <!-- Events to run on every request after all other processing (chains exempt) -->
-        <!-- <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/> -->
+        <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
     </postprocessor>
+    -->
 
 
     <request-map uri="main">
@@ -55,26 +48,12 @@
     </request-map>
 
     <!-- Security Mappings -->
-    <request-map uri="checkLogin" edit="false">
-        <description>Verify a user is logged in.</description>
-        <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkLogin" />
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="login"/>
-    </request-map>
     <request-map uri="login">
         <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="login"/>
         <response name="success" type="view" value="main"/>
         <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
         <response name="error" type="view" value="login"/>
-    </request-map>
-
-    <request-map uri="logout">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
-        <response name="success" type="request" value="checkLogin"/>
-        <response name="error" type="view" value="main"/>
     </request-map>
     <!-- End of Security Mappings -->
 
@@ -228,8 +207,6 @@
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
-    <view-map name="error" page="/error/error.jsp"/>
-
     <view-map name="main" type="screen" page="component://oagis/widget/MessageInfoScreens.xml#FindMessageInfo"/>
     <view-map name="login" type="screen" page="component://oagis/widget/CommonScreens.xml#login"/> 
     <view-map name="requirePasswordChange" type="screen" page="component://oagis/widget/CommonScreens.xml#requirePasswordChange"/>
