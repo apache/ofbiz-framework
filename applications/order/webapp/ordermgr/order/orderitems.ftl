@@ -369,7 +369,7 @@ under the License.
                     <td align="right" colspan="2">
                       <div class="tabletext" style="font-size: xx-small;">
                         <b><i>${uiLabelMap.CommonSurveys}</i>:</b>
-                          <a href="/content/control/ViewSurveyResponses?surveyResponseId=${survey.surveyResponseId}&amp;surveyId=${survey.surveyId}<#if survey.partyId?exists>&amp;partyId=${survey.partyId}</#if>&amp;externalLoginKey=${externalLoginKey}" class="buttontext" style="font-size: xx-small;">${survey.surveyId}</a>
+                          <a href="/content/control/ViewSurveyResponses?surveyResponseId=${survey.surveyResponseId}&amp;surveyId=${survey.surveyId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext" style="font-size: xx-small;">${survey.surveyId}</a>
                       </div>
                     </td>
                     <td colspan="5">&nbsp;</td>

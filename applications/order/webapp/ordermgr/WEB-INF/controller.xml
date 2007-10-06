@@ -475,7 +475,7 @@ under the License.
         <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="additemsurvey">
-        <security https="false" auth="false"/>
+        <security https="true" auth="true"/>
         <event type="service" invoke="createSurveyResponse"/>
         <response name="success" type="request" value="additem"/>
         <response name="error" type="view" value="main"/>
