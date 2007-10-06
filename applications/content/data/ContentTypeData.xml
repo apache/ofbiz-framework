@@ -251,9 +251,11 @@ under the License.
     <SurveyQuestionType surveyQuestionTypeId="CONTENT" description="Content Record"/>
     <SurveyQuestionType surveyQuestionTypeId="COUNTRY" description="Country"/>
     <SurveyQuestionType surveyQuestionTypeId="CREDIT_CARD" description="Credit Card Number"/>
+    <SurveyQuestionType surveyQuestionTypeId="GEO" description="Geo List"/>
     <SurveyQuestionType surveyQuestionTypeId="GIFT_CARD" description="Gift Card Number"/>
     <SurveyQuestionType surveyQuestionTypeId="DATE" description="Date String (mm/dd/yyyy)"/>
     <SurveyQuestionType surveyQuestionTypeId="EMAIL" description="Email Address"/>
+    <SurveyQuestionType surveyQuestionTypeId="ENUMERATION" description="Enumeration"/>    
     <SurveyQuestionType surveyQuestionTypeId="NUMBER_CURRENCY" description="Numeric (Currency)"/>
     <SurveyQuestionType surveyQuestionTypeId="NUMBER_FLOAT" description="Numeric (Float)"/>
     <SurveyQuestionType surveyQuestionTypeId="NUMBER_LONG" description="Numeric (Long)"/>

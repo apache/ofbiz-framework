@@ -1301,6 +1301,9 @@ under the License.
       <field name="description" type="description"/>
       <field name="question" type="very-long"/>
       <field name="hint" type="very-long"/>
+      <field name="enumTypeId" type="id"></field>
+      <field name="geoId" type="id"></field>
+      <field name="formatString" type="value"></field>
       <prim-key field="surveyQuestionId"/>
       <relation type="one" fk-name="SRVYQST_SRVYQTP" rel-entity-name="SurveyQuestionType">
         <key-map field-name="surveyQuestionTypeId"/>
@@ -1308,6 +1311,13 @@ under the License.
       <relation type="one" fk-name="SRVYQST_SRVYQTCT" rel-entity-name="SurveyQuestionCategory">
         <key-map field-name="surveyQuestionCategoryId"/>
       </relation>
+      <relation type="one" fk-name="SRVYQST_GEO" rel-entity-name="Geo">
+        <key-map field-name="geoId"/>
+      </relation>
+      <relation type="many" fk-name="SRVYQST_ENUM" rel-entity-name="Enumeration">
+        <key-map field-name="enumTypeId"/>
+      </relation>
+
     </entity>
     <view-entity entity-name="SurveyQuestionAndAppl"
             package-name="org.ofbiz.content.survey"
@@ -1331,19 +1341,25 @@ under the License.
       <relation type="many" rel-entity-name="SurveyQuestionOption">
         <key-map field-name="surveyQuestionId"/>
       </relation>
-        <relation type="one-nofk" rel-entity-name="SurveyPage">
-            <key-map field-name="surveyId"/>
-            <key-map field-name="surveyPageSeqId"/>
-        </relation>
-        <relation type="one-nofk" rel-entity-name="SurveyMultiResp">
-            <key-map field-name="surveyId"/>
-            <key-map field-name="surveyMultiRespId"/>
-        </relation>
-        <relation type="one-nofk" rel-entity-name="SurveyMultiRespColumn">
-            <key-map field-name="surveyId"/>
-            <key-map field-name="surveyMultiRespId"/>
-            <key-map field-name="surveyMultiRespColId"/>
-        </relation>
+      <relation type="many" rel-entity-name="Enumeration">
+        <key-map field-name="enumTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Geo">
+        <key-map field-name="geoId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="SurveyPage">
+        <key-map field-name="surveyId"/>
+        <key-map field-name="surveyPageSeqId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="SurveyMultiResp">
+        <key-map field-name="surveyId"/>
+        <key-map field-name="surveyMultiRespId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="SurveyMultiRespColumn">
+        <key-map field-name="surveyId"/>
+        <key-map field-name="surveyMultiRespId"/>
+        <key-map field-name="surveyMultiRespColId"/>
+      </relation>
     </view-entity>
     <entity entity-name="SurveyQuestionAppl"
             package-name="org.ofbiz.content.survey"
