@@ -101,6 +101,8 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="preferredCurrencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
+        <override name="firstName" optional="false"/>
+        <override name="lastName" optional="false"/>        
     </service>
     <service name="createPartyGroup" engine="java" default-entity-name="PartyGroup"
             location="org.ofbiz.party.party.PartyServices" invoke="createPartyGroup" auth="false">

@@ -146,6 +146,10 @@ public class PartyServices {
                 statusId = "PARTY_ENABLED";
             }
             Map newPartyMap = UtilMisc.toMap("partyId", partyId, "partyTypeId", "PERSON", "description", description, "createdDate", now, "lastModifiedDate", now, "statusId", statusId);
+            String preferredCurrencyUomId = (String) context.get("preferredCurrencyUomId");
+            if (!UtilValidate.isEmpty(preferredCurrencyUomId)) {
+                newPartyMap.put("preferredCurrencyUomId", preferredCurrencyUomId);
+            }
             if (userLogin != null) {
                 newPartyMap.put("createdByUserLogin", userLogin.get("userLoginId"));
                 newPartyMap.put("lastModifiedByUserLogin", userLogin.get("userLoginId"));

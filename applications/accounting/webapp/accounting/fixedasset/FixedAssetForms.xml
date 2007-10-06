@@ -53,7 +53,7 @@ under the License.
                 </entity-options> 
             </drop-down>
         </field>
-        <field name="instanceOfProductId" title="${uiLabelMap.CommonEmptyHeader}"><lookup target-form-name="LookupProduct"/></field>        
+        <field name="instanceOfProductId"><lookup target-form-name="LookupProduct"/></field>
         <field name="classEnumId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
@@ -86,10 +86,8 @@ under the License.
             </drop-down>
         </field>
         <field name="parentFixedAssetId"><lookup target-form-name="LookupFixedAsset"/></field>
-        <field name="locatedAtFacilityId" title="${uiLabelMap.CommonEmptyHeader}"><lookup target-form-name="LookupFacility"/></field>        
-        <field name="locatedAtLocationSeqId" title="${uiLabelMap.CommonEmptyHeader}"><lookup target-form-name="LookupFacilityLocation"/></field>        
-        <field name="locatedAtFacilityId" title="${uiLabelMap.CommonEmptyHeader}"><lookup target-form-name="LookupFacility"/></field>        
-        <field name="locatedAtLocationSeqId" title="${uiLabelMap.CommonEmptyHeader}"><lookup target-form-name="LookupFacilityLocation"/></field>        
+        <field name="locatedAtFacilityId"><lookup target-form-name="LookupFacility"/></field>        
+        <field name="locatedAtLocationSeqId"><lookup target-form-name="LookupFacilityLocation"/></field>               
         
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
