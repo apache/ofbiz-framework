@@ -414,7 +414,7 @@ public class OagisInventoryServices {
             // anything else to do about this? we don't really want to send the error back or anything...
         }
         
-        if (previousOagisMessageInfo != null) {
+        if (previousOagisMessageInfo != null && !isErrorRetry) {
             if ("OAGMP_SYS_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId"))) {
                 isErrorRetry = true;
             } else {
@@ -719,7 +719,7 @@ public class OagisInventoryServices {
             // anything else to do about this? we don't really want to send the error back or anything...
         }
         
-        if (previousOagisMessageInfo != null) {
+        if (previousOagisMessageInfo != null && !isErrorRetry) {
             if ("OAGMP_SYS_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId"))) {
                 isErrorRetry = true;
             } else {
@@ -1249,7 +1249,7 @@ public class OagisInventoryServices {
             // anything else to do about this? we don't really want to send the error back or anything...
         }
         
-        if (previousOagisMessageInfo != null) {
+        if (previousOagisMessageInfo != null && !isErrorRetry) {
             if ("OAGMP_SYS_ERROR".equals(previousOagisMessageInfo.getString("processingStatusId"))) {
                 isErrorRetry = true;
             } else {
