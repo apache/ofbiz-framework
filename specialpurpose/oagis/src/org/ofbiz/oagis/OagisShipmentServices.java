@@ -932,6 +932,19 @@ public class OagisShipmentServices {
             }
             
             Map sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename);
+            if (sendMessageReturn != null && ServiceUtil.isError(sendMessageReturn)) {
+                try {
+                    Map uomiCtx = FastMap.newInstance();
+                    uomiCtx.putAll(omiPkMap);
+                    uomiCtx.put("processingStatusId", "OAGMP_SEND_ERROR");
+                    uomiCtx.put("userLogin", userLogin);
+                    dispatcher.runSync("updateOagisMessageInfo", uomiCtx, 60, true);
+                } catch (GenericServiceException e) {
+                    String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
+                    Debug.logError(e, errMsg, module);
+                }
+                return sendMessageReturn;
+            }
 
             if (Debug.infoOn()) Debug.logInfo("Message send done for oagisSendProcessShipment for orderId [" + orderId + "], sendToUrl=[" + sendToUrl + "], saveToDirectory=[" + saveToDirectory + "], saveToFilename=[" + saveToFilename + "]", module);
             try {
@@ -943,10 +956,6 @@ public class OagisShipmentServices {
             } catch (GenericServiceException e) {
                 String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
                 Debug.logError(e, errMsg, module);
-            }
-            
-            if (sendMessageReturn != null) {
-                return sendMessageReturn;
             }
         } catch (Throwable t) {
             String errMsg = "System Error doing Process Shipment message for orderId [" + orderId + "] shipmentId [" + shipmentId + "] message [" + omiPkMap + "]: " + t.toString();
@@ -1172,6 +1181,19 @@ public class OagisShipmentServices {
             }
 
             Map sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename);
+            if (sendMessageReturn != null && ServiceUtil.isError(sendMessageReturn)) {
+                try {
+                    Map uomiCtx = FastMap.newInstance();
+                    uomiCtx.putAll(omiPkMap);
+                    uomiCtx.put("processingStatusId", "OAGMP_SEND_ERROR");
+                    uomiCtx.put("userLogin", userLogin);
+                    dispatcher.runSync("updateOagisMessageInfo", uomiCtx, 60, true);
+                } catch (GenericServiceException e) {
+                    String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
+                    Debug.logError(e, errMsg, module);
+                }
+                return sendMessageReturn;
+            }
 
             try {
                 Map uomiCtx = FastMap.newInstance();
@@ -1182,10 +1204,6 @@ public class OagisShipmentServices {
             } catch (GenericServiceException e) {
                 String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
                 Debug.logError(e, errMsg, module);
-            }
-
-            if (sendMessageReturn != null) {
-                return sendMessageReturn;
             }
         } catch (Throwable t) {
             String errMsg = "System Error doing Receive Delivery message for returnId [" + returnId + "] orderId [" + orderId + "] message [" + omiPkMap + "]: " + t.toString();
