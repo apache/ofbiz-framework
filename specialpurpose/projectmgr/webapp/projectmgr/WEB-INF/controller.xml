@@ -20,6 +20,7 @@
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <include location="component://common/webcommon/WEB-INF/common-requests.xml"/>    
     <include location="component://product/webapp/catalog/WEB-INF/controller.xml"/>    
     <include location="component://order/webapp/ordermgr/WEB-INF/controller.xml"/>    
     <include location="component://accounting/webapp/accounting/WEB-INF/controller.xml"/>    
@@ -27,9 +28,6 @@
     <include location="component://humanres/webapp/humanres/WEB-INF/controller.xml"/>
 
     <description>Project Management Component Site Configuration File</description>
-    <errorpage>/error/error.jsp</errorpage>
-
-    <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopViewHandler"/>
 
     <request-map uri="main">
         <security https="true" auth="true"/>
@@ -350,8 +348,6 @@
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
-    <view-map name="error" page="/error/error.jsp"/>
-
     <view-map name="main" type="screen" page="component://projectmgr/widget/TaskScreens.xml#FindTaskByRange"/>
     <view-map name="login" type="screen" page="component://projectmgr/widget/CommonScreens.xml#login"/> 
     <view-map name="requirePasswordChange" type="screen" page="component://projectmgr/widget/CommonScreens.xml#requirePasswordChange"/>

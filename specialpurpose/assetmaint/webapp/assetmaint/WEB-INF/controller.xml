@@ -25,15 +25,11 @@
     <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>    
 
     <description>Asset Maintenance Component Site Configuration File</description>
-    <errorpage>/error/error.jsp</errorpage>
-
-    <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopViewHandler"/>
 
     <request-map uri="main">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
     </request-map>
-
 
     <request-map uri="findFixedAssets">
         <security https="true" auth="true" />
@@ -176,8 +172,6 @@
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
-    <view-map name="error" page="/error/error.jsp"/>
-
     <view-map name="main" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#FindFixedAssets"/>
     <view-map name="login" type="screen" page="component://assetmaint/widget/CommonScreens.xml#login"/> 
     <view-map name="requirePasswordChange" type="screen" page="component://assetmaint/widget/CommonScreens.xml#requirePasswordChange"/>

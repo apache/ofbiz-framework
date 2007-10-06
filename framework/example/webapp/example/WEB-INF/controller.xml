@@ -35,14 +35,17 @@ under the License.
         <handler name="jasperreportsxml" type="view" class="org.ofbiz.webapp.view.JasperReportsXmlViewHandler"/>
     -->
 
+    <!-- Events to run on every request before security (chains exempt) -->
+    <!--
     <preprocessor>
-        <!-- Events to run on every request before security (chains exempt) -->
-        <!-- <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/> -->
     </preprocessor>
+    -->
+    <!-- Events to run on every request after all other processing (chains exempt) -->
+    <!--
     <postprocessor>
-        <!-- Events to run on every request after all other processing (chains exempt) -->
-        <!-- <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/> -->
+        <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
     </postprocessor>
+    -->
 
     <!-- Request Mappings -->
     <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>
