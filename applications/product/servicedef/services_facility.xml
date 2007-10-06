@@ -118,8 +118,8 @@ under the License.
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="createPhysicalInventoryAndVariance" engine="simple"
-                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createPhysicalInventoryAndVariance" auth="true">
+    <service name="createPhysicalInventoryAndVariance" engine="simple" auth="true" transaction-timeout="600" 
+            location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createPhysicalInventoryAndVariance">
         <description>Create a PhysicalInventory and an InventoryItemVariance</description>
         <auto-attributes entity-name="InventoryItemVariance" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="PhysicalInventory" include="nonpk" mode="IN" optional="true"/>
