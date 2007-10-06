@@ -70,9 +70,48 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://party/webapp/partymgr/party/viewprofile.ftl"/></html>
-                        </platform-specific>
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="party"/></not>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <if-compare field-name="showOld" operator="equals" value="true" type="Boolean"/>
+                                    </condition>
+                                    <widgets>
+                                        <container>
+                                            <link target="viewprofile?partyId=${party.partyId}" text="${uiLabelMap.PartyHideOld}" style="smallSubmit"/>
+                                        </container>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container>
+                                            <link target="viewprofile?partyId=${party.partyId}&amp;SHOW_OLD=true" text="${uiLabelMap.PartyShowOld}" style="smallSubmit"/>
+                                        </container>
+                                    </fail-widgets>
+                                </section>
+                                <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                <include-screen name="LoyaltyPoints" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                <include-screen name="PaymentMethods" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                <include-screen name="AvsSettings" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                <include-screen name="FinAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                <include-screen name="UserLogin" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                <include-screen name="Attributes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                <include-screen name="Visits" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                <include-screen name="Cart" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                <include-screen name="SerializedInventory" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                <include-screen name="Subscriptions" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                <include-screen name="ShipperAccount" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <container>
+                                    <label style="head3">${uiLabelMap.PartyNoPartyFoundWithPartyId}: ${parameters.partyId}</label>
+                                </container>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
