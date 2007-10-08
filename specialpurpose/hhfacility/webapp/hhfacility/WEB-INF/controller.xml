@@ -20,7 +20,7 @@ under the License.
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://common/webcommon/WEB-INF/common-requests.xml"/>    
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
     <description>Facility Handheld Demo</description>
     <owner>Copyright 2001-2007 The Apache Software Foundation</owner>
 
