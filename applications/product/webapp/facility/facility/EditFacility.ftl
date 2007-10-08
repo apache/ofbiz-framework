@@ -22,14 +22,14 @@ under the License.
 <span class="head1">${uiLabelMap.ProductFacility}</span> <span class='head2'>${facility.facilityName?if_exists} [${uiLabelMap.CommonId}:${facilityId?if_exists}]</span>
 <br/>
 <div class="button-bar">
-  <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
+  <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" name="EditFacilityForm" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
   <#if facilityId?has_content>
     <a href="/workeffort/control/month?facilityId=${facilityId}&externalLoginKey=${requestAttributes.externalLoginKey?if_exists}" class="buttontext">${uiLabelMap.CommonViewCalendar}</a>
   </#if>
 </div>
 
 <#if facility?exists && facilityId?has_content>
-  <form action="<@ofbizUrl>UpdateFacility</@ofbizUrl>" method="post">
+  <form action="<@ofbizUrl>UpdateFacility</@ofbizUrl>" name="EditFaclityForm" method="post">
   <table class="basic-table" cellspacing='0'>
   <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
   <tr>
@@ -60,13 +60,12 @@ under the License.
   <tr>
     <td class="label">${uiLabelMap.ProductFacilityOwner}</td>
     <td>
-      <select name="ownerPartyId">
-        <#if ownerParties?has_content>
-            <#list ownerParties as party>
-              <option value='${party.partyId?if_exists}' <#if facility.ownerPartyId?exists && party.partyId = facility.ownerPartyId>selected</#if>>${Static['org.ofbiz.party.party.PartyHelper'].getPartyName(party)} (${party.partyId})</option>
-            </#list>
-        </#if>
-      </select>
+      <input type="text" class="inputBox" name="ownerPartyId" value="${facility.ownerPartyId?if_exists}"/>
+      <span class="tabletext">
+        <a href="javascript:call_fieldlookup2(document.EditFacilityForm.ownerPartyId,'LookupPartyName');">
+          <img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+      </a>
+    </span>
     </td>
   </tr>
   <tr>
