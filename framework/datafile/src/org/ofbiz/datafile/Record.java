@@ -95,6 +95,17 @@ public class Record implements Serializable {
             return object.toString();
     }
 
+    public String getStringAndEmpty(String name) {
+        Object object = get(name);
+
+        if (object == null)
+            return "";
+        if (object instanceof java.lang.String)
+            return (String) object;
+        else
+            return object.toString();
+    }
+
     public java.sql.Timestamp getTimestamp(String name) {
         return (java.sql.Timestamp) get(name);
     }
@@ -510,7 +521,13 @@ public class Record implements Serializable {
     public static Record createDelimitedRecord(String line, int lineNum, ModelRecord modelRecord, char delimiter) throws DataFileException {
         Record record = new Record(modelRecord);
 
-        StringTokenizer st = new StringTokenizer(line, "" + delimiter, true);
+        StringTokenizer st = null;
+        if (line.endsWith(String.valueOf(delimiter))) {
+            st = new StringTokenizer(line + " ", "" + delimiter, true);
+        }
+        else {
+            st = new StringTokenizer(line, "" + delimiter, true);
+        }
         for (int i = 0; i < modelRecord.fields.size(); i++) {
             ModelField modelField = (ModelField) modelRecord.fields.get(i);
             String strVal = null;
