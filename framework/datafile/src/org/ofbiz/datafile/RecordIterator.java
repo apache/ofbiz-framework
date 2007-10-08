@@ -47,6 +47,7 @@ public class RecordIterator {
     protected Record curRecord = null;
     protected String nextLine = null;
     protected Record nextRecord = null;
+    protected String eof = new String("\u001A"); // aka ASCII char 26, aka substitute, aka  0x1A, aka CTRL-Z, aka EOF DOS character. Added because problems in some DOS file, specifically file extracted from zip archives.
     
     public RecordIterator(URL fileUrl, ModelDataFile modelDataFile) throws DataFileException {
         this.modelDataFile = modelDataFile;
@@ -115,7 +116,7 @@ public class RecordIterator {
             }
         }
         
-        if (nextLine != null) {
+        if (nextLine != null && !(eof.equals(nextLine.substring(0,1)) && 1 == nextLine.length())) {
             nextLineNum++;
             ModelRecord modelRecord = findModelForLine(nextLine, nextLineNum, modelDataFile);
             if (isDelimited) {
@@ -135,7 +136,8 @@ public class RecordIterator {
     }
     
     public boolean hasNext() {
-        return nextLine != null;
+        return nextLine != null && !(eof.equals(nextLine.substring(0,1)) && 1 == nextLine.length());
+        
     }
     
     public Record next() throws DataFileException {
