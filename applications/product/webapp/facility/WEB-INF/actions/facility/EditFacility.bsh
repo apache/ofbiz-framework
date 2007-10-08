@@ -44,10 +44,6 @@ Collection facilityTypes = delegator.findAll("FacilityType");
 if (facilityTypes != null)
   context.put("facilityTypes", facilityTypes);
 
-// possible owners of facilities
-ownerParties = delegator.findByAndCache("PartyRole", UtilMisc.toMap("roleTypeId", "INTERNAL_ORGANIZATIO"));
-context.put("ownerParties", ownerParties);
-
 // all possible inventory item types
 inventoryItemTypes = delegator.findAllCache("InventoryItemType", UtilMisc.toList("description"));
 context.put("inventoryItemTypes", inventoryItemTypes);
