@@ -40,4 +40,14 @@ under the License.
             </widgets>
         </section>
     </screen> 
+    <screen name="VerifyEmailAddressNotification">
+        <section>
+            <actions>
+                <set field="title" value="Email Address Verification"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://party/templates/email/VerifyEmailAddressNotification.ftl"/></html></platform-specific>
+            </widgets>
+        </section>        
+    </screen>
 </screens>

@@ -92,6 +92,7 @@ under the License.
     
     <ProductStoreEmailSetting productStoreId="9000" emailType="PARTY_REGIS_CONFIRM" bodyScreenLocation="component://party/widget/partymgr/PartyEmailNotification.xml#CreatePartyNotification" subject="New Account Created" bccAddress="ofbiztest@yahoo.com" fromAddress="ofbiztest@yahoo.com"/>
     <ProductStoreEmailSetting productStoreId="9000" emailType="UPD_PRSNL_INF_CNFRM" bodyScreenLocation="component://party/widget/partymgr/PartyEmailNotification.xml#ChangePersonalInfoNotification" subject="Personal Information Updated" bccAddress="ofbiztest@yahoo.com" fromAddress="ofbiztest@yahoo.com"/>
+    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_EMAIL_VERIFY" bodyScreenLocation="component://party/widget/partymgr/PartyEmailNotification.xml#VerifyEmailAddressNotification" subject="Email Address Verification" bccAddress="ofbiztest@yahoo.com" fromAddress="ofbiztest@yahoo.com"/>
     
     <ProductStoreFacility productStoreId="9000" facilityId="WebStoreWarehouse" fromDate="2001-05-13 12:00:00.0"/>
     <ProductStoreRole partyId="admin" roleTypeId="SALES_REP" productStoreId="9000" fromDate="2001-05-13 12:00:00.0"/>

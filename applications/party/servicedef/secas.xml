@@ -108,4 +108,8 @@ under the License.
     <eca service="updatePassword" event="commit">
         <action service="sendUpdatePersonalInfoEmailNotification" mode="async" persist="true"/>
     </eca>    
+    
+    <eca service="createEmailAddressVerification" event="commit">
+        <action service="sendVerifyEmailAddressNotification" mode="async"/>
+    </eca>
 </service-eca>

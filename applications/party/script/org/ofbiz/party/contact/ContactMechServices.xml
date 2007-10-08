@@ -289,4 +289,44 @@ under the License.
         <entity-one entity-name="ContactMechAttribute" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    <simple-method method-name="sendVerifyEmailAddressNotification" short-description="Send an email to the person for Verification of his Email Address" login-required="false">
+        <entity-condition entity-name="ProductStoreEmailSetting" list-name="productStoreEmailSettings">
+            <condition-list>
+                <condition-expr field-name="emailType" operator="equals" value="PRDS_EMAIL_VERIFY"/>
+            </condition-list>
+        </entity-condition>
+        <set field="lookupHash.emailAddress" from-field="parameters.emailAddress"/>
+        <find-by-primary-key value-name="emailAddressVerification" entity-name="EmailAddressVerification" map-name="lookupHash"/>
+        <set field="bodyParameters.verifyHash" from-field="emailAddressVerification.verifyHash"/>
+        <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
+        <if-not-empty field-name="bodyScreenLocation" map-name="storeEmail">                        
+            <set field="emailParams.sendTo" from-field="parameters.emailAddress"/>
+            <set field="emailParams.subject" from-field="storeEmail.subject"/>
+            <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
+            <set field="emailParams.sendCc" from-field="storeEmail.ccAddress"/>
+            <set field="emailParams.sendBcc" from-field="storeEmail.bccAddress"/>
+            <set field="emailParams.contentType" from-field="storeEmail.contentType"/>            
+            <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
+            <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+            <map-to-map to-map-name="emailParams.bodyParameters" map-name="bodyParameters"/>
+            <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+        </if-not-empty>
+    </simple-method>
+    <simple-method method-name="verifyEmailAddress" short-description="Verify an Email Address through verifyHash and expireDate" login-required="false">
+        <entity-and entity-name="EmailAddressVerification" list-name="emailAddressVerifications">
+            <field-map field-name="verifyHash" env-name="parameters.verifyHash"/>
+        </entity-and>
+        
+        <first-from-list list-name="emailAddressVerifications" entry-name="emailAddressVerification"/>
+        <if-not-empty field-name="emailAddressVerification">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <if-compare-field field-name="emailAddressVerification.expireDate" operator="less" to-field-name="nowTimestamp">
+                 <add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressVerificationExpired"/></add-error>
+            </if-compare-field>
+        <else>
+            <add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotExist"/></add-error>
+        </else> 
+        </if-not-empty>
+        <check-errors/>
+    </simple-method>
 </simple-methods>

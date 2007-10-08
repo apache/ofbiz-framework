@@ -773,4 +773,20 @@ under the License.
             location="org/ofbiz/party/user/UserEvents.xml" invoke="sendCreatePartyEmailNotification" auth="false">
         <attribute name="USER_EMAIL" type="String" mode="IN" optional="false"/>
     </service>
+    
+    <!-- Email address verification services-->
+    <service name="createEmailAddressVerification" engine="java" default-entity-name="EmailAddressVerification"
+            location="org.ofbiz.party.contact.ContactMechServices" invoke="createEmailAddressVerification">
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+        <attribute name="verifyHash" type="String" mode="OUT" optional="false"/>
+        <attribute name="expireDate" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="sendVerifyEmailAddressNotification" engine="simple"
+        location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="sendVerifyEmailAddressNotification">
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="verifyEmailAddress" engine="simple"
+             location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="verifyEmailAddress">
+        <attribute name="verifyHash" type="String" mode="IN" optional="false"/>
+    </service>
 </services>

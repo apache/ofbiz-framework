@@ -139,6 +139,7 @@ under the License.
     <EnumerationType description="Party Email Notification" enumTypeId="PARTY_EMAIL" hasTable="N" parentTypeId=""/>
     <Enumeration description="Party Registration Confirmation Mail" enumCode="REGIS_CONFIRM" enumId="PARTY_REGIS_CONFIRM" sequenceId="01" enumTypeId="PARTY_EMAIL"/>
     <Enumeration description="Update Personal Info Confirmation" enumCode="UPDAT_CONFIRM" enumId="UPD_PRSNL_INF_CNFRM" sequenceId="02" enumTypeId="PARTY_EMAIL"/>
+    <Enumeration description="Party Email Address Verification" enumCode="EMAIL_VERIFY" enumId="PRDS_EMAIL_VERIFY" sequenceId="03" enumTypeId="PARTY_EMAIL"/>
     
     <!-- top level role types -->
     <RoleType description="Administrator" hasTable="N" parentTypeId="" roleTypeId="ADMIN"/>
