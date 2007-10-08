@@ -19,7 +19,10 @@
 
 package org.ofbiz.party.contact;
 
+import java.security.SecureRandom;
 import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -27,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Locale;
 
+import org.ofbiz.base.crypto.HashCrypt;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
@@ -1031,4 +1035,55 @@ public class ContactMechServices {
         }
         return ServiceUtil.returnSuccess();
     }
+    
+    /**
+     * Creates an EmailAddressVerification
+     */
+    
+    public static Map createEmailAddressVerification(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = (GenericDelegator) dctx.getDelegator();
+        String emailAddress = (String) context.get("emailAddress");
+        String verifyHash = null;
+        
+        String expireTime = UtilProperties.getPropertyValue("security", "email_verification.expire.hours");
+        Integer expTime = Integer.valueOf(expireTime);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR, expTime.intValue());
+        Date date = calendar.getTime();
+        Timestamp expireDate = UtilDateTime.toTimestamp(date);
+        
+        SecureRandom secureRandom = new SecureRandom();
+
+        synchronized(ContactMechServices.class) {
+            while(true){
+                Long random = secureRandom.nextLong();
+                verifyHash = HashCrypt.getDigestHash(Long.toString(random), "MD5");
+                List emailAddVerifications = null;
+                try {
+                    emailAddVerifications = delegator.findByAnd("EmailAddressVerification", UtilMisc.toMap("verifyHash", verifyHash));
+                } catch (GenericEntityException e) {
+                    Debug.logError(e.getMessage(), module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+                if(UtilValidate.isEmpty(emailAddVerifications)) {
+                    GenericValue emailAddressVerification = delegator.makeValue("EmailAddressVerification", null);
+                    emailAddressVerification.set("emailAddress", emailAddress);
+                    emailAddressVerification.set("verifyHash", verifyHash);
+                    emailAddressVerification.set("expireDate", expireDate);
+                    try {
+                        delegator.create(emailAddressVerification);
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e.getMessage(),module);
+                        return ServiceUtil.returnError(e.getMessage());
+                    }
+                    break;
+                }
+            }
+        }
+        
+        Map result = ServiceUtil.returnSuccess();
+        result.put("verifyHash", verifyHash);
+        return result;
+    }
+     
 }

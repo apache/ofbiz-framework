@@ -106,6 +106,12 @@ under the License.
         <response name="success" type="none"/>
         <response name="error" type="view" value="error"/>
     </request-map>
+    <request-map uri="verifyEmailAddress">
+        <security https="false" auth="false"/>
+        <event type="service" invoke="verifyEmailAddress"/>        
+        <response name="success" type="none"/>
+        <response name="error" type="view" value="error"/>
+    </request-map>
     <!-- End of Request Mappings -->
 
     <!-- View Mappings -->
