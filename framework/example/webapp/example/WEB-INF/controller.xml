@@ -22,8 +22,8 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <!-- The request handlers and requests that are common to all OFBiz components
          can be found in the following xml file. A component can override the
-         requests found in the common-requests.xml file. -->
-    <include location="component://common/webcommon/WEB-INF/common-requests.xml"/>    
+         requests found in the common-controller.xml file. -->
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
 
     <description>Example Component Site Configuration File</description>
     <owner>Copyright 2001-2007 The Apache Software Foundation</owner>
