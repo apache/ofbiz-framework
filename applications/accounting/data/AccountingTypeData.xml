@@ -483,6 +483,21 @@ under the License.
     <PaymentType description="POS Paid Out" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="POS_PAID_OUT"/>
     <PaymentType description="POS Paid In" hasTable="N" parentTypeId="RECEIPT" paymentTypeId="POS_PAID_IN"/>    
     
+    <!-- Credit Cart Types -->
+    <EnumerationType description="Credit Card Type" enumTypeId="CREDIT_CARD_TYPE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Visa" enumCode="Visa" enumId="CCT_VISA" sequenceId="01" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="Master Card" enumCode="MasterCard" enumId="CCT_MASTERCARD" sequenceId="02" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="American Express" enumCode="AmericanExpress" enumId="CCT_AMERICANEXPRESS" sequenceId="03" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="Diners Club" enumCode="DinersClub" enumId="CCT_DINERSCLUB" sequenceId="04" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="Discover" enumCode="Discover" enumId="CCT_DISCOVER" sequenceId="05" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="EnRoute" enumCode="EnRoute" enumId="CCT_ENROUTE" sequenceId="06" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="Carte Blanche" enumCode="CarteBlanche" enumId="CCT_CARTEBLANCHE" sequenceId="07" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="JCB" enumCode="JCB" enumId="CCT_JCB" sequenceId="08" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="Solo" enumCode="Solo" enumId="CCT_SOLO" sequenceId="09" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="Switch" enumCode="Switch" enumId="CCT_SWITCH" sequenceId="10" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="Visa Electron" enumCode="VisaElectron" enumId="CCT_VISAELECTRON" sequenceId="11" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="Universal Air Travel Plan" enumCode="UATP" enumId="CCT_UATP" sequenceId="12" enumTypeId="CREDIT_CARD_TYPE"/>
+    
     <StatusType description="Budget" hasTable="N" parentTypeId="" statusTypeId="BUDGET_STATUS"/>
     <StatusType description="Party Asset" hasTable="N" parentTypeId="" statusTypeId="PARTY_ASSET_STATUS"/>
 

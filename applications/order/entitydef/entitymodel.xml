@@ -752,6 +752,7 @@ under the License.
       <field name="shipGroupSeqId" type="id-ne"></field>
       <field name="shipmentMethodTypeId" type="id"></field>
       <field name="supplierPartyId" type="id"></field>
+      <field name="vendorPartyId" type="id"><description>For use with multi-vendor stores, order will be split so that each ship group is associated with only one vendor (only if applicable)</description></field>
       <field name="carrierPartyId" type="id"></field>
       <field name="carrierRoleTypeId" type="id"></field>
       <field name="contactMechId" type="id"></field>
@@ -770,6 +771,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="ORDER_ITSG_SPRTY" title="Supplier" rel-entity-name="Party">
         <key-map field-name="supplierPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="ORDER_ITSG_VPRTY" title="Vendor" rel-entity-name="Party">
+        <key-map field-name="vendorPartyId" rel-field-name="partyId"/>
       </relation>
       <relation type="one" fk-name="ORDER_ITSG_CSHM" rel-entity-name="CarrierShipmentMethod">
         <key-map field-name="shipmentMethodTypeId"/>
