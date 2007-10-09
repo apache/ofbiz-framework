@@ -34,7 +34,6 @@ facilityId = request.getParameter("facilityId");
 state = OrderListState.getInstance(request);
 state.update(request);
 context.put("state", state);
-//print("### " + state.toString());
  
 // check permission for each order type
 hasPermission = false;
