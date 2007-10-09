@@ -74,7 +74,7 @@ public class WidgetWorker {
         buffer.append(location);
     }
 
-    public static void makeHyperlinkString(StringBuffer buffer, String linkStyle, String targetType, String target, String description, HttpServletRequest request, HttpServletResponse response, Map context, String targetWindow) {
+    public static void makeHyperlinkString(StringBuffer buffer, String linkStyle, String targetType, String target, String description, HttpServletRequest request, HttpServletResponse response, Map context, String targetWindow, String event, String action) {
         if (UtilValidate.isNotEmpty(description)) {
             buffer.append("<a");
 
@@ -96,6 +96,13 @@ public class WidgetWorker {
                 buffer.append("\"");
             }
 
+            if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
+                buffer.append(" ");
+                buffer.append(event);
+                buffer.append("=\"");
+                buffer.append(action);
+                buffer.append('"');
+            }
 
             buffer.append('>');
 

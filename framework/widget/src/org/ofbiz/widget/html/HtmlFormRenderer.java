@@ -63,6 +63,7 @@ import org.ofbiz.widget.form.ModelFormField.TextField;
 import org.ofbiz.widget.form.ModelFormField.TextFindField;
 import org.ofbiz.widget.form.ModelFormField.TextareaField;
 
+import org.apache.commons.lang.StringEscapeUtils;
 
 /**
  * Widget Library - HTML Form Renderer implementation
@@ -191,7 +192,9 @@ public class HtmlFormRenderer implements FormStringRenderer {
             hyperlinkField.getTargetType(),
             hyperlinkField.getTarget(context),
             hyperlinkField.getDescription(context),
-            hyperlinkField.getTargetWindow(context));
+            hyperlinkField.getTargetWindow(context),
+            modelFormField.getEvent(),
+            modelFormField.getAction(context));
         this.appendTooltip(buffer, context, modelFormField);
         //this.appendWhitespace(buffer);
     }
@@ -208,13 +211,14 @@ public class HtmlFormRenderer implements FormStringRenderer {
                 subHyperlink.getTargetType(),
                 subHyperlink.getTarget(context),
                 subHyperlink.getDescription(context),
-                subHyperlink.getTargetWindow(context));
+                subHyperlink.getTargetWindow(context),
+                null, null);
         }
     }
 
-    public void makeHyperlinkString(StringBuffer buffer, String linkStyle, String targetType, String target, String description, String targetWindow) {
+    public void makeHyperlinkString(StringBuffer buffer, String linkStyle, String targetType, String target, String description, String targetWindow, String event, String action) {
         Map context = null;
-        WidgetWorker.makeHyperlinkString(buffer, linkStyle, targetType, target, description, this.request, this.response, context, targetWindow);
+        WidgetWorker.makeHyperlinkString(buffer, linkStyle, targetType, target, description, this.request, this.response, context, targetWindow, event, action);
     }
 
     /* (non-Javadoc)
@@ -234,7 +238,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         String value = modelFormField.getEntry(context, textField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
             buffer.append(" value=\"");
-            buffer.append(UtilFormatOut.encodeXmlValue(value));
+            buffer.append(StringEscapeUtils.escapeHtml(value));
             buffer.append('"');
         }
 
@@ -318,7 +322,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         String value = modelFormField.getEntry(context, textareaField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
-            buffer.append(UtilFormatOut.encodeXmlValue(value));
+            buffer.append(StringEscapeUtils.escapeHtml(value));
         }
 
         buffer.append("</textarea>");
@@ -945,7 +949,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         if (UtilValidate.isNotEmpty(value)) {
             buffer.append(" value=\"");
-            buffer.append(value);
+            buffer.append(StringEscapeUtils.escapeHtml(value));
             buffer.append('"');
         }
 
@@ -2102,7 +2106,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         String value = modelFormField.getEntry(context, textField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
             buffer.append(" value=\"");
-            buffer.append(value);
+            buffer.append(StringEscapeUtils.escapeHtml(value));
             buffer.append('"');
         }
 
@@ -2327,7 +2331,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
             if (UtilValidate.isNotEmpty(targetBuffer.toString()) && targetBuffer.toString().toLowerCase().startsWith("javascript:")) {
             	targetType="plain";
             }
-            makeHyperlinkString(buffer, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), titleText, null);
+            makeHyperlinkString(buffer, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), titleText, null, null, null);
         } else if (modelFormField.isRowSubmit()) {
             if (UtilValidate.isNotEmpty(titleText)) buffer.append(titleText).append("<br/>");
             buffer.append("<input type=\"checkbox\" name=\"selectAll\" value=\"Y\" onclick=\"javascript:toggleAll(this, '");
