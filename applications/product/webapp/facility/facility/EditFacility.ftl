@@ -29,7 +29,7 @@ under the License.
 </div>
 
 <#if facility?exists && facilityId?has_content>
-  <form action="<@ofbizUrl>UpdateFacility</@ofbizUrl>" name="EditFaclityForm" method="post">
+  <form action="<@ofbizUrl>UpdateFacility</@ofbizUrl>" name="EditFacilityForm" method="post">
   <table class="basic-table" cellspacing='0'>
   <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
   <tr>
