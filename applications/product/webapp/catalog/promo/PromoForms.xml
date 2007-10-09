@@ -20,9 +20,21 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="EditProductPromo" type="single" target="updateProductPromo" title="" default-map-name="productPromo"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
-
+    <form name="ListProductPromos" type="list" title="" list-name="productPromos">
+        <field name="productPromoId" widget-style="buttontext">
+            <hyperlink target="EditProductPromo?productPromoId=${productPromoId}"
+                description="${productPromoId}" also-hidden="false"/>
+        </field>
+        <field name="promoName"><display/></field>
+        <field name="promoText"><display/></field>
+        <field name="requireCode"><display/></field>
+        <field name="createdDate"><display/></field>
+    </form>
+    <form name="GoToProductPromoCode" type="single" target="EditProductPromoCode" title="">
+        <field name="productPromoCodeId"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonEdit}"><submit button-type="button"/></field>
+    </form>
+    <form name="EditProductPromo" type="single" target="updateProductPromo" title="" default-map-name="productPromo">
         <alt-target use-when="productPromo==null" target="createProductPromo"/>
         <auto-fields-service service-name="updateProductPromo" map-name=""/>
 
