@@ -329,4 +329,9 @@ under the License.
         <attribute mode="IN" name="workEffortId" optional="false" type="String"/>
         <attribute mode="OUT" name="totalCost" optional="false" type="BigDecimal"/>
     </service>
+    <service name="createProductionRunTaskCosts" engine="java"
+            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunTaskCosts" auth="true">
+        <description>Compute the actual costs for the production run task.</description>
+        <attribute mode="IN" name="productionRunTaskId" optional="false" type="String"/>
+    </service>
 </services>

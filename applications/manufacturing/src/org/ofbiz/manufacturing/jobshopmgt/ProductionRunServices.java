@@ -857,6 +857,18 @@ public class ProductionRunServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
                 }
             }
+            // Calculate and store the production run task actual costs
+            serviceContext.clear();
+            serviceContext.put("productionRunTaskId", taskId);
+            serviceContext.put("userLogin", userLogin);
+            resultService = null;
+            try {
+                resultService = dispatcher.runSync("createProductionRunTaskCosts", serviceContext);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Problem calling the createProductionRunTaskCosts service", module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
+            }
+
             result.put("oldStatusId", oldStatusId);
             result.put("newStatusId", "PRUN_COMPLETED");
             result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusChanged",UtilMisc.toMap("newStatusId", "PRUN_DOC_PRINTED"), locale));
@@ -923,6 +935,118 @@ public class ProductionRunServices {
             return ServiceUtil.returnError("Cannot retrieve costs for production run [" + workEffortId + "]: " + exc.getMessage());
         }
         return result;
+    }
+
+    public static Map createProductionRunTaskCosts(DispatchContext ctx, Map context) {
+        GenericDelegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+
+        // this is the id of the actual (real) production run task
+        String productionRunTaskId = (String)context.get("productionRunTaskId");
+        try {
+            GenericValue workEffort = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", productionRunTaskId));
+            if (UtilValidate.isEmpty(workEffort)) {
+                return ServiceUtil.returnError("Cannot find the production run task with id [" + productionRunTaskId + "]");
+            }
+            double actualTotalMilliSeconds = 0.0;
+            Double actualSetupMillis = workEffort.getDouble("actualSetupMillis");
+            Double actualMilliSeconds = workEffort.getDouble("actualMilliSeconds");
+            if (actualSetupMillis != null) {
+                actualTotalMilliSeconds += actualSetupMillis.doubleValue();
+            }
+            if (actualMilliSeconds != null) {
+                actualTotalMilliSeconds += actualMilliSeconds.doubleValue();
+            }
+            // Get the template (aka routing task) of the work effort
+            List routingTasks = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc",
+                                                                            UtilMisc.toMap("workEffortIdTo", productionRunTaskId,
+                                                                                           "workEffortAssocTypeId", "WORK_EFF_TEMPLATE")));
+            GenericValue routingTask = EntityUtil.getFirst(routingTasks);
+            List workEffortCostCalcs = null;
+            if (UtilValidate.isEmpty(routingTask)) {
+                // there is no template, try to get the cost entries for the actual production run task, if any
+                workEffortCostCalcs = delegator.findByAnd("WorkEffortCostCalc", UtilMisc.toMap("workEffortId", productionRunTaskId));
+            } else {
+                workEffortCostCalcs = delegator.findByAnd("WorkEffortCostCalc", UtilMisc.toMap("workEffortId", routingTask.getString("workEffortIdFrom")));
+            }
+            // Get all the valid CostComponentCalc entries
+            workEffortCostCalcs = EntityUtil.filterByDate(workEffortCostCalcs);
+            Iterator workEffortCostCalcsIt = workEffortCostCalcs.iterator();
+            while (workEffortCostCalcsIt.hasNext()) {
+                GenericValue workEffortCostCalc = (GenericValue)workEffortCostCalcsIt.next();
+                GenericValue costComponentCalc = workEffortCostCalc.getRelatedOne("CostComponentCalc");
+                GenericValue customMethod = costComponentCalc.getRelatedOne("CustomMethod");
+                if (UtilValidate.isEmpty(customMethod) || UtilValidate.isEmpty(customMethod.getString("customMethodName"))) {
+                    // compute the total time
+                    double totalTime = actualTotalMilliSeconds;
+                    if (costComponentCalc.get("perMilliSecond") != null) {
+                        long perMilliSecond = costComponentCalc.getLong("perMilliSecond").longValue();
+                        if (perMilliSecond != 0) {
+                            totalTime = totalTime / perMilliSecond;
+                        }
+                    }
+                    // compute the cost
+                    BigDecimal fixedCost = costComponentCalc.getBigDecimal("fixedCost");
+                    BigDecimal variableCost = costComponentCalc.getBigDecimal("variableCost");
+                    if (fixedCost == null) {
+                        fixedCost = BigDecimal.ZERO;
+                    }
+                    if (variableCost == null) {
+                        variableCost = BigDecimal.ZERO;
+                    }
+                    BigDecimal totalCost = fixedCost.add(variableCost.multiply(BigDecimal.valueOf(totalTime))).setScale(decimals, rounding);
+                    // store the cost
+                    Map inMap = UtilMisc.toMap("userLogin", userLogin, "workEffortId", productionRunTaskId);
+                    inMap.put("costComponentTypeId", "ACTUAL_" + workEffortCostCalc.getString("costComponentTypeId"));
+                    inMap.put("costComponentCalcId", costComponentCalc.getString("costComponentCalcId"));
+                    inMap.put("costUomId", costComponentCalc.getString("currencyUomId"));
+                    inMap.put("cost", new Double(totalCost.doubleValue()));
+                    dispatcher.runSync("createCostComponent", inMap);
+                } else {
+                    // use the custom method (aka formula) to compute the costs
+                    Map inMap = UtilMisc.toMap("userLogin", userLogin, "workEffort", workEffort);
+                    inMap.put("workEffortCostCalc", workEffortCostCalc);
+                    inMap.put("costComponentCalc", costComponentCalc);
+                    dispatcher.runSync(customMethod.getString("customMethodName"), inMap);
+                }
+            }
+        } catch(Exception e) {
+            return ServiceUtil.returnError("Unable to create routing costs for the production run task [" + productionRunTaskId + "]: " + e.getMessage());
+        }
+        // materials costs: these are the costs derived from the materials used by the production run task
+        try {
+            Iterator inventoryAssignIt = delegator.findByAnd("WorkEffortAndInventoryAssign", UtilMisc.toMap("workEffortId", productionRunTaskId)).iterator();
+            Map materialsCostByCurrency = FastMap.newInstance();
+            while (inventoryAssignIt.hasNext()) {
+                GenericValue inventoryConsumed = (GenericValue)inventoryAssignIt.next();
+                BigDecimal quantity = inventoryConsumed.getBigDecimal("quantity");
+                BigDecimal unitCost = inventoryConsumed.getBigDecimal("unitCost");
+                if (UtilValidate.isEmpty(unitCost) || UtilValidate.isEmpty(quantity)) {
+                    continue;
+                }
+                String currencyUomId = inventoryConsumed.getString("currencyUomId");
+                if (!materialsCostByCurrency.containsKey(currencyUomId)) {
+                    materialsCostByCurrency.put(currencyUomId, BigDecimal.ZERO);
+                }
+                BigDecimal materialsCost = (BigDecimal)materialsCostByCurrency.get(currencyUomId);
+                materialsCost = materialsCost.add(unitCost.multiply(quantity)).setScale(decimals, rounding);
+                materialsCostByCurrency.put(currencyUomId, materialsCost);
+            }
+            Iterator currencyIt = materialsCostByCurrency.keySet().iterator();
+            while (currencyIt.hasNext()) {
+                String currencyUomId = (String)currencyIt.next();
+                BigDecimal materialsCost = (BigDecimal)materialsCostByCurrency.get(currencyUomId);
+                Map inMap = UtilMisc.toMap("userLogin", userLogin, "workEffortId", productionRunTaskId);
+                inMap.put("costComponentTypeId", "ACTUAL_MAT_COST");
+                inMap.put("costUomId", currencyUomId);
+                inMap.put("cost", new Double(materialsCost.doubleValue()));
+                dispatcher.runSync("createCostComponent", inMap);
+            }
+        } catch(Exception e) {
+            return ServiceUtil.returnError("Unable to create materials costs for the production run task [" + productionRunTaskId + "]: " + e.getMessage());
+        }
+        return ServiceUtil.returnSuccess();
     }
 
     /**
@@ -1397,7 +1521,7 @@ public class ProductionRunServices {
             Map outputMap = dispatcher.runSync("getProductionRunCost", UtilMisc.toMap("userLogin", userLogin, "workEffortId", productionRunId));
             BigDecimal totalCost = (BigDecimal)outputMap.get("totalCost");
             // FIXME
-            unitCost = totalCost.divide(new BigDecimal(quantity.doubleValue()), decimals, rounding);
+            unitCost = totalCost.divide(BigDecimal.valueOf(quantity.doubleValue()), decimals, rounding);
         } catch (GenericServiceException e) {
             Debug.logWarning(e.getMessage(), module);
             return ServiceUtil.returnError(e.getMessage());
