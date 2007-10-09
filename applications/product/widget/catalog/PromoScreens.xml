@@ -70,18 +70,29 @@ under the License.
                 <set field="headerItem" value="promos"/>
                 <set field="tabButtonItem" value="ProductPromo"/>
                 
-                <set field="manualOnly" from-field="parameters.manualOnly" default-value="Y"/>
+                <set field="userEntered" from-field="parameters.userEntered"/>
                 <entity-condition entity-name="ProductPromo" list-name="productPromos">
-                    <condition-expr field-name="userEntered" env-name="manualOnly"/>
+                    <condition-expr field-name="userEntered" env-name="userEntered" ignore-if-empty="true"/>
                     <order-by field-name="-createdDate"/>
                 </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPromoDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/promo/FindProductPromo.ftl"/></html>
-                        </platform-specific>
+                        <container>
+                            <label style="head1">${uiLabelMap.ProductProductPromotionsList}</label>
+                        </container>
+                        <container>
+                            <link target="EditProductPromo" text="${uiLabelMap.ProductNewProductPromo}" style="buttontext"/>
+                        </container>
+                        <container>
+                            <label style="head3">${uiLabelMap.CommonView}</label>
+                            <link target="FindProductPromo" text="${uiLabelMap.CommonAll}" style="buttontext"/>
+                            <link target="FindProductPromo?userEntered=Y" text="${uiLabelMap.ProductPromotionManual}" style="buttontext"/>
+                            <link target="FindProductPromo?userEntered=N" text="${uiLabelMap.ProductPromotionImported}" style="buttontext"/>
+                        </container>
+                        <include-form name="GoToProductPromoCode" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                        <include-form name="ListProductPromos" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
