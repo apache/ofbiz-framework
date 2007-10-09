@@ -3870,6 +3870,52 @@ under the License.
         <key-map field-name="productCategoryId"/>
       </relation>
     </entity>
+    <entity entity-name="ProductStoreVendorPayment" package-name="org.ofbiz.product.store" title="Product Store Vendor Payment Entity">
+        <description>Used to define payments that a vendor related to the store will accept (for multi-vendor stores)</description>
+        <field name="productStoreId" type="id-ne"/>
+        <field name="vendorPartyId" type="id-ne"/>
+        <field name="paymentMethodTypeId" type="id-ne"/>
+        <field name="creditCardEnumId" type="id-ne"><description>If not applicable for the paymentMethodTypeId, use "_NA_"</description></field>
+        <prim-key field="productStoreId"/>
+        <prim-key field="vendorPartyId"/>
+        <prim-key field="paymentMethodTypeId"/>
+        <prim-key field="creditCardEnumId"/>
+        <relation type="one" fk-name="PRDSTRVPM_PRDS" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+        <relation type="one" fk-name="PRDSTRVPM_VPTY" title="Vendor" rel-entity-name="Party">
+            <key-map field-name="vendorPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="PRDSTRVPM_PMMT" rel-entity-name="PaymentMethodType">
+            <key-map field-name="paymentMethodTypeId"/>
+        </relation>
+        <relation type="one" fk-name="PRDSTRVPM_CCEN" title="CreditCard" rel-entity-name="Enumeration">
+            <key-map field-name="creditCardEnumId" rel-field-name="enumId"/>
+        </relation>
+    </entity>
+    <entity entity-name="ProductStoreVendorShipment" package-name="org.ofbiz.product.store" title="Product Store Vendor Shipment Entity">
+        <description>Used to define Carrier-ShipmentMethod combinations that a vendor related to the store will accept (for multi-vendor stores)</description>
+        <field name="productStoreId" type="id-ne"/>
+        <field name="vendorPartyId" type="id-ne"/>
+        <field name="shipmentMethodTypeId" type="id-ne"/>
+        <field name="carrierPartyId" type="id-ne"/>
+        <prim-key field="productStoreId"/>
+        <prim-key field="vendorPartyId"/>
+        <prim-key field="shipmentMethodTypeId"/>
+        <prim-key field="carrierPartyId"/>
+        <relation type="one" fk-name="PRDSTRVSH_PRDS" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+        <relation type="one" fk-name="PRDSTRVSH_VPTY" title="Vendor" rel-entity-name="Party">
+            <key-map field-name="vendorPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="PRDSTRVSH_SHMT" rel-entity-name="ShipmentMethodType">
+            <key-map field-name="shipmentMethodTypeId"/>
+        </relation>
+        <relation type="one" fk-name="PRDSTRVSH_CPTY" title="Carrier" rel-entity-name="Party">
+            <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
+        </relation>
+    </entity>
     <extend-entity entity-name="WebSite">
         <field name="productStoreId" type="id"></field>
         <relation type="one" fk-name="WEB_SITE_PRDS" rel-entity-name="ProductStore">
