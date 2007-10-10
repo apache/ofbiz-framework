@@ -320,7 +320,7 @@ under the License.
         <attribute name="asOfDate" mode="IN" type="Timestamp" optional="true"/>
         <attribute name="originalValue" mode="IN" type="Double" optional="false"/>
         <attribute name="conversionParameters" mode="IN" type="Map" optional="true"/>
-        <attribute name="convertedValue" mode="OUT" type="Double" optional="false"/>
+        <attribute name="convertedValue" mode="OUT" type="Double" optional="true"/>
     </service>
     <service name="convertUomCustom" default-entity-name="UomConversion" engine="simple"
             location="org/ofbiz/common/CommonServices.xml" invoke="convertUomCustom" auth="false">
@@ -329,7 +329,7 @@ under the License.
         <attribute name="originalValue" mode="IN" type="Double" optional="false"/>
         <attribute name="uomConversion" mode="IN" type="Map" optional="false"/>
         <attribute name="conversionParameters" mode="IN" type="Map" optional="true"/>
-        <attribute name="convertedValue" mode="OUT" type="Double" optional="false"/>
+        <attribute name="convertedValue" mode="OUT" type="Double" optional="true"/>
     </service>
 
     <!-- ftp services -->

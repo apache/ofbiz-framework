@@ -300,7 +300,7 @@ public class UspsServices {
                     Debug.logError(ex, module);
                 }
                     
-                if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS)) {
+                if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS) && result.get("convertedValue") != null) {
                     productWeight = ((Double) result.get("convertedValue")).doubleValue();
                 } else {
                     Debug.logError("Unsupported weightUom [" + weightUomId + "] for calcPackageWeight running productId " + productId + ", could not find a conversion factor to WT_lb",module);
@@ -910,7 +910,7 @@ public class UspsServices {
                         return ServiceUtil.returnError(ex.getMessage());
                     }
                     
-                    if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS)) {
+                    if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS) && result.get("convertedValue") != null) {
                         weight *= ((Double) result.get("convertedValue")).doubleValue();
                     } else {
                         return ServiceUtil.returnError("Unsupported weightUom [" + weightUomId + "] for ShipmentPackage " +

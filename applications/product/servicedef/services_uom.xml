@@ -27,7 +27,7 @@ under the License.
     <!-- UOM Formulas -->
     <service name="interfaceUomFormula" engine="interface" location="" invoke="">
         <attribute mode="IN" name="arguments" optional="false" type="java.util.Map"/>
-        <attribute mode="OUT" name="convertedValue" optional="false" type="Double"/>
+        <attribute mode="OUT" name="convertedValue" optional="true" type="Double"/>
     </service>
     <service name="convertUomProduct" engine="simple" auth="false"
         location="org/ofbiz/product/product/ProductUomFormulas.xml" invoke="convertUomProduct">
