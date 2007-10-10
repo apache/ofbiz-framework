@@ -580,8 +580,12 @@ under the License.
                 <set value="PHONE_SHIPPING" field="findFcmpMap.contactMechPurposeTypeId"/>
                 <find-by-and entity-name="FacilityContactMechPurpose" map-name="findFcmpMap" order-by-list-name="descendingFromDateOrder" list-name="facilityContactMechPurposes"/>
                 <filter-list-by-date list-name="facilityContactMechPurposes"/>
-                <first-from-list entry-name="facilityContactMechPurpose" list-name="facilityContactMechPurposes"/>
-                <set from-field="facilityContactMechPurpose.contactMechId" field="shipment.destinationTelecomNumberId"/>
+                <!-- This check is necessary or some random contactMechId might be filled in by minilang, possibly from another call earlier, if facilityContactMechPurpoess is indeed null.
+                It should probably be implemented for all of the above but I have not had a chance to test it. (Si) -->
+                <if-not-empty field-name="facilityContactMechPurposes">
+                    <first-from-list entry-name="facilityContactMechPurpose" list-name="facilityContactMechPurposes"/>
+                    <set from-field="facilityContactMechPurpose.contactMechId" field="shipment.destinationTelecomNumberId"/>
+                </if-not-empty>
             </if-empty>
         </if-not-empty>
 
