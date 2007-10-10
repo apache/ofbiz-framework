@@ -938,7 +938,7 @@ public class ContentServices {
 
         try {
             ContentWorker.renderContentAsText(dispatcher, delegator, contentId, outWriter, templateContext, locale, mimeTypeId, true);
-            out.write(outWriter.toString());
+            if (out != null) out.write(outWriter.toString());
             results.put("textData", outWriter.toString());
         } catch (GeneralException e) {
             Debug.logError(e, "Error rendering sub-content text", module);
