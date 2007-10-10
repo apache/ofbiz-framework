@@ -206,7 +206,7 @@ public class CommunicationEventServices {
                     if (UtilValidate.isEmpty(emailAddress)) continue;
                     emailAddress = emailAddress.trim();
                     
-                    if (! UtilValidate.isEmail(emailAddress, true)) {
+                    if (! UtilValidate.isEmail(emailAddress)) {
                         
                         // If validation fails, just log and skip the email address
                         Debug.logError(skippingInvalidEmailAddress + ": " + emailAddress, module);
