@@ -21,6 +21,8 @@ package org.ofbiz.base.util;
 import java.util.Calendar;
 import java.util.Collection;
 
+import org.apache.commons.validator.EmailValidator;
+
 /**
  * General input/data validation methods
  * Utility methods for validating data, especially input.
@@ -687,38 +689,8 @@ public class UtilValidate {
     }
 
     public static boolean isEmail(String s) {
-        return isEmail(s, false);
-    }
-
-    /** Email address must be of form a@b.c -- in other words:
-     *  - there must be at least one character before the @
-     *  - there must be at least one character before and after the .
-     *  - the character @ is required, and . requirement is controlled
-     *  - by requireDot
-     */
-    public static boolean isEmail(String s, boolean requireDot) {
-
-        // todo: use regular expression validation
-        
         if (isEmpty(s)) return defaultEmptyOK;
-
-        // is s whitespace?
-        if (isWhitespace(s)) return false;
-
-        int atSymbolIndex = s.indexOf('@');
-
-        // there must be >= 1 character before @
-        // indexOf returns -1 if char not found, so 0 or -1 are bad
-        if (atSymbolIndex <= 0 ) return false;
-
-        if (requireDot) {
-            int dotIndex = s.lastIndexOf('.');
-            if (dotIndex == -1) return false; // no dot
-            if (dotIndex < atSymbolIndex + 2) return false; // nothing between @ and .
-            if (dotIndex == s.length() - 1 ) return false; // . is last character
-        }
-
-        return true;
+        return EmailValidator.getInstance().isValid(s);
     }
 
     /** isUrl returns true if the string contains ://
