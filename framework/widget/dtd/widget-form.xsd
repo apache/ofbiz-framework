@@ -1081,6 +1081,7 @@ under the License.
         <xs:attribute type="xs:string" name="field" use="required"/>
         <xs:attribute type="xs:string" name="from-field"/>
         <xs:attribute type="xs:string" name="value"/>
+        <xs:attribute type="xs:string" name="default-value"/>
         <xs:attribute name="global" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
