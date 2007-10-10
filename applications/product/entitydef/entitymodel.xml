@@ -2510,7 +2510,7 @@ under the License.
           <key-map field-name="productStoreId"/>
         </relation>
         <relation type="one" fk-name="PROD_REVIEW_PROD" rel-entity-name="Product">
-          <key-map field-name="productId" rel-field-name="productId"/>
+          <key-map field-name="productId"/>
         </relation>
         <relation type="one" fk-name="PROD_REVIEW_ULH" rel-entity-name="UserLogin">
           <key-map field-name="userLoginId" rel-field-name="userLoginId"/>
@@ -2685,6 +2685,24 @@ under the License.
         <key-map field-name="productId"/>
       </view-link>
     </view-entity>
+    <entity entity-name="VendorProduct" package-name="org.ofbiz.product.product">
+        <description>For information related to a specific vendor and product, especially for multi-vendor stores. The ProductStoreGroup is to be used much like in ProductPrice.</description>
+        <field name="productId" type="id-ne"></field>
+        <field name="vendorPartyId" type="id-ne"></field>
+        <field name="productStoreGroupId" type="id-ne"></field>
+        <prim-key field="productId"/>
+        <prim-key field="vendorPartyId"/>
+        <prim-key field="productStoreGroupId"/>
+        <relation type="one" fk-name="VENDPROD_PROD" rel-entity-name="Product">
+            <key-map field-name="productId"/>
+        </relation>
+        <relation type="one" fk-name="VENDPROD_VPTY" title="Vendor" rel-entity-name="Party">
+            <key-map field-name="vendorPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="VENDPROD_PSGRP" rel-entity-name="ProductStoreGroup">
+            <key-map field-name="productStoreGroupId"/>
+        </relation>
+    </entity>
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.product.promo -->
@@ -3038,6 +3056,15 @@ under the License.
         <key-map field-name="facilityTypeId"/>
       </relation>
     </entity>
+    <view-entity entity-name="FacilityAndContactMech" package-name="org.ofbiz.product.storage" title="Facility and Contact Mech View Entity">
+        <member-entity entity-alias="FA" entity-name="Facility"/>
+        <member-entity entity-alias="CM" entity-name="FacilityContactMech"/>
+        <alias-all entity-alias="FA"/>
+        <alias-all entity-alias="CM"/>
+        <view-link entity-alias="FA" rel-entity-alias="CM">
+            <key-map field-name="facilityId"/>
+        </view-link>
+    </view-entity>
     <entity entity-name="FacilityAttribute"
             package-name="org.ofbiz.product.storage"
             title="Facility Attribute Entity">
@@ -4310,15 +4337,4 @@ under the License.
       <field name="description" type="description"></field>
       <prim-key field="supplierRatingTypeId"/>
     </entity>
-    <view-entity entity-name="FacilityAndContactMech"
-            package-name="org.ofbiz.product.storage"
-            title="Facility and Contact Mech View Entity">
-      <member-entity entity-alias="FA" entity-name="Facility"/>
-      <member-entity entity-alias="CM" entity-name="FacilityContactMech"/>
-      <alias-all entity-alias="FA"/>
-      <alias-all entity-alias="CM"/>
-      <view-link entity-alias="FA" rel-entity-alias="CM">
-          <key-map field-name="facilityId"/>
-      </view-link>
-    </view-entity>
 </entitymodel>

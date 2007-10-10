@@ -184,7 +184,8 @@ under the License.
     <entity-group group="org.ofbiz" entity="ProductVirtualAndAssocPrices" />
     <entity-group group="org.ofbiz" entity="ProductVirtualAndVariantInfo" />
     <entity-group group="org.ofbiz" entity="ProductAndPriceView" />
-
+    <entity-group group="org.ofbiz" entity="VendorProduct" />
+    
   <!-- ========================================================= -->
   <!-- org.ofbiz.product.promo -->
   <!-- ========================================================= -->
