@@ -578,7 +578,7 @@
             location="org.ofbiz.content.content.ContentServices" invoke="renderContentAsText" auth="false">
         <description>Get the subcontent and render</description>
         <attribute mode="IN" name="contentId" optional="true" type="String"/>
-        <attribute mode="IN" name="outWriter" optional="false" type="java.io.Writer"/>
+        <attribute mode="IN" name="outWriter" optional="true" type="java.io.Writer"/>
         <attribute mode="IN" name="templateContext" optional="true" type="Map"/>
         <attribute mode="IN" name="locale" optional="true" type="String"/>
         <attribute mode="IN" name="mimeTypeId" optional="true" type="String"/>
