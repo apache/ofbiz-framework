@@ -36,24 +36,28 @@ under the License.
     <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
     <PartyRole partyId="FEDEX" roleTypeId="CARRIER"/>
     
-    <ShipmentMethodType description="Standard" shipmentMethodTypeId="STANDARD"/>
-    <ShipmentMethodType description="Express" shipmentMethodTypeId="EXPRESS"/>
-    <ShipmentMethodType description="Ground" shipmentMethodTypeId="GROUND"/>
-    <ShipmentMethodType description="Air" shipmentMethodTypeId="AIR"/>
-    <ShipmentMethodType description="Guaranteed Next Day" shipmentMethodTypeId="NEXT_DAY"/>
-    <ShipmentMethodType description="Local Delivery" shipmentMethodTypeId="LOCAL_DELIVERY"/>
     <ShipmentMethodType description="No Shipping" shipmentMethodTypeId="NO_SHIPPING"/>
+    <ShipmentMethodType description="Local Delivery" shipmentMethodTypeId="LOCAL_DELIVERY"/>
+    <ShipmentMethodType description="Ground Home Delivery" shipmentMethodTypeId="GROUND_HOME"/>
+    <ShipmentMethodType description="Ground" shipmentMethodTypeId="GROUND"/>
+    <ShipmentMethodType description="Standard" shipmentMethodTypeId="STANDARD"/>
+    <ShipmentMethodType description="Air" shipmentMethodTypeId="AIR"/>
     <ShipmentMethodType description="Second Day" shipmentMethodTypeId="SECOND_DAY"/>
+    <ShipmentMethodType description="Guaranteed Next Day" shipmentMethodTypeId="NEXT_DAY"/>
     <ShipmentMethodType description="Next Afternoon" shipmentMethodTypeId="NEXT_PM"/>
     <ShipmentMethodType description="Next Morning" shipmentMethodTypeId="NEXT_AM"/>
-    <ShipmentMethodType description="Ground Home Delivery" shipmentMethodTypeId="GROUND_HOME"/>
-
+    <ShipmentMethodType description="Express" shipmentMethodTypeId="EXPRESS"/>
+    <ShipmentMethodType description="Standard Overnight" shipmentMethodTypeId="ST_OVERNIGHT"/>
+    <ShipmentMethodType description="Priority Overnight" shipmentMethodTypeId="PR_OVERNIGHT"/>
+    <ShipmentMethodType description="First Overnight" shipmentMethodTypeId="FI_OVERNIGHT"/>
+    <ShipmentMethodType description="Same Day" shipmentMethodTypeId="SAME_DAY"/>
+    
     <CarrierShipmentMethod partyId="Company" roleTypeId="CARRIER" shipmentMethodTypeId="LOCAL_DELIVERY" sequenceNumber="4"/>
     <!-- For USPS, only certain container types are allowed for rate estimates of Priority or Express service codes -->
     <CarrierShipmentMethod partyId="USPS" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="7" carrierServiceCode="Parcel"/> 
     <CarrierShipmentMethod partyId="USPS" roleTypeId="CARRIER" shipmentMethodTypeId="EXPRESS" sequenceNumber="6" carrierServiceCode="Express"/>
     <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="3" carrierServiceCode="03"/>
-    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="AIR" sequenceNumber="2" carrierServiceCode="02"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="SECOND_DAY" sequenceNumber="2" carrierServiceCode="02"/>
     <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_DAY" sequenceNumber="1" carrierServiceCode="01"/>
     <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="5"/>
     <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="NO_SHIPPING" sequenceNumber="8"/>
@@ -61,9 +65,13 @@ under the License.
     <CarrierShipmentMethod partyId="DHL" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_PM" sequenceNumber="10" carrierServiceCode="N"/>
     <CarrierShipmentMethod partyId="DHL" roleTypeId="CARRIER" shipmentMethodTypeId="SECOND_DAY" sequenceNumber="11" carrierServiceCode="S"/>
     <CarrierShipmentMethod partyId="DHL" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="12" carrierServiceCode="G"/>
+    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="SAME_DAY" sequenceNumber="12" carrierServiceCode="SAMEDAY"/>
     <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_AM" sequenceNumber="13" carrierServiceCode="FIRSTOVERNIGHT"/>
+    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="FI_OVERNIGHT" sequenceNumber="13" carrierServiceCode="FIRSTOVERNIGHT"/>
     <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_DAY" sequenceNumber="14" carrierServiceCode="PRIORITYOVERNIGHT"/>
+    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="PR_OVERNIGHT" sequenceNumber="14" carrierServiceCode="PRIORITYOVERNIGHT"/>
     <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_PM" sequenceNumber="15" carrierServiceCode="STANDARDOVERNIGHT"/>
+    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="ST_OVERNIGHT" sequenceNumber="15" carrierServiceCode="STANDARDOVERNIGHT"/>
     <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="SECOND_DAY" sequenceNumber="16" carrierServiceCode="FEDEX2DAY"/>
     <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="EXPRESS" sequenceNumber="17" carrierServiceCode="FEDEXEXPRESSSAVER"/>
     <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="18" carrierServiceCode="FEDEXGROUND"/>
