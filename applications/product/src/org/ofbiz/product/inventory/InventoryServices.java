@@ -701,6 +701,7 @@ public class InventoryServices {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         List orderItems = (List) context.get("orderItems");
+        String facilityId = (String) context.get("facilityId");
         Map atpMap = new HashMap();
         Map qohMap = new HashMap();
         Map mktgPkgAtpMap = new HashMap();
@@ -709,11 +710,14 @@ public class InventoryServices {
 
         // get a list of all available facilities for looping
         List facilities = null;
-        try {
-            facilities = delegator.findAll("Facility");
+	try {
+	    if (facilityId != null) {
+                facilities = delegator.findByAnd("Facility", UtilMisc.toMap("facilityId", facilityId)); 
+            } else {
+                facilities = delegator.findAll("Facility");
+            } 
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Couldn't get list of facilities.", module);
-            return ServiceUtil.returnError("Unable to locate facilities.");
+            return ServiceUtil.returnError("Unable to locate facilities." + e.getMessage());
         }
 
         // loop through all the order items
