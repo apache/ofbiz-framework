@@ -1111,6 +1111,18 @@ public class InvoiceServices {
         try {
             if (purchaseShipmentFound) {
                 items = delegator.findByCondition("ShipmentReceipt", shipmentIdsCond, null, UtilMisc.toList("shipmentId"));
+                // filter out items which have been received but are not actually owned by an internal organization, so they should not be on a purchase invoice
+                if (items != null) {
+                    Iterator itemsIter = items.iterator();
+                    while (itemsIter.hasNext()) {
+                        GenericValue item = (GenericValue) itemsIter.next();
+                        GenericValue inventoryItem = item.getRelatedOne("InventoryItem");
+                        GenericValue ownerPartyRole = delegator.findByPrimaryKeyCache("PartyRole", UtilMisc.toMap("partyId", inventoryItem.getString("ownerPartyId"), "roleTypeId", "INTERNAL_ORGANIZATIO"));
+                        if (UtilValidate.isEmpty(ownerPartyRole)) {
+                            items.remove(item);
+                        }
+                    }
+                }
             } else if (dropShipmentFound) {
 
                 List shipments = delegator.findByCondition("Shipment", shipmentIdsCond, null, null);
