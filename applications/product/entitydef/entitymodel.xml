@@ -3401,6 +3401,8 @@ under the License.
       <field name="shipIfCaptureFails" type="indicator"><description>If N, the captureOrderPayments will cause a service error if credit card capture fails.</description></field>
       <field name="setOwnerUponIssuance" type="indicator"><description>If Y or empty, set the inventory item owner upon issuance.</description></field>
       <field name="reqReturnInventoryReceive" type="indicator"><description>This is the default value for the ReturnHeader.needsInventoryReceive field.</description></field>
+      <field name="addToCartRemoveIncompat" type="indicator"><description>Default N. If Y then on add to cart remove all products in cart with a ProductAssoc record related to or from the product and with the PRODUCT_INCOMPATABLE type.</description></field>
+      <field name="addToCartReplaceUpsell" type="indicator"><description>Default N. If Y then on add to cart remove all products in cart with a ProductAssoc record related from the product and with the PRODUCT_UPGRADE type.</description></field>
       <prim-key field="productStoreId"/>
       <relation type="one" fk-name="PROD_STR_PRSTRGP" title="Primary" rel-entity-name="ProductStoreGroup">
         <key-map field-name="primaryStoreGroupId" rel-field-name="productStoreGroupId"/>
