@@ -194,6 +194,7 @@ under the License.
         <description>Get ATP/QOH Availability for a list of OrderItems by summing over all facilities.  If the item is a MARKETING_PKG_AUTO/PICK, then put its quantity available from components
             in the mktgPkgATPMap and mktgPkgQOHMap.</description>
         <attribute name="orderItems" type="List" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="quantityOnHandMap" type="Map" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseMap" type="Map" mode="OUT" optional="false"/>
         <attribute name="mktgPkgQOHMap" type="Map" mode="OUT" optional="false"/>

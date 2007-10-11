@@ -76,7 +76,12 @@ if (partyId != null) {
 }
 
 // get product inventory summary for each shopping cart item
-inventorySummary = dispatcher.runSync("getProductInventorySummaryForItems", UtilMisc.toMap("orderItems", shoppingCart.makeOrderItems()));
+productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", shoppingCart.getProductStoreId()));
+productStoreFacilityId = null;
+if (productStore != null) {
+    productStoreFacilityId = productStore.getString("inventoryFacilityId");
+}
+inventorySummary = dispatcher.runSync("getProductInventorySummaryForItems", UtilMisc.toMap("orderItems", shoppingCart.makeOrderItems(), "facilityId", productStoreFacilityId));
 context.put("availableToPromiseMap", inventorySummary.get("availableToPromiseMap"));
 context.put("quantityOnHandMap", inventorySummary.get("quantityOnHandMap"));
 context.put("mktgPkgATPMap", inventorySummary.get("mktgPkgATPMap"));
