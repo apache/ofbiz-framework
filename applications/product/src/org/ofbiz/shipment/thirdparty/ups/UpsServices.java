@@ -2086,7 +2086,7 @@ public class UpsServices {
             Debug.logError(e, uceErrMsg, module);
             return ServiceUtil.returnFailure(uceErrMsg);
         }
-        Debug.logInfo(rateResponseString, module);       
+        Debug.logVerbose(rateResponseString, module);
         Document rateResponseDocument = null;
         try {
             rateResponseDocument = UtilXml.readXmlDocument(rateResponseString, false);
