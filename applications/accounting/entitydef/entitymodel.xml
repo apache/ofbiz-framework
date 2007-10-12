@@ -1084,6 +1084,10 @@ under the License.
         <key-map field-name="parentInvoiceId" rel-field-name="invoiceId" />
         <key-map field-name="parentInvoiceItemSeqId" rel-field-name="invoiceItemSeqId" />
       </relation>
+      <relation type="many" fk-name="INVCE_ITM_CINVIT" title="Children" rel-entity-name="InvoiceItem">
+        <key-map field-name="invoiceId" rel-field-name="parentInvoiceId" />
+        <key-map field-name="invoiceItemSeqId" rel-field-name="parentInvoiceItemSeqId" />
+      </relation>
       <relation type="one" fk-name="INVCE_ITM_UOM" rel-entity-name="Uom">
         <key-map field-name="uomId"/>
       </relation>
