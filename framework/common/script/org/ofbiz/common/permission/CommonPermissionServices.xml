@@ -21,38 +21,51 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="genericBasePermissionCheck" short-description="Basic Permission check">
-        <!-- allow primary permission to be set form outside methods or direct to the service -->
+        <!-- allow mainAction to be set from outside methods or direct to the service -->
+        <if-empty field-name="mainAction">
+            <set field="mainAction" from-field="parameters.mainAction"/>
+            <if-empty field-name="mainAction">
+                <add-error><fail-property resource="CommonUiLabels" property="CommonPermissionMainActionAttributeMissing"/></add-error>
+            </if-empty>
+        </if-empty>
+        <check-errors/>
+
+        <!-- allow primary permission to be set from outside methods or direct to the service -->
         <if-empty field-name="primaryPermission">
             <set field="primaryPermission" from-field="parameters.primaryPermission"/>
+            <if-empty field-name="primaryPermission">
+                <add-error><fail-property resource="CommonUiLabels" property="CommonPermissionPrimaryPermissionMissing"/></add-error>
+            </if-empty>
         </if-empty>
-        <if-empty field-name="primaryPermission">
-            <add-error><fail-property resource="CommonUiLabels" property="CommonPermissionPrimaryPermissionMissing"/></add-error>
-        </if-empty>
+        <check-errors/>
+        <log level="info" message="Checking for primary permission ${primaryPermission}_${mainAction}"/>
 
-        <!-- allow alt permission to be set form outside methods or direct to the service -->
+        <!-- allow alt permission to be set from outside methods or direct to the service -->
         <if-empty field-name="altPermission">
             <set field="altPermission" from-field="parameters.altPermission"/>
         </if-empty>
-        <!-- altPermission is not a required field; no need to addError -->
+        <if-not-empty field-name="altPermission">
+            <log level="info" message="Checking for alternate permission ${altPermission}_${mainAction}"/>
+            <set field="altPermissionList" value=", ${altPermission}_${mainAction}, ${altPermission}_ADMIN"/>
+        </if-not-empty>
+        <!-- altPermission is not a required field; no need to add Error -->
 
-        <!-- allow mainAction to be set from outside methods -->
-        <if-empty field-name="mainAction">
-            <set field="mainAction" from-field="parameters.mainAction"/>
+        <!-- set up called service name -->
+        <if-empty field-name="resourceDescription">
+            <set field="resourceDescription" from-field="parameters.resourceDescriptionn"/>
+            <if-empty field-name="resourceDescription">
+                <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field-name="resourceDescription"/>
+            </if-empty>
         </if-empty>
-        <if-empty field-name="mainAction">
-            <add-error><fail-property resource="CommonUiLabels" property="CommonPermissionMainActionAttributeMissing"/></add-error>
-        </if-empty>
-
-        <log level="info" message="Checking for primary ${primaryPermission}_${mainAction}"/>
-        <log level="info" message="Checking for alternate ${altPermission}_${mainAction}"/>
-        <check-errors/>
 
         <!-- check permission -->
         <if>
             <condition>
                 <or>
+                    <if-has-permission permission="${primaryPermission}_ADMIN"/>
                     <if-has-permission permission="${primaryPermission}" action="_${parameters.mainAction}"/>
                     <if-has-permission permission="${altPermission}" action="_${parameters.mainAction}"/>
+                    <if-has-permission permission="${altPermission}_ADMIN"/>
                 </or>
             </condition>
             <then>
