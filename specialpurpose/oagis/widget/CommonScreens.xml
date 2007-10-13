@@ -71,19 +71,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="main">
-        <section>
-            <widgets>
-                <decorator-screen name="main-decorator">
-                    <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://oagis/webapp/oagis/main.ftl"/></html>
-                        </platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     
     <screen name="CommonOagisMessageScreen">
         <section>
