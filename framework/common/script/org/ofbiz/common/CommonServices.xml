@@ -21,21 +21,8 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="commonGenericPermission" short-description="Main permission logic">
-        <set field="mainAction" from-field="parameters.mainAction"/>
-        <if-empty field-name="mainAction">
-            <add-error><fail-message message="In the permission-service element for the commonGenericPermission service the main-action attribute was missing but is required"/></add-error>
-            <check-errors/>
-        </if-empty>
-        <if-has-permission permission="COMMON" action="_${parameters.mainAction}">
-            <set field="hasPermission" type="Boolean" value="true"/>
-            <field-to-result field-name="hasPermission"/>
-            <else>
-                <property-to-field resource="CommonUiLabels" property="CommonPermissionErrorMessage" field-name="failMessage"/>
-                <set field="hasPermission" type="Boolean" value="false"/>
-                <field-to-result field-name="hasPermission"/>
-                <field-to-result field-name="failMessage"/>
-            </else>
-        </if-has-permission>
+        <set field="primaryPermission" value="COMMON"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
     </simple-method>
     
     <simple-method method-name="createKeywordThesaurus" short-description="Create a KeywordThesaurus">
