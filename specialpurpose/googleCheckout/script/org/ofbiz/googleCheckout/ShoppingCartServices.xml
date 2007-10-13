@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="ConvertOfbizCartToGoogle" short-description="">
+        <set field="cart" from-field="parameters.shoppingCart"/>
+        <call-simple-method method-name="createShoppingCart"/>
+        <field-to-result field-name="googleCart"/>
+
+        <call-simple-method method-name="createCheckoutFlowSupport"/>
+        <field-to-result field-name="flowSupport"/>
+
+        <call-simple-method method-name="createorderProcessingSupport"/>
+        <field-to-result field-name="sendInitialAuthDetails"/>
+
+    </simple-method>
+    <simple-method method-name="createShoppingCart" short-description="">
+        <call-simple-method method-name="setupItems"/>
+        <set field="googleCart.items" from-field="items"/>
+
+        <call-simple-method method-name="setupExpiration"/>
+        <set field="googleCart.cartExpiration" from-field="cartExpiration" type="Date"/>
+
+        <call-simple-method method-name="setupPrivateData"/>
+        <set field="googleCart.merchantPrivateData" from-field="merchantPrivateData"/>
+
+    </simple-method>
+    <simple-method method-name="createCheckoutFlowSupport" short-description="">
+        <property-to-field resource="googleCheckout" property="editCartUrl" field-name="editCartUrl" map-name="flowSupport"/>
+        <property-to-field resource="googleCheckout" property="continueShoppingUrl" field-name="continueShoppingUrl" map-name="flowSupport"/>
+        <property-to-field resource="googleCheckout" property="requestPhone" field-name="requestPhone" map-name="flowSupport"/>
+
+        <call-simple-method method-name="getTaxTables"/>
+        <set field="flowSupport.taxTables" from-field="taxTables"/>
+
+        <call-simple-method method-name="getShippingMethods"/>
+        <set field="flowSupport.shippingMethods" from-field="shippingMethods"/>
+
+        <call-simple-method method-name="getMerchantCalculations"/>
+        <set field="flowSupport.merchantCalculations" from-field="merchantCalculations"/>
+
+
+    </simple-method>
+    <simple-method method-name="createorderProcessingSupport"
+            short-description="holding method for improvement; must return sendInitialAuthDetails">
+        <set field="sendInitialAuthDetails" value="false" type="Boolean"/>
+    </simple-method>
+    <simple-method method-name="setupItems" short-description="">
+        <!-- Get Items from Cart -->
+        <call-object-method method-name="items" obj-field-name="cart" ret-field-name="cartItems"/>
+        <iterate entry-name="item" list-name="cartItems">
+            <!-- itemName -->
+            <call-object-method method-name="getProductId" obj-field-name="item" ret-field-name="itemName" ret-map-name="thisItem"/>
+            <!-- itemDesc -->
+            <call-object-method method-name="getName" obj-field-name="item" ret-field-name="description" ret-map-name="thisItem"/>
+            <!-- unitPrice -->
+            <call-object-method method-name="getBasePrice" obj-field-name="item" ret-field-name="unitPrice" ret-map-name="thisItem"/>
+            <!-- quantity -->
+            <call-object-method method-name="getQuantity" obj-field-name="item" ret-field-name="quantity" ret-map-name="thisItem"/>
+            <!-- merchantItemId -->
+            <call-simple-method method-name="getMerchantItemId"/>
+            <!-- merchant private item data -->
+            <call-simple-method method-name="getMerchantPrivateItemData"/>
+            <!-- tax table for item-->
+            <call-simple-method method-name="getItemTaxTable"/>
+            <field-to-list field-name="thisItem" list-name="items"/>
+            <clear-field field-name="thisItem"/>
+        </iterate>
+    </simple-method>
+    <simple-method method-name="setupExpiration"
+            short-description="holding method for improvement; must return cartExpiration">
+
+    </simple-method>
+    <simple-method method-name="setupPrivateData"
+            short-description="holding method for improvemnt; must return merchantPrivateData">
+
+    </simple-method>
+    <simple-method method-name="getMerchantPrivateItemData"
+            short-description="holding method for improvement; must return thisItem.merchantPrivateItemData
+                                as a list of maps (name, value)">
+    </simple-method>
+    <simple-method method-name="getItemTaxTable"
+            short-description="holding method for improvement; must return thisItem.taxTable as a string ">
+
+    </simple-method>
+    <simple-method method-name="getMerchantItemId"
+            short-description="holding method for improvement; must return thisItem.merchantItemId">
+
+    </simple-method>
+    <simple-method method-name="getTaxTables" short-description="">
+        <call-simple-method method-name="isMerchantCalculated"/>
+        <set field="taxTables.merchantCalculated" from-field="merchantCalculated"/>
+
+        <call-simple-method method-name="getDefaultTable"/>
+        <set field="taxTables.default" from-field="default"/>
+
+        <call-simple-method method-name="getAlternateTables"/>
+        <set field="taxTables.alternateTaxTables" from-field="alternateTaxTables"/>
+
+    </simple-method>
+    <simple-method method-name="getDefaultTable" short-description="must return map default">
+
+        <call-simple-method method-name="getDefaultTaxRules"/>
+        <set field="default.rules" from-field="defaultRules"/>
+
+    </simple-method>
+    <simple-method method-name="getAlternateTables"
+            short-description="holding method for improvement; must return list alternateTaxTables">
+
+    </simple-method>
+    <simple-method method-name="getShippingMethods" short-description="">
+
+        <iterate entry-name="" list-name="">
+
+            <field-to-list field-name="" list-name="shippingMethods"/>
+        </iterate>
+    </simple-method>
+    <simple-method method-name="getDefaultTaxRules" short-description="">
+
+        <field-to-list field-name="" list-name="defaultRules"/>
+    </simple-method>
+    <simple-method method-name="isMerchantCalculated"
+            short-description="">
+        <set field="isMerchantCalculated" value="false" type="Boolean"/>
+    </simple-method>
+    <simple-method method-name="getMerchantCalculations"
+            short-description="">
+
+    </simple-method>
+</simple-methods>
