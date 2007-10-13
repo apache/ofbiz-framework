@@ -1265,7 +1265,7 @@ background-image: url(/images/gradient_sub_uns.gif);
 .login-screenlet {
 margin-left: 38%;
 min-width: 25em;
-width: 24%;
+width: 26%;
 }
 
 .login-screenlet .screenlet-title-bar {
@@ -1656,7 +1656,7 @@ color: #0000ff;
 width: 100%;
 }
 
-.basic-form, table .header-row:hover {
+.basic-form table .header-row:hover {
 background-color: #ffffff;
 color: #000000;
 }
