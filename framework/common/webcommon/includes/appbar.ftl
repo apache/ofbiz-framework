@@ -28,12 +28,12 @@ under the License.
     <ul>
       <#list displayApps as display>
         <#assign thisApp = display.getContextRoot()>
-        <#assign permission = true>
+        <#assign permission = false>
         <#assign selected = false>
         <#assign permissions = display.getBasePermission()>
         <#list permissions as perm>
-          <#if (perm != "NONE" && !security.hasEntityPermission(perm, "_VIEW", session))>
-            <#assign permission = false>
+          <#if (perm == "NONE" || security.hasEntityPermission(perm, "_VIEW", session) || security.hasEntityPermission(perm, "_ADMIN", session))>
+            <#assign permission = true>
           </#if>
         </#list>
         <#if permission == true>
