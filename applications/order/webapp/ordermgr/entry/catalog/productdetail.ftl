@@ -32,12 +32,41 @@ ${virtualJavaScript?if_exists}
             document.addform.quantity.disabled = true;
             var elem = document.getElementById('product_id_display');
             var txt = document.createTextNode('');
-            elem.replaceChild(txt, elem.firstChild);
+            if(elem.hasChildNodes()) {
+                elem.replaceChild(txt, elem.firstChild);
+            } else {
+                elem.appendChild(txt);
+            }
         } else {
             document.addform.quantity.disabled = false;
             var elem = document.getElementById('product_id_display');
             var txt = document.createTextNode(name);
-            elem.replaceChild(txt, elem.firstChild);
+            if(elem.hasChildNodes()) {
+                elem.replaceChild(txt, elem.firstChild);
+            } else {
+                elem.appendChild(txt);
+            }
+        }
+    }
+    function setVariantPrice(sku) {
+        if (sku == '' || sku == 'NULL' || isVirtual(sku) == true) {
+            var elem = document.getElementById('variant_price_display');
+            var txt = document.createTextNode('');
+            if(elem.hasChildNodes()) {
+                elem.replaceChild(txt, elem.firstChild);
+            } else {
+                elem.appendChild(txt);
+            }
+        }
+        else {
+            var elem = document.getElementById('variant_price_display');
+            var price = getVariantPrice(sku);
+            var txt = document.createTextNode(price);
+            if(elem.hasChildNodes()) {
+                elem.replaceChild(txt, elem.firstChild);
+            } else {
+                elem.appendChild(txt);
+            }
         }
     }
     function isVirtual(product) {
@@ -124,6 +153,9 @@ ${virtualJavaScript?if_exists}
 
             // set the product ID to NULL to trigger the alerts
             setAddProductId('NULL');
+        
+            // set the variant price to NULL
+            setVariantPrice('NULL');
         } else {
             // this is the final selection -- locate the selected index of the last selection
             var indexSelected = document.forms["addform"].elements[name].selectedIndex;
@@ -133,6 +165,9 @@ ${virtualJavaScript?if_exists}
 
             // set the product ID
             setAddProductId(sku);
+        
+            // set the variant price
+            setVariantPrice(sku);
 
             // check for amount box
             toggleAmt(checkAmtReq(sku));
@@ -370,7 +405,8 @@ ${virtualJavaScript?if_exists}
             <input type="hidden" name="product_id" value="${product.productId}"/>
             <input type="hidden" name="add_product_id" value="NULL"/>
             <div class="tabletext">
-                <b><span id="product_id_display"> </span></b>
+              <b><span id="product_id_display"> </span></b>
+              <b><div id="variant_price_display"> </div></b>
             </div>
           <#else>
             <input type="hidden" name="product_id" value="${product.productId}"/>

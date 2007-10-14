@@ -22,6 +22,8 @@
  * should not contain order component's specific code.
  */
 
+import java.text.NumberFormat;
+ 
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.condition.*;
@@ -205,7 +207,7 @@ if (product != null) {
 
     // get the days to ship
 
-    facilityId = productStore.getString("inventoryFacilityId");
+    facilityId = productStore.getString("inventoryFacilityId");    
     /*productFacility = delegator.findByPrimaryKeyCache("ProductFacility", UtilMisc.toMap("productId", productId, "facilityId", facilityId));    
     if (productFacility != null && productFacility.get("daysToShip") != null) {
         context.put("daysToShip", productFacility.get("daysToShip"));
@@ -379,22 +381,38 @@ if (product != null) {
                 if (variants != null) {
                     amt = new StringBuffer();
                     amt.append("function checkAmtReq(sku) { ");
+                    // Create the javascript to return the price for each variant
+                    variantPriceJS = new StringBuffer();
+                    variantPriceJS.append("function getVariantPrice(sku) { ");
+                    // Format to apply the currency code to the variant price in the javascript
+                    String localeString = productStore.getString("defaultLocaleString");
+                    if (UtilValidate.isNotEmpty(localeString)) {
+                        locale = UtilMisc.parseLocale(localeString);
+                    }                    
+                    numberFormat = NumberFormat.getCurrencyInstance(locale);                    
                     vari = variants.iterator();
                     while (vari.hasNext()) {
                         variantAssoc = vari.next();
                         variant = variantAssoc.getRelatedOne("AssocProduct");
+                        // Get the price for each variant. Reuse the priceContext already setup for virtual product above and replace the product
+                        if (cart.isSalesOrder()) {
+                            // sales order: run the "calculateProductPrice" service
+                            priceContext.put("product", variant);
+                            variantPriceMap = dispatcher.runSync("calculateProductPrice", priceContext);
+                        }
                         amt.append(" if (sku == \"" + variant.get("productId") + "\") return \"" + (variant.get("requireAmount") != null ? variant.getString("requireAmount") : "N") + "\"; ");
+                        variantPriceJS.append("  if (sku == \"" + variant.get("productId") + "\") return \"" + numberFormat.format(variantPriceMap.get("basePrice")) + "\"; ");
                     }
                     amt.append(" } ");
+                    variantPriceJS.append(" } ");
                 }
                 jsBuf.append(amt.toString());
+                jsBuf.append(variantPriceJS.toString());
                 jsBuf.append("</script>");
 
                 context.put("virtualJavaScript", jsBuf.toString());
             }
         }
-
-
     }
 
     // get product associations
