@@ -47,7 +47,7 @@ public class PartyContentWrapper implements ContentWrapper {
     public static final String module = PartyContentWrapper.class.getName();
     public static final String CACHE_KEY_SEPARATOR = "::";
 
-    public static UtilCache workEffortContentCache = new UtilCache("workeffort.content.rendered", true);
+    public static UtilCache partyContentCache = new UtilCache("party.content.rendered", true);
 
     protected LocalDispatcher dispatcher;
     protected GenericValue party;
@@ -135,8 +135,8 @@ public class PartyContentWrapper implements ContentWrapper {
         }
 
         try {
-            if (useCache && workEffortContentCache.get(cacheKey) != null) {
-                return (String) workEffortContentCache.get(cacheKey);
+            if (useCache && partyContentCache.get(cacheKey) != null) {
+                return (String) partyContentCache.get(cacheKey);
             }
 
             Writer outWriter = new StringWriter();
@@ -144,8 +144,8 @@ public class PartyContentWrapper implements ContentWrapper {
 
             String outString = outWriter.toString();
             if (outString.length() > 0) {
-                if (workEffortContentCache != null) {
-                    workEffortContentCache.put(cacheKey, outString);
+                if (partyContentCache != null) {
+                    partyContentCache.put(cacheKey, outString);
                 }
                 return outString;
             } else {
