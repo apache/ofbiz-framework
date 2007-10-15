@@ -132,7 +132,8 @@ while ((listValue = (GenericValue) listIt.next()) != null) {
     orderItemMap.put("retailPrice",retailPrice);
     orderItemMap.put("listPrice",listPrice);
     orderItemMap.put("discount",(Double.toString(listPrice- retailPrice)));
-    orderItemMap.put("calculatedMarkup",(Double.toString(retailPrice- costPrice)));    
+    orderItemMap.put("calculatedMarkup",(Double.toString(retailPrice - costPrice)));
+    orderItemMap.put("percentMarkup",(Double.toString(((retailPrice - costPrice)/costPrice)*100)));
     orderItemList.add(orderItemMap);    
 }
 
@@ -142,10 +143,12 @@ if (UtilValidate.isNotEmpty(orderItemList)) {
     totalAmountMap = UtilMisc.toMap("totalCostPrice", totalCostPrice, "totalListPrice", totalListPrice, "totalRetailPrice", totalRetailPrice, "totalquantityOrdered", totalquantityOrdered, "quantityOrdered", quantityOrdered,"totalquantityOpen", totalquantityOpen);
     totalAmountMap.put("totalDiscount",(totalListPrice - totalRetailPrice));
     totalAmountMap.put("totalMarkup",(totalRetailPrice - totalCostPrice));
+    totalAmountMap.put("totalPercentMarkup",((totalRetailPrice - totalCostPrice)/totalCostPrice)*100);
     totalAmountList.add(totalAmountMap);
 }
 context.put("orderItemList", orderItemList);
 context.put("totalAmountList", totalAmountList);
+
 
 
 
