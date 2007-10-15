@@ -270,6 +270,28 @@ under the License.
     <xs:attributeGroup name="attlist.alias-all">
         <xs:attribute type="xs:string" name="entity-alias" use="required"/>
         <xs:attribute type="xs:string" name="prefix"/>
+        <xs:attribute name="group-by" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="function">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="min"/>
+                    <xs:enumeration value="max"/>
+                    <xs:enumeration value="sum"/>
+                    <xs:enumeration value="avg"/>
+                    <xs:enumeration value="count"/>
+                    <xs:enumeration value="count-distinct"/>
+                    <xs:enumeration value="upper"/>
+                    <xs:enumeration value="lower"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="exclude">
         <xs:complexType>
