@@ -23,12 +23,11 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.security.cert.X509Certificate;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
@@ -43,6 +42,8 @@ import org.ofbiz.webapp.view.ViewFactory;
 import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.webapp.website.WebSiteWorker;
+
+import javolution.util.FastMap;
 
 /**
  * RequestHandler - Request Processor Object
@@ -504,7 +505,7 @@ public class RequestHandler implements Serializable {
 
     public static String getRequestUri(String path) {
         List pathInfo = StringUtil.split(path, "/");
-        if (pathInfo == null || pathInfo.size() == 0) {
+        if (UtilValidate.isEmpty(pathInfo)) {
             Debug.logWarning("Got nothing when splitting URI: " + path, module);
             return null;
         }
@@ -571,7 +572,9 @@ public class RequestHandler implements Serializable {
         String cname = UtilHttp.getApplicationName(req);
         String oldView = view;
 
-        if (view != null && view.length() > 0 && view.charAt(0) == '/') view = view.substring(1);
+        if (UtilValidate.isNotEmpty(view) && view.charAt(0) == '/') {
+            view = view.substring(1);
+        }
 
         // if the view name starts with the control servlet name and a /, then it was an
         // attempt to override the default view with a call back into the control servlet,
@@ -608,14 +611,14 @@ public class RequestHandler implements Serializable {
         long viewStartTime = System.currentTimeMillis();
 
         // setup chararcter encoding and content type
-        String charset = getServletContext().getInitParameter("charset");
-
-        if (charset == null || charset.length() == 0) charset = req.getCharacterEncoding();
-        if (charset == null || charset.length() == 0) charset = "UTF-8";
+        String charset = UtilFormatOut.checkEmpty(getServletContext().getInitParameter("charset"),
+                req.getCharacterEncoding(), "UTF-8");
 
         String viewCharset = requestManager.getViewEncoding(view);
         //NOTE: if the viewCharset is "none" then no charset will be used
-        if (viewCharset != null && viewCharset.length() > 0) charset = viewCharset;
+        if (UtilValidate.isNotEmpty(viewCharset)) {
+            charset = viewCharset;
+        }
 
         if (!"none".equals(charset)) {
             try {
@@ -630,7 +633,9 @@ public class RequestHandler implements Serializable {
         // setup content type
         String contentType = "text/html";
         String viewContentType = requestManager.getViewContentType(view);
-        if (viewContentType != null && viewContentType.length() > 0) contentType = viewContentType;
+        if (UtilValidate.isNotEmpty(viewContentType)) {
+            contentType = viewContentType;
+        }
 
         if (charset.length() > 0 && !"none".equals(charset)) {
             resp.setContentType(contentType + "; charset=" + charset);
@@ -676,7 +681,7 @@ public class RequestHandler implements Serializable {
 
         if (secure && useHttps) {
             String server = httpsServer;
-            if (server == null || server.length() == 0) {
+            if (UtilValidate.isEmpty(server)) {
                 server = request.getServerName();
             }
 
@@ -688,7 +693,7 @@ public class RequestHandler implements Serializable {
 
         } else {
             String server = httpServer;
-            if (server == null || server.length() == 0) {
+            if (UtilValidate.isEmpty(server)) {
                 server = request.getServerName();
             }
 
@@ -743,7 +748,7 @@ public class RequestHandler implements Serializable {
         if (UtilValidate.isEmpty(httpsPort)) {
             httpsPort = UtilProperties.getPropertyValue("url.properties", "port.https", "443");
         }
-        if (UtilValidate.isEmpty(httpServer)) {
+        if (UtilValidate.isEmpty(httpsServer)) {
             httpsServer = UtilProperties.getPropertyValue("url.properties", "force.https.host");
         }
         if (UtilValidate.isEmpty(httpPort)) {
@@ -767,7 +772,7 @@ public class RequestHandler implements Serializable {
         if (enableHttps || fullPath || secure) {
             if (secure || (enableHttps && requestManager.requiresHttps(requestUri) && !request.isSecure())) {
                 String server = httpsServer;
-                if (server == null || server.length() == 0) {
+                if (UtilValidate.isEmpty(server)) {
                     server = request.getServerName();
                 }
 
@@ -780,7 +785,7 @@ public class RequestHandler implements Serializable {
                 didFullSecure = true;
             } else if (fullPath || (enableHttps && !requestManager.requiresHttps(requestUri) && request.isSecure())) {
                 String server = httpServer;
-                if (server == null || server.length() == 0) {
+                if (UtilValidate.isEmpty(server)) {
                     server = request.getServerName();
                 }
 
