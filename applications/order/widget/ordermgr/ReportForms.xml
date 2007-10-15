@@ -149,6 +149,7 @@ under the License.
         <field name="retailPrice" title="${uiLabelMap.ProductRetailPrice}"><display/></field>
         <field name="discount" title="${uiLabelMap.ProductDiscount}"><display/></field>
         <field name="calculatedMarkup" title="${uiLabelMap.CalculatedMarkup}"><display/></field>
+        <field name="percentMarkup" title="${uiLabelMap.PercentageMarkup}"><display/></field>
     </form>
     
     <form name="OpenOrderItemsTotal" type="list" list-name="totalAmountList" default-title-style="tableheadtext"
@@ -161,6 +162,7 @@ under the License.
         <field name="totalRetailPrice"><display/></field>
         <field name="totalDiscount"><display/></field>
         <field name="totalMarkup"><display/></field>
+        <field name="totalPercentMarkup"><display/></field>
     </form>
     
     <!-- form for generating a report of total product purchases (quantity and value) -->
