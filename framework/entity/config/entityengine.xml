@@ -51,6 +51,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
     <delegator name="default" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main" distributed-cache-clear-enabled="false">
         <group-map group-name="org.ofbiz" datasource-name="localderby"/>
+        <group-map group-name="org.ofbiz.olap" datasource-name="localderby"/>
     </delegator>
     <delegator name="default-no-eca" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main" entity-eca-enabled="false" distributed-cache-clear-enabled="false">
         <group-map group-name="org.ofbiz" datasource-name="localderby"/>
@@ -180,6 +181,28 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             isolation-level="ReadCommitted"
             pool-minsize="2"
             pool-maxsize="250"/>
+        <!-- <jndi-jdbc jndi-server-name="localjndi" jndi-name="java:/DerbyDataSource" isolation-level="ReadCommitted"/> -->
+    </datasource>
+    <datasource name="localderbyolap"
+            helper-class="org.ofbiz.entity.datasource.GenericHelperDAO"
+            schema-name="OFBIZ"
+            field-type-name="derby"
+            check-on-start="true"
+            add-missing-on-start="true"
+            use-pk-constraint-names="false"
+            use-indices-unique="false"
+            alias-view-columns="false">
+        <read-data reader-name="seed"/>
+        <read-data reader-name="demo"/>
+        <read-data reader-name="ext"/>
+        <inline-jdbc
+                jdbc-driver="org.apache.derby.jdbc.EmbeddedDriver"
+                jdbc-uri="jdbc:derby:ofbizolap;create=true"
+                jdbc-username="ofbiz"
+                jdbc-password="ofbiz"
+                isolation-level="ReadCommitted"
+                pool-minsize="2"
+                pool-maxsize="250"/>
         <!-- <jndi-jdbc jndi-server-name="localjndi" jndi-name="java:/DerbyDataSource" isolation-level="ReadCommitted"/> -->
     </datasource>
     
