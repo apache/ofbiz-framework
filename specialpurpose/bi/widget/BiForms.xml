@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+
+    <form name="selectStarSchema" title="" type="single" target="ReportBuilderSelectStarSchemaFields">
+        <actions>
+            <script location="component://bi/webapp/bi/WEB-INF/actions/reportbuilder/getStarSchemas.bsh"/>
+        </actions>
+        <field name="starSchemaName" title="Select the star schema (report)">
+            <drop-down allow-empty="false">
+                <list-options list-name="starSchemas" key-name="name" description="${title}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <form name="SalesInvoiceItemStarSchema" list-name="invoiceItemFacts" title="" type="list">
+        <actions>
+            <entity-condition entity-name="SalesInvoiceItemStarSchema" list-name="invoiceItemFacts">
+                <select-field field-name="invoiceDateDayName"/>
+                <select-field field-name="productProductType"/>
+                <select-field field-name="extGrossAmount"/>
+                <select-field field-name="quantity"/>
+            </entity-condition>
+        </actions>
+        <field name="invoiceDateDayName"><display/></field>
+        <field name="productProductType"><display/></field>
+        <field name="extGrossAmount"><display/></field>
+        <field name="quantity"><display/></field>
+    </form>
+</forms>

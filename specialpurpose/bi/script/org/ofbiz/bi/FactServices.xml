@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="loadSalesInvoiceFact" short-description="">
+        <entity-one entity-name="Invoice" value-name="invoice"/>
+        <if-empty field-name="invoice">
+            <add-error><fail-message message="Invoice with id [${parameters.invoiceId}] doesn't exist."/></add-error>
+        </if-empty>
+        <check-errors/>
+        <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE">
+            <set field="andConditions.invoiceItemTypeId" value="INV_FPROD_ITEM"/>
+            <get-related relation-name="InvoiceItem" value-name="invoice" list-name="invoiceItems" map-name="andConditions"/>
+            <iterate list-name="invoiceItems" entry-name="invoiceItem">
+                <clear-field field-name="inMap"/>
+                <set field="inMap.invoice" from-field="invoice"/>
+                <set field="inMap.invoiceItem" from-field="invoiceItem"/>
+                <call-service service-name="loadSalesInvoiceItemFact" in-map-name="inMap"/>
+            </iterate>
+        </if-compare>
+    </simple-method>
+    <simple-method method-name="loadSalesInvoiceItemFact" short-description="">
+        <set field="invoice" from-field="parameters.invoice"/>
+        <set field="invoiceItem" from-field="parameters.invoiceItem"/>
+        <if-empty field-name="invoice">
+            <entity-one entity-name="Invoice" value-name="invoice"/>
+        </if-empty>
+        <if-empty field-name="invoiceItem">
+            <entity-one entity-name="InvoiceItem" value-name="invoiceItem"/>
+        </if-empty>
+        <if-empty field-name="invoice">
+            <add-error><fail-message message="Invoice with id [${parameters.invoiceId}] doesn't exist."/></add-error>
+        </if-empty>
+        <if-empty field-name="invoiceItem">
+            <add-error><fail-message message="The Invoice Item with id [${parameters.invoiceItemSeqId}] doesn't exist."/></add-error>
+        </if-empty>
+        <check-errors/>
+
+        <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE">
+            <entity-one entity-name="SalesInvoiceItemFact" value-name="fact" auto-fields-map="false">
+                <field-map field-name="invoiceId" env-name="invoiceItem.invoiceId"/>
+                <field-map field-name="invoiceItemSeqId" env-name="invoiceItem.invoiceItemSeqId"/>
+            </entity-one>
+            <!-- key handling -->
+            <if-empty field-name="fact">
+                <make-value entity-name="SalesInvoiceItemFact" value-name="fact"/>
+                <set field="fact.invoiceId" from-field="invoice.invoiceId"/>
+                <set field="fact.invoiceItemSeqId" from-field="invoiceItem.invoiceItemSeqId"/>
+                <!-- conversion of the invoice date -->
+                <if-not-empty field-name="invoice.invoiceDate">
+                    <clear-field field-name="inMap"/>
+                    <set field="inMap.dimensionEntityName" value="DateDimension"/>
+                    <set field="inMap.naturalKeyFields.dateValue" from-field="invoice.invoiceDate"/>
+                    <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
+                        <result-to-field result-name="dimensionId" field-name="fact.invoiceDateDimId"/>
+                    </call-service>
+                    <if-empty field-name="fact.invoiceDateDimId">
+                        <set field="fact.invoiceDateDimId" value="_NF_"/>
+                    </if-empty>
+                <else>
+                    <set field="fact.invoiceDateDimId" value="_NA_"/>
+                </else>
+                </if-not-empty>
+                <!-- conversion of the product id -->
+                <if-not-empty field-name="invoiceItem.productId">
+                    <clear-field field-name="inMap"/>
+                    <set field="inMap.dimensionEntityName" value="ProductDimension"/>
+                    <set field="inMap.naturalKeyFields.productId" from-field="invoiceItem.productId"/>
+                    <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
+                        <result-to-field result-name="dimensionId" field-name="fact.productDimId"/>
+                    </call-service>
+                    <if-empty field-name="fact.productDimId">
+                        <set field="fact.productDimId" value="_NF_"/>
+                    </if-empty>
+                <else>
+                    <set field="fact.productDimId" value="_NA_"/>
+                </else>
+                </if-not-empty>
+                <!-- conversion of the invoice currency -->
+                <if-not-empty field-name="invoice.currencyUomId">
+                    <clear-field field-name="inMap"/>
+                    <set field="inMap.dimensionEntityName" value="CurrencyDimension"/>
+                    <set field="inMap.naturalKeyFields.currencyId" from-field="invoice.currencyUomId"/>
+                    <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
+                        <result-to-field result-name="dimensionId" field-name="fact.origCurrencyDimId"/>
+                    </call-service>
+                    <if-empty field-name="fact.origCurrencyDimId">
+                        <set field="fact.origCurrencyDimId" value="_NF_"/>
+                    </if-empty>
+                <else>
+                    <set field="fact.origCurrencyDimId" value="_NA_"/>
+                </else>
+                </if-not-empty>
+                <!-- TODO -->
+                <set field="fact.orderId" value="_NA_"/>
+                <set field="fact.billToCustomerDimId" value="_NA_"/>
+                <create-value value-name="fact"/>
+            </if-empty>
+            <!-- =============== -->
+            <!-- facts handling  -->
+            <!-- =============== -->
+            <set field="fact.quantity" from-field="invoiceItem.quantity" type="BigDecimal"/>
+            <set field="fact.extGrossAmount" value="0.0" type="BigDecimal"/>
+            <set field="fact.extDiscountAmount" value="0.0" type="BigDecimal"/>
+            <set field="fact.extTaxAmount" value="0.0" type="BigDecimal"/>
+            <set field="fact.extNetAmount" value="0.0" type="BigDecimal"/>
+            <calculate field-name="fact.extGrossAmount" type="BigDecimal">
+                <calcop field-name="invoiceItem.quantity" operator="multiply">
+                    <calcop field-name="invoiceItem.amount" operator="get"/>
+                </calcop>
+            </calculate>
+            <!-- taxes -->
+            <clear-field field-name="andConditions"/>
+            <set field="andConditions.invoiceItemTypeId" value="ITM_SALES_TAX"/>
+            <get-related relation-name="ChildrenInvoiceItem" value-name="invoiceItem" list-name="taxes" map-name="andConditions"/>
+            <iterate list-name="taxes" entry-name="tax">
+                <calculate field-name="fact.extTaxAmount" type="BigDecimal">
+                    <calcop field-name="fact.extTaxAmount" operator="add">
+                        <calcop field-name="tax.amount" operator="get"/>
+                    </calcop>
+                </calculate>
+            </iterate>
+            <!-- discounts -->
+            <clear-field field-name="andConditions"/>
+            <set field="andConditions.invoiceItemTypeId" value="ITM_PROMOTION_ADJ"/>
+            <get-related relation-name="ChildrenInvoiceItem" value-name="invoiceItem" list-name="discounts" map-name="andConditions"/>
+            <iterate list-name="discounts" entry-name="discount">
+                <calculate field-name="fact.extDiscountAmount" type="BigDecimal">
+                    <calcop field-name="fact.extDiscountAmount" operator="add">
+                        <calcop field-name="discount.amount" operator="negative"/>
+                    </calcop>
+                </calculate>
+            </iterate>
+            
+            <calculate field-name="fact.extNetAmount" type="BigDecimal">
+                <calcop field-name="fact.extGrossAmount" operator="subtract">
+                    <calcop field-name="fact.extDiscountAmount" operator="get"/>
+                </calcop>
+            </calculate>
+            <!-- TODO: prorate invoice header discounts and shipping charges -->
+            <!-- TODO: costs -->
+            <set field="fact.extManFixedCost" value="0.0" type="BigDecimal"/>
+            <set field="fact.extManVarCost" value="0.0" type="BigDecimal"/>
+            <set field="fact.extStorageCost" value="0.0" type="BigDecimal"/>
+            <set field="fact.extDistributionCost" value="0.0" type="BigDecimal"/>
+
+            <calculate field-name="fact.contributionAmount" type="BigDecimal">
+                <calcop field-name="fact.extNetAmount" operator="subtract">
+                    <calcop field-name="fact.extManFixedCost" operator="get"/>
+                    <calcop field-name="fact.extManVarCost" operator="get"/>
+                    <calcop field-name="fact.extStorageCost" operator="get"/>
+                    <calcop field-name="fact.extDistributionCost" operator="get"/>
+                </calcop>
+            </calculate>
+
+            <store-value value-name="fact"/>
+        </if-compare>
+    </simple-method>
+</simple-methods>
