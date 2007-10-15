@@ -238,8 +238,22 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public List getGroupBysCopy() {
+        return getGroupBysCopy(null);
+    }
+
+    public List getGroupBysCopy(List selectFields) {
         List newList = FastList.newInstance();
-        newList.addAll(this.groupBys);
+        if (UtilValidate.isEmpty(selectFields)) {
+            newList.addAll(this.groupBys);
+        } else {
+            Iterator groupBysIt = this.groupBys.iterator();
+            while (groupBysIt.hasNext()) {
+                ModelField groupByField = (ModelField)groupBysIt.next();
+                if (selectFields.contains(groupByField)) {
+                    newList.add(groupByField);
+                }
+            }
+        }
         return newList;
     }
 
@@ -549,6 +563,8 @@ public class ModelViewEntity extends ModelEntity {
         while (aliasAllIter.hasNext()) {
             ModelAliasAll aliasAll = (ModelAliasAll) aliasAllIter.next();
             String prefix = aliasAll.getPrefix();
+            String function = aliasAll.getFunction();
+            boolean groupBy = aliasAll.getGroupBy();
 
             ModelMemberEntity modelMemberEntity = (ModelMemberEntity) memberModelMemberEntities.get(aliasAll.getEntityAlias());
             if (modelMemberEntity == null) {
@@ -633,6 +649,9 @@ public class ModelViewEntity extends ModelEntity {
                 expandedAlias.entityAlias = aliasAll.getEntityAlias();
                 expandedAlias.isFromAliasAll = true;
                 expandedAlias.colAlias = ModelUtil.javaNameToDbName(UtilXml.checkEmpty(expandedAlias.name));
+                expandedAlias.function = function;
+                expandedAlias.groupBy = groupBy;
+               
                 aliases.add(expandedAlias);
             }
         }
@@ -664,6 +683,9 @@ public class ModelViewEntity extends ModelEntity {
         protected String entityAlias = "";
         protected String prefix = "";
         protected Set fieldsToExclude = null;
+        protected boolean groupBy = false;
+        // is specified this alias is a calculated value; can be: min, max, sum, avg, count, count-distinct
+        protected String function = null;
 
         protected ModelAliasAll() {}
 
@@ -675,6 +697,8 @@ public class ModelViewEntity extends ModelEntity {
         public ModelAliasAll(Element aliasAllElement) {
             this.entityAlias = UtilXml.checkEmpty(aliasAllElement.getAttribute("entity-alias"));
             this.prefix = UtilXml.checkEmpty(aliasAllElement.getAttribute("prefix"));
+            this.groupBy = "true".equals(UtilXml.checkEmpty(aliasAllElement.getAttribute("group-by")));
+            this.function = UtilXml.checkEmpty(aliasAllElement.getAttribute("function"));
             
             List excludes = UtilXml.childElementList(aliasAllElement, "exclude");
             if (excludes != null && excludes.size() > 0) {
@@ -694,6 +718,14 @@ public class ModelViewEntity extends ModelEntity {
 
         public String getPrefix() {
             return this.prefix;
+        }
+
+        public boolean getGroupBy() {
+            return this.groupBy;
+        }
+
+        public String getFunction() {
+            return this.function;
         }
 
         public boolean shouldExclude(String fieldName) {
@@ -717,6 +749,8 @@ public class ModelViewEntity extends ModelEntity {
         protected String function = null;
         protected boolean isFromAliasAll = false;
         protected ComplexAliasMember complexAliasMember = null;
+        // The description for documentation purposes
+        protected String description = "";
 
         protected ModelAlias() {}
 
@@ -734,6 +768,7 @@ public class ModelViewEntity extends ModelEntity {
             }
             this.groupBy = "true".equals(UtilXml.checkEmpty(aliasElement.getAttribute("group-by")));
             this.function = UtilXml.checkEmpty(aliasElement.getAttribute("function"));
+            this.description = UtilXml.childElementValue(aliasElement, "description");
             
             Element complexAliasElement = UtilXml.firstChildElement(aliasElement, "complex-alias");
             if (complexAliasElement != null) {
@@ -795,6 +830,14 @@ public class ModelViewEntity extends ModelEntity {
 
         public String getFunction() {
             return this.function;
+        }
+
+        public String getDescription() {
+            return this.description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
         }
 
         public boolean getIsFromAliasAll() {

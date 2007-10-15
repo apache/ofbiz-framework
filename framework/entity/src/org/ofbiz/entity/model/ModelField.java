@@ -47,6 +47,9 @@ public class ModelField extends ModelChild {
     /** validators to be called when an update is done */
     protected List validators = new ArrayList();
 
+    /** The description for documentation purposes */
+    protected String description = "";
+
     /** Default Constructor */
     public ModelField() {}
 
@@ -70,6 +73,7 @@ public class ModelField extends ModelChild {
         this.setColName(UtilXml.checkEmpty(fieldElement.getAttribute("col-name")));
         this.isPk = false; // is set elsewhere
         this.encrypt = UtilXml.checkBoolean(fieldElement.getAttribute("encrypt"), false);
+        this.description = UtilXml.childElementValue(fieldElement, "description");
 
         NodeList validateList = fieldElement.getElementsByTagName("validate");
 
@@ -161,6 +165,15 @@ public class ModelField extends ModelChild {
 
     public String removeValidator(int index) {
         return (String) this.validators.remove(index);
+    }
+
+    /** The description for documentation purposes */
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public boolean equals(Object obj) {
