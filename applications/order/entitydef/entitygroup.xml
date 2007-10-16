@@ -138,6 +138,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="CustRequestType" />
     <entity-group group="org.ofbiz" entity="CustRequestTypeAttr" />
     <entity-group group="org.ofbiz" entity="CustRequestWorkEffort" />
+    <entity-group group="org.ofbiz" entity="RespondingParty" />
 
     <!-- ========================================================= -->
     <!-- org.ofbiz.order.requirement -->
@@ -157,7 +158,6 @@ under the License.
     <entity-group group="org.ofbiz" entity="RequirementStatus" />
     <entity-group group="org.ofbiz" entity="RequirementType" />
     <entity-group group="org.ofbiz" entity="RequirementTypeAttr" />
-    <entity-group group="org.ofbiz" entity="RespondingParty" />
     <entity-group group="org.ofbiz" entity="WorkReqFulfType" />
     <entity-group group="org.ofbiz" entity="WorkRequirementFulfillment" />
 
