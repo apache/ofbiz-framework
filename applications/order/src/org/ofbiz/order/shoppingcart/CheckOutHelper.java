@@ -240,7 +240,8 @@ public class CheckOutHelper {
             cart.clearPayments();
 
             if (UtilValidate.isNotEmpty(billingAccountId)) {
-                Double billingAccountAmt = (Double)selectedPaymentMethods.get("EXT_BILLACT");
+                Map billingAccountMap = (Map)selectedPaymentMethods.get("EXT_BILLACT");
+                Double billingAccountAmt = (Double)billingAccountMap.get("amount");
                 // set cart billing account data and generate a payment method containing the amount we will be charging
                 cart.setBillingAccount(billingAccountId, (billingAccountAmt != null? billingAccountAmt.doubleValue(): 0.0));
                 // copy the billing account terms as order terms
@@ -295,7 +296,7 @@ public class CheckOutHelper {
                 // XXX: Note that this step is critical for the billing account to be charged correctly
                 if (amountToUse > 0) {
                     cart.setBillingAccount(billingAccountId, amountToUse);
-                    selectedPaymentMethods.put("EXT_BILLACT", new Double(amountToUse));
+                    selectedPaymentMethods.put("EXT_BILLACT", UtilMisc.toMap("amount", new Double(amountToUse), "securityCode", null));
                 }
             }
 
@@ -317,14 +318,20 @@ public class CheckOutHelper {
 
                 // get the selected amount to use
                 Double paymentAmount = null;
+                String securityCode = null;
                 if (selectedPaymentMethods.get(checkOutPaymentId) != null) {
-                    paymentAmount = (Double) selectedPaymentMethods.get(checkOutPaymentId);
+                    Map checkOutPaymentInfo = (Map) selectedPaymentMethods.get(checkOutPaymentId);
+                    paymentAmount = (Double) checkOutPaymentInfo.get("amount");
+                    securityCode = (String) checkOutPaymentInfo.get("securityCode");
                 }
 
                 boolean singleUse = singleUsePayments.contains(checkOutPaymentId);
                 ShoppingCart.CartPaymentInfo inf = cart.addPaymentAmount(checkOutPaymentId, paymentAmount, singleUse);
                 if (finAccountId != null) {
                     inf.finAccountId = finAccountId;
+                }
+                if (securityCode != null) {
+                    inf.securityCode = securityCode;
                 }
             }
         } else if (cart.getGrandTotal() != 0.00) {

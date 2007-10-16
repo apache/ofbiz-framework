@@ -43,6 +43,8 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.stats.VisitHandler;
 
+import javolution.util.FastMap;
+
 /**
  * Events used for processing checkout and orders.
  */
@@ -171,7 +173,7 @@ public class CheckOutEvents {
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
                     return "error";
                 }
-                selectedPaymentMethods.put("EXT_BILLACT", billingAccountAmt);
+                selectedPaymentMethods.put("EXT_BILLACT", UtilMisc.toMap("amount", billingAccountAmt, "securityCode", null));
             }
 
             if (UtilValidate.isEmpty(selectedPaymentMethods)) {
@@ -190,7 +192,7 @@ public class CheckOutEvents {
                 String gcPaymentMethodId = (String) gcResult.get("paymentMethodId");
                 Double gcAmount = (Double) gcResult.get("amount");
                 if (gcPaymentMethodId != null) {
-                    selectedPaymentMethods.put(gcPaymentMethodId, gcAmount);
+                    selectedPaymentMethods.put(gcPaymentMethodId, UtilMisc.toMap("amount", gcAmount, "securityCode", null));
                     if ("Y".equalsIgnoreCase(request.getParameter("singleUseGiftCard"))) {
                         singleUsePayments.add(gcPaymentMethodId);
                     }
@@ -289,6 +291,12 @@ public class CheckOutEvents {
 
         if (paymentMethods != null) {
             for (int i = 0; i < paymentMethods.length; i++) {
+                Map paymentMethodInfo = FastMap.newInstance();
+                
+                String securityCode = request.getParameter("securityCode_" + paymentMethods[i]);
+                if (UtilValidate.isNotEmpty(securityCode)) {
+                    paymentMethodInfo.put("securityCode", securityCode);
+                }
                 String amountStr = request.getParameter("amount_" + paymentMethods[i]);
                 Double amount = null;
                 if (amountStr != null && amountStr.length() > 0 && !"REMAINING".equals(amountStr)) {
@@ -301,7 +309,8 @@ public class CheckOutEvents {
                         return null;
                     }
                 }
-                selectedPaymentMethods.put(paymentMethods[i], amount);
+                paymentMethodInfo.put("amount", amount);
+                selectedPaymentMethods.put(paymentMethods[i], paymentMethodInfo);
             }
         }
         Debug.logInfo("Selected Payment Methods : " + selectedPaymentMethods, module);
@@ -328,7 +337,7 @@ public class CheckOutEvents {
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
                 return "error";
             }
-            selectedPaymentMethods.put("EXT_BILLACT", billingAccountAmt);
+            selectedPaymentMethods.put("EXT_BILLACT", UtilMisc.toMap("amount", billingAccountAmt, "securityCode", null));
         }
 
         if (selectedPaymentMethods == null) {
@@ -381,7 +390,7 @@ public class CheckOutEvents {
         String gcPaymentMethodId = (String) gcResult.get("paymentMethodId");
         Double gcAmount = (Double) gcResult.get("amount");
         if (gcPaymentMethodId != null) {
-            selectedPaymentMethods.put(gcPaymentMethodId, gcAmount);
+            selectedPaymentMethods.put(gcPaymentMethodId, UtilMisc.toMap("amount", gcAmount, "securityCode", null));
             if ("Y".equalsIgnoreCase(request.getParameter("singleUseGiftCard"))) {
                 singleUsePayments.add(gcPaymentMethodId);
             }
@@ -808,7 +817,7 @@ public class CheckOutEvents {
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
                     return "error";
                 }
-                selectedPaymentMethods.put("EXT_BILLACT", billingAccountAmt);
+                selectedPaymentMethods.put("EXT_BILLACT", UtilMisc.toMap("amount", billingAccountAmt, "securityCode", null));
             }
 
             if (UtilValidate.isEmpty(selectedPaymentMethods)) {
@@ -820,6 +829,9 @@ public class CheckOutEvents {
             String newPaymentMethodId = (String) request.getAttribute("paymentMethodId");
             if(! UtilValidate.isEmpty(newPaymentMethodId)) {
                 selectedPaymentMethods.put(newPaymentMethodId, null);
+                if (!selectedPaymentMethods.containsKey(newPaymentMethodId)) {
+                    selectedPaymentMethods.put(newPaymentMethodId, UtilMisc.toMap("amount", null, "securityCode", null));
+                }
             }
             
             // The selected payment methods are set
